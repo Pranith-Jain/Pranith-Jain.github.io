@@ -92,6 +92,8 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'velo_get_flow_status',
     'velo_get_flow_results',
     'share_saved_report',
+    'submit_sample_for_analysis',
+    'get_sample_analysis_status',
     'si_get_skill',
     'si_get_query',
     'lookup_domain',

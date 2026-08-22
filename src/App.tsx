@@ -61,6 +61,7 @@ const CoCGenerator = lazy(() => import('./pages/dfir/CoCGenerator'));
 const SocCalculators = lazy(() => import('./pages/dfir/SocCalculators'));
 const SysmonConfig = lazy(() => import('./pages/dfir/SysmonConfig'));
 const HexWorkbench = lazy(() => import('./pages/dfir/HexWorkbench'));
+const ShareReportView = lazy(() => import('./pages/share/ShareReportView'));
 const SigBase = lazy(() => import('./pages/SigBase'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
@@ -422,6 +423,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/experience', Component: Experience },
   { path: '/projects', Component: Projects },
   { path: '/projects/:slug', Component: CaseStudy },
+  { path: '/share/report/:token', Component: ShareReportView },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/t/:tag', Component: Blog },

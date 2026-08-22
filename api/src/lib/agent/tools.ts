@@ -1275,15 +1275,27 @@ export function buildToolRegistry(
       description:
         'Validate a detection rule before delivering it: YARA (braces, sections, string refs, hex tokens, duplicate names), Sigma (schema + logsource + detection + condition identifiers), Suricata/Snort (header grammar, msg/sid/rev, local sid range), osquery (read-only guard, paren balance, known tables). Always run this on generated rules; fix reported errors before returning them.',
       params: [
-        { name: 'kind', type: 'enum', description: 'Rule kind', required: true, enum: ['yara', 'sigma', 'suricata', 'snort', 'osquery'] },
+        {
+          name: 'kind',
+          type: 'enum',
+          description: 'Rule kind',
+          required: true,
+          enum: ['yara', 'sigma', 'suricata', 'snort', 'osquery'],
+        },
         { name: 'source', type: 'string', description: 'Full rule text to validate', required: true },
       ],
       execute: (args) =>
-        apiFetch(self, '/api/v1/rules/validate', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ kind: String(args.kind), source: String(args.source) }),
-        }, ih),
+        apiFetch(
+          self,
+          '/api/v1/rules/validate',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ kind: String(args.kind), source: String(args.source) }),
+          },
+          ih
+        ),
     },
     {
       name: 'convert_sigma_rule',
@@ -1292,19 +1304,33 @@ export function buildToolRegistry(
       params: [
         { name: 'yaml', type: 'string', description: 'Sigma rule YAML source', required: true },
         { name: 'target', type: 'enum', description: 'Target query language', required: true, enum: ['splunk', 'kql'] },
-        { name: 'field_map_json', type: 'string', description: 'Optional JSON object mapping Sigma field names to target names', required: false },
+        {
+          name: 'field_map_json',
+          type: 'string',
+          description: 'Optional JSON object mapping Sigma field names to target names',
+          required: false,
+        },
       ],
       execute: (args) => {
         let fieldNameMap: Record<string, string> | undefined;
         if (args.field_map_json) {
-          try { fieldNameMap = JSON.parse(String(args.field_map_json)) as Record<string, string>; }
-          catch { return Promise.resolve({ error: 'field_map_json is not valid JSON' }); }
+          try {
+            fieldNameMap = JSON.parse(String(args.field_map_json)) as Record<string, string>;
+          } catch {
+            return Promise.resolve({ error: 'field_map_json is not valid JSON' });
+          }
         }
-        return apiFetch(self, '/api/v1/rules/sigma/convert', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ yaml: String(args.yaml), target: String(args.target), fieldNameMap }),
-        }, ih);
+        return apiFetch(
+          self,
+          '/api/v1/rules/sigma/convert',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ yaml: String(args.yaml), target: String(args.target), fieldNameMap }),
+          },
+          ih
+        );
       },
     },
 
@@ -1316,15 +1342,34 @@ export function buildToolRegistry(
       description:
         'Deterministic regex-based IOC extraction from raw text — no AI. Handles defanged indicators (hxxp, [.], [at], [dot]); extracts IPs, domains, URLs, emails, hashes, CVEs, mutexes, registry keys, file paths, crypto addresses with positions. Use for large inputs or literal extraction; use parse_threat_report for actors/mitre/context.',
       params: [
-        { name: 'text', type: 'string', description: 'Raw text to extract observables from (max 500k chars)', required: true },
-        { name: 'max_hits', type: 'number', description: 'Cap on unique observables returned (default 2000)', required: false },
+        {
+          name: 'text',
+          type: 'string',
+          description: 'Raw text to extract observables from (max 500k chars)',
+          required: true,
+        },
+        {
+          name: 'max_hits',
+          type: 'number',
+          description: 'Cap on unique observables returned (default 2000)',
+          required: false,
+        },
       ],
       execute: (args) =>
-        apiFetch(self, '/api/v1/observables/extract', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ text: String(args.text ?? '').slice(0, 500_000), ...(args.max_hits ? { maxHits: Number(args.max_hits) } : {}) }),
-        }, ih),
+        apiFetch(
+          self,
+          '/api/v1/observables/extract',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              text: String(args.text ?? '').slice(0, 500_000),
+              ...(args.max_hits ? { maxHits: Number(args.max_hits) } : {}),
+            }),
+          },
+          ih
+        ),
     },
 
     // ══════════════════════════════════════════════════════════════════════
@@ -1342,12 +1387,19 @@ export function buildToolRegistry(
         const b64 = String(args.data_base64 ?? '').replace(/\s+/g, '');
         if (!b64) return Promise.resolve({ error: 'data_base64 is required' });
         const approxBytes = Math.floor((b64.length * 3) / 4);
-        if (approxBytes > 8 * 1024 * 1024) return Promise.resolve({ error: `file too large for static triage (${approxBytes} bytes > 8MB limit)` });
-        return apiFetch(self, '/api/v1/file/triage-static', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ dataBase64: b64, ...(args.filename ? { filename: String(args.filename) } : {}) }),
-        }, ih);
+        if (approxBytes > 8 * 1024 * 1024)
+          return Promise.resolve({ error: `file too large for static triage (${approxBytes} bytes > 8MB limit)` });
+        return apiFetch(
+          self,
+          '/api/v1/file/triage-static',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ dataBase64: b64, ...(args.filename ? { filename: String(args.filename) } : {}) }),
+          },
+          ih
+        );
       },
     },
 
@@ -1359,20 +1411,44 @@ export function buildToolRegistry(
       description:
         'Score connection timestamps to one destination for C2 beacon periodicity: mean/stddev inter-arrival, jitter ratio, payload-size consistency. Returns 0-100 beacon score with verdict.',
       params: [
-        { name: 'timestamps', type: 'string', description: 'Comma-separated timestamps (epoch ms or ISO 8601)', required: true },
+        {
+          name: 'timestamps',
+          type: 'string',
+          description: 'Comma-separated timestamps (epoch ms or ISO 8601)',
+          required: true,
+        },
         { name: 'destination', type: 'string', description: 'Destination ip or host:port', required: false },
-        { name: 'bytes', type: 'string', description: 'Optional comma-separated per-connection byte counts', required: false },
+        {
+          name: 'bytes',
+          type: 'string',
+          description: 'Optional comma-separated per-connection byte counts',
+          required: false,
+        },
       ],
       execute: (args) => {
-        const parse = (s: unknown) => String(s ?? '').split(',').map((v) => v.trim()).filter(Boolean);
+        const parse = (s: unknown) =>
+          String(s ?? '')
+            .split(',')
+            .map((v) => v.trim())
+            .filter(Boolean);
         const ts = parse(args.timestamps);
         if (ts.length < 4) return Promise.resolve({ error: 'need at least 4 timestamps' });
         const bytes = args.bytes ? parse(args.bytes).map(Number).filter(Number.isFinite) : undefined;
-        return apiFetch(self, '/api/v1/net-analytics/beacon', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ timestamps: ts, ...(args.destination ? { destination: String(args.destination) } : {}), ...(bytes && bytes.length ? { bytes } : {}) }),
-        }, ih);
+        return apiFetch(
+          self,
+          '/api/v1/net-analytics/beacon',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              timestamps: ts,
+              ...(args.destination ? { destination: String(args.destination) } : {}),
+              ...(bytes && bytes.length ? { bytes } : {}),
+            }),
+          },
+          ih
+        );
       },
     },
     {
@@ -1381,16 +1457,30 @@ export function buildToolRegistry(
         'Heuristic DNS-tunneling detection over query names targeting one zone: label length distribution, Shannon entropy, uniqueness ratio. Returns 0-100 tunnel score with verdict and indicators.',
       params: [
         { name: 'queries', type: 'string', description: 'Newline/comma-separated DNS query names', required: true },
-        { name: 'zone', type: 'string', description: 'Authoritative zone; inferred from queries when omitted', required: false },
+        {
+          name: 'zone',
+          type: 'string',
+          description: 'Authoritative zone; inferred from queries when omitted',
+          required: false,
+        },
       ],
       execute: (args) => {
-        const queries = String(args.queries ?? '').split(/[\n,]+/).map((q) => q.trim()).filter(Boolean);
+        const queries = String(args.queries ?? '')
+          .split(/[\n,]+/)
+          .map((q) => q.trim())
+          .filter(Boolean);
         if (queries.length < 5) return Promise.resolve({ error: 'need at least 5 DNS queries' });
-        return apiFetch(self, '/api/v1/net-analytics/dns-tunnel', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ queries, ...(args.zone ? { zone: String(args.zone) } : {}) }),
-        }, ih);
+        return apiFetch(
+          self,
+          '/api/v1/net-analytics/dns-tunnel',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ queries, ...(args.zone ? { zone: String(args.zone) } : {}) }),
+          },
+          ih
+        );
       },
     },
 
@@ -1402,11 +1492,21 @@ export function buildToolRegistry(
       description:
         'Fetch a proven multi-step investigation playbook (file-triage, phishing-email, c2-identification, dns-tunnel-hunt, report-ioc-sweep). Returns ordered steps with tool names, argument templates ({input}/{ioc} placeholders), and why each step matters. Follow it step-by-step when the query matches.',
       params: [
-        { name: 'recipe_id', type: 'enum', description: 'Playbook to fetch', required: true, enum: ['file-triage', 'phishing-email', 'c2-identification', 'dns-tunnel-hunt', 'report-ioc-sweep'] },
+        {
+          name: 'recipe_id',
+          type: 'enum',
+          description: 'Playbook to fetch',
+          required: true,
+          enum: ['file-triage', 'phishing-email', 'c2-identification', 'dns-tunnel-hunt', 'report-ioc-sweep'],
+        },
       ],
       execute: (args) => {
         const recipe = getRecipeDetail(String(args.recipe_id));
-        if (!recipe) return Promise.resolve({ error: `unknown recipe "${String(args.recipe_id)}"`, available: RECIPES.map((r) => r.id) });
+        if (!recipe)
+          return Promise.resolve({
+            error: `unknown recipe "${String(args.recipe_id)}"`,
+            available: RECIPES.map((r) => r.id),
+          });
         return Promise.resolve({ ok: true, ...recipe });
       },
     },
@@ -1435,25 +1535,41 @@ export function buildToolRegistry(
       description: 'Get one managed endpoint by client id (C.xxxx) — OS build, labels, last check-in.',
       params: [{ name: 'client_id', type: 'string', description: "Velociraptor client id ('C.1234')", required: true }],
       execute: (args) =>
-        apiFetch(self, '/api/v1/velociraptor/client', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ client_id: String(args.client_id) }),
-        }, ih),
+        apiFetch(
+          self,
+          '/api/v1/velociraptor/client',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ client_id: String(args.client_id) }),
+          },
+          ih
+        ),
     },
     {
       name: 'velo_list_flows',
-      description: 'List recent collections (flows) on an endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.',
+      description:
+        'List recent collections (flows) on an endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.',
       params: [
-        { name: 'client_id', type: 'string', description: "Velociraptor client id", required: true },
+        { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
         { name: 'limit', type: 'number', description: 'Max flows (default 20)', required: false },
       ],
       execute: (args) =>
-        apiFetch(self, '/api/v1/velociraptor/flows', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ client_id: String(args.client_id), ...(args.limit ? { limit: Number(args.limit) } : {}) }),
-        }, ih),
+        apiFetch(
+          self,
+          '/api/v1/velociraptor/flows',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              client_id: String(args.client_id),
+              ...(args.limit ? { limit: Number(args.limit) } : {}),
+            }),
+          },
+          ih
+        ),
     },
     {
       name: 'velo_collect_artifact',
@@ -1462,25 +1578,43 @@ export function buildToolRegistry(
       params: [
         { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
         { name: 'artifacts', type: 'string', description: 'Comma-separated artifact names (max 10)', required: true },
-        { name: 'parameters_json', type: 'string', description: 'Optional JSON object of artifact env parameters', required: false },
+        {
+          name: 'parameters_json',
+          type: 'string',
+          description: 'Optional JSON object of artifact env parameters',
+          required: false,
+        },
         { name: 'urgent', type: 'boolean', description: 'Queue ahead of scheduled hunts', required: false },
       ],
       execute: (args) => {
         let parameters: Record<string, string> | undefined;
         if (args.parameters_json) {
-          try { parameters = JSON.parse(String(args.parameters_json)) as Record<string, string>; }
-          catch { return Promise.resolve({ error: 'parameters_json is not valid JSON' }); }
+          try {
+            parameters = JSON.parse(String(args.parameters_json)) as Record<string, string>;
+          } catch {
+            return Promise.resolve({ error: 'parameters_json is not valid JSON' });
+          }
         }
-        return apiFetch(self, '/api/v1/velociraptor/collect', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            client_id: String(args.client_id),
-            artifacts: String(args.artifacts).split(',').map((s) => s.trim()).filter(Boolean).slice(0, 10),
-            ...(parameters ? { parameters } : {}),
-            urgent: args.urgent === true,
-          }),
-        }, ih);
+        return apiFetch(
+          self,
+          '/api/v1/velociraptor/collect',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              client_id: String(args.client_id),
+              artifacts: String(args.artifacts)
+                .split(',')
+                .map((s) => s.trim())
+                .filter(Boolean)
+                .slice(0, 10),
+              ...(parameters ? { parameters } : {}),
+              urgent: args.urgent === true,
+            }),
+          },
+          ih
+        );
       },
     },
     {
@@ -1488,14 +1622,25 @@ export function buildToolRegistry(
       description: 'Poll a Velociraptor collection status — state, duration, bytes collected, files loaded.',
       params: [
         { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
-        { name: 'flow_id', type: 'string', description: "Flow id from velo_collect_artifact ('F.xxxx')", required: true },
+        {
+          name: 'flow_id',
+          type: 'string',
+          description: "Flow id from velo_collect_artifact ('F.xxxx')",
+          required: true,
+        },
       ],
       execute: (args) =>
-        apiFetch(self, '/api/v1/velociraptor/flow', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ client_id: String(args.client_id), flow_id: String(args.flow_id) }),
-        }, ih),
+        apiFetch(
+          self,
+          '/api/v1/velociraptor/flow',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ client_id: String(args.client_id), flow_id: String(args.flow_id) }),
+          },
+          ih
+        ),
     },
     {
       name: 'velo_get_flow_results',
@@ -1509,17 +1654,23 @@ export function buildToolRegistry(
         { name: 'rows', type: 'number', description: 'Max rows per call (default 100, max 1000)', required: false },
       ],
       execute: (args) =>
-        apiFetch(self, '/api/v1/velociraptor/results', apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            client_id: String(args.client_id),
-            flow_id: String(args.flow_id),
-            ...(args.artifact ? { artifact: String(args.artifact) } : {}),
-            ...(args.offset ? { offset: Number(args.offset) } : {}),
-            ...(args.rows ? { rows: Math.min(Number(args.rows), 1000) } : {}),
-          }),
-        }, ih),
+        apiFetch(
+          self,
+          '/api/v1/velociraptor/results',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              client_id: String(args.client_id),
+              flow_id: String(args.flow_id),
+              ...(args.artifact ? { artifact: String(args.artifact) } : {}),
+              ...(args.offset ? { offset: Number(args.offset) } : {}),
+              ...(args.rows ? { rows: Math.min(Number(args.rows), 1000) } : {}),
+            }),
+          },
+          ih
+        ),
     },
 
     // ══════════════════════════════════════════════════════════════════════
@@ -1530,24 +1681,120 @@ export function buildToolRegistry(
       description:
         'Publish a saved report at a public share URL (capability-token link, no login needed) and optionally attach MSSP branding (orgName/logoUrl/accent/footer/classification). Use as the final delivery step after saving an investigation report.',
       params: [
-        { name: 'report_id', type: 'string', description: 'Saved-report id from POST /api/v1/saved-reports', required: true },
-        { name: 'branding_json', type: 'string', description: 'Optional branding JSON: orgName, logoUrl, accent, footer, classification', required: false },
+        {
+          name: 'report_id',
+          type: 'string',
+          description: 'Saved-report id from POST /api/v1/saved-reports',
+          required: true,
+        },
+        {
+          name: 'branding_json',
+          type: 'string',
+          description: 'Optional branding JSON: orgName, logoUrl, accent, footer, classification',
+          required: false,
+        },
       ],
       execute: (args) => {
         const run = async (): Promise<unknown> => {
           if (args.branding_json) {
             try {
               const branding = JSON.parse(String(args.branding_json));
-              await apiFetch(self, `/api/v1/saved-reports/${encodeURIComponent(String(args.report_id))}/branding`, apiKey, {
-                method: 'POST',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({ branding }),
-              }, ih);
-            } catch { /* non-fatal — share still proceeds */ }
+              await apiFetch(
+                self,
+                `/api/v1/saved-reports/${encodeURIComponent(String(args.report_id))}/branding`,
+                apiKey,
+                {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({ branding }),
+                },
+                ih
+              );
+            } catch {
+              /* non-fatal — share still proceeds */
+            }
           }
-          return apiFetch(self, `/api/v1/saved-reports/${encodeURIComponent(String(args.report_id))}/share`, apiKey, { method: 'POST' }, ih);
+          return apiFetch(
+            self,
+            `/api/v1/saved-reports/${encodeURIComponent(String(args.report_id))}/share`,
+            apiKey,
+            { method: 'POST' },
+            ih
+          );
         };
         return run();
+      },
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  SAMPLE SUBMISSION (DETONATION BRIDGE)
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'submit_sample_for_analysis',
+      description:
+        'Upload a suspicious file (base64, max ~32MB decoded) to analysis providers: Hybrid Analysis detonation (Windows 10 sandbox) and/or VirusTotal multi-engine scan. Returns per-provider submission ids/links; poll with get_sample_analysis_status. Use after static_triage_file when deeper behavioral evidence is needed.',
+      params: [
+        { name: 'data_base64', type: 'string', description: 'Base64-encoded sample bytes', required: true },
+        { name: 'filename', type: 'string', description: 'Original filename', required: false },
+        {
+          name: 'providers',
+          type: 'string',
+          description: "Comma-separated subset: 'hybridanalysis,virustotal' (default both)",
+          required: false,
+        },
+      ],
+      execute: (args) =>
+        apiFetch(
+          self,
+          '/api/v1/sample-submission/upload',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              dataBase64: String(args.data_base64 ?? '').replace(/\s+/g, ''),
+              ...(args.filename ? { filename: String(args.filename).slice(0, 200) } : {}),
+              ...(args.providers
+                ? {
+                    providers: String(args.providers)
+                      .split(',')
+                      .map((s) => s.trim())
+                      .filter(Boolean),
+                  }
+                : {}),
+            }),
+          },
+          ih
+        ),
+    },
+    {
+      name: 'get_sample_analysis_status',
+      description:
+        'Poll analysis results for a submitted sample: VirusTotal analysis id (multi-engine verdict stats) and/or Hybrid Analysis sha256 (detonation state, threat score, AV detection ratio).',
+      params: [
+        {
+          name: 'virustotal_analysis_id',
+          type: 'string',
+          description: 'Analysis id from submit_sample_for_analysis',
+          required: false,
+        },
+        { name: 'sha256', type: 'string', description: 'Sample SHA-256 (for Hybrid Analysis state)', required: false },
+      ],
+      execute: (args) => {
+        const vtId = args.virustotal_analysis_id ? String(args.virustotal_analysis_id) : '';
+        const sha = args.sha256 ? String(args.sha256).toLowerCase() : '';
+        if (!vtId && !sha) return Promise.resolve({ error: 'virustotal_analysis_id or sha256 required' });
+        return apiFetch(
+          self,
+          '/api/v1/sample-submission/status',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ ...(vtId ? { virustotalAnalysisId: vtId } : {}), ...(sha ? { sha256: sha } : {}) }),
+          },
+          ih
+        );
       },
     },
 
@@ -1733,14 +1980,15 @@ function toolSummary(tool: string, result: unknown): string {
       const valid = data.valid === true;
       parts.push(valid ? 'valid=true' : 'valid=false');
       if (typeof data.rules === 'number') parts.push(`rules=${data.rules}`);
-      const errs = Array.isArray(data.errors) ? data.errors as unknown[] : null;
-      const warns = Array.isArray(data.warnings) ? data.warnings as unknown[] : null;
+      const errs = Array.isArray(data.errors) ? (data.errors as unknown[]) : null;
+      const warns = Array.isArray(data.warnings) ? (data.warnings as unknown[]) : null;
       if (errs) parts.push(`errors=${errs.length}`);
       if (warns) parts.push(`warnings=${warns.length}`);
       return parts.join(' | ') + rawTail(data, ['valid', 'rules', 'errors', 'warnings', 'parsed', 'tables']);
     }
     case 'convert_sigma_rule': {
-      if (data.ok !== true && typeof data.error === 'string') return `convert failed | error=${String(data.error).slice(0, 120)}`;
+      if (data.ok !== true && typeof data.error === 'string')
+        return `convert failed | error=${String(data.error).slice(0, 120)}`;
       parts.push('ok=true');
       if (typeof data.query === 'string') parts.push(`query="${data.query.slice(0, 160)}"`);
       return parts.join(' | ');
@@ -1767,7 +2015,21 @@ function toolSummary(tool: string, result: unknown): string {
       const emb = data.embeddedArtifacts as unknown[] | undefined;
       if (emb) parts.push(`embedded=${emb.length}`);
       if (typeof data.sha256 === 'string') parts.push(`sha256=${data.sha256.slice(0, 16)}…`);
-      return parts.join(' | ') + rawTail(data, ['fileType', 'entropy', 'packerSignals', 'embeddedArtifacts', 'sha256', 'pe', 'zipMembers', 'scriptIndicators', 'md5', 'sha1']);
+      return (
+        parts.join(' | ') +
+        rawTail(data, [
+          'fileType',
+          'entropy',
+          'packerSignals',
+          'embeddedArtifacts',
+          'sha256',
+          'pe',
+          'zipMembers',
+          'scriptIndicators',
+          'md5',
+          'sha1',
+        ])
+      );
     }
     case 'detect_c2_beaconing': {
       const st = data.intervalStats as { jitterRatio?: number; meanMs?: number } | undefined;
@@ -1784,7 +2046,18 @@ function toolSummary(tool: string, result: unknown): string {
       if (typeof data.entropyAvg === 'number') parts.push(`entropy=${data.entropyAvg}`);
       if (typeof data.avgLabelLength === 'number') parts.push(`avgLabel=${data.avgLabelLength}`);
       if (typeof data.queriesAnalyzed === 'number') parts.push(`queries=${data.queriesAnalyzed}`);
-      return parts.join(' | ') + rawTail(data, ['tunnelScore', 'verdict', 'entropyAvg', 'avgLabelLength', 'queriesAnalyzed', 'indicators', 'sampleLabels']);
+      return (
+        parts.join(' | ') +
+        rawTail(data, [
+          'tunnelScore',
+          'verdict',
+          'entropyAvg',
+          'avgLabelLength',
+          'queriesAnalyzed',
+          'indicators',
+          'sampleLabels',
+        ])
+      );
     }
 
     default: {

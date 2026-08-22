@@ -1081,6 +1081,7 @@ import { fileTriageRouter } from './routes/file-triage';
 import { ruleValidatorRouter } from './routes/rule-validator';
 import { netAnalyticsRouter } from './routes/net-analytics-tools';
 import { velociraptorRouter } from './routes/velociraptor';
+import { sampleSubmissionRouter } from './routes/sample-submission';
 import { cloudRefRouter } from './routes/cloud-ref-edge-tools';
 import { pqcRouter } from './routes/pqc-edge-tools';
 import { detectionWikiRouter } from './routes/detection-wiki-edge-tools';
@@ -2355,6 +2356,7 @@ app.route('/api/v1', fileTriageRouter);
 app.route('/api/v1', ruleValidatorRouter);
 app.route('/api/v1', netAnalyticsRouter);
 app.route('/api/v1', velociraptorRouter);
+app.route('/api/v1', sampleSubmissionRouter);
 app.route('/api/v1', cloudRefRouter);
 app.route('/api/v1', pqcRouter);
 

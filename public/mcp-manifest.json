@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 341 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 343 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,7 +16,7 @@
       "listChanged": false
     }
   },
-  "toolCount": 341,
+  "toolCount": 343,
   "generatedAt": "2026-08-22T21:36:26+05:30",
   "tools": [
     {
@@ -635,6 +635,11 @@
       "category": "intel"
     },
     {
+      "name": "get_sample_analysis_status",
+      "description": "Poll analysis results for a submitted sample: VirusTotal verdict stats and/or Hybrid Analysis detonation state + threat score + AV detection ratio.",
+      "category": "other"
+    },
+    {
       "name": "get_supply_chain_attacks",
       "description": "Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org — title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.",
       "category": "intel"
@@ -1222,6 +1227,11 @@
     {
       "name": "stix_translate",
       "description": "Translate a natural language threat intelligence question into structured STIX 2.1 query parameters. Given plain English, returns the classified intent, extracted entities, and filter parameters to use with stix_query_bundles. Supports actors, malware, CVEs, sectors, countries, campaigns, time ranges, and strategic queries.",
+      "category": "other"
+    },
+    {
+      "name": "submit_sample_for_analysis",
+      "description": "Upload a suspicious file (base64, max ~32MB decoded) to Hybrid Analysis (detonation) and/or VirusTotal (multi-engine scan). Returns submission ids/links; poll with get_sample_analysis_status.",
       "category": "other"
     },
     {

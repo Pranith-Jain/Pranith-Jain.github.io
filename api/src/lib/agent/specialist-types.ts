@@ -1051,6 +1051,8 @@ const ALWAYS_AVAILABLE_TOOLS = new Set([
   'velo_get_flow_status',
   'velo_get_flow_results',
   'share_saved_report',
+  'submit_sample_for_analysis',
+  'get_sample_analysis_status',
   'ti_list_cves',
   'ti_get_cve',
   'ti_list_kev',

@@ -7640,6 +7640,75 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── Sample submission (detonation bridge) ─────────────────────────
+    this.tools(
+      'submit_sample_for_analysis',
+      'Upload a suspicious file (base64, max ~32MB decoded) to Hybrid Analysis (detonation) and/or VirusTotal (multi-engine scan). Returns submission ids/links; poll with get_sample_analysis_status.',
+      {
+        data_base64: z.string().describe('Base64-encoded sample bytes'),
+        filename: z.string().optional().describe('Original filename'),
+        providers: z
+          .array(z.enum(['hybridanalysis', 'virustotal']))
+          .optional()
+          .describe('Provider subset (default both)'),
+      },
+      async ({ data_base64, filename, providers }) => {
+        const b64 = data_base64.replace(/\s+/g, '');
+        const approxBytes = Math.floor((b64.length * 3) / 4);
+        if (approxBytes > 32 * 1024 * 1024) {
+          return {
+            content: [
+              { type: 'text', text: JSON.stringify({ error: `sample too large (~${approxBytes} bytes > 32MB)` }) },
+            ],
+          };
+        }
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/sample-submission/upload',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              dataBase64: b64,
+              ...(filename ? { filename } : {}),
+              ...(providers && providers.length ? { providers } : {}),
+            }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'get_sample_analysis_status',
+      'Poll analysis results for a submitted sample: VirusTotal verdict stats and/or Hybrid Analysis detonation state + threat score + AV detection ratio.',
+      {
+        virustotal_analysis_id: z.string().optional().describe('VT analysis id from submit'),
+        sha256: z.string().length(64).optional().describe('Sample SHA-256 (Hybrid Analysis)'),
+      },
+      async ({ virustotal_analysis_id, sha256 }) => {
+        if (!virustotal_analysis_id && !sha256) {
+          return {
+            content: [{ type: 'text', text: JSON.stringify({ error: 'virustotal_analysis_id or sha256 required' }) }],
+          };
+        }
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/sample-submission/status',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              ...(virustotal_analysis_id ? { virustotalAnalysisId: virustotal_analysis_id } : {}),
+              ...(sha256 ? { sha256 } : {}),
+            }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── Velociraptor endpoint acquisition bridge ─────────────────────
     this.tools(
       'velo_list_clients',
@@ -7653,7 +7722,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         if (search) p.set('search', search);
         if (limit) p.set('limit', String(limit));
         const qs = p.toString() ? `?${p}` : '';
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/velociraptor/clients${qs}`, this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/velociraptor/clients${qs}`,
+          this.apiKey
+        );
         return untrustedToolResult(data);
       }
     );
@@ -7662,11 +7735,16 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Get one Velociraptor-managed endpoint by client id (C.xxxx) — OS build, labels, last check-in.',
       { client_id: z.string().describe("Client id ('C.1234')") },
       async ({ client_id }) => {
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/client', this.apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ client_id }),
-        });
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/velociraptor/client',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ client_id }),
+          }
+        );
         return untrustedToolResult(data);
       }
     );
@@ -7698,14 +7776,29 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       async ({ client_id, artifacts, parameters_json, urgent }) => {
         let parameters: Record<string, string> | undefined;
         if (parameters_json) {
-          try { parameters = JSON.parse(parameters_json) as Record<string, string>; }
-          catch { return { content: [{ type: 'text', text: JSON.stringify({ error: 'parameters_json is not valid JSON' }) }] }; }
+          try {
+            parameters = JSON.parse(parameters_json) as Record<string, string>;
+          } catch {
+            return {
+              content: [{ type: 'text', text: JSON.stringify({ error: 'parameters_json is not valid JSON' }) }],
+            };
+          }
         }
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/collect', this.apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ client_id, artifacts, ...(parameters ? { parameters } : {}), urgent: urgent === true }),
-        });
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/velociraptor/collect',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              client_id,
+              artifacts,
+              ...(parameters ? { parameters } : {}),
+              urgent: urgent === true,
+            }),
+          }
+        );
         return untrustedToolResult(data);
       }
     );
@@ -7736,17 +7829,22 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         rows: z.number().int().min(1).max(1000).optional().describe('Max rows (default 100)'),
       },
       async ({ client_id, flow_id, artifact, offset, rows }) => {
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/results', this.apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            client_id,
-            flow_id,
-            ...(artifact ? { artifact } : {}),
-            ...(offset !== undefined ? { offset } : {}),
-            ...(rows !== undefined ? { rows } : {}),
-          }),
-        });
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/velociraptor/results',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              client_id,
+              flow_id,
+              ...(artifact ? { artifact } : {}),
+              ...(offset !== undefined ? { offset } : {}),
+              ...(rows !== undefined ? { rows } : {}),
+            }),
+          }
+        );
         return untrustedToolResult(data);
       }
     );

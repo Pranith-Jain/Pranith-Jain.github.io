@@ -2373,7 +2373,8 @@ export function bridgeMcpTools(
     name: 'velo_get_client',
     description: 'Get one managed endpoint by client id (C.xxxx).',
     params: [{ name: 'client_id', type: 'string', description: "Client id ('C.1234')", required: true }],
-    execute: async (args) => apiFetchWithMethod('/api/v1/velociraptor/client', 'POST', { client_id: String(args.client_id) }),
+    execute: async (args) =>
+      apiFetchWithMethod('/api/v1/velociraptor/client', 'POST', { client_id: String(args.client_id) }),
   });
   add({
     name: 'velo_list_flows',
@@ -2401,12 +2402,19 @@ export function bridgeMcpTools(
     execute: async (args) => {
       let parameters: Record<string, string> | undefined;
       if (args.parameters_json) {
-        try { parameters = JSON.parse(String(args.parameters_json)) as Record<string, string>; }
-        catch { return { error: 'parameters_json is not valid JSON' }; }
+        try {
+          parameters = JSON.parse(String(args.parameters_json)) as Record<string, string>;
+        } catch {
+          return { error: 'parameters_json is not valid JSON' };
+        }
       }
       return apiFetchWithMethod('/api/v1/velociraptor/collect', 'POST', {
         client_id: String(args.client_id),
-        artifacts: String(args.artifacts).split(',').map((s) => s.trim()).filter(Boolean).slice(0, 10),
+        artifacts: String(args.artifacts)
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .slice(0, 10),
         ...(parameters ? { parameters } : {}),
         urgent: args.urgent === true,
       });
@@ -2420,7 +2428,10 @@ export function bridgeMcpTools(
       { name: 'flow_id', type: 'string', description: "Flow id ('F.xxxx')", required: true },
     ],
     execute: async (args) =>
-      apiFetchWithMethod('/api/v1/velociraptor/flow', 'POST', { client_id: String(args.client_id), flow_id: String(args.flow_id) }),
+      apiFetchWithMethod('/api/v1/velociraptor/flow', 'POST', {
+        client_id: String(args.client_id),
+        flow_id: String(args.flow_id),
+      }),
   });
   add({
     name: 'velo_get_flow_results',
@@ -2443,6 +2454,47 @@ export function bridgeMcpTools(
       }),
   });
   add({
+    name: 'submit_sample_for_analysis',
+    description:
+      'Upload a suspicious file (base64, max ~32MB) to analysis providers: Hybrid Analysis detonation and/or VirusTotal multi-engine scan. Poll with get_sample_analysis_status.',
+    params: [
+      { name: 'data_base64', type: 'string', description: 'Base64-encoded sample bytes', required: true },
+      { name: 'filename', type: 'string', description: 'Original filename', required: false },
+      { name: 'providers', type: 'string', description: 'Comma-separated subset (default both)', required: false },
+    ],
+    execute: async (args) =>
+      apiFetchWithMethod('/api/v1/sample-submission/upload', 'POST', {
+        dataBase64: String(args.data_base64 ?? '').replace(/\s+/g, ''),
+        ...(args.filename ? { filename: String(args.filename).slice(0, 200) } : {}),
+        ...(args.providers
+          ? {
+              providers: String(args.providers)
+                .split(',')
+                .map((s) => s.trim())
+                .filter(Boolean),
+            }
+          : {}),
+      }),
+  });
+  add({
+    name: 'get_sample_analysis_status',
+    description:
+      'Poll analysis results for a submitted sample: VT analysis stats and/or Hybrid Analysis detonation state + threat score.',
+    params: [
+      { name: 'virustotal_analysis_id', type: 'string', description: 'VT analysis id', required: false },
+      { name: 'sha256', type: 'string', description: 'Sample SHA-256 (Hybrid Analysis)', required: false },
+    ],
+    execute: async (args) => {
+      const vtId = args.virustotal_analysis_id ? String(args.virustotal_analysis_id) : '';
+      const sha = args.sha256 ? String(args.sha256).toLowerCase() : '';
+      if (!vtId && !sha) return { error: 'virustotal_analysis_id or sha256 required' };
+      return apiFetchWithMethod('/api/v1/sample-submission/status', 'POST', {
+        ...(vtId ? { virustotalAnalysisId: vtId } : {}),
+        ...(sha ? { sha256: sha } : {}),
+      });
+    },
+  });
+  add({
     name: 'share_saved_report',
     description:
       'Publish a saved report at a public capability-token share URL; optional MSSP branding (orgName/logoUrl/accent/footer/classification). Final delivery step after saving an investigation report.',
@@ -2455,7 +2507,9 @@ export function bridgeMcpTools(
       if (args.branding_json) {
         try {
           await apiFetchWithMethod(`${base}/branding`, 'POST', { branding: JSON.parse(String(args.branding_json)) });
-        } catch { /* non-fatal */ }
+        } catch {
+          /* non-fatal */
+        }
       }
       return apiFetchWithMethod(`${base}/share`, 'POST', {});
     },
