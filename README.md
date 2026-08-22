@@ -1,6 +1,6 @@
 # pranithjain.qzz.io
 
-Portfolio of **Pranith Jain** — Security Analyst (Threat Intel · Email Defense · Security Automation) — bundled with a 145+ tool DFIR toolkit, a live self-updating threat-intel platform, and a 258-tool MCP server. One Cloudflare Workers deploy, edge-cached, free at the edge, no signup required.
+Portfolio of **Pranith Jain** — Security Analyst (Threat Intel · Email Defense · Security Automation) — bundled with a 186-tool DFIR toolkit, a live self-updating threat-intel platform, and a 328-tool MCP server. One Cloudflare Workers deploy, edge-cached, free at the edge, no signup required.
 
 **Live:** [pranithjain.qzz.io](https://pranithjain.qzz.io) · [/dfir](https://pranithjain.qzz.io/dfir) · [/threatintel](https://pranithjain.qzz.io/threatintel) · [/blog](https://pranithjain.qzz.io/blog)
 
@@ -14,7 +14,7 @@ React + Vite + TypeScript with SSR prerendering. Hero, skills grid, timeline exp
 
 ### 2. DFIR Toolkit (`/dfir/*`)
 
-145+ interactive analyst tools across 21 categories — triage, OSINT, email security, detection engineering, AI security, data security, crypto tracing, malware analysis, and more. Zero signup, zero keys to start. Includes a **universal rule converter** (Sigma / KQL / SPL / Lucene / EQL / YARA / DLP) and a **purpose-built detection engine**.
+186+ interactive analyst tools across 21 categories — triage, OSINT, email security, detection engineering, AI security, data security, crypto tracing, malware analysis, and more. Zero signup, zero keys to start. Includes a **universal rule converter** (Sigma / KQL / SPL / Lucene / EQL / YARA / DLP) and a **purpose-built detection engine**.
 
 ### 3. Threat Intel Platform (`/threatintel/*`)
 
@@ -74,7 +74,7 @@ A live CTI surface that updates itself: ransomware leak-site + negotiation track
 
 ## MCP Server
 
-A 258-tool MCP (Model Context Protocol) server runs on the same Worker, exposing every DFIR and threat-intel capability to AI agents. Connect Claude Desktop, Cursor, or any MCP client.
+A 328-tool MCP (Model Context Protocol) server runs on the same Worker, exposing every DFIR and threat-intel capability to AI agents. Connect Claude Desktop, Cursor, or any MCP client.
 
 **Repo:** [dfir-mcp-server](https://github.com/Pranith-Jain/dfir-mcp-server)
 
@@ -179,7 +179,7 @@ Engineered for the **Cloudflare Workers free tier**:
 | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | [cti-platform](https://github.com/Pranith-Jain/cti-platform)                       | The threat-intel platform on its own — 30+ live CTI surfaces                   |
 | [DFIR-PLATFORM](https://github.com/Pranith-Jain/DFIR-PLATFORM)                     | The DFIR toolkit on its own — 110+ analyst tools                               |
-| [dfir-mcp-server](https://github.com/Pranith-Jain/dfir-mcp-server)                 | The 258-tool MCP server on its own                                             |
+| [dfir-mcp-server](https://github.com/Pranith-Jain/dfir-mcp-server)                 | The 323-tool standalone MCP proxy of the platform API                          |
 | [dfir-cli](https://github.com/Pranith-Jain/dfir-cli)                               | Command-line DFIR toolkit — IOC extraction, encoding, file analysis, PE triage |
 | [cti-cli](https://github.com/Pranith-Jain/cti-cli)                                 | Command-line threat intelligence — AI copilot, IOC checker, 13+ feeds          |
 | [dfir-threat-intel-agent](https://github.com/Pranith-Jain/dfir-threat-intel-agent) | Autonomous DFIR investigator agent — multi-step LLM-powered tool-calling       |
@@ -199,7 +199,7 @@ Engineered for the **Cloudflare Workers free tier**:
 ```
 src/                    React app — pages/{dfir,threatintel}, components, lib, data, hooks
 api/src/                Cloudflare Worker (Hono) — routes/, providers/ (60+ IOC), lib/, case-study/
-worker/                 Worker entry, MCP server (258 tools), Durable Objects, scheduled cron
+worker/                 Worker entry, MCP server (328 tools), Durable Objects, scheduled cron
 public/                 Static assets, data files (SI, threat-intel, winreg)
 scripts/                Prerender, manifest builders, sync scripts
 docs/                   Design specs, decisions, loop templates
