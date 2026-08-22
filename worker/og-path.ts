@@ -31,7 +31,10 @@ import { OG_BUILD_VERSION } from './og-version.generated';
 
 // Shared-report cards: slug is a 32-hex capability token — same charset
 // as the generic slug rule but semantically distinct (D1 lookup by token).
-const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog|report)\/([a-z0-9][a-z0-9-]{0,199})\.png$/i;
+// The optional /v<ver> segment matches the versioned alias emitted by
+// pageCardUrl() (worker/index.ts maps it to this legacy prefix, but the
+// version segment survives the rewrite and must be tolerated here too).
+const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(?:v[a-z0-9]+\/)?(briefing|blog|report)\/([a-z0-9][a-z0-9-]{0,199})\.png$/i;
 
 /** Pathname of the generic per-page card endpoint (legacy query form). */
 export const OG_PAGE_PATH = '/api/v1/og-image/page.png';
