@@ -11,6 +11,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { kvBackedGet } from '../lib/route-cache';
 import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound } from '../lib/api-error';
 import { detectType } from '../lib/report/subject-resolver';
@@ -121,13 +122,20 @@ export async function dossierGetHandler(c: Context<{ Bindings: Env }>): Promise<
   const kv = c.env.KV_CACHE;
   if (!kv) return notFound(c, 'KV cache not available');
 
-  const cached = await kv.get(`dossier:${type}:${value}`, 'json').catch(() => null);
+  // L1-first: the dossier is an AI-generated snapshot, so a short per-colo
+  // Cache-API shadow (5 min) collapses repeat GETs to ~1 KV read per colo per
+  // window while bounding staleness after a regeneration in another colo.
+  const backed = await kvBackedGet<unknown>(kv, `dossier:${type}:${value}`, DOSSIER_SHADOW_TTL_SECONDS);
+  const cached = backed.value;
   if (!cached) return notFound(c, 'no cached dossier');
 
   return c.json(cached, 200, { 'Cache-Control': 'public, max-age=300' });
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────
+
+/** Per-colo Cache-API shadow TTL for dossier reads (see dossierGetHandler). */
+const DOSSIER_SHADOW_TTL_SECONDS = 300;
 
 function classifyEntity(query: string, queryType: string): DossierEntity {
   const safe = queryType;
@@ -142,9 +150,11 @@ function classifyEntity(query: string, queryType: string): DossierEntity {
 
 async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEntity): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  const cached = kv ? await kv.get(`cve:${entity.value}`, 'json').catch<null>(() => null) : null;
+  // L1-first read of the shared EPSS/enrichment blob (same `cve:<id>` keys the
+  // fusion-exposure loop consumes); 1h shadow matches its ~24h data stability.
+  const cached = kv ? (await kvBackedGet<Record<string, unknown>>(kv, `cve:${entity.value}`, 3600)).value : null;
 
-  const data = (cached as Record<string, unknown>) ?? {};
+  const data = cached ?? {};
   const cvss = data.cvss as Record<string, unknown> | undefined;
   const epss = data.epss as Record<string, unknown> | undefined;
   const kev = data.kev as Record<string, unknown> | undefined;
@@ -228,7 +238,8 @@ async function enrichEntity(c: Context<{ Bindings: Env }>, entity: DossierEntity
   // Try actor name lookup
   if (entity.type === 'actor' || entity.type === 'ransomware') {
     const actorKey = `actor:${entity.value}`;
-    const cached = kv ? await kv.get(actorKey, 'json').catch<null>(() => null) : null;
+    // L1-first: cron-synced reference data, safe to shadow 1h per colo.
+    const cached = kv ? (await kvBackedGet<unknown>(kv, actorKey, 3600)).value : null;
     if (cached) {
       parts.push(JSON.stringify(cached));
       sources.push('actor-kv-cache');

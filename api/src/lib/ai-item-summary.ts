@@ -18,6 +18,7 @@
 import type { Env } from '../env';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { fenceUntrusted, neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
+import { routeCacheGet, routeCachePut } from './route-cache';
 
 export interface ItemInput {
   /** Stable client-side id (used to map the summary back to the post). */
@@ -79,8 +80,19 @@ export async function generateItemSummary(
   if (kv) {
     try {
       key = CACHE_PREFIX + (await contentHash(item));
-      const cached = await kv.get(key);
-      if (cached) return { summary: cached, model: 'cache' };
+      // L1-first read: content-hash keys are write-once (same input → same
+      // summary), so a per-colo Cache-API shadow can never serve a divergent
+      // value. Collapses the N-per-page KV reads to ~1 KV read per colo for
+      // the life of the entry. Text semantics — historical entries were
+      // written via kv.get(key) text mode, so the shadow stores the raw
+      // string rather than a JSON envelope.
+      const l1 = await routeCacheGet<string>(key);
+      if (l1) return { summary: l1, model: 'cache' };
+      const raw = await kv.get(key);
+      if (raw) {
+        void routeCachePut(key, raw, CACHE_TTL_S);
+        return { summary: raw, model: 'cache' };
+      }
     } catch {
       /* cache unavailable — generate fresh */
     }
@@ -113,7 +125,10 @@ export async function generateItemSummary(
 
     if (kv && key) {
       try {
+        // Write-through: KV stays the cross-colo store; the per-colo Cache-API
+        // shadow (fire-and-forget) makes same-colo re-reads free.
         await kv.put(key, text, { expirationTtl: CACHE_TTL_S });
+        void routeCachePut(key, text, CACHE_TTL_S);
       } catch {
         /* best-effort cache write */
       }

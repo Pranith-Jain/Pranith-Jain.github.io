@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway } from '../lib/api-error';
+import { kvBackedGet } from '../lib/route-cache';
 import { kvBulkGetText } from '../lib/safe-catch';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 
@@ -35,6 +36,8 @@ import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 const MALTRAIL_API = 'https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware';
 const SKELETON_KEY_PREFIX = 'skeleton-actor:';
 const SKELETON_INDEX_KEY = 'skeleton-actor:index';
+/** Per-colo Cache-API shadow TTL for single-skeleton reads (matches the 300s response max-age). */
+const SKELETON_SHADOW_TTL_SECONDS = 300;
 // Bounds total KV writes per invocation. Each create is 1 put; each update is
 // 1 get + 1 put. With the index read + list fetch, capping combined work at 15
 // keeps worst-case subrequests (~33) well under the Free-plan 50/invocation cap.
@@ -279,12 +282,10 @@ export async function getSkeletonActorHandler(c: Context<{ Bindings: Env }>): Pr
   if (!kv) return internalError(c, 'KV not configured');
   const slug = (c.req.param('slug') ?? '').toLowerCase();
   if (!SLUG_PARAM_RE.test(slug)) return badRequest(c, 'invalid slug');
-  const raw = await kv.get(`${SKELETON_KEY_PREFIX}${slug}`);
-  if (!raw) return notFound(c, 'skeleton not found');
-  try {
-    return c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
-  } catch (_catchErr) {
-    logError('getSkeletonActorHandler failed', _catchErr);
-    return internalError(c, 'corrupted record');
-  }
+  // L1-first: skeleton records only change on an admin-triggered sync, so the
+  // per-colo Cache-API shadow (5 min — matching the response max-age) turns
+  // repeat profile views into free cache hits instead of one KV read each.
+  const backed = await kvBackedGet<unknown>(kv, `${SKELETON_KEY_PREFIX}${slug}`, SKELETON_SHADOW_TTL_SECONDS);
+  if (!backed.value) return notFound(c, 'skeleton not found');
+  return c.json(backed.value, 200, { 'cache-control': 'public, max-age=300' });
 }
