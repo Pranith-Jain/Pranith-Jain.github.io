@@ -228,7 +228,10 @@ export default function ThreatFeeds(): JSX.Element {
           description: combined.slice(0, 4000),
           source: 'threatfeeds-aggregated',
         }),
-        signal: AbortSignal.timeout(35_000),
+        // LLM completions at this token budget regularly take 20-40s under
+        // provider load; 35s aborted valid requests and read as "button
+        // does nothing".
+        signal: AbortSignal.timeout(60_000),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
@@ -242,6 +245,11 @@ export default function ThreatFeeds(): JSX.Element {
         iocs?: string[];
         raw?: string;
       } | null;
+      if (!parsed || (!parsed.summary && !parsed.raw)) {
+        // A null analysis used to be set verbatim, silently returning the
+        // panel to "Click to generate…" with no feedback.
+        throw new Error(data?.error ?? 'empty analysis — try again');
+      }
       if (data?.parse_failed) {
         setTopAnalysis({ ...parsed, raw: String(parsed?.raw ?? '') } as NonNullable<typeof topAnalysis>);
       } else {

@@ -4,7 +4,11 @@ name: Threat Intel sync (daily)
 # then rebuilds the public/data/threat-intel/ manifest. If the data
 # changed, opens a PR and auto-merges it into main so the data lands
 # the same day (main is unprotected; the merge is data-only).
-# deploy.yml then gates + deploys the merge on main.
+#
+# The job then builds + deploys itself: the auto-merge runs on
+# github.token, and GitHub does not trigger other workflows (deploy.yml)
+# for GITHUB_TOKEN pushes — so without this self-deploy the live site
+# would serve yesterday's manifest until the next manual deploy.
 
 on:
   schedule:
@@ -24,6 +28,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -180,9 +186,54 @@ jobs:
         # The sync output is data-only and main is unprotected, so the PR
         # merges itself here — no human in the loop for the daily data land.
         # (create-pull-request outputs nothing when there were no changes.)
+        #
+        # NOTE: this merge runs on github.token, and GitHub deliberately does
+        # NOT trigger other workflows (deploy.yml) for GITHUB_TOKEN pushes.
+        # The old comment claimed "deploy.yml gates + deploys the merge" — it
+        # never fired, leaving the live site on yesterday's manifest while
+        # main raced ahead. The build + deploy below closes that gap (same
+        # pattern as breach-watch-sync.yml).
+        id: automerge
         if: steps.pr.outputs.pull-request-number != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh pr merge "${{ steps.pr.outputs.pull-request-number }}" \
             --merge --delete-branch
+
+      # ── Self-deploy (only when the sync PR actually landed) ──────────
+      - name: Checkout merged main
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Setup Node for deploy
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install for deploy
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          npm ci --no-fund || npm install --no-fund
+          cd api && npm ci --legacy-peer-deps
+
+      - name: Build
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+
+      - name: Smoke test threatcluster manifest
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 8
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/data/threat-intel/threatcluster/index.json")
+          echo "threatcluster index -> HTTP $code"
+          test "$code" = "200" || { echo "::error::threatcluster index returned HTTP $code"; exit 1; }
