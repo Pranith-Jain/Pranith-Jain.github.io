@@ -132,7 +132,7 @@ function StatCard({
       <div className={`rounded-xl p-2 ${color}`}>{icon}</div>
       <div>
         <div className="text-xl font-bold text-slate-900 dark:text-slate-100">{value}</div>
-        <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+        <div className="text-mini font-mono uppercase tracking-wider text-muted">{label}</div>
       </div>
     </div>
   );
@@ -143,13 +143,11 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
   return (
     <div className={`${CARD} overflow-hidden mt-4`}>
       <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Data Summary
-        </span>
+        <span className="text-mini font-mono uppercase tracking-wider text-muted">Data Summary</span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-mini uppercase tracking-wider text-muted">
             <tr>
               <th className="py-2 px-4 font-medium">{label}</th>
               <th className="py-2 px-4 font-medium text-right">Count</th>
@@ -169,7 +167,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
                   <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
                     {row.count.toLocaleString()}
                   </td>
-                  <td className="py-2 px-4 text-sm text-right text-slate-600 dark:text-slate-400">{pct.toFixed(1)}%</td>
+                  <td className="py-2 px-4 text-sm text-right text-muted">{pct.toFixed(1)}%</td>
                   <td className="py-2 px-4">
                     <div className="w-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded-full h-2 overflow-hidden">
                       <div className="h-full bg-rose-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
@@ -183,7 +181,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
               <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
                 {total.toLocaleString()}
               </td>
-              <td className="py-2 px-4 text-sm text-right text-slate-600 dark:text-slate-400">100%</td>
+              <td className="py-2 px-4 text-sm text-right text-muted">100%</td>
               <td />
             </tr>
           </tbody>
@@ -196,7 +194,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
 function PieView({ data, title }: { data: Array<{ name: string; count: number }>; title: string }) {
   return (
     <div>
-      <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
+      <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-4">{title}</h3>
       <div className="flex justify-center">
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
@@ -239,7 +237,7 @@ function BarView({
 }) {
   return (
     <div>
-      <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
+      <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-4">{title}</h3>
       <ResponsiveContainer width="100%" height={Math.max(350, data.length * 28 + 50)}>
         <BarChart
           data={data}
@@ -302,7 +300,7 @@ function LineView({
   const lines = ['Critical', 'Important', 'Moderate', 'Low'];
   return (
     <div>
-      <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
+      <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-4">{title}</h3>
       <ResponsiveContainer width="100%" height={380}>
         <LineChart data={data} margin={{ left: 10, right: 10, top: 5, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" />
@@ -571,9 +569,7 @@ export function CveLandscapePanel(): JSX.Element {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-16 text-sm text-slate-500 dark:text-slate-400">
-        Loading CVE landscape&hellip;
-      </div>
+      <div className="flex items-center justify-center py-16 text-sm text-muted">Loading CVE landscape&hellip;</div>
     );
   }
   if (error) {
@@ -591,7 +587,7 @@ export function CveLandscapePanel(): JSX.Element {
     );
   }
   if (cves.length === 0) {
-    return <div className="py-16 text-center text-sm text-slate-500 dark:text-slate-400">No CVE data available.</div>;
+    return <div className="py-16 text-center text-sm text-muted">No CVE data available.</div>;
   }
 
   return (
@@ -599,7 +595,7 @@ export function CveLandscapePanel(): JSX.Element {
       {/* Header row: refresh + scope */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300">CVE Landscape</h2>
-        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex items-center gap-3 text-xs text-muted">
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
@@ -641,7 +637,7 @@ export function CveLandscapePanel(): JSX.Element {
 
       {/* Live feed status */}
       {connected && feeds.size > 0 && (
-        <div className="flex flex-wrap items-center gap-3 mb-4 text-mini font-mono text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-3 mb-4 text-mini font-mono text-muted">
           <span className="inline-flex items-center gap-1.5">
             <span className="relative inline-flex h-1.5 w-1.5">
               <span className="absolute inset-0 rounded-full bg-emerald-500 live-pulse" />
@@ -667,7 +663,7 @@ export function CveLandscapePanel(): JSX.Element {
             key={t.id}
             type="button"
             onClick={() => setView(t.id)}
-            className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${view === t.id ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
+            className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${view === t.id ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'}`}
           >
             {t.label}
           </button>
@@ -678,7 +674,7 @@ export function CveLandscapePanel(): JSX.Element {
       <div className={`${CARD} p-4 mb-4`}>
         <div className="flex flex-col gap-3">
           <div className="relative flex-1">
-            <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -689,14 +685,14 @@ export function CveLandscapePanel(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600"
               >
                 ×
               </button>
             )}
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Filter className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
+            <Filter className="h-3.5 w-3.5 text-muted" />
             {['Critical', 'Important', 'Moderate', 'Low'].map((sev) => {
               const active = sevFilter.includes(sev);
               const cls = SEVERITY_PILL[sev] ?? '';
@@ -705,7 +701,7 @@ export function CveLandscapePanel(): JSX.Element {
                   key={sev}
                   type="button"
                   onClick={() => setSevFilter((p) => (active ? p.filter((s) => s !== sev) : [...p, sev]))}
-                  className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${active ? cls : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+                  className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${active ? cls : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
                 >
                   {sev}
                 </button>
@@ -715,14 +711,14 @@ export function CveLandscapePanel(): JSX.Element {
             <button
               type="button"
               onClick={() => setExploitedOnly((p) => !p)}
-              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${exploitedOnly ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${exploitedOnly ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800' : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
             >
               Exploited only
             </button>
             <button
               type="button"
               onClick={() => setKevOnly((p) => !p)}
-              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${kevOnly ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${kevOnly ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
             >
               On KEV only
             </button>
@@ -748,7 +744,7 @@ export function CveLandscapePanel(): JSX.Element {
                   key={type}
                   type="button"
                   onClick={() => setChartType(type)}
-                  className={`p-1.5 rounded transition-colors ${chartType === type ? 'bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}
+                  className={`p-1.5 rounded transition-colors ${chartType === type ? 'bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400' : 'text-muted hover:text-slate-600 dark:hover:text-slate-300'}`}
                 >
                   {icon}
                 </button>
@@ -762,7 +758,7 @@ export function CveLandscapePanel(): JSX.Element {
                   setExploitedOnly(false);
                   setKevOnly(false);
                 }}
-                className="text-mini text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+                className="text-mini text-muted hover:text-slate-700 dark:hover:text-slate-200 ml-1"
               >
                 Clear
               </button>
@@ -776,9 +772,7 @@ export function CveLandscapePanel(): JSX.Element {
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{titleText}</h3>
           <div className="flex items-center gap-3">
-            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-              {filtered.length.toLocaleString()} CVEs in scope
-            </span>
+            <span className="text-mini font-mono text-muted">{filtered.length.toLocaleString()} CVEs in scope</span>
             {viewData && viewData.length > 0 && (
               <button
                 type="button"
@@ -797,7 +791,7 @@ export function CveLandscapePanel(): JSX.Element {
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded px-2 py-0.5 transition-colors"
+                className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded px-2 py-0.5 transition-colors"
               >
                 ↓ CSV
               </button>
@@ -806,9 +800,7 @@ export function CveLandscapePanel(): JSX.Element {
         </div>
 
         {viewData && viewData.length === 0 ? (
-          <div className="py-12 text-center text-sm text-slate-500 dark:text-slate-400">
-            No data matches the current filters.
-          </div>
+          <div className="py-12 text-center text-sm text-muted">No data matches the current filters.</div>
         ) : (
           viewData && (
             <>

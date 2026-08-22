@@ -79,7 +79,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -262,15 +262,11 @@ export default function SupplyChainAttacks(): JSX.Element {
                   </span>
                 ))}
                 {inc.disclosed_date && (
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
-                    {inc.disclosed_date}
-                  </span>
+                  <span className="text-micro font-mono text-muted ml-auto">{inc.disclosed_date}</span>
                 )}
               </div>
 
-              {inc.summary && (
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">{inc.summary}</p>
-              )}
+              {inc.summary && <p className="text-xs text-muted mt-2 leading-relaxed">{inc.summary}</p>}
 
               {inc.blast_radius && (
                 <p className="text-micro font-mono text-slate-500 mt-2 flex items-start gap-1">
@@ -298,7 +294,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                   <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-rose-600 dark:hover:text-rose-400">
                     remediation · {inc.remediation.length}
                   </summary>
-                  <ul className="mt-1 ml-3 list-disc text-xs text-slate-600 dark:text-slate-400 space-y-0.5">
+                  <ul className="mt-1 ml-3 list-disc text-xs text-muted space-y-0.5">
                     {inc.remediation.map((step, i) => (
                       <li key={i}>{step}</li>
                     ))}
@@ -322,7 +318,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                         {s.title || s.publisher || 'source'}
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                      <span key={i} className="text-micro font-mono text-muted">
                         {s.title || s.publisher}
                       </span>
                     );
@@ -335,7 +331,7 @@ export default function SupplyChainAttacks(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           Data:{' '}
           <a
             href={data.source_url}

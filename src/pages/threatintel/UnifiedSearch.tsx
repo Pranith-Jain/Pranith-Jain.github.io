@@ -243,7 +243,7 @@ export default function UnifiedSearch(): JSX.Element {
         }}
         className="relative mb-6 max-w-2xl"
       >
-        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" />
         <input
           type="search"
           value={query}
@@ -405,7 +405,7 @@ export default function UnifiedSearch(): JSX.Element {
             extraBody={{ q: data.q }}
           />
 
-          <p className="text-meta font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-meta font-mono text-muted">
             {total} live result{total === 1 ? '' : 's'} for &ldquo;{data.q}&rdquo;
           </p>
           {data.sections.map((section) => {
@@ -445,10 +445,7 @@ export default function UnifiedSearch(): JSX.Element {
                               </span>
                             )}
                           </div>
-                          <ExternalLink
-                            size={12}
-                            className="shrink-0 mt-1 text-slate-500 dark:text-slate-400 group-hover:text-rose-500"
-                          />
+                          <ExternalLink size={12} className="shrink-0 mt-1 text-muted group-hover:text-rose-500" />
                         </a>
                       ) : (
                         <div>
@@ -462,7 +459,7 @@ export default function UnifiedSearch(): JSX.Element {
                           )}
                         </div>
                       )}
-                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1 block">
+                      <span className="text-micro font-mono text-muted mt-1 block">
                         {item.source}
                         {item.subkind ? ` · ${item.subkind}` : ''}
                       </span>

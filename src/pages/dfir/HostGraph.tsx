@@ -164,7 +164,7 @@ export default function HostGraphView(): JSX.Element {
 
       <form onSubmit={onSubmit} className="flex gap-2 mb-3">
         <div className="relative flex-1">
-          <Network size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Network size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={query}
@@ -216,7 +216,7 @@ export default function HostGraphView(): JSX.Element {
       {result && result.kind === 'cidr' && <PrefixView data={result.data} input={result.input.cidr} />}
 
       {result && (
-        <p className="mt-6 text-mini font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2">
+        <p className="mt-6 text-mini font-mono text-muted flex items-center gap-2">
           <Clock size={11} />
           generated {new Date(result.generated_at).toLocaleString()} · sources: {result.data.sources.join(', ') || '-'}
         </p>
@@ -236,7 +236,7 @@ function Section({
 }): JSX.Element {
   return (
     <section className="mb-6 p-4 surface-card">
-      <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+      <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-muted mb-3">
         <Icon size={14} />
         {title}
       </h2>
@@ -249,9 +249,7 @@ function Row({ label, value, mono = true }: { label: string; value: React.ReactN
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-y-1 gap-x-4 py-1.5 text-sm">
       <span className="text-xs font-mono uppercase tracking-wider text-slate-500">{label}</span>
-      <span className={mono ? 'font-mono' : ''}>
-        {value || <span className="text-slate-500 dark:text-slate-400">-</span>}
-      </span>
+      <span className={mono ? 'font-mono' : ''}>{value || <span className="text-muted">-</span>}</span>
     </div>
   );
 }
@@ -323,9 +321,7 @@ function AsnView({ data, input }: { data: AsData; input: number }): JSX.Element 
             </div>
             <div className="text-sm text-slate-500">
               {data.name && <span>{data.name}</span>}
-              {data.descr && data.descr !== data.name && (
-                <span className="ml-2 text-slate-500 dark:text-slate-400">· {data.descr}</span>
-              )}
+              {data.descr && data.descr !== data.name && <span className="ml-2 text-muted">· {data.descr}</span>}
             </div>
           </div>
         </div>

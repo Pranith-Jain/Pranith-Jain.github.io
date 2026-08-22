@@ -210,17 +210,13 @@ export default function ApiKeysTab() {
                     key: 'created',
                     header: 'Created',
                     sortValue: (k: (typeof keys)[number]) => k.created_at,
-                    render: (k) => (
-                      <span className="text-slate-500 dark:text-slate-400 text-xs">{formatDate(k.created_at)}</span>
-                    ),
+                    render: (k) => <span className="text-muted text-xs">{formatDate(k.created_at)}</span>,
                   },
                   {
                     key: 'last_used',
                     header: 'Last Used',
                     sortValue: (k: (typeof keys)[number]) => k.last_used_at ?? '',
-                    render: (k) => (
-                      <span className="text-slate-500 dark:text-slate-400 text-xs">{formatDate(k.last_used_at)}</span>
-                    ),
+                    render: (k) => <span className="text-muted text-xs">{formatDate(k.last_used_at)}</span>,
                   },
                   {
                     key: 'actions',

@@ -79,7 +79,7 @@ const RISK_COLORS: Record<RiskLevel, { text: string; chip: string; bar: string }
 };
 
 const STATUS_TONES: Record<RiskStatus, string> = {
-  identified: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400',
+  identified: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted',
   assessed: 'bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300',
   treatment: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   monitoring: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
@@ -418,9 +418,7 @@ export default function RiskRegister(): JSX.Element {
                   >
                     {entry.priority_score}
                   </span>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">
-                    priority
-                  </span>
+                  <span className="text-micro font-mono text-muted uppercase mt-0.5">priority</span>
                 </div>
 
                 {/* Info */}
@@ -437,9 +435,7 @@ export default function RiskRegister(): JSX.Element {
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${statusTone} shrink-0`}>
                       {entry.status}
                     </span>
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">
-                      {entry.category}
-                    </span>
+                    <span className="text-micro font-mono text-muted shrink-0">{entry.category}</span>
                   </div>
                   <div className="flex items-center gap-3 text-micro text-slate-500 mt-0.5">
                     <span>inherent: {entry.inherent_level}</span>
@@ -455,15 +451,15 @@ export default function RiskRegister(): JSX.Element {
                     e.stopPropagation();
                     handleDelete(entry.id);
                   }}
-                  className="text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                  className="text-muted hover:text-rose-500 transition-colors shrink-0"
                   title="Delete risk"
                 >
                   <Trash2 size={12} />
                 </button>
                 {isOpen ? (
-                  <ChevronDown size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                  <ChevronDown size={14} className="text-muted shrink-0" />
                 ) : (
-                  <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                  <ChevronRight size={14} className="text-muted shrink-0" />
                 )}
               </button>
 
@@ -471,9 +467,7 @@ export default function RiskRegister(): JSX.Element {
                 <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
                   {/* Description */}
                   {entry.description && (
-                    <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {entry.description}
-                    </p>
+                    <p className="text-meta font-mono text-muted leading-relaxed">{entry.description}</p>
                   )}
 
                   {/* Risk level bars */}
@@ -509,9 +503,7 @@ export default function RiskRegister(): JSX.Element {
                         {entry.treatment_owner && ` · Owner: ${entry.treatment_owner}`}
                         {entry.treatment_due && ` · Due: ${entry.treatment_due.slice(0, 10)}`}
                       </div>
-                      {entry.treatment_plan && (
-                        <p className="text-meta font-mono text-slate-600 dark:text-slate-400">{entry.treatment_plan}</p>
-                      )}
+                      {entry.treatment_plan && <p className="text-meta font-mono text-muted">{entry.treatment_plan}</p>}
                     </div>
                   )}
 
@@ -521,16 +513,15 @@ export default function RiskRegister(): JSX.Element {
                       <div className="text-micro font-mono text-slate-500 mb-1">FAIR Quantification</div>
                       <div className="grid grid-cols-3 gap-2 text-micro font-mono">
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">SLE:</span>{' '}
+                          <span className="text-muted">SLE:</span>{' '}
                           {entry.fair.currency === 'USD' ? '$' : entry.fair.currency}
                           {entry.fair.sle_most_likely.toLocaleString()}
                         </div>
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">ARO:</span>{' '}
-                          {entry.fair.annual_occurrences}x/yr
+                          <span className="text-muted">ARO:</span> {entry.fair.annual_occurrences}x/yr
                         </div>
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">ALE:</span>{' '}
+                          <span className="text-muted">ALE:</span>{' '}
                           {entry.fair.currency === 'USD' ? '$' : entry.fair.currency}
                           {entry.fair.ale_most_likely.toLocaleString()}
                         </div>
@@ -564,7 +555,7 @@ export default function RiskRegister(): JSX.Element {
         })}
 
         {!loading && entries.length === 0 && (
-          <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+          <div className="text-center py-12 text-muted">
             <Info size={24} className="mx-auto mb-2 opacity-50" />
             <p className="font-mono text-sm">No risks found. Add your first risk to start the register.</p>
           </div>

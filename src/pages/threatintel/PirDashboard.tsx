@@ -99,7 +99,7 @@ const STATUS_COLORS: Record<string, string> = {
   active: 'text-emerald-600 dark:text-emerald-400',
   paused: 'text-amber-600 dark:text-amber-400',
   completed: 'text-brand-600 dark:text-brand-400',
-  archived: 'text-slate-500 dark:text-slate-400',
+  archived: 'text-muted',
 };
 const CATEGORIES = [
   'ransomware',
@@ -638,9 +638,7 @@ export default function PirDashboard(): JSX.Element {
                   {a.severity}
                 </span>
                 <span className="flex-1">{a.message}</span>
-                <span className="text-slate-500 dark:text-slate-400 shrink-0">
-                  {new Date(a.triggered_at).toLocaleString()}
-                </span>
+                <span className="text-muted shrink-0">{new Date(a.triggered_at).toLocaleString()}</span>
                 <button
                   type="button"
                   onClick={() => handleAcknowledge(a.id)}
@@ -692,12 +690,8 @@ export default function PirDashboard(): JSX.Element {
                             style={{ width: `${r.widthPct}%` }}
                           />
                         </div>
-                        <span className="w-16 text-right font-mono text-slate-500 dark:text-slate-400">
-                          {r.effective_cadence_hours}h
-                        </span>
-                        <span className="w-12 text-right font-mono text-slate-500 dark:text-slate-400">
-                          {r.pir_count} PIRs
-                        </span>
+                        <span className="w-16 text-right font-mono text-muted">{r.effective_cadence_hours}h</span>
+                        <span className="w-12 text-right font-mono text-muted">{r.pir_count} PIRs</span>
                       </div>
                     ))}
                   </div>
@@ -733,7 +727,7 @@ export default function PirDashboard(): JSX.Element {
                           </span>
                         ))}
                       </div>
-                      <span className="text-slate-500 dark:text-slate-400 ml-auto">
+                      <span className="text-muted ml-auto">
                         Next: {new Date(r.next_collection_at).toLocaleString()}
                       </span>
                     </div>
@@ -752,10 +746,7 @@ export default function PirDashboard(): JSX.Element {
         </div>
         <div className="flex flex-wrap gap-2">
           <div className="relative flex-1 min-w-[180px]">
-            <Search
-              size={12}
-              className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            />
+            <Search size={12} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               value={searchQuery}
@@ -767,7 +758,7 @@ export default function PirDashboard(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600"
               >
                 <X size={12} />
               </button>
@@ -825,7 +816,7 @@ export default function PirDashboard(): JSX.Element {
           )}
         </div>
         {data && (
-          <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1.5">
+          <p className="text-micro font-mono text-muted mt-1.5">
             Showing {filteredPirs.length} of {data.pirs.length} PIRs
           </p>
         )}
@@ -926,9 +917,9 @@ export default function PirDashboard(): JSX.Element {
                         </div>
                       )}
                       {isOpen ? (
-                        <ChevronDown size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                        <ChevronDown size={14} className="text-muted shrink-0" />
                       ) : (
-                        <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                        <ChevronRight size={14} className="text-muted shrink-0" />
                       )}
                     </button>
                     {isOpen && (
@@ -952,13 +943,11 @@ export default function PirDashboard(): JSX.Element {
                         <p className="text-xs text-muted mt-2 leading-relaxed">{pir.description}</p>
                         <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div>
-                            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                              Decision
-                            </p>
+                            <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Decision</p>
                             <p className="text-xs text-muted">{pir.decision}</p>
                           </div>
                           <div>
-                            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 flex items-center gap-1">
+                            <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1 flex items-center gap-1">
                               <ListChecks size={10} /> KIQ ({answeredCount}/{pir.kiqs.length} answered)
                             </p>
                             <ul className="space-y-2">
@@ -1004,9 +993,7 @@ export default function PirDashboard(): JSX.Element {
                           <div className="mt-3">
                             <div className="flex gap-4 mb-2">
                               <div>
-                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">
-                                  Freshness
-                                </p>
+                                <p className="text-micro font-mono text-muted mb-0.5">Freshness</p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-1.5">
                                     <div
@@ -1018,9 +1005,7 @@ export default function PirDashboard(): JSX.Element {
                                 </div>
                               </div>
                               <div>
-                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">
-                                  Confidence
-                                </p>
+                                <p className="text-micro font-mono text-muted mb-0.5">Confidence</p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-1.5">
                                     <div
@@ -1034,9 +1019,7 @@ export default function PirDashboard(): JSX.Element {
                                 </div>
                               </div>
                               <div>
-                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">
-                                  Composite
-                                </p>
+                                <p className="text-micro font-mono text-muted mb-0.5">Composite</p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-1.5">
                                     <div

@@ -251,9 +251,7 @@ export default function InfostealerDetail(): JSX.Element {
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {s.family}
                   </span>
-                  {s.file_type && (
-                    <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>
-                  )}
+                  {s.file_type && <span className="font-mono text-micro text-muted">{s.file_type}</span>}
                 </div>
                 <div className="flex items-center gap-2">
                   <a
@@ -273,7 +271,7 @@ export default function InfostealerDetail(): JSX.Element {
                     <Copy size={11} />
                   </button>
                 </div>
-                <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">
+                <p className="font-mono text-micro text-muted mt-1">
                   {s.reporter ? `by ${s.reporter}` : ''} {s.first_seen ?? ''}
                 </p>
               </li>
@@ -302,7 +300,7 @@ export default function InfostealerDetail(): JSX.Element {
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {x.family}
                   </span>
-                  <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
+                  <span className="font-mono text-micro text-muted">
                     {x.kind} · {x.source}
                   </span>
                 </div>
@@ -317,9 +315,7 @@ export default function InfostealerDetail(): JSX.Element {
                     <Copy size={11} />
                   </button>
                 </div>
-                {x.observed_at && (
-                  <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>
-                )}
+                {x.observed_at && <p className="font-mono text-micro text-muted mt-1">{x.observed_at}</p>}
               </li>
             ))}
           </ul>

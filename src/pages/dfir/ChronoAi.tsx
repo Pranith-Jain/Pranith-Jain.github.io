@@ -232,9 +232,7 @@ export default function ChronoAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Log Events</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                required
-              </span>
+              <span className="text-micro font-mono uppercase tracking-wider text-muted">required</span>
             </div>
             <textarea
               value={logs}
@@ -278,7 +276,7 @@ export default function ChronoAi(): JSX.Element {
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Analyzing log events…</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Building timeline</p>
+              <p className="text-xs text-muted mt-1">Building timeline</p>
             </div>
           )}
 
@@ -315,9 +313,7 @@ export default function ChronoAi(): JSX.Element {
                         <div key={p.id} className="flex-1">
                           <div className="flex items-center gap-1 mb-1">
                             <span className="text-micro text-slate-500">{PHASE_ICONS[p.id]}</span>
-                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">
-                              {p.label}
-                            </span>
+                            <span className="text-micro font-mono text-muted truncate">{p.label}</span>
                           </div>
                           <div className="h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                             <div
@@ -325,7 +321,7 @@ export default function ChronoAi(): JSX.Element {
                               style={{ width: `${pct}%` }}
                             />
                           </div>
-                          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{count}</span>
+                          <span className="text-micro font-mono text-muted">{count}</span>
                         </div>
                       );
                     })}
@@ -345,7 +341,7 @@ export default function ChronoAi(): JSX.Element {
                           className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${phase?.color ?? 'bg-slate-400'}`}
                         />
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
+                          <div className="flex items-center gap-2 text-xs text-muted font-mono">
                             <span>{event.timestamp}</span>
                             <span className="text-slate-300 dark:text-slate-400">|</span>
                             <span>{event.source}</span>
@@ -387,9 +383,7 @@ export default function ChronoAi(): JSX.Element {
                 </div>
 
                 {result.timeline.length === 0 && (
-                  <p className="text-xs text-slate-500 dark:text-slate-400 py-4 text-center">
-                    No timeline events parsed. Raw summary below.
-                  </p>
+                  <p className="text-xs text-muted py-4 text-center">No timeline events parsed. Raw summary below.</p>
                 )}
               </div>
 
@@ -419,12 +413,10 @@ export default function ChronoAi(): JSX.Element {
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Clock size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-muted">
                 Paste log events and click <span className="font-semibold">Reconstruct</span>
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Output: kill chain timeline with color-coded phases
-              </p>
+              <p className="text-xs text-muted mt-1">Output: kill chain timeline with color-coded phases</p>
             </div>
           )}
         </div>

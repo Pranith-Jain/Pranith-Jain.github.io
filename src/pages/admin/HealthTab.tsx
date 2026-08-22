@@ -56,7 +56,7 @@ export default function HealthTab() {
     return () => window.clearInterval(t);
   }, [load]);
 
-  if (loading && !health) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading && !health) return <p className="text-muted">Loading…</p>;
   if (error && !health)
     return (
       <div>

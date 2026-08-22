@@ -113,7 +113,7 @@ export default function PcMedicalist() {
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">PCMedicalist Security Intelligence Feed</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm text-muted">
             Source:{' '}
             <a
               href="https://app.pcmedicalist.com/intel"
@@ -153,23 +153,23 @@ export default function PcMedicalist() {
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-slate-900 dark:text-white">{digest.feedsTotal ?? '—'}</div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">Feeds ingested</div>
+              <div className="text-xs text-muted">Feeds ingested</div>
             </div>
             <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-slate-900 dark:text-white">
                 {(digest.itemsRaw ?? 0).toLocaleString()}
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">Raw items</div>
+              <div className="text-xs text-muted">Raw items</div>
             </div>
             <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-slate-900 dark:text-white">
                 {(digest.itemsDeduped ?? 0).toLocaleString()}
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">Deduplicated</div>
+              <div className="text-xs text-muted">Deduplicated</div>
             </div>
             <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-slate-900 dark:text-white">{digest.layers.length}</div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">Intelligence layers</div>
+              <div className="text-xs text-muted">Intelligence layers</div>
             </div>
           </div>
 
@@ -311,9 +311,7 @@ function ItemRow({ item }: { item: PcmItem }) {
           ) : (
             <span className="text-sm font-medium text-slate-900 dark:text-white">{item.title}</span>
           )}
-          {item.summary && (
-            <p className="mt-0.5 line-clamp-2 text-xs text-slate-500 dark:text-slate-400">{item.summary}</p>
-          )}
+          {item.summary && <p className="mt-0.5 line-clamp-2 text-xs text-muted">{item.summary}</p>}
         </div>
         <div className="flex shrink-0 flex-col items-end gap-1">
           {sevClass && (
@@ -325,7 +323,7 @@ function ItemRow({ item }: { item: PcmItem }) {
         </div>
       </div>
       <div className="mt-1 flex flex-wrap items-center gap-1.5 text-micro text-slate-400">
-        {item.source && <span className="font-medium text-slate-500 dark:text-slate-400">{item.source}</span>}
+        {item.source && <span className="font-medium text-muted">{item.source}</span>}
         {item.category && <span>{item.category}</span>}
         {item.published && <span>{item.published.slice(0, 10)}</span>}
         {item.cves.length > 0 &&

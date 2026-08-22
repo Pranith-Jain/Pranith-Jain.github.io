@@ -48,7 +48,8 @@ export default function CrossCampaignCorrelation(): JSX.Element {
       title="Cross-Campaign Correlation"
       description="Find connections between campaigns: shared infrastructure, tooling, and TTPs."
       headerExtra={
-        <button type="button"
+        <button
+          type="button"
           onClick={fetchCorrelations}
           disabled={loading}
           className="px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
@@ -62,7 +63,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
       onRetry={fetchCorrelations}
       empty={!loading && !error && correlations.length === 0}
       emptyMessage="Run the correlation to find connections between campaigns."
-      emptyIcon={<Network size={28} className="mx-auto text-slate-500 dark:text-slate-400" />}
+      emptyIcon={<Network size={28} className="mx-auto text-muted" />}
     >
       <div className="space-y-4">
         {correlations.map((c, i) => (
@@ -70,11 +71,11 @@ export default function CrossCampaignCorrelation(): JSX.Element {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-mono font-medium">{c.campaign_a}</span>
-                <Link2 size={14} className="text-slate-500 dark:text-slate-400" />
+                <Link2 size={14} className="text-muted" />
                 <span className="text-sm font-mono font-medium">{c.campaign_b}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{c.confidence}%</span>
+                <span className="text-micro font-mono text-muted">{c.confidence}%</span>
                 <span
                   className={`text-micro font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[c.confidence >= 70 ? 'high' : c.confidence >= 40 ? 'medium' : 'low']}`}
                 >
@@ -84,9 +85,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
             </div>
             {c.shared_indicators.length > 0 && (
               <div className="mb-2">
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                  Shared Indicators
-                </div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Shared Indicators</div>
                 <div className="flex flex-wrap gap-1">
                   {c.shared_indicators.slice(0, 5).map((ind, j) => (
                     <span
@@ -97,16 +96,14 @@ export default function CrossCampaignCorrelation(): JSX.Element {
                     </span>
                   ))}
                   {c.shared_indicators.length > 5 && (
-                    <span className="text-micro text-slate-500 dark:text-slate-400">+{c.shared_indicators.length - 5}</span>
+                    <span className="text-micro text-muted">+{c.shared_indicators.length - 5}</span>
                   )}
                 </div>
               </div>
             )}
             {c.shared_techniques.length > 0 && (
               <div>
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                  Shared Techniques
-                </div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Shared Techniques</div>
                 <div className="flex flex-wrap gap-1">
                   {c.shared_techniques.map((t, j) => (
                     <span

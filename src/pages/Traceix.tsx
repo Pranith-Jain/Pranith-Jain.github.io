@@ -144,9 +144,7 @@ export default function Traceix() {
         {data && !loading && (
           <div className="space-y-4">
             <section className="surface-card p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
-                Summary
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Summary</h2>
               <div className="flex gap-6">
                 <div>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{safeCount}</div>
@@ -164,7 +162,7 @@ export default function Traceix() {
             </section>
 
             <section className="surface-card p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">
                 Engine Results ({data.avResults.length})
               </h2>
               {data.avResults.length > 0 ? (

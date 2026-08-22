@@ -208,7 +208,7 @@ export default function TechAiNews(): JSX.Element {
           Live aggregator of AI lab announcements, cybersecurity vendor funding, and broader tech-industry signal.{' '}
           {ALL_FEED_IDS.length} sources fetched server-side, deduped, sorted by publication time.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Threat-intel content (ransomware activity, breach disclosures, scam victim reports) lives separately in{' '}
           <Link to="/threatintel/catalog?cat=darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch

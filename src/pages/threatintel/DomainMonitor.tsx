@@ -96,11 +96,7 @@ export default function DomainMonitor(): JSX.Element {
         >
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search
-                size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-                aria-hidden="true"
-              />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
               <input
                 type="text"
                 value={input}
@@ -130,7 +126,7 @@ export default function DomainMonitor(): JSX.Element {
       onRetry={run}
       empty={!loading && !error && !results}
       emptyMessage="Enter a domain above to scan for typosquat variants."
-      emptyIcon={<Globe size={28} className="mx-auto text-slate-500 dark:text-slate-400" />}
+      emptyIcon={<Globe size={28} className="mx-auto text-muted" />}
     >
       {results && (
         <div className="space-y-6">
@@ -140,19 +136,19 @@ export default function DomainMonitor(): JSX.Element {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{results.total_variants}</div>
-                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Total Variants</div>
+                <div className="text-xs font-mono text-muted">Total Variants</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-amber-500">{results.checked}</div>
-                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Checked</div>
+                <div className="text-xs font-mono text-muted">Checked</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-rose-500">{results.active}</div>
-                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Active</div>
+                <div className="text-xs font-mono text-muted">Active</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-emerald-500">{results.inactive}</div>
-                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Inactive</div>
+                <div className="text-xs font-mono text-muted">Inactive</div>
               </div>
             </div>
           </section>
@@ -247,16 +243,14 @@ export default function DomainMonitor(): JSX.Element {
                 {results.results.unchecked.slice(0, 20).map((v) => (
                   <span
                     key={v.domain}
-                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
+                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
                     title={v.type}
                   >
                     {v.domain}
                   </span>
                 ))}
                 {results.results.unchecked.length > 20 && (
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                    +{results.results.unchecked.length - 20} more
-                  </span>
+                  <span className="text-xs font-mono text-muted">+{results.results.unchecked.length - 20} more</span>
                 )}
               </div>
             </section>
@@ -264,7 +258,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Type Legend */}
           <section className="surface-card p-4">
-            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
               Detection Types
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

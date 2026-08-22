@@ -168,7 +168,7 @@ function ruleHeatColor(count: number, max: number): string {
   if (ratio > 0.25) return 'bg-orange-500/25 text-orange-800 dark:text-orange-200 border-orange-500/30';
   if (ratio > 0.1) return 'bg-amber-500/20 text-amber-800 dark:text-amber-200 border-amber-500/25';
   if (ratio > 0.03) return 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border-emerald-500/20';
-  return 'bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+  return 'bg-slate-100 dark:bg-slate-800/60 text-muted border-slate-200 dark:border-slate-700';
 }
 
 function ruleHeatBg(count: number, max: number): string {
@@ -444,7 +444,7 @@ export default function DetectionWiki(): JSX.Element {
             />
           </div>
           {(tab === 'auditing' || tab === 'windows') && (
-            <label className="flex items-center gap-1.5 text-xs font-mono text-slate-600 dark:text-slate-400 shrink-0">
+            <label className="flex items-center gap-1.5 text-xs font-mono text-muted shrink-0">
               <input
                 type="checkbox"
                 checked={onlyWithRules}
@@ -974,7 +974,7 @@ function StatCard({
           : 'text-brand-500 dark:text-brand-400';
   return (
     <div className="surface-card px-3 py-2">
-      <div className="text-micro uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>
+      <div className="text-micro uppercase tracking-wide text-muted font-mono">{label}</div>
       <div className={`font-bold font-mono ${color} text-xl`}>
         {typeof value === 'number' ? value.toLocaleString() : value}
       </div>

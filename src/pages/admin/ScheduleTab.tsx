@@ -150,7 +150,7 @@ export default function ScheduleTab() {
     }
   }
 
-  if (loading) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading) return <p className="text-muted">Loading…</p>;
   if (error)
     return (
       <div>
@@ -163,7 +163,7 @@ export default function ScheduleTab() {
         </button>
       </div>
     );
-  if (schedule.length === 0) return <p className="text-slate-500 dark:text-slate-400">No scheduled slots.</p>;
+  if (schedule.length === 0) return <p className="text-muted">No scheduled slots.</p>;
 
   return (
     <div>
@@ -180,7 +180,7 @@ export default function ScheduleTab() {
           className={`px-3 py-1 text-xs rounded border ${
             viewMode === 'list'
               ? 'bg-brand-500 text-white border-brand-500'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
           }`}
         >
           List
@@ -190,7 +190,7 @@ export default function ScheduleTab() {
           className={`px-3 py-1 text-xs rounded border ${
             viewMode === 'calendar'
               ? 'bg-brand-500 text-white border-brand-500'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
           }`}
         >
           Calendar
@@ -200,31 +200,69 @@ export default function ScheduleTab() {
       {viewMode === 'list' && (
         <div className="overflow-x-auto">
           <DataTable
-          columns={[
-            { key: 'slotAt', header: 'Slot time', sortValue: (s: Slot) => s.slotAt, render: (s) => <span className="text-slate-700 dark:text-slate-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</span> },
-            { key: 'candidateId', header: 'Candidate ID', sortValue: (s: Slot) => s.candidateId, render: (s) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{s.candidateId}</span> },
-            { key: 'status', header: 'Status', sortValue: (s: Slot) => s.status, render: (s) => <span className="text-slate-700 dark:text-slate-300">{s.status}</span> },
-            { key: 'actions', header: 'Actions', render: (s) => (
-              <div className="flex gap-2">
-                {s.status === 'pending' && (
-                  <>
-                    <button onClick={() => publishNow(s.candidateId)} disabled={publishing === s.candidateId} className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50">
-                      {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
-                    </button>
-                    <button onClick={() => reschedule(s.candidateId)} disabled={publishing === s.candidateId} className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50" title="Move this slot to a new date/time">
-                      Reschedule
-                    </button>
-                    <button onClick={() => removeSlot(s.candidateId)} disabled={publishing === s.candidateId} className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50">
-                      Remove
-                    </button>
-                  </>
-                )}
-              </div>
-            ) },
-          ] as DataTableColumn<Slot>[]}
-          rows={schedule}
-          rowKey={(s, i) => `${s.candidateId}-${i}`}
-        />
+            columns={
+              [
+                {
+                  key: 'slotAt',
+                  header: 'Slot time',
+                  sortValue: (s: Slot) => s.slotAt,
+                  render: (s) => (
+                    <span className="text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                      {new Date(s.slotAt).toLocaleString()}
+                    </span>
+                  ),
+                },
+                {
+                  key: 'candidateId',
+                  header: 'Candidate ID',
+                  sortValue: (s: Slot) => s.candidateId,
+                  render: (s) => <span className="font-mono text-xs text-muted">{s.candidateId}</span>,
+                },
+                {
+                  key: 'status',
+                  header: 'Status',
+                  sortValue: (s: Slot) => s.status,
+                  render: (s) => <span className="text-slate-700 dark:text-slate-300">{s.status}</span>,
+                },
+                {
+                  key: 'actions',
+                  header: 'Actions',
+                  render: (s) => (
+                    <div className="flex gap-2">
+                      {s.status === 'pending' && (
+                        <>
+                          <button
+                            onClick={() => publishNow(s.candidateId)}
+                            disabled={publishing === s.candidateId}
+                            className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
+                          >
+                            {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
+                          </button>
+                          <button
+                            onClick={() => reschedule(s.candidateId)}
+                            disabled={publishing === s.candidateId}
+                            className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50"
+                            title="Move this slot to a new date/time"
+                          >
+                            Reschedule
+                          </button>
+                          <button
+                            onClick={() => removeSlot(s.candidateId)}
+                            disabled={publishing === s.candidateId}
+                            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                          >
+                            Remove
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  ),
+                },
+              ] as DataTableColumn<Slot>[]
+            }
+            rows={schedule}
+            rowKey={(s, i) => `${s.candidateId}-${i}`}
+          />
         </div>
       )}
 
@@ -252,10 +290,7 @@ export default function ScheduleTab() {
           {/* Day-of-week header */}
           <div className="grid grid-cols-7 mb-1">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
-              <div
-                key={d}
-                className="text-center text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 py-1"
-              >
+              <div key={d} className="text-center text-micro uppercase tracking-wider text-muted py-1">
                 {d}
               </div>
             ))}
@@ -313,7 +348,7 @@ export default function ScheduleTab() {
           {/* Selected day detail */}
           {selectedDay && selectedDaySlots.length > 0 && (
             <div className="mt-4 space-y-2">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-muted">
                 {new Date(selectedDay + 'T00:00:00').toLocaleDateString('default', {
                   weekday: 'long',
                   month: 'long',
@@ -328,10 +363,8 @@ export default function ScheduleTab() {
                   <div className="flex items-center gap-2">
                     <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[s.status] ?? 'bg-slate-300'}`} />
                     <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.candidateId}</span>
-                    <span className="text-micro uppercase text-slate-500 dark:text-slate-400">{s.status}</span>
-                    <span className="text-micro text-slate-500 dark:text-slate-400">
-                      {new Date(s.slotAt).toLocaleTimeString()}
-                    </span>
+                    <span className="text-micro uppercase text-muted">{s.status}</span>
+                    <span className="text-micro text-muted">{new Date(s.slotAt).toLocaleTimeString()}</span>
                   </div>
                   <div className="flex gap-1">
                     {s.status === 'pending' && (
@@ -361,9 +394,7 @@ export default function ScheduleTab() {
                         View
                       </a>
                     )}
-                    {s.status === 'draft' && (
-                      <span className="text-micro text-slate-500 dark:text-slate-400">Awaiting approval</span>
-                    )}
+                    {s.status === 'draft' && <span className="text-micro text-muted">Awaiting approval</span>}
                   </div>
                 </div>
               ))}
@@ -380,7 +411,7 @@ export default function ScheduleTab() {
           }}
           className="space-y-3"
         >
-          <label className="block text-tool text-slate-500 dark:text-slate-400">
+          <label className="block text-tool text-muted">
             New date &amp; time
             <input
               type="datetime-local"

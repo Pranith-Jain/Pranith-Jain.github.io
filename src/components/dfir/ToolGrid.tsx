@@ -56,10 +56,8 @@ const SectionBlock = memo(function SectionBlock({ section }: { section: Section 
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3 mb-3 mt-2 flex-wrap">
-        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-          {section.label}
-        </h3>
-        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">{section.label}</h3>
+        <span className="text-mini font-mono text-muted">
           {section.blurb} · {section.tools.length} tool{section.tools.length === 1 ? '' : 's'}
         </span>
       </div>
@@ -123,11 +121,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
     <div className="space-y-6">
       <div className="surface-card p-3">
         <div className="relative">
-          <SearchIcon
-            size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            aria-hidden="true"
-          />
+          <SearchIcon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -140,7 +134,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:p-1 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200"
               aria-label="Clear search"
             >
               <X size={14} />
@@ -149,7 +143,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
         </div>
       </div>
 
-      <p className="text-tool text-slate-500 dark:text-slate-400 leading-relaxed">
+      <p className="text-tool text-muted leading-relaxed">
         {q ? (
           <>
             {matchCount} match{matchCount === 1 ? '' : 'es'} for{' '}
@@ -165,7 +159,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
       </p>
 
       {filteredSections.length === 0 && filteredExternal.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
           No tools match "{q}". Try a different keyword or{' '}
           <button onClick={() => setQuery('')} className="text-brand-600 dark:text-brand-400 hover:underline">
             clear the search
@@ -181,10 +175,10 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
           {filteredExternal.length > 0 && (
             <div>
               <div className="flex items-baseline justify-between gap-3 mb-3 mt-2 flex-wrap">
-                <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+                <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                   External resources
                 </h3>
-                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-mini font-mono text-muted">
                   Curated tools and catalogs hosted elsewhere · {filteredExternal.length}
                   {q ? ` of ${EXTERNAL.length}` : ''} link{filteredExternal.length === 1 ? '' : 's'}
                 </span>

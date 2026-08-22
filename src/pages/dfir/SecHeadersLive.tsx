@@ -59,7 +59,7 @@ const SEV_TONE: Record<HeaderStatus, { text: string; chip: string; Icon: typeof 
   },
   missing: { text: 'text-rose-700 dark:text-rose-300', chip: 'border-rose-500/30 bg-rose-500/10', Icon: ShieldX },
   unknown: {
-    text: 'text-slate-600 dark:text-slate-400',
+    text: 'text-muted',
     chip: 'border-slate-500/30 bg-slate-500/10',
     Icon: ShieldAlert,
   },
@@ -189,14 +189,12 @@ export default function SecHeadersLive(): JSX.Element {
                 {grade}
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                  {data.domain}
-                </div>
+                <div className="text-mini font-mono uppercase tracking-[0.16em] text-muted">{data.domain}</div>
                 <div className="mt-0.5 text-lg font-semibold">
                   {passCount} of {total} headers pass
                 </div>
                 {data.scannedAt && (
-                  <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">
+                  <p className="mt-0.5 text-xs text-muted">
                     scanned {new Date(data.scannedAt).toUTCString()}
                     {data.headerFetchTimedOut && ' · upstream header fetch timed out'}
                   </p>
@@ -205,9 +203,7 @@ export default function SecHeadersLive(): JSX.Element {
             </div>
             {data.missing && data.missing.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
-                <span className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                  missing
-                </span>
+                <span className="text-mini font-mono uppercase tracking-[0.16em] text-muted">missing</span>
                 {data.missing.map((m) => (
                   <span
                     key={m}
@@ -242,9 +238,7 @@ export default function SecHeadersLive(): JSX.Element {
                             {h.value}
                           </pre>
                         )}
-                        {h.recommendation && (
-                          <p className="mt-1 text-micro text-slate-600 dark:text-slate-400">{h.recommendation}</p>
-                        )}
+                        {h.recommendation && <p className="mt-1 text-micro text-muted">{h.recommendation}</p>}
                       </div>
                     </div>
                   </li>
@@ -257,7 +251,7 @@ export default function SecHeadersLive(): JSX.Element {
           {data.outputs && (
             <section className="surface-card p-5">
               <h2 className="font-display font-bold text-lg mb-3">Ready-to-paste config</h2>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
+              <p className="text-xs text-muted mb-3">
                 Drop into your server config or generate a fresh policy via the{' '}
                 <a
                   href={CITATIONS.generate}
@@ -279,7 +273,7 @@ export default function SecHeadersLive(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => setExpandedOutput(isOpen ? null : key)}
-                        className="w-full px-3 py-2 flex items-center justify-between text-mini font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                        className="w-full px-3 py-2 flex items-center justify-between text-mini font-mono uppercase tracking-wider text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                       >
                         {key}
                         {isOpen ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
@@ -316,7 +310,7 @@ export default function SecHeadersLive(): JSX.Element {
             </section>
           )}
 
-          <footer className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          <footer className="text-mini font-mono text-muted">
             methodology:{' '}
             <a href={CITATIONS.methodology} target="_blank" rel="noopener noreferrer" className="underline">
               intodns.ai/methodology

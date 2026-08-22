@@ -34,7 +34,7 @@ const GROUP_TYPES: { value: GroupType; label: string }[] = [
 ];
 
 const selectCls =
-  'h-9 px-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-mini font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 outline-none hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] focus:border-brand-500 dark:focus:border-brand-400 cursor-pointer transition-colors';
+  'h-9 px-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-mini font-mono uppercase tracking-wider text-muted outline-none hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] focus:border-brand-500 dark:focus:border-brand-400 cursor-pointer transition-colors';
 
 export default function ArgusPage() {
   const [view, setView] = useState<ViewKey>('globe');
@@ -103,7 +103,7 @@ export default function ArgusPage() {
       <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
         <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-rose-500/60" />
 
-        <div className="flex items-center gap-3 font-mono text-mini uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-4">
+        <div className="flex items-center gap-3 font-mono text-mini uppercase tracking-[0.16em] text-muted mb-4">
           <span className="inline-flex items-center gap-1.5">
             <span className="relative inline-flex h-1.5 w-1.5">
               <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden="true" />
@@ -122,7 +122,7 @@ export default function ArgusPage() {
           <span className="block text-rose-600 dark:text-rose-400">Threat Nexus</span>
         </h1>
 
-        <p className="mt-4 max-w-2xl text-tool sm:text-[15px] leading-relaxed text-slate-600 dark:text-slate-400">
+        <p className="mt-4 max-w-2xl text-tool sm:text-[15px] leading-relaxed text-muted">
           Nation-state threat intelligence on {ACTORS.length} tracked APT groups across {nationCount} nations —{' '}
           {totalTtps} mapped MITRE TTPs, relationship graphs, diamond-model analysis, and a live intel feed.
         </p>
@@ -138,9 +138,7 @@ export default function ArgusPage() {
               <dd className="font-display text-2xl sm:text-3xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
                 {s.value.toLocaleString()}
               </dd>
-              <dt className="mt-1.5 font-mono text-micro uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                {s.label}
-              </dt>
+              <dt className="mt-1.5 font-mono text-micro uppercase tracking-[0.16em] text-muted">{s.label}</dt>
             </div>
           ))}
         </dl>
@@ -214,7 +212,7 @@ export default function ArgusPage() {
           ))}
         </select>
 
-        <span className="ml-auto font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 tabular-nums">
+        <span className="ml-auto font-mono text-micro uppercase tracking-wider text-muted tabular-nums">
           {visible.length}/{ACTORS.length} actors
         </span>
       </div>

@@ -541,7 +541,7 @@ function Diamond(): JSX.Element {
           Caltagirone, Pendergast &amp; Betz, 2013. Every intrusion event is a connected diamond of Adversary,
           Capability, Infrastructure and Victim, plus meta-features describing the event itself.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pairs with the{' '}
           <Link to="/dfir/kill-chain" className="text-brand-600 dark:text-brand-400 hover:underline">
             Cyber Kill Chain
@@ -635,10 +635,10 @@ function Diamond(): JSX.Element {
 
         <div className="surface-card p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
               {active ? `${DIAMOND_VERTICES.find((v) => v.id === active)?.name}` : 'Vertices'}
             </h2>
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-mono text-muted">
               {filledCount} / {DIAMOND_VERTICES.length} filled
             </span>
           </div>
@@ -649,9 +649,7 @@ function Diamond(): JSX.Element {
                 <div className="space-y-3 text-sm font-mono text-slate-700 dark:text-slate-300">
                   <p>{v.description}</p>
                   <div>
-                    <h3 className="text-micro font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
-                      Pivot points
-                    </h3>
+                    <h3 className="text-micro font-bold uppercase tracking-[0.2em] text-muted mb-1">Pivot points</h3>
                     <ul className="space-y-1 text-meta list-disc pl-4">
                       {v.pivots.map((p) => (
                         <li key={p}>{p}</li>
@@ -659,9 +657,7 @@ function Diamond(): JSX.Element {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-micro font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
-                      Tools
-                    </h3>
+                    <h3 className="text-micro font-bold uppercase tracking-[0.2em] text-muted mb-1">Tools</h3>
                     <p className="text-meta">{v.tools.join(' · ')}</p>
                   </div>
                 </div>
@@ -724,9 +720,7 @@ function Diamond(): JSX.Element {
 
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Intrusion event
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Intrusion event</h2>
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <button
               type="button"
@@ -775,9 +769,7 @@ function Diamond(): JSX.Element {
 
       {/* Meta-features */}
       <section className="surface-card p-4 mb-6">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          Meta-features
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Meta-features</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {META_FEATURES.map((m) => {
             const k = m.id as keyof EventForm;
@@ -799,9 +791,7 @@ function Diamond(): JSX.Element {
 
       {/* Extended axes */}
       <section className="surface-card p-4 mb-6">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          Extended axes
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Extended axes</h2>
         <div className="grid gap-3 md:grid-cols-2">
           {EXTENDED_AXES.map((a) => {
             const k = a.id === 'social-political' ? 'socioPolitical' : 'technology';
@@ -829,9 +819,7 @@ function Diamond(): JSX.Element {
       </section>
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a

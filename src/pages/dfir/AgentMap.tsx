@@ -165,7 +165,7 @@ export default function AgentMap(): JSX.Element {
         </>
       }
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pairs with the{' '}
           <Link to="/dfir/mcp-audit" className="text-brand-600 dark:text-brand-400 hover:underline">
             MCP &amp; Claude Code Auditor
@@ -181,9 +181,7 @@ export default function AgentMap(): JSX.Element {
     >
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Config JSON
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Config JSON</h2>
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setInput(SAMPLE_BASIC)}
@@ -225,11 +223,11 @@ export default function AgentMap(): JSX.Element {
           <section className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 mb-6">
             {/* Graph */}
             <div className="surface-card p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                 Capability graph ({graph.tools.length} tool{graph.tools.length === 1 ? '' : 's'})
               </h2>
               {graph.tools.length === 0 ? (
-                <p className="text-sm font-mono text-slate-500 dark:text-slate-400 py-12 text-center">
+                <p className="text-sm font-mono text-muted py-12 text-center">
                   No tools detected. Add MCP servers, Claude Code allow rules, or a top-level <code>tools</code> array.
                 </p>
               ) : (
@@ -270,7 +268,7 @@ export default function AgentMap(): JSX.Element {
 
             {/* Capability legend */}
             <div className="surface-card p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                 Capabilities
               </h2>
               <ul className="space-y-1.5 text-sm font-mono">
@@ -281,7 +279,7 @@ export default function AgentMap(): JSX.Element {
                       style={{ backgroundColor: CAPABILITY_COLORS[c] }}
                     />
                     <span className="text-slate-700 dark:text-slate-300">{CAPABILITY_LABELS[c]}</span>
-                    <span className="ml-auto text-slate-500 dark:text-slate-400">{graph.capCounts[c]}</span>
+                    <span className="ml-auto text-muted">{graph.capCounts[c]}</span>
                   </li>
                 ))}
               </ul>
@@ -341,15 +339,13 @@ export default function AgentMap(): JSX.Element {
           {/* Tool list */}
           {graph.tools.length > 0 && (
             <section className="surface-card p-4 mb-6">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-                Tools
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Tools</h2>
               <ul className="space-y-1.5">
                 {graph.tools.map((t) => (
                   <li key={t.id} className="text-meta font-mono">
                     <div className="flex flex-wrap items-baseline gap-2">
                       <span className="font-semibold text-slate-900 dark:text-slate-100">{t.label}</span>
-                      <span className="text-slate-500 dark:text-slate-400">[{t.origin}]</span>
+                      <span className="text-muted">[{t.origin}]</span>
                       {t.capabilities.length === 0 ? (
                         <span className="text-micro text-slate-400 dark:text-slate-400">no capability classified</span>
                       ) : (
@@ -368,7 +364,7 @@ export default function AgentMap(): JSX.Element {
                         ))
                       )}
                     </div>
-                    {t.detail && <p className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">{t.detail}</p>}
+                    {t.detail && <p className="text-mini text-muted mt-0.5">{t.detail}</p>}
                   </li>
                 ))}
               </ul>
@@ -378,9 +374,7 @@ export default function AgentMap(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a

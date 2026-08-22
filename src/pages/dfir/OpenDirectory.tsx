@@ -100,10 +100,7 @@ export default function OpenDirectory(): JSX.Element {
       {/* Search */}
       <form onSubmit={onSubmit} className="flex gap-2 mb-8">
         <div className="relative flex-1">
-          <FolderOpen
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-          />
+          <FolderOpen size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={url}
@@ -142,7 +139,7 @@ export default function OpenDirectory(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Icon size={12} className="text-slate-500 dark:text-slate-400" />
+                  <Icon size={12} className="text-muted" />
                   <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-lg font-mono font-bold">{value}</span>
@@ -217,27 +214,70 @@ export default function OpenDirectory(): JSX.Element {
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <DataTable
-                columns={[
-                  { key: 'name', header: 'Name', sortValue: (e: typeof filteredEntries[number]) => e.name, render: (e) => (
-                    <div className="flex items-center gap-2">
-                      {e.type === 'directory' ? <FolderOpen size={12} className="text-amber-500 flex-shrink-0" /> : <File size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0" />}
-                      <span className={`font-mono truncate ${e.risk === 'critical' ? 'font-semibold text-rose-700 dark:text-rose-300' : ''}`}>{e.name}</span>
-                    </div>
-                  ) },
-                  { key: 'type', header: 'Type', sortValue: (e: typeof filteredEntries[number]) => e.extension ?? '', render: (e) => <span className="font-mono text-slate-500">{e.extension ?? (e.type === 'directory' ? 'dir' : '-')}</span> },
-                  { key: 'size', header: 'Size', align: 'right', sortValue: (e: typeof filteredEntries[number]) => e.size, render: (e) => <span className="font-mono text-slate-500">{formatSize(e.size)}</span> },
-                  { key: 'risk', header: 'Risk', sortValue: (e: typeof filteredEntries[number]) => e.risk, render: (e) => (
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase border ${SEVERITY_TONE[e.risk]}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_BAR[e.risk]}`} />
-                      {e.risk}
-                    </span>
-                  ) },
-                  { key: 'reason', header: 'Reason', render: (e) => <span className="text-slate-500">{e.riskReason ?? '-'}</span> },
-                ] as DataTableColumn<typeof filteredEntries[number]>[]}
+                columns={
+                  [
+                    {
+                      key: 'name',
+                      header: 'Name',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.name,
+                      render: (e) => (
+                        <div className="flex items-center gap-2">
+                          {e.type === 'directory' ? (
+                            <FolderOpen size={12} className="text-amber-500 flex-shrink-0" />
+                          ) : (
+                            <File size={12} className="text-muted flex-shrink-0" />
+                          )}
+                          <span
+                            className={`font-mono truncate ${e.risk === 'critical' ? 'font-semibold text-rose-700 dark:text-rose-300' : ''}`}
+                          >
+                            {e.name}
+                          </span>
+                        </div>
+                      ),
+                    },
+                    {
+                      key: 'type',
+                      header: 'Type',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.extension ?? '',
+                      render: (e) => (
+                        <span className="font-mono text-slate-500">
+                          {e.extension ?? (e.type === 'directory' ? 'dir' : '-')}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'size',
+                      header: 'Size',
+                      align: 'right',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.size,
+                      render: (e) => <span className="font-mono text-slate-500">{formatSize(e.size)}</span>,
+                    },
+                    {
+                      key: 'risk',
+                      header: 'Risk',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.risk,
+                      render: (e) => (
+                        <span
+                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase border ${SEVERITY_TONE[e.risk]}`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_BAR[e.risk]}`} />
+                          {e.risk}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'reason',
+                      header: 'Reason',
+                      render: (e) => <span className="text-slate-500">{e.riskReason ?? '-'}</span>,
+                    },
+                  ] as DataTableColumn<(typeof filteredEntries)[number]>[]
+                }
                 rows={filteredEntries}
                 rowKey={(e) => e.name}
                 onRowClick={(e) => setExpandedEntry(expandedEntry === e.name ? null : e.name)}
-                rowClassName={(e) => `cursor-pointer ${e.risk === 'critical' ? 'bg-rose-50/50 dark:bg-rose-950/10' : ''}`}
+                rowClassName={(e) =>
+                  `cursor-pointer ${e.risk === 'critical' ? 'bg-rose-50/50 dark:bg-rose-950/10' : ''}`
+                }
               />
             </div>
             {filteredEntries.length === 0 && (
@@ -255,7 +295,7 @@ export default function OpenDirectory(): JSX.Element {
         <div className="text-center py-16">
           <FolderOpen size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter a URL to scan for exposed open directories</p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-muted mt-1">
             Identifies malware staging, credential dumps, config files, and other sensitive artifacts
           </p>
         </div>

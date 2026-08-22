@@ -1,6 +1,6 @@
 export function ASCIIArt(): JSX.Element {
   return (
-    <pre className="font-mono text-xs leading-tight text-slate-500 dark:text-slate-400 select-none" aria-hidden="true">
+    <pre className="font-mono text-xs leading-tight text-muted select-none" aria-hidden="true">
       {`               .-""""-.
               /        \\
              /_        _\\

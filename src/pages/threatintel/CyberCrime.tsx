@@ -239,7 +239,7 @@ export default function CyberCrime(): JSX.Element {
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
         <input
           type="text"
           value={query}
@@ -298,7 +298,7 @@ export default function CyberCrime(): JSX.Element {
                   {shortRel(it.published) || formatDate(it.published)}
                 </span>
               </div>
-              <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">{it.source}</div>
+              <div className="text-mini font-mono text-muted mb-1">{it.source}</div>
               {it.description && (
                 <p className="text-meta font-mono text-muted leading-relaxed line-clamp-3">{it.description}</p>
               )}

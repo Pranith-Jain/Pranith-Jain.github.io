@@ -95,7 +95,7 @@ export default function BreachDisclosures(): JSX.Element {
             </a>{' '}
             corpus with verification flags, sensitivity markers, and exposed data classes.
           </span>
-          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <span className="block text-xs text-muted font-mono mt-2">
             MyThreatIntel leaks (active) + HIBP public corpus (canonical) + breach-news feeds (timely commentary).
           </span>
         </>
@@ -175,17 +175,11 @@ export default function BreachDisclosures(): JSX.Element {
                         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors flex-1 min-w-0">
                           {item.title ?? '(untitled)'}
                         </span>
-                        <ExternalLink
-                          size={11}
-                          className="text-slate-500 dark:text-slate-400 shrink-0"
-                          aria-hidden="true"
-                        />
+                        <ExternalLink size={11} className="text-muted shrink-0" aria-hidden="true" />
                       </div>
                       <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                         {item.source && <span className="text-rose-600 dark:text-rose-400">{item.source}</span>}
-                        {item.pubDate && (
-                          <span className="text-slate-500 dark:text-slate-400">{formatRelativeTime(item.pubDate)}</span>
-                        )}
+                        {item.pubDate && <span className="text-muted">{formatRelativeTime(item.pubDate)}</span>}
                       </div>
                     </a>
                     <div className="mt-2">

@@ -113,7 +113,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           type="button"
           onClick={() => handleSubmit('useful')}
           disabled={saving}
-          className="p-2 sm:p-1 rounded text-slate-500 dark:text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors disabled:opacity-50"
+          className="p-2 sm:p-1 rounded text-muted hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors disabled:opacity-50"
           title="Useful"
         >
           <svg
@@ -135,7 +135,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           type="button"
           onClick={() => handleSubmit('not_useful')}
           disabled={saving}
-          className="p-2 sm:p-1 rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors disabled:opacity-50"
+          className="p-2 sm:p-1 rounded text-muted hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors disabled:opacity-50"
           title="Not useful"
         >
           <svg
@@ -162,7 +162,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-mini font-medium text-slate-500 dark:text-slate-400">Was this intelligence useful?</span>
+      <span className="text-mini font-medium text-muted">Was this intelligence useful?</span>
       <div className="flex flex-wrap gap-1.5">
         {ratings.map((r) => (
           <button
@@ -189,7 +189,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           className="flex-1 text-mini px-2 py-1 rounded border border-slate-200 bg-white dark:border-white/10 dark:bg-transparent dark:text-slate-300 placeholder:text-slate-400 focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
           maxLength={500}
         />
-        {saving && <span className="text-micro text-slate-500 dark:text-slate-400 animate-pulse">Saving…</span>}
+        {saving && <span className="text-micro text-muted animate-pulse">Saving…</span>}
       </div>
       {error && <p className="text-micro text-rose-500">{error}</p>}
     </div>

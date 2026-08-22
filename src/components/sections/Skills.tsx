@@ -26,9 +26,7 @@ export function Skills({ skills }: SkillsProps) {
       {/* Header - matches the design-system rhythm: caps-mono kicker + a
           plain display heading + a single-line lede. */}
       <div className="mb-10 max-w-3xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          Expertise
-        </div>
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Expertise</div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Core competencies
         </h2>

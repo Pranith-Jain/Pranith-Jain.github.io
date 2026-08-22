@@ -101,7 +101,7 @@ export default function WebamonDtb() {
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Webamon Daily Threat Brief</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm text-muted">
             Source:{' '}
             <a
               href="https://github.com/webamon-org/Daily-Threat-Brief"
@@ -139,17 +139,17 @@ export default function WebamonDtb() {
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">
                   {brief.estate.campaignsTracked.toLocaleString()}
                 </div>
-                <div className="text-xs text-slate-500 dark:text-slate-400">Campaigns Tracked</div>
+                <div className="text-xs text-muted">Campaigns Tracked</div>
               </div>
               <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">
                   {brief.estate.uniqueDomains.toLocaleString()}
                 </div>
-                <div className="text-xs text-slate-500 dark:text-slate-400">Unique Domains</div>
+                <div className="text-xs text-muted">Unique Domains</div>
               </div>
               <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">{brief.estate.percentOnline}%</div>
-                <div className="text-xs text-slate-500 dark:text-slate-400">Online</div>
+                <div className="text-xs text-muted">Online</div>
               </div>
             </div>
           )}
@@ -164,7 +164,7 @@ export default function WebamonDtb() {
                   <div className="text-lg font-bold text-slate-900 dark:text-white">
                     {Number(kpi.value).toLocaleString()}
                   </div>
-                  <div className="text-mini leading-tight text-slate-500 dark:text-slate-400">{kpi.label}</div>
+                  <div className="text-mini leading-tight text-muted">{kpi.label}</div>
                 </div>
               ))}
             </div>
@@ -198,7 +198,7 @@ export default function WebamonDtb() {
                             m.title
                           )}
                         </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400">{m.detail}</p>
+                        <p className="text-xs text-muted">{m.detail}</p>
                       </div>
                     </div>
                   );
@@ -220,7 +220,7 @@ export default function WebamonDtb() {
                     >
                       {c.name} <ExternalLink size={12} />
                     </a>
-                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{c.summary}</p>
+                    <p className="mt-1 text-xs text-muted">{c.summary}</p>
                   </div>
                 ))}
               </div>
@@ -232,7 +232,7 @@ export default function WebamonDtb() {
               title={`Emerging Clusters${brief.clusters.summary ? ` (${brief.clusters.summary.total} live)` : ''}`}
             >
               {brief.clusters.summary && (
-                <p className="mb-3 text-xs text-slate-500 dark:text-slate-400">
+                <p className="mb-3 text-xs text-muted">
                   {brief.clusters.summary.critical} critical, {brief.clusters.summary.high} high
                 </p>
               )}
@@ -243,7 +243,7 @@ export default function WebamonDtb() {
                     className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300))/0.5]"
                   >
                     <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{cl.type}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                    <span className="text-xs text-muted">
                       {cl.domains.toLocaleString()} domains, +{cl.growth.toLocaleString()} ({cl.sample})
                     </span>
                   </div>

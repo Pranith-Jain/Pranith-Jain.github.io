@@ -225,7 +225,7 @@ function TimelineChart({ detections }: { detections: Detection[] }) {
 
   return (
     <Card padding="md" className="mb-6">
-      <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+      <h3 className="text-xs font-bold uppercase text-muted mb-3">
         <TrendingUp size={14} className="inline mr-1" />
         Detection Timeline (Last 14 Days)
       </h3>
@@ -306,7 +306,7 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
   return (
     <Card padding="md" className="mb-6">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+        <h3 className="text-xs font-bold uppercase text-muted">
           <Database size={14} className="inline mr-1" />
           Detection Rule Coverage (detection.wiki)
         </h3>
@@ -317,7 +317,7 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
           open full matrix <ExternalLink size={9} />
         </a>
       </div>
-      <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-[10px] text-muted mb-3">
         {coverage.totalRules.toLocaleString()} detection rules across {coverage.coveredCount} matched techniques from
         15,957 total (Sigma, Elastic, Splunk, Kusto, YARA-L, Panther, Sublime)
       </p>
@@ -369,7 +369,7 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
             <span className="text-[10px] font-mono text-slate-700 dark:text-slate-300 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
               {t.id}
             </span>
-            <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate flex-1">{t.name}</span>
+            <span className="text-[10px] text-muted truncate flex-1">{t.name}</span>
             <ExternalLink
               size={8}
               className="text-slate-400 group-hover:text-brand-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -435,7 +435,7 @@ function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element
   return (
     <Card padding="md" className="mb-6">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+        <h3 className="text-xs font-bold uppercase text-muted">
           <FlaskConical size={14} className="inline mr-1" />
           Detection Labs (detection.wiki)
         </h3>
@@ -446,9 +446,7 @@ function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element
           all labs <ExternalLink size={9} />
         </a>
       </div>
-      <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-3">
-        Hands-on KQL analysis labs matching techniques from your detections
-      </p>
+      <p className="text-[10px] text-muted mb-3">Hands-on KQL analysis labs matching techniques from your detections</p>
       <div className="space-y-2">
         {relevantLabs.slice(0, 4).map((lab) => (
           <a
@@ -466,7 +464,7 @@ function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element
                   </span>
                   <span className="text-[9px] font-mono text-slate-400">{lab.overlap} overlap</span>
                 </div>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{lab.description}</p>
+                <p className="text-[10px] text-muted mt-0.5 line-clamp-2">{lab.description}</p>
               </div>
               <ExternalLink size={9} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-0.5" />
             </div>
@@ -688,7 +686,7 @@ export default function ThreatActorMonitor() {
     >
       {/* Upstream replication provenance */}
       <div className="surface-card p-3 mb-4 flex flex-wrap items-center gap-2 text-xs font-mono">
-        <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400 border">
+        <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted border">
           Replication
         </span>
         <a
@@ -700,7 +698,7 @@ export default function ThreatActorMonitor() {
           hero-itsme/Global-Threat-Actor-Monitor <ExternalLink size={10} />
         </a>
         <span className="text-slate-400">·</span>
-        <span className="text-slate-600 dark:text-slate-400">
+        <span className="text-muted">
           Upstream: <strong>40</strong> groups · <strong>148</strong> aliases · <strong>29</strong> techniques ·{' '}
           <strong>30</strong> feeds · 7 Kill Chain stages
         </span>
@@ -740,7 +738,7 @@ export default function ThreatActorMonitor() {
           Clear
         </Button>
         {lastScan && (
-          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-xs font-mono text-muted">
             Last: {lastScan.relevant} matched · {lastScan.alerted} alerted · {lastScan.errors} errors (
             {new Date(lastScan.ts).toLocaleString()})
           </span>
@@ -753,11 +751,11 @@ export default function ThreatActorMonitor() {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <Card padding="md">
-          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">Detections</div>
+          <div className="text-xs font-mono uppercase text-muted">Detections</div>
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{detections.length}</div>
         </Card>
         <Card padding="md">
-          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">APT Groups</div>
+          <div className="text-xs font-mono uppercase text-muted">APT Groups</div>
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
             {totalAptGroupsDetected}
             <span className="text-sm text-slate-400">/{Object.keys(APT_GROUPS).length}</span>
@@ -767,14 +765,14 @@ export default function ThreatActorMonitor() {
           </div>
         </Card>
         <Card padding="md">
-          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">Techniques</div>
+          <div className="text-xs font-mono uppercase text-muted">Techniques</div>
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
             {Object.keys(TECHNIQUES).length}
           </div>
           <div className="text-xs text-slate-500">ATT&CK mapped</div>
         </Card>
         <Card padding="md">
-          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">Alerts</div>
+          <div className="text-xs font-mono uppercase text-muted">Alerts</div>
           <div className="text-2xl font-bold font-mono text-red-600 dark:text-red-400">
             {detections.filter((d) => d.confidence >= 0.5).length}
           </div>
@@ -785,7 +783,7 @@ export default function ThreatActorMonitor() {
       {/* Kill Chain + Origin + Top Sources */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <Card padding="md">
-          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+          <h3 className="text-xs font-bold uppercase text-muted mb-3">
             <Target size={14} className="inline mr-1" />
             Kill Chain Coverage
           </h3>
@@ -793,14 +791,14 @@ export default function ThreatActorMonitor() {
             {KILL_CHAIN_STAGES.map((s) => (
               <div key={s} className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded ${KC_COLORS[s]}`} />
-                <span className="text-xs text-slate-600 dark:text-slate-400 flex-1 truncate">{s}</span>
+                <span className="text-xs text-muted flex-1 truncate">{s}</span>
                 <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">{kcMap[s] ?? 0}</span>
               </div>
             ))}
           </div>
         </Card>
         <Card padding="md">
-          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+          <h3 className="text-xs font-bold uppercase text-muted mb-3">
             <Globe size={14} className="inline mr-1" />
             By Origin
           </h3>
@@ -810,21 +808,21 @@ export default function ThreatActorMonitor() {
               .slice(0, 10)
               .map(([o, c]) => (
                 <div key={o} className="flex items-center justify-between text-xs">
-                  <span className="text-slate-600 dark:text-slate-400 truncate">{o}</span>
+                  <span className="text-muted truncate">{o}</span>
                   <span className="font-mono font-bold text-slate-900 dark:text-white">{c}</span>
                 </div>
               ))}
           </div>
         </Card>
         <Card padding="md">
-          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+          <h3 className="text-xs font-bold uppercase text-muted mb-3">
             <BarChart3 size={14} className="inline mr-1" />
             Top Sources
           </h3>
           <div className="space-y-1.5">
             {sourceList.slice(0, 10).map((s) => (
               <div key={s.source} className="flex items-center justify-between text-xs">
-                <span className="text-slate-600 dark:text-slate-400 truncate max-w-[180px]">{s.source}</span>
+                <span className="text-muted truncate max-w-[180px]">{s.source}</span>
                 <span className="font-mono font-bold text-slate-900 dark:text-white">{s.c}</span>
               </div>
             ))}
@@ -845,7 +843,7 @@ export default function ThreatActorMonitor() {
       <Card padding="md" className="mb-6">
         <div className="flex items-center gap-2 mb-3">
           <Settings size={14} className="text-slate-500" />
-          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+          <h3 className="text-xs font-bold uppercase text-muted">
             OSINT Sources ({enabledSources.length}/{OSINT_SOURCES.length})
           </h3>
         </div>
@@ -877,7 +875,7 @@ export default function ThreatActorMonitor() {
           ) : (
             <BellOff size={14} className="text-slate-400" />
           )}
-          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+          <h3 className="text-xs font-bold uppercase text-muted">
             Email Alerts {alertSettings.enabled ? '(ON)' : '(OFF)'}
           </h3>
           <span className="ml-auto text-xs text-slate-400">{showAlertSettings ? '▾' : '▸'}</span>
@@ -908,7 +906,7 @@ export default function ThreatActorMonitor() {
               </label>
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
+              <label className="text-xs font-medium text-muted mb-1 block">
                 Confidence Threshold ({(alertSettings.threshold * 100).toFixed(0)}%)
               </label>
               <input
@@ -923,7 +921,7 @@ export default function ThreatActorMonitor() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
+                <label className="text-xs font-medium text-muted mb-1 block">
                   <Mail size={12} className="inline mr-1" />
                   Email (mailto: draft)
                 </label>
@@ -935,7 +933,7 @@ export default function ThreatActorMonitor() {
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
+                <label className="text-xs font-medium text-muted mb-1 block">
                   <Webhook size={12} className="inline mr-1" />
                   Webhook URL
                 </label>
@@ -948,9 +946,7 @@ export default function ThreatActorMonitor() {
               </div>
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
-                Auto-Scan Interval
-              </label>
+              <label className="text-xs font-medium text-muted mb-1 block">Auto-Scan Interval</label>
               <Select
                 value={String(alertSettings.autoScanMinutes)}
                 onChange={(e) => setAlertSettings((s) => ({ ...s, autoScanMinutes: +e.target.value }))}
@@ -989,7 +985,7 @@ export default function ThreatActorMonitor() {
             <option value="medium">Medium (35-70%)</option>
             <option value="low">Low (&lt;35%)</option>
           </Select>
-          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} detections</span>
+          <span className="text-xs font-mono text-muted">{filtered.length} detections</span>
           <div className="flex gap-1">
             <button
               onClick={() => exportCsv(filtered)}
@@ -1043,7 +1039,7 @@ export default function ThreatActorMonitor() {
                       <ExternalLink size={12} className="text-slate-400 shrink-0" />
                     </div>
                     <div className="flex flex-wrap items-center gap-1.5 mb-2">
-                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{d.source}</span>
+                      <span className="text-xs font-mono text-muted">{d.source}</span>
                       {d.published && (
                         <span className="text-xs text-slate-400">· {new Date(d.published).toLocaleDateString()}</span>
                       )}

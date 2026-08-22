@@ -81,7 +81,7 @@ export default function RansomwareActivity({ embedded = false }: { embedded?: bo
             the other trackers fill coverage gaps and keep the page populated when any single source is degraded.
             Reference only; verify before acting.
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <p className="text-xs text-muted font-mono">
             Refreshed hourly from upstream. See also{' '}
             <Link to="/threatintel/ransomware-hub" className="text-rose-600 dark:text-rose-400 hover:underline">
               ransomware negotiations

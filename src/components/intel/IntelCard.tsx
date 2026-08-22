@@ -75,9 +75,7 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
           risk {ioc.riskScore}
         </Badge>
       )}
-      {ioc.listedIn.length > 0 && (
-        <span className="text-micro text-slate-500 dark:text-slate-400">listed in {ioc.listedIn.length}</span>
-      )}
+      {ioc.listedIn.length > 0 && <span className="text-micro text-muted">listed in {ioc.listedIn.length}</span>}
       <span className="ml-auto text-micro uppercase tracking-wider text-slate-400 dark:text-slate-400">
         {VERDICT_LABEL[ioc.verdict]}
       </span>
@@ -157,7 +155,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         )}
       </header>
 
-      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+      <p className="mt-1 text-xs text-muted">
         Source: {view.source.name}
         {view.publishedAt && (
           <>
@@ -282,7 +280,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           <ul className="space-y-1 text-xs">
             {view.affectedProducts.map((p) => (
               <li key={`${p.vendor}|${p.product}`} className="font-mono text-slate-700 dark:text-slate-300">
-                <span className="text-slate-500 dark:text-slate-400">{p.vendor}</span> · {p.product}
+                <span className="text-muted">{p.vendor}</span> · {p.product}
               </li>
             ))}
           </ul>
@@ -299,9 +297,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
               if (!list || list.length === 0) return null;
               return (
                 <div key={t}>
-                  <p className="mb-1 text-micro font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    {t}
-                  </p>
+                  <p className="mb-1 text-micro font-semibold uppercase tracking-wider text-muted">{t}</p>
                   <div className="space-y-1">
                     {list.map((ioc) => (
                       <IocBadge key={`${ioc.type}|${ioc.value}`} ioc={ioc} />
@@ -316,20 +312,18 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
 
       {expanded && ((view.actorCandidates?.length ?? 0) > 0 || (view.malwareCandidates?.length ?? 0) > 0) && (
         <details className="mt-4 rounded border border-dashed border-slate-300 bg-slate-50/50 p-3 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.5)]">
-          <summary className="cursor-pointer font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <summary className="cursor-pointer font-semibold uppercase tracking-wider text-muted">
             Suggested (unverified, LLM)
           </summary>
           <div className="mt-3 space-y-3">
             {view.actorCandidates && view.actorCandidates.length > 0 && (
               <div>
-                <h5 className="mb-1 text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Candidate actors
-                </h5>
+                <h5 className="mb-1 text-micro uppercase tracking-wider text-muted">Candidate actors</h5>
                 <ul className="space-y-1">
                   {view.actorCandidates.map((c) => (
                     <li key={c.name}>
                       <span className="font-mono text-slate-700 dark:text-slate-300">{c.name}</span>
-                      {c.rationale && <span className="text-slate-500 dark:text-slate-400"> - {c.rationale}</span>}
+                      {c.rationale && <span className="text-muted"> - {c.rationale}</span>}
                     </li>
                   ))}
                 </ul>
@@ -337,14 +331,12 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             )}
             {view.malwareCandidates && view.malwareCandidates.length > 0 && (
               <div>
-                <h5 className="mb-1 text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Candidate malware
-                </h5>
+                <h5 className="mb-1 text-micro uppercase tracking-wider text-muted">Candidate malware</h5>
                 <ul className="space-y-1">
                   {view.malwareCandidates.map((c) => (
                     <li key={c.name}>
                       <span className="font-mono text-slate-700 dark:text-slate-300">{c.name}</span>
-                      {c.rationale && <span className="text-slate-500 dark:text-slate-400"> - {c.rationale}</span>}
+                      {c.rationale && <span className="text-muted"> - {c.rationale}</span>}
                     </li>
                   ))}
                 </ul>
@@ -405,9 +397,7 @@ function CountPill({ label, n }: { label: string; n: number }): JSX.Element {
 function Section({ title, children }: { title: string; children: ReactNode }): JSX.Element {
   return (
     <section className="mt-4">
-      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-        {title}
-      </h4>
+      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">{title}</h4>
       {children}
     </section>
   );

@@ -720,14 +720,14 @@ export default function VeraChat(): JSX.Element {
           <button
             type="button"
             onClick={() => setSidebarOpen((p) => !p)}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
+            className="flex h-7 w-7 items-center justify-center rounded-md text-muted hover:bg-slate-100 hover:text-rose-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
             aria-label="Toggle sidebar"
           >
             <PanelLeftOpen size={15} />
           </button>
           <BackLink
             to="/threatintel"
-            className="flex items-center gap-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 shrink-0"
+            className="flex items-center gap-1 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 shrink-0"
           >
             back
           </BackLink>
@@ -743,7 +743,7 @@ export default function VeraChat(): JSX.Element {
                 </span>
               </>
             ) : (
-              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Vera</span>
+              <span className="text-sm font-medium text-muted">Vera</span>
             )}
           </div>
           <div className="flex items-center gap-1.5">
@@ -752,7 +752,7 @@ export default function VeraChat(): JSX.Element {
                 <button
                   type="button"
                   onClick={exportConversation}
-                  className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="flex h-7 w-7 items-center justify-center rounded-md text-muted hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                   aria-label="Export conversation"
                 >
                   <Download size={13} />
@@ -781,7 +781,7 @@ export default function VeraChat(): JSX.Element {
                     <ModeIcon className="h-7 w-7 text-white" />
                   </div>
                   <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Vera</h1>
-                  <p className="max-w-lg text-sm text-slate-500 dark:text-slate-400">
+                  <p className="max-w-lg text-sm text-muted">
                     Your AI threat-intel analyst. Ask, investigate, draft, or challenge - in plain English.
                   </p>
                   {/* Mode selector */}
@@ -807,10 +807,10 @@ export default function VeraChat(): JSX.Element {
                       );
                     })}
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 italic">{activeModeDef.description}</p>
+                  <p className="text-xs text-muted italic">{activeModeDef.description}</p>
                   {/* Role selector */}
                   <div className="flex flex-wrap justify-center gap-1.5">
-                    <span className="text-micro text-slate-500 dark:text-slate-400 self-center mr-1 font-medium uppercase tracking-wider">
+                    <span className="text-micro text-muted self-center mr-1 font-medium uppercase tracking-wider">
                       As:
                     </span>
                     {ROLES.map((r) => {
@@ -844,8 +844,7 @@ export default function VeraChat(): JSX.Element {
                         }}
                         className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
                       >
-                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span>{' '}
-                        <span className="font-mono">{ex.label}</span>
+                        <span className="text-muted">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
                     ))}
                   </div>
@@ -872,7 +871,7 @@ export default function VeraChat(): JSX.Element {
                       >
                         <Icon className="h-4 w-4 text-rose-500" />
                         <span className="text-xs font-medium">{label}</span>
-                        <span className="text-mini text-slate-500 dark:text-slate-400">{desc}</span>
+                        <span className="text-mini text-muted">{desc}</span>
                       </div>
                     ))}
                   </div>
@@ -895,7 +894,7 @@ export default function VeraChat(): JSX.Element {
                             className="absolute -left-7 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100"
                             aria-label="Edit message"
                           >
-                            <Edit3 size={12} className="text-slate-500 dark:text-slate-400 hover:text-rose-600" />
+                            <Edit3 size={12} className="text-muted hover:text-rose-600" />
                           </button>
                         </div>
                       </div>
@@ -935,9 +934,7 @@ export default function VeraChat(): JSX.Element {
                                         style={{ animationDelay: '300ms' }}
                                       />
                                     </div>
-                                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
-                                      Investigating
-                                    </span>
+                                    <span className="font-mono text-xs text-muted">Investigating</span>
                                   </div>
                                   <button
                                     type="button"
@@ -959,7 +956,7 @@ export default function VeraChat(): JSX.Element {
                                   className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                                 >
                                   {s.name}
-                                  <span className="text-slate-500 dark:text-slate-400">({s.items})</span>
+                                  <span className="text-muted">({s.items})</span>
                                 </span>
                               ))}
                             </div>
@@ -967,9 +964,7 @@ export default function VeraChat(): JSX.Element {
                           <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
                             <div className="flex items-center gap-2">
                               {msg.model_used && (
-                                <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
-                                  via {msg.model_used}
-                                </span>
+                                <span className="font-mono text-mini text-muted">via {msg.model_used}</span>
                               )}
                               {cost && i === chatMessages.length - 1 && (
                                 <span className="font-mono text-mini text-slate-400 dark:text-slate-500">
@@ -998,7 +993,7 @@ export default function VeraChat(): JSX.Element {
                                       })
                                       .catch(() => toast.error('Failed to copy to clipboard'));
                                   }}
-                                  className="text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
+                                  className="text-muted hover:text-rose-600 transition-colors"
                                   aria-label="Copy response"
                                 >
                                   {copiedIndex === i ? (
@@ -1071,7 +1066,7 @@ export default function VeraChat(): JSX.Element {
             <div className="mx-auto max-w-4xl px-4 py-8">
               <div className="flex flex-col items-center gap-4 text-center mb-6">
                 <h1 className="text-2xl font-bold tracking-tight">Draft Report</h1>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Generate a structured CTI report</p>
+                <p className="text-sm text-muted">Generate a structured CTI report</p>
               </div>
               <div className="flex w-full flex-col gap-3">
                 <div className="flex flex-wrap items-center justify-center gap-2 mb-2">
@@ -1100,7 +1095,7 @@ export default function VeraChat(): JSX.Element {
                   </select>
                 </div>
                 <div className="relative">
-                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" />
                   <input
                     ref={inputRef}
                     type="text"
@@ -1143,7 +1138,7 @@ export default function VeraChat(): JSX.Element {
 
               {!hasResults && !loading && !progress && !report && (
                 <div className="mt-6 flex flex-col items-center gap-3">
-                  <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted">
                     <Lightbulb size={12} /> Try an example
                   </p>
                   <div className="flex flex-wrap justify-center gap-2">
@@ -1157,8 +1152,7 @@ export default function VeraChat(): JSX.Element {
                         }}
                         className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
                       >
-                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span>{' '}
-                        <span className="font-mono">{ex.label}</span>
+                        <span className="text-muted">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
                     ))}
                   </div>
@@ -1172,7 +1166,7 @@ export default function VeraChat(): JSX.Element {
                     aria-live="polite"
                     className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
                   >
-                    <div className="mb-2 flex items-center justify-between font-mono text-xs text-slate-500 dark:text-slate-400">
+                    <div className="mb-2 flex items-center justify-between font-mono text-xs text-muted">
                       <span className="inline-flex items-center gap-2">
                         <Loader2 size={13} className="animate-spin text-rose-500" /> {progress.phase}
                       </span>
@@ -1181,7 +1175,7 @@ export default function VeraChat(): JSX.Element {
                     <div className="h-1.5 overflow-hidden rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
                       <div className="h-full bg-rose-500 transition-all" style={{ width: `${progress.pct}%` }} />
                     </div>
-                    <p className="mt-2 font-mono text-xs text-slate-500 dark:text-slate-400">{progress.detail}</p>
+                    <p className="mt-2 font-mono text-xs text-muted">{progress.detail}</p>
                   </section>
                 )}
 
@@ -1190,7 +1184,7 @@ export default function VeraChat(): JSX.Element {
                 {loading && !progress && (
                   <div className="py-16 text-center">
                     <Loader2 size={32} className="mx-auto mb-4 animate-spin text-rose-500" />
-                    <p className="font-mono text-sm text-slate-500 dark:text-slate-400">Gathering intelligence…</p>
+                    <p className="font-mono text-sm text-muted">Gathering intelligence…</p>
                   </div>
                 )}
               </div>
@@ -1306,8 +1300,8 @@ function FollowUpSuggestions({
   if (loadingFU) {
     return (
       <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
-        <Loader2 size={11} className="animate-spin text-slate-500 dark:text-slate-400" />
-        <span className="font-mono text-mini text-slate-500 dark:text-slate-400">Suggesting follow-ups…</span>
+        <Loader2 size={11} className="animate-spin text-muted" />
+        <span className="font-mono text-mini text-muted">Suggesting follow-ups…</span>
       </div>
     );
   }
@@ -1395,7 +1389,7 @@ function SessionSidebar({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl p-1 text-slate-500 dark:text-slate-400 hover:text-slate-600 transition-colors"
+              className="rounded-xl p-1 text-muted hover:text-slate-600 transition-colors"
               aria-label="Close sidebar"
             >
               <PanelLeftClose size={16} />
@@ -1405,13 +1399,11 @@ function SessionSidebar({
         <div className="flex-1 overflow-y-auto">
           {loading && (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={16} className="animate-spin text-slate-500 dark:text-slate-400" />
+              <Loader2 size={16} className="animate-spin text-muted" />
             </div>
           )}
           {!loading && sessions.length === 0 && (
-            <div className="px-4 py-8 text-center font-mono text-xs text-slate-500 dark:text-slate-400">
-              No conversations yet
-            </div>
+            <div className="px-4 py-8 text-center font-mono text-xs text-muted">No conversations yet</div>
           )}
           {!loading &&
             sessions.map((s) => (
@@ -1422,10 +1414,10 @@ function SessionSidebar({
                 }`}
                 onClick={() => onSelect(s.id)}
               >
-                <MessageSquare size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
+                <MessageSquare size={14} className="shrink-0 text-muted" />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{s.title}</div>
-                  <div className="flex items-center gap-2 text-mini font-mono text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-2 text-mini font-mono text-muted">
                     <Clock size={10} />
                     <span>{formatTime(s.updated_at)}</span>
                     <span>
@@ -1452,9 +1444,7 @@ function SessionSidebar({
         <div className="border-t border-slate-100 p-3 dark:border-[rgb(var(--border-400))]">
           {onVeraModeChange && veraMode && veraModes && (
             <div className="mb-2">
-              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
-                Mode
-              </label>
+              <label className="mb-1 block text-mini font-mono font-medium text-muted">Mode</label>
               <div className="flex gap-1">
                 {veraModes.map((m) => (
                   <button
@@ -1475,9 +1465,7 @@ function SessionSidebar({
           )}
           {role && roles && onRoleChange && (
             <div className="mb-2">
-              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
-                Role
-              </label>
+              <label className="mb-1 block text-mini font-mono font-medium text-muted">Role</label>
               <select
                 value={role}
                 onChange={(e) => onRoleChange(e.target.value as AnalystRole)}
@@ -1494,9 +1482,7 @@ function SessionSidebar({
           <div className="flex gap-2">
             {onTemplateChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
-                  Template
-                </label>
+                <label className="mb-1 block text-mini font-mono font-medium text-muted">Template</label>
                 <select
                   value={template}
                   onChange={(e) => onTemplateChange(e.target.value)}
@@ -1510,9 +1496,7 @@ function SessionSidebar({
             )}
             {onTlpChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
-                  TLP
-                </label>
+                <label className="mb-1 block text-mini font-mono font-medium text-muted">TLP</label>
                 <select
                   value={tlp}
                   onChange={(e) => onTlpChange(e.target.value)}

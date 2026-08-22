@@ -78,7 +78,7 @@ export default function EmailDefense(): JSX.Element {
         <>
           Look up a domain's SPF / DMARC / DKIM / MTA-STS posture and score how easy it is to spoof for a BEC pretext.
           Each gap is paired with the specific BEC scenario it enables and a copy-pastable corrected record.
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <p className="text-xs text-muted font-mono mt-2">
             Different angle from the generic{' '}
             <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
               Domain Lookup
@@ -99,11 +99,7 @@ export default function EmailDefense(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <Search
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={domain}
@@ -135,7 +131,7 @@ export default function EmailDefense(): JSX.Element {
           {/* Score */}
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                 Spoofability score for {data.domain}
               </h2>
               <span
@@ -225,7 +221,7 @@ export default function EmailDefense(): JSX.Element {
             data.email_auth.bimi.present ||
             data.email_auth.tls_rpt.present) && (
             <section className="surface-card p-4 mb-6">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
                 Records observed
               </h2>
               <div className="space-y-2">
@@ -254,7 +250,7 @@ export default function EmailDefense(): JSX.Element {
           {/* Gaps */}
           {assessment.gaps.length > 0 && (
             <section className="surface-card p-4 mb-6">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
                 Gaps & BEC scenarios ({assessment.gaps.length})
               </h2>
               <ul className="space-y-3">
@@ -279,7 +275,7 @@ export default function EmailDefense(): JSX.Element {
                     {g.record && (
                       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5 mt-2">
                         <div className="flex items-center justify-between gap-2 mb-1">
-                          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted">
                             Suggested record · {g.record.name} {g.record.type}
                           </span>
                           <CopyChip value={g.record.value} />
@@ -318,9 +314,7 @@ export default function EmailDefense(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
@@ -370,9 +364,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
           : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
       }`}
     >
-      <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
-        {label}
-      </div>
+      <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>
       <div
         className={`text-sm font-mono ${
           good ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-200'
@@ -388,9 +380,7 @@ function RecordRow({ name, value }: { name: string; value: string }): JSX.Elemen
   return (
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
       <div className="flex items-center justify-between gap-2 mb-1">
-        <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          {name}
-        </span>
+        <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted">{name}</span>
         <CopyChip value={value} />
       </div>
       <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">

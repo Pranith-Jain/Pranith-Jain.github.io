@@ -207,7 +207,7 @@ export default function AttackFlowLibrary(): JSX.Element {
 
           {flowLoading && (
             <div className="flex items-center justify-center py-10" role="status" aria-live="polite">
-              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" aria-hidden="true" />
+              <Loader2 size={20} className="animate-spin text-muted" aria-hidden="true" />
               <span className="sr-only">Loading flow…</span>
             </div>
           )}
@@ -267,9 +267,7 @@ export default function AttackFlowLibrary(): JSX.Element {
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">{flow.name}</h3>
                 {flow.size > 0 && (
-                  <span className="shrink-0 text-micro font-mono text-slate-500 dark:text-slate-400">
-                    {fmtSize(flow.size)}
-                  </span>
+                  <span className="shrink-0 text-micro font-mono text-muted">{fmtSize(flow.size)}</span>
                 )}
               </div>
 
@@ -299,7 +297,7 @@ export default function AttackFlowLibrary(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           Data:{' '}
           <a
             href={data.source_url}

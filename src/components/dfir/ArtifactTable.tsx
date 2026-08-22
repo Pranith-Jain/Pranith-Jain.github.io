@@ -73,11 +73,11 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
       >
         <td className="py-2.5 pl-2 pr-3">
           <div className="flex items-center gap-2">
-            <ChevronRight size={12} className={`text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
+            <ChevronRight size={12} className={`text-muted transition-transform ${open ? 'rotate-90' : ''}`} />
             {isDir ? (
               <Folder size={14} className="text-amber-500 dark:text-amber-400 shrink-0" />
             ) : (
-              <FileText size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+              <FileText size={14} className="text-muted shrink-0" />
             )}
             <span className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate">{artifact.name}</span>
             {artifact.tags.map((t) => (
@@ -85,10 +85,8 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
             ))}
           </div>
         </td>
-        <td className="py-2.5 px-3 font-mono text-xs text-slate-500 dark:text-slate-400">{artifact.type}</td>
-        <td className="py-2.5 px-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-right">
-          {formatSize(artifact.size)}
-        </td>
+        <td className="py-2.5 px-3 font-mono text-xs text-muted">{artifact.type}</td>
+        <td className="py-2.5 px-3 font-mono text-xs text-muted text-right">{formatSize(artifact.size)}</td>
         <td className="py-2.5 px-3 text-right">
           {artifact.http_status ? (
             <span className="font-mono text-xs text-amber-600 dark:text-amber-400 border border-amber-300/50 dark:border-amber-500/30 rounded px-1.5 py-0.5">
@@ -104,28 +102,28 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
           <td colSpan={4} className="px-9 py-3">
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 font-mono text-xs">
               <div className="flex gap-2">
-                <dt className="text-slate-500 dark:text-slate-400 w-24">kind</dt>
+                <dt className="text-muted w-24">kind</dt>
                 <dd className="text-slate-700 dark:text-slate-300">{artifact.kind}</dd>
               </div>
               <div className="flex gap-2">
-                <dt className="text-slate-500 dark:text-slate-400 w-24">source</dt>
+                <dt className="text-muted w-24">source</dt>
                 <dd className="text-slate-700 dark:text-slate-300">{artifact.source}</dd>
               </div>
               {artifact.last_seen && (
                 <div className="flex gap-2">
-                  <dt className="text-slate-500 dark:text-slate-400 w-24">last seen</dt>
+                  <dt className="text-muted w-24">last seen</dt>
                   <dd className="text-slate-700 dark:text-slate-300">{artifact.last_seen}</dd>
                 </div>
               )}
               <div className="flex gap-2">
-                <dt className="text-slate-500 dark:text-slate-400 w-24">classification</dt>
+                <dt className="text-muted w-24">classification</dt>
                 <dd className="text-slate-700 dark:text-slate-300">
                   {artifact.tags.length ? artifact.tags.join(', ') : 'unclassified'}
                 </dd>
               </div>
               {mitre && (
                 <div className="flex gap-2">
-                  <dt className="text-slate-500 dark:text-slate-400 w-24">MITRE</dt>
+                  <dt className="text-muted w-24">MITRE</dt>
                   <dd>
                     <span className="text-rose-600 dark:text-rose-400 border border-rose-300/50 dark:border-rose-500/30 rounded px-1.5 py-0.5">
                       {mitre.id}
@@ -146,21 +144,17 @@ const ArtifactRow = memo(ArtifactRowInner);
 
 export function ArtifactTable({ artifacts }: { artifacts: HostArtifact[] }): JSX.Element {
   if (artifacts.length === 0) {
-    return <p className="font-mono text-sm text-slate-500 dark:text-slate-400">No artifacts found.</p>;
+    return <p className="font-mono text-sm text-muted">No artifacts found.</p>;
   }
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
           <tr className="text-left">
-            <th className="py-2 pl-2 pr-3 font-mono text-xs uppercase text-slate-500 dark:text-slate-400">Name</th>
-            <th className="py-2 px-3 font-mono text-xs uppercase text-slate-500 dark:text-slate-400">Type</th>
-            <th className="py-2 px-3 font-mono text-xs uppercase text-slate-500 dark:text-slate-400 text-right">
-              Size
-            </th>
-            <th className="py-2 px-3 font-mono text-xs uppercase text-slate-500 dark:text-slate-400 text-right">
-              Status
-            </th>
+            <th className="py-2 pl-2 pr-3 font-mono text-xs uppercase text-muted">Name</th>
+            <th className="py-2 px-3 font-mono text-xs uppercase text-muted">Type</th>
+            <th className="py-2 px-3 font-mono text-xs uppercase text-muted text-right">Size</th>
+            <th className="py-2 px-3 font-mono text-xs uppercase text-muted text-right">Status</th>
           </tr>
         </thead>
         <tbody>

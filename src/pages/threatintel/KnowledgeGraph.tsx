@@ -177,10 +177,8 @@ export default function KnowledgeGraph(): JSX.Element {
       {/* Filter card */}
       <section className="surface-card p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
-          <Filter className="h-4 w-4 text-slate-500 dark:text-slate-400" />
-          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            types:
-          </span>
+          <Filter className="h-4 w-4 text-muted" />
+          <span className="text-micro font-mono uppercase tracking-wider text-muted">types:</span>
           {TYPE_OPTIONS.map((t) => {
             const active = types.has(t.id);
             const c = TYPE_COLORS[t.id] ?? '#94a3b8';
@@ -190,9 +188,7 @@ export default function KnowledgeGraph(): JSX.Element {
                 type="button"
                 onClick={() => toggleType(t.id)}
                 className={`text-micro font-mono uppercase tracking-wider rounded-full border px-2 py-0.5 transition-colors ${
-                  active
-                    ? 'text-white'
-                    : 'text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'
+                  active ? 'text-white' : 'text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'
                 }`}
                 style={active ? { background: c, borderColor: c } : undefined}
               >
@@ -204,12 +200,12 @@ export default function KnowledgeGraph(): JSX.Element {
             <button
               type="button"
               onClick={() => setTypes(new Set())}
-              className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted hover:text-slate-700 dark:hover:text-slate-300"
             >
               clear
             </button>
           )}
-          <span className="ml-auto flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span className="ml-auto flex items-center gap-2 text-xs text-muted">
             <label htmlFor="kg-days">last</label>
             <select
               id="kg-days"
@@ -256,7 +252,7 @@ export default function KnowledgeGraph(): JSX.Element {
 
       {/* Status bar */}
       {data && (
-        <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted font-mono">
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
             {data.stats.nodeCount} nodes
           </span>
@@ -278,7 +274,7 @@ export default function KnowledgeGraph(): JSX.Element {
           role="status"
           aria-live="polite"
         >
-          <div className="flex flex-col items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex flex-col items-center gap-3 text-sm text-muted">
             <RefreshCw className="h-6 w-6 animate-spin text-rose-500" aria-hidden="true" />
             <span>Building the cross-report graph…</span>
           </div>
@@ -309,7 +305,7 @@ export default function KnowledgeGraph(): JSX.Element {
             </ReactFlowProvider>
           </section>
         ) : (
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
             No nodes match the current filters. Try widening the time window or clearing the type filter.
           </section>
         ))}

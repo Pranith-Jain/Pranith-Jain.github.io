@@ -300,7 +300,7 @@ export default function ThreatFeeds(): JSX.Element {
           Live aggregator of threat-intelligence sources. {ALL_FEED_IDS.length} feeds fetched server-side, deduped,
           sorted by publication time, bucketed into six sections.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Industry / AI / general-tech content lives in{' '}
           <Link to="/threatintel/catalog?cat=social" className="text-brand-600 dark:text-brand-400 hover:underline">
             Tech &amp; AI News
@@ -333,7 +333,7 @@ export default function ThreatFeeds(): JSX.Element {
                 AI Threat Analysis
               </span>
               {topAnalysis && (
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-1">
+                <span className="text-micro font-mono text-muted ml-1">
                   {topAnalysisModel && topAnalysisModel.split(':').pop()}
                 </span>
               )}
@@ -344,14 +344,14 @@ export default function ThreatFeeds(): JSX.Element {
                   Analyze Feed
                 </span>
               )}
-              <span className="text-micro text-slate-500 dark:text-slate-400">{topAnalysisExpanded ? '▲' : '▼'}</span>
+              <span className="text-micro text-muted">{topAnalysisExpanded ? '▲' : '▼'}</span>
             </div>
           </button>
 
           {topAnalysisExpanded && (
             <div className="px-4 pb-4">
               {topAnalysisLoading && !topAnalysis && (
-                <div className="flex items-center gap-2 py-4 text-sm text-slate-500 dark:text-slate-400">
+                <div className="flex items-center gap-2 py-4 text-sm text-muted">
                   <Loader2 size={14} className="animate-spin" />
                   Analyzing feed content…
                 </div>
@@ -412,7 +412,7 @@ export default function ThreatFeeds(): JSX.Element {
                       <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
                       <ul className="space-y-0.5">
                         {topAnalysis.recommended_actions.map((a, i) => (
-                          <li key={i} className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-slate-400">
+                          <li key={i} className="flex items-start gap-1.5 text-xs text-muted">
                             <span className="text-brand-400 mt-0.5">•</span>
                             {a}
                           </li>
@@ -433,7 +433,7 @@ export default function ThreatFeeds(): JSX.Element {
               )}
 
               {!topAnalysisLoading && !topAnalysisError && !topAnalysis && (
-                <p className="text-sm text-slate-500 dark:text-slate-400 py-2 italic">
+                <p className="text-sm text-muted py-2 italic">
                   Click to generate an AI-powered threat analysis of the latest {annotated.length} feed items.
                 </p>
               )}
@@ -531,7 +531,7 @@ export default function ThreatFeeds(): JSX.Element {
         {showSourcePanel && (
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+              <p className="text-mini font-mono text-muted">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
                 localStorage.
               </p>

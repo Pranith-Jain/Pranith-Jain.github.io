@@ -186,7 +186,7 @@ export function AiSummaryCard({
             AI Summary - {surface}
           </span>
           {data && (
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-1">
+            <span className="text-micro font-mono text-muted ml-1">
               {data.itemCount} items · {data.modelUsed.split(':').pop()}
             </span>
           )}
@@ -204,7 +204,7 @@ export function AiSummaryCard({
               Generate
             </button>
           )}
-          <span className="text-micro text-slate-500 dark:text-slate-400">{expanded ? '▲' : '▼'}</span>
+          <span className="text-micro text-muted">{expanded ? '▲' : '▼'}</span>
         </div>
       </button>
 
@@ -212,7 +212,7 @@ export function AiSummaryCard({
       {expanded && (
         <div className="px-4 pb-4">
           {loading && (
-            <div className="flex items-center gap-2 py-4 text-sm text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-2 py-4 text-sm text-muted">
               <Loader2 size={14} className="animate-spin" />
               Generating AI summary…
             </div>
@@ -256,7 +256,7 @@ export function AiSummaryCard({
           )}
 
           {!loading && !error && !data && (
-            <p className="text-sm text-slate-500 dark:text-slate-400 py-2 italic">
+            <p className="text-sm text-muted py-2 italic">
               Click "Generate" to create an AI-powered summary of today's {surface.toLowerCase()}.
             </p>
           )}

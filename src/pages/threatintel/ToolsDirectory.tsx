@@ -95,16 +95,16 @@ export default function ToolsDirectory(): JSX.Element {
       title="Tools Directory"
       description="A curated directory of offensive and defensive security tools from the novasky.io reference. Browse by category, search by keyword, or filter by capability type."
       headerExtra={
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {data && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
+            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
               {data.count} tools
             </span>
           )}
@@ -134,7 +134,7 @@ export default function ToolsDirectory(): JSX.Element {
           <section className="surface-card p-4 mb-4">
             <div className="flex flex-col gap-3">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -151,7 +151,7 @@ export default function ToolsDirectory(): JSX.Element {
                   className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                     selectedCategory === null
                       ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   all
@@ -164,7 +164,7 @@ export default function ToolsDirectory(): JSX.Element {
                     className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                       selectedCategory === cat
                         ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                     }`}
                   >
                     {cat}
@@ -188,7 +188,7 @@ export default function ToolsDirectory(): JSX.Element {
                     className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                       offensiveFilter === opt.value
                         ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                     }`}
                   >
                     {opt.label}
@@ -200,7 +200,7 @@ export default function ToolsDirectory(): JSX.Element {
 
           {/* Tool grid */}
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               No tools match your filters
               {query && <> for &quot;{query}&quot;</>}.
@@ -221,7 +221,7 @@ export default function ToolsDirectory(): JSX.Element {
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
   );
@@ -239,11 +239,11 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
         <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
           {tool.name}
         </h3>
-        <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-rose-500 transition-colors" />
+        <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted group-hover:text-rose-500 transition-colors" />
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5 mb-2">
-        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-slate-500 dark:text-slate-400">
+        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted">
           {tool.category}
         </span>
         {tool.isOpenSource && (
@@ -267,17 +267,12 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
       <div className="flex items-center justify-between gap-2">
         <div className="flex flex-wrap gap-1">
           {tool.tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="text-micro font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-0.5"
-            >
+            <span key={tag} className="text-micro font-mono text-muted inline-flex items-center gap-0.5">
               <Tag className="h-2.5 w-2.5" />
               {tag}
             </span>
           ))}
-          {tool.tags.length > 3 && (
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{tool.tags.length - 3}</span>
-          )}
+          {tool.tags.length > 3 && <span className="text-micro font-mono text-muted">+{tool.tags.length - 3}</span>}
         </div>
         {tool.githubUrl && (
           <a
@@ -285,7 +280,7 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="shrink-0 text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             title="GitHub repository"
           >
             <Github className="h-4 w-4" />

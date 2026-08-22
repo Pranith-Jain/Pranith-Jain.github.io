@@ -431,7 +431,7 @@ export default function CtiGlobe({
             />
             <div>
               <p className="text-sm font-medium text-slate-200">{hoveredPoint.label}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-xs text-muted mt-0.5">
                 {hoveredPoint.severity.toUpperCase()}
                 {hoveredPoint.kind ? ` · ${hoveredPoint.kind.replace(/_/g, ' ')}` : ''}
                 {hoveredPoint.source ? ` · ${hoveredPoint.source}` : ''}
@@ -520,7 +520,7 @@ export default function CtiGlobe({
       {/* Stats */}
       {ready && (
         <div className="absolute bottom-4 left-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-1.5 pointer-events-none">
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-micro font-mono text-muted">
             {points.length} points · {arcs.length} arcs
           </span>
         </div>

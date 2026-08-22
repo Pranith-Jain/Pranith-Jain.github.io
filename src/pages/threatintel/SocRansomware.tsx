@@ -271,7 +271,7 @@ export default function SocRansomware(): JSX.Element {
           value={
             <span className="inline-flex items-baseline gap-2">
               <span className="truncate">{kpis.topName}</span>
-              <span className="text-2xl text-slate-500 dark:text-slate-400">({kpis.topPct})</span>
+              <span className="text-2xl text-muted">({kpis.topPct})</span>
             </span>
           }
           severity="high"
@@ -283,9 +283,7 @@ export default function SocRansomware(): JSX.Element {
           value={
             <span className="inline-flex items-baseline gap-2">
               <span className="truncate">{kpis.topSector}</span>
-              {kpis.topSectorPct && (
-                <span className="text-2xl text-slate-500 dark:text-slate-400">({kpis.topSectorPct})</span>
-              )}
+              {kpis.topSectorPct && <span className="text-2xl text-muted">({kpis.topSectorPct})</span>}
             </span>
           }
           severity="medium"
@@ -347,7 +345,7 @@ export default function SocRansomware(): JSX.Element {
             title="Claim frequency (daily)"
             right={
               timeline.length > 0 ? (
-                <span className="text-meta font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-meta font-mono text-muted">
                   peak {Math.max(...timeline.map((t) => t.value))} / day
                 </span>
               ) : null
@@ -366,7 +364,7 @@ export default function SocRansomware(): JSX.Element {
           <SocPanel>
             <SocSection
               title="Sector breakdown"
-              right={<span className="text-meta font-mono text-slate-500 dark:text-slate-400">by share %</span>}
+              right={<span className="text-meta font-mono text-muted">by share %</span>}
             />
             <SocBar
               items={(data?.sectors ?? []).slice(0, 8).map((s) => ({
@@ -382,15 +380,15 @@ export default function SocRansomware(): JSX.Element {
             <SocSection title="Quick stats" />
             <dl className="space-y-2 text-meta font-mono">
               <div className="flex items-baseline justify-between gap-2">
-                <dt className="text-slate-500 dark:text-slate-400">top country</dt>
+                <dt className="text-muted">top country</dt>
                 <dd className="text-slate-700 dark:text-slate-300">{countrySlices[0]?.label ?? '-'}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
-                <dt className="text-slate-500 dark:text-slate-400">top group</dt>
+                <dt className="text-muted">top group</dt>
                 <dd className="text-slate-700 dark:text-slate-300">{kpis.topName}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
-                <dt className="text-slate-500 dark:text-slate-400">sectors hit</dt>
+                <dt className="text-muted">sectors hit</dt>
                 <dd className="text-slate-700 dark:text-slate-300">{sectorSlices.length}</dd>
               </div>
             </dl>
@@ -472,13 +470,13 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
                 key: 'sector',
                 header: 'Sector',
                 sortValue: (v: (typeof rows)[number]) => v.sector ?? '',
-                render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.sector ?? '-'}</span>,
+                render: (v) => <span className="text-muted">{v.sector ?? '-'}</span>,
               },
               {
                 key: 'country',
                 header: 'Country',
                 sortValue: (v: (typeof rows)[number]) => v.country ?? '',
-                render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.country ?? '-'}</span>,
+                render: (v) => <span className="text-muted">{v.country ?? '-'}</span>,
               },
               {
                 key: 'discovered',
@@ -486,9 +484,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
                 align: 'right',
                 sortValue: (v: (typeof rows)[number]) => v.discovered ?? '',
                 render: (v) => (
-                  <span className="text-slate-500 dark:text-slate-400 tabular-nums">
-                    {v.discovered ? v.discovered.slice(0, 10) : '-'}
-                  </span>
+                  <span className="text-muted tabular-nums">{v.discovered ? v.discovered.slice(0, 10) : '-'}</span>
                 ),
               },
             ] as DataTableColumn<(typeof rows)[number]>[]

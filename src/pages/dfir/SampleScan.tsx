@@ -73,8 +73,7 @@ type DoneEvent = {
 type Phase = 'idle' | 'hashing' | 'streaming' | 'done' | 'error';
 
 const CARD = 'surface-card p-4';
-const H2 =
-  'text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2';
+const H2 = 'text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2';
 
 const VERDICT_ICON: Record<Verdict, typeof ShieldAlert> = {
   malicious: ShieldAlert,
@@ -227,7 +226,7 @@ function ProviderRow({ r }: { r: ProviderResultWire }): JSX.Element {
             {r.error_status ? ` · ${r.error_status}` : ''}
           </span>
         ) : (
-          <span className="text-slate-500 dark:text-slate-400">skipped</span>
+          <span className="text-muted">skipped</span>
         )}
       </span>
     </li>

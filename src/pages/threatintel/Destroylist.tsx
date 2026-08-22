@@ -71,9 +71,12 @@ export default function Destroylist(): JSX.Element {
     setCheckResult(null);
     setCheckError(null);
     try {
-      const res = await fetch(`/api/v1/threat-intel/destroylist/check?domain=${encodeURIComponent(checkDomain.trim())}`, {
-        signal: AbortSignal.timeout(15_000),
-      });
+      const res = await fetch(
+        `/api/v1/threat-intel/destroylist/check?domain=${encodeURIComponent(checkDomain.trim())}`,
+        {
+          signal: AbortSignal.timeout(15_000),
+        }
+      );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setCheckResult((await res.json()) as CheckResult);
     } catch (e) {
@@ -125,9 +128,7 @@ export default function Destroylist(): JSX.Element {
         ].map(([label, value]) => (
           <div key={label} className="surface-card p-4 text-center">
             <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums">{value}</div>
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">
-              {label}
-            </div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted mt-1">{label}</div>
           </div>
         ))}
       </div>
@@ -225,14 +226,12 @@ export default function Destroylist(): JSX.Element {
           </ul>
         )}
         {searchResult && searchResult.roots.length === 0 && (
-          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
-            No root domains match “{searchResult.query}”.
-          </p>
+          <p className="mt-4 text-sm text-muted">No root domains match “{searchResult.query}”.</p>
         )}
       </section>
 
       {/* Feed info footer */}
-      <footer className="pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-slate-500 dark:text-slate-400">
+      <footer className="pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-muted">
         <p>
           Primary feed synced <strong>{data ? relativeAgo(data.syncedAt) : '—'}</strong> · MIT license ·{' '}
           <a

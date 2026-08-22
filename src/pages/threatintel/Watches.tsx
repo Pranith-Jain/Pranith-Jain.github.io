@@ -181,15 +181,12 @@ export default function Watches(): JSX.Element {
         <div className="lg:col-span-3 space-y-4">
           <div className="flex items-center gap-3 mb-3">
             <h2 className="font-display font-semibold text-sm flex items-center gap-2">
-              <Activity size={14} className="text-slate-500 dark:text-slate-400" />
+              <Activity size={14} className="text-muted" />
               Active Watches
               <span className="text-xs font-normal text-slate-500">({watches.length})</span>
             </h2>
             <div className="relative ml-auto max-w-48">
-              <Search
-                size={12}
-                className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 value={search}
@@ -207,9 +204,7 @@ export default function Watches(): JSX.Element {
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] px-4 py-10 text-center">
               <Bell size={32} className="mx-auto mb-2 text-slate-300 dark:text-slate-500" />
               <p className="text-sm text-slate-500 font-mono">No watches configured yet.</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono">
-                Click "New Watch" to get started.
-              </p>
+              <p className="text-xs text-muted mt-1 font-mono">Click "New Watch" to get started.</p>
             </div>
           ) : (
             watches
@@ -291,8 +286,8 @@ export default function Watches(): JSX.Element {
                           )}
                         </div>
                         <p className="font-medium text-sm truncate">{watch.label}</p>
-                        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 truncate">{watch.value}</p>
-                        <div className="flex items-center gap-3 mt-2 text-mini text-slate-500 dark:text-slate-400">
+                        <p className="text-mini font-mono text-muted truncate">{watch.value}</p>
+                        <div className="flex items-center gap-3 mt-2 text-mini text-muted">
                           <a
                             href={watch.webhook}
                             target="_blank"
@@ -309,7 +304,7 @@ export default function Watches(): JSX.Element {
                           type="button"
                           onClick={() => startEdit(watch)}
                           aria-label="Edit watch"
-                          className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+                          className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted hover:text-rose-500 transition-colors"
                           title="Edit watch"
                         >
                           <svg
@@ -331,7 +326,7 @@ export default function Watches(): JSX.Element {
                           type="button"
                           onClick={() => handleDelete(watch.id)}
                           aria-label="Delete watch"
-                          className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+                          className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-muted hover:text-rose-500 transition-colors"
                           title="Delete watch"
                         >
                           <Trash2 size={14} />
@@ -441,14 +436,14 @@ export default function Watches(): JSX.Element {
                 aria-label="Refresh"
                 type="button"
                 onClick={fetchData}
-                className="ml-auto text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                className="ml-auto text-muted hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
               >
                 <RefreshCw size={12} />
               </button>
             </h3>
             <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
               {alerts.length === 0 ? (
-                <p className="text-mini font-mono text-slate-500 dark:text-slate-400 italic">No alerts yet.</p>
+                <p className="text-mini font-mono text-muted italic">No alerts yet.</p>
               ) : (
                 alerts.map((alert, i) => (
                   <div key={i} className="surface-card px-3 py-2.5">
@@ -456,15 +451,11 @@ export default function Watches(): JSX.Element {
                       <span className={`text-micro font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>
                         {TYPE_LABELS[alert.type]}
                       </span>
-                      <span className="text-micro text-slate-500 dark:text-slate-400">
-                        {new Date(alert.matched_at).toLocaleString()}
-                      </span>
+                      <span className="text-micro text-muted">{new Date(alert.matched_at).toLocaleString()}</span>
                     </div>
                     <p className="text-sm font-medium truncate">{alert.label}</p>
                     <p className="text-mini font-mono text-emerald-600 dark:text-emerald-400 truncate">{alert.match}</p>
-                    {alert.detail && (
-                      <p className="text-micro text-slate-500 dark:text-slate-400 truncate mt-0.5">{alert.detail}</p>
-                    )}
+                    {alert.detail && <p className="text-micro text-muted truncate mt-0.5">{alert.detail}</p>}
                   </div>
                 ))
               )}

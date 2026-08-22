@@ -276,7 +276,7 @@ export default function OsintCountryMap(): JSX.Element {
       <div className="flex flex-col gap-4">
         {/* Search row */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             value={query}
@@ -290,7 +290,7 @@ export default function OsintCountryMap(): JSX.Element {
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
             >
               <X className="w-4 h-4" />
             </button>
@@ -303,7 +303,7 @@ export default function OsintCountryMap(): JSX.Element {
             <div className="surface-card-faint overflow-hidden">
               <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                  <Globe className="w-4 h-4 text-muted" />
                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     {selectedCountry ? selectedCountry.name : `${OSINT_COUNTRIES.length} countries`}
                   </span>
@@ -350,9 +350,7 @@ export default function OsintCountryMap(): JSX.Element {
                       className="w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] flex items-center gap-2"
                     >
                       <span className="text-slate-500">{c.name}</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">
-                        {c.resources.length} resources
-                      </span>
+                      <span className="text-xs text-muted ml-auto">{c.resources.length} resources</span>
                     </button>
                   ))
                 )}
@@ -375,7 +373,7 @@ export default function OsintCountryMap(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => handleSelect(null)}
-                    className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-1"
+                    className="text-muted hover:text-slate-600 dark:hover:text-slate-300 p-1"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -401,7 +399,7 @@ export default function OsintCountryMap(): JSX.Element {
                           className={`text-xs px-2 py-0.5 rounded-full border transition-colors ${
                             active
                               ? 'bg-slate-200 dark:bg-slate-700 border-slate-400 dark:border-slate-500 text-slate-800 dark:text-slate-200'
-                              : 'bg-white dark:bg-[rgb(var(--surface-300)/0.5)] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+                              : 'bg-white dark:bg-[rgb(var(--surface-300)/0.5)] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
                           }`}
                         >
                           {CATEGORY_LABELS[cat] ?? cat} ({count})
@@ -432,7 +430,7 @@ export default function OsintCountryMap(): JSX.Element {
               <div className="surface-card-faint h-[500px] flex items-center justify-center">
                 <div className="text-center p-6">
                   <Globe className="w-10 h-10 text-slate-300 dark:text-slate-400 mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Click a country on the map</p>
+                  <p className="text-sm text-muted mb-1">Click a country on the map</p>
                   <p className="text-xs text-slate-400 dark:text-slate-400">
                     or search for a country above to view its OSINT resources
                   </p>
@@ -497,10 +495,10 @@ function ResourceRow({ resource }: { resource: OsintCountryResource }): JSX.Elem
         <a href={sanitizeUrl(resource.url)} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
             <span className="text-sm text-slate-700 dark:text-slate-300 truncate">{resource.name}</span>
-            <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ExternalLink className="w-3 h-3 text-muted shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </a>
-        <span className="text-micro px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))]/50 text-slate-500 dark:text-slate-400 shrink-0">
+        <span className="text-micro px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))]/50 text-muted shrink-0">
           {CATEGORY_LABELS[resource.category] ?? resource.category}
         </span>
       </div>
@@ -511,7 +509,7 @@ function ResourceRow({ resource }: { resource: OsintCountryResource }): JSX.Elem
           setCopied(true);
           setTimeout(() => setCopied(false), 1500);
         }}
-        className="text-mini text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-400 mt-0.5 truncate max-w-full block"
+        className="text-mini text-muted hover:text-slate-600 dark:hover:text-slate-400 mt-0.5 truncate max-w-full block"
         title="Copy URL"
       >
         {copied ? 'Copied!' : resource.url}

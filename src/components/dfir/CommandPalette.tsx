@@ -557,7 +557,7 @@ export function CommandPalette(): JSX.Element | null {
       {/* Modal */}
       <div className="relative w-full max-w-2xl rounded border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3 overflow-hidden">
         <div className="flex items-center gap-3 px-4 py-3 border-b border-[rgb(var(--border-400))]">
-          <Search size={18} className="text-slate-500 dark:text-slate-400 shrink-0" aria-hidden="true" />
+          <Search size={18} className="text-muted shrink-0" aria-hidden="true" />
           <input
             ref={inputRef}
             type="text"
@@ -573,11 +573,7 @@ export function CommandPalette(): JSX.Element | null {
             aria-label="Search"
           />
           {catalogLoading && (
-            <Loader2
-              size={14}
-              className="text-slate-500 dark:text-slate-400 animate-spin shrink-0"
-              aria-label="Loading catalog index"
-            />
+            <Loader2 size={14} className="text-muted animate-spin shrink-0" aria-label="Loading catalog index" />
           )}
           <button
             type="button"
@@ -631,9 +627,7 @@ export function CommandPalette(): JSX.Element | null {
           className="max-h-[55vh] overflow-y-auto py-2"
         >
           {matches.length === 0 && (
-            <li className="px-4 py-3 text-sm font-mono text-slate-500 dark:text-slate-400">
-              No matches for "{query}".
-            </li>
+            <li className="px-4 py-3 text-sm font-mono text-muted">No matches for "{query}".</li>
           )}
           {matches.map((m, idx) => {
             const Icon = m.kind === 'tool' ? TOOL_ICONS.get(m.path) : null;
@@ -661,7 +655,7 @@ export function CommandPalette(): JSX.Element | null {
                   ) : (
                     <span
                       className={`w-4 text-center text-micro font-mono uppercase tracking-wider ${
-                        active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-500 dark:text-slate-400'
+                        active ? 'text-brand-600 dark:text-brand-400' : 'text-muted'
                       }`}
                       aria-hidden="true"
                     >
@@ -697,7 +691,7 @@ export function CommandPalette(): JSX.Element | null {
                         </span>
                       )}
                     </div>
-                    <div className="text-mini font-mono text-slate-500 dark:text-slate-400 truncate">
+                    <div className="text-mini font-mono text-muted truncate">
                       {m.sectionLabel} · {m.desc}
                     </div>
                   </div>
@@ -708,7 +702,7 @@ export function CommandPalette(): JSX.Element | null {
           })}
         </ul>
 
-        <div className="border-t border-[rgb(var(--border-400))] px-4 py-2 text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
+        <div className="border-t border-[rgb(var(--border-400))] px-4 py-2 text-micro font-mono text-muted flex items-center gap-3">
           <Command size={10} aria-hidden="true" />
           <span>↑↓ navigate</span>
           <span>↵ open</span>

@@ -101,7 +101,7 @@ export function LandscapeView({ actors, feed }: Props) {
             <TrendingUp size={22} className="text-rose-600 dark:text-rose-400" />
             <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Threat Landscape</h1>
           </div>
-          <p className="text-slate-600 dark:text-slate-400 text-tool">
+          <p className="text-muted text-tool">
             Executive brief on {filteredActors.length} tracked actor{filteredActors.length !== 1 ? 's' : ''} ·{' '}
             {stats.avgActive}yr avg operational lifespan · {stats.totalCampaigns} known campaigns
           </p>
@@ -119,7 +119,7 @@ export function LandscapeView({ actors, feed }: Props) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search actors, sectors, malware, CVEs…"
-                className="w-full h-9 pl-9 pr-3 rounded-lg text-tool text-slate-600 dark:text-slate-400 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/30 transition-all"
+                className="w-full h-9 pl-9 pr-3 rounded-lg text-tool text-muted placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/30 transition-all"
                 style={{ background: 'var(--ink-700)', border: '1px solid var(--edge)' }}
               />
               {search && (
@@ -151,13 +151,11 @@ export function LandscapeView({ actors, feed }: Props) {
               style={{ borderColor: 'var(--edge)' }}
             >
               <div className="flex items-center gap-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Sector
-                </span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">Sector</span>
                 <select
                   value={sectorFilter ?? ''}
                   onChange={(e) => setSectorFilter(e.target.value || null)}
-                  className="h-6 px-2 rounded text-mini text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
+                  className="h-6 px-2 rounded text-mini text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
                 >
                   <option value="">All sectors</option>
                   {allSectors.map((s) => (
@@ -168,13 +166,11 @@ export function LandscapeView({ actors, feed }: Props) {
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Motivation
-                </span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">Motivation</span>
                 <select
                   value={motivationFilter ?? ''}
                   onChange={(e) => setMotivationFilter(e.target.value || null)}
-                  className="h-6 px-2 rounded text-mini text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none capitalize"
+                  className="h-6 px-2 rounded text-mini text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none capitalize"
                 >
                   <option value="">All motivations</option>
                   {allMotivations.map((m) => (
@@ -185,9 +181,7 @@ export function LandscapeView({ actors, feed }: Props) {
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Sort
-                </span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">Sort</span>
                 {(['threat', 'name', 'date'] as const).map((s) => (
                   <button
                     key={s}
@@ -235,17 +229,15 @@ export function LandscapeView({ actors, feed }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Sector heatmap */}
           <div className="surface-card p-5">
-            <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-4">
-              Sector Targeting Heatmap
-            </div>
+            <div className="text-eyebrow font-mono text-muted mb-4">Sector Targeting Heatmap</div>
             <div className="space-y-2.5">
               {stats.sortedSectors.map(([sector, count]) => {
                 const pct = (count / maxSector) * 100;
                 return (
                   <div key={sector}>
                     <div className="flex justify-between text-meta mb-1">
-                      <span className="text-slate-600 dark:text-slate-400 capitalize font-medium">{sector}</span>
-                      <span className="text-slate-500 dark:text-slate-400 font-mono">
+                      <span className="text-muted capitalize font-medium">{sector}</span>
+                      <span className="text-muted font-mono">
                         {count} actor{count !== 1 ? 's' : ''}
                       </span>
                     </div>
@@ -263,7 +255,7 @@ export function LandscapeView({ actors, feed }: Props) {
 
           {/* Motivation breakdown */}
           <div className="surface-card p-5">
-            <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-4">Motivation Breakdown</div>
+            <div className="text-eyebrow font-mono text-muted mb-4">Motivation Breakdown</div>
             <div className="space-y-4">
               {Object.entries(stats.motivations)
                 .sort((a, b) => b[1] - a[1])
@@ -273,9 +265,7 @@ export function LandscapeView({ actors, feed }: Props) {
                   return (
                     <div key={mot}>
                       <div className="flex items-center gap-3 mb-1.5">
-                        <span className="text-meta text-slate-600 dark:text-slate-400 capitalize font-medium w-28 shrink-0">
-                          {mot}
-                        </span>
+                        <span className="text-meta text-muted capitalize font-medium w-28 shrink-0">{mot}</span>
                         <div
                           className="flex-1 h-2 rounded-full overflow-hidden"
                           style={{ background: 'var(--ink-600)' }}
@@ -285,9 +275,7 @@ export function LandscapeView({ actors, feed }: Props) {
                             style={{ width: `${pct}%` }}
                           />
                         </div>
-                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
-                          {count}
-                        </span>
+                        <span className="text-mini font-mono text-muted w-8 text-right">{count}</span>
                       </div>
                       <div className="flex flex-wrap gap-1 ml-31">
                         {motivationActors.map((a) => (
@@ -311,7 +299,7 @@ export function LandscapeView({ actors, feed }: Props) {
 
           {/* Nation attribution */}
           <div className="surface-card p-5">
-            <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-4">Nation Attribution</div>
+            <div className="text-eyebrow font-mono text-muted mb-4">Nation Attribution</div>
             <div className="space-y-2">
               {Object.entries(stats.nationCounts)
                 .sort((a, b) => b[1] - a[1])
@@ -330,10 +318,8 @@ export function LandscapeView({ actors, feed }: Props) {
                         {code}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <div className="text-meta text-slate-600 dark:text-slate-400 font-medium">
-                          {n?.name ?? code}
-                        </div>
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">
+                        <div className="text-meta text-muted font-medium">{n?.name ?? code}</div>
+                        <div className="text-micro font-mono text-muted truncate">
                           {nationActors.map((a) => a.name).join(', ')}
                         </div>
                       </div>
@@ -348,11 +334,9 @@ export function LandscapeView({ actors, feed }: Props) {
 
           {/* Recent related feed */}
           <div className="surface-card p-5">
-            <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-4">Recent Related Intel</div>
+            <div className="text-eyebrow font-mono text-muted mb-4">Recent Related Intel</div>
             <div className="space-y-2">
-              {recentFeed.length === 0 && (
-                <p className="text-slate-500 dark:text-slate-400 text-meta">No recent items match current actors.</p>
-              )}
+              {recentFeed.length === 0 && <p className="text-muted text-meta">No recent items match current actors.</p>}
               {recentFeed.map((f) => (
                 <a
                   key={f.id}
@@ -361,13 +345,13 @@ export function LandscapeView({ actors, feed }: Props) {
                   rel="noopener noreferrer"
                   className="block p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors group"
                 >
-                  <div className="text-[12.5px] text-slate-600 dark:text-slate-400 leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                  <div className="text-[12.5px] text-muted leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                     {f.title}
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{f.source}</span>
-                    <span className="text-micro text-slate-500 dark:text-slate-400">·</span>
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{f.published}</span>
+                    <span className="text-micro font-mono text-muted">{f.source}</span>
+                    <span className="text-micro text-muted">·</span>
+                    <span className="text-micro font-mono text-muted">{f.published}</span>
                   </div>
                 </a>
               ))}
@@ -389,9 +373,7 @@ function KPI({ label, value, icon: Icon }: { label: string; value: number; icon:
         <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-slate-100">
           {value.toLocaleString()}
         </div>
-        <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-          {label}
-        </div>
+        <div className="text-micro font-mono uppercase tracking-[0.18em] text-muted">{label}</div>
       </div>
     </div>
   );

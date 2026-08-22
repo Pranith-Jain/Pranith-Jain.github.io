@@ -329,11 +329,7 @@ export default function MitreMatrix(): JSX.Element {
         {/* Search + coverage toolbar */}
         <div className="flex flex-wrap items-center gap-2 mb-8">
           <div className="relative flex-1 min-w-[260px] max-w-md">
-            <Search
-              size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={query}

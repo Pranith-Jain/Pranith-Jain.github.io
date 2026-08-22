@@ -45,7 +45,7 @@ const PROSE =
   '[&_pre]:bg-slate-50 dark:[&_pre]:bg-slate-900 [&_pre]:border [&_pre]:border-slate-200 dark:[&_pre]:border-slate-800 [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:mb-4 [&_pre]:overflow-x-auto ' +
   '[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:text-slate-700 dark:[&_ul]:text-slate-300 ' +
   '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:text-slate-700 dark:[&_ol]:text-slate-300 [&_li]:mb-1 ' +
-  '[&_blockquote]:border-l-4 [&_blockquote]:border-brand-500 dark:[&_blockquote]:border-brand-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 dark:[&_blockquote]:text-slate-500 dark:text-slate-400 [&_blockquote]:mb-4 ' +
+  '[&_blockquote]:border-l-4 [&_blockquote]:border-brand-500 dark:[&_blockquote]:border-brand-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 dark:[&_blockquote]:text-muted [&_blockquote]:mb-4 ' +
   '[&_hr]:border-slate-200 dark:[&_hr]:border-slate-800 [&_hr]:my-8 ' +
   '[&_table]:w-full [&_table]:border-collapse [&_table]:mb-4 ' +
   '[&_th]:border [&_th]:border-slate-200 dark:[&_th]:border-slate-800 [&_th]:p-2 [&_th]:text-left [&_th]:text-slate-800 dark:[&_th]:text-slate-200 [&_th]:bg-slate-50 dark:[&_th]:bg-slate-900 ' +
@@ -451,7 +451,7 @@ export default function BlogPost() {
             <header className="mb-8">
               <Link
                 to={`/blog/c/${post.type}`}
-                className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 hover:underline"
+                className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted hover:underline"
               >
                 {post.type}
               </Link>
@@ -523,7 +523,7 @@ export default function BlogPost() {
                         } ${
                           activeTocId === item.id
                             ? 'text-brand-600 dark:text-brand-400 font-semibold'
-                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                            : 'text-muted hover:text-slate-800 dark:hover:text-slate-200'
                         }`}
                       >
                         {item.text}
@@ -554,7 +554,7 @@ export default function BlogPost() {
                           } ${
                             activeTocId === item.id
                               ? 'text-brand-600 dark:text-brand-400 font-semibold'
-                              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                              : 'text-muted hover:text-slate-800 dark:hover:text-slate-200'
                           }`}
                         >
                           {item.text}
@@ -591,9 +591,7 @@ export default function BlogPost() {
                 LinkedIn
               </a>
               {hashtags.length > 0 && (
-                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-                  {hashtags.map((h) => `#${h}`).join(' ')}
-                </span>
+                <span className="text-mini font-mono text-muted">{hashtags.map((h) => `#${h}`).join(' ')}</span>
               )}
             </div>
 
@@ -669,7 +667,7 @@ export default function BlogPost() {
                         {s.title || s.url}
                       </a>
                       {s.title && (
-                        <span className="text-slate-500 dark:text-slate-400 ml-1">
+                        <span className="text-muted ml-1">
                           - {s.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
                         </span>
                       )}
@@ -705,7 +703,7 @@ export default function BlogPost() {
                   </Link>
                 </div>
               </div>
-              <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
+              <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted">
                 <span className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
                   IOC Check
@@ -741,22 +739,20 @@ export default function BlogPost() {
                           {p.tags.slice(0, 2).map((t) => (
                             <span
                               key={t}
-                              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.6)] px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
+                              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.6)] px-2 py-0.5 text-micro font-mono text-muted"
                             >
                               {t}
                             </span>
                           ))}
                           {p.tags.length > 2 && (
-                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 self-center">
-                              +{p.tags.length - 2}
-                            </span>
+                            <span className="text-micro font-mono text-muted self-center">+{p.tags.length - 2}</span>
                           )}
                         </div>
                         <h3 className="font-display text-base font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400 line-clamp-2">
                           {p.title}
                         </h3>
                         <p className="mt-1.5 text-xs text-muted leading-relaxed line-clamp-2 flex-1">{p.excerpt}</p>
-                        <div className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400">
+                        <div className="mt-3 text-mini font-mono text-muted">
                           {formatDate(p.publishedAt)} · {relatedReadTime} min read
                         </div>
                       </Link>

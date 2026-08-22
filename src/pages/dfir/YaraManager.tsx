@@ -157,7 +157,7 @@ export default function YaraManager(): JSX.Element {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter by name, description, or tag…"
-          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none"
+          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-muted focus:outline-none"
         />
       </div>
 
@@ -189,7 +189,7 @@ export default function YaraManager(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setEditingId(editingId === rule.id ? null : rule.id)}
-                  className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="p-1.5 text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   aria-label="Edit"
                 >
                   {editingId === rule.id ? <X className="h-3.5 w-3.5" /> : <Edit2 className="h-3.5 w-3.5" />}
@@ -197,7 +197,7 @@ export default function YaraManager(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => deleteRule(rule.id)}
-                  className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-700 dark:text-rose-400 transition-colors"
+                  className="p-1.5 text-muted hover:text-rose-700 dark:text-rose-400 transition-colors"
                   aria-label="Delete"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -254,7 +254,7 @@ export default function YaraManager(): JSX.Element {
             )}
 
             <details className="group">
-              <summary className="px-4 py-2 font-mono text-micro text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
+              <summary className="px-4 py-2 font-mono text-micro text-muted cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
                 rule source ({rule.rule.split('\n').length} lines)
               </summary>
               <pre className="px-4 pb-3 pt-1 overflow-x-auto text-mini font-mono text-muted leading-relaxed whitespace-pre">
@@ -421,9 +421,7 @@ function RansomwareIntelPanels(): JSX.Element {
                   <span className="text-muted truncate flex-1 min-w-0" title={a.victim}>
                     {a.victim}
                   </span>
-                  {a.date && (
-                    <span className="text-slate-500 dark:text-slate-400 text-micro">{a.date.slice(0, 10)}</span>
-                  )}
+                  {a.date && <span className="text-muted text-micro">{a.date.slice(0, 10)}</span>}
                   {a.url && (
                     <a
                       href={sanitizeUrl(a.url) || undefined}

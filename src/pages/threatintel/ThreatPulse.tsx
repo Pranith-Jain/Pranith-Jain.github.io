@@ -266,10 +266,7 @@ export default function ThreatPulse(): JSX.Element {
         </div>
 
         <div className="flex items-center gap-2 ml-auto">
-          <label
-            htmlFor="pulse-min-sources"
-            className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400"
-          >
+          <label htmlFor="pulse-min-sources" className="text-micro font-mono uppercase tracking-wider text-muted">
             Min. sources
           </label>
           <select
@@ -295,7 +292,7 @@ export default function ThreatPulse(): JSX.Element {
             {kindFilter ? ` in ${KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]}` : ''}.
           </p>
           {data.entities.length > 0 && (
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5">
+            <p className="text-xs font-mono text-muted mt-1.5">
               {data.entities.length} total entit{data.entities.length === 1 ? 'y' : 'ies'} across all surfaces.
             </p>
           )}
@@ -428,7 +425,7 @@ export default function ThreatPulse(): JSX.Element {
       </DataState>
 
       {data && (
-        <p className="mt-6 text-mini font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-mini font-mono text-muted text-center">
           Generated {data.generated_at.slice(0, 16).replace('T', ' ')} UTC · {data.entities.length} total entities
         </p>
       )}
@@ -461,7 +458,7 @@ function CopyEntityButton({ entity }: { entity: PulseEntity }): JSX.Element {
       onClick={onClick}
       aria-label={`Copy ${entity.label} with sources`}
       title="Copy entity + sources for tickets / Slack"
-      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[22px] sm:min-w-[22px] rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[22px] sm:min-w-[22px] rounded text-muted hover:text-rose-500 transition-colors"
     >
       {done ? <Check size={12} /> : <Copy size={12} />}
     </button>

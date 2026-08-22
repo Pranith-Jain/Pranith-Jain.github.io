@@ -229,9 +229,7 @@ export default function VerdiktAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">IOC Value</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                required
-              </span>
+              <span className="text-micro font-mono uppercase tracking-wider text-muted">required</span>
             </div>
             <div className="relative">
               <input
@@ -283,7 +281,7 @@ export default function VerdiktAi(): JSX.Element {
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Checking IOC sources…</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Generating analyst narrative</p>
+              <p className="text-xs text-muted mt-1">Generating analyst narrative</p>
             </div>
           )}
 
@@ -436,12 +434,10 @@ export default function VerdiktAi(): JSX.Element {
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Search size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-muted">
                 Enter an IOC and click <span className="font-semibold">Enrich & Analyze</span>
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Output: enrichment + AI analyst narrative + detection queries
-              </p>
+              <p className="text-xs text-muted mt-1">Output: enrichment + AI analyst narrative + detection queries</p>
             </div>
           )}
         </div>

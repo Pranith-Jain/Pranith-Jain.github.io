@@ -278,7 +278,7 @@ export default function PhoneOsint(): JSX.Element {
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="tel"
               value={input}
@@ -304,13 +304,13 @@ export default function PhoneOsint(): JSX.Element {
         <div className="mb-6 surface-card p-4">
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono">
             <div>
-              <span className="text-slate-500 dark:text-slate-400">E.164:</span>{' '}
+              <span className="text-muted">E.164:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100 font-semibold">{parsed.e164}</span>
               <CopyChip value={parsed.e164} className="ml-1" />
             </div>
             {parsed.countryHint && (
               <div>
-                <span className="text-slate-500 dark:text-slate-400">Country:</span>{' '}
+                <span className="text-muted">Country:</span>{' '}
                 <span className="text-slate-900 dark:text-slate-100">{parsed.countryHint}</span>
               </div>
             )}
@@ -321,7 +321,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* Loading */}
       {loading && (
         <div className="mb-6 surface-card p-4 text-center">
-          <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Investigating phone number...</p>
+          <p className="text-sm font-mono text-muted">Investigating phone number...</p>
         </div>
       )}
 
@@ -341,7 +341,7 @@ export default function PhoneOsint(): JSX.Element {
 
           {!!apiResult.carrier && (
             <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Carrier / Line Type</p>
+              <p className="text-mini font-mono text-muted mb-1">Carrier / Line Type</p>
               <div className="flex flex-wrap gap-3 text-sm font-mono">
                 <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
                   {(apiResult.carrier as Record<string, string>).type}
@@ -349,7 +349,7 @@ export default function PhoneOsint(): JSX.Element {
                 <span className="text-slate-600 dark:text-slate-300">
                   {(apiResult.carrier as Record<string, string>).carrier}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-muted">
                   confidence: {(apiResult.carrier as Record<string, string>).confidence}
                 </span>
               </div>
@@ -358,12 +358,12 @@ export default function PhoneOsint(): JSX.Element {
 
           {!!apiResult.numverify && (
             <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">NumVerify API</p>
+              <p className="text-mini font-mono text-muted mb-1">NumVerify API</p>
               <div className="grid gap-1 sm:grid-cols-2 text-sm font-mono">
                 {Object.entries(apiResult.numverify as Record<string, string>).map(([k, v]) =>
                   v ? (
                     <div key={k}>
-                      <span className="text-slate-500 dark:text-slate-400">{k}:</span>{' '}
+                      <span className="text-muted">{k}:</span>{' '}
                       <span className="text-slate-900 dark:text-slate-100">{v}</span>
                     </div>
                   ) : null
@@ -374,7 +374,7 @@ export default function PhoneOsint(): JSX.Element {
 
           {!!apiResult.breach && (
             <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Breach Exposure</p>
+              <p className="text-mini font-mono text-muted mb-1">Breach Exposure</p>
               <div className="text-sm font-mono">
                 {(apiResult.breach as Record<string, string>).checked ? (
                   <span className="text-green-600 dark:text-green-400">Checked via Hudson Rock</span>
@@ -387,7 +387,7 @@ export default function PhoneOsint(): JSX.Element {
 
           {Array.isArray(apiResult.dorks) && apiResult.dorks.length > 0 && (
             <div className="mt-2">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Generated Dorks</p>
+              <p className="text-mini font-mono text-muted mb-2">Generated Dorks</p>
               <div className="flex flex-wrap gap-1.5">
                 {(apiResult.dorks as Array<{ engine: string; query: string; url: string }>).map((d, i) => (
                   <a
@@ -410,7 +410,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* Category pills */}
       {categories.size > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 mb-4">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">category:</span>
+          <span className="text-mini font-mono text-muted mr-1">category:</span>
           {[...categories.entries()].map(([cat, count]) => {
             const Icon = CATEGORY_ICONS[cat] ?? Globe;
             const active = activeCategory === cat;

@@ -120,7 +120,7 @@ export default function CertSearch(): JSX.Element {
           </a>
           . Cached 6h at the edge.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
             Domain Inspector
@@ -143,11 +143,7 @@ export default function CertSearch(): JSX.Element {
         >
           <div className="flex flex-wrap gap-2">
             <div className="relative flex-1 min-w-[260px]">
-              <Search
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-                aria-hidden="true"
-              />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
               <input
                 type="text"
                 value={domain}
@@ -198,9 +194,7 @@ export default function CertSearch(): JSX.Element {
         <>
           {/* Summary */}
           <section className="surface-card p-4 mb-6">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-              Summary
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Summary</h2>
             <div className="grid sm:grid-cols-3 gap-4">
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.total}</div>
@@ -232,7 +226,7 @@ export default function CertSearch(): JSX.Element {
           {/* Unique DNS names */}
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2">
                 <Globe2 size={12} /> Unique DNS names
                 {filter && (
                   <span className="text-slate-500">
@@ -243,10 +237,7 @@ export default function CertSearch(): JSX.Element {
               <CopyChip value={allNamesBlob} label={`copy ${filteredNames.length}`} />
             </div>
             <div className="relative mb-3">
-              <Filter
-                size={12}
-                className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Filter size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="search"
                 value={filter}
@@ -281,7 +272,7 @@ export default function CertSearch(): JSX.Element {
 
           {/* Recent issuances */}
           <section className="surface-card p-4 mb-6">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
               <ScrollText size={12} /> Recent issuances ({data.recent.length})
             </h2>
             <ul className="space-y-2">

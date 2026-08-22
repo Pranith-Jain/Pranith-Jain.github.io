@@ -184,9 +184,7 @@ export function PivotsTab({
                 >
                   {p.value}
                 </code>
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate block">
-                  {p.label}
-                </span>
+                <span className="text-micro font-mono text-muted truncate block">{p.label}</span>
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <a
@@ -213,10 +211,10 @@ export function PivotsTab({
         })}
       </div>
       <details className="mt-3">
-        <summary className="cursor-pointer text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-micro font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300">
           Why some providers are missing
         </summary>
-        <p className="mt-2 text-micro font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+        <p className="mt-2 text-micro font-mono text-muted leading-relaxed">
           Several enrichment providers (URLScan, VirusTotal, and others) only return aggregate scores and counts in
           their raw_summary, not the individual result items needed for pivots. The artifacts shown are extracted from
           the structured fields each provider actually emits - a quiet adapter means fewer pivots, not a platform gap.

@@ -273,7 +273,7 @@ export default function Settings(): JSX.Element {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-sm text-slate-900 dark:text-slate-100">Dark mode</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-xs text-muted mt-0.5">
                 {isDark ? 'Currently using dark theme' : 'Currently using light theme'}
               </p>
             </div>
@@ -324,9 +324,7 @@ export default function Settings(): JSX.Element {
                           {i.status === 'live' ? 'live' : 'optional'}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
-                        {i.capability}
-                      </p>
+                      <p className="text-xs text-muted mt-0.5 leading-relaxed">{i.capability}</p>
                     </div>
                   </div>
                 );

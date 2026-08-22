@@ -86,7 +86,7 @@ export default function CyberNewsFeed(): JSX.Element {
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2 items-center">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 dark:text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
           <input
             type="text"
             placeholder="Filter articles..."
@@ -147,7 +147,7 @@ export default function CyberNewsFeed(): JSX.Element {
             {summaryItems.length > 0 && (
               <AiSummaryCard surface="Cyber Security News" items={summaryItems} requireAdmin={false} className="mb-4" />
             )}
-            <div className="text-xs text-slate-500 dark:text-slate-400">
+            <div className="text-xs text-muted">
               {filtered?.length ?? 0} articles - updated {relativeAgo(data.last_updated)}
             </div>
             <div className="space-y-2">
@@ -174,9 +174,7 @@ export default function CyberNewsFeed(): JSX.Element {
                           </span>
                           <span className="text-mini text-slate-500 dark:text-slate-500">{article.source}</span>
                           {article.pub_date && (
-                            <span className="text-mini text-slate-500 dark:text-slate-400">
-                              {relativeAgo(article.pub_date)}
-                            </span>
+                            <span className="text-mini text-muted">{relativeAgo(article.pub_date)}</span>
                           )}
                           <PostAnalysisButton
                             title={article.title}
@@ -198,9 +196,7 @@ export default function CyberNewsFeed(): JSX.Element {
                           </a>
                         </h3>
                         {article.description && (
-                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
-                            {article.description}
-                          </p>
+                          <p className="text-xs text-muted mt-1 line-clamp-2">{article.description}</p>
                         )}
                       </div>
                     </div>

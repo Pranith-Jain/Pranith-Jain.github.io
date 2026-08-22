@@ -280,18 +280,18 @@ export function FeedView({ feed, actors }: Props) {
             </div>
             <div className="flex items-center gap-3">
               {lastFetch && (
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                <span className="text-micro font-mono text-muted flex items-center gap-1">
                   <Clock size={10} /> {lastFetch.toLocaleTimeString()}
                 </span>
               )}
               <button
                 onClick={fetchLiveFeeds}
                 disabled={liveStatus === 'loading'}
-                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-mini font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-mini font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors disabled:opacity-50"
               >
                 <RefreshCw size={11} className={liveStatus === 'loading' ? 'animate-spin' : ''} /> Refresh
               </button>
-              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{filtered.length} items</span>
+              <span className="text-mini font-mono text-muted">{filtered.length} items</span>
             </div>
           </div>
 
@@ -331,7 +331,7 @@ export function FeedView({ feed, actors }: Props) {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search titles, CVEs, actors…"
-                  className="w-56 h-7 pl-7 pr-2.5 rounded-md text-meta text-slate-600 dark:text-slate-400 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none transition-colors"
+                  className="w-56 h-7 pl-7 pr-2.5 rounded-md text-meta text-muted placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none transition-colors"
                   style={{ background: 'var(--ink-700)', border: '1px solid var(--edge)' }}
                 />
               </div>
@@ -356,13 +356,11 @@ export function FeedView({ feed, actors }: Props) {
               style={{ borderColor: 'var(--edge)' }}
             >
               <div className="flex items-center gap-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Source
-                </span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">Source</span>
                 <select
                   value={sourceFilter ?? ''}
                   onChange={(e) => setSourceFilter(e.target.value || null)}
-                  className="h-6 px-2 rounded text-mini text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
+                  className="h-6 px-2 rounded text-mini text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
                 >
                   <option value="">All sources</option>
                   {sources.map((s) => (
@@ -373,9 +371,7 @@ export function FeedView({ feed, actors }: Props) {
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Date
-                </span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">Date</span>
                 {(['all', '24h', '7d', '30d'] as const).map((d) => (
                   <button
                     key={d}
@@ -396,9 +392,7 @@ export function FeedView({ feed, actors }: Props) {
                 ))}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Sort
-                </span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">Sort</span>
                 {(['date', 'source'] as const).map((s) => (
                   <button
                     key={s}
@@ -452,7 +446,7 @@ export function FeedView({ feed, actors }: Props) {
           )}
           <div className="divide-y divide-edge">
             {filtered.length === 0 && (
-              <div className="py-12 text-center text-slate-500 dark:text-slate-400 text-sm">
+              <div className="py-12 text-center text-muted text-sm">
                 {liveStatus === 'loading' ? (
                   <div className="flex items-center justify-center gap-2">
                     <RefreshCw size={14} className="animate-spin" /> Fetching live feeds…
@@ -486,20 +480,18 @@ export function FeedView({ feed, actors }: Props) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 group"
                       >
-                        <span className="text-tool text-slate-600 dark:text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
+                        <span className="text-tool text-muted group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
                           {f.title}
                         </span>
                         <ExternalLink
                           size={10}
-                          className="text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                          className="text-muted opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                         />
                       </a>
                       <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                        <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400">{f.source}</span>
-                        <span className="text-micro text-slate-500 dark:text-slate-400">·</span>
-                        <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400">
-                          {f.published}
-                        </span>
+                        <span className="text-[10.5px] font-mono text-muted">{f.source}</span>
+                        <span className="text-micro text-muted">·</span>
+                        <span className="text-[10.5px] font-mono text-muted">{f.published}</span>
                         <span
                           className="text-micro px-1.5 py-0.5 rounded-full border font-mono"
                           style={{ borderColor: `${color}33`, color, background: `${color}0d` }}

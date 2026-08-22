@@ -376,7 +376,7 @@ export function ClusterView({ actors, onOpen }: Props) {
       {/* Toolbar */}
       <div className="chrome-glass border-b flex items-center gap-3 px-4 py-2.5 shrink-0">
         <div className="flex items-center gap-1.5">
-          <span className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mr-1">Link by</span>
+          <span className="text-eyebrow font-mono text-muted mr-1">Link by</span>
           {(['all', 'malware', 'cve', 'ttp'] as LinkMode[]).map((m) => (
             <button
               key={m}
@@ -409,7 +409,7 @@ export function ClusterView({ actors, onOpen }: Props) {
         </div>
 
         {/* Legend */}
-        <div className="ml-4 flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+        <div className="ml-4 flex items-center gap-3 text-micro font-mono text-muted">
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-red-500/70" /> RU
           </div>
@@ -430,7 +430,7 @@ export function ClusterView({ actors, onOpen }: Props) {
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+        <div className="ml-auto flex items-center gap-3 text-micro font-mono text-muted">
           <span>{filteredEdges.length} edges</span>
           <span>{actors.length} nodes</span>
           <span>drag · zoom · click</span>
@@ -448,9 +448,7 @@ export function ClusterView({ actors, onOpen }: Props) {
         <div className="absolute bottom-4 left-4 flex gap-2 pointer-events-none">
           <div className="surface-card px-3 py-1.5">
             <div className="font-mono text-lg font-bold text-slate-900 dark:text-slate-100">{filteredEdges.length}</div>
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              connections
-            </div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted">connections</div>
           </div>
         </div>
       </div>
@@ -483,7 +481,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
         />
         <div className="flex-1 min-w-0">
           <div className="text-[14px] font-bold text-slate-900 dark:text-slate-100">{a.name}</div>
-          <div className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+          <div className="text-micro font-mono text-muted uppercase tracking-wider">
             {a.apt} · {nation?.name}
           </div>
         </div>
@@ -499,9 +497,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
 
       {connected.length > 0 && (
         <div>
-          <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-1.5">
-            Connections ({connected.length})
-          </div>
+          <div className="text-eyebrow font-mono text-muted mb-1.5">Connections ({connected.length})</div>
           <div className="space-y-1 max-h-32 overflow-y-auto custom-scrollbar">
             {connected.slice(0, 6).map((e, i) => {
               const otherId = e.source === actorId ? e.target : e.source;
@@ -519,9 +515,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
               );
             })}
             {connected.length > 6 && (
-              <div className="text-micro text-slate-500 dark:text-slate-400 text-center py-0.5">
-                +{connected.length - 6} more
-              </div>
+              <div className="text-micro text-muted text-center py-0.5">+{connected.length - 6} more</div>
             )}
           </div>
         </div>
@@ -529,7 +523,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
 
       {(sharedMalware.size > 0 || sharedCves.size > 0 || sharedTtps.size > 0) && (
         <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-1">Shared tradecraft</div>
+          <div className="text-eyebrow font-mono text-muted mb-1">Shared tradecraft</div>
           <div className="flex flex-wrap gap-1">
             {[...sharedMalware].slice(0, 4).map((m) => (
               <span
@@ -565,7 +559,7 @@ function StatBox({ label, value, color }: { label: string; value: number; color:
       <div className="font-mono text-base font-bold" style={{ color }}>
         {value}
       </div>
-      <div className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</div>
+      <div className="text-micro font-mono text-muted uppercase tracking-wider">{label}</div>
     </div>
   );
 }

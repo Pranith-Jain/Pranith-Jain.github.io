@@ -222,7 +222,7 @@ export default function Predators(): JSX.Element {
       description="Tracking categories of online predation, exploitation networks, and trafficking operations - organized by threat risk, regional prevalence, and investigator resources."
     >
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
         <input
           type="text"
           value={query}
@@ -232,7 +232,7 @@ export default function Predators(): JSX.Element {
         />
       </div>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-xs font-mono text-muted mb-4">
         {sorted.length} {sorted.length === 1 ? 'category' : 'categories'} tracked
       </p>
 
@@ -251,7 +251,7 @@ export default function Predators(): JSX.Element {
               </span>
             </div>
 
-            <div className="flex items-center gap-1 text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+            <div className="flex items-center gap-1 text-xs font-mono text-muted mb-2">
               <Eye size={12} />
               <span>{cat.type}</span>
             </div>
@@ -271,7 +271,7 @@ export default function Predators(): JSX.Element {
 
             <div className="mt-auto space-y-2 text-xs font-mono text-slate-500 dark:text-slate-500">
               <div>
-                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
+                <span className="flex items-center gap-1 text-muted mb-1">
                   <AlertTriangle size={11} /> Indicators
                 </span>
                 <ul className="space-y-0.5">
@@ -283,7 +283,7 @@ export default function Predators(): JSX.Element {
                 </ul>
               </div>
               <div>
-                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
+                <span className="flex items-center gap-1 text-muted mb-1">
                   <Lock size={11} /> Response Resources
                 </span>
                 <ul className="space-y-0.5">
@@ -300,9 +300,7 @@ export default function Predators(): JSX.Element {
       </div>
 
       {sorted.length === 0 && (
-        <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-12 font-mono">
-          No predator categories match your filter.
-        </p>
+        <p className="text-sm text-muted text-center py-12 font-mono">No predator categories match your filter.</p>
       )}
     </DataPageLayout>
   );

@@ -179,7 +179,7 @@ export default function MostWanted(): JSX.Element {
         <ASCIIArt />
       </div>
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
         <input
           type="text"
           value={query}
@@ -189,7 +189,7 @@ export default function MostWanted(): JSX.Element {
         />
       </div>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-xs font-mono text-muted mb-4">
         {sorted.length} {sorted.length === 1 ? 'actor' : 'actors'} listed
       </p>
 
@@ -227,14 +227,14 @@ export default function MostWanted(): JSX.Element {
             <div className="mt-auto space-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-500">
               {actor.aliases.length > 0 && (
                 <p>
-                  <span className="text-slate-500 dark:text-slate-400">Aliases:</span> {actor.aliases.join(', ')}
+                  <span className="text-muted">Aliases:</span> {actor.aliases.join(', ')}
                 </p>
               )}
               <p>
-                <span className="text-slate-500 dark:text-slate-400">Origin:</span> {actor.origin}
+                <span className="text-muted">Origin:</span> {actor.origin}
               </p>
               <p>
-                <span className="text-slate-500 dark:text-slate-400">Tools:</span> {actor.tools.join(', ')}
+                <span className="text-muted">Tools:</span> {actor.tools.join(', ')}
               </p>
             </div>
           </Link>
@@ -242,9 +242,7 @@ export default function MostWanted(): JSX.Element {
       </div>
 
       {sorted.length === 0 && (
-        <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-12 font-mono">
-          No actors match your filter.
-        </p>
+        <p className="text-sm text-muted text-center py-12 font-mono">No actors match your filter.</p>
       )}
     </DataPageLayout>
   );

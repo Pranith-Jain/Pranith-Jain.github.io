@@ -74,13 +74,13 @@ export function LatestBriefingCard(): JSX.Element | null {
             {m.title ?? item.slug}
           </span>
         </div>
-        <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+        <p className="mt-0.5 text-xs text-muted">
           {fmt(s.findings)} findings · {fmt(s.kevs)} KEVs · {fmt(s.iocs)} IOCs
           {typeof s.critical === 'number' && s.critical > 0 ? ` · ${fmt(s.critical)} critical` : ''}
           {m.date_range ? ` · ${m.date_range}` : ''}
         </p>
       </div>
-      <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400 transition-transform group-hover:translate-x-0.5 dark:text-slate-400" />
+      <ArrowRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 dark:text-slate-400" />
     </Link>
   );
 }

@@ -227,7 +227,7 @@ export default function ActorDNA(): JSX.Element {
 
           {matches.length > 0 && (
             <div className="mt-4 space-y-3">
-              <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Matches ({matches.length})</h3>
+              <h3 className="text-sm font-medium text-muted">Matches ({matches.length})</h3>
               {matches.map((match) => (
                 <div key={match.actor_id} className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
@@ -238,7 +238,7 @@ export default function ActorDNA(): JSX.Element {
                   </div>
                   <div className="space-y-1">
                     {match.matching_signals.map((signal) => (
-                      <div key={signal.description} className="text-xs text-slate-500 dark:text-slate-400">
+                      <div key={signal.description} className="text-xs text-muted">
                         • {signal.description}
                       </div>
                     ))}
@@ -287,9 +287,7 @@ export default function ActorDNA(): JSX.Element {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-xl font-bold">{selectedActor.actor_name}</h2>
-                    <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                      {selectedActor.aliases.join(' · ')}
-                    </div>
+                    <div className="text-sm text-muted mt-1">{selectedActor.aliases.join(' · ')}</div>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
@@ -298,7 +296,7 @@ export default function ActorDNA(): JSX.Element {
                     <div className="text-xs text-slate-500">Confidence</div>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400">
+                <div className="flex flex-wrap gap-2 text-xs text-muted">
                   <span>First seen: {selectedActor.first_seen}</span>
                   <span>•</span>
                   <span>Last seen: {selectedActor.last_seen}</span>
@@ -511,7 +509,7 @@ function DNACard({ title, items, color }: { title: string; items: string[]; colo
 
   return (
     <div className={`rounded-xl border p-3 ${colorMap[color] ?? surface}`}>
-      <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{title}</div>
+      <div className="text-xs font-medium text-muted mb-2">{title}</div>
       <div className="flex flex-wrap gap-1">
         {items.map((item) => (
           <span

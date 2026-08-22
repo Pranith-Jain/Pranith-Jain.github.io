@@ -102,7 +102,7 @@ const STATUS_STYLES: Record<string, string> = {
   pass: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
   warn: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
   fail: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  unknown: 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30',
+  unknown: 'bg-slate-500/15 text-muted border-slate-500/30',
 };
 
 const GRADE_TONE: Record<string, { bg: string; ring: string; text: string; icon: typeof ShieldCheck }> = {
@@ -236,18 +236,16 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
           {snapshot.grade}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 text-mini font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 text-mini font-mono uppercase tracking-[0.16em] text-muted">
             <Icon size={12} aria-hidden="true" />
             {title}
           </div>
           <div className="mt-0.5 text-sm font-semibold text-slate-900 dark:text-slate-100">
             {snapshot.gradeInfo?.label ?? `Grade ${snapshot.grade}`}
-            <span className="ml-2 font-mono text-mini font-normal text-slate-500 dark:text-slate-400">
-              {snapshot.percentage}%
-            </span>
+            <span className="ml-2 font-mono text-mini font-normal text-muted">{snapshot.percentage}%</span>
           </div>
           {snapshot.gradeInfo?.description && (
-            <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">{snapshot.gradeInfo.description}</p>
+            <p className="mt-0.5 text-xs text-muted">{snapshot.gradeInfo.description}</p>
           )}
         </div>
         <a
@@ -283,9 +281,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
       {/* Issues - only show critical/high by default; expand for the rest */}
       {issues.length > 0 && (
         <div className="mt-3 border-t border-slate-200 pt-3 dark:border-[rgb(var(--border-400))]">
-          <div className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-            top issues
-          </div>
+          <div className="text-mini font-mono uppercase tracking-[0.16em] text-muted">top issues</div>
           <ul className="mt-2 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
             {issues.map((iss, i) => (
               <li key={iss.id ?? `iss-${i}`} className="flex items-start gap-2">
@@ -303,11 +299,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
                 />
                 <span>
                   <span className="font-medium">{iss.title ?? iss.id ?? 'Issue'}</span>
-                  {iss.category && (
-                    <span className="ml-1.5 font-mono text-micro text-slate-500 dark:text-slate-400">
-                      {iss.category}
-                    </span>
-                  )}
+                  {iss.category && <span className="ml-1.5 font-mono text-micro text-muted">{iss.category}</span>}
                 </span>
               </li>
             ))}

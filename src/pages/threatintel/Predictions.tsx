@@ -85,7 +85,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
         </span>
         <ExternalLink
           size={13}
-          className="text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5"
+          className="text-muted opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5"
         />
       </div>
       <p
@@ -95,15 +95,13 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
         {m.question}
       </p>
       <div className="flex items-center justify-between text-xs mb-1.5">
-        <span className="font-mono text-slate-500 dark:text-slate-400">{top ? `${top.name} ${pct}%` : `${pct}%`}</span>
-        <span className="font-mono text-slate-500 dark:text-slate-400">{formatVolume(m.volume)} vol</span>
+        <span className="font-mono text-muted">{top ? `${top.name} ${pct}%` : `${pct}%`}</span>
+        <span className="font-mono text-muted">{formatVolume(m.volume)} vol</span>
       </div>
       <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
         <div className={`h-full rounded-full ${meta.bar}`} style={{ width: `${Math.min(100, Math.max(2, pct))}%` }} />
       </div>
-      <div className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400">
-        resolves {formatEndDate(m.end_date)}
-      </div>
+      <div className="mt-3 text-mini font-mono text-muted">resolves {formatEndDate(m.end_date)}</div>
     </a>
   );
 }
@@ -196,7 +194,7 @@ export default function Predictions(): JSX.Element {
           const meta = BUCKET_META[bucket];
           return (
             <section key={bucket}>
-              <h2 className="flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-4">
+              <h2 className="flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-muted mb-4">
                 <meta.icon size={14} className={meta.accent.split(' ')[0]} /> {meta.label}
                 <span className="text-slate-400 dark:text-slate-400">· {markets.length}</span>
               </h2>

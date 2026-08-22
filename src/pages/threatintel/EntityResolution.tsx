@@ -273,10 +273,7 @@ export default function EntityResolution(): JSX.Element {
         <>
           <form onSubmit={handleSubmit} className="mb-8">
             <div className="relative">
-              <Search
-                size={14}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 ref={inputRef}
                 type="text"
@@ -309,14 +306,14 @@ export default function EntityResolution(): JSX.Element {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <EntityBadge type={entity.type} size="md" />
-                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono text-muted">
                         source: {entity.source.replace(/_/g, ' ')}
                       </span>
                     </div>
                     <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
                       {entity.label}
                     </h2>
-                    <p className="font-mono text-meta text-slate-500 dark:text-slate-400 mt-0.5">{entity.id}</p>
+                    <p className="font-mono text-meta text-muted mt-0.5">{entity.id}</p>
                   </div>
                   <ConfidenceBar score={entity.confidence} />
                 </div>
@@ -393,9 +390,7 @@ export default function EntityResolution(): JSX.Element {
                             {pir.priority}
                           </span>
                           <span className="flex-1 truncate">{pir.title}</span>
-                          <span className="text-micro text-slate-500 dark:text-slate-400">
-                            {pir.matched_in.join(', ')}
-                          </span>
+                          <span className="text-micro text-muted">{pir.matched_in.join(', ')}</span>
                         </a>
                       ))}
                     </div>
@@ -415,7 +410,7 @@ export default function EntityResolution(): JSX.Element {
                       <div className="grid gap-2">
                         {profile.cross_references.map((ref) => (
                           <div key={ref.source_id} className="flex items-center gap-2 text-meta font-mono">
-                            <ExternalLink size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                            <ExternalLink size={12} className="text-muted shrink-0" />
                             <span className="text-muted">{ref.source_name}:</span>
                             <span className="text-slate-900 dark:text-slate-100">{ref.label}</span>
                           </div>
@@ -515,7 +510,7 @@ export default function EntityResolution(): JSX.Element {
                   return (
                     <div key={e.id} className="surface-card p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <Icon size={16} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                        <Icon size={16} className="text-muted shrink-0" />
                         <div>
                           <div className="flex items-center gap-2 mb-0.5">
                             <EntityBadge type={e.type} />
@@ -523,7 +518,7 @@ export default function EntityResolution(): JSX.Element {
                               {e.label}
                             </span>
                           </div>
-                          <span className="font-mono text-mini text-slate-500 dark:text-slate-400">{e.id}</span>
+                          <span className="font-mono text-mini text-muted">{e.id}</span>
                         </div>
                       </div>
                       <ConfidenceBar score={e.confidence} />

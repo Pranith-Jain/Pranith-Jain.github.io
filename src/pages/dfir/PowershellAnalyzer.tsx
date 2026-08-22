@@ -71,7 +71,7 @@ function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm font-medium text-slate-900 dark:text-slate-100">{f.name}</span>
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{f.category}</span>
+            <span className="text-micro font-mono text-muted">{f.category}</span>
             <span className="text-micro font-mono text-slate-400">·</span>
             <button
               type="button"
@@ -92,25 +92,21 @@ function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void 
               </span>
             ))}
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{f.description}</p>
+          <p className="text-xs text-muted mt-0.5">{f.description}</p>
         </div>
         <span className="shrink-0 text-micro font-mono text-slate-400">{f.confidence}</span>
       </button>
       {open && (
         <div className="px-3 pb-3 pl-10 space-y-2">
           <div>
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              snippet
-            </span>
+            <span className="text-micro font-mono uppercase tracking-wider text-muted">snippet</span>
             <pre className="mt-1 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
               {f.snippet}
             </pre>
           </div>
           <div>
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              recommendation
-            </span>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{f.recommendation}</p>
+            <span className="text-micro font-mono uppercase tracking-wider text-muted">recommendation</span>
+            <p className="text-xs text-muted mt-0.5">{f.recommendation}</p>
           </div>
         </div>
       )}
@@ -124,9 +120,7 @@ function StatCard({ label, value, tone }: { label: string; value: string | numbe
       <div className={`text-2xl font-display font-bold tabular-nums ${tone ?? 'text-slate-900 dark:text-white'}`}>
         {value}
       </div>
-      <div className="mt-0.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-        {label}
-      </div>
+      <div className="mt-0.5 text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
     </div>
   );
 }
@@ -247,7 +241,7 @@ export default function PowershellAnalyzer(): JSX.Element {
           </a>{' '}
           (MIT).
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           100% client-side · no execution · no server upload · heuristic results may contain false positives.
         </p>
 
@@ -310,7 +304,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                     setResult(null);
                     setFilename('Pasted Code');
                   }}
-                  className="ml-auto text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                  className="ml-auto text-sm text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
                 >
                   Clear
                 </button>
@@ -321,13 +315,13 @@ export default function PowershellAnalyzer(): JSX.Element {
             {code && (
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden">
                 <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <span className="text-micro font-mono uppercase tracking-wider text-muted">
                     source · {lines.length} lines
                   </span>
                   <button
                     type="button"
                     onClick={copyCode}
-                    className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                    className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   >
                     {copied ? <Check size={12} /> : <Copy size={12} />} copy
                   </button>
@@ -364,7 +358,7 @@ export default function PowershellAnalyzer(): JSX.Element {
             {!result && (
               <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-12 text-center">
                 <ShieldCheck size={32} className="mx-auto text-slate-400 dark:text-slate-500 mb-3" />
-                <p className="text-sm text-slate-500 dark:text-slate-400">
+                <p className="text-sm text-muted">
                   Paste a PowerShell script and click <strong>Analyze</strong> to see findings, IOCs, MITRE ATT&CK
                   mapping, and a risk score.
                 </p>
@@ -383,14 +377,14 @@ export default function PowershellAnalyzer(): JSX.Element {
                       <button
                         type="button"
                         onClick={exportJson}
-                        className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                       >
                         <Download size={11} /> JSON
                       </button>
                       <button
                         type="button"
                         onClick={exportCsv}
-                        className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                       >
                         <Download size={11} /> CSV
                       </button>
@@ -436,7 +430,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                     </div>
                   </div>
 
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{result.summary}</p>
+                  <p className="text-sm text-muted leading-relaxed">{result.summary}</p>
 
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {result.risk.categories.map((c) => (
@@ -466,7 +460,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                   </div>
                   <ul className="space-y-1">
                     {result.obfuscation.reasons.map((r, i) => (
-                      <li key={i} className="text-xs text-slate-500 dark:text-slate-400 flex items-start gap-1.5">
+                      <li key={i} className="text-xs text-muted flex items-start gap-1.5">
                         <span className="text-slate-400 mt-0.5">•</span>
                         {r}
                       </li>
@@ -482,9 +476,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                     </h3>
                   </div>
                   {sortedFindings.length === 0 ? (
-                    <p className="px-4 py-6 text-sm text-slate-500 dark:text-slate-400 text-center">
-                      No suspicious findings detected.
-                    </p>
+                    <p className="px-4 py-6 text-sm text-muted text-center">No suspicious findings detected.</p>
                   ) : (
                     <div className="max-h-96 overflow-y-auto">
                       {sortedFindings.map((f, i) => (
@@ -525,7 +517,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                             </div>
                             <div className="mt-1 flex flex-wrap gap-1">
                               {info.findings.map((fn) => (
-                                <span key={fn} className="text-micro text-slate-500 dark:text-slate-400">
+                                <span key={fn} className="text-micro text-muted">
                                   {fn}
                                 </span>
                               ))}

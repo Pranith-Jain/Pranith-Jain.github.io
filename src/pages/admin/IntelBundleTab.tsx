@@ -67,9 +67,7 @@ export default function IntelBundleTab() {
   return (
     <div className="space-y-6">
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-          Inspect a persisted bundle
-        </h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-muted mb-3">Inspect a persisted bundle</h2>
         <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr_auto] gap-2 mb-2">
           <input
             type="text"
@@ -136,7 +134,7 @@ function Result({ data }: { data: InspectShape }) {
         }
     : {
         label: 'LLM skipped',
-        tone: 'bg-slate-100 dark:bg-slate-700/30 text-slate-500 dark:text-slate-400 border-slate-700/40',
+        tone: 'bg-slate-100 dark:bg-slate-700/30 text-muted border-slate-700/40',
       };
 
   return (
@@ -170,7 +168,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Sectors (${data.sectors.length})`}>
         {data.sectors.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
+          <p className="text-xs text-muted">-</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.sectors.map((s) => (
@@ -187,7 +185,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Affected products (${data.affectedProducts.length})`}>
         {data.affectedProducts.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
+          <p className="text-xs text-muted">-</p>
         ) : (
           <ul className="space-y-1 text-xs font-mono">
             {data.affectedProducts.map((p) => (
@@ -201,7 +199,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Attack patterns (${data.attackPatterns.length})`}>
         {data.attackPatterns.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
+          <p className="text-xs text-muted">-</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.attackPatterns.map((a) => (
@@ -221,7 +219,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Candidate actors (${data.actorCandidates.length})`}>
         {data.actorCandidates.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
+          <p className="text-xs text-muted">-</p>
         ) : (
           <ul className="space-y-1 text-xs">
             {data.actorCandidates.map((c) => (
@@ -236,7 +234,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Candidate malware (${data.malwareCandidates.length})`}>
         {data.malwareCandidates.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
+          <p className="text-xs text-muted">-</p>
         ) : (
           <ul className="space-y-1 text-xs">
             {data.malwareCandidates.map((c) => (

@@ -343,7 +343,7 @@ export default function SocVulns(): JSX.Element {
           value={
             <span className="inline-flex items-baseline gap-2">
               {counts.CRITICAL}
-              <span className="text-2xl text-slate-500 dark:text-slate-400">({criticalPct}%)</span>
+              <span className="text-2xl text-muted">({criticalPct}%)</span>
             </span>
           }
           severity="critical"
@@ -355,7 +355,7 @@ export default function SocVulns(): JSX.Element {
           value={
             <span className="inline-flex items-baseline gap-2">
               {counts.HIGH}
-              <span className="text-2xl text-slate-500 dark:text-slate-400">({highPct}%)</span>
+              <span className="text-2xl text-muted">({highPct}%)</span>
             </span>
           }
           severity="high"
@@ -380,7 +380,7 @@ export default function SocVulns(): JSX.Element {
             title="Detection frequency"
             right={
               dailyCounts.length > 0 ? (
-                <span className="text-meta font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-meta font-mono text-muted">
                   peak {Math.max(...dailyCounts.map((d) => d.value))} / day
                 </span>
               ) : null
@@ -447,15 +447,15 @@ export default function SocVulns(): JSX.Element {
             <SocSection title="Quick stats" />
             <dl className="space-y-2 text-meta font-mono">
               <div className="flex items-baseline justify-between gap-2">
-                <dt className="text-slate-500 dark:text-slate-400">top vendor</dt>
+                <dt className="text-muted">top vendor</dt>
                 <dd className="text-slate-700 dark:text-slate-300 truncate">{topVendors[0]?.label ?? '-'}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
-                <dt className="text-slate-500 dark:text-slate-400">critical + high</dt>
+                <dt className="text-muted">critical + high</dt>
                 <dd className="text-slate-700 dark:text-slate-300">{formatNumber(counts.CRITICAL + counts.HIGH)}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
-                <dt className="text-slate-500 dark:text-slate-400">KEV · all-time</dt>
+                <dt className="text-muted">KEV · all-time</dt>
                 <dd className="text-slate-700 dark:text-slate-300">{formatNumber(kevTotal)}</dd>
               </div>
             </dl>
@@ -538,9 +538,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
                 align: 'right',
                 sortValue: (r: (typeof rows)[number]) => r.kev_added ?? '',
                 render: (r) => (
-                  <span className="text-slate-500 dark:text-slate-400 tabular-nums">
-                    {r.kev_added ? r.kev_added.slice(0, 10) : '-'}
-                  </span>
+                  <span className="text-muted tabular-nums">{r.kev_added ? r.kev_added.slice(0, 10) : '-'}</span>
                 ),
               },
             ] as DataTableColumn<(typeof rows)[number]>[]

@@ -47,13 +47,13 @@ const PROVIDER_VERDICT_CHIP: Record<string, string> = {
   malicious: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
   suspicious: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
   clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
-  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400',
+  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted',
 };
 
 const CONFIDENCE_COLORS: Record<string, string> = {
   high: 'text-emerald-600 dark:text-emerald-400',
   medium: 'text-amber-600 dark:text-amber-400',
-  low: 'text-slate-500 dark:text-slate-400',
+  low: 'text-muted',
 };
 
 export default function ThreatHunt(): JSX.Element {
@@ -218,9 +218,7 @@ export default function ThreatHunt(): JSX.Element {
                       <span className="text-xs font-mono text-slate-500">{h.score}/100</span>
                     </div>
                     {h.description && (
-                      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
-                        {h.description}
-                      </p>
+                      <p className="text-mini font-mono text-muted mt-1 line-clamp-2">{h.description}</p>
                     )}
                     {h.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-1.5">
@@ -268,7 +266,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.breach_data.hits.map((b) => (
                   <div key={b.name} className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
-                    {b.description && <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">{b.description}</p>}
+                    {b.description && <p className="text-mini font-mono text-muted mt-0.5">{b.description}</p>}
                   </div>
                 ))}
               </div>
@@ -329,7 +327,7 @@ export default function ThreatHunt(): JSX.Element {
       )}
 
       {!result && !hunting && !error && (
-        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
+        <div className="text-center py-16 text-muted">
           <Search size={32} className="mx-auto mb-3 opacity-50" />
           <p className="text-sm font-mono">Enter an IP, domain, email, or hash to start hunting</p>
         </div>
@@ -356,7 +354,7 @@ function Section({
       <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-1">
         {icon} {title} {count > 0 && <span className="text-xs font-mono text-slate-500">({count})</span>}
       </h2>
-      {subtitle && <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">{subtitle}</p>}
+      {subtitle && <p className="text-mini font-mono text-muted mb-3">{subtitle}</p>}
       <div className={subtitle ? '' : 'mt-3'}>{children}</div>
     </div>
   );

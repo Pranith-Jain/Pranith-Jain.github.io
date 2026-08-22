@@ -158,7 +158,7 @@ function typeFromQuery(q: string): 'ip' | 'domain' | null {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="font-mono text-micro uppercase tracking-wider text-muted">{label}</div>
       <div className="font-mono text-sm text-slate-900 dark:text-slate-100 mt-0.5 break-all">{value}</div>
     </div>
   );
@@ -166,7 +166,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 function Loading({ text = 'Loading…' }: { text?: string }) {
   return (
-    <div className="flex items-center gap-2 font-mono text-sm text-slate-500 dark:text-slate-400 py-4">
+    <div className="flex items-center gap-2 font-mono text-sm text-muted py-4">
       <RefreshCw size={14} className="animate-spin" /> {text}
     </div>
   );
@@ -204,9 +204,7 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
 
       {data.open_ports.length > 0 && (
         <div className="mt-4">
-          <div className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-            Ports
-          </div>
+          <div className="font-mono text-micro uppercase tracking-wider text-muted mb-1.5">Ports</div>
           <div className="flex flex-wrap gap-1.5">
             {data.open_ports.map((p) => (
               <span
@@ -244,9 +242,7 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
         )}
       </div>
 
-      <p className="mt-3 font-mono text-xs text-slate-500 dark:text-slate-400">
-        sources: {data.sources_used.join(', ') || 'none responded'}
-      </p>
+      <p className="mt-3 font-mono text-xs text-muted">sources: {data.sources_used.join(', ') || 'none responded'}</p>
     </section>
   );
 }
@@ -296,7 +292,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
               className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
             >
               <div className="flex items-center gap-2 mb-1">
-                <Icon size={14} className="text-slate-500 dark:text-slate-400" />
+                <Icon size={14} className="text-muted" />
                 <span className="text-mini font-mono uppercase text-slate-500">{label}</span>
               </div>
               <span className="text-2xl font-mono font-bold">{value}</span>
@@ -439,7 +435,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                       href={`https://${d.domain}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 dark:text-slate-400 hover:text-brand-600 transition-colors"
+                      className="text-muted hover:text-brand-600 transition-colors"
                     >
                       <ExternalLink size={12} />
                     </a>
@@ -448,7 +444,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                     <span className="px-1.5 py-0.5 rounded bg-brand-50 dark:bg-brand-950/20 text-brand-700 dark:text-brand-300">
                       {d.match_reason.replace(/_/g, ' ')}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-400">{d.match_value}</span>
+                    <span className="text-muted">{d.match_value}</span>
                   </div>
                 </div>
               );
@@ -476,14 +472,10 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                 <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-semibold uppercase">{change.change_type}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">
-                      {formatDateTime(change.detected_at)}
-                    </span>
+                    <span className="text-xs text-muted ml-auto">{formatDateTime(change.detected_at)}</span>
                   </div>
                   <div className="text-sm grid grid-cols-1 sm:grid-cols-2 gap-1">
-                    <div className="line-through text-slate-500 dark:text-slate-400 font-mono text-xs break-all">
-                      {change.old_value ?? '-'}
-                    </div>
+                    <div className="line-through text-muted font-mono text-xs break-all">{change.old_value ?? '-'}</div>
                     <div className="font-mono text-xs break-all">{change.new_value ?? '-'}</div>
                   </div>
                 </div>
@@ -568,10 +560,7 @@ export default function AssetIntel(): JSX.Element {
       <form onSubmit={onSubmit} className="mb-8">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <ScanLine
-              size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            />
+            <ScanLine size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               value={input}
@@ -615,7 +604,7 @@ export default function AssetIntel(): JSX.Element {
         <div className="text-center py-16">
           <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter an IP address or domain to begin asset intelligence</p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-muted mt-1">
             IP → exposed host, open ports, CVEs, artifacts · Domain → WHOIS history, registration changes, related
             domains
           </p>

@@ -221,7 +221,7 @@ export default function Extremists(): JSX.Element {
       description="Tracked extremist ideologies, networks, and movements - organized by threat risk, regional presence, and observable indicators. For analysts conducting counter-extremism monitoring."
     >
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
         <input
           type="text"
           value={query}
@@ -231,7 +231,7 @@ export default function Extremists(): JSX.Element {
         />
       </div>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-xs font-mono text-muted mb-4">
         {sorted.length} {sorted.length === 1 ? 'ideology group' : 'ideology groups'} tracked
       </p>
 
@@ -250,7 +250,7 @@ export default function Extremists(): JSX.Element {
               </span>
             </div>
 
-            <div className="flex items-center gap-1 text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+            <div className="flex items-center gap-1 text-xs font-mono text-muted mb-2">
               <Users size={12} />
               <span>{group.ideology}</span>
             </div>
@@ -270,7 +270,7 @@ export default function Extremists(): JSX.Element {
 
             <div className="mt-auto space-y-2 text-xs font-mono text-slate-500 dark:text-slate-500">
               <div>
-                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
+                <span className="flex items-center gap-1 text-muted mb-1">
                   <AlertTriangle size={11} /> Indicators
                 </span>
                 <ul className="space-y-0.5">
@@ -282,7 +282,7 @@ export default function Extremists(): JSX.Element {
                 </ul>
               </div>
               <div>
-                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
+                <span className="flex items-center gap-1 text-muted mb-1">
                   <Radio size={11} /> Monitoring Sources
                 </span>
                 <ul className="space-y-0.5">
@@ -299,9 +299,7 @@ export default function Extremists(): JSX.Element {
       </div>
 
       {sorted.length === 0 && (
-        <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-12 font-mono">
-          No extremist groups match your filter.
-        </p>
+        <p className="text-sm text-muted text-center py-12 font-mono">No extremist groups match your filter.</p>
       )}
     </DataPageLayout>
   );

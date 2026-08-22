@@ -158,7 +158,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
 
       <div className="animate-fade-in-up mb-8 flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2">
-          <Search size={14} className="text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="text-muted" />
           <input
             type="text"
             value={search}
@@ -195,7 +195,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                       {ch.handle}
                     </span>
                     {ch.reviewed === 1 && ch.added_to_watch === 0 ? (
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-400/40 bg-slate-400/10 text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-400/40 bg-slate-400/10 text-muted">
                         rejected
                       </span>
                     ) : ch.reviewed === 1 ? (
@@ -209,7 +209,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-3 text-micro font-mono text-muted">
                     <span>discovered {new Date(ch.discovered_at).toLocaleString()}</span>
                     {ch.source_message && sanitizeUrl(ch.source_message) && (
                       <a

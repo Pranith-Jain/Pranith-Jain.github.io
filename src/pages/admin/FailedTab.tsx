@@ -68,7 +68,7 @@ export default function FailedTab() {
     }
   }
 
-  if (loading) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading) return <p className="text-muted">Loading…</p>;
   if (error)
     return (
       <div>
@@ -84,8 +84,8 @@ export default function FailedTab() {
   if (failures.length === 0)
     return (
       <div>
-        {actionMsg && <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">{actionMsg}</p>}
-        <p className="text-slate-500 dark:text-slate-400">No failures recorded.</p>
+        {actionMsg && <p className="text-xs font-mono text-muted mb-2">{actionMsg}</p>}
+        <p className="text-muted">No failures recorded.</p>
       </div>
     );
 
@@ -98,7 +98,7 @@ export default function FailedTab() {
           <div>
             <div className="flex items-center justify-between mb-3">
               {actionMsg ? (
-                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</p>
+                <p className="text-xs font-mono text-muted">{actionMsg}</p>
               ) : (
                 <p className="text-xs font-mono text-slate-600 dark:text-slate-500">
                   {failures.length} failure(s) recorded
@@ -115,18 +115,62 @@ export default function FailedTab() {
             </div>
             <div className="overflow-x-auto">
               <DataTable
-                columns={[
-                  { key: 'slotId', header: 'Slot ID', sortValue: (f: typeof shown[number]) => f.slotId, render: (f) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{f.slotId}</span> },
-                  { key: 'candidateId', header: 'Candidate ID', sortValue: (f: typeof shown[number]) => f.candidateId, render: (f) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{f.candidateId}</span> },
-                  { key: 'error', header: 'Error', sortValue: (f: typeof shown[number]) => f.error, render: (f) => <span className="text-rose-700 dark:text-rose-300 max-w-md break-words">{f.error}</span> },
-                  { key: 'failedAt', header: 'Failed at', sortValue: (f: typeof shown[number]) => f.failedAt, render: (f) => <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">{new Date(f.failedAt).toLocaleString()}</span> },
-                  { key: 'retries', header: 'Retries', align: 'right', sortValue: (f: typeof shown[number]) => f.retries, render: (f) => <span className="text-slate-700 dark:text-slate-300 tabular-nums">{f.retries}</span> },
-                  { key: 'actions', header: 'Actions', render: (f) => (
-                    <button onClick={() => clearOne(f.slotId)} disabled={busy === f.slotId} className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50">
-                      {busy === f.slotId ? '…' : 'Clear'}
-                    </button>
-                  ) },
-                ] as DataTableColumn<typeof shown[number]>[]}
+                columns={
+                  [
+                    {
+                      key: 'slotId',
+                      header: 'Slot ID',
+                      sortValue: (f: (typeof shown)[number]) => f.slotId,
+                      render: (f) => <span className="font-mono text-xs text-muted">{f.slotId}</span>,
+                    },
+                    {
+                      key: 'candidateId',
+                      header: 'Candidate ID',
+                      sortValue: (f: (typeof shown)[number]) => f.candidateId,
+                      render: (f) => <span className="font-mono text-xs text-muted">{f.candidateId}</span>,
+                    },
+                    {
+                      key: 'error',
+                      header: 'Error',
+                      sortValue: (f: (typeof shown)[number]) => f.error,
+                      render: (f) => (
+                        <span className="text-rose-700 dark:text-rose-300 max-w-md break-words">{f.error}</span>
+                      ),
+                    },
+                    {
+                      key: 'failedAt',
+                      header: 'Failed at',
+                      sortValue: (f: (typeof shown)[number]) => f.failedAt,
+                      render: (f) => (
+                        <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                          {new Date(f.failedAt).toLocaleString()}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'retries',
+                      header: 'Retries',
+                      align: 'right',
+                      sortValue: (f: (typeof shown)[number]) => f.retries,
+                      render: (f) => (
+                        <span className="text-slate-700 dark:text-slate-300 tabular-nums">{f.retries}</span>
+                      ),
+                    },
+                    {
+                      key: 'actions',
+                      header: 'Actions',
+                      render: (f) => (
+                        <button
+                          onClick={() => clearOne(f.slotId)}
+                          disabled={busy === f.slotId}
+                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                        >
+                          {busy === f.slotId ? '…' : 'Clear'}
+                        </button>
+                      ),
+                    },
+                  ] as DataTableColumn<(typeof shown)[number]>[]
+                }
                 rows={shown}
                 rowKey={(f) => `${f.slotId}-${f.failedAt}`}
               />

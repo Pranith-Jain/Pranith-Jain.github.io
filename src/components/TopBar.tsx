@@ -122,7 +122,7 @@ export function TopBar({
             <span className={`font-display font-bold text-sm sm:text-base ${accentClass} truncate`}>
               {sectionLabel}
             </span>
-            <span className="hidden sm:inline text-micro font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 truncate">
+            <span className="hidden sm:inline text-micro font-mono uppercase tracking-[0.18em] text-muted truncate">
               {TAGLINE[mark]}
             </span>
           </span>
@@ -135,7 +135,7 @@ export function TopBar({
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search
-            className="h-4 w-4 flex-shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-500 dark:text-slate-400"
+            className="h-4 w-4 flex-shrink-0 text-muted group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-muted"
             aria-hidden="true"
           />
           <span className="truncate flex-1 text-tool sm:text-sm">

@@ -296,7 +296,7 @@ export default function NhiScan() {
         <section className="surface-card p-4">
           <form onSubmit={handleScan}>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+              <label className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted">
                 NHI Inventory (JSON)
               </label>
               <div className="flex gap-1.5">
@@ -415,9 +415,7 @@ export default function NhiScan() {
             {/* Summary */}
             <section className="surface-card p-4">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                  Summary
-                </h2>
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted">Summary</h2>
                 <div className="flex gap-2">
                   <Button
                     type="button"
@@ -476,7 +474,7 @@ export default function NhiScan() {
             {/* OWASP counts */}
             {Object.keys(summary.owasp_counts).length > 0 && (
               <section className="surface-card p-4">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">
                   OWASP NHI Top 10 findings
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -498,9 +496,7 @@ export default function NhiScan() {
 
             {/* Identities by risk */}
             <section className="space-y-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                Identities by risk
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted">Identities by risk</h2>
               {result.identities.map((idn) => {
                 const isOpen = expanded[idn.id] ?? false;
                 return (
@@ -595,9 +591,7 @@ export default function NhiScan() {
         {markdown && !loading && (
           <section className="surface-card p-4">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                Markdown Report
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted">Markdown Report</h2>
               <Button
                 type="button"
                 variant="secondary"

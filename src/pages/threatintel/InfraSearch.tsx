@@ -140,7 +140,7 @@ export default function InfraSearch(): JSX.Element {
       description="Map real-world infrastructure from OpenStreetMap data - 200+ types across 30+ categories. Search by type, operator, or location with natural language."
       maxWidthClass="max-w-[1600px]"
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <p className="text-xs text-muted font-mono">
           Powered by Overpass API + Nominatim. Inspired by Sightline (MIT).
         </p>
       }
@@ -149,11 +149,7 @@ export default function InfraSearch(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <form onSubmit={(e) => onSubmit(e)} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
-            <Search
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -178,7 +174,7 @@ export default function InfraSearch(): JSX.Element {
         {/* Quick searches */}
         {!result && !loading && (
           <div className="mt-3 flex flex-wrap gap-1.5">
-            <Zap size={12} className="text-slate-500 dark:text-slate-400 mt-0.5" />
+            <Zap size={12} className="text-muted mt-0.5" />
             {QUICK_SEARCHES.map((qs) => {
               const Icon = qs.icon;
               return (
@@ -186,7 +182,7 @@ export default function InfraSearch(): JSX.Element {
                   key={qs.label}
                   type="button"
                   onClick={(e) => onSubmit(e, qs.label)}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-700 dark:hover:text-slate-200 transition"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-700 dark:hover:text-slate-200 transition"
                 >
                   <Icon size={12} className="shrink-0" /> {qs.label}
                 </button>
@@ -266,7 +262,7 @@ export default function InfraSearch(): JSX.Element {
               <div style={{ height: 520 }}>
                 <Suspense
                   fallback={
-                    <div className="flex items-center justify-center h-full text-slate-500 dark:text-slate-400 font-mono text-sm">
+                    <div className="flex items-center justify-center h-full text-muted font-mono text-sm">
                       <Loader2 className="animate-spin mr-2" /> Loading map…
                     </div>
                   }
@@ -293,7 +289,7 @@ export default function InfraSearch(): JSX.Element {
                     className={`text-mini font-mono px-2 py-0.5 rounded border transition ${
                       catFilter === 'All'
                         ? 'bg-rose-600 text-white border-rose-600'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                     }`}
                   >
                     All ({result.results.length})
@@ -309,7 +305,7 @@ export default function InfraSearch(): JSX.Element {
                         className={`text-mini font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${
                           catFilter === cat
                             ? 'bg-rose-600 text-white border-rose-600'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                         }`}
                       >
                         <span
@@ -325,7 +321,7 @@ export default function InfraSearch(): JSX.Element {
               {/* Results list */}
               <section className="surface-card">
                 <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                  <span className="text-xs font-mono text-muted">
                     {filtered.length} result{filtered.length !== 1 ? 's' : ''}
                   </span>
                 </div>
@@ -343,7 +339,7 @@ export default function InfraSearch(): JSX.Element {
                         <div className="font-medium truncate text-slate-900 dark:text-slate-100 text-tool">
                           {r.name}
                         </div>
-                        <div className="text-mini text-slate-500 dark:text-slate-400 font-mono">
+                        <div className="text-mini text-muted font-mono">
                           {r.lat.toFixed(4)}, {r.lon.toFixed(4)}
                         </div>
                       </div>
@@ -355,9 +351,7 @@ export default function InfraSearch(): JSX.Element {
                 </div>
                 {filtered.length > 200 && (
                   <div className="px-4 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <p className="text-mini text-slate-500 dark:text-slate-400 font-mono">
-                      Showing 200 of {filtered.length} · map shows all
-                    </p>
+                    <p className="text-mini text-muted font-mono">Showing 200 of {filtered.length} · map shows all</p>
                   </div>
                 )}
               </section>
@@ -376,7 +370,7 @@ export default function InfraSearch(): JSX.Element {
           <div style={{ height: 500 }}>
             <Suspense
               fallback={
-                <div className="flex items-center justify-center h-full text-slate-500 dark:text-slate-400 font-mono text-sm">
+                <div className="flex items-center justify-center h-full text-muted font-mono text-sm">
                   <Loader2 className="animate-spin mr-2" /> Loading map…
                 </div>
               }

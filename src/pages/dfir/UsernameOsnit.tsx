@@ -75,7 +75,7 @@ export default function UsernameOsnit(): JSX.Element {
           Check 60+ platforms for a username - social, dev, gaming, creative, finance. Server-side HTTP checks, bounded
           concurrency, 15-minute edge cache.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Inspired by Sherlock (84k stars). Checks live HTTP status codes to determine presence - "found" means the
           profile page returned 200/3xx, not that the account belongs to the same person.
         </p>
@@ -84,11 +84,7 @@ export default function UsernameOsnit(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <form onSubmit={onSubmit} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
-            <Users
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Users size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -174,7 +170,7 @@ export default function UsernameOsnit(): JSX.Element {
                     >
                       {r.category}
                     </span>
-                    <ExternalLink size={10} className="text-slate-500 dark:text-slate-400 ml-auto shrink-0" />
+                    <ExternalLink size={10} className="text-muted ml-auto shrink-0" />
                   </a>
                 ))}
               </div>
@@ -184,9 +180,7 @@ export default function UsernameOsnit(): JSX.Element {
           {/* Not Found */}
           {filter === 'all' && notFound.length > 0 && (
             <section className="surface-card p-6">
-              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">
-                Not Found ({notFound.length})
-              </h2>
+              <h2 className="font-display font-bold text-xl mb-4 text-muted">Not Found ({notFound.length})</h2>
               <div className="flex flex-wrap gap-1.5">
                 {notFound.map((r) => (
                   <span
@@ -203,9 +197,7 @@ export default function UsernameOsnit(): JSX.Element {
           {/* Category Breakdown */}
           {Object.keys(result.summary).length > 0 && (
             <section className="surface-card p-6">
-              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">
-                Category Breakdown
-              </h2>
+              <h2 className="font-display font-bold text-xl mb-4 text-muted">Category Breakdown</h2>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(result.summary)
                   .sort((a, b) => b[1] - a[1])

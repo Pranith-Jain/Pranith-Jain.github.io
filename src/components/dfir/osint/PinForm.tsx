@@ -49,7 +49,7 @@ export function PinForm({
         );
       }}
     >
-      <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="text-xs text-muted font-mono">
         {coordLat.toFixed(5)}, {coordLng.toFixed(5)}
       </div>
       <input
@@ -81,7 +81,7 @@ export function PinForm({
       </div>
       {!isEdit && identifiers.length > 0 && (
         <fieldset className="text-sm">
-          <legend className="text-xs text-slate-500 dark:text-slate-400">Link identifiers</legend>
+          <legend className="text-xs text-muted">Link identifiers</legend>
           {identifiers.map((id) => (
             <label key={id.id} className="flex items-center gap-2">
               <input

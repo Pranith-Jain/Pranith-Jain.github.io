@@ -143,7 +143,7 @@ function PipelineBar() {
           {busy === 'all' ? 'Running…' : 'Run full pipeline'}
         </button>
       </div>
-      {msg && <p className="mt-3 text-xs font-mono text-slate-600 dark:text-slate-400 break-all">{msg}</p>}
+      {msg && <p className="mt-3 text-xs font-mono text-muted break-all">{msg}</p>}
     </div>
   );
 }
@@ -203,7 +203,7 @@ export default function AdminApp() {
   if (authStatus === 'probing') {
     return (
       <div className="max-w-6xl mx-auto px-6 py-8">
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Checking admin session…</p>
+        <p className="text-sm font-mono text-muted">Checking admin session…</p>
       </div>
     );
   }
@@ -227,7 +227,7 @@ export default function AdminApp() {
               className={`px-2 py-1 rounded text-micro font-mono border ${
                 inferenceStats.overCap
                   ? 'bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 border-rose-200 dark:border-rose-700/50'
-                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]'
+                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]'
               }`}
               title={`${inferenceStats.calls ?? 0} calls · ${(inferenceStats.totalTokens ?? 0).toLocaleString()} tokens`}
             >
@@ -236,13 +236,13 @@ export default function AdminApp() {
           )}
           <a
             href="/admin/analytics"
-            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             Analytics
           </a>
           <button
             onClick={logout}
-            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             Logout
           </button>

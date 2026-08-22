@@ -161,7 +161,7 @@ export default function SandboxIntegration(): JSX.Element {
               {result.consensus.sources_agreeing} of {result.results.length} sources agree · Confidence:{' '}
               {result.consensus.confidence}%
             </div>
-            <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1 truncate">Hash: {result.hash}</div>
+            <div className="text-micro font-mono text-muted mt-1 truncate">Hash: {result.hash}</div>
           </div>
 
           {/* Per-Source Results */}
@@ -184,7 +184,7 @@ export default function SandboxIntegration(): JSX.Element {
                         href={sanitizeUrl(r.link) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        className="text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                       >
                         <ExternalLink size={14} />
                       </a>

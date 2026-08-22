@@ -328,7 +328,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
             </div>
           )}
           {data && (
-            <p className="text-micro text-slate-500 dark:text-slate-400 mt-2">
+            <p className="text-micro text-muted mt-2">
               {data.length} bundle{data.length !== 1 ? 's' : ''}
             </p>
           )}

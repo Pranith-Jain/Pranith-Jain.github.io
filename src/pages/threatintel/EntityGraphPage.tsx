@@ -142,7 +142,7 @@ export default function EntityGraphPage(): JSX.Element {
           })}
           <div className="ml-auto flex items-center gap-2">
             <div className="relative">
-              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 value={searchQuery}
@@ -154,7 +154,7 @@ export default function EntityGraphPage(): JSX.Element {
             <button
               type="button"
               onClick={fetchGraph}
-              className="flex items-center gap-1 rounded-xl p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
+              className="flex items-center gap-1 rounded-xl p-1.5 text-muted hover:text-rose-600 transition-colors"
               aria-label="Refresh"
             >
               <RefreshCw size={13} />
@@ -185,7 +185,7 @@ export default function EntityGraphPage(): JSX.Element {
           <Suspense
             fallback={
               <div className="flex items-center justify-center h-full">
-                <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
+                <Loader2 size={20} className="animate-spin text-muted" />
               </div>
             }
           >
@@ -195,7 +195,7 @@ export default function EntityGraphPage(): JSX.Element {
       )}
 
       {/* ── Legend ───────────────────────────────────────────────────── */}
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-mini font-mono text-slate-500 dark:text-slate-400">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-mini font-mono text-muted">
         <span className="flex items-center gap-1.5">
           <GitBranch size={11} />
           {filteredEdges.length} edges

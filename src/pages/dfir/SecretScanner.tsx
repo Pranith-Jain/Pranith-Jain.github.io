@@ -281,7 +281,7 @@ export default function SecretScanner(): JSX.Element {
                         {hit.sev}
                       </span>
                       <span className={`font-display font-semibold text-sm ${st.text}`}>{hit.kind}</span>
-                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">line {hit.line}</span>
+                      <span className="text-mini font-mono text-muted">line {hit.line}</span>
                       <code className="text-meta font-mono text-slate-700 dark:text-slate-300 break-all">
                         {hit.redacted}
                       </code>

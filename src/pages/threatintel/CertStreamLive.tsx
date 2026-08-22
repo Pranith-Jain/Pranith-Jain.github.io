@@ -262,7 +262,7 @@ export default function CertStreamLive(): JSX.Element {
       {streaming && (
         <div className="surface-card p-5">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            <div className="text-xs font-mono text-muted">
               {loading ? (
                 <span className="inline-flex items-center gap-1">
                   <RefreshCw size={11} className="animate-spin" /> polling crt.sh…
@@ -333,7 +333,7 @@ export default function CertStreamLive(): JSX.Element {
                         href={it.crtsh_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                        className="text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                         title="Open on crt.sh"
                       >
                         <ExternalLink size={12} />
@@ -361,12 +361,12 @@ export default function CertStreamLive(): JSX.Element {
 
       {!streaming && (
         <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--input-200)/0.4)] p-8 text-center">
-          <Radio size={28} className="mx-auto text-slate-500 dark:text-slate-400 mb-2" />
+          <Radio size={28} className="mx-auto text-muted mb-2" />
           <p className="text-sm font-mono text-slate-500">
             Enter a keyword and press <span className="text-rose-600 dark:text-rose-400">Start stream</span> to begin
             polling.
           </p>
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
+          <p className="text-mini font-mono text-muted mt-2">
             Tip: brand-name fuzzy patterns (e.g. <code>%g1thub%</code>) surface lookalike issuances within minutes of
             certificate creation.
           </p>

@@ -47,7 +47,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
     <div className="space-y-4">
       <div className="flex gap-2">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 dark:text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
           <input
             type="text"
             placeholder="CVE-2024-3094"
@@ -70,14 +70,14 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
 
       {data && (
         <div className="space-y-3">
-          <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-3 text-sm text-muted">
             <span className="font-mono font-semibold text-slate-900 dark:text-white">{data.cve_id}</span>
             <span>{data.repos.length} PoC repos found</span>
-            <span className="text-xs text-slate-500 dark:text-slate-400">({data.total_count} total on GitHub)</span>
+            <span className="text-xs text-muted">({data.total_count} total on GitHub)</span>
           </div>
 
           {data.repos.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
               No PoC repositories found for {data.cve_id}
             </div>
           ) : (
@@ -105,13 +105,9 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
                           </span>
                         )}
                       </div>
-                      {repo.description && (
-                        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">
-                          {repo.description}
-                        </p>
-                      )}
+                      {repo.description && <p className="text-xs text-muted mt-1 line-clamp-2">{repo.description}</p>}
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 flex-shrink-0">
+                    <div className="flex items-center gap-3 text-xs text-muted flex-shrink-0">
                       <span className="flex items-center gap-1">
                         <Star className="h-3.5 w-3.5" />
                         {repo.stars}

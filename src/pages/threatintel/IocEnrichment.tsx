@@ -173,10 +173,7 @@ export default function IocEnrichment(): JSX.Element {
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <div className="relative">
-                <Search
-                  size={14}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-                />
+                <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   type="text"
                   value={query}
@@ -199,7 +196,7 @@ export default function IocEnrichment(): JSX.Element {
                 className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-rose-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 min-w-[180px] justify-between"
               >
                 <span>{source.label}</span>
-                <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
+                <ChevronDown size={14} className="text-muted" />
               </button>
               {showDropdown && (
                 <div
@@ -269,9 +266,7 @@ export default function IocEnrichment(): JSX.Element {
               {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
               Response from {source.label}
             </span>
-            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-              {JSON.stringify(data).length.toLocaleString()} bytes
-            </span>
+            <span className="text-mini font-mono text-muted">{JSON.stringify(data).length.toLocaleString()} bytes</span>
           </button>
           {expanded && (
             <div className="p-4 pt-0 space-y-3">

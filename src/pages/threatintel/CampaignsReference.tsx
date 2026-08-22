@@ -121,16 +121,16 @@ export default function CampaignsReference(): JSX.Element {
       title="Campaign Reference"
       description="Curated tracker of active, dormant, and concluded threat campaigns with writeup links, actor attribution, TTPs, and target sectors. Sourced from the novasky.io CTI dashboard."
       headerExtra={
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {data && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
+            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
               {data.count} campaigns
             </span>
           )}
@@ -148,7 +148,7 @@ export default function CampaignsReference(): JSX.Element {
           {/* Toolbar */}
           <section className="surface-card p-4 mb-4">
             <div className="relative mb-3">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -183,8 +183,7 @@ export default function CampaignsReference(): JSX.Element {
                     onClick={() => setCategoryFilter(active ? null : cat)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
-                        ? (CATEGORY_COLOR[cat] ??
-                          'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300')
+                        ? (CATEGORY_COLOR[cat] ?? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300')
                         : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                     }`}
                   >
@@ -217,7 +216,7 @@ export default function CampaignsReference(): JSX.Element {
 
           {/* Campaign grid */}
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               No campaigns match the current filter.
             </div>
@@ -237,7 +236,7 @@ export default function CampaignsReference(): JSX.Element {
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{value}</div>
     </div>
   );
@@ -274,12 +273,12 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
         </div>
       </div>
       {c.actor && (
-        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1.5">
+        <p className="text-mini font-mono text-muted mb-1.5">
           actor: <span className="text-slate-700 dark:text-slate-300">{c.actor}</span>
         </p>
       )}
       <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{c.description}</p>
-      <div className="flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400 mb-2 flex-wrap">
+      <div className="flex items-center gap-3 text-micro font-mono text-muted mb-2 flex-wrap">
         {c.firstSeen && (
           <span>
             first seen: <span className="text-slate-700 dark:text-slate-300">{formatDate(c.firstSeen)}</span>
@@ -323,9 +322,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-2">
           {c.ttps && c.ttps.length > 0 && (
             <div>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-2">
-                TTPs:
-              </span>
+              <span className="text-micro font-mono uppercase tracking-wider text-muted mr-2">TTPs:</span>
               <div className="flex flex-wrap gap-1 mt-1">
                 {c.ttps.map((ttp) => (
                   <span
@@ -339,7 +336,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
             </div>
           )}
           {c.geography && c.geography.length > 0 && (
-            <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+            <p className="text-mini font-mono text-muted">
               geography: <span className="text-slate-700 dark:text-slate-300">{c.geography.join(', ')}</span>
             </p>
           )}

@@ -319,7 +319,7 @@ export default function FeedScheduler(): JSX.Element {
             </button>
           </div>
           <div className="relative max-w-sm">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               value={search}
@@ -448,7 +448,7 @@ export default function FeedScheduler(): JSX.Element {
         <div className="surface-card p-12 text-center">
           <RefreshCw size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching feeds' : 'No feed jobs configured'}</p>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs font-mono text-muted mt-1">
             {search
               ? 'Try a different search'
               : 'Add a feed source to start collecting threat intelligence automatically'}
@@ -479,7 +479,7 @@ export default function FeedScheduler(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setEditingId(null)}
-                      className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-600"
+                      className="p-1 rounded text-muted hover:text-slate-600"
                     >
                       <X size={13} />
                     </button>
@@ -567,12 +567,10 @@ export default function FeedScheduler(): JSX.Element {
                         {job.last_status === 'ok' && <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />}
                         {job.last_status === 'error' && <XCircle size={12} className="text-rose-500 shrink-0" />}
                         {isRunning && <Loader2 size={12} className="animate-spin text-brand-500 shrink-0" />}
-                        {job.last_status === null && (
-                          <Clock size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
-                        )}
+                        {job.last_status === null && <Clock size={12} className="text-muted shrink-0" />}
                       </div>
                       <p className="text-mini font-mono text-slate-500 mt-0.5 truncate max-w-xl">{job.source_url}</p>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-micro font-mono text-muted">
                         <span className="capitalize">{job.parser.replace(/-/g, ' ')}</span>
                         <span>Every {job.interval_minutes}m</span>
                         {job.last_run_at && <span>Last: {relativeTime(job.last_run_at)}</span>}
@@ -593,7 +591,7 @@ export default function FeedScheduler(): JSX.Element {
                         type="button"
                         onClick={() => void runJob(job.id)}
                         disabled={isRunning}
-                        className="p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30"
+                        className="p-1.5 rounded text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30"
                         title="Run now"
                       >
                         <Play size={13} />
@@ -611,7 +609,7 @@ export default function FeedScheduler(): JSX.Element {
                           });
                         }}
                         disabled={isRunning}
-                        className="p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                        className="p-1.5 rounded text-muted hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         title="Edit"
                       >
                         <Pencil size={13} />
@@ -619,7 +617,7 @@ export default function FeedScheduler(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void toggleJob(job.id, !job.enabled)}
-                        className="p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                        className="p-1.5 rounded text-muted hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         title={job.enabled ? 'Disable' : 'Enable'}
                       >
                         <CheckCircle2 size={13} />
@@ -627,7 +625,7 @@ export default function FeedScheduler(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void deleteJob(job.id, job.name)}
-                        className="p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                        className="p-1.5 rounded text-muted hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         title="Delete"
                       >
                         <Trash2 size={13} />
@@ -636,7 +634,7 @@ export default function FeedScheduler(): JSX.Element {
                   </div>
                   {jobHistory.length > 0 && (
                     <details className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      <summary className="text-micro font-mono text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 select-none">
+                      <summary className="text-micro font-mono text-muted cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 select-none">
                         Run history ({jobHistory.length})
                       </summary>
                       <div className="mt-2 space-y-1 max-h-32 overflow-y-auto">
@@ -651,10 +649,10 @@ export default function FeedScheduler(): JSX.Element {
                               <XCircle size={10} className="text-rose-500" />
                             )}
                             <span>{new Date(h.started_at).toLocaleString()}</span>
-                            <span className="text-slate-500 dark:text-slate-400">-</span>
+                            <span className="text-muted">-</span>
                             <span>{h.item_count.toLocaleString()} items</span>
                             {h.error && <span className="text-rose-500 truncate max-w-[200px]">{h.error}</span>}
-                            <span className="text-slate-500 dark:text-slate-400">
+                            <span className="text-muted">
                               (
                               {Math.round(
                                 (new Date(h.finished_at).getTime() - new Date(h.started_at).getTime()) / 1000

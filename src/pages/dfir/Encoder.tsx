@@ -84,7 +84,7 @@ export default function Encoder(): JSX.Element {
           </Link>
           . Useful for crafting test payloads, replicating attacker obfuscation chains, and quickly producing
           base64/url/hex/binary/rot13 forms. Pure client-side; nothing leaves your browser.
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <p className="text-xs text-muted font-mono mt-2">
             Chains apply left-to-right: <code>url → base64</code> first URL-encodes the input, then base64-encodes the
             URL-encoded form. Use the round-trip button to verify the chain decodes cleanly.
           </p>
@@ -94,9 +94,7 @@ export default function Encoder(): JSX.Element {
       {/* Input */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Input
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Input</h2>
           <div className="flex flex-wrap gap-1.5">
             {SAMPLES.map((s) => (
               <button
@@ -132,7 +130,7 @@ export default function Encoder(): JSX.Element {
       {/* Chain builder */}
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
             Encoding chain ({chain.length})
           </h2>
           <button
@@ -162,15 +160,13 @@ export default function Encoder(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => removeStep(idx)}
-                  className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+                  className="p-1 rounded text-muted hover:text-rose-600 dark:hover:text-rose-400"
                   aria-label="remove pass"
                 >
                   <X size={11} />
                 </button>
               )}
-              {idx < chain.length - 1 && (
-                <ArrowRight size={12} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />
-              )}
+              {idx < chain.length - 1 && <ArrowRight size={12} className="text-muted" aria-hidden="true" />}
             </div>
           ))}
         </div>
@@ -180,9 +176,7 @@ export default function Encoder(): JSX.Element {
       {finalOutput && (
         <section className="surface-card p-4 mb-6">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-              Final output
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Final output</h2>
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -204,7 +198,7 @@ export default function Encoder(): JSX.Element {
       {/* Per-pass breakdown */}
       {steps.length > 1 && (
         <section className="surface-card p-4 mb-6">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
             Per-pass breakdown
           </h2>
           <ol className="space-y-3">

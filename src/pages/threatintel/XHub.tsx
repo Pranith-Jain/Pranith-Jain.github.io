@@ -21,9 +21,7 @@ const VALID_TABS = new Set<TabId>(['firehose', 'live', 'watch']);
 export default function XHub(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get('tab') as TabId | null;
-  const [activeTab, setActiveTab] = useState<TabId>(
-    tabParam && VALID_TABS.has(tabParam) ? tabParam : 'firehose'
-  );
+  const [activeTab, setActiveTab] = useState<TabId>(tabParam && VALID_TABS.has(tabParam) ? tabParam : 'firehose');
 
   // Sync tab changes to the URL so deep-links and back/forward work.
   useEffect(() => {
@@ -65,9 +63,7 @@ export default function XHub(): JSX.Element {
         ))}
       </nav>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === activeTab)?.desc}
-      </p>
+      <p className="text-xs font-mono text-muted mb-4">{TABS.find((t) => t.id === activeTab)?.desc}</p>
 
       <div role="tabpanel">
         <Suspense fallback={<TabLoader />}>

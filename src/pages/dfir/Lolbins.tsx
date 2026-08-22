@@ -59,7 +59,7 @@ export default function Lolbins(): JSX.Element {
           {LOLBINS.length} curated entries from LOLBAS (Windows), GTFOBins (Unix), and LOOBins (macOS), each mapped to
           MITRE ATT&amp;CK with a one-line abuse example and a detection idea.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           A subset of the full catalogues - pick the entries I reach for during phishing / BEC / commodity-malware IRs.
           Use the upstream sources (linked on each card) for the complete coverage.
         </p>
@@ -68,11 +68,7 @@ export default function Lolbins(): JSX.Element {
       {/* Filters */}
       <div className="space-y-3 mb-6">
         <div className="relative">
-          <Search
-            size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            aria-hidden="true"
-          />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="text"
             value={query}
@@ -84,9 +80,7 @@ export default function Lolbins(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
-            Platform
-          </span>
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">Platform</span>
           <button
             onClick={() => setPlatform('all')}
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
@@ -116,9 +110,7 @@ export default function Lolbins(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
-            Category
-          </span>
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">Category</span>
           <button
             onClick={() => setCategory('all')}
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
@@ -149,7 +141,7 @@ export default function Lolbins(): JSX.Element {
         </div>
       </div>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-xs font-mono text-muted mb-3">
         Showing {filtered.length} of {LOLBINS.length}
       </p>
 
@@ -210,7 +202,7 @@ export default function Lolbins(): JSX.Element {
 
             <div className="grid gap-2 md:grid-cols-2">
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
-                <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
+                <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted block mb-1">
                   Legitimate use
                 </span>
                 <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.legit}</p>
@@ -226,14 +218,12 @@ export default function Lolbins(): JSX.Element {
         ))}
 
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-sm font-mono text-slate-500 dark:text-slate-400">
-            No entries match those filters.
-          </div>
+          <div className="text-center py-12 text-sm font-mono text-muted">No entries match those filters.</div>
         )}
       </div>
 
       <section className="mt-8 surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
           Upstream catalogues
         </h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">

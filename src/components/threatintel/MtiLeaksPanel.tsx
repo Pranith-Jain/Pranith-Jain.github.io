@@ -151,7 +151,7 @@ export function MtiLeaksPanel(): JSX.Element {
 
       <div className="flex flex-wrap gap-2 items-center mb-3">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -177,7 +177,7 @@ export function MtiLeaksPanel(): JSX.Element {
                 className={`px-2.5 py-1.5 transition-colors ${
                   active
                     ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
+                    : 'text-muted hover:text-slate-900 dark:hover:text-slate-100'
                 }`}
               >
                 {m === 'date' ? 'newest' : 'biggest'}

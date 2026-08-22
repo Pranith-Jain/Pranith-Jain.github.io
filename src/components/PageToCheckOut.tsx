@@ -59,9 +59,7 @@ export function PageToCheckOut(): JSX.Element | null {
           <div className="grid h-6 w-6 place-items-center rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
             <Star size={12} />
           </div>
-          <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            Page to Check Out
-          </h3>
+          <h3 className="text-xs font-mono uppercase tracking-wider text-muted">Page to Check Out</h3>
         </div>
         <Link
           to={page.path}
@@ -77,7 +75,7 @@ export function PageToCheckOut(): JSX.Element | null {
               <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {page.name}
               </h4>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{page.desc}</p>
+              <p className="text-xs text-muted mt-0.5 leading-relaxed">{page.desc}</p>
             </div>
             <ArrowRight
               size={14}

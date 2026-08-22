@@ -175,7 +175,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       )}
 
       {!data && !loading && !error && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
+        <p className="text-sm font-mono text-muted">
           Try keywords like <code>ransomware</code>, <code>stealer</code>, <code>infostealer</code>, or a specific
           threat-actor name. Single handles (e.g. <code>vxunderground</code>) also work and return linked-actor
           attributions.
@@ -190,7 +190,7 @@ export default function TelegramChannelSearch(): JSX.Element {
 
       {data && data.results.length > 0 && (
         <div className="space-y-3">
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-xs font-mono text-muted">
             {data.results.length} result{data.results.length === 1 ? '' : 's'} for <strong>{data.query}</strong>
             {' · '}fetched {new Date(data.fetched_at).toLocaleString()}
             {data.stale && ' · stale'}
@@ -209,7 +209,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                     </span>
                   )}
                 </div>
-                <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+                <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-muted">
                   <span className="inline-flex items-center gap-1">
                     <Users size={11} /> {formatSubs(r.subscribers)}
                   </span>
@@ -245,7 +245,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                           via {a.sources.map((s) => SOURCE_LABEL[s]).join(', ')}
                         </span>
                         {a.citations[0] && (
-                          <span className="ml-1 text-slate-500 dark:text-slate-400" title={a.citations.join(' · ')}>
+                          <span className="ml-1 text-muted" title={a.citations.join(' · ')}>
                             - {a.citations[0]}
                           </span>
                         )}
@@ -285,7 +285,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                 )}
                 {!adminToken && (
                   <span
-                    className="text-micro font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1"
+                    className="text-micro font-mono text-muted inline-flex items-center gap-1"
                     title="Set an admin token in the Settings tab to add channels directly from this view."
                   >
                     <Lock size={10} /> admin token required to add

@@ -123,16 +123,14 @@ export default function Truecaller() {
             {/* Quick identity card */}
             {r && (
               <section className="surface-card p-4">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
-                  Identity
-                </h2>
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Identity</h2>
                 <div className="space-y-3">
                   <div>
                     <div className="text-xl font-bold text-slate-900 dark:text-slate-100">
                       {r.name || 'Unknown Caller'}
                     </div>
                     {r.alt_name && <div className="text-sm text-muted mt-0.5">{r.alt_name}</div>}
-                    <div className="font-mono text-sm text-slate-600 dark:text-slate-400 mt-1">{data.phone_number}</div>
+                    <div className="font-mono text-sm text-muted mt-1">{data.phone_number}</div>
                   </div>
 
                   <div className="flex flex-wrap gap-3">
@@ -162,7 +160,7 @@ export default function Truecaller() {
             {/* Spam assessment */}
             {r && typeof r.spam_score === 'number' && (
               <section className="surface-card p-4">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">
                   <Shield size={12} className="inline mr-1" />
                   Spam Assessment
                 </h2>
@@ -195,9 +193,7 @@ export default function Truecaller() {
             {/* Full details */}
             {r && (
               <section className="surface-card p-4">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
-                  Details
-                </h2>
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Details</h2>
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { label: 'Phone Number', value: r.phone_number },

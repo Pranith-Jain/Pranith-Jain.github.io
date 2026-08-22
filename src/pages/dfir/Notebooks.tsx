@@ -53,11 +53,11 @@ const STATUS_COLORS: Record<string, string> = {
   open: 'bg-blue-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-300',
   investigating: 'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300',
   resolved: 'bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
-  archived: 'bg-slate-100 dark:bg-slate-500/15 text-slate-600 dark:text-slate-400',
+  archived: 'bg-slate-100 dark:bg-slate-500/15 text-muted',
 };
 
 const SEVERITY_COLORS: Record<string, string> = {
-  info: 'bg-slate-100 dark:bg-slate-500/15 text-slate-600 dark:text-slate-400',
+  info: 'bg-slate-100 dark:bg-slate-500/15 text-muted',
   low: 'bg-blue-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-300',
   medium: 'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300',
   high: 'bg-orange-100 dark:bg-orange-500/15 text-orange-700 dark:text-orange-300',
@@ -312,7 +312,7 @@ export default function Notebooks() {
                 className={`px-3 py-1 rounded-full text-xs font-mono transition-colors ${
                   statusFilter === s
                     ? 'bg-brand-600 text-white'
-                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {s || 'All'}
@@ -466,7 +466,7 @@ export default function Notebooks() {
                         }
                       }}
                       disabled={summaryLoading || entries.length === 0}
-                      className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-xs font-mono text-slate-600 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50 whitespace-nowrap"
+                      className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50 whitespace-nowrap"
                     >
                       {summaryLoading ? (
                         <Loader2 size={14} className="inline mr-1 animate-spin" />

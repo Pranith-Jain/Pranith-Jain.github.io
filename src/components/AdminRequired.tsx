@@ -14,10 +14,10 @@ export function AdminRequired({ tool }: { tool: string }) {
         className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-700 bg-slate-800/60"
         aria-hidden="true"
       >
-        <Lock className="h-6 w-6 text-slate-500 dark:text-slate-400" />
+        <Lock className="h-6 w-6 text-muted" />
       </div>
       <h1 className="text-xl font-semibold text-slate-100">Admin access required</h1>
-      <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+      <p className="mt-2 text-sm leading-relaxed text-muted">
         {tool} is an operator tool - its data is private to the platform admin. Sign in with your admin token to use it.
       </p>
       <Link

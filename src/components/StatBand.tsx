@@ -39,7 +39,7 @@ export const StatNumber = memo(function StatNumber({
 
 /** Shared type ramp for a band cell's number + sub-line. */
 export const STAT_NUM = 'font-display text-3xl font-bold leading-none tabular-nums sm:text-4xl';
-export const STAT_SUB = 'mt-auto font-mono text-mini leading-relaxed text-slate-500 dark:text-slate-400';
+export const STAT_SUB = 'mt-auto font-mono text-mini leading-relaxed text-muted';
 
 interface StatCellProps {
   to: string;
@@ -69,7 +69,7 @@ export const StatCell = memo(function StatCell({
     >
       <div className="flex items-center gap-2">
         <span className={`inline-flex h-6 w-6 items-center justify-center rounded ${iconClass}`}>{icon}</span>
-        <span className="font-mono text-micro uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="font-mono text-micro uppercase tracking-[0.18em] text-muted">{label}</span>
       </div>
       {children}
     </Link>

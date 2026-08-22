@@ -206,7 +206,7 @@ export default function Wayback(): JSX.Element {
           Paste a URL - get the Internet Archive snapshot timeline (first / last seen, status-code distribution, deduped
           via content digest). Useful for phishing-site evolution, infrastructure churn, and content provenance.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Powered by the public Internet Archive CDX API. Capped at 200 snapshots per query for responsiveness; for
           deeper history use{' '}
           <a
@@ -230,11 +230,7 @@ export default function Wayback(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[280px]">
-            <Search
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="url"
               value={url}
@@ -262,9 +258,7 @@ export default function Wayback(): JSX.Element {
               {inCooldown && (
                 <>
                   {' '}
-                  <span className="text-slate-500 dark:text-slate-400">
-                    Auto-retry available in {cooldownRemaining}s - no need to refresh.
-                  </span>
+                  <span className="text-muted">Auto-retry available in {cooldownRemaining}s - no need to refresh.</span>
                 </>
               )}
             </span>
@@ -282,9 +276,7 @@ export default function Wayback(): JSX.Element {
       {stats && (
         <section className="surface-card p-4 mb-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-              Timeline summary
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Timeline summary</h2>
             <span className="text-mini font-mono text-slate-400 dark:text-slate-400 inline-flex items-center gap-1.5">
               <CheckCircle2 size={12} className="text-emerald-500" /> {snapshots?.length ?? 0} unique snapshots
             </span>
@@ -317,12 +309,12 @@ export default function Wayback(): JSX.Element {
 
       {displaySnapshots.length > 0 && (
         <section className="surface-card p-4 mb-6">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
             Snapshots (sorted by {sortKey} {sortDir})
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-meta font-mono">
-              <thead className="text-left text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <thead className="text-left text-micro uppercase tracking-wider text-muted">
                 <tr>
                   {(['timestamp', 'status', 'mime', 'length'] as const).map((k) => (
                     <th
@@ -401,7 +393,7 @@ export default function Wayback(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
           Companion lookups
         </h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
@@ -432,9 +424,7 @@ export default function Wayback(): JSX.Element {
 function Stat({ label, value, url }: { label: string; value: string; url?: string }): JSX.Element {
   return (
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
-      <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
-        {label}
-      </div>
+      <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>
       {url ? (
         <a
           href={url}

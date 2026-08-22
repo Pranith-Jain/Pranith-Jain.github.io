@@ -95,7 +95,7 @@ export default function RetentionTab() {
       {/* ── Telegram Leak Cleanup ─────────────────────────── */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Telegram leak cleanup</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-sm text-muted mb-4">
           Deletes <code className="font-mono">telegram_leak_entries</code> older than the retention window. The weekly
           cron runs this automatically at 7 days; use this to force an immediate cleanup or adjust the window.
         </p>
@@ -138,7 +138,7 @@ export default function RetentionTab() {
                 Deleted <strong>{tgResult.deleted}</strong> row(s) older than {tgResult.max_age_days} days.
               </span>
             </div>
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            <div className="text-xs font-mono text-muted">
               Before: {tgResult.count_before.toLocaleString()} → After: {tgResult.count_after.toLocaleString()}
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function RetentionTab() {
       {/* ── Full Retention Sweep ──────────────────────────── */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Full data retention sweep</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-sm text-muted mb-4">
           Deletes rows older than the retention window across 13 data tables (briefings, IOC logs, report-extraction
           cache, etc.). The cron runs this hourly; use this to preview impact or override the window.
         </p>
@@ -207,14 +207,13 @@ export default function RetentionTab() {
               {cutoff && (
                 <>
                   {' '}
-                  Cutoff: <code className="font-mono text-slate-500 dark:text-slate-400">{cutoff.toISOString()}</code>.
+                  Cutoff: <code className="font-mono text-muted">{cutoff.toISOString()}</code>.
                 </>
               )}
               {ranAt && (
                 <>
                   {' '}
-                  Ran at: <code className="font-mono text-slate-500 dark:text-slate-400">{ranAt.toLocaleString()}</code>
-                  .
+                  Ran at: <code className="font-mono text-muted">{ranAt.toLocaleString()}</code>.
                 </>
               )}
             </div>

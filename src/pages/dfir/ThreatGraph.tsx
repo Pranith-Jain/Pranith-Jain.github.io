@@ -284,7 +284,7 @@ export default function ThreatGraph(): JSX.Element {
           ) : (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Network size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
-              <p className="text-sm text-slate-500 dark:text-slate-400">Node not found</p>
+              <p className="text-sm text-muted">Node not found</p>
             </div>
           )}
         </div>
@@ -294,7 +294,7 @@ export default function ThreatGraph(): JSX.Element {
           {communities.length === 0 ? (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Users size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
-              <p className="text-sm text-slate-500 dark:text-slate-400">No communities detected</p>
+              <p className="text-sm text-muted">No communities detected</p>
             </div>
           ) : (
             communities.map((c) => (
@@ -333,7 +333,7 @@ export default function ThreatGraph(): JSX.Element {
                     </div>
                   ))}
                   {c.nodes.length > 6 && (
-                    <div className="flex items-center rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-2 text-xs text-slate-500 dark:text-slate-400">
+                    <div className="flex items-center rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-2 text-xs text-muted">
                       +{c.nodes.length - 6} more
                     </div>
                   )}
@@ -352,9 +352,7 @@ function StatCard({ label, value, icon }: { label: string; value: string | numbe
     <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className="text-brand-600 dark:text-brand-400">{icon}</span>}
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          {label}
-        </span>
+        <span className="text-micro font-mono uppercase tracking-wider text-muted">{label}</span>
       </div>
       <div className="text-2xl font-display font-bold">
         {typeof value === 'number' ? value.toLocaleString() : value}

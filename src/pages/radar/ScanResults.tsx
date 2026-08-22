@@ -186,7 +186,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
-      <p className="text-xs text-slate-500 dark:text-slate-400">{label}</p>
+      <p className="text-xs text-muted">{label}</p>
       <p className="mt-1 truncate text-sm font-semibold text-slate-900 dark:text-white">{value}</p>
     </div>
   );
@@ -195,7 +195,7 @@ function StatBox({ label, value }: { label: string; value: string }) {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-3">
-      <span className="min-w-[140px] text-slate-500 dark:text-slate-400">{label}</span>
+      <span className="min-w-[140px] text-muted">{label}</span>
       <span className="break-all text-slate-900 dark:text-slate-200">{value}</span>
     </div>
   );
@@ -295,7 +295,7 @@ function HttpHeadersPanel({ data }: { data: ScanData }) {
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {Object.entries(data.http.headers).map(([key, value]) => (
           <div key={key} className="flex gap-4 px-4 py-2 text-sm">
-            <span className="min-w-[200px] font-mono font-medium text-slate-600 dark:text-slate-400">{key}</span>
+            <span className="min-w-[200px] font-mono font-medium text-muted">{key}</span>
             <span className="break-all text-slate-900 dark:text-slate-200">{value}</span>
           </div>
         ))}
@@ -383,9 +383,9 @@ function JsPanel({ data }: { data: ScanData }) {
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.js_files.map((f) => (
           <div key={f.url} className="flex items-center gap-3 px-4 py-2.5 text-sm">
-            <Code className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400" />
+            <Code className="h-4 w-4 shrink-0 text-muted" />
             <span className="truncate font-mono text-slate-700 dark:text-slate-300">{f.url}</span>
-            <ExternalLink className="ml-auto h-3.5 w-3.5 shrink-0 text-slate-500 dark:text-slate-400" />
+            <ExternalLink className="ml-auto h-3.5 w-3.5 shrink-0 text-muted" />
           </div>
         ))}
         {data.js_files.length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No JS files found</div>}
@@ -416,7 +416,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
               {ep.method}
             </span>
             <span className="truncate font-mono text-slate-700 dark:text-slate-300">{ep.url}</span>
-            <span className="ml-auto shrink-0 text-xs text-slate-500 dark:text-slate-400">{ep.type}</span>
+            <span className="ml-auto shrink-0 text-xs text-muted">{ep.type}</span>
           </div>
         ))}
         {data.endpoints.length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No endpoints found</div>}
@@ -499,7 +499,7 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
             </span>
             <span className="text-sm font-semibold text-slate-900 dark:text-white">{v.type}</span>
           </div>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{v.detail}</p>
+          <p className="mt-1 text-sm text-muted">{v.detail}</p>
         </div>
       ))}
     </div>
@@ -563,7 +563,7 @@ function MetaPanel({ data }: { data: ScanData }) {
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {Object.entries(data.meta).map(([key, value]) => (
           <div key={key} className="flex gap-4 px-4 py-2 text-sm">
-            <span className="min-w-[180px] font-mono font-medium text-slate-600 dark:text-slate-400">{key}</span>
+            <span className="min-w-[180px] font-mono font-medium text-muted">{key}</span>
             <span className="break-all text-slate-900 dark:text-slate-200">{value}</span>
           </div>
         ))}
@@ -589,9 +589,9 @@ function FormsPanel({ data }: { data: ScanData }) {
             {form.inputs.length > 0 && (
               <div className="mt-2 space-y-1">
                 {form.inputs.map((inp) => (
-                  <div key={inp.name} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+                  <div key={inp.name} className="flex items-center gap-2 text-xs text-muted">
                     <span className="font-mono">{inp.name}</span>
-                    <span className="text-slate-500 dark:text-slate-400">({inp.type})</span>
+                    <span className="text-muted">({inp.type})</span>
                   </div>
                 ))}
               </div>
@@ -617,7 +617,7 @@ function ImagesPanel({ data }: { data: ScanData }) {
             <Image className="h-8 w-8 text-slate-300 dark:text-slate-400" />
           </div>
           <div className="p-2">
-            <p className="truncate text-xs text-slate-600 dark:text-slate-400" title={img.src}>
+            <p className="truncate text-xs text-muted" title={img.src}>
               {img.src}
             </p>
             {img.alt && <p className="truncate text-xs text-slate-500">{img.alt}</p>}
@@ -635,7 +635,7 @@ function LinksPanel({ data }: { data: ScanData }) {
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.links.slice(0, 200).map((link, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2 text-sm">
-            <Link2 className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400" />
+            <Link2 className="h-4 w-4 shrink-0 text-muted" />
             <span className="truncate text-slate-700 dark:text-slate-300">{link.text || link.href}</span>
             {link.rel && (
               <span className="ml-auto shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
@@ -898,7 +898,7 @@ export default function ScanResults() {
               <h1 className="text-xl font-bold text-slate-900 dark:text-white">{data.target}</h1>
               <StatusBadge status={data.http.status} />
             </div>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-sm text-muted">
               Scanned {new Date(data.scannedAt).toLocaleString()} · {data.duration_ms}ms
               {crawlStatus && (
                 <span className="ml-2 inline-flex items-center gap-1 text-brand-500">
@@ -941,40 +941,40 @@ export default function ScanResults() {
                   // Jump to the first secrets-relevant category so the click
                   // visibly changes the panel (the tab used to be dead UI).
                   setActiveCategory((cur) =>
-                    SECRET_CATEGORY_IDS.has(cur) ? cur : CATEGORIES.find((c) => SECRET_CATEGORY_IDS.has(c.id))?.id ?? cur
+                    SECRET_CATEGORY_IDS.has(cur)
+                      ? cur
+                      : (CATEGORIES.find((c) => SECRET_CATEGORY_IDS.has(c.id))?.id ?? cur)
                   );
                 }}
                 className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 px-3 py-3 text-xs font-semibold transition-colors ${activeTab === 'secrets' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
               >
-                <Shield className="h-3.5 w-3.5" /> Keys & Secrets{' '}
-                <LockKeyhole className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                <Shield className="h-3.5 w-3.5" /> Keys & Secrets <LockKeyhole className="h-3 w-3 text-muted" />
               </button>
             </div>
             <nav className="flex flex-col p-1">
-              {(activeTab === 'secrets'
-                ? CATEGORIES.filter((c) => SECRET_CATEGORY_IDS.has(c.id))
-                : CATEGORIES
-              ).map((cat) => {
-                const Icon = cat.icon;
-                const count = catCount(cat.id);
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`flex items-center justify-between rounded px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <Icon className="h-4 w-4" />
-                      {cat.label}
-                    </span>
-                    {count > 0 && (
-                      <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-micro font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
-                        {count}
+              {(activeTab === 'secrets' ? CATEGORIES.filter((c) => SECRET_CATEGORY_IDS.has(c.id)) : CATEGORIES).map(
+                (cat) => {
+                  const Icon = cat.icon;
+                  const count = catCount(cat.id);
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => setActiveCategory(cat.id)}
+                      className={`flex items-center justify-between rounded px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <Icon className="h-4 w-4" />
+                        {cat.label}
                       </span>
-                    )}
-                  </button>
-                );
-              })}
+                      {count > 0 && (
+                        <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-micro font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
+                          {count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                }
+              )}
             </nav>
           </div>
         </aside>
@@ -991,7 +991,7 @@ export default function ScanResults() {
 function MiniStat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-xs text-slate-500 dark:text-slate-400">{label}</p>
+      <p className="text-xs text-muted">{label}</p>
       <p className="text-sm font-semibold text-slate-900 dark:text-white">{value}</p>
     </div>
   );

@@ -118,7 +118,7 @@ function CopyableJson({ value, label }: { value: string; label: string }) {
   };
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] overflow-hidden">
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-meta text-slate-500 dark:text-slate-400">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-meta text-muted">
         <span className="font-mono">{label}</span>
         <button
           type="button"
@@ -208,7 +208,7 @@ export default function McpCatalogPage(): JSX.Element {
 
         {/* Endpoint / transport strip */}
         <section className="surface-card p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
-          <div className="flex flex-wrap items-center gap-3 text-meta text-slate-600 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-3 text-meta text-muted">
             <span>
               <span className="text-slate-900 dark:text-slate-100 font-medium">Endpoint</span>{' '}
               <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
@@ -235,7 +235,7 @@ export default function McpCatalogPage(): JSX.Element {
           <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100">
             Connect in 30 seconds
           </h2>
-          <ol className="mb-5 list-decimal space-y-2 pl-5 text-tool text-slate-600 dark:text-slate-400 leading-relaxed">
+          <ol className="mb-5 list-decimal space-y-2 pl-5 text-tool text-muted leading-relaxed">
             <li>
               Generate an API key at{' '}
               <Link to="/api/v1/admin/keys" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -264,7 +264,7 @@ export default function McpCatalogPage(): JSX.Element {
               <div key={k}>
                 <div className="mb-1.5 flex items-baseline justify-between text-tool">
                   <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{s.title}</span>
-                  <code className="text-micro text-slate-500 dark:text-slate-400">{s.path}</code>
+                  <code className="text-micro text-muted">{s.path}</code>
                 </div>
                 <CopyableJson value={s.json} label={s.title} />
               </div>
@@ -275,7 +275,7 @@ export default function McpCatalogPage(): JSX.Element {
         {/* Search + category filter */}
         <section className="surface-card p-4 mb-6">
           <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}
@@ -287,7 +287,7 @@ export default function McpCatalogPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-100"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-slate-700 dark:hover:text-slate-100"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
@@ -317,7 +317,7 @@ export default function McpCatalogPage(): JSX.Element {
 
         {/* Tool grid */}
         {grouped.length === 0 && manifest && (
-          <div className="surface-card p-6 text-center text-tool text-slate-500 dark:text-slate-400">
+          <div className="surface-card p-6 text-center text-tool text-muted">
             No tools match your filter. Try clearing the search.
           </div>
         )}
@@ -326,16 +326,14 @@ export default function McpCatalogPage(): JSX.Element {
             <section key={cat}>
               <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100 flex items-baseline gap-2">
                 {cat}
-                <span className="text-meta font-mono font-normal text-slate-500 dark:text-slate-400">
-                  ({tools.length})
-                </span>
+                <span className="text-meta font-mono font-normal text-muted">({tools.length})</span>
               </h2>
               <ul className="grid gap-2 sm:grid-cols-2">
                 {tools.map((t) => (
                   <li key={t.name} className="surface-card p-3">
                     <div className="flex items-baseline justify-between gap-2">
                       <code className="text-tool font-semibold text-brand-600 dark:text-brand-400">{t.name}</code>
-                      <span className="rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <span className="rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono uppercase tracking-wider text-muted">
                         {t.category}
                       </span>
                     </div>
@@ -347,7 +345,7 @@ export default function McpCatalogPage(): JSX.Element {
           ))}
         </div>
 
-        <footer className="mt-12 pt-6 text-tool text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <footer className="mt-12 pt-6 text-tool text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           <p>
             The manifest at <code>/mcp-manifest.json</code> is auto-generated from <code>worker/mcp-server.ts</code> by{' '}
             <code>scripts/build-mcp-manifest.mjs</code> on every build. To add a tool, register it with{' '}
@@ -409,7 +407,7 @@ function FilterPill({
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
         active
           ? `${accent} border-current bg-current/10`
-          : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-slate-100'
+          : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-muted hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-slate-100'
       }`}
     >
       {label}

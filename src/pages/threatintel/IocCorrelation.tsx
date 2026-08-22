@@ -83,7 +83,7 @@ const FRESHNESS_PILL: Record<Freshness, { label: string; cls: string }> = {
   },
   'no-timestamp': {
     label: 'no upstream timestamp',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
   },
 };
 
@@ -122,7 +122,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
             </span>
           ))}
           {ioc.context && (
-            <span className="text-slate-500 dark:text-slate-400 italic" title={ioc.context}>
+            <span className="text-muted italic" title={ioc.context}>
               · {ioc.context.length > 60 ? `${ioc.context.slice(0, 60)}…` : ioc.context}
             </span>
           )}
@@ -237,7 +237,7 @@ export default function IocCorrelation(): JSX.Element {
       description="Indicators that appear in 2+ independent IOC feeds. A single feed can carry false positives; consensus across independent sources is what analysts trust. Higher source-count = higher confidence the indicator is currently malicious."
       maxWidthClass="max-w-5xl"
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        <p className="text-xs text-muted font-mono mb-6">
           Aggregated across 18 public IOC feeds: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats, AlienVault OTX,
           BlocklistProject (ransomware + scam), the abuse.ch suite, Ipsum, CINS, and more.
         </p>
@@ -271,9 +271,7 @@ export default function IocCorrelation(): JSX.Element {
       {data && (
         <section className="surface-card p-4 mb-4">
           <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
-            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Feed health
-            </h3>
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Feed health</h3>
             <span className="text-mini font-mono text-slate-500 tabular-nums">
               {data.sources.filter((s) => s.ok).length} of {data.sources.length} feeds online ·{' '}
               {data.totals.indicators_scanned.toLocaleString()} indicators scanned
@@ -310,7 +308,7 @@ export default function IocCorrelation(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}

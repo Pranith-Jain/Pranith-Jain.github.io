@@ -23,9 +23,7 @@ export default function RansomwareHub(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const validTabs = new Set<TabId>(['report', 'activity', 'map', 'ransomwhere']);
   const tabParam = searchParams.get('tab') as TabId | null;
-  const [activeTab, setActiveTab] = useState<TabId>(
-    tabParam && validTabs.has(tabParam) ? tabParam : 'report'
-  );
+  const [activeTab, setActiveTab] = useState<TabId>(tabParam && validTabs.has(tabParam) ? tabParam : 'report');
 
   // Sync tab changes to the URL so deep-links and back/forward work.
   useEffect(() => {
@@ -68,9 +66,7 @@ export default function RansomwareHub(): JSX.Element {
               </button>
             ))}
           </nav>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
-            {TABS.find((t) => t.id === activeTab)?.desc}
-          </p>
+          <p className="text-xs font-mono text-muted">{TABS.find((t) => t.id === activeTab)?.desc}</p>
         </div>
       }
     >

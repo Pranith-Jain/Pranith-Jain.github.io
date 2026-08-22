@@ -8,7 +8,7 @@ const TONE_CLS: Record<FreshnessTone, string> = {
   recent: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   stale: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   cold: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-300',
-  unknown: 'border-slate-400/40 bg-slate-400/10 text-slate-500 dark:text-slate-400',
+  unknown: 'border-slate-400/40 bg-slate-400/10 text-muted',
 };
 
 const TONE_LABEL: Record<FreshnessTone, string> = {
@@ -53,7 +53,7 @@ export function LiveFreshnessPill({ tone, label, ago, className = '' }: LiveFres
         <Radio className="h-2.5 w-2.5" aria-hidden="true" />
       )}
       <span>{label ?? TONE_LABEL[tone]}</span>
-      {ago && <span className="text-slate-500 dark:text-slate-400 normal-case tracking-normal">· {ago}</span>}
+      {ago && <span className="text-muted normal-case tracking-normal">· {ago}</span>}
     </span>
   );
 }

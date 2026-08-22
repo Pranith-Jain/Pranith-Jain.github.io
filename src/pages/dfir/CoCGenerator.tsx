@@ -134,7 +134,7 @@ export default function CoCGenerator() {
         {/* Evidence inventory */}
         <section className="surface-card p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
               Evidence Inventory
             </h2>
             <button
@@ -190,9 +190,7 @@ export default function CoCGenerator() {
         {/* Custody timeline */}
         <section className="surface-card p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-              Custody Timeline
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Custody Timeline</h2>
             <button
               onClick={addRecord}
               className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
@@ -202,7 +200,7 @@ export default function CoCGenerator() {
           </div>
 
           {records.length === 0 ? (
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-mono py-6 text-center">
+            <p className="text-sm text-muted font-mono py-6 text-center">
               No transfers yet — start with the acquisition/handling event.
             </p>
           ) : (

@@ -247,10 +247,7 @@ function DDoSPanel() {
           {/* Search */}
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search
-                size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 value={searchQ}
@@ -360,7 +357,7 @@ function FortiBleedPanel() {
       return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
     if (s === 'INFO')
       return 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800';
-    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]';
+    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]';
   };
 
   return (
@@ -522,7 +519,7 @@ function HealthcarePanel() {
     if (s === 'critical') return 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300';
     if (s === 'high') return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
     if (s === 'medium') return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300';
-    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400';
+    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted';
   };
 
   return (
@@ -577,10 +574,7 @@ function HealthcarePanel() {
 
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search
-                size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 value={searchQ}
@@ -713,7 +707,7 @@ function ThreatReportsPanel() {
               className={`px-3 py-1.5 rounded text-mini font-mono font-semibold border transition-colors ${
                 reportType === t
                   ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
-                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400'
+                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
               }`}
             >
               {label}

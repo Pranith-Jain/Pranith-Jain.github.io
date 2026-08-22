@@ -185,7 +185,7 @@ export default function FusionExposure(): JSX.Element {
             />
             <span className="text-micro text-slate-500 font-mono">min score</span>
           </div>
-          <label className="flex items-center gap-1.5 text-xs font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="flex items-center gap-1.5 text-xs font-mono text-muted cursor-pointer">
             <input
               type="checkbox"
               checked={kevFilter}
@@ -194,7 +194,7 @@ export default function FusionExposure(): JSX.Element {
             />
             KEV only
           </label>
-          <label className="flex items-center gap-1.5 text-xs font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="flex items-center gap-1.5 text-xs font-mono text-muted cursor-pointer">
             <input
               type="checkbox"
               checked={exploitFilter}
@@ -223,9 +223,7 @@ export default function FusionExposure(): JSX.Element {
           {kevFilter && <span className="text-rose-500">KEV only</span>}
           {exploitFilter && <span className="text-orange-500">exploit only</span>}
           {minScore > 0 && <span>min score: {minScore}</span>}
-          <span className="text-slate-500 dark:text-slate-400">
-            · {data.generated_at.slice(0, 16).replace('T', ' ')}
-          </span>
+          <span className="text-muted">· {data.generated_at.slice(0, 16).replace('T', ' ')}</span>
         </div>
       )}
 
@@ -249,9 +247,7 @@ export default function FusionExposure(): JSX.Element {
                   >
                     {item.fusion_score}
                   </span>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">
-                    score
-                  </span>
+                  <span className="text-micro font-mono text-muted uppercase mt-0.5">score</span>
                 </div>
 
                 {/* Fusion score bar */}
@@ -291,7 +287,7 @@ export default function FusionExposure(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-micro text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                  <p className="text-micro text-muted truncate mt-0.5">
                     CVSS {item.cvss_score?.toFixed(1) ?? 'N/A'} · {item.cvss_severity}
                     {item.epss_score != null && ` · EPSS ${(item.epss_score * 100).toFixed(2)}%`}
                     {item.actor_count > 0 && ` · ${item.actor_count} actor(s)`}
@@ -300,9 +296,9 @@ export default function FusionExposure(): JSX.Element {
                 </div>
 
                 {isOpen ? (
-                  <ChevronDown size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                  <ChevronDown size={14} className="text-muted shrink-0" />
                 ) : (
-                  <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                  <ChevronRight size={14} className="text-muted shrink-0" />
                 )}
               </button>
 
@@ -311,9 +307,7 @@ export default function FusionExposure(): JSX.Element {
                 <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
                   {/* Description */}
                   {item.description && (
-                    <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
-                      {item.description}
-                    </p>
+                    <p className="text-meta font-mono text-muted leading-relaxed line-clamp-2">{item.description}</p>
                   )}
 
                   {/* Dimension breakdown */}
@@ -324,7 +318,7 @@ export default function FusionExposure(): JSX.Element {
                         className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 ${dimBg(d.score)}`}
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-micro font-mono text-slate-600 dark:text-slate-400">{d.name}</span>
+                          <span className="text-micro font-mono text-muted">{d.name}</span>
                           <span className="text-xs font-mono font-semibold">{d.score}/100</span>
                         </div>
                         <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] mb-1.5">
@@ -333,7 +327,7 @@ export default function FusionExposure(): JSX.Element {
                             style={{ width: `${d.score}%` }}
                           />
                         </div>
-                        <p className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">
+                        <p className="text-micro font-mono text-muted truncate">
                           weight {(d.weight * 100).toFixed(0)}% · {d.signals[0] ?? ''}
                         </p>
                       </div>
@@ -395,7 +389,7 @@ export default function FusionExposure(): JSX.Element {
         })}
 
         {!loading && items.length === 0 && (
-          <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+          <div className="text-center py-12 text-muted">
             <Info size={24} className="mx-auto mb-2 opacity-50" />
             <p className="font-mono text-sm">No exposures match the current filters.</p>
           </div>

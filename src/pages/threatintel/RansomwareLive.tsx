@@ -106,7 +106,7 @@ function CodeBlock({ code, lang }: { code: string; lang?: string }): JSX.Element
         {copied ? 'copied' : 'copy'}
       </button>
       <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[50vh]">
-        {lang && <div className="text-micro text-slate-500 dark:text-slate-400 mb-1">{lang}</div>}
+        {lang && <div className="text-micro text-muted mb-1">{lang}</div>}
         {code}
       </pre>
     </div>
@@ -229,9 +229,7 @@ function StatsView({ data }: { data: unknown }): JSX.Element {
           </div>
         ))}
       </div>
-      {lastUpdate && (
-        <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-3">last update: {lastUpdate}</p>
-      )}
+      {lastUpdate && <p className="font-mono text-micro text-muted mt-3">last update: {lastUpdate}</p>}
     </div>
   );
 }
@@ -254,7 +252,7 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
     <div>
       <div className="flex items-center gap-2 mb-3">
         <div className="relative flex-1 max-w-xs">
-          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-muted" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -262,7 +260,7 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
             className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
-        <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{filtered.length} groups</span>
+        <span className="font-mono text-micro text-muted">{filtered.length} groups</span>
       </div>
       {filtered.length > 0 && (
         <AiSummaryCard
@@ -295,9 +293,9 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
               >
                 <span className="flex items-center gap-2 min-w-0">
                   {isOpen ? (
-                    <ChevronDown size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
+                    <ChevronDown size={14} className="shrink-0 text-muted" />
                   ) : (
-                    <ChevronRight size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
+                    <ChevronRight size={14} className="shrink-0 text-muted" />
                   )}
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
                     {name}
@@ -305,9 +303,7 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
                 </span>
                 {victims && <Pill tone="brand">{victims} victims</Pill>}
               </button>
-              {alt && (
-                <div className="px-3 pb-1 font-mono text-micro text-slate-500 dark:text-slate-400">aka {alt}</div>
-              )}
+              {alt && <div className="px-3 pb-1 font-mono text-micro text-muted">aka {alt}</div>}
               {isOpen && <GroupDetail group={name} />}
             </div>
           );
@@ -319,8 +315,7 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
 
 function GroupDetail({ group }: { group: string }): JSX.Element | null {
   const { data, loading, error } = useFetch<ProxyEnvelope>(`/api/v1/rl/group/${encodeURIComponent(group)}`, [group]);
-  if (loading)
-    return <div className="p-3 font-mono text-mini text-slate-500 dark:text-slate-400">loading group detail…</div>;
+  if (loading) return <div className="p-3 font-mono text-mini text-muted">loading group detail…</div>;
   if (error) return <div className="p-3 font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data || !isRecord(data.data)) return null;
   const d = data.data as Record<string, unknown>;
@@ -359,7 +354,7 @@ function GroupDetail({ group }: { group: string }): JSX.Element | null {
       </div>
       {tools.length > 0 && (
         <div>
-          <div className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">Tools</div>
+          <div className="text-micro font-mono uppercase text-muted mb-1">Tools</div>
           <div className="flex flex-wrap gap-1">
             {tools.slice(0, 20).map((t, i) => (
               <Pill key={i} tone="slate">
@@ -371,7 +366,7 @@ function GroupDetail({ group }: { group: string }): JSX.Element | null {
       )}
       {vulns.length > 0 && (
         <div>
-          <div className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">CVEs</div>
+          <div className="text-micro font-mono uppercase text-muted mb-1">CVEs</div>
           <div className="flex flex-wrap gap-1">
             {vulns.slice(0, 15).map((v, i) => {
               const cve = pick(v, ['cve', 'id', 'name']) ?? `#${i}`;
@@ -388,7 +383,7 @@ function GroupDetail({ group }: { group: string }): JSX.Element | null {
       )}
       {ttps.length > 0 && (
         <div>
-          <div className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">MITRE TTPs</div>
+          <div className="text-micro font-mono uppercase text-muted mb-1">MITRE TTPs</div>
           <div className="flex flex-wrap gap-1">
             {ttps.slice(0, 20).map((t, i) => {
               const tid = pick(t, ['id', 'technique', 'tactic']) ?? String(t);
@@ -403,7 +398,7 @@ function GroupDetail({ group }: { group: string }): JSX.Element | null {
       )}
       {locations.length > 0 && (
         <div>
-          <div className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">Locations</div>
+          <div className="text-micro font-mono uppercase text-muted mb-1">Locations</div>
           <div className="space-y-1">
             {locations.slice(0, 5).map((l, i) => {
               const url = pick(l, ['url', 'onion', 'clearweb', 'location']) ?? '';
@@ -441,7 +436,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
     <div>
       <div className="flex items-center gap-2 mb-3">
         <div className="relative flex-1 max-w-xs">
-          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-muted" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -449,7 +444,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
             className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
-        <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{filtered.length} victims</span>
+        <span className="font-mono text-micro text-muted">{filtered.length} victims</span>
       </div>
       <div className="grid gap-2 md:grid-cols-2">
         {filtered.slice(0, 100).map((r, i) => {
@@ -511,7 +506,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
                   <div className="text-micro font-mono text-amber-700 dark:text-amber-300 mb-1">
                     HudsonRock Infostealer
                   </div>
-                  <pre className="font-mono text-micro text-slate-600 dark:text-slate-400 overflow-auto max-h-24">
+                  <pre className="font-mono text-micro text-muted overflow-auto max-h-24">
                     {JSON.stringify(infostealer, null, 1).slice(0, 400)}
                   </pre>
                 </div>
@@ -571,13 +566,9 @@ function YaraRules({ group, onBack }: { group: string; onBack: () => void }): JS
   const rules = asArray(data?.data).filter(isRecord);
   const [activeRule, setActiveRule] = useState(0);
 
-  if (loading)
-    return (
-      <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading YARA rules for {group}…</div>
-    );
+  if (loading) return <div className="font-mono text-mini text-muted">loading YARA rules for {group}…</div>;
   if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
-  if (rules.length === 0)
-    return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">no rules found</div>;
+  if (rules.length === 0) return <div className="font-mono text-mini text-muted">no rules found</div>;
 
   const rule = rules[activeRule]!;
   const filename = pick(rule, ['filename', 'name', 'file']) ?? `rule-${activeRule}`;
@@ -678,17 +669,14 @@ function IocValues({ group, onBack }: { group: string; onBack: () => void }): JS
   const { data, loading, error } = useFetch<ProxyEnvelope>(`/api/v1/rl/iocs/${encodeURIComponent(group)}`, [group]);
   const [copied, copy] = useCopy();
 
-  if (loading)
-    return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading IoCs for {group}…</div>;
+  if (loading) return <div className="font-mono text-mini text-muted">loading IoCs for {group}…</div>;
   if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
-  if (!data || !isRecord(data.data))
-    return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">no IoCs found</div>;
+  if (!data || !isRecord(data.data)) return <div className="font-mono text-mini text-muted">no IoCs found</div>;
 
   const d = data.data as Record<string, unknown>;
   const types = Object.entries(d).filter(([, v]) => Array.isArray(v) && v.length > 0);
 
-  if (types.length === 0)
-    return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">no IoCs found</div>;
+  if (types.length === 0) return <div className="font-mono text-mini text-muted">no IoCs found</div>;
 
   return (
     <div>
@@ -706,25 +694,23 @@ function IocValues({ group, onBack }: { group: string; onBack: () => void }): JS
             <div key={type}>
               <div className="flex items-center gap-2 mb-1">
                 <Pill tone="red">{type}</Pill>
-                <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{arr.length} indicators</span>
+                <span className="font-mono text-micro text-muted">{arr.length} indicators</span>
                 <button
                   type="button"
                   onClick={() => copy(arr.map(String).join('\n'))}
-                  className="font-mono text-micro text-slate-500 dark:text-slate-400 hover:text-rose-500 inline-flex items-center gap-1"
+                  className="font-mono text-micro text-muted hover:text-rose-500 inline-flex items-center gap-1"
                 >
                   {copied ? <Check size={10} /> : <Copy size={10} />} copy all
                 </button>
               </div>
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-2 max-h-48 overflow-auto">
                 {arr.slice(0, 200).map((v, i) => (
-                  <div key={i} className="font-mono text-mini text-slate-600 dark:text-slate-400 py-0.5 break-all">
+                  <div key={i} className="font-mono text-mini text-muted py-0.5 break-all">
                     {typeof v === 'string' ? v : JSON.stringify(v)}
                   </div>
                 ))}
                 {arr.length > 200 && (
-                  <div className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">
-                    … {arr.length - 200} more
-                  </div>
+                  <div className="font-mono text-micro text-muted mt-1">… {arr.length - 200} more</div>
                 )}
               </div>
             </div>
@@ -759,7 +745,7 @@ function KqlView(): JSX.Element | null {
   const [search, setSearch] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  if (loading) return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading KQL index…</div>;
+  if (loading) return <div className="font-mono text-mini text-muted">loading KQL index…</div>;
   if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data) return null;
 
@@ -789,7 +775,7 @@ function KqlView(): JSX.Element | null {
     <div>
       <div className="flex items-center gap-2 mb-3">
         <div className="relative flex-1 max-w-xs">
-          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-muted" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -797,7 +783,7 @@ function KqlView(): JSX.Element | null {
             className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
-        <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
+        <span className="font-mono text-micro text-muted">
           {filtered.length} queries · {byGroup.size} groups
         </span>
       </div>
@@ -839,7 +825,7 @@ function KqlView(): JSX.Element | null {
 function KqlDetail2({ id, onBack }: { id: string; onBack: () => void }): JSX.Element | null {
   const { data, loading, error } = useFetch<KqlDetail>(`/api/v1/rl/kql/${id}`, [id]);
 
-  if (loading) return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading KQL query…</div>;
+  if (loading) return <div className="font-mono text-mini text-muted">loading KQL query…</div>;
   if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data) return null;
 
@@ -888,8 +874,7 @@ function CountryMapView(): JSX.Element | null {
   const { data, loading, error } = useFetch<CountryMapData>('/api/v1/ransomware-map', []);
   const [search, setSearch] = useState('');
 
-  if (loading)
-    return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading country data…</div>;
+  if (loading) return <div className="font-mono text-mini text-muted">loading country data…</div>;
   if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data) return null;
 
@@ -915,7 +900,7 @@ function CountryMapView(): JSX.Element | null {
       </div>
       <div className="flex items-center gap-2 mb-3">
         <div className="relative flex-1 max-w-xs">
-          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-muted" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -941,7 +926,7 @@ function CountryMapView(): JSX.Element | null {
                 <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                   {c.country}
                 </span>
-                <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{c.countryCode}</span>
+                <span className="font-mono text-micro text-muted">{c.countryCode}</span>
               </div>
               <Pill tone="brand">{c.victim_count} victims</Pill>
             </div>
@@ -960,9 +945,7 @@ function CountryMapView(): JSX.Element | null {
               {c.groups.length > 8 && <Pill tone="slate">+{c.groups.length - 8}</Pill>}
             </div>
             {c.top_victims.length > 0 && (
-              <div className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1 truncate">
-                recent: {c.top_victims.join(', ')}
-              </div>
+              <div className="font-mono text-micro text-muted mt-1 truncate">recent: {c.top_victims.join(', ')}</div>
             )}
           </div>
         ))}
@@ -1086,7 +1069,7 @@ export default function RansomwareLive(): JSX.Element {
           ) : (
             <RawJson value={proxyData.data} />
           )}
-          <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-3">
+          <p className="font-mono text-micro text-muted mt-3">
             fetched{' '}
             {(() => {
               const d = new Date(proxyData.fetched_at);

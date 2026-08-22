@@ -192,9 +192,7 @@ export default function InsightAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Alert / Log Content</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                required
-              </span>
+              <span className="text-micro font-mono uppercase tracking-wider text-muted">required</span>
             </div>
             <textarea
               value={alertText}
@@ -288,7 +286,7 @@ export default function InsightAi(): JSX.Element {
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Generating runbook…</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">This may take 15–30 seconds</p>
+              <p className="text-xs text-muted mt-1">This may take 15–30 seconds</p>
             </div>
           )}
 
@@ -306,7 +304,7 @@ export default function InsightAi(): JSX.Element {
                         className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                           activeTab === m
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
                         }`}
                       >
                         {mode.icon} {mode.label}
@@ -381,12 +379,10 @@ export default function InsightAi(): JSX.Element {
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Sparkles size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-muted">
                 Paste an alert and select modes, then click <span className="font-semibold">Generate</span>
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Output: structured investigation runbook
-              </p>
+              <p className="text-xs text-muted mt-1">Output: structured investigation runbook</p>
             </div>
           )}
         </div>

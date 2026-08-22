@@ -151,7 +151,7 @@ export default function XFirehose(): JSX.Element {
       <section className="surface-card p-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}
@@ -204,7 +204,7 @@ export default function XFirehose(): JSX.Element {
                       ? TOPIC_PILL[h.topic]
                       : h.ok
                         ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 opacity-50'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted opacity-50'
                   }`}
                 >
                   {platformGlyph} {h.name.length > 18 ? h.name.slice(0, 18) + '…' : h.name}{' '}
@@ -251,7 +251,7 @@ export default function XFirehose(): JSX.Element {
             mirrors are unreliable, so most of these accounts have a mirror on Bluesky or Mastodon. Both expose proper
             keyless RSS. Click any post to open the original.
           </span>
-          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <span className="block text-xs text-muted font-mono mt-2">
             {data ? `${data.handles.length} accounts indexed.` : '~16 accounts indexed.'}
           </span>
         </>
@@ -298,16 +298,16 @@ export default function XFirehose(): JSX.Element {
                     {it.handle_topic}
                   </span>
                 </span>
-                <ExternalLink size={11} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                <ExternalLink size={11} className="text-muted shrink-0" />
               </div>
               <p className="text-tool text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 leading-relaxed mb-1.5 whitespace-pre-line">
                 {it.text}
               </p>
               <PostSummary text={postSummaries.get(String(it.link))} />
               <div className="text-micro font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-                <AtSign size={9} className="text-slate-500 dark:text-slate-400" />
+                <AtSign size={9} className="text-muted" />
                 <span>{it.handle}</span>
-                <span className="ml-auto text-slate-500 dark:text-slate-400" title={it.pub_date}>
+                <span className="ml-auto text-muted" title={it.pub_date}>
                   {shortRel(it.pub_date)}
                 </span>
               </div>

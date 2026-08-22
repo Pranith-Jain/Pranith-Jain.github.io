@@ -235,7 +235,7 @@ export function DataDisclaimer() {
           {OS_TOOLS.map((t) => (
             <span
               key={t}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-slate-600 dark:text-slate-400"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-muted"
             >
               {t}
             </span>

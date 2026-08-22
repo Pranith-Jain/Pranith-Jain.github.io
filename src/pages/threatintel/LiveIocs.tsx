@@ -192,7 +192,7 @@ export default function LiveIocs(): JSX.Element {
       headerExtra={
         <>
           <LiveFreshnessPill tone="live" ago={data ? shortRel(data.generated_at) : undefined} className="ml-1" />
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <p className="text-xs text-muted font-mono mt-2">
             Sources:{' '}
             {(() => {
               const list = (data?.registered_sources ?? data?.sources ?? []).filter((s) => s.count > 0);
@@ -200,7 +200,7 @@ export default function LiveIocs(): JSX.Element {
               return (
                 <>
                   {labels}
-                  <span className="text-slate-500 dark:text-slate-400 italic"> (active only)</span>
+                  <span className="text-muted italic"> (active only)</span>
                 </>
               );
             })()}
@@ -215,7 +215,7 @@ export default function LiveIocs(): JSX.Element {
               const dotCls = (cls: string) => `inline-block w-1.5 h-1.5 rounded-full ${cls}`;
               return (
                 <p
-                  className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-2"
+                  className="text-xs text-muted font-mono mb-2"
                   title={
                     unreachable.length > 0
                       ? `Unreachable this snapshot: ${unreachableIds}`
@@ -245,7 +245,7 @@ export default function LiveIocs(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px]">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}
@@ -329,7 +329,7 @@ export default function LiveIocs(): JSX.Element {
                       : s.ok === false
                         ? 'border-rose-300/70 dark:border-rose-700/40 text-rose-700/80 dark:text-rose-400/80'
                         : isEmpty
-                          ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-slate-500 dark:text-slate-400 opacity-60'
+                          ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-muted opacity-60'
                           : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                   }`}
                   title={tooltip}
@@ -452,7 +452,7 @@ export default function LiveIocs(): JSX.Element {
                         href={sanitizeUrl(it.reference_url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                        className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-muted hover:text-rose-500 transition-colors shrink-0"
                         aria-label="open source post"
                         title="open source post"
                       >
@@ -465,10 +465,7 @@ export default function LiveIocs(): JSX.Element {
                     <AdmiraltyBadge admiralty={gradeForLiveIoc(it.source, it.kind)} compact />
                     {it.reporter && <span className="text-muted">{it.reporter}</span>}
                     {it.context && (
-                      <span
-                        className="text-slate-500 dark:text-slate-400 italic truncate max-w-[40ch]"
-                        title={it.context}
-                      >
+                      <span className="text-muted italic truncate max-w-[40ch]" title={it.context}>
                         · {it.context}
                       </span>
                     )}

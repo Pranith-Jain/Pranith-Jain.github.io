@@ -119,7 +119,7 @@ export function SocShell({
             <SocStatusBadge status={status} />
           </h1>
           {description && <p className="text-muted mt-2 max-w-3xl leading-relaxed">{description}</p>}
-          {meta && <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">{meta}</p>}
+          {meta && <p className="text-xs text-muted font-mono mt-2">{meta}</p>}
         </div>
 
         {/* Controls */}
@@ -136,7 +136,7 @@ export function SocShell({
                   className={`text-meta font-mono px-3 py-1.5 transition-colors ${
                     on
                       ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
                   {w.label}
@@ -154,9 +154,7 @@ export function SocShell({
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
             refresh
-            {autoRefreshMs > 0 && !loading && (
-              <span className="text-slate-500 dark:text-slate-400">· {Math.ceil(nextRefreshIn / 1000)}s</span>
-            )}
+            {autoRefreshMs > 0 && !loading && <span className="text-muted">· {Math.ceil(nextRefreshIn / 1000)}s</span>}
           </button>
 
           <button
@@ -169,7 +167,7 @@ export function SocShell({
           </button>
 
           {generatedAt && (
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-meta font-mono text-slate-500 dark:text-slate-400 ml-1">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-meta font-mono text-muted ml-1">
               <Clock size={12} /> updated {timeAgo(generatedAt)}
             </span>
           )}
@@ -287,21 +285,19 @@ export function SocKpi({
       ? 'text-rose-600 dark:text-rose-400'
       : deltaDirection === 'down'
         ? 'text-emerald-600 dark:text-emerald-400'
-        : 'text-slate-500 dark:text-slate-400';
+        : 'text-muted';
   return (
     <div className="surface-card p-4 sm:p-5">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-          {label}
-        </span>
-        {icon && <span className="text-slate-500 dark:text-slate-400">{icon}</span>}
+        <span className="text-mini font-mono uppercase tracking-[0.18em] text-muted">{label}</span>
+        {icon && <span className="text-muted">{icon}</span>}
       </div>
       <div
         className={`font-mono font-extrabold leading-none tabular-nums text-3xl sm:text-4xl ${SEVERITY_TEXT[severity]}`}
       >
         {value}
       </div>
-      <div className="mt-2 flex items-center justify-between gap-2 text-meta font-mono text-slate-500 dark:text-slate-400">
+      <div className="mt-2 flex items-center justify-between gap-2 text-meta font-mono text-muted">
         <span className="truncate">{sub}</span>
         {delta && <span className={deltaCls}>{delta}</span>}
       </div>

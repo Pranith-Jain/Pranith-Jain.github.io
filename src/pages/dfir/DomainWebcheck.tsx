@@ -188,9 +188,7 @@ export default function DomainWebcheck(): JSX.Element {
                     {ch.present ? (ch.value?.slice(0, 60) ?? 'present') : 'MISSING'}
                   </span>
                   {!ch.secure && ch.recommendation && (
-                    <span className="text-xs text-slate-500 dark:text-slate-400 hidden md:block max-w-xs truncate">
-                      {ch.recommendation}
-                    </span>
+                    <span className="text-xs text-muted hidden md:block max-w-xs truncate">{ch.recommendation}</span>
                   )}
                 </div>
               ))}
@@ -209,7 +207,7 @@ export default function DomainWebcheck(): JSX.Element {
                     key={i}
                     className="px-2.5 py-1 rounded-xl text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
-                    <span className="text-slate-500 dark:text-slate-400">{t.category}:</span> {t.name}
+                    <span className="text-muted">{t.category}:</span> {t.name}
                   </span>
                 ))}
               </div>
@@ -224,17 +222,17 @@ export default function DomainWebcheck(): JSX.Element {
               </h2>
               <div className="font-mono text-sm space-y-1">
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400">IP:</span> {result.shodan.ip}
+                  <span className="text-muted">IP:</span> {result.shodan.ip}
                 </div>
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400">Org:</span> {result.shodan.org}
+                  <span className="text-muted">Org:</span> {result.shodan.org}
                 </div>
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400">OS:</span> {result.shodan.os}
+                  <span className="text-muted">OS:</span> {result.shodan.os}
                 </div>
                 {result.shodan.vulns && result.shodan.vulns.length > 0 && (
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Vulns:</span> {result.shodan.vulns.join(', ')}
+                    <span className="text-muted">Vulns:</span> {result.shodan.vulns.join(', ')}
                   </div>
                 )}
               </div>
@@ -249,13 +247,13 @@ export default function DomainWebcheck(): JSX.Element {
               </h2>
               <div className="font-mono text-sm space-y-1">
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400">Provider:</span>{' '}
+                  <span className="text-muted">Provider:</span>{' '}
                   <span className="text-slate-900 dark:text-slate-100 font-semibold">{cdnResult.provider}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400">Type:</span> {cdnResult.type}
+                  <span className="text-muted">Type:</span> {cdnResult.type}
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                <p className="text-xs text-muted mt-2">
                   This domain is fronted by a CDN/WAF - the origin server IP may differ from what Shodan shows.
                 </p>
               </div>
@@ -297,7 +295,7 @@ function StatCard({
 }) {
   return (
     <div className="p-3 surface-card">
-      <div className="text-xs font-mono text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-xs font-mono text-muted">{label}</div>
       <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-slate-900 dark:text-slate-100'}`}>
         {value}
       </div>

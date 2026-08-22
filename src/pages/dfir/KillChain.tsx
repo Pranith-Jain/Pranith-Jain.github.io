@@ -26,13 +26,13 @@ function PhaseHeader({
         <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">{phase.name}</span>
         <span className="block text-xs font-mono text-muted truncate">{phase.short}</span>
       </span>
-      <span className="flex-none text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <span className="flex-none text-micro font-mono uppercase tracking-wider text-muted">
         {phase.techniques.length} techniques
       </span>
       {expanded ? (
-        <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" aria-hidden="true" />
+        <ChevronDown size={16} className="flex-none text-muted" aria-hidden="true" />
       ) : (
-        <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" aria-hidden="true" />
+        <ChevronRight size={16} className="flex-none text-muted" aria-hidden="true" />
       )}
     </button>
   );
@@ -149,7 +149,7 @@ export default function KillChain(): JSX.Element {
           Lockheed Martin's 7-phase intrusion model. {KILL_CHAIN_TECHNIQUE_COUNT} representative techniques across the
           chain, each cross-linked to MITRE ATT&amp;CK where applicable.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pairs naturally with the{' '}
           <Link to="/dfir/diamond" className="text-brand-600 dark:text-brand-400 hover:underline">
             Diamond Model
@@ -178,9 +178,7 @@ export default function KillChain(): JSX.Element {
       </div>
 
       <div className="mt-8 surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a

@@ -200,7 +200,7 @@ export default function RansomwareQuant(): JSX.Element {
             </label>
             <div className="col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
               <div>
-                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">Annual Revenue</label>
+                <label className="text-micro font-mono text-muted">Annual Revenue</label>
                 <input
                   name="annual_revenue"
                   type="number"
@@ -209,7 +209,7 @@ export default function RansomwareQuant(): JSX.Element {
                 />
               </div>
               <div>
-                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">Ransom Demand</label>
+                <label className="text-micro font-mono text-muted">Ransom Demand</label>
                 <input
                   name="ransom_demand"
                   type="number"
@@ -218,7 +218,7 @@ export default function RansomwareQuant(): JSX.Element {
                 />
               </div>
               <div>
-                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">PII Records</label>
+                <label className="text-micro font-mono text-muted">PII Records</label>
                 <input
                   name="pii_records"
                   type="number"
@@ -227,7 +227,7 @@ export default function RansomwareQuant(): JSX.Element {
                 />
               </div>
               <div>
-                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">Insurance Coverage</label>
+                <label className="text-micro font-mono text-muted">Insurance Coverage</label>
                 <input
                   name="cyber_insurance_coverage"
                   type="number"
@@ -258,7 +258,7 @@ export default function RansomwareQuant(): JSX.Element {
       <div className="grid lg:grid-cols-3 gap-5">
         <div className="space-y-2">
           {scenarios.length === 0 && !loading && (
-            <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-12 text-muted">
               <Info size={24} className="mx-auto mb-2 opacity-50" />
               <p className="font-mono text-sm">Add a scenario to quantify impact.</p>
             </div>
@@ -273,13 +273,11 @@ export default function RansomwareQuant(): JSX.Element {
               <div className="font-mono text-xs font-semibold truncate">{s.name}</div>
               <div className="flex items-center justify-between mt-1">
                 <span
-                  className={`text-xs font-mono font-bold ${s.total_impact >= 2_000_000 ? 'text-rose-600 dark:text-rose-400' : s.total_impact >= 500_000 ? 'text-amber-600 dark:text-amber-400' : 'text-slate-600 dark:text-slate-400'}`}
+                  className={`text-xs font-mono font-bold ${s.total_impact >= 2_000_000 ? 'text-rose-600 dark:text-rose-400' : s.total_impact >= 500_000 ? 'text-amber-600 dark:text-amber-400' : 'text-muted'}`}
                 >
                   {fmt(s.total_impact)}
                 </span>
-                <span className="text-micro text-slate-500 dark:text-slate-400">
-                  {s.estimated_downtime_hours}h downtime
-                </span>
+                <span className="text-micro text-muted">{s.estimated_downtime_hours}h downtime</span>
               </div>
               <div className="mt-1 w-full h-1 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                 <div
@@ -294,7 +292,7 @@ export default function RansomwareQuant(): JSX.Element {
         {/* Detail */}
         <div className="lg:col-span-2">
           {!selected && (
-            <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-12 text-muted">
               <TrendingUp size={24} className="mx-auto mb-2 opacity-50" />
               <p className="font-mono text-sm">Select a scenario to see the breakdown.</p>
             </div>
@@ -310,7 +308,7 @@ export default function RansomwareQuant(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => handleDelete(selected.id)}
-                  className="text-micro text-slate-500 dark:text-slate-400 hover:text-rose-500 p-1"
+                  className="text-micro text-muted hover:text-rose-500 p-1"
                 >
                   <AlertTriangle size={14} />
                 </button>
@@ -319,25 +317,25 @@ export default function RansomwareQuant(): JSX.Element {
               {/* Summary cards */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Total Impact</div>
+                  <div className="text-micro font-mono text-muted">Total Impact</div>
                   <div className="text-sm font-bold font-mono text-rose-600 dark:text-rose-400">
                     {fmt(selected.total_impact)}
                   </div>
                 </div>
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">After Insurance</div>
+                  <div className="text-micro font-mono text-muted">After Insurance</div>
                   <div className="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400">
                     {fmt(selected.total_impact_after_insurance)}
                   </div>
                 </div>
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Insurance Recovers</div>
+                  <div className="text-micro font-mono text-muted">Insurance Recovers</div>
                   <div className="text-sm font-bold font-mono text-brand-600 dark:text-brand-400">
                     {fmt(selected.insurance_recovery)}
                   </div>
                 </div>
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Total Downtime</div>
+                  <div className="text-micro font-mono text-muted">Total Downtime</div>
                   <div className="text-sm font-bold font-mono">
                     {selected.estimated_downtime_hours + selected.recovery_time_hours}h
                   </div>
@@ -391,9 +389,7 @@ export default function RansomwareQuant(): JSX.Element {
                     <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                       <div className="h-full rounded bg-brand-500" style={{ width: `${Math.min(item.pct, 100)}%` }} />
                     </div>
-                    <span className="text-micro font-mono w-20 text-right text-slate-600 dark:text-slate-400 shrink-0">
-                      {fmt(item.value)}
-                    </span>
+                    <span className="text-micro font-mono w-20 text-right text-muted shrink-0">{fmt(item.value)}</span>
                   </div>
                 ))}
                 <div className="flex items-center gap-3 pt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -412,39 +408,31 @@ export default function RansomwareQuant(): JSX.Element {
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-micro font-mono">
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Revenue/yr:</span>{' '}
-                    {fmt(selected.annual_revenue)}
+                    <span className="text-muted">Revenue/yr:</span> {fmt(selected.annual_revenue)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Ransom:</span> {fmt(selected.ransom_demand)}
+                    <span className="text-muted">Ransom:</span> {fmt(selected.ransom_demand)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">PII records:</span>{' '}
-                    {selected.pii_records.toLocaleString()}
+                    <span className="text-muted">PII records:</span> {selected.pii_records.toLocaleString()}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Insurance:</span>{' '}
-                    {fmt(selected.cyber_insurance_coverage)}
+                    <span className="text-muted">Insurance:</span> {fmt(selected.cyber_insurance_coverage)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Deductible:</span>{' '}
-                    {fmt(selected.insurance_deductible)}
+                    <span className="text-muted">Deductible:</span> {fmt(selected.insurance_deductible)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">IR cost/hr:</span>{' '}
-                    {fmt(selected.hourly_incident_response_cost)}
+                    <span className="text-muted">IR cost/hr:</span> {fmt(selected.hourly_incident_response_cost)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Data volume:</span> {selected.data_volume_gb}{' '}
-                    GB
+                    <span className="text-muted">Data volume:</span> {selected.data_volume_gb} GB
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">IP at risk:</span>{' '}
-                    {fmt(selected.ip_value_at_risk)}
+                    <span className="text-muted">IP at risk:</span> {fmt(selected.ip_value_at_risk)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Fine/record:</span>{' '}
-                    {fmt(selected.regulatory_fine_per_record)}
+                    <span className="text-muted">Fine/record:</span> {fmt(selected.regulatory_fine_per_record)}
                   </div>
                 </div>
               </div>

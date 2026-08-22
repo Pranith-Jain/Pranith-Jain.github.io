@@ -96,7 +96,7 @@ const IOC_TYPE_GLYPH: Record<IocType, LucideIcon> = {
 
 const NEUTRAL_ACCENT = {
   ring: 'border-slate-200 dark:border-[rgb(var(--border-400))]',
-  glyph: 'text-slate-500 dark:text-slate-400',
+  glyph: 'text-muted',
 };
 
 // Reuses the VerdictChip palette so a "malicious" chip reads the same
@@ -196,9 +196,7 @@ function IocChipInner({
     <span className={`group inline-flex max-w-full items-center ${sz.gap} ${frame} ${className}`}>
       <Glyph className={`${sz.icon} shrink-0 ${accent.glyph}`} aria-hidden="true" />
       {showType && (
-        <span className={`shrink-0 font-mono ${sz.label} uppercase tracking-wider text-slate-500 dark:text-slate-400`}>
-          {typeLabel}
-        </span>
+        <span className={`shrink-0 font-mono ${sz.label} uppercase tracking-wider text-muted`}>{typeLabel}</span>
       )}
       {valueEl}
       {copyable && (
@@ -294,7 +292,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
         aria-label={`Pivot ${ioc.value} to related tools`}
-        className={`grid place-items-center rounded p-0.5 text-slate-500 dark:text-slate-400 transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-500 dark:hover:text-brand-400 ${
+        className={`grid place-items-center rounded p-0.5 text-muted transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-500 dark:hover:text-brand-400 ${
           open ? 'text-brand-600 dark:text-brand-400' : ''
         }`}
       >
@@ -312,11 +310,9 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
               <>
                 <span className="flex items-center gap-1.5 font-mono text-meta font-medium text-slate-800 dark:text-slate-200">
                   {p.label}
-                  {p.external && (
-                    <ExternalLink className="h-3 w-3 text-slate-500 dark:text-slate-400" aria-hidden="true" />
-                  )}
+                  {p.external && <ExternalLink className="h-3 w-3 text-muted" aria-hidden="true" />}
                 </span>
-                <span className="mt-0.5 block text-mini leading-snug text-slate-500 dark:text-slate-400">{p.desc}</span>
+                <span className="mt-0.5 block text-mini leading-snug text-muted">{p.desc}</span>
               </>
             );
             const cls =

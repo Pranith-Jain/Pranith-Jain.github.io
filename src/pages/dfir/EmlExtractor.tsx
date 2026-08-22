@@ -95,7 +95,7 @@ export default function EmlExtractor(): JSX.Element {
             File / Hash Lookup
           </Link>{' '}
           for multi-engine reputation. Pure client-side - nothing leaves your browser.
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <p className="text-xs text-muted font-mono mt-2">
             Pairs with{' '}
             <Link to="/dfir/phishing" className="text-brand-600 dark:text-brand-400 hover:underline">
               Phishing analyzer
@@ -112,9 +112,7 @@ export default function EmlExtractor(): JSX.Element {
       {/* Input */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Input
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Input</h2>
           <div className="flex flex-wrap gap-1.5">
             <label className="text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 cursor-pointer">
               upload .eml
@@ -195,19 +193,19 @@ export default function EmlExtractor(): JSX.Element {
         <>
           {/* Header summary */}
           <section className="surface-card p-4 mb-6">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
               Header summary
             </h2>
             <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-meta font-mono">
-              <dt className="text-slate-500 dark:text-slate-400">Subject</dt>
+              <dt className="text-muted">Subject</dt>
               <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.subject ?? '-'}</dd>
-              <dt className="text-slate-500 dark:text-slate-400">From</dt>
+              <dt className="text-muted">From</dt>
               <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.from ?? '-'}</dd>
-              <dt className="text-slate-500 dark:text-slate-400">To</dt>
+              <dt className="text-muted">To</dt>
               <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.to ?? '-'}</dd>
-              <dt className="text-slate-500 dark:text-slate-400">Date</dt>
+              <dt className="text-muted">Date</dt>
               <dd className="text-slate-900 dark:text-slate-100">{parsed.date ?? '-'}</dd>
-              <dt className="text-slate-500 dark:text-slate-400">Content-Type</dt>
+              <dt className="text-muted">Content-Type</dt>
               <dd className="text-slate-900 dark:text-slate-100 break-all">{parsed.contentType ?? '-'}</dd>
             </dl>
           </section>
@@ -215,12 +213,12 @@ export default function EmlExtractor(): JSX.Element {
           {/* Attachments */}
           <section className="surface-card p-4 mb-6">
             <div className="flex items-baseline justify-between gap-2 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2">
                 <Paperclip size={12} /> Attachments ({parsed.attachments.length})
               </h2>
             </div>
             {parsed.attachments.length === 0 ? (
-              <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
+              <p className="text-sm font-mono text-muted">
                 No attachments detected. (Multipart bodies without filenames or non-attachment dispositions are
                 ignored.)
               </p>
@@ -249,13 +247,13 @@ export default function EmlExtractor(): JSX.Element {
           {/* Raw headers (collapsible) */}
           <section className="surface-card p-4 mb-6">
             <details>
-              <summary className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono cursor-pointer inline-flex items-center gap-2">
+              <summary className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono cursor-pointer inline-flex items-center gap-2">
                 <FileText size={12} /> All headers ({parsed.headers.length}) - click to expand
               </summary>
               <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-mini font-mono mt-3 max-h-96 overflow-auto">
                 {parsed.headers.map((h, i) => (
                   <div key={`${h.name}-${i}`} className="contents">
-                    <dt className="text-slate-500 dark:text-slate-400 break-words">{h.name}</dt>
+                    <dt className="text-muted break-words">{h.name}</dt>
                     <dd className="text-slate-900 dark:text-slate-100 break-all border-b border-slate-100 dark:border-[rgb(var(--border-400))] pb-1">
                       {h.value}
                     </dd>
@@ -313,7 +311,7 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
 function HashRow({ label, value }: { label: string; value: string }): JSX.Element {
   return (
     <li className="flex items-center gap-2">
-      <span className="text-slate-500 dark:text-slate-400 w-16 shrink-0">{label}</span>
+      <span className="text-muted w-16 shrink-0">{label}</span>
       <span className="text-slate-900 dark:text-slate-100 break-all flex-1">{value}</span>
       <CopyChip value={value} label="copy" />
       <Link

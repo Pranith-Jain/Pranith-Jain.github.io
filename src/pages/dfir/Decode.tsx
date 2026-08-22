@@ -227,7 +227,7 @@ export default function Decode(): JSX.Element {
             {steps.map((step, i) => (
               <div key={i} className="flex items-start gap-3">
                 <div className="flex items-center gap-1 shrink-0">
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">#{i + 1}</span>
+                  <span className="text-xs font-mono text-muted">#{i + 1}</span>
                   <span
                     className={`text-xs font-mono font-bold px-1.5 py-0.5 rounded ${FORMAT_BADGE[step.format] ?? FORMAT_BADGE.unknown}`}
                   >
@@ -239,7 +239,7 @@ export default function Decode(): JSX.Element {
                     {step.input.slice(0, 80)}
                     {step.input.length > 80 ? '…' : ''}
                   </div>
-                  <ChevronRight size={12} className="text-slate-500 dark:text-slate-400 my-0.5" />
+                  <ChevronRight size={12} className="text-muted my-0.5" />
                   <div className="font-mono text-xs text-slate-700 dark:text-slate-300 break-all">
                     {step.output.slice(0, 200)}
                     {step.output.length > 200 ? '…' : ''}

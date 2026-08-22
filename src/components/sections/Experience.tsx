@@ -35,9 +35,7 @@ export function Experience({ experiences }: ExperienceProps) {
       {/* Header - consistent with the rest of the redesigned sections:
           small caps-mono kicker, display heading, no chrome. */}
       <div className="mb-10 max-w-2xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          Experience
-        </div>
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Experience</div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Experience highlights
         </h2>
@@ -104,7 +102,9 @@ export function Experience({ experiences }: ExperienceProps) {
                           <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300 ml-6">
                             {section.items.map((item, iIndex) => (
                               <li key={iIndex} className="relative pl-4">
-                                <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">•</span>
+                                <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">
+                                  •
+                                </span>
                                 {item}
                               </li>
                             ))}
@@ -118,7 +118,9 @@ export function Experience({ experiences }: ExperienceProps) {
                     <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
                       {exp.items.map((item, iIndex) => (
                         <li key={iIndex} className="relative pl-4">
-                          <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">•</span>
+                          <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">
+                            •
+                          </span>
                           {item}
                         </li>
                       ))}

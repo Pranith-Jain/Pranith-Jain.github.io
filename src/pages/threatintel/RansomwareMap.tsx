@@ -441,7 +441,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                 <div className="absolute top-3 left-3 rounded-xl bg-slate-900/90 dark:bg-[rgb(var(--input-200)/0.9)] backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
                   <div className="font-bold text-rose-300">{hoveredAgg.country}</div>
                   <div>{hoveredAgg.victim_count} victims</div>
-                  <div className="text-slate-500 dark:text-slate-400">
+                  <div className="text-muted">
                     {hoveredAgg.groups.length} group{hoveredAgg.groups.length !== 1 ? 's' : ''}
                   </div>
                 </div>
@@ -454,9 +454,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
             </div>
 
             <aside className="space-y-3">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                Most targeted
-              </h3>
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Most targeted</h3>
               <ul className="space-y-1.5">
                 {data.countries.slice(0, 15).map((c) => {
                   const isSelected = selected?.alpha2 === c.countryCode;
@@ -480,7 +478,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                           <span className="text-slate-800 dark:text-slate-200">{c.country}</span>
                         </span>
                         <span className="flex items-center gap-2 shrink-0">
-                          <span className="text-mini text-slate-500 dark:text-slate-400 tabular-nums">
+                          <span className="text-mini text-muted tabular-nums">
                             {c.groups.length} group{c.groups.length !== 1 ? 's' : ''}
                           </span>
                           <span className="text-rose-600 dark:text-rose-400 font-bold">{c.victim_count}</span>
@@ -502,9 +500,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                       Selected
                     </span>
                     {selectedAgg.country}
-                    <span className="text-slate-500 dark:text-slate-400 text-xs font-mono">
-                      ({selectedAgg.countryCode})
-                    </span>
+                    <span className="text-muted text-xs font-mono">({selectedAgg.countryCode})</span>
                   </h3>
                   <p className="text-xs font-mono text-muted mt-1">
                     <span className="font-semibold text-slate-900 dark:text-slate-100">{selectedAgg.victim_count}</span>{' '}
@@ -528,7 +524,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  <p className="text-mini font-mono uppercase tracking-wider text-muted mb-2">
                     Ransomware groups targeting {selectedAgg.country}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -543,7 +539,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                   </div>
                 </div>
                 <div>
-                  <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  <p className="text-mini font-mono uppercase tracking-wider text-muted mb-2">
                     Recent victims in {selectedAgg.country}
                   </p>
                   <ul className="space-y-1">

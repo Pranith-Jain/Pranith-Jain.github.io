@@ -167,9 +167,7 @@ export default function PromptInjection(): JSX.Element {
 
       <section className="surface-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Input
-          </span>
+          <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Input</span>
           <div className="flex flex-wrap gap-1.5">
             {SAMPLES.map((s) => (
               <button
@@ -204,9 +202,7 @@ export default function PromptInjection(): JSX.Element {
         <>
           <section className="surface-card p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-                Verdict
-              </span>
+              <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Verdict</span>
               <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded ${gradeTone(grade)}`}>
                 {grade} · score {score}
               </span>
@@ -232,7 +228,7 @@ export default function PromptInjection(): JSX.Element {
           </section>
 
           <section className="surface-card p-4">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
               Highlighted input
             </h2>
             <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
@@ -242,9 +238,7 @@ export default function PromptInjection(): JSX.Element {
 
           {matches.length > 0 && (
             <section className="surface-card p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-                Findings
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Findings</h2>
               <ul className="space-y-3">
                 {matches.map((m, i) => (
                   <li
@@ -290,7 +284,7 @@ export default function PromptInjection(): JSX.Element {
       {/* ── Red-team prompt library ────────────────────────────────────── */}
       <section className="surface-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2">
             <Swords size={14} /> Red-team prompt library ({filteredRedTeam.length}/{RED_TEAM_PROMPTS.length})
           </h2>
           <button
@@ -300,16 +294,14 @@ export default function PromptInjection(): JSX.Element {
             <Download size={11} /> Export filtered as JSON
           </button>
         </div>
-        <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+        <p className="text-xs font-mono text-muted mb-3">
           Curated prompts to send into your own LLM endpoint or eval harness. Each entry lists the expected well-behaved
           response so you can score the model's actual reply. Nothing here is operational uplift - every pattern is
           publicly documented.
         </p>
 
         <div className="flex flex-wrap gap-1.5 mb-2">
-          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
-            Category
-          </span>
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">Category</span>
           <button
             onClick={() => setRtCategory('all')}
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
@@ -340,9 +332,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
-          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
-            OWASP LLM
-          </span>
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">OWASP LLM</span>
           <button
             onClick={() => setRtOwasp('all')}
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
@@ -399,7 +389,7 @@ export default function PromptInjection(): JSX.Element {
               </div>
               {p.systemContext && (
                 <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 mb-2">
-                  <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+                  <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">
                     Assumed system context
                   </div>
                   <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -432,16 +422,14 @@ export default function PromptInjection(): JSX.Element {
             </li>
           ))}
           {filteredRedTeam.length === 0 && (
-            <li className="text-center text-sm font-mono text-slate-500 dark:text-slate-400 py-6">
-              No prompts match those filters.
-            </li>
+            <li className="text-center text-sm font-mono text-muted py-6">No prompts match those filters.</li>
           )}
         </ul>
       </section>
 
       <section className="surface-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
             Pattern catalog ({filteredCatalog.length}/{PATTERNS.length})
           </h2>
         </div>
@@ -476,7 +464,7 @@ export default function PromptInjection(): JSX.Element {
           })}
         </div>
         {owaspFilter !== 'all' && (
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+          <p className="text-xs font-mono text-muted mb-3">
             <span className="font-semibold text-slate-700 dark:text-slate-300">{LLM_TOP10[owaspFilter].title}</span>
             {' - '}
             {LLM_TOP10[owaspFilter].short}
@@ -511,9 +499,7 @@ export default function PromptInjection(): JSX.Element {
       </section>
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          Further reading
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Further reading</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a

@@ -240,7 +240,7 @@ export default function WifiInvestigation(): JSX.Element {
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Wifi size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Wifi size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               value={input}
@@ -260,7 +260,7 @@ export default function WifiInvestigation(): JSX.Element {
           </button>
         </div>
         {input.trim() && inputType && (
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
+          <p className="text-mini font-mono text-muted mt-2">
             Detected as:{' '}
             <span className="text-slate-600 dark:text-slate-300">
               {inputType === 'bssid' ? 'BSSID (MAC address)' : 'SSID (network name)'}
@@ -281,17 +281,17 @@ export default function WifiInvestigation(): JSX.Element {
           </h3>
           <div className="grid gap-3 sm:grid-cols-2 font-mono text-sm">
             <div>
-              <span className="text-slate-500 dark:text-slate-400">BSSID:</span>{' '}
+              <span className="text-muted">BSSID:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100 font-semibold">{formatMac(result.value)}</span>
             </div>
             <div>
-              <span className="text-slate-500 dark:text-slate-400">OUI Prefix:</span>{' '}
+              <span className="text-muted">OUI Prefix:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100">{formatMac(result.value).substring(0, 8)}</span>
             </div>
             <div>
-              <span className="text-slate-500 dark:text-slate-400">First Octet:</span>{' '}
+              <span className="text-muted">First Octet:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100">{formatMac(result.value).substring(0, 2)}</span>
-              <span className="text-slate-500 dark:text-slate-400 ml-2">
+              <span className="text-muted ml-2">
                 (
                 {parseInt(formatMac(result.value).substring(0, 2), 16) & 0x02
                   ? 'locally administered'
@@ -300,22 +300,22 @@ export default function WifiInvestigation(): JSX.Element {
               </span>
             </div>
             <div>
-              <span className="text-slate-500 dark:text-slate-400">Format:</span>{' '}
+              <span className="text-muted">Format:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100">Colon-separated, uppercase</span>
             </div>
           </div>
           {!!apiResult?.mac && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Vendor Lookup:</p>
+              <p className="text-mini font-mono text-muted mb-2">Server Vendor Lookup:</p>
               <div className="grid gap-2 sm:grid-cols-2 font-mono text-sm">
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400">Vendor:</span>{' '}
+                  <span className="text-muted">Vendor:</span>{' '}
                   <span className="text-slate-900 dark:text-slate-100 font-semibold">
                     {(apiResult.mac as Record<string, unknown>).vendor as string}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400">OUI:</span>{' '}
+                  <span className="text-muted">OUI:</span>{' '}
                   <span className="text-slate-900 dark:text-slate-100">
                     {(apiResult.mac as Record<string, unknown>).oui as string}
                   </span>
@@ -325,7 +325,7 @@ export default function WifiInvestigation(): JSX.Element {
           )}
           {Array.isArray(apiResult?.lookups) && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Lookups:</p>
+              <p className="text-mini font-mono text-muted mb-2">Server Lookups:</p>
               <div className="flex flex-wrap gap-2">
                 {(apiResult.lookups as Array<{ service: string; url: string }>).map((l) => (
                   <a
@@ -343,7 +343,7 @@ export default function WifiInvestigation(): JSX.Element {
           )}
           {Array.isArray(apiResult?.flags) && apiResult.flags.length > 0 && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Flags:</p>
+              <p className="text-mini font-mono text-muted mb-2">Server Flags:</p>
               <ul className="text-meta font-mono text-muted space-y-1">
                 {(apiResult.flags as string[]).map((f, i) => (
                   <li key={i}>- {f}</li>
@@ -361,17 +361,17 @@ export default function WifiInvestigation(): JSX.Element {
           </h3>
           <div className="font-mono text-sm">
             <div>
-              <span className="text-slate-500 dark:text-slate-400">Network Name:</span>{' '}
+              <span className="text-muted">Network Name:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100 font-semibold">{result.value}</span>
             </div>
             <div className="mt-2">
-              <span className="text-slate-500 dark:text-slate-400">Length:</span>{' '}
+              <span className="text-muted">Length:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100">{result.value.length} characters</span>
             </div>
           </div>
           {Array.isArray(apiResult?.lookups) && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Lookups:</p>
+              <p className="text-mini font-mono text-muted mb-2">Server Lookups:</p>
               <div className="flex flex-wrap gap-2">
                 {(apiResult.lookups as Array<{ service: string; url: string }>).map((l) => (
                   <a
@@ -389,7 +389,7 @@ export default function WifiInvestigation(): JSX.Element {
           )}
           {Array.isArray(apiResult?.flags) && apiResult.flags.length > 0 && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Flags:</p>
+              <p className="text-mini font-mono text-muted mb-2">Server Flags:</p>
               <ul className="text-meta font-mono text-muted space-y-1">
                 {(apiResult.flags as string[]).map((f, i) => (
                   <li key={i}>- {f}</li>
@@ -402,7 +402,7 @@ export default function WifiInvestigation(): JSX.Element {
 
       {loading && (
         <div className="mb-6 surface-card p-4 text-center">
-          <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Investigating...</p>
+          <p className="text-sm font-mono text-muted">Investigating...</p>
         </div>
       )}
 

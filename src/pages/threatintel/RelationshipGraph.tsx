@@ -324,7 +324,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               path
             </button>
             {expandedCount > 0 && (
-              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono text-muted">
                 +{expandedCount} expansion{expandedCount > 1 ? 's' : ''}
               </span>
             )}
@@ -416,13 +416,13 @@ export default function RelationshipGraphPage(): JSX.Element {
             <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-4 p-8 text-center">
               <Network size={40} className="text-slate-300 dark:text-slate-400" />
               <div className="font-semibold text-muted">Search any entity to see its relationships</div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 max-w-md">
+              <div className="text-xs text-muted max-w-md">
                 Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all
                 intelligence sources.
               </div>
               {trendingCves.length > 0 && (
                 <div className="mt-2">
-                  <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2 flex items-center justify-center gap-1.5">
+                  <div className="text-mini font-mono uppercase tracking-wider text-muted mb-2 flex items-center justify-center gap-1.5">
                     <TrendingUp size={12} /> trending CVEs
                   </div>
                   <div className="flex flex-wrap justify-center gap-1.5 max-w-lg">
@@ -483,9 +483,9 @@ export default function RelationshipGraphPage(): JSX.Element {
             </div>
           ) : graphData ? (
             <div className="surface-card p-4 text-center text-xs font-mono text-slate-500 space-y-2">
-              <Bug size={16} className="mx-auto text-slate-500 dark:text-slate-400" />
+              <Bug size={16} className="mx-auto text-muted" />
               <div>Click any node to inspect.</div>
-              <div className="text-micro text-slate-500 dark:text-slate-400">
+              <div className="text-micro text-muted">
                 Double-click a node or click "Expand" in its detail panel to load its neighbors.
               </div>
             </div>

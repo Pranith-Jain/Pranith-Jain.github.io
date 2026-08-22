@@ -48,7 +48,7 @@ const SEVERITY_PILL: Record<Severity, string> = {
   critical: 'border-rose-400 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300',
   high: 'border-orange-400 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-400 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-300 bg-slate-50 dark:bg-slate-950/40 text-slate-600 dark:text-slate-400',
+  low: 'border-slate-300 bg-slate-50 dark:bg-slate-950/40 text-muted',
 };
 
 const HISTORY_KEY = 'ti-mindmap:search-history';
@@ -362,7 +362,7 @@ export function McpSearchWorkbench(props: {
             {/* Row 1: Date range */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
-                <Calendar className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                <Calendar className="h-3 w-3 text-muted" />
                 <span className="text-micro font-mono uppercase tracking-wider text-slate-500">date</span>
               </div>
               <div className="flex flex-wrap gap-1">
@@ -383,7 +383,7 @@ export function McpSearchWorkbench(props: {
                     className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                       timeRange === tr
                         ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 font-medium'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-400/50 hover:text-brand-600 dark:hover:text-brand-400'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-400/50 hover:text-brand-600 dark:hover:text-brand-400'
                     }`}
                   >
                     {TIME_RANGE_LABELS[tr]}
@@ -395,7 +395,7 @@ export function McpSearchWorkbench(props: {
             {/* Row 2: Severity */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
-                <Shield className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                <Shield className="h-3 w-3 text-muted" />
                 <span className="text-micro font-mono uppercase tracking-wider text-slate-500">severity</span>
               </div>
               <div className="flex flex-wrap gap-1">
@@ -416,7 +416,7 @@ export function McpSearchWorkbench(props: {
                       className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                         active
                           ? SEVERITY_PILL[sev] + ' font-medium'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-300'
+                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-300'
                       }`}
                     >
                       {sev}
@@ -433,7 +433,7 @@ export function McpSearchWorkbench(props: {
 
             {/* Row 3: Summary + clear */}
             <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/60 dark:border-[rgb(var(--border-400))/0.6]">
-              <div className="flex items-center gap-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">
+              <div className="flex items-center gap-1.5 text-micro font-mono text-muted">
                 <Filter className="h-3 w-3" />
                 <span>
                   {hasFilters ? (
@@ -441,20 +441,20 @@ export function McpSearchWorkbench(props: {
                       <span className="text-slate-800 dark:text-slate-200 font-medium">{filteredCount}</span> of{' '}
                       <span className="text-slate-800 dark:text-slate-200">{totalCount}</span> reports
                       {typeof apiTotal === 'number' && apiTotal > totalCount && (
-                        <span className="text-slate-500 dark:text-slate-400"> (of {apiTotal} total)</span>
+                        <span className="text-muted"> (of {apiTotal} total)</span>
                       )}
                     </>
                   ) : (
                     <>
                       <span className="text-slate-800 dark:text-slate-200 font-medium">{totalCount}</span> reports
                       {typeof apiTotal === 'number' && apiTotal > totalCount && (
-                        <span className="text-slate-500 dark:text-slate-400"> (of {apiTotal} total)</span>
+                        <span className="text-muted"> (of {apiTotal} total)</span>
                       )}
                     </>
                   )}
                 </span>
                 {hasFilters && (
-                  <span className="text-slate-500 dark:text-slate-400">
+                  <span className="text-muted">
                     · {activeFilterCount} filter{activeFilterCount === 1 ? '' : 's'} active
                   </span>
                 )}
@@ -466,7 +466,7 @@ export function McpSearchWorkbench(props: {
                     setTimeRange('');
                     setSeverityFilter(new Set());
                   }}
-                  className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+                  className="text-micro font-mono text-muted hover:text-rose-500 transition-colors"
                 >
                   clear all
                 </button>
@@ -476,7 +476,7 @@ export function McpSearchWorkbench(props: {
         )}
 
         {status === 'unconfigured' && props.showKeyHint !== false && (
-          <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+          <p className="mt-3 text-xs text-muted">
             Add your TI-Mindmap-Hub API key in the page header to enable search. Keys stay in your browser
             (localStorage).
           </p>
@@ -525,7 +525,7 @@ export function McpSearchWorkbench(props: {
                 setHistory([]);
                 saveHistory([]);
               }}
-              className="text-micro text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-micro text-muted hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -557,9 +557,7 @@ export function McpSearchWorkbench(props: {
             )}
             {hit.briefing && hit.reports && (
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-                <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                  Latest Briefing
-                </p>
+                <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Latest Briefing</p>
                 <BriefingInline hit={hit.briefing} />
               </div>
             )}
@@ -606,14 +604,12 @@ function IocHitCard({
         </span>
       </div>
       <div className="p-3">
-        <div className="flex flex-wrap gap-3 text-micro font-mono text-slate-500 dark:text-slate-400 mb-2">
+        <div className="flex flex-wrap gap-3 text-micro font-mono text-muted mb-2">
           {hit.first_seen && <span>first seen: {hit.first_seen}</span>}
           {hit.last_seen && <span>last seen: {hit.last_seen}</span>}
         </div>
         {reports.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400 text-center py-3">
-            No reports mention this indicator.
-          </p>
+          <p className="text-xs text-muted text-center py-3">No reports mention this indicator.</p>
         ) : (
           <ul className="space-y-1.5">
             {reports.slice(0, 8).map((r) => (
@@ -740,7 +736,7 @@ function ReportsHitCard({
       </div>
       <div className="p-3">
         {reports.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400 text-center py-4">No matching reports.</p>
+          <p className="text-xs text-muted text-center py-4">No matching reports.</p>
         ) : (
           <ul className="space-y-1.5">
             {reports.slice(0, 10).map((r) => (
@@ -784,7 +780,7 @@ function ReportDetailPanel({
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold text-slate-900 dark:text-slate-100 line-clamp-2">{report.title || rid}</p>
-          <div className="flex flex-wrap items-center gap-2 mt-1 text-micro font-mono text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 mt-1 text-micro font-mono text-muted">
             {report.source && <span>{report.source}</span>}
             {report.published_at && <span>· {report.published_at}</span>}
             {report.actor && <span className="text-rose-600 dark:text-rose-400">actor: {report.actor}</span>}
@@ -810,9 +806,7 @@ function ReportDetailPanel({
 
       {!busy && detail && (
         <>
-          {detail.summary && (
-            <p className="text-mini text-slate-600 dark:text-slate-400 leading-relaxed">{detail.summary}</p>
-          )}
+          {detail.summary && <p className="text-mini text-muted leading-relaxed">{detail.summary}</p>}
 
           <DetailSection label="IOCs" items={detail.iocs?.map((i) => i.value)} color="rose" />
           <DetailSection label="TTPs" items={detail.ttps?.map((t) => t.name ?? t.id ?? '')} color="violet" />
@@ -827,9 +821,7 @@ function ReportDetailPanel({
         </>
       )}
 
-      {!busy && !detail && summary && (
-        <p className="text-mini text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-6">{summary}</p>
-      )}
+      {!busy && !detail && summary && <p className="text-mini text-muted leading-relaxed line-clamp-6">{summary}</p>}
     </div>
   );
 }
@@ -894,10 +886,10 @@ function BriefingInline({ hit }: { hit: BriefingSummary }): JSX.Element {
     <div className="flex items-start gap-2">
       <div className="min-w-0 flex-1">
         <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
-        <p className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
+        <p className="text-micro font-mono uppercase text-muted">
           {hit.type ?? 'briefing'} · {hit.date ?? '-'}
         </p>
-        {hit.summary && <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-3">{hit.summary}</p>}
+        {hit.summary && <p className="mt-1 text-mini text-muted line-clamp-3">{hit.summary}</p>}
       </div>
     </div>
   );
@@ -907,10 +899,10 @@ function BriefingRow({ hit }: { hit: BriefingSummary }): JSX.Element {
   return (
     <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
-      <p className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
+      <p className="text-micro font-mono uppercase text-muted">
         {hit.type ?? 'briefing'} · {hit.date ?? '-'}
       </p>
-      {hit.summary && <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{hit.summary}</p>}
+      {hit.summary && <p className="mt-1 text-mini text-muted line-clamp-2">{hit.summary}</p>}
     </li>
   );
 }
@@ -948,14 +940,14 @@ function ReportRow({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            className="shrink-0 text-muted hover:text-brand-600 dark:hover:text-brand-400"
             title="Open on ti-mindmap-hub.com"
           >
             <ExternalLink className="h-3 w-3" />
           </a>
         )}
       </div>
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-micro font-mono uppercase text-muted">
         {r.source && <span>{r.source}</span>}
         {r.published_at && <span>· {r.published_at}</span>}
         {r.actor && <span className="text-rose-600 dark:text-rose-400">actor: {r.actor}</span>}
@@ -972,15 +964,13 @@ function ReportRow({
           <span className="text-violet-600 dark:text-violet-400">{r.ttp_count} TTPs</span>
         )}
       </div>
-      {r.summary && !selected && (
-        <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{r.summary}</p>
-      )}
+      {r.summary && !selected && <p className="mt-1 text-mini text-muted line-clamp-2">{r.summary}</p>}
       {r.tags && r.tags.length > 0 && !selected && (
         <div className="mt-1 flex flex-wrap gap-1">
           {r.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
+              className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-micro font-mono text-muted"
             >
               {tag}
             </span>
@@ -1002,6 +992,6 @@ function SeverityBadge({ severity }: { severity: string }): JSX.Element {
         ? 'bg-orange-100 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-800'
         : s === 'medium'
           ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800'
-          : 'bg-slate-100 dark:bg-slate-950/40 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700';
+          : 'bg-slate-100 dark:bg-slate-950/40 text-muted border-slate-300 dark:border-slate-700';
   return <span className={`rounded px-1.5 py-0.5 text-micro font-mono border ${cls}`}>{severity}</span>;
 }

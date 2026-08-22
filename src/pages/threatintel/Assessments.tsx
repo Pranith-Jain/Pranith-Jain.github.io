@@ -27,7 +27,7 @@ const STATUS_STYLES: Record<string, string> = {
   published:
     'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800',
   archived:
-    'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
+    'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 export default function Assessments(): JSX.Element {
@@ -94,7 +94,7 @@ export default function Assessments(): JSX.Element {
       }
     >
       {data.length === 0 && !loading && (
-        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
+        <div className="text-center py-16 text-muted">
           <FileText size={32} className="mx-auto mb-3 opacity-50" />
           <p className="text-sm">
             No assessments yet. Use the Copilot to generate an analysis, then save it as an assessment.
@@ -126,7 +126,7 @@ export default function Assessments(): JSX.Element {
                 >
                   {a.confidence_score}/100
                 </div>
-                <div className="text-micro text-slate-500 dark:text-slate-400">{new Date(a.created_at).toLocaleDateString()}</div>
+                <div className="text-micro text-muted">{new Date(a.created_at).toLocaleDateString()}</div>
               </div>
               <ChevronRight size={14} className="text-slate-300" />
             </div>

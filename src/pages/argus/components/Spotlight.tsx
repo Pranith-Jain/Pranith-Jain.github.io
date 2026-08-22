@@ -84,13 +84,13 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
         className="relative w-[min(640px,92vw)] surface-raised shadow-2xl z-10 animate-fade-in-up"
       >
         <div className="flex items-center gap-3 px-4 h-12 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <Search size={16} className="text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="text-muted" />
           <input
             ref={inputRef}
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search actors, malware, CVEs, TTPs…"
-            className="flex-1 bg-transparent outline-none text-[15px] placeholder:text-slate-500 dark:text-slate-400"
+            className="flex-1 bg-transparent outline-none text-[15px] placeholder:text-muted"
             onKeyDown={(e) => {
               if (e.key === 'ArrowDown') {
                 e.preventDefault();
@@ -108,7 +108,7 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
           <button
             aria-label="Close"
             onClick={onClose}
-            className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 transition-colors"
+            className="text-muted hover:text-slate-900 dark:text-slate-100 transition-colors"
           >
             <X size={16} />
           </button>
@@ -116,15 +116,14 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
 
         <div className="max-h-[60vh] overflow-y-auto py-1">
           {q.length < 2 && (
-            <div className="px-4 py-8 text-center text-slate-500 dark:text-slate-400 text-sm">
-              Start typing to search <span className="text-slate-600 dark:text-slate-400">actors</span>,{' '}
-              <span className="text-slate-600 dark:text-slate-400">malware</span>,{' '}
-              <span className="text-slate-600 dark:text-slate-400">CVEs</span>,{' '}
-              <span className="text-slate-600 dark:text-slate-400">TTPs</span>…
+            <div className="px-4 py-8 text-center text-muted text-sm">
+              Start typing to search <span className="text-muted">actors</span>,{' '}
+              <span className="text-muted">malware</span>, <span className="text-muted">CVEs</span>,{' '}
+              <span className="text-muted">TTPs</span>…
             </div>
           )}
           {q.length >= 2 && hits.length === 0 && (
-            <div className="px-4 py-8 text-center text-slate-500 dark:text-slate-400 text-sm">No matches.</div>
+            <div className="px-4 py-8 text-center text-muted text-sm">No matches.</div>
           )}
           {hits.map((h, i) => {
             const Icon = ICON[h.type];
@@ -140,20 +139,18 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
                     : 'hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                 )}
               >
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-muted">
                   <Icon size={14} />
                 </span>
                 <span className="text-sm text-slate-900 dark:text-slate-100">{h.label}</span>
-                <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-auto">
-                  {h.type}
-                </span>
-                <span className="text-meta text-slate-500 dark:text-slate-400 truncate max-w-[260px]">{h.sub}</span>
+                <span className="text-mini font-mono uppercase tracking-wider text-muted ml-auto">{h.type}</span>
+                <span className="text-meta text-muted truncate max-w-[260px]">{h.sub}</span>
               </button>
             );
           })}
         </div>
 
-        <div className="flex items-center gap-3 px-4 h-9 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <div className="flex items-center gap-3 px-4 h-9 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-muted">
           <span className="flex items-center gap-1">
             <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-micro normal-case">
               &uarr;&darr;

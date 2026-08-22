@@ -428,7 +428,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
               <div className="flex items-start gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{a.id}</span>
+                    <span className="text-xs font-mono text-muted">{a.id}</span>
                     <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                       {a.country}
                       {a.city ? `, ${a.city}` : ''}
@@ -467,7 +467,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <div className="text-center py-12 text-slate-500 font-mono text-sm">No attacks match your filters</div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
         Sources: Public reporting, law enforcement press releases, security research · {ATTACKS.length} incidents
         tracked
       </div>

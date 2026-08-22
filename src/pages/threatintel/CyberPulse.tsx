@@ -272,7 +272,7 @@ export default function CyberPulse(): JSX.Element {
               key={s.severity}
               label={s.severity}
               value={s.count}
-              color={SEVERITY_COLORS[s.severity]?.split(' ')[1] ?? 'text-slate-500 dark:text-slate-400'}
+              color={SEVERITY_COLORS[s.severity]?.split(' ')[1] ?? 'text-muted'}
             />
           ))}
         </div>
@@ -282,7 +282,7 @@ export default function CyberPulse(): JSX.Element {
       <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
         <Filter className="w-4 h-4 text-slate-600 dark:text-slate-500" />
         <div className="relative">
-          <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+          <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
           <input
             type="text"
             value={searchQuery}
@@ -314,7 +314,7 @@ export default function CyberPulse(): JSX.Element {
           <button
             type="button"
             onClick={clearFilters}
-            className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1 transition-colors"
+            className="text-xs text-muted hover:text-slate-900 dark:hover:text-white flex items-center gap-1 transition-colors"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -322,7 +322,7 @@ export default function CyberPulse(): JSX.Element {
         <div className="ml-auto flex items-center gap-2">
           {stats?.last_scan && (
             <span
-              className={`text-xs ${Date.now() - Date.parse(stats.last_scan) > 2 * 3600_000 ? 'text-amber-600 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`}
+              className={`text-xs ${Date.now() - Date.parse(stats.last_scan) > 2 * 3600_000 ? 'text-amber-600 dark:text-amber-400' : 'text-muted'}`}
             >
               Last scan: {relativeTime(stats.last_scan)}
             </span>
@@ -362,7 +362,7 @@ export default function CyberPulse(): JSX.Element {
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
           >
-            <RefreshCw className={`w-4 h-4 text-slate-500 dark:text-slate-400 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-muted ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
       </div>
@@ -622,19 +622,19 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
       <PostSummary text={postSummary} />
       <div className="flex items-start gap-3">
         <div
-          className={`mt-0.5 p-1.5 rounded ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-600 dark:text-slate-400'}`}
+          className={`mt-0.5 p-1.5 rounded ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-muted'}`}
         >
           <Icon className="w-4 h-4" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <span
-              className={`px-1.5 py-0.5 text-micro font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-slate-600 dark:text-slate-400 border-slate-500/30'}`}
+              className={`px-1.5 py-0.5 text-micro font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-muted border-slate-500/30'}`}
             >
               {inc.severity}
             </span>
             <span
-              className={`px-1.5 py-0.5 text-micro font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20'}`}
+              className={`px-1.5 py-0.5 text-micro font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-muted border-slate-500/20'}`}
             >
               {TYPE_LABELS[inc.incident_type] ?? inc.incident_type}
             </span>

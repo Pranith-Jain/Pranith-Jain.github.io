@@ -339,7 +339,7 @@ function ResultCard({
           <div className="text-mini font-mono text-muted mt-1">
             <span>{count} certificates</span>
             {unique && unique.length > 0 && (
-              <p className="truncate text-slate-500 dark:text-slate-400">
+              <p className="truncate text-muted">
                 {unique.slice(0, 3).join(', ')}
                 {unique.length > 3 ? '…' : ''}
               </p>
@@ -401,7 +401,7 @@ function ResultCard({
             <span>
               {subs.length} subdomain{subs.length !== 1 ? 's' : ''} from {total ?? '?'} certs
             </span>
-            <p className="truncate text-slate-500 dark:text-slate-400">
+            <p className="truncate text-muted">
               {subs.slice(0, 4).join(', ')}
               {subs.length > 4 ? '…' : ''}
             </p>
@@ -417,7 +417,7 @@ function ResultCard({
             <span>
               {cidrs.length} CIDR range{cidrs.length !== 1 ? 's' : ''}
             </span>
-            <p className="truncate text-slate-500 dark:text-slate-400">
+            <p className="truncate text-muted">
               {cidrs
                 .slice(0, 3)
                 .map((c) => c.cidr)
@@ -449,7 +449,7 @@ function ResultCard({
             {tool.label}
           </h3>
         </div>
-        {state.loading && <Loader2 size={12} className="animate-spin text-slate-500 dark:text-slate-400 shrink-0" />}
+        {state.loading && <Loader2 size={12} className="animate-spin text-muted shrink-0" />}
         {!state.loading && !!state.data && !state.error && (
           <Link
             to={`/${tool.key === 'domain_lookup' ? 'dfir/domain' : tool.key === 'web_scan' ? 'dfir/web-scan' : tool.key === 'cert_search' ? 'dfir/cert-search' : tool.key === 'breach' ? 'dfir/breach' : tool.key === 'webamon' ? 'threatintel/webamon' : tool.key === 'cert_transparency' ? 'dfir/domain' : tool.key === 'cidr_lookup' ? 'dfir/ip-geo' : 'dfir/' + tool.key}?${tool.key === 'webamon' ? 'q' : 'domain'}=${encodeURIComponent(domain)}`}
@@ -460,7 +460,7 @@ function ResultCard({
         )}
       </div>
       <p
-        className={`text-tool font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}
+        className={`text-tool font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-slate-900 dark:text-slate-100' : 'text-muted'}`}
       >
         {summary}
       </p>

@@ -230,7 +230,7 @@ export default function BriefingsTab() {
       {/* Build now */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Build now</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-sm text-muted mb-4">
           Rebuilds the latest closed window for the chosen type and writes it (overwriting an empty row; a richer
           existing row is preserved). Runs in request context with a full subrequest budget - use this to recover a
           briefing the cron heal shipped empty, or to apply a builder change immediately. <code>daily</code> targets
@@ -290,7 +290,7 @@ export default function BriefingsTab() {
       {/* Backfill */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Backfill</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-sm text-muted mb-4">
           Rebuilds the past N daily + M weekly windows. With <strong>force</strong> on, existing rows are overwritten
           (use after a builder fix); off, existing rows are skipped. <code>days=1</code> targets only yesterday&apos;s
           daily.
@@ -363,9 +363,7 @@ export default function BriefingsTab() {
               )}
             </div>
             {backfillResult.daily.length > 0 && (
-              <div className="font-mono text-xs text-slate-500 dark:text-slate-400 break-all">
-                {backfillResult.daily.join(', ')}
-              </div>
+              <div className="font-mono text-xs text-muted break-all">{backfillResult.daily.join(', ')}</div>
             )}
           </div>
         )}
@@ -374,7 +372,7 @@ export default function BriefingsTab() {
       {/* Sweep */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Sweep old briefings</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-sm text-muted mb-4">
           Deletes briefings older than the retention window (clamped to the policy ceiling). Also runs on the hourly
           cron - this is for a one-off prune.
         </p>
@@ -464,9 +462,7 @@ export default function BriefingsTab() {
                   key: 'type',
                   header: 'Type',
                   sortValue: (it: (typeof items)[number]) => it.metadata.type ?? '',
-                  render: (it) => (
-                    <span className="text-slate-500 dark:text-slate-400 capitalize">{it.metadata.type ?? '-'}</span>
-                  ),
+                  render: (it) => <span className="text-muted capitalize">{it.metadata.type ?? '-'}</span>,
                 },
                 { key: 'stats', header: 'Stats', render: (it) => <StatPills stats={it.metadata.stats} /> },
                 {

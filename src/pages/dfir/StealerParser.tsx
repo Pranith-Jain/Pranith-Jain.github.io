@@ -49,7 +49,7 @@ const CREDENTIAL_COLUMNS: DataTableColumn<Credential>[] = [
   {
     key: 'source',
     header: 'Source',
-    render: (c) => <span className="text-slate-500 dark:text-slate-400">{c.source}</span>,
+    render: (c) => <span className="text-muted">{c.source}</span>,
     sortValue: (c) => c.source,
     className: 'text-xs',
   },
@@ -144,7 +144,7 @@ export default function StealerParser(): JSX.Element {
           className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="flex items-center justify-between mt-3">
-          <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <span className="text-xs text-muted font-mono">
             {input.length > 0 ? `${(input.length / 1024).toFixed(1)} KB` : 'Max 500 KB'}
           </span>
           <button
@@ -315,10 +315,8 @@ function StatCard({
   return (
     <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
-        {icon && <span className={color ?? 'text-slate-500 dark:text-slate-400'}>{icon}</span>}
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          {label}
-        </span>
+        {icon && <span className={color ?? 'text-muted'}>{icon}</span>}
+        <span className="text-micro font-mono uppercase tracking-wider text-muted">{label}</span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
         {value.toLocaleString()}
@@ -330,7 +328,7 @@ function StatCard({
 function InfoField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
       <div className="text-sm font-mono text-slate-700 dark:text-slate-300">{value}</div>
     </div>
   );

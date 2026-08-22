@@ -81,17 +81,13 @@ function HuntDetail({ body, onClose }: { body: HuntBody; onClose: () => void }) 
         </div>
 
         <div>
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            Rationale
-          </div>
+          <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Rationale</div>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.rationale}</p>
         </div>
 
         {body.queries.length > 0 && (
           <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              Starter Queries
-            </div>
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-2">Starter Queries</div>
             <div className="space-y-2">
               {body.queries.map((q, i) => (
                 <QueryBlock key={i} query={q} />
@@ -151,7 +147,7 @@ export default function HuntHypotheses() {
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px] max-w-md">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               placeholder="Search hypotheses, techniques..."
@@ -160,7 +156,7 @@ export default function HuntHypotheses() {
               className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
-          <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="text-xs text-muted font-mono">
             {filtered.length} / {index?.hypothesisIndex.length ?? 0} hypotheses
           </div>
         </div>
@@ -171,7 +167,7 @@ export default function HuntHypotheses() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedTactic
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
             }`}
           >
             All Tactics
@@ -183,7 +179,7 @@ export default function HuntHypotheses() {
               className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                 selectedTactic === t.name
                   ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
               }`}
             >
               {t.name} <span className="opacity-60 ml-0.5">({t.count})</span>
@@ -199,7 +195,7 @@ export default function HuntHypotheses() {
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
             <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
-            <p className="text-sm text-slate-500 dark:text-slate-400">No hypotheses match your filters.</p>
+            <p className="text-sm text-muted">No hypotheses match your filters.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">

@@ -30,7 +30,7 @@ const THREAT_COLORS: Record<string, string> = {
   high: 'text-orange-700 dark:text-orange-400 bg-orange-500/10 border-orange-500/30',
   medium: 'text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30',
   low: 'text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
-  unknown: 'text-slate-600 dark:text-slate-400 bg-slate-500/10 border-slate-500/30',
+  unknown: 'text-muted bg-slate-500/10 border-slate-500/30',
 };
 
 const POPOVER_WIDTH = 420;
@@ -201,7 +201,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
         } ${
           open
             ? 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-            : 'border-[rgb(var(--border-500))] text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/30'
+            : 'border-[rgb(var(--border-500))] text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/30'
         }`}
         title="AI threat analysis"
         aria-expanded={open}
@@ -231,9 +231,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-[rgb(var(--border-400))] sticky top-0 bg-white dark:bg-[rgb(var(--surface-200))] z-10">
               <div className="flex items-center gap-2">
                 <Brain size={14} className="text-brand-600 dark:text-brand-400" />
-                <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  AI Analysis
-                </span>
+                <span className="font-mono text-micro uppercase tracking-wider text-muted">AI Analysis</span>
                 {model && (
                   <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
                     {model}
@@ -245,14 +243,14 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                   aria-label="Refresh"
                   onClick={fetchAnalysis}
                   disabled={loading}
-                  className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                  className="p-1 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
                 >
                   <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
                 </button>
                 <button
                   aria-label="Close"
                   onClick={() => setOpen(false)}
-                  className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                  className="p-1 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200"
                 >
                   <X size={12} />
                 </button>
@@ -264,7 +262,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
               {loading && !analysis && (
                 <div className="flex items-center gap-2 justify-center py-6">
                   <RefreshCw size={14} className="animate-spin text-brand-400" />
-                  <span className="text-xs text-slate-500 dark:text-slate-400">Analyzing…</span>
+                  <span className="text-xs text-muted">Analyzing…</span>
                 </div>
               )}
 
@@ -336,10 +334,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                           <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
                           <ul className="space-y-0.5">
                             {analysis.recommended_actions.map((a, i) => (
-                              <li
-                                key={i}
-                                className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-slate-400"
-                              >
+                              <li key={i} className="flex items-start gap-1.5 text-xs text-muted">
                                 <span className="text-brand-400 mt-0.5">•</span>
                                 {a}
                               </li>

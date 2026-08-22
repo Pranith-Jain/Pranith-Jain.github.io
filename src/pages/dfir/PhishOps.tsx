@@ -474,7 +474,7 @@ export default function PhishOps(): JSX.Element {
             <step.icon size={22} className="text-brand-600 dark:text-brand-400" />
             <div>
               <h2 className="text-xl font-display font-bold">{step.title}</h2>
-              <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">{step.description}</p>
+              <p className="text-xs font-mono text-muted mt-1">{step.description}</p>
             </div>
           </div>
 
@@ -485,9 +485,7 @@ export default function PhishOps(): JSX.Element {
                 className="flex items-start gap-2 p-3 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 mb-0.5">
-                    {f.label}
-                  </div>
+                  <div className="text-xs font-mono font-semibold text-muted mb-0.5">{f.label}</div>
                   <div className="text-xs font-mono text-slate-800 dark:text-slate-200 break-all">{f.value}</div>
                 </div>
                 <CopyButton value={f.value} title={`Copy ${f.label}`} />
@@ -520,7 +518,7 @@ export default function PhishOps(): JSX.Element {
                   <span
                     role="button"
                     tabIndex={0}
-                    className={`text-sm font-mono cursor-pointer ${item.done ? 'line-through text-slate-500 dark:text-slate-400' : 'text-slate-700 dark:text-slate-300'}`}
+                    className={`text-sm font-mono cursor-pointer ${item.done ? 'line-through text-muted' : 'text-slate-700 dark:text-slate-300'}`}
                     onClick={() => toggleCheck(state.currentStep, item.id)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {

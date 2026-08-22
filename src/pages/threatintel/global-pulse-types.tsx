@@ -233,7 +233,7 @@ export const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Blocklist',
     shortLabel: 'BL',
     icon: <ShieldAlert size={14} />,
-    color: 'text-slate-500 dark:text-slate-400',
+    color: 'text-muted',
     bgColor: 'bg-slate-500/10 border-slate-500/20',
     group: 'intel',
   },

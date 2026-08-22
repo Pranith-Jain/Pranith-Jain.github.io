@@ -173,10 +173,8 @@ export default function Dnscope(): JSX.Element {
         <div className="space-y-4">
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Search size={14} className="text-slate-500 dark:text-slate-400" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Target Domain
-              </span>
+              <Search size={14} className="text-muted" />
+              <span className="text-micro font-mono uppercase tracking-wider text-muted">Target Domain</span>
             </div>
             <input
               type="text"
@@ -221,12 +219,8 @@ export default function Dnscope(): JSX.Element {
           {!scanning && sections.length === 0 && !error && (
             <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/20 p-8 flex flex-col items-center justify-center text-center">
               <Globe size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
-              <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
-                Enter a domain above to map its infrastructure
-              </p>
-              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
-                DNS · RDAP · CT logs · Email auth · Threat intel
-              </p>
+              <p className="text-sm font-mono text-muted">Enter a domain above to map its infrastructure</p>
+              <p className="text-micro font-mono text-muted mt-2">DNS · RDAP · CT logs · Email auth · Threat intel</p>
             </div>
           )}
 
@@ -259,7 +253,7 @@ export default function Dnscope(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+      <p className="mt-8 text-micro font-mono text-muted text-center">
         H3AD-X / DNSCOPE - Live multi-source domain scan
       </p>
     </DataPageLayout>

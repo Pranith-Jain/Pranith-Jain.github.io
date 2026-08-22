@@ -148,7 +148,7 @@ export default function ACH(): JSX.Element {
           {/* Question + meta */}
           <div className="surface-card p-5">
             <h2 className="text-lg font-bold mb-1">{result.question}</h2>
-            <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-500 dark:text-slate-400">
+            <div className="flex flex-wrap gap-3 text-mini font-mono text-muted">
               <span>topic: {result.topic}</span>
               <span>model: {result.model_used}</span>
               <span>{new Date(result.generated_at).toLocaleString()}</span>
@@ -198,12 +198,12 @@ export default function ACH(): JSX.Element {
                       >
                         {h.confidence}%
                       </div>
-                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400">confidence</div>
+                      <div className="text-micro font-mono text-muted">confidence</div>
                     </div>
                     {isOpen ? (
-                      <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
+                      <ChevronDown size={16} className="text-muted" />
                     ) : (
-                      <ChevronRight size={16} className="text-slate-500 dark:text-slate-400" />
+                      <ChevronRight size={16} className="text-muted" />
                     )}
                   </button>
 
@@ -237,7 +237,7 @@ export default function ACH(): JSX.Element {
                               >
                                 <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">source: {ev.source}</span>
+                                  <span className="text-micro font-mono text-muted">source: {ev.source}</span>
                                   <span
                                     className={`text-micro font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
                                   >
@@ -247,12 +247,12 @@ export default function ACH(): JSX.Element {
                               </div>
                             ))}
                           {!showFor && h.evidence_for.length > 0 && (
-                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">
+                            <p className="text-micro text-muted italic">
                               Click to expand {h.evidence_for.length} evidence items
                             </p>
                           )}
                           {h.evidence_for.length === 0 && (
-                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">No supporting evidence identified</p>
+                            <p className="text-micro text-muted italic">No supporting evidence identified</p>
                           )}
                         </div>
 
@@ -280,7 +280,7 @@ export default function ACH(): JSX.Element {
                               >
                                 <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">source: {ev.source}</span>
+                                  <span className="text-micro font-mono text-muted">source: {ev.source}</span>
                                   <span
                                     className={`text-micro font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
                                   >
@@ -290,12 +290,12 @@ export default function ACH(): JSX.Element {
                               </div>
                             ))}
                           {!showAgainst && h.evidence_against.length > 0 && (
-                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">
+                            <p className="text-micro text-muted italic">
                               Click to expand {h.evidence_against.length} evidence items
                             </p>
                           )}
                           {h.evidence_against.length === 0 && (
-                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">No contradictory evidence identified</p>
+                            <p className="text-micro text-muted italic">No contradictory evidence identified</p>
                           )}
                         </div>
                       </div>

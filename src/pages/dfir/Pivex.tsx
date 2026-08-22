@@ -93,7 +93,7 @@ const ENTITY_ICON_COLORS: Record<string, string> = {
   victim: 'text-muted',
   c2_framework: 'text-fuchsia-600 dark:text-fuchsia-400',
   product: 'text-teal-600 dark:text-teal-400',
-  reference: 'text-slate-500 dark:text-slate-400',
+  reference: 'text-muted',
 };
 
 const TYPE_LABELS: Record<string, string> = {
@@ -271,7 +271,7 @@ export default function Pivex(): JSX.Element {
         <h2 className="font-display font-bold text-sm mb-3">Start Investigation</h2>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -300,7 +300,7 @@ export default function Pivex(): JSX.Element {
       {!showGraph && !loading && (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
           <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-400" />
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted">
             Enter an IP, domain, CVE, or actor name and click{' '}
             <span className="font-semibold text-slate-700 dark:text-slate-300">Build Graph</span> to visualise the
             infrastructure pivot graph.
@@ -315,7 +315,7 @@ export default function Pivex(): JSX.Element {
               <span>
                 Seed: <span className="text-slate-700 dark:text-slate-300">{seedInfo.seed}</span>
               </span>
-              {seedInfo.type && <span className="text-slate-500 dark:text-slate-400">({seedInfo.type})</span>}
+              {seedInfo.type && <span className="text-muted">({seedInfo.type})</span>}
               {seedInfo.truncated && <span className="text-amber-600">· truncated</span>}
               {seedInfo.warning && <span className="text-amber-600">· {seedInfo.warning}</span>}
             </div>
@@ -323,7 +323,7 @@ export default function Pivex(): JSX.Element {
 
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500 dark:text-slate-400">
+              <span className="text-xs text-muted">
                 {nodes.length} entities · {edges.length} relationships
               </span>
             </div>
@@ -333,14 +333,14 @@ export default function Pivex(): JSX.Element {
                   setHighlightMode(!highlightMode);
                   if (!highlightMode) setHighlightNode(null);
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'}`}
               >
                 {highlightMode ? <Eye size={12} /> : <EyeOff size={12} />}
                 {highlightMode ? 'Highlight On' : 'Highlight Mode'}
               </button>
               <button
                 onClick={handleExportJson}
-                className="px-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
               >
                 <Download size={12} /> Export JSON
               </button>
@@ -474,7 +474,7 @@ function GraphCluster({
                       className={`flex items-center gap-2 text-mini font-mono transition-opacity ${getEdgeOpacity(e.source, e.target)}`}
                     >
                       <span className="text-slate-500">{n.label}</span>
-                      <span className="text-slate-500 dark:text-slate-400">── {e.label} ──</span>
+                      <span className="text-muted">── {e.label} ──</span>
                       <span className="text-slate-600 dark:text-slate-300">{target.label}</span>
                     </div>
                   );
@@ -501,11 +501,9 @@ function RelationCard({
 }) {
   return (
     <div className="surface-card/40 shadow-e1 p-4">
-      <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-        {title}
-      </h3>
+      <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-muted mb-3">{title}</h3>
       {edges.length === 0 ? (
-        <p className="text-xs text-slate-500 dark:text-slate-400 italic">No relationships mapped</p>
+        <p className="text-xs text-muted italic">No relationships mapped</p>
       ) : (
         <div className="space-y-1.5">
           {edges.map((e, i) => {
@@ -515,7 +513,7 @@ function RelationCard({
             return (
               <div key={`${e.source}-${e.target}-${i}`} className="flex items-center gap-2 text-xs font-mono">
                 <span className={`px-1.5 py-0.5 rounded text-micro ${getNodeColor(source.type)}`}>{source.label}</span>
-                <span className="text-slate-500 dark:text-slate-400 text-micro">→</span>
+                <span className="text-muted text-micro">→</span>
                 <span className={`px-1.5 py-0.5 rounded text-micro ${getNodeColor(target.type)}`}>{target.label}</span>
               </div>
             );

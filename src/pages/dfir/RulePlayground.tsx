@@ -133,7 +133,7 @@ export default function RulePlayground(): JSX.Element {
           Paste a YARA rule or a Sigma YAML rule alongside a sample log / file. The playground extracts the rule's
           strings and keywords, highlights matches in the sample, and surfaces the parsed condition for review.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        <p className="text-xs text-muted font-mono mb-6">
           Heuristic only - this is a teaching aid, not a YARA/Sigma engine. Boolean conditions ("at least 2 of $a*",
           "selection and not filter") are shown but not evaluated. For real validation, run the rule through{' '}
           <code>yara</code> or a Sigma converter.
@@ -170,7 +170,7 @@ export default function RulePlayground(): JSX.Element {
         <section className="surface-card p-4">
           <h2
             id="rule-playground-rule-label"
-            className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2"
+            className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2"
           >
             Rule
           </h2>
@@ -188,7 +188,7 @@ export default function RulePlayground(): JSX.Element {
         <section className="surface-card p-4">
           <h2
             id="rule-playground-sample-label"
-            className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2"
+            className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2"
           >
             Sample
           </h2>
@@ -208,9 +208,7 @@ export default function RulePlayground(): JSX.Element {
         <>
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-                Parsed rule
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Parsed rule</h2>
               <span
                 className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
                   result.parsed.kind === 'unknown'
@@ -222,11 +220,11 @@ export default function RulePlayground(): JSX.Element {
               </span>
             </div>
             <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">
-              <span className="text-slate-500 dark:text-slate-400">Name:</span> {result.parsed.name}
+              <span className="text-muted">Name:</span> {result.parsed.name}
             </p>
             {result.parsed.condition && (
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 mb-3">
-                <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
+                <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted block mb-1">
                   Condition (informational)
                 </span>
                 <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap">
@@ -244,7 +242,7 @@ export default function RulePlayground(): JSX.Element {
               </div>
             )}
             <div>
-              <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
+              <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted block mb-1">
                 Strings / keywords ({result.parsed.needles.length})
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -275,10 +273,10 @@ export default function RulePlayground(): JSX.Element {
 
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                 Highlighted sample
               </h2>
-              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
+              <span className="text-xs font-mono text-muted inline-flex items-center gap-1.5">
                 {result.matches.length === 0 ? (
                   <>
                     <CheckCircle2 size={12} className="text-emerald-500" /> 0 matches
@@ -298,9 +296,7 @@ export default function RulePlayground(): JSX.Element {
 
           {result.matches.length > 0 && (
             <section className="surface-card p-4 mb-6">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-                Matches
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Matches</h2>
               <ul className="space-y-1.5">
                 {result.matches.map((m, i) => (
                   <li
@@ -312,7 +308,7 @@ export default function RulePlayground(): JSX.Element {
                     >
                       {m.name}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-400">@ {m.index}</span>
+                    <span className="text-muted">@ {m.index}</span>
                     <code className="text-slate-800 dark:text-slate-200 break-all">{m.text}</code>
                   </li>
                 ))}
@@ -323,9 +319,7 @@ export default function RulePlayground(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a

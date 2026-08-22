@@ -228,7 +228,7 @@ export default function CtiDashboard(): JSX.Element {
       }}
       empty={!stats || (stats.total_iocs === 0 && stats.recent_news === 0)}
       emptyMessage="No CTI data yet. Run a collection to populate the database."
-      emptyIcon={<Shield size={32} className="text-slate-500 dark:text-slate-400" />}
+      emptyIcon={<Shield size={32} className="text-muted" />}
     >
       {loadError && !loading && (
         <div
@@ -269,9 +269,7 @@ export default function CtiDashboard(): JSX.Element {
         ))}
       </nav>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === tab)?.desc}
-      </p>
+      <p className="text-xs font-mono text-muted mb-4">{TABS.find((t) => t.id === tab)?.desc}</p>
 
       <div role="tabpanel">
         {/* ── Dashboard Tab ──────────────────────────────────────────── */}
@@ -294,7 +292,7 @@ export default function CtiDashboard(): JSX.Element {
                   fetchStats();
                   fetchNews();
                 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-muted text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>
@@ -331,7 +329,7 @@ export default function CtiDashboard(): JSX.Element {
             {/* Type breakdown + Top families */}
             <div className="grid md:grid-cols-2 gap-4">
               <div className="surface-card-faint p-5">
-                <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3 flex items-center gap-2">
                   <BarChart3 size={14} /> IOC Type Breakdown
                 </h3>
                 {Object.entries(stats.type_breakdown)
@@ -352,18 +350,16 @@ export default function CtiDashboard(): JSX.Element {
                     </div>
                   ))}
                 {Object.keys(stats.type_breakdown).length === 0 && (
-                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400">No IOCs collected yet.</p>
+                  <p className="text-xs font-mono text-muted">No IOCs collected yet.</p>
                 )}
               </div>
 
               <div className="surface-card-faint p-5">
-                <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3 flex items-center gap-2">
                   <AlertTriangle size={14} /> Top Malware Families
                 </h3>
                 {stats.top_malware_families.length === 0 ? (
-                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                    No named families yet. Run a collection first.
-                  </p>
+                  <p className="text-xs font-mono text-muted">No named families yet. Run a collection first.</p>
                 ) : (
                   stats.top_malware_families.map((f) => (
                     <div
@@ -371,7 +367,7 @@ export default function CtiDashboard(): JSX.Element {
                       className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                     >
                       <span className="text-sm text-slate-700 dark:text-slate-300">{f.family}</span>
-                      <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
                         {f.count}
                       </span>
                     </div>
@@ -383,19 +379,54 @@ export default function CtiDashboard(): JSX.Element {
             {/* Trending */}
             {stats.trending.length > 0 && (
               <div className="surface-card-faint p-5">
-                <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3 flex items-center gap-2">
                   <TrendingUp size={14} /> Most Observed IOCs (multi-source)
                 </h3>
                 <div className="overflow-x-auto">
                   <DataTable
-                    columns={[
-                      { key: 'value', header: 'Value', sortValue: (t: typeof stats.trending[number]) => t.value, render: (t) => <span className="font-mono text-xs text-rose-600 dark:text-rose-400 max-w-xs truncate">{t.value}</span> },
-                      { key: 'type', header: 'Type', sortValue: (t: typeof stats.trending[number]) => t.type, render: (t) => (
-                        <span className={`inline-flex px-1.5 py-0.5 rounded text-micro font-mono border ${TYPE_PILL[t.type] || 'border-slate-300 bg-slate-100 text-slate-600'}`}>{t.type}</span>
-                      ) },
-                      { key: 'source', header: 'Source', sortValue: (t: typeof stats.trending[number]) => t.source, render: (t) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{t.source}</span> },
-                      { key: 'obs', header: 'Obs.', align: 'right', sortValue: (t: typeof stats.trending[number]) => t.observations, render: (t) => <span className="font-mono text-xs text-slate-800 dark:text-slate-200">{t.observations}</span> },
-                    ] as DataTableColumn<typeof stats.trending[number]>[]}
+                    columns={
+                      [
+                        {
+                          key: 'value',
+                          header: 'Value',
+                          sortValue: (t: (typeof stats.trending)[number]) => t.value,
+                          render: (t) => (
+                            <span className="font-mono text-xs text-rose-600 dark:text-rose-400 max-w-xs truncate">
+                              {t.value}
+                            </span>
+                          ),
+                        },
+                        {
+                          key: 'type',
+                          header: 'Type',
+                          sortValue: (t: (typeof stats.trending)[number]) => t.type,
+                          render: (t) => (
+                            <span
+                              className={`inline-flex px-1.5 py-0.5 rounded text-micro font-mono border ${TYPE_PILL[t.type] || 'border-slate-300 bg-slate-100 text-slate-600'}`}
+                            >
+                              {t.type}
+                            </span>
+                          ),
+                        },
+                        {
+                          key: 'source',
+                          header: 'Source',
+                          sortValue: (t: (typeof stats.trending)[number]) => t.source,
+                          render: (t) => <span className="font-mono text-xs text-muted">{t.source}</span>,
+                        },
+                        {
+                          key: 'obs',
+                          header: 'Obs.',
+                          align: 'right',
+                          sortValue: (t: (typeof stats.trending)[number]) => t.observations,
+                          render: (t) => (
+                            <span className="font-mono text-xs text-slate-800 dark:text-slate-200">
+                              {t.observations}
+                            </span>
+                          ),
+                        },
+                      ] as DataTableColumn<(typeof stats.trending)[number]>[]
+                    }
                     rows={stats.trending}
                     rowKey={(t, i) => `${t.value}-${i}`}
                   />
@@ -422,8 +453,8 @@ export default function CtiDashboard(): JSX.Element {
 
             {predictions.length === 0 ? (
               <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
-                <Brain size={32} className="mx-auto text-slate-500 dark:text-slate-400 mb-3" />
-                <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
+                <Brain size={32} className="mx-auto text-muted mb-3" />
+                <p className="text-sm font-mono text-muted">
                   No predictions yet. Click "Generate Predictions" to forecast attack patterns.
                 </p>
               </div>
@@ -433,9 +464,7 @@ export default function CtiDashboard(): JSX.Element {
                   <div key={p.prediction_id} className="surface-card-faint p-5">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="min-w-0">
-                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-                          {p.prediction_id}
-                        </span>
+                        <span className="text-mini font-mono text-muted">{p.prediction_id}</span>
                         <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
                           {p.title}
                         </h3>
@@ -446,24 +475,24 @@ export default function CtiDashboard(): JSX.Element {
                         >
                           {p.threat_level}
                         </span>
-                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{p.confidence}%</span>
+                        <span className="text-mini font-mono text-muted">{p.confidence}%</span>
                       </div>
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">{p.summary}</p>
+                    <p className="text-xs text-muted mb-3 leading-relaxed">{p.summary}</p>
 
                     {p.attack_flow?.length > 0 && (
                       <div className="mb-3">
-                        <h4 className="text-mini font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+                        <h4 className="text-mini font-mono font-semibold text-muted uppercase tracking-wider mb-1.5">
                           ATT&amp;CK Kill Chain
                         </h4>
                         <div className="flex flex-wrap gap-1.5">
                           {p.attack_flow.map((phase, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] text-mini font-mono text-slate-600 dark:text-slate-400"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] text-mini font-mono text-muted"
                             >
                               <span className="text-rose-600 dark:text-rose-400">{phase.technique_id}</span>
-                              <span className="text-slate-500 dark:text-slate-400">→</span>
+                              <span className="text-muted">→</span>
                               {phase.technique}
                             </span>
                           ))}
@@ -471,7 +500,7 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-500 dark:text-slate-400">
+                    <div className="flex flex-wrap gap-3 text-mini font-mono text-muted">
                       {p.target_sectors?.length > 0 && <span>Targets: {p.target_sectors.join(', ')}</span>}
                       {p.defensive_recommendations?.length > 0 && (
                         <span className="text-emerald-600 dark:text-emerald-400">
@@ -491,7 +520,7 @@ export default function CtiDashboard(): JSX.Element {
           <div className="space-y-4">
             {/* Input */}
             <div className="surface-card-faint p-5">
-              <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3 flex items-center gap-2">
                 <Dna size={14} /> Seed Attack Input
               </h3>
               <textarea
@@ -531,22 +560,18 @@ export default function CtiDashboard(): JSX.Element {
             {/* Top variants */}
             {mutations?.top_variants && mutations.top_variants.length > 0 && (
               <div className="space-y-3">
-                <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider">
                   Top Mutation Variants
                 </h3>
                 {mutations.top_variants.map((v) => (
                   <div key={v.variant_id} className="surface-card-faint p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{v.variant_id}</span>
+                        <span className="text-mini font-mono text-muted">{v.variant_id}</span>
                         <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
                           {v.title}
                         </h4>
-                        {v.seed_name && (
-                          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">
-                            Seed: {v.seed_name}
-                          </p>
-                        )}
+                        {v.seed_name && <p className="text-mini font-mono text-muted mt-0.5">Seed: {v.seed_name}</p>}
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <span
@@ -554,13 +579,11 @@ export default function CtiDashboard(): JSX.Element {
                         >
                           {v.threat_level}
                         </span>
-                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-                          Score: {v.combined_score}
-                        </span>
+                        <span className="text-mini font-mono text-muted">Score: {v.combined_score}</span>
                       </div>
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{v.summary}</p>
-                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-muted mt-2 leading-relaxed">{v.summary}</p>
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono text-muted">
                       {v.mutation_type.replace(/_/g, ' ')}
                     </span>
                   </div>
@@ -577,7 +600,7 @@ export default function CtiDashboard(): JSX.Element {
               <button
                 type="button"
                 onClick={fetchNews}
-                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-muted text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>
@@ -585,8 +608,8 @@ export default function CtiDashboard(): JSX.Element {
 
             {news.length === 0 ? (
               <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
-                <Newspaper size={32} className="mx-auto text-slate-500 dark:text-slate-400 mb-3" />
-                <p className="text-sm font-mono text-slate-500 dark:text-slate-400">No news articles collected yet.</p>
+                <Newspaper size={32} className="mx-auto text-muted mb-3" />
+                <p className="text-sm font-mono text-muted">No news articles collected yet.</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -602,14 +625,12 @@ export default function CtiDashboard(): JSX.Element {
                       <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 flex-1 leading-snug line-clamp-2">
                         {String(n.title)}
                       </h4>
-                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap flex-shrink-0">
+                      <span className="text-mini font-mono text-muted whitespace-nowrap flex-shrink-0">
                         {String(n.source)}
                       </span>
                     </div>
                     {n.summary ? (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 line-clamp-2 leading-relaxed">
-                        {String(n.summary)}
-                      </p>
+                      <p className="text-xs text-muted mt-1.5 line-clamp-2 leading-relaxed">{String(n.summary)}</p>
                     ) : null}
                   </a>
                 ))}
@@ -637,7 +658,7 @@ function StatCard({
     <div className="surface-card-faint p-4">
       <div className="flex items-center gap-1.5 mb-1">
         {icon && <span className={accent}>{icon}</span>}
-        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</span>
+        <span className="text-mini font-mono text-muted uppercase tracking-wider">{label}</span>
       </div>
       <span className={`text-xl font-bold font-mono ${accent}`}>{value.toLocaleString()}</span>
     </div>

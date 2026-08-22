@@ -51,7 +51,7 @@ export default function AgenticReports(): JSX.Element {
       {/* Search */}
       <div className="mb-6">
         <div className="relative max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -77,10 +77,10 @@ export default function AgenticReports(): JSX.Element {
               >
                 {r.severity}
               </span>
-              <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{r.tlp}</span>
+              <span className="text-micro font-mono text-muted shrink-0">{r.tlp}</span>
               <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 flex-1 min-w-0">{r.title}</h3>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-2">
+            <p className="text-xs text-muted font-mono mb-2">
               {r.publishedAt} · {r.sources.length} source{r.sources.length === 1 ? '' : 's'} · {r.attribution.actor}
             </p>
             <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 mb-2">{r.summary}</p>
@@ -88,19 +88,17 @@ export default function AgenticReports(): JSX.Element {
               {r.tags.slice(0, 5).map((t) => (
                 <span
                   key={t}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-slate-500 dark:text-slate-400"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted"
                 >
                   {t}
                 </span>
               ))}
-              {r.tags.length > 5 && (
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{r.tags.length - 5}</span>
-              )}
+              {r.tags.length > 5 && <span className="text-micro font-mono text-muted">+{r.tags.length - 5}</span>}
             </div>
           </button>
         ))}
         {filtered.length === 0 && (
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
             No reports match your search.
           </div>
         )}
@@ -125,8 +123,8 @@ function ReportDetail({ report }: { report: AgenticReport }) {
           >
             {report.severity}
           </span>
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{report.tlp}</span>
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{report.publishedAt}</span>
+          <span className="text-micro font-mono text-muted">{report.tlp}</span>
+          <span className="text-micro font-mono text-muted">{report.publishedAt}</span>
           {report.externalUrl && (
             <a
               href={report.externalUrl}
@@ -146,12 +144,48 @@ function ReportDetail({ report }: { report: AgenticReport }) {
         <Section title="Source Reports" icon={<FileText className="h-4 w-4" />} count={report.sources.length}>
           <div className="overflow-x-auto">
             <DataTable
-              columns={[
-                { key: 'num', header: '#', render: (_s: typeof report.sources[number], i: number) => <span className="font-mono text-slate-500 dark:text-slate-400">{i + 1}</span> },
-                { key: 'title', header: 'Title', sortValue: (s: typeof report.sources[number]) => s.title, render: (s: typeof report.sources[number]) => <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors">{s.title} <ExternalLink className="h-2.5 w-2.5" /></a> },
-                { key: 'source', header: 'Source', sortValue: (s: typeof report.sources[number]) => s.source ?? '', render: (s: typeof report.sources[number]) => <span className="font-mono text-slate-500 dark:text-slate-400">{s.source}</span> },
-                { key: 'date', header: 'Date', sortValue: (s: typeof report.sources[number]) => s.publishedAt ?? '', render: (s: typeof report.sources[number]) => <span className="font-mono text-slate-500 dark:text-slate-400">{s.publishedAt}</span> },
-              ] as DataTableColumn<typeof report.sources[number]>[]}
+              columns={
+                [
+                  {
+                    key: 'num',
+                    header: '#',
+                    render: (_s: (typeof report.sources)[number], i: number) => (
+                      <span className="font-mono text-muted">{i + 1}</span>
+                    ),
+                  },
+                  {
+                    key: 'title',
+                    header: 'Title',
+                    sortValue: (s: (typeof report.sources)[number]) => s.title,
+                    render: (s: (typeof report.sources)[number]) => (
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
+                      >
+                        {s.title} <ExternalLink className="h-2.5 w-2.5" />
+                      </a>
+                    ),
+                  },
+                  {
+                    key: 'source',
+                    header: 'Source',
+                    sortValue: (s: (typeof report.sources)[number]) => s.source ?? '',
+                    render: (s: (typeof report.sources)[number]) => (
+                      <span className="font-mono text-muted">{s.source}</span>
+                    ),
+                  },
+                  {
+                    key: 'date',
+                    header: 'Date',
+                    sortValue: (s: (typeof report.sources)[number]) => s.publishedAt ?? '',
+                    render: (s: (typeof report.sources)[number]) => (
+                      <span className="font-mono text-muted">{s.publishedAt}</span>
+                    ),
+                  },
+                ] as DataTableColumn<(typeof report.sources)[number]>[]
+              }
               rows={report.sources}
               rowKey={(s, i) => `${s.title}-${i}`}
             />
@@ -182,9 +216,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                 key={f.label}
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
               >
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {f.label}
-                </div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted">{f.label}</div>
                 <div className="text-xs text-slate-900 dark:text-slate-100 mt-0.5">{f.value}</div>
               </div>
             ))}
@@ -235,12 +267,41 @@ function ReportDetail({ report }: { report: AgenticReport }) {
         <Section title="Indicators of Compromise" icon={<Link2 className="h-4 w-4" />} count={report.iocs.length}>
           <div className="overflow-x-auto">
             <DataTable
-              columns={[
-                { key: 'type', header: 'Type', sortValue: (ioc: typeof report.iocs[number]) => ioc.type, render: (ioc) => <span className="font-mono text-sky-600 dark:text-sky-400">{ioc.type}</span> },
-                { key: 'value', header: 'Value', sortValue: (ioc: typeof report.iocs[number]) => ioc.value, render: (ioc) => <span className="font-mono text-slate-900 dark:text-slate-100 break-all">{ioc.value}</span> },
-                { key: 'description', header: 'Description', render: (ioc) => <span className="text-slate-600 dark:text-slate-300">{ioc.description}</span> },
-                { key: 'confidence', header: 'Confidence', sortValue: (ioc: typeof report.iocs[number]) => ioc.confidence, render: (ioc) => <span className={`text-micro font-mono uppercase rounded border px-1.5 py-0.5 ${CONFIDENCE_STYLES[ioc.confidence]}`}>{ioc.confidence}</span> },
-              ] as DataTableColumn<typeof report.iocs[number]>[]}
+              columns={
+                [
+                  {
+                    key: 'type',
+                    header: 'Type',
+                    sortValue: (ioc: (typeof report.iocs)[number]) => ioc.type,
+                    render: (ioc) => <span className="font-mono text-sky-600 dark:text-sky-400">{ioc.type}</span>,
+                  },
+                  {
+                    key: 'value',
+                    header: 'Value',
+                    sortValue: (ioc: (typeof report.iocs)[number]) => ioc.value,
+                    render: (ioc) => (
+                      <span className="font-mono text-slate-900 dark:text-slate-100 break-all">{ioc.value}</span>
+                    ),
+                  },
+                  {
+                    key: 'description',
+                    header: 'Description',
+                    render: (ioc) => <span className="text-slate-600 dark:text-slate-300">{ioc.description}</span>,
+                  },
+                  {
+                    key: 'confidence',
+                    header: 'Confidence',
+                    sortValue: (ioc: (typeof report.iocs)[number]) => ioc.confidence,
+                    render: (ioc) => (
+                      <span
+                        className={`text-micro font-mono uppercase rounded border px-1.5 py-0.5 ${CONFIDENCE_STYLES[ioc.confidence]}`}
+                      >
+                        {ioc.confidence}
+                      </span>
+                    ),
+                  },
+                ] as DataTableColumn<(typeof report.iocs)[number]>[]
+              }
               rows={report.iocs}
               rowKey={(ioc, i) => `${ioc.value}-${i}`}
             />
@@ -253,12 +314,42 @@ function ReportDetail({ report }: { report: AgenticReport }) {
         <Section title="MITRE ATT&CK Techniques" icon={<Bug className="h-4 w-4" />} count={report.ttps.length}>
           <div className="overflow-x-auto">
             <DataTable
-              columns={[
-                { key: 'id', header: 'ID', sortValue: (t: typeof report.ttps[number]) => t.id, render: (t) => <a href={`https://attack.mitre.org/techniques/${t.id}/`} target="_blank" rel="noopener noreferrer" className="font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors">{t.id}</a> },
-                { key: 'technique', header: 'Technique', sortValue: (t: typeof report.ttps[number]) => t.name, render: (t) => <span className="text-slate-900 dark:text-slate-100">{t.name}</span> },
-                { key: 'tactic', header: 'Tactic', sortValue: (t: typeof report.ttps[number]) => t.tactic, render: (t) => <span className="text-slate-500 dark:text-slate-400">{t.tactic}</span> },
-                { key: 'description', header: 'Description', render: (t) => <span className="text-slate-600 dark:text-slate-300">{t.description}</span> },
-              ] as DataTableColumn<typeof report.ttps[number]>[]}
+              columns={
+                [
+                  {
+                    key: 'id',
+                    header: 'ID',
+                    sortValue: (t: (typeof report.ttps)[number]) => t.id,
+                    render: (t) => (
+                      <a
+                        href={`https://attack.mitre.org/techniques/${t.id}/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
+                      >
+                        {t.id}
+                      </a>
+                    ),
+                  },
+                  {
+                    key: 'technique',
+                    header: 'Technique',
+                    sortValue: (t: (typeof report.ttps)[number]) => t.name,
+                    render: (t) => <span className="text-slate-900 dark:text-slate-100">{t.name}</span>,
+                  },
+                  {
+                    key: 'tactic',
+                    header: 'Tactic',
+                    sortValue: (t: (typeof report.ttps)[number]) => t.tactic,
+                    render: (t) => <span className="text-muted">{t.tactic}</span>,
+                  },
+                  {
+                    key: 'description',
+                    header: 'Description',
+                    render: (t) => <span className="text-slate-600 dark:text-slate-300">{t.description}</span>,
+                  },
+                ] as DataTableColumn<(typeof report.ttps)[number]>[]
+              }
               rows={report.ttps}
               rowKey={(t) => t.id}
             />
@@ -275,9 +366,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                 key={m.label}
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
               >
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {m.label}
-                </div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted">{m.label}</div>
                 <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{m.value}</div>
               </div>
             ))}
@@ -297,9 +386,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
             ))}
           </ul>
           <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-              Recommended Actions
-            </div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">Recommended Actions</div>
             <div className="space-y-1.5">
               {report.conclusion.actions.map((a, i) => (
                 <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">

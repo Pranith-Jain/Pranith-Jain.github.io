@@ -25,7 +25,7 @@ const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string }> = {
   },
   partial: { label: '~ partial', cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
   gap: { label: 'gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400' },
+  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted' },
 };
 
 const REGIME_STYLES: Record<RegimeId, string> = {
@@ -159,7 +159,7 @@ export default function PrivacyHub(): JSX.Element {
           controller / fiduciary obligations, breach-notification timelines, enforcement &amp; penalties - all
           cross-mapped to the framework controls in /dfir/grc.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Reference only - not legal advice. Pairs with the{' '}
           <Link to="/dfir/grc" className="text-brand-600 dark:text-brand-400 hover:underline">
             GRC hub
@@ -239,11 +239,11 @@ export default function PrivacyHub(): JSX.Element {
         </div>
         <div className="grid gap-2 sm:grid-cols-2 mb-3 text-meta font-mono text-muted">
           <div>
-            <span className="text-slate-500 dark:text-slate-400">Jurisdiction: </span>
+            <span className="text-muted">Jurisdiction: </span>
             <span className="text-slate-700 dark:text-slate-300">{active.jurisdiction}</span>
           </div>
           <div>
-            <span className="text-slate-500 dark:text-slate-400">Effective: </span>
+            <span className="text-muted">Effective: </span>
             <span className="text-slate-700 dark:text-slate-300">{active.effectiveDate}</span>
           </div>
         </div>
@@ -273,7 +273,7 @@ export default function PrivacyHub(): JSX.Element {
       {/* Rights */}
       {active.rights.length > 0 && (
         <section className="surface-card p-4 mb-6">
-          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
             Data subject / individual rights ({active.rights.length})
           </h3>
           <ul className="space-y-2">
@@ -286,7 +286,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Obligations */}
       <section className="surface-card p-4 mb-6">
-        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
           Controller / fiduciary obligations ({active.obligations.length})
         </h3>
         <ul className="space-y-2">
@@ -298,7 +298,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Enforcement */}
       <section className="surface-card p-4 mb-6">
-        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
           Enforcement &amp; penalties
         </h3>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{active.enforcement}</p>
@@ -307,7 +307,7 @@ export default function PrivacyHub(): JSX.Element {
       {/* Cross-references */}
       {active.crossRef.length > 0 && (
         <section className="surface-card p-4 mb-6">
-          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
             Cross-references in /dfir/grc
           </h3>
           <div className="flex flex-wrap gap-1.5">
@@ -324,7 +324,7 @@ export default function PrivacyHub(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
           Authoritative sources
         </h3>
         <ul className="space-y-1.5 text-sm font-mono text-muted">

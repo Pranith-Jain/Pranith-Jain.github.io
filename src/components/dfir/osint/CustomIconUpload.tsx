@@ -5,7 +5,7 @@ export function CustomIconUpload({ onIcon }: { onIcon: (dataUrl: string) => void
   const [error, setError] = useState<string | null>(null);
   return (
     <label className="block text-xs">
-      <span className="block mb-1 text-slate-500 dark:text-slate-400">Custom icon (PNG/JPEG/WebP, ≤256KB)</span>
+      <span className="block mb-1 text-muted">Custom icon (PNG/JPEG/WebP, ≤256KB)</span>
       <input
         type="file"
         accept="image/png,image/jpeg,image/webp"

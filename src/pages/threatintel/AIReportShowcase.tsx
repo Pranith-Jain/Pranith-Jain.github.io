@@ -165,7 +165,7 @@ function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleRepo
             {data.title || sample.title}
           </h2>
         </div>
-        <div className="text-right text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <div className="text-right text-xs text-muted font-mono">
           <p>elapsed: {fmtTime(data.elapsed_ms)}</p>
           <p>chars: {data.textLength.toLocaleString()}</p>
         </div>
@@ -175,7 +175,7 @@ function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleRepo
           {data.summary.text}
         </div>
       ) : (
-        <p className="text-sm text-slate-500 dark:text-slate-400 italic">No AI summary was generated.</p>
+        <p className="text-sm text-muted italic">No AI summary was generated.</p>
       )}
     </div>
   );
@@ -296,9 +296,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
             className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-center"
           >
             <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">{n}</p>
-            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">
-              {type}
-            </p>
+            <p className="text-micro font-mono uppercase tracking-wider text-muted mt-1">{type}</p>
           </div>
         ))}
       </div>
@@ -433,20 +431,65 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
       </div>
       <div className="overflow-x-auto">
         <DataTable
-          columns={[
-            { key: 'value', header: 'Value', sortValue: (i: typeof iocs[number]) => i.value, render: (i) => <span className="font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md" title={i.value}>{i.value}</span> },
-            { key: 'type', header: 'Type', sortValue: (i: typeof iocs[number]) => i.kind, render: (i) => <span className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}>{i.kind}</span> },
-            { key: 'confidence', header: 'Confidence', sortValue: (i: typeof iocs[number]) => i.confidence, render: (i) => <span className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[i.confidence_band]}`}>{i.confidence_band} · {fmtConfidence(i.confidence)}</span> },
-            { key: 'source', header: 'Source', sortValue: (i: typeof iocs[number]) => i.source, render: (i) => <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</span> },
-            { key: 'hub', header: 'TI-Mindmap-Hub', render: (i) => <span className="text-xs">{enrichments[i.value] ? '✓' : '-'}</span> },
-          ] as DataTableColumn<typeof iocs[number]>[]}
+          columns={
+            [
+              {
+                key: 'value',
+                header: 'Value',
+                sortValue: (i: (typeof iocs)[number]) => i.value,
+                render: (i) => (
+                  <span
+                    className="font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md"
+                    title={i.value}
+                  >
+                    {i.value}
+                  </span>
+                ),
+              },
+              {
+                key: 'type',
+                header: 'Type',
+                sortValue: (i: (typeof iocs)[number]) => i.kind,
+                render: (i) => (
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
+                  >
+                    {i.kind}
+                  </span>
+                ),
+              },
+              {
+                key: 'confidence',
+                header: 'Confidence',
+                sortValue: (i: (typeof iocs)[number]) => i.confidence,
+                render: (i) => (
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[i.confidence_band]}`}
+                  >
+                    {i.confidence_band} · {fmtConfidence(i.confidence)}
+                  </span>
+                ),
+              },
+              {
+                key: 'source',
+                header: 'Source',
+                sortValue: (i: (typeof iocs)[number]) => i.source,
+                render: (i) => <span className="text-xs text-muted font-mono">{i.source}</span>,
+              },
+              {
+                key: 'hub',
+                header: 'TI-Mindmap-Hub',
+                render: (i) => <span className="text-xs">{enrichments[i.value] ? '✓' : '-'}</span>,
+              },
+            ] as DataTableColumn<(typeof iocs)[number]>[]
+          }
           rows={iocs.slice(0, 50)}
           rowKey={(i, idx) => `${i.value}-${idx}`}
           rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]'}
         />
       </div>
       {iocs.length > 50 && (
-        <p className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
+        <p className="px-4 py-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
           Showing first 50 of {iocs.length} indicators.
         </p>
       )}
@@ -460,15 +503,58 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
     <div className="surface-card overflow-hidden">
       <div className="overflow-x-auto">
         <DataTable
-          columns={[
-            { key: 'name', header: 'Technique', sortValue: (t: typeof ttp[number]) => t.name, render: (t) => <span className="text-slate-900 dark:text-slate-100 font-medium">{t.name}</span> },
-            { key: 'id', header: 'ID', sortValue: (t: typeof ttp[number]) => t.id, render: (t) => (
-              <a href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-rose-600 dark:text-rose-400 hover:underline transition-colors">{t.id}</a>
-            ) },
-            { key: 'tactic', header: 'Tactic', sortValue: (t: typeof ttp[number]) => t.tactic, render: (t) => <span className="text-xs text-muted">{t.tactic}</span> },
-            { key: 'confidence', header: 'Confidence', sortValue: (t: typeof ttp[number]) => t.confidence, render: (t) => <span className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}>{t.confidence}</span> },
-            { key: 'evidence', header: 'Evidence', render: (t) => <span className="text-xs text-slate-500 dark:text-slate-400 max-w-md truncate" title={t.evidence}>{t.evidence}</span> },
-          ] as DataTableColumn<typeof ttp[number]>[]}
+          columns={
+            [
+              {
+                key: 'name',
+                header: 'Technique',
+                sortValue: (t: (typeof ttp)[number]) => t.name,
+                render: (t) => <span className="text-slate-900 dark:text-slate-100 font-medium">{t.name}</span>,
+              },
+              {
+                key: 'id',
+                header: 'ID',
+                sortValue: (t: (typeof ttp)[number]) => t.id,
+                render: (t) => (
+                  <a
+                    href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs text-rose-600 dark:text-rose-400 hover:underline transition-colors"
+                  >
+                    {t.id}
+                  </a>
+                ),
+              },
+              {
+                key: 'tactic',
+                header: 'Tactic',
+                sortValue: (t: (typeof ttp)[number]) => t.tactic,
+                render: (t) => <span className="text-xs text-muted">{t.tactic}</span>,
+              },
+              {
+                key: 'confidence',
+                header: 'Confidence',
+                sortValue: (t: (typeof ttp)[number]) => t.confidence,
+                render: (t) => (
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
+                  >
+                    {t.confidence}
+                  </span>
+                ),
+              },
+              {
+                key: 'evidence',
+                header: 'Evidence',
+                render: (t) => (
+                  <span className="text-xs text-muted max-w-md truncate" title={t.evidence}>
+                    {t.evidence}
+                  </span>
+                ),
+              },
+            ] as DataTableColumn<(typeof ttp)[number]>[]
+          }
           rows={ttp}
           rowKey={(t, idx) => `${t.id}-${idx}`}
           rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]'}
@@ -535,7 +621,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
           >
             <div className="flex items-center gap-2 mb-1">
               <Icon className="h-3.5 w-3.5 text-slate-500" />
-              <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{q}</p>
+              <p className="text-micro font-mono uppercase tracking-wider text-muted">{q}</p>
             </div>
             <p className="text-sm text-slate-800 dark:text-slate-200">{a || '-'}</p>
           </div>
@@ -543,9 +629,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
       </div>
       {fiveW.attribution_basis && (
         <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-          <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-            Attribution basis
-          </p>
+          <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Attribution basis</p>
           <p className="text-sm text-slate-700 dark:text-slate-300">{fiveW.attribution_basis}</p>
         </div>
       )}
@@ -555,7 +639,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
 
 function EmptyTab({ msg }: { msg: string }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
       {msg}
     </div>
   );
@@ -664,7 +748,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
       </form>
 
       {!props.apiKey && (
-        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+        <p className="mt-3 text-xs text-muted">
           Add your TI-Mindmap-Hub API key above to enable cross-source lookups. Keys stay in your browser (localStorage)
           - they are never sent to our backend.
         </p>
@@ -691,7 +775,7 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-      <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+      <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
         IOC search · <span className="text-slate-800 dark:text-slate-200">{hit.ioc_value}</span>
         {hit.ioc_type && (
           <span className="ml-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5">
@@ -705,15 +789,13 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
         )}
       </p>
       {reports.length === 0 ? (
-        <p className="text-xs text-slate-500 dark:text-slate-400">No reports mention this indicator.</p>
+        <p className="text-xs text-muted">No reports mention this indicator.</p>
       ) : (
         <ul className="space-y-1.5">
           {reports.slice(0, 5).map((r) => (
             <ReportRow key={r.report_id} r={r} />
           ))}
-          {reports.length > 5 && (
-            <li className="text-xs text-slate-500 dark:text-slate-400">+ {reports.length - 5} more reports</li>
-          )}
+          {reports.length > 5 && <li className="text-xs text-muted">+ {reports.length - 5} more reports</li>}
         </ul>
       )}
     </div>
@@ -723,7 +805,7 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
 function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
   return (
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-      <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+      <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
         CVE · <span className="text-slate-800 dark:text-slate-200">{hit.cve_id}</span>
         {hit.severity && (
           <span className="ml-2 rounded border border-amber-300 dark:border-amber-700 px-1.5 py-0.5 text-amber-700 dark:text-amber-300">
@@ -744,7 +826,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
       {hit.references && hit.references.length > 0 && (
         <ul className="mt-2 space-y-0.5">
           {hit.references.slice(0, 3).map((ref, i) => (
-            <li key={i} className="text-micro text-slate-500 dark:text-slate-400 truncate font-mono">
+            <li key={i} className="text-micro text-muted truncate font-mono">
               <LinkIcon className="inline h-2.5 w-2.5 mr-1" />
               {ref}
             </li>
@@ -759,14 +841,14 @@ function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-      <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+      <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
         Reports · {reports.length} match{reports.length === 1 ? '' : 'es'}
         {typeof hit.total === 'number' && hit.total !== reports.length && (
           <span className="ml-1 text-slate-500">(of {hit.total} total)</span>
         )}
       </p>
       {reports.length === 0 ? (
-        <p className="text-xs text-slate-500 dark:text-slate-400">No matching reports.</p>
+        <p className="text-xs text-muted">No matching reports.</p>
       ) : (
         <ul className="space-y-1.5">
           {reports.slice(0, 6).map((r) => (
@@ -782,7 +864,7 @@ function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
   return (
     <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title ?? r.report_id}</p>
-      <p className="mt-0.5 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
+      <p className="mt-0.5 text-micro font-mono uppercase text-muted">
         {r.source ?? 'unknown'} {r.published_at ? `· ${r.published_at}` : ''}
         {r.actor && <span className="ml-2 text-rose-600 dark:text-rose-400">actor: {r.actor}</span>}
         {r.cves && r.cves.length > 0 && (
@@ -898,7 +980,7 @@ export default function AIReportShowcase(): JSX.Element {
         </span>
       }
       headerExtra={
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           {data && !loading && (
             <span className="rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 text-emerald-700 dark:text-emerald-300 font-mono">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse mr-1.5" />
@@ -953,7 +1035,7 @@ export default function AIReportShowcase(): JSX.Element {
                   <p className="text-sm font-medium text-slate-900 dark:text-slate-100 line-clamp-2">{r.title}</p>
                   {active && <CircleDot className="h-3 w-3 text-rose-500 shrink-0" />}
                 </div>
-                <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
                   {r.source} · {r.publishedAt}
                 </p>
                 <p className="text-xs text-muted line-clamp-2">{r.tags.slice(0, 4).join(' · ')}</p>
@@ -961,7 +1043,7 @@ export default function AIReportShowcase(): JSX.Element {
             );
           })}
         </div>
-        <div className="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="mt-3 flex items-center gap-2 text-xs text-muted">
           <span>Source:</span>
           <a
             href={sample.url}
@@ -1018,7 +1100,7 @@ export default function AIReportShowcase(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                     tab === t.id
                       ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" /> {t.label}
@@ -1030,7 +1112,7 @@ export default function AIReportShowcase(): JSX.Element {
               type="button"
               onClick={() => void runAnalyzer(sample)}
               disabled={loading}
-              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
+              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
             >
               <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
               re-run
@@ -1051,7 +1133,7 @@ export default function AIReportShowcase(): JSX.Element {
 
       {!data && !loading && !error && (
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-12 text-center">
-          <BookOpen className="mx-auto h-10 w-10 text-slate-500 dark:text-slate-400 mb-3" />
+          <BookOpen className="mx-auto h-10 w-10 text-muted mb-3" />
           <p className="text-sm text-muted">Pick a sample above to begin.</p>
         </div>
       )}

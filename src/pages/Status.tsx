@@ -157,7 +157,7 @@ export default function StatusPage(): JSX.Element {
                 );
               })}
           </div>
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-mini font-mono text-muted">
             {/* ageString guards NaN/negative — a malformed generated_at renders "-" */}
             {data ? `snapshot ${ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}` : '-'}
           </span>
@@ -167,7 +167,7 @@ export default function StatusPage(): JSX.Element {
         {data && data.rows.length === 0 && (
           <div
             role="status"
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--surface-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--surface-200))] p-8 text-center text-sm text-muted"
           >
             All feed probes are warming up — no rows yet. Retry in a few minutes.
           </div>
@@ -238,7 +238,7 @@ export default function StatusPage(): JSX.Element {
                       {r.admiralty_grade && (
                         <>
                           <span>·</span>
-                          <span className="text-slate-500 dark:text-slate-400">admiralty {r.admiralty_grade}</span>
+                          <span className="text-muted">admiralty {r.admiralty_grade}</span>
                         </>
                       )}
                     </div>
@@ -249,7 +249,7 @@ export default function StatusPage(): JSX.Element {
           </section>
         )}
 
-        <footer className="mt-12 pt-6 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <footer className="mt-12 pt-6 text-sm text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           <p>
             Source: <code>/api/v1/feed-status</code> · cached 5 min · rebuilt on every Worker request.
           </p>

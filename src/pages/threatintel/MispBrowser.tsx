@@ -268,7 +268,7 @@ export default function MispBrowser() {
               placeholder="MISP API key"
             />
           </div>
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 italic">
+          <p className="text-mini font-mono text-muted italic">
             Your API key is sent to the MISP server via a Worker proxy and kept in memory only - it is never stored. You
             will need to re-enter it after a page reload.
           </p>
@@ -335,7 +335,7 @@ export default function MispBrowser() {
 
           {e.Attribute && e.Attribute.length > 0 && (
             <div>
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                 Attributes ({e.Attribute.length})
               </h3>
               <div className="overflow-auto max-h-80">
@@ -369,17 +369,13 @@ export default function MispBrowser() {
                           a.to_ids ? (
                             <span className="text-emerald-600 dark:text-emerald-400">ok</span>
                           ) : (
-                            <span className="text-slate-500 dark:text-slate-400">-</span>
+                            <span className="text-muted">-</span>
                           ),
                       },
                       {
                         key: 'comment',
                         header: 'Comment',
-                        render: (a) => (
-                          <span className="text-slate-500 dark:text-slate-400 max-w-xs truncate">
-                            {a.comment || ''}
-                          </span>
-                        ),
+                        render: (a) => <span className="text-muted max-w-xs truncate">{a.comment || ''}</span>,
                       },
                     ] as DataTableColumn<(typeof e.Attribute)[number]>[]
                   }
@@ -392,7 +388,7 @@ export default function MispBrowser() {
 
           {e.Object && e.Object.length > 0 && (
             <div>
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                 Objects ({e.Object.length})
               </h3>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -403,22 +399,18 @@ export default function MispBrowser() {
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{o.name}</span>
-                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{o.meta_category}</span>
+                      <span className="text-micro font-mono text-muted">{o.meta_category}</span>
                     </div>
-                    {o.description && (
-                      <p className="text-mini font-mono text-slate-500 dark:text-slate-400">{o.description}</p>
-                    )}
+                    {o.description && <p className="text-mini font-mono text-muted">{o.description}</p>}
                     {o.Attribute && o.Attribute.length > 0 && (
                       <ul className="space-y-1">
                         {o.Attribute.slice(0, 5).map((a) => (
                           <li key={a.id} className="text-mini font-mono text-muted truncate">
-                            <span className="text-slate-500 dark:text-slate-400">{a.type}:</span> {a.value}
+                            <span className="text-muted">{a.type}:</span> {a.value}
                           </li>
                         ))}
                         {o.Attribute.length > 5 && (
-                          <li className="text-mini font-mono text-slate-500 dark:text-slate-400 italic">
-                            +{o.Attribute.length - 5} more
-                          </li>
+                          <li className="text-mini font-mono text-muted italic">+{o.Attribute.length - 5} more</li>
                         )}
                       </ul>
                     )}
@@ -430,7 +422,7 @@ export default function MispBrowser() {
 
           {e.Galaxy && e.Galaxy.length > 0 && (
             <div>
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                 Galaxies ({e.Galaxy.length})
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -460,7 +452,7 @@ export default function MispBrowser() {
 
           {e.tags && e.tags.length > 0 && (
             <div>
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                 Tags ({e.tags.length})
               </h3>
               <div className="flex flex-wrap gap-1">
@@ -478,7 +470,7 @@ export default function MispBrowser() {
 
           {e.related_events && e.related_events.length > 0 && (
             <div>
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                 Related Events ({e.related_events.length})
               </h3>
               <div className="grid gap-2">
@@ -489,7 +481,7 @@ export default function MispBrowser() {
                     onClick={() => loadEventDetail(r.Event.id)}
                     className="text-left text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-400 transition-colors"
                   >
-                    <span className="text-slate-500 dark:text-slate-400">{r.Event.date}</span>
+                    <span className="text-muted">{r.Event.date}</span>
                     <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
                     <span className="text-slate-700 dark:text-slate-300">{r.Event.info || '(no info)'}</span>
                     <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
@@ -513,9 +505,7 @@ export default function MispBrowser() {
       title="MISP Browser"
       headerExtra={
         <div className="flex items-center gap-2">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-            {total > 0 ? `${total} events` : ''}
-          </span>
+          <span className="text-mini font-mono text-muted">{total > 0 ? `${total} events` : ''}</span>
           <button
             type="button"
             onClick={() => loadEvents(1)}
@@ -536,14 +526,11 @@ export default function MispBrowser() {
     >
       <div className="flex flex-wrap gap-2 items-end">
         <div className="flex-1 min-w-[200px]">
-          <label htmlFor="misp-search" className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5 block">
+          <label htmlFor="misp-search" className="text-micro font-mono text-muted mb-0.5 block">
             Search
           </label>
           <div className="relative">
-            <Search
-              size={12}
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            />
+            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" />
             <input
               id="misp-search"
               type="text"
@@ -556,10 +543,7 @@ export default function MispBrowser() {
           </div>
         </div>
         <div className="w-40">
-          <label
-            htmlFor="misp-tag-filter"
-            className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5 block"
-          >
+          <label htmlFor="misp-tag-filter" className="text-micro font-mono text-muted mb-0.5 block">
             Tag filter
           </label>
           <input
@@ -589,7 +573,7 @@ export default function MispBrowser() {
       )}
 
       {events.length === 0 && !loading && (
-        <div className="flex flex-col items-center justify-center py-16 text-slate-500 dark:text-slate-400">
+        <div className="flex flex-col items-center justify-center py-16 text-muted">
           <Info size={32} className="mb-3" />
           <p className="text-sm font-mono">No events found</p>
           <p className="text-xs font-mono mt-1">Try adjusting your search or tag filter</p>
@@ -638,9 +622,7 @@ export default function MispBrowser() {
                         </span>
                       ))}
                       {e.tags.length > 5 && (
-                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                          +{e.tags.length - 5}
-                        </span>
+                        <span className="text-micro font-mono text-muted">+{e.tags.length - 5}</span>
                       )}
                     </div>
                   )}

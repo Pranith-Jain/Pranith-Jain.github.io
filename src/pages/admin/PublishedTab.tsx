@@ -276,7 +276,7 @@ export default function PublishedTab() {
     }
   }
 
-  if (loading) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading) return <p className="text-muted">Loading…</p>;
   if (error)
     return (
       <div>
@@ -292,15 +292,15 @@ export default function PublishedTab() {
   if (posts.length === 0)
     return (
       <div>
-        {actionMsg && <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">{actionMsg}</p>}
+        {actionMsg && <p className="text-xs font-mono text-muted mb-2">{actionMsg}</p>}
         <SocialQueueAgenda />
-        <p className="text-slate-500 dark:text-slate-400">No published posts.</p>
+        <p className="text-muted">No published posts.</p>
       </div>
     );
 
   return (
     <div>
-      {actionMsg && <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">{actionMsg}</p>}
+      {actionMsg && <p className="text-xs font-mono text-muted mb-2">{actionMsg}</p>}
       <SocialQueueAgenda />
       <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Click a row to expand/collapse social content.</p>
       <SearchFilter items={posts} placeholder="Filter published posts…">
@@ -313,9 +313,7 @@ export default function PublishedTab() {
                     key: 'type',
                     header: 'Type',
                     sortValue: (p: (typeof filtered)[number]) => p.type,
-                    render: (p) => (
-                      <span className="text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</span>
-                    ),
+                    render: (p) => <span className="text-muted uppercase text-xs">{p.type}</span>,
                   },
                   {
                     key: 'title',
@@ -455,14 +453,12 @@ function SocialQueueAgenda() {
       className="mb-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
     >
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Upcoming queue
-        </h3>
+        <h3 className="text-mini font-semibold uppercase tracking-wider text-muted">Upcoming queue</h3>
         <span
           className={`px-2 py-0.5 rounded text-micro font-semibold border ${
             autopostEnabled
               ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700/50'
-              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]'
+              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]'
           }`}
           aria-label={autopostEnabled ? 'Auto-post is ON' : 'Auto-post is OFF - review only'}
         >
@@ -471,14 +467,11 @@ function SocialQueueAgenda() {
       </div>
 
       {queue.length === 0 ? (
-        <p className="text-xs text-slate-500 dark:text-slate-400">No items in queue.</p>
+        <p className="text-xs text-muted">No items in queue.</p>
       ) : (
         <ul className="space-y-1" aria-label="Queued social posts">
           {queue.map((item: SocialQueueItem) => (
-            <li
-              key={`${item.slug}-${item.platform}`}
-              className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-400"
-            >
+            <li key={`${item.slug}-${item.platform}`} className="flex flex-wrap items-center gap-2 text-xs text-muted">
               <span className="font-mono text-slate-500 dark:text-slate-500 whitespace-nowrap">
                 {item.scheduledAt ? new Date(item.scheduledAt).toLocaleString() : '-'}
               </span>
@@ -489,7 +482,7 @@ function SocialQueueAgenda() {
               <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
                 ·
               </span>
-              <span className="uppercase text-slate-500 dark:text-slate-400">{item.platform}</span>
+              <span className="uppercase text-muted">{item.platform}</span>
               <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
                 ·
               </span>
@@ -565,13 +558,9 @@ function ReadinessBadge({ verdict }: { verdict: ReadinessVerdict }) {
     <div className={`mb-4 rounded border ${tone} p-3`}>
       <div className="flex items-center gap-2 mb-2">
         <span className={`text-xs font-mono font-semibold ${labelTone}`}>{ready ? '✓ READY' : '⚠ REVIEW'}</span>
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">score {score}/100</span>
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-          · hook diversity {crossPlatform.hookDiversity}/100
-        </span>
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-          · body overlap {crossPlatform.bodyOverlap}/100
-        </span>
+        <span className="text-xs font-mono text-muted">score {score}/100</span>
+        <span className="text-xs font-mono text-muted">· hook diversity {crossPlatform.hookDiversity}/100</span>
+        <span className="text-xs font-mono text-muted">· body overlap {crossPlatform.bodyOverlap}/100</span>
       </div>
       {blockers.length > 0 && (
         <ul className="text-xs text-rose-600 dark:text-rose-400 space-y-0.5 mb-1">
@@ -716,7 +705,9 @@ function SocialContentPanel({
         tight
       />
 
-      {effective.instagram && <InstagramSection slug={effective.slug} caption={effective.instagram} carousel={effective.carousel} />}
+      {effective.instagram && (
+        <InstagramSection slug={effective.slug} caption={effective.instagram} carousel={effective.carousel} />
+      )}
     </div>
   );
 }
@@ -896,12 +887,12 @@ function InstagramSection({
                           isError ? `Slide ${i + 1} of ${total} failed to load` : `Loading slide ${i + 1} of ${total}`
                         }
                       >
-                        <span aria-hidden="true" className="text-xs text-slate-500 dark:text-slate-400">
+                        <span aria-hidden="true" className="text-xs text-muted">
                           {isError ? 'err' : '…'}
                         </span>
                       </div>
                     )}
-                    <span className="text-micro text-slate-500 dark:text-slate-400">
+                    <span className="text-micro text-muted">
                       {i + 1}/{total}
                     </span>
                   </div>
@@ -1014,7 +1005,7 @@ function SocialSection({
               {copied === 'carousel' ? 'Copied!' : 'Copy'}
             </button>
           </div>
-          <pre className="bg-white dark:bg-[rgb(var(--surface-200))] rounded p-2 text-xs text-slate-500 dark:text-slate-400 whitespace-pre-wrap font-mono max-h-40 overflow-y-auto">
+          <pre className="bg-white dark:bg-[rgb(var(--surface-200))] rounded p-2 text-xs text-muted whitespace-pre-wrap font-mono max-h-40 overflow-y-auto">
             {parts.carousel}
           </pre>
         </div>
@@ -1080,14 +1071,16 @@ function HookSelector({
   }, [hooksKey]);
 
   return (
-    <div className={`mb-6 rounded border border-amber-200 dark:border-amber-700/50 bg-amber-50/50 dark:bg-amber-900/10 p-3 ${busy ? 'opacity-70' : ''}`}>
+    <div
+      className={`mb-6 rounded border border-amber-200 dark:border-amber-700/50 bg-amber-50/50 dark:bg-amber-900/10 p-3 ${busy ? 'opacity-70' : ''}`}
+    >
       <div className="flex items-center justify-between mb-2">
         <h4 className="text-mini font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
           A/B Hook Selection
         </h4>
         {result && <span className="text-micro text-slate-600 dark:text-slate-500">{result}</span>}
       </div>
-      <p className="text-micro text-slate-500 dark:text-slate-400 mb-2">
+      <p className="text-micro text-muted mb-2">
         Pick an alternative opening hook. The social copy will be regenerated with the chosen angle as a strong
         preference.
       </p>
@@ -1104,9 +1097,7 @@ function HookSelector({
           >
             <span
               className={`inline-flex items-center justify-center w-4 h-4 mt-0.5 rounded-full text-micro font-bold ${
-                selected === i
-                  ? 'bg-amber-500 text-white'
-                  : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400'
+                selected === i ? 'bg-amber-500 text-white' : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted'
               }`}
             >
               {i + 1}
@@ -1246,9 +1237,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
   return (
     <div className="mb-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] p-3">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Posting queue
-        </h4>
+        <h4 className="text-mini font-semibold uppercase tracking-wider text-muted">Posting queue</h4>
         {msg && <span className="text-micro text-slate-600 dark:text-slate-500">{msg}</span>}
       </div>
       <div className="space-y-3">
@@ -1261,7 +1250,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
 
           return (
             <div key={platform} className="flex flex-wrap items-center gap-2 text-xs">
-              <span className="w-16 uppercase text-slate-500 dark:text-slate-400">{platform}</span>
+              <span className="w-16 uppercase text-muted">{platform}</span>
 
               {/* Status badge */}
               {status === 'posted' && entry?.postUrl ? (

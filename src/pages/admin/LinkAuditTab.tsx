@@ -112,17 +112,17 @@ export default function LinkAuditTab() {
           {loading ? 'Scanning…' : 'Audit all posts'}
         </button>
         {summary && (
-          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-xs font-mono text-muted">
             {summary.checked} checked — <span className="text-emerald-600">{summary.verified} ok</span> —{' '}
             <span className="text-slate-500">{summary.unchecked} unchecked</span> —{' '}
             <span className="text-rose-600">{summary.broken} broken</span>
           </span>
         )}
-        {actionMsg && <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</span>}
+        {actionMsg && <span className="text-xs font-mono text-muted">{actionMsg}</span>}
       </div>
 
       {audits.length === 0 && !loading && (
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
+        <p className="text-muted text-sm">
           Click "Audit all posts" to deep-verify every citation (soft-404 title sniff ON). Scans in budgeted passes —
           free-plan safe.
         </p>
@@ -155,14 +155,12 @@ export default function LinkAuditTab() {
                       {a.title.length > 60 ? a.title.slice(0, 60) + '…' : a.title}
                     </a>
                   </td>
-                  <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{a.type}</td>
+                  <td className="py-2 pr-4 text-muted uppercase text-xs">{a.type}</td>
                   <td className="py-2 pr-4 text-right text-slate-700 dark:text-slate-300 tabular-nums">{a.checked}</td>
                   <td className="py-2 pr-4 text-right text-emerald-600 dark:text-emerald-400 tabular-nums">
                     {a.verified}
                   </td>
-                  <td className="py-2 pr-4 text-right text-slate-500 dark:text-slate-400 tabular-nums">
-                    {a.unchecked}
-                  </td>
+                  <td className="py-2 pr-4 text-right text-muted tabular-nums">{a.unchecked}</td>
                   <td className="py-2 pr-4 text-right tabular-nums">
                     {a.broken > 0 ? (
                       <span className="text-rose-600 dark:text-rose-400 font-medium">{a.broken}</span>

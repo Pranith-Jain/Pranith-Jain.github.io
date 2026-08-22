@@ -93,7 +93,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
         <div className="text-right">
           <p className={`text-2xl font-bold font-display ${BAND_TONE[report.band]}`}>
             {report.overall.toFixed(1)}
-            <span className="text-sm text-slate-500 dark:text-slate-400">/5</span>
+            <span className="text-sm text-muted">/5</span>
           </p>
           <p className={`text-micro font-mono uppercase tracking-wider ${BAND_TONE[report.band]}`}>
             {BAND_LABEL[report.band]}
@@ -112,7 +112,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
               </span>
             </div>
             <MaturityBar score={d.score} max={d.max_score} />
-            <p className="text-mini text-slate-500 dark:text-slate-400 mt-1.5 leading-snug">{d.rationale}</p>
+            <p className="text-mini text-muted mt-1.5 leading-snug">{d.rationale}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {d.signals.map((s, i) => (
                 <span
@@ -120,7 +120,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
                   className={`text-micro font-mono px-1.5 py-0.5 rounded border ${
                     s.present
                       ? 'border-emerald-300 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.4)] line-through'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.4)] line-through'
                   }`}
                   title={s.detail}
                 >
@@ -175,7 +175,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
                 />
               </div>
               <span className="w-10 text-right text-mini font-mono text-slate-500 shrink-0">
-                {n} <span className="text-slate-500 dark:text-slate-400">({pct.toFixed(0)}%)</span>
+                {n} <span className="text-muted">({pct.toFixed(0)}%)</span>
               </span>
             </div>
           );

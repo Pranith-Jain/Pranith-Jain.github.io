@@ -42,7 +42,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   search: 'bg-slate-50 dark:bg-slate-950/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800',
   exposure:
     'bg-yellow-50 dark:bg-yellow-950/40 text-yellow-700 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800',
-  other: 'bg-slate-50 dark:bg-slate-950/40 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
+  other: 'bg-slate-50 dark:bg-slate-950/40 text-muted border-slate-200 dark:border-slate-700',
 };
 
 const CARD = 'surface-card';
@@ -71,7 +71,7 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
         </span>
         <div className="flex-1 min-w-0">
           <h4 className="text-sm font-mono font-semibold text-slate-900 dark:text-slate-100 truncate">{tool.name}</h4>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{tool.description}</p>
+          <p className="text-xs text-muted mt-0.5 line-clamp-2">{tool.description}</p>
         </div>
         <div className="shrink-0 flex items-center gap-1 mt-0.5">
           <button
@@ -80,15 +80,15 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
               e.stopPropagation();
               copyName();
             }}
-            className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+            className="p-1 rounded text-muted hover:text-rose-500 transition-colors"
             title="Copy tool name"
           >
             {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
           </button>
           {isExpanded ? (
-            <ChevronDown className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+            <ChevronDown className="h-4 w-4 text-muted" />
           ) : (
-            <ChevronRight className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+            <ChevronRight className="h-4 w-4 text-muted" />
           )}
         </div>
       </button>
@@ -96,13 +96,13 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
         <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 space-y-2">
           <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{tool.description}</p>
           <div className="flex items-center gap-2">
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">MCP name:</span>
+            <span className="text-micro font-mono text-muted">MCP name:</span>
             <code className="text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300">
               {tool.name}
             </code>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">Category:</span>
+            <span className="text-micro font-mono text-muted">Category:</span>
             <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${catCls}`}>{tool.category}</span>
           </div>
         </div>
@@ -169,7 +169,7 @@ export default function McpToolsExplorer() {
     >
       {/* Stats */}
       {manifest && (
-        <div className="flex flex-wrap items-center gap-3 mb-4 text-xs font-mono text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-3 mb-4 text-xs font-mono text-muted">
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
             {manifest.toolCount} tools
           </span>
@@ -184,7 +184,7 @@ export default function McpToolsExplorer() {
 
       {/* Search */}
       <div className="relative mb-4">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -195,7 +195,7 @@ export default function McpToolsExplorer() {
           <button
             type="button"
             onClick={() => setQuery('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
           >
             ×
           </button>
@@ -207,7 +207,7 @@ export default function McpToolsExplorer() {
         <button
           type="button"
           onClick={() => setActiveCategory(null)}
-          className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === null ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
+          className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === null ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'}`}
         >
           All ({manifest?.toolCount ?? 0})
         </button>
@@ -216,7 +216,7 @@ export default function McpToolsExplorer() {
             key={cat}
             type="button"
             onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
-            className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === cat ? `${CATEGORY_COLORS[cat] ?? CATEGORY_COLORS.other} border-current` : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
+            className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === cat ? `${CATEGORY_COLORS[cat] ?? CATEGORY_COLORS.other} border-current` : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'}`}
           >
             {cat} ({count})
           </button>
@@ -225,14 +225,14 @@ export default function McpToolsExplorer() {
 
       {/* Controls */}
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+        <span className="text-xs font-mono text-muted">
           {filtered.length} tool{filtered.length !== 1 ? 's' : ''}
         </span>
         <div className="flex gap-1.5">
           <button
             type="button"
             onClick={expandAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Expand all
           </button>
@@ -240,7 +240,7 @@ export default function McpToolsExplorer() {
           <button
             type="button"
             onClick={collapseAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Collapse all
           </button>
@@ -250,9 +250,7 @@ export default function McpToolsExplorer() {
       {/* Tool grid */}
       <div className="space-y-2">
         {filtered.length === 0 ? (
-          <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>
-            No tools match your search.
-          </div>
+          <div className={`${CARD} p-8 text-center text-sm text-muted`}>No tools match your search.</div>
         ) : (
           filtered.map((tool) => (
             <ToolCard

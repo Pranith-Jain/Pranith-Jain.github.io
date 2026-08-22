@@ -15,7 +15,7 @@ export function Hero({ personalInfo }: HeroProps) {
       <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-start animate-fade-in-up">
         {/* Left: tagline, live data, CTAs */}
         <div className="min-w-0 max-w-3xl">
-          <div className="mb-5 flex items-center gap-2.5 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
+          <div className="mb-5 flex items-center gap-2.5 text-eyebrow font-mono uppercase text-muted">
             <span className="inline-flex rounded-full h-2 w-2 bg-brand-500" aria-hidden="true"></span>
             Certified Cyber Criminologist
           </div>
@@ -49,9 +49,7 @@ export function Hero({ personalInfo }: HeroProps) {
                 <dt className="font-display text-2xl font-semibold tracking-[-0.4px] text-slate-900 dark:text-white tabular-nums sm:text-3xl">
                   {k}
                 </dt>
-                <dd className="mt-0.5 font-mono text-mini uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
-                  {v}
-                </dd>
+                <dd className="mt-0.5 font-mono text-mini uppercase tracking-[0.12em] text-muted">{v}</dd>
               </div>
             ))}
           </dl>

@@ -206,7 +206,7 @@ export default function Writeups(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}
@@ -333,7 +333,7 @@ export default function Writeups(): JSX.Element {
                 <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
                   {it.title}
                 </h3>
-                <ExternalLink size={12} className="text-slate-500 dark:text-slate-400 shrink-0 mt-1" />
+                <ExternalLink size={12} className="text-muted shrink-0 mt-1" />
               </div>
               {it.description && (
                 <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{it.description}</p>

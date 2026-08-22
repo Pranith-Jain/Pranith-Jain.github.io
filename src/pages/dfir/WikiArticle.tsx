@@ -100,7 +100,7 @@ export default function WikiArticle(): JSX.Element {
 
       {relatedTools.length > 0 && (
         <section className="mt-12 rounded-xl border border-brand-500/30 bg-brand-500/5 p-5">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
             <Wrench size={12} /> Related tools in this portfolio
           </h2>
           <ul className="grid sm:grid-cols-2 gap-2">

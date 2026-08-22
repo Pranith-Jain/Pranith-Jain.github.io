@@ -127,11 +127,7 @@ export default function MispGalaxyActors(): JSX.Element {
           </p>
         )}
         <div className="relative max-w-md">
-          <Search
-            size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            aria-hidden="true"
-          />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -167,7 +163,7 @@ export default function MispGalaxyActors(): JSX.Element {
       empty={!loading && !error && !!data && filtered.length === 0}
       emptyMessage="No actors match the search."
     >
-      <p className="mb-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+      <p className="mb-3 text-micro font-mono text-muted">
         {filtered.length} of {data?.total ?? 0} actors{query.trim() || country !== 'all' ? ' (filtered)' : ''}
       </p>
       <div className="grid gap-3 lg:grid-cols-2">
@@ -243,7 +239,7 @@ export default function MispGalaxyActors(): JSX.Element {
                         {ref} <ExternalLink size={10} className="inline align-baseline opacity-60" />
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">
+                      <span key={i} className="text-micro font-mono text-muted truncate">
                         {ref}
                       </span>
                     );
@@ -256,7 +252,7 @@ export default function MispGalaxyActors(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           Data:{' '}
           <a
             href={data.source_url}

@@ -192,7 +192,7 @@ export default function DarkWeb(): JSX.Element {
         </>
       }
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <p className="text-xs text-muted font-mono">
           Per-source widgets -{' '}
           <Link to="/threatintel/ransomware-hub" className="text-brand-600 dark:text-brand-400 hover:underline">
             ransomware activity
@@ -291,9 +291,7 @@ export default function DarkWeb(): JSX.Element {
         <section className="mb-6 surface-card p-5">
           <div className="flex items-center gap-2 mb-3">
             <Bell size={14} className="text-brand-600 dark:text-brand-400" />
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Watchlist
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Watchlist</h2>
           </div>
           <form
             onSubmit={(e) => {
@@ -562,7 +560,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
       )}
 
       {data && data.breaches.length === 0 && !error && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
+        <p className="text-sm font-mono text-muted">
           No disclosures returned. The upstream HIBP API may be unavailable; the in-feed sources below still cover
           breach reporting.
         </p>
@@ -1052,7 +1050,7 @@ export function RansomwareActivityPanel(): JSX.Element {
               className="w-full max-h-[80vh] object-contain rounded border border-slate-700 bg-slate-800"
               referrerPolicy="no-referrer"
             />
-            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+            <p className="text-micro font-mono text-muted text-center">
               Source: ransomlook.io · clearnet-rehosted PNG of the .onion leak page
             </p>
           </div>
@@ -1108,7 +1106,7 @@ function qualityPill(score?: number): { label: string; cls: string } {
   if (score === undefined)
     return {
       label: '-',
-      cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
+      cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
     };
   if (score >= 75)
     return { label: `${score}`, cls: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' };
@@ -1296,7 +1294,7 @@ export function TelegramFeedPanel(): JSX.Element {
         </div>
       </div>
 
-      <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
+      <p className="text-meta font-mono text-muted mb-3 leading-relaxed">
         Latest messages from a curated set of public threat-intel and cybercrime-tracking Telegram channels -{' '}
         <Link to="/threatintel/telegram" className="text-brand-600 dark:text-brand-400 hover:underline">
           full catalogue
@@ -1438,7 +1436,7 @@ export function TelegramFeedPanel(): JSX.Element {
       )}
 
       {data && filteredItems.length === 0 && !loading && !error && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">No messages from the selected channel.</p>
+        <p className="text-sm font-mono text-muted">No messages from the selected channel.</p>
       )}
 
       {matchedItems.length > 10 && (

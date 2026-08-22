@@ -33,7 +33,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
       <h2 className="font-display font-bold text-xl mb-4">
         URLs Extracted <span className="text-sm font-mono text-muted font-normal">({urls.length})</span>
       </h2>
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-mini font-mono text-muted mb-3">
         Each row pivots to per-tool analysis. Hover for the pivot label.
       </p>
       <ul className="space-y-2">

@@ -283,7 +283,7 @@ export default function OsvScanner(): JSX.Element {
                       {v.id} <ExternalLink size={11} />
                     </a>
                     {v.aliases && v.aliases.length > 0 && (
-                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-mini font-mono text-muted">
                         {' '}
                         · {v.aliases.filter((a) => a.startsWith('CVE')).join(', ')}
                       </span>

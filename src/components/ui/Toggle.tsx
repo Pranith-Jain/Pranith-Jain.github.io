@@ -43,7 +43,7 @@ export function Toggle({ label, checked, onChange, disabled = false, description
           {label}
         </label>
         {description && (
-          <p id={descriptionId} className="text-xs text-slate-500 dark:text-slate-400">
+          <p id={descriptionId} className="text-xs text-muted">
             {description}
           </p>
         )}

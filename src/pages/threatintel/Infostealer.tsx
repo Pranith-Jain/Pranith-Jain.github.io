@@ -442,7 +442,7 @@ export default function Infostealer(): JSX.Element {
                   <li key={`${title}-${date}-${i}`} className="surface-card p-3">
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
                     {sub && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{sub}</p>}
-                    {date && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{date}</p>}
+                    {date && <p className="font-mono text-micro text-muted mt-1">{date}</p>}
                   </li>
                 );
               })}
@@ -475,9 +475,7 @@ export default function Infostealer(): JSX.Element {
                 </button>
               </div>
               {m.description && <p className="font-mono text-mini text-slate-500 mt-1 line-clamp-2">{m.description}</p>}
-              {m.published && (
-                <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{m.published}</p>
-              )}
+              {m.published && <p className="font-mono text-micro text-muted mt-1">{m.published}</p>}
             </li>
           ))}
           {markets && markets.length === 0 && (
@@ -532,9 +530,7 @@ export default function Infostealer(): JSX.Element {
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {s.family}
                 </span>
-                {s.file_type && (
-                  <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>
-                )}
+                {s.file_type && <span className="font-mono text-micro text-muted">{s.file_type}</span>}
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <a
@@ -554,7 +550,7 @@ export default function Infostealer(): JSX.Element {
                   <Copy size={11} />
                 </button>
               </div>
-              <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">
+              <p className="font-mono text-micro text-muted mt-1">
                 {s.reporter ? `by ${s.reporter}` : ''} {s.first_seen ?? ''}
               </p>
             </li>
@@ -575,7 +571,7 @@ export default function Infostealer(): JSX.Element {
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {x.family}
                 </span>
-                <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
+                <span className="font-mono text-micro text-muted">
                   {x.kind} · {x.source}
                 </span>
               </div>
@@ -590,9 +586,7 @@ export default function Infostealer(): JSX.Element {
                   <Copy size={11} />
                 </button>
               </div>
-              {x.observed_at && (
-                <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>
-              )}
+              {x.observed_at && <p className="font-mono text-micro text-muted mt-1">{x.observed_at}</p>}
             </li>
           ))}
           {c2 && c2.length === 0 && (
@@ -620,12 +614,10 @@ export default function Infostealer(): JSX.Element {
                   )}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5">
+                  <span className="text-micro font-mono text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5">
                     {fam.firstSeen}
                   </span>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                    {fam.platforms.join('/')}
-                  </span>
+                  <span className="text-micro font-mono text-muted">{fam.platforms.join('/')}</span>
                 </div>
               </summary>
               <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3">
@@ -768,9 +760,7 @@ export default function Infostealer(): JSX.Element {
                             {s.keyword}
                           </span>
                           <span className="text-muted truncate">{s.source}</span>
-                          {s.when && (
-                            <span className="text-slate-500 dark:text-slate-400 text-micro">{s.when.slice(0, 10)}</span>
-                          )}
+                          {s.when && <span className="text-muted text-micro">{s.when.slice(0, 10)}</span>}
                           {s.link && (
                             <a
                               href={sanitizeUrl(s.link)}
@@ -854,7 +844,7 @@ export default function Infostealer(): JSX.Element {
                           {a.description && (
                             <p className="font-mono text-mini text-muted line-clamp-2 mb-1">{a.description}</p>
                           )}
-                          <div className="flex items-center gap-2 text-micro font-mono text-slate-500 dark:text-slate-400">
+                          <div className="flex items-center gap-2 text-micro font-mono text-muted">
                             <ExternalLink size={10} />
                             <span
                               className={`rounded border px-1 py-0.5 ${

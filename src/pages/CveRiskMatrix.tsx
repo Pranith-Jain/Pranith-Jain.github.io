@@ -134,7 +134,7 @@ export default function CveRiskMatrix() {
           >
             <RefreshCw size={11} /> refresh
           </button>
-          <div className="text-xs text-slate-500 dark:text-slate-400 font-mono ml-auto">
+          <div className="text-xs text-muted font-mono ml-auto">
             {data?.count ?? 0} rows · {data?.params.limit ?? 100} cap
           </div>
         </div>
@@ -184,7 +184,7 @@ export default function CveRiskMatrix() {
         {rows.length > 0 && (
           <div className={`${CARD} p-4`}>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-muted uppercase tracking-wider">
                 Exploitation likelihood scatter — EPSS (x) vs CVSS (y)
               </span>
               <span className="text-micro font-mono text-slate-400 ml-auto">
@@ -230,30 +230,14 @@ export default function CveRiskMatrix() {
           <table className="w-full text-left text-sm border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  CVE
-                </th>
-                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  CTI Score
-                </th>
-                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Quadrant
-                </th>
-                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  CVSS
-                </th>
-                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  EPSS
-                </th>
-                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  KEV
-                </th>
-                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  SSVC
-                </th>
-                <th className="py-2 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Published
-                </th>
+                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">CVE</th>
+                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">CTI Score</th>
+                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">Quadrant</th>
+                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">CVSS</th>
+                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">EPSS</th>
+                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">KEV</th>
+                <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">SSVC</th>
+                <th className="py-2 text-micro font-mono uppercase tracking-wider text-muted">Published</th>
               </tr>
             </thead>
             <tbody>
@@ -294,12 +278,8 @@ export default function CveRiskMatrix() {
                         <span className="text-micro font-mono text-slate-400">—</span>
                       )}
                     </td>
-                    <td className="py-2 pr-3 font-mono text-micro uppercase text-slate-500 dark:text-slate-400">
-                      {r.ssvc.decision}
-                    </td>
-                    <td className="py-2 font-mono text-xs text-slate-500 dark:text-slate-400">
-                      {r.published.slice(0, 10)}
-                    </td>
+                    <td className="py-2 pr-3 font-mono text-micro uppercase text-muted">{r.ssvc.decision}</td>
+                    <td className="py-2 font-mono text-xs text-muted">{r.published.slice(0, 10)}</td>
                   </tr>
                 );
               })}

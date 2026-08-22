@@ -303,7 +303,7 @@ export default function DFIRPage(): JSX.Element {
           <div role="search" className="mt-6 relative max-w-2xl">
             <Search
               size={16}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
               aria-hidden="true"
             />
             <input
@@ -328,7 +328,7 @@ export default function DFIRPage(): JSX.Element {
                 <X size={12} /> clear
               </button>
             ) : (
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-500 dark:text-slate-400 sm:inline-flex">
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-muted sm:inline-flex">
                 <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
                   /
                 </kbd>
@@ -373,9 +373,7 @@ export default function DFIRPage(): JSX.Element {
                   Continue where you left off
                 </h2>
               </div>
-              <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
-                {recentTools.length} recent
-              </span>
+              <span className="font-mono text-micro text-muted">{recentTools.length} recent</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {recentTools.map((entry) => {
@@ -406,7 +404,7 @@ export default function DFIRPage(): JSX.Element {
             <Hash size={14} className="text-brand-600 dark:text-brand-400" />
             <h2 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">Quick IOC check</h2>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+          <p className="text-xs text-muted mb-3">
             Paste an IP, domain, URL, or hash and get an instant verdict from 60+ sources.
           </p>
           <div className="flex gap-2">
@@ -456,14 +454,14 @@ export default function DFIRPage(): JSX.Element {
                       <Link to={t.path} className="group block h-full surface-card card-hover p-4">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
-                          <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          <span className="font-mono text-micro uppercase tracking-wider text-muted">
                             {category.label}
                           </span>
                         </div>
                         <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
                           {t.label}
                         </h3>
-                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{t.desc}</p>
+                        <p className="mt-1 text-xs text-muted line-clamp-2">{t.desc}</p>
                       </Link>
                     </li>
                   );
@@ -472,7 +470,7 @@ export default function DFIRPage(): JSX.Element {
             )}
             {searchResults && searchResults.length === 0 && (
               <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-                <p className="text-sm text-slate-500 dark:text-slate-400">No matches. Try different keywords.</p>
+                <p className="text-sm text-muted">No matches. Try different keywords.</p>
               </div>
             )}
           </section>
@@ -514,7 +512,7 @@ export default function DFIRPage(): JSX.Element {
                         <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
                           {item.label}
                         </h3>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{item.desc}</p>
+                        <p className="text-xs text-muted truncate">{item.desc}</p>
                       </div>
                       <ArrowRight
                         size={14}
@@ -535,14 +533,9 @@ export default function DFIRPage(): JSX.Element {
                   <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
                     Explore by topic
                   </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    8 categories · {MAIN_TOOL_COUNT}+ tools
-                  </p>
+                  <p className="text-xs text-muted mt-0.5">8 categories · {MAIN_TOOL_COUNT}+ tools</p>
                 </div>
-                <ArrowRight
-                  size={16}
-                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
-                />
+                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -560,7 +553,7 @@ export default function DFIRPage(): JSX.Element {
                             {cat.label}
                           </h3>
                         </div>
-                        <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2 min-h-[2.5rem]">
+                        <p className="mt-2 text-xs leading-relaxed text-muted line-clamp-2 min-h-[2.5rem]">
                           {cat.description}
                         </p>
                         <dl className="mt-auto pt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] font-mono text-micro">
@@ -586,10 +579,7 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
-                <ArrowRight
-                  size={16}
-                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
-                />
+                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-4 sm:grid-cols-3">
@@ -618,7 +608,7 @@ export default function DFIRPage(): JSX.Element {
                         <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
                           {s.title}
                         </h3>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{s.desc}</p>
+                        <p className="text-xs text-muted mt-0.5 leading-relaxed">{s.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -633,14 +623,9 @@ export default function DFIRPage(): JSX.Element {
                   <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
                     Used in real cases
                   </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    {TOOL_CASES.length} case studies · real incidents
-                  </p>
+                  <p className="text-xs text-muted mt-0.5">{TOOL_CASES.length} case studies · real incidents</p>
                 </div>
-                <ArrowRight
-                  size={16}
-                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
-                />
+                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -649,9 +634,7 @@ export default function DFIRPage(): JSX.Element {
                       <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 mb-1.5">
                         {tc.caseTitle}
                       </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-2 line-clamp-2">
-                        {tc.contribution}
-                      </p>
+                      <p className="text-xs text-muted leading-relaxed mb-2 line-clamp-2">{tc.contribution}</p>
                       <div className="flex flex-wrap gap-1.5">
                         {tc.tools.map((t) => (
                           <span
@@ -675,10 +658,7 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Common questions</h2>
-                <ArrowRight
-                  size={16}
-                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
-                />
+                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5 space-y-4">
                 {DFIR_FAQ.map((f) => (
@@ -686,7 +666,7 @@ export default function DFIRPage(): JSX.Element {
                     <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
                       {f.question}
                     </h3>
-                    <p className="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{f.answer}</p>
+                    <p className="mt-1.5 text-sm text-muted leading-relaxed">{f.answer}</p>
                   </div>
                 ))}
               </div>
@@ -700,7 +680,7 @@ export default function DFIRPage(): JSX.Element {
               >
                 <Compass size={16} />
                 Browse the full catalog
-                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{MAIN_TOOL_COUNT}+ tools</span>
+                <span className="font-mono text-xs text-muted">{MAIN_TOOL_COUNT}+ tools</span>
                 <ArrowRight size={14} />
               </Link>
             </div>

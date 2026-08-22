@@ -497,17 +497,17 @@ export default function PhishBook(): JSX.Element {
                   </div>
                   <div className="min-w-0">
                     <h2 className="font-display font-bold text-sm">{phase.title}</h2>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">{phase.purpose}</p>
+                    <p className="text-xs text-muted mt-0.5 truncate">{phase.purpose}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                  <span className="text-micro font-mono text-muted">
                     {PHASES.indexOf(phase) + 1} / {PHASES.length}
                   </span>
                   {open ? (
-                    <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
+                    <ChevronDown size={16} className="text-muted" />
                   ) : (
-                    <ChevronRight size={16} className="text-slate-500 dark:text-slate-400" />
+                    <ChevronRight size={16} className="text-muted" />
                   )}
                 </div>
               </button>

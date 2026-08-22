@@ -79,9 +79,9 @@ export default function CveHealthCheck({ bare }: CveHealthCheckProps): JSX.Eleme
                   {formatName(check.name)}
                 </span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 ml-6">{check.message}</p>
+              <p className="text-xs text-muted mt-1 ml-6">{check.message}</p>
               {check.details && (
-                <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-mini font-mono text-slate-600 dark:text-slate-400 overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
+                <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-mini font-mono text-muted overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
                   {JSON.stringify(check.details, null, 2)}
                 </pre>
               )}
@@ -104,10 +104,11 @@ export default function CveHealthCheck({ bare }: CveHealthCheckProps): JSX.Eleme
       onRetry={refetch}
       headerExtra={
         <div className="flex items-center justify-between">
-          <div className="text-xs text-slate-500 dark:text-slate-400">
+          <div className="text-xs text-muted">
             {data?.generated_at && `Last checked: ${new Date(data.generated_at).toLocaleString()}`}
           </div>
-          <button type="button"
+          <button
+            type="button"
             onClick={refetch}
             disabled={loading}
             className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"

@@ -67,7 +67,7 @@ export default function AttributionFramework(): JSX.Element {
           className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
         />
         <div className="mt-3">
-          <label htmlFor="attribution-context" className="text-xs text-slate-500 dark:text-slate-400 mb-1 block">
+          <label htmlFor="attribution-context" className="text-xs text-muted mb-1 block">
             Context (optional)
           </label>
           <input
@@ -109,7 +109,7 @@ export default function AttributionFramework(): JSX.Element {
                 <div className="text-3xl font-display font-bold text-rose-600 dark:text-rose-400">
                   {assessment.confidence}%
                 </div>
-                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">confidence</div>
+                <div className="text-micro font-mono text-muted">confidence</div>
               </div>
             </div>
             <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2">
@@ -124,9 +124,9 @@ export default function AttributionFramework(): JSX.Element {
             >
               <span className="font-display font-bold text-sm">Evidence ({assessment.evidence.length})</span>
               {expandedEvidence ? (
-                <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
+                <ChevronDown size={14} className="text-muted" />
               ) : (
-                <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
+                <ChevronRight size={14} className="text-muted" />
               )}
             </button>
             {expandedEvidence && (
@@ -141,7 +141,7 @@ export default function AttributionFramework(): JSX.Element {
                     </span>
                     <div className="flex-1 min-w-0">
                       <div className="text-xs text-slate-700 dark:text-slate-300">{e.description}</div>
-                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                      <div className="text-micro font-mono text-muted mt-0.5">
                         Weight: {e.weight} · Source: {e.source}
                       </div>
                     </div>

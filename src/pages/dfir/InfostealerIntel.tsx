@@ -262,7 +262,7 @@ export default function InfostealerIntel(): JSX.Element {
       <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <TabIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
+            <TabIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
             <input
               type="text"
               value={query}
@@ -289,7 +289,7 @@ export default function InfostealerIntel(): JSX.Element {
             </button>
           )}
         </div>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{currentTab.description}</p>
+        <p className="text-xs text-muted mt-2">{currentTab.description}</p>
       </div>
 
       {/* Error */}
@@ -301,7 +301,7 @@ export default function InfostealerIntel(): JSX.Element {
 
       {/* Loading */}
       {loading && (
-        <div className="flex items-center justify-center py-16 text-slate-500 dark:text-slate-400">
+        <div className="flex items-center justify-center py-16 text-muted">
           <RefreshCw className="w-5 h-5 animate-spin mr-2" />
           Querying Hudson Rock…
         </div>
@@ -341,17 +341,17 @@ export default function InfostealerIntel(): JSX.Element {
                 <span className="px-2 py-0.5 rounded text-xs font-mono font-medium bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20">
                   {entry.stealer_family}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400">·</span>
+                <span className="text-muted">·</span>
                 <span className="text-muted">{fmtDate(entry.date_compromised)}</span>
-                <span className="text-slate-500 dark:text-slate-400">·</span>
+                <span className="text-muted">·</span>
                 <span className="font-mono text-xs text-muted">{entry.ip}</span>
-                <span className="text-slate-500 dark:text-slate-400">·</span>
+                <span className="text-muted">·</span>
                 <span className="text-muted">{entry.computer_name}</span>
-                <span className="text-slate-500 dark:text-slate-400">·</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">{entry.operating_system}</span>
+                <span className="text-muted">·</span>
+                <span className="text-xs text-muted">{entry.operating_system}</span>
                 {entry.employee_at?.length ? (
                   <>
-                    <span className="text-slate-500 dark:text-slate-400">·</span>
+                    <span className="text-muted">·</span>
                     <span className="inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400">
                       <Building2 className="w-3 h-3" />
                       {entry.employee_at.join(', ')}
@@ -373,9 +373,9 @@ export default function InfostealerIntel(): JSX.Element {
                     >
                       {cred.url}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-400">·</span>
+                    <span className="text-muted">·</span>
                     <span className="text-muted">{cred.domain}</span>
-                    <span className="text-slate-500 dark:text-slate-400">·</span>
+                    <span className="text-muted">·</span>
                     <span className="font-mono text-muted">{cred.username}</span>
                   </div>
                 ))}
@@ -460,7 +460,7 @@ export default function InfostealerIntel(): JSX.Element {
 
               <div className="surface-card/40 shadow-e1 p-5">
                 <h3 className="font-medium mb-3 flex items-center gap-2 text-sm">
-                  <Clock className="w-4 h-4 text-slate-500 dark:text-slate-400" /> Infection Flow
+                  <Clock className="w-4 h-4 text-muted" /> Infection Flow
                 </h3>
                 <div className="space-y-3">
                   {(infectionResult.analysis.infection_flow ?? []).map((step, i) => (
@@ -472,9 +472,7 @@ export default function InfostealerIntel(): JSX.Element {
                         )}
                       </div>
                       <div className="pb-3">
-                        <div className="text-xs text-slate-500 dark:text-slate-400 mb-0.5">
-                          {fmtDateTime(step.timestamp)}
-                        </div>
+                        <div className="text-xs text-muted mb-0.5">{fmtDateTime(step.timestamp)}</div>
                         <div className="font-mono text-xs text-brand-600 dark:text-brand-400 break-all">{step.url}</div>
                         <div className="text-muted text-xs mt-0.5">{step.notes}</div>
                       </div>
@@ -492,7 +490,7 @@ export default function InfostealerIntel(): JSX.Element {
       )}
 
       {/* Footer */}
-      <div className="mt-8 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
+      <div className="mt-8 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted flex items-center gap-2">
         <KeyRound className="w-3 h-3" />
         Powered by Hudson Rock Cavalier API
         <span className="mx-1">·</span>
@@ -512,7 +510,7 @@ export default function InfostealerIntel(): JSX.Element {
 function OverviewCard({ label, value, accent }: { label: string; value: string | number; accent: string }) {
   return (
     <div className="surface-card/40 shadow-e1 p-4">
-      <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{label}</div>
+      <div className="text-xs text-muted mb-1">{label}</div>
       <div className={`text-2xl font-bold ${accent}`}>{value}</div>
     </div>
   );

@@ -101,7 +101,7 @@ function ToolRow({
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-[rgb(var(--surface-300)/0.6)]"
+          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-muted hover:bg-slate-200/60 dark:hover:bg-[rgb(var(--surface-300)/0.6)]"
           aria-label={open ? 'Collapse' : 'Expand'}
         >
           {open ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -116,9 +116,7 @@ function ToolRow({
             >
               {tool.name}
             </a>
-            <span className="text-xs text-slate-500 dark:text-slate-400">
-              by {tool.authors.map((a) => a.name).join(', ')}
-            </span>
+            <span className="text-xs text-muted">by {tool.authors.map((a) => a.name).join(', ')}</span>
             {tool.tags.map((t) => (
               <span
                 key={t}
@@ -139,7 +137,7 @@ function ToolRow({
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="ml-auto text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               aria-label="Open on GitHub"
             >
               <ExternalLink className="h-3.5 w-3.5" />
@@ -212,7 +210,7 @@ function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-2">
             <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{ds.title}</h3>
-            <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
+            <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-muted">
               {ds.wave}
             </span>
             <span className={`text-micro font-mono rounded border px-1.5 py-0.5 ${statusTone}`}>
@@ -310,8 +308,8 @@ export default function RedHuntLabsResearch(): JSX.Element {
         </span>
       }
       headerExtra={
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
+          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
             mirrored <span className="text-slate-700 dark:text-slate-200">2026-06-13</span>
           </span>
           <span className="rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 text-emerald-700 dark:text-emerald-300 font-mono">
@@ -360,7 +358,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
         <section className="mb-4 surface-card p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="relative flex-1">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -378,7 +376,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:text-slate-700 dark:hover:text-slate-300"
               >
                 clear
               </button>
@@ -411,8 +409,8 @@ export default function RedHuntLabsResearch(): JSX.Element {
       {tab === 'tools' && (
         <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
           {filteredTools.length === 0 ? (
-            <div className="p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
+            <div className="p-8 text-center text-sm text-muted">
+              <FolderTree className="mx-auto mb-2 h-8 w-8 text-muted" />
               No tools match &quot;{query}&quot;.
             </div>
           ) : (
@@ -428,8 +426,8 @@ export default function RedHuntLabsResearch(): JSX.Element {
             const haystack = `${r.title} ${r.summary} ${r.details ?? ''}`;
             return query && !matchesText(haystack, query);
           }) ? (
-            <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
+            <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+              <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No research projects match &quot;{query}&quot;.
             </div>
           ) : (
@@ -445,8 +443,8 @@ export default function RedHuntLabsResearch(): JSX.Element {
             const haystack = `${d.title} ${d.description} ${d.wave}`;
             return query && !matchesText(haystack, query);
           }) ? (
-            <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
+            <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+              <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No datasets match &quot;{query}&quot;.
             </div>
           ) : (
@@ -534,7 +532,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
 function Stat({ label, value }: { label: string; value: React.ReactNode }): JSX.Element {
   return (
     <div className="surface-card px-3 py-2">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
   );

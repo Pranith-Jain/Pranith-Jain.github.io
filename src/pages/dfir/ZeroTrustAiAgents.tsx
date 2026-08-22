@@ -426,7 +426,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
 
         {/* ─── Header ──────────────────────────────────────────────── */}
         <header className="relative mb-8 sm:mb-10">
-          <div className="flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
+          <div className="flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-4">
             <ShieldCheck size={14} /> security framework · reference card
           </div>
           <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-start">
@@ -465,7 +465,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     {p.title}
                   </h3>
                   <p className="mt-1 text-meta font-mono text-muted leading-relaxed">{p.body}</p>
-                  <p className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
+                  <p className="mt-2 text-mini font-mono text-muted leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                     <Lightbulb size={10} className="inline -mt-0.5 mr-1 text-brand-500" aria-hidden="true" />
                     {p.example}
                   </p>
@@ -537,7 +537,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                 className="grid bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
                 style={{ gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)' }}
               >
-                <div className="px-3 py-2.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))] border-r">
+                <div className="px-3 py-2.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-muted border-b border-slate-200 dark:border-[rgb(var(--border-400))] border-r">
                   DOMAIN
                 </div>
                 {TIER_ORDER.map((t) => {
@@ -554,9 +554,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       <div className={`text-eyebrow font-mono uppercase tracking-[0.18em] ${cfg.head}`}>
                         {cfg.label}
                       </div>
-                      <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
-                        {cfg.tag}
-                      </div>
+                      <div className="text-mini font-mono text-muted mt-0.5 leading-snug">{cfg.tag}</div>
                     </div>
                   );
                 })}
@@ -565,7 +563,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               {/* Body rows */}
               <div>
                 {filteredMatrix.length === 0 && (
-                  <div className="px-3 py-6 text-center text-meta font-mono text-slate-500 dark:text-slate-400">
+                  <div className="px-3 py-6 text-center text-meta font-mono text-muted">
                     No domains match “{matrixQuery}”.
                   </div>
                 )}
@@ -596,7 +594,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                           <ChevronDown
                             size={12}
                             className={[
-                              'mt-1 text-slate-500 dark:text-slate-400 transition-transform shrink-0',
+                              'mt-1 text-muted transition-transform shrink-0',
                               isExpanded ? 'rotate-0 text-brand-500' : '-rotate-90',
                             ].join(' ')}
                             aria-hidden="true"
@@ -694,9 +692,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
 
             <div className="space-y-3">
               {filteredThreats.length === 0 && (
-                <div className="text-meta font-mono text-slate-500 dark:text-slate-400 px-1">
-                  No threats in this category.
-                </div>
+                <div className="text-meta font-mono text-muted px-1">No threats in this category.</div>
               )}
               {filteredThreats.map((t) => {
                 const isOpen = expandedThreat === t.num;
@@ -719,7 +715,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                         size={12}
                         className={[
                           'mt-1 shrink-0 transition-transform',
-                          isOpen ? 'rotate-0 text-rose-500' : '-rotate-90 text-slate-500 dark:text-slate-400',
+                          isOpen ? 'rotate-0 text-rose-500' : '-rotate-90 text-muted',
                         ].join(' ')}
                         aria-hidden="true"
                       />
@@ -836,9 +832,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                 <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
                   Phase {phase.num}
                 </span>
-                <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                  ·
-                </span>
+                <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-muted">·</span>
                 <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{phase.title}</h3>
               </div>
               <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.detail}</p>

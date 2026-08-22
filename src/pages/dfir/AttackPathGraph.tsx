@@ -393,7 +393,7 @@ export default function AttackPathGraph(): JSX.Element {
                     className={`w-full text-left px-2.5 py-2 rounded-xl border transition-colors text-micro font-mono ${
                       selectedPath === i
                         ? 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-0.5">
@@ -404,21 +404,17 @@ export default function AttackPathGraph(): JSX.Element {
                         {p.total_score}
                       </span>
                     </div>
-                    <div className="text-micro text-slate-500 dark:text-slate-400">
+                    <div className="text-micro text-muted">
                       {p.hop_count} hops · {p.hops[0]} → {p.hops[p.hops.length - 1]}
                     </div>
-                    <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5 truncate">
-                      {p.hops.join(' → ')}
-                    </div>
+                    <div className="text-micro text-muted mt-0.5 truncate">{p.hops.join(' → ')}</div>
                   </button>
                 ))}
                 {data.paths.length > 15 && (
-                  <p className="text-center text-micro text-slate-500 dark:text-slate-400 pt-1">
-                    +{data.paths.length - 15} more paths
-                  </p>
+                  <p className="text-center text-micro text-muted pt-1">+{data.paths.length - 15} more paths</p>
                 )}
                 {data.paths.length === 0 && (
-                  <p className="text-center text-micro text-slate-500 dark:text-slate-400 py-4">
+                  <p className="text-center text-micro text-muted py-4">
                     No attack paths computed. Add assets via ASM scan.
                   </p>
                 )}
@@ -444,9 +440,7 @@ export default function AttackPathGraph(): JSX.Element {
                   </div>
                 ))}
                 {data.choke_points.length === 0 && (
-                  <p className="text-center text-micro text-slate-500 dark:text-slate-400 py-2">
-                    No choke points identified.
-                  </p>
+                  <p className="text-center text-micro text-muted py-2">No choke points identified.</p>
                 )}
               </div>
             </div>
@@ -479,7 +473,7 @@ export default function AttackPathGraph(): JSX.Element {
       {/* Empty / refresh */}
       {!loading && !layout && (
         <div className="text-center py-12">
-          <Info size={32} className="mx-auto mb-3 text-slate-500 dark:text-slate-400" />
+          <Info size={32} className="mx-auto mb-3 text-muted" />
           <p className="font-mono text-sm text-slate-500 mb-4">
             No asset data found. Run an ASM domain scan first, or refresh to generate a demo graph.
           </p>

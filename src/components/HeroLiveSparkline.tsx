@@ -267,14 +267,14 @@ export function HeroLiveSparkline(): JSX.Element {
           );
         })}
       </svg>
-      <div className="mt-1.5 flex items-baseline justify-between gap-2 text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+      <div className="mt-1.5 flex items-baseline justify-between gap-2 text-mini font-mono uppercase tracking-[0.18em] text-muted">
         <span className="truncate">
           {isLive ? (
             <>
               ransomware claims · last 7d ·{' '}
               <span className="text-brand-600 dark:text-brand-400">{display.total} total</span>
               {fetchedAt && (
-                <span className="ml-2 normal-case tracking-normal text-slate-500 dark:text-slate-400">· {relativeAge(fetchedAt)}</span>
+                <span className="ml-2 normal-case tracking-normal text-muted">· {relativeAge(fetchedAt)}</span>
               )}
             </>
           ) : failed ? (
@@ -290,7 +290,7 @@ export function HeroLiveSparkline(): JSX.Element {
             disabled={refreshing}
             aria-label="Refresh ransomware claim cadence"
             title="Refresh now"
-            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] -my-2 sm:my-0 sm:min-h-0 sm:min-w-0 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
+            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] -my-2 sm:my-0 sm:min-h-0 sm:min-w-0 text-muted hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
           >
             <RefreshCw size={11} aria-hidden="true" className={refreshing ? 'animate-spin' : undefined} />
           </button>

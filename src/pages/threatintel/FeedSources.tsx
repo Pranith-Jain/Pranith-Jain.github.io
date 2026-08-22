@@ -146,7 +146,7 @@ export default function FeedSources(): JSX.Element {
                         </button>
                       </div>
                       <p className="font-mono text-micro text-slate-500 line-clamp-2 mb-1">{f.description}</p>
-                      <div className="flex items-center gap-2 font-mono text-micro text-slate-500 dark:text-slate-400">
+                      <div className="flex items-center gap-2 font-mono text-micro text-muted">
                         {f.source && <span className="truncate">{f.source}</span>}
                         {f.language && <span className="uppercase">{f.language}</span>}
                         <span className="ml-auto">
@@ -172,13 +172,13 @@ export default function FeedSources(): JSX.Element {
       </div>
 
       <details className="mt-10">
-        <summary className="cursor-pointer text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-mini font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300">
           Retired feeds ({Object.keys(RETIRED_FEEDS).length}) — do not re-add without a working live URL
         </summary>
         <div className="mt-3 grid gap-1 max-w-2xl">
           {Object.entries(RETIRED_FEEDS).map(([id, reason]) => (
             <div key={id} className="flex items-baseline gap-2 text-mini font-mono text-slate-500">
-              <span className="font-semibold text-slate-600 dark:text-slate-400">{id}</span>
+              <span className="font-semibold text-muted">{id}</span>
               <span className="text-slate-400">— {reason}</span>
             </div>
           ))}
@@ -186,7 +186,7 @@ export default function FeedSources(): JSX.Element {
       </details>
 
       <details className="mt-3">
-        <summary className="cursor-pointer text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-mini font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300">
           How feed management works
         </summary>
         <div className="mt-3 text-mini font-mono text-slate-500 leading-relaxed space-y-1 max-w-2xl">

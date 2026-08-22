@@ -109,7 +109,7 @@ function StixRelationshipGraphImpl({ bundle }: { bundle: StixBundle }): JSX.Elem
           return (
             <div key={r.id} className="flex items-center gap-2 text-xs font-mono">
               <span className={`px-1.5 py-0.5 rounded border ${srcColor}`}>{srcName}</span>
-              <span className="text-slate-500 dark:text-slate-400">→{r.relationship_type}→</span>
+              <span className="text-muted">→{r.relationship_type}→</span>
               <span className={`px-1.5 py-0.5 rounded border ${tgtColor}`}>{tgtName}</span>
             </div>
           );

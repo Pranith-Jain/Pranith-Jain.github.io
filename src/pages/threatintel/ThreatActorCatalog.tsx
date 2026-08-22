@@ -60,7 +60,7 @@ export default function ThreatActorCatalog(): JSX.Element {
     >
       <div className="flex items-center gap-2 mb-4">
         <div className="relative flex-1 max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -69,7 +69,7 @@ export default function ThreatActorCatalog(): JSX.Element {
             className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} actors</span>
+        <span className="text-xs font-mono text-muted">{filtered.length} actors</span>
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
@@ -143,9 +143,9 @@ function ActorCard({
           </div>
         </div>
         {expanded ? (
-          <ChevronUp size={16} className="text-slate-500 dark:text-slate-400 flex-shrink-0 mt-1" />
+          <ChevronUp size={16} className="text-muted flex-shrink-0 mt-1" />
         ) : (
-          <ChevronDown size={16} className="text-slate-500 dark:text-slate-400 flex-shrink-0 mt-1" />
+          <ChevronDown size={16} className="text-muted flex-shrink-0 mt-1" />
         )}
       </button>
 
@@ -231,7 +231,7 @@ function ActorCard({
           </Section>
 
           <div className="mt-3 text-mini font-mono text-slate-500">
-            <span className="text-slate-500 dark:text-slate-400">Motivation:</span> {actor.motivation}
+            <span className="text-muted">Motivation:</span> {actor.motivation}
           </div>
         </div>
       )}
@@ -242,9 +242,7 @@ function ActorCard({
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <div className="mb-3">
-      <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-        {title}
-      </h4>
+      <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-muted mb-1.5">{title}</h4>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
   );

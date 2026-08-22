@@ -203,7 +203,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
             {busy ? 'Saving…' : 'Save metrics'}
           </button>
           {msg && (
-            <span className="text-xs font-mono text-slate-600 dark:text-slate-400" role="status">
+            <span className="text-xs font-mono text-muted" role="status">
               {msg}
             </span>
           )}
@@ -228,18 +228,61 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
       </h2>
       <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <DataTable
-          columns={[
-            { key: 'type', header: 'Type', sortValue: (row: typeof rows[number]) => row.type, render: (row) => <span className="font-mono text-xs uppercase text-slate-700 dark:text-slate-300">{row.type}</span> },
-            { key: 'posts', header: 'Posts', align: 'right', sortValue: (row: typeof rows[number]) => row.posts, render: (row) => <span className="text-slate-600 dark:text-slate-400">{row.posts}</span> },
-            { key: 'avgEngagement', header: 'Avg engagement', align: 'right', sortValue: (row: typeof rows[number]) => row.avgEngagement, render: (row) => (
-              <div className="flex items-center justify-end gap-2">
-                <EngagementBar value={row.avgEngagement} max={maxAvg} />
-                <span className="text-slate-900 dark:text-slate-100 tabular-nums">{row.avgEngagement.toFixed(1)}</span>
-              </div>
-            ) },
-            { key: 'totalEngagement', header: 'Total engagement', align: 'right', sortValue: (row: typeof rows[number]) => row.totalEngagement, render: (row) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{row.totalEngagement.toLocaleString()}</span> },
-            { key: 'totalImpressions', header: 'Total impressions', align: 'right', sortValue: (row: typeof rows[number]) => row.totalImpressions, render: (row) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{fmtNum(row.totalImpressions)}</span> },
-          ] as DataTableColumn<typeof rows[number]>[]}
+          columns={
+            [
+              {
+                key: 'type',
+                header: 'Type',
+                sortValue: (row: (typeof rows)[number]) => row.type,
+                render: (row) => (
+                  <span className="font-mono text-xs uppercase text-slate-700 dark:text-slate-300">{row.type}</span>
+                ),
+              },
+              {
+                key: 'posts',
+                header: 'Posts',
+                align: 'right',
+                sortValue: (row: (typeof rows)[number]) => row.posts,
+                render: (row) => <span className="text-muted">{row.posts}</span>,
+              },
+              {
+                key: 'avgEngagement',
+                header: 'Avg engagement',
+                align: 'right',
+                sortValue: (row: (typeof rows)[number]) => row.avgEngagement,
+                render: (row) => (
+                  <div className="flex items-center justify-end gap-2">
+                    <EngagementBar value={row.avgEngagement} max={maxAvg} />
+                    <span className="text-slate-900 dark:text-slate-100 tabular-nums">
+                      {row.avgEngagement.toFixed(1)}
+                    </span>
+                  </div>
+                ),
+              },
+              {
+                key: 'totalEngagement',
+                header: 'Total engagement',
+                align: 'right',
+                sortValue: (row: (typeof rows)[number]) => row.totalEngagement,
+                render: (row) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
+                    {row.totalEngagement.toLocaleString()}
+                  </span>
+                ),
+              },
+              {
+                key: 'totalImpressions',
+                header: 'Total impressions',
+                align: 'right',
+                sortValue: (row: (typeof rows)[number]) => row.totalImpressions,
+                render: (row) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
+                    {fmtNum(row.totalImpressions)}
+                  </span>
+                ),
+              },
+            ] as DataTableColumn<(typeof rows)[number]>[]
+          }
           rows={rows}
           rowKey={(row) => row.type}
           rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
@@ -262,21 +305,110 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
       </h2>
       <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <DataTable
-          columns={[
-            { key: 'slug', header: 'Slug', sortValue: (p: typeof posts[number]) => p.slug, render: (p) => (
-              <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors" aria-label={`Open blog post ${p.slug}`}>{p.slug}</a>
-            ) },
-            { key: 'platform', header: 'Platform', sortValue: (p: typeof posts[number]) => p.platform, render: (p) => <span className="text-xs text-slate-600 dark:text-slate-400">{p.platform}</span> },
-            { key: 'engagement', header: 'Engagement', align: 'right', sortValue: (p: typeof posts[number]) => p.engagement, render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{p.engagement.toLocaleString()}</span> },
-            { key: 'likes', header: 'Likes', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.likes ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{(p.metrics.likes ?? 0).toLocaleString()}</span> },
-            { key: 'reposts', header: 'Reposts', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.reposts ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{(p.metrics.reposts ?? 0).toLocaleString()}</span> },
-            { key: 'replies', header: 'Replies', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.replies ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{(p.metrics.replies ?? 0).toLocaleString()}</span> },
-            { key: 'impressions', header: 'Impressions', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.impressions ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{fmtNum((p.metrics.impressions ?? 0))}</span> },
-            { key: 'link', header: 'Post link', render: (p) => p.postUrl ? (
-              <a href={p.postUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-600 dark:text-brand-400 hover:underline">view</a>
-            ) : <span className="text-xs text-slate-400">-</span> },
-            { key: 'fetched', header: 'Fetched', sortValue: (p: typeof posts[number]) => p.fetchedAt, render: (p) => <span className="text-xs text-slate-500 dark:text-slate-400">{new Date(p.fetchedAt).toLocaleDateString()}</span> },
-          ] as DataTableColumn<typeof posts[number]>[]}
+          columns={
+            [
+              {
+                key: 'slug',
+                header: 'Slug',
+                sortValue: (p: (typeof posts)[number]) => p.slug,
+                render: (p) => (
+                  <a
+                    href={`/blog/${p.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors"
+                    aria-label={`Open blog post ${p.slug}`}
+                  >
+                    {p.slug}
+                  </a>
+                ),
+              },
+              {
+                key: 'platform',
+                header: 'Platform',
+                sortValue: (p: (typeof posts)[number]) => p.platform,
+                render: (p) => <span className="text-xs text-muted">{p.platform}</span>,
+              },
+              {
+                key: 'engagement',
+                header: 'Engagement',
+                align: 'right',
+                sortValue: (p: (typeof posts)[number]) => p.engagement,
+                render: (p) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
+                    {p.engagement.toLocaleString()}
+                  </span>
+                ),
+              },
+              {
+                key: 'likes',
+                header: 'Likes',
+                align: 'right',
+                sortValue: (p: (typeof posts)[number]) => p.metrics.likes ?? 0,
+                render: (p) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
+                    {(p.metrics.likes ?? 0).toLocaleString()}
+                  </span>
+                ),
+              },
+              {
+                key: 'reposts',
+                header: 'Reposts',
+                align: 'right',
+                sortValue: (p: (typeof posts)[number]) => p.metrics.reposts ?? 0,
+                render: (p) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
+                    {(p.metrics.reposts ?? 0).toLocaleString()}
+                  </span>
+                ),
+              },
+              {
+                key: 'replies',
+                header: 'Replies',
+                align: 'right',
+                sortValue: (p: (typeof posts)[number]) => p.metrics.replies ?? 0,
+                render: (p) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
+                    {(p.metrics.replies ?? 0).toLocaleString()}
+                  </span>
+                ),
+              },
+              {
+                key: 'impressions',
+                header: 'Impressions',
+                align: 'right',
+                sortValue: (p: (typeof posts)[number]) => p.metrics.impressions ?? 0,
+                render: (p) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
+                    {fmtNum(p.metrics.impressions ?? 0)}
+                  </span>
+                ),
+              },
+              {
+                key: 'link',
+                header: 'Post link',
+                render: (p) =>
+                  p.postUrl ? (
+                    <a
+                      href={p.postUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      view
+                    </a>
+                  ) : (
+                    <span className="text-xs text-slate-400">-</span>
+                  ),
+              },
+              {
+                key: 'fetched',
+                header: 'Fetched',
+                sortValue: (p: (typeof posts)[number]) => p.fetchedAt,
+                render: (p) => <span className="text-xs text-muted">{new Date(p.fetchedAt).toLocaleDateString()}</span>,
+              },
+            ] as DataTableColumn<(typeof posts)[number]>[]
+          }
           rows={posts}
           rowKey={(p, i) => `${p.slug}-${p.platform}-${i}`}
           rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
@@ -311,7 +443,7 @@ export default function AnalyticsTab() {
     void load();
   }, [load]);
 
-  if (loading && !data) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading && !data) return <p className="text-muted">Loading…</p>;
 
   if (error && !data)
     return (
@@ -335,7 +467,7 @@ export default function AnalyticsTab() {
     <div className="space-y-6">
       {/* Empty state */}
       {!hasPosts && (
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
+        <p className="text-muted text-sm">
           No engagement data yet - auto-refreshes hourly for posted tweets; add LinkedIn/Instagram numbers manually
           using the form below.
         </p>

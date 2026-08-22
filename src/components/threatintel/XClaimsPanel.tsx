@@ -162,7 +162,7 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
                     href={sanitizeUrl(r.source_url)}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500 transition-colors"
+                    className="shrink-0 text-muted hover:text-brand-500 transition-colors"
                     aria-label="source post"
                   >
                     <ExternalLink size={14} />
@@ -182,15 +182,13 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
                       <span className="mr-2">@{b.handle}</span>
                       {timeAgo(b.discovered)}
                     </span>
-                    <p className="text-mini text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 break-words">
-                      {b.text}
-                    </p>
+                    <p className="text-mini text-muted mt-1 line-clamp-2 break-words">{b.text}</p>
                   </div>
                   <a
                     href={sanitizeUrl(b.source_url)}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500 transition-colors"
+                    className="shrink-0 text-muted hover:text-brand-500 transition-colors"
                     aria-label="source post"
                   >
                     <ExternalLink size={14} />

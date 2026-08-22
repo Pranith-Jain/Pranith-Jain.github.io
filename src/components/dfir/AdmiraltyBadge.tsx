@@ -17,7 +17,7 @@ const RELIABILITY_COLORS: Record<string, string> = {
   C: 'text-brand-600 dark:text-brand-400 border-brand-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-950',
   D: 'text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950',
   E: 'text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950',
-  F: 'text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))]',
+  F: 'text-muted border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))]',
 };
 
 function AdmiraltyBadgeInner({ admiralty, compact }: { admiralty: AdmiraltyGrade; compact?: boolean }): JSX.Element {

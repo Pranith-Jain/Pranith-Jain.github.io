@@ -119,7 +119,7 @@ export default function DeepDarkCTI(): JSX.Element {
             <div className="relative flex-1 min-w-[200px]">
               <Search
                 size={14}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted"
                 aria-hidden="true"
               />
               <input
@@ -252,14 +252,12 @@ export default function DeepDarkCTI(): JSX.Element {
                   </button>
                 </div>
                 <div className="mt-1.5 flex items-center gap-2">
-                  <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    {e.category}
-                  </span>
+                  <span className="font-mono text-micro uppercase tracking-wider text-muted">{e.category}</span>
                   <a
                     href={`https://github.com/fastfire/deepdarkCTI/blob/main/${e.source_file}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-micro text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+                    className="font-mono text-micro text-muted hover:text-rose-500 transition-colors"
                   >
                     {e.source_file}
                   </a>

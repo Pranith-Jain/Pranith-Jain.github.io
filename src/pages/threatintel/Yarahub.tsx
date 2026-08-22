@@ -183,8 +183,8 @@ export default function Yarahub(): JSX.Element {
     >
       {loading && !error && (
         <div className="surface-card p-8 text-center">
-          <Loader2 size={20} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-2" />
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Fetching YARA rules from YARAhub…</p>
+          <Loader2 size={20} className="animate-spin mx-auto text-muted mb-2" />
+          <p className="text-xs font-mono text-muted">Fetching YARA rules from YARAhub…</p>
         </div>
       )}
 
@@ -192,7 +192,7 @@ export default function Yarahub(): JSX.Element {
         <div className="surface-card p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching rules' : 'No YARA rules loaded'}</p>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs font-mono text-muted mt-1">
             {search ? 'Try a different search term' : 'The YARAhub API may be unavailable'}
           </p>
         </div>
@@ -264,8 +264,8 @@ export default function Yarahub(): JSX.Element {
 
       {contentLoading && (
         <div className="mt-6 surface-card p-8 text-center">
-          <Loader2 size={20} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-2" />
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Downloading rule content…</p>
+          <Loader2 size={20} className="animate-spin mx-auto text-muted mb-2" />
+          <p className="text-xs font-mono text-muted">Downloading rule content…</p>
         </div>
       )}
 
@@ -303,7 +303,7 @@ export default function Yarahub(): JSX.Element {
                   setRuleContent(null);
                   setContentName(null);
                 }}
-                className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                className="text-muted hover:text-slate-600 dark:hover:text-slate-300"
               >
                 <X size={14} />
               </button>

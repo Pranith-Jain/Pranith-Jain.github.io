@@ -174,14 +174,14 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2 flex-wrap">
             <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.rule_name}</span>
-            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">×{d.match_count}</span>
+            <span className="text-mini font-mono text-muted">×{d.match_count}</span>
           </div>
           {d.group_key && (
             <code className="text-mini font-mono text-rose-600 dark:text-rose-400 break-all">{d.group_key}</code>
           )}
           {d.description && <p className="text-meta text-muted mt-1 leading-relaxed">{d.description}</p>}
           <div className="text-mini font-mono text-slate-500 mt-1 flex flex-wrap gap-x-3 gap-y-0.5">
-            <span className="text-slate-500 dark:text-slate-400">rule: {d.rule_id}</span>
+            <span className="text-muted">rule: {d.rule_id}</span>
             {d.last_observed && <span>last seen {shortRel(d.last_observed)}</span>}
             <span>
               {d.indicators.length} indicator{d.indicators.length === 1 ? '' : 's'} shown
@@ -190,7 +190,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         </div>
         <ChevronRight
           size={16}
-          className={`shrink-0 mt-1 text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}
+          className={`shrink-0 mt-1 text-muted transition-transform ${open ? 'rotate-90' : ''}`}
         />
       </button>
       {open && (
@@ -207,10 +207,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
                 <div className="text-mini font-mono text-slate-500 flex flex-wrap gap-x-2">
                   <span>{it.source}</span>
                   {it.context && (
-                    <span
-                      className="text-slate-500 dark:text-slate-400 italic truncate max-w-[44ch]"
-                      title={it.context}
-                    >
+                    <span className="text-muted italic truncate max-w-[44ch]" title={it.context}>
                       · {it.context}
                     </span>
                   )}
@@ -332,7 +329,7 @@ export default function Detections(): JSX.Element {
       error={error}
       onRetry={() => setRefreshKey((k) => k + 1)}
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <p className="text-xs text-muted font-mono">
           Want to write your own?{' '}
           <Link
             to="/dfir/rule-converter"
@@ -367,7 +364,7 @@ export default function Detections(): JSX.Element {
                 >
                   {hero.severity}
                 </span>
-                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-mini font-mono text-muted">
                   {hero.match_count} matches · last seen {shortRel(hero.last_observed)}
                 </span>
               </div>
@@ -457,7 +454,7 @@ export default function Detections(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}

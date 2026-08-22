@@ -369,9 +369,7 @@ export default function CvePrioritizer(): JSX.Element {
                     </button>
                   ) : null
                 )}
-                <span className="text-mini font-mono text-slate-500 dark:text-slate-400 ml-2">
-                  {sortedRows.length} CVE(s)
-                </span>
+                <span className="text-mini font-mono text-muted ml-2">{sortedRows.length} CVE(s)</span>
                 {filterVerdict && (
                   <button
                     type="button"
@@ -411,10 +409,7 @@ export default function CvePrioritizer(): JSX.Element {
                 <article key={r.id} className="surface-card p-4">
                   <header className="flex items-start gap-2.5">
                     {r.loading ? (
-                      <Loader2
-                        size={16}
-                        className="mt-0.5 flex-shrink-0 animate-spin text-slate-500 dark:text-slate-400"
-                      />
+                      <Loader2 size={16} className="mt-0.5 flex-shrink-0 animate-spin text-muted" />
                     ) : (
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                     )}
@@ -430,7 +425,7 @@ export default function CvePrioritizer(): JSX.Element {
                         )}
                         {r.verdict?.baseVerdict && (
                           <span
-                            className="text-micro font-mono text-slate-500 dark:text-slate-400"
+                            className="text-micro font-mono text-muted"
                             title={`Verdict adjusted for asset context (${context}). Without it: ${r.verdict.baseVerdict}.`}
                           >
                             (was {r.verdict.baseVerdict})
@@ -440,12 +435,10 @@ export default function CvePrioritizer(): JSX.Element {
                           <span className="ml-auto inline-flex items-center gap-1.5">
                             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">score</span>
                             <span className={`text-base font-bold tabular-nums ${st.text}`}>{r.score.score}</span>
-                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">/100</span>
+                            <span className="text-micro font-mono text-muted">/100</span>
                           </span>
                         )}
-                        {r.loading && (
-                          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">enriching…</span>
-                        )}
+                        {r.loading && <span className="text-mini font-mono text-muted">enriching…</span>}
                         {r.error && <span className="text-mini font-mono text-rose-500">{r.error}</span>}
                       </div>
 
@@ -662,7 +655,7 @@ export default function CvePrioritizer(): JSX.Element {
                             </ol>
                             {r.data.description && (
                               <details className="mt-3">
-                                <summary className="text-mini font-mono text-slate-500 dark:text-slate-400 cursor-pointer">
+                                <summary className="text-mini font-mono text-muted cursor-pointer">
                                   NVD description
                                 </summary>
                                 <p className="mt-1 text-meta text-muted leading-relaxed">{r.data.description}</p>

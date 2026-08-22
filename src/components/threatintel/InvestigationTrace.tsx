@@ -49,7 +49,7 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
           <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
             Investigation trace
           </span>
-          <span className="text-xs text-slate-500 dark:text-slate-400">
+          <span className="text-xs text-muted">
             {steps.length} steps · {totalTools} tool calls · {okCount} done{errCount > 0 ? ` · ${errCount} errors` : ''}
           </span>
         </div>
@@ -76,7 +76,7 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
                   {step.status === 'done' && <CheckCircle2 size={12} className="text-emerald-500" />}
                   {step.status === 'error' && <XCircle size={12} className="text-rose-500" />}
                   {step.status === 'running' && <Loader2 size={12} className="animate-spin text-rose-500" />}
-                  <span className="truncate text-xs text-slate-600 dark:text-slate-400 font-mono">
+                  <span className="truncate text-xs text-muted font-mono">
                     {plan.slice(0, 80)}
                     {plan.length > 80 ? '…' : ''}
                   </span>
@@ -88,7 +88,7 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
                 {isStepExpanded && (
                   <div className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] px-2.5 py-2 space-y-2">
                     {plan && (
-                      <div className="text-xs text-slate-600 dark:text-slate-400">
+                      <div className="text-xs text-muted">
                         <span className="font-mono text-slate-400">plan:</span> {plan}
                       </div>
                     )}
@@ -112,11 +112,7 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
                                 </span>
                               )}
                             </div>
-                            {tc.reasoning && (
-                              <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-400 italic">
-                                {tc.reasoning}
-                              </div>
-                            )}
+                            {tc.reasoning && <div className="mt-0.5 text-xs text-muted italic">{tc.reasoning}</div>}
                             {tc.args && Object.keys(tc.args).length > 0 && (
                               <div className="mt-0.5 text-xs font-mono text-slate-400">
                                 {Object.entries(tc.args)
@@ -134,7 +130,7 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
                     })}
 
                     {step.observation && (
-                      <div className="text-xs text-slate-500 dark:text-slate-400 border-l-2 border-slate-300 dark:border-[rgb(var(--border-400))] pl-2">
+                      <div className="text-xs text-muted border-l-2 border-slate-300 dark:border-[rgb(var(--border-400))] pl-2">
                         <span className="font-mono text-slate-400">observed:</span> {step.observation}
                       </div>
                     )}

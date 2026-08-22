@@ -97,7 +97,7 @@ export default function LogParser(): JSX.Element {
           parsed into a structured record, and tagged with MITRE ATT&amp;CK techniques where heuristics fire. Hunting
           queries are generated for Splunk SPL, Elastic KQL, and Microsoft Sentinel KQL.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pure client-side. Nothing leaves your browser. MITRE tagging is conservative - only fires on confident matches
           (Sysmon EID + cmdline pattern, Security 4625, etc). Treat this as a triage starting point.
         </p>
@@ -105,9 +105,7 @@ export default function LogParser(): JSX.Element {
 
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Input
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Input</h2>
           <div className="flex flex-wrap gap-1.5">
             {SAMPLES.map((s) => (
               <button
@@ -140,7 +138,7 @@ export default function LogParser(): JSX.Element {
         <>
           {/* Summary */}
           <section className="surface-card p-4 mb-6">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
               Batch summary
             </h2>
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
@@ -185,7 +183,7 @@ export default function LogParser(): JSX.Element {
           {/* Severity filter */}
           <section className="flex flex-wrap items-center gap-2 mb-4">
             <Filter size={12} className="text-slate-500" />
-            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">filter:</span>
+            <span className="text-mini font-mono text-muted">filter:</span>
             {(['high', 'medium', 'low', 'info'] as const).map((s) => {
               const count = summary.by_severity[s];
               const active = severityFilter.size === 0 || severityFilter.has(s);
@@ -281,7 +279,7 @@ export default function LogParser(): JSX.Element {
           {/* Hunting queries */}
           {queries.length > 0 && (
             <section className="surface-card p-4 mb-6">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
                 Hunting queries
               </h2>
               <ul className="space-y-3">

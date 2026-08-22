@@ -98,7 +98,7 @@ export default function AssessmentDetail(): JSX.Element {
                 >
                   {assessment.status}
                 </span>
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{assessment.type}</span>
+                <span className="text-micro font-mono text-muted">{assessment.type}</span>
               </div>
               <p className="text-sm text-slate-500">Topic: {assessment.topic}</p>
             </div>
@@ -108,7 +108,7 @@ export default function AssessmentDetail(): JSX.Element {
               >
                 {assessment.confidence_score}%
               </div>
-              <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{assessment.confidence_level}</div>
+              <div className="text-micro font-mono text-muted">{assessment.confidence_level}</div>
             </div>
           </div>
         ) : undefined
@@ -117,7 +117,7 @@ export default function AssessmentDetail(): JSX.Element {
       {assessment && (
         <>
           {/* Meta row */}
-          <div className="flex flex-wrap gap-3 mb-6 text-mini font-mono text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap gap-3 mb-6 text-mini font-mono text-muted">
             {assessment.author && <span>Author: {assessment.author}</span>}
             {assessment.sector && <span>Sector: {assessment.sector}</span>}
             <span>Created: {new Date(assessment.created_at).toLocaleString()}</span>
@@ -128,7 +128,7 @@ export default function AssessmentDetail(): JSX.Element {
           {/* Sources used */}
           {assessment.sources.length > 0 && (
             <div className="mb-6">
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Sources</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Sources</div>
               <div className="flex flex-wrap gap-1">
                 {assessment.sources.map((s, i) => (
                   <span

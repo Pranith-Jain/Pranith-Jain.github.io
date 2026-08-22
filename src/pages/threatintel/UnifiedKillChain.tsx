@@ -742,7 +742,7 @@ export default function UnifiedKillChain(): JSX.Element {
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
             The three UKC cycles
           </h2>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 hidden sm:block">
+          <p className="text-xs font-mono text-muted hidden sm:block">
             in &rarr; through &rarr; out &middot; non-linear, loops allowed
           </p>
         </header>
@@ -806,25 +806,21 @@ export default function UnifiedKillChain(): JSX.Element {
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                       {p.number}. {p.name} &mdash; {p.short}
                     </h3>
-                    <p className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+                    <p className="text-xs font-mono uppercase tracking-wider text-muted mt-0.5">
                       {CYCLE_META[p.cycle].label}
                     </p>
                     <p className="text-sm text-muted mt-1">{p.description}</p>
                     <dl className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs">
                       <div>
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Who</dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Who</dt>
                         <dd className="text-slate-800 dark:text-slate-200">{p.who}</dd>
                       </div>
                       <div>
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Defender goal
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Defender goal</dt>
                         <dd className="text-slate-800 dark:text-slate-200">{p.defenderGoal}</dd>
                       </div>
                       <div className="sm:col-span-2">
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Primary deliverables
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Primary deliverables</dt>
                         <dd>
                           <ul className="mt-1 space-y-0.5">
                             {p.deliverables.map((d) => (
@@ -837,9 +833,7 @@ export default function UnifiedKillChain(): JSX.Element {
                         </dd>
                       </div>
                       <div className="sm:col-span-2">
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Common pitfalls
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Common pitfalls</dt>
                         <dd>
                           <ul className="mt-1 space-y-0.5">
                             {p.pitfalls.map((d) => (
@@ -852,9 +846,7 @@ export default function UnifiedKillChain(): JSX.Element {
                         </dd>
                       </div>
                       <div className="sm:col-span-2">
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Framework mapping
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Framework mapping</dt>
                         <dd className="text-slate-800 dark:text-slate-200">{p.attackMapping}</dd>
                       </div>
                     </dl>
@@ -921,7 +913,7 @@ export default function UnifiedKillChain(): JSX.Element {
               <WalkIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 Step {walkStep + 1} of {WALK.length} &middot; {currentPhase.name} &middot;{' '}
                 {CYCLE_META[currentPhase.cycle].label.split('—')[0]!.trim()}
               </p>
@@ -931,7 +923,7 @@ export default function UnifiedKillChain(): JSX.Element {
           </div>
 
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+            <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">
               Artifacts produced at this step
             </p>
             <ul className="space-y-1">
@@ -953,7 +945,7 @@ export default function UnifiedKillChain(): JSX.Element {
             >
               &larr; previous
             </button>
-            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <p className="text-micro font-mono uppercase tracking-wider text-muted">
               {walkStep < WALK.length - 1
                 ? `next: ${PHASES.find((p) => p.id === WALK[walkStep + 1]!.phase)!.tab}`
                 : 'campaign complete -- the cycle loops: Out feeds the next In'}

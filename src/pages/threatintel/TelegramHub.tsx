@@ -299,9 +299,7 @@ export default function TelegramHub(): JSX.Element {
           type="button"
           onClick={() => setSearchParams({}, { replace: true })}
           className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-medium transition-colors ${
-            !tabDef
-              ? 'bg-rose-600 text-white'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+            !tabDef ? 'bg-rose-600 text-white' : 'text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
           }`}
         >
           <MessageSquare size={13} />
@@ -318,7 +316,7 @@ export default function TelegramHub(): JSX.Element {
               className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-medium transition-colors ${
                 isActive
                   ? 'bg-rose-600 text-white'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                  : 'text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
               }`}
             >
               <TIcon size={13} />
@@ -333,7 +331,7 @@ export default function TelegramHub(): JSX.Element {
         <Suspense
           fallback={
             <div className="flex items-center justify-center py-16">
-              <Loader2 size={24} className="animate-spin text-slate-500 dark:text-slate-400" />
+              <Loader2 size={24} className="animate-spin text-muted" />
             </div>
           }
         >
@@ -351,10 +349,7 @@ export default function TelegramHub(): JSX.Element {
             </div>
             <form onSubmit={onSubmit} className="flex gap-2">
               <div className="relative flex-1">
-                <Search
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 pointer-events-none"
-                />
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
                 <input
                   type="search"
                   value={q}
@@ -374,7 +369,7 @@ export default function TelegramHub(): JSX.Element {
                 Search
               </button>
             </form>
-            <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
+            <p className="text-mini font-mono text-muted mt-2">
               Hits <code>/api/v1/telegram-search</code> (tgstat-backed channel discovery) and{' '}
               <code>/api/v1/telegram-leaks/search</code> (D1 leak text) in parallel.
             </p>
@@ -397,13 +392,11 @@ export default function TelegramHub(): JSX.Element {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {/* Channel results */}
                   <div>
-                    <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">
                       Channels ({channels.length})
                     </h3>
                     {channels.length === 0 ? (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 italic">
-                        No matching channels on tgstat.
-                      </p>
+                      <p className="text-xs text-muted italic">No matching channels on tgstat.</p>
                     ) : (
                       <ul className="space-y-2">
                         {channels.slice(0, 10).map((c) => (
@@ -421,15 +414,13 @@ export default function TelegramHub(): JSX.Element {
                                 @{c.handle}
                                 <ExternalLink size={11} />
                               </a>
-                              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                              <span className="text-micro font-mono text-muted">
                                 {formatSubs(c.subscribers)} subs · {c.posts_per_day ?? '-'} posts/day
                               </span>
                             </div>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
-                              {c.description || c.name}
-                            </p>
+                            <p className="text-xs text-muted line-clamp-2">{c.description || c.name}</p>
                             {c.category && (
-                              <span className="inline-block mt-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400">
+                              <span className="inline-block mt-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
                                 {c.category}
                               </span>
                             )}
@@ -441,13 +432,11 @@ export default function TelegramHub(): JSX.Element {
 
                   {/* Leak results */}
                   <div>
-                    <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">
                       Leak text matches ({leaks.length})
                     </h3>
                     {leaks.length === 0 ? (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 italic">
-                        No matches in monitored leak text.
-                      </p>
+                      <p className="text-xs text-muted italic">No matches in monitored leak text.</p>
                     ) : (
                       <ul className="space-y-2">
                         {leaks.slice(0, 10).map((l) => (
@@ -470,10 +459,10 @@ export default function TelegramHub(): JSX.Element {
                                 {l.severity}
                               </span>
                             </div>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
+                            <p className="text-xs text-muted line-clamp-2">
                               {(l.message_text ?? '').slice(0, 220) || '-'}
                             </p>
-                            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1">
+                            <p className="text-micro font-mono text-muted mt-1">
                               {l.discovered_at} · {l.leak_type}
                             </p>
                           </li>
@@ -513,13 +502,11 @@ export default function TelegramHub(): JSX.Element {
               </div>
               {kpis.topDomains.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
-                    Top domains:
-                  </span>
+                  <span className="text-micro font-mono uppercase tracking-wider text-muted mr-1">Top domains:</span>
                   {kpis.topDomains.map((d) => (
                     <span
                       key={d}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
                     >
                       {d}
                     </span>
@@ -552,7 +539,7 @@ export default function TelegramHub(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{card.blurb}</p>
+                  <p className="text-xs text-muted leading-relaxed">{card.blurb}</p>
                 </Link>
               ))}
             </div>
@@ -560,7 +547,7 @@ export default function TelegramHub(): JSX.Element {
 
           {/* Source provenance footer */}
           <footer className="mt-8 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+            <p className="text-mini font-mono text-muted">
               Sources: tgstat.com (HTML scrape, 12h cache) · telegram.me/s/ previews (hourly poll) · D1 leak store ·
               cross-source IOC consensus. All free-tier, no API keys.
             </p>

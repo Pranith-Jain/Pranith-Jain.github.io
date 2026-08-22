@@ -253,7 +253,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
             ))}
           </div>
         )}
-      <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500 dark:text-slate-400">
+      <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-muted">
         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
           {finding.source}
         </span>
@@ -420,9 +420,7 @@ function JumpNav({
       aria-label="Jump to section"
       className="mb-8 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/60 px-3 py-2 text-xs"
     >
-      <span className="font-display font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
-        Jump to
-      </span>
+      <span className="font-display font-semibold uppercase tracking-wider text-muted mr-1">Jump to</span>
       {cveCount > 0 && (
         <a
           href="#briefing-cves"
@@ -570,7 +568,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                   {f.description && (
                     <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-4">{f.description}</p>
                   )}
-                  <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500 dark:text-slate-400">
+                  <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-muted">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
                       {f.source}
                     </span>
@@ -746,7 +744,7 @@ export default function BriefingDetail(): JSX.Element {
       <BackLink to="/threatintel">back</BackLink>
 
       <header className="animate-fade-in-up mb-8">
-        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
           Intel Briefing · {briefing.type}
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2">{briefing.title}</h1>
@@ -960,7 +958,7 @@ export default function BriefingDetail(): JSX.Element {
                 <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
                   No new critical/high CVEs in this period
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs text-muted leading-relaxed">
                   The upstream feeds (CISA KEV, NVD) had no new high/critical vulnerabilities for this date range. The
                   IOC indicators below were still collected from URLhaus, MalwareBazaar, ThreatFox, and TweetFeed.
                 </p>

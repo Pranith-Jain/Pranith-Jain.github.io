@@ -83,7 +83,7 @@ export default function ApprovedTab() {
     }
   }
 
-  if (loading) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading) return <p className="text-muted">Loading…</p>;
   if (error)
     return (
       <div>
@@ -104,7 +104,7 @@ export default function ApprovedTab() {
             {publishMsg}
           </p>
         )}
-        <p className="text-slate-500 dark:text-slate-400">No approved candidates.</p>
+        <p className="text-muted">No approved candidates.</p>
       </div>
     );
 
@@ -123,7 +123,7 @@ export default function ApprovedTab() {
                 key: 'type',
                 header: 'Type',
                 sortValue: (c: Candidate) => c.type,
-                render: (c) => <span className="text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</span>,
+                render: (c) => <span className="text-muted uppercase text-xs">{c.type}</span>,
               },
               {
                 key: 'title',

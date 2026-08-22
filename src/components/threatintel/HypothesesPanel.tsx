@@ -84,7 +84,7 @@ export function HypothesesPanel({ steps }: { steps: TraceStepWithHypotheses[] })
           )}
           <FlaskConical size={14} className="text-violet-500" />
           <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">Hypotheses</span>
-          <span className="text-xs text-slate-500 dark:text-slate-400">{summary}</span>
+          <span className="text-xs text-muted">{summary}</span>
         </div>
       </button>
 
@@ -104,7 +104,7 @@ export function HypothesesPanel({ steps }: { steps: TraceStepWithHypotheses[] })
                     </span>
                   </p>
                   {h.evidence && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate" title={h.evidence}>
+                    <p className="text-xs text-muted truncate" title={h.evidence}>
                       ↳ {h.evidence}
                     </p>
                   )}

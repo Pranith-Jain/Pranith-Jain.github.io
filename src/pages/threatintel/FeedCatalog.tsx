@@ -98,7 +98,7 @@ export default function FeedCatalog() {
       headerExtra={
         <div className="flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[200px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
             <input
               type="text"
               placeholder="Search vendors, descriptions, categories..."
@@ -154,8 +154,7 @@ export default function FeedCatalog() {
         {filtered?.map((entry, i) => {
           const Icon = CATEGORY_ICONS[entry.category] ?? FileText;
           const color =
-            CATEGORY_COLORS[entry.category] ??
-            'text-slate-500 dark:text-slate-400 border-slate-500/30 bg-slate-100 dark:bg-slate-500/10';
+            CATEGORY_COLORS[entry.category] ?? 'text-muted border-slate-500/30 bg-slate-100 dark:bg-slate-500/10';
           return (
             <div
               key={`${entry.vendor}-${entry.category}-${i}`}
@@ -189,7 +188,7 @@ export default function FeedCatalog() {
                       href={sanitizeUrl(entry.raw_url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
+                      className="text-muted hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
                       title="Open feed URL"
                     >
                       <ExternalLink className="w-4 h-4" />

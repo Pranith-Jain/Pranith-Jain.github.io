@@ -249,7 +249,7 @@ export default function StixBuilder(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink to="/dfir">back</BackLink>
       <header className="animate-fade-in-up mb-10">
-        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
           DFIR · CTI / Intel
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2">STIX 2.1 Builder</h1>
@@ -300,7 +300,7 @@ export default function StixBuilder(): JSX.Element {
               aria-label="Upload report file"
               className="block w-full text-sm text-muted"
             />
-            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+            <p className="mt-2 text-xs text-muted">
               Upload a threat report - text / HTML parse in-Worker, images via OCR, PDF / DOCX via the optional file2txt
               bridge. Max 10&nbsp;MB. <span className="font-semibold">Admin-gated</span> (sign in at{' '}
               <code className="font-mono text-mini">/admin</code>).
@@ -509,7 +509,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
         )}
       </header>
 
-      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+      <p className="mt-1 text-xs text-muted">
         Source: {view.source.name}
         {view.publishedAt && (
           <>
@@ -583,7 +583,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
                 key={`${step.techniqueId}-${i}`}
                 className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
               >
-                <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{i + 1}.</span>
+                <span className="font-mono text-micro text-muted">{i + 1}.</span>
                 <span className="font-medium text-slate-700 dark:text-slate-200">{step.name}</span>
                 <span className="font-mono text-micro text-slate-500">{step.techniqueId}</span>
                 {step.tactic && (
@@ -627,7 +627,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
       )}
 
       <footer className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3 text-xs dark:border-[rgb(var(--border-400))]">
-        <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
+        <span className="font-mono text-micro text-muted">
           {bundle.objects.length} STIX objects · extracted_hash {view.extractedHash.slice(0, 8)}…
         </span>
       </footer>
@@ -638,9 +638,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <section className="mt-4">
-      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-        {title}
-      </h4>
+      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">{title}</h4>
       {children}
     </section>
   );

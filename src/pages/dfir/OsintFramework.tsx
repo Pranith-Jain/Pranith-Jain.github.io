@@ -63,7 +63,7 @@ export default function OsintFramework(): JSX.Element {
           {ENTRIES.length} curated OSINT tools and sources across {Object.keys(CATEGORY_LABELS).length} categories.
           Filter by category, by pricing tier (free / free-with-account / freemium / paid), or full-text search.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        <p className="text-xs text-muted font-mono mb-6">
           Hand-picked subset of osintframework.com - every entry was reachable when added. Pairs with{' '}
           <Link to="/dfir/username-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
             Username Pivot
@@ -82,11 +82,7 @@ export default function OsintFramework(): JSX.Element {
 
       <section className="surface-card p-4 mb-6 space-y-3">
         <div className="relative">
-          <Search
-            size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            aria-hidden="true"
-          />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -98,9 +94,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
-            Pricing
-          </span>
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">Pricing</span>
           <button
             onClick={() => setPricingFilter('all')}
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
@@ -131,9 +125,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
-            Category
-          </span>
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">Category</span>
           <button
             onClick={() => setCategory('all')}
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
@@ -163,7 +155,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-xs font-mono text-muted mb-3">
         Showing {filtered.length} of {ENTRIES.length}
       </p>
 
@@ -185,14 +177,14 @@ export default function OsintFramework(): JSX.Element {
                 {PRICING_LABELS[e.pricing]}
               </span>
             </header>
-            <p className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+            <p className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">
               {CATEGORY_LABELS[e.category]}
             </p>
             <p className="text-meta font-mono text-muted leading-relaxed">{e.description}</p>
           </article>
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+          <div className="col-span-full rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-muted">
             No entries match those filters. Try clearing the search or relaxing the category filter.
           </div>
         )}

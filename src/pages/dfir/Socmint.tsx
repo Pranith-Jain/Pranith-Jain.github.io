@@ -181,7 +181,7 @@ export default function Socmint(): JSX.Element {
           breach, B2B contact databases (ZoomInfo, Apollo, Hunter, RocketReach…), social, dev, paste-site dorks,
           search-engine dorks, identity, and infra. URL-only; no scraping.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/breach" className="text-brand-600 dark:text-brand-400 hover:underline">
             Breach Checker
@@ -201,11 +201,7 @@ export default function Socmint(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search
-              size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -250,7 +246,7 @@ export default function Socmint(): JSX.Element {
 
       {value && categoriesAvailable.length > 0 && (
         <section className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">filter:</span>
+          <span className="text-mini font-mono text-muted mr-1">filter:</span>
           {categoriesAvailable.map((c) => {
             const meta = CATEGORY_META[c];
             const Icon = meta.icon;
@@ -289,9 +285,7 @@ export default function Socmint(): JSX.Element {
       )}
 
       {value && matchingPivots.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mb-6">
-          No pivots match this input shape with the current filters.
-        </p>
+        <p className="text-sm font-mono text-muted mb-6">No pivots match this input shape with the current filters.</p>
       )}
 
       <div className="space-y-6">
@@ -357,7 +351,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
     <>
       <div className="flex items-baseline justify-between gap-2 mb-0.5">
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{pivot.label}</span>
-        <span className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400">
+        <span className="inline-flex items-center gap-1 text-micro font-mono text-muted">
           {pivot.paid && (
             <span className="px-1 py-0.5 rounded border border-amber-500/40 text-amber-700 dark:text-amber-300">
               <Lock size={9} className="inline" /> paid

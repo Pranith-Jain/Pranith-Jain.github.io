@@ -142,14 +142,14 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
                 <button
                   onClick={handleSave}
                   disabled={saving || saved}
-                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 disabled:opacity-50 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
+                  className="rounded bg-white/90 p-1 text-muted hover:text-brand-600 disabled:opacity-50 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
                   aria-label="Save rule"
                 >
                   {saved ? <Check size={12} className="text-emerald-500" /> : <Save size={12} />}
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
+                  className="rounded bg-white/90 p-1 text-muted hover:text-brand-600 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
                   aria-label="Copy rule"
                 >
                   {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}

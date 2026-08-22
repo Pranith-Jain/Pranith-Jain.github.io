@@ -32,7 +32,7 @@ export function DiamondView({ actors, onOpen }: Props) {
   const a = useMemo(() => actors.find((x) => x.id === active) ?? actors[0], [active, actors]);
   if (!a)
     return (
-      <div className="absolute inset-0 grid place-items-center text-slate-500 dark:text-slate-400 text-sm">
+      <div className="absolute inset-0 grid place-items-center text-muted text-sm">
         No actors match current filters.
       </div>
     );
@@ -104,7 +104,7 @@ export function DiamondView({ actors, onOpen }: Props) {
         className="w-full lg:w-60 border-b lg:border-b-0 lg:border-r bg-white/60 dark:bg-[rgb(var(--surface-200))] overflow-y-auto p-3 shrink-0 lg:h-auto h-48"
         style={{ borderColor: 'var(--edge)' }}
       >
-        <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-2">Actors · {actors.length}</div>
+        <div className="text-eyebrow font-mono text-muted mb-2">Actors · {actors.length}</div>
         <div className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-x-visible">
           {actors.map((x) => {
             const n = NATION_PALETTE[x.country];
@@ -122,11 +122,7 @@ export function DiamondView({ actors, onOpen }: Props) {
               >
                 <span className="h-2 w-2 rounded-full shrink-0" style={{ background: n?.color }} />
                 <span className="flex-1 truncate whitespace-nowrap">{x.name}</span>
-                {x.apt && (
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                    {x.apt}
-                  </span>
-                )}
+                {x.apt && <span className="text-micro font-mono text-muted whitespace-nowrap">{x.apt}</span>}
               </button>
             );
           })}
@@ -150,7 +146,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                 {a.apt && <span className="chip chip-blue">{a.apt}</span>}
                 {a.mitre_id && <span className="chip">{a.mitre_id}</span>}
               </div>
-              <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+              <div className="text-mini font-mono uppercase tracking-wider text-muted mt-0.5">
                 {a.aka.slice(0, 5).join(' · ')}
               </div>
             </div>
@@ -349,7 +345,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                     <div className="text-tool font-semibold" style={{ color: facet.accent }}>
                       {fd.title}
                     </div>
-                    <div className="text-mini text-slate-500 dark:text-slate-400">{fd.sub}</div>
+                    <div className="text-mini text-muted">{fd.sub}</div>
                   </div>
                 </div>
                 <div className="text-[15px] font-semibold text-slate-900 dark:text-slate-100 mb-4">{fd.primary}</div>
@@ -360,7 +356,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                       key={i}
                       className="flex items-start gap-3 py-1.5 px-2 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200 hover:-translate-y-px"
                     >
-                      <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 w-20 shrink-0 pt-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-muted w-20 shrink-0 pt-0.5">
                         {item.label}
                       </span>
                       {item.link ? (
@@ -373,7 +369,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                           {item.value} <ExternalLink size={9} />
                         </a>
                       ) : (
-                        <span className="text-[12.5px] text-slate-600 dark:text-slate-400 flex-1">{item.value}</span>
+                        <span className="text-[12.5px] text-muted flex-1">{item.value}</span>
                       )}
                     </div>
                   ))}
@@ -383,15 +379,11 @@ export function DiamondView({ actors, onOpen }: Props) {
               {/* Sector heat for victim facet */}
               {activeFacet === 'victim' && a.sector_scores.length > 0 && (
                 <div className="surface-card card-hover p-5">
-                  <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-3">
-                    Sector targeting heat
-                  </div>
+                  <div className="text-eyebrow font-mono text-muted mb-3">Sector targeting heat</div>
                   <div className="space-y-2">
                     {a.sector_scores.map((s) => (
                       <div key={s.sector} className="flex items-center gap-3">
-                        <span className="w-32 text-meta text-slate-600 dark:text-slate-400 capitalize shrink-0">
-                          {s.sector}
-                        </span>
+                        <span className="w-32 text-meta text-muted capitalize shrink-0">{s.sector}</span>
                         <div
                           className="flex-1 h-2.5 rounded-full overflow-hidden"
                           style={{ background: 'var(--ink-600)' }}
@@ -404,9 +396,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                             }}
                           />
                         </div>
-                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
-                          {s.score}
-                        </span>
+                        <span className="text-mini font-mono text-muted w-8 text-right">{s.score}</span>
                       </div>
                     ))}
                   </div>
@@ -420,11 +410,11 @@ export function DiamondView({ actors, onOpen }: Props) {
                     <div key={c.name} className="surface-card card-hover hover-rose p-4">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-[13.5px] font-medium text-slate-900 dark:text-slate-100">{c.name}</span>
-                        <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                        <span className="text-[10.5px] font-mono text-muted ml-auto">
                           {c.start} → {c.end}
                         </span>
                       </div>
-                      <p className="text-[12.5px] text-slate-600 dark:text-slate-400 leading-relaxed">{c.summary}</p>
+                      <p className="text-[12.5px] text-muted leading-relaxed">{c.summary}</p>
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         {c.sectors.map((s) => (
                           <span key={s} className="chip">
@@ -440,31 +430,25 @@ export function DiamondView({ actors, onOpen }: Props) {
 
               {/* Shared edges info */}
               <div className="surface-card card-hover hover-rose p-4">
-                <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-2">Cross-references</div>
+                <div className="text-eyebrow font-mono text-muted mb-2">Cross-references</div>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
                     <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
                       {a.ttps.length}
                     </div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      MITRE TTPs
-                    </div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-muted">MITRE TTPs</div>
                   </div>
                   <div>
                     <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
                       {a.malware.length}
                     </div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      Malware
-                    </div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-muted">Malware</div>
                   </div>
                   <div>
                     <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
                       {a.cves.length}
                     </div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      CVEs
-                    </div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-muted">CVEs</div>
                   </div>
                 </div>
               </div>

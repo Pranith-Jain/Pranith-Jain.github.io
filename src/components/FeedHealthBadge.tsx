@@ -62,7 +62,7 @@ export function FeedHealthBadge(): JSX.Element | null {
       <span className="text-slate-700 dark:text-slate-300">
         {data.healthy}/{data.total_sources} feeds
       </span>
-      <Activity size={11} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />
+      <Activity size={11} className="text-muted" aria-hidden="true" />
     </Link>
   );
 }

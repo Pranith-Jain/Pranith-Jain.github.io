@@ -85,7 +85,7 @@ export default function AwesomeLists(): JSX.Element {
           opens the canonical README; the <em>why</em> line under each entry explains the niche it fills better than its
           peers.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Awesome-list READMEs decay; star count + the maintainer&apos;s commit cadence are freshness proxies, not
           guarantees. Verify a specific link before relying on it.
         </p>
@@ -94,11 +94,7 @@ export default function AwesomeLists(): JSX.Element {
       {/* Search */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            aria-hidden="true"
-          />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -124,7 +120,7 @@ export default function AwesomeLists(): JSX.Element {
       {/* Focus pills */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">focus:</span>
+          <span className="text-mini font-mono text-muted mr-1">focus:</span>
           {ALL_FOCUS.map((f) => {
             const count = focusCounts.get(f) ?? 0;
             const active = activeFocus.has(f);
@@ -161,7 +157,7 @@ export default function AwesomeLists(): JSX.Element {
               >
                 {r.name} <ExternalLink size={12} className="opacity-60" />
               </a>
-              <span className="text-micro font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1 shrink-0">
+              <span className="text-micro font-mono text-muted inline-flex items-center gap-1 shrink-0">
                 <Star size={10} /> {r.stars}
               </span>
             </div>
@@ -169,7 +165,7 @@ export default function AwesomeLists(): JSX.Element {
               href={sanitizeUrl(r.url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2 transition-colors"
+              className="text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2 transition-colors"
             >
               <Github size={10} /> {r.repo}
             </a>
@@ -183,7 +179,7 @@ export default function AwesomeLists(): JSX.Element {
               </div>
             )}
             <p className="text-meta font-mono text-muted leading-relaxed mb-2">{r.description}</p>
-            <p className="text-meta font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+            <p className="text-meta font-mono italic text-muted leading-relaxed mb-3">
               <span className="text-slate-400 dark:text-slate-400 not-italic">why:</span> {r.why}
             </p>
             <div className="flex flex-wrap items-center gap-1.5">
@@ -204,7 +200,7 @@ export default function AwesomeLists(): JSX.Element {
       </ul>
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
+        <p className="text-sm font-mono text-muted mt-6">
           Nothing matches the current filters.{' '}
           <button onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all

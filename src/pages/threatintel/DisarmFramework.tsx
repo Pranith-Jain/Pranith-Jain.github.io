@@ -267,7 +267,7 @@ export default function DisarmFramework(): JSX.Element {
                         {label}
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                      <span key={i} className="text-micro font-mono text-muted">
                         {label}
                       </span>
                     );
@@ -280,7 +280,7 @@ export default function DisarmFramework(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           Data:{' '}
           <a
             href={data.source_url}

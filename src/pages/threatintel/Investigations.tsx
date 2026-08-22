@@ -397,7 +397,7 @@ function InvestigationsPage(): JSX.Element {
         {inv.description && <p className="text-sm font-mono text-muted mb-6">{inv.description}</p>}
 
         <div className="flex gap-2 mb-6">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">Severity:</span>
+          <span className="text-mini font-mono text-muted">Severity:</span>
           {(['low', 'medium', 'high', 'critical'] as const).map((s) => (
             <button
               key={s}
@@ -469,9 +469,7 @@ function InvestigationsPage(): JSX.Element {
                       className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] group"
                     >
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 shrink-0 w-10">
-                          {o.type}
-                        </span>
+                        <span className="text-micro font-mono uppercase text-muted shrink-0 w-10">{o.type}</span>
                         <span className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all">
                           {o.value}
                         </span>
@@ -479,7 +477,7 @@ function InvestigationsPage(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void removeObservable(o.id)}
-                        className="text-slate-500 dark:text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="text-muted hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <X size={12} />
                       </button>
@@ -534,7 +532,7 @@ function InvestigationsPage(): JSX.Element {
                         )}
                       </button>
                       <span
-                        className={`text-meta font-mono flex-1 ${t.status === 'completed' ? 'line-through text-slate-500 dark:text-slate-400' : 'text-slate-800 dark:text-slate-200'}`}
+                        className={`text-meta font-mono flex-1 ${t.status === 'completed' ? 'line-through text-muted' : 'text-slate-800 dark:text-slate-200'}`}
                       >
                         {t.title}
                       </span>
@@ -571,9 +569,7 @@ function InvestigationsPage(): JSX.Element {
                     className="relative pl-4 border-l-2 border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
                     <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-snug">{ev.message}</p>
-                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
-                      {relativeTime(ev.created_at)}
-                    </p>
+                    <p className="text-micro font-mono text-muted mt-0.5">{relativeTime(ev.created_at)}</p>
                   </div>
                 ))}
               </div>
@@ -633,7 +629,7 @@ function InvestigationsPage(): JSX.Element {
     >
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={search}
@@ -744,8 +740,8 @@ function InvestigationsPage(): JSX.Element {
 
       {loading && (
         <div className="surface-card p-12 text-center">
-          <Loader2 size={20} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-2" />
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading investigations…</p>
+          <Loader2 size={20} className="animate-spin mx-auto text-muted mb-2" />
+          <p className="text-xs font-mono text-muted">Loading investigations…</p>
         </div>
       )}
 
@@ -757,7 +753,7 @@ function InvestigationsPage(): JSX.Element {
               ? 'No matching investigations'
               : 'No investigations yet'}
           </p>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs font-mono text-muted mt-1">
             {search || filterSeverity !== 'all' || filterStatus !== 'all'
               ? 'Try different filters'
               : 'Create your first investigation to start tracking security cases'}
@@ -806,7 +802,7 @@ function InvestigationsPage(): JSX.Element {
                     <p className="text-meta font-mono text-slate-500 mt-1 line-clamp-1">{inv.description}</p>
                   )}
                 </div>
-                <div className="shrink-0 text-right text-micro font-mono text-slate-500 dark:text-slate-400">
+                <div className="shrink-0 text-right text-micro font-mono text-muted">
                   <p>{inv.observables.length} observables</p>
                   <p>{inv.tasks.filter((t) => t.status !== 'completed').length} open tasks</p>
                   <p className="mt-1">{relativeTime(inv.updated_at)}</p>

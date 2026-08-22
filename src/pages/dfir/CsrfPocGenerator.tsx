@@ -236,7 +236,7 @@ export default function CsrfPocGenerator(): JSX.Element {
         </div>
         <div>
           <h1 className="text-2xl font-bold">CSRF PoC Generator</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted">
             Generate ready-to-use HTML/XHR/fetch proof-of-concept exploits for CSRF testing
           </p>
         </div>
@@ -443,7 +443,7 @@ export default function CsrfPocGenerator(): JSX.Element {
             <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
               <Info size={14} className="text-slate-500" /> Usage Notes
             </h4>
-            <ul className="text-xs text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+            <ul className="text-xs text-muted space-y-1 list-disc list-inside">
               <li>HTML Form - classic auto-submitting form, works in all browsers</li>
               <li>XMLHttpRequest - sends request via XHR, useful for same-origin testing</li>
               <li>Fetch API - modern async request with Promise-based handling</li>

@@ -643,7 +643,7 @@ export default function Quicktrace(): JSX.Element {
               className={`px-4 py-2 text-xs font-mono font-medium border-b-2 transition-colors -mb-px flex items-center gap-1.5 ${
                 category === cat
                   ? 'border-brand-500 text-brand-600 dark:text-brand-400'
-                  : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300'
+                  : 'border-transparent text-muted hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300'
               }`}
             >
               <Icon size={12} />
@@ -662,7 +662,7 @@ export default function Quicktrace(): JSX.Element {
             className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
               platform === pid
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
             }`}
           >
             {label}
@@ -672,7 +672,7 @@ export default function Quicktrace(): JSX.Element {
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -682,14 +682,14 @@ export default function Quicktrace(): JSX.Element {
       </div>
 
       {/* Count */}
-      <div className="text-xs text-slate-500 dark:text-slate-400 mb-4 font-mono">
+      <div className="text-xs text-muted mb-4 font-mono">
         {categoryQueries.length} {CATEGORY_META[category].label.toLowerCase()} queries ({platform.toUpperCase()})
       </div>
 
       {/* Query cards */}
       {categoryQueries.length === 0 ? (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
-          <AlertTriangle size={24} className="mx-auto mb-2 text-slate-500 dark:text-slate-400" />
+          <AlertTriangle size={24} className="mx-auto mb-2 text-muted" />
           <p className="text-sm text-slate-500">No queries match your filter.</p>
         </div>
       ) : (
@@ -713,7 +713,7 @@ export default function Quicktrace(): JSX.Element {
                 {query.dataSources.map((ds) => (
                   <span
                     key={ds}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                   >
                     {ds}
                   </span>
@@ -722,7 +722,7 @@ export default function Quicktrace(): JSX.Element {
               {/* Query code */}
               <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                 {query.platforms[platform] ?? (
-                  <span className="text-slate-500 dark:text-slate-400 italic">Not available for {platform.toUpperCase()}</span>
+                  <span className="text-muted italic">Not available for {platform.toUpperCase()}</span>
                 )}
               </pre>
             </div>
@@ -731,7 +731,7 @@ export default function Quicktrace(): JSX.Element {
       )}
 
       {/* Summary footer */}
-      <div className="mt-8 surface-card/40 shadow-e1 p-4 text-center text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="mt-8 surface-card/40 shadow-e1 p-4 text-center text-xs text-muted font-mono">
         {totalQueries} queries across 4 domains · {totalAuth} authentication · {totalNet} network · {totalEnd} endpoint
         · {totalCloud} cloud
       </div>

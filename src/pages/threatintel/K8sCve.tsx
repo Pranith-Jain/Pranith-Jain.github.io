@@ -189,9 +189,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
                   </Link>
                 ))}
                 {cve.published && (
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
-                    {fmtDate(cve.published)}
-                  </span>
+                  <span className="text-micro font-mono text-muted ml-auto">{fmtDate(cve.published)}</span>
                 )}
               </div>
 
@@ -217,7 +215,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           Data:{' '}
           <a
             href={data.source_url}

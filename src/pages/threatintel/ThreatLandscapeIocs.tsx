@@ -247,7 +247,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
                             {new Date(row.valid_until).toLocaleDateString()}
                           </span>
                         ) : (
-                          <span className="text-slate-500 dark:text-slate-400">never</span>
+                          <span className="text-muted">never</span>
                         ),
                     },
                     {
@@ -255,7 +255,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
                       header: 'Source Bundle',
                       render: (row) => (
                         <span
-                          className="font-mono text-micro text-slate-500 dark:text-slate-400 max-w-[150px] truncate"
+                          className="font-mono text-micro text-muted max-w-[150px] truncate"
                           title={row.source_bundle_id ?? ''}
                         >
                           {row.source_bundle_id ?? '-'}
@@ -288,7 +288,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             </div>
           )}
           {data && (
-            <p className="text-micro text-slate-500 dark:text-slate-400 mt-2">
+            <p className="text-micro text-muted mt-2">
               {data.length} IOC{data.length !== 1 ? 's' : ''}
             </p>
           )}

@@ -44,8 +44,8 @@ const SEV_STYLE: Record<Severity, { text: string; chip: string; Icon: typeof Shi
     bg: 'bg-sky-500/5 dark:bg-sky-500/10',
   },
   info: {
-    text: 'text-slate-500 dark:text-slate-400',
-    chip: 'border-slate-400/30 bg-slate-400/10 text-slate-500 dark:text-slate-400',
+    text: 'text-muted',
+    chip: 'border-slate-400/30 bg-slate-400/10 text-muted',
     Icon: Info,
     bg: 'bg-slate-400/5 dark:bg-slate-400/10',
   },
@@ -590,7 +590,7 @@ export default function MedusaScanner(): JSX.Element {
                                     {hit.snippet.length > 120 ? hit.snippet.slice(0, 120) + '…' : hit.snippet}
                                   </pre>
                                 )}
-                                <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                                <p className="mt-1.5 text-xs text-muted">
                                   <span className="font-medium">Fix:</span> {hit.recommendation}
                                 </p>
                               </div>

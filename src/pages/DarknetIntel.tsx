@@ -65,7 +65,7 @@ function ResultCard({ data, label }: { data: unknown; label?: string }) {
   return (
     <div className={`${CARD} overflow-hidden`}>
       {label && (
-        <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+        <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-2 text-xs font-medium text-muted">
           {label}
         </div>
       )}
@@ -125,10 +125,10 @@ function ToolForm({
         <div className="flex items-center justify-between">
           <div>
             <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>
+            <p className="text-xs text-muted mt-0.5">{description}</p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            {ageText && <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{ageText}</span>}
+            {ageText && <span className="text-micro font-mono text-muted">{ageText}</span>}
             {examples && (
               <button
                 type="button"
@@ -242,7 +242,7 @@ function ProvidersTab() {
               </span>
             )}
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-muted mt-1">
             {s.tools} tool{s.tools !== 1 ? 's' : ''}
           </p>
           <div className="flex items-center gap-1.5 mt-2">
@@ -253,7 +253,7 @@ function ProvidersTab() {
             ) : (
               <Key className="h-3.5 w-3.5 text-rose-500" />
             )}
-            <span className="text-mini text-slate-500 dark:text-slate-400">
+            <span className="text-mini text-muted">
               {s.auth === 'none' ? 'No key needed' : s.auth === 'optional' ? 'Key optional' : `Key: ${s.key_env}`}
             </span>
             {s.auth !== 'none' && keyStatus[s.name] && (
@@ -263,7 +263,7 @@ function ProvidersTab() {
                     ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
                     : keyStatus[s.name] === 'missing'
                       ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400'
-                      : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400'
+                      : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted'
                 }`}
               >
                 {keyStatus[s.name] === 'configured'
@@ -685,7 +685,7 @@ export default function DarknetIntel() {
             className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
               tab === t.id
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
             }`}
           >
             {t.icon}

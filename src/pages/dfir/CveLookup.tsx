@@ -424,7 +424,7 @@ export default function CveLookup(): JSX.Element {
                   className={`px-3 py-2 rounded-xl text-xs font-mono border transition-colors ${
                     ruleFormat === f
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
                   }`}
                 >
                   {f.toUpperCase()}
@@ -445,9 +445,7 @@ export default function CveLookup(): JSX.Element {
           {explainText && (
             <section className="surface-card p-4 animate-fade-in-up">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  AI Analysis
-                </h3>
+                <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-muted">AI Analysis</h3>
                 <button
                   type="button"
                   onClick={() => {
@@ -455,7 +453,7 @@ export default function CveLookup(): JSX.Element {
                     setCopied('explain');
                     setTimeout(() => setCopied(null), 2000);
                   }}
-                  className="text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  className="text-xs font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300"
                 >
                   {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                 </button>
@@ -483,7 +481,7 @@ export default function CveLookup(): JSX.Element {
                     setCopied('rule');
                     setTimeout(() => setCopied(null), 2000);
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                 >
                   {copied === 'rule' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                   {copied === 'rule' ? 'Copied' : 'Copy'}
@@ -767,9 +765,7 @@ export default function CveLookup(): JSX.Element {
                   </div>
                   {tagList.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-3">
-                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1 self-center">
-                        filter by tag:
-                      </span>
+                      <span className="text-mini font-mono text-muted mr-1 self-center">filter by tag:</span>
                       {tagList.map((t) => {
                         const active = refTagFilter.has(t);
                         return (

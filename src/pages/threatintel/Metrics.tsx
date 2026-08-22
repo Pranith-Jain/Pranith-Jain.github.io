@@ -23,7 +23,18 @@ import {
   TrendingUp,
   Users,
 } from 'lucide-react';
-import type { RansomwareVictim, RecentCve, PhishingUrl, ThreatMapResponse, MalwareSample, ReleakRow, C2Response, BreachDisclosure, PulseEntity, DeepDarkCtiResponse } from './metrics-types';
+import type {
+  RansomwareVictim,
+  RecentCve,
+  PhishingUrl,
+  ThreatMapResponse,
+  MalwareSample,
+  ReleakRow,
+  C2Response,
+  BreachDisclosure,
+  PulseEntity,
+  DeepDarkCtiResponse,
+} from './metrics-types';
 import { withinDays, dayKey, SEVERITY_COLORS } from './metrics-types';
 
 /**
@@ -92,7 +103,7 @@ function HBar({
               </span>
               <span className="text-slate-500 tabular-nums shrink-0">
                 {fmt(it.value)}
-                {it.hint && <span className="text-slate-500 dark:text-slate-400 ml-1">{String(it.hint)}</span>}
+                {it.hint && <span className="text-muted ml-1">{String(it.hint)}</span>}
               </span>
             </div>
             <div className="h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
@@ -142,7 +153,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
               />
               <span className="text-slate-700 dark:text-slate-300">{sev}</span>
               <span className="ml-auto text-slate-500 tabular-nums">
-                {n} <span className="text-slate-500 dark:text-slate-400">({pct.toFixed(0)}%)</span>
+                {n} <span className="text-muted">({pct.toFixed(0)}%)</span>
               </span>
             </li>
           );
@@ -1006,7 +1017,7 @@ export default function Metrics(): JSX.Element {
                   className={`px-2.5 py-1.5 transition-colors ${
                     active
                       ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                      : 'text-muted hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
                   {d}d
@@ -1122,7 +1133,7 @@ export default function Metrics(): JSX.Element {
           analyst use case. */}
       {!state.loading && (
         <section className="mb-8">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-4">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-4">
             Narrative panels · the six worth reading first
           </h2>
           <div className="grid gap-4 lg:grid-cols-2">
@@ -1220,8 +1231,8 @@ export default function Metrics(): JSX.Element {
           <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 font-mono py-3">
             Analyst panels (10 more). Sectors, brands, IOC volume, malware families, re-leaks, IP origins, breaches,
             chatter, dark-web, MTI profiled
-            <span className="ml-2 text-slate-500 dark:text-slate-400 group-open:hidden">expand</span>
-            <span className="ml-2 text-slate-500 dark:text-slate-400 hidden group-open:inline">collapse</span>
+            <span className="ml-2 text-muted group-open:hidden">expand</span>
+            <span className="ml-2 text-muted hidden group-open:inline">collapse</span>
           </summary>
           <p className="mt-2 text-meta font-mono text-slate-500 max-w-2xl mb-4">
             All ten are computed live from the same upstream feeds the narrative panels above use. No interpretation
@@ -1475,7 +1486,7 @@ function ChartCard({
           {interpretation}
         </p>
       )}
-      <p className="text-micro font-mono text-slate-500 dark:text-slate-400">{footer}</p>
+      <p className="text-micro font-mono text-muted">{footer}</p>
     </div>
   );
 }

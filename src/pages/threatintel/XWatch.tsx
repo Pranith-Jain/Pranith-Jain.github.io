@@ -496,13 +496,7 @@ export default function XWatch(): JSX.Element {
                 <span className="opacity-60 ml-1.5">
                   · {sec.handles.length - inactive.length}/{sec.handles.length} active
                 </span>
-                {probing && (
-                  <Loader2
-                    size={9}
-                    className="inline ml-1 animate-spin text-slate-500 dark:text-slate-400"
-                    aria-label="probing"
-                  />
-                )}
+                {probing && <Loader2 size={9} className="inline ml-1 animate-spin text-muted" aria-label="probing" />}
               </h3>
               <div className="flex flex-wrap gap-1.5">
                 {visible.map((h) => {
@@ -537,7 +531,7 @@ export default function XWatch(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setShowInactive(true)}
-                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-slate-600 dark:hover:text-slate-300"
                     title={`Hidden - no posts in last ${sinceDays}d: ${inactive.map((h) => '@' + h).join(', ')}`}
                   >
                     +{inactive.length} inactive
@@ -551,7 +545,7 @@ export default function XWatch(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowInactive(false)}
-            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-slate-600 dark:hover:text-slate-300"
           >
             hide inactive again
           </button>
@@ -575,7 +569,7 @@ export default function XWatch(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeCustom(h)}
-                    className="text-slate-500 dark:text-slate-400 hover:text-rose-600"
+                    className="text-muted hover:text-rose-600"
                     title="remove from watchlist"
                   >
                     <XIcon size={10} />
@@ -587,7 +581,7 @@ export default function XWatch(): JSX.Element {
         )}
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-1 flex-1 min-w-[200px]">
-            <span className="text-slate-500 dark:text-slate-400">@</span>
+            <span className="text-muted">@</span>
             <input
               type="text"
               value={addInput}
@@ -692,10 +686,7 @@ export default function XWatch(): JSX.Element {
           </div>
           <div className="flex items-center gap-2">
             <div className="relative">
-              <Search
-                size={11}
-                className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={11} className="absolute left-2 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="search"
                 value={filter}
@@ -789,9 +780,7 @@ export default function XWatch(): JSX.Element {
                         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                           {t.author.name}
                         </span>
-                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-                          @{t.author.screen_name}
-                        </span>
+                        <span className="text-mini font-mono text-muted">@{t.author.screen_name}</span>
                         {t.is_pinned && (
                           <span className="text-micro font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
                             pinned
@@ -879,7 +868,7 @@ export default function XWatch(): JSX.Element {
         )}
 
         {data && (
-          <p className="mt-4 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+          <p className="mt-4 text-micro font-mono text-muted text-center">
             refreshed {formatTimeAgo(data.generated_at)}
           </p>
         )}

@@ -41,9 +41,7 @@ export default function AgentSuite(): JSX.Element {
       >
         {(active) => (
           <>
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-              {TABS.find((t) => t.id === active)?.desc}
-            </p>
+            <p className="text-xs font-mono text-muted mb-4">{TABS.find((t) => t.id === active)?.desc}</p>
             <Suspense fallback={<TabLoader />}>
               {active === 'investigator' && <AgentInvestigator />}
               {active === 'enrich' && <TieEnrich />}

@@ -312,9 +312,9 @@ export default function SocAutomation(): JSX.Element {
                         <div className="flex items-center gap-2 mb-1">
                           <button type="button" onClick={() => togglePb(pb.id)} className="p-0.5">
                             {isExpanded ? (
-                              <ChevronDown size={12} className="text-slate-500 dark:text-slate-400" />
+                              <ChevronDown size={12} className="text-muted" />
                             ) : (
-                              <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />
+                              <ChevronRight size={12} className="text-muted" />
                             )}
                           </button>
                           <span
@@ -334,7 +334,7 @@ export default function SocAutomation(): JSX.Element {
                           )}
                         </div>
                         <div className="font-mono text-xs font-semibold truncate">{pb.name}</div>
-                        <div className="flex items-center gap-3 text-micro text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+                        <div className="flex items-center gap-3 text-micro text-muted font-mono mt-0.5">
                           <span>{pb.actions.length} actions</span>
                           <span>{pb.run_count} runs</span>
                           <span>{pb.avg_duration_ms}ms avg</span>
@@ -387,7 +387,7 @@ export default function SocAutomation(): JSX.Element {
                             Actions
                           </span>
                           {pb.actions.length === 0 && (
-                            <p className="text-micro text-slate-500 dark:text-slate-400 italic font-mono">
+                            <p className="text-micro text-muted italic font-mono">
                               No actions yet. Edit the playbook to add steps.
                             </p>
                           )}
@@ -398,7 +398,7 @@ export default function SocAutomation(): JSX.Element {
                               </span>
                               <span className="text-brand-600">{a.type}</span>
                               <span>{a.label}</span>
-                              <span className="text-slate-500 dark:text-slate-400">({a.timeout_seconds}s timeout)</span>
+                              <span className="text-muted">({a.timeout_seconds}s timeout)</span>
                             </div>
                           ))}
                         </div>
@@ -425,11 +425,9 @@ export default function SocAutomation(): JSX.Element {
                       {r.status}
                     </span>
                     <span className="text-micro font-mono text-slate-500">{r.playbook_name}</span>
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                      {TRIGGER_LABELS[r.trigger] ?? r.trigger}
-                    </span>
+                    <span className="text-micro font-mono text-muted">{TRIGGER_LABELS[r.trigger] ?? r.trigger}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-micro text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+                  <div className="flex items-center gap-3 text-micro text-muted font-mono mt-0.5">
                     <span>Started {new Date(r.started_at).toLocaleString()}</span>
                     {r.completed_at && <span>Completed {new Date(r.completed_at).toLocaleString()}</span>}
                     {r.duration_ms && <span>{r.duration_ms}ms</span>}
@@ -446,7 +444,7 @@ export default function SocAutomation(): JSX.Element {
                         <XCircle size={10} className="text-rose-500" />
                       )}
                       <span className="text-slate-500">{ar.action_label}</span>
-                      <span className="text-slate-500 dark:text-slate-400">({ar.duration_ms}ms)</span>
+                      <span className="text-muted">({ar.duration_ms}ms)</span>
                     </div>
                   ))}
                 </div>
@@ -465,7 +463,7 @@ export default function SocAutomation(): JSX.Element {
             </div>
           ))}
           {runs.length === 0 && (
-            <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-12 text-muted">
               <Info size={24} className="mx-auto mb-2 opacity-50" />
               <p className="font-mono text-sm">No runs yet. Execute a playbook to see results.</p>
             </div>

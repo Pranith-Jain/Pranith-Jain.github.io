@@ -257,7 +257,7 @@ export default function SubdomainTakeover() {
                       )}
                     </div>
                     <p className="text-xs text-muted mb-1">
-                      CNAME: <span className="font-mono text-slate-500 dark:text-slate-400">{r.cname}</span>
+                      CNAME: <span className="font-mono text-muted">{r.cname}</span>
                     </p>
                     <p className="text-xs text-muted">
                       Provider: <span className="text-slate-700 dark:text-slate-300">{r.provider}</span> - {r.evidence}

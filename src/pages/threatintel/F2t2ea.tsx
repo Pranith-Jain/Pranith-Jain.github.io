@@ -391,9 +391,7 @@ export default function F2t2ea(): JSX.Element {
       <section className="mb-12">
         <header className="flex items-end justify-between mb-4">
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">The F2T2EA loop</h2>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 hidden sm:block">
-            locate &rarr; act &rarr; feedback to locate
-          </p>
+          <p className="text-xs font-mono text-muted hidden sm:block">locate &rarr; act &rarr; feedback to locate</p>
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 relative">
@@ -455,19 +453,15 @@ export default function F2t2ea(): JSX.Element {
                     <p className="text-sm text-muted mt-1">{p.description}</p>
                     <dl className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs">
                       <div>
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Who</dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Who</dt>
                         <dd className="text-slate-800 dark:text-slate-200">{p.who}</dd>
                       </div>
                       <div>
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Defender goal
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Defender goal</dt>
                         <dd className="text-slate-800 dark:text-slate-200">{p.defenderGoal}</dd>
                       </div>
                       <div className="sm:col-span-2">
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Primary deliverables
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Primary deliverables</dt>
                         <dd>
                           <ul className="mt-1 space-y-0.5">
                             {p.deliverables.map((d) => (
@@ -480,9 +474,7 @@ export default function F2t2ea(): JSX.Element {
                         </dd>
                       </div>
                       <div className="sm:col-span-2">
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Common pitfalls
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Common pitfalls</dt>
                         <dd>
                           <ul className="mt-1 space-y-0.5">
                             {p.pitfalls.map((d) => (
@@ -495,9 +487,7 @@ export default function F2t2ea(): JSX.Element {
                         </dd>
                       </div>
                       <div className="sm:col-span-2">
-                        <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Framework mapping
-                        </dt>
+                        <dt className="font-mono uppercase tracking-wider text-muted">Framework mapping</dt>
                         <dd className="text-slate-800 dark:text-slate-200">{p.attackMapping}</dd>
                       </div>
                     </dl>
@@ -564,7 +554,7 @@ export default function F2t2ea(): JSX.Element {
               <WalkIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 Step {walkStep + 1} of {WALK.length} &middot; {currentPhase.name}
               </p>
               <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mt-0.5">{currentWalk.title}</h3>
@@ -573,7 +563,7 @@ export default function F2t2ea(): JSX.Element {
           </div>
 
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+            <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">
               Artifacts produced at this step
             </p>
             <ul className="space-y-1">
@@ -595,7 +585,7 @@ export default function F2t2ea(): JSX.Element {
             >
               &larr; previous
             </button>
-            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <p className="text-micro font-mono uppercase tracking-wider text-muted">
               {walkStep < WALK.length - 1
                 ? `next: ${PHASES.find((p) => p.id === WALK[walkStep + 1]!.phase)!.name}`
                 : 'cycle complete -- loops back to Find'}

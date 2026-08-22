@@ -27,7 +27,7 @@ function scoreColor(score: number): string {
   if (score >= 80) return 'text-emerald-600 dark:text-emerald-400';
   if (score >= 60) return 'text-amber-600 dark:text-amber-400';
   if (score > 0) return 'text-rose-600 dark:text-rose-400';
-  return 'text-slate-500 dark:text-slate-400';
+  return 'text-muted';
 }
 
 export default function InvestigationHistory(): JSX.Element {
@@ -69,7 +69,7 @@ export default function InvestigationHistory(): JSX.Element {
       {entries.length > 0 && (
         <div className="mb-4">
           <div className="relative max-w-sm">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               value={search}
@@ -97,7 +97,7 @@ export default function InvestigationHistory(): JSX.Element {
                   </span>
                   <ExternalLink
                     size={12}
-                    className="text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                    className="text-muted opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                   />
                 </div>
                 <div className="flex items-center gap-3 text-xs text-slate-500">
@@ -123,7 +123,7 @@ export default function InvestigationHistory(): JSX.Element {
                 <div className={`text-lg font-bold font-mono ${scoreColor(entry.qualityScore)}`}>
                   {entry.qualityScore > 0 ? entry.qualityScore : '-'}
                 </div>
-                <div className="text-mini text-slate-500 dark:text-slate-400">QA</div>
+                <div className="text-mini text-muted">QA</div>
               </div>
             </div>
           </Link>

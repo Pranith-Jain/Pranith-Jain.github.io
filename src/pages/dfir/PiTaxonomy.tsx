@@ -170,7 +170,7 @@ export default function PiTaxonomy() {
       {/* Search + Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={search}
@@ -246,9 +246,7 @@ export default function PiTaxonomy() {
         </div>
       )}
 
-      {visibleCards.length === 0 && (
-        <div className="text-center py-12 text-slate-500 dark:text-slate-400">No results for "{search}"</div>
-      )}
+      {visibleCards.length === 0 && <div className="text-center py-12 text-muted">No results for "{search}"</div>}
 
       {/* Footer */}
       <div className="mt-8 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-center">
@@ -264,7 +262,7 @@ export default function PiTaxonomy() {
           </a>{' '}
           by Jason Haddix
         </p>
-        <p className="text-mini text-slate-500 dark:text-slate-400 mt-1">CC BY 4.0 · arcanum-sec.com/pitax</p>
+        <p className="text-mini text-muted mt-1">CC BY 4.0 · arcanum-sec.com/pitax</p>
       </div>
 
       {/* Modal */}
@@ -295,17 +293,15 @@ function Card({ cat, node, onClick }: { cat: Category; node: TaxonomyNode; onCli
           <span className={`w-2.5 h-2.5 rounded-full ${DELIVERY_DOT[node.delivery]}`} />
         </div>
       </div>
-      <p className="text-tool text-slate-600 dark:text-slate-400 line-clamp-2">{node.description}</p>
+      <p className="text-tool text-muted line-clamp-2">{node.description}</p>
       {node.aliases && node.aliases.length > 0 && (
-        <p className="text-mini text-slate-500 dark:text-slate-400 mt-2 font-mono line-clamp-1">
+        <p className="text-mini text-muted mt-2 font-mono line-clamp-1">
           <span className="text-cyan-500 font-semibold">aka</span> {node.aliases.join(' · ')}
         </p>
       )}
       <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50">
-        <span className="text-mini text-slate-500 dark:text-slate-400">{node.ideas?.length ?? 0} ideas</span>
-        {cat !== 'inputs' && (
-          <span className="text-mini text-slate-500 dark:text-slate-400">{node.examples?.length ?? 0} prompts</span>
-        )}
+        <span className="text-mini text-muted">{node.ideas?.length ?? 0} ideas</span>
+        {cat !== 'inputs' && <span className="text-mini text-muted">{node.examples?.length ?? 0} prompts</span>}
         <span className="text-mini text-brand-500 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
           View →
         </span>
@@ -342,7 +338,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           <button
             aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
           >
             <X size={16} />
           </button>
@@ -358,7 +354,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
               </p>
             </div>
           )}
-          <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{node.description}</p>
+          <p className="text-tool text-muted leading-relaxed mb-6">{node.description}</p>
           {node.aliases && node.aliases.length > 0 && (
             <div className="mb-6">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Also Known As</h3>

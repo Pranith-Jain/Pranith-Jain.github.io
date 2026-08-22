@@ -234,11 +234,7 @@ export default function EmailReputation(): JSX.Element {
       >
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <Search
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -304,7 +300,7 @@ export default function EmailReputation(): JSX.Element {
 
           {result.emailRep && (
             <section className="surface-card p-4">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Mail size={12} aria-hidden="true" /> Address reputation (emailrep.io){' '}
                 <span className="font-normal text-slate-500 normal-case">· {result.emailRep.email}</span>
               </h3>
@@ -333,9 +329,7 @@ export default function EmailReputation(): JSX.Element {
                       </span>
                     )}
                     {result.emailRep.references !== undefined && result.emailRep.references > 0 && (
-                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                        {result.emailRep.references} references
-                      </span>
+                      <span className="text-micro font-mono text-muted">{result.emailRep.references} references</span>
                     )}
                   </div>
                   {result.emailRep.tags && result.emailRep.tags.length > 0 && (
@@ -369,7 +363,7 @@ export default function EmailReputation(): JSX.Element {
 
           {result.domainBl.length > 0 && (
             <section className="surface-card p-4">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} aria-hidden="true" /> Domain blacklist status ({result.domainBl.length} sources)
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -389,7 +383,7 @@ export default function EmailReputation(): JSX.Element {
             return (
               <section key={ip} className="surface-card p-4">
                 <div className="flex items-baseline justify-between gap-2 mb-3">
-                  <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
+                  <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2">
                     <Mail size={12} aria-hidden="true" /> {exchange}{' '}
                     <span className="text-slate-500 normal-case text-micro">({ip})</span>
                   </h3>
@@ -451,9 +445,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
     <div
       className={`rounded-xl border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'}`}
     >
-      <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
-        {label}
-      </div>
+      <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>
       <div
         className={`text-sm font-mono ${good ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-200'}`}
       >

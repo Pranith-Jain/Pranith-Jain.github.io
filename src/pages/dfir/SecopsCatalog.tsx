@@ -125,7 +125,7 @@ export default function SecopsCatalog(): JSX.Element {
           {TOOLS.length} hand-picked tools across {ALL_CATEGORIES.length} SecOps categories. Quality &gt; quantity -
           every entry has a clear primary use-case and an honest pricing tag.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           OSINT-only directory with deeper recon coverage:{' '}
           <Link to="/threatintel/osint/framework" className="text-brand-600 dark:text-brand-400 hover:underline">
             OSINT Framework
@@ -141,11 +141,7 @@ export default function SecopsCatalog(): JSX.Element {
       {/* Search + summary */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            aria-hidden="true"
-          />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -158,7 +154,7 @@ export default function SecopsCatalog(): JSX.Element {
 
         {/* Pricing toggles */}
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">pricing:</span>
+          <span className="text-mini font-mono text-muted mr-1">pricing:</span>
           {ALL_PRICING.map((p) => {
             const active = activePricing.has(p);
             return (
@@ -188,7 +184,7 @@ export default function SecopsCatalog(): JSX.Element {
       {/* Category pills */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">categories:</span>
+          <span className="text-mini font-mono text-muted mr-1">categories:</span>
           {ALL_CATEGORIES.map((c) => {
             const count = catCounts.get(c) ?? 0;
             const active = activeCats.has(c);
@@ -260,7 +256,7 @@ export default function SecopsCatalog(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   title="Source repository"
                 >
                   <Github size={10} /> source
@@ -272,7 +268,7 @@ export default function SecopsCatalog(): JSX.Element {
       </ul>
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
+        <p className="text-sm font-mono text-muted mt-6">
           Nothing matches the current filters.{' '}
           <button onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all

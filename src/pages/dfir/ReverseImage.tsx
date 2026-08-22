@@ -74,7 +74,7 @@ export default function ReverseImage(): JSX.Element {
           for first-seen), Baidu, Sogou, and Karma Decay (Reddit). Pure URL generation; the image stays on its original
           host.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/phishing" className="text-brand-600 dark:text-brand-400 hover:underline">
             Phishing analyzer
@@ -90,7 +90,7 @@ export default function ReverseImage(): JSX.Element {
       {/* Input */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="url"
             value={imageUrl}
@@ -125,9 +125,7 @@ export default function ReverseImage(): JSX.Element {
         <>
           {/* Image preview */}
           <section className="surface-card p-4 mb-6">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-              Preview
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Preview</h2>
             <div className="flex flex-col sm:flex-row gap-4">
               <img
                 loading="lazy"
@@ -153,7 +151,7 @@ export default function ReverseImage(): JSX.Element {
           {/* Engine links */}
           <section className="surface-card p-4 mb-6">
             <div className="flex items-baseline justify-between gap-2 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                 Engines ({links.length})
               </h2>
               <button

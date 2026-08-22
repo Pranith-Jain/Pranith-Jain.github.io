@@ -140,7 +140,7 @@ function exploitColor(status: string): string {
   const s = (status ?? '').toLowerCase();
   if (s.includes('active')) return SEVERITY_STYLES['critical'] ?? SEV_DEFAULT;
   if (s.includes('functional') || s.includes('confirmed')) return SEVERITY_STYLES['high'] ?? SEV_DEFAULT;
-  return 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700';
+  return 'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700';
 }
 
 function severityPill(s: string): string {
@@ -293,7 +293,7 @@ export default function TiDashboard() {
       empty={isEmpty}
       emptyMessage="No report available yet. The first build runs on Monday at 00:45 UTC."
       headerExtra={
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           {report && (
             <>
               <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
@@ -311,7 +311,7 @@ export default function TiDashboard() {
             type="button"
             onClick={handleBuild}
             disabled={building}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
           >
             {building ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Zap className="h-3.5 w-3.5" />}
             {building ? 'Building…' : 'Build now'}
@@ -345,9 +345,7 @@ export default function TiDashboard() {
             ].map((m) => (
               <div key={m.label} className={`${CARD} p-3 text-center`}>
                 <div className="text-xl font-bold text-slate-900 dark:text-slate-100">{m.value}</div>
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
-                  {m.label}
-                </div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted mt-0.5">{m.label}</div>
               </div>
             ))}
           </div>
@@ -364,7 +362,7 @@ export default function TiDashboard() {
                   className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                     tab === t.id
                       ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" /> <span className="max-sm:hidden">{t.label}</span>
@@ -377,7 +375,7 @@ export default function TiDashboard() {
           {showFilter && (
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
                 <input
                   type="text"
                   placeholder="Search keywords…"
@@ -388,16 +386,14 @@ export default function TiDashboard() {
                 {keywordSearch && (
                   <button
                     onClick={() => setKeywordSearch('')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600"
                   >
                     ×
                   </button>
                 )}
               </div>
               <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Severity:
-              </span>
+              <span className="text-micro font-mono uppercase tracking-wider text-muted">Severity:</span>
               {SEVERITY_LEVELS.map((sev) => {
                 const active = severityFilter.includes(sev);
                 return (
@@ -407,7 +403,7 @@ export default function TiDashboard() {
                     className={`px-2.5 py-0.5 rounded-full text-xs font-mono transition-colors border ${
                       active
                         ? severityPill(sev)
-                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-400'
+                        : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-400'
                     }`}
                   >
                     {sev}
@@ -420,7 +416,7 @@ export default function TiDashboard() {
                     setSeverityFilter([]);
                     setKeywordSearch('');
                   }}
-                  className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+                  className="text-xs text-muted hover:text-slate-700 dark:hover:text-slate-200 ml-1"
                 >
                   Clear
                 </button>
@@ -438,9 +434,7 @@ export default function TiDashboard() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-slate-500 dark:text-slate-400 italic">
-                  No executive brief available. Run an LLM enrichment build.
-                </p>
+                <p className="text-sm text-muted italic">No executive brief available. Run an LLM enrichment build.</p>
               )}
             </section>
           )}
@@ -456,7 +450,7 @@ export default function TiDashboard() {
                     className="w-full flex items-start gap-4 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
                     onClick={() => toggleStory(idx)}
                   >
-                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400 pt-0.5 shrink-0">
+                    <span className="font-mono text-xs text-muted pt-0.5 shrink-0">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -469,9 +463,7 @@ export default function TiDashboard() {
                         {story.impact_assessment}
                       </span>
                     </div>
-                    <span className="text-slate-500 dark:text-slate-400 shrink-0 mt-1">
-                      {expandedStories[idx] ? '▲' : '▼'}
-                    </span>
+                    <span className="text-muted shrink-0 mt-1">{expandedStories[idx] ? '▲' : '▼'}</span>
                   </button>
                   {expandedStories[idx] && (
                     <div className="px-5 pb-5 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -480,19 +472,15 @@ export default function TiDashboard() {
                       </div>
                       {story.timeline && story.timeline.length > 0 && (
                         <div className="mt-5 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                          <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-                            Timeline
-                          </h4>
+                          <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-3">Timeline</h4>
                           <div className="space-y-3">
                             {story.timeline.map((evt, ei) => (
                               <div key={ei} className="flex gap-3">
                                 <div className="w-2 h-2 mt-1.5 rounded-full bg-brand-500 shrink-0" />
                                 <div>
-                                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                                    {evt.date}
-                                  </div>
+                                  <div className="text-xs font-semibold text-muted">{evt.date}</div>
                                   <div className="text-sm text-slate-700 dark:text-slate-200">{evt.event}</div>
-                                  <div className="text-xs text-slate-500 dark:text-slate-400">{evt.significance}</div>
+                                  <div className="text-xs text-muted">{evt.significance}</div>
                                 </div>
                               </div>
                             ))}
@@ -500,15 +488,13 @@ export default function TiDashboard() {
                         </div>
                       )}
                       <div className="mt-5 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                        <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                        <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
                           Action Required
                         </h4>
                         <p className="text-sm text-slate-600 dark:text-slate-300">{story.action_required}</p>
                       </div>
                       <div className="flex items-center gap-2 mt-4 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex-wrap">
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Sources:
-                        </span>
+                        <span className="text-micro font-mono uppercase tracking-wider text-muted">Sources:</span>
                         {story.sources.map((srcId) => (
                           <a
                             key={srcId}
@@ -552,17 +538,13 @@ export default function TiDashboard() {
                   <div className="space-y-2 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                     {actor.aliases.length > 0 && (
                       <div>
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Aliases
-                        </span>
+                        <span className="text-micro font-mono uppercase tracking-wider text-muted">Aliases</span>
                         <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">{actor.aliases.join(', ')}</p>
                       </div>
                     )}
                     {actor.targets.length > 0 && (
                       <div>
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          Targets
-                        </span>
+                        <span className="text-micro font-mono uppercase tracking-wider text-muted">Targets</span>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {actor.targets.map((t, ti) => (
                             <span
@@ -577,9 +559,7 @@ export default function TiDashboard() {
                     )}
                     {actor.ttps.length > 0 && (
                       <div>
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                          TTPs
-                        </span>
+                        <span className="text-micro font-mono uppercase tracking-wider text-muted">TTPs</span>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {actor.ttps.map((t, ti) => (
                             <code
@@ -634,7 +614,7 @@ export default function TiDashboard() {
                         render: (v) => (
                           <div>
                             <div className="text-slate-900 dark:text-slate-100 font-medium">{v.product}</div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400">{v.vendor}</div>
+                            <div className="text-xs text-muted">{v.vendor}</div>
                           </div>
                         ),
                       },
@@ -669,11 +649,7 @@ export default function TiDashboard() {
                       {
                         key: 'remediation',
                         header: 'Remediation',
-                        render: (v) => (
-                          <span className="text-xs text-slate-500 dark:text-slate-400 max-w-[280px] block">
-                            {v.remediation}
-                          </span>
-                        ),
+                        render: (v) => <span className="text-xs text-muted max-w-[280px] block">{v.remediation}</span>,
                       },
                     ] as DataTableColumn<(typeof filteredVulns)[number]>[]
                   }
@@ -697,7 +673,7 @@ export default function TiDashboard() {
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{lead.title}</h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{lead.context}</p>
+                      <p className="text-xs text-muted">{lead.context}</p>
                     </div>
                   </div>
                   <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 mb-3 overflow-x-auto">
@@ -707,7 +683,7 @@ export default function TiDashboard() {
                   </div>
                   {lead.indicators.length > 0 && (
                     <div className="flex items-start gap-2 mb-2 flex-wrap">
-                      <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 pt-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-muted pt-0.5">
                         Indicators
                       </span>
                       <div className="flex flex-wrap gap-1">
@@ -755,9 +731,7 @@ export default function TiDashboard() {
                   return (
                     <div key={s.label} className={`${CARD} p-3 text-center`}>
                       <div className="text-xl font-bold text-slate-900 dark:text-slate-100">{count}</div>
-                      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
-                        {s.label}
-                      </div>
+                      <div className="text-micro font-mono uppercase tracking-wider text-muted mt-0.5">{s.label}</div>
                     </div>
                   );
                 })}
@@ -803,9 +777,7 @@ export default function TiDashboard() {
                         </div>
                       </div>
                     </div>
-                    {inc.summary && (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">{inc.summary}</p>
-                    )}
+                    {inc.summary && <p className="text-xs text-muted mt-2 line-clamp-2">{inc.summary}</p>}
                   </div>
                 ))}
               </div>
@@ -817,7 +789,7 @@ export default function TiDashboard() {
             <div>
               <div className="mb-4">
                 <div className="relative max-w-xs">
-                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
                   <input
                     type="text"
                     placeholder="Filter sources…"
@@ -836,17 +808,15 @@ export default function TiDashboard() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors text-sm"
                   >
-                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400 shrink-0">{src.id}</span>
+                    <span className="font-mono text-xs text-muted shrink-0">{src.id}</span>
                     <div className="flex-1 min-w-0">
                       <span className="text-slate-900 dark:text-slate-100 font-medium truncate block">{src.title}</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">
-                        {formatDate(src.published_date)}
-                      </span>
+                      <span className="text-xs text-muted">{formatDate(src.published_date)}</span>
                     </div>
-                    <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded shrink-0">
+                    <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted px-1.5 py-0.5 rounded shrink-0">
                       {src.source_type}
                     </span>
-                    <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-muted shrink-0" />
                   </a>
                 ))}
               </div>
@@ -859,5 +829,5 @@ export default function TiDashboard() {
 }
 
 function EmptyMsg({ message }: { message: string }) {
-  return <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>{message}</div>;
+  return <div className={`${CARD} p-8 text-center text-sm text-muted`}>{message}</div>;
 }

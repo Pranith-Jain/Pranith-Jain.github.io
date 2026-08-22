@@ -715,7 +715,7 @@ export default function DetectionChokepointsHub() {
       title="Detection Chokepoints"
       description="Invariant detection points in attack chains - prerequisites that attackers cannot bypass. Each chokepoint targets a forced action that generates reliable telemetry regardless of tool choice or variant."
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <p className="text-xs text-muted font-mono">
           Source:{' '}
           <a
             href={sanitizeUrl('https://github.com/iimp0ster/detection-chokepoints') || undefined}
@@ -747,11 +747,7 @@ export default function DetectionChokepointsHub() {
       {tab === 'chokepoints' && (
         <div className="space-y-3">
           <div className="relative">
-            <Target
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <Target size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={query}
@@ -762,7 +758,7 @@ export default function DetectionChokepointsHub() {
             />
           </div>
           <div className="flex flex-wrap gap-1.5">
-            <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+            <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">
               Priority
             </span>
             <button
@@ -782,7 +778,7 @@ export default function DetectionChokepointsHub() {
             ))}
           </div>
           <div className="flex flex-wrap gap-1.5">
-            <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+            <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted self-center mr-1">
               Detection
             </span>
             {(['Pre-Exec', 'Low FP', 'Medium FP', 'High FP'] as FPLevel[]).map((f) => (
@@ -816,12 +812,12 @@ export default function DetectionChokepointsHub() {
                     </span>
                   </div>
                 </div>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">{c.description}</p>
+                <p className="text-sm text-muted mb-2">{c.description}</p>
                 <div className="flex flex-wrap gap-1">
                   {c.techniques.map((t) => (
                     <span
                       key={t}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                     >
                       {t}
                     </span>
@@ -848,7 +844,7 @@ export default function DetectionChokepointsHub() {
                 <div key={s.n} className={`${CARD} p-4 ${s.highlight ? 'ring-2 ring-brand-500/40' : ''}`}>
                   <div className="flex items-start gap-3">
                     <span
-                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${s.highlight ? 'bg-brand-500 text-white' : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400'}`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${s.highlight ? 'bg-brand-500 text-white' : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted'}`}
                     >
                       {s.n}
                     </span>
@@ -858,7 +854,7 @@ export default function DetectionChokepointsHub() {
                       >
                         {s.title}
                       </h3>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">{s.desc}</p>
+                      <p className="text-sm text-muted mt-0.5">{s.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -934,7 +930,7 @@ export default function DetectionChokepointsHub() {
               </button>
               {expandedChain === ch.id && (
                 <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-4 space-y-4">
-                  <p className="text-sm text-slate-600 dark:text-slate-400">{ch.description}</p>
+                  <p className="text-sm text-muted">{ch.description}</p>
                   <div>
                     <h4 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Kill Chain Stages</h4>
                     <div className="flex flex-wrap gap-1.5">
@@ -943,9 +939,7 @@ export default function DetectionChokepointsHub() {
                           <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300">
                             {s.label}
                           </span>
-                          {i < ch.stages.length - 1 && (
-                            <ArrowRight size={10} className="text-slate-500 dark:text-slate-400" />
-                          )}
+                          {i < ch.stages.length - 1 && <ArrowRight size={10} className="text-muted" />}
                         </span>
                       ))}
                     </div>
@@ -995,9 +989,9 @@ export default function DetectionChokepointsHub() {
                     <span className={`text-xs font-mono px-2 py-0.5 rounded border ${NODE_TONE[l.color]}`}>
                       {l.from}
                     </span>
-                    <ArrowRight size={14} className="text-slate-500 dark:text-slate-400" />
+                    <ArrowRight size={14} className="text-muted" />
                     <span className={`text-xs font-mono px-2 py-0.5 rounded border ${NODE_TONE[l.color]}`}>{l.to}</span>
-                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {l.label}</span>
+                    <span className="text-xs font-mono text-muted">· {l.label}</span>
                   </div>
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{l.desc}</p>
                 </div>
@@ -1053,7 +1047,7 @@ export default function DetectionChokepointsHub() {
                         <h4 className="font-mono text-xs font-semibold text-slate-900 dark:text-white mb-1">
                           {f.title}
                         </h4>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">{f.detail}</p>
+                        <p className="text-xs text-muted">{f.detail}</p>
                       </div>
                     ))}
                   </div>
@@ -1069,7 +1063,7 @@ export default function DetectionChokepointsHub() {
                               <span className="font-mono text-xs font-semibold text-slate-900 dark:text-white">
                                 {v.name}
                               </span>
-                              <span className="text-micro font-mono px-1 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400">
+                              <span className="text-micro font-mono px-1 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
                                 {v.mitre}
                               </span>
                             </div>

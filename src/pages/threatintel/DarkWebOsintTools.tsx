@@ -77,7 +77,7 @@ export default function DarkWebOsintTools(): JSX.Element {
             {TOOLS.length} curated tools across {ALL_CATS.length} categories for investigating the dark web. Each entry
             has a clear primary use case, source link, and honest description of what it does.
           </span>
-          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <span className="block text-xs text-muted font-mono">
             Curated from the{' '}
             <a
               href="https://github.com/apurvsinghgautam/dark-web-osint-tools"
@@ -104,11 +104,7 @@ export default function DarkWebOsintTools(): JSX.Element {
         <div className="space-y-6">
           <section className="surface-card p-4">
             <div className="relative">
-              <Search
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-                aria-hidden="true"
-              />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
               <input
                 type="search"
                 value={query}
@@ -156,7 +152,7 @@ export default function DarkWebOsintTools(): JSX.Element {
         </div>
       }
     >
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-muted mb-4">
         Showing {filtered.length} of {TOOLS.length}
       </p>
 
@@ -212,7 +208,7 @@ export default function DarkWebOsintTools(): JSX.Element {
       </ul>
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
+        <p className="text-sm font-mono text-muted mt-6">
           Nothing matches the current filters.{' '}
           <button type="button" onClick={clearAll} className="underline text-rose-600 dark:text-rose-400">
             Clear all

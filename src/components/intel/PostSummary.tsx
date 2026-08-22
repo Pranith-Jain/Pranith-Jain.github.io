@@ -10,9 +10,7 @@ import { Sparkles } from 'lucide-react';
 export function PostSummary({ text, className }: { text?: string; className?: string }): JSX.Element | null {
   if (!text) return null;
   return (
-    <p
-      className={`mt-1.5 flex items-start gap-1.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400 ${className ?? ''}`}
-    >
+    <p className={`mt-1.5 flex items-start gap-1.5 text-xs leading-relaxed text-muted ${className ?? ''}`}>
       <Sparkles size={12} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
       <span>
         <span className="font-mono text-micro uppercase tracking-wider text-brand-600/80 dark:text-brand-400/80">

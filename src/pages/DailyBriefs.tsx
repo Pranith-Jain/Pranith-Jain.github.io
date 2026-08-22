@@ -93,7 +93,7 @@ const SEV_STYLES: Record<string, string> = {
 function sevPill(s: string): string {
   return (
     SEV_STYLES[s?.toLowerCase() ?? ''] ??
-    'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700'
+    'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700'
   );
 }
 
@@ -121,15 +121,9 @@ function Expandable({
       <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between px-4 py-3 text-left">
         <span className="text-sm font-semibold text-slate-900 dark:text-white">
           {title}
-          {count !== undefined && (
-            <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">({count})</span>
-          )}
+          {count !== undefined && <span className="ml-2 text-xs font-normal text-muted">({count})</span>}
         </span>
-        {open ? (
-          <ChevronUp size={16} className="text-slate-500 dark:text-slate-400" />
-        ) : (
-          <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
-        )}
+        {open ? <ChevronUp size={16} className="text-muted" /> : <ChevronDown size={16} className="text-muted" />}
       </button>
       {open && (
         <div className="border-t border-slate-200 px-4 py-3 dark:border-[rgb(var(--border-400))]">{children}</div>
@@ -244,7 +238,7 @@ export default function DailyBriefs() {
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Daily Intelligence Briefs</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm text-muted">
             Source: {indexData?.source ?? 'agentic-ai-daily-reports.netlify.app'} &middot; Generated{' '}
             {indexData?.generatedAt ?? '-'}
           </p>
@@ -303,11 +297,9 @@ export default function DailyBriefs() {
 
       {/* Content */}
       {briefLoading || isLoading ? (
-        <div className="flex items-center justify-center py-20 text-slate-500 dark:text-slate-400">
-          Loading brief...
-        </div>
+        <div className="flex items-center justify-center py-20 text-muted">Loading brief...</div>
       ) : !brief ? (
-        <div className="flex flex-col items-center justify-center py-20 text-slate-500 dark:text-slate-400">
+        <div className="flex flex-col items-center justify-center py-20 text-muted">
           <AlertTriangle size={40} className="mb-3 opacity-40" />
           <p>
             No brief available for {tab} on {currentDate ?? '-'}
@@ -357,7 +349,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
           {brief.dashboard.kpis.map((kpi, i) => (
             <div key={i} className="surface-card rounded-xl p-4 text-center">
               <div className="text-3xl font-extrabold text-slate-900 dark:text-white">{kpi.value}</div>
-              <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">{kpi.label}</div>
+              <div className="mt-1 text-xs text-muted">{kpi.label}</div>
             </div>
           ))}
         </div>
@@ -371,7 +363,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
             {brief.keyFindings.map((f, i) => (
               <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-[rgb(var(--border-400))]">
                 <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{f.title}</h3>
-                <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{f.summary}</p>
+                <p className="mt-1 text-xs text-muted">{f.summary}</p>
               </div>
             ))}
           </div>
@@ -391,7 +383,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                   </span>
                   <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{t.title}</h3>
                 </div>
-                {t.action && <p className="mt-1.5 ml-8 text-xs text-slate-600 dark:text-slate-400">{t.action}</p>}
+                {t.action && <p className="mt-1.5 ml-8 text-xs text-muted">{t.action}</p>}
               </div>
             ))}
           </div>
@@ -420,9 +412,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {brief.dashboard.vendors?.length > 0 && (
             <section className="surface-card rounded-xl p-5">
-              <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Affected Vendors
-              </h2>
+              <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Affected Vendors</h2>
               <div className="flex flex-wrap gap-1.5">
                 {brief.dashboard.vendors.map((v, i) => (
                   <span
@@ -437,9 +427,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
           )}
           {brief.dashboard.sectors?.length > 0 && (
             <section className="surface-card rounded-xl p-5">
-              <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Sectors at Risk
-              </h2>
+              <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Sectors at Risk</h2>
               <div className="flex flex-wrap gap-1.5">
                 {brief.dashboard.sectors.map((s, i) => (
                   <span
@@ -465,7 +453,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                 <h3 className="mb-2 text-sm font-bold text-slate-900 dark:text-white">{cat.category}</h3>
                 <ul className="space-y-1.5">
                   {cat.items.map((item, j) => (
-                    <li key={j} className="text-xs text-slate-600 dark:text-slate-400">
+                    <li key={j} className="text-xs text-muted">
                       {item}
                     </li>
                   ))}
@@ -485,7 +473,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
               <Expandable key={i} title={cat.category} count={cat.items.length} defaultOpen={i === 0}>
                 <ul className="space-y-1.5">
                   {cat.items.map((item, j) => (
-                    <li key={j} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
+                    <li key={j} className="flex items-start gap-2 text-xs text-muted">
                       <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400 dark:bg-slate-500" />
                       {item}
                     </li>
@@ -518,7 +506,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
           {brief.ttps.descriptions?.length > 0 && (
             <ul className="mt-3 space-y-1">
               {brief.ttps.descriptions.map((d, i) => (
-                <li key={i} className="text-xs text-slate-600 dark:text-slate-400">
+                <li key={i} className="text-xs text-muted">
                   {d}
                 </li>
               ))}
@@ -561,7 +549,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                     {ev.severity}
                   </span>
                 </div>
-                <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">{ev.text}</p>
+                <p className="text-xs leading-relaxed text-muted">{ev.text}</p>
                 {ev.chips?.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {ev.chips.map((c, j) => (
@@ -678,15 +666,13 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
                   <div className="mb-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs sm:grid-cols-3">
                     {Object.entries(inc.fields).map(([k, v]) => (
                       <div key={k}>
-                        <span className="text-slate-500 dark:text-slate-400">{k}:</span>{' '}
+                        <span className="text-muted">{k}:</span>{' '}
                         <span className="text-slate-600 dark:text-slate-300">{v}</span>
                       </div>
                     ))}
                   </div>
                 )}
-                {inc.summary && (
-                  <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">{inc.summary}</p>
-                )}
+                {inc.summary && <p className="text-xs leading-relaxed text-muted">{inc.summary}</p>}
                 {inc.sources?.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-2">
                     {inc.sources.map((s, j) => (
@@ -743,7 +729,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
         <Expandable title="Detection &amp; Defensive Developments" count={brief.detectionDevelopments.length}>
           <ul className="space-y-1.5">
             {brief.detectionDevelopments.map((d, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
+              <li key={i} className="flex items-start gap-2 text-xs text-muted">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                 {d}
               </li>
@@ -789,7 +775,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
           {brief.dashboard.kpis.map((kpi, i) => (
             <div key={i} className="surface-card rounded-xl p-4 text-center">
               <div className="text-3xl font-extrabold text-slate-900 dark:text-white">{kpi.value}</div>
-              <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">{kpi.label}</div>
+              <div className="mt-1 text-xs text-muted">{kpi.label}</div>
             </div>
           ))}
         </div>
@@ -812,7 +798,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                   </span>
                 </div>
                 <div className="px-4 py-3">
-                  <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">{ev.text}</p>
+                  <p className="text-xs leading-relaxed text-muted">{ev.text}</p>
                   {ev.sources?.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-2">
                       {ev.sources.map((s, j) => (
@@ -848,7 +834,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                   <span className="h-2 w-2 rounded-full bg-rose-500" />
                   <span className="text-sm font-medium text-slate-900 dark:text-white">{ev.title}</span>
                 </div>
-                {ev.text && <p className="mt-1 ml-4 text-xs text-slate-600 dark:text-slate-400">{ev.text}</p>}
+                {ev.text && <p className="mt-1 ml-4 text-xs text-muted">{ev.text}</p>}
                 {ev.sources?.length > 0 && (
                   <div className="mt-1.5 ml-4 flex flex-wrap gap-2">
                     {ev.sources.map((s, j) => (
@@ -883,7 +869,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                   <span className="h-2 w-2 rounded-full bg-orange-500" />
                   <span className="text-sm font-medium text-slate-900 dark:text-white">{ev.title}</span>
                 </div>
-                {ev.text && <p className="mt-1 ml-4 text-xs text-slate-600 dark:text-slate-400">{ev.text}</p>}
+                {ev.text && <p className="mt-1 ml-4 text-xs text-muted">{ev.text}</p>}
                 {ev.sources?.length > 0 && (
                   <div className="mt-1.5 ml-4 flex flex-wrap gap-2">
                     {ev.sources.map((s, j) => (

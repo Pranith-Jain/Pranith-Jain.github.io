@@ -219,12 +219,12 @@ export default function ThreatSignalRss(): JSX.Element {
   const staleSources = agg?.sources.filter((s) => s.stale) ?? [];
 
   const headerExtra = agg && (
-    <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
+    <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
       <span className="inline-flex items-center gap-1">
         <Clock size={11} />
         assembled {relativeDate(agg.assembledAt)}
       </span>
-      <span className="text-slate-500 dark:text-slate-400">·</span>
+      <span className="text-muted">·</span>
       <span>
         {healthySources.length}/{agg.sources.length} source{agg.sources.length === 1 ? '' : 's'} healthy
       </span>
@@ -404,12 +404,9 @@ export default function ThreatSignalRss(): JSX.Element {
                       <AlertTriangle size={9} /> stale
                     </span>
                   )}
-                  <ExternalLink
-                    size={10}
-                    className="ml-auto text-slate-500 dark:text-slate-400 group-hover:text-rose-500"
-                  />
+                  <ExternalLink size={10} className="ml-auto text-muted group-hover:text-rose-500" />
                 </div>
-                <div className="flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+                <div className="flex items-center gap-3 text-micro font-mono text-muted">
                   <span>{stats?.count ?? 0} posts</span>
                   <span>·</span>
                   <span>cached {relativeDate(s.cachedAt)}</span>
@@ -431,10 +428,7 @@ export default function ThreatSignalRss(): JSX.Element {
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 p-3 mb-4 flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search
-                size={12}
-                className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 value={query}
@@ -455,7 +449,7 @@ export default function ThreatSignalRss(): JSX.Element {
           {/* Source pills */}
           {agg.sources.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Sources:</span>
+              <span className="text-micro font-mono uppercase text-muted">Sources:</span>
               {agg.sources.map((s) => {
                 const active = activeSources.has(s.source.id);
                 return (
@@ -473,7 +467,7 @@ export default function ThreatSignalRss(): JSX.Element {
                     className={`inline-flex items-center gap-1 px-2 py-1 text-mini rounded border transition-colors ${
                       active
                         ? ACCENT_PILL[s.source.accent]
-                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
+                        : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
                     }`}
                   >
                     {s.source.name}
@@ -496,7 +490,7 @@ export default function ThreatSignalRss(): JSX.Element {
           {/* Category pills (only show if any items have categories) */}
           {categories.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Categories:</span>
+              <span className="text-micro font-mono uppercase text-muted">Categories:</span>
               {categories.map((cat) => {
                 const meta = categoryStyle(cat);
                 const active = activeCategories.has(cat);
@@ -515,7 +509,7 @@ export default function ThreatSignalRss(): JSX.Element {
                     className={`inline-flex items-center gap-1 px-2 py-1 text-mini rounded border transition-colors ${
                       active
                         ? meta.className
-                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
+                        : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
                     }`}
                   >
                     <Tag size={10} />
@@ -574,10 +568,7 @@ function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.E
           className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
         >
           {item.title}
-          <ExternalLink
-            size={12}
-            className="text-slate-500 dark:text-slate-400 group-hover:text-rose-500 shrink-0 mt-0.5"
-          />
+          <ExternalLink size={12} className="text-muted group-hover:text-rose-500 shrink-0 mt-0.5" />
         </a>
         <PostAnalysisButton
           title={item.title}
@@ -608,17 +599,12 @@ function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.E
             {cat.label}
           </span>
         )}
-        <span
-          className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400"
-          title={fullDate(item.pubDate)}
-        >
+        <span className="inline-flex items-center gap-1 text-micro font-mono text-muted" title={fullDate(item.pubDate)}>
           <Clock size={9} />
           {relativeDate(item.pubDate)}
         </span>
-        {item.author && (
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">· {item.author}</span>
-        )}
-        <span className="ml-auto inline-flex items-center gap-0.5 text-micro font-mono text-slate-500 dark:text-slate-400 group-hover:text-rose-500">
+        {item.author && <span className="text-micro font-mono text-muted">· {item.author}</span>}
+        <span className="ml-auto inline-flex items-center gap-0.5 text-micro font-mono text-muted group-hover:text-rose-500">
           read <ChevronRight size={10} />
         </span>
       </div>
@@ -645,7 +631,7 @@ function StatCard({ label, value, accent = 'brand', small = false }: StatCardPro
           : 'text-rose-500 dark:text-rose-400';
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2">
-      <div className="text-micro uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>
+      <div className="text-micro uppercase tracking-wide text-muted font-mono">{label}</div>
       <div className={`font-bold font-mono ${color} ${small ? 'text-sm' : 'text-2xl'}`}>{value}</div>
     </div>
   );

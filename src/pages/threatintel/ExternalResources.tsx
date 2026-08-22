@@ -227,7 +227,7 @@ export default function ExternalResources(): JSX.Element {
             {merged.length} off-site sources I cross-reference: dashboards, OSINT directories, training labs, malware
             samples, and research portfolios. Filter by kind or search across name and description.
           </span>
-          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <span className="block text-xs text-muted font-mono mt-2">
             External sites change ownership and quality over time. Verify a specific link before relying on it.
           </span>
         </>
@@ -317,11 +317,7 @@ export default function ExternalResources(): JSX.Element {
       {/* Search */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-            aria-hidden="true"
-          />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -386,11 +382,11 @@ export default function ExternalResources(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-muted mb-4">
         Showing {filtered.length} of {merged.length}
         {featuredOnly && ' (featured quality resources)'}
         {dynamicLoading && (
-          <span className="ml-2 inline-flex items-center gap-1 text-slate-500 dark:text-slate-400">
+          <span className="ml-2 inline-flex items-center gap-1 text-muted">
             <Loader2 size={11} className="animate-spin" /> loading community entries…
           </span>
         )}
@@ -482,7 +478,7 @@ export default function ExternalResources(): JSX.Element {
               </div>
             )}
             {r.why && (
-              <p className="text-meta font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-meta font-mono italic text-muted leading-relaxed">
                 <span className="text-slate-400 dark:text-slate-400 not-italic">why:</span> {r.why}
               </p>
             )}
@@ -491,7 +487,7 @@ export default function ExternalResources(): JSX.Element {
       </ul>
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
+        <p className="text-sm font-mono text-muted mt-6">
           Nothing matches the current filters.{' '}
           <button type="button" onClick={clearAll} className="underline text-rose-600 dark:text-rose-400">
             Clear all
@@ -531,7 +527,7 @@ export default function ExternalResources(): JSX.Element {
           }}
           className="space-y-3"
         >
-          <p className="text-tool text-slate-500 dark:text-slate-400">
+          <p className="text-tool text-muted">
             Paste your admin token to enable runtime editing. It is stored locally in this browser only.
           </p>
           <input
@@ -653,7 +649,7 @@ function AddResourceCard({
       <form onSubmit={submit} className="space-y-3">
         <div className="grid sm:grid-cols-[1fr_140px] gap-3">
           <label className="block">
-            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono uppercase tracking-wider text-muted">
               URL <span className="text-rose-600">*</span>
             </span>
             <input
@@ -666,7 +662,7 @@ function AddResourceCard({
             />
           </label>
           <label className="block">
-            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono uppercase tracking-wider text-muted">
               Kind <span className="text-rose-600">*</span>
             </span>
             <select
@@ -683,7 +679,7 @@ function AddResourceCard({
           </label>
         </div>
         <label className="block">
-          <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <span className="text-mini font-mono uppercase tracking-wider text-muted">
             Name <span className="text-rose-600">*</span>
           </span>
           <input
@@ -696,9 +692,7 @@ function AddResourceCard({
           />
         </label>
         <label className="block">
-          <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            Why (optional)
-          </span>
+          <span className="text-mini font-mono uppercase tracking-wider text-muted">Why (optional)</span>
           <input
             type="text"
             value={why}

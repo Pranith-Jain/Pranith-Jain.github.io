@@ -214,7 +214,7 @@ export default function CloudThreatLandscape(): JSX.Element {
                   </span>
                 ))}
                 {fmtDate(inc.modified || inc.created) && (
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                  <span className="text-micro font-mono text-muted ml-auto">
                     {fmtDate(inc.modified || inc.created)}
                   </span>
                 )}
@@ -246,7 +246,7 @@ export default function CloudThreatLandscape(): JSX.Element {
                         {ref.source_name || 'source'}
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                      <span key={i} className="text-micro font-mono text-muted">
                         {ref.source_name}
                       </span>
                     );
@@ -259,7 +259,7 @@ export default function CloudThreatLandscape(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           Data:{' '}
           <a
             href={data.source_url}

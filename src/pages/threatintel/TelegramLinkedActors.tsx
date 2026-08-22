@@ -325,7 +325,7 @@ export default function TelegramLinkedActors(): JSX.Element {
             channel → actor pivot
           </span>
         </h2>
-        <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5 max-w-3xl leading-relaxed">
+        <p className="text-xs font-mono text-muted mt-1.5 max-w-3xl leading-relaxed">
           For a given Telegram handle, surface every known attribution: the in-repo{' '}
           <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
             threat-actor-catalog
@@ -379,7 +379,7 @@ export default function TelegramLinkedActors(): JSX.Element {
 
       {/* Catalog index stats */}
       <section className="surface-card p-4">
-        <h3 className="font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 inline-flex items-center gap-2">
+        <h3 className="font-mono text-xs uppercase tracking-wider text-muted mb-3 inline-flex items-center gap-2">
           <Crosshair size={12} /> Catalog index
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -427,7 +427,7 @@ export default function TelegramLinkedActors(): JSX.Element {
         )}
 
         {visiblePivots.length > 0 && (
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+          <p className="text-xs font-mono text-muted mb-2">
             {visiblePivots.length} pivot{visiblePivots.length === 1 ? '' : 's'}
             {activeHandle ? ` · showing only @${activeHandle}` : ` (${pivots.length} total)`}
           </p>
@@ -511,7 +511,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
               </span>
             )}
           </div>
-          <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-muted">
             {pivot.leakCount30d > 0 && (
               <span>
                 <strong className="text-slate-700 dark:text-slate-200">{pivot.leakCount30d}</strong> leak entr
@@ -538,7 +538,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <button
               type="button"
               onClick={onClearFilter}
-              className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+              className="text-micro font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
             >
               clear
             </button>
@@ -604,7 +604,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                 </span>
                 <span className="ml-2 text-slate-500">via {la.sources.map((s) => SOURCE_LABEL[s]).join(', ')}</span>
                 {la.citations[0] && (
-                  <span className="ml-1 text-slate-500 dark:text-slate-400" title={la.citations.join(' · ')}>
+                  <span className="ml-1 text-muted" title={la.citations.join(' · ')}>
                     - {la.citations[0]}
                   </span>
                 )}
@@ -620,7 +620,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="w-full text-left text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 inline-flex items-center gap-1"
+            className="w-full text-left text-micro font-mono uppercase tracking-wider text-muted mb-1.5 inline-flex items-center gap-1"
           >
             {open ? <ChevronUp size={11} /> : <ChevronDown size={11} />} Recent leaks (30d) · {pivot.recentLeaks.length}
           </button>

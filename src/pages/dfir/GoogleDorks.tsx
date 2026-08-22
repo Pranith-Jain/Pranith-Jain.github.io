@@ -213,9 +213,7 @@ export default function GoogleDorks(): JSX.Element {
       </form>
 
       <div className="mb-6">
-        <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-          Quick-start presets
-        </p>
+        <p className="text-mini font-mono uppercase tracking-wider text-muted mb-2">Quick-start presets</p>
         <div className="flex flex-wrap gap-1.5">
           {PRESETS.map((p) => (
             <button
@@ -242,7 +240,7 @@ export default function GoogleDorks(): JSX.Element {
 
       {data && status === 'ready' && (
         <section>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
+          <p className="text-xs font-mono text-muted mb-4">
             {totalLabel}
             {data.query && (
               <>
@@ -274,7 +272,7 @@ export default function GoogleDorks(): JSX.Element {
                     )}
                     {r.snippet && (
                       <p className="text-sm text-muted mt-1.5">
-                        {r.date && <span className="text-slate-500 dark:text-slate-400">{r.date} · </span>}
+                        {r.date && <span className="text-muted">{r.date} · </span>}
                         {r.snippet}
                       </p>
                     )}
@@ -282,7 +280,7 @@ export default function GoogleDorks(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void copyLink(r.link)}
-                    className="shrink-0 p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                    className="shrink-0 p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     title="Copy link"
                     aria-label="Copy link"
                   >
@@ -298,9 +296,7 @@ export default function GoogleDorks(): JSX.Element {
             ))}
           </ol>
           {data.results.length === 0 && (
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              No organic results. Try widening the query or removing operators.
-            </p>
+            <p className="text-sm text-muted">No organic results. Try widening the query or removing operators.</p>
           )}
         </section>
       )}

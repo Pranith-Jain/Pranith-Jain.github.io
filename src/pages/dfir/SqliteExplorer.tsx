@@ -106,7 +106,7 @@ export default function SqliteExplorer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Loading...' : 'Drop a SQLite file here, or click to choose'}
         </p>
-        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-mini font-mono text-muted mt-1">
           Browser history, app artifacts. 100% client-side via sql.js WASM.
         </p>
       </button>
@@ -160,18 +160,24 @@ export default function SqliteExplorer(): JSX.Element {
             {result && (
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
                 <DataTable
-                  columns={result.cols.map((col, j) => ({
-                    key: `col-${j}`,
-                    header: col,
-                    render: (r: unknown[]) => (
-                      <span className="break-all">
-                        {r[j] === null ? <span className="text-slate-500">NULL</span> : String(r[j]).slice(0, 300)}
-                      </span>
-                    ),
-                  })) as DataTableColumn<unknown[]>[]}
+                  columns={
+                    result.cols.map((col, j) => ({
+                      key: `col-${j}`,
+                      header: col,
+                      render: (r: unknown[]) => (
+                        <span className="break-all">
+                          {r[j] === null ? <span className="text-slate-500">NULL</span> : String(r[j]).slice(0, 300)}
+                        </span>
+                      ),
+                    })) as DataTableColumn<unknown[]>[]
+                  }
                   rows={result.rows}
                   rowKey={(_, i) => `row-${i}`}
-                  rowClassName={(row: unknown[]) => (result.rows.indexOf(row) % 2 === 1 ? 'even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]' : '')}
+                  rowClassName={(row: unknown[]) =>
+                    result.rows.indexOf(row) % 2 === 1
+                      ? 'even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]'
+                      : ''
+                  }
                 />
                 {result.rows.length === 0 && <p className="p-3 font-mono text-meta text-slate-500">0 rows.</p>}
               </div>

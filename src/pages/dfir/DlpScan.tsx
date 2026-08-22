@@ -129,7 +129,7 @@ export default function DlpScan(): JSX.Element {
       title="Sensitive Data Detector"
       description={`Scan any text for ${PATTERNS.length} sensitive-data patterns. Credentials, financial identifiers, government IDs, health, network, personal contact. Credit cards are Luhn-checked, IBANs are mod-97 verified, AADHAAR is Verhoeff-checked, NHS is mod-11. Pure client-side; nothing leaves your browser.`}
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <p className="text-xs text-muted font-mono">
           Pairs with{' '}
           <Link to="/dfir/data-classification" className="text-brand-600 dark:text-brand-400 hover:underline">
             Data Classification Templater
@@ -145,9 +145,7 @@ export default function DlpScan(): JSX.Element {
     >
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Input
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Input</h2>
           <div className="flex flex-wrap gap-1.5">
             {SAMPLES.map((s) => (
               <button
@@ -182,9 +180,7 @@ export default function DlpScan(): JSX.Element {
         <>
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-                Verdict
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Verdict</h2>
               <span
                 className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${SEV_STYLES[stats.worst]}`}
               >
@@ -213,7 +209,7 @@ export default function DlpScan(): JSX.Element {
                       key={c}
                       className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1"
                     >
-                      <span className="text-slate-500 dark:text-slate-400">{CATEGORY_LABELS[c]}:</span>{' '}
+                      <span className="text-muted">{CATEGORY_LABELS[c]}:</span>{' '}
                       <span className="text-slate-800 dark:text-slate-200 font-bold">{stats.byCategory[c]}</span>
                     </div>
                   ))}
@@ -222,7 +218,7 @@ export default function DlpScan(): JSX.Element {
           </section>
 
           <section className="surface-card p-4 mb-6">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
               Highlighted input
             </h2>
             <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
@@ -233,7 +229,7 @@ export default function DlpScan(): JSX.Element {
           {findings.length > 0 && (
             <>
               <section className="surface-card p-4 mb-6">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
                   Findings
                 </h2>
                 <ul className="space-y-2">
@@ -277,7 +273,7 @@ export default function DlpScan(): JSX.Element {
 
               <section className="surface-card p-4 mb-6">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+                  <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                     Redacted output
                   </h2>
                   <CopyChip value={redacted} label="copy redacted" />
@@ -303,7 +299,7 @@ export default function DlpScan(): JSX.Element {
       )}
 
       <section className="surface-card p-4 mb-6">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
           Pattern catalog ({PATTERNS.length})
         </h2>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -335,9 +331,7 @@ export default function DlpScan(): JSX.Element {
       </section>
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
@@ -373,7 +367,7 @@ export default function DlpScan(): JSX.Element {
             </a>
           </li>
           <li>
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
+            <p className="text-xs font-mono text-muted inline-flex items-center gap-1">
               <AlertTriangle size={11} /> Heuristic only. Does not replace a managed DLP product. Use as a triage tool,
               not as the sole control.
             </p>

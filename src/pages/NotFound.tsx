@@ -117,7 +117,7 @@ export default function NotFound(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up text-center">
-        <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+        <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
           {moved ? '301 · Moved' : '404 · Not Found'}
         </div>
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-4">
@@ -149,7 +149,7 @@ export default function NotFound(): JSX.Element {
             is more likely than a random URL. */}
         {!moved && suggestions.length > 0 && (
           <div className="mb-8 max-w-xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 text-mini font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-2">
+            <div className="inline-flex items-center gap-1.5 text-mini font-mono uppercase tracking-[0.15em] text-muted mb-2">
               <Search className="h-3 w-3" aria-hidden="true" />
               Did you mean
             </div>
@@ -197,7 +197,7 @@ export default function NotFound(): JSX.Element {
           typo like /foo we skip this and just show the buttons. */}
       {sidebar && (
         <div className="mt-4 sm:mt-8">
-          <div className="flex items-center gap-2 mb-3 sm:mb-4 text-xs font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 mb-3 sm:mb-4 text-xs font-mono uppercase tracking-[0.18em] text-muted">
             <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
             All {sectionName} tools
           </div>
@@ -222,7 +222,7 @@ export default function NotFound(): JSX.Element {
                             {item.label}
                           </span>
                           {item.description && (
-                            <span className="text-mini text-slate-500 dark:text-slate-400 line-clamp-2 hidden sm:block">
+                            <span className="text-mini text-muted line-clamp-2 hidden sm:block">
                               {item.description}
                             </span>
                           )}

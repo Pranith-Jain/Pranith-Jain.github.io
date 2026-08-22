@@ -11,7 +11,7 @@ import { Loader2 } from 'lucide-react';
 export function TabLoader() {
   return (
     <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400 mr-2" />
+      <Loader2 size={20} className="animate-spin text-muted mr-2" />
       <span className="text-sm font-mono text-slate-500">Loading…</span>
     </div>
   );

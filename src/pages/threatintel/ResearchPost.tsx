@@ -167,7 +167,7 @@ export default function ResearchPost(): JSX.Element {
       </section>
 
       {html === null ? (
-        <div className="space-y-3 text-slate-500 dark:text-slate-400" aria-busy="true" aria-label="Loading research post">
+        <div className="space-y-3 text-muted" aria-busy="true" aria-label="Loading research post">
           <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
           <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
           <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
@@ -211,7 +211,7 @@ export default function ResearchPost(): JSX.Element {
                       } ${
                         activeTocId === item.id
                           ? 'text-rose-600 dark:text-rose-400 font-semibold'
-                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                          : 'text-muted hover:text-slate-800 dark:hover:text-slate-200'
                       }`}
                     >
                       {item.text}

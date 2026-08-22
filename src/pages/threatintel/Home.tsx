@@ -255,7 +255,7 @@ export default function ThreatIntelHome(): JSX.Element {
         <div role="search" className="mt-6 relative max-w-2xl">
           <Search
             size={16}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
             aria-hidden="true"
           />
           <input
@@ -280,7 +280,7 @@ export default function ThreatIntelHome(): JSX.Element {
               <X size={12} /> clear
             </button>
           ) : (
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-500 dark:text-slate-400 sm:inline-flex">
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-muted sm:inline-flex">
               <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
                 /
               </kbd>
@@ -293,7 +293,7 @@ export default function ThreatIntelHome(): JSX.Element {
         </div>
 
         {/* Popular shortcuts - only tools NOT already in the Quick access grid below */}
-        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted">
           <span>Popular:</span>
           {[
             { label: 'CVE Intel', href: '/threatintel/cves/cves' },
@@ -349,14 +349,14 @@ export default function ThreatIntelHome(): JSX.Element {
                     <Link to={t.path} className="group block h-full surface-card card-hover p-4">
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <Icon size={16} className="mt-0.5 shrink-0 text-rose-600 dark:text-rose-400" />
-                        <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        <span className="font-mono text-micro uppercase tracking-wider text-muted">
                           {category.label}
                         </span>
                       </div>
                       <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-rose-600 dark:text-slate-100 dark:group-hover:text-rose-400">
                         {t.label}
                       </h3>
-                      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{t.desc}</p>
+                      <p className="mt-1 text-xs text-muted line-clamp-2">{t.desc}</p>
                     </Link>
                   </li>
                 );
@@ -365,7 +365,7 @@ export default function ThreatIntelHome(): JSX.Element {
           )}
           {searchResults && searchResults.length === 0 && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <p className="text-sm text-slate-500 dark:text-slate-400">No matches. Try different keywords.</p>
+              <p className="text-sm text-muted">No matches. Try different keywords.</p>
             </div>
           )}
         </section>
@@ -424,7 +424,7 @@ export default function ThreatIntelHome(): JSX.Element {
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{item.desc}</p>
+                      <p className="text-xs text-muted truncate">{item.desc}</p>
                     </div>
                     <ArrowRight
                       size={14}
@@ -444,10 +444,7 @@ export default function ThreatIntelHome(): JSX.Element {
                 <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Live Intelligence</h2>
               </div>
-              <ArrowRight
-                size={16}
-                className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
-              />
+              <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
               <LiveSnapshotPanel
@@ -466,14 +463,11 @@ export default function ThreatIntelHome(): JSX.Element {
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div>
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Explore by topic</h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-xs text-muted mt-0.5">
                   {CATALOG.length} categories · {CATALOG.reduce((sum, h) => sum + h.pages.length, 0)} pages
                 </p>
               </div>
-              <ArrowRight
-                size={16}
-                className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
-              />
+              <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -503,7 +497,7 @@ export default function ThreatIntelHome(): JSX.Element {
                           </span>
                         )}
                       </div>
-                      <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2 min-h-[2.5rem]">
+                      <p className="mt-2 text-xs leading-relaxed text-muted line-clamp-2 min-h-[2.5rem]">
                         {cat.description}
                       </p>
                       <dl className="mt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] pt-2 font-mono text-micro">
@@ -527,10 +521,7 @@ export default function ThreatIntelHome(): JSX.Element {
           <details className="group surface-card mt-8 sm:mt-10">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
-              <ArrowRight
-                size={16}
-                className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
-              />
+              <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
               <div className="grid gap-4 sm:grid-cols-3">
@@ -559,7 +550,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
                         {s.title}
                       </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{s.desc}</p>
+                      <p className="text-xs text-muted mt-0.5 leading-relaxed">{s.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -575,7 +566,7 @@ export default function ThreatIntelHome(): JSX.Element {
             >
               <Compass size={16} />
               Browse the full catalog
-              <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
+              <span className="font-mono text-xs text-muted">
                 {CATALOG.reduce((sum, h) => sum + h.pages.length, 0)} pages
               </span>
               <ArrowRight size={14} />

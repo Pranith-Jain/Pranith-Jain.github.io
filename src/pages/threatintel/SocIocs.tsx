@@ -306,7 +306,7 @@ export default function SocIocs(): JSX.Element {
           value={
             <span className="inline-flex items-baseline gap-2">
               {buckets.critical}
-              <span className="text-2xl text-slate-500 dark:text-slate-400">
+              <span className="text-2xl text-muted">
                 ({totalInWindow ? Math.round((buckets.critical / totalInWindow) * 1000) / 10 : 0}%)
               </span>
             </span>
@@ -320,7 +320,7 @@ export default function SocIocs(): JSX.Element {
           value={
             <span className="inline-flex items-baseline gap-2">
               {buckets.sensitive}
-              <span className="text-2xl text-slate-500 dark:text-slate-400">
+              <span className="text-2xl text-muted">
                 ({totalInWindow ? Math.round((buckets.sensitive / totalInWindow) * 1000) / 10 : 0}%)
               </span>
             </span>
@@ -340,9 +340,7 @@ export default function SocIocs(): JSX.Element {
 
       {/* ─── Kind filter chips ────────────────────────────────────── */}
       <div className="mb-4 flex flex-wrap items-center gap-2">
-        <span className="text-meta font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
-          kind
-        </span>
+        <span className="text-meta font-mono uppercase tracking-wider text-muted mr-1">kind</span>
         {KIND_ORDER.map((k) => {
           const on = kindFilter.has(k);
           return (
@@ -354,7 +352,7 @@ export default function SocIocs(): JSX.Element {
               className={`text-meta font-mono px-2.5 py-1 rounded border transition-colors ${
                 on
                   ? 'border-rose-500 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-rose-500/40'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
               }`}
             >
               {KIND_LABEL[k]}
@@ -411,7 +409,7 @@ export default function SocIocs(): JSX.Element {
                 <span>
                   {buckets.critical}
                   <br />
-                  <span className="text-meta font-mono text-slate-500 dark:text-slate-400">critical</span>
+                  <span className="text-meta font-mono text-muted">critical</span>
                 </span>
               }
             />
@@ -428,7 +426,7 @@ export default function SocIocs(): JSX.Element {
             title="Observation timeline"
             right={
               dailyCounts.length > 0 ? (
-                <span className="text-meta font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-meta font-mono text-muted">
                   peak {Math.max(...dailyCounts.map((d) => d.value))} / day
                 </span>
               ) : null
@@ -477,7 +475,7 @@ function TopCriticalList({ rows }: { rows: { ioc: LiveIoc; score: number }[] }):
             </span>
             <span className="ml-auto text-slate-500 text-mini uppercase tracking-wider shrink-0">{r.ioc.kind}</span>
           </div>
-          <div className="text-mini text-slate-500 dark:text-slate-400 truncate" title={r.ioc.context ?? ''}>
+          <div className="text-mini text-muted truncate" title={r.ioc.context ?? ''}>
             {r.ioc.source}
             {r.ioc.context ? ` · ${r.ioc.context.slice(0, 60)}` : ''}
           </div>

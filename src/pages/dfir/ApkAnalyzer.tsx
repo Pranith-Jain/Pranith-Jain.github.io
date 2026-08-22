@@ -87,7 +87,7 @@ export default function ApkAnalyzer(): JSX.Element {
         >
           <Upload size={32} className="mx-auto mb-2 text-slate-500" />
           <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop an APK here, or click to choose</p>
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">100% client-side. Max 100 MB.</p>
+          <p className="text-mini font-mono text-muted mt-1">100% client-side. Max 100 MB.</p>
         </button>
         <input
           ref={fileRef}
@@ -173,7 +173,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* Hashes */}
           <section className="surface-card p-4">
-            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
               <Hash size={12} /> File hashes
             </h3>
             <div className="space-y-1.5 text-meta font-mono mb-3">
@@ -234,7 +234,7 @@ export default function ApkAnalyzer(): JSX.Element {
           {/* Permissions */}
           {result.analysis.permissions.length > 0 && (
             <section className="surface-card p-4">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <ShieldAlert size={12} /> Permissions ({result.analysis.permissions.length})
               </h3>
               <div className="flex flex-wrap gap-1.5">
@@ -258,7 +258,7 @@ export default function ApkAnalyzer(): JSX.Element {
           {/* DEX Files */}
           {result.analysis.dexFiles.length > 0 && (
             <section className="surface-card p-4">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Cpu size={12} /> DEX Analysis ({result.analysis.dexFiles.length} files)
               </h3>
               <div className="grid gap-2 sm:grid-cols-2">
@@ -291,14 +291,12 @@ export default function ApkAnalyzer(): JSX.Element {
             result.analysis.domains.length > 0 ||
             result.analysis.apiKeys.length > 0) && (
             <section className="surface-card p-4">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} /> Extracted IOCs
               </h3>
               {result.analysis.urls.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">
-                    URLs ({result.analysis.urls.length})
-                  </div>
+                  <div className="text-micro font-mono text-muted mb-1">URLs ({result.analysis.urls.length})</div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.urls.map((u) => (
                       <span
@@ -313,9 +311,7 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.ips.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">
-                    IPs ({result.analysis.ips.length})
-                  </div>
+                  <div className="text-micro font-mono text-muted mb-1">IPs ({result.analysis.ips.length})</div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.ips.map((ip) => (
                       <span
@@ -336,12 +332,12 @@ export default function ApkAnalyzer(): JSX.Element {
             result.analysis.services.length > 0 ||
             result.analysis.receivers.length > 0) && (
             <section className="surface-card p-4">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Layers size={12} /> Components
               </h3>
               {result.analysis.activities.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">
+                  <div className="text-micro font-mono text-muted mb-1">
                     Activities ({result.analysis.activities.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
@@ -358,7 +354,7 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.services.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">
+                  <div className="text-micro font-mono text-muted mb-1">
                     Services ({result.analysis.services.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
@@ -375,7 +371,7 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.receivers.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">
+                  <div className="text-micro font-mono text-muted mb-1">
                     Receivers ({result.analysis.receivers.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
@@ -396,7 +392,7 @@ export default function ApkAnalyzer(): JSX.Element {
           {/* Native libs */}
           {result.analysis.nativeLibs.length > 0 && (
             <section className="surface-card p-4">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Database size={12} /> Native Libraries ({result.analysis.nativeLibs.length})
               </h3>
               <div className="flex flex-wrap gap-1">

@@ -691,7 +691,7 @@ export default function Tracepulse(): JSX.Element {
             className={`px-4 py-2 text-xs font-mono font-medium border-b-2 transition-colors -mb-px ${
               tab === t.id
                 ? 'border-brand-500 text-brand-600 dark:text-brand-400'
-                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300'
+                : 'border-transparent text-muted hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300'
             }`}
           >
             {t.label}
@@ -701,7 +701,7 @@ export default function Tracepulse(): JSX.Element {
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -711,14 +711,14 @@ export default function Tracepulse(): JSX.Element {
       </div>
 
       {/* Stats */}
-      <div className="text-xs text-slate-500 dark:text-slate-400 mb-4 font-mono">
+      <div className="text-xs text-muted mb-4 font-mono">
         {filteredPacks.length} query packs · {allQueriesCount} queries across KQL · Sigma · XQL · SPL
       </div>
 
       {/* Packs */}
       {filteredPacks.length === 0 ? (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
-          <AlertTriangle size={24} className="mx-auto mb-2 text-slate-500 dark:text-slate-400" />
+          <AlertTriangle size={24} className="mx-auto mb-2 text-muted" />
           <p className="text-sm text-slate-500">No query packs match your filter.</p>
         </div>
       ) : (
@@ -738,7 +738,7 @@ export default function Tracepulse(): JSX.Element {
                       </span>
                     </div>
                     <p className="text-xs text-muted mb-2">{pack.summary}</p>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-micro font-mono text-slate-500 dark:text-slate-400">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-micro font-mono text-muted">
                       {pack.cveId && (
                         <span className="flex items-center gap-1">
                           <Shield size={10} /> {pack.cveId}
@@ -762,7 +762,7 @@ export default function Tracepulse(): JSX.Element {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => setExpandedPack(expandedPack === pack.id ? null : pack.id)}
-                      className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
+                      className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30 transition-colors"
                     >
                       {expandedPack === pack.id ? 'Collapse' : 'Expand'}
                     </button>
@@ -777,7 +777,7 @@ export default function Tracepulse(): JSX.Element {
                   {pack.affectedProducts.map((p) => (
                     <span
                       key={p}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                     >
                       {p}
                     </span>
@@ -809,7 +809,7 @@ export default function Tracepulse(): JSX.Element {
                           <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${LANG_COLORS[q.lang]}`}>
                             {LANG_LABELS[q.lang]}
                           </span>
-                          <span className="text-xs text-slate-500 dark:text-slate-400">Query {i + 1}</span>
+                          <span className="text-xs text-muted">Query {i + 1}</span>
                         </div>
                         <CopyButton value={q.code} />
                       </button>

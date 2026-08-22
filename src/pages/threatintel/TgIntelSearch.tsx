@@ -128,7 +128,7 @@ const SEV: Record<string, string> = {
   critical: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   high: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   medium: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
-  low: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]',
+  low: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]',
 };
 
 const LEAK_CLR: Record<string, string> = {
@@ -138,7 +138,7 @@ const LEAK_CLR: Record<string, string> = {
   keyword: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   ioc: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
   cve: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400',
+  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted',
 };
 
 function TgIntelSearch() {
@@ -324,7 +324,7 @@ function TgIntelSearch() {
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value as 'boolean' | 'general')}
-              className="px-2.5 py-2 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-r border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono font-semibold text-slate-600 dark:text-slate-400 focus:outline-none"
+              className="px-2.5 py-2 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-r border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono font-semibold text-muted focus:outline-none"
             >
               <option value="boolean">Boolean</option>
               <option value="general">General</option>
@@ -608,7 +608,7 @@ function TgIntelSearch() {
                     setFilterChannel(tc.channel_handle);
                     doSearch(query, 0);
                   }}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                 >
                   @{tc.channel_handle} ({tc.count})
                 </button>
@@ -661,7 +661,7 @@ function TgIntelSearch() {
                             {entry.credential_count} creds
                           </span>
                         )}
-                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                        <span className="text-micro font-mono text-muted ml-auto">
                           {entry.discovered_at?.split('T')[0]}
                         </span>
                       </div>
@@ -747,7 +747,7 @@ function TgIntelSearch() {
                                       type="button"
                                       key={i.value}
                                       onClick={() => copyIOC(i.value)}
-                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${IOC_CLR[i.type] || 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400'} hover:opacity-80`}
+                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${IOC_CLR[i.type] || 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted'} hover:opacity-80`}
                                     >
                                       {i.value.length > 36 ? i.value.slice(0, 36) + '...' : i.value}
                                       {copiedIOC === i.value ? (

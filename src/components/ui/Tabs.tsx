@@ -82,7 +82,7 @@ export function Tabs({
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                         : tab.disabled
                           ? 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-300 dark:text-slate-400 cursor-not-allowed'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
                     }`
               }
             >

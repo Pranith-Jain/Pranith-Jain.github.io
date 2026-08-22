@@ -394,9 +394,7 @@ export default function CampaignGenerator(): JSX.Element {
               rows={5}
               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
             />
-            <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1">
-              {iocList.length} parsed · max 30
-            </div>
+            <div className="text-micro font-mono text-muted mt-1">{iocList.length} parsed · max 30</div>
           </div>
           <div>
             <label
@@ -417,7 +415,7 @@ export default function CampaignGenerator(): JSX.Element {
         </div>
 
         <div className="flex items-center justify-between gap-3 mt-4 flex-wrap">
-          <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
+          <div className="text-micro font-mono text-muted">
             {totalLen}/8000 chars {tooLong && <span className="text-rose-500 font-bold">- too long</span>}
           </div>
           <button

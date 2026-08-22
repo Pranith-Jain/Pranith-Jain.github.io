@@ -167,7 +167,7 @@ export default function DarkWebPlaybook(): JSX.Element {
             behind the Robin tool, the operational realities of Tor, and the OPSEC discipline that keeps an
             investigation (and an investigator) safe.
           </span>
-          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <span className="block text-xs text-muted font-mono mt-2">
             Methodology from NetworkChuck Episode 480 · Robin dark-web research tool · educational & defensive use only.
           </span>
         </>
@@ -227,7 +227,7 @@ export default function DarkWebPlaybook(): JSX.Element {
               </div>
               <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-1">{s.title}</h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 mb-2">{s.desc}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{s.detail}</p>
+              <p className="text-xs text-muted leading-relaxed">{s.detail}</p>
             </li>
           ))}
         </ol>
@@ -246,10 +246,8 @@ export default function DarkWebPlaybook(): JSX.Element {
               <div className="font-display font-bold text-2xl text-brand-600 dark:text-brand-400 tracking-tight">
                 {r.stat}
               </div>
-              <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5 mb-2">
-                {r.label}
-              </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{r.desc}</p>
+              <div className="text-mini font-mono uppercase tracking-wider text-muted mt-0.5 mb-2">{r.label}</div>
+              <p className="text-xs text-muted leading-relaxed">{r.desc}</p>
             </div>
           ))}
         </div>
@@ -272,7 +270,7 @@ export default function DarkWebPlaybook(): JSX.Element {
                 <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-0.5">
                   {o.title}
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{o.desc}</p>
+                <p className="text-xs text-muted leading-relaxed">{o.desc}</p>
               </div>
             </div>
           ))}
@@ -301,7 +299,7 @@ export default function DarkWebPlaybook(): JSX.Element {
       {/* Continue */}
       <section className="surface-card p-5">
         <h2 className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-1">Put it into practice</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-sm text-muted mb-4">
           The platform's own dark-web tooling covers the search and recon stages of this playbook.
         </p>
         <div className="flex flex-wrap gap-2">
@@ -352,7 +350,7 @@ function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: string
       <h2 className="font-display font-bold text-xl sm:text-2xl text-slate-900 dark:text-slate-100 tracking-tight mb-1.5">
         {title}
       </h2>
-      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed">{sub}</p>
+      <p className="text-sm text-muted max-w-2xl leading-relaxed">{sub}</p>
     </div>
   );
 }

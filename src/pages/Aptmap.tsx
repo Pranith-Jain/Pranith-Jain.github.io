@@ -66,7 +66,7 @@ function TopBarChart({ items, labelKey, maxItems = 15 }: { items: CountItem[]; l
                 style={{ width: `${Math.max(pct, 2)}%` }}
               />
             </div>
-            <span className="w-16 text-right text-xs font-mono text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
+            <span className="w-16 text-right text-xs font-mono text-muted tabular-nums shrink-0">
               {item.count.toLocaleString()}
             </span>
           </div>
@@ -116,7 +116,7 @@ function HorizontalStackedChart({
                 style={{ width: `${Math.max(pct, 1)}%` }}
               />
             </div>
-            <span className="w-12 text-right text-xs font-mono text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
+            <span className="w-12 text-right text-xs font-mono text-muted tabular-nums shrink-0">
               {pct.toFixed(1)}%
             </span>
           </div>
@@ -369,7 +369,7 @@ export default function AptmapPage() {
                 <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-2">
                   Graph Structure
                 </h3>
-                <div className="text-xs font-mono text-slate-500 dark:text-slate-400 space-y-1">
+                <div className="text-xs font-mono text-muted space-y-1">
                   <p>Total nodes: {graph?.nodes.length.toLocaleString()}</p>
                   <p>Total edges: {graph?.links.length.toLocaleString()}</p>
                   <p>
@@ -419,12 +419,12 @@ export default function AptmapPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-8 pr-8 py-2 text-xs font-mono surface-card text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
             />
-            <Search size={12} className="absolute left-2.5 top-2.5 text-slate-500 dark:text-slate-400" />
+            <Search size={12} className="absolute left-2.5 top-2.5 text-muted" />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2 top-2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
+                className="absolute right-2 top-2 text-muted hover:text-slate-600"
               >
                 <X size={14} />
               </button>
@@ -444,20 +444,18 @@ export default function AptmapPage() {
                     <span className="text-sm font-display font-semibold text-slate-900 dark:text-white">
                       {selectedNode.name}
                     </span>
-                    <span className="px-1.5 py-0.5 rounded text-micro font-mono uppercase bg-slate-800/40 text-slate-500 dark:text-slate-400">
+                    <span className="px-1.5 py-0.5 rounded text-micro font-mono uppercase bg-slate-800/40 text-muted">
                       {selectedNode.group}
                     </span>
                   </div>
                   {selectedNode.description && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2 max-w-3xl">
-                      {selectedNode.description}
-                    </p>
+                    <p className="text-xs text-muted leading-relaxed mt-2 max-w-3xl">{selectedNode.description}</p>
                   )}
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedNode(null)}
-                  className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 shrink-0"
+                  className="text-muted hover:text-slate-700 dark:text-slate-300 shrink-0"
                 >
                   <X size={16} />
                 </button>
@@ -468,7 +466,7 @@ export default function AptmapPage() {
           {/* Adjacent nodes */}
           {selectedNode && (
             <div className="rounded-xl border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4">
-              <h3 className="text-xs font-display font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
+              <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-wider mb-3">
                 Connected Nodes
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
@@ -507,7 +505,7 @@ export default function AptmapPage() {
 
           {/* Node browser */}
           <div className="rounded-xl border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4">
-            <h3 className="text-xs font-display font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
+            <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-wider mb-3">
               {searchQuery ? `Search Results (${filteredNodes?.length ?? 0})` : 'All Nodes'}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 max-h-96 overflow-y-auto">
@@ -609,7 +607,7 @@ export default function AptmapPage() {
             <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-3">
               PE Analysis Summary
             </h3>
-            <div className="space-y-2 text-xs font-mono text-slate-500 dark:text-slate-400">
+            <div className="space-y-2 text-xs font-mono text-muted">
               {filetypes.length > 0 && (
                 <div className="flex justify-between">
                   <span>PE32 GUI samples</span>

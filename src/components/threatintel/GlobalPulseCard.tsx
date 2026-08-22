@@ -67,11 +67,11 @@ export function GlobalPulseCard(): JSX.Element | null {
             {fmt(data.total_events)} events · {fmt(critical)} critical
           </span>
         </div>
-        <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+        <p className="mt-0.5 text-xs text-muted">
           {topLayers.map(([kind, count]) => `${kind.replace(/_/g, ' ')} (${fmt(count)})`).join(' · ')}
         </p>
       </div>
-      <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400 transition-transform group-hover:translate-x-0.5 dark:text-slate-400" />
+      <ArrowRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 dark:text-slate-400" />
     </Link>
   );
 }

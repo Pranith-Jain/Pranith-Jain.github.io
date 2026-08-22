@@ -88,7 +88,7 @@ export default function DataClassification(): JSX.Element {
       title="Data Classification & Handling"
       description="Define your tier policies (Public / Internal / Confidential / Restricted), inventory the datasets that exist in your environment, and assign each one to a tier. The matrix view renders the cross-product as a handling reference. localStorage; everything stays in your browser."
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <p className="text-xs text-muted font-mono">
           Pairs with{' '}
           <Link to="/dfir/dlp-scan" className="text-brand-600 dark:text-brand-400 hover:underline">
             Sensitive Data Detector
@@ -282,7 +282,7 @@ export default function DataClassification(): JSX.Element {
       {tab === 'inventory' && (
         <div className="space-y-3">
           {state.datasets.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-muted">
               No datasets yet. Click <strong>Add dataset</strong> to start an inventory.
             </div>
           ) : (
@@ -298,7 +298,7 @@ export default function DataClassification(): JSX.Element {
                       <span className="block font-display font-semibold text-slate-900 dark:text-slate-100 truncate">
                         {d.name || '(unnamed)'}
                       </span>
-                      <span className="block text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
+                      <span className="block text-xs font-mono text-muted truncate">
                         {d.type} · {d.owner || 'no owner'}
                         {d.storage ? ` · ${d.storage}` : ''}
                       </span>
@@ -309,9 +309,9 @@ export default function DataClassification(): JSX.Element {
                       {TIER_LABELS[d.tier]}
                     </span>
                     {isOpen ? (
-                      <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" />
+                      <ChevronDown size={16} className="flex-none text-muted" />
                     ) : (
-                      <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" />
+                      <ChevronRight size={16} className="flex-none text-muted" />
                     )}
                   </button>
                   {isOpen && (
@@ -433,10 +433,7 @@ export default function DataClassification(): JSX.Element {
           <table className="w-full text-xs font-mono">
             <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] text-left">
               <tr>
-                <th
-                  scope="col"
-                  className="px-3 py-2 text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400"
-                >
+                <th scope="col" className="px-3 py-2 text-micro uppercase tracking-wider text-muted">
                   Handling rule
                 </th>
                 {TIERS.map((t) => (
@@ -492,9 +489,7 @@ export default function DataClassification(): JSX.Element {
       )}
 
       <section className="mt-8 surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
@@ -555,9 +550,7 @@ function TabBtn({
 function Field({ label, children }: { label: string; children: React.ReactNode }): JSX.Element {
   return (
     <label className="block">
-      <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
-        {label}
-      </span>
+      <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1 block">{label}</span>
       {children}
     </label>
   );

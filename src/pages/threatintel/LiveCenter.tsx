@@ -304,7 +304,7 @@ export default function LiveCenter(): JSX.Element {
       description={
         <span>
           Collection of command line tools ready to be utilized.{' '}
-          <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
+          <span className="font-mono text-xs text-muted">
             {TOTAL_TOOLS} tools across {CATEGORIES.length} categories
           </span>
         </span>
@@ -314,14 +314,10 @@ export default function LiveCenter(): JSX.Element {
       <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {CATEGORIES.map((cat) => (
           <div key={cat.id} className="surface-card px-3 py-2">
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              {cat.label}
-            </div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted">{cat.label}</div>
             <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               {cat.tools.length}{' '}
-              <span className="text-xs font-normal text-slate-500 dark:text-slate-400">
-                {cat.tools.length === 1 ? 'tool' : 'tools'}
-              </span>
+              <span className="text-xs font-normal text-muted">{cat.tools.length === 1 ? 'tool' : 'tools'}</span>
             </div>
           </div>
         ))}
@@ -345,7 +341,7 @@ export default function LiveCenter(): JSX.Element {
             <div className="mb-3 flex items-center gap-2">
               <span className="text-rose-600 dark:text-rose-400">{cat.icon}</span>
               <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">{cat.label}</h2>
-              <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400">
+              <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-muted">
                 {cat.tools.length}
               </span>
             </div>
@@ -381,17 +377,13 @@ export default function LiveCenter(): JSX.Element {
                         className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.6)] p-4 space-y-3 animate-fade-in-up"
                       >
                         <div>
-                          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                            Install
-                          </span>
+                          <span className="text-micro font-mono uppercase tracking-wider text-muted">Install</span>
                           <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
                             {tool.detail.install}
                           </pre>
                         </div>
                         <div>
-                          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                            Example
-                          </span>
+                          <span className="text-micro font-mono uppercase tracking-wider text-muted">Example</span>
                           <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
                             {tool.detail.example}
                           </pre>

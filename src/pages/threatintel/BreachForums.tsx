@@ -252,7 +252,7 @@ export default function BreachForums(): JSX.Element {
       )}
       <section className="surface-card p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-mini font-mono text-muted">
             {data.rows.length} entries · {data.totals.directory} from deepdarkCTI · {data.totals.curated} curated
           </p>
         )}

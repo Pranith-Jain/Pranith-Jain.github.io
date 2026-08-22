@@ -131,7 +131,7 @@ export function DataPageLayout({
       {!hideBack && !insideLayout && (
         <Link
           to={backTarget}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-tool text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-xl mb-8 font-mono transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-tool text-muted hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-xl mb-8 font-mono transition-colors"
         >
           <ArrowLeft size={14} /> {resolvedBackLabel}
         </Link>
@@ -142,7 +142,7 @@ export function DataPageLayout({
           <h1 className="text-3xl sm:text-4xl font-display font-semibold tracking-[-1.28px] mb-2 flex items-center gap-3">
             <span className={resolvedAccent}>{icon}</span> {title}
           </h1>
-          {description && <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>}
+          {description && <p className="text-muted max-w-2xl leading-relaxed">{description}</p>}
           {headerExtra && <div className="mt-4">{headerExtra}</div>}
         </div>
       )}
@@ -173,7 +173,7 @@ export function DataPageLayout({
 
       {loading ? (
         <div className="flex items-center justify-center py-16" role="status" aria-live="polite" aria-busy="true">
-          <Loader2 size={24} className="animate-spin text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Loader2 size={24} className="animate-spin text-muted" aria-hidden="true" />
           <span className="sr-only">Loading…</span>
         </div>
       ) : empty ? (

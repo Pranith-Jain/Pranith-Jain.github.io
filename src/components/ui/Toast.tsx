@@ -106,7 +106,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <button
               type="button"
               onClick={() => dismiss(t.id)}
-              className="shrink-0 grid h-6 w-6 place-items-center rounded text-slate-500 dark:text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
+              className="shrink-0 grid h-6 w-6 place-items-center rounded text-muted transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
               aria-label="Dismiss"
             >
               <X className="h-3.5 w-3.5" aria-hidden="true" />

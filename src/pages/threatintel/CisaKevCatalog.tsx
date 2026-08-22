@@ -42,7 +42,7 @@ const SEVERITY_PILL: Record<string, string> = {
   Medium: 'border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   Low: 'border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
   '(none)':
-    'border-slate-300 dark:border-[rgb(var(--border-500))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400',
+    'border-slate-300 dark:border-[rgb(var(--border-500))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted',
 };
 
 const SEV_ORDER = ['Critical', 'High', 'Medium', 'Low'];
@@ -230,7 +230,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
           { label: 'Showing', value: filtered.length, color: 'text-rose-600 dark:text-rose-400' },
         ].map((kpi) => (
           <div key={kpi.label} className="surface-card p-3">
-            <div className="text-xs text-slate-500 dark:text-slate-400">{kpi.label}</div>
+            <div className="text-xs text-muted">{kpi.label}</div>
             <div className={`text-xl font-bold ${kpi.color}`}>{kpi.value.toLocaleString()}</div>
           </div>
         ))}
@@ -239,7 +239,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       {/* Severity distribution bar */}
       {filtered.length > 0 && (
         <div className="surface-card p-3">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">Severity Distribution</div>
+          <div className="text-xs font-mono text-muted mb-2">Severity Distribution</div>
           <SeverityBar counts={severityCounts} />
         </div>
       )}
@@ -247,7 +247,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       {/* Filters */}
       <div className="flex flex-wrap gap-2 items-center">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -336,9 +336,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                 key: 'date_added',
                 header: 'Added',
                 sortValue: (v: (typeof pageEntries)[number]) => v.date_added,
-                render: (v) => (
-                  <span className="text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.date_added}</span>
-                ),
+                render: (v) => <span className="text-muted whitespace-nowrap">{v.date_added}</span>,
               },
               {
                 key: 'cve_id',
@@ -363,9 +361,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   <span>
                     <SeverityBadge severity={v.severity} />
                     {v.cvss_score != null && (
-                      <span className="ml-1.5 text-mini text-slate-500 dark:text-slate-400 font-mono">
-                        {v.cvss_score.toFixed(1)}
-                      </span>
+                      <span className="ml-1.5 text-mini text-muted font-mono">{v.cvss_score.toFixed(1)}</span>
                     )}
                   </span>
                 ),
@@ -386,9 +382,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                 key: 'vulnerability_name',
                 header: 'Vulnerability',
                 sortValue: (v: (typeof pageEntries)[number]) => v.vulnerability_name,
-                render: (v) => (
-                  <span className="text-slate-600 dark:text-slate-400 max-w-xs truncate">{v.vulnerability_name}</span>
-                ),
+                render: (v) => <span className="text-muted max-w-xs truncate">{v.vulnerability_name}</span>,
               },
               {
                 key: 'due_date',
@@ -398,7 +392,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   const overdue = v.due_date && new Date(v.due_date) < new Date();
                   return (
                     <span
-                      className={`whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}`}
+                      className={`whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-muted'}`}
                     >
                       {v.due_date}
                     </span>
@@ -414,7 +408,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                       <AlertTriangle size={10} /> Yes
                     </span>
                   ) : (
-                    <span className="text-xs text-slate-500 dark:text-slate-400">No</span>
+                    <span className="text-xs text-muted">No</span>
                   ),
               },
               {
@@ -438,7 +432,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
 
         {/* Pagination */}
         {filtered.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted">
             <span>
               {filtered.length.toLocaleString()} result{filtered.length !== 1 ? 's' : ''}
               {pageSize < filtered.length && ` - page ${page + 1} of ${pageCount} (${pageEntries.length} shown)`}

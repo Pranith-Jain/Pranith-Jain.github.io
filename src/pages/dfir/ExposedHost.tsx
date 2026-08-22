@@ -163,7 +163,7 @@ export default function ExposedHostView(): JSX.Element {
 
       <form onSubmit={onSubmit} className="flex gap-2 mb-8">
         <div className="relative flex-1">
-          <Server size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Server size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={ip}
@@ -208,7 +208,7 @@ export default function ExposedHostView(): JSX.Element {
                   {result.asn && <span className="font-mono">· {result.asn}</span>}
                 </div>
               </div>
-              <div className="text-right text-xs font-mono text-slate-500 dark:text-slate-400">
+              <div className="text-right text-xs font-mono text-muted">
                 <div>{result.scanTimeMs}ms</div>
                 <div>{result.sources.join(', ')}</div>
               </div>
@@ -277,7 +277,7 @@ export default function ExposedHostView(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Icon size={12} className="text-slate-500 dark:text-slate-400" />
+                  <Icon size={12} className="text-muted" />
                   <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-2xl font-mono font-bold">{value}</span>
@@ -397,7 +397,7 @@ export default function ExposedHostView(): JSX.Element {
                           key={h}
                           className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                         >
-                          <Globe size={10} className="text-slate-500 dark:text-slate-400" />
+                          <Globe size={10} className="text-muted" />
                           <Link to={`/dfir/domain?d=${h}`} className="font-mono text-sm text-brand-600 hover:underline">
                             {h}
                           </Link>
@@ -461,10 +461,7 @@ export default function ExposedHostView(): JSX.Element {
                       {previewArtifact.risk}
                     </span>
                   </div>
-                  <button
-                    onClick={() => setPreviewArtifact(null)}
-                    className="text-slate-500 dark:text-slate-400 hover:text-slate-600"
-                  >
+                  <button onClick={() => setPreviewArtifact(null)} className="text-muted hover:text-slate-600">
                     remove
                   </button>
                 </div>
@@ -515,7 +512,7 @@ export default function ExposedHostView(): JSX.Element {
                       )}
                     </div>
                   )}
-                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                  <div className="text-xs text-muted">
                     Artifact preview is for demonstration - full content analysis requires the Open Directory Scanner.
                   </div>
                 </div>
@@ -529,7 +526,7 @@ export default function ExposedHostView(): JSX.Element {
         <div className="text-center py-16">
           <Server size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter an IP address to see exposed host intelligence</p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-muted mt-1">
             Shows open ports, CVEs, hostnames, privacy flags, and artifact inventory
           </p>
         </div>

@@ -169,25 +169,19 @@ export default function CloudReference() {
 
         {tab === 'srm' && (
           <>
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            <p className="text-xs font-mono text-muted">
               {index?.srm.description} Stakeholders: {index?.srm.stakeholders.join(', ')}.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 w-56">
-                      Domain
-                    </th>
-                    <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-muted w-56">Domain</th>
+                    <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-muted">
                       IaaS (customer-managed)
                     </th>
-                    <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      PaaS
-                    </th>
-                    <th className="py-2 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      SaaS
-                    </th>
+                    <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-muted">PaaS</th>
+                    <th className="py-2 text-micro font-mono uppercase tracking-wider text-muted">SaaS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -225,10 +219,7 @@ export default function CloudReference() {
           <>
             <div className="flex flex-wrap items-center gap-3">
               <div className="relative flex-1 min-w-[200px] max-w-md">
-                <Search
-                  size={14}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-                />
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   type="text"
                   placeholder="Search hunt queries..."
@@ -237,7 +228,7 @@ export default function CloudReference() {
                   className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
                 />
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+              <div className="text-xs text-muted font-mono">
                 {filteredQueries.length} / {index?.queryIndex.length ?? 0}
               </div>
             </div>
@@ -262,7 +253,7 @@ export default function CloudReference() {
             ) : filteredQueries.length === 0 ? (
               <div className={`${CARD} p-12 text-center`}>
                 <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
-                <p className="text-sm text-slate-500 dark:text-slate-400">No queries match your filters.</p>
+                <p className="text-sm text-muted">No queries match your filters.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">

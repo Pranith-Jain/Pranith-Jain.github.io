@@ -98,7 +98,7 @@ function FunnelBar({ mix, target }: { mix: FunnelMix; target: { tofu: number; mo
         {(['tofu', 'mofu', 'bofu'] as const).map((f) => (
           <span key={f} className="flex items-center gap-1">
             <span className={`inline-block w-2 h-2 rounded-full ${FUNNEL_COLORS[f]}`} />
-            <span className="text-slate-600 dark:text-slate-400">
+            <span className="text-muted">
               {FUNNEL_LABELS[f]}: {mix[f]} ({pct(mix[f])})
             </span>
           </span>
@@ -111,7 +111,7 @@ function FunnelBar({ mix, target }: { mix: FunnelMix; target: { tofu: number; mo
             .map(([type, count]) => (
               <span
                 key={type}
-                className="px-1.5 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400"
+                className="px-1.5 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
               >
                 {type} ×{count}
               </span>
@@ -146,7 +146,7 @@ export default function CalendarTab() {
   }, [load]);
 
   if (loading) {
-    return <p className="text-sm text-slate-500 dark:text-slate-400">Loading calendar…</p>;
+    return <p className="text-sm text-muted">Loading calendar…</p>;
   }
   if (error) {
     return (
@@ -164,16 +164,16 @@ export default function CalendarTab() {
     <div className="space-y-4">
       {/* Summary stats */}
       <div className="flex flex-wrap gap-3 text-xs">
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400">
+        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
           <span className="font-mono">{data.pendingCount}</span> pending
         </span>
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400">
+        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
           <span className="font-mono">{data.approvedCount}</span> approved
         </span>
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400">
+        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
           <span className="font-mono">{data.scheduledCount}</span> scheduled
         </span>
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400">
+        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
           <span className="font-mono">{data.publishedCount}</span> published (14d)
         </span>
       </div>
@@ -197,7 +197,7 @@ export default function CalendarTab() {
               }`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{day.label}</span>
+                <span className="text-xs font-mono text-muted">{day.label}</span>
                 <span className="text-micro font-mono text-slate-400">{day.date.slice(5)}</span>
               </div>
               {day.slots.map((slot, i) => (

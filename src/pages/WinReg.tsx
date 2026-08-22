@@ -55,7 +55,7 @@ const HIVE_COLORS: Record<string, string> = {
   AMCACHE: 'text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 border-teal-300 dark:border-teal-800',
   USRCLASS:
     'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800',
-  ALL: 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700',
+  ALL: 'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700',
 };
 
 function hiveColor(hive: string): string {
@@ -75,9 +75,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
       <div className="space-y-5 max-h-[70vh] overflow-y-auto">
         {body.keys.length > 0 && (
           <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              Registry Keys
-            </div>
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-2">Registry Keys</div>
             <div className="space-y-1">
               {body.keys.map((k, i) => (
                 <div
@@ -91,9 +89,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
           </div>
         )}
         <div>
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            Description
-          </div>
+          <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Description</div>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
         </div>
         {body.forensic_value && (
@@ -113,9 +109,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
         </div>
         {body.techniques.length > 0 && (
           <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              MITRE ATT&CK
-            </div>
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-2">MITRE ATT&CK</div>
             <div className="flex flex-wrap gap-1.5">
               {body.techniques.map((t) => (
                 <a
@@ -133,14 +127,12 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
         )}
         {body.parsers.length > 0 && (
           <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              Parsers / Tools
-            </div>
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-2">Parsers / Tools</div>
             <div className="flex flex-wrap gap-1.5">
               {body.parsers.map((p, i) => (
                 <span
                   key={i}
-                  className="font-mono text-micro text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
+                  className="font-mono text-micro text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
                 >
                   {p}
                 </span>
@@ -228,7 +220,7 @@ export default function WinReg() {
         {/* Search + stats bar */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px] max-w-md">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               placeholder="Search artifacts by name, key, technique..."
@@ -237,7 +229,7 @@ export default function WinReg() {
               className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
-          <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="text-xs text-muted font-mono">
             {filtered.length} / {artifactsData?.total ?? 0} artifacts
           </div>
         </div>
@@ -249,7 +241,7 @@ export default function WinReg() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedCategory
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
             }`}
           >
             All Categories
@@ -261,7 +253,7 @@ export default function WinReg() {
               className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                 selectedCategory === cat.key
                   ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
               }`}
             >
               {cat.name} <span className="opacity-60 ml-0.5">({cat.count})</span>
@@ -291,7 +283,7 @@ export default function WinReg() {
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
             <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
-            <p className="text-sm text-slate-500 dark:text-slate-400">No artifacts match your filters.</p>
+            <p className="text-sm text-muted">No artifacts match your filters.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -325,16 +317,12 @@ export default function WinReg() {
                       </span>
                     ))}
                     {art.techniques.length > 3 && (
-                      <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
-                        +{art.techniques.length - 3}
-                      </span>
+                      <span className="font-mono text-micro text-muted">+{art.techniques.length - 3}</span>
                     )}
                   </div>
                 )}
                 {art.tool.length > 0 && (
-                  <div className="mt-2 text-micro text-slate-500 dark:text-slate-400 truncate">
-                    {art.tool.slice(0, 2).join(', ')}
-                  </div>
+                  <div className="mt-2 text-micro text-muted truncate">{art.tool.slice(0, 2).join(', ')}</div>
                 )}
               </button>
             ))}

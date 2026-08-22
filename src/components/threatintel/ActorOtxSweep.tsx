@@ -158,7 +158,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
             <Radio size={14} className="text-brand-600 dark:text-brand-400" />
             OTX rotation sweep
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-muted mt-0.5">
             Fetch fresh OTX pulses for {limit} actors per sweep. Picks never-attempted first, then fewest IOCs, then
             oldest attempt. Rotation state cached at the edge - no API quota cost.
           </p>
@@ -216,7 +216,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
       )}
 
       {done && (
-        <div className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+        <div className="mt-3 text-xs text-muted">
           done - {done.processed} processed, {done.skipped} skipped
         </div>
       )}

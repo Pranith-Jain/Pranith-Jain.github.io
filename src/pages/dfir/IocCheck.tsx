@@ -558,7 +558,7 @@ export default function IocCheck(): JSX.Element {
               </>
             )}
             {bulkIndicators.length > 0 && (
-              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono text-muted">
                 detected {bulkIndicators.length} unique indicator{bulkIndicators.length === 1 ? '' : 's'}
                 {bulkInput.split(/[\s,;|]+/).filter(Boolean).length > BULK_MAX && ` (capped at ${BULK_MAX})`}
               </span>
@@ -640,11 +640,9 @@ export default function IocCheck(): JSX.Element {
                           {r.type === 'unknown' ? '?' : r.type}
                         </td>
                         <td className="px-3 py-2">
-                          {r.status === 'pending' && (
-                            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">queued</span>
-                          )}
+                          {r.status === 'pending' && <span className="text-mini font-mono text-muted">queued</span>}
                           {r.status === 'running' && (
-                            <span className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 dark:text-slate-400">
+                            <span className="inline-flex items-center gap-1 text-mini font-mono text-muted">
                               <Loader2 size={11} className="animate-spin" /> running
                             </span>
                           )}
@@ -819,7 +817,7 @@ export default function IocCheck(): JSX.Element {
                       className={`px-3 py-2 rounded-xl text-xs font-mono border transition-colors ${
                         ruleFormat === f
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
                       }`}
                     >
                       {f.toUpperCase()}
@@ -840,7 +838,7 @@ export default function IocCheck(): JSX.Element {
               {explainText && (
                 <section className="mb-8 surface-card p-4 animate-fade-in-up">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-muted">
                       AI Verdict Explanation
                     </h3>
                     <button
@@ -850,7 +848,7 @@ export default function IocCheck(): JSX.Element {
                         setCopied('explain');
                         setTimeout(() => setCopied(null), 2000);
                       }}
-                      className="text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                      className="text-xs font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300"
                     >
                       {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                     </button>
@@ -880,7 +878,7 @@ export default function IocCheck(): JSX.Element {
                         setCopied('rule');
                         setTimeout(() => setCopied(null), 2000);
                       }}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied === 'rule' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                       {copied === 'rule' ? 'Copied' : 'Copy'}
@@ -913,7 +911,7 @@ export default function IocCheck(): JSX.Element {
         <section aria-busy={streaming && eligible.length === 0} aria-live="polite" aria-atomic="true">
           <h3 className="font-display font-semibold mb-4 text-lg">Per-source</h3>
           {streaming && eligible.length === 0 ? (
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 animate-pulse">
+            <p className="text-xs font-mono text-muted animate-pulse">
               opening stream - waiting for eligible providers…
             </p>
           ) : (
@@ -938,7 +936,7 @@ export default function IocCheck(): JSX.Element {
             </div>
           )}
           {results.length > 0 && (
-            <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+            <p className="mt-3 text-xs font-mono text-muted">
               {results.filter((r) => r.verdict === 'clean' || r.status !== 'ok').length} clean / errored sources hidden
             </p>
           )}
@@ -985,7 +983,7 @@ export default function IocCheck(): JSX.Element {
           <h3 className="font-display font-semibold text-sm mb-3 inline-flex items-center gap-2">
             <Search size={14} /> External Enrichment
           </h3>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+          <p className="text-xs font-mono text-muted mb-3">
             Query additional free threat intel APIs for deeper context.
           </p>
           <div className="flex flex-wrap gap-2">

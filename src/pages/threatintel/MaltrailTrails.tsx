@@ -118,7 +118,7 @@ export default function MaltrailTrails(): JSX.Element {
                     }`}
                   >
                     <div className="font-semibold truncate">{f.name.replace(/\.txt$/i, '')}</div>
-                    <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5">
+                    <div className="text-micro text-muted mt-0.5">
                       {f.actors?.[0] ?? '-'} · {(f.size / 1024).toFixed(1)} KB
                     </div>
                   </button>
@@ -160,9 +160,7 @@ export default function MaltrailTrails(): JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-                    Actors: {content.actors.join(', ')}
-                  </span>
+                  <span className="text-mini font-mono text-muted">Actors: {content.actors.join(', ')}</span>
                 </div>
                 {content.truncated && (
                   <p className="text-mini font-mono text-amber-600 dark:text-amber-400 mt-2">

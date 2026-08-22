@@ -55,7 +55,7 @@ export default function McpSearch(): JSX.Element {
       <McpSearchWorkbench />
 
       {apiKey && (
-        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted">
           <Link
             to="/threatintel/research-hub/ai"
             className="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-rose-400"
@@ -69,7 +69,7 @@ export default function McpSearch(): JSX.Element {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
-            <Github className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+            <Github className="h-3 w-3 text-muted" />
             MCP Docs
           </a>
         </div>

@@ -173,7 +173,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
         </div>
       ) : null}
 
-      <div className="flex items-center gap-2 flex-wrap text-mini text-slate-500 dark:text-slate-400">
+      <div className="flex items-center gap-2 flex-wrap text-mini text-muted">
         <span className="flex items-center gap-1">
           <Activity className="w-2.5 h-2.5" />
           {site.upMirrors}/{site.totalMirrors} mirrors
@@ -414,7 +414,7 @@ export default function DarknetList(): JSX.Element {
           </div>
 
           {/* Results count + rebuilt time */}
-          <div className="flex items-center justify-between mb-3 text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="flex items-center justify-between mb-3 text-xs text-muted font-mono">
             <span>
               Showing {filtered.length} of {data.sites.length} sites
             </span>
@@ -451,7 +451,7 @@ export default function DarknetList(): JSX.Element {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
             Source: darknetlist.is · {data.counts.sites} sites across {data.counts.categories} categories · scanned
             every 30 min via fresh SOCKS circuit
           </div>

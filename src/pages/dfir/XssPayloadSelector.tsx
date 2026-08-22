@@ -567,9 +567,7 @@ export default function XssPayloadSelector(): JSX.Element {
         </div>
         <div>
           <h1 className="text-2xl font-bold">XSS Payload Selector</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            Curated XSS payload library - filter by context, severity, or tags
-          </p>
+          <p className="text-sm text-muted">Curated XSS payload library - filter by context, severity, or tags</p>
         </div>
       </div>
 
@@ -595,7 +593,7 @@ export default function XssPayloadSelector(): JSX.Element {
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={searchQuery}
@@ -605,7 +603,7 @@ export default function XssPayloadSelector(): JSX.Element {
           />
         </div>
         <div className="flex items-center gap-1">
-          <Filter size={14} className="text-slate-500 dark:text-slate-400" />
+          <Filter size={14} className="text-muted" />
           <div className="flex flex-wrap gap-1">
             {CONTEXTS.map((c) => (
               <button
@@ -615,7 +613,7 @@ export default function XssPayloadSelector(): JSX.Element {
                 className={`px-2 py-1 rounded text-xs font-mono transition-colors ${
                   contextFilter === c.id
                     ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30'
-                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
+                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
                 }`}
               >
                 {c.label}
@@ -659,7 +657,7 @@ export default function XssPayloadSelector(): JSX.Element {
       {/* Payload list */}
       <div className="space-y-2">
         {filtered.length === 0 ? (
-          <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+          <div className="text-center py-12 text-muted">
             <AlertTriangle size={24} className="mx-auto mb-2 opacity-50" />
             <p className="text-sm">No payloads match your filters</p>
           </div>
@@ -688,11 +686,11 @@ export default function XssPayloadSelector(): JSX.Element {
                     >
                       {p.severity}
                     </span>
-                    <span className="px-1.5 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400">
+                    <span className="px-1.5 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted">
                       {p.context}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{p.description}</p>
+                  <p className="text-xs text-muted mt-1">{p.description}</p>
                   <div className="mt-2 flex items-center gap-2">
                     <code className="flex-1 px-2 py-1.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 text-xs font-mono overflow-x-auto whitespace-nowrap">
                       {p.payload}
@@ -723,7 +721,7 @@ export default function XssPayloadSelector(): JSX.Element {
                       {p.tags.map((t) => (
                         <span
                           key={t}
-                          className="px-1.5 py-0.5 rounded text-micro bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400"
+                          className="px-1.5 py-0.5 rounded text-micro bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted"
                         >
                           #{t}
                         </span>
@@ -742,7 +740,7 @@ export default function XssPayloadSelector(): JSX.Element {
         <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
           <Info size={14} className="text-slate-500" /> Usage Notes
         </h4>
-        <ul className="text-xs text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+        <ul className="text-xs text-muted space-y-1 list-disc list-inside">
           <li>Select multiple payloads to copy/download in batch</li>
           <li>
             <strong>Context filters</strong> help narrow payloads to the exact injection point (HTML tag, attribute, JS,

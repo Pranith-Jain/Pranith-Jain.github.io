@@ -73,7 +73,7 @@ const TLP_COLORS: Record<Tlp, string> = {
 const CONFIDENCE_COLORS: Record<Finding['confidence'], string> = {
   High: 'text-rose-700 dark:text-rose-300',
   Medium: 'text-amber-700 dark:text-amber-300',
-  Low: 'text-slate-500 dark:text-slate-400',
+  Low: 'text-muted',
 };
 
 const IOC_PREVIEW_COLUMNS: DataTableColumn<IocEntry>[] = [
@@ -312,7 +312,7 @@ export default function ReportComposer(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* ── Cover / Meta ──────────────────────────────── */}
         <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
-          <h2 className="text-sm font-semibold uppercase text-slate-500 dark:text-slate-400 mb-3 flex items-center gap-2">
+          <h2 className="text-sm font-semibold uppercase text-muted mb-3 flex items-center gap-2">
             <Shield size={14} /> Cover & TLP
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -386,7 +386,7 @@ export default function ReportComposer(): JSX.Element {
 
         {/* ── Executive summary ──────────────────────────── */}
         <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
-          <h2 className="text-sm font-semibold uppercase text-slate-500 dark:text-slate-400 mb-3">Executive Summary</h2>
+          <h2 className="text-sm font-semibold uppercase text-muted mb-3">Executive Summary</h2>
           <textarea
             value={doc.executiveSummary}
             onChange={(e) => update('executiveSummary', e.target.value)}
@@ -399,7 +399,7 @@ export default function ReportComposer(): JSX.Element {
         {/* ── Findings ───────────────────────────────────── */}
         <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold uppercase text-slate-500 dark:text-slate-400 flex items-center gap-2">
+            <h2 className="text-sm font-semibold uppercase text-muted flex items-center gap-2">
               <Star size={14} /> Key Findings ({doc.findings.length})
             </h2>
             <button
@@ -442,7 +442,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeFinding(i)}
-                    className="ml-auto p-1 text-slate-500 dark:text-slate-400 hover:text-rose-400"
+                    className="ml-auto p-1 text-muted hover:text-rose-400"
                     aria-label="Remove finding"
                   >
                     <Trash2 size={12} />
@@ -459,9 +459,7 @@ export default function ReportComposer(): JSX.Element {
         {/* ── IOCs ───────────────────────────────────────── */}
         <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold uppercase text-slate-500 dark:text-slate-400">
-              IOCs ({doc.iocs.length})
-            </h2>
+            <h2 className="text-sm font-semibold uppercase text-muted">IOCs ({doc.iocs.length})</h2>
             <button
               type="button"
               onClick={addIoc}
@@ -507,7 +505,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeIoc(i)}
-                    className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-400"
+                    className="p-1.5 text-muted hover:text-rose-400"
                     aria-label="Remove IOC"
                   >
                     <Trash2 size={12} />
@@ -522,9 +520,7 @@ export default function ReportComposer(): JSX.Element {
         {/* ── Sections ──────────────────────────────────── */}
         <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold uppercase text-slate-500 dark:text-slate-400">
-              Sections ({doc.sections.length})
-            </h2>
+            <h2 className="text-sm font-semibold uppercase text-muted">Sections ({doc.sections.length})</h2>
             <button
               type="button"
               onClick={addSection}
@@ -551,7 +547,7 @@ export default function ReportComposer(): JSX.Element {
                     type="button"
                     onClick={() => moveSection(i, -1)}
                     disabled={i === 0}
-                    className="p-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
+                    className="p-1 text-muted hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
                     aria-label="Move up"
                     title="Move up"
                   >
@@ -561,7 +557,7 @@ export default function ReportComposer(): JSX.Element {
                     type="button"
                     onClick={() => moveSection(i, 1)}
                     disabled={i === doc.sections.length - 1}
-                    className="p-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
+                    className="p-1 text-muted hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
                     aria-label="Move down"
                     title="Move down"
                   >
@@ -570,7 +566,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeSection(i)}
-                    className="p-1 text-slate-500 dark:text-slate-400 hover:text-rose-400"
+                    className="p-1 text-muted hover:text-rose-400"
                     aria-label="Remove section"
                   >
                     <Trash2 size={12} />
@@ -594,9 +590,7 @@ export default function ReportComposer(): JSX.Element {
         {/* ── Sources ────────────────────────────────────── */}
         <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold uppercase text-slate-500 dark:text-slate-400">
-              Sources ({doc.sources.length})
-            </h2>
+            <h2 className="text-sm font-semibold uppercase text-muted">Sources ({doc.sources.length})</h2>
             <button
               type="button"
               onClick={addSource}
@@ -636,7 +630,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeSource(i)}
-                    className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-400"
+                    className="p-1.5 text-muted hover:text-rose-400"
                     aria-label="Remove source"
                   >
                     <Trash2 size={12} />
@@ -663,9 +657,7 @@ interface FieldProps {
 function Field({ label, children }: FieldProps): JSX.Element {
   return (
     <label className="block">
-      <span className="block text-xs font-mono text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
-        {label}
-      </span>
+      <span className="block text-xs font-mono text-muted mb-1 uppercase tracking-wide">{label}</span>
       {children}
     </label>
   );

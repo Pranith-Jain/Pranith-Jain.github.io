@@ -200,20 +200,18 @@ export default function TelegramLeaks(): JSX.Element {
           >
             <div className="flex items-start justify-between gap-4 mb-2">
               <div className="flex items-center gap-2 min-w-0">
-                <TypeIcon size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
-                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
-                  {entry.channel_handle}
-                </span>
+                <TypeIcon size={14} className="shrink-0 text-muted" />
+                <span className="text-xs font-mono text-muted truncate">{entry.channel_handle}</span>
                 <span
                   className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[entry.severity] ?? SEVERITY_TONE.low}`}
                 >
                   {entry.severity}
                 </span>
-                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
                   {entry.leak_type}
                 </span>
               </div>
-              <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">
+              <span className="text-micro font-mono text-muted shrink-0">
                 {new Date(entry.discovered_at).toLocaleString()}
               </span>
             </div>
@@ -222,7 +220,7 @@ export default function TelegramLeaks(): JSX.Element {
               {entry.message_text}
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-muted">
               {entry.credential_count > 0 && (
                 <span className="inline-flex items-center gap-1">
                   <AlertTriangle size={10} /> {entry.credential_count} credentials
@@ -266,7 +264,7 @@ export default function TelegramLeaks(): JSX.Element {
       >
         ← previous
       </button>
-      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+      <span className="text-mini font-mono text-muted">
         {offset + 1}–{offset + entries.length}
       </span>
       <button

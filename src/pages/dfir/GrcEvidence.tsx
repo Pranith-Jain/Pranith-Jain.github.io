@@ -54,14 +54,14 @@ const CONTROL_STATUS_TONES: Record<string, string> = {
   pass: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   fail: 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   not_assessed: 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300',
-  not_applicable: 'border-slate-400/30 bg-slate-400/10 text-slate-500 dark:text-slate-400',
+  not_applicable: 'border-slate-400/30 bg-slate-400/10 text-muted',
 };
 
 const EVIDENCE_STATUS_TONES: Record<string, string> = {
   collected: 'text-emerald-600 dark:text-emerald-400',
   pending: 'text-amber-600 dark:text-amber-400',
   failed: 'text-rose-600 dark:text-rose-400',
-  not_applicable: 'text-slate-500 dark:text-slate-400',
+  not_applicable: 'text-muted',
 };
 
 const FRAMEWORKS_COLORS: Record<string, string> = {
@@ -278,7 +278,7 @@ export default function GrcEvidence(): JSX.Element {
         {/* Control list */}
         <div className="lg:col-span-2 space-y-3">
           {!selectedFw && (
-            <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-12 text-muted">
               <Info size={24} className="mx-auto mb-2 opacity-50" />
               <p className="font-mono text-sm">Select a framework to view its controls.</p>
             </div>
@@ -292,7 +292,7 @@ export default function GrcEvidence(): JSX.Element {
                   <div className="flex gap-3 text-micro font-mono text-slate-500 mt-1">
                     <span className="text-emerald-600 dark:text-emerald-400">{passCount} pass</span>
                     <span className="text-rose-600 dark:text-rose-400">{failCount} fail</span>
-                    <span className="text-slate-500 dark:text-slate-400">{notAssessedCount} not assessed</span>
+                    <span className="text-muted">{notAssessedCount} not assessed</span>
                   </div>
                 </div>
                 <button
@@ -306,7 +306,7 @@ export default function GrcEvidence(): JSX.Element {
               </div>
 
               {fwControls.length === 0 && (
-                <div className="text-center py-8 text-micro font-mono text-slate-500 dark:text-slate-400">
+                <div className="text-center py-8 text-micro font-mono text-muted">
                   No controls found for this framework.
                 </div>
               )}
@@ -325,9 +325,9 @@ export default function GrcEvidence(): JSX.Element {
                       className="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]/50 transition-colors"
                     >
                       {isExpanded ? (
-                        <ChevronDown size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
+                        <ChevronDown size={14} className="shrink-0 text-muted" />
                       ) : (
-                        <ChevronRight size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
+                        <ChevronRight size={14} className="shrink-0 text-muted" />
                       )}
                       <div className="flex-1 min-w-0">
                         <div className="font-mono text-xs font-semibold truncate">
@@ -339,16 +339,12 @@ export default function GrcEvidence(): JSX.Element {
                           >
                             {ctrl.status}
                           </span>
-                          <span className="text-micro text-slate-500 dark:text-slate-400">{ctrl.category}</span>
-                          {ctrl.owner && (
-                            <span className="text-micro text-slate-500 dark:text-slate-400">Owner: {ctrl.owner}</span>
-                          )}
+                          <span className="text-micro text-muted">{ctrl.category}</span>
+                          {ctrl.owner && <span className="text-micro text-muted">Owner: {ctrl.owner}</span>}
                         </div>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <span className="text-micro text-slate-500 dark:text-slate-400">
-                          {ctrl.evidence_count} evidence
-                        </span>
+                        <span className="text-micro text-muted">{ctrl.evidence_count} evidence</span>
                         <select
                           value={ctrl.status}
                           onClick={(e) => e.stopPropagation()}
@@ -366,11 +362,7 @@ export default function GrcEvidence(): JSX.Element {
                     {isExpanded && (
                       <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
                         <p className="text-mini text-slate-500 font-mono">{ctrl.description}</p>
-                        {ctrl.notes && (
-                          <p className="text-micro text-slate-500 dark:text-slate-400 font-mono italic">
-                            Notes: {ctrl.notes}
-                          </p>
-                        )}
+                        {ctrl.notes && <p className="text-micro text-muted font-mono italic">Notes: {ctrl.notes}</p>}
 
                         <div className="flex items-center justify-between mt-2">
                           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
@@ -386,9 +378,7 @@ export default function GrcEvidence(): JSX.Element {
                         </div>
 
                         {ctrlEvidence.length === 0 && (
-                          <p className="text-micro text-slate-500 dark:text-slate-400 font-mono italic">
-                            No evidence collected yet.
-                          </p>
+                          <p className="text-micro text-muted font-mono italic">No evidence collected yet.</p>
                         )}
                         {ctrlEvidence.map((ev) => (
                           <div
@@ -397,14 +387,14 @@ export default function GrcEvidence(): JSX.Element {
                           >
                             <div className="min-w-0">
                               <div className="text-mini font-mono truncate">{ev.title}</div>
-                              <div className="flex items-center gap-2 text-micro text-slate-500 dark:text-slate-400">
+                              <div className="flex items-center gap-2 text-micro text-muted">
                                 <span>{ev.source_type}</span>
                                 {ev.collected_by && <span>by {ev.collected_by}</span>}
                                 {ev.collected_at && <span>{new Date(ev.collected_at).toLocaleDateString()}</span>}
                               </div>
                             </div>
                             <span
-                              className={`text-micro font-mono ${EVIDENCE_STATUS_TONES[ev.status] ?? 'text-slate-500 dark:text-slate-400'}`}
+                              className={`text-micro font-mono ${EVIDENCE_STATUS_TONES[ev.status] ?? 'text-muted'}`}
                             >
                               {ev.status}
                             </span>

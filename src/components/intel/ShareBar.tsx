@@ -97,7 +97,7 @@ export function ShareBar({
 
   const btnBase =
     size === 'sm'
-      ? 'inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-600/50 hover:border-brand-500/50 text-slate-600 dark:text-slate-400 transition-colors'
+      ? 'inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-600/50 hover:border-brand-500/50 text-muted transition-colors'
       : 'inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors';
   const postBtn =
     size === 'sm'
@@ -109,7 +109,7 @@ export function ShareBar({
 
   return (
     <div className={`flex flex-wrap items-center gap-2 ${className ?? ''}`}>
-      {label && <span className="text-micro font-mono text-slate-500 dark:text-slate-400 mr-1">{label}</span>}
+      {label && <span className="text-micro font-mono text-muted mr-1">{label}</span>}
       <a href={xIntent} target="_blank" rel="noopener noreferrer" className={btnBase} aria-label="Share on X">
         <svg viewBox="0 0 24 24" className={icons} fill="currentColor" aria-hidden="true">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />

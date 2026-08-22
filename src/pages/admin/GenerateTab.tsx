@@ -143,7 +143,7 @@ export default function GenerateTab() {
 
       {mode === 'ai' ? (
         <div className="space-y-4 max-w-3xl">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted">
             One topic → blog draft + social posts. Weak or empty output is rejected by the quality gate instead of being
             returned.
           </p>
@@ -283,7 +283,7 @@ export default function GenerateTab() {
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-                  <span className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
+                  <span className="text-xs font-mono uppercase tracking-wider text-muted">
                     {fmt}
                     {r.status ? ` · ${r.status}` : ''}
                   </span>
@@ -306,7 +306,7 @@ export default function GenerateTab() {
                   <p className="text-sm text-slate-700 dark:text-slate-300">
                     {dryRun ? 'Composed (dry run — not saved).' : 'Draft created.'} A generated post lives in the KV
                     drafts store until approved — it has no public /blog URL yet.{' '}
-                    <span className="text-slate-500 dark:text-slate-400">Review it in the Drafts tab.</span>
+                    <span className="text-muted">Review it in the Drafts tab.</span>
                   </p>
                 ) : (
                   <pre className="whitespace-pre-wrap text-sm font-mono text-slate-700 dark:text-slate-300 max-h-72 overflow-y-auto">
@@ -318,7 +318,7 @@ export default function GenerateTab() {
         </div>
       ) : (
         <div className="space-y-4 max-w-3xl">
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
+          <p className="text-sm text-muted mb-2">
             Write and publish a case study directly, bypassing the automated pipeline.
           </p>
           <div>
@@ -349,7 +349,7 @@ export default function GenerateTab() {
 
           <div>
             <label htmlFor="manual-body" className={labelCls}>
-              Body <span className="text-slate-500 dark:text-slate-400 normal-case">(Markdown)</span>
+              Body <span className="text-muted normal-case">(Markdown)</span>
             </label>
             <textarea
               id="manual-body"
@@ -363,7 +363,7 @@ export default function GenerateTab() {
 
           <div>
             <label htmlFor="manual-tags" className={labelCls}>
-              Tags <span className="text-slate-500 dark:text-slate-400 normal-case">(comma-separated)</span>
+              Tags <span className="text-muted normal-case">(comma-separated)</span>
             </label>
             <input
               id="manual-tags"

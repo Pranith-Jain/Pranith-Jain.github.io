@@ -73,14 +73,11 @@ export interface FieldProps {
 export function Field({ label, hint, error, htmlFor, children, className = '' }: FieldProps) {
   return (
     <div className={className}>
-      <label
-        htmlFor={htmlFor}
-        className="block text-eyebrow font-mono uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 mb-1.5"
-      >
+      <label htmlFor={htmlFor} className="block text-eyebrow font-mono uppercase tracking-[0.12em] text-muted mb-1.5">
         {label}
       </label>
       {children}
-      {hint && !error && <p className="mt-1.5 text-mini text-slate-500 dark:text-slate-400">{hint}</p>}
+      {hint && !error && <p className="mt-1.5 text-mini text-muted">{hint}</p>}
       {error && (
         <p className="mt-1.5 text-mini text-rose-600 dark:text-rose-400" role="alert">
           {error}

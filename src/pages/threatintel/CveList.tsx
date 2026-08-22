@@ -201,7 +201,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}
@@ -368,7 +368,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                     {ORIGIN_PILL[c.origin].label}
                   </span>
                   <span
-                    className="text-slate-500 dark:text-slate-400"
+                    className="text-muted"
                     title={c.origin === 'kev' ? `Added to KEV ${c.kev_added}` : `Published ${c.published}`}
                   >
                     {shortRel(c.published)}
@@ -447,7 +447,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             </Link>{' '}
             (full NVD + EPSS + KEV record).
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <p className="text-xs text-muted font-mono">
             Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
             <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
           </p>

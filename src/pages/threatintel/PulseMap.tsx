@@ -249,9 +249,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
           <div className="bg-white/95 dark:bg-[rgb(var(--surface-200))]/95 rounded-xl border border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 px-3 py-2 shadow-e3 max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
-              <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
-                {KIND_LABELS[hoveredMarker.kind]}
-              </span>
+              <span className="text-micro font-mono uppercase text-muted">{KIND_LABELS[hoveredMarker.kind]}</span>
             </div>
             {hoveredMarker.title && (
               <p className="text-xs font-medium text-slate-700 dark:text-slate-200 line-clamp-2">
@@ -326,7 +324,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
             <button
               type="button"
               onClick={() => setSelectedMarker(null)}
-              className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+              className="text-muted hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

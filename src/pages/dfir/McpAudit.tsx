@@ -128,9 +128,7 @@ export default function McpAudit(): JSX.Element {
 
       <section className="surface-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Config JSON
-          </span>
+          <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Config JSON</span>
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setInput(SAMPLE_CLEAN)}
@@ -188,7 +186,7 @@ export default function McpAudit(): JSX.Element {
         <>
           <section className="surface-card p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
+              <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2">
                 Verdict
                 {mode && (
                   <span className="inline-flex items-center gap-1 normal-case tracking-normal text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
@@ -226,9 +224,7 @@ export default function McpAudit(): JSX.Element {
           </section>
 
           <section className="surface-card p-4">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-              Findings
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Findings</h2>
             {findings.length === 0 ? (
               <p className="text-sm font-mono text-muted inline-flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-emerald-500" aria-hidden="true" />
@@ -262,7 +258,7 @@ export default function McpAudit(): JSX.Element {
 
       {!input.trim() && (
         <section className="surface-card p-4">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
             What this checks
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
@@ -322,9 +318,7 @@ export default function McpAudit(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
@@ -360,7 +354,7 @@ export default function McpAudit(): JSX.Element {
             </a>
           </li>
         </ul>
-        <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+        <p className="mt-3 text-xs font-mono text-muted">
           <AlertTriangle className="inline h-3 w-3 mb-0.5" aria-hidden="true" /> Heuristics only. A clean report is not
           a security guarantee - review upstream code, pin versions, and watch tool descriptions on every update.
         </p>

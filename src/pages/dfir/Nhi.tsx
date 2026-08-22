@@ -52,7 +52,7 @@ const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   },
   na: {
     label: 'n/a',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
   },
 };
 
@@ -175,7 +175,7 @@ export default function Nhi(): JSX.Element {
           machine certs, MCP tokens, …), then assess each one against the OWASP NHI Top 10 (2025). Coverage stats and
           markdown export. All data stays in your browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Pairs with the{' '}
           <Link to="/dfir/mcp-audit" className="text-brand-600 dark:text-brand-400 hover:underline">
             MCP &amp; Claude Code Auditor
@@ -242,9 +242,9 @@ export default function Nhi(): JSX.Element {
                     </span>
                   </span>
                   {expanded ? (
-                    <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" />
+                    <ChevronDown size={16} className="flex-none text-muted" />
                   ) : (
-                    <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" />
+                    <ChevronRight size={16} className="flex-none text-muted" />
                   )}
                 </button>
                 {expanded && (
@@ -271,7 +271,7 @@ export default function Nhi(): JSX.Element {
                       </div>
                       {item.attCK && item.attCK.length > 0 && (
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                          <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted">
                             ATT&amp;CK:
                           </span>
                           {item.attCK.map((id) => (
@@ -298,7 +298,7 @@ export default function Nhi(): JSX.Element {
           {items.length > 0 && (
             <section className="surface-card p-4 mb-6">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                   Inventory risk distribution
                 </h2>
                 <span
@@ -349,7 +349,7 @@ export default function Nhi(): JSX.Element {
 
           {/* List */}
           {items.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-muted">
               No NHIs yet. Click <strong>Add NHI</strong> to start an inventory. Everything stays in your browser.
             </div>
           ) : (
@@ -369,7 +369,7 @@ export default function Nhi(): JSX.Element {
                         <span className="block font-display font-semibold text-slate-900 dark:text-slate-100 truncate">
                           {e.name || '(unnamed)'}
                         </span>
-                        <span className="block text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
+                        <span className="block text-xs font-mono text-muted truncate">
                           {e.type} · {e.owner || 'no owner'}
                           {e.scope ? ` · ${e.scope}` : ''}
                         </span>
@@ -380,9 +380,9 @@ export default function Nhi(): JSX.Element {
                         {risk.grade} · {risk.score}
                       </span>
                       {isOpen ? (
-                        <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" />
+                        <ChevronDown size={16} className="flex-none text-muted" />
                       ) : (
-                        <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" />
+                        <ChevronRight size={16} className="flex-none text-muted" />
                       )}
                     </button>
 
@@ -489,7 +489,7 @@ export default function Nhi(): JSX.Element {
 
                         {/* Coverage */}
                         <div>
-                          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+                          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                             OWASP NHI Top 10 coverage
                           </h3>
                           <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-2">
@@ -532,9 +532,7 @@ export default function Nhi(): JSX.Element {
       )}
 
       <section className="mt-8 surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
@@ -567,9 +565,7 @@ export default function Nhi(): JSX.Element {
 function Field({ label, children }: { label: string; children: React.ReactNode }): JSX.Element {
   return (
     <label className="block">
-      <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
-        {label}
-      </span>
+      <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1 block">{label}</span>
       {children}
     </label>
   );

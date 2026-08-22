@@ -58,7 +58,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 {personalInfo.name}
               </span>
             </Link>
-            <p className="mt-3 max-w-xs text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            <p className="mt-3 max-w-xs text-xs text-muted leading-relaxed">
               Threat intel, email defense, and edge-native security tooling. Reference only - verify indicators in your
               own environment.
             </p>
@@ -93,7 +93,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
 
           {/* Site column */}
           <div>
-            <div className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Site</div>
+            <div className="text-eyebrow font-mono uppercase text-muted">Site</div>
             <ul className="mt-3 space-y-2">
               {SITE_LINKS.map((l) => (
                 <li key={l.href}>
@@ -110,7 +110,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
 
           {/* Build column */}
           <div>
-            <div className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Build</div>
+            <div className="text-eyebrow font-mono uppercase text-muted">Build</div>
             <ul className="mt-3 space-y-2">
               {BUILD_LINKS.map((l) => (
                 <li key={l.href}>

@@ -65,10 +65,7 @@ const TAG_COLORS: Record<string, string> = {
 };
 
 function tagColor(tag: string): string {
-  return (
-    TAG_COLORS[tag] ??
-    'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700'
-  );
+  return TAG_COLORS[tag] ?? 'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700';
 }
 
 function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) {
@@ -93,13 +90,13 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
             </span>
           )}
           {body.score != null && (
-            <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-[rgb(var(--border-400))]">
               score {body.score}
             </span>
           )}
         </div>
         {body.author && (
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted">
             by <span className="text-slate-700 dark:text-slate-200">{body.author}</span>
             {body.date ? ` · ${body.date}` : ''}
           </p>
@@ -132,9 +129,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
           {copyState === 'copied' ? 'Copied!' : `Copy full YARA source (${(body.body.length / 1024).toFixed(1)} KB)`}
         </button>
         <div>
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            YARA Source
-          </div>
+          <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">YARA Source</div>
           <pre className="font-mono text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-all max-h-80 overflow-y-auto">
             {body.body}
           </pre>
@@ -226,7 +221,7 @@ export default function SigBase() {
         {/* Search + stats bar */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px] max-w-md">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               placeholder="Search rules by filename, family, author..."
@@ -235,7 +230,7 @@ export default function SigBase() {
               className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
-          <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="text-xs text-muted font-mono">
             {filtered.length} / {rulesData?.total ?? 0} rule files
           </div>
         </div>
@@ -247,7 +242,7 @@ export default function SigBase() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedTag
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
             }`}
           >
             All Tags
@@ -278,9 +273,7 @@ export default function SigBase() {
               >
                 <Hash size={12} className="text-brand-500" />
                 <span className="font-semibold text-slate-700 dark:text-slate-200">{i.title}</span>
-                <span className="text-slate-500 dark:text-slate-400 font-mono">
-                  {i.entryCount.toLocaleString()} entries
-                </span>
+                <span className="text-muted font-mono">{i.entryCount.toLocaleString()} entries</span>
               </a>
             ))}
           </div>
@@ -295,7 +288,7 @@ export default function SigBase() {
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
             <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
-            <p className="text-sm text-slate-500 dark:text-slate-400">No rules match your filters.</p>
+            <p className="text-sm text-muted">No rules match your filters.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -323,7 +316,7 @@ export default function SigBase() {
                     </span>
                   )}
                 </div>
-                <div className="flex items-center justify-between text-micro text-slate-500 dark:text-slate-400">
+                <div className="flex items-center justify-between text-micro text-muted">
                   <span>
                     {r.ruleCount} rule{r.ruleCount === 1 ? '' : 's'}
                   </span>

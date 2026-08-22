@@ -230,7 +230,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
 
       {/* Count */}
       {data && (
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
+        <div className="flex items-center justify-between text-xs text-muted mb-3 font-mono">
           <span>
             {data?.advisories.length ?? 0} of {data?.total ?? 0} advisories
           </span>
@@ -288,9 +288,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                   header: 'Published',
                   sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.published_at,
                   render: (adv) => (
-                    <span className="font-mono whitespace-nowrap text-slate-600 dark:text-slate-400">
-                      {formatDate(adv.published_at)}
-                    </span>
+                    <span className="font-mono whitespace-nowrap text-muted">{formatDate(adv.published_at)}</span>
                   ),
                 },
                 {
@@ -336,7 +334,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                           {adv.products_affected.slice(0, 2).map((p, i) => (
                             <span
                               key={i}
-                              className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-slate-600 dark:text-slate-400"
+                              className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-muted"
                             >
                               {p.length > 32 ? `${p.slice(0, 32)}…` : p}
                             </span>
@@ -346,7 +344,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                           )}
                         </div>
                       ) : (
-                        <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>
+                        <span className="text-muted text-xs">-</span>
                       )}
                     </div>
                   ),
@@ -355,11 +353,11 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                   key: 'description',
                   header: 'Description',
                   render: (adv) => (
-                    <span className="text-slate-600 dark:text-slate-400 text-xs max-w-md">
+                    <span className="text-muted text-xs max-w-md">
                       {adv.description ? (
                         <span className="line-clamp-2">{adv.description}</span>
                       ) : (
-                        <span className="italic text-slate-500 dark:text-slate-400">{adv.summary}</span>
+                        <span className="italic text-muted">{adv.summary}</span>
                       )}
                     </span>
                   ),

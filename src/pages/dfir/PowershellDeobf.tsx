@@ -138,7 +138,7 @@ export default function PowershellDeobf(): JSX.Element {
           <code> -EncodedCommand</code>, <code>FromBase64String</code>, char-array literals, format-string composition,
           replace chains, backtick noise. Each pass shows what it changed.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Heuristic - does not actually execute anything. Pure client-side; nothing leaves your browser. After decoding,
           dangerous primitives (<code>IEX</code>, <code>DownloadString</code>, <code>VirtualAlloc</code>, Defender
           tampering) are flagged.
@@ -147,9 +147,7 @@ export default function PowershellDeobf(): JSX.Element {
 
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-            Input
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Input</h2>
           <div className="flex flex-wrap gap-1.5">
             {SAMPLES.map((s) => (
               <button
@@ -184,9 +182,7 @@ export default function PowershellDeobf(): JSX.Element {
         <>
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-                Decoded output
-              </h2>
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Decoded output</h2>
               <div className="flex items-center gap-2">
                 <span className="text-mini font-mono text-slate-400 dark:text-slate-400">
                   {result.steps.length} transform{result.steps.length === 1 ? '' : 's'} · {result.iterations} iter ·{' '}
@@ -250,7 +246,7 @@ export default function PowershellDeobf(): JSX.Element {
                 className="w-full flex items-center justify-between gap-3 text-left"
                 aria-expanded={showSteps}
               >
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                   Trace ({result.steps.length} step{result.steps.length === 1 ? '' : 's'})
                 </h2>
                 {showSteps ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
@@ -273,9 +269,7 @@ export default function PowershellDeobf(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          Passes
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Passes</h2>
         <ul className="space-y-1 text-sm font-mono text-muted list-disc pl-5">
           <li>
             <strong>encoded-command</strong> - decodes <code>-EncodedCommand</code> base64 (UTF-16LE).

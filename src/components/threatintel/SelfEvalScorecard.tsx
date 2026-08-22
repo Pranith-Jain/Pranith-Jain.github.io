@@ -59,7 +59,7 @@ export function SelfEvalScorecard({ selfEval }: { selfEval: SelfEvalResult }): J
       <div className="space-y-2 mb-3">
         {selfEval.axes.map((axis) => (
           <div key={axis.axis} className="flex items-center gap-2">
-            <span className="text-xs text-slate-600 dark:text-slate-400 w-28 shrink-0">{AXIS_LABELS[axis.axis]}</span>
+            <span className="text-xs text-muted w-28 shrink-0">{AXIS_LABELS[axis.axis]}</span>
             <div className="flex-1 flex gap-0.5">
               {[1, 2, 3, 4, 5].map((n) => (
                 <div
@@ -101,10 +101,10 @@ export function SelfEvalScorecard({ selfEval }: { selfEval: SelfEvalResult }): J
                 <CheckCircle2 className="w-3 h-3 text-slate-400" />
                 <span className="font-semibold text-slate-700 dark:text-slate-300">{AXIS_LABELS[axis.axis]}</span>
               </div>
-              <div className="text-slate-600 dark:text-slate-400 mb-1">
+              <div className="text-muted mb-1">
                 <span className="font-mono text-slate-400">evidence:</span> {axis.evidence}
               </div>
-              <div className="text-slate-600 dark:text-slate-400">
+              <div className="text-muted">
                 <span className="font-mono text-slate-400">improve:</span> {axis.improvement}
               </div>
             </div>

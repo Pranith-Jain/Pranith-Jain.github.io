@@ -254,7 +254,7 @@ export default function Analyze(): JSX.Element {
 
       {streaming && results.length === 0 && (
         <div className="surface-card p-8 text-center animate-pulse">
-          <Loader2 size={24} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-3" />
+          <Loader2 size={24} className="animate-spin mx-auto text-muted mb-3" />
           <p className="text-sm font-mono text-slate-500">Opening SSE stream to 45 providers…</p>
         </div>
       )}
@@ -406,7 +406,7 @@ export default function Analyze(): JSX.Element {
                           })
                         }
                       >
-                        <td className="px-2 py-2.5 text-slate-500 dark:text-slate-400">
+                        <td className="px-2 py-2.5 text-muted">
                           {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                         </td>
                         <td className="px-3 py-2.5 font-display font-semibold capitalize text-slate-900 dark:text-slate-100">
@@ -416,9 +416,7 @@ export default function Analyze(): JSX.Element {
                         <td className="px-3 py-2.5">
                           {r.status === 'ok' && <CheckCircle2 size={14} className="text-emerald-500" />}
                           {r.status === 'error' && <XCircle size={14} className="text-rose-500" />}
-                          {r.status === 'unsupported' && (
-                            <MinusCircle size={14} className="text-slate-500 dark:text-slate-400" />
-                          )}
+                          {r.status === 'unsupported' && <MinusCircle size={14} className="text-muted" />}
                         </td>
                         <td className="px-3 py-2.5">
                           <VerdictChip verdict={r.verdict} />
@@ -479,9 +477,7 @@ export default function Analyze(): JSX.Element {
                               </span>
                             ))}
                             {r.tags.length > 3 && (
-                              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                                +{r.tags.length - 3}
-                              </span>
+                              <span className="text-micro font-mono text-muted">+{r.tags.length - 3}</span>
                             )}
                           </div>
                         </td>
@@ -531,7 +527,7 @@ export default function Analyze(): JSX.Element {
                           {JSON.stringify(r.raw_summary, null, 2)}
                         </pre>
                         {r.fetched_at && (
-                          <p className="mt-2 text-micro font-mono text-slate-500 dark:text-slate-400">
+                          <p className="mt-2 text-micro font-mono text-muted">
                             fetched: {new Date(r.fetched_at).toISOString()}
                           </p>
                         )}
@@ -550,10 +546,9 @@ export default function Analyze(): JSX.Element {
               <XCircle size={12} className="text-rose-500" /> {errorCount} error
             </span>
             <span className="inline-flex items-center gap-1">
-              <MinusCircle size={12} className="text-slate-500 dark:text-slate-400" /> {results.length - supportedCount}{' '}
-              unsupported
+              <MinusCircle size={12} className="text-muted" /> {results.length - supportedCount} unsupported
             </span>
-            <span className="text-slate-500 dark:text-slate-400">
+            <span className="text-muted">
               {eligible.length} providers eligible for {detectedType}
             </span>
           </div>
@@ -573,7 +568,7 @@ export default function Analyze(): JSX.Element {
         <div className="surface-card p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">Enter an observable above to run a multi-source analysis</p>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-2">
+          <p className="text-xs font-mono text-muted mt-2">
             Fans out to 45 threat intel providers - Spamhaus, VirusTotal, AbuseIPDB, AlienVault OTX, ThreatFox, URLhaus,
             GreyNoise, and a local secrets regex bank
           </p>

@@ -167,7 +167,7 @@ export default function StixIpExport() {
         <div className="surface-card p-4">
           <div className="flex flex-wrap gap-3 items-end">
             <div className="flex-1 min-w-[250px]">
-              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
+              <label className="block text-xs font-medium text-muted mb-1">
                 IP address{isBatch ? 'es (one per line or comma-separated)' : ''}
               </label>
               <textarea
@@ -179,7 +179,7 @@ export default function StixIpExport() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">TLP</label>
+              <label className="block text-xs font-medium text-muted mb-1">TLP</label>
               <select
                 value={tlp}
                 onChange={(e) => setTlp(e.target.value as typeof tlp)}
@@ -220,25 +220,25 @@ export default function StixIpExport() {
                       <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">{r.ip}</span>
                       <span className={`text-xs font-bold ${confidenceColor(conf)}`}>{conf}% confidence</span>
                     </div>
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-400">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted">
                       {r.org && (
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">Org:</span> {r.org}
+                          <span className="text-muted">Org:</span> {r.org}
                         </div>
                       )}
                       {r.country && (
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">Country:</span> {r.country}
+                          <span className="text-muted">Country:</span> {r.country}
                         </div>
                       )}
                       {r.isp && (
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">ISP:</span> {r.isp}
+                          <span className="text-muted">ISP:</span> {r.isp}
                         </div>
                       )}
                       {r.asn && (
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">ASN:</span> {r.asn}
+                          <span className="text-muted">ASN:</span> {r.asn}
                         </div>
                       )}
                       {r.is_vpn && (
@@ -253,12 +253,12 @@ export default function StixIpExport() {
                       )}
                       {r.shodan_ports?.length && (
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">Ports:</span> {r.shodan_ports.join(', ')}
+                          <span className="text-muted">Ports:</span> {r.shodan_ports.join(', ')}
                         </div>
                       )}
                       {r.shodan_vulns?.length && (
                         <div className="col-span-2">
-                          <span className="text-slate-500 dark:text-slate-400">Vulns:</span>{' '}
+                          <span className="text-muted">Vulns:</span>{' '}
                           {r.shodan_vulns.slice(0, 5).map((v) => (
                             <a
                               key={v}
@@ -271,16 +271,13 @@ export default function StixIpExport() {
                             </a>
                           ))}
                           {r.shodan_vulns.length > 5 && (
-                            <span className="text-slate-500 dark:text-slate-400">
-                              +{r.shodan_vulns.length - 5} more
-                            </span>
+                            <span className="text-muted">+{r.shodan_vulns.length - 5} more</span>
                           )}
                         </div>
                       )}
                       {r.phantomcandle_malicious_family && (
                         <div className="col-span-2 text-red-600 dark:text-red-400">
-                          <span className="text-slate-500 dark:text-slate-400">Threat:</span>{' '}
-                          {r.phantomcandle_malicious_family}
+                          <span className="text-muted">Threat:</span> {r.phantomcandle_malicious_family}
                           {r.phantomcandle_campaign ? ` (${r.phantomcandle_campaign})` : ''}
                           {r.phantomcandle_category ? ` · cat:${r.phantomcandle_category}` : ''}
                           {r.phantomcandle_risk_level ? ` · risk:${r.phantomcandle_risk_level}` : ''}
@@ -298,7 +295,7 @@ export default function StixIpExport() {
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">STIX 2.1 Bundle</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-muted">
                       {bundle.objects.length} objects · {bundle.id}
                     </p>
                   </div>

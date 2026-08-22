@@ -104,7 +104,7 @@ export default function ActorUsernames(): JSX.Element {
       description={`Search ~${stats?.total_usernames?.toLocaleString() ?? '291k'} usernames scraped from cybercrime forums to see which boards a handle appears on.`}
     >
       {stats && corpus && (
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        <p className="text-xs text-muted font-mono mb-6">
           {stats.forums.length} forums ({corpus.active} active · {corpus.dead} defunct)
         </p>
       )}
@@ -112,7 +112,7 @@ export default function ActorUsernames(): JSX.Element {
       <form onSubmit={submit} className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={input}
@@ -192,7 +192,7 @@ export default function ActorUsernames(): JSX.Element {
                       key={f.forum}
                       className={`text-mini font-mono px-2 py-0.5 rounded border ${
                         f.dead
-                          ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 line-through'
+                          ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted line-through'
                           : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                       }`}
                       title={f.dead ? 'defunct forum' : 'active forum'}

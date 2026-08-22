@@ -49,7 +49,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 const CONFIDENCE_LABELS = {
   high: { label: 'High', color: 'text-emerald-600 dark:text-emerald-400' },
   medium: { label: 'Med', color: 'text-amber-600 dark:text-amber-400' },
-  low: { label: 'Low', color: 'text-slate-500 dark:text-slate-400' },
+  low: { label: 'Low', color: 'text-muted' },
 } as const;
 
 interface PivotSuggestionsProps {
@@ -113,7 +113,7 @@ export function PivotSuggestions({
     return (
       <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
         <Loader2 size={12} className="animate-spin text-brand-500" />
-        <span className="font-mono text-mini text-slate-500 dark:text-slate-400">Suggesting pivots…</span>
+        <span className="font-mono text-mini text-muted">Suggesting pivots…</span>
       </div>
     );
   }
@@ -139,9 +139,7 @@ export function PivotSuggestions({
     <div className="mt-3 border-t border-slate-100 pt-2.5 dark:border-[rgb(var(--border-400))]">
       <div className="mb-2 flex items-center gap-1.5">
         <Crosshair size={11} className="text-brand-500" />
-        <span className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Investigation pivots
-        </span>
+        <span className="text-mini font-semibold uppercase tracking-wider text-muted">Investigation pivots</span>
       </div>
       <div className="space-y-1.5">
         {suggestions.map((s, i) => {
@@ -163,7 +161,7 @@ export function PivotSuggestions({
                   <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{s.label}</span>
                   <span className={`font-mono text-micro ${conf.color}`}>{conf.label}</span>
                 </div>
-                <p className="text-mini text-slate-500 dark:text-slate-400 leading-tight">{s.rationale}</p>
+                <p className="text-mini text-muted leading-tight">{s.rationale}</p>
               </div>
               <ChevronRight
                 size={13}

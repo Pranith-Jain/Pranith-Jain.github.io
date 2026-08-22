@@ -349,7 +349,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
                 live · auto-refresh 60s
               </span>
             </h2>
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
+            <p className="text-xs font-mono text-muted mt-1.5 max-w-2xl leading-relaxed">
               Unified cross-source stream merging{' '}
               <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
                 t.me/s
@@ -385,9 +385,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
 
         {/* Source + severity pills */}
         <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            sources:
-          </span>
+          <span className="text-micro font-mono uppercase tracking-wider text-muted">sources:</span>
           {(['feed', 'leak', 'liveioc'] as Source[]).map((s) => (
             <button
               key={s}
@@ -401,9 +399,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
               {SOURCE_LABEL[s]} <span className="ml-1 opacity-70">{counts[s]}</span>
             </button>
           ))}
-          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-2">
-            severity:
-          </span>
+          <span className="text-micro font-mono uppercase tracking-wider text-muted ml-2">severity:</span>
           {(['critical', 'high', 'medium', 'low', 'unknown'] as Severity[]).map((s) => (
             <button
               key={s}
@@ -431,10 +427,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
         {/* Search */}
         <div className="flex flex-wrap gap-2">
           <div className="relative flex-1 min-w-[220px]">
-            <Search
-              size={12}
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 pointer-events-none"
-            />
+            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -481,7 +474,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
         empty={!anyLoading && items.length === 0}
         rows={6}
       >
-        <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+        <p className="text-xs font-mono text-muted mb-2">
           showing {visible.length} of {filtered.length} items (total merged: {items.length})
         </p>
         <ul className="space-y-2">
@@ -543,10 +536,8 @@ function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: 
             {item.severity}
           </span>
         )}
-        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">@{item.channel}</span>
-        <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
-          {relativeAgo(item.ts, '-')}
-        </span>
+        <span className="text-micro font-mono text-muted">@{item.channel}</span>
+        <span className="text-micro font-mono text-muted ml-auto">{relativeAgo(item.ts, '-')}</span>
       </div>
       <div className="flex flex-wrap items-start gap-2">
         <div className="flex-1 min-w-0">
@@ -556,7 +547,7 @@ function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: 
           {item.source !== 'liveioc' && (
             <p className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">{item.title}</p>
           )}
-          {item.body && <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">{item.body}</p>}
+          {item.body && <p className="text-xs text-muted mt-0.5 line-clamp-2">{item.body}</p>}
           <PostSummary text={postSummary} />
           <div className="flex flex-wrap gap-2 mt-1.5 text-micro font-mono text-slate-500">
             {Object.entries(item.meta).map(([k, v]) => (

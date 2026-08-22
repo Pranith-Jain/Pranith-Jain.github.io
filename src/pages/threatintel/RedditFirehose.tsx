@@ -145,16 +145,12 @@ export default function RedditFirehose(): JSX.Element {
       icon={<MessageSquare size={28} />}
       title="Cybersec Reddit Firehose"
       description="Curated stream from active public cybersec subreddits. Research, advisories, IR write-ups, malware analysis, OSINT, and CTI threads. Same shape as the Telegram firehose. Click a post title to open the Reddit thread."
-      headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-          16 subreddits aggregated. Updated frequently.
-        </p>
-      }
+      headerExtra={<p className="text-xs text-muted font-mono">16 subreddits aggregated. Updated frequently.</p>}
     >
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}
@@ -202,7 +198,7 @@ export default function RedditFirehose(): JSX.Element {
                       ? TOPIC_PILL[s.topic]
                       : s.ok
                         ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 opacity-50'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted opacity-50'
                   }`}
                 >
                   {s.label} <span className="opacity-70">· {s.count}</span>
@@ -294,7 +290,7 @@ export default function RedditFirehose(): JSX.Element {
                     <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
                       {it.title}
                     </span>
-                    <ExternalLink size={11} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                    <ExternalLink size={11} className="text-muted shrink-0" />
                   </div>
                   {it.text && (
                     <p className="text-meta font-mono text-muted leading-relaxed line-clamp-2 mb-1.5">{it.text}</p>
@@ -304,7 +300,7 @@ export default function RedditFirehose(): JSX.Element {
                 <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                   <span className={`px-1.5 py-0.5 rounded border ${TOPIC_PILL[it.sub_topic]}`}>{it.sub_label}</span>
                   <span>by {it.author || '-'}</span>
-                  <span className="ml-auto text-slate-500 dark:text-slate-400" title={it.pub_date}>
+                  <span className="ml-auto text-muted" title={it.pub_date}>
                     {shortRel(it.pub_date)}
                   </span>
                 </div>

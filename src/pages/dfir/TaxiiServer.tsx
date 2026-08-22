@@ -99,16 +99,12 @@ export default function TaxiiServer(): JSX.Element {
         </h2>
         <div className="space-y-2">
           <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0">
-              Discovery
-            </span>
+            <span className="text-micro font-mono uppercase tracking-wider text-muted shrink-0">Discovery</span>
             <code className="text-xs text-brand-600 dark:text-brand-400 flex-1 truncate font-mono">{baseUrl}</code>
             <CopyButton value={baseUrl} />
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0">
-              Content-Type
-            </span>
+            <span className="text-micro font-mono uppercase tracking-wider text-muted shrink-0">Content-Type</span>
             <code className="text-xs text-muted font-mono">application/vnd.oasis.taxii+json; version=2.1</code>
           </div>
         </div>
@@ -124,14 +120,14 @@ export default function TaxiiServer(): JSX.Element {
             <button
               aria-label="Refresh"
               onClick={fetchCollections}
-              className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 transition-colors"
+              className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted transition-colors"
             >
               <RefreshCw size={14} />
             </button>
           </div>
           {loading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
+              <Loader2 size={20} className="animate-spin text-muted" />
             </div>
           ) : (
             <div className="space-y-1.5">
@@ -146,9 +142,7 @@ export default function TaxiiServer(): JSX.Element {
                   }`}
                 >
                   <div className="text-sm font-medium">{col.title}</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
-                    {col.description}
-                  </div>
+                  <div className="text-xs text-muted mt-0.5 line-clamp-2">{col.description}</div>
                   <div className="flex gap-1.5 mt-1.5">
                     {col.can_read && (
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
@@ -172,20 +166,16 @@ export default function TaxiiServer(): JSX.Element {
           <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" />
             STIX Objects{' '}
-            {selectedCollection && (
-              <span className="font-mono text-xs text-slate-500 dark:text-slate-400">· {selectedCollection}</span>
-            )}
+            {selectedCollection && <span className="font-mono text-xs text-muted">· {selectedCollection}</span>}
           </h2>
           {!selectedCollection ? (
-            <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">
-              Select a collection to view objects
-            </p>
+            <p className="text-sm text-muted py-8 text-center">Select a collection to view objects</p>
           ) : objectsLoading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
+              <Loader2 size={20} className="animate-spin text-muted" />
             </div>
           ) : objects.length === 0 ? (
-            <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">No objects in this collection</p>
+            <p className="text-sm text-muted py-8 text-center">No objects in this collection</p>
           ) : (
             <div className="space-y-2 max-h-[600px] overflow-y-auto">
               {objects.map((obj, i) => (
@@ -238,9 +228,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
         </span>
         <span className="text-sm font-medium truncate">{obj.name || obj.id}</span>
       </div>
-      {obj.description && (
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{obj.description}</p>
-      )}
+      {obj.description && <p className="text-xs text-muted mt-1 line-clamp-2">{obj.description}</p>}
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs space-y-1">
           <div>
@@ -269,7 +257,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
 function CodeBlock({ title, code }: { title: string; code: string }) {
   return (
     <div>
-      <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{title}</div>
+      <div className="text-xs text-muted mb-1">{title}</div>
       <div className="flex items-start gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
         <pre className="text-xs text-slate-700 dark:text-slate-300 flex-1 overflow-x-auto font-mono">{code}</pre>
         <CopyButton value={code} />

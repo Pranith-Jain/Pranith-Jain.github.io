@@ -109,8 +109,8 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
         <div className={`px-4 py-1.5 text-mini font-mono font-semibold tracking-wide ${TLP_CLASS[tlp]}`}>TLP:{tlp}</div>
         <div className="p-5">
           <h1 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{report.cover.title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{report.cover.subtitle}</p>
-          <div className="flex flex-wrap items-center gap-2 mt-3 text-mini font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted mt-1">{report.cover.subtitle}</p>
+          <div className="flex flex-wrap items-center gap-2 mt-3 text-mini font-mono text-muted">
             <span>generated {report.cover.generated_at}</span>
             {report.cover.subject_badges.map((b) => (
               <span
@@ -238,7 +238,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
                 id={`report-src-${s.ref}`}
                 className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300"
               >
-                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">[{s.ref}]</span>
+                <span className="font-mono text-xs text-muted">[{s.ref}]</span>
                 <span
                   className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]"
                   title="NATO Admiralty reliability"

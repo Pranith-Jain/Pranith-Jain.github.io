@@ -130,7 +130,7 @@ export default function Signal(): JSX.Element {
           Curated set of vendor labs and independent research outlets. ThreatSignal Research, The DFIR Report,
           SentinelLabs, Unit 42, Check Point Research, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken,
           DoublePulsar. Low-volume sources, longer-form pieces.
-          <p className="text-meta text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <p className="text-meta text-muted font-mono mt-2">
             For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
             <Link to="/threatintel/research-hub/writeups" className="text-rose-600 dark:text-rose-400 hover:underline">
               /threatintel/writeups
@@ -184,7 +184,7 @@ export default function Signal(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}

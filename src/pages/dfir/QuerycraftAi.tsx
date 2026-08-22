@@ -188,7 +188,7 @@ export default function QuerycraftAi(): JSX.Element {
             </h2>
             <button
               onClick={clearHistory}
-              className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors inline-flex items-center gap-1"
+              className="text-micro font-mono text-muted hover:text-rose-500 transition-colors inline-flex items-center gap-1"
             >
               <Trash2 size={11} /> clear
             </button>
@@ -198,7 +198,7 @@ export default function QuerycraftAi(): JSX.Element {
               <button
                 key={i}
                 onClick={() => restoreFromHistory(entry)}
-                className="px-2 py-1 rounded text-micro font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="px-2 py-1 rounded text-micro font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {entry.description.slice(0, 35)}…
               </button>
@@ -221,7 +221,7 @@ export default function QuerycraftAi(): JSX.Element {
             <button
               key={ex}
               onClick={() => setDescription(ex)}
-              className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
+              className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30 transition-colors"
             >
               {ex.slice(0, 40)}…
             </button>
@@ -249,7 +249,7 @@ export default function QuerycraftAi(): JSX.Element {
               >
                 {s.label}
               </div>
-              <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5">{s.desc}</div>
+              <div className="text-micro text-muted mt-0.5">{s.desc}</div>
             </button>
           ))}
         </div>
@@ -261,7 +261,7 @@ export default function QuerycraftAi(): JSX.Element {
             className={`flex-1 px-4 py-2 rounded-xl text-xs font-mono border transition-colors ${
               track === 'detect'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
             }`}
           >
             <Shield size={12} className="inline mr-1" /> DETECT
@@ -271,7 +271,7 @@ export default function QuerycraftAi(): JSX.Element {
             className={`flex-1 px-4 py-2 rounded-xl text-xs font-mono border transition-colors ${
               track === 'hunt'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
             }`}
           >
             <Search size={12} className="inline mr-1" /> HUNT
@@ -314,7 +314,7 @@ export default function QuerycraftAi(): JSX.Element {
             <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[400px] overflow-y-auto">
               {result.query}
             </pre>
-            <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{result.description}</p>
+            <p className="mt-3 text-xs text-muted leading-relaxed">{result.description}</p>
           </div>
 
           {result.mitre_techniques.length > 0 && (

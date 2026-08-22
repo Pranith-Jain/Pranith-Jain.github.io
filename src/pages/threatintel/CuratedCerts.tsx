@@ -212,15 +212,15 @@ export default function CuratedCerts(): JSX.Element {
         </span>
       }
       headerExtra={
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
+          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
             synced{' '}
             <span className="text-slate-700 dark:text-slate-200">
               {relativeTime(meta?.fetchedAt ?? data?.fetchedAt)}
@@ -254,7 +254,7 @@ export default function CuratedCerts(): JSX.Element {
           <section className="surface-card p-4 mb-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -266,14 +266,14 @@ export default function CuratedCerts(): JSX.Element {
                 <button
                   type="button"
                   onClick={expandAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   expand all
                 </button>
                 <button
                   type="button"
                   onClick={collapseAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   collapse all
                 </button>
@@ -310,7 +310,7 @@ export default function CuratedCerts(): JSX.Element {
 
           {/* Section list */}
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               No courses match &quot;{query}&quot;.
             </div>
@@ -330,7 +330,7 @@ export default function CuratedCerts(): JSX.Element {
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
   );
@@ -353,12 +353,10 @@ function SectionCard({
         className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] transition-colors"
       >
         <div className="flex items-center gap-2">
-          <ChevronRight
-            className={`h-4 w-4 text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}
-          />
+          <ChevronRight className={`h-4 w-4 text-muted transition-transform ${open ? 'rotate-90' : ''}`} />
           <span className="font-medium text-slate-900 dark:text-slate-100">{section.name}</span>
         </div>
-        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-slate-500 dark:text-slate-400">
+        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted">
           {section.tools.length} tools
         </span>
       </button>
@@ -384,7 +382,7 @@ function SectionCard({
                     href={t.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center"
+                    className="text-xs text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center"
                   >
                     {hostnameOf(t.url)}
                     <ExternalLink className="ml-1 inline h-3 w-3" />

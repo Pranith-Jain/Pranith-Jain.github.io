@@ -45,7 +45,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
               to={item.href}
               aria-current={active ? 'page' : undefined}
               className={`flex flex-col items-center justify-center gap-0.5 min-w-[60px] h-14 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
-                active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-600 dark:text-slate-400'
+                active ? 'text-brand-600 dark:text-brand-400' : 'text-muted'
               }`}
             >
               <item.icon size={20} aria-hidden="true" />
@@ -59,30 +59,29 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
           type="button"
           onClick={onOpenSearch}
           aria-label="Search tools"
-          className="flex flex-col items-center justify-center gap-0.5 min-w-[60px] h-14 text-slate-500 dark:text-slate-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="flex flex-col items-center justify-center gap-0.5 min-w-[60px] h-14 text-muted transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
         >
           <Search size={20} aria-hidden="true" />
           <span className="text-mini font-medium">Search</span>
         </button>
 
         {/* Recent (if available) */}
-        {hasRecent && (() => {
-          const recent = entries[0]!;
-          return (
-            <Link
-              to={recent.path}
-              aria-current={location.pathname === recent.path ? 'page' : undefined}
-              className={`flex flex-col items-center justify-center gap-0.5 min-w-[60px] h-14 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
-                location.pathname === recent.path
-                  ? 'text-brand-600 dark:text-brand-400'
-                  : 'text-slate-500 dark:text-slate-400'
-              }`}
-            >
-              <Clock size={20} aria-hidden="true" />
-              <span className="text-mini font-medium truncate max-w-[60px]">{recent.label}</span>
-            </Link>
-          );
-        })()}
+        {hasRecent &&
+          (() => {
+            const recent = entries[0]!;
+            return (
+              <Link
+                to={recent.path}
+                aria-current={location.pathname === recent.path ? 'page' : undefined}
+                className={`flex flex-col items-center justify-center gap-0.5 min-w-[60px] h-14 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
+                  location.pathname === recent.path ? 'text-brand-600 dark:text-brand-400' : 'text-muted'
+                }`}
+              >
+                <Clock size={20} aria-hidden="true" />
+                <span className="text-mini font-medium truncate max-w-[60px]">{recent.label}</span>
+              </Link>
+            );
+          })()}
       </div>
     </nav>
   );

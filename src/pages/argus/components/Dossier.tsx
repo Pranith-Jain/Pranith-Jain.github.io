@@ -50,10 +50,10 @@ export function Dossier({ actor, onClose }: Props) {
               {actor.apt && <span className="chip chip-blue">{actor.apt}</span>}
               {actor.mitre_id && <span className="chip">{actor.mitre_id}</span>}
             </div>
-            <div className="text-meta text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-0.5">
+            <div className="text-meta text-muted font-mono uppercase tracking-wider mt-0.5">
               {actor.aka.slice(0, 4).join(' · ')}
             </div>
-            <div className="mt-2 flex items-center gap-3 text-meta text-slate-600 dark:text-slate-400">
+            <div className="mt-2 flex items-center gap-3 text-meta text-muted">
               <span className="flex items-center gap-1.5">
                 <Building2 size={12} /> {actor.agency}
               </span>
@@ -65,7 +65,7 @@ export function Dossier({ actor, onClose }: Props) {
           </div>
           <button
             onClick={onClose}
-            className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 transition-colors"
+            className="text-muted hover:text-slate-900 dark:text-slate-100 transition-colors"
             aria-label="Close"
           >
             <X size={18} />
@@ -77,7 +77,7 @@ export function Dossier({ actor, onClose }: Props) {
         {/* Description */}
         <section>
           <SectionHeader Icon={FileText}>Profile</SectionHeader>
-          <p className="text-[13.5px] text-slate-600 dark:text-slate-400 leading-relaxed">{actor.description}</p>
+          <p className="text-[13.5px] text-muted leading-relaxed">{actor.description}</p>
         </section>
 
         {/* Targets & Sectors */}
@@ -91,9 +91,7 @@ export function Dossier({ actor, onClose }: Props) {
                 </span>
               ))}
             </div>
-            <div className="text-meta text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-2">
-              Countries
-            </div>
+            <div className="text-meta text-muted font-mono uppercase tracking-wider mt-2">Countries</div>
             <div className="flex flex-wrap gap-1.5">
               {actor.targets.map((t) => (
                 <span key={t} className="chip chip-violet">
@@ -111,7 +109,7 @@ export function Dossier({ actor, onClose }: Props) {
             <div className="space-y-1.5">
               {actor.sector_scores.map((s) => (
                 <div key={s.sector} className="flex items-center gap-2">
-                  <span className="w-28 text-meta text-slate-600 dark:text-slate-400 capitalize">{s.sector}</span>
+                  <span className="w-28 text-meta text-muted capitalize">{s.sector}</span>
                   <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                     <div
                       className="h-full rounded-full"
@@ -121,9 +119,7 @@ export function Dossier({ actor, onClose }: Props) {
                       }}
                     />
                   </div>
-                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
-                    {s.score}
-                  </span>
+                  <span className="text-mini font-mono text-muted w-8 text-right">{s.score}</span>
                 </div>
               ))}
             </div>
@@ -144,13 +140,8 @@ export function Dossier({ actor, onClose }: Props) {
               >
                 <span className="font-mono text-mini text-brand-600 dark:text-brand-400 w-20 shrink-0">{t.id}</span>
                 <span className="text-[12.5px] text-slate-900 dark:text-slate-100 flex-1">{t.name}</span>
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {t.tactic}
-                </span>
-                <ExternalLink
-                  size={11}
-                  className="text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100"
-                />
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">{t.tactic}</span>
+                <ExternalLink size={11} className="text-muted opacity-0 group-hover:opacity-100" />
               </a>
             ))}
           </div>
@@ -211,11 +202,11 @@ export function Dossier({ actor, onClose }: Props) {
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-[13.5px] font-medium text-slate-900 dark:text-slate-100">{c.name}</span>
-                    <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                    <span className="text-[10.5px] font-mono text-muted ml-auto">
                       {c.start} → {c.end}
                     </span>
                   </div>
-                  <p className="text-[12.5px] text-slate-600 dark:text-slate-400 leading-relaxed">{c.summary}</p>
+                  <p className="text-[12.5px] text-muted leading-relaxed">{c.summary}</p>
                   <div className="flex flex-wrap gap-1.5 mt-2">
                     {c.sectors.map((s) => (
                       <span key={s} className="chip">
@@ -246,9 +237,9 @@ export function Dossier({ actor, onClose }: Props) {
                   <div className="flex items-center gap-2">
                     <span className="text-tool text-slate-900 dark:text-slate-100">{h.title}</span>
                     <span className="chip chip-cyan ml-auto">{h.platform}</span>
-                    <ExternalLink size={11} className="text-slate-500 dark:text-slate-400" />
+                    <ExternalLink size={11} className="text-muted" />
                   </div>
-                  <p className="text-meta text-slate-500 dark:text-slate-400 mt-0.5">{h.description}</p>
+                  <p className="text-meta text-muted mt-0.5">{h.description}</p>
                 </a>
               ))}
             </div>
@@ -266,7 +257,7 @@ export function Dossier({ actor, onClose }: Props) {
                   className="flex items-center gap-2 p-2 rounded-md bg-slate-50 dark:bg-[rgb(var(--surface-300))]"
                 >
                   <span className="text-[12.5px] text-slate-900 dark:text-slate-100 flex-1">{m.name}</span>
-                  <span className="text-[11.5px] text-slate-500 dark:text-slate-400">{m.role}</span>
+                  <span className="text-[11.5px] text-muted">{m.role}</span>
                   <span className={cn('chip', m.status === 'indicted' ? 'chip-red' : 'chip-gold')}>{m.status}</span>
                 </div>
               ))}
@@ -284,7 +275,7 @@ export function Dossier({ actor, onClose }: Props) {
                   href={s.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 text-[12.5px] text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 transition-colors"
+                  className="flex items-center gap-2 text-[12.5px] text-muted hover:text-brand-600 dark:text-brand-400 transition-colors"
                 >
                   <ExternalLink size={11} /> {s.label}
                 </a>
@@ -293,7 +284,7 @@ export function Dossier({ actor, onClose }: Props) {
           </ul>
         </section>
 
-        <p className="text-[10.5px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-[0.18em] pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <p className="text-[10.5px] text-muted font-mono uppercase tracking-[0.18em] pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           TLP:CLEAR · public intel · corroborate before operational use
         </p>
       </div>
@@ -303,8 +294,8 @@ export function Dossier({ actor, onClose }: Props) {
 
 function SectionHeader({ Icon, children }: { Icon: typeof Shield; children: React.ReactNode }) {
   return (
-    <h3 className="flex items-center gap-2 text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-2.5">
-      <Icon size={12} className="text-slate-500 dark:text-slate-400" /> {children}
+    <h3 className="flex items-center gap-2 text-eyebrow font-mono text-muted mb-2.5">
+      <Icon size={12} className="text-muted" /> {children}
     </h3>
   );
 }

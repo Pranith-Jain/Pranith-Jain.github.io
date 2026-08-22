@@ -504,8 +504,8 @@ export default function GlobalPulse(): JSX.Element {
             {/* Total events */}
             <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  <Activity size={13} className="text-slate-500 dark:text-slate-400" /> Total Events
+                <span className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-muted">
+                  <Activity size={13} className="text-muted" /> Total Events
                 </span>
                 {totalDelta !== 0 && (
                   <span
@@ -532,9 +532,7 @@ export default function GlobalPulse(): JSX.Element {
                   />
                 )}
               </div>
-              <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
-                {geoPoints.length} geo-located
-              </div>
+              <div className="text-mini font-mono text-muted mt-2">{geoPoints.length} geo-located</div>
             </div>
 
             {/* Critical - the hero metric */}
@@ -579,22 +577,20 @@ export default function GlobalPulse(): JSX.Element {
 
             {/* Active layers */}
             <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
-              <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-                <Layers size={13} className="text-slate-500 dark:text-slate-400" /> Active Layers
+              <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-muted mb-3">
+                <Layers size={13} className="text-muted" /> Active Layers
               </div>
               <CountUp
                 to={activeLayers.size}
                 className="block text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
               />
-              <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
-                {ALL_KINDS.length - activeLayers.size} hidden
-              </div>
+              <div className="text-mini font-mono text-muted mt-2">{ALL_KINDS.length - activeLayers.size} hidden</div>
             </div>
 
             {/* Live status */}
             <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
-              <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-                <Clock size={13} className="text-slate-500 dark:text-slate-400" /> Last Update
+              <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-muted mb-3">
+                <Clock size={13} className="text-muted" /> Last Update
               </div>
               <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none">
                 {lastUpdated ? formatTime(lastUpdated) : data ? formatTime(data.generated_at) : '-'}
@@ -626,7 +622,7 @@ export default function GlobalPulse(): JSX.Element {
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5" aria-label="Paused">
-                    <WifiOff size={11} className="text-slate-500 dark:text-slate-400" />
+                    <WifiOff size={11} className="text-muted" />
                     <span className="text-mini font-semibold uppercase tracking-wider text-slate-500">PAUSED</span>
                   </span>
                 )}
@@ -647,7 +643,7 @@ export default function GlobalPulse(): JSX.Element {
                 className="w-full pl-9 pr-3 py-2.5 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] bg-white dark:bg-white/[0.03] text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-rose-500/40 focus:ring-1 focus:ring-rose-500/20 transition-colors"
               />
               <svg
-                className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-400"
+                className="absolute left-3 top-2.5 w-4 h-4 text-muted"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -665,7 +661,7 @@ export default function GlobalPulse(): JSX.Element {
                   type="button"
                   onClick={() => setSearchQuery('')}
                   aria-label="Clear event search"
-                  className="absolute right-2.5 top-2.5 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  className="absolute right-2.5 top-2.5 text-muted hover:text-slate-600 dark:hover:text-slate-300"
                 >
                   <X size={14} />
                 </button>
@@ -783,7 +779,7 @@ export default function GlobalPulse(): JSX.Element {
                     </span>
                   )
                 ) : (
-                  <WifiOff size={12} className="text-slate-500 dark:text-slate-400" />
+                  <WifiOff size={12} className="text-muted" />
                 )}
                 {autoRefresh ? (wsConnected ? 'Real-time' : 'Live') : 'Paused'}
               </button>
@@ -843,9 +839,7 @@ export default function GlobalPulse(): JSX.Element {
               {/* Severity Filter */}
               <div className="mb-5">
                 <div className="flex items-center justify-between mb-2.5">
-                  <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Severity
-                  </h4>
+                  <h4 className="text-mini font-semibold uppercase tracking-wider text-muted">Severity</h4>
                   <button
                     type="button"
                     onClick={() => {
@@ -878,7 +872,7 @@ export default function GlobalPulse(): JSX.Element {
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono rounded-xl border transition-all ${
                           active
                             ? `${config.bg} border-current ${config.text}`
-                            : 'border-slate-200/60 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 opacity-60'
+                            : 'border-slate-200/60 dark:border-white/[0.06] text-muted opacity-60'
                         }`}
                       >
                         <span className={`w-1.5 h-1.5 rounded-full ${active ? config.dot : 'bg-slate-400'}`} />
@@ -897,9 +891,9 @@ export default function GlobalPulse(): JSX.Element {
                 return (
                   <div key={group} className="mb-5 last:mb-0">
                     <div className="flex items-center justify-between mb-2.5">
-                      <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <h4 className="text-mini font-semibold uppercase tracking-wider text-muted">
                         {groupLabels[group]}
-                        <span className="ml-2 text-slate-500 dark:text-slate-400/70 dark:text-slate-500/70">
+                        <span className="ml-2 text-muted/70 dark:text-slate-500/70">
                           {activeCount}/{layers.length}
                         </span>
                       </h4>
@@ -931,13 +925,11 @@ export default function GlobalPulse(): JSX.Element {
                             active
                               ? count > 0
                                 ? `${def.bgColor} ${def.color} border-current`
-                                : 'border-slate-200/60 dark:border-white/[0.06] bg-slate-50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400'
-                              : 'border-slate-200/60 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 opacity-50'
+                                : 'border-slate-200/60 dark:border-white/[0.06] bg-slate-50 dark:bg-white/[0.02] text-muted'
+                              : 'border-slate-200/60 dark:border-white/[0.06] text-muted opacity-50'
                           }`}
                         >
-                          <span className={active && count > 0 ? def.color : 'text-slate-500 dark:text-slate-400'}>
-                            {def.icon}
-                          </span>
+                          <span className={active && count > 0 ? def.color : 'text-muted'}>{def.icon}</span>
                           {def.shortLabel}
                           {count > 0 && (
                             <span className={`text-micro ${active ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
@@ -1008,7 +1000,7 @@ export default function GlobalPulse(): JSX.Element {
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${mapMode === '3d' ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500'}`}
                   />
-                  <span className="text-micro font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <span className="text-micro font-semibold uppercase tracking-wider text-muted">
                     {mapMode === '3d' ? '3D Globe' : '2D Map'}
                   </span>
                 </div>
@@ -1019,12 +1011,12 @@ export default function GlobalPulse(): JSX.Element {
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <div className="backdrop-blur-xl bg-white/80 dark:bg-white/[0.04] rounded-2xl px-10 py-8 text-center border border-slate-200/50 dark:border-white/[0.08] max-w-sm">
                     <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 dark:bg-white/[0.04] flex items-center justify-center">
-                      <Crosshair size={24} className="text-slate-500 dark:text-slate-400" />
+                      <Crosshair size={24} className="text-muted" />
                     </div>
                     <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                       No Geolocated Events
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
+                    <p className="text-xs text-muted mb-4">
                       Enable more layers in the Filters panel to see points on the globe
                     </p>
                     <button
@@ -1122,9 +1114,7 @@ export default function GlobalPulse(): JSX.Element {
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-500" />
                   </span>
                   <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300">Live Feed</h3>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                    {filteredEvents.length}
-                  </span>
+                  <span className="text-micro font-mono text-muted">{filteredEvents.length}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   {(() => {
@@ -1169,7 +1159,7 @@ export default function GlobalPulse(): JSX.Element {
                     className={`inline-flex items-center gap-1 px-2 py-1 text-micro font-mono rounded-md transition-colors ${
                       ctiFilter === pill.key
                         ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
+                        : 'text-muted hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                     }`}
                   >
                     {pill.icon}
@@ -1180,7 +1170,7 @@ export default function GlobalPulse(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setCtiFilter('all')}
-                    className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    className="ml-auto text-micro font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300"
                   >
                     <X size={11} />
                   </button>
@@ -1195,8 +1185,8 @@ export default function GlobalPulse(): JSX.Element {
                 {filteredEvents.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center px-4">
                     <Filter size={28} className="text-slate-300 dark:text-slate-500 mb-4" />
-                    <p className="text-xs font-medium text-slate-500 dark:text-slate-400">No events match filters</p>
-                    <p className="text-mini text-slate-500 dark:text-slate-400 mt-1">Adjust layers or severity</p>
+                    <p className="text-xs font-medium text-muted">No events match filters</p>
+                    <p className="text-mini text-muted mt-1">Adjust layers or severity</p>
                     <button
                       type="button"
                       onClick={() => {
@@ -1251,22 +1241,20 @@ export default function GlobalPulse(): JSX.Element {
                             {/* Content */}
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5 mb-0.5">
-                                <span className={def?.color ?? 'text-slate-500 dark:text-slate-400'}>{def?.icon}</span>
-                                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                                <span className={def?.color ?? 'text-muted'}>{def?.icon}</span>
+                                <span className="text-micro font-mono uppercase tracking-wider text-muted">
                                   {def?.shortLabel}
                                 </span>
-                                <span className="text-micro font-mono text-slate-500 dark:text-slate-400/70 dark:text-slate-500/70 ml-auto">
+                                <span className="text-micro font-mono text-muted/70 dark:text-slate-500/70 ml-auto">
                                   {formatTime(ev.timestamp)}
                                 </span>
                               </div>
                               <p className="text-mini font-medium text-slate-800 dark:text-slate-200 line-clamp-1">
                                 {ev.title}
                               </p>
-                              <p className="text-micro text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
-                                {ev.description}
-                              </p>
+                              <p className="text-micro text-muted line-clamp-1 mt-0.5">{ev.description}</p>
                               <div className="flex items-center gap-1.5 mt-1">
-                                <span className="text-micro font-mono text-slate-500 dark:text-slate-400/70 dark:text-slate-500/70">
+                                <span className="text-micro font-mono text-muted/70 dark:text-slate-500/70">
                                   {ev.source}
                                 </span>
                                 {ev.kind === 'cve' && ev.magnitude != null && (
@@ -1293,7 +1281,7 @@ export default function GlobalPulse(): JSX.Element {
                                           ? 'text-amber-500'
                                           : ev.cti === 'ioc'
                                             ? 'text-sky-500'
-                                            : 'text-slate-500 dark:text-slate-400'
+                                            : 'text-muted'
                                     }`}
                                   >
                                     {ev.cti}
@@ -1339,12 +1327,10 @@ export default function GlobalPulse(): JSX.Element {
                     <h3 className="text-sm font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
                     <SeverityPill severity={selectedEvent.severity} />
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                    {selectedEvent.description}
-                  </p>
+                  <p className="text-xs text-muted leading-relaxed mb-4">{selectedEvent.description}</p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div>
-                      <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                         Source
                       </span>
                       <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
@@ -1352,7 +1338,7 @@ export default function GlobalPulse(): JSX.Element {
                       </span>
                     </div>
                     <div>
-                      <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                         Type
                       </span>
                       <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
@@ -1360,7 +1346,7 @@ export default function GlobalPulse(): JSX.Element {
                       </span>
                     </div>
                     <div>
-                      <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                         Time
                       </span>
                       <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
@@ -1369,7 +1355,7 @@ export default function GlobalPulse(): JSX.Element {
                     </div>
                     {selectedEvent.country && (
                       <div>
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
+                        <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                           Country
                         </span>
                         <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
@@ -1379,7 +1365,7 @@ export default function GlobalPulse(): JSX.Element {
                     )}
                     {(selectedEvent.lat !== 0 || selectedEvent.lng !== 0) && (
                       <div>
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
+                        <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                           Coordinates
                         </span>
                         <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
@@ -1389,7 +1375,7 @@ export default function GlobalPulse(): JSX.Element {
                     )}
                     {selectedEvent.magnitude != null && (
                       <div>
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
+                        <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                           Magnitude
                         </span>
                         <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
@@ -1444,7 +1430,7 @@ export default function GlobalPulse(): JSX.Element {
                     setSelectedEvent(null);
                     setShowAiAnalysis(false);
                   }}
-                  className="shrink-0 p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04] transition-colors"
+                  className="shrink-0 p-1.5 rounded-xl text-muted hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04] transition-colors"
                 >
                   <X size={14} />
                 </button>

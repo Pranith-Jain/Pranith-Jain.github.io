@@ -272,7 +272,7 @@ export default function DfirCopilot(): JSX.Element {
       {/* Quick examples */}
       {!result && !loading && (
         <div className="mb-6">
-          <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+          <div className="text-micro font-mono font-semibold uppercase tracking-wider text-muted mb-2">
             Quick examples
           </div>
           <div className="flex flex-wrap gap-2">
@@ -286,7 +286,7 @@ export default function DfirCopilot(): JSX.Element {
                 }}
                 className="text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
-                {ex.label} <span className="text-slate-500 dark:text-slate-400 ml-1">({ex.type})</span>
+                {ex.label} <span className="text-muted ml-1">({ex.type})</span>
               </button>
             ))}
           </div>
@@ -303,7 +303,7 @@ export default function DfirCopilot(): JSX.Element {
       {loading && (
         <div role="status" aria-live="polite" className="py-16 text-center">
           <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" aria-hidden="true" />
-          <p className="font-mono text-sm text-slate-500 dark:text-slate-400">Gathering intelligence…</p>
+          <p className="font-mono text-sm text-muted">Gathering intelligence…</p>
           <p className="mt-1 font-mono text-xs text-slate-500 dark:text-slate-500">
             Querying threat data sources and generating narrative
           </p>
@@ -355,9 +355,9 @@ export default function DfirCopilot(): JSX.Element {
                       key={s.name}
                       className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                     >
-                      <span className="font-bold text-slate-500 dark:text-slate-400">{i + 1}.</span>
+                      <span className="font-bold text-muted">{i + 1}.</span>
                       {s.name}
-                      <span className="text-slate-500 dark:text-slate-400">({s.items})</span>
+                      <span className="text-muted">({s.items})</span>
                     </span>
                   ))}
                 </div>
@@ -371,7 +371,7 @@ export default function DfirCopilot(): JSX.Element {
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
               {result._meta && (
-                <span className="ml-auto font-mono text-mini text-slate-500 dark:text-slate-400">
+                <span className="ml-auto font-mono text-mini text-muted">
                   {result._meta.total_items} data points across {result._meta.total_sources} sources
                 </span>
               )}

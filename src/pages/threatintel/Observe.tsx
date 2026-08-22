@@ -202,7 +202,7 @@ export default function Observe(): JSX.Element {
     >
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             aria-label="Observable query"
@@ -233,7 +233,7 @@ export default function Observe(): JSX.Element {
       )}
 
       {loading && (
-        <div className="flex items-center justify-center py-20 text-slate-500 dark:text-slate-400">
+        <div className="flex items-center justify-center py-20 text-muted">
           <Loader2 size={24} className="animate-spin mr-3" />
           <span className="font-mono text-sm">Querying intelligence sources...</span>
         </div>
@@ -258,9 +258,7 @@ export default function Observe(): JSX.Element {
                   <p className="text-sm text-muted">
                     {data.entity.label}
                     {data.entity.aliases.length > 0 && (
-                      <span className="ml-2 text-slate-500 dark:text-slate-400">
-                        aliases: {data.entity.aliases.join(', ')}
-                      </span>
+                      <span className="ml-2 text-muted">aliases: {data.entity.aliases.join(', ')}</span>
                     )}
                   </p>
                 )}
@@ -306,7 +304,7 @@ export default function Observe(): JSX.Element {
               {showIocDetail && (
                 <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
                   {iocLoading && (
-                    <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                    <div className="flex items-center gap-2 text-sm text-muted">
                       <Loader2 size={14} className="animate-spin" />
                       Checking 24+ threat intelligence sources...
                     </div>
@@ -331,9 +329,7 @@ export default function Observe(): JSX.Element {
                         </div>
                       ))}
                       {iocVerdicts.length > 15 && (
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                          +{iocVerdicts.length - 15} more
-                        </p>
+                        <p className="text-xs text-muted mt-2">+{iocVerdicts.length - 15} more</p>
                       )}
                     </div>
                   )}
@@ -355,7 +351,7 @@ export default function Observe(): JSX.Element {
                     <Users size={16} className="text-rose-600 dark:text-rose-400" />
                     <span className="font-semibold text-sm">Entity Profile</span>
                   </div>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                  <span className="text-micro font-mono text-muted">
                     confidence: {Math.round((data.profile.entity.confidence ?? 0) * 100)}%
                   </span>
                 </div>
@@ -366,7 +362,7 @@ export default function Observe(): JSX.Element {
                       <div className="space-y-1">
                         {data.profile.links.slice(0, 8).map((link, i) => (
                           <div key={i} className="flex items-center gap-2 text-xs font-mono text-muted">
-                            <span className="text-slate-500 dark:text-slate-400">{link.relationship}</span>
+                            <span className="text-muted">{link.relationship}</span>
                             <Link
                               to={`/threatintel/observe?q=${encodeURIComponent(link.target_id)}`}
                               className="text-rose-600 dark:text-rose-400 hover:underline"
@@ -434,8 +430,8 @@ export default function Observe(): JSX.Element {
                       className="block p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
                     >
                       <p className="text-sm font-medium">{a.title}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">{a.description}</p>
-                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{a.category}</span>
+                      <p className="text-xs text-muted mt-0.5 line-clamp-1">{a.description}</p>
+                      <span className="text-micro font-mono text-muted">{a.category}</span>
                     </Link>
                   ))}
                 </div>

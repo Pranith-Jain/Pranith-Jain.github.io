@@ -259,7 +259,7 @@ export default function Orkl(): JSX.Element {
                 }))}
                 requireAdmin={false}
               />
-              <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+              <div className="text-micro font-mono font-semibold uppercase tracking-wider text-muted mb-2">
                 {results.length} result{results.length !== 1 ? 's' : ''}
               </div>
               {results.map((entry) => (
@@ -304,7 +304,7 @@ export default function Orkl(): JSX.Element {
                 </h2>
 
                 {selected.sha1_hash && (
-                  <div className="flex items-center gap-1.5 text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
+                  <div className="flex items-center gap-1.5 text-mini font-mono text-muted mb-2">
                     <Hash size={10} /> {selected.sha1_hash}
                   </div>
                 )}
@@ -375,7 +375,7 @@ export default function Orkl(): JSX.Element {
                       href={selected.files.pdf}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
                     >
                       <FileText size={11} /> PDF
                     </a>
@@ -385,7 +385,7 @@ export default function Orkl(): JSX.Element {
                       href={selected.references[0]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
                     >
                       <Globe size={11} /> Source
                     </a>
@@ -395,7 +395,7 @@ export default function Orkl(): JSX.Element {
 
               {/* Plain text */}
               <div className="surface-card p-4">
-                <h3 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                <h3 className="text-micro font-mono font-semibold uppercase tracking-wider text-muted mb-3">
                   Full Text
                 </h3>
                 {detailLoading ? (

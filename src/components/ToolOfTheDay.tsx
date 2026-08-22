@@ -64,9 +64,7 @@ export function ToolOfTheDay(): JSX.Element | null {
           <div className="grid h-6 w-6 place-items-center rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
             <Sparkles size={12} aria-hidden="true" />
           </div>
-          <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            Tool of the Day
-          </h3>
+          <h3 className="text-xs font-mono uppercase tracking-wider text-muted">Tool of the Day</h3>
         </div>
         <Link
           to={tool.path}
@@ -82,7 +80,7 @@ export function ToolOfTheDay(): JSX.Element | null {
               <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {tool.name}
               </h4>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{tool.desc}</p>
+              <p className="text-xs text-muted mt-0.5 leading-relaxed">{tool.desc}</p>
             </div>
             <ArrowRight
               size={14}

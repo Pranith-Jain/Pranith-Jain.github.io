@@ -137,7 +137,7 @@ export default function UsernamePivot(): JSX.Element {
           GitLab, Codeberg, Reddit, HN, Lobsters, npm, Dev.to, Mastodon) are verified live; the rest are deep-link
           generated for manual review. All checks run from your browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Inspired by Sherlock. Designed for IR / threat-actor pivoting and brand-monitoring; "exists" doesn't always
           mean the same person - confirm via cross-correlation (display name, profile photo, post timing).
         </p>
@@ -152,11 +152,7 @@ export default function UsernamePivot(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <AtSign
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <AtSign size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={username}
@@ -190,7 +186,7 @@ export default function UsernamePivot(): JSX.Element {
           {/* Stats + filter */}
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                 Results for <span className="text-slate-900 dark:text-slate-100">{submitted}</span>
               </h2>
               <span className="text-mini font-mono text-slate-400 dark:text-slate-400">
@@ -272,9 +268,7 @@ export default function UsernamePivot(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
-          Notes
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">Notes</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
             "exists" is a structural signal, not identity - a hit on the same handle across 5 sites is a much stronger

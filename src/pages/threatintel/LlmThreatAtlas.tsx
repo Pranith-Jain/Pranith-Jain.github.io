@@ -188,11 +188,7 @@ export default function LlmThreatAtlas(): JSX.Element {
   const headerExtra = (
     <div className="space-y-3">
       <div className="relative max-w-md">
-        <Search
-          size={14}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-          aria-hidden="true"
-        />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
         <input
           type="search"
           value={query}
@@ -272,7 +268,7 @@ export default function LlmThreatAtlas(): JSX.Element {
       )}
 
       {/* Results count */}
-      <p className="mb-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+      <p className="mb-3 text-micro font-mono text-muted">
         {filtered.length} of {data?.count ?? 0} vectors
         {query.trim() || activeArch !== 'all' || activeTier !== 'all' ? ' (filtered)' : ''}
       </p>
@@ -290,10 +286,10 @@ export default function LlmThreatAtlas(): JSX.Element {
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
                       {item.id}
                     </span>
-                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
                       {item.domain}
                     </span>
                     <span
@@ -311,7 +307,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                   {item.architectures.slice(0, 3).map((arch) => (
                     <span
                       key={arch}
-                      className="hidden sm:inline text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
+                      className="hidden sm:inline text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
                     >
                       {arch}
                     </span>
@@ -327,7 +323,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                         window.history.replaceState(null, '', window.location.pathname);
                       }
                     }}
-                    className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                    className="text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                     aria-label={expanded ? 'Collapse details' : 'Expand details'}
                   >
                     {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -410,7 +406,7 @@ export default function LlmThreatAtlas(): JSX.Element {
 
       {/* JSON download */}
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           480 vectors ·{' '}
           <a
             href={SOURCE_URL}
@@ -431,7 +427,7 @@ function Section({ icon: Icon, title, text }: { icon: typeof Shield; title: stri
   return (
     <div>
       <h4 className="flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-200 mb-1">
-        <Icon size={12} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />
+        <Icon size={12} className="text-muted" aria-hidden="true" />
         {title}
       </h4>
       <p className="text-muted leading-relaxed">{text}</p>

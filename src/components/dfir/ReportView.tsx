@@ -187,7 +187,7 @@ function BlufPanel({ header }: { header: NonNullable<ReportActionCard['reportHea
         {header.bluf}
       </p>
       {header.key_takeaway && (
-        <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 italic">
+        <p className="text-xs text-muted mt-2 italic">
           <span className="font-bold not-italic uppercase tracking-wider mr-1">Business impact:</span>
           {header.key_takeaway}
         </p>
@@ -297,7 +297,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
               {card.kev_date && <div className="text-micro font-mono text-slate-500">since {card.kev_date}</div>}
             </>
           ) : (
-            <div className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Not listed</div>
+            <div className="text-sm text-muted mt-0.5">Not listed</div>
           )}
         </div>
         <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2">
@@ -309,7 +309,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
               {card.exploit_status.replace(/-/g, ' ')}
             </span>
           ) : (
-            <div className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">No public PoC</div>
+            <div className="text-sm text-muted mt-0.5">No public PoC</div>
           )}
         </div>
       </div>
@@ -360,7 +360,7 @@ function SeverityBanner({ card }: { card: ReportActionCard }): JSX.Element {
         <div className="flex-1 min-w-0">
           <p className={`text-sm font-semibold ${c.text} leading-relaxed`}>{card.verdict.headline}</p>
           {card.verdict.confidence_rationale && (
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{card.verdict.confidence_rationale}</p>
+            <p className="text-xs text-muted mt-1">{card.verdict.confidence_rationale}</p>
           )}
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
@@ -369,10 +369,10 @@ function SeverityBanner({ card }: { card: ReportActionCard }): JSX.Element {
           >
             TLP:{card.verdict.tlp}
           </span>
-          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
+          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-muted">
             {card.verdict.posture}
           </span>
-          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
+          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-muted">
             {card.verdict.confidence}
           </span>
           {card.kev && (
@@ -626,9 +626,7 @@ function DiamondQuadrant({ title, value, items }: { title: string; value?: strin
           ))}
         </ul>
       )}
-      {!value && (!items || items.length === 0) && (
-        <div className="text-xs text-slate-500 dark:text-slate-400 italic">unknown</div>
-      )}
+      {!value && (!items || items.length === 0) && <div className="text-xs text-muted italic">unknown</div>}
     </div>
   );
 }
@@ -714,7 +712,7 @@ function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
             />
             <div className="flex-1 min-w-0">
               <p className="text-sm text-slate-900 dark:text-slate-100">{p.pir}</p>
-              {p.bluf && <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{p.bluf}</p>}
+              {p.bluf && <p className="text-xs text-muted mt-1">{p.bluf}</p>}
               {p.businessOutcome && (
                 <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-1 inline-flex items-center gap-1">
                   <ArrowRight size={10} /> {p.businessOutcome}
@@ -742,7 +740,7 @@ function TimelineList({ timeline }: { timeline: ReportActionCard['timeline'] }):
             <div className="absolute -left-3 mt-1.5 w-2 h-2 rounded-full bg-brand-500 ring-2 ring-white dark:ring-slate-900" />
             <div className="text-mini font-mono text-slate-500">{t.date ?? '-'}</div>
             <div className="text-sm text-slate-900 dark:text-slate-100">{t.event}</div>
-            {t.source && <div className="text-micro font-mono text-slate-500 dark:text-slate-400">[{t.source}]</div>}
+            {t.source && <div className="text-micro font-mono text-muted">[{t.source}]</div>}
           </li>
         ))}
       </ol>
@@ -1091,7 +1089,7 @@ export function ReportView({
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Executive Summary</div>
           <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{actionCard.reportHeader.bluf}</p>
           {actionCard.reportHeader.key_takeaway && (
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 italic">
+            <p className="text-xs text-muted mt-2 italic">
               <span className="font-bold not-italic uppercase tracking-wider mr-1">Business impact:</span>
               {actionCard.reportHeader.key_takeaway}
             </p>

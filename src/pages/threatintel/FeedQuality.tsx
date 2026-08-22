@@ -186,7 +186,7 @@ export default function FeedQuality(): JSX.Element {
       onRetry={() => void refetch()}
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6 flex items-center gap-2 flex-wrap">
+        <p className="text-xs text-muted font-mono mb-6 flex items-center gap-2 flex-wrap">
           <span>Scored hourly · cached 1h at the edge</span>
           <span>·</span>
           <a
@@ -313,7 +313,7 @@ function FilterBar({
     <section className="surface-card p-4 mb-4">
       <div className="flex items-center gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -425,9 +425,9 @@ function FeedRow({
           <div className="text-micro font-mono text-slate-500 uppercase tracking-wider">composite</div>
         </div>
         {expanded ? (
-          <ChevronDown size={16} className="shrink-0 text-slate-500 dark:text-slate-400" />
+          <ChevronDown size={16} className="shrink-0 text-muted" />
         ) : (
-          <ChevronRight size={16} className="shrink-0 text-slate-500 dark:text-slate-400" />
+          <ChevronRight size={16} className="shrink-0 text-muted" />
         )}
       </button>
       {expanded && (

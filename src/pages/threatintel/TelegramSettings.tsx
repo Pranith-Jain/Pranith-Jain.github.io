@@ -221,10 +221,10 @@ export default function TelegramSettings(): JSX.Element {
           </button>
         </div>
         {addError && <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">{addError}</p>}
-        <p className="mt-2 text-micro font-mono text-slate-500 dark:text-slate-400">
+        <p className="mt-2 text-micro font-mono text-muted">
           Channel is checked on the next feed refresh (cached up to 30 min).
         </p>
-        <p className="mt-1 text-micro font-mono text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-micro font-mono text-muted">
           Uses <code className="text-xs">telegram.me/s/</code> for scraping (t.me is blocked from Cloudflare Workers).
         </p>
       </form>
@@ -265,7 +265,7 @@ export default function TelegramSettings(): JSX.Element {
               <div className="min-w-0">
                 <span className="font-display font-semibold text-sm">{ch.name}</span>
                 <code className="ml-2 text-xs font-mono text-slate-500">@{ch.handle}</code>
-                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-micro font-mono text-muted mt-0.5">
                   added {new Date(ch.added_at).toLocaleDateString()}
                 </p>
               </div>

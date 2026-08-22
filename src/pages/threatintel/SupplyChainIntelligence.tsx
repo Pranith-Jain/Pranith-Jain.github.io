@@ -208,7 +208,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <Search className="w-5 h-5 text-rose-500" /> Package Verdict Checker
         </h2>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-xs text-muted mb-4">
           Check if a specific package is known-malicious. Enter a package name or use{' '}
           <code className="px-1 py-0.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded text-mono">
             ecosystem:package
@@ -309,7 +309,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
               <div className="mt-3 space-y-1">
                 {verdict.advisories.slice(0, 5).map((a) => (
                   <div key={a.id} className="text-xs text-muted flex items-center gap-2">
-                    <span className="font-mono text-slate-500 dark:text-slate-400">{a.id}</span>
+                    <span className="font-mono text-muted">{a.id}</span>
                     <span className="truncate">{a.summary}</span>
                     {a.withdrawn && <span className="text-amber-500">(withdrawn)</span>}
                   </div>
@@ -327,7 +327,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             <Bug className="w-5 h-5 text-rose-500" /> OSSF Malicious Packages
             {ossfData?.stale && <span className="text-xs font-mono text-amber-500">(stale)</span>}
           </h2>
-          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{stats.total} packages</span>
+          <span className="text-xs font-mono text-muted">{stats.total} packages</span>
         </div>
 
         {/* Ecosystem tabs */}

@@ -92,7 +92,7 @@ function CopyBtn({ text }: { text: string }) {
         setDone(true);
         setTimeout(() => setDone(false), 1200);
       }}
-      className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+      className="inline-flex items-center gap-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400"
     >
       {done ? <Check size={12} /> : <Copy size={12} />} {done ? 'copied' : 'copy'}
     </button>
@@ -194,7 +194,7 @@ export default function RuleConverter(): JSX.Element {
             </option>
           ))}
         </select>
-        <ArrowRight size={16} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />
+        <ArrowRight size={16} className="text-muted" aria-hidden="true" />
         <label htmlFor="rc-to" className="sr-only">
           Target format
         </label>
@@ -242,7 +242,7 @@ export default function RuleConverter(): JSX.Element {
           ))}
         </select>
         {chosenMap && fieldMapId !== 'passthrough' && (
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400" title={chosenMap.description}>
+          <span className="text-mini font-mono text-muted" title={chosenMap.description}>
             ~{Object.keys(chosenMap.mappings).length} field rewrites
           </span>
         )}
@@ -321,9 +321,7 @@ export default function RuleConverter(): JSX.Element {
                         <div className="text-meta font-medium text-slate-900 dark:text-slate-100 leading-tight">
                           {s.label}
                         </div>
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5 truncate">
-                          {s.description}
-                        </div>
+                        <div className="text-micro font-mono text-muted mt-0.5 truncate">{s.description}</div>
                       </button>
                     </li>
                   ))}
@@ -359,7 +357,7 @@ export default function RuleConverter(): JSX.Element {
             <h3 className="font-display font-semibold text-sm">
               {FORMAT_LABELS[to]}
               {batchMode && batchResult && batchResult.length > 0 && (
-                <span className="ml-2 text-micro font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <span className="ml-2 text-micro font-mono text-muted uppercase tracking-wider">
                   batch · {batchResult.filter((b) => b.ok).length}/{batchResult.length}
                 </span>
               )}
@@ -480,9 +478,7 @@ export default function RuleConverter(): JSX.Element {
       )}
 
       <section className="mt-6 surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          See also
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">See also</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <Link to="/dfir/rule-converter" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -503,7 +499,7 @@ export default function RuleConverter(): JSX.Element {
             </Link>
           </li>
         </ul>
-        <p className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+        <p className="mt-3 text-mini font-mono text-muted leading-relaxed">
           {CONVERTER_STARTERS.length} starters · {FIELD_MAPS.length - 1} field-map presets · multi-doc Sigma batch · IR
           inspector for debugging lossy parses.
         </p>

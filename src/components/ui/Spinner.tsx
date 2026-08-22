@@ -18,7 +18,7 @@ const SIZE: Record<SpinnerSize, string> = {
 export function Spinner({ size = 'md', className = '', label = 'Loading…' }: SpinnerProps) {
   return (
     <div role="status" aria-live="polite" className={`inline-flex items-center gap-2 ${className}`}>
-      <Loader2 className={`animate-spin text-slate-500 dark:text-slate-400 ${SIZE[size]}`} aria-hidden="true" />
+      <Loader2 className={`animate-spin text-muted ${SIZE[size]}`} aria-hidden="true" />
       <span className="sr-only">{label}</span>
     </div>
   );

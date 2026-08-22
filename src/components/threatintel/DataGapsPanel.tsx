@@ -33,7 +33,7 @@ export function DataGapsPanel({ dataGaps }: { dataGaps: ToolFailure[] }): JSX.El
       <div className="flex items-center gap-2 mb-3">
         <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
         <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Data Gaps & Limitations</h4>
-        <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <span className="text-xs text-muted font-mono">
           {dataGaps.length} tool{dataGaps.length === 1 ? '' : 's'} failed
         </span>
       </div>
@@ -54,10 +54,10 @@ export function DataGapsPanel({ dataGaps }: { dataGaps: ToolFailure[] }): JSX.El
                     <Wrench className="w-2.5 h-2.5 inline mr-0.5" />
                     {f.tool}
                   </span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">step {f.step}</span>
+                  <span className="text-xs text-muted font-mono">step {f.step}</span>
                   <span className={`text-xs font-mono ${meta.color}`}>{meta.label}</span>
                 </div>
-                <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
+                <div className="mt-1 text-xs text-muted">
                   <span className="font-mono text-slate-400">missed:</span> {f.missedCapability}
                 </div>
                 <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-500 italic">{f.diagnosis}</div>
@@ -72,7 +72,7 @@ export function DataGapsPanel({ dataGaps }: { dataGaps: ToolFailure[] }): JSX.El
         })}
       </div>
 
-      <div className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+      <div className="mt-2 text-xs text-muted">
         These failures do not invalidate the findings above, but they limit coverage. If a critical question depends on
         a failed tool, retry the investigation or call the tool directly.
       </div>

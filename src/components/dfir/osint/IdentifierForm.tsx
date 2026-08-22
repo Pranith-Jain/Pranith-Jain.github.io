@@ -47,7 +47,7 @@ export function IdentifierForm({
       </select>
       {def.fields.map((f) => (
         <label key={f.key} className="block text-sm">
-          <span className="text-slate-500 dark:text-slate-400 text-xs">{f.label}</span>
+          <span className="text-muted text-xs">{f.label}</span>
           <input
             className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))]"
             placeholder={f.placeholder}

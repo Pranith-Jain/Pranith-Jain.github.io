@@ -241,7 +241,7 @@ export default function ActorKb(): JSX.Element {
       {!insideLayout && (
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
         >
           back
         </BackLink>
@@ -263,7 +263,7 @@ export default function ActorKb(): JSX.Element {
       {!kbLoading && (
         <>
           <div className="relative mb-6 max-w-md">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
@@ -286,9 +286,7 @@ export default function ActorKb(): JSX.Element {
                 </a>
               </div>
               {selected.aliases.length > 0 && (
-                <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mt-1">
-                  aka {selected.aliases.join(' · ')}
-                </p>
+                <p className="text-meta font-mono text-muted mt-1">aka {selected.aliases.join(' · ')}</p>
               )}
               <p className="text-sm text-slate-700 dark:text-slate-300 mt-3 leading-relaxed">{selected.description}</p>
 
@@ -416,7 +414,7 @@ export default function ActorKb(): JSX.Element {
                         </div>
                       )}
                       {enrich.malpedia.length === 0 && enrich.maltrail.length === 0 && enrich.otx.length === 0 && (
-                        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">No enrichment found.</p>
+                        <p className="text-mini font-mono text-muted">No enrichment found.</p>
                       )}
                     </div>
                   )}
@@ -436,7 +434,7 @@ export default function ActorKb(): JSX.Element {
             />
           </div>
 
-          <div className="text-meta font-mono text-slate-500 dark:text-slate-400 mb-2">
+          <div className="text-meta font-mono text-muted mb-2">
             {filtered.length} of {actorKb.length} actors
           </div>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -481,10 +479,10 @@ export default function ActorKb(): JSX.Element {
               <Sparkles size={16} className="text-rose-600 dark:text-rose-400" />
               Maltrail-discovered actors
               {!skeletonsLoading && skeletons.length > 0 && (
-                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {skeletons.length}</span>
+                <span className="text-xs font-mono text-muted">· {skeletons.length}</span>
               )}
             </h2>
-            <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1 max-w-3xl">
+            <p className="text-mini font-mono text-muted mt-1 max-w-3xl">
               <code>apt_*.txt</code> files in stamparm/maltrail with no canonical MITRE / Malpedia match. Auto-created
               skeleton profiles so the IOC trail isn't dropped.
             </p>
@@ -513,17 +511,15 @@ export default function ActorKb(): JSX.Element {
             {syncError}
           </div>
         )}
-        {skeletonsLoading && (
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading skeleton actors…</p>
-        )}
+        {skeletonsLoading && <p className="text-xs font-mono text-muted">Loading skeleton actors…</p>}
         {!skeletonsLoading && skeletons.length === 0 && (
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-xs font-mono text-muted">
             No skeleton actors yet - click <span className="text-rose-600 dark:text-rose-400">sync maltrail</span> to
             discover unmatched apt_*.txt profiles.
           </p>
         )}
         {!skeletonsLoading && skeletons.length > 0 && skeletonMatches.length === 0 && q.trim() && (
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">No skeletons match the current search.</p>
+          <p className="text-xs font-mono text-muted">No skeletons match the current search.</p>
         )}
         {skeletonMatches.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">

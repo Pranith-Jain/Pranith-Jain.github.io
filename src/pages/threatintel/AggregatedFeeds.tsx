@@ -108,7 +108,7 @@ export default function AggregatedFeeds() {
   const headerExtra = (
     <div className="flex flex-wrap gap-3">
       <div className="relative flex-1 min-w-[200px]">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
         <input
           type="text"
           placeholder="Search feeds..."
@@ -193,7 +193,7 @@ export default function AggregatedFeeds() {
                       href={sanitizeUrl(feed.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
+                      className="text-muted hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -205,12 +205,11 @@ export default function AggregatedFeeds() {
                         feed.fetch_ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'
                       }
                     >
-                      <span className="text-slate-500 dark:text-slate-400">IOCs:</span>{' '}
+                      <span className="text-muted">IOCs:</span>{' '}
                       <strong>{feed.fetch_ok ? formatCount(feed.ioc_count) : 'unreachable'}</strong>
                     </span>
                     <span className="text-slate-700 dark:text-slate-300">
-                      <span className="text-slate-500 dark:text-slate-400">Size:</span>{' '}
-                      <strong>{formatBytes(feed.size_bytes)}</strong>
+                      <span className="text-muted">Size:</span> <strong>{formatBytes(feed.size_bytes)}</strong>
                     </span>
                     <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
                       {meta.label}
@@ -220,7 +219,7 @@ export default function AggregatedFeeds() {
                   {feed.fetch_ok && feed.sample_entries.length > 0 && (
                     <div className="mt-3">
                       <details className="text-sm">
-                        <summary className="text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">
+                        <summary className="text-muted cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">
                           Sample entries ({feed.sample_entries.length})
                         </summary>
                         <div className="mt-2 space-y-1">

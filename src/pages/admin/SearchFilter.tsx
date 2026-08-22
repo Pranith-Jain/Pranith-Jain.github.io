@@ -60,7 +60,7 @@ export function SearchFilter<T extends FilterableItem>({
             ))}
           </select>
         )}
-        <span className="text-xs text-slate-500 dark:text-slate-400">
+        <span className="text-xs text-muted">
           {filtered.length}/{items.length}
         </span>
       </div>

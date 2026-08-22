@@ -71,9 +71,7 @@ export default function Home() {
 
       {/* Daily picks - light, rotating filler; kept near the foot of the page */}
       <RevealSection className="mt-16">
-        <div className="mb-4 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          Daily picks
-        </div>
+        <div className="mb-4 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Daily picks</div>
         <div className="grid gap-3 sm:grid-cols-3">
           <QuoteOfTheDay />
           <ToolOfTheDay />

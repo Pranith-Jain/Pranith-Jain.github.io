@@ -68,7 +68,7 @@ function statusColor(status: LinkStatus): string {
     case 'broken':
       return 'text-rose-500';
     case 'unchecked':
-      return 'text-slate-500 dark:text-slate-400';
+      return 'text-muted';
   }
 }
 
@@ -160,7 +160,7 @@ export default function PendingTab() {
     }
   }
 
-  if (loading) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading) return <p className="text-muted">Loading…</p>;
   if (error)
     return (
       <div>
@@ -176,8 +176,8 @@ export default function PendingTab() {
   if (pending.length === 0)
     return (
       <div>
-        {actionMsg && <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">{actionMsg}</p>}
-        <p className="text-slate-500 dark:text-slate-400">No pending candidates.</p>
+        {actionMsg && <p className="text-xs font-mono text-muted mb-2">{actionMsg}</p>}
+        <p className="text-muted">No pending candidates.</p>
       </div>
     );
 
@@ -192,11 +192,7 @@ export default function PendingTab() {
         return (
           <div className="overflow-x-auto">
             <div className="flex items-center justify-between mb-2">
-              {actionMsg ? (
-                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</p>
-              ) : (
-                <span />
-              )}
+              {actionMsg ? <p className="text-xs font-mono text-muted">{actionMsg}</p> : <span />}
               <button
                 onClick={() => void clearAll()}
                 className="px-2 py-1 border border-rose-200 dark:border-rose-700/60 text-rose-700 dark:text-rose-300 rounded text-xs hover:bg-rose-50 dark:hover:bg-rose-900/30"
@@ -237,12 +233,12 @@ export default function PendingTab() {
                       key={`${c.type}:${c.key}`}
                       className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
                     >
-                      <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</td>
+                      <td className="py-2 pr-4 text-muted uppercase text-xs">{c.type}</td>
                       <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{c.title}</td>
                       <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">
                         {c.score.toFixed(2)}
                       </td>
-                      <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 max-w-md">{c.rationale}</td>
+                      <td className="py-2 pr-4 text-muted max-w-md">{c.rationale}</td>
                       <td className="py-2 pr-4 text-xs max-w-[12rem]">
                         {(() => {
                           const links = sourceLinksFrom(c.evidence);

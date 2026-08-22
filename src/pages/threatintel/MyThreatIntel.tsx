@@ -303,7 +303,7 @@ function DnsScanPanel(): JSX.Element {
             aria-label="Keyword variants"
           />
         </div>
-        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+        <p className="text-mini font-mono text-muted">
           Live dnstwist scan - typically 30–120s depending on domain and TLD breadth.
         </p>
       </form>
@@ -321,7 +321,7 @@ function DnsScanPanel(): JSX.Element {
           {data && (
             <>
               <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                <p className="text-mini font-mono text-muted">
                   {data.count.toLocaleString()} permutations for{' '}
                   <span className="text-slate-700 dark:text-slate-300">{data.domain}</span> · showing{' '}
                   {rows.length.toLocaleString()}
@@ -340,17 +340,66 @@ function DnsScanPanel(): JSX.Element {
               </div>
               <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <DataTable
-                  columns={[
-                    { key: 'fuzzer', header: 'Permutation', sortValue: (r: typeof rows[number]) => r.fuzzer ?? '', render: (r) => <span className="font-mono text-mini text-slate-500 whitespace-nowrap">{r.fuzzer || '-'}</span> },
-                    { key: 'domain', header: 'Domain', sortValue: (r: typeof rows[number]) => r.domain ?? '', render: (r) => <span className="font-mono text-meta text-slate-800 dark:text-slate-200 break-all">{r.domain || '-'}</span> },
-                    { key: 'dns_a', header: 'A', render: (r) => <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_a)}</span> },
-                    { key: 'dns_mx', header: 'MX', render: (r) => <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_mx)}</span> },
-                    { key: 'dns_ns', header: 'NS', render: (r) => <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_ns)}</span> },
-                    { key: 'registered', header: 'Registered', sortValue: (r: typeof rows[number]) => (r.dns_a?.length ?? 0) > 0 ? 'yes' : 'no', render: (r) => {
-                      const registered = (r.dns_a?.length ?? 0) > 0;
-                      return registered ? <span className="text-mini font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">resolves</span> : <span className="text-mini font-mono text-slate-500 dark:text-slate-400">-</span>;
-                    } },
-                  ] as DataTableColumn<typeof rows[number]>[]}
+                  columns={
+                    [
+                      {
+                        key: 'fuzzer',
+                        header: 'Permutation',
+                        sortValue: (r: (typeof rows)[number]) => r.fuzzer ?? '',
+                        render: (r) => (
+                          <span className="font-mono text-mini text-slate-500 whitespace-nowrap">
+                            {r.fuzzer || '-'}
+                          </span>
+                        ),
+                      },
+                      {
+                        key: 'domain',
+                        header: 'Domain',
+                        sortValue: (r: (typeof rows)[number]) => r.domain ?? '',
+                        render: (r) => (
+                          <span className="font-mono text-meta text-slate-800 dark:text-slate-200 break-all">
+                            {r.domain || '-'}
+                          </span>
+                        ),
+                      },
+                      {
+                        key: 'dns_a',
+                        header: 'A',
+                        render: (r) => (
+                          <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_a)}</span>
+                        ),
+                      },
+                      {
+                        key: 'dns_mx',
+                        header: 'MX',
+                        render: (r) => (
+                          <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_mx)}</span>
+                        ),
+                      },
+                      {
+                        key: 'dns_ns',
+                        header: 'NS',
+                        render: (r) => (
+                          <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_ns)}</span>
+                        ),
+                      },
+                      {
+                        key: 'registered',
+                        header: 'Registered',
+                        sortValue: (r: (typeof rows)[number]) => ((r.dns_a?.length ?? 0) > 0 ? 'yes' : 'no'),
+                        render: (r) => {
+                          const registered = (r.dns_a?.length ?? 0) > 0;
+                          return registered ? (
+                            <span className="text-mini font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                              resolves
+                            </span>
+                          ) : (
+                            <span className="text-mini font-mono text-muted">-</span>
+                          );
+                        },
+                      },
+                    ] as DataTableColumn<(typeof rows)[number]>[]
+                  }
                   rows={rows}
                   rowKey={(r, i) => `${r.domain}-${i}`}
                   rowClassName={() => 'hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
@@ -439,7 +488,7 @@ export default function MyThreatIntel(): JSX.Element {
       description="Live view of the MyThreatIntel CTI platform via its authenticated REST API. The bearer token is held as a Worker secret and injected server-side - it never reaches the browser."
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        <p className="text-xs text-muted font-mono mb-6">
           9 sources: IOCs, malware, CVEs, ransomware ops, CTI events, leaks, threat groups, darknet markets, onion
           services.
         </p>
@@ -479,10 +528,7 @@ export default function MyThreatIntel(): JSX.Element {
         {view === 'records' && (
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="search"
                 value={query}
@@ -573,7 +619,7 @@ export default function MyThreatIntel(): JSX.Element {
                             } ${isLong ? 'max-w-md' : 'whitespace-nowrap'}`}
                           >
                             {text === '-' ? (
-                              <span className="text-slate-500 dark:text-slate-400">-</span>
+                              <span className="text-muted">-</span>
                             ) : isHash ? (
                               <span className="inline-flex items-center">
                                 <span className="truncate inline-block max-w-[16rem] align-middle" title={text}>

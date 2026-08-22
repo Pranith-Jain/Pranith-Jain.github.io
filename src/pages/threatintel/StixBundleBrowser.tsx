@@ -80,7 +80,7 @@ export default function StixBundleBrowser(): JSX.Element {
     >
       <div className="flex items-center gap-2 mb-4">
         <div className="relative flex-1 max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -89,7 +89,7 @@ export default function StixBundleBrowser(): JSX.Element {
             className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} bundles</span>
+        <span className="text-xs font-mono text-muted">{filtered.length} bundles</span>
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
@@ -149,9 +149,7 @@ function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
           <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">
             {bundle.title}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-2 line-clamp-2">
-            {bundle.description}
-          </p>
+          <p className="text-xs text-muted leading-relaxed mb-2 line-clamp-2">{bundle.description}</p>
           <div className="flex items-center gap-3 text-mini font-mono text-slate-500 mb-2">
             <span>{bundle.date}</span>
             <span>·</span>

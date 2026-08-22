@@ -48,10 +48,8 @@ const STATUS_PILL: Record<string, string> = {
   active:
     'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
   dormant: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
-  defunct:
-    'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
-  unknown:
-    'bg-slate-50 dark:bg-[rgb(var(--surface-100))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
+  defunct: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-slate-700',
+  unknown: 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] text-muted border-slate-200 dark:border-slate-700',
 };
 
 const COUNTRY_FLAGS: Record<string, string> = {
@@ -112,7 +110,7 @@ function ActorCard({
               {actor.status}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 text-xs text-muted">
             <span>
               {flag} {actor.country.split(': ')[1] ?? actor.country}
             </span>
@@ -126,24 +124,22 @@ function ActorCard({
               {actor.aliases.slice(0, isExpanded ? undefined : 3).map((alias) => (
                 <span
                   key={alias}
-                  className="text-micro font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5"
+                  className="text-micro font-mono text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5"
                 >
                   {alias}
                 </span>
               ))}
               {!isExpanded && actor.aliases.length > 3 && (
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                  +{actor.aliases.length - 3}
-                </span>
+                <span className="text-micro font-mono text-muted">+{actor.aliases.length - 3}</span>
               )}
             </div>
           )}
         </div>
         <div className="shrink-0 mt-1">
           {isExpanded ? (
-            <ChevronDown className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+            <ChevronDown className="h-4 w-4 text-muted" />
           ) : (
-            <ChevronRight className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+            <ChevronRight className="h-4 w-4 text-muted" />
           )}
         </div>
       </button>
@@ -155,18 +151,14 @@ function ActorCard({
 
           {/* Motivation */}
           <div>
-            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Motivation
-            </span>
+            <span className="text-mini font-mono uppercase tracking-wider text-muted">Motivation</span>
             <p className="text-sm text-slate-700 dark:text-slate-300 mt-0.5">{actor.motivation}</p>
           </div>
 
           {/* Malware & Tools */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Associated Malware
-              </span>
+              <span className="text-mini font-mono uppercase tracking-wider text-muted">Associated Malware</span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
                 {actor.malware.map((m) => (
                   <button
@@ -181,15 +173,11 @@ function ActorCard({
                     {m}
                   </button>
                 ))}
-                {actor.malware.length === 0 && (
-                  <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>
-                )}
+                {actor.malware.length === 0 && <span className="text-xs text-muted italic">None listed</span>}
               </div>
             </div>
             <div>
-              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Tools
-              </span>
+              <span className="text-mini font-mono uppercase tracking-wider text-muted">Tools</span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
                 {actor.tools.map((t) => (
                   <span
@@ -199,18 +187,14 @@ function ActorCard({
                     {t}
                   </span>
                 ))}
-                {actor.tools.length === 0 && (
-                  <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>
-                )}
+                {actor.tools.length === 0 && <span className="text-xs text-muted italic">None listed</span>}
               </div>
             </div>
           </div>
 
           {/* Targeted Sectors */}
           <div>
-            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Targeted Sectors
-            </span>
+            <span className="text-mini font-mono uppercase tracking-wider text-muted">Targeted Sectors</span>
             <div className="flex flex-wrap gap-1.5 mt-1.5">
               {actor.targets.map((t) => (
                 <button
@@ -231,9 +215,7 @@ function ActorCard({
           {/* TTPs */}
           {actor.ttps.length > 0 && (
             <div>
-              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Key TTPs
-              </span>
+              <span className="text-mini font-mono uppercase tracking-wider text-muted">Key TTPs</span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
                 {actor.ttps.map((ttp) => (
                   <span
@@ -250,9 +232,7 @@ function ActorCard({
           {/* Campaigns */}
           {actor.campaigns.length > 0 && (
             <div>
-              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Notable Campaigns
-              </span>
+              <span className="text-mini font-mono uppercase tracking-wider text-muted">Notable Campaigns</span>
               <ul className="mt-1.5 space-y-1">
                 {actor.campaigns.map((c) => (
                   <li key={c} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
@@ -267,9 +247,7 @@ function ActorCard({
           {/* MITRE Groups */}
           {actor.mitreGroups.length > 0 && (
             <div>
-              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                MITRE ATT&CK Groups
-              </span>
+              <span className="text-mini font-mono uppercase tracking-wider text-muted">MITRE ATT&CK Groups</span>
               <div className="flex gap-2 mt-1.5">
                 {actor.mitreGroups.map((g) => (
                   <a
@@ -289,9 +267,7 @@ function ActorCard({
           {/* Telegram handles */}
           {actor.telegram_handles && actor.telegram_handles.length > 0 && (
             <div>
-              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Telegram Channels
-              </span>
+              <span className="text-mini font-mono uppercase tracking-wider text-muted">Telegram Channels</span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
                 {actor.telegram_handles.map((h) => (
                   <a
@@ -306,9 +282,7 @@ function ActorCard({
                 ))}
               </div>
               {actor.telegram_handles_source && (
-                <p className="text-micro text-slate-500 dark:text-slate-400 mt-1">
-                  Source: {actor.telegram_handles_source.join('; ')}
-                </p>
+                <p className="text-micro text-muted mt-1">Source: {actor.telegram_handles_source.join('; ')}</p>
               )}
             </div>
           )}
@@ -402,7 +376,7 @@ export default function ActorProfiles() {
       description={`${stats.total} threat actor profiles - APTs, cybercrime syndicates, ransomware operations. Aliases, malware, sectors, TTPs, and campaign history.`}
       maxWidthClass="max-w-5xl"
       headerExtra={
-        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex items-center gap-3 text-xs text-muted">
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
             {stats.total} actors
           </span>
@@ -417,7 +391,7 @@ export default function ActorProfiles() {
     >
       {/* Search */}
       <div className="relative mb-4">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -434,7 +408,7 @@ export default function ActorProfiles() {
           className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
             activeType === null
               ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
           }`}
         >
           All ({stats.total})
@@ -447,7 +421,7 @@ export default function ActorProfiles() {
             className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
               activeType === t
                 ? `${TYPE_COLORS[t]} border-current`
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
             }`}
           >
             {TYPE_ICONS[t]} {TYPE_LABELS[t]} ({typeCounts[t]})
@@ -457,7 +431,7 @@ export default function ActorProfiles() {
 
       {/* Status filter pills */}
       <div className="flex flex-wrap items-center gap-2 mb-4">
-        <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Status:</span>
+        <span className="text-mini font-mono uppercase tracking-wider text-muted">Status:</span>
         {(['active', 'dormant', 'defunct'] as ActorStatus[]).map((s) => {
           const count = THREAT_ACTORS.filter((a) => a.status === s).length;
           if (count === 0) return null;
@@ -469,7 +443,7 @@ export default function ActorProfiles() {
               className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${
                 activeStatus === s
                   ? `${STATUS_PILL[s]} border-current`
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
               }`}
             >
               {s} ({count})
@@ -477,9 +451,7 @@ export default function ActorProfiles() {
           );
         })}
         <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
-        <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Country:
-        </span>
+        <span className="text-mini font-mono uppercase tracking-wider text-muted">Country:</span>
         {Object.entries(countryCounts)
           .sort((a, b) => b[1] - a[1])
           .slice(0, 6)
@@ -494,7 +466,7 @@ export default function ActorProfiles() {
                 className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${
                   activeCountry === cc
                     ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
                 }`}
               >
                 {flag} {name} ({count})
@@ -508,7 +480,7 @@ export default function ActorProfiles() {
               setActiveStatus(null);
               setActiveCountry(null);
             }}
-            className="text-mini text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+            className="text-mini text-muted hover:text-slate-700 dark:hover:text-slate-200 ml-1"
           >
             Clear
           </button>
@@ -518,9 +490,7 @@ export default function ActorProfiles() {
       {/* Active filter chips */}
       {(activeMalware || activeSector) && (
         <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            Filtered by:
-          </span>
+          <span className="text-mini font-mono uppercase tracking-wider text-muted">Filtered by:</span>
           {activeMalware && (
             <button
               type="button"
@@ -544,14 +514,14 @@ export default function ActorProfiles() {
 
       {/* Actor cards */}
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+        <span className="text-xs font-mono text-muted">
           {filtered.length} actor{filtered.length !== 1 ? 's' : ''}
         </span>
         <div className="flex gap-1.5">
           <button
             type="button"
             onClick={expandAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Expand all
           </button>
@@ -559,7 +529,7 @@ export default function ActorProfiles() {
           <button
             type="button"
             onClick={collapseAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Collapse all
           </button>
@@ -567,9 +537,7 @@ export default function ActorProfiles() {
       </div>
       <div className="space-y-3">
         {filtered.length === 0 ? (
-          <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>
-            No actors match your search.
-          </div>
+          <div className={`${CARD} p-8 text-center text-sm text-muted`}>No actors match your search.</div>
         ) : (
           filtered.map((actor) => (
             <ActorCard

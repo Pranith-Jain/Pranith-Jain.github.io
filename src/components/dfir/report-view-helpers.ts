@@ -92,7 +92,6 @@ export function buildShareMarkdown(report: string, actionCard?: ReportActionCard
   return lines.join('\n');
 }
 
-
 export function renderMarkdown(md: string): string {
   if (!md) return '';
   // Strip the trailing :::handoff + action-card blocks - UI handles those.
@@ -138,7 +137,7 @@ export function renderMarkdown(md: string): string {
     /^(\s*[-*]\s*)\[(CRITICAL|HIGH|MEDIUM|LOW|INFO)\]\s+([\s\S]*?)$/gim,
     (_m, _marker: string, sev: string, rest: string) => {
       const s2 = sev.toLowerCase() as Severity;
-      return `<li class="ml-5 list-disc marker:text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-1"><span class="inline-block px-1.5 py-0.5 mr-1 rounded text-micro font-mono font-bold ${SEVERITY_COLORS[s2].pill}">${sev}</span> ${rest.trim()}</li>`;
+      return `<li class="ml-5 list-disc marker:text-muted text-sm leading-relaxed mb-1"><span class="inline-block px-1.5 py-0.5 mr-1 rounded text-micro font-mono font-bold ${SEVERITY_COLORS[s2].pill}">${sev}</span> ${rest.trim()}</li>`;
     }
   );
 
@@ -147,7 +146,7 @@ export function renderMarkdown(md: string): string {
   s = s.replace(
     /^(\s*[-*]\s+)(?!<li>)([\s\S]*?)$/gm,
     (_m, _marker: string, rest: string) =>
-      `<li class="ml-5 list-disc marker:text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-1">${rest.trim()}</li>`
+      `<li class="ml-5 list-disc marker:text-muted text-sm leading-relaxed mb-1">${rest.trim()}</li>`
   );
 
   // Wrap contiguous sequences of <li> in <ul> so we have well-formed HTML.

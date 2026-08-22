@@ -56,21 +56,15 @@ function AlgorithmDetail({ body, onClose }: { body: PqcAlgorithmBody; onClose: (
           </span>
         </div>
         <div>
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            Purpose
-          </div>
+          <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Purpose</div>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.purpose}</p>
         </div>
         <div>
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            Security Levels
-          </div>
+          <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Security Levels</div>
           <p className="text-sm font-mono text-slate-700 dark:text-slate-200">{body.security}</p>
         </div>
         <div>
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            Key / Parameter Sizes
-          </div>
+          <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Key / Parameter Sizes</div>
           <pre className="text-sm font-mono text-slate-700 dark:text-slate-200 whitespace-pre-wrap">{keySizes}</pre>
         </div>
         {body.notes && (
@@ -152,9 +146,7 @@ export default function Pqc() {
 
         {/* Algorithms */}
         <div>
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
-            Standardized Algorithms
-          </h2>
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">Standardized Algorithms</h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {index?.algorithmIndex.map((alg) => (
               <button
@@ -168,9 +160,7 @@ export default function Pqc() {
                 <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-1 leading-snug">
                   {alg.name}
                 </div>
-                <div className="text-micro font-mono text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
-                  {alg.type}
-                </div>
+                <div className="text-micro font-mono text-muted leading-relaxed line-clamp-2">{alg.type}</div>
               </button>
             ))}
           </div>
@@ -178,7 +168,7 @@ export default function Pqc() {
 
         {/* Crypto classes */}
         <div>
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
             Crypto Inventory Risk Classes
           </h2>
           <div className="space-y-2">
@@ -200,13 +190,13 @@ export default function Pqc() {
 
         {/* Readiness */}
         <div>
-          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
             Readiness Assessment ({index?.counts.readiness ?? 12} questions)
           </h2>
           <div className={`${CARD} p-4`}>
             <div className="flex items-center gap-2 mb-3">
               <BookOpen size={14} className="text-brand-500" />
-              <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-mono text-muted">
                 Weighted inventory of what your org must know before a PQC transition — data-at-rest (HNDL) is the
                 forcing function.
               </p>

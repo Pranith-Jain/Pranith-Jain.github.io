@@ -39,7 +39,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
               className="w-10 h-10 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))]"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-slate-500 dark:text-slate-400">
+            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-muted">
               {platform.icon}
             </div>
           )}
@@ -49,7 +49,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
             <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
               {profile.displayName ?? profile.username}
             </span>
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">@{profile.username}</span>
+            <span className="text-micro font-mono text-muted">@{profile.username}</span>
             <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 flex items-center gap-1">
               <CatIcon size={10} /> {CATEGORY_LABELS[platform.category] ?? platform.category}
             </span>
@@ -57,13 +57,13 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
           <div className="text-mini font-mono text-muted mt-1 leading-relaxed line-clamp-2">
             {profile.bio ?? 'No bio'}
           </div>
-          <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400 flex-wrap">
+          <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-muted flex-wrap">
             {profile.followers !== undefined && <span>↑ {profile.followers} followers</span>}
             {profile.following !== undefined && <span>↓ {profile.following} following</span>}
             {profile.publicRepos !== undefined && <span>⊞ {profile.publicRepos} repos</span>}
             {profile.location && (
               <span className="inline-flex items-center gap-1">
-                <MapPin size={12} className="text-slate-500 dark:text-slate-400" />
+                <MapPin size={12} className="text-muted" />
                 {profile.location}
               </span>
             )}
@@ -153,7 +153,7 @@ export default function IdentityLookup(): JSX.Element {
           Look up a username across {PLATFORMS.length} platforms and see profile details - avatar, bio, followers,
           repos. All checks run from your browser against public APIs.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Inspired by KagamiID. Each platform returns live profile data where available. "Not found" means the username
           is unregistered on that service, or its API is currently rate-limiting.
         </p>
@@ -168,7 +168,7 @@ export default function IdentityLookup(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               ref={inputRef}
               type="text"
@@ -196,10 +196,10 @@ export default function IdentityLookup(): JSX.Element {
         <>
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono flex items-center gap-2">
                 <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
               </h2>
-              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono text-muted">
                 {foundCount} found · {PLATFORMS.length - foundCount} not found
               </span>
             </div>
@@ -244,15 +244,15 @@ export default function IdentityLookup(): JSX.Element {
                     key={platform.id}
                     className="flex items-center gap-3 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
-                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-slate-500 dark:text-slate-400">
+                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-muted">
                       {platform.icon}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="font-display font-semibold text-sm text-slate-500">{platform.name}</span>
-                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">@{query}</span>
+                        <span className="text-micro font-mono text-muted">@{query}</span>
                       </div>
-                      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                      <p className="text-mini font-mono text-muted mt-0.5">
                         {profiles.get(platform.id) === undefined ? 'Checking...' : 'Not found'}
                       </p>
                     </div>
@@ -265,9 +265,7 @@ export default function IdentityLookup(): JSX.Element {
       )}
 
       <section className="surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
-          Notes
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">Notes</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
             Each platform is checked via its public API - no auth keys, no server proxy. Data is what the API returns.

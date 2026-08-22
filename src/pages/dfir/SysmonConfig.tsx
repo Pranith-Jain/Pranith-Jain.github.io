@@ -138,7 +138,7 @@ export default function SysmonConfig() {
                 className={`text-xs font-mono px-2.5 py-1 rounded-full border transition-colors ${
                   mode === p
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
                 }`}
               >
                 {p}
@@ -199,9 +199,7 @@ export default function SysmonConfig() {
 
         <section className="surface-card p-4">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
-              Generated config
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Generated config</h2>
             <button
               onClick={() => {
                 setLevel(PRESETS.baseline);

@@ -135,7 +135,7 @@ export default function ActorTimeline(): JSX.Element {
       headerExtra={
         <section className="surface-card p-4 flex items-center justify-between gap-3 flex-wrap">
           {data && (
-            <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+            <p className="text-mini font-mono text-muted">
               {data.groups.length} active groups · snapshot{' '}
               <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
               {data.warnings.length > 0 && (
@@ -156,7 +156,7 @@ export default function ActorTimeline(): JSX.Element {
         </section>
       }
     >
-      <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+      <p className="text-xs text-muted font-mono mb-6">
         Joins Ransomlook per-group history with a curated MITRE Group lookup.
       </p>
       {data && (
@@ -229,7 +229,7 @@ export default function ActorTimeline(): JSX.Element {
                             MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
                           </a>
                         ) : (
-                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
                             not in MITRE
                           </span>
                         )}
@@ -240,7 +240,7 @@ export default function ActorTimeline(): JSX.Element {
                         )}
                         {g.partial ? (
                           <span
-                            className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
+                            className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
                             title="ransomlook per-group endpoint was unreachable; this row is rebuilt from the recent-claims feed. Heatmap is accurate for the window; all-time count, mirrors and references are unavailable."
                           >
                             recent-feed only

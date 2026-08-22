@@ -90,7 +90,7 @@ function pickTopDetection(items: Detection[]): TopDetMetric | null {
   return top ? { matchCount: top.match_count, ruleName: top.rule_name, severity: top.severity } : null;
 }
 
-const DASH = <span className={`${STAT_NUM} text-slate-500 dark:text-slate-400`}>-</span>;
+const DASH = <span className={`${STAT_NUM} text-muted`}>-</span>;
 
 export function LivePulse(): JSX.Element {
   const reduce = prefersReducedMotion();
@@ -152,9 +152,7 @@ export function LivePulse(): JSX.Element {
     </>
   );
   const note = (
-    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 sm:inline">
-      edge-cached
-    </span>
+    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-muted sm:inline">edge-cached</span>
   );
 
   return (

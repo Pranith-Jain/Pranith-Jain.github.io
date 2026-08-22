@@ -24,7 +24,7 @@ const VERDICT_STYLES: Record<Verdict, string> = {
 const CONFIDENCE_STYLES: Record<string, string> = {
   high: 'text-emerald-600 dark:text-emerald-400',
   medium: 'text-amber-600 dark:text-amber-400',
-  low: 'text-slate-500 dark:text-slate-400',
+  low: 'text-muted',
 };
 
 const CONFIDENCE_LABELS: Record<string, string> = {
@@ -74,10 +74,7 @@ export const VerdictChip = memo(function VerdictChip({
         </span>
       )}
       {contributing !== undefined && total !== undefined && total > 0 && (
-        <span
-          className="text-micro font-mono text-slate-500 dark:text-slate-400"
-          title={`${contributing} of ${total} providers contributed`}
-        >
+        <span className="text-micro font-mono text-muted" title={`${contributing} of ${total} providers contributed`}>
           {contributing}/{total}
         </span>
       )}

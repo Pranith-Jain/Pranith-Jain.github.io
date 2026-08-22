@@ -181,7 +181,7 @@ export default function ScamWatch(): JSX.Element {
           reports, and mainstream coverage. {ALL_FEED_IDS.length} sources fetched server-side, deduped, sorted by
           publication time.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Reddit feeds are real victim reports - context-rich but anecdotal. FTC + FBI IC3 are the authoritative source
           for U.S. fraud trends. Pairs with{' '}
           <Link to="/threatintel/catalog?cat=darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -316,7 +316,7 @@ export default function ScamWatch(): JSX.Element {
       )}
 
       {!loading && !error && items.length === 0 && (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-muted">
           No items returned from the aggregator. Try refresh; the upstream feeds may be temporarily slow.
         </div>
       )}

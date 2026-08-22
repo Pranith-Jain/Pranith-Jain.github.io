@@ -43,9 +43,7 @@ function RelNodeBox({
         {data.nodeType}
       </div>
       <div className="text-slate-900 dark:text-slate-100 break-words leading-tight">{data.label}</div>
-      {data.subtitle && (
-        <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5 truncate">{data.subtitle}</div>
-      )}
+      {data.subtitle && <div className="text-micro text-muted mt-0.5 truncate">{data.subtitle}</div>}
       <Handle type="source" position={Position.Bottom} style={{ background: color }} />
     </div>
   );

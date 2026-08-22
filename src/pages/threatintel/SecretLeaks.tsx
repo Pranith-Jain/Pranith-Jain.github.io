@@ -82,7 +82,7 @@ const SEVERITY_TEXT: Record<Severity, string> = {
   critical: 'text-rose-600 dark:text-rose-400',
   high: 'text-orange-600 dark:text-orange-400',
   medium: 'text-amber-600 dark:text-amber-400',
-  low: 'text-slate-500 dark:text-slate-400',
+  low: 'text-muted',
 };
 
 export default function SecretLeaks(): JSX.Element {
@@ -310,8 +310,8 @@ export default function SecretLeaks(): JSX.Element {
                   className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <s.icon size={14} className="text-slate-500 dark:text-slate-400" />
-                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">{s.label}</span>
+                    <s.icon size={14} className="text-muted" />
+                    <span className="text-micro font-mono uppercase text-muted">{s.label}</span>
                   </div>
                   <div className="text-2xl font-mono font-bold">{s.value}</div>
                 </div>
@@ -408,12 +408,9 @@ export default function SecretLeaks(): JSX.Element {
             {/* Filters */}
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               <label className="flex flex-col gap-1">
-                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Search</span>
+                <span className="text-micro font-mono uppercase text-muted">Search</span>
                 <div className="relative">
-                  <Search
-                    size={14}
-                    className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-                  />
+                  <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" />
                   <input
                     type="search"
                     value={query}
@@ -427,7 +424,7 @@ export default function SecretLeaks(): JSX.Element {
                 </div>
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Severity</span>
+                <span className="text-micro font-mono uppercase text-muted">Severity</span>
                 <select
                   value={severityFilter}
                   onChange={(e) => {
@@ -444,7 +441,7 @@ export default function SecretLeaks(): JSX.Element {
                 </select>
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Provider</span>
+                <span className="text-micro font-mono uppercase text-muted">Provider</span>
                 <select
                   value={providerFilter}
                   onChange={(e) => {
@@ -462,7 +459,7 @@ export default function SecretLeaks(): JSX.Element {
                 </select>
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Source</span>
+                <span className="text-micro font-mono uppercase text-muted">Source</span>
                 <select
                   value={sourceFilter}
                   onChange={(e) => {
@@ -477,7 +474,7 @@ export default function SecretLeaks(): JSX.Element {
                 </select>
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Sort</span>
+                <span className="text-micro font-mono uppercase text-muted">Sort</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
@@ -515,7 +512,7 @@ export default function SecretLeaks(): JSX.Element {
 
             {paged.length === 0 ? (
               <div className="text-center py-12">
-                <h3 className="text-lg font-display font-semibold text-slate-500 dark:text-slate-400">No matches.</h3>
+                <h3 className="text-lg font-display font-semibold text-muted">No matches.</h3>
               </div>
             ) : (
               <div className="space-y-3">
@@ -536,9 +533,7 @@ export default function SecretLeaks(): JSX.Element {
                               <SevIcon size={10} />
                               {leak.severity}
                             </span>
-                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                              {leak.provider}
-                            </span>
+                            <span className="text-micro font-mono text-muted">{leak.provider}</span>
                             <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                               {leak.source === 'file' ? 'File' : 'Commit'}
                             </span>
@@ -547,8 +542,8 @@ export default function SecretLeaks(): JSX.Element {
                             <span className="text-sm font-mono font-semibold text-slate-900 dark:text-white">
                               {leak.owner}/{leak.repo}
                             </span>
-                            <span className="text-xs text-slate-500 dark:text-slate-400">/</span>
-                            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{leak.file}</span>
+                            <span className="text-xs text-muted">/</span>
+                            <span className="text-xs font-mono text-muted">{leak.file}</span>
                           </div>
                           <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
                             <span>
@@ -560,7 +555,7 @@ export default function SecretLeaks(): JSX.Element {
                             <button
                               type="button"
                               onClick={() => copyKey(leak.redactedKey)}
-                              className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+                              className="inline-flex items-center gap-1 text-muted hover:text-rose-500 transition-colors"
                               title="Copy redacted key"
                             >
                               <Copy size={10} />
@@ -575,7 +570,7 @@ export default function SecretLeaks(): JSX.Element {
                           >
                             {leak.exposureScore}
                           </div>
-                          <div className="text-micro font-mono text-slate-500 dark:text-slate-400">exposure</div>
+                          <div className="text-micro font-mono text-muted">exposure</div>
                           <div className="text-xs font-mono text-slate-500 mt-1">
                             {leak.secretCount} secret{leak.secretCount > 1 ? 's' : ''}
                           </div>
@@ -597,7 +592,7 @@ export default function SecretLeaks(): JSX.Element {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-between pt-4">
-                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-xs font-mono text-muted">
                   Page {page} of {totalPages}
                 </span>
                 <div className="flex gap-2">
@@ -660,11 +655,11 @@ export default function SecretLeaks(): JSX.Element {
                   className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5"
                 >
                   <div className="flex items-center gap-2 mb-3">
-                    <s.icon size={14} className="text-slate-500 dark:text-slate-400" />
-                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">{s.label}</span>
+                    <s.icon size={14} className="text-muted" />
+                    <span className="text-micro font-mono uppercase text-muted">{s.label}</span>
                   </div>
                   <div className="text-3xl font-mono font-bold mb-1">{s.value}</div>
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{s.sub}</div>
+                  <div className="text-micro font-mono text-muted">{s.sub}</div>
                 </div>
               ))}
             </div>
@@ -674,9 +669,7 @@ export default function SecretLeaks(): JSX.Element {
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h3 className="text-sm font-display font-semibold">Leak Mix</h3>
-                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                    Severity share in the latest scan
-                  </p>
+                  <p className="text-micro font-mono text-muted">Severity share in the latest scan</p>
                 </div>
                 <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                   {stats.totalSecrets.toLocaleString()} secrets
@@ -724,14 +717,12 @@ export default function SecretLeaks(): JSX.Element {
               <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
                 <div className="mb-4">
                   <h3 className="text-sm font-display font-semibold">Most Exposed Providers</h3>
-                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">Top secret types by count</p>
+                  <p className="text-micro font-mono text-muted">Top secret types by count</p>
                 </div>
                 <ol className="space-y-2">
                   {(data?.leaderboard.providers ?? []).map((p, i) => (
                     <li key={p.name} className="flex items-center gap-3">
-                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">
-                        {i + 1}
-                      </span>
+                      <span className="text-xs font-mono text-muted w-4 text-right">{i + 1}</span>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{p.name}</div>
                         <div className="h-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full mt-1">
@@ -748,19 +739,15 @@ export default function SecretLeaks(): JSX.Element {
               <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
                 <div className="mb-4">
                   <h3 className="text-sm font-display font-semibold">Top Repos</h3>
-                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                    Highest number of secrets found
-                  </p>
+                  <p className="text-micro font-mono text-muted">Highest number of secrets found</p>
                 </div>
                 <ol className="space-y-2">
                   {(data?.leaderboard.repos ?? []).map((r, i) => (
                     <li key={r.name} className="flex items-center gap-3">
-                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">
-                        {i + 1}
-                      </span>
+                      <span className="text-xs font-mono text-muted w-4 text-right">{i + 1}</span>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{r.name}</div>
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{r.owner}</div>
+                        <div className="text-micro font-mono text-muted">{r.owner}</div>
                       </div>
                       <span className="text-xs font-mono font-semibold text-rose-600 dark:text-rose-400">
                         {r.secrets}
@@ -774,19 +761,15 @@ export default function SecretLeaks(): JSX.Element {
               <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
                 <div className="mb-4">
                   <h3 className="text-sm font-display font-semibold">Top Users</h3>
-                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                    Owners with the most leaked repos
-                  </p>
+                  <p className="text-micro font-mono text-muted">Owners with the most leaked repos</p>
                 </div>
                 <ol className="space-y-2">
                   {(data?.leaderboard.owners ?? []).map((o, i) => (
                     <li key={o.name} className="flex items-center gap-3">
-                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">
-                        {i + 1}
-                      </span>
+                      <span className="text-xs font-mono text-muted w-4 text-right">{i + 1}</span>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{o.name}</div>
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{o.repos} repos</div>
+                        <div className="text-micro font-mono text-muted">{o.repos} repos</div>
                       </div>
                       <span className="text-xs font-mono font-semibold text-orange-600 dark:text-orange-400">
                         {o.totalSecrets}

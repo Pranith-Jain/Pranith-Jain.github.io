@@ -170,7 +170,7 @@ export default function CrossCorrelate(): JSX.Element {
           </div>
 
           {data.insights.length === 0 && (
-            <div className="text-center py-16 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-16 text-muted">
               <Target size={32} className="mx-auto mb-3 opacity-50" />
               <p className="text-sm">
                 No correlated insights - all sources healthy and no cross-reference gaps detected.

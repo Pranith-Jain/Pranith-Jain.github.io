@@ -111,9 +111,7 @@ export default function CaseStudy(): JSX.Element {
       </Link>
 
       <header className="mb-8">
-        <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-          {study.kicker}
-        </div>
+        <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted">{study.kicker}</div>
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 mt-4">
           <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
@@ -157,7 +155,7 @@ export default function CaseStudy(): JSX.Element {
             {study.tags.map((t) => (
               <span
                 key={t}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
               >
                 {t}
               </span>

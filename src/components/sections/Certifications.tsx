@@ -53,7 +53,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
   return (
     <div id={id} className="scroll-mt-28">
       <div className="flex items-baseline justify-between mb-4">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">{title}</h3>
+        <h3 className="text-xs font-bold uppercase tracking-wider text-muted">{title}</h3>
         <span className="text-mini font-mono text-slate-500">{certs.length}</span>
       </div>
       <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -129,9 +129,7 @@ export function Certifications({ certifications, education }: CertificationsProp
   return (
     <section id="certifications" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          Credentials
-        </div>
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Credentials</div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Education, certifications &amp; coursework
         </h2>
@@ -139,9 +137,7 @@ export function Certifications({ certifications, education }: CertificationsProp
 
       {/* Education */}
       <div id="education" className="mb-10 scroll-mt-24">
-        <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-          Education
-        </h3>
+        <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-muted">Education</h3>
         <ul className="space-y-3">
           {education.map((e) => (
             <li key={e.degree} className="surface-card px-5 py-4">

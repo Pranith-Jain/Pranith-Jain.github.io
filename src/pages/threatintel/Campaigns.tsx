@@ -118,7 +118,7 @@ export default function Campaigns(): JSX.Element {
       onRetry={() => void load()}
       empty={isEmpty}
       emptyMessage="No saved campaigns yet. Generate one with the AI Campaign Generator and click Save."
-      emptyIcon={<Sparkles size={28} className="mx-auto text-slate-500 dark:text-slate-400" />}
+      emptyIcon={<Sparkles size={28} className="mx-auto text-muted" />}
     >
       {items.length > 0 && (
         <ul className="space-y-2">
@@ -141,7 +141,7 @@ export default function Campaigns(): JSX.Element {
                     type="button"
                     onClick={() => void handleDelete(it.id)}
                     title="Delete campaign"
-                    className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                    className="text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                   >
                     <Trash2 size={12} />
                   </button>

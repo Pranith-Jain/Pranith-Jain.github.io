@@ -63,7 +63,7 @@ export default function RadarHome() {
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
               Domain Recon Scanner
             </h1>
-            <p className="max-w-xl text-base text-slate-500 dark:text-slate-400">
+            <p className="max-w-xl text-base text-muted">
               Enter any domain or URL to instantly analyze HTTP headers, technologies, JavaScript files, endpoints,
               security headers, and more.
             </p>
@@ -71,7 +71,7 @@ export default function RadarHome() {
 
           <div className="flex w-full flex-col gap-3">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 value={url}
@@ -119,7 +119,7 @@ export default function RadarHome() {
               >
                 <Icon className="h-5 w-5 text-brand-500" />
                 <span className="text-sm font-medium text-slate-900 dark:text-white">{label}</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">{desc}</span>
+                <span className="text-xs text-muted">{desc}</span>
               </div>
             ))}
           </div>

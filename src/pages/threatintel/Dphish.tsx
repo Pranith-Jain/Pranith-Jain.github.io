@@ -433,7 +433,7 @@ export default function Dphish(): JSX.Element {
             )}
           </div>
 
-          <div className="flex items-center justify-between mb-3 text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="flex items-center justify-between mb-3 text-xs text-muted font-mono">
             <span>
               Showing {filtered.length} of {data.indicators.length} indicators
             </span>
@@ -479,7 +479,7 @@ export default function Dphish(): JSX.Element {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
             Source: dphish.com · TAXII 2.1 collection {data.collectionId} · {data.counts.active} active of{' '}
             {data.counts.indicators} indicators
           </div>

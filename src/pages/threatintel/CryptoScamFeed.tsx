@@ -102,7 +102,7 @@ export default function CryptoScamFeed(): JSX.Element {
       loading={loading}
       error={error}
     >
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
+      <p className="text-sm text-muted mb-2">
         Sourced from{' '}
         <a
           href="https://github.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed"
@@ -119,7 +119,7 @@ export default function CryptoScamFeed(): JSX.Element {
         firehose.
       </p>
       {data && (
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        <p className="text-xs text-muted font-mono mb-6">
           {data.total} domains · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
           {data.stale && (
@@ -164,7 +164,7 @@ export default function CryptoScamFeed(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="search"
               value={query}
@@ -245,7 +245,7 @@ export default function CryptoScamFeed(): JSX.Element {
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="truncate text-slate-800 dark:text-slate-200">{it.domain}</span>
-                <span className="text-mini text-slate-500 dark:text-slate-400 shrink-0">.{it.tld}</span>
+                <span className="text-mini text-muted shrink-0">.{it.tld}</span>
               </div>
               <PostSummary text={postSummaries.get(String(it.domain))} />
             </li>

@@ -48,7 +48,7 @@ export function LiveIndicator({
       <span className={`font-mono uppercase tracking-[0.2em] ${text} text-slate-600 dark:text-slate-300`}>{label}</span>
       {trailing}
       {note && (
-        <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 sm:inline">{note}</span>
+        <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-muted sm:inline">{note}</span>
       )}
     </div>
   );

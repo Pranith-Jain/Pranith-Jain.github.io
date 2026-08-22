@@ -138,13 +138,11 @@ function BreachCard({
           >
             {entry.severity}
           </span>
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{humanSize(entry.sizeBytes)}</span>
+          <span className="text-micro font-mono text-muted">{humanSize(entry.sizeBytes)}</span>
         </div>
       </div>
       <div className="flex items-center justify-between mt-2">
-        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-          {CATEGORY_LABELS[entry.category] ?? entry.category}
-        </span>
+        <span className="text-micro font-mono text-muted">{CATEGORY_LABELS[entry.category] ?? entry.category}</span>
         <PostAnalysisButton
           title={`${entry.title} — ${entry.group} breach`}
           description={`Ransomware group ${entry.group}${entry.country ? ` targeting ${entry.country}` : ''} claims ${entry.category === 'ransomware' ? 'ransomware' : 'data breach'} affecting ${entry.title}. Severity: ${entry.severity}. Discovered: ${entry.discovered ? new Date(entry.discovered).toLocaleDateString() : 'unknown'}. Data size: ${humanSize(entry.sizeBytes)}. Category: ${CATEGORY_LABELS[entry.category] ?? entry.category}.`}
@@ -191,7 +189,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
         <button
           type="button"
           onClick={onClose}
-          className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+          className="text-mini font-mono text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
         >
           close
         </button>
@@ -487,7 +485,7 @@ export default function BreachWatch(): JSX.Element {
             </a>
             .
           </span>
-          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <span className="block text-xs text-muted font-mono mt-2">
             Combined breach corpus - ransomware leaks, data breaches, credential dumps, and combo lists.
           </span>
         </>
@@ -497,7 +495,7 @@ export default function BreachWatch(): JSX.Element {
           {index && (
             <>
               <LiveFreshnessPill tone={freshnessTone(index.lastSyncedAt)} ago={shortRel(index.lastSyncedAt)} />
-              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono text-muted">
                 {index.counts.breaches.toLocaleString()} breaches · {index.counts.groups} groups
               </span>
             </>
@@ -554,10 +552,7 @@ export default function BreachWatch(): JSX.Element {
           {/* Search + filters */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <div className="relative flex-1 min-w-[200px] max-w-sm">
-              <Search
-                size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 value={searchQuery}
@@ -568,7 +563,7 @@ export default function BreachWatch(): JSX.Element {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <Filter size={13} className="text-slate-500 dark:text-slate-400" />
+              <Filter size={13} className="text-muted" />
               <select
                 value={filterGroup}
                 onChange={(e) => setFilter('group', e.target.value)}
@@ -707,7 +702,7 @@ export default function BreachWatch(): JSX.Element {
                       </span>
                       <span className="text-micro font-mono text-slate-500 shrink-0 ml-2">{g.count}</span>
                     </div>
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                    <span className="text-micro font-mono text-muted">
                       {CATEGORY_LABELS[g.topCategory] ?? g.topCategory}
                     </span>
                   </button>

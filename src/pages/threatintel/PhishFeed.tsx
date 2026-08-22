@@ -245,7 +245,7 @@ export default function PhishFeed(): JSX.Element {
 
       {/* Results */}
       {data && (
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
+        <div className="flex items-center justify-between text-xs text-muted mb-3 font-mono">
           <span>
             {filtered.length} of {data.total} URLs
           </span>
@@ -300,9 +300,7 @@ export default function PhishFeed(): JSX.Element {
                 >
                   {u.source}
                 </span>
-                {u.first_seen && (
-                  <span className="text-slate-500 dark:text-slate-400 shrink-0">{relativeAgo(u.first_seen)}</span>
-                )}
+                {u.first_seen && <span className="text-muted shrink-0">{relativeAgo(u.first_seen)}</span>}
               </div>
             );
           })}
@@ -338,7 +336,7 @@ export default function PhishFeed(): JSX.Element {
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
         Sources: OpenPhish + PhishTank (optional) · Built-in brand detection for target attribution · Cached 1h
         server-side
       </div>

@@ -1039,7 +1039,7 @@ const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
             </span>
           )}
         </div>
-        <p className="text-meta text-slate-500 dark:text-slate-400 mt-1 max-w-md line-clamp-2">{e.description}</p>
+        <p className="text-meta text-muted mt-1 max-w-md line-clamp-2">{e.description}</p>
       </>
     ),
   },
@@ -1049,7 +1049,7 @@ const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
     sortValue: (e) => e.product,
     render: (e) => (
       <div className="flex items-center gap-1.5">
-        <Package size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
+        <Package size={12} className="text-muted shrink-0" />
         <span className="text-slate-900 dark:text-slate-100">{e.product}</span>
       </div>
     ),
@@ -1109,7 +1109,7 @@ const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
     key: 'published',
     header: 'Published',
     sortValue: (e) => e.published,
-    className: 'text-slate-500 dark:text-slate-400',
+    className: 'text-muted',
     render: (e) => (
       <div className="flex items-center gap-1">
         <Calendar size={11} className="shrink-0" />
@@ -1210,7 +1210,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
         <span className="block max-w-3xl">
           Curated catalog of CVE exploit toolkits, PoC code, and weaponized modules. Each entry links to official
           vendor/NVD advisories - use for research, patching prioritization, and detection engineering.
-          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+          <span className="block text-xs text-muted font-mono mt-2">
             ! This catalog is for authorized security research only. Verify advisories before deploying any fix.
           </span>
         </span>
@@ -1224,7 +1224,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
         className="mb-4"
       >
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -1239,7 +1239,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       {/* Filters */}
       <section className="surface-card p-4 mb-4">
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">severity:</span>
+          <span className="text-mini font-mono text-muted mr-1">severity:</span>
           {ALL_SEVERITIES.map((s) => {
             const cfg = SEVERITY_CONFIG[s]!;
             const active = severityFilter.has(s);
@@ -1261,7 +1261,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
           })}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">vendor:</span>
+          <span className="text-mini font-mono text-muted mr-1">vendor:</span>
           {ALL_VENDORS.map((v) => {
             const active = vendorFilter.has(v);
             return (
@@ -1282,7 +1282,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
           })}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">type:</span>
+          <span className="text-mini font-mono text-muted mr-1">type:</span>
           {ALL_TYPES.map((t) => {
             const active = typeFilter.has(t);
             return (
@@ -1335,7 +1335,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       <DataTable rows={filtered} rowKey={(e) => e.id} columns={VULN_COLUMNS} className="font-mono" />
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6 text-center">
+        <p className="text-sm font-mono text-muted mt-6 text-center">
           No entries match the current filters.{' '}
           <button type="button" onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all

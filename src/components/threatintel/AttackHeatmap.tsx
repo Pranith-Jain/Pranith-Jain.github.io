@@ -149,7 +149,7 @@ export function AttackHeatmap({
                         title={`${t.id} · ${t.name}\n${t.used_by_count} group${t.used_by_count === 1 ? '' : 's'} · ${tacticLabel(t.tactic)}${t.used_by_groups.length > 0 ? `\nused by: ${t.used_by_groups.join(', ')}` : ''}`}
                       >
                         <span className="text-slate-800 dark:text-slate-200 font-medium">{t.id}</span>
-                        <span className="text-slate-500 dark:text-slate-400 ml-1 text-micro">{t.used_by_count}</span>
+                        <span className="text-muted ml-1 text-micro">{t.used_by_count}</span>
                       </div>
                     );
                   })}
@@ -160,7 +160,7 @@ export function AttackHeatmap({
         </div>
       </div>
 
-      <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-3">
+      <p className="text-micro font-mono text-muted mt-3">
         {data.aggregate_techniques.length} techniques across {tacticKeys.length} tactics · top {MAX_PER_TACTIC} per
         tactic
       </p>

@@ -116,7 +116,7 @@ export default function Briefings(): JSX.Element {
       </BackLink>
 
       <header className="animate-fade-in-up mb-12">
-        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
           Intel Briefings
         </span>
         <h1 className="text-4xl sm:text-5xl font-display font-bold mb-4 leading-tight flex items-center gap-3 flex-wrap">
@@ -155,7 +155,7 @@ export default function Briefings(): JSX.Element {
             chips so "lockbit" + Daily narrows by both. Slug, title, and
             date_range are searched so a date fragment ("2026-05") matches. */}
         <div className="relative mb-4">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -314,7 +314,7 @@ export default function Briefings(): JSX.Element {
                     {(item.metadata.sources ?? []).join(', ')}
                   </span>
                 </div>
-                <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                <ChevronRight size={14} className="text-muted shrink-0" />
               </div>
               <div className="mt-2 flex items-center gap-1.5">
                 <a
@@ -350,7 +350,7 @@ export default function Briefings(): JSX.Element {
       </section>
 
       <div className="mt-16 flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
-        <Rss size={16} className="text-slate-500 dark:text-slate-400 shrink-0" />
+        <Rss size={16} className="text-muted shrink-0" />
         <p className="text-sm font-mono text-slate-500 flex-1">
           Subscribe in your reader.{' '}
           <a

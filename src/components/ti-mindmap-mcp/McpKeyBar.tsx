@@ -110,7 +110,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
       </button>
       {open && (
         <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] surface-card shadow-e2 p-3 z-50">
-          <p className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+          <p className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider text-muted mb-2">
             <Settings2 className="h-3 w-3" /> MCP settings
           </p>
           <KeyForm
@@ -136,7 +136,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
             </p>
           )}
           <div className="mt-2 flex items-start justify-between gap-2">
-            <p className="text-micro text-slate-500 dark:text-slate-400 flex-1">
+            <p className="text-micro text-muted flex-1">
               Keys stay in your browser (localStorage) and never reach our backend. Get one at{' '}
               <a
                 href="https://ti-mindmap-hub.com/settings"

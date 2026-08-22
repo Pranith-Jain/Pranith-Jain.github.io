@@ -97,7 +97,7 @@ const SEV: Record<string, string> = {
     'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   Critical: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   Unknown:
-    'bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]',
+    'bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]',
 };
 
 export default function Workspaces() {
@@ -259,15 +259,9 @@ export default function Workspaces() {
                     {isComplete ? (
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     ) : (
-                      <phase.icon
-                        className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-slate-500 dark:text-slate-400'} shrink-0`}
-                      />
+                      <phase.icon className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-muted'} shrink-0`} />
                     )}
-                    <span
-                      className={
-                        isCurrent ? 'text-slate-900 dark:text-slate-100' : 'text-slate-600 dark:text-slate-400'
-                      }
-                    >
+                    <span className={isCurrent ? 'text-slate-900 dark:text-slate-100' : 'text-muted'}>
                       {phase.label}
                     </span>
                   </div>
@@ -396,7 +390,7 @@ export default function Workspaces() {
                   className={`flex items-center gap-1 px-2 py-1 rounded text-mini font-mono border transition-colors ${
                     formType === t.value
                       ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
-                      : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:border-slate-300'
+                      : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-300'
                   }`}
                 >
                   <t.icon className="w-3 h-3" /> {t.label}
@@ -491,7 +485,7 @@ export default function Workspaces() {
                       e.stopPropagation();
                       handleDelete(ws.id);
                     }}
-                    className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
+                    className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-muted hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
                     aria-label="Delete workspace"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

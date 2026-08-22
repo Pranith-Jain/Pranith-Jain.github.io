@@ -115,9 +115,7 @@ export function Projects({ projects }: ProjectsProps) {
   return (
     <section id="projects" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          Projects
-        </div>
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Projects</div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Selected projects &amp; initiatives
         </h2>
@@ -132,12 +130,8 @@ export function Projects({ projects }: ProjectsProps) {
       {publishedCaseStudies.length > 0 && (
         <div className="mb-12">
           <div className="mb-4 flex items-center gap-2">
-            <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Case Studies
-            </div>
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-              · {publishedCaseStudies.length} published
-            </span>
+            <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Case Studies</div>
+            <span className="text-xs font-mono text-muted">· {publishedCaseStudies.length} published</span>
           </div>
 
           {/* Timeline layout */}
@@ -159,11 +153,11 @@ export function Projects({ projects }: ProjectsProps) {
                     <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
                       {cs.kicker}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                    <span className="inline-flex items-center gap-1 text-xs text-muted">
                       <Calendar size={10} />
                       {new Date(cs.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                    <span className="inline-flex items-center gap-1 text-xs text-muted">
                       <Clock size={10} />
                       {cs.readingTime}
                     </span>
@@ -193,15 +187,13 @@ export function Projects({ projects }: ProjectsProps) {
                       {cs.tags.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
                         >
                           {tag}
                         </span>
                       ))}
                       {cs.tags.length > 4 && (
-                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                          +{cs.tags.length - 4}
-                        </span>
+                        <span className="text-micro font-mono text-muted">+{cs.tags.length - 4}</span>
                       )}
                     </div>
                   )}
@@ -217,9 +209,7 @@ export function Projects({ projects }: ProjectsProps) {
         </div>
       )}
 
-      <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-        Tools &amp; initiatives
-      </div>
+      <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Tools &amp; initiatives</div>
       <div className="grid gap-3">
         {visible.map((project) => (
           <ProjectCard key={project.title} project={project} />

@@ -132,7 +132,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
         aria-expanded={open}
         className="w-full flex items-start gap-2 p-3 text-left"
       >
-        <span className="text-slate-500 dark:text-slate-400 mt-0.5 shrink-0">
+        <span className="text-muted mt-0.5 shrink-0">
           {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
         </span>
         <span className="min-w-0 flex-1">
@@ -159,9 +159,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
             ))}
           </span>
         </span>
-        {folder.date && (
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{folder.date}</span>
-        )}
+        {folder.date && <span className="text-micro font-mono text-muted shrink-0">{folder.date}</span>}
         <PostAnalysisButton
           title={folder.label}
           description={`${folder.year} · ${folder.date} · ${folder.rule_files.length} rule(s)${folder.has_indicators ? ' · has indicators' : ''}`}
@@ -188,7 +186,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                     <FileCode size={12} /> {rf.name}
                   </a>
                 ) : (
-                  <span key={rf.name} className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                  <span key={rf.name} className="text-micro font-mono text-muted">
                     {rf.name}
                   </span>
                 );
@@ -197,7 +195,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
           )}
 
           {loading && (
-            <div className="flex items-center gap-2 py-3 text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-2 py-3 text-muted">
               <Loader2 size={16} className="animate-spin" />
               <span className="text-xs font-mono">loading indicators…</span>
             </div>
@@ -225,28 +223,52 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                     </span>
                   ))}
                 {data.count === 0 && (
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                    no indicator CSV in this folder
-                  </span>
+                  <span className="text-micro font-mono text-muted">no indicator CSV in this folder</span>
                 )}
               </div>
 
               {data.iocs.length > 0 && (
                 <div className="overflow-x-auto">
                   <DataTable
-                    columns={[
-                      { key: 'indicator', header: 'indicator', sortValue: (ioc: typeof data.iocs[number]) => ioc.value, render: (ioc) => (
-                        <span className="font-mono break-all text-slate-800 dark:text-slate-200">
-                          {pivotable(ioc.kind) ? (
-                            <Link to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`} className="hover:text-rose-600 dark:hover:text-rose-400" title="Pivot to IOC checker">{ioc.value} →</Link>
-                          ) : ioc.value}
-                        </span>
-                      ) },
-                      { key: 'type', header: 'type', sortValue: (ioc: typeof data.iocs[number]) => ioc.kind, render: (ioc) => (
-                        <span className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}>{ioc.entity_type || ioc.kind}</span>
-                      ) },
-                      { key: 'context', header: 'context', render: (ioc) => <span className="text-slate-500 dark:text-slate-400">{ioc.description}</span> },
-                    ] as DataTableColumn<typeof data.iocs[number]>[]}
+                    columns={
+                      [
+                        {
+                          key: 'indicator',
+                          header: 'indicator',
+                          sortValue: (ioc: (typeof data.iocs)[number]) => ioc.value,
+                          render: (ioc) => (
+                            <span className="font-mono break-all text-slate-800 dark:text-slate-200">
+                              {pivotable(ioc.kind) ? (
+                                <Link
+                                  to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`}
+                                  className="hover:text-rose-600 dark:hover:text-rose-400"
+                                  title="Pivot to IOC checker"
+                                >
+                                  {ioc.value} →
+                                </Link>
+                              ) : (
+                                ioc.value
+                              )}
+                            </span>
+                          ),
+                        },
+                        {
+                          key: 'type',
+                          header: 'type',
+                          sortValue: (ioc: (typeof data.iocs)[number]) => ioc.kind,
+                          render: (ioc) => (
+                            <span className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}>
+                              {ioc.entity_type || ioc.kind}
+                            </span>
+                          ),
+                        },
+                        {
+                          key: 'context',
+                          header: 'context',
+                          render: (ioc) => <span className="text-muted">{ioc.description}</span>,
+                        },
+                      ] as DataTableColumn<(typeof data.iocs)[number]>[]
+                    }
                     rows={data.iocs.slice(0, 2000)}
                     rowKey={(ioc, i) => `${ioc.value}-${i}`}
                   />
@@ -394,7 +416,7 @@ export default function VolexityThreatIntel(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-muted text-center">
           Data:{' '}
           <a
             href={safeHref(data.source_url) ?? '#'}

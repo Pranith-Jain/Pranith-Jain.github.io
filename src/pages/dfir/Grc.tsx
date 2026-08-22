@@ -34,7 +34,7 @@ const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   },
   partial: { label: '~ partial', cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
   gap: { label: 'gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400' },
+  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted' },
 };
 
 function scoreColour(score: number): string {
@@ -134,7 +134,7 @@ export default function Grc(): JSX.Element {
       title="GRC Compliance & Maturity"
       description="Six major frameworks side-by-side with cross-mapping and self-assessment. NIST CSF 2.0 is the spine; ISO 27001:2022, ISO 42001:2023 (AI Management System), CIS Controls v8, and SOC 2 are mapped to NIST where official cross-references exist. SOC-CMM gives a maturity view across Business / People / Process / Technology / Services."
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <p className="text-xs text-muted font-mono">
           All data stays in your browser. Cross-mappings are illustrative - for audit work, validate against official
           OSCAL mapping documents. Pairs with the{' '}
           <Link to="/dfir/nhi" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -163,7 +163,7 @@ export default function Grc(): JSX.Element {
               }`}
             >
               <div className="flex items-baseline justify-between gap-2 mb-1">
-                <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                <span className="text-mini font-mono uppercase tracking-[0.2em] text-muted">
                   {FRAMEWORK_META[fid].label}
                 </span>
                 <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{c.score}%</span>
@@ -231,7 +231,7 @@ export default function Grc(): JSX.Element {
                   </span>
                   <span className="block text-xs font-mono text-muted truncate">{fn.description}</span>
                 </span>
-                <span className="flex-none text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <span className="flex-none text-micro font-mono uppercase tracking-wider text-muted">
                   {fn.categories.reduce((n, c) => n + c.controls.length, 0)} subcat
                 </span>
                 {expanded.has(fn.id) ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
@@ -345,7 +345,7 @@ export default function Grc(): JSX.Element {
       {/* ISO 42001 - AI Management System */}
       {tab === 'iso-42001' && (
         <div className="space-y-3">
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+          <p className="text-xs font-mono text-muted mb-2">
             ISO/IEC 42001:2023 - first international standard for AI management systems. Annex A defines 9 control
             domains (A.2-A.10). Pairs with{' '}
             <Link to="/dfir/owasp" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -485,7 +485,7 @@ export default function Grc(): JSX.Element {
       {/* SOC-CMM */}
       {tab === 'soc-cmm' && (
         <div className="space-y-3">
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+          <p className="text-xs font-mono text-muted mb-2">
             Pick the maturity level that best describes each domain in your SOC today.
           </p>
           {SOC_CMM.map((d) => {
@@ -521,9 +521,7 @@ export default function Grc(): JSX.Element {
       )}
 
       <section className="mt-8 surface-card p-4">
-        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
-          References
-        </h2>
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">References</h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a

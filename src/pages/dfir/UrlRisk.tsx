@@ -274,7 +274,7 @@ export default function UrlRisk() {
             </section>
 
             <section className="surface-card p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">
                 Provider Contribution
               </h2>
               <div className="space-y-2.5">
@@ -298,7 +298,7 @@ export default function UrlRisk() {
             </section>
 
             <section className="surface-card p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">
                 Static Signals ({staticInfo.static_score}/10)
               </h2>
               <div className="flex flex-wrap gap-1.5">
@@ -326,9 +326,7 @@ export default function UrlRisk() {
 
             {risk.evidence.length > 0 && (
               <section className="surface-card p-4">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
-                  Evidence Chain
-                </h2>
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Evidence Chain</h2>
                 <ul className="space-y-1.5">
                   {risk.evidence.map((line, i) => (
                     <li
@@ -345,9 +343,7 @@ export default function UrlRisk() {
 
             {(risk.positive_findings.length > 0 || risk.informational_findings.length > 0) && (
               <section className="surface-card p-4">
-                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
-                  Findings
-                </h2>
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Findings</h2>
                 {risk.positive_findings.length > 0 && (
                   <ul className="space-y-1.5 mb-2">
                     {risk.positive_findings.map((line, i) => (

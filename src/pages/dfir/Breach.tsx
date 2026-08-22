@@ -295,14 +295,12 @@ function VerificationCard({ verification }: { verification: EmailVerification })
             >
               {v.label}
             </span>
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-              verified by {sourceCount}/2 free sources
-            </span>
+            <span className="text-micro font-mono text-muted">verified by {sourceCount}/2 free sources</span>
             <a
               href="https://github.com/sslboard/throwaway"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               throwaway <ExternalLink size={9} />
             </a>
@@ -310,7 +308,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/umuterturk/email-verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               rapid-verifier <ExternalLink size={9} />
             </a>
@@ -380,9 +378,7 @@ function Signal({ label, value }: { label: string; value: boolean }): JSX.Elemen
         className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
       />
       <span className="sr-only">{value ? 'pass' : 'fail'}:</span>
-      <span className={value ? 'text-slate-700 dark:text-slate-300' : 'text-slate-500 dark:text-slate-400'}>
-        {label}
-      </span>
+      <span className={value ? 'text-slate-700 dark:text-slate-300' : 'text-muted'}>{label}</span>
     </div>
   );
 }
@@ -488,7 +484,7 @@ function PasswordTab(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}

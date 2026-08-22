@@ -96,7 +96,7 @@ const FINGERPRINT_FIELDS: Array<{ key: keyof Fingerprint; label: string }> = [
 ];
 
 function riskColor(score: number | undefined): string {
-  if (score === undefined || score === null) return 'text-slate-500 dark:text-slate-400';
+  if (score === undefined || score === null) return 'text-muted';
   if (score >= 10) return 'text-rose-500';
   if (score >= 7) return 'text-orange-500';
   if (score >= 4) return 'text-amber-500';
@@ -130,7 +130,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
-        <div className="flex-shrink-0 text-slate-500 dark:text-slate-400">
+        <div className="flex-shrink-0 text-muted">
           {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
         </div>
         <div className="flex-1 min-w-0 grid grid-cols-12 gap-3 items-center text-tool">
@@ -144,7 +144,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
             {risk !== undefined ? (
               <span className={riskColor(risk)}>{risk}</span>
             ) : (
-              <span className="text-slate-500 dark:text-slate-400">-</span>
+              <span className="text-muted">-</span>
             )}
           </div>
           <div className="col-span-2 text-muted text-meta truncate">
@@ -164,7 +164,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 text-mini text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-mini text-muted hover:text-rose-600 dark:hover:text-rose-400"
               >
                 <ExternalLink size={10} /> visit
               </a>
@@ -243,11 +243,11 @@ function ResultRow({ result }: { result: WebamonResult }) {
                   ))}
                 </div>
               ) : (
-                <p className="text-slate-500 dark:text-slate-400 text-meta">No unique fingerprints</p>
+                <p className="text-muted text-meta">No unique fingerprints</p>
               )}
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))] flex items-center gap-3 text-mini text-slate-500 dark:text-slate-400 font-mono">
+          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))] flex items-center gap-3 text-mini text-muted font-mono">
             <span>Index: {result._index}</span>
             {result.sub_domain && <span>Subdomain: {result.sub_domain}</span>}
             {result.matched_fields && result.matched_fields.length > 0 && (
@@ -432,15 +432,9 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
-        {open ? (
-          <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
-        ) : (
-          <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
-        )}
+        {open ? <ChevronDown size={14} className="text-muted" /> : <ChevronRight size={14} className="text-muted" />}
         <span className="font-mono text-tool font-semibold text-slate-700 dark:text-slate-300">{label}</span>
-        <span className="text-mini text-slate-500 dark:text-slate-400 font-mono">
-          {Object.keys(data).length} fields
-        </span>
+        <span className="text-mini text-muted font-mono">{Object.keys(data).length} fields</span>
       </button>
       {open && (
         <pre className="text-mini font-mono text-muted bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-4 overflow-x-auto max-h-96">
@@ -522,7 +516,7 @@ function SearchTab() {
         className="mb-6"
       >
         <div className="relative max-w-3xl">
-          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -542,7 +536,7 @@ function SearchTab() {
                 setQuery(ex);
                 doSearch(ex, 0);
               }}
-              className="px-2.5 py-1 rounded text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="px-2.5 py-1 rounded text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             >
               {ex}
             </button>
@@ -565,14 +559,10 @@ function SearchTab() {
 
       {data && (
         <div>
-          <div className="flex items-center justify-between mb-4 text-sm text-slate-500 dark:text-slate-400 font-mono">
+          <div className="flex items-center justify-between mb-4 text-sm text-muted font-mono">
             <span>
               {data.total_hits.toLocaleString()} result{data.total_hits !== 1 ? 's' : ''}
-              {data.search_string ? (
-                <span className="text-slate-500 dark:text-slate-400"> for &quot;{data.search_string}&quot;</span>
-              ) : (
-                ''
-              )}
+              {data.search_string ? <span className="text-muted"> for &quot;{data.search_string}&quot;</span> : ''}
             </span>
             {pagination && data.total_hits > PAGE_SIZE && (
               <span>
@@ -580,7 +570,7 @@ function SearchTab() {
               </span>
             )}
           </div>
-          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-mini font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono">
+          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-mini font-semibold text-muted uppercase tracking-wider font-mono">
             <div className="col-span-3">Domain</div>
             <div className="col-span-2">Page Title</div>
             <div className="col-span-1 text-center">Risk</div>
@@ -619,7 +609,7 @@ function SearchTab() {
       )}
 
       {!loading && !error && !data && (
-        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
+        <div className="text-center py-16 text-muted">
           <Search size={48} className="mx-auto mb-4 opacity-30" />
           <p className="text-lg font-medium mb-1">Search Webamon's Domain Index</p>
           <p className="text-sm max-w-md mx-auto">Enter a Lucene query above to search across 750M+ scanned domains.</p>
@@ -784,7 +774,7 @@ function SandboxTab() {
                   </h2>
 
                   {r.scan_status && (
-                    <div className="text-xs font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
+                    <div className="text-xs font-mono text-muted flex items-center gap-3">
                       <span>Status: {r.scan_status}</span>
                       {r.scan_time && <span>Time: {r.scan_time}</span>}
                       {r.submission_utc && <span>Submitted: {r.submission_utc}</span>}
@@ -818,18 +808,18 @@ function SandboxTab() {
                                 {c.domain_name ?? r['domain.name'] ?? '-'}
                                 {c.sub_domain ? ` (${c.sub_domain})` : ''}
                               </div>
-                              {c.issuer && <div className="text-slate-500 dark:text-slate-400">Issuer: {c.issuer}</div>}
+                              {c.issuer && <div className="text-muted">Issuer: {c.issuer}</div>}
                               {c.protocol && (
-                                <div className="text-slate-500 dark:text-slate-400">
+                                <div className="text-muted">
                                   Protocol: {c.protocol} {c.cipher ? `· ${c.cipher}` : ''}
                                 </div>
                               )}
                               {c.valid_from_utc && (
-                                <div className="text-slate-500 dark:text-slate-400">
+                                <div className="text-muted">
                                   Valid: {c.valid_from_utc} → {c.valid_to_utc ?? '?'}
                                 </div>
                               )}
-                              {c.tld && <div className="text-slate-500 dark:text-slate-400">TLD: {c.tld}</div>}
+                              {c.tld && <div className="text-muted">TLD: {c.tld}</div>}
                             </div>
                           ))}
                         </div>
@@ -850,17 +840,13 @@ function SandboxTab() {
                               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
                               {s.ip && <div className="font-semibold text-slate-700 dark:text-slate-300">{s.ip}</div>}
-                              {s.asn && <div className="text-slate-500 dark:text-slate-400">ASN: {s.asn}</div>}
-                              {s.country && (
-                                <div className="text-slate-500 dark:text-slate-400">Country: {s.country}</div>
-                              )}
+                              {s.asn && <div className="text-muted">ASN: {s.asn}</div>}
+                              {s.country && <div className="text-muted">Country: {s.country}</div>}
                               {s.ports && s.ports.length > 0 && (
-                                <div className="text-slate-500 dark:text-slate-400">Ports: {s.ports.join(', ')}</div>
+                                <div className="text-muted">Ports: {s.ports.join(', ')}</div>
                               )}
                               {s.protocols && s.protocols.length > 0 && (
-                                <div className="text-slate-500 dark:text-slate-400">
-                                  Protocols: {s.protocols.join(', ')}
-                                </div>
+                                <div className="text-muted">Protocols: {s.protocols.join(', ')}</div>
                               )}
                             </div>
                           ))}
@@ -876,12 +862,36 @@ function SandboxTab() {
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
                           <DataTable
-                            columns={[
-                              { key: 'name', header: 'Name', sortValue: (c: typeof r.cookie[number]) => c.name ?? '', render: (c) => <span className="text-slate-700 dark:text-slate-300 break-all">{c.name ?? '-'}</span> },
-                              { key: 'domain', header: 'Domain', sortValue: (c: typeof r.cookie[number]) => c.domain ?? '', render: (c) => <span className="text-muted break-all">{c.domain ?? '-'}</span> },
-                              { key: 'secure', header: 'Secure', render: (c) => <span className="text-muted">{c.secure ? 'yes' : 'no'}</span> },
-                              { key: 'httpOnly', header: 'HttpOnly', render: (c) => <span className="text-muted">{c.httpOnly ? 'yes' : 'no'}</span> },
-                            ] as DataTableColumn<typeof r.cookie[number]>[]}
+                            columns={
+                              [
+                                {
+                                  key: 'name',
+                                  header: 'Name',
+                                  sortValue: (c: (typeof r.cookie)[number]) => c.name ?? '',
+                                  render: (c) => (
+                                    <span className="text-slate-700 dark:text-slate-300 break-all">
+                                      {c.name ?? '-'}
+                                    </span>
+                                  ),
+                                },
+                                {
+                                  key: 'domain',
+                                  header: 'Domain',
+                                  sortValue: (c: (typeof r.cookie)[number]) => c.domain ?? '',
+                                  render: (c) => <span className="text-muted break-all">{c.domain ?? '-'}</span>,
+                                },
+                                {
+                                  key: 'secure',
+                                  header: 'Secure',
+                                  render: (c) => <span className="text-muted">{c.secure ? 'yes' : 'no'}</span>,
+                                },
+                                {
+                                  key: 'httpOnly',
+                                  header: 'HttpOnly',
+                                  render: (c) => <span className="text-muted">{c.httpOnly ? 'yes' : 'no'}</span>,
+                                },
+                              ] as DataTableColumn<(typeof r.cookie)[number]>[]
+                            }
                             rows={r.cookie}
                             rowKey={(c, i) => `${c.name ?? ''}-${i}`}
                           />
@@ -904,10 +914,8 @@ function SandboxTab() {
                             >
                               <Tag size={10} />
                               {t.name}
-                              {t.version && <span className="text-slate-500 dark:text-slate-400">v{t.version}</span>}
-                              {t.category && (
-                                <span className="text-slate-500 dark:text-slate-400 text-micro">({t.category})</span>
-                              )}
+                              {t.version && <span className="text-muted">v{t.version}</span>}
+                              {t.category && <span className="text-muted text-micro">({t.category})</span>}
                             </span>
                           ))}
                         </div>
@@ -922,12 +930,46 @@ function SandboxTab() {
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
                           <DataTable
-                            columns={[
-                              { key: 'sha256', header: 'SHA256', sortValue: (res: typeof r.resource[number]) => res.sha256 ?? '', render: (res) => <span className="text-slate-700 dark:text-slate-300 break-all">{res.sha256 ? res.sha256.slice(0, 16) + '…' : '-'}</span> },
-                              { key: 'mime', header: 'MIME', sortValue: (res: typeof r.resource[number]) => res.mime ?? '', render: (res) => <span className="text-muted">{res.mime ?? '-'}</span> },
-                              { key: 'size', header: 'Size', sortValue: (res: typeof r.resource[number]) => res.size ?? 0, render: (res) => <span className="text-muted">{res.size ? `${(res.size / 1024).toFixed(1)}KB` : '-'}</span> },
-                              { key: 'url', header: 'URL', sortValue: (res: typeof r.resource[number]) => res.url ?? '', render: (res) => <span className="text-muted break-all max-w-[200px] truncate">{res.url ?? '-'}</span> },
-                            ] as DataTableColumn<typeof r.resource[number]>[]}
+                            columns={
+                              [
+                                {
+                                  key: 'sha256',
+                                  header: 'SHA256',
+                                  sortValue: (res: (typeof r.resource)[number]) => res.sha256 ?? '',
+                                  render: (res) => (
+                                    <span className="text-slate-700 dark:text-slate-300 break-all">
+                                      {res.sha256 ? res.sha256.slice(0, 16) + '…' : '-'}
+                                    </span>
+                                  ),
+                                },
+                                {
+                                  key: 'mime',
+                                  header: 'MIME',
+                                  sortValue: (res: (typeof r.resource)[number]) => res.mime ?? '',
+                                  render: (res) => <span className="text-muted">{res.mime ?? '-'}</span>,
+                                },
+                                {
+                                  key: 'size',
+                                  header: 'Size',
+                                  sortValue: (res: (typeof r.resource)[number]) => res.size ?? 0,
+                                  render: (res) => (
+                                    <span className="text-muted">
+                                      {res.size ? `${(res.size / 1024).toFixed(1)}KB` : '-'}
+                                    </span>
+                                  ),
+                                },
+                                {
+                                  key: 'url',
+                                  header: 'URL',
+                                  sortValue: (res: (typeof r.resource)[number]) => res.url ?? '',
+                                  render: (res) => (
+                                    <span className="text-muted break-all max-w-[200px] truncate">
+                                      {res.url ?? '-'}
+                                    </span>
+                                  ),
+                                },
+                              ] as DataTableColumn<(typeof r.resource)[number]>[]
+                            }
                             rows={r.resource}
                             rowKey={(res, i) => `${res.sha256 ?? ''}-${i}`}
                           />
@@ -982,9 +1024,7 @@ function SandboxTab() {
                                   {m.status}
                                 </span>
                               )}
-                              {m.last_checked && (
-                                <span className="text-slate-500 dark:text-slate-400">{m.last_checked}</span>
-                              )}
+                              {m.last_checked && <span className="text-muted">{m.last_checked}</span>}
                             </div>
                           ))}
                         </div>
@@ -1086,7 +1126,7 @@ function SandboxTab() {
       )}
 
       {!result && !error && (
-        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
+        <div className="text-center py-16 text-muted">
           <Send size={48} className="mx-auto mb-4 opacity-30" />
           <p className="text-lg font-medium mb-1">Submit a URL for Sandbox Analysis</p>
           <p className="text-sm max-w-md mx-auto">Enter a URL above to scan it through Webamon's sandbox.</p>
@@ -1162,7 +1202,7 @@ function InfraTab() {
                   className={`px-3 py-2.5 text-meta font-mono flex items-center gap-1.5 transition-colors ${
                     active
                       ? 'bg-rose-600 dark:bg-rose-500 text-white'
-                      : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                      : 'text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
                   <Icon size={13} /> {m.label}
@@ -1202,7 +1242,7 @@ function InfraTab() {
       )}
 
       {!loading && !error && !data && (
-        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
+        <div className="text-center py-16 text-muted">
           <Globe size={32} className="mx-auto mb-3 opacity-40" />
           <p className="font-mono text-sm">
             Look up infrastructure for a {activeMode.label.toLowerCase()} - resolved hosts, certificates, and related

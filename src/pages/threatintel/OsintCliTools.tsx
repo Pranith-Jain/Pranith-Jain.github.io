@@ -45,7 +45,7 @@ export default function OsintCliTools(): JSX.Element {
     >
       <div className="flex items-center gap-2 mb-4">
         <div className="relative flex-1 max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="search"
             value={query}
@@ -54,11 +54,12 @@ export default function OsintCliTools(): JSX.Element {
             className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} tools</span>
+        <span className="text-xs font-mono text-muted">{filtered.length} tools</span>
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button type="button"
+        <button
+          type="button"
           onClick={() => {
             setActiveCat(null);
             setSearchParams({});
@@ -72,7 +73,8 @@ export default function OsintCliTools(): JSX.Element {
           All ({CLI_TOOLS.length})
         </button>
         {ALL_CATS.map((cat) => (
-          <button type="button"
+          <button
+            type="button"
             key={cat}
             onClick={() => {
               setActiveCat(activeCat === cat ? null : cat);
@@ -112,7 +114,7 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100">{tool.name}</span>
-        <ExternalLink size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0 mt-0.5" />
+        <ExternalLink size={12} className="text-muted flex-shrink-0 mt-0.5" />
       </div>
       <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>
       <div className="flex items-center gap-2 flex-wrap">

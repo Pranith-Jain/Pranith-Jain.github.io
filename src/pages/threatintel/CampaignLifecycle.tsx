@@ -97,14 +97,12 @@ export default function CampaignLifecycle(): JSX.Element {
           <div className="surface-card-faint shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
-              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                Confidence: {lifecycle.confidence}%
-              </span>
+              <span className="text-micro font-mono text-muted">Confidence: {lifecycle.confidence}%</span>
             </div>
             <div className="text-sm text-muted">Actor: {lifecycle.actor}</div>
             <div className="flex items-center gap-2 mt-2 text-xs">
               <span className="font-mono text-rose-600 dark:text-rose-400">Current: {lifecycle.current_phase}</span>
-              <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />
+              <ChevronRight size={12} className="text-muted" />
               <span className="font-mono text-amber-600 dark:text-amber-400 flex items-center gap-1">
                 <Zap size={12} /> Next: {lifecycle.predicted_next}
               </span>
@@ -127,26 +125,22 @@ export default function CampaignLifecycle(): JSX.Element {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{phase.name}</div>
-                      {phase.start_date && (
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                          {phase.start_date}
-                        </div>
-                      )}
+                      {phase.start_date && <div className="text-micro font-mono text-muted">{phase.start_date}</div>}
                     </div>
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PHASE_STATUS[phase.status]}`}>
                       {phase.status}
                     </span>
                     {isOpen ? (
-                      <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
+                      <ChevronDown size={14} className="text-muted" />
                     ) : (
-                      <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
+                      <ChevronRight size={14} className="text-muted" />
                     )}
                   </button>
                   {isOpen && (
                     <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                       {phase.indicators.length > 0 && (
                         <div className="mt-3 mb-2">
-                          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                          <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
                             Indicators
                           </div>
                           <div className="flex flex-wrap gap-1">
@@ -163,7 +157,7 @@ export default function CampaignLifecycle(): JSX.Element {
                       )}
                       {phase.techniques.length > 0 && (
                         <div>
-                          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                          <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
                             Techniques
                           </div>
                           <div className="flex flex-wrap gap-1">

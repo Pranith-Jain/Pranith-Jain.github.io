@@ -98,7 +98,7 @@ export default function EmailOsnit() {
       <form onSubmit={handleSearch} className="mb-6">
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="email"
               value={email}
@@ -138,7 +138,7 @@ export default function EmailOsnit() {
               />
             ) : (
               <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center">
-                <User size={20} className="text-slate-500 dark:text-slate-400" />
+                <User size={20} className="text-muted" />
               </div>
             )}
             <div className="flex-1">

@@ -116,7 +116,7 @@ export function ActorTtpsPanel({
                 >
                   <span className="text-brand-600 dark:text-brand-400">{t.id}</span>
                   <span className="truncate"> · {t.name}</span>
-                  <ExternalLink size={9} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                  <ExternalLink size={9} className="text-muted shrink-0" />
                 </a>
                 <div className="h-3 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
                   <div className="h-full bg-rose-500/70 dark:bg-rose-500/60" style={{ width: `${widthPct}%` }} />

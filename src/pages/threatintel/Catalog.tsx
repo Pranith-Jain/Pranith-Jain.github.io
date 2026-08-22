@@ -83,7 +83,7 @@ export default function CatalogPage(): JSX.Element {
             <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 font-mono text-micro uppercase tracking-wider text-amber-700 dark:text-amber-300">
               <Sparkles size={11} /> new
             </span>
-            <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
+            <span className="font-mono text-mini text-muted">
               {totalEntries} pages · {CATALOG.length} hubs · deep-linkable via{' '}
               <code className="font-mono text-tool bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5">
                 ?q=…&cat=…
@@ -96,7 +96,7 @@ export default function CatalogPage(): JSX.Element {
           <div className="relative">
             <Search
               size={14}
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted"
               aria-hidden="true"
             />
             <input
@@ -120,7 +120,7 @@ export default function CatalogPage(): JSX.Element {
           </div>
 
           <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Catalog categories">
-            <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-muted">
               <FilterIcon size={11} /> filter
             </span>
             <CategoryPill
@@ -153,7 +153,7 @@ export default function CatalogPage(): JSX.Element {
         <div className="space-y-8">
           {visibleCategories.length === 0 && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-muted">
                 No pages match the current filter. Try a different category or clear the search box.
               </p>
             </div>
@@ -218,9 +218,9 @@ function CategorySection({ category, entries }: { category: HubMeta; entries: re
             <category.icon size={16} aria-hidden="true" />
           </span>
           {category.label}
-          <span className="font-mono text-micro text-slate-500 dark:text-slate-400">· {entries.length}</span>
+          <span className="font-mono text-micro text-muted">· {entries.length}</span>
         </h2>
-        <p className="hidden text-tool text-slate-500 dark:text-slate-400 sm:block">{category.blurb}</p>
+        <p className="hidden text-tool text-muted sm:block">{category.blurb}</p>
       </div>
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {entries.map((e) => (
@@ -262,8 +262,8 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
         <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-rose-600 dark:text-white dark:group-hover:text-rose-400">
           {entry.label}
         </h3>
-        <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
-        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-micro text-slate-500 dark:text-slate-400">
+        <p className="mt-0.5 line-clamp-2 text-tool text-muted">{entry.desc}</p>
+        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-micro text-muted">
           <code className="truncate font-mono">{entry.path}</code>
           <span className="inline-flex items-center gap-0.5 text-rose-600 dark:text-rose-400 opacity-0 transition-opacity group-hover:opacity-100">
             open <ArrowRight size={10} />

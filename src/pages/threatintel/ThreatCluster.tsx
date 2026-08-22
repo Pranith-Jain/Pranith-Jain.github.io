@@ -796,7 +796,7 @@ export default function ThreatCluster(): JSX.Element {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
             Source: threatcluster.io · feeds refresh hourly upstream, replicated here on the threat-intel sync cadence
             {idx.syncedAt && <> · synced {fmtDate(idx.syncedAt)}</>}
           </div>

@@ -83,9 +83,9 @@ export default function SourceReliability(): JSX.Element {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <Icon size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                    <Icon size={14} className="text-muted shrink-0" />
                     <span className="text-sm font-medium">{s.name}</span>
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">({s.id})</span>
+                    <span className="text-micro font-mono text-muted">({s.id})</span>
                   </div>
                   <p className="text-xs text-muted mt-0.5">{s.description}</p>
                   {s.known_bias && (

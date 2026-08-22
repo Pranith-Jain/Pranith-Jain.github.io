@@ -365,7 +365,7 @@ export default function ReportAnalyzer(): JSX.Element {
           <div className="md:col-span-2">
             <label
               htmlFor="report-analyzer-text"
-              className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1"
+              className="text-micro font-mono uppercase tracking-wider text-muted block mb-1"
             >
               Paste report text
             </label>
@@ -380,7 +380,7 @@ export default function ReportAnalyzer(): JSX.Element {
           <div>
             <label
               htmlFor="report-analyzer-url"
-              className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1"
+              className="text-micro font-mono uppercase tracking-wider text-muted block mb-1"
             >
               …or fetch from URL
             </label>
@@ -391,13 +391,13 @@ export default function ReportAnalyzer(): JSX.Element {
               placeholder="https://example.com/report"
               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
-            <p className="mt-1 text-mini text-slate-500 dark:text-slate-400 leading-snug">
+            <p className="mt-1 text-mini text-muted leading-snug">
               Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant,
               CrowdStrike) may return minimal content - paste the text directly for best results.
             </p>
             <label
               htmlFor="report-analyzer-images"
-              className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1 mt-3"
+              className="text-micro font-mono uppercase tracking-wider text-muted block mb-1 mt-3"
             >
               Image URLs to OCR (one per line, optional)
             </label>
@@ -408,7 +408,7 @@ export default function ReportAnalyzer(): JSX.Element {
               placeholder="https://example.com/screenshot1.png"
               className="w-full h-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
-            <div className="mt-3 flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <div className="mt-3 flex items-start gap-2 text-xs text-muted">
               <input
                 id="report-analyzer-stix"
                 type="checkbox"
@@ -418,9 +418,7 @@ export default function ReportAnalyzer(): JSX.Element {
                 aria-label="Include STIX bundle"
               />
               <label htmlFor="report-analyzer-stix" className="cursor-pointer">
-                <span className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
-                  Include STIX bundle
-                </span>
+                <span className="font-mono uppercase tracking-wider text-muted block">Include STIX bundle</span>
                 <span className="block mt-0.5 normal-case">
                   Off by default - STIX enrichment (Maltiverse / RDAP / NVD) can exceed the free-plan subrequest budget
                   on larger reports. Turn on for short / high-value reports where you specifically need the STIX tab
@@ -451,7 +449,7 @@ export default function ReportAnalyzer(): JSX.Element {
       {data && (
         <>
           {/* Status bar */}
-          <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted">
             <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
               title <span className="text-slate-700 dark:text-slate-200">{data.title}</span>
             </span>
@@ -473,7 +471,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={exportPdf}
               disabled={pdfExporting}
-              className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               {pdfExporting ? <RefreshCw className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />}
               {pdfExporting ? 'exporting…' : 'export PDF'}
@@ -481,7 +479,7 @@ export default function ReportAnalyzer(): JSX.Element {
             <button
               type="button"
               onClick={exportMarkdown}
-              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               <Download className="h-3 w-3" /> MD
             </button>
@@ -489,7 +487,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={saveReportHandler}
               disabled={saving}
-              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               {saving ? <RefreshCw className="h-3 w-3 animate-spin" /> : <CheckCircle className="h-3 w-3" />}
               {saving ? 'saving…' : (savedMsg ?? 'save')}
@@ -498,7 +496,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={checkCorrelations}
               disabled={correlating}
-              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               {correlating ? <RefreshCw className="h-3 w-3 animate-spin" /> : <Network className="h-3 w-3" />}
               {correlating ? 'checking…' : 'correlate'}
@@ -549,7 +547,7 @@ export default function ReportAnalyzer(): JSX.Element {
                 className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                   tab === t
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
                 }`}
               >
                 {TAB_META[t].icon} {TAB_META[t].label}
@@ -612,7 +610,7 @@ function FilterInput({
 }) {
   return (
     <div className="relative mb-3">
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -629,7 +627,7 @@ function SummaryTab({ data }: { data: AnalyzerOutput }) {
   }
   return (
     <section className="surface-card p-4">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
         model <span className="text-slate-700 dark:text-slate-200">{data.summary.model}</span>
       </div>
       <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
@@ -663,7 +661,7 @@ function IocsTab({
         <button
           type="button"
           onClick={() => downloadCsv('iocs.csv', exportIocsCsv(iocs))}
-          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3 w-3" /> CSV
         </button>
@@ -672,7 +670,7 @@ function IocsTab({
           onClick={() =>
             downloadBlob(new Blob([JSON.stringify(iocs, null, 2)], { type: 'application/json' }), 'iocs.json')
           }
-          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3 w-3" /> JSON
         </button>
@@ -708,16 +706,12 @@ function IocsTab({
               </span>
             )}
             {i.source === 'image-ocr' && (
-              <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
+              <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-muted">
                 ocr
               </span>
             )}
             <code className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{i.value}</code>
-            {i.evidence && (
-              <span className="ml-auto text-xs text-slate-500 dark:text-slate-400 truncate max-w-[40%]">
-                {i.evidence}
-              </span>
-            )}
+            {i.evidence && <span className="ml-auto text-xs text-muted truncate max-w-[40%]">{i.evidence}</span>}
           </li>
         ))}
       </ul>
@@ -747,9 +741,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
       <div className="space-y-3">
         {grouped.map(([tactic, hits]) => (
           <div key={tactic}>
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-              {tactic}
-            </div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">{tactic}</div>
             <ul className="space-y-1.5">
               {hits.map((t) => (
                 <li
@@ -772,9 +764,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
                       {t.confidence}
                     </span>
                   </div>
-                  {t.evidence && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 ml-6 line-clamp-2">{t.evidence}</p>
-                  )}
+                  {t.evidence && <p className="text-xs text-muted ml-6 line-clamp-2">{t.evidence}</p>}
                 </li>
               ))}
             </ul>
@@ -867,14 +857,14 @@ function CvesTab({
                 {c.products.map((p) => (
                   <span
                     key={p}
-                    className="text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-500 dark:text-slate-400"
+                    className="text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-muted"
                   >
                     {p}
                   </span>
                 ))}
               </div>
             )}
-            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{c.context}</p>
+            <p className="text-xs text-muted line-clamp-2">{c.context}</p>
           </div>
         ))}
       </div>
@@ -897,7 +887,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
   if (fiveW.what_next) extraRows.push({ label: 'What Next', value: fiveW.what_next });
   return (
     <section className="surface-card p-4">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
         confidence <span className="text-slate-700 dark:text-slate-200">{Math.round(fiveW.confidence * 100)}%</span>
       </div>
       <dl className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
@@ -906,9 +896,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
             key={r.label}
             className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
           >
-            <dt className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              {r.label}
-            </dt>
+            <dt className="text-micro font-mono uppercase tracking-wider text-muted">{r.label}</dt>
             <dd className="mt-0.5 text-sm text-slate-900 dark:text-slate-100 break-words">{r.value || '-'}</dd>
           </div>
         ))}
@@ -920,9 +908,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
               key={r.label}
               className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
             >
-              <dt className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                {r.label}
-              </dt>
+              <dt className="text-micro font-mono uppercase tracking-wider text-muted">{r.label}</dt>
               <dd className="mt-0.5 text-sm text-slate-700 dark:text-slate-200 leading-relaxed break-words">
                 {r.value}
               </dd>
@@ -931,10 +917,8 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
         </div>
       )}
       {fiveW.attribution_basis && (
-        <div className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-          <span className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
-            attribution basis:
-          </span>
+        <div className="mt-3 text-xs text-muted">
+          <span className="font-mono uppercase tracking-wider text-muted mr-1">attribution basis:</span>
           {fiveW.attribution_basis}
         </div>
       )}
@@ -945,8 +929,8 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
 function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element {
   if (!diamond) {
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-        <Diamond className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+        <Diamond className="mx-auto mb-2 h-8 w-8 text-muted" />
         No adversary/capability/infrastructure/victim signal could be derived from this report.
       </div>
     );
@@ -1067,8 +1051,8 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
 function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
   if (phases.length === 0) {
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-        <GitBranch className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+        <GitBranch className="mx-auto mb-2 h-8 w-8 text-muted" />
         No TTP signal to render as a kill chain.
       </div>
     );
@@ -1145,7 +1129,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
   return (
     <section className="surface-card p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <span className="text-micro font-mono uppercase tracking-wider text-muted">
           STIX 2.1 bundle · {bundle.objects.length} objects
         </span>
         <a
@@ -1154,7 +1138,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
             .replace(/[^a-z0-9]+/gi, '-')
             .toLowerCase()
             .slice(0, 50)}.json`}
-          className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3.5 w-3.5" /> download
         </a>
@@ -1165,15 +1149,13 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
             key={type}
             className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
           >
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              {type}
-            </div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted">{type}</div>
             <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{n}</div>
           </div>
         ))}
       </div>
       <details className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2">
-        <summary className="cursor-pointer text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <summary className="cursor-pointer text-micro font-mono uppercase tracking-wider text-muted">
           view raw JSON
         </summary>
         <pre className="mt-2 max-h-96 overflow-auto text-xs font-mono text-slate-800 dark:text-slate-200">
@@ -1208,7 +1190,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
         <button
           type="button"
           onClick={() => downloadCsv('detection.csv', exportDetectionCsv(detection))}
-          className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3 w-3" /> export CSV
         </button>
@@ -1239,9 +1221,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                   {rule.mitreId && (
                     <span className="text-micro font-mono text-violet-600 dark:text-violet-400">{rule.mitreId}</span>
                   )}
-                  {rule.platform && (
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{rule.platform}</span>
-                  )}
+                  {rule.platform && <span className="text-micro font-mono text-muted">{rule.platform}</span>}
                 </div>
                 <p className="text-xs text-slate-600 dark:text-slate-300 mb-2">{rule.description}</p>
                 {rule.query && (
@@ -1265,9 +1245,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
           <div className="space-y-3">
             {detection.monitoringGuidance.map((cat, i) => (
               <div key={i}>
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                  {cat.category}
-                </div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">{cat.category}</div>
                 <ul className="space-y-1">
                   {cat.items.map((item, j) => (
                     <li key={j} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">
@@ -1299,9 +1277,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                 <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
                   {cmd.command}
                 </pre>
-                {cmd.platform && (
-                  <div className="mt-1 text-micro font-mono text-slate-500 dark:text-slate-400">{cmd.platform}</div>
-                )}
+                {cmd.platform && <div className="mt-1 text-micro font-mono text-muted">{cmd.platform}</div>}
               </div>
             ))}
           </div>
@@ -1392,9 +1368,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
                   </span>
                 </div>
                 <p className="text-sm text-slate-900 dark:text-slate-100">{action.action}</p>
-                {action.rationale && (
-                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{action.rationale}</p>
-                )}
+                {action.rationale && <p className="mt-1 text-xs text-muted">{action.rationale}</p>}
               </div>
             ))}
           </div>
@@ -1456,9 +1430,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
     <section className="surface-card p-4 overflow-x-auto">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 mb-4">
-        <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          MITRE ATT&CK Heatmap
-        </div>
+        <div className="text-micro font-mono uppercase tracking-wider text-muted">MITRE ATT&CK Heatmap</div>
         <div className="flex items-center gap-2 text-xs">
           <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
             {uniqueTechniques} techniques
@@ -1474,7 +1446,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
 
       {/* Confidence legend */}
       <div className="flex items-center gap-3 mb-4 text-micro font-mono">
-        <span className="text-slate-500 dark:text-slate-400">Confidence:</span>
+        <span className="text-muted">Confidence:</span>
         <span className="flex items-center gap-1">
           <span className="h-2.5 w-2.5 rounded bg-rose-400" /> high
         </span>
@@ -1508,7 +1480,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
                 <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
                   {tactic}
                 </div>
-                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                <div className="text-micro font-mono text-muted">
                   {hits.length} technique{hits.length !== 1 ? 's' : ''}
                 </div>
               </div>
@@ -1534,7 +1506,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
 
       {/* Technique density bar chart */}
       <div className="mt-4 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-2">Technique Density by Tactic</div>
+        <div className="text-micro font-mono text-muted mb-2">Technique Density by Tactic</div>
         <div className="space-y-1">
           {[...activeTactics, ...otherTactics].map((tactic) => {
             const hits = grouped.get(tactic)!;
@@ -1542,7 +1514,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
             const pct = maxHits > 0 ? (hits.length / maxHits) * 100 : 0;
             return (
               <div key={tactic} className="flex items-center gap-2 text-micro">
-                <span className="w-24 truncate font-mono text-slate-500 dark:text-slate-400">{tactic}</span>
+                <span className="w-24 truncate font-mono text-muted">{tactic}</span>
                 <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
                   <div
                     className="h-full bg-brand-500 dark:bg-brand-400 rounded transition-all"
@@ -1563,7 +1535,7 @@ function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
   const displayText = data.sourceText || '';
   return (
     <section className="surface-card p-4">
-      <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-slate-500 dark:text-slate-400">
+      <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-muted">
         <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
           {data.textLength.toLocaleString()} chars
         </span>
@@ -1631,8 +1603,8 @@ function TimelineTab() {
   if (loading) {
     return (
       <section className="surface-card p-8 text-center">
-        <RefreshCw className="h-6 w-6 animate-spin text-slate-500 dark:text-slate-400 mx-auto mb-2" />
-        <span className="text-sm text-slate-500 dark:text-slate-400">Loading timeline…</span>
+        <RefreshCw className="h-6 w-6 animate-spin text-muted mx-auto mb-2" />
+        <span className="text-sm text-muted">Loading timeline…</span>
       </section>
     );
   }
@@ -1646,9 +1618,7 @@ function TimelineTab() {
   return (
     <section className="surface-card p-4">
       <div className="flex flex-wrap items-center gap-3 mb-4">
-        <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Report Timeline
-        </div>
+        <div className="text-micro font-mono uppercase tracking-wider text-muted">Report Timeline</div>
         <div className="flex items-center gap-2 text-xs">
           <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
             {timeline.length} reports
@@ -1707,7 +1677,7 @@ function TimelineTab() {
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{report.title}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                    <span className="text-xs text-muted font-mono">
                       {dateStr} {timeStr}
                     </span>
                   </div>
@@ -1741,7 +1711,7 @@ function TimelineTab() {
                             className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-mono ${
                               isShared
                                 ? 'border border-amber-400 dark:border-amber-600 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 font-semibold'
-                                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400'
+                                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-muted'
                             }`}
                             title={isShared ? 'Shared across reports' : ioc.kind}
                           >
@@ -1750,9 +1720,7 @@ function TimelineTab() {
                         );
                       })}
                       {report.iocs.length > 8 && (
-                        <span className="text-micro text-slate-500 dark:text-slate-400 self-center">
-                          +{report.iocs.length - 8} more
-                        </span>
+                        <span className="text-micro text-muted self-center">+{report.iocs.length - 8} more</span>
                       )}
                     </div>
                   )}
@@ -1768,7 +1736,7 @@ function TimelineTab() {
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
       {message}
     </section>
   );

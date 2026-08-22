@@ -63,7 +63,7 @@ export default function FeedStatus(): JSX.Element {
       }
       maxWidthClass="max-w-5xl"
       headerExtra={
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        <p className="text-xs text-muted font-mono mb-6">
           Probes every upstream-backed surface in parallel and reports a per-feed status row.
         </p>
       }
@@ -93,12 +93,12 @@ export default function FeedStatus(): JSX.Element {
                 </span>
               );
             })}
-            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono text-muted">
               snapshot {ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}
             </span>
           </div>
         ) : (
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">-</span>
+          <span className="text-mini font-mono text-muted">-</span>
         )}
         <button
           type="button"

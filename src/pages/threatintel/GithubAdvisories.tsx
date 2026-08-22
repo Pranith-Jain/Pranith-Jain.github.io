@@ -227,7 +227,7 @@ export default function GithubAdvisories(): JSX.Element {
       </div>
 
       {data && (
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
+        <div className="flex items-center justify-between text-xs text-muted mb-3 font-mono">
           <span>
             {filtered.length} advisories
             {data.stale && (
@@ -304,7 +304,7 @@ export default function GithubAdvisories(): JSX.Element {
                         >
                           <Package className="w-2.5 h-2.5" /> {v.package.ecosystem}/{v.package.name}
                           {v.vulnerable_version_range && (
-                            <span className="text-slate-500 dark:text-slate-400">({v.vulnerable_version_range})</span>
+                            <span className="text-muted">({v.vulnerable_version_range})</span>
                           )}
                         </span>
                       ))}
@@ -349,7 +349,7 @@ export default function GithubAdvisories(): JSX.Element {
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
         Source: GitHub Advisory Database via Worker API
       </div>
     </DataPageLayout>

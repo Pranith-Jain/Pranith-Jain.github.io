@@ -239,9 +239,7 @@ export default function Blog() {
           alternative below. */}
         {!inCategoryMode && presentTypes.length > 1 && (
           <nav aria-label="Browse by category" className="mb-6 flex flex-wrap items-center gap-1.5">
-            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 mr-1">
-              browse:
-            </span>
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-muted mr-1">browse:</span>
             {presentTypes.map((t) => (
               <Link
                 key={t}
@@ -264,10 +262,7 @@ export default function Blog() {
         {posts.length > 0 && (
           <section className="surface-card p-3 mb-6">
             <div className="relative">
-              <Search
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="search"
                 value={query}

@@ -139,7 +139,7 @@ const STATUS_COLOR: Record<string, string> = {
   ok: 'text-emerald-600 dark:text-emerald-400',
   degraded: 'text-amber-600 dark:text-amber-400',
   down: 'text-rose-600 dark:text-rose-400',
-  cold: 'text-slate-500 dark:text-slate-400',
+  cold: 'text-muted',
 };
 
 const STATUS_BG: Record<string, string> = {
@@ -158,7 +158,7 @@ function formatAge(seconds?: number): string {
 }
 
 function reliabilityColor(grade?: string): string {
-  if (!grade) return 'text-slate-500 dark:text-slate-400';
+  if (!grade) return 'text-muted';
   const letter = grade.charAt(0);
   if (letter === 'A') return 'text-emerald-600 dark:text-emerald-400';
   if (letter === 'B') return 'text-sky-600 dark:text-sky-400';
@@ -269,7 +269,7 @@ export default function IntelDashboard(): JSX.Element {
       maxWidthClass="max-w-6xl"
       headerExtra={
         feedData?.generated_at ? (
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-mini font-mono text-muted">
             feeds {new Date(feedData.generated_at).toLocaleTimeString()}
             <button
               type="button"
@@ -295,7 +295,7 @@ export default function IntelDashboard(): JSX.Element {
             className={`text-mini font-mono rounded-full border px-3 py-1.5 transition-colors ${
               tab === t.id
                 ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
             }`}
           >
             {t.label}
@@ -356,7 +356,7 @@ export default function IntelDashboard(): JSX.Element {
               icon={<Clock size={18} />}
               label="Cold (unprobed)"
               value={String(feedData?.cold ?? 0)}
-              accent="text-slate-500 dark:text-slate-400"
+              accent="text-muted"
             />
           </div>
 
@@ -453,7 +453,7 @@ export default function IntelDashboard(): JSX.Element {
                       <span className="text-emerald-600">{cat.ok}</span>
                       <span className="text-amber-600">{cat.degraded}</span>
                       <span className="text-rose-600">{cat.down}</span>
-                      <span className="text-slate-500 dark:text-slate-400">{cat.cold}</span>
+                      <span className="text-muted">{cat.cold}</span>
                     </div>
                   </div>
                 ))}
@@ -536,11 +536,7 @@ export default function IntelDashboard(): JSX.Element {
                         {
                           key: 'reason',
                           header: 'Reason',
-                          render: (row) => (
-                            <span className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
-                              {row.reason}
-                            </span>
-                          ),
+                          render: (row) => <span className="text-xs text-muted line-clamp-1">{row.reason}</span>,
                         },
                       ] as DataTableColumn<(typeof feedData.rows)[number]>[]
                     }
@@ -587,7 +583,7 @@ export default function IntelDashboard(): JSX.Element {
                   <div key={`${m.source}-${m.key}-${i}`} className={`rounded-xl border p-3 ${STATUS_BG[m.status]}`}>
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-mono text-xs text-slate-500">{m.source}</span>
-                      <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{m.key}</span>
+                      <span className="font-mono text-xs text-muted">{m.key}</span>
                     </div>
                     <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
                       {m.value.toLocaleString()}
@@ -633,9 +629,7 @@ export default function IntelDashboard(): JSX.Element {
 
           {/* ── Quick links ──────────────────────────────────────────── */}
           <section className="surface-card p-5">
-            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
-              Quick Actions
-            </h2>
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">Quick Actions</h2>
             <div className="flex flex-wrap gap-2">
               {[
                 { label: 'Telegram Leaks', href: '/threatintel/telegram' },
@@ -672,7 +666,7 @@ export default function IntelDashboard(): JSX.Element {
 
           {/* ── Analytics Engine Note ────────────────────────────────── */}
           <section className="mt-8 rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-5 text-center">
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted">
               Visitor analytics (page views, geographic distribution, response times) are tracked in Cloudflare
               Analytics Engine. Query them from the{' '}
               <a
@@ -713,8 +707,8 @@ function KpiCard({
     <>
       {icon ? <div className={`${accent} mb-1`}>{icon}</div> : null}
       <div className={`font-display font-bold text-2xl ${accent}`}>{value}</div>
-      <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">{label}</div>
-      {sub ? <div className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">{sub}</div> : null}
+      <div className="text-mini font-mono text-muted mt-0.5">{label}</div>
+      {sub ? <div className="text-mini text-muted mt-0.5">{sub}</div> : null}
     </>
   );
 

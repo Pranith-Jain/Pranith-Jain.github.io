@@ -470,7 +470,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         <div className="text-center py-12 text-slate-500 font-mono text-sm">No markets match your filters</div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
         Sources: Dread, TorTaxi, public law-enforcement reporting · {MARKETS.length} markets tracked
       </div>
     </DataPageLayout>

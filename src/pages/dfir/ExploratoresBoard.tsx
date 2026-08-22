@@ -99,7 +99,7 @@ export default function ExploratoresBoard(): JSX.Element {
           gaming, breach, public-records, and RU platforms. Type a handle and every link arms itself with your target;
           each opens the service's own search or profile page so you can confirm a match by hand.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        <p className="text-xs text-muted font-mono mb-8">
           Catalog from Exploratores v{EXPLORATORES_VERSION} (sosintops). Manual pivots complement the automated checks
           in Quick Pivot / Deep Scan — a registered handle isn't proof of identity, so verify via display name, photo,
           and post timing.
@@ -110,11 +110,7 @@ export default function ExploratoresBoard(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[220px]">
-            <AtSign
-              size={15}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              aria-hidden="true"
-            />
+            <AtSign size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={username}
@@ -130,7 +126,7 @@ export default function ExploratoresBoard(): JSX.Element {
             className={`inline-flex items-center gap-2 px-3 py-2 rounded border font-mono text-xs transition-colors ${
               armed
                 ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted'
             }`}
             aria-live="polite"
           >
@@ -202,7 +198,7 @@ export default function ExploratoresBoard(): JSX.Element {
                 </h2>
                 <span className="text-mini font-mono text-slate-400 dark:text-slate-500">{cat.links.length}</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 ml-[18px]">{cat.blurb}</p>
+              <p className="text-xs text-muted mb-3 ml-[18px]">{cat.blurb}</p>
 
               <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {cat.links.map((link) => {
@@ -221,7 +217,7 @@ export default function ExploratoresBoard(): JSX.Element {
                       </span>
                       <span
                         className={`mt-1 block truncate font-mono text-micro transition-colors ${
-                          enabled ? 'text-slate-500 dark:text-slate-400' : 'text-slate-400 dark:text-slate-500'
+                          enabled ? 'text-muted' : 'text-slate-400 dark:text-slate-500'
                         }`}
                       >
                         {enabled ? href : link.template.replace('{username}', '{ handle }').replace('{enddate}', '…')}

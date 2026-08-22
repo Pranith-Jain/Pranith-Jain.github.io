@@ -181,7 +181,7 @@ export default function Domain(): JSX.Element {
               <h2 className="font-display font-bold text-lg mb-2 flex items-center gap-2">
                 <Link2 size={18} className="text-brand-600 dark:text-brand-400" /> Certificate Transparency Subdomains
               </h2>
-              <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+              <p className="text-xs font-mono text-muted mb-3">
                 {certTransparency.total_certs} certificate{certTransparency.total_certs !== 1 ? 's' : ''} on crt.sh -{' '}
                 {certTransparency.subdomains.length} unique subdomain
                 {certTransparency.subdomains.length !== 1 ? 's' : ''} found
@@ -227,9 +227,9 @@ export default function Domain(): JSX.Element {
                 className="w-full flex items-center gap-2 text-left"
               >
                 {webamonExpanded ? (
-                  <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
+                  <ChevronDown size={16} className="text-muted" />
                 ) : (
-                  <ChevronRight size={16} className="text-slate-500 dark:text-slate-400" />
+                  <ChevronRight size={16} className="text-muted" />
                 )}
                 <h2 className="font-display font-bold text-lg flex items-center gap-2">
                   <Globe size={18} className="text-brand-600 dark:text-brand-400" /> Webamon Scan Data

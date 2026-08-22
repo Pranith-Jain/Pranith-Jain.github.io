@@ -65,9 +65,7 @@ export default function SocDashboard(): JSX.Element {
         ))}
       </nav>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === activeTab)?.desc}
-      </p>
+      <p className="text-xs font-mono text-muted mb-4">{TABS.find((t) => t.id === activeTab)?.desc}</p>
 
       <div className="mb-4 flex justify-end">
         <button

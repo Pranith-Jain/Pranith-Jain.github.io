@@ -531,9 +531,7 @@ export default function ThreatMap(): JSX.Element {
 
             {/* Leaderboard */}
             <aside className="space-y-3">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                Top origins
-              </h3>
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Top origins</h3>
               <ul className="space-y-1.5">
                 {data.countries.slice(0, 15).map((c) => {
                   const isSelected = selected?.alpha2 === c.countryCode;
@@ -590,7 +588,7 @@ export default function ThreatMap(): JSX.Element {
                       Selected
                     </span>
                     {selectedAgg?.country ?? selected.name}
-                    <span className="text-slate-500 dark:text-slate-400 text-xs font-mono">({selected.alpha2})</span>
+                    <span className="text-muted text-xs font-mono">({selected.alpha2})</span>
                   </h3>
                   {selectedAgg ? (
                     <p className="text-xs font-mono text-muted mt-1">
@@ -616,7 +614,7 @@ export default function ThreatMap(): JSX.Element {
 
               {selectedIps.length > 0 && (
                 <>
-                  <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  <p className="text-mini font-mono uppercase tracking-wider text-muted mb-2">
                     IPs from {selectedAgg?.country ?? selected.name} ({selectedIps.length} shown
                     {selectedAgg && selectedIps.length < selectedAgg.count ? ` of ${selectedAgg.count}` : ''})
                   </p>
@@ -628,9 +626,7 @@ export default function ThreatMap(): JSX.Element {
                           className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 transition-colors"
                         >
                           <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
-                          <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">
-                            sources: {sources.join(', ')}
-                          </div>
+                          <div className="text-mini font-mono text-muted mt-0.5">sources: {sources.join(', ')}</div>
                         </Link>
                       </li>
                     ))}
@@ -643,9 +639,7 @@ export default function ThreatMap(): JSX.Element {
           {/* Recent IPs (geolocated) */}
           {data.samples.length > 0 && (
             <section className="mt-8">
-              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
-                Recent IPs
-              </h3>
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">Recent IPs</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {data.samples.slice(0, 30).map((s, i) => (
                   <Link
@@ -818,10 +812,10 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
   return (
     <section className="mt-6 surface-card p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
-        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">
           Sources contributing to this snapshot
         </h3>
-        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 tabular-nums">
+        <span className="text-mini font-mono text-muted tabular-nums">
           {rows.length} feeds · {totalAcrossSources.toLocaleString()} indicators
         </span>
       </div>
@@ -892,10 +886,8 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
   return (
     <section className="mt-6 surface-card p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
-        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          IOC type breakdown
-        </h3>
-        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 tabular-nums">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">IOC type breakdown</h3>
+        <span className="text-mini font-mono text-muted tabular-nums">
           {total.toLocaleString()} total · share of current snapshot
         </span>
       </div>

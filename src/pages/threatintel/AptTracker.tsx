@@ -24,7 +24,7 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{group.name}</h3>
-        <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0 mt-0.5" />
+        <ChevronRight size={14} className="text-muted shrink-0 mt-0.5" />
       </div>
       {group.aliases.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
@@ -37,11 +37,11 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
             </span>
           ))}
           {group.aliases.length > 3 && (
-            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{group.aliases.length - 3}</span>
+            <span className="text-micro font-mono text-muted">+{group.aliases.length - 3}</span>
           )}
         </div>
       )}
-      <p className="text-meta font-mono text-slate-500 dark:text-slate-400 line-clamp-2">{group.malware}</p>
+      <p className="text-meta font-mono text-muted line-clamp-2">{group.malware}</p>
     </button>
   );
 }
@@ -63,12 +63,12 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
           <div className="flex items-start justify-between gap-3">
             <div>
               <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{group.name}</h2>
-              <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-1">{group.country}</p>
+              <p className="text-sm font-mono text-muted mt-1">{group.country}</p>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl leading-none transition-colors"
+              className="text-muted hover:text-slate-600 dark:hover:text-slate-200 text-xl leading-none transition-colors"
             >
               ×
             </button>
@@ -183,7 +183,7 @@ export default function AptTracker(): JSX.Element {
 
       <div className="mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={query}

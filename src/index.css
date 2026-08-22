@@ -42,6 +42,15 @@
   --color-severity-info: #0ea5e9;
 
   --color-muted: rgb(var(--muted));
+  /* Semantic surface + hairline utilities (auto-adapting, no dark: prefix).
+     Consumed as bg-surface-100 / text-surface-300 / border-line-1 etc. */
+  --color-surface-100: rgb(var(--surface-100));
+  --color-surface-200: rgb(var(--surface-200));
+  --color-surface-300: rgb(var(--surface-300));
+  --color-input-200: rgb(var(--input-200));
+  --color-line-1: rgb(var(--border-400));
+  --color-line-2: rgb(var(--border-500));
+  --color-line-3: rgb(var(--border-600));
 
   --shadow-e1: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
   --shadow-e2: 0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08);

@@ -213,7 +213,7 @@ export default function IocPivot(): JSX.Element {
 
       <form onSubmit={submit} className="flex flex-wrap gap-2 mb-6">
         <div className="relative flex-1 min-w-[240px]">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -330,7 +330,7 @@ export default function IocPivot(): JSX.Element {
                 {centerType}
               </text>
             </svg>
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-mini font-mono text-slate-500 dark:text-slate-400 px-2 pb-1">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-mini font-mono text-muted px-2 pb-1">
               <span>
                 <span style={{ color: VERDICT_COLOR.malicious }}>●</span> malicious
               </span>

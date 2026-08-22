@@ -266,10 +266,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
         <>
           <div className="flex flex-wrap items-center gap-3">
             <div className="relative flex-1 min-w-[200px]">
-              <Search
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-              />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="search"
                 value={search}
@@ -301,14 +298,12 @@ export default function InsiderThreatMatrix(): JSX.Element {
                 <div className="flex items-center gap-3">
                   <span className={`text-xs font-mono font-bold px-2 py-1 rounded ${cat.color}`}>{cat.id}</span>
                   <span className="font-display font-bold text-base">{cat.name}</span>
-                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-                    {cat.techniques.length}
-                  </span>
+                  <span className="text-mini font-mono text-muted">{cat.techniques.length}</span>
                 </div>
                 {open ? (
-                  <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
+                  <ChevronDown size={16} className="text-muted" />
                 ) : (
-                  <ChevronRight size={16} className="text-slate-500 dark:text-slate-400" />
+                  <ChevronRight size={16} className="text-muted" />
                 )}
               </button>
               {open && (
@@ -324,9 +319,9 @@ export default function InsiderThreatMatrix(): JSX.Element {
                         className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                         title={`View on Insider Threat Matrix - ${t.name}`}
                       >
-                        <span className="text-micro text-slate-500 dark:text-slate-400">{t.id}</span>
+                        <span className="text-micro text-muted">{t.id}</span>
                         {t.name}
-                        <ExternalLink size={10} className="text-slate-500 dark:text-slate-400" />
+                        <ExternalLink size={10} className="text-muted" />
                       </a>
                     ))}
                   </div>

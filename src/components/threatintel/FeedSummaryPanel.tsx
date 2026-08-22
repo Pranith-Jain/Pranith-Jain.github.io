@@ -74,7 +74,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
         <button
           aria-label="Close"
           onClick={onClose}
-          className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200 transition-colors"
+          className="p-1.5 rounded-xl text-muted hover:text-slate-200 transition-colors"
         >
           <X size={14} />
         </button>
@@ -82,7 +82,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
 
       <div className="p-4 space-y-5 max-h-[600px] overflow-y-auto">
         {summary.newestLabel && (
-          <div className="flex items-center gap-2 text-micro font-mono text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 text-micro font-mono text-muted">
             <Clock size={11} />
             <span>
               {summary.oldestLabel} → {summary.newestLabel}

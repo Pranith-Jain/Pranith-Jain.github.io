@@ -152,7 +152,7 @@ export default function CollectionSlo(): JSX.Element {
                 label: 'Cold / Unknown',
                 value: data.cold,
                 icon: HelpCircle,
-                color: 'text-slate-500 dark:text-slate-400',
+                color: 'text-muted',
                 onClick: () => setFilter(filter === 'cold' ? null : 'cold'),
                 selected: filter === 'cold',
               },
@@ -178,27 +178,74 @@ export default function CollectionSlo(): JSX.Element {
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <DataTable
-                columns={[
-                  { key: 'source', header: 'Source', sortValue: (s: CollectorSlo) => s.label, render: (s) => (
-                    <div>
-                      <div className="text-sm font-medium">{s.label}</div>
-                      <div className="text-mini font-mono text-slate-500 dark:text-slate-400">{s.id}</div>
-                    </div>
-                  ) },
-                  { key: 'rel', header: 'Rel.', sortValue: (s: CollectorSlo) => s.reliability ?? '', render: (s) => (
-                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${RELIABILITY_BADGE[s.reliability ?? ''] ?? ''}`}>{s.reliability ?? '-'}</span>
-                  ) },
-                  { key: 'category', header: 'Category', sortValue: (s: CollectorSlo) => s.category ?? '', render: (s) => <span className="text-mini font-mono text-slate-500">{s.category ?? '-'}</span> },
-                  { key: 'status', header: 'Status', sortValue: (s: CollectorSlo) => s.status, render: (s) => (
-                    <span className={`text-micro font-mono px-2 py-0.5 rounded border ${STATUS_STYLES[s.status] ?? ''}`}>{statusToDisplay(s.status)}</span>
-                  ) },
-                  { key: 'age', header: 'Age', align: 'right', sortValue: (s: CollectorSlo) => s.upstream_age_s ?? 0, render: (s) => (
-                    <span className="text-mini font-mono text-slate-500">{s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '-'}</span>
-                  ) },
-                  { key: 'uptime', header: 'Uptime', align: 'right', render: (s) => (
-                    <span className={`text-mini font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-slate-500 dark:text-slate-400'}`}>{s.metrics?.sources_ok ?? '-'}</span>
-                  ) },
-                ] as DataTableColumn<CollectorSlo>[]}
+                columns={
+                  [
+                    {
+                      key: 'source',
+                      header: 'Source',
+                      sortValue: (s: CollectorSlo) => s.label,
+                      render: (s) => (
+                        <div>
+                          <div className="text-sm font-medium">{s.label}</div>
+                          <div className="text-mini font-mono text-muted">{s.id}</div>
+                        </div>
+                      ),
+                    },
+                    {
+                      key: 'rel',
+                      header: 'Rel.',
+                      sortValue: (s: CollectorSlo) => s.reliability ?? '',
+                      render: (s) => (
+                        <span
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${RELIABILITY_BADGE[s.reliability ?? ''] ?? ''}`}
+                        >
+                          {s.reliability ?? '-'}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'category',
+                      header: 'Category',
+                      sortValue: (s: CollectorSlo) => s.category ?? '',
+                      render: (s) => <span className="text-mini font-mono text-slate-500">{s.category ?? '-'}</span>,
+                    },
+                    {
+                      key: 'status',
+                      header: 'Status',
+                      sortValue: (s: CollectorSlo) => s.status,
+                      render: (s) => (
+                        <span
+                          className={`text-micro font-mono px-2 py-0.5 rounded border ${STATUS_STYLES[s.status] ?? ''}`}
+                        >
+                          {statusToDisplay(s.status)}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'age',
+                      header: 'Age',
+                      align: 'right',
+                      sortValue: (s: CollectorSlo) => s.upstream_age_s ?? 0,
+                      render: (s) => (
+                        <span className="text-mini font-mono text-slate-500">
+                          {s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '-'}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'uptime',
+                      header: 'Uptime',
+                      align: 'right',
+                      render: (s) => (
+                        <span
+                          className={`text-mini font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-muted'}`}
+                        >
+                          {s.metrics?.sources_ok ?? '-'}
+                        </span>
+                      ),
+                    },
+                  ] as DataTableColumn<CollectorSlo>[]
+                }
                 rows={filtered}
                 rowKey={(s) => s.id}
                 rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)]'}

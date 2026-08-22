@@ -78,7 +78,7 @@ function Panel({
         {icon}
         <h2 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{title}</h2>
       </div>
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">{hint}</p>
+      <p className="text-xs font-mono text-muted mb-4">{hint}</p>
       {children}
     </section>
   );

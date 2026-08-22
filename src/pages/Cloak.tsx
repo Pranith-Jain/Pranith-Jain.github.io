@@ -85,7 +85,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
 
         {body.subtechniques.length > 0 && (
           <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-2">
               Sub-techniques ({body.subtechniques.length})
             </div>
             <div className="space-y-3">
@@ -124,7 +124,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
 
         {body.procedures.length > 0 && (
           <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-2">
               Procedures ({body.procedures.length})
             </div>
             <div className="space-y-1">
@@ -271,7 +271,7 @@ export default function Cloak() {
 
             {expandedTactic === tactic.id && tacticData && (
               <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3">
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{tacticData.description}</p>
+                <p className="text-xs text-muted mb-3">{tacticData.description}</p>
                 <div className="space-y-1.5">
                   {filteredTechniques.map((tech) => (
                     <button

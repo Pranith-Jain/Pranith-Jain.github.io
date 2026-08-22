@@ -244,7 +244,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
       {/* Source info + actions */}
       <div className="flex flex-wrap items-center gap-3 mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
         <Shield className="w-4 h-4 text-slate-600 dark:text-slate-500" />
-        <span className="text-xs text-slate-600 dark:text-slate-400">
+        <span className="text-xs text-muted">
           Source:{' '}
           <a
             href={DASHBOARD_URL}
@@ -296,7 +296,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
           >
-            <RefreshCw className={`w-4 h-4 text-slate-500 dark:text-slate-400 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-muted ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
       </div>
@@ -327,7 +327,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <Icon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                    <Icon className="w-4 h-4 text-muted" />
                     <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">
                       {cfg?.label ?? cat}
                     </span>
@@ -367,7 +367,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
               setConfidenceFilter('');
               setSearchQuery('');
             }}
-            className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+            className="text-xs text-muted hover:text-slate-900 dark:hover:text-white"
           >
             Clear filters
           </button>
@@ -383,12 +383,12 @@ export default function AiHoneypotObservatory(): JSX.Element {
           <table className="w-full text-xs">
             <thead>
               <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <th className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-400">IP</th>
-                <th className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-400">Category</th>
-                <th className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-400">Confidence</th>
-                <th className="px-3 py-2 text-right font-semibold text-slate-600 dark:text-slate-400">Hits</th>
-                <th className="px-3 py-2 text-right font-semibold text-slate-600 dark:text-slate-400">TTPs</th>
-                <th className="px-3 py-2 text-center font-semibold text-slate-600 dark:text-slate-400" />
+                <th className="px-3 py-2 text-left font-semibold text-muted">IP</th>
+                <th className="px-3 py-2 text-left font-semibold text-muted">Category</th>
+                <th className="px-3 py-2 text-left font-semibold text-muted">Confidence</th>
+                <th className="px-3 py-2 text-right font-semibold text-muted">Hits</th>
+                <th className="px-3 py-2 text-right font-semibold text-muted">TTPs</th>
+                <th className="px-3 py-2 text-center font-semibold text-muted" />
               </tr>
             </thead>
             <tbody>
@@ -439,9 +439,9 @@ export default function AiHoneypotObservatory(): JSX.Element {
                       </td>
                       <td className="px-3 py-2 text-center">
                         {isExpanded ? (
-                          <ChevronUp className="w-3 h-3 text-slate-500 dark:text-slate-400" />
+                          <ChevronUp className="w-3 h-3 text-muted" />
                         ) : (
-                          <ChevronDown className="w-3 h-3 text-slate-500 dark:text-slate-400" />
+                          <ChevronDown className="w-3 h-3 text-muted" />
                         )}
                       </td>
                     </tr>
@@ -454,38 +454,32 @@ export default function AiHoneypotObservatory(): JSX.Element {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-mini">
                             <div>
                               <span className="font-semibold text-slate-700 dark:text-slate-300">TTPs:</span>{' '}
-                              <span className="font-mono text-slate-600 dark:text-slate-400">
+                              <span className="font-mono text-muted">
                                 {entry.ttps.length > 0 ? entry.ttps.join(', ') : 'None mapped'}
                               </span>
                             </div>
                             <div>
                               <span className="font-semibold text-slate-700 dark:text-slate-300">Personas:</span>{' '}
-                              <span className="text-slate-600 dark:text-slate-400">{entry.distinct_personas}</span>
+                              <span className="text-muted">{entry.distinct_personas}</span>
                             </div>
                             <div>
                               <span className="font-semibold text-slate-700 dark:text-slate-300">Paths probed:</span>{' '}
-                              <span className="font-mono text-slate-600 dark:text-slate-400">
-                                {entry.interesting_paths.join(', ') || '-'}
-                              </span>
+                              <span className="font-mono text-muted">{entry.interesting_paths.join(', ') || '-'}</span>
                             </div>
                             <div>
                               <span className="font-semibold text-slate-700 dark:text-slate-300">Prompts:</span>{' '}
-                              <span className="text-slate-600 dark:text-slate-400">
-                                {formatHits(entry.prompt_count)}
-                              </span>
+                              <span className="text-muted">{formatHits(entry.prompt_count)}</span>
                             </div>
                             {entry.user_agents.length > 0 && (
                               <div className="sm:col-span-2">
                                 <span className="font-semibold text-slate-700 dark:text-slate-300">User Agents:</span>{' '}
-                                <span className="font-mono text-slate-600 dark:text-slate-400">
-                                  {entry.user_agents.join(', ')}
-                                </span>
+                                <span className="font-mono text-muted">{entry.user_agents.join(', ')}</span>
                               </div>
                             )}
                             {entry.models_requested.length > 0 && (
                               <div className="sm:col-span-2">
                                 <span className="font-semibold text-slate-700 dark:text-slate-300">Models:</span>{' '}
-                                <span className="font-mono text-slate-600 dark:text-slate-400">
+                                <span className="font-mono text-muted">
                                   {entry.models_requested.slice(0, 5).join(', ')}
                                   {entry.models_requested.length > 5 && ` +${entry.models_requested.length - 5} more`}
                                 </span>
@@ -494,7 +488,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                             {entry.details && (
                               <div className="sm:col-span-2">
                                 <span className="font-semibold text-slate-700 dark:text-slate-300">Details:</span>{' '}
-                                <span className="text-slate-600 dark:text-slate-400">{entry.details}</span>
+                                <span className="text-muted">{entry.details}</span>
                               </div>
                             )}
                             {entry.sample_prompts.length > 0 && (
@@ -502,7 +496,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                                   Sample Prompts:
                                 </span>
-                                <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] p-2 font-mono text-micro text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
+                                <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] p-2 font-mono text-micro text-muted whitespace-pre-wrap">
                                   {entry.sample_prompts[0]}
                                 </div>
                               </div>

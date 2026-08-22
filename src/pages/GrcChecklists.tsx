@@ -143,7 +143,7 @@ export default function GrcChecklists() {
                   <div className="text-xs font-mono uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 mb-0.5">
                     {fw.name}
                   </div>
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1.5">
+                  <div className="text-micro font-mono text-muted mb-1.5">
                     {fw.year} · {fw.controlCount} controls
                   </div>
                   <div className="text-mini font-mono text-muted leading-relaxed line-clamp-3">{fw.description}</div>
@@ -156,10 +156,7 @@ export default function GrcChecklists() {
               <div className={`${CARD} p-4`}>
                 <div className="flex flex-wrap items-center gap-3 mb-3">
                   <div className="relative flex-1 min-w-[200px] max-w-md">
-                    <Search
-                      size={14}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
-                    />
+                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
                     <input
                       type="text"
                       placeholder="Search controls by ID, name, requirement..."
@@ -168,7 +165,7 @@ export default function GrcChecklists() {
                       className="w-full px-9 py-1.5 rounded-lg text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
                     />
                   </div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                  <div className="text-xs text-muted font-mono">
                     {filteredControls.length} / {framework?.categories.reduce((n, c) => n + c.controls.length, 0) ?? 0}
                   </div>
                 </div>
@@ -223,7 +220,7 @@ export default function GrcChecklists() {
 
         {tab === 'mapper' && (
           <div className="space-y-3">
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            <p className="text-xs font-mono text-muted">
               {index?.mapper.description} — every theme maps equivalent controls across all seven frameworks, so one gap
               analysis answers for every regulator.
             </p>

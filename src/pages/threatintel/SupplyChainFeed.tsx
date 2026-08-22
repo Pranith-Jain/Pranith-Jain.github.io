@@ -111,7 +111,7 @@ const VERDICT_META: Record<string, { icon: typeof Shield; color: string; bg: str
   },
   unknown: {
     icon: HelpCircle,
-    color: 'text-slate-500 dark:text-slate-400',
+    color: 'text-muted',
     bg: 'border-slate-400/30 bg-slate-400/10',
     label: 'UNKNOWN',
   },
@@ -189,7 +189,7 @@ export default function SupplyChainFeed(): JSX.Element {
         <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Check a Package</h3>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             <input
               type="text"
               value={checkInput}
@@ -224,14 +224,7 @@ export default function SupplyChainFeed(): JSX.Element {
             .slice(0, 4)
             .map(([eco, count]) => {
               const meta = ECOSYSTEMS.find((e) => e.id === eco);
-              return (
-                <StatPill
-                  key={eco}
-                  label={meta?.label ?? eco}
-                  value={String(count)}
-                  color="text-slate-600 dark:text-slate-400"
-                />
-              );
+              return <StatPill key={eco} label={meta?.label ?? eco} value={String(count)} color="text-muted" />;
             })}
         </div>
 
@@ -263,7 +256,7 @@ export default function SupplyChainFeed(): JSX.Element {
           <button
             type="button"
             onClick={fetchFeed}
-            className="flex items-center gap-1 rounded-full px-2 py-1 text-mini text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
+            className="flex items-center gap-1 rounded-full px-2 py-1 text-mini text-muted hover:text-rose-600 transition-colors"
             aria-label="Refresh"
           >
             <RefreshCw size={11} />
@@ -273,7 +266,7 @@ export default function SupplyChainFeed(): JSX.Element {
 
       {/* ── Search bar ──────────────────────────────────────────────── */}
       <div className="relative mb-4">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
         <input
           type="text"
           value={searchQuery}
@@ -299,7 +292,7 @@ export default function SupplyChainFeed(): JSX.Element {
 
       {!loading && !error && feed && (
         <>
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+          <div className="text-xs font-mono text-muted mb-3">
             {filteredEntries.length} packages {ecoFilter ? `in ${ecoFilter}` : 'across all ecosystems'}
           </div>
           {filteredEntries.length > 0 && (
@@ -322,9 +315,7 @@ export default function SupplyChainFeed(): JSX.Element {
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {filteredEntries.length === 0 && (
-              <div className="col-span-full py-12 text-center text-sm text-slate-500 dark:text-slate-400">
-                No packages match your filter.
-              </div>
+              <div className="col-span-full py-12 text-center text-sm text-muted">No packages match your filter.</div>
             )}
             {filteredEntries.map((entry) => (
               <PackageCard key={`${entry.ecosystem}-${entry.name}`} entry={entry} />
@@ -373,7 +364,7 @@ export default function SupplyChainFeed(): JSX.Element {
           href="https://github.com/ossf/malicious-packages"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-mono text-muted hover:text-rose-600 transition-colors"
         >
           <ExternalLink size={11} />
           Source: OpenSSF Malicious Packages
@@ -435,7 +426,7 @@ function VerdictCard({ result }: { result: CheckResult }) {
           {result.advisories.slice(0, 5).map((adv) => (
             <div key={adv.id} className="flex items-center gap-2 text-xs">
               <span className="font-mono text-slate-500">{adv.id}</span>
-              <span className="text-slate-600 dark:text-slate-400 truncate">{adv.summary}</span>
+              <span className="text-muted truncate">{adv.summary}</span>
             </div>
           ))}
         </div>

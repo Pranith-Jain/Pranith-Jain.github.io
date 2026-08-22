@@ -15,7 +15,7 @@ export function Memberships({ memberships }: MembershipsProps) {
   return (
     <section id="memberships" className="scroll-mt-24">
       <div className="mb-10 max-w-3xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">
           Professional Affiliations
         </div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -36,7 +36,7 @@ export function Memberships({ memberships }: MembershipsProps) {
                 <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white">
                   {membership.name}
                 </h3>
-                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{membership.period}</p>
+                <p className="mt-1 text-xs font-semibold text-muted">{membership.period}</p>
                 <p className="mt-3 text-sm text-muted leading-relaxed">{membership.description}</p>
                 {membership.details && (
                   <ul className="mt-4 space-y-2 text-xs text-muted">

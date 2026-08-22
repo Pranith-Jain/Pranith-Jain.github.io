@@ -372,7 +372,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       />
       {body.goals && (
         <p className="text-xs text-slate-500 leading-relaxed">
-          <span className="font-mono text-slate-600 dark:text-slate-400">goals: </span>
+          <span className="font-mono text-muted">goals: </span>
           {body.goals}
         </p>
       )}
@@ -475,7 +475,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.iocPatterns.length > 0 && (
         <div className="text-mini text-slate-500 font-mono">
-          <div className="mb-1 text-slate-600 dark:text-slate-400">IOC patterns:</div>
+          <div className="mb-1 text-muted">IOC patterns:</div>
           <div className="flex flex-wrap gap-1.5">
             {body.iocPatterns.map((p) => (
               <span
@@ -497,7 +497,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.campaignsText && (
         <p className="text-xs text-slate-500 leading-relaxed">
-          <span className="font-mono text-slate-600 dark:text-slate-400">campaigns: </span>
+          <span className="font-mono text-muted">campaigns: </span>
           {body.campaignsText}
         </p>
       )}
@@ -780,7 +780,7 @@ function CatalogDetailBody({ section, id }: { section: CatalogSectionId; id: num
         <div className="grid sm:grid-cols-2 gap-1.5 text-mini font-mono text-slate-500">
           {rows.map(([k, v]) => (
             <div key={k} className="min-w-0 break-all">
-              <span className="text-slate-600 dark:text-slate-400">{k}: </span>
+              <span className="text-muted">{k}: </span>
               {String(v)}
             </div>
           ))}
@@ -1406,7 +1406,7 @@ export default function ThreaticonFeeds() {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
             Source: threaticon.com · catalog replicated on the threat-intel sync cadence
             {idx.syncedAt && <> · synced {fmtDate(idx.syncedAt)}</>}
           </div>

@@ -196,9 +196,7 @@ export default function DarkWebRecon(): JSX.Element {
             className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center"
             role="status"
           >
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Enter a query above to search dark web intelligence sources.
-            </p>
+            <p className="text-sm text-muted">Enter a query above to search dark web intelligence sources.</p>
           </div>
         ) : (
           renderResults()
@@ -232,7 +230,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
               <ExternalLink className="w-3 h-3 flex-shrink-0" />
             </a>
             {r.description && <p className="text-muted text-xs mt-1 line-clamp-2">{r.description}</p>}
-            <p className="text-slate-600 dark:text-slate-400 text-xs mt-1 truncate">{r.url}</p>
+            <p className="text-muted text-xs mt-1 truncate">{r.url}</p>
           </div>
         ))
       )}
