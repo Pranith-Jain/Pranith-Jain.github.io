@@ -7639,5 +7639,138 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+
+    // ── Detection-rule validation & Sigma conversion ────────────────
+    this.tools(
+      'validate_detection_rule',
+      'Validate a detection rule before use: YARA (structure, string refs, hex tokens, dup names), Sigma (schema + logsource + detection + condition identifiers), Suricata/Snort (header grammar, msg/sid/rev, local sid range), osquery (read-only guard, paren balance, known tables).',
+      {
+        kind: z.enum(['yara', 'sigma', 'suricata', 'snort', 'osquery']).describe('Rule kind'),
+        source: z.string().describe('Full rule text to validate'),
+      },
+      async ({ kind, source }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/rules/validate', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ kind, source }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'convert_sigma_rule',
+      'Convert a Sigma rule to Splunk SPL or Microsoft Sentinel KQL. Handles field modifiers (contains/startswith/endswith/re/null), multi-value lists, N-of expansions, and optional field-name mapping.',
+      {
+        yaml: z.string().describe('Sigma rule YAML source'),
+        target: z.enum(['splunk', 'kql']).describe('Target query language'),
+        field_map_json: z.string().optional().describe('Optional JSON object mapping Sigma fields to target names'),
+      },
+      async ({ yaml, target, field_map_json }) => {
+        let fieldNameMap: Record<string, string> | undefined;
+        if (field_map_json) {
+          try {
+            fieldNameMap = JSON.parse(field_map_json) as Record<string, string>;
+          } catch {
+            return { content: [{ type: 'text', text: JSON.stringify({ error: 'field_map_json is not valid JSON' }) }] };
+          }
+        }
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/rules/sigma/convert',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ yaml, target, fieldNameMap }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Deterministic observable extraction ──────────────────────────
+    this.tools(
+      'extract_observables_fast',
+      'Deterministic regex-based IOC extraction from raw text — no AI. Handles defanged indicators (hxxp, [.], [at], [dot]); extracts IPs, domains, URLs, emails, hashes, CVEs, mutexes, registry keys, file paths, and crypto addresses with positions.',
+      {
+        text: z.string().describe('Raw text to extract observables from (max 500k chars)'),
+        max_hits: z.number().int().min(1).max(50000).optional().describe('Cap on unique observables (default 2000)'),
+      },
+      async ({ text, max_hits }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/observables/extract', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ text, ...(max_hits ? { maxHits: max_hits } : {}) }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Static file triage ────────────────────────────────────────────
+    this.tools(
+      'static_triage_file',
+      'Static file triage from base64 bytes (max ~6MB decoded): magic-byte family detection, hashes, entropy analysis, PE header parse, packer signals (UPX etc.), embedded artifacts (embedded PE/nested zip/OLE). No execution — pure structural analysis.',
+      {
+        data_base64: z.string().describe('Base64-encoded file bytes'),
+        filename: z.string().optional().describe('Original filename hint'),
+      },
+      async ({ data_base64, filename }) => {
+        const b64 = data_base64.replace(/\s+/g, '');
+        const approxBytes = Math.floor((b64.length * 3) / 4);
+        if (approxBytes > 8 * 1024 * 1024) {
+          return {
+            content: [
+              { type: 'text', text: JSON.stringify({ error: `file too large for static triage (${approxBytes} bytes > 8MB limit)` }) },
+            ],
+          };
+        }
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/file/triage-static', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ dataBase64: b64, ...(filename ? { filename } : {}) }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Network signal analytics ──────────────────────────────────────
+    this.tools(
+      'detect_c2_beaconing',
+      'Score connection timestamps to one destination for C2 beacon periodicity: mean/stddev inter-arrival, jitter ratio, payload-size consistency. Returns 0-100 beacon score with verdict.',
+      {
+        timestamps: z.array(z.union([z.number(), z.string()])).describe('Connection timestamps (epoch ms or ISO)'),
+        destination: z.string().optional().describe('Destination ip or host:port'),
+        bytes: z.array(z.number()).optional().describe('Per-connection byte counts'),
+      },
+      async ({ timestamps, destination, bytes }) => {
+        const body: Record<string, unknown> = { timestamps };
+        if (destination) body.destination = destination;
+        if (bytes && bytes.length) body.bytes = bytes;
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/net-analytics/beacon', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'detect_dns_tunneling',
+      'Heuristic DNS-tunneling detection over query names targeting one zone: label length distribution, Shannon entropy, uniqueness ratio → 0-100 tunnel score with verdict and indicators.',
+      {
+        queries: z.array(z.string()).describe('DNS query names'),
+        zone: z.string().optional().describe('Authoritative zone; inferred from queries when omitted'),
+      },
+      async ({ queries, zone }) => {
+        const body: Record<string, unknown> = { queries };
+        if (zone) body.zone = zone;
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/net-analytics/dns-tunnel', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

@@ -660,6 +660,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         confidence: observation.confidence,
         gaps: observation.gaps,
         provenance: observation.provenance,
+        hypothesisUpdates: observation.hypothesisUpdates,
       };
       step.nextAction = 'continue';
       step.status = 'done';
@@ -761,6 +762,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       confidence: observation.confidence,
       gaps: observation.gaps,
       provenance: observation.provenance,
+      hypothesisUpdates: observation.hypothesisUpdates,
     };
     step.nextAction = 'continue';
     step.status = 'done';
