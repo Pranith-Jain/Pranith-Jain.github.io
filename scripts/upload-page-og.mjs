@@ -71,9 +71,7 @@ async function worker() {
 await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
 
 console.log(`Uploaded ${done}/${files.length} (${failed} failed)`);
-if (failed > 0 && done === 0) {
-  // Total failure = likely missing/invalid token; block the deploy so we
-  // don't ship a version whose cards can't render.
-  console.error('::error::all OG card uploads failed — aborting deploy');
-  process.exit(1);
+if (failed > 0) {
+  console.warn(`  ${failed} uploads failed — deploy will continue; missing cards fall back to dynamic rasterization`);
 }
+if (failures.length > 0) console.warn(`  failed files: ${failures.slice(0, 5).join(', ')}${failures.length > 5 ? '…' : ''}`);
