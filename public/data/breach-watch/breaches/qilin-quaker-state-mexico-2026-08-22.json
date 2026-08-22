@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-quaker-state-mexico-2026-08-22",
-  "title": "Quaker State Mexico",
-  "group": "qilin",
-  "discovered": "2026-08-22T03:04:40.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=59a43842-d0d8-41db-ab38-2cd125d91db2",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"qilin-quaker-state-mexico-2026-08-22","title":"Quaker State Mexico","group":"qilin","discovered":"2026-08-22T03:04:40.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=59a43842-d0d8-41db-ab38-2cd125d91db2","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

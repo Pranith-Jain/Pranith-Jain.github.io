@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-semana-2026-08-22",
-  "title": "Semana",
-  "group": "qilin",
-  "discovered": "2026-08-22T03:04:40.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=398be48d-63a4-4708-9788-1ff935ef6de5",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"qilin-semana-2026-08-22","title":"Semana","group":"qilin","discovered":"2026-08-22T03:04:40.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=398be48d-63a4-4708-9788-1ff935ef6de5","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

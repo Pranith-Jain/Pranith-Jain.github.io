@@ -1,15 +1,1 @@
-{
-  "slug": "the-gentlemen-magdalena-grand-beach-golf-resort-2026-08-21",
-  "title": "Magdalena Grand Beach Golf Resort",
-  "group": "the gentlemen",
-  "discovered": "2026-08-21T10:13:23.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "magdalenagrand.com zoominfo.com/c/magdalena-grand-beach--golf-resort/348187300 Magdalena Grand Beach & Golf Resort is a luxury hotel and resort located in Lowlands on the beautiful island of Tobago.\nIt features premium oceanfront accommodations with access to a championship golf course, spa, pools, and tennis courts.\nThe property is also a popular destination for weddings, offering guests a variety of dining options and vibrant nightlife.",
-  "source_url": "https://www.ransomlook.io/recent",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"the-gentlemen-magdalena-grand-beach-golf-resort-2026-08-21","title":"Magdalena Grand Beach Golf Resort","group":"the gentlemen","discovered":"2026-08-21T10:13:23.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"magdalenagrand.com zoominfo.com/c/magdalena-grand-beach--golf-resort/348187300 Magdalena Grand Beach & Golf Resort is a luxury hotel and resort located in Lowlands on the beautiful island of Tobago.\nIt features premium oceanfront accommodations with access to a championship golf course, spa, pools, and tennis courts.\nThe property is also a popular destination for weddings, offering guests a variety of dining options and vibrant nightlife.","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-hp-carriers-2026-08-21",
-  "title": "HP Carriers",
-  "group": "direwolf",
-  "discovered": "2026-08-21T02:25:21.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": "Transportation",
-  "references": ["ransomware.live"]
-}
+{"slug":"direwolf-hp-carriers-2026-08-21","title":"HP Carriers","group":"direwolf","discovered":"2026-08-21T02:25:21.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Transportation","references":["ransomware.live"]}

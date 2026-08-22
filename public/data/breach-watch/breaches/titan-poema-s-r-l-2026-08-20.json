@@ -1,15 +1,1 @@
-{
-  "slug": "titan-poema-s-r-l-2026-08-20",
-  "title": "POEMA S.r.l.",
-  "group": "titan",
-  "discovered": "2026-08-20T15:00:55.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"titan-poema-s-r-l-2026-08-20","title":"POEMA S.r.l.","group":"titan","discovered":"2026-08-20T15:00:55.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-gindre-india-2026-08-22",
-  "title": "Gindre India",
-  "group": "qilin",
-  "discovered": "2026-08-22T03:04:40.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=a4a0d54e-27c5-45ec-a3aa-39184e012167",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"qilin-gindre-india-2026-08-22","title":"Gindre India","group":"qilin","discovered":"2026-08-22T03:04:40.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=a4a0d54e-27c5-45ec-a3aa-39184e012167","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

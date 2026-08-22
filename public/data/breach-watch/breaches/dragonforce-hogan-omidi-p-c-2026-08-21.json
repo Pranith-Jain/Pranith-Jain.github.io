@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-hogan-omidi-p-c-2026-08-21",
-  "title": "Hogan Omidi P.C.",
-  "group": "dragonforce",
-  "discovered": "2026-08-21T06:25:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Hogan Omidi, P.C. is a boutique law firm specializing in family law, including divorce, child custody, and property division, with a focus on high-asset cases. The firm is led by experienced attorneys who have authored key reference materials on Colorado family law, providing them with a unique advantage in legal representation. They serve a diverse clientele, including executives, business owners, and professionals, ensuring personalized and strategic legal solutions. With offices in Denver and Aspen, they are dedicated to protecting clients' interests and achieving favorable outcomes in family law matters.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-hogan-omidi-p-c-2026-08-21","title":"Hogan Omidi P.C.","group":"dragonforce","discovered":"2026-08-21T06:25:00.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Hogan Omidi, P.C. is a boutique law firm specializing in family law, including divorce, child custody, and property division, with a focus on high-asset cases. The firm is led by experienced attorneys who have authored key reference materials on Colorado family law, providing them with a unique advantage in legal representation. They serve a diverse clientele, including executives, business owners, and professionals, ensuring personalized and strategic legal solutions. With offices in Denver and Aspen, they are dedicated to protecting clients' interests and achieving favorable outcomes in family law matters.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

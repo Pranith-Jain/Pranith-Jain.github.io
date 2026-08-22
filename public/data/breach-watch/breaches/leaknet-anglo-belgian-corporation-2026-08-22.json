@@ -1,15 +1,1 @@
-{
-  "slug": "leaknet-anglo-belgian-corporation-2026-08-22",
-  "title": "Anglo Belgian Corporation",
-  "group": "LEAKNET",
-  "discovered": "2026-08-22T03:11:19.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/aae58161-70c7-4ce2-93e2-e90943746a1b",
-  "groupAliases": [],
-  "activity": "Defense/Manufacturing",
-  "references": ["Darkfield"]
-}
+{"slug":"leaknet-anglo-belgian-corporation-2026-08-22","title":"Anglo Belgian Corporation","group":"LEAKNET","discovered":"2026-08-22T03:11:19.000Z","category":"data_breach","severity":"high","country":"BE","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/aae58161-70c7-4ce2-93e2-e90943746a1b","groupAliases":[],"activity":"Defense/Manufacturing","references":["Darkfield"]}

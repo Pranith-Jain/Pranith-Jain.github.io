@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-mecasem-org-2026-08-19",
-  "title": "mecasem.org",
-  "group": "threeam",
-  "discovered": "2026-08-19T08:15:55.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "The group gives quality and reliability the highest priority in the through execution of all its business activities. Therefore MECASEM provides a wide range of solutions ISO 17025 (COFRAC) accredited and EN 9100 and ISO 9001 certified. Since 2012",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-mecasem-org-2026-08-19","title":"mecasem.org","group":"threeam","discovered":"2026-08-19T08:15:55.000Z","category":"ransomware","severity":"high","country":"MX","sizeBytes":0,"description":"The group gives quality and reliability the highest priority in the through execution of all its business activities. Therefore MECASEM provides a wide range of solutions ISO 17025 (COFRAC) accredited and EN 9100 and ISO 9001 certified. Since 2012","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

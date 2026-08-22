@@ -1,15 +1,1 @@
-{
-  "slug": "insomnia-2026-08-19",
-  "title": "***********",
-  "group": "insomnia",
-  "discovered": "2026-08-19T14:56:34.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A private company offering fluid system solutions for the oil, gas, chemical, and semiconductor sectors. It employs 3,600+ people across 10 factories, three tech centers, and about 100 sales and service locations in 50 different countries.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"insomnia-2026-08-19","title":"***********","group":"insomnia","discovered":"2026-08-19T14:56:34.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"A private company offering fluid system solutions for the oil, gas, chemical, and semiconductor sectors. It employs 3,600+ people across 10 factories, three tech centers, and about 100 sales and service locations in 50 different countries.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

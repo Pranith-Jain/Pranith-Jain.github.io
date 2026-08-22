@@ -1,15 +1,1 @@
-{
-  "slug": "coinbase-cartel-sweet-water-holdings-2026-08-21",
-  "title": "Sweet Water Holdings",
-  "group": "coinbase cartel",
-  "discovered": "2026-08-21T16:26:42.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Finance - Undisclosed",
-  "source_url": "https://www.ransomlook.io/screenshots/coinbase cartel/Sweet Water Holdings.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"coinbase-cartel-sweet-water-holdings-2026-08-21","title":"Sweet Water Holdings","group":"coinbase cartel","discovered":"2026-08-21T16:26:42.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Finance - Undisclosed","source_url":"https://www.ransomlook.io/screenshots/coinbase cartel/Sweet Water Holdings.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

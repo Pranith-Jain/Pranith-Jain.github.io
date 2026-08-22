@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-babcock-2026-08-19",
-  "title": "Babcock",
-  "group": "thegentlemen",
-  "discovered": "2026-08-19T08:10:32.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ZA",
-  "sizeBytes": 0,
-  "description": "babcock.co.za rocketreach.co/babcock-international-group-africa-profile_b5cda591f42e0b42 Babcock Africa is a leading engineering and asset management company specializing in critical infrastructure and heavy equipment across the African continent. With over 130 years of experience, it provides lifetime engineering solutions, including industrial power systems, construction machinery, plant hire, and defense support. The company partners with demanding sectors such as energy, mining, transport, and manufacturing to ensure safe, reliable, and efficient operations. Its core focus is on designing, building, and sustaining complex assets through comprehensive maintenance and innovative technical services.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Government & Defense",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-babcock-2026-08-19","title":"Babcock","group":"thegentlemen","discovered":"2026-08-19T08:10:32.000Z","category":"ransomware","severity":"critical","country":"ZA","sizeBytes":0,"description":"babcock.co.za rocketreach.co/babcock-international-group-africa-profile_b5cda591f42e0b42 Babcock Africa is a leading engineering and asset management company specializing in critical infrastructure and heavy equipment across the African continent. With over 130 years of experience, it provides lifetime engineering solutions, including industrial power systems, construction machinery, plant hire, and defense support. The company partners with demanding sectors such as energy, mining, transport, and manufacturing to ensure safe, reliable, and efficient operations. Its core focus is on designing, building, and sustaining complex assets through comprehensive maintenance and innovative technical services.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Government & Defense","references":["ransomware.live"]}
