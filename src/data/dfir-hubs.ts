@@ -259,6 +259,15 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Upload a file - extract metadata, hashes, strings, and embedded indicators.',
         compVar: 'FileAnalyzer',
       },
+      {
+        path: '/dfir/hex-workbench',
+        tabId: 'hex-workbench',
+        label: 'Hex Workbench',
+        desc: 'Browser-side hex viewer for artifact triage - inspect bytes, search hex/ASCII, jump to offsets, magic-byte family detection + entropy.',
+        compVar: 'HexWorkbench',
+        badge: 'new',
+        keywords: ['hex', 'binary', 'viewer', 'bytes', 'entropy', 'magic bytes', 'offset', 'artifact'],
+      },
     ],
   },
   {

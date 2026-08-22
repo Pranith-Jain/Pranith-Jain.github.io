@@ -963,6 +963,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['decode', 'encode', 'base64', 'hex', 'url', 'rot13', 'zlib', 'gzip'],
   },
   {
+    path: '/dfir/hex-workbench',
+    label: 'Hex Workbench',
+    description:
+      'Browser-side hex viewer for artifact triage - inspect bytes, search hex/ASCII, jump to offsets, magic-byte family detection + entropy.',
+    sectionLabel: 'DFIR · File Analysis',
+    group: 'dfir',
+    keywords: ['hex', 'binary', 'viewer', 'bytes', 'entropy', 'magic bytes', 'offset', 'artifact'],
+  },
+  {
     path: '/dfir/punycode',
     label: 'Punycode',
     description: 'Convert and inspect punycode / IDN domains - spot homoglyph attacks.',
