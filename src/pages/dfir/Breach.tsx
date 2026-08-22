@@ -1067,8 +1067,18 @@ function isMode(v: string | null): v is Mode {
 export default function BreachPage(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const urlMode = searchParams.get('tab');
-  const urlQuery = searchParams.get('q') ?? '';
-  const [mode, setModeState] = useState<Mode>(isMode(urlMode) ? urlMode : 'password');
+  // Deep-link fallbacks: ?email=/?domain= (emitted by IOC pivots and legacy
+  // /dfir/breach-check links) map onto tab+q so the lookup is pre-filled.
+  const urlQuery = searchParams.get('q') ?? searchParams.get('email') ?? searchParams.get('domain') ?? '';
+  const [mode, setModeState] = useState<Mode>(
+    isMode(urlMode)
+      ? urlMode
+      : searchParams.get('domain') && !searchParams.get('tab')
+        ? 'domain'
+        : searchParams.get('email') && !searchParams.get('tab')
+          ? 'email'
+          : 'password'
+  );
 
   // Sync mode → URL whenever the user changes tabs. Drops ?q= since
   // queries are scoped per tab and don't survive a tab switch.

@@ -139,17 +139,19 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   const { showBackToTop, scrollToTop } = useScrollProgress();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
-  // Keyboard shortcuts: / to focus search, Esc to close mobile nav
+  // Keyboard shortcuts: / to open the command palette (same synthetic Cmd+K
+  // the BottomNav search button dispatches — the app shell has no literal
+  // search input to focus), Esc to close mobile nav
   useEffect(() => {
+    const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
     const handler = (e: KeyboardEvent) => {
       if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        const active = document.activeElement;
-        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+        const active = document.activeElement as HTMLElement | null;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) return;
         e.preventDefault();
-        const searchInput = document.querySelector(
-          'input[type="search"], input[placeholder*="Search"], input[placeholder*="search"]'
-        ) as HTMLInputElement | null;
-        searchInput?.focus();
+        window.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'k', metaKey: isMac, ctrlKey: !isMac, bubbles: true })
+        );
       }
       if (e.key === 'Escape') {
         setMobileNavOpen(false);

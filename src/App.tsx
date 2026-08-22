@@ -1,5 +1,13 @@
 import { useEffect, Suspense, lazy, useMemo, type ComponentType } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate, useSearchParams } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useNavigationType,
+  Navigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { navLinks, personalInfo, stats } from './data/content';
 import { Header } from './components/Header';
@@ -811,7 +819,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/external/supply', to: '/threatintel/supply-chain' },
   { path: '/threatintel/depx', to: '/threatintel/supply-chain' },
   { path: '/threatintel/malware/supply-chain', to: '/threatintel/supply-chain' },
-  { path: '/dfir/crypto-trace', to: '/dfir/crypto-tracer' },
+  { path: '/dfir/crypto-trace', to: '/dfir/crypto-tracer', preserveQuery: true }, // ?address=<btc|evm> pre-seeds Tracer
   { path: '/dfir/tracer', to: '/dfir/crypto-tracer' },
   { path: '/dfir/tracepulse', to: '/dfir/crypto-tracer' },
   { path: '/dfir/quicktrace', to: '/dfir/crypto-tracer' },
@@ -833,6 +841,10 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/tools/graph', to: '/threatintel/actors/hub' },
   // Tab-hub aliases - same component, different default tab
   { path: '/dfir/domain', to: '/dfir/domain-investigator' },
+  { path: '/dfir/domain-lookup', to: '/dfir/domain-investigator', preserveQuery: true }, // ?domain=<d> seeds DNS tab
+  { path: '/dfir/asn-lookup', to: '/dfir/asn', preserveQuery: true }, // ?asn=/?q= pre-fill the lookup
+  { path: '/dfir/breach-check', to: '/dfir/breach', preserveQuery: true }, // ?email= handled by Breach deep-link fallback
+  { path: '/dfir/file-analyze', to: '/dfir/ioc-investigate', preserveQuery: true }, // hash lookups land on IOC Investigator
   { path: '/dfir/domain-rep', to: '/dfir/domain-investigator' },
   { path: '/dfir/webcheck', to: '/dfir/domain-investigator' },
   { path: '/dfir/web-scan', to: '/dfir/domain-investigator' },
@@ -975,7 +987,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/disarm', to: '/threatintel/detections/disarm' },
 
   // ── Knowledge Hub (wiki + frameworks) ──────────────────────────
-  { path: '/threatintel/mitre', to: '/threatintel/wiki/mitre' },
+  { path: '/threatintel/mitre', to: '/threatintel/wiki/mitre', preserveQuery: true }, // ?id=<technique> scopes the matrix
   { path: '/threatintel/owasp-ai-landscape', to: '/threatintel/wiki/owasp' },
   { path: '/threatintel/insider-threat-matrix', to: '/threatintel/wiki/insider' },
   { path: '/threatintel/f3ead', to: '/threatintel/wiki/f3ead' },
@@ -1020,13 +1032,13 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/secops-tools', to: '/threatintel/osint/secops' },
   { path: '/threatintel/osint-cli-tools', to: '/threatintel/osint/cli' },
   { path: '/threatintel/cve-resources', to: '/threatintel/catalog?cat=cves' },
-  { path: '/threatintel/cve-list', to: '/threatintel/cves/cves' },
+  { path: '/threatintel/cve-list', to: '/threatintel/cves/cves', preserveQuery: true }, // ?q=<cve> seeds CveList search
   // ── Actor Hub ──────────────────────────────────────────────────
   { path: '/threatintel/actor-kb', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/actors/kb', to: '/threatintel/actors/hub' }, // tab of ActorDirectory
   { path: '/threatintel/actors/catalog', to: '/threatintel/actors/hub?tab=catalog' },
   { path: '/threatintel/actor-dna', to: '/threatintel/catalog?cat=actors' },
-  { path: '/threatintel/actor-timeline', to: '/threatintel/actors/hub' },
+  { path: '/threatintel/actor-timeline', to: '/threatintel/actors/hub', preserveQuery: true }, // ?actor=<slug> highlights the row
   { path: '/threatintel/actor-usernames', to: '/threatintel/actors/hub' },
   { path: '/threatintel/threat-actor-catalog', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/threat-actor-db', to: '/threatintel/catalog?cat=actors' },
@@ -1053,6 +1065,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
 export function AppContent() {
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigationType = useNavigationType();
 
   // /dfir/* and /threatintel/* are stand-alone web apps hosted next to the
   // portfolio. They get their own app-shell chrome and skip the portfolio
@@ -1070,17 +1083,35 @@ export function AppContent() {
           : null;
   const isAppRoute = appMode !== null;
 
+  // Hash-anchor scrolling + scroll-to-top on navigation.
+  //
+  // - With a hash: poll for the target element (rAF, ~1s cap) because lazy
+  //   routes mount a frame or two after the location changes — a single
+  //   getElementById at effect time misses and deep links like /page#section
+  //   silently never scroll.
+  // - Without: jump to top only on fresh navigations (PUSH/REPLACE). POP
+  //   (browser Back/Forward) must leave scroll alone so the browser's own
+  //   position restoration works instead of yanking the user to the top.
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.substring(1);
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
+      let frames = 0;
+      let raf = 0;
+      const tryScroll = () => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+        if (frames++ < 60) raf = requestAnimationFrame(tryScroll);
+      };
+      raf = requestAnimationFrame(tryScroll);
+      return () => cancelAnimationFrame(raf);
+    }
+    if (navigationType !== 'POP') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, navigationType]);
 
   const routes = useMemo(
     () => (

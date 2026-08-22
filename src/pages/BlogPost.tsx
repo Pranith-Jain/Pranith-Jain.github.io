@@ -55,34 +55,38 @@ const PROSE =
   '[&_summary]:cursor-pointer [&_summary]:px-4 [&_summary]:py-2.5 [&_summary]:font-mono [&_summary]:text-xs [&_summary]:uppercase [&_summary]:tracking-[0.16em] [&_summary]:text-brand-600 dark:[&_summary]:text-brand-400 [&_summary]:select-none [&_summary]:hover:text-brand-500 ' +
   '[&_details_>_:not(summary)]:px-4 [&_details_>_:not(summary)]:pb-3 [&_details_>_:not(summary)]:text-sm';
 
-function addHeadingIds(html: string): string {
-  let index = 0;
-  return html.replace(/<h([23])[^>]*>([^<]+)<\/h[23]>/g, (_match, level, text) => {
-    const cleanText = text.replace(/<[^>]+>/g, '').trim();
-    const id =
-      cleanText
+/**
+ * Assign slug ids to h2/h3 headings and return {html, toc}.
+ *
+ * DOMParser-based rather than regex: headings routinely contain inline tags
+ * (`<h2>Detecting <code>Mimikatz</code></h2>`), which the old text-only
+ * pattern skipped — those headings got no id, dropped off both TOCs, and any
+ * #anchor pointing at them was dead. Input must already be sanitized.
+ */
+function addHeadingIdsAndToc(html: string): { html: string; toc: TocItem[] } {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const toc: TocItem[] = [];
+  const used = new Set<string>();
+  doc.querySelectorAll('h2, h3').forEach((heading, index) => {
+    const text = (heading.textContent ?? '').trim();
+    let id =
+      text
         .toLowerCase()
         .replace(/[^\w\s-]/g, '')
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
         .replace(/^-+|-+$/g, '') || `heading-${index}`;
-    index++;
-    return `<h${level} id="${id}">${text}</h${level}>`;
+    // De-dupe (two headings can share a title); keep first-come ids stable.
+    if (used.has(id)) {
+      let n = 2;
+      while (used.has(`${id}-${n}`)) n += 1;
+      id = `${id}-${n}`;
+    }
+    used.add(id);
+    heading.id = id;
+    toc.push({ level: heading.tagName === 'H2' ? 2 : 3, id, text });
   });
-}
-
-function extractToc(html: string): TocItem[] {
-  const items: TocItem[] = [];
-  const regex = /<h([23])\s+id="([^"]+)">([^<]+)<\/h[23]>/g;
-  let match;
-  while ((match = regex.exec(html)) !== null) {
-    items.push({
-      level: parseInt(match[1]!),
-      id: match[2]!,
-      text: match[3]!,
-    });
-  }
-  return items;
+  return { html: doc.body.innerHTML, toc };
 }
 
 function formatDate(iso: string): string {
@@ -203,8 +207,7 @@ export default function BlogPost() {
           ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
           ADD_ATTR: ['title'],
         });
-        const withIds = addHeadingIds(sanitized);
-        const toc = extractToc(withIds);
+        const { html: withIds, toc } = addHeadingIdsAndToc(sanitized);
         if (ac.signal.aborted) return;
         setHtml(withIds);
         setTocItems(toc);

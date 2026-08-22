@@ -1,6 +1,7 @@
 import { TabLoader } from '../../components/ui/TabLoader';
 import { Tabs } from '../../components/ui/Tabs';
 import { Suspense, lazy, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Crosshair } from 'lucide-react';
 
@@ -21,6 +22,10 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 
 export default function CryptoTracer(): JSX.Element {
+  // Deep-link: /dfir/crypto-tracer?address=<addr|tx-hash> (IOC pivots emit
+  // this) pre-seeds the Tracer tab's seed input.
+  const [searchParams] = useSearchParams();
+  const initialAddress = searchParams.get('address')?.trim() ?? '';
   const [activeTab, setActiveTab] = useState<TabId>('tracer');
 
   return (
@@ -43,7 +48,7 @@ export default function CryptoTracer(): JSX.Element {
               {TABS.find((t) => t.id === active)?.desc}
             </p>
             <Suspense fallback={<TabLoader />}>
-              {active === 'tracer' && <Tracer />}
+              {active === 'tracer' && <Tracer initialAddress={initialAddress} />}
               {active === 'tracepulse' && <Tracepulse />}
               {active === 'quicktrace' && <Quicktrace />}
             </Suspense>

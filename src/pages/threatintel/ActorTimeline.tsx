@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -68,6 +69,18 @@ function shortDay(iso: string): string {
 }
 
 export default function ActorTimeline(): JSX.Element {
+  // Deep-link support: /threatintel/actors/hub?tab=timeline&actor=<slug>
+  // (IOC pivots emit this) scrolls to and highlights that group's row.
+  const [searchParams] = useSearchParams();
+  const focusActor = searchParams.get('actor')?.trim().toLowerCase() ?? null;
+  const highlightRef = useRef<HTMLLIElement | null>(null);
+
+  useEffect(() => {
+    if (focusActor && highlightRef.current) {
+      highlightRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+  }, [focusActor]);
+
   const { data, loading, error, refetch } = useDataFetch<ActorTimelineResponse>({
     url: '/api/v1/actor-timeline',
     ttl: 120_000,
@@ -171,8 +184,14 @@ export default function ActorTimeline(): JSX.Element {
               <ul className="space-y-2">
                 {data.groups.map((g) => {
                   const max = rowMaxes.get(g.slug) ?? 0;
+                  const isFocus =
+                    focusActor !== null && (g.slug === focusActor || g.display_name.toLowerCase() === focusActor);
                   return (
-                    <li key={g.slug} className="surface-card p-3">
+                    <li
+                      key={g.slug}
+                      ref={isFocus ? highlightRef : undefined}
+                      className={`surface-card p-3 ${isFocus ? 'ring-2 ring-brand-500/60 dark:ring-brand-400/60' : ''}`}
+                    >
                       <div
                         className="grid items-center gap-1"
                         style={{ gridTemplateColumns: `200px repeat(${g.buckets.length}, minmax(0,1fr))` }}

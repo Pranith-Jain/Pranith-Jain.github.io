@@ -135,7 +135,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     pivots.push({
       label: 'ASN Lookup',
       desc: 'Routes + prefixes + neighbours',
-      path: `/dfir/asn-lookup?asn=${enc}`,
+      path: `/dfir/asn?asn=${enc}`,
     });
     return pivots;
   }
@@ -143,7 +143,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     pivots.push({
       label: 'Breach check',
       desc: 'Have-I-Been-Pwned exposure for this address',
-      path: `/dfir/breach-check?email=${enc}`,
+      path: `/dfir/breach?email=${enc}`,
     });
     return pivots;
   }
@@ -151,7 +151,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     pivots.push({
       label: 'Crypto Trace',
       desc: 'On-chain BTC flow + cluster + exchange attribution',
-      path: `/dfir/crypto-trace?address=${enc}`,
+      path: `/dfir/crypto-tracer?address=${enc}`,
     });
     return pivots;
   }
@@ -167,7 +167,9 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     pivots.push({
       label: 'Correlation lookup',
       desc: 'Cross-source: is this in 2+ feeds? Confidence + per-feed attribution',
-      path: `/threatintel/correlation?q=${enc}`,
+      // IocCorrelation owns the ?q= indicator filter; /threatintel/correlation
+      // is a different page (sector cross-correlate) with no query box.
+      path: `/threatintel/iocs/correlation?q=${enc}`,
     });
   }
 
@@ -177,16 +179,11 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
       desc: 'Country / city / ISP / org',
       path: `/dfir/ioc-investigate?indicator=${enc}`,
     });
-    pivots.push({
-      label: 'ASN Lookup',
-      desc: 'WHOIS + ASN + reverse-DNS',
-      path: `/dfir/asn-lookup?ip=${enc}`,
-    });
   } else if (ioc.type === 'domain') {
     pivots.push({
       label: 'Domain Lookup',
       desc: 'WHOIS + DNS records + subdomains + cert transparency',
-      path: `/dfir/domain-lookup?domain=${enc}`,
+      path: `/dfir/domain-investigator?domain=${enc}`,
     });
     pivots.push({
       label: 'Cert Search',
@@ -208,7 +205,8 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     pivots.push({
       label: 'File Analysis',
       desc: 'Hash lookup across malware-sample sources',
-      path: `/dfir/file-analyze?hash=${enc}`,
+      // IOC Investigator's checker consumes ?indicator= for every type incl. hashes.
+      path: `/dfir/ioc-investigate?indicator=${enc}`,
     });
   }
 

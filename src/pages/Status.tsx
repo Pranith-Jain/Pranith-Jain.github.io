@@ -16,7 +16,7 @@
  * imported from `src/components/status/statusTones` so the two pages
  * stay byte-aligned. Do not redeclare them locally.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../components/DataPageLayout';
@@ -50,31 +50,39 @@ const ORDER: Record<Status, number> = { down: 0, degraded: 1, cold: 2, ok: 3 };
 export default function StatusPage(): JSX.Element {
   const [data, setData] = useState<FeedStatusResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // One shared loader so the initial mount and manual retries behave
+  // identically: each run aborts the previous in-flight attempt (no
+  // out-of-order overwrite) and carries the same 15s timeout.
+  const abortRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
+  const load = useCallback(() => {
+    abortRef.current?.abort();
     const ac = new AbortController();
+    abortRef.current = ac;
+    setError(null);
     fetch('/api/v1/feed-status', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<FeedStatusResponse>;
       })
-      .then((d) => setData(d))
+      .then((d) => {
+        if (ac.signal.aborted) return;
+        setData(d);
+      })
       .catch((e: Error) => {
-        if (e.name !== 'AbortError') setError(e.message);
+        if (e.name === 'AbortError' || ac.signal.aborted) return;
+        setError(e.message);
       });
-    return () => ac.abort();
   }, []);
 
+  useEffect(() => {
+    load();
+    return () => abortRef.current?.abort();
+  }, [load]);
+
   const onRetry = () => {
-    setError(null);
     setData(null);
-    fetch('/api/v1/feed-status')
-      .then((r) => {
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<FeedStatusResponse>;
-      })
-      .then((d) => setData(d))
-      .catch((e: Error) => setError(e.message));
+    load();
   };
 
   const overall = data?.overall ?? 'cold';
@@ -150,11 +158,20 @@ export default function StatusPage(): JSX.Element {
               })}
           </div>
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+            {/* ageString guards NaN/negative — a malformed generated_at renders "-" */}
             {data ? `snapshot ${ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}` : '-'}
           </span>
         </section>
 
         {/* Per-feed rows */}
+        {data && data.rows.length === 0 && (
+          <div
+            role="status"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--surface-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400"
+          >
+            All feed probes are warming up — no rows yet. Retry in a few minutes.
+          </div>
+        )}
         {data && data.rows.length > 0 && (
           <section>
             <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100">
@@ -244,12 +261,16 @@ export default function StatusPage(): JSX.Element {
               Full feed workbench →
             </Link>
             <span className="text-slate-300 dark:text-slate-700">|</span>
-            <Link
-              to="/api/docs"
+            {/* /api/docs is served by the Worker API, not an SPA route — a
+                <Link> would hit the React 404 catch-all. */}
+            <a
+              href="/api/docs"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
             >
-              API spec →
-            </Link>
+              API spec → <ExternalLink size={12} />
+            </a>
             <span className="text-slate-300 dark:text-slate-700">|</span>
             <Link
               to="/mcp"

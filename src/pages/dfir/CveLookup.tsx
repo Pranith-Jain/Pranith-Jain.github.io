@@ -83,7 +83,7 @@ function toSeverity(s?: string): Severity {
 
 export default function CveLookup(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialQuery = (searchParams.get('cve') ?? searchParams.get('q') ?? '').toUpperCase();
+  const initialQuery = (searchParams.get('cve') ?? searchParams.get('id') ?? searchParams.get('q') ?? '').toUpperCase();
   const [input, setInput] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CveLookupResult | null>(null);

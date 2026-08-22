@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -39,12 +39,23 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 
 export default function CveIntel(): JSX.Element {
-  const [params] = useSearchParams();
-  const [activeTab, setActiveTab] = useState<TabId>(() => {
-    const tab = params.get('tab');
-    if (tab && TABS.some((t) => t.id === tab)) return tab as TabId;
-    return 'all';
-  });
+  const [params, setParams] = useSearchParams();
+  // Derive the tab from the URL on every render (not just mount state init)
+  // so back/forward, redirects that append ?tab=, and manual URL edits all
+  // land on the right tab; clicks write ?tab= back so refresh/share keep it.
+  const urlTab = params.get('tab');
+  const activeTab: TabId = urlTab && TABS.some((t) => t.id === urlTab) ? (urlTab as TabId) : 'all';
+
+  const selectTab = (id: TabId) => {
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.set('tab', id);
+        return next;
+      },
+      { replace: true }
+    );
+  };
 
   return (
     <DataPageLayout
@@ -62,7 +73,7 @@ export default function CveIntel(): JSX.Element {
           <button
             key={t.id}
             type="button"
-            onClick={() => setActiveTab(t.id)}
+            onClick={() => selectTab(t.id)}
             className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${
               activeTab === t.id
                 ? 'border-rose-600 text-rose-600 dark:border-rose-400 dark:text-rose-400'

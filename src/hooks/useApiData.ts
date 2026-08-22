@@ -83,6 +83,9 @@ export function useApiData<T = unknown>(url: string | null, options: UseApiDataO
   // Fetch on mount, URL/enabled change, or refetch.
   useEffect(() => {
     mountedRef.current = true;
+    // Abort the previous url's in-flight request before any early return —
+    // same race as useDataFetch (stale response overwriting fresh cache hit).
+    if (ctrlRef.current) ctrlRef.current.abort();
     if (!cacheKey) return;
 
     const hit = memoryCache.get<T>(cacheKey);
@@ -101,7 +104,6 @@ export function useApiData<T = unknown>(url: string | null, options: UseApiDataO
       setError(null);
     }
 
-    if (ctrlRef.current) ctrlRef.current.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
 

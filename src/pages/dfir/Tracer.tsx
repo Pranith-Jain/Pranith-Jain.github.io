@@ -43,8 +43,8 @@ interface CalldataResult {
   resolved_pointer?: { value: string; chain: string; found: boolean; input_excerpt: string };
 }
 
-export default function Tracer(): JSX.Element {
-  const [seed, setSeed] = useState('');
+export default function Tracer({ initialAddress = '' }: { initialAddress?: string } = {}): JSX.Element {
+  const [seed, setSeed] = useState(initialAddress);
   const [chain, setChain] = useState<TracerChain>('evm');
   const [direction, setDirection] = useState<'in' | 'out' | 'both'>('both');
   const [around, setAround] = useState('');

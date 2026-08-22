@@ -162,7 +162,7 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `CVE Lookup → ${ioc.value}`,
       desc: 'NVD + CISA KEV + heuristic actor scanning',
-      path: `/dfir/cve?id=${enc}`,
+      path: `/dfir/cve?q=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });
@@ -206,7 +206,7 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `ASN Lookup → ${ioc.value}`,
       desc: 'Routes + prefixes + neighbours via team-cymru / RIPE',
-      path: `/dfir/asn-lookup?asn=${enc}`,
+      path: `/dfir/asn?asn=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });
@@ -218,7 +218,7 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `Breach check → ${ioc.value}`,
       desc: 'Have-I-Been-Pwned breach exposure for this address',
-      path: `/dfir/breach-check?email=${enc}`,
+      path: `/dfir/breach?email=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });
@@ -230,7 +230,7 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `Crypto Trace → ${ioc.value.slice(0, 24)}…`,
       desc: 'On-chain BTC tracing - flow + cluster + exchange-attribution',
-      path: `/dfir/crypto-trace?address=${enc}`,
+      path: `/dfir/crypto-tracer?address=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });
@@ -274,7 +274,9 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `Correlation lookup → ${ioc.value.slice(0, 60)}${ioc.value.length > 60 ? '…' : ''}`,
       desc: 'Is this indicator in 2+ feeds? Confidence + per-feed attribution',
-      path: `/threatintel/correlation?q=${enc}`,
+      // IocCorrelation owns the ?q= indicator filter; /threatintel/correlation
+      // is a different page (sector cross-correlate) with no query box.
+      path: `/threatintel/iocs/correlation?q=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });
@@ -282,14 +284,6 @@ function buildPivots(query: string): MatchedEntry[] {
 
   // Kind-specific secondary pivots.
   if (ioc.type === 'ip' || ioc.type === 'ipv6') {
-    pivots.push({
-      kind: 'tool',
-      label: `ASN Lookup → ${ioc.value}`,
-      desc: 'WHOIS + ASN + reverse-DNS + geolocation',
-      path: `/dfir/asn-lookup?ip=${enc}`,
-      sectionLabel: 'IOC pivot',
-      matchedBy: 'pivot',
-    });
     pivots.push({
       kind: 'tool',
       label: `IP Geolocation → ${ioc.value}`,
@@ -303,7 +297,7 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `Domain Lookup → ${ioc.value}`,
       desc: 'WHOIS + DNS records + subdomains + cert transparency',
-      path: `/dfir/domain-lookup?domain=${enc}`,
+      path: `/dfir/domain-investigator?domain=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });
@@ -337,7 +331,8 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `File Analysis → ${ioc.value.slice(0, 24)}…`,
       desc: 'Hash lookup across malware sample sources',
-      path: `/dfir/file-analyze?hash=${enc}`,
+      // IOC Investigator's checker consumes ?indicator= for every type incl. hashes.
+      path: `/dfir/ioc-investigate?indicator=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });
@@ -427,6 +422,20 @@ export function CommandPalette(): JSX.Element | null {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  // Body-scroll lock while the palette is open (same treatment as Modal /
+  // Drawer / mobile menu — without it, wheel + touch scroll the page behind
+  // the fixed backdrop and the background rubber-bands on mobile).
+  useEffect(() => {
+    if (!open) return;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
   }, [open]);
 
   // When opening, hydrate recent + reset state + focus input + kick off

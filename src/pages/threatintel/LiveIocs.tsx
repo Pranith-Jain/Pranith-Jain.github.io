@@ -147,6 +147,11 @@ export default function LiveIocs(): JSX.Element {
   }, [data]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  // Clamp the page when the result set shrinks (e.g. a refetch on page 3 that
+  // now yields one page) — otherwise the list renders blank with "page 3/1".
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages);
+  }, [page, totalPages]);
   const pageItems = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page]);
 
   const postSummaries = usePostSummaries({

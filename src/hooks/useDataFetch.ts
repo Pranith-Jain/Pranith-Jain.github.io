@@ -62,6 +62,10 @@ export function useDataFetch<T = unknown>({
 
   useEffect(() => {
     mountedRef.current = true;
+    // Cancel any in-flight request from the previous url FIRST — even when
+    // this run returns early via a fresh-cache hit, otherwise the stale
+    // response can land after mount and overwrite the cached data.
+    if (ctrlRef.current) ctrlRef.current.abort();
     if (!url) return;
 
     const hit = memoryCache.get<T>(url);
@@ -82,7 +86,6 @@ export function useDataFetch<T = unknown>({
       setStale(false);
     }
 
-    if (ctrlRef.current) ctrlRef.current.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
 

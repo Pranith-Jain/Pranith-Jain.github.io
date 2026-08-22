@@ -62,10 +62,13 @@ export const RELIABILITY_TONE: Record<string, string> = {
 
 /**
  * Format an upstream age in seconds as a compact "Xs/Xm/Xh/Xd ago" string.
+ * Non-finite inputs (e.g. a `Date.parse` of a malformed timestamp) and
+ * negative ages (clock skew / future timestamps) render as "-" instead of
+ * "NaNd ago" / "-3s ago".
  */
 export function ageString(s?: number): string {
-  if (s === undefined) return '-';
-  if (s < 60) return `${s}s ago`;
+  if (s === undefined || !Number.isFinite(s) || s < 0) return '-';
+  if (s < 60) return `${Math.round(s)}s ago`;
   if (s < 3600) return `${Math.floor(s / 60)}m ago`;
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
   return `${Math.floor(s / 86400)}d ago`;

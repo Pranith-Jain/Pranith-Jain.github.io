@@ -100,7 +100,7 @@ function pivotUrl(p: Pivot): string {
     case 'hash':
       return `/dfir/ioc-check?indicator=${val}`;
     case 'asn':
-      return `/dfir/asn-lookup?asn=${val.replace(/^AS/i, '')}`;
+      return `/dfir/asn?asn=${val.replace(/^AS/i, '')}`;
     case 'hostname':
       return `/dfir/domain?domain=${val}`;
     case 'org':
@@ -184,7 +184,9 @@ export function PivotsTab({
                 >
                   {p.value}
                 </code>
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate block">{p.label}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate block">
+                  {p.label}
+                </span>
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <a

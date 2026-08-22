@@ -354,19 +354,25 @@ export default function McpCatalogPage(): JSX.Element {
             <code>this.tool(...)</code> in the worker; it appears here on the next deploy.
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-3">
-            <Link
-              to="/api/v1/openapi.json"
+            {/* Both /api/* targets are served by the Worker API, not the SPA —
+                <Link> would land on the React 404 catch-all. */}
+            <a
+              href="/api/v1/openapi.json"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
             >
               REST API spec <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
+            </a>
             <span className="text-slate-300 dark:text-slate-700">|</span>
-            <Link
-              to="/api/docs"
+            <a
+              href="/api/docs"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
             >
               API browser <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
+            </a>
             <span className="text-slate-300 dark:text-slate-700">|</span>
             <Link
               to="/dfir"

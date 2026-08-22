@@ -33,9 +33,11 @@ describe('IocCheck deep-link routing', () => {
 
   it('routes an ASN deep-link to ASN Lookup', () => {
     renderAt('?indicator=AS12345');
+    // Canonical route (/dfir/asn) — the legacy /dfir/asn-lookup alias only
+    // exists as a redirect for old links.
     expect(screen.getByRole('link', { name: /ASN Lookup/i })).toHaveAttribute(
       'href',
-      expect.stringContaining('/dfir/asn-lookup')
+      expect.stringContaining('/dfir/asn?')
     );
   });
 

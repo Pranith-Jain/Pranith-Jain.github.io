@@ -184,7 +184,12 @@ export default function DailyBriefs() {
   const [tab, setTab] = useState<Tab>('cyber');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const { data: indexData, loading: indexLoading } = useDataFetch<DbIndexSummary & { briefs: BriefEntry[] }>({
+  const {
+    data: indexData,
+    loading: indexLoading,
+    error: indexError,
+    refetch: refetchIndex,
+  } = useDataFetch<DbIndexSummary & { briefs: BriefEntry[] }>({
     url: '/api/v1/daily-briefs/',
   });
 
@@ -207,13 +212,23 @@ export default function DailyBriefs() {
     return currentList[0]?.date ?? null;
   }, [selectedDate, currentList]);
 
-  const { data: brief, loading: briefLoading } = useDataFetch<CyberBrief | DeepfakeBrief | DisasterBrief>({
+  const {
+    data: brief,
+    loading: briefLoading,
+    error: briefError,
+    refetch: refetchBrief,
+  } = useDataFetch<CyberBrief | DeepfakeBrief | DisasterBrief>({
     url: currentDate ? `/api/v1/daily-briefs/${tab}/${currentDate}` : '',
   });
 
   const availableDates = useMemo(() => currentList.map((b) => b.date), [currentList]);
 
   const isLoading = indexLoading || briefLoading;
+  // Surface fetch failures as errors (with retry), not as the "no data yet"
+  // empty state — an ops message like "run the sync pipeline" is misleading
+  // when the request itself failed.
+  const loadError = indexError ?? briefError;
+  const retry = indexError && !briefError ? refetchIndex : refetchBrief;
 
   return (
     <DataPageLayout
@@ -222,6 +237,8 @@ export default function DailyBriefs() {
       icon={<Shield size={20} />}
       title="Daily Intelligence Briefs"
       description="AI-generated daily intelligence assessments covering OT/ICS cyber threats, deepfake/GenAI risks, and global disaster monitoring."
+      error={loadError}
+      onRetry={retry}
     >
       {/* Header */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -275,7 +292,7 @@ export default function DailyBriefs() {
               className={`whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                 currentDate === d
                   ? 'bg-brand-600 text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))}'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]'
               }`}
             >
               {d}
@@ -488,7 +505,8 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
             {brief.ttps.mitreIds.map((id, i) => (
               <a
                 key={i}
-                href={`https://attack.mitre.org/techniques/${id.split('.')[0]}/`}
+                // Sub-techniques (T1059.003) link to their own page, not the parent.
+                href={`https://attack.mitre.org/techniques/${id.split('.')[0]}/${id.includes('.') ? id.split('.')[1] : ''}/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-mono text-slate-700 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"

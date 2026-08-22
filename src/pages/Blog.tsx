@@ -95,8 +95,10 @@ export default function Blog() {
 
   // Sync the filter when the route param changes (e.g. navigating
   // /blog/c/actor -> /blog/c/malware reuses this component instance).
+  // Unconditional mirror: a falsy param (navigating /blog/c/actor -> /blog)
+  // must CLEAR the filter, otherwise /blog keeps showing the category subset.
   useEffect(() => {
-    if (routeType) setTypeFilter(routeType);
+    setTypeFilter(routeType ?? null);
   }, [routeType]);
 
   // Per-page meta varies with the /blog/c/:type route. Category
@@ -107,8 +109,9 @@ export default function Blog() {
 
   // Sync the tag filter when the route param changes (e.g. navigating
   // /blog/t/ransomware -> /blog/t/cobalt-strike reuses this component).
+  // Unconditional mirror — see the type-filter effect above.
   useEffect(() => {
-    if (routeTag) setTagFilter(routeTag);
+    setTagFilter(routeTag ?? null);
   }, [routeTag]);
 
   useEffect(() => {
