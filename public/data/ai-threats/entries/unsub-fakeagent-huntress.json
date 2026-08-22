@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-fakeagent-huntress",
+  "name": "UnSub (FakeAgent) — Huntress",
+  "akas": "UnSub",
+  "brief": "Huntress documented \"FakeAgent\", a malvertising campaign that abused a public Claude Artifact hosted on Anthropic's own claude.ai domain as the delivery lure. Users searching Bing for the Claude Desktop app were served a sponsored advertisement pointing at a legitimate claude.ai URL; that URL resolved to an attacker-built Claude Artifact crafted to imitate the official Claude Desktop download page, which redirected victims to attacker-controlled infrastructure serving a fake `ClaudeDesktop.exe`. The payload was SectopRAT, a .NET remote-access trojan that steals credentials, browser data, payment-card details and files, and which retrieved its command-and-control details from data staged in the Ethereum blockchain as an anti-takedown and anti-analysis technique. The malicious artifact was downloaded roughly 7,100 times, and Huntress observed impact across 29 organizations before Anthropic removed it on 22 July 2026 following Huntress's report. *Analyst note: vendor report (Huntress, trusted tier). Included because the actor used a generative-AI app builder to produce the malicious lure page itself — the attack infrastructure was AI-generated — rather than merely abusing AI-branded hosting.*",
+  "ttps": ["T1102", "T1204.002", "T1583.001", "T1583.008", "T1608"],
+  "categories": ["AI-generated attack infrastructure (app-builder abuse)"],
+  "reported": "Jul 2026",
+  "activity": "Jul 2026",
+  "table": "main",
+  "sizeBytes": 1208,
+  "ttpMd": "**AI-generated attack infrastructure (app-builder abuse)** T1583.001 - Acquire Infrastructure: Domains (lure served from the legitimate claude.ai domain via a public Artifact)<br><br>T1608 - Stage Capabilities (fake installer page staged as a Claude Artifact)<br><br>T1583.008 - Acquire Infrastructure: Malvertising (sponsored Bing ads)<br><br>T1204.002 - User Execution: Malicious File (trojanized ClaudeDesktop.exe)<br><br>T1102 - Web Service (C2 details staged on the Ethereum blockchain)"
+}

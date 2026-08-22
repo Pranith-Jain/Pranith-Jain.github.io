@@ -2,9 +2,9 @@
   "source": "Cybershujin Threat Actors' Use of Artificial Intelligence tracker",
   "sourceUrl": "https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/",
   "license": "MIT",
-  "replicatedAt": "2026-07-27",
-  "lastSyncedAt": "2026-07-27T09:24:20.717Z",
-  "counts": { "total": 79, "main": 68, "deepfake": 11 },
+  "replicatedAt": "2026-08-17",
+  "lastSyncedAt": "2026-08-17T06:29:48.247Z",
+  "counts": { "total": 83, "main": 71, "deepfake": 12 },
   "stixAvailable": true,
   "threatIndex": [
     {
@@ -379,6 +379,18 @@
       "sizeBytes": 992
     },
     {
+      "slug": "laundry-bear",
+      "name": "LAUNDRY BEAR",
+      "akas": "Void Blizzard (Microsoft); CL-STA-1114 (Unit 42); TA488 (Proofpoint)",
+      "brief": "A joint advisory from CISA, FBI and NSA with international partners (AA26-204A) attributes to the Russian state-supported actor LAUNDRY BEAR a phishing campaign against users of the Zimbra Collaboration Suite, targeting government, defen…",
+      "ttps": ["T1114.002", "T1203", "T1566", "T1587.001", "T1588.007"],
+      "categories": ["LLM-aided development"],
+      "reported": "Jul 2026",
+      "activity": "Jul 2025 – Jul 2026",
+      "table": "main",
+      "sizeBytes": 1388
+    },
+    {
       "slug": "multiple-unsub-jfrog",
       "name": "Multiple Unsub - JFrog",
       "akas": "N/A",
@@ -487,6 +499,18 @@
       "activity": "2023 – Dec 2025",
       "table": "deepfake",
       "sizeBytes": 217
+    },
+    {
+      "slug": "multiple-unsub-fbi-ic3-2",
+      "name": "Multiple UnSub — FBI/IC3",
+      "akas": "",
+      "brief": "FBI public service announcement I-072026-PSA warns that criminals are creating deepfake videos depicting senior FBI leaders and standing up counterfeit IC3 websites that mimic the appearance of the real ic3.gov portal, in order to re-tar…",
+      "ttps": ["T1583.001", "T1656"],
+      "categories": ["DeepFake for Impersonation"],
+      "reported": "Jul 2026",
+      "activity": "Jul 2026",
+      "table": "deepfake",
+      "sizeBytes": 833
     },
     {
       "slug": "multiple-unsub-openai-oct-2025",
@@ -895,6 +919,18 @@
       "sizeBytes": 416
     },
     {
+      "slug": "unsub-autonomous-ai-agent-framework-hugging-face",
+      "name": "UnSub (autonomous AI agent framework) — Hugging Face",
+      "akas": "UnSub",
+      "brief": "Hugging Face disclosed a July 2026 intrusion of its internal infrastructure that its own incident response assessed was run by an autonomous agent framework (built on an agentic security-research harness; the underlying LLM was not ident…",
+      "ttps": ["T1102", "T1190", "T1552"],
+      "categories": ["LLM-orchestrated operations (Agentic AI attack orchestration)"],
+      "reported": "Jul 2026",
+      "activity": "Jul 2026",
+      "table": "main",
+      "sizeBytes": 1180
+    },
+    {
       "slug": "unsub-china-nexus-cloud-intrusion-gtig",
       "name": "UnSub (China-nexus, cloud intrusion) — GTIG",
       "akas": "UnSub",
@@ -917,6 +953,18 @@
       "activity": "Unknown",
       "table": "main",
       "sizeBytes": 275
+    },
+    {
+      "slug": "unsub-fakeagent-huntress",
+      "name": "UnSub (FakeAgent) — Huntress",
+      "akas": "UnSub",
+      "brief": "Huntress documented \"FakeAgent\", a malvertising campaign that abused a public Claude Artifact hosted on Anthropic's own claude.ai domain as the delivery lure. Users searching Bing for the Claude Desktop app were served a sponsored advert…",
+      "ttps": ["T1102", "T1204.002", "T1583.001", "T1583.008", "T1608"],
+      "categories": ["AI-generated attack infrastructure (app-builder abuse)"],
+      "reported": "Jul 2026",
+      "activity": "Jul 2026",
+      "table": "main",
+      "sizeBytes": 1208
     },
     {
       "slug": "unsub-financially-motivated-sygnia",

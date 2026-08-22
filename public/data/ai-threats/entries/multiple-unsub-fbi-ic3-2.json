@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-fbi-ic3-2",
+  "name": "Multiple UnSub — FBI/IC3",
+  "akas": "",
+  "brief": "FBI public service announcement I-072026-PSA warns that criminals are creating deepfake videos depicting senior FBI leaders and standing up counterfeit IC3 websites that mimic the appearance of the real ic3.gov portal, in order to re-target people who have already fallen victim to fraud (\"double-dip\" recovery scams). The spoofed portals present simplified complaint forms that harvest name, phone number, email address, scam type and estimated financial loss, while the deepfaked officials lend credibility to false promises of fund recovery. *Analyst note: distinct from the 2023–Dec 2025 FBI/IC3 row above, which covers AI voice messages impersonating senior US officials; this campaign impersonates the FBI/IC3 themselves to re-victimize prior fraud victims. The PSA describes ongoing activity and gives no explicit start date.*",
+  "ttps": ["T1583.001", "T1656"],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Jul 2026",
+  "activity": "Jul 2026",
+  "table": "deepfake",
+  "sizeBytes": 833,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>T1656 - Impersonation<br><br>T1583.001 - Acquire Infrastructure: Domains (counterfeit IC3 portals)"
+}
