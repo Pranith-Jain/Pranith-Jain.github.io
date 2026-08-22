@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f12f2736-e632-4280-bc5d-8cfa97a7f12f",
+  "description": "Internal Documents of the AMBITION Group and Its Insurance Partner Hope SSI PROLOGUE AMBITION Co., L...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

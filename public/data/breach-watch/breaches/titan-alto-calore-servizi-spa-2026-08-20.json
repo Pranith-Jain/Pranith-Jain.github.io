@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/2472758a-2ee6-4a18-99bc-6c4170bca210",
+  "description": "[AI generated] Alto Calore Servizi SPA is an Italian public utility company operating in the Campania region of southern Italy. It is primarily engaged in the management and distribution of drinking water and sewage services. The company serves numerous municipalities in the provinces of Avellino and Benevento, handling water supply infrastructure, treatment, and distribution to residential and industrial customers.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Energy & Utilities",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

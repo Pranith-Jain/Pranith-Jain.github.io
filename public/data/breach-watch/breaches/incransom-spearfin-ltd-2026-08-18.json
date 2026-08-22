@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "MU",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/8cbc0139-5c73-406e-930e-7948dfa4e9f5",
+  "description": "SpearFin Ltd\r https://spearfin.net\r SpearFin offers a wide range of services including fund administration, corporate services, compliance support, and investor relations. \r Assets Under Administration US$10 billion.\r \r The leak occurred on June 26, 2026.\r Total leak: 416 GB \r \r Leak included: NDA, Correspondence Client, KYC - Passports, Certificates, Investing documents, \r Share Registry and Holders, Anti-Money Laundering (AML) audit, Agreements, Application forms, Bank Statements, \r Bank Payrolls, Loans Documents, Certificates of GBC (Global Business Company), Register of Directors and many other financial documents.\r \r Clients: YuMee Seven Six, BAMBOO BAY PRIVATE LIMITED, Asio Global Fund, 3B Capital, Abans Group, Amicorp Capital, Apex Fund Services Ltd, Pangaea Fund Limited, \r AL Farah Overseas Limited, Zinnia Group,  AMG Services Ltd, NEO SEMI SG PTE. LTD, MIC ELECTRONICS LIMITED, Zenbridge Capital Pvt. Ltd., Zinnia Investment Advisers Pvt Ltd, \r Onpoint Ventures Limited,  Wilson Group, Blue River, Capital Advisors Private Limited,  Zenbridge Capital Pvt Ltd,\r Topland Group Holdings, Africa Opportunities Fund, Appollo Fund Limited and many other...\r \r Type of information: Confidential\r \r Full publication coming soon...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

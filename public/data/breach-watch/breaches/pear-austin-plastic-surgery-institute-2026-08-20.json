@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e0c6362a-1e4a-4132-82fb-f07c812b43e1",
+  "description": "A center staffed by highly skilled plastic surgeons",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

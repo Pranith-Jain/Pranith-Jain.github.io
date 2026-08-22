@@ -1,1 +1,15 @@
-{"slug":"coinbase-cartel-accesso-2026-08-21","title":"Accesso","group":"Coinbase Cartel","discovered":"2026-08-21T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/accesso-coinbase-cartel-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}
+{
+  "slug": "coinbase-cartel-accesso-2026-08-21",
+  "title": "Accesso",
+  "group": "coinbase cartel",
+  "discovered": "2026-08-21T14:25:38.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Financial Software - $152 Million",
+  "source_url": "https://www.ransomlook.io/screenshots/coinbase cartel/Accesso.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

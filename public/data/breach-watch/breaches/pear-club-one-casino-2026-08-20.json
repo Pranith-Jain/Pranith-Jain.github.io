@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/364d9eef-0ab8-47fd-b170-59e29449ccf8",
+  "description": "A Place to Play Cards in Central California",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Hospitality",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

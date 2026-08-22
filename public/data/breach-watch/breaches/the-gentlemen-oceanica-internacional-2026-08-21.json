@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-oceanica-internacional-2026-08-21","title":"Oceanica Internacional","group":"The Gentlemen","discovered":"2026-08-21T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/oceanica-internacional-the-gentlemen-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}
+{
+  "slug": "the-gentlemen-oceanica-internacional-2026-08-21",
+  "title": "Oceanica Internacional",
+  "group": "the gentlemen",
+  "discovered": "2026-08-21T10:36:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "oceanica.ws Oceanica Internacional is a comprehensive logistics and freight forwarding company operating across Central America.\nThey serve as a strategic logistics partner, providing international trade and supply chain solutions in countries like Costa Rica, Panama, and Guatemala.\nThe company specializes in coordinating imports, exports, and cargo transportation to support businesses throughout the region.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

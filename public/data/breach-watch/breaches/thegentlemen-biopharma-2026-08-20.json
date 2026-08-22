@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/b38519b7-1172-4ce4-ae3e-9cfe62448563",
+  "description": "BioPharma is a global biopharmaceutical innovator founded in 2003 and headquartered in Taiwan. \nIt specializes in developing best-in-class therapies and biologics for blood disorders, hematologic cancers, and other serious diseases. \nThe company is fully integrated and operates internationally with a strong commercial and clinical presence in the U.S., Europe, and Japan.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

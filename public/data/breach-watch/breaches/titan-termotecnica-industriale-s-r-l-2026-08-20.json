@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/26bcb2bd-5826-434e-a35f-4f5a524363f8",
+  "description": "[AI generated] Termotecnica Industriale S.r.l. is an Italian company operating in the industrial thermal engineering sector. Based in Italy, it specializes in the design and manufacturing of heating systems, thermal equipment, and industrial burners. The company serves various industrial clients requiring customized thermal solutions for production processes. It operates primarily in the energy and industrial plant engineering market within Italy and potentially broader European markets.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "leaknet-magmutual-2026-08-22",
+  "title": "MagMutual",
+  "group": "LEAKNET",
+  "discovered": "2026-08-22T03:11:19.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a9f01876-36c2-427d-815a-0b081f66f7ff",
+  "groupAliases": [],
+  "activity": "Insurance",
+  "references": ["Darkfield"]
+}

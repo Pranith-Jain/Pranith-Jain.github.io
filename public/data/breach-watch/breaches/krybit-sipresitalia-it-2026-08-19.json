@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f100e05e-b460-4e7d-808c-c7de3fb9a832",
+  "description": "S.I.P.R.E.S. SRL (Società Italiana Progetti Ricerche e Sviluppo — Italian Research and Development Projects Company) ...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

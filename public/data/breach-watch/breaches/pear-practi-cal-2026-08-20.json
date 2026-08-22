@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/04d888c3-4506-467e-b82c-59b1a57b70ce",
+  "description": "Comprehensive platform to manage Medi-Cal billing, LEA BOP, and CRCS submissions efficiently",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

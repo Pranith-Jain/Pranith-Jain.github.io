@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/90e84483-58e7-4153-902b-ee39cfce3bcd",
+  "description": "ACIG is a construction industry owned insurance facility based in Dallas, TX. ACIG provides workers compensation, general liability, automobile liability and subcontractor default insurance through ACIG Insurance Company and American Contractors Insurance Company Risk Retention Group. ACIG's mission is to save lives, prevent injuries and reduce the overall cost of risk and insurance for its members. \nThe company headquarters is located in 2600 N. Central Expressway, Suite 800, Richardson, TX 75080, United States. 51-200 Employees",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

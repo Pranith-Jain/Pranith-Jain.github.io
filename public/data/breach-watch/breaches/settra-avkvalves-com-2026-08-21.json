@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "SE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/43f43a09-33c3-4532-812e-cbeabd90bbde",
+  "description": "Investigation: Belgicast Internacional S.L. Executive Summary An analysis of more than 10,000 intern...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

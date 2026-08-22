@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9d79da77-ae95-4ac6-8009-bded2eaf0ae7",
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DIRE WOLF"],
   "activity": "Transportation",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

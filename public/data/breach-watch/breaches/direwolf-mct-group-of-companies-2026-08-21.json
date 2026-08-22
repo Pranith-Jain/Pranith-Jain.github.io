@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f10b8928-7936-40ca-82db-76bfbbf39d4b",
+  "description": "Building Materials",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DIRE WOLF"],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

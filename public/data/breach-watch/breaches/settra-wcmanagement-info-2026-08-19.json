@@ -7,9 +7,9 @@
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/10c3420d-a46a-41a6-9100-db18dfc39e1d",
+  "description": "Documents of West Coast Management and Realty PROLOGUE Over 1,000 debt collection records with names...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

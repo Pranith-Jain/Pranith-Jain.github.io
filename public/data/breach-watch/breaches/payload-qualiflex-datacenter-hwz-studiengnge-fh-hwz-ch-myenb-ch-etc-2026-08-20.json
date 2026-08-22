@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CH",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3f27d3f4-48fe-4b6a-8c53-bdbfc4038023",
+  "description": "Qualiflex Datacenter - data from companies such as HWZ-Studiengänge (fh-hwz.ch), myenb.ch, schelling.ch, kaelteringag.ch & kaeltebucher.ch, cbmswiss.ch, vitabad.ch, ign8.ch, etc., was stolen",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

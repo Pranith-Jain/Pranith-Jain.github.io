@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/8c41e591-d626-4880-94f8-ef03e483b962",
+  "description": "GTS legally registered as Global Terminal Hizmetleri A.Ş. It is the largest independent storage terminal for liquid fuels and oil in the entire Mediterranean region. 470gb",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Transportation",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

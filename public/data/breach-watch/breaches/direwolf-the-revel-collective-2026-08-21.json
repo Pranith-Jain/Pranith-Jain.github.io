@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/7a553191-119a-48db-8639-eeb8b3220edb",
+  "description": "Hospitality",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DIRE WOLF"],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-scholle-ipn-sig-2026-08-18",
+  "title": "Scholle IPN / SIG",
+  "group": "anubis",
+  "discovered": "2026-08-18T03:21:51.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Data breach at a global leader in packaging manufacturing.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

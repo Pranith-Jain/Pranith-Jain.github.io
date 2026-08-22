@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "HK",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/79810849-18cd-48a7-8487-58e513eb83cd",
+  "description": "hsi personaldienste hart & schenk GmbH is a German staffing and temporary employment services company founded in Februar...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

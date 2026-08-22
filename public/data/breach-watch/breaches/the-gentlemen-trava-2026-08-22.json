@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-trava-2026-08-22",
+  "title": "Trava",
+  "group": "The Gentlemen",
+  "discovered": "2026-08-22T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/trava-the-gentlemen-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

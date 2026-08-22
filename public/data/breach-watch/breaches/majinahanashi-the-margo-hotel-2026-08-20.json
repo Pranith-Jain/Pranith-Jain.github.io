@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/030d5710-a15f-43ed-b4d0-faf209d00ee8",
+  "description": "PUBLICATION SCHEDULED. [LEAK / 8080 FILES]",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Hospitality",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

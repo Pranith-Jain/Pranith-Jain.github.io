@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-third-coast-bancshares-2026-08-18",
+  "title": "Third Coast Bancshares",
+  "group": "incransom",
+  "discovered": "2026-08-18T00:26:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "While Third Coast Bancshares (NASDAQ:TCBX) shares continue to rise rapidly and reach new highs, its leadership is concealing one of the largest data breaches in the history of the U.S. financial sector.\r This situation raises serious questions about the company’s conduct. In the near future, we intend to publish a comprehensive analytical report examining the TCBX activities. The public will then have an opportunity to assess the practices carried out by the company, including violations of applicable laws and regulations, as well as the conduct of certain shareholders and business partners.\r Our report will also examine allegations involving individuals connected to financial-sector regulators and law enforcement. Corruption, manipulation of data, regulatory non-compliance, and the submission of potentially misleading reports represent only a small part of the concerns we intend to address.\r We believe the time has come to initiate short positions. Our forthcoming publications are expected to raise significant questions about the company and could have broader implications for confidence in the U.S. financial sector.\r As for clients and stakeholders of the financial institution, We strongly recommend that clients safeguard their funds and consider withdrawing them in the near term.\r Stay tuned for further updates and the release of our detailed findings.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/aed1a254-0518-4d98-97c3-628bb6f73fce",
+  "description": "Rosedal Automotores S.R.L. is an Argentine company incorporated on February 18, 2004, headquartered in the Las Cañitas ...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

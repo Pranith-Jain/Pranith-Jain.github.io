@@ -1,0 +1,15 @@
+{
+  "slug": "termite-https-www-evergladesboats-com-2026-08-22",
+  "title": "https://www.evergladesboats.com/",
+  "group": "termite",
+  "discovered": "2026-08-22T00:23:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Everglades Boats",
+  "source_url": "https://www.ransomlook.io/screenshots/termite/wwwevergladesboatscom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

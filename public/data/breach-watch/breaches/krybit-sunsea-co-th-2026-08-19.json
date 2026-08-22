@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "TH",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/58cff260-9b89-495b-aeea-25e621582d2d",
+  "description": "Sunsea Plastics P.S. Co., Ltd. is a Thai family-owned company established in 1988, headquartered in Bang Na, Bangkok, Th...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

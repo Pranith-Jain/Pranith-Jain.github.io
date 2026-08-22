@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/99daf757-e554-493b-8225-9f5def675c2e",
+  "description": "JP Molyneux Studio Ltd showcases the exclusive work of internationally renowned interior designer Juan Pablo Molyneux.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

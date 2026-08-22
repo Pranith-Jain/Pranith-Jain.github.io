@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d75c907c-0061-4d95-b74f-6a68f0722e38",
+  "description": "[AI generated] CTP S.r.l. is an Italian company operating in the printing and publishing technology sector. Based in Italy, it specializes in the development and supply of software and systems for editorial production, prepress, and content management. The company serves media, publishing, and printing industries, providing workflow automation solutions that help customers manage and streamline the production of newspapers, magazines, and other printed or digital content.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

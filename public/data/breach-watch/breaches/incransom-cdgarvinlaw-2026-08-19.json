@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/10052aee-0b94-4a03-a7b5-f70190c398b2",
+  "description": "CHRISTOPHER D. GARVIN (Docket #2352300) is a Wood-Ridge attorney admitted to New York State in 1990 and registered with the Office of Court Administration (OCA) of the New York State Unified Court System. Employer - CHRISTOPHER D. GARVIN, ESQ. COUNSEL AT LAW. The attorney graduated from SETON HALL UNIVERSITY. The registered office is located at 268 Valley Blvd, Wood Ridge, NJ 07075-1202, contact telephone: (201) 804-7681. Current lawyer status: registered.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

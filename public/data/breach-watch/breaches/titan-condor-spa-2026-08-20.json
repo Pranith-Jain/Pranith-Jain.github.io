@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f3497102-6cf1-4f22-8af3-f697ac4fe896",
+  "description": "[AI generated] CONDOR SPA is a Chilean airline operating in South America. Founded in 1979, it provides domestic passenger and cargo air transport services within Chile, connecting major cities and remote regions including Patagonia and Easter Island. The company plays a key role in regional connectivity, serving routes that are difficult to access by land. It operates under civil aviation regulations in Chile.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-professional-2026-08-22",
+  "title": "Professional",
+  "group": "qilin",
+  "discovered": "2026-08-22T03:04:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=86a79d53-e85b-47ba-8ae4-bb869cad0dac",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}
