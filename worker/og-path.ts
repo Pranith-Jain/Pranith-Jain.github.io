@@ -19,11 +19,15 @@
  *                    with no image. The legacy forms are still accepted
  *                    for already-cached meta.
  *
- *                    Page cards now ALSO ship as static build-time assets:
- *                    /og/pages/<dot>.png (scripts/generate-page-og.mjs) —
- *                    that static form is what pageCardUrl() emits today;
- *                    all older shapes remain accepted for cached meta.
+ *                    Page cards are KV-backed build-time renders: the URL
+ *                    emitted is /og-image/v<BUILD>/page/<dot>.png (version
+ *                    bumps per deploy so X re-crawls fresh image URLs);
+ *                    worker/og-route.ts strips the prefix and serves the
+ *                    pre-rendered PNG from KV (ogpage:v1:<dot>.png).
  */
+// Tiny generated constant (no wasm) — safe despite this module otherwise
+// staying import-free.
+import { OG_BUILD_VERSION } from './og-version.generated';
 
 const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog)\/([a-z0-9][a-z0-9-]{0,199})\.png$/i;
 
@@ -97,11 +101,11 @@ export function pageCardUrl(pathname: string): string {
     .replace(/^\/+/, '')
     .replace(/\/+/g, '.')
     .replace(/\.png$/i, '');
-  // STATIC pre-rendered card: scripts/generate-page-og.mjs rasterizes every
-  // prerendered route's card into /og/pages/<dot>.png at build time. Served
-  // straight off Cloudflare's asset CDN — no Worker CPU/wasm/auth variables,
-  // which is what kept breaking X's image fetch (it caches failures per URL
-  // for days). Blog posts published AFTER a build still resolve through the
-  // dynamic entity-card route via resolveOg's matchOgImagePath branch.
-  return `/og/pages/${flat}.png`;
+  // KV-backed pre-rendered card under a PER-DEPLOY VERSIONED, /api/-free
+  // path: scripts/generate-page-og.mjs rasterizes every prerendered route's
+  // card at build time; og:upload ships them to KV; worker/og-route.ts
+  // strips the /og-image/v<ver>/ prefix and serves the PNG from KV. The
+  // version segment changes each deploy so X treats every image URL as new
+  // (its per-URL cache holds failures for days) and re-fetches cleanly.
+  return `/og-image/${OG_BUILD_VERSION}/page/${flat}.png`;
 }

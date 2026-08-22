@@ -133,3 +133,6 @@ reddit-feed.json
 # Telegram RSS cache artifact — published to the telegram-rss-cache branch by CI, not committed
 telegram-rss-cache.json
 og-overrides.generated.json
+
+# build-time OG page cards (uploaded to KV by scripts/upload-page-og.mjs)
+.og-cache/

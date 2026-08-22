@@ -88,36 +88,34 @@ function makePe(opts: PeOpts = {}): Uint8Array {
   if (opts.importDlls && opts.importDlls.length > 0) {
     const dlls = opts.importDlls
     const k = dlls.length
+    // The .idata spec is appended below at index specs.length; the layout loop
+    // assigns VA SECTION_ALIGN * (index + 1).
+    const idataVa = SECTION_ALIGN * (specs.length + 1)
     const descSize = (k + 1) * 20 // descriptors + terminator
     const thunkBase = descSize
     const hintBase = thunkBase + k * 8
     const strBase = hintBase + k * 4
     const totalLen = strBase + dlls.reduce((n, d) => n + d.length + 1, 0)
     idataData = new Uint8Array(totalLen)
-    const dv = new DataView(idataData.buffer)
+    const idv = new DataView(idataData.buffer)
+    let strOff = strBase
     for (let i = 0; i < k; i++) {
       const descOff = i * 20
-      const thunkRva = thunkBase + i * 8
-      const hintRva = hintBase + i * 4
-      const strOff = strBase + dlls.slice(0, i).reduce((n, d) => n + d.length + 1, 0)
-      dv.setUint32(descOff, thunkRva, true) // OriginalFirstThunk
-      dv.setUint32(descOff + 12, strOff, true) // Name RVA
-      dv.setUint32(descOff + 16, thunkRva, true) // FirstThunk
-      dv.setUint32(thunkOff(thunkBase, i), hintRva, true) // thunk → hint/name
-      // hint (2 bytes zero) + minimal name byte
-      idataData[hintOff(hintBase, i) + 3] = 0x41 // 'A' after 2-byte zero hint
+      const thunkRva = idataVa + thunkBase + i * 8
+      const hintRva = idataVa + hintBase + i * 4
+      idv.setUint32(descOff, thunkRva, true) // OriginalFirstThunk
+      idv.setUint32(descOff + 12, idataVa + strOff, true) // Name RVA
+      idv.setUint32(descOff + 16, thunkRva, true) // FirstThunk
+      idv.setUint32(thunkBase + i * 8, hintRva, true) // thunk → hint/name entry
+      // Hint/name entry: 2-byte zero hint + minimal name byte.
+      idataData[hintBase + i * 4 + 3] = 0x41 // 'A'
       const dll = dlls[i]
-      if (dll !== undefined) idataData.set(ascii(dll), strOff)
+      if (dll !== undefined) {
+        idataData.set(ascii(dll), strOff)
+        strOff += dll.length + 1
+      }
     }
-    function thunkOff(base: number, i: number): number {
-      return base + i * 8
-    }
-    function hintOff(base: number, i: number): number {
-      return base + i * 4
-    }
-  }
-  if (idataData) {
-    specs.push({ name: '.idata', rawSize: alignUp(idataData.length), fill: 'zero' })
+    specs.push({ name: '.idata', rawSize: alignUp(totalLen), fill: 'zero' })
   }
 
   const numSections = specs.length

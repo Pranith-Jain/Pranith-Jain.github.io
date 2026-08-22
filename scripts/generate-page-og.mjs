@@ -33,7 +33,12 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(root, 'dist');
-const OUT_DIR = join(DIST, 'og', 'pages');
+// Written OUTSIDE dist/ on purpose: 261 extra PNGs would push the deploy
+// past the Workers free plan's 20,000 static-asset file limit. Instead the
+// script drops them in .og-cache/ and scripts/upload-page-og.mjs uploads
+// each to KV_CACHE (key: ogpage:v1:<dot>.png) — the runtime handler reads
+// KV first, so serving costs one KV read, not a wasm rasterization.
+const OUT_DIR = join(root, '.og-cache', 'pages');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 

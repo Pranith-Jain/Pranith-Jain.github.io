@@ -87,6 +87,31 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
   const cached = await caches.default.match(cacheKey);
   if (cached) return cached;
 
+  // Build-time pre-rendered cards (scripts/generate-page-og.mjs →
+  // scripts/upload-page-og.mjs) land in KV under ogpage:v1:<dot>.png.
+  // Serving one is a single KV read — no resvg CPU at request time, which
+  // is what kept failing X's crawler on cold colos. Page cards only; the
+  // entity cards (blog/briefing) are data-driven and stay dynamic.
+  if (env.KV_CACHE && type === 'page') {
+    try {
+      const dotId = slug.replace(/^\//, '').replace(/\//g, '.');
+      const pre = await env.KV_CACHE.get(`ogpage:v1:${dotId}.png`, 'arrayBuffer');
+      if (pre && pre.byteLength > 0) {
+        const res = new Response(pre, {
+          headers: {
+            'content-type': 'image/png',
+            // Immutable per route (titles change rarely); edge-cached 1 day.
+            'cache-control': 'public, max-age=86400, s-maxage=86400',
+          },
+        });
+        ctx.waitUntil(caches.default.put(cacheKey, res.clone()).catch(() => {}));
+        return res;
+      }
+    } catch {
+      /* KV miss/error → fall through to raster path */
+    }
+  }
+
   const kvKey = `og:png:v5:${type}:${keySlug}`;
   const pngCacheReq = new Request(`https://og-png-cache.internal/v1/${encodeURIComponent(kvKey)}`);
   const cachedPng = await caches.default.match(pngCacheReq);
