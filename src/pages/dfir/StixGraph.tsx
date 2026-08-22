@@ -40,7 +40,7 @@ function StixNodeBox({
       <div className="text-micro uppercase tracking-wider font-bold mb-0.5" style={{ color }}>
         {data.stixType}
       </div>
-      <div className="text-slate-900 dark:text-slate-100 break-words leading-tight">{data.label}</div>
+      <div className="text-heading break-words leading-tight">{data.label}</div>
       <Handle type="source" position={Position.Bottom} style={{ background: color }} />
     </div>
   );

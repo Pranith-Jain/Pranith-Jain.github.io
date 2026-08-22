@@ -72,7 +72,7 @@ const FUSION_STYLE: Record<string, { text: string; chip: string; bar: string; Ic
     Icon: AlertTriangle,
   },
   Low: {
-    text: 'text-slate-600 dark:text-slate-300',
+    text: 'text-body',
     chip: SEVERITY_TONE.low,
     bar: SEVERITY_BAR.low,
     Icon: Info,
@@ -268,9 +268,7 @@ export default function FusionExposure(): JSX.Element {
                 {/* CVE ID + severity chip */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      {item.cve_id}
-                    </span>
+                    <span className="font-mono text-sm font-semibold text-heading">{item.cve_id}</span>
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${style?.chip ?? 'border-slate-300 text-slate-500'} shrink-0`}
                     >

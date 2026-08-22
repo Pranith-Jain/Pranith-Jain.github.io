@@ -46,7 +46,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
+            <span className="font-display font-semibold text-sm text-heading">
               {profile.displayName ?? profile.username}
             </span>
             <span className="text-micro font-mono text-muted">@{profile.username}</span>
@@ -144,7 +144,7 @@ export default function IdentityLookup(): JSX.Element {
   }, [profiles]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Search size={28} className="text-brand-600 dark:text-brand-400" /> Identity Lookup
@@ -197,7 +197,7 @@ export default function IdentityLookup(): JSX.Element {
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono flex items-center gap-2">
-                <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
+                <Globe size={14} /> Profiles for <span className="text-heading">@{query}</span>
               </h2>
               <span className="text-mini font-mono text-muted">
                 {foundCount} found · {PLATFORMS.length - foundCount} not found

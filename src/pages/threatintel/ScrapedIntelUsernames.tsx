@@ -291,9 +291,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               {data?.results.map((m) => (
                 <li key={m.username} className="surface-card p-4 group">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100 break-all">
-                      {m.username}
-                    </span>
+                    <span className="font-mono font-bold text-sm text-heading break-all">{m.username}</span>
                     <span className="text-mini font-mono text-slate-500 shrink-0">
                       {m.forum_count} forum{m.forum_count === 1 ? '' : 's'}
                     </span>
@@ -336,9 +334,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   const pct = Math.round((count / data.results.length) * 100);
                   return (
                     <div key={forum} className="flex items-center gap-2">
-                      <span className="text-mini font-mono text-slate-600 dark:text-slate-300 truncate flex-1">
-                        {forum}
-                      </span>
+                      <span className="text-mini font-mono text-body truncate flex-1">{forum}</span>
                       <div className="w-20 h-1.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500 rounded-full" style={{ width: `${pct}%` }} />
                       </div>

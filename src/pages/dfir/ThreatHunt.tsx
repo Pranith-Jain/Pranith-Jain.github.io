@@ -96,7 +96,7 @@ export default function ThreatHunt(): JSX.Element {
 
   const comp = result?.composite;
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up mb-8">
         <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
           <Search size={28} className="text-brand-600 dark:text-brand-400" /> Threat Hunt
@@ -280,7 +280,7 @@ export default function ThreatHunt(): JSX.Element {
                 {Object.entries(result.whois).map(([k, v]) => (
                   <div key={k} className="text-xs font-mono">
                     <span className="text-slate-500">{k.replace(/_/g, ' ')}: </span>
-                    <span className="text-slate-800 dark:text-slate-200">{String(v).slice(0, 60)}</span>
+                    <span className="text-heading">{String(v).slice(0, 60)}</span>
                   </div>
                 ))}
               </div>

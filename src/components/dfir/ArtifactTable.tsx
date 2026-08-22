@@ -79,7 +79,7 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
             ) : (
               <FileText size={14} className="text-muted shrink-0" />
             )}
-            <span className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate">{artifact.name}</span>
+            <span className="font-mono text-sm text-heading truncate">{artifact.name}</span>
             {artifact.tags.map((t) => (
               <TagBadge key={t} tag={t} />
             ))}
@@ -103,23 +103,21 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 font-mono text-xs">
               <div className="flex gap-2">
                 <dt className="text-muted w-24">kind</dt>
-                <dd className="text-slate-700 dark:text-slate-300">{artifact.kind}</dd>
+                <dd className="text-body">{artifact.kind}</dd>
               </div>
               <div className="flex gap-2">
                 <dt className="text-muted w-24">source</dt>
-                <dd className="text-slate-700 dark:text-slate-300">{artifact.source}</dd>
+                <dd className="text-body">{artifact.source}</dd>
               </div>
               {artifact.last_seen && (
                 <div className="flex gap-2">
                   <dt className="text-muted w-24">last seen</dt>
-                  <dd className="text-slate-700 dark:text-slate-300">{artifact.last_seen}</dd>
+                  <dd className="text-body">{artifact.last_seen}</dd>
                 </div>
               )}
               <div className="flex gap-2">
                 <dt className="text-muted w-24">classification</dt>
-                <dd className="text-slate-700 dark:text-slate-300">
-                  {artifact.tags.length ? artifact.tags.join(', ') : 'unclassified'}
-                </dd>
+                <dd className="text-body">{artifact.tags.length ? artifact.tags.join(', ') : 'unclassified'}</dd>
               </div>
               {mitre && (
                 <div className="flex gap-2">

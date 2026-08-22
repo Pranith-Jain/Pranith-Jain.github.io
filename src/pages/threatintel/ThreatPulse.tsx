@@ -273,7 +273,7 @@ export default function ThreatPulse(): JSX.Element {
             id="pulse-min-sources"
             value={minSources}
             onChange={(e) => setMinSources(Number(e.target.value))}
-            className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500/60"
+            className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-heading focus:outline-none focus:border-rose-500/60"
           >
             {[1, 2, 3, 4].map((n) => (
               <option key={n} value={n}>
@@ -342,13 +342,13 @@ export default function ThreatPulse(): JSX.Element {
                             const link = entityHref(entity.kind, entity.label);
                             if (!link) {
                               return (
-                                <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all">
+                                <span className="font-display font-semibold text-base text-heading break-all">
                                   {entity.label}
                                 </span>
                               );
                             }
                             const className =
-                              'font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1';
+                              'font-display font-semibold text-base text-heading break-all hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1';
                             return link.external ? (
                               <a
                                 href={sanitizeUrl(link.href)}

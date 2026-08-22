@@ -174,7 +174,7 @@ export function Projects({ projects }: ProjectsProps) {
                     {cs.outcome.split(' · ').map((metric) => (
                       <span
                         key={metric}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-slate-600 dark:text-slate-300"
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-body"
                       >
                         {metric}
                       </span>

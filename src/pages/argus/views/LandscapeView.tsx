@@ -99,7 +99,7 @@ export function LandscapeView({ actors, feed }: Props) {
         <header>
           <div className="flex items-center gap-3 mb-1">
             <TrendingUp size={22} className="text-rose-600 dark:text-rose-400" />
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Threat Landscape</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-heading">Threat Landscape</h1>
           </div>
           <p className="text-muted text-tool">
             Executive brief on {filteredActors.length} tracked actor{filteredActors.length !== 1 ? 's' : ''} ·{' '}
@@ -323,9 +323,7 @@ export function LandscapeView({ actors, feed }: Props) {
                           {nationActors.map((a) => a.name).join(', ')}
                         </div>
                       </div>
-                      <span className="text-meta font-mono font-semibold text-slate-900 dark:text-slate-100 shrink-0">
-                        {count}
-                      </span>
+                      <span className="text-meta font-mono font-semibold text-heading shrink-0">{count}</span>
                     </div>
                   );
                 })}
@@ -370,9 +368,7 @@ function KPI({ label, value, icon: Icon }: { label: string; value: number; icon:
         <Icon size={18} />
       </span>
       <div>
-        <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-slate-100">
-          {value.toLocaleString()}
-        </div>
+        <div className="text-xl sm:text-2xl font-bold font-mono text-heading">{value.toLocaleString()}</div>
         <div className="text-micro font-mono uppercase tracking-[0.18em] text-muted">{label}</div>
       </div>
     </div>

@@ -53,7 +53,7 @@ interface GrcStats {
 const CONTROL_STATUS_TONES: Record<string, string> = {
   pass: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   fail: 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  not_assessed: 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  not_assessed: 'border-slate-500/30 bg-slate-500/10 text-body',
   not_applicable: 'border-slate-400/30 bg-slate-400/10 text-muted',
 };
 

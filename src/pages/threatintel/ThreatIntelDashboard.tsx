@@ -105,7 +105,7 @@ const BAR_PALETTE = [
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
+  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
 
 const SEVERITY_PILL: Record<string, string> = {
   Critical: 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
@@ -131,7 +131,7 @@ function StatCard({
     <div className={`${CARD} px-4 py-3 flex items-center gap-3`}>
       <div className={`rounded-xl p-2 ${color}`}>{icon}</div>
       <div>
-        <div className="text-xl font-bold text-slate-900 dark:text-slate-100">{value}</div>
+        <div className="text-xl font-bold text-heading">{value}</div>
         <div className="text-mini font-mono uppercase tracking-wider text-muted">{label}</div>
       </div>
     </div>
@@ -163,7 +163,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
                   key={row.name}
                   className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                 >
-                  <td className="py-2 px-4 text-sm text-slate-900 dark:text-slate-100">{row.name}</td>
+                  <td className="py-2 px-4 text-sm text-heading">{row.name}</td>
                   <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
                     {row.count.toLocaleString()}
                   </td>
@@ -177,7 +177,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
               );
             })}
             <tr className="font-semibold border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <td className="py-2 px-4 text-sm text-slate-900 dark:text-slate-100">Total</td>
+              <td className="py-2 px-4 text-sm text-heading">Total</td>
               <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
                 {total.toLocaleString()}
               </td>
@@ -594,7 +594,7 @@ export function CveLandscapePanel(): JSX.Element {
     <>
       {/* Header row: refresh + scope */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300">CVE Landscape</h2>
+        <h2 className="font-display font-semibold text-lg text-body">CVE Landscape</h2>
         <div className="flex items-center gap-3 text-xs text-muted">
           <button
             type="button"
@@ -726,7 +726,7 @@ export function CveLandscapePanel(): JSX.Element {
             <select
               value={topN}
               onChange={(e) => setTopN(Number(e.target.value))}
-              className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 text-mini font-mono text-slate-700 dark:text-slate-300"
+              className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 text-mini font-mono text-body"
             >
               <option value={10}>Top 10</option>
               <option value={20}>Top 20</option>
@@ -770,7 +770,7 @@ export function CveLandscapePanel(): JSX.Element {
       {/* Chart area */}
       <div className={`${CARD} p-6`}>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{titleText}</h3>
+          <h3 className="text-sm font-semibold text-heading">{titleText}</h3>
           <div className="flex items-center gap-3">
             <span className="text-mini font-mono text-muted">{filtered.length.toLocaleString()} CVEs in scope</span>
             {viewData && viewData.length > 0 && (

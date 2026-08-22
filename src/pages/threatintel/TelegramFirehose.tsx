@@ -541,18 +541,14 @@ function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: 
       </div>
       <div className="flex flex-wrap items-start gap-2">
         <div className="flex-1 min-w-0">
-          {item.source === 'liveioc' && (
-            <p className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{item.title}</p>
-          )}
-          {item.source !== 'liveioc' && (
-            <p className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">{item.title}</p>
-          )}
+          {item.source === 'liveioc' && <p className="font-mono text-sm text-heading break-all">{item.title}</p>}
+          {item.source !== 'liveioc' && <p className="font-mono text-sm font-semibold text-heading">{item.title}</p>}
           {item.body && <p className="text-xs text-muted mt-0.5 line-clamp-2">{item.body}</p>}
           <PostSummary text={postSummary} />
           <div className="flex flex-wrap gap-2 mt-1.5 text-micro font-mono text-slate-500">
             {Object.entries(item.meta).map(([k, v]) => (
               <span key={k}>
-                {k}: <span className="text-slate-700 dark:text-slate-300">{v}</span>
+                {k}: <span className="text-body">{v}</span>
               </span>
             ))}
           </div>

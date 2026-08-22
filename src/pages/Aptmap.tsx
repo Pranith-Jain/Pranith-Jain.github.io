@@ -57,7 +57,7 @@ function TopBarChart({ items, labelKey, maxItems = 15 }: { items: CountItem[]; l
         const pct = Math.round((item.count / maxCount) * 100);
         return (
           <div key={item.id} className="flex items-center gap-2">
-            <span className="w-32 truncate text-xs font-mono text-slate-700 dark:text-slate-300 shrink-0" title={label}>
+            <span className="w-32 truncate text-xs font-mono text-body shrink-0" title={label}>
               {label}
             </span>
             <div className="flex-1 h-4 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 rounded-full overflow-hidden">
@@ -107,7 +107,7 @@ function HorizontalStackedChart({
         const pct = (item.count / total) * 100;
         return (
           <div key={item.id} className="flex items-center gap-2">
-            <span className="w-40 truncate text-xs font-mono text-slate-700 dark:text-slate-300 shrink-0" title={label}>
+            <span className="w-40 truncate text-xs font-mono text-body shrink-0" title={label}>
               {label}
             </span>
             <div className="flex-1 h-5 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 rounded-full overflow-hidden flex">
@@ -259,7 +259,7 @@ export default function AptmapPage() {
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-t-lg transition-colors ${
               activeTab === tab.id
                 ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-b-2 border-brand-500'
-                : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/30'
+                : 'text-slate-500 hover:text-body hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/30'
             }`}
           >
             {tab.icon}
@@ -290,7 +290,7 @@ export default function AptmapPage() {
                           setSelectedNode(n);
                           setActiveTab('graph');
                         }}
-                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 transition-colors truncate"
+                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-body hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 transition-colors truncate"
                         title={n.description || n.name}
                       >
                         {n.name}
@@ -314,7 +314,7 @@ export default function AptmapPage() {
                           setSelectedNode(n);
                           setActiveTab('graph');
                         }}
-                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 transition-colors truncate"
+                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-body hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 transition-colors truncate"
                         title={n.description || n.name}
                       >
                         {n.name}
@@ -343,7 +343,7 @@ export default function AptmapPage() {
                               setSelectedNode(n);
                               setActiveTab('graph');
                             }}
-                            className="px-2 py-0.5 rounded text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))/0.5] transition-colors"
+                            className="px-2 py-0.5 rounded text-xs font-mono text-body bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))/0.5] transition-colors"
                           >
                             {n.name}
                           </button>
@@ -417,7 +417,7 @@ export default function AptmapPage() {
               aria-label="Search graph nodes"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-8 py-2 text-xs font-mono surface-card text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
+              className="w-full pl-8 pr-8 py-2 text-xs font-mono surface-card text-body placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
             />
             <Search size={12} className="absolute left-2.5 top-2.5 text-muted" />
             {searchQuery && (
@@ -455,7 +455,7 @@ export default function AptmapPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedNode(null)}
-                  className="text-muted hover:text-slate-700 dark:text-slate-300 shrink-0"
+                  className="text-muted hover:text-body shrink-0"
                 >
                   <X size={16} />
                 </button>
@@ -488,9 +488,7 @@ export default function AptmapPage() {
                           style={{ backgroundColor: node.color || '#666' }}
                         />
                         <div className="min-w-0">
-                          <div className="text-xs font-mono text-slate-700 dark:text-slate-300 truncate">
-                            {node.name}
-                          </div>
+                          <div className="text-xs font-mono text-body truncate">{node.name}</div>
                           <div className="text-micro font-mono text-slate-500 uppercase">{node.group}</div>
                         </div>
                       </button>
@@ -522,7 +520,7 @@ export default function AptmapPage() {
                 >
                   <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: node.color || '#666' }} />
                   <div className="min-w-0">
-                    <div className="text-xs font-mono text-slate-700 dark:text-slate-300 truncate">{node.name}</div>
+                    <div className="text-xs font-mono text-body truncate">{node.name}</div>
                     <div className="text-micro font-mono text-slate-500 uppercase">{node.group}</div>
                   </div>
                 </button>
@@ -675,7 +673,7 @@ export default function AptmapPage() {
                         render: (c) => {
                           const parts = String(c.certificate ?? '').split(' ');
                           const org = parts.length > 1 ? parts.slice(1).join(' ') : parts[0];
-                          return <span className="text-slate-700 dark:text-slate-300">{org || '-'}</span>;
+                          return <span className="text-body">{org || '-'}</span>;
                         },
                       },
                       {
@@ -692,11 +690,7 @@ export default function AptmapPage() {
                         header: 'Count',
                         align: 'right',
                         sortValue: (c: (typeof certificates)[number]) => c.count,
-                        render: (c) => (
-                          <span className="text-slate-700 dark:text-slate-300 tabular-nums">
-                            {c.count.toLocaleString()}
-                          </span>
-                        ),
+                        render: (c) => <span className="text-body tabular-nums">{c.count.toLocaleString()}</span>,
                       },
                     ] as DataTableColumn<(typeof certificates)[number]>[]
                   }

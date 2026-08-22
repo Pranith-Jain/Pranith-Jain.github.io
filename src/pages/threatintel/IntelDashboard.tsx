@@ -413,9 +413,7 @@ export default function IntelDashboard(): JSX.Element {
           {/* ── Reliability Distribution ─────────────────────────────── */}
           {feedData?.reliability_distribution && (
             <section className="mb-8">
-              <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
-                Source Reliability (NATO Admiralty)
-              </h2>
+              <h2 className="font-display font-semibold text-lg text-body mb-3">Source Reliability (NATO Admiralty)</h2>
               <div className="grid grid-cols-3 sm:grid-cols-7 gap-2">
                 {(['A', 'B', 'C', 'D', 'E', 'F', 'ungraded'] as const).map((grade) => {
                   const count = feedData.reliability_distribution[grade] ?? 0;
@@ -437,15 +435,11 @@ export default function IntelDashboard(): JSX.Element {
           {/* ── Category Health ──────────────────────────────────────── */}
           {categoryBreakdown.length > 0 && (
             <section className="mb-8">
-              <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
-                Health by Category
-              </h2>
+              <h2 className="font-display font-semibold text-lg text-body mb-3">Health by Category</h2>
               <div className="surface-card divide-y divide-slate-100 dark:divide-slate-800">
                 {categoryBreakdown.map((cat) => (
                   <div key={cat.name} className="flex items-center gap-4 px-4 py-3">
-                    <span className="font-mono text-sm text-slate-700 dark:text-slate-300 w-32 shrink-0 capitalize">
-                      {cat.name}
-                    </span>
+                    <span className="font-mono text-sm text-body w-32 shrink-0 capitalize">{cat.name}</span>
                     <div className="flex-1">
                       <MiniBar value={cat.ok} max={cat.total} color="bg-emerald-500" />
                     </div>
@@ -464,7 +458,7 @@ export default function IntelDashboard(): JSX.Element {
           {/* ── Feed Detail Table ────────────────────────────────────── */}
           {feedData?.rows && feedData.rows.length > 0 && (
             <section className="mb-8">
-              <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
+              <h2 className="font-display font-semibold text-lg text-body mb-3">
                 All Sources ({feedData.rows.length})
               </h2>
               <div className="surface-card overflow-hidden">
@@ -494,12 +488,12 @@ export default function IntelDashboard(): JSX.Element {
                             row.page_path ? (
                               <Link
                                 to={row.page_path}
-                                className="font-mono text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                                className="font-mono text-sm text-heading hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                               >
                                 {row.label}
                               </Link>
                             ) : (
-                              <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{row.label}</span>
+                              <span className="font-mono text-sm text-body">{row.label}</span>
                             ),
                         },
                         {
@@ -552,7 +546,7 @@ export default function IntelDashboard(): JSX.Element {
           {/* ── Degraded Sources Alert ───────────────────────────────── */}
           {feedData?.degraded_sources && feedData.degraded_sources.length > 0 && (
             <section className="mb-8">
-              <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
+              <h2 className="font-display font-semibold text-lg text-body mb-3">
                 Degraded Sources ({feedData.degraded_sources.length})
               </h2>
               <div className="rounded-xl border border-amber-300/50 dark:border-amber-800/50 bg-amber-50/50 dark:bg-amber-950/20 p-4 space-y-2">
@@ -560,9 +554,7 @@ export default function IntelDashboard(): JSX.Element {
                   <div key={src.id} className="flex items-start gap-2">
                     <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" />
                     <div>
-                      <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">
-                        {src.id}
-                      </span>
+                      <span className="font-mono text-sm font-semibold text-heading">{src.id}</span>
                       <span className="text-xs text-slate-500 ml-2">({src.status})</span>
                       <p className="text-xs text-muted mt-0.5">{src.reason}</p>
                     </div>
@@ -575,9 +567,7 @@ export default function IntelDashboard(): JSX.Element {
           {/* ── Top Metrics ──────────────────────────────────────────── */}
           {topMetrics.length > 0 && (
             <section className="mb-8">
-              <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
-                Top Feed Metrics
-              </h2>
+              <h2 className="font-display font-semibold text-lg text-body mb-3">Top Feed Metrics</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {topMetrics.map((m, i) => (
                   <div key={`${m.source}-${m.key}-${i}`} className={`rounded-xl border p-3 ${STATUS_BG[m.status]}`}>
@@ -585,9 +575,7 @@ export default function IntelDashboard(): JSX.Element {
                       <span className="font-mono text-xs text-slate-500">{m.source}</span>
                       <span className="font-mono text-xs text-muted">{m.key}</span>
                     </div>
-                    <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
-                      {m.value.toLocaleString()}
-                    </div>
+                    <div className="font-display font-bold text-xl text-heading">{m.value.toLocaleString()}</div>
                   </div>
                 ))}
               </div>
@@ -693,7 +681,7 @@ function KpiCard({
   label,
   value,
   sub,
-  accent = 'text-slate-900 dark:text-slate-100',
+  accent = 'text-heading',
   href,
 }: {
   icon?: React.ReactNode;

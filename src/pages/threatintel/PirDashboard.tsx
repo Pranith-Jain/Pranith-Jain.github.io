@@ -631,7 +631,7 @@ export default function PirDashboard(): JSX.Element {
           </div>
           <div className="space-y-2">
             {unacknowledged.map((a) => (
-              <div key={a.id} className="flex items-start gap-2 text-mini text-slate-700 dark:text-slate-300">
+              <div key={a.id} className="flex items-start gap-2 text-mini text-body">
                 <span
                   className={`font-mono shrink-0 px-1 py-0.5 rounded text-micro border ${SEVERITY_TONE[toSeverity(a.severity)]}`}
                 >
@@ -710,7 +710,7 @@ export default function PirDashboard(): JSX.Element {
                           : 'Daily';
                   return (
                     <div key={r.source_id} className="flex items-center gap-3 px-4 py-2.5 text-xs">
-                      <span className="font-mono text-slate-700 dark:text-slate-300 w-36 shrink-0">{r.source_id}</span>
+                      <span className="font-mono text-body w-36 shrink-0">{r.source_id}</span>
                       <span
                         className={`font-mono px-1.5 py-0.5 rounded text-micro ${r.effective_cadence_hours <= 1 ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300' : r.effective_cadence_hours <= 3 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300' : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted'}`}
                       >

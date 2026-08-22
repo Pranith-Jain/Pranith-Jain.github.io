@@ -156,7 +156,7 @@ export default function EmailDefense(): JSX.Element {
                 style={{ width: `${Math.max(2, assessment.spoofScore)}%` }}
               />
             </div>
-            <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-3">{assessment.headline}</p>
+            <p className="text-sm font-mono text-body mb-3">{assessment.headline}</p>
             <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
               Higher score = easier for an attacker to send mail "from" {data.domain} that lands in someone's inbox. 0
               means well-defended.
@@ -260,14 +260,14 @@ export default function EmailDefense(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{g.title}</span>
+                      <span className="font-display font-semibold text-heading">{g.title}</span>
                       <span
                         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[g.severity]}`}
                       >
                         {g.severity}
                       </span>
                     </div>
-                    <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">
+                    <p className="text-sm font-mono text-body mb-2">
                       <span className="text-rose-600 dark:text-rose-400 font-bold">Attack: </span>
                       {g.scenario}
                     </p>
@@ -280,7 +280,7 @@ export default function EmailDefense(): JSX.Element {
                           </span>
                           <CopyChip value={g.record.value} />
                         </div>
-                        <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+                        <pre className="text-meta font-mono text-heading whitespace-pre-wrap break-all">
                           {g.record.value}
                         </pre>
                       </div>
@@ -297,7 +297,7 @@ export default function EmailDefense(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 font-mono mb-2 inline-flex items-center gap-1.5">
                 <CheckCircle2 size={12} /> What you're already doing
               </h2>
-              <ul className="space-y-1 text-sm font-mono text-slate-700 dark:text-slate-300 list-disc pl-5">
+              <ul className="space-y-1 text-sm font-mono text-body list-disc pl-5">
                 {assessment.positives.map((p) => (
                   <li key={p}>{p}</li>
                 ))}
@@ -365,11 +365,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
       }`}
     >
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>
-      <div
-        className={`text-sm font-mono ${
-          good ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-200'
-        }`}
-      >
+      <div className={`text-sm font-mono ${good ? 'text-emerald-700 dark:text-emerald-300' : 'text-heading'}`}>
         {value}
       </div>
     </div>
@@ -383,9 +379,7 @@ function RecordRow({ name, value }: { name: string; value: string }): JSX.Elemen
         <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted">{name}</span>
         <CopyChip value={value} />
       </div>
-      <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
-        {value}
-      </pre>
+      <pre className="text-meta font-mono text-heading whitespace-pre-wrap break-all">{value}</pre>
     </div>
   );
 }

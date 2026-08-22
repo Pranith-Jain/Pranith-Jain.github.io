@@ -201,7 +201,7 @@ export default function PlistProtobuf(): JSX.Element {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=file-analysis"
@@ -256,7 +256,7 @@ export default function PlistProtobuf(): JSX.Element {
       />
 
       {out && (
-        <pre className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-800 dark:text-slate-200 max-h-[60vh]">
+        <pre className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-heading max-h-[60vh]">
           {out}
         </pre>
       )}

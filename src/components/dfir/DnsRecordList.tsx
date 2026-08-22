@@ -15,7 +15,7 @@ export function DnsRecordList({ dns }: { dns: DomainLookupResponse['dns'] }): JS
               <span className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">{t}</span>
               <ul className="mt-1 space-y-0.5">
                 {r.records.map((rec, i) => (
-                  <li key={i} className="text-sm font-mono text-slate-900 dark:text-slate-100 break-all">
+                  <li key={i} className="text-sm font-mono text-heading break-all">
                     {rec}
                   </li>
                 ))}

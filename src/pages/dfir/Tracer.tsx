@@ -336,7 +336,7 @@ export default function Tracer({ initialAddress = '' }: { initialAddress?: strin
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -791,8 +791,7 @@ export default function Tracer({ initialAddress = '' }: { initialAddress?: strin
       <Modal open={pinOpen} onClose={() => setPinOpen(false)} title="Pin to investigation">
         {pinTarget && (
           <p className="text-tool text-muted mb-3">
-            Pin <span className="font-mono text-slate-700 dark:text-slate-300">{pinTarget.value.slice(0, 28)}…</span>{' '}
-            to:
+            Pin <span className="font-mono text-body">{pinTarget.value.slice(0, 28)}…</span> to:
           </p>
         )}
         <ul className="space-y-1 max-h-72 overflow-y-auto">

@@ -232,7 +232,7 @@ export default function Notebooks() {
   const selected = notebooks.find((nb) => nb.id === selectedNotebook);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -495,9 +495,7 @@ export default function Notebooks() {
                       AI Summary
                     </span>
                   </div>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
-                    {summary}
-                  </p>
+                  <p className="text-sm text-body leading-relaxed whitespace-pre-wrap">{summary}</p>
                 </div>
               )}
 
@@ -602,7 +600,7 @@ export default function Notebooks() {
                             <Trash2 size={12} />
                           </button>
                         </div>
-                        <pre className="text-sm whitespace-pre-wrap font-mono mt-2 ml-5 text-slate-800 dark:text-slate-200">
+                        <pre className="text-sm whitespace-pre-wrap font-mono mt-2 ml-5 text-heading">
                           {entry.content}
                         </pre>
                       </div>

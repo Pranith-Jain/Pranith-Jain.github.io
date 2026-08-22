@@ -525,7 +525,7 @@ function Diamond(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -646,7 +646,7 @@ function Diamond(): JSX.Element {
             (() => {
               const v = DIAMOND_VERTICES.find((x) => x.id === active)!;
               return (
-                <div className="space-y-3 text-sm font-mono text-slate-700 dark:text-slate-300">
+                <div className="space-y-3 text-sm font-mono text-body">
                   <p>{v.description}</p>
                   <div>
                     <h3 className="text-micro font-bold uppercase tracking-[0.2em] text-muted mb-1">Pivot points</h3>
@@ -715,7 +715,7 @@ function Diamond(): JSX.Element {
             {autoFilling ? 'filling…' : 'Auto-fill'}
           </button>
         </form>
-        {autoFillNote && <p className="text-mini font-mono text-slate-700 dark:text-slate-300 mt-2">{autoFillNote}</p>}
+        {autoFillNote && <p className="text-mini font-mono text-body mt-2">{autoFillNote}</p>}
       </section>
 
       <section className="surface-card p-4 mb-6">
@@ -751,14 +751,14 @@ function Diamond(): JSX.Element {
             const k = VERTEX_KEY[v.id];
             return (
               <label key={v.id} className="block">
-                <span className="text-xs font-mono text-slate-700 dark:text-slate-300 mb-1 block">
+                <span className="text-xs font-mono text-body mb-1 block">
                   {v.name} <span className="text-slate-400 dark:text-slate-400">- {v.short}</span>
                 </span>
                 <textarea
                   value={event[k]}
                   onChange={(e) => update(k, e.target.value)}
                   rows={3}
-                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
                   placeholder={v.examples[0]}
                 />
               </label>
@@ -775,12 +775,12 @@ function Diamond(): JSX.Element {
             const k = m.id as keyof EventForm;
             return (
               <label key={m.id} className="block">
-                <span className="text-xs font-mono text-slate-700 dark:text-slate-300 mb-1 block">{m.name}</span>
+                <span className="text-xs font-mono text-body mb-1 block">{m.name}</span>
                 <input
                   type="text"
                   value={event[k]}
                   onChange={(e) => update(k, e.target.value)}
-                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
                   placeholder={m.description}
                 />
               </label>
@@ -798,12 +798,12 @@ function Diamond(): JSX.Element {
             return (
               <div key={a.id}>
                 <label className="block">
-                  <span className="text-xs font-mono text-slate-700 dark:text-slate-300 mb-1 block">{a.name}</span>
+                  <span className="text-xs font-mono text-body mb-1 block">{a.name}</span>
                   <textarea
                     value={event[k as keyof EventForm]}
                     onChange={(e) => update(k as keyof EventForm, e.target.value)}
                     rows={3}
-                    className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                    className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
                     placeholder={a.description}
                   />
                 </label>

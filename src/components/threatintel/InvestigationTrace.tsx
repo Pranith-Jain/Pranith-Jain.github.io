@@ -46,9 +46,7 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
             <ChevronRight size={14} className="text-slate-400" />
           )}
           <Brain size={14} className="text-rose-500" />
-          <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
-            Investigation trace
-          </span>
+          <span className="text-xs font-mono font-semibold text-body">Investigation trace</span>
           <span className="text-xs text-muted">
             {steps.length} steps · {totalTools} tool calls · {okCount} done{errCount > 0 ? ` · ${errCount} errors` : ''}
           </span>

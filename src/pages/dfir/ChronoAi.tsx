@@ -208,7 +208,7 @@ export default function ChronoAi(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -239,7 +239,7 @@ export default function ChronoAi(): JSX.Element {
               onChange={(e) => setLogs(e.target.value)}
               rows={14}
               placeholder="Paste log entries from any source…"
-              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -275,7 +275,7 @@ export default function ChronoAi(): JSX.Element {
           {loading && (
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
-              <p className="text-sm text-slate-600 dark:text-slate-300">Analyzing log events…</p>
+              <p className="text-sm text-body">Analyzing log events…</p>
               <p className="text-xs text-muted mt-1">Building timeline</p>
             </div>
           )}
@@ -290,13 +290,13 @@ export default function ChronoAi(): JSX.Element {
                   <div className="flex gap-1.5">
                     <button
                       onClick={copyResult}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied ? <Check size={13} /> : <Copy size={13} />}
                     </button>
                     <button
                       onClick={downloadTimeline}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <Download size={13} /> .md
                     </button>
@@ -356,7 +356,7 @@ export default function ChronoAi(): JSX.Element {
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-slate-800 dark:text-slate-200 mt-0.5">{event.event}</p>
+                          <p className="text-sm text-heading mt-0.5">{event.event}</p>
                           <div className="flex gap-1.5 mt-1">
                             {event.technique && (
                               <a

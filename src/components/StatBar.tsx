@@ -24,7 +24,7 @@ export function StatBar({ items }: { items: StatItem[] }): JSX.Element {
           <div key={s.label} className="px-4 py-3 sm:py-3.5">
             <dt className="text-micro font-mono uppercase tracking-[0.14em] text-muted">{s.label}</dt>
             <dd
-              className={`mt-1 font-display font-bold leading-none text-slate-900 dark:text-slate-100 ${
+              className={`mt-1 font-display font-bold leading-none text-heading ${
                 s.mono ? 'font-mono text-tool tracking-tight' : 'text-2xl'
               }`}
             >

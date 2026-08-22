@@ -29,7 +29,7 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 focus:border-brand-500 transition-colors';
+  'w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 focus:border-brand-500 transition-colors';
 const BTN =
   'inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
@@ -69,7 +69,7 @@ function ResultCard({ data, label }: { data: unknown; label?: string }) {
           {label}
         </div>
       )}
-      <pre className="overflow-x-auto p-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300 font-mono max-h-96">
+      <pre className="overflow-x-auto p-4 text-xs leading-relaxed text-body font-mono max-h-96">
         {lines.length > 200 ? lines.slice(0, 200).join('\n') + '\n... (truncated)' : str}
       </pre>
     </div>
@@ -124,7 +124,7 @@ function ToolForm({
       <div className="px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h4>
+            <h4 className="text-sm font-semibold text-heading">{title}</h4>
             <p className="text-xs text-muted mt-0.5">{description}</p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
@@ -231,7 +231,7 @@ function ProvidersTab() {
       {sources.map((s) => (
         <div key={s.name} className={`${CARD} p-4`}>
           <div className="flex items-start justify-between">
-            <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{s.name}</h4>
+            <h4 className="text-sm font-semibold text-heading">{s.name}</h4>
             {s.free ? (
               <span className="text-micro font-medium px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 FREE

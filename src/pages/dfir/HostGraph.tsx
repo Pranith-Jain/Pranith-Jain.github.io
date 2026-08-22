@@ -153,7 +153,7 @@ export default function HostGraphView(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-heading">
       <BackLink to="/dfir">back</BackLink>
 
       <h1 className="text-3xl font-display font-semibold mb-2">Host Graph Pivot</h1>

@@ -105,7 +105,7 @@ function CodeBlock({ code, lang }: { code: string; lang?: string }): JSX.Element
         {copied ? <Check size={11} className="text-green-500" /> : <Copy size={11} />}
         {copied ? 'copied' : 'copy'}
       </button>
-      <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[50vh]">
+      <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-body max-h-[50vh]">
         {lang && <div className="text-micro text-muted mb-1">{lang}</div>}
         {code}
       </pre>
@@ -115,7 +115,7 @@ function CodeBlock({ code, lang }: { code: string; lang?: string }): JSX.Element
 
 function RawJson({ value }: { value: unknown }): JSX.Element {
   return (
-    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[60vh]">
+    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-body max-h-[60vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -130,7 +130,7 @@ function Pill({
 }): JSX.Element {
   const tones: Record<string, string> = {
     slate:
-      'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300',
+      'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-body',
     brand: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     amber: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
     green: 'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300',
@@ -225,7 +225,7 @@ function StatsView({ data }: { data: unknown }): JSX.Element {
         {entries.map(([k, v]) => (
           <div key={k} className="surface-card p-4">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k.replace(/_/g, ' ')}</div>
-            <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{String(v)}</div>
+            <div className="font-display font-bold text-xl text-heading">{String(v)}</div>
           </div>
         ))}
       </div>
@@ -297,9 +297,7 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
                   ) : (
                     <ChevronRight size={14} className="shrink-0 text-muted" />
                   )}
-                  <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
-                    {name}
-                  </span>
+                  <span className="font-display font-semibold text-sm text-heading truncate">{name}</span>
                 </span>
                 {victims && <Pill tone="brand">{victims} victims</Pill>}
               </button>
@@ -462,9 +460,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
           return (
             <div key={i} className="surface-card p-3">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
-                  {victim}
-                </span>
+                <span className="font-display font-semibold text-sm text-heading truncate">{victim}</span>
                 {group && <Pill tone="brand">{group}</Pill>}
               </div>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -546,7 +542,7 @@ function YaraView({ data }: { data: unknown }): JSX.Element {
               className="surface-card p-3 text-left hover:border-rose-500/40 transition-colors"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{name}</span>
+                <span className="font-display font-semibold text-sm text-heading">{name}</span>
                 {count && (
                   <Pill tone="green">
                     <FileCode size={10} /> {count} rules
@@ -641,7 +637,7 @@ function IocView({ data }: { data: unknown }): JSX.Element {
               className="surface-card p-3 text-left hover:border-rose-500/40 transition-colors"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{name}</span>
+                <span className="font-display font-semibold text-sm text-heading">{name}</span>
                 {total > 0 && (
                   <Pill tone="red">
                     <Hash size={10} /> {total} IoCs
@@ -793,7 +789,7 @@ function KqlView(): JSX.Element | null {
           .map(([group, queries]) => (
             <div key={group}>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{group}</span>
+                <span className="font-display font-semibold text-sm text-heading">{group}</span>
                 <Pill tone="slate">{queries.length}</Pill>
               </div>
               <div className="space-y-1">
@@ -806,7 +802,7 @@ function KqlView(): JSX.Element | null {
                     className="block w-full text-left surface-card p-2 hover:border-rose-500/40 transition-colors"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-mini text-slate-700 dark:text-slate-300 truncate">{q.title}</span>
+                      <span className="font-mono text-mini text-body truncate">{q.title}</span>
                       <div className="flex items-center gap-1 shrink-0">
                         {q.category && <Pill tone="slate">{q.category}</Pill>}
                         {q.mitre && <Pill tone="brand">{q.mitre}</Pill>}
@@ -838,7 +834,7 @@ function KqlDetail2({ id, onBack }: { id: string; onBack: () => void }): JSX.Ele
       >
         ← back to KQL index
       </button>
-      <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100 mb-2">{data.title}</h3>
+      <h3 className="font-display font-bold text-lg text-heading mb-2">{data.title}</h3>
       <div className="flex flex-wrap gap-1.5 mb-3">
         {data.group && <Pill tone="brand">{data.group}</Pill>}
         {data.mitre && <Pill tone="amber">{data.mitre}</Pill>}
@@ -923,9 +919,7 @@ function CountryMapView(): JSX.Element | null {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
                 />
-                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                  {c.country}
-                </span>
+                <span className="font-display font-semibold text-sm text-heading">{c.country}</span>
                 <span className="font-mono text-micro text-muted">{c.countryCode}</span>
               </div>
               <Pill tone="brand">{c.victim_count} victims</Pill>

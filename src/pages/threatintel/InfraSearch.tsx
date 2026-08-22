@@ -155,7 +155,7 @@ export default function InfraSearch(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="e.g. telecom towers in india, power plants near tokyo"
-              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-rose-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-heading focus:border-rose-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
               aria-label="Infrastructure search query"
@@ -213,19 +213,19 @@ export default function InfraSearch(): JSX.Element {
             </span>
             {result.parsed.types.length > 0 && (
               <span className="text-slate-500">
-                Types: <span className="text-slate-900 dark:text-slate-100">{result.parsed.types.join(', ')}</span>
+                Types: <span className="text-heading">{result.parsed.types.join(', ')}</span>
               </span>
             )}
             {result.parsed.country && (
               <span className="inline-flex items-center gap-1 text-slate-500">
                 <MapPin size={12} />
-                <span className="text-slate-900 dark:text-slate-100">{result.parsed.country}</span>
+                <span className="text-heading">{result.parsed.country}</span>
               </span>
             )}
             {result.parsed.region && (
               <span className="inline-flex items-center gap-1 text-slate-500">
                 <MapPin size={12} />
-                <span className="text-slate-900 dark:text-slate-100">{result.parsed.region}</span>
+                <span className="text-heading">{result.parsed.region}</span>
               </span>
             )}
           </div>
@@ -336,9 +336,7 @@ export default function InfraSearch(): JSX.Element {
                         style={{ background: CATEGORY_COLORS[r.category] ?? '#6366f1' }}
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium truncate text-slate-900 dark:text-slate-100 text-tool">
-                          {r.name}
-                        </div>
+                        <div className="font-medium truncate text-heading text-tool">{r.name}</div>
                         <div className="text-mini text-muted font-mono">
                           {r.lat.toFixed(4)}, {r.lon.toFixed(4)}
                         </div>

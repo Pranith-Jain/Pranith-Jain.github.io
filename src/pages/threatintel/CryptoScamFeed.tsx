@@ -120,8 +120,7 @@ export default function CryptoScamFeed(): JSX.Element {
       </p>
       {data && (
         <p className="text-xs text-muted font-mono mb-6">
-          {data.total} domains · snapshot{' '}
-          <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+          {data.total} domains · snapshot <span className="text-body">{shortRel(data.generated_at)}</span>
           {data.stale && (
             <span className="text-amber-600 dark:text-amber-400 ml-2">· serving last-good (upstream unreachable)</span>
           )}
@@ -244,7 +243,7 @@ export default function CryptoScamFeed(): JSX.Element {
               className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 font-mono text-tool"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="truncate text-slate-800 dark:text-slate-200">{it.domain}</span>
+                <span className="truncate text-heading">{it.domain}</span>
                 <span className="text-mini text-muted shrink-0">.{it.tld}</span>
               </div>
               <PostSummary text={postSummaries.get(String(it.domain))} />

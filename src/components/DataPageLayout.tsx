@@ -114,9 +114,7 @@ export function DataPageLayout({
   const metaDesc = descriptionText(description, metaDescription);
 
   return (
-    <div
-      className={`${maxWidthClass} mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}
-    >
+    <div className={`${maxWidthClass} mx-auto px-4 sm:px-8 py-12 text-heading ${className ?? ''}`}>
       {/* Outermost layout owns document meta so every tool page gets a
           product-scoped title without each page wiring PageMeta by hand. */}
       {!insideLayout && !skipMeta && (

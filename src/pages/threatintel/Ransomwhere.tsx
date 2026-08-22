@@ -198,7 +198,7 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
               <button
                 type="button"
                 onClick={() => setFamily(w.family)}
-                className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug text-left hover:text-rose-600 dark:hover:text-rose-400"
+                className="font-semibold text-sm text-heading leading-snug text-left hover:text-rose-600 dark:hover:text-rose-400"
                 title="Filter by this family"
               >
                 {w.family || 'unattributed'}
@@ -214,7 +214,7 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
               )}
             </div>
 
-            <p className="mt-2 font-mono text-xs break-all text-slate-600 dark:text-slate-300" title={w.address}>
+            <p className="mt-2 font-mono text-xs break-all text-body" title={w.address}>
               {w.address}
             </p>
 

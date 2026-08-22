@@ -129,15 +129,13 @@ export default function ApprovedTab() {
                 key: 'title',
                 header: 'Title',
                 sortValue: (c: Candidate) => c.title,
-                render: (c) => <span className="text-slate-900 dark:text-slate-100">{c.title}</span>,
+                render: (c) => <span className="text-heading">{c.title}</span>,
               },
               {
                 key: 'score',
                 header: 'Score',
                 sortValue: (c: Candidate) => c.score,
-                render: (c) => (
-                  <span className="text-slate-700 dark:text-slate-300 tabular-nums">{c.score.toFixed(2)}</span>
-                ),
+                render: (c) => <span className="text-body tabular-nums">{c.score.toFixed(2)}</span>,
               },
               {
                 key: 'actions',

@@ -78,12 +78,12 @@ export default function AgenticReports(): JSX.Element {
                 {r.severity}
               </span>
               <span className="text-micro font-mono text-muted shrink-0">{r.tlp}</span>
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 flex-1 min-w-0">{r.title}</h3>
+              <h3 className="text-sm font-semibold text-heading flex-1 min-w-0">{r.title}</h3>
             </div>
             <p className="text-xs text-muted font-mono mb-2">
               {r.publishedAt} · {r.sources.length} source{r.sources.length === 1 ? '' : 's'} · {r.attribution.actor}
             </p>
-            <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 mb-2">{r.summary}</p>
+            <p className="text-xs text-body line-clamp-2 mb-2">{r.summary}</p>
             <div className="flex flex-wrap gap-1">
               {r.tags.slice(0, 5).map((t) => (
                 <span
@@ -195,9 +195,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
 
       {/* Executive Summary */}
       <Section title="Executive Summary" icon={<FileText className="h-4 w-4" />}>
-        <div className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
-          {report.summary}
-        </div>
+        <div className="text-sm text-body leading-relaxed whitespace-pre-wrap">{report.summary}</div>
       </Section>
 
       {/* Attribution */}
@@ -217,7 +215,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
               >
                 <div className="text-micro font-mono uppercase tracking-wider text-muted">{f.label}</div>
-                <div className="text-xs text-slate-900 dark:text-slate-100 mt-0.5">{f.value}</div>
+                <div className="text-xs text-heading mt-0.5">{f.value}</div>
               </div>
             ))}
         </div>
@@ -225,9 +223,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
 
       {/* Technical Details */}
       <Section title="Technical Details" icon={<Bug className="h-4 w-4" />}>
-        <div className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
-          {report.technicalDetails}
-        </div>
+        <div className="text-sm text-body leading-relaxed whitespace-pre-wrap">{report.technicalDetails}</div>
       </Section>
 
       {/* Detection Opportunities */}
@@ -240,7 +236,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
               >
                 <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <span className="text-sm font-medium text-slate-900 dark:text-slate-100">{d.title}</span>
+                  <span className="text-sm font-medium text-heading">{d.title}</span>
                   <span
                     className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${SEVERITY_STYLES[d.severity] ?? SEVERITY_STYLES.medium}`}
                   >
@@ -250,9 +246,9 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                     <span className="text-micro font-mono text-violet-600 dark:text-violet-400">{d.mitreId}</span>
                   )}
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-300 mb-1">{d.description}</p>
+                <p className="text-xs text-body mb-1">{d.description}</p>
                 {d.query && (
-                  <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto mt-2">
+                  <pre className="text-xs font-mono text-heading bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto mt-2">
                     {d.query}
                   </pre>
                 )}
@@ -279,14 +275,12 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                     key: 'value',
                     header: 'Value',
                     sortValue: (ioc: (typeof report.iocs)[number]) => ioc.value,
-                    render: (ioc) => (
-                      <span className="font-mono text-slate-900 dark:text-slate-100 break-all">{ioc.value}</span>
-                    ),
+                    render: (ioc) => <span className="font-mono text-heading break-all">{ioc.value}</span>,
                   },
                   {
                     key: 'description',
                     header: 'Description',
-                    render: (ioc) => <span className="text-slate-600 dark:text-slate-300">{ioc.description}</span>,
+                    render: (ioc) => <span className="text-body">{ioc.description}</span>,
                   },
                   {
                     key: 'confidence',
@@ -335,7 +329,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                     key: 'technique',
                     header: 'Technique',
                     sortValue: (t: (typeof report.ttps)[number]) => t.name,
-                    render: (t) => <span className="text-slate-900 dark:text-slate-100">{t.name}</span>,
+                    render: (t) => <span className="text-heading">{t.name}</span>,
                   },
                   {
                     key: 'tactic',
@@ -346,7 +340,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                   {
                     key: 'description',
                     header: 'Description',
-                    render: (t) => <span className="text-slate-600 dark:text-slate-300">{t.description}</span>,
+                    render: (t) => <span className="text-body">{t.description}</span>,
                   },
                 ] as DataTableColumn<(typeof report.ttps)[number]>[]
               }
@@ -367,7 +361,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
               >
                 <div className="text-micro font-mono uppercase tracking-wider text-muted">{m.label}</div>
-                <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{m.value}</div>
+                <div className="text-sm font-semibold text-heading">{m.value}</div>
               </div>
             ))}
           </div>
@@ -379,7 +373,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
         <div className="space-y-3">
           <ul className="space-y-1.5">
             {report.conclusion.takeaways.map((t, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-200">
+              <li key={i} className="flex items-start gap-2 text-sm text-body">
                 <span className="mt-1 h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0" />
                 {t}
               </li>
@@ -389,7 +383,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
             <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">Recommended Actions</div>
             <div className="space-y-1.5">
               {report.conclusion.actions.map((a, i) => (
-                <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">
+                <div key={i} className="flex items-start gap-2 text-xs text-body">
                   <span
                     className={`text-micro font-mono uppercase rounded border px-1.5 py-0.5 shrink-0 mt-0.5 ${SEVERITY_STYLES[a.priority] ?? SEVERITY_STYLES.low}`}
                   >
@@ -423,7 +417,7 @@ function Section({
     <section className="surface-card p-4 mb-3">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-rose-600 dark:text-rose-400">{icon}</span>
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
+        <h3 className="text-sm font-semibold text-heading">{title}</h3>
         {typeof count === 'number' && (
           <span className="ml-auto text-micro font-mono uppercase text-slate-500">{count}</span>
         )}

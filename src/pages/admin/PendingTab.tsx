@@ -234,10 +234,8 @@ export default function PendingTab() {
                       className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
                     >
                       <td className="py-2 pr-4 text-muted uppercase text-xs">{c.type}</td>
-                      <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{c.title}</td>
-                      <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">
-                        {c.score.toFixed(2)}
-                      </td>
+                      <td className="py-2 pr-4 text-heading">{c.title}</td>
+                      <td className="py-2 pr-4 text-body tabular-nums">{c.score.toFixed(2)}</td>
                       <td className="py-2 pr-4 text-muted max-w-md">{c.rationale}</td>
                       <td className="py-2 pr-4 text-xs max-w-[12rem]">
                         {(() => {

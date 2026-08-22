@@ -438,7 +438,7 @@ export default function CyberPulse(): JSX.Element {
           {/* Type breakdown */}
           {stats && stats.by_type.length > 0 && (
             <div className="surface-card p-4">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-body mb-3 flex items-center gap-2">
                 <Shield className="w-4 h-4" /> By Type
               </h3>
               <div className="space-y-2">
@@ -465,7 +465,7 @@ export default function CyberPulse(): JSX.Element {
           {/* Trending actors */}
           {trending && trending.trending_actors.length > 0 && (
             <div className="surface-card p-4">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-body mb-3 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4" /> Trending Actors
               </h3>
               <div className="space-y-1.5">
@@ -490,7 +490,7 @@ export default function CyberPulse(): JSX.Element {
           {/* Top victims */}
           {stats && stats.top_victims.length > 0 && (
             <div className="surface-card p-4">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-body mb-3 flex items-center gap-2">
                 <Building2 className="w-4 h-4" /> Most Targeted
               </h3>
               <div className="space-y-1.5">
@@ -510,7 +510,7 @@ export default function CyberPulse(): JSX.Element {
           {/* Daily trend mini chart */}
           {stats && stats.daily_trend.length > 0 && (
             <div className="surface-card p-4">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-body mb-3 flex items-center gap-2">
                 <Calendar className="w-4 h-4" /> Daily Trend
               </h3>
               <div className="flex items-end gap-1 h-16">
@@ -594,7 +594,7 @@ function FilterSelect({
                   onChange(k);
                   setOpen(false);
                 }}
-                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] ${value === k ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
+                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] ${value === k ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-body'}`}
               >
                 {v}
               </button>
@@ -643,7 +643,7 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
             </span>
           </div>
 
-          <p className="text-sm text-slate-800 dark:text-slate-200 leading-snug mb-1.5 line-clamp-2">{inc.title}</p>
+          <p className="text-sm text-heading leading-snug mb-1.5 line-clamp-2">{inc.title}</p>
 
           <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500 flex-wrap">
             {inc.victim_name && (

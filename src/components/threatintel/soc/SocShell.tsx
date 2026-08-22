@@ -110,8 +110,8 @@ export function SocShell({
   }, [loading, autoRefreshMs]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-transparent text-slate-900 dark:text-slate-100">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 dark:bg-transparent text-heading">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-heading">
         <div className="animate-fade-in-up mb-8">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
             <span className="text-brand-600 dark:text-brand-400 [&_svg]:shrink-0">{icon}</span>

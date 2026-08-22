@@ -104,7 +104,7 @@ export default function StealerParser(): JSX.Element {
   }, [input]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -141,7 +141,7 @@ export default function StealerParser(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste stealer log content here…"
           aria-label="Stealer log content to parse"
-          className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="flex items-center justify-between mt-3">
           <span className="text-xs text-muted font-mono">
@@ -254,7 +254,7 @@ export default function StealerParser(): JSX.Element {
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
                       {w.currency}
                     </span>
-                    <code className="text-xs text-slate-700 dark:text-slate-300 flex-1 truncate">{w.address}</code>
+                    <code className="text-xs text-body flex-1 truncate">{w.address}</code>
                     <CopyButton value={w.address} />
                   </div>
                 ))}
@@ -329,7 +329,7 @@ function InfoField({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-sm font-mono text-slate-700 dark:text-slate-300">{value}</div>
+      <div className="text-sm font-mono text-body">{value}</div>
     </div>
   );
 }

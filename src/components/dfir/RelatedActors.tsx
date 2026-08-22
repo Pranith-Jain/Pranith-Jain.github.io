@@ -10,7 +10,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
     <section className="surface-card p-6">
       <header className="flex items-center gap-2 mb-4">
         <Users size={16} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
-        <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Related Threat Actors</h3>
+        <h3 className="font-display font-bold text-lg text-heading">Related Threat Actors</h3>
       </header>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
         {matches.map(({ actor, matched }) => (
@@ -20,9 +20,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
             className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 hover:border-brand-500/40 transition-colors"
           >
             <div className="flex items-baseline justify-between mb-1">
-              <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                {actor.name}
-              </span>
+              <span className="font-display font-semibold text-sm text-heading">{actor.name}</span>
               {actor.country && (
                 <span className="text-micro font-mono uppercase tracking-wider text-slate-500">
                   {actor.country.length <= 3 ? actor.country : actor.country.slice(0, 3)}

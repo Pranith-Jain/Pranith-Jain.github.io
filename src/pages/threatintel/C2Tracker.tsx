@@ -185,9 +185,7 @@ export default function C2Tracker(): JSX.Element {
                   className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                 >
                   <div className="flex items-center justify-between gap-2 mb-1">
-                    <code className="font-mono text-sm text-slate-900 dark:text-slate-100 font-semibold truncate">
-                      {entry.ip}
-                    </code>
+                    <code className="font-mono text-sm text-heading font-semibold truncate">{entry.ip}</code>
                     <span
                       className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FRAMEWORK_COLORS[entry.framework] ?? 'bg-slate-500/15 text-muted border-slate-500/30'}`}
                     >

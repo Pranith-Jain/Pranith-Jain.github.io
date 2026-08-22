@@ -129,9 +129,7 @@ export function XLivePanel({
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-1.5 mb-0.5 flex-wrap">
-                    <span className="font-display font-semibold text-meta text-slate-900 dark:text-slate-100 truncate">
-                      {t.author.name}
-                    </span>
+                    <span className="font-display font-semibold text-meta text-heading truncate">{t.author.name}</span>
                     <span className="text-micro font-mono text-slate-500">@{t.author.screen_name}</span>
                     <a
                       href={sanitizeUrl(t.url)}
@@ -143,9 +141,7 @@ export function XLivePanel({
                       {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
                     </a>
                   </div>
-                  <p className="text-meta text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words line-clamp-4">
-                    {t.text}
-                  </p>
+                  <p className="text-meta text-heading whitespace-pre-wrap break-words line-clamp-4">{t.text}</p>
                   {t.tweetfeed_tags.length > 0 && (
                     <div className="mt-1 flex flex-wrap gap-1">
                       {t.tweetfeed_tags.slice(0, 4).map((tag) => (

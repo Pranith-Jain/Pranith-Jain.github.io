@@ -182,9 +182,7 @@ export function AiSummaryCard({
           <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
             <Sparkles size={14} className="text-brand-600 dark:text-brand-400" />
           </span>
-          <span className="text-sm font-display font-bold text-slate-900 dark:text-slate-100">
-            AI Summary - {surface}
-          </span>
+          <span className="text-sm font-display font-bold text-heading">AI Summary - {surface}</span>
           {data && (
             <span className="text-micro font-mono text-muted ml-1">
               {data.itemCount} items · {data.modelUsed.split(':').pop()}
@@ -233,7 +231,7 @@ export function AiSummaryCard({
 
           {data && (
             <div>
-              <div className="prose prose-sm dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
+              <div className="prose prose-sm dark:prose-invert max-w-none text-body leading-relaxed whitespace-pre-wrap">
                 {data.summary.split('\n').map((line, i) => {
                   const parts = line.split(/(\*\*[^*]+\*\*)/g);
                   return (

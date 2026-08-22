@@ -200,15 +200,11 @@ export default function AggregatedFeeds() {
                   </div>
 
                   <div className="flex flex-wrap gap-4 mt-3 text-sm">
-                    <span
-                      className={
-                        feed.fetch_ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'
-                      }
-                    >
+                    <span className={feed.fetch_ok ? 'text-body' : 'text-rose-600 dark:text-rose-400'}>
                       <span className="text-muted">IOCs:</span>{' '}
                       <strong>{feed.fetch_ok ? formatCount(feed.ioc_count) : 'unreachable'}</strong>
                     </span>
-                    <span className="text-slate-700 dark:text-slate-300">
+                    <span className="text-body">
                       <span className="text-muted">Size:</span> <strong>{formatBytes(feed.size_bytes)}</strong>
                     </span>
                     <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -226,7 +222,7 @@ export default function AggregatedFeeds() {
                           {feed.sample_entries.map((entry, i) => (
                             <code
                               key={i}
-                              className="block px-3 py-1 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded text-slate-700 dark:text-slate-300 text-xs font-mono"
+                              className="block px-3 py-1 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded text-body text-xs font-mono"
                             >
                               {entry}
                             </code>

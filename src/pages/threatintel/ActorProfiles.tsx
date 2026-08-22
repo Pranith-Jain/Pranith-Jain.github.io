@@ -40,8 +40,7 @@ const TYPE_COLORS: Record<ActorType, string> = {
     'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   insider:
     'bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
-  supplier:
-    'bg-slate-50 dark:bg-slate-950/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800',
+  supplier: 'bg-slate-50 dark:bg-slate-950/40 text-body border-line-1',
 };
 
 const STATUS_PILL: Record<string, string> = {
@@ -68,7 +67,7 @@ const COUNTRY_FLAGS: Record<string, string> = {
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
+  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
 
 function getCountryCode(country: string): string {
   const match = country.match(/^([A-Z]{2})/);
@@ -103,9 +102,7 @@ function ActorCard({
         <div className={`rounded-xl p-2 shrink-0 ${TYPE_COLORS[actor.type]}`}>{TYPE_ICONS[actor.type]}</div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 truncate">
-              {actor.name}
-            </h3>
+            <h3 className="font-display font-semibold text-base text-heading truncate">{actor.name}</h3>
             <span className={`text-micro font-mono px-1.5 py-0.5 rounded-full border ${statusCls}`}>
               {actor.status}
             </span>
@@ -147,12 +144,12 @@ function ActorCard({
       {/* Expanded details */}
       {isExpanded && (
         <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-4 space-y-4">
-          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{actor.description}</p>
+          <p className="text-sm text-body leading-relaxed">{actor.description}</p>
 
           {/* Motivation */}
           <div>
             <span className="text-mini font-mono uppercase tracking-wider text-muted">Motivation</span>
-            <p className="text-sm text-slate-700 dark:text-slate-300 mt-0.5">{actor.motivation}</p>
+            <p className="text-sm text-body mt-0.5">{actor.motivation}</p>
           </div>
 
           {/* Malware & Tools */}
@@ -235,7 +232,7 @@ function ActorCard({
               <span className="text-mini font-mono uppercase tracking-wider text-muted">Notable Campaigns</span>
               <ul className="mt-1.5 space-y-1">
                 {actor.campaigns.map((c) => (
-                  <li key={c} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                  <li key={c} className="flex items-center gap-2 text-sm text-body">
                     <span className="h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0" />
                     {c}
                   </li>

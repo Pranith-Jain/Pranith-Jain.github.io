@@ -23,7 +23,7 @@ function PhaseHeader({
         {phase.number}
       </span>
       <span className="flex-1 min-w-0">
-        <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">{phase.name}</span>
+        <span className="block font-display font-semibold text-heading">{phase.name}</span>
         <span className="block text-xs font-mono text-muted truncate">{phase.short}</span>
       </span>
       <span className="flex-none text-micro font-mono uppercase tracking-wider text-muted">
@@ -42,20 +42,20 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
   return (
     <div className="animate-fade-in-up overflow-hidden">
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.description}</p>
+        <p className="text-sm font-mono text-body leading-relaxed">{phase.description}</p>
 
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
               Attacker goal
             </h4>
-            <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.attackerGoal}</p>
+            <p className="text-xs font-mono text-body leading-relaxed">{phase.attackerGoal}</p>
           </div>
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
               Defender goal
             </h4>
-            <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.defenderGoal}</p>
+            <p className="text-xs font-mono text-body leading-relaxed">{phase.defenderGoal}</p>
           </div>
         </div>
 
@@ -70,9 +70,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5"
               >
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">
-                    {t.label}
-                  </span>
+                  <span className="text-xs font-display font-semibold text-heading">{t.label}</span>
                   {t.attack && (
                     <Link
                       to={`/threatintel/mitre?id=${encodeURIComponent(t.attack)}`}
@@ -94,7 +92,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-sky-600 dark:text-sky-400 mb-2">
               Detection
             </h4>
-            <ul className="space-y-1 text-mini font-mono text-slate-700 dark:text-slate-300 leading-relaxed list-disc pl-4">
+            <ul className="space-y-1 text-mini font-mono text-body leading-relaxed list-disc pl-4">
               {phase.detection.map((d) => (
                 <li key={d}>{d}</li>
               ))}
@@ -104,7 +102,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-2">
               Controls
             </h4>
-            <ul className="space-y-1 text-mini font-mono text-slate-700 dark:text-slate-300 leading-relaxed list-disc pl-4">
+            <ul className="space-y-1 text-mini font-mono text-body leading-relaxed list-disc pl-4">
               {phase.controls.map((c) => (
                 <li key={c}>{c}</li>
               ))}
@@ -133,7 +131,7 @@ export default function KillChain(): JSX.Element {
   const allOpen = expanded.size === KILL_CHAIN.length;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"

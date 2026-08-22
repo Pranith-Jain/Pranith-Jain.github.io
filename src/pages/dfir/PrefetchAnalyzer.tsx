@@ -193,7 +193,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
   const shown = pf ? (q ? pf.files.filter((f) => f.toLowerCase().includes(q.toLowerCase())) : pf.files) : [];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=artifacts"
@@ -218,9 +218,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
         aria-label="Drop a .pf file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
-          Drop a .pf file file here, or click to choose
-        </p>
+        <p className="text-sm font-mono text-body">Drop a .pf file file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">100% client-side. No upload.</p>
       </button>
       <input
@@ -280,7 +278,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                 Last run times ({pf.lastRuns.length})
               </div>
-              <div className="font-mono text-mini text-slate-700 dark:text-slate-300">{pf.lastRuns.join('  ·  ')}</div>
+              <div className="font-mono text-mini text-body">{pf.lastRuns.join('  ·  ')}</div>
             </div>
           )}
           <div>

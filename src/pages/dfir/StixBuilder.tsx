@@ -246,7 +246,7 @@ export default function StixBuilder(): JSX.Element {
   const activeMode = MODES.find((m) => m.id === mode) ?? MODES[0]!;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <header className="animate-fade-in-up mb-10">
         <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
@@ -519,9 +519,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
         )}
       </p>
 
-      {view.summary && (
-        <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">{view.summary}</p>
-      )}
+      {view.summary && <p className="mt-3 text-sm leading-relaxed text-body">{view.summary}</p>}
 
       {view.keywords.length > 0 && (
         <Section title="Keywords">
@@ -584,7 +582,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
                 className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
               >
                 <span className="font-mono text-micro text-muted">{i + 1}.</span>
-                <span className="font-medium text-slate-700 dark:text-slate-200">{step.name}</span>
+                <span className="font-medium text-body">{step.name}</span>
                 <span className="font-mono text-micro text-slate-500">{step.techniqueId}</span>
                 {step.tactic && (
                   <Badge tone="neutral" size="xs">

@@ -161,7 +161,7 @@ export default function QuerycraftAi(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -214,7 +214,7 @@ export default function QuerycraftAi(): JSX.Element {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe what you want to detect in plain language…"
-          className="w-full h-24 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-24 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.slice(0, 5).map((ex) => (
@@ -245,7 +245,7 @@ export default function QuerycraftAi(): JSX.Element {
               }`}
             >
               <div
-                className={`text-xs font-mono font-semibold ${siem === s.id ? 'text-brand-600 dark:text-brand-400' : 'text-slate-700 dark:text-slate-300'}`}
+                className={`text-xs font-mono font-semibold ${siem === s.id ? 'text-brand-600 dark:text-brand-400' : 'text-body'}`}
               >
                 {s.label}
               </div>
@@ -311,7 +311,7 @@ export default function QuerycraftAi(): JSX.Element {
                 <CopyButton value={result.query} />
               </div>
             </div>
-            <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[400px] overflow-y-auto">
+            <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-body font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[400px] overflow-y-auto">
               {result.query}
             </pre>
             <p className="mt-3 text-xs text-muted leading-relaxed">{result.description}</p>

@@ -208,7 +208,7 @@ function StringList({ items, empty }: { items: string[]; empty?: string }) {
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {items.map((item, i) => (
           <div key={i} className="flex items-center gap-2 px-4 py-2 text-sm">
-            <span className="truncate font-mono text-slate-700 dark:text-slate-300">{item}</span>
+            <span className="truncate font-mono text-body">{item}</span>
           </div>
         ))}
       </div>
@@ -384,7 +384,7 @@ function JsPanel({ data }: { data: ScanData }) {
         {data.js_files.map((f) => (
           <div key={f.url} className="flex items-center gap-3 px-4 py-2.5 text-sm">
             <Code className="h-4 w-4 shrink-0 text-muted" />
-            <span className="truncate font-mono text-slate-700 dark:text-slate-300">{f.url}</span>
+            <span className="truncate font-mono text-body">{f.url}</span>
             <ExternalLink className="ml-auto h-3.5 w-3.5 shrink-0 text-muted" />
           </div>
         ))}
@@ -415,7 +415,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
             >
               {ep.method}
             </span>
-            <span className="truncate font-mono text-slate-700 dark:text-slate-300">{ep.url}</span>
+            <span className="truncate font-mono text-body">{ep.url}</span>
             <span className="ml-auto shrink-0 text-xs text-muted">{ep.type}</span>
           </div>
         ))}
@@ -451,7 +451,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
             {sec.issues.map((issue, i) => (
               <div key={i} className="flex items-start gap-2 text-sm">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
-                <span className="text-slate-700 dark:text-slate-300">{issue}</span>
+                <span className="text-body">{issue}</span>
               </div>
             ))}
           </div>
@@ -466,7 +466,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
               ) : (
                 <X className="h-4 w-4 shrink-0 text-rose-500" />
               )}
-              <span className="font-mono text-slate-700 dark:text-slate-300">{key}</span>
+              <span className="font-mono text-body">{key}</span>
               {value && <span className="ml-auto truncate text-xs text-slate-500">{value}</span>}
             </div>
           ))}
@@ -544,7 +544,7 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {items.slice(0, 20).map((item, i) => (
-                <div key={i} className="px-4 py-2 text-sm font-mono text-slate-700 dark:text-slate-300">
+                <div key={i} className="px-4 py-2 text-sm font-mono text-body">
                   {item}
                 </div>
               ))}
@@ -636,7 +636,7 @@ function LinksPanel({ data }: { data: ScanData }) {
         {data.links.slice(0, 200).map((link, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2 text-sm">
             <Link2 className="h-4 w-4 shrink-0 text-muted" />
-            <span className="truncate text-slate-700 dark:text-slate-300">{link.text || link.href}</span>
+            <span className="truncate text-body">{link.text || link.href}</span>
             {link.rel && (
               <span className="ml-auto shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
                 {link.rel}
@@ -659,7 +659,7 @@ function AwsAssetsPanel({ data }: { data: ScanData }) {
         {assets.map((a, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
             <Cloud className="h-4 w-4 shrink-0 text-amber-500" />
-            <span className="truncate font-mono text-slate-700 dark:text-slate-300">{a.url}</span>
+            <span className="truncate font-mono text-body">{a.url}</span>
             {a.status && (
               <span
                 className={`ml-auto rounded px-1.5 py-0.5 text-micro font-bold ${a.status === 200 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'}`}

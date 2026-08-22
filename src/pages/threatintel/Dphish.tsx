@@ -162,9 +162,7 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
               )}
               {entry.score != null && <span className="text-micro font-mono text-slate-400">score {entry.score}</span>}
             </div>
-            <div className="mt-1.5 font-mono text-sm text-slate-900 dark:text-slate-100 break-all">
-              {entry.value ?? entry.slug}
-            </div>
+            <div className="mt-1.5 font-mono text-sm text-heading break-all">{entry.value ?? entry.slug}</div>
             {entry.description && <div className="mt-1 text-mini text-slate-500 line-clamp-2">{entry.description}</div>}
             <div className="mt-1.5 flex items-center gap-3 text-micro text-slate-400 font-mono">
               <span className="flex items-center gap-1">
@@ -206,7 +204,7 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
                   <Fingerprint className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                   <div className="space-y-0.5">
                     {body.observableValues.map((ov, i) => (
-                      <div key={i} className="text-slate-700 dark:text-slate-300 break-all">
+                      <div key={i} className="text-body break-all">
                         <span className="text-slate-400">{ov.type}: </span>
                         {ov.value}
                       </div>
@@ -238,7 +236,7 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
                   <div className="flex items-center gap-1.5 text-micro text-slate-400 font-mono mb-1">
                     <FileText className="w-3 h-3" /> STIX PATTERN
                   </div>
-                  <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-2.5 max-h-64 overflow-auto">
+                  <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-2.5 max-h-64 overflow-auto">
                     {body.pattern}
                   </pre>
                 </div>
@@ -263,7 +261,7 @@ function Detail({ label, value, mono = false }: { label: string; value: string; 
   return (
     <div>
       <div className="text-micro text-slate-400 uppercase tracking-wider">{label}</div>
-      <div className={`text-mini text-slate-700 dark:text-slate-300 break-all ${mono ? 'font-mono' : ''}`}>{value}</div>
+      <div className={`text-mini text-body break-all ${mono ? 'font-mono' : ''}`}>{value}</div>
     </div>
   );
 }
@@ -373,7 +371,7 @@ export default function Dphish(): JSX.Element {
                 placeholder="Search value, observable type, or description…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
               />
             </div>
             <button

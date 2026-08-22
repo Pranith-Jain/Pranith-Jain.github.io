@@ -155,7 +155,7 @@ function EndpointsTab(): JSX.Element {
               className={`w-full rounded border px-3 py-2 text-left text-sm ${
                 selected?.client_id === c.client_id
                   ? 'border-indigo-400 bg-indigo-50 dark:bg-indigo-950/30'
-                  : 'border-slate-200 dark:border-slate-800 hover:border-indigo-300'
+                  : 'border-line-1 hover:border-indigo-300'
               }`}
             >
               <div className="font-mono">{c.hostname ?? c.client_id}</div>
@@ -179,13 +179,13 @@ function EndpointsTab(): JSX.Element {
         </div>
 
         {selected && (
-          <div className="space-y-3 rounded border border-slate-200 dark:border-slate-800 p-3">
+          <div className="space-y-3 rounded border border-line-1 p-3">
             <h3 className="font-mono text-sm font-semibold">{selected.hostname ?? selected.client_id}</h3>
             <div className="flex gap-2">
               <input
                 value={artifactInput}
                 onChange={(e) => setArtifactInput(e.target.value)}
-                className="flex-1 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 font-mono text-xs"
+                className="flex-1 rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 font-mono text-xs"
                 placeholder="Windows.KapeFiles.Collect, Custom.…"
               />
               <button
@@ -297,9 +297,7 @@ function SamplesTab(): JSX.Element {
           }}
         />
         <Upload className="mx-auto mb-2 text-slate-400" size={24} />
-        <p className="text-sm text-slate-600 dark:text-slate-300">
-          Drop sample (≤24MB) → Hybrid Analysis detonation + VirusTotal scan
-        </p>
+        <p className="text-sm text-body">Drop sample (≤24MB) → Hybrid Analysis detonation + VirusTotal scan</p>
         {filename && (
           <p className="mt-1 font-mono text-xs text-slate-500">
             {filename} ({Math.round(b64.length / 1.37 / 1024)}KB)
@@ -315,7 +313,7 @@ function SamplesTab(): JSX.Element {
         {busy ? <Loader2 size={14} className="animate-spin" /> : <FlaskConical size={14} />} Submit for analysis
       </button>
       {result && (
-        <pre className="max-h-72 overflow-auto rounded-lg border border-slate-200 dark:border-slate-800 p-3 font-mono text-xs whitespace-pre-wrap">
+        <pre className="max-h-72 overflow-auto rounded-lg border border-line-1 p-3 font-mono text-xs whitespace-pre-wrap">
           {JSON.stringify(result, null, 2)}
         </pre>
       )}
@@ -324,7 +322,7 @@ function SamplesTab(): JSX.Element {
           <h4 className="text-xs font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1">
             <RefreshCw size={11} /> status
           </h4>
-          <pre className="max-h-72 overflow-auto rounded-lg border border-slate-200 dark:border-slate-800 p-3 font-mono text-xs whitespace-pre-wrap">
+          <pre className="max-h-72 overflow-auto rounded-lg border border-line-1 p-3 font-mono text-xs whitespace-pre-wrap">
             {JSON.stringify(statusResult, null, 2)}
           </pre>
         </>
@@ -416,7 +414,7 @@ function RulesTab(): JSX.Element {
         rows={10}
         spellCheck={false}
         placeholder={`paste ${kind} rule…`}
-        className="w-full rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs"
+        className="w-full rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs"
       />
       <div className="flex flex-wrap gap-2">
         <button
@@ -431,7 +429,7 @@ function RulesTab(): JSX.Element {
             <select
               value={target}
               onChange={(e) => setTarget(e.target.value as 'splunk' | 'kql')}
-              className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 text-sm"
+              className="rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 text-sm"
             >
               <option value="kql">Sentinel KQL</option>
               <option value="splunk">Splunk SPL</option>
@@ -448,7 +446,7 @@ function RulesTab(): JSX.Element {
       </div>
       {error && <ErrorBox msg={error} />}
       {validation && (
-        <pre className="max-h-64 overflow-auto rounded-lg border border-slate-200 dark:border-slate-800 p-3 font-mono text-xs whitespace-pre-wrap">
+        <pre className="max-h-64 overflow-auto rounded-lg border border-line-1 p-3 font-mono text-xs whitespace-pre-wrap">
           {JSON.stringify(validation, null, 2)}
         </pre>
       )}
@@ -495,7 +493,7 @@ function ObservablesTab(): JSX.Element {
         onChange={(e) => setText(e.target.value)}
         rows={8}
         placeholder="paste threat report / log lines / defanged IOCs… (hxxp, [.], [at] all handled)"
-        className="w-full rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs"
+        className="w-full rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs"
       />
       <button
         onClick={extract}
@@ -522,7 +520,7 @@ function ObservablesTab(): JSX.Element {
         </div>
       )}
       {hits.length > 0 && (
-        <div className="max-h-80 overflow-auto rounded-lg border border-slate-200 dark:border-slate-800">
+        <div className="max-h-80 overflow-auto rounded-lg border border-line-1">
           <table className="w-full text-left text-xs">
             <thead className="sticky top-0 bg-slate-50 dark:bg-[rgb(var(--surface-100))] font-mono uppercase text-slate-500">
               <tr>

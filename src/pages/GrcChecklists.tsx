@@ -162,7 +162,7 @@ export default function GrcChecklists() {
                       placeholder="Search controls by ID, name, requirement..."
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full px-9 py-1.5 rounded-lg text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+                      className="w-full px-9 py-1.5 rounded-lg text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
                     />
                   </div>
                   <div className="text-xs text-muted font-mono">
@@ -187,7 +187,7 @@ export default function GrcChecklists() {
                       if (controls.length === 0) return null;
                       return (
                         <div key={cat.key}>
-                          <h3 className="font-display font-semibold text-sm text-slate-800 dark:text-slate-200 mb-2">
+                          <h3 className="font-display font-semibold text-sm text-heading mb-2">
                             {cat.key} — {cat.name}
                           </h3>
                           <div className="space-y-1.5">
@@ -200,9 +200,7 @@ export default function GrcChecklists() {
                                   <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">
                                     {ctl.id}
                                   </span>
-                                  <span className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100">
-                                    {ctl.name}
-                                  </span>
+                                  <span className="font-display font-semibold text-xs text-heading">{ctl.name}</span>
                                 </div>
                                 <p className="text-mini font-mono text-muted leading-relaxed">{ctl.req}</p>
                               </div>
@@ -228,7 +226,7 @@ export default function GrcChecklists() {
               const theme = themeRaw as MapperTheme;
               return (
                 <div key={theme.theme} className={`${CARD} p-4`}>
-                  <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
+                  <h3 className="font-display font-semibold text-sm text-heading mb-3">
                     {i + 1}. {theme.theme}
                   </h3>
                   <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -249,7 +247,7 @@ export default function GrcChecklists() {
                               {list.map((c) => (
                                 <span
                                   key={c}
-                                  className="font-mono text-micro px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300"
+                                  className="font-mono text-micro px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body"
                                 >
                                   {c}
                                 </span>

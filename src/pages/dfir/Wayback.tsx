@@ -190,7 +190,7 @@ export default function Wayback(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -339,9 +339,7 @@ export default function Wayback(): JSX.Element {
                     key={`${s.timestamp}-${s.digest}`}
                     className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
-                    <td className="py-1.5 pr-3 text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                      {fmtTs(s.timestamp)}
-                    </td>
+                    <td className="py-1.5 pr-3 text-body whitespace-nowrap">{fmtTs(s.timestamp)}</td>
                     <td className="py-1.5 pr-3">
                       <span
                         className={`text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(s.status || '0')}`}
@@ -430,12 +428,12 @@ function Stat({ label, value, url }: { label: string; value: string; url?: strin
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+          className="text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
         >
           {value} <ExternalLink size={10} />
         </a>
       ) : (
-        <span className="text-slate-800 dark:text-slate-200">{value}</span>
+        <span className="text-heading">{value}</span>
       )}
     </div>
   );

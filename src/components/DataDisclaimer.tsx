@@ -212,7 +212,7 @@ export function DataDisclaimer() {
                 {s.grade}
               </span>
               <div className="flex-1 min-w-0">
-                <span className="font-medium text-slate-900 dark:text-slate-100">{s.name}</span>
+                <span className="font-medium text-heading">{s.name}</span>
                 <span className="text-slate-500"> - {s.desc}</span>
                 {s.bias && <span className="text-amber-600 dark:text-amber-400 block truncate">{s.bias}</span>}
               </div>

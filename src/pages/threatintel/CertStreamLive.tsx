@@ -269,8 +269,8 @@ export default function CertStreamLive(): JSX.Element {
                 </span>
               ) : (
                 <>
-                  <span className="text-slate-700 dark:text-slate-300 font-semibold">{items.length}</span> certs
-                  buffered · high-water id <code>{highWater || '-'}</code>
+                  <span className="text-body font-semibold">{items.length}</span> certs buffered · high-water id{' '}
+                  <code>{highWater || '-'}</code>
                   {lastPoll && <> · last poll {formatTimeAgo(lastPoll)}</>}
                 </>
               )}
@@ -317,7 +317,7 @@ export default function CertStreamLive(): JSX.Element {
                               <ShieldAlert size={9} /> sus·{score}
                             </span>
                           )}
-                          <code className="text-sm font-mono text-slate-900 dark:text-slate-100 truncate">
+                          <code className="text-sm font-mono text-heading truncate">
                             {it.common_name || it.dns_names[0] || '(no CN)'}
                           </code>
                         </div>

@@ -64,7 +64,7 @@ function QueryBlock({ query }: { query: string }) {
       >
         {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
       </button>
-      <pre className="font-mono text-mini leading-relaxed text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-mini leading-relaxed text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
         {query}
       </pre>
     </div>
@@ -92,7 +92,7 @@ function QueryDetail({ body, onClose }: { body: CloudQueryBody; onClose: () => v
             </a>
           )}
         </div>
-        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.desc}</p>
+        <p className="text-sm text-body leading-relaxed">{body.desc}</p>
         <QueryBlock query={body.kql} />
       </div>
     </Modal>
@@ -188,22 +188,20 @@ export default function CloudReference() {
                   {index?.srm.domains.map((d) => (
                     <tr key={d.id} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] align-top">
                       <td className="py-3 pr-4">
-                        <div className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100 mb-0.5">
-                          {d.name}
-                        </div>
+                        <div className="font-display font-semibold text-xs text-heading mb-0.5">{d.name}</div>
                         <div className="text-micro font-mono text-slate-400 dark:text-slate-500 leading-relaxed">
                           {d.description}
                         </div>
                       </td>
-                      <td className="py-3 pr-4 text-mini font-mono text-slate-600 dark:text-slate-300 leading-relaxed">
+                      <td className="py-3 pr-4 text-mini font-mono text-body leading-relaxed">
                         {d.iaas.aws} <span className="text-slate-400">|</span> {d.iaas.azure}{' '}
                         <span className="text-slate-400">|</span> {d.iaas.gcp}
                       </td>
-                      <td className="py-3 pr-4 text-mini font-mono text-slate-600 dark:text-slate-300 leading-relaxed">
+                      <td className="py-3 pr-4 text-mini font-mono text-body leading-relaxed">
                         {d.paas.aws} <span className="text-slate-400">|</span> {d.paas.azure}{' '}
                         <span className="text-slate-400">|</span> {d.paas.gcp}
                       </td>
-                      <td className="py-3 text-mini font-mono text-slate-600 dark:text-slate-300 leading-relaxed">
+                      <td className="py-3 text-mini font-mono text-body leading-relaxed">
                         {d.saas.aws} <span className="text-slate-400">|</span> {d.saas.azure}{' '}
                         <span className="text-slate-400">|</span> {d.saas.gcp}
                       </td>
@@ -225,7 +223,7 @@ export default function CloudReference() {
                   placeholder="Search hunt queries..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+                  className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
                 />
               </div>
               <div className="text-xs text-muted font-mono">
@@ -273,7 +271,7 @@ export default function CloudReference() {
                         <span className="font-mono text-micro text-orange-600 dark:text-orange-400/70">{q.mitre}</span>
                       )}
                     </div>
-                    <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                    <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
                       {q.name}
                     </div>
                   </button>

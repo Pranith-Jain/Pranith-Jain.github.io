@@ -9,7 +9,7 @@ export function SubdomainTree({ subdomains }: { subdomains: ExposureScanResponse
       {subdomains.map((s) => (
         <li key={s.name} className="surface-card p-3">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-sm text-slate-900 dark:text-slate-100">{s.name}</span>
+            <span className="font-mono text-sm text-heading">{s.name}</span>
             <span className="font-mono text-xs text-muted">
               {s.ips.length} IP{s.ips.length === 1 ? '' : 's'}
             </span>
@@ -18,9 +18,7 @@ export function SubdomainTree({ subdomains }: { subdomains: ExposureScanResponse
           {s.shodan?.status === 'ok' && (
             <div className="mt-2 font-mono text-xs">
               <span className="text-muted">ports: </span>
-              <span className="text-slate-900 dark:text-slate-100">
-                {(s.shodan.raw_summary.ports ?? []).slice(0, 8).join(', ') || '-'}
-              </span>
+              <span className="text-heading">{(s.shodan.raw_summary.ports ?? []).slice(0, 8).join(', ') || '-'}</span>
               {(s.shodan.raw_summary.vulns?.length ?? 0) > 0 && (
                 <span className="ml-3 text-rose-600 dark:text-rose-400">
                   vulns: {s.shodan.raw_summary.vulns!.length}

@@ -339,7 +339,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         ].map(({ label, value, cls }) => (
           <div key={label} className="surface-card/50 shadow-e1 p-2.5">
             <div className={`text-mini uppercase tracking-wider mb-0.5 ${cls}`}>{label}</div>
-            <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{value}</div>
+            <div className="text-lg font-bold text-heading">{value}</div>
           </div>
         ))}
       </div>
@@ -353,13 +353,13 @@ export default function DarknetMarketsTimeline(): JSX.Element {
             placeholder="Search market name, description, country…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={catFilter}
           onChange={(e) => setCatFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="">All categories</option>
           {ALL_CATEGORIES.map((c) => (
@@ -421,7 +421,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
               <div className="flex items-start gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">{m.name}</h3>
+                    <h3 className="text-base font-bold text-heading">{m.name}</h3>
                     <span className={`px-1.5 py-0.5 text-micro font-mono rounded border ${meta.bg} ${meta.color}`}>
                       {meta.label}
                     </span>
@@ -431,7 +431,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed mb-1.5">{m.description}</p>
+                  <p className="text-xs text-body leading-relaxed mb-1.5">{m.description}</p>
                   <div className="flex items-center gap-2 flex-wrap text-mini text-slate-500">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-2.5 h-2.5" /> Founded {m.founded}

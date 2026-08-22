@@ -164,7 +164,7 @@ export default function Orkl(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -208,7 +208,7 @@ export default function Orkl(): JSX.Element {
             { label: 'Last Update', value: formatDate(info.library_last_update) },
           ].map((s) => (
             <div key={s.label}>
-              <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">{s.value}</div>
+              <div className="text-2xl font-bold text-heading">{s.value}</div>
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mt-0.5">{s.label}</div>
             </div>
           ))}
@@ -272,7 +272,7 @@ export default function Orkl(): JSX.Element {
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-slate-300 dark:hover:border-slate-600'
                   }`}
                 >
-                  <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 leading-snug line-clamp-2">
+                  <div className="text-sm font-semibold text-heading leading-snug line-clamp-2">
                     {entry.llm_title || entry.title || 'Untitled'}
                   </div>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5 text-mini font-mono text-slate-500">
@@ -299,7 +299,7 @@ export default function Orkl(): JSX.Element {
           {selected && (
             <div className="lg:col-span-2 space-y-4">
               <div className="surface-card p-4">
-                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
+                <h2 className="text-lg font-bold text-heading mb-2">
                   {selected.llm_title || selected.title || 'Untitled'}
                 </h2>
 
@@ -313,41 +313,37 @@ export default function Orkl(): JSX.Element {
                   {selected.authors && (
                     <div>
                       <span className="text-slate-500">Authors</span>
-                      <div className="text-slate-700 dark:text-slate-300">{selected.authors}</div>
+                      <div className="text-body">{selected.authors}</div>
                     </div>
                   )}
                   {selected.file_creation_date && (
                     <div>
                       <span className="text-slate-500">Published</span>
-                      <div className="text-slate-700 dark:text-slate-300">
-                        {formatDate(selected.file_creation_date)}
-                      </div>
+                      <div className="text-body">{formatDate(selected.file_creation_date)}</div>
                     </div>
                   )}
                   {selected.language && (
                     <div>
                       <span className="text-slate-500">Language</span>
-                      <div className="text-slate-700 dark:text-slate-300 uppercase">{selected.language}</div>
+                      <div className="text-body uppercase">{selected.language}</div>
                     </div>
                   )}
                   {selected.file_size != null && (
                     <div>
                       <span className="text-slate-500">File Size</span>
-                      <div className="text-slate-700 dark:text-slate-300">{formatBytes(selected.file_size)}</div>
+                      <div className="text-body">{formatBytes(selected.file_size)}</div>
                     </div>
                   )}
                   {selected.extraction_quality != null && (
                     <div>
                       <span className="text-slate-500">Extraction</span>
-                      <div className="text-slate-700 dark:text-slate-300">
-                        {Math.round(selected.extraction_quality * 100)}%
-                      </div>
+                      <div className="text-body">{Math.round(selected.extraction_quality * 100)}%</div>
                     </div>
                   )}
                   {selected.sources && selected.sources.length > 0 && (
                     <div>
                       <span className="text-slate-500">Sources</span>
-                      <div className="text-slate-700 dark:text-slate-300 truncate" title={selected.sources.join(', ')}>
+                      <div className="text-body truncate" title={selected.sources.join(', ')}>
                         {selected.sources.join(', ')}
                       </div>
                     </div>
@@ -403,7 +399,7 @@ export default function Orkl(): JSX.Element {
                     <Loader2 size={14} className="animate-spin" /> Loading…
                   </div>
                 ) : selected.plain_text ? (
-                  <div className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed max-h-[600px] overflow-y-auto">
+                  <div className="text-sm text-body whitespace-pre-wrap leading-relaxed max-h-[600px] overflow-y-auto">
                     {selected.plain_text}
                   </div>
                 ) : (

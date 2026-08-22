@@ -410,7 +410,7 @@ export default function F3ead(): JSX.Element {
       {/* ── The loop diagram ─────────────────────────────────────────── */}
       <section className="mb-12">
         <header className="flex items-end justify-between mb-4">
-          <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">The F3EAD loop</h2>
+          <h2 className="text-xl font-display font-semibold text-heading">The F3EAD loop</h2>
           <p className="text-xs font-mono text-muted hidden sm:block">ops &rarr; intel &rarr; feedback to ops</p>
         </header>
 
@@ -428,10 +428,10 @@ export default function F3ead(): JSX.Element {
                   <div className={`absolute inset-0 rounded-xl ${p.accent} pointer-events-none opacity-60`} />
                   <div className="relative flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-slate-600 dark:text-slate-300">
+                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-body">
                         {p.number}
                       </span>
-                      <Icon className="h-4 w-4 text-slate-700 dark:text-slate-200" />
+                      <Icon className="h-4 w-4 text-body" />
                     </div>
                     {openPhase === p.id ? (
                       <ChevronDown className="h-4 w-4 text-slate-500" />
@@ -440,7 +440,7 @@ export default function F3ead(): JSX.Element {
                     )}
                   </div>
                   <div className="relative mt-2">
-                    <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">{p.name}</h3>
+                    <h3 className="text-base font-semibold text-heading">{p.name}</h3>
                     <p className="text-xs text-muted mt-0.5">{p.short}</p>
                   </div>
                 </button>
@@ -464,28 +464,28 @@ export default function F3ead(): JSX.Element {
               <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-5">
                 <div className="flex flex-wrap items-start gap-3">
                   <div className={`rounded p-2 ring-1 ${p.ringClass} bg-white dark:bg-[rgb(var(--surface-200))]`}>
-                    <PIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
+                    <PIcon className="h-5 w-5 text-body" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                    <h3 className="text-lg font-semibold text-heading">
                       {p.number}. {p.name} &mdash; {p.short}
                     </h3>
                     <p className="text-sm text-muted mt-1">{p.description}</p>
                     <dl className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs">
                       <div>
                         <dt className="font-mono uppercase tracking-wider text-muted">Who</dt>
-                        <dd className="text-slate-800 dark:text-slate-200">{p.who}</dd>
+                        <dd className="text-heading">{p.who}</dd>
                       </div>
                       <div>
                         <dt className="font-mono uppercase tracking-wider text-muted">Defender goal</dt>
-                        <dd className="text-slate-800 dark:text-slate-200">{p.defenderGoal}</dd>
+                        <dd className="text-heading">{p.defenderGoal}</dd>
                       </div>
                       <div className="sm:col-span-2">
                         <dt className="font-mono uppercase tracking-wider text-muted">Primary deliverables</dt>
                         <dd>
                           <ul className="mt-1 space-y-0.5">
                             {p.deliverables.map((d) => (
-                              <li key={d} className="flex items-start gap-1.5 text-slate-800 dark:text-slate-200">
+                              <li key={d} className="flex items-start gap-1.5 text-heading">
                                 <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 text-emerald-600 dark:text-emerald-300 shrink-0" />
                                 <span>{d}</span>
                               </li>
@@ -498,7 +498,7 @@ export default function F3ead(): JSX.Element {
                         <dd>
                           <ul className="mt-1 space-y-0.5">
                             {p.pitfalls.map((d) => (
-                              <li key={d} className="flex items-start gap-1.5 text-slate-800 dark:text-slate-200">
+                              <li key={d} className="flex items-start gap-1.5 text-heading">
                                 <CircleDot className="h-3.5 w-3.5 mt-0.5 text-rose-600 dark:text-rose-300 shrink-0" />
                                 <span>{d}</span>
                               </li>
@@ -508,7 +508,7 @@ export default function F3ead(): JSX.Element {
                       </div>
                       <div className="sm:col-span-2">
                         <dt className="font-mono uppercase tracking-wider text-muted">Framework mapping</dt>
-                        <dd className="text-slate-800 dark:text-slate-200">{p.attackMapping}</dd>
+                        <dd className="text-heading">{p.attackMapping}</dd>
                       </div>
                     </dl>
                     {p.platformTool && (
@@ -532,9 +532,7 @@ export default function F3ead(): JSX.Element {
       {/* ── Incident walkthrough ─────────────────────────────────────── */}
       <section className="mb-12">
         <header className="mb-4">
-          <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
-            Walk an incident through F3EAD
-          </h2>
+          <h2 className="text-xl font-display font-semibold text-heading">Walk an incident through F3EAD</h2>
           <p className="text-sm text-muted mt-1 max-w-3xl">
             A 6-step click-through using the Lazarus / Copperhedge sample already in the platform's
             <Link to="/threatintel/research-hub/ai" className="text-rose-600 dark:text-rose-400 hover:underline mx-1">
@@ -571,13 +569,13 @@ export default function F3ead(): JSX.Element {
 
           <div className="flex items-start gap-3 mb-3">
             <div className={`rounded p-2 ring-1 ${currentPhase.ringClass} bg-slate-50 dark:bg-[rgb(var(--input-200))]`}>
-              <WalkIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
+              <WalkIcon className="h-5 w-5 text-body" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 Step {walkStep + 1} of {WALK.length} &middot; {currentPhase.name}
               </p>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mt-0.5">{currentWalk.title}</h3>
+              <h3 className="text-base font-semibold text-heading mt-0.5">{currentWalk.title}</h3>
               <p className="text-sm text-muted mt-1">{currentWalk.prompt}</p>
             </div>
           </div>
@@ -588,7 +586,7 @@ export default function F3ead(): JSX.Element {
             </p>
             <ul className="space-y-1">
               {currentWalk.artifacts.map((a) => (
-                <li key={a} className="flex items-start gap-1.5 text-xs text-slate-800 dark:text-slate-200">
+                <li key={a} className="flex items-start gap-1.5 text-xs text-heading">
                   <CircleDot className="h-3 w-3 mt-0.5 text-emerald-600 dark:text-emerald-300 shrink-0" />
                   <span>{a}</span>
                 </li>
@@ -601,7 +599,7 @@ export default function F3ead(): JSX.Element {
               type="button"
               onClick={() => setWalkStep((s) => Math.max(0, s - 1))}
               disabled={walkStep === 0}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 hover:border-rose-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-[rgb(var(--border-400))]"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-body hover:border-rose-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-[rgb(var(--border-400))]"
             >
               &larr; previous
             </button>
@@ -625,7 +623,7 @@ export default function F3ead(): JSX.Element {
       {/* ── Comparison table ─────────────────────────────────────────── */}
       <section className="mb-12">
         <header className="mb-4">
-          <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
+          <h2 className="text-xl font-display font-semibold text-heading">
             F3EAD vs. the other frameworks on the platform
           </h2>
           <p className="text-sm text-muted mt-1 max-w-3xl">
@@ -642,11 +640,7 @@ export default function F3ead(): JSX.Element {
                   key: 'name',
                   header: 'Framework',
                   sortValue: (row: (typeof COMPARISON)[number]) => row.name,
-                  render: (row) => (
-                    <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                      {row.name}
-                    </span>
-                  ),
+                  render: (row) => <span className="font-semibold text-heading whitespace-nowrap">{row.name}</span>,
                 },
                 {
                   key: 'kind',
@@ -654,7 +648,7 @@ export default function F3ead(): JSX.Element {
                   sortValue: (row: (typeof COMPARISON)[number]) => row.kind,
                   render: (row) => (
                     <span
-                      className={`inline-block rounded border px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider ${row.kind === 'process' ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'}`}
+                      className={`inline-block rounded border px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider ${row.kind === 'process' ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body'}`}
                     >
                       {row.kind}
                     </span>
@@ -664,15 +658,13 @@ export default function F3ead(): JSX.Element {
                   key: 'question',
                   header: 'What it answers',
                   sortValue: (row: (typeof COMPARISON)[number]) => row.question,
-                  render: (row) => <span className="text-slate-700 dark:text-slate-300">{row.question}</span>,
+                  render: (row) => <span className="text-body">{row.question}</span>,
                 },
                 {
                   key: 'primaryUser',
                   header: 'Primary user',
                   sortValue: (row: (typeof COMPARISON)[number]) => row.primaryUser,
-                  render: (row) => (
-                    <span className="text-slate-700 dark:text-slate-300 whitespace-nowrap">{row.primaryUser}</span>
-                  ),
+                  render: (row) => <span className="text-body whitespace-nowrap">{row.primaryUser}</span>,
                 },
                 {
                   key: 'platformPage',
@@ -711,41 +703,37 @@ export default function F3ead(): JSX.Element {
       <section>
         <header className="mb-3 flex items-center gap-2">
           <BookOpen className="h-4 w-4 text-slate-500" />
-          <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">References</h2>
+          <h2 className="text-base font-semibold text-heading">References</h2>
         </header>
         <ul className="space-y-1.5 text-xs text-muted">
           <li>
-            <strong className="text-slate-800 dark:text-slate-200">FM 3-05.40 (Army Special Operations Forces)</strong>{' '}
-            &mdash; the doctrinal origin of the F2T2EA / F3EAD targeting cycle. See the{' '}
+            <strong className="text-heading">FM 3-05.40 (Army Special Operations Forces)</strong> &mdash; the doctrinal
+            origin of the F2T2EA / F3EAD targeting cycle. See the{' '}
             <Link to="/threatintel/f2t2ea" className="text-rose-600 dark:text-rose-400 hover:underline">
               full F2T2EA reference page
             </Link>
             .
           </li>
           <li>
-            <strong className="text-slate-800 dark:text-slate-200">JP 3-05.1 (Joint Special Operations)</strong> &mdash;
-            joint doctrine for the targeting pipeline F3EAD is derived from.
+            <strong className="text-heading">JP 3-05.1 (Joint Special Operations)</strong> &mdash; joint doctrine for
+            the targeting pipeline F3EAD is derived from.
           </li>
           <li>
-            <strong className="text-slate-800 dark:text-slate-200">
-              SANS FOR578 &mdash; Cyber Threat Intelligence
-            </strong>{' '}
-            &mdash; the canonical CTI adaptation of F3EAD taught in industry training.
+            <strong className="text-heading">SANS FOR578 &mdash; Cyber Threat Intelligence</strong> &mdash; the
+            canonical CTI adaptation of F3EAD taught in industry training.
           </li>
           <li>
-            <strong className="text-slate-800 dark:text-slate-200">
-              CREST (UK) &mdash; Cyber Threat Intelligence maturity guidance
-            </strong>{' '}
+            <strong className="text-heading">CREST (UK) &mdash; Cyber Threat Intelligence maturity guidance</strong>{' '}
             &mdash; the ops&ndash;intel feedback loop is treated as a maturity marker.
           </li>
           <li>
-            <strong className="text-slate-800 dark:text-slate-200">
+            <strong className="text-heading">
               MITRE ATT&CK Blog: "F3EAD: Operationalizing Cyber Threat Intelligence" (2018)
             </strong>{' '}
             &mdash; the write-up that pushed F3EAD from SOF doctrine into the CTI mainstream.
           </li>
           <li>
-            <strong className="text-slate-800 dark:text-slate-200">
+            <strong className="text-heading">
               NIST SP 800-61 rev 2 &mdash; Computer Security Incident Handling Guide
             </strong>{' '}
             &mdash; the IR phases (Preparation, Detection &amp; Analysis, Containment, Eradication, Recovery,

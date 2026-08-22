@@ -254,7 +254,7 @@ function SearchBox({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+        className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
       />
     </div>
   );
@@ -290,7 +290,7 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
       <summary className="cursor-pointer list-none">
         <div className="flex items-start justify-between gap-2 mb-1.5">
           <div className="min-w-0">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">{item.name}</h3>
+            <h3 className="text-sm font-bold text-heading leading-snug">{item.name}</h3>
             {item.mitreId && (
               <span className="text-mini font-mono text-slate-500">
                 <a
@@ -340,7 +340,7 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
             </span>
           ))}
           {item.originCode && (
-            <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300">
+            <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
               {item.countryOfOrigin ?? item.originCode}
             </span>
           )}
@@ -363,7 +363,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
     return <p className="text-mini text-slate-500 font-mono mt-3">profile unavailable (is the sync build done?)</p>;
   return (
     <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-sm">
-      {body.description && <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>}
+      {body.description && <p className="text-body leading-relaxed">{body.description}</p>}
       <PostAnalysisButton
         title={body.name}
         description={`${body.description ?? ''}\n\nsophistication: ${body.sophistication ?? 'n/a'} · motivation: ${body.motivation ?? 'n/a'} · sectors: ${body.targetedSectors.join(', ') || 'n/a'}\nCapabilities: ${body.keyCapabilities.join('; ') || 'n/a'}\nRecommended actions: ${body.recommendedActions.join('; ') || 'n/a'}`}
@@ -386,10 +386,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini text-slate-500 font-mono mr-1">aliases:</span>
           {body.aliases.map((a) => (
-            <span
-              key={a}
-              className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
-            >
+            <span key={a} className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
               {a}
             </span>
           ))}
@@ -451,10 +448,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini text-slate-500 font-mono mr-1">techniques:</span>
           {body.techniques.map((t) => (
-            <span
-              key={t}
-              className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
-            >
+            <span key={t} className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
               {t}
             </span>
           ))}
@@ -480,7 +474,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
             {body.iocPatterns.map((p) => (
               <span
                 key={p}
-                className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 font-mono text-micro break-all"
+                className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-body font-mono text-micro break-all"
               >
                 {p}
               </span>
@@ -489,7 +483,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
         </div>
       )}
       {body.keyCapabilities.length > 0 && (
-        <ul className="list-disc pl-4 text-xs text-slate-600 dark:text-slate-300 space-y-0.5">
+        <ul className="list-disc pl-4 text-xs text-body space-y-0.5">
           {body.keyCapabilities.map((k) => (
             <li key={k}>{k}</li>
           ))}
@@ -502,7 +496,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
         </p>
       )}
       {body.recommendedActions.length > 0 && (
-        <ul className="list-disc pl-4 text-xs text-slate-600 dark:text-slate-300 space-y-0.5">
+        <ul className="list-disc pl-4 text-xs text-body space-y-0.5">
           {body.recommendedActions.map((r) => (
             <li key={r}>{r}</li>
           ))}
@@ -546,7 +540,7 @@ function MalwareCard({ fam }: { fam: TiMalwareFamily }) {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
       <div className="flex items-start justify-between gap-2 mb-1.5">
-        <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{fam.name}</h3>
+        <h3 className="font-mono text-sm font-semibold text-heading truncate">{fam.name}</h3>
         {fam.tlp && (
           <Badge
             cls={
@@ -565,7 +559,7 @@ function MalwareCard({ fam }: { fam: TiMalwareFamily }) {
           </span>
         )}
         {fam.status && (
-          <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300">
+          <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
             {fam.status}
           </span>
         )}
@@ -585,12 +579,12 @@ function CoverageCard({ tech }: { tech: TiCoverageTechnique }) {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
       <div className="flex items-start justify-between gap-2 mb-1.5">
-        <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">{tech.techniqueId}</h3>
+        <h3 className="font-mono text-sm font-semibold text-heading">{tech.techniqueId}</h3>
         <Badge cls="border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
           {tech.rules} rules
         </Badge>
       </div>
-      <p className="text-sm text-slate-600 dark:text-slate-300 leading-snug">{tech.name}</p>
+      <p className="text-sm text-body leading-snug">{tech.name}</p>
       <p className="text-mini text-slate-500 mt-1 font-mono">{tech.tactic}</p>
       <PostAnalysisButton
         title={`${tech.techniqueId} — ${tech.name}`}
@@ -606,7 +600,7 @@ function CountryList({ title, entries, tone }: { title: string; entries: TiMapEn
   const max = Math.max(1, ...entries.map((e) => e.count));
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
-      <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3">{title}</h3>
+      <h3 className="text-sm font-bold text-heading mb-3">{title}</h3>
       <div className="space-y-1.5">
         {entries.length === 0 && <p className="text-mini text-slate-500 font-mono">no data</p>}
         {entries.map((e) => (
@@ -630,12 +624,12 @@ function SectorList({ sectors }: { sectors: { sector: string; count: number }[] 
   const max = Math.max(1, ...sectors.map((s) => s.count));
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
-      <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3">Targeted Sectors</h3>
+      <h3 className="text-sm font-bold text-heading mb-3">Targeted Sectors</h3>
       <div className="space-y-1.5">
         {sectors.length === 0 && <p className="text-mini text-slate-500 font-mono">no data</p>}
         {sectors.map((s) => (
           <div key={s.sector} className="flex items-center gap-2">
-            <span className="text-mini text-slate-600 dark:text-slate-300 flex-1 truncate">{s.sector}</span>
+            <span className="text-mini text-body flex-1 truncate">{s.sector}</span>
             <div className="w-24 h-2 rounded-full bg-slate-100 dark:bg-white/5 overflow-hidden">
               <div
                 className="h-full rounded-full bg-violet-500"
@@ -663,7 +657,7 @@ function CatalogCard({ item, section }: { item: TiCatalogItem; section: CatalogS
       <summary className="cursor-pointer list-none">
         <div className="flex items-start justify-between gap-2 mb-1.5">
           <div className="min-w-0">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug break-all">{item.name}</h3>
+            <h3 className="text-sm font-bold text-heading leading-snug break-all">{item.name}</h3>
             {code && <span className="text-mini font-mono text-slate-500">{code}</span>}
           </div>
           <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
@@ -691,7 +685,7 @@ function CatalogCard({ item, section }: { item: TiCatalogItem; section: CatalogS
               </span>
             )}
             {item.productCwe && (
-              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300">
+              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
                 {item.productCwe}
               </span>
             )}
@@ -743,7 +737,7 @@ function CatalogDetailBody({ section, id }: { section: CatalogSectionId; id: num
   });
   return (
     <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-sm">
-      {body.description && <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>}
+      {body.description && <p className="text-body leading-relaxed">{body.description}</p>}
       <PostAnalysisButton
         title={typeof body.name === 'string' ? body.name : `${section} #${id}`}
         description={typeof body.description === 'string' ? body.description : undefined}
@@ -754,10 +748,7 @@ function CatalogDetailBody({ section, id }: { section: CatalogSectionId; id: num
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini text-slate-500 font-mono mr-1">aliases:</span>
           {body.aliases.map((a) => (
-            <span
-              key={a}
-              className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
-            >
+            <span key={a} className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
               {a}
             </span>
           ))}
@@ -1191,7 +1182,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All types</option>
                   {actorTypes.map(([t, n]) => (
@@ -1203,7 +1194,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={countryFilter}
                   onChange={(e) => setCountryFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All origins</option>
                   {actorCountries.map(([c, n]) => (
@@ -1215,7 +1206,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={tlpFilter}
                   onChange={(e) => setTlpFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All TLP</option>
                   {['red', 'amber', 'green', 'white'].map((t) => (
@@ -1255,7 +1246,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All categories</option>
                   {malwareCategories.map(([c, n]) => (
@@ -1285,7 +1276,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={tacticFilter}
                   onChange={(e) => setTacticFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All tactics</option>
                   {coverageTactics.map(([t, n]) => (
@@ -1382,7 +1373,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={catalogSection}
                   onChange={(e) => setCatalogSection(e.target.value as typeof catalogSection)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   {SMALL_CATALOG_SECTIONS.map((s) => (
                     <option key={s.id} value={s.id}>

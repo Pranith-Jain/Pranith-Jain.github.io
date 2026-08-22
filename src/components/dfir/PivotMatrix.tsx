@@ -122,7 +122,7 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
           >
             <p.icon size={16} className="mt-0.5 shrink-0 text-muted group-hover:text-brand-500" />
             <div className="min-w-0">
-              <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <div className="text-sm font-semibold text-heading flex items-center gap-1.5">
                 {p.label}
                 {p.external && <ExternalLink size={11} className="text-muted" />}
               </div>

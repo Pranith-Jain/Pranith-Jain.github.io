@@ -103,7 +103,7 @@ const ACTOR_TYPE_TONE: Record<ActorType, string> = {
   ransomware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   hacktivist: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   insider: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
-  supplier: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  supplier: 'border-slate-500/40 bg-slate-500/10 text-body',
 };
 
 const SOURCE_LABEL: Record<'deepdarkcti' | 'catalog' | 'misp', string> = {
@@ -407,7 +407,7 @@ export default function TelegramLinkedActors(): JSX.Element {
       >
         {standaloneHandle && (
           <div className="surface-card p-4">
-            <p className="text-sm font-mono text-slate-600 dark:text-slate-300">
+            <p className="text-sm font-mono text-body">
               <strong>@{standaloneHandle}</strong> is not in the catalog or in the recent leak feed. Try a known handle
               (e.g.{' '}
               <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
@@ -494,7 +494,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
       <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-1">
-            <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">@{pivot.handle}</h3>
+            <h3 className="font-display font-semibold text-base text-heading">@{pivot.handle}</h3>
             {pivot.catalogActors.length > 0 && (
               <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                 catalog hit
@@ -514,7 +514,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
           <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-muted">
             {pivot.leakCount30d > 0 && (
               <span>
-                <strong className="text-slate-700 dark:text-slate-200">{pivot.leakCount30d}</strong> leak entr
+                <strong className="text-body">{pivot.leakCount30d}</strong> leak entr
                 {pivot.leakCount30d === 1 ? 'y' : 'ies'} (30d)
               </span>
             )}
@@ -558,7 +558,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                 <div className="flex flex-wrap items-baseline gap-2">
                   <Link
                     to="/threatintel/catalog?cat=actors"
-                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400"
+                    className="font-display font-semibold text-sm text-heading hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     {a.name}
                   </Link>
@@ -594,7 +594,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
           <ul className="space-y-1.5">
             {pivot.searchActors.map((la) => (
               <li key={`${pivot.handle}:${la.actor_id}`} className="text-xs font-mono">
-                <span className="font-semibold text-slate-800 dark:text-slate-200">{la.name}</span>
+                <span className="font-semibold text-heading">{la.name}</span>
                 {la.country && <span className="ml-1 text-slate-500">· {la.country}</span>}
                 <span
                   className={`ml-2 text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${confidenceTone(la.confidence)}`}
@@ -633,7 +633,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                   >
                     {l.severity}
                   </span>
-                  <span className="font-mono text-slate-700 dark:text-slate-300">{l.leak_type}</span>
+                  <span className="font-mono text-body">{l.leak_type}</span>
                   {l.credential_count > 0 && <span className="text-slate-500">{l.credential_count} creds</span>}
                   <span className="text-slate-500 ml-auto">{relativeAgo(l.discovered_at, '-')}</span>
                   {l.message_link && (

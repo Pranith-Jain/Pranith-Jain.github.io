@@ -134,7 +134,7 @@ export default function ETDAActorsPage() {
               placeholder="Search actors by name, alias, country, or description..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[rgb(var(--surface-200))] border border-[rgb(var(--border-500))] text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-brand-500/60"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[rgb(var(--surface-200))] border border-[rgb(var(--border-500))] text-sm text-heading placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-brand-500/60"
             />
           </div>
           <div className="flex gap-1.5 flex-wrap">
@@ -159,7 +159,7 @@ export default function ETDAActorsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-[rgb(var(--surface-200))] rounded-xl border border-[rgb(var(--border-400))] p-3">
               <div className="font-mono text-micro text-muted uppercase tracking-wider">Total Actors</div>
-              <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{indexData.counts.actors}</div>
+              <div className="text-lg font-semibold text-heading">{indexData.counts.actors}</div>
             </div>
             <div className="bg-[rgb(var(--surface-200))] rounded-xl border border-[rgb(var(--border-400))] p-3">
               <div className="font-mono text-micro text-muted uppercase tracking-wider">APT Groups</div>
@@ -190,7 +190,7 @@ export default function ETDAActorsPage() {
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
-                  <div className="font-medium text-slate-900 dark:text-slate-100 truncate">{actor.name}</div>
+                  <div className="font-medium text-heading truncate">{actor.name}</div>
                   {actor.aliases.length > 0 && (
                     <div className="font-mono text-micro text-muted truncate mt-0.5">
                       {actor.aliases.slice(0, 3).join(', ')}
@@ -253,14 +253,14 @@ export default function ETDAActorsPage() {
               {/* Header */}
               <div className="flex items-start justify-between gap-3 p-5 border-b border-[rgb(var(--border-400))]">
                 <div className="min-w-0">
-                  <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{detailData.name}</h2>
+                  <h2 className="text-lg font-semibold text-heading">{detailData.name}</h2>
                   {detailData.aliases.length > 0 && (
                     <p className="font-mono text-xs text-muted mt-0.5">aka {detailData.aliases.join(', ')}</p>
                   )}
                 </div>
                 <button
                   onClick={() => setSelectedSlug(null)}
-                  className="shrink-0 text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:text-slate-100 p-1"
+                  className="shrink-0 text-slate-500 dark:text-slate-500 hover:text-heading p-1"
                 >
                   <X size={20} />
                 </button>
@@ -273,25 +273,25 @@ export default function ETDAActorsPage() {
                   {detailData.country && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
                       <p className="font-mono text-micro text-muted uppercase tracking-wider">Country</p>
-                      <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">{detailData.country}</p>
+                      <p className="font-medium text-heading mt-0.5">{detailData.country}</p>
                     </div>
                   )}
                   {detailData.sponsor && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
                       <p className="font-mono text-micro text-muted uppercase tracking-wider">Sponsor</p>
-                      <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">{detailData.sponsor}</p>
+                      <p className="font-medium text-heading mt-0.5">{detailData.sponsor}</p>
                     </div>
                   )}
                   {detailData.motivation && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
                       <p className="font-mono text-micro text-muted uppercase tracking-wider">Motivation</p>
-                      <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">{detailData.motivation}</p>
+                      <p className="font-medium text-heading mt-0.5">{detailData.motivation}</p>
                     </div>
                   )}
                   {detailData.firstSeen && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
                       <p className="font-mono text-micro text-muted uppercase tracking-wider">Active Period</p>
-                      <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">
+                      <p className="font-medium text-heading mt-0.5">
                         {detailData.firstSeen}
                         {detailData.lastSeen ? ` - ${detailData.lastSeen}` : ''}
                       </p>
@@ -303,9 +303,7 @@ export default function ETDAActorsPage() {
                 {detailData.fullDescription && (
                   <div className="bg-[rgb(var(--surface-200))] rounded-xl p-4">
                     <p className="font-mono text-micro text-muted uppercase tracking-wider mb-2">Description</p>
-                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                      {detailData.fullDescription}
-                    </p>
+                    <p className="text-sm text-body leading-relaxed">{detailData.fullDescription}</p>
                   </div>
                 )}
 
@@ -371,7 +369,7 @@ export default function ETDAActorsPage() {
                                 {op.title} <ExternalLink className="w-3 h-3" />
                               </a>
                             ) : (
-                              <span className="text-slate-700 dark:text-slate-300">{op.title}</span>
+                              <span className="text-body">{op.title}</span>
                             )}
                           </li>
                         ))}
@@ -385,7 +383,7 @@ export default function ETDAActorsPage() {
                     <p className="font-mono text-micro text-muted uppercase tracking-wider mb-2">Subgroups</p>
                     <div className="space-y-1">
                       {detailData.subgroups.map((sg: { name: string; period: string | null }, i: number) => (
-                        <div key={i} className="font-mono text-xs text-slate-700 dark:text-slate-300">
+                        <div key={i} className="font-mono text-xs text-body">
                           {sg.name}
                           {sg.period ? ` (${sg.period})` : ''}
                         </div>

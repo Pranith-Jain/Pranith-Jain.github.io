@@ -146,7 +146,7 @@ export default function RuleConverter(): JSX.Element {
   const starterGroups = groupedConverterStarters();
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -318,9 +318,7 @@ export default function RuleConverter(): JSX.Element {
                         title={s.description}
                         className="w-full text-left px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50 bg-white dark:bg-[rgb(var(--surface-200))]/40"
                       >
-                        <div className="text-meta font-medium text-slate-900 dark:text-slate-100 leading-tight">
-                          {s.label}
-                        </div>
+                        <div className="text-meta font-medium text-heading leading-tight">{s.label}</div>
                         <div className="text-micro font-mono text-muted mt-0.5 truncate">{s.description}</div>
                       </button>
                     </li>
@@ -396,7 +394,7 @@ export default function RuleConverter(): JSX.Element {
                       </span>
                       {b.ok && b.output && <CopyBtn text={b.output} />}
                     </div>
-                    <pre className="font-mono text-meta text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+                    <pre className="font-mono text-meta text-heading whitespace-pre-wrap break-all">
                       {b.ok ? b.output : b.error}
                     </pre>
                   </li>
@@ -408,9 +406,7 @@ export default function RuleConverter(): JSX.Element {
           ) : !result.ok ? (
             <p className="text-sm font-mono text-rose-600 dark:text-rose-400">parse error: {result.error}</p>
           ) : (
-            <pre className="font-mono text-tool text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
-              {result.output}
-            </pre>
+            <pre className="font-mono text-tool text-heading whitespace-pre-wrap break-all">{result.output}</pre>
           )}
         </section>
       </div>
@@ -456,7 +452,7 @@ export default function RuleConverter(): JSX.Element {
               {!ir ? null : 'error' in ir ? (
                 <p className="text-meta font-mono text-rose-600 dark:text-rose-400">{ir.error}</p>
               ) : (
-                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
+                <pre className="font-mono text-mini text-body whitespace-pre-wrap leading-relaxed">
                   {JSON.stringify(
                     {
                       title: ir.title,

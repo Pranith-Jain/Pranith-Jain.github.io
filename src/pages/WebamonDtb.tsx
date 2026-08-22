@@ -242,7 +242,7 @@ export default function WebamonDtb() {
                     key={i}
                     className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300))/0.5]"
                   >
-                    <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{cl.type}</span>
+                    <span className="text-xs font-medium text-body">{cl.type}</span>
                     <span className="text-xs text-muted">
                       {cl.domains.toLocaleString()} domains, +{cl.growth.toLocaleString()} ({cl.sample})
                     </span>

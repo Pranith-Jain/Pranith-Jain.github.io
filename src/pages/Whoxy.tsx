@@ -149,15 +149,15 @@ export default function Whoxy() {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Summary</h2>
               <div className="flex gap-6">
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.total_results}</div>
+                  <div className="text-2xl font-bold text-heading">{data.total_results}</div>
                   <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Total Domains</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.domains.length}</div>
+                  <div className="text-2xl font-bold text-heading">{data.domains.length}</div>
                   <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Fetched</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.pages_fetched}</div>
+                  <div className="text-2xl font-bold text-heading">{data.pages_fetched}</div>
                   <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Pages</div>
                 </div>
               </div>

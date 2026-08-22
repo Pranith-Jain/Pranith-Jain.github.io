@@ -90,7 +90,7 @@ const PAGE_GROUP_ICONS: Record<string, LucideIcon> = {
 };
 
 const PAGE_GROUP_COLORS: Record<string, string> = {
-  portfolio: 'text-slate-600 dark:text-slate-300 border-slate-400/40 bg-slate-500/10',
+  portfolio: 'text-body border-slate-400/40 bg-slate-500/10',
   dfir: 'text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-500/10',
   threatintel: 'text-emerald-600 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10',
   admin: 'text-amber-600 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
@@ -250,7 +250,7 @@ export default function UnifiedSearch(): JSX.Element {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search threat intelligence - e.g. LockBit, 185.234.72.0, CVE-2026-1234, RedLine…"
           aria-label="Search across all intelligence sources and tools"
-          className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
+          className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
         />
       </form>
 
@@ -306,7 +306,7 @@ export default function UnifiedSearch(): JSX.Element {
               <li key={tool.to} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]">
                 <Link to={tool.to} className="flex items-start justify-between gap-2 group">
                   <div className="min-w-0">
-                    <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
+                    <span className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
                       {tool.label}
                     </span>
                     <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">{tool.desc}</span>
@@ -326,7 +326,7 @@ export default function UnifiedSearch(): JSX.Element {
           tile-level SECTIONS catalog. */}
       {pageMatches.length > 0 && (
         <section className="mb-4 surface-card overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-200">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-body">
             <Compass size={14} />
             <span className="font-display font-semibold text-sm">Pages</span>
             <span className="text-mini font-mono opacity-70">· {pageMatches.length}</span>
@@ -348,7 +348,7 @@ export default function UnifiedSearch(): JSX.Element {
                         className={`mt-0.5 shrink-0 inline-flex items-center justify-center rounded border px-1 py-0.5 ${color}`}
                       />
                       <div className="min-w-0">
-                        <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
+                        <span className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
                           {page.label}
                         </span>
                         <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
@@ -412,7 +412,7 @@ export default function UnifiedSearch(): JSX.Element {
             const Icon = SECTION_ICONS[section.kind] ?? Search;
             const color =
               SECTION_COLORS[section.kind] ??
-              'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]';
+              'text-body border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]';
             return (
               <section key={section.kind} className="surface-card overflow-hidden">
                 <div
@@ -436,7 +436,7 @@ export default function UnifiedSearch(): JSX.Element {
                           className="flex items-start justify-between gap-2 group"
                         >
                           <div className="min-w-0">
-                            <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 truncate block">
+                            <span className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 truncate block">
                               {item.label}
                             </span>
                             {item.description && (
@@ -449,9 +449,7 @@ export default function UnifiedSearch(): JSX.Element {
                         </a>
                       ) : (
                         <div>
-                          <span className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate block">
-                            {item.label}
-                          </span>
+                          <span className="text-sm font-medium text-heading truncate block">{item.label}</span>
                           {item.description && (
                             <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
                               {item.description}

@@ -51,28 +51,28 @@ function AlgorithmDetail({ body, onClose }: { body: PqcAlgorithmBody; onClose: (
           <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-brand-500/40 text-brand-700 dark:text-brand-300 bg-brand-500/10">
             {body.fips}
           </span>
-          <span className="font-mono text-micro px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
+          <span className="font-mono text-micro px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
             {body.type}
           </span>
         </div>
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Purpose</div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.purpose}</p>
+          <p className="text-sm text-body leading-relaxed">{body.purpose}</p>
         </div>
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Security Levels</div>
-          <p className="text-sm font-mono text-slate-700 dark:text-slate-200">{body.security}</p>
+          <p className="text-sm font-mono text-body">{body.security}</p>
         </div>
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Key / Parameter Sizes</div>
-          <pre className="text-sm font-mono text-slate-700 dark:text-slate-200 whitespace-pre-wrap">{keySizes}</pre>
+          <pre className="text-sm font-mono text-body whitespace-pre-wrap">{keySizes}</pre>
         </div>
         {body.notes && (
           <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-50 dark:bg-violet-950/20 rounded-r-lg">
             <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
               Migration Notes
             </div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.notes}</p>
+            <p className="text-sm text-body leading-relaxed">{body.notes}</p>
           </div>
         )}
         <p className="text-micro text-slate-500 dark:text-slate-500">{body.status}</p>
@@ -113,32 +113,24 @@ export default function Pqc() {
           <div className={`${CARD} p-4`}>
             <div className="flex items-center gap-2 mb-2">
               <ShieldAlert size={16} className="text-rose-500" />
-              <h2 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                {index.hndl.threat}
-              </h2>
+              <h2 className="font-display font-semibold text-sm text-heading">{index.hndl.threat}</h2>
             </div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed mb-3">{index.hndl.summary}</p>
+            <p className="text-sm text-body leading-relaxed mb-3">{index.hndl.summary}</p>
             <div className="grid gap-3 md:grid-cols-3">
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                   <CalendarClock size={11} className="inline mr-1" />
                   Timeline
                 </div>
-                <p className="text-mini font-mono text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {index.hndl.timeline}
-                </p>
+                <p className="text-mini font-mono text-body leading-relaxed">{index.hndl.timeline}</p>
               </div>
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">Act first</div>
-                <p className="text-mini font-mono text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {index.hndl.whoShouldActFirst}
-                </p>
+                <p className="text-mini font-mono text-body leading-relaxed">{index.hndl.whoShouldActFirst}</p>
               </div>
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">Mitigations</div>
-                <p className="text-mini font-mono text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {index.hndl.mitigations}
-                </p>
+                <p className="text-mini font-mono text-body leading-relaxed">{index.hndl.mitigations}</p>
               </div>
             </div>
           </div>
@@ -157,7 +149,7 @@ export default function Pqc() {
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="font-mono text-micro font-bold text-brand-600 dark:text-brand-400">{alg.fips}</span>
                 </div>
-                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-1 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-1 leading-snug">
                   {alg.name}
                 </div>
                 <div className="text-micro font-mono text-muted leading-relaxed line-clamp-2">{alg.type}</div>
@@ -179,9 +171,7 @@ export default function Pqc() {
                 >
                   {c.risk}
                 </span>
-                <span className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100 w-44">
-                  {c.class}
-                </span>
+                <span className="font-display font-semibold text-xs text-heading w-44">{c.class}</span>
                 <span className="flex-1 text-mini font-mono text-muted leading-relaxed">{c.action}</span>
               </div>
             ))}
@@ -211,7 +201,7 @@ export default function Pqc() {
                     <span className="font-mono text-micro font-bold text-brand-600 dark:text-brand-400">{r.id}</span>
                     <span className="text-micro font-mono text-slate-400">weight {r.weight}</span>
                   </div>
-                  <p className="text-mini font-mono text-slate-600 dark:text-slate-300 leading-relaxed">{r.question}</p>
+                  <p className="text-mini font-mono text-body leading-relaxed">{r.question}</p>
                 </div>
               ))}
             </div>

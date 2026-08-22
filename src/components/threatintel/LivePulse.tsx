@@ -146,9 +146,7 @@ export function LivePulse(): JSX.Element {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-60" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-500" />
       </span>
-      <span className="font-mono text-mini uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">
-        Live · platform telemetry
-      </span>
+      <span className="font-mono text-mini uppercase tracking-[0.2em] text-body">Live · platform telemetry</span>
     </>
   );
   const note = (

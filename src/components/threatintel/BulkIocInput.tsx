@@ -146,7 +146,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
           <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm" onClick={() => setOpen(false)} />
           <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-5 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">Bulk IOC Investigation</h3>
+              <h3 className="text-sm font-semibold text-body">Bulk IOC Investigation</h3>
               <button onClick={() => setOpen(false)} className="text-muted hover:text-slate-600">
                 <X size={16} />
               </button>
@@ -229,7 +229,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                       >
                         {r.verdict === 'malicious' ? '!' : r.verdict === 'clean' ? <Check size={8} /> : '?'}
                       </span>
-                      <span className="font-mono text-slate-700 dark:text-slate-300">{r.value}</span>
+                      <span className="font-mono text-body">{r.value}</span>
                       <span className="text-muted">({r.score})</span>
                       {r.tags.length > 0 && (
                         <span className="truncate text-muted">{r.tags.slice(0, 2).join(', ')}</span>

@@ -137,7 +137,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
           <div className="col-span-3 font-mono text-rose-600 dark:text-rose-400 truncate" title={domain}>
             {domain}
           </div>
-          <div className="col-span-2 text-slate-700 dark:text-slate-300 truncate text-meta" title={result.page_title}>
+          <div className="col-span-2 text-body truncate text-meta" title={result.page_title}>
             {result.page_title ?? '-'}
           </div>
           <div className="col-span-1 font-mono font-semibold text-center">
@@ -176,62 +176,50 @@ function ResultRow({ result }: { result: WebamonResult }) {
         <div className="px-4 pb-4 pt-1 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
           <div className="grid grid-cols-2 gap-4 text-tool mt-3">
             <div>
-              <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+              <h4 className="font-semibold text-body mb-2 flex items-center gap-1.5">
                 <Shield size={13} /> Meta
               </h4>
               <div className="space-y-1.5">
                 {result.meta?.report_id && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Report ID</span>
-                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 truncate ml-2">
-                      {result.meta.report_id}
-                    </span>
+                    <span className="font-mono text-mini text-body truncate ml-2">{result.meta.report_id}</span>
                   </div>
                 )}
                 {result.meta?.submission_url && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Submission</span>
-                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 truncate ml-2">
-                      {result.meta.submission_url}
-                    </span>
+                    <span className="font-mono text-mini text-body truncate ml-2">{result.meta.submission_url}</span>
                   </div>
                 )}
                 {result.meta?.submission_utc && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Submitted</span>
-                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
-                      {result.meta.submission_utc}
-                    </span>
+                    <span className="font-mono text-mini text-body ml-2">{result.meta.submission_utc}</span>
                   </div>
                 )}
                 {result.meta?.script_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Scripts</span>
-                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
-                      {result.meta.script_count}
-                    </span>
+                    <span className="font-mono text-mini text-body ml-2">{result.meta.script_count}</span>
                   </div>
                 )}
                 {result.meta?.domain_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Domains</span>
-                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
-                      {result.meta.domain_count}
-                    </span>
+                    <span className="font-mono text-mini text-body ml-2">{result.meta.domain_count}</span>
                   </div>
                 )}
                 {result.meta?.request_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Requests</span>
-                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
-                      {result.meta.request_count}
-                    </span>
+                    <span className="font-mono text-mini text-body ml-2">{result.meta.request_count}</span>
                   </div>
                 )}
               </div>
             </div>
             <div>
-              <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+              <h4 className="font-semibold text-body mb-2 flex items-center gap-1.5">
                 <Fingerprint size={13} /> Fingerprints
               </h4>
               {hasFingerprints ? (
@@ -433,7 +421,7 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
         {open ? <ChevronDown size={14} className="text-muted" /> : <ChevronRight size={14} className="text-muted" />}
-        <span className="font-mono text-tool font-semibold text-slate-700 dark:text-slate-300">{label}</span>
+        <span className="font-mono text-tool font-semibold text-body">{label}</span>
         <span className="text-mini text-muted font-mono">{Object.keys(data).length} fields</span>
       </button>
       {open && (
@@ -523,7 +511,7 @@ function SearchTab() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Lucene query - e.g. domain.name:example.com, risk_score:>5, tag:nrd_202606*"
             aria-label="Webamon search query"
-            className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
+            className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
           />
         </div>
         <div className="mt-2 flex flex-wrap gap-2">
@@ -707,7 +695,7 @@ function SandboxTab() {
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://example.com or example.com"
             aria-label="URL or domain to scan"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
           <button
             type="submit"
@@ -736,7 +724,7 @@ function SandboxTab() {
               {result.status && (
                 <div>
                   <span className="text-slate-500">Status</span>
-                  <p className="text-slate-900 dark:text-slate-100">{result.status}</p>
+                  <p className="text-heading">{result.status}</p>
                 </div>
               )}
               {result.report_id && (
@@ -748,7 +736,7 @@ function SandboxTab() {
               {result.message && (
                 <div className="col-span-2">
                   <span className="text-slate-500">Message</span>
-                  <p className="text-slate-900 dark:text-slate-100">{result.message}</p>
+                  <p className="text-heading">{result.message}</p>
                 </div>
               )}
             </div>
@@ -794,7 +782,7 @@ function SandboxTab() {
                     {/* Certificates */}
                     {r.certificate && r.certificate.length > 0 && (
                       <section>
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <Shield size={14} /> Certificates ({r.certificate.length})
                         </h3>
                         <div className="space-y-2 max-h-60 overflow-y-auto">
@@ -804,7 +792,7 @@ function SandboxTab() {
                               role="tab"
                               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
-                              <div className="font-semibold text-slate-700 dark:text-slate-300">
+                              <div className="font-semibold text-body">
                                 {c.domain_name ?? r['domain.name'] ?? '-'}
                                 {c.sub_domain ? ` (${c.sub_domain})` : ''}
                               </div>
@@ -829,7 +817,7 @@ function SandboxTab() {
                     {/* Servers */}
                     {r.server && r.server.length > 0 && (
                       <section>
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <Server size={14} /> Servers ({r.server.length})
                         </h3>
                         <div className="space-y-2 max-h-60 overflow-y-auto">
@@ -839,7 +827,7 @@ function SandboxTab() {
                               role="tab"
                               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
-                              {s.ip && <div className="font-semibold text-slate-700 dark:text-slate-300">{s.ip}</div>}
+                              {s.ip && <div className="font-semibold text-body">{s.ip}</div>}
                               {s.asn && <div className="text-muted">ASN: {s.asn}</div>}
                               {s.country && <div className="text-muted">Country: {s.country}</div>}
                               {s.ports && s.ports.length > 0 && (
@@ -857,7 +845,7 @@ function SandboxTab() {
                     {/* Cookies */}
                     {r.cookie && r.cookie.length > 0 && (
                       <section>
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <Cookie size={14} /> Cookies ({r.cookie.length})
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
@@ -868,11 +856,7 @@ function SandboxTab() {
                                   key: 'name',
                                   header: 'Name',
                                   sortValue: (c: (typeof r.cookie)[number]) => c.name ?? '',
-                                  render: (c) => (
-                                    <span className="text-slate-700 dark:text-slate-300 break-all">
-                                      {c.name ?? '-'}
-                                    </span>
-                                  ),
+                                  render: (c) => <span className="text-body break-all">{c.name ?? '-'}</span>,
                                 },
                                 {
                                   key: 'domain',
@@ -902,7 +886,7 @@ function SandboxTab() {
                     {/* Technology */}
                     {r.technology && r.technology.length > 0 && (
                       <section>
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <Code size={14} /> Technologies ({r.technology.length})
                         </h3>
                         <div className="flex flex-wrap gap-1.5">
@@ -925,7 +909,7 @@ function SandboxTab() {
                     {/* Resources */}
                     {r.resource && r.resource.length > 0 && (
                       <section className="lg:col-span-2">
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <HardDrive size={14} /> Resources ({r.resource.length})
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
@@ -937,7 +921,7 @@ function SandboxTab() {
                                   header: 'SHA256',
                                   sortValue: (res: (typeof r.resource)[number]) => res.sha256 ?? '',
                                   render: (res) => (
-                                    <span className="text-slate-700 dark:text-slate-300 break-all">
+                                    <span className="text-body break-all">
                                       {res.sha256 ? res.sha256.slice(0, 16) + '…' : '-'}
                                     </span>
                                   ),
@@ -980,7 +964,7 @@ function SandboxTab() {
                     {/* Page Links */}
                     {r.page_links && r.page_links.length > 0 && (
                       <section>
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <Link size={14} /> Links ({r.page_links.length})
                         </h3>
                         <div className="space-y-1 max-h-48 overflow-y-auto">
@@ -996,7 +980,7 @@ function SandboxTab() {
                     {/* Page Scripts */}
                     {r.page_scripts && r.page_scripts.length > 0 && (
                       <section>
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <FileCode size={14} /> Scripts ({r.page_scripts.length})
                         </h3>
                         <div className="space-y-1 max-h-48 overflow-y-auto">
@@ -1012,7 +996,7 @@ function SandboxTab() {
                     {/* Monitor */}
                     {r.monitor && r.monitor.length > 0 && (
                       <section className="lg:col-span-2">
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <Monitor size={14} /> Monitoring
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1">
@@ -1034,12 +1018,12 @@ function SandboxTab() {
                     {/* DOM */}
                     {r.dom && (
                       <section className="lg:col-span-2">
-                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                           <Eye size={14} /> DOM
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
                           {r.dom.title && (
-                            <div className="px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+                            <div className="px-3 py-2 text-xs font-semibold text-body border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                               Title: {r.dom.title}
                             </div>
                           )}
@@ -1063,7 +1047,7 @@ function SandboxTab() {
                         (v) => v && v !== '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945'
                       ) && (
                         <section className="lg:col-span-2">
-                          <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-body">
                             <Fingerprint size={14} /> Fingerprint Data
                           </h3>
                           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-micro font-mono overflow-x-auto">
@@ -1216,7 +1200,7 @@ function InfraTab() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={activeMode.placeholder}
             aria-label={`Webamon ${activeMode.label} lookup`}
-            className="flex-1 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
+            className="flex-1 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
           />
           <button
             type="submit"
@@ -1271,7 +1255,7 @@ function InfraTab() {
 export default function Webamon(): JSX.Element {
   const [tab, setTab] = useState<Tab>('search');
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"

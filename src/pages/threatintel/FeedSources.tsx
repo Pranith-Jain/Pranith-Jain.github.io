@@ -92,7 +92,7 @@ export default function FeedSources(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search feeds by name, source, or description…"
-            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
           <label className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 cursor-pointer select-none">
             <input
@@ -195,11 +195,10 @@ export default function FeedSources(): JSX.Element {
             controls display only, stored in your browser localStorage.
           </p>
           <p>
-            To add a new feed source, edit{' '}
-            <code className="text-slate-700 dark:text-slate-300">src/data/rssFeeds.ts</code> and add its URL to the{' '}
-            <code className="text-slate-700 dark:text-slate-300">ALLOWED_HOSTS</code> list in{' '}
-            <code className="text-slate-700 dark:text-slate-300">api/src/routes/feeds.ts</code> and{' '}
-            <code className="text-slate-700 dark:text-slate-300">feeds-aggregate.ts</code>.
+            To add a new feed source, edit <code className="text-body">src/data/rssFeeds.ts</code> and add its URL to
+            the <code className="text-body">ALLOWED_HOSTS</code> list in{' '}
+            <code className="text-body">api/src/routes/feeds.ts</code> and{' '}
+            <code className="text-body">feeds-aggregate.ts</code>.
           </p>
         </div>
       </details>

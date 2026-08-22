@@ -95,9 +95,7 @@ export function SourceTogglePanel({
                     tabIndex={-1}
                   />
                   <span className="flex-1 min-w-0">
-                    <span className="block font-mono text-mini text-slate-700 dark:text-slate-300 truncate">
-                      {meta?.name ?? fid}
-                    </span>
+                    <span className="block font-mono text-mini text-body truncate">{meta?.name ?? fid}</span>
                     {isEnabled && status && (
                       <span
                         className={`block text-micro font-mono truncate ${

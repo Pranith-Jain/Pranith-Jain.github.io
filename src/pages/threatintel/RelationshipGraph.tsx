@@ -343,7 +343,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               setQuery(eq);
               void fetchGraph(eq);
             }}
-            className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
+            className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
           >
             {eq}
           </button>
@@ -459,14 +459,12 @@ export default function RelationshipGraphPage(): JSX.Element {
               >
                 {selectedNode.type}
               </div>
-              <div className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-1 break-words">
-                {selectedNode.label}
-              </div>
+              <div className="font-display font-semibold text-heading mb-1 break-words">{selectedNode.label}</div>
               {selectedNode.subtitle && (
                 <div className="text-xs font-mono text-slate-500 mb-3">{selectedNode.subtitle}</div>
               )}
               {selectedNode.data && Object.keys(selectedNode.data).length > 0 && (
-                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <pre className="font-mono text-mini text-body overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                   {JSON.stringify(selectedNode.data, null, 2)}
                 </pre>
               )}

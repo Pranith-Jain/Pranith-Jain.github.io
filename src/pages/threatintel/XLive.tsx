@@ -365,9 +365,7 @@ export default function XLive(): JSX.Element {
                   )}
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                      <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                        {t.author.name}
-                      </span>
+                      <span className="font-display font-semibold text-sm text-heading">{t.author.name}</span>
                       <button
                         type="button"
                         onClick={() => setActiveHandle(t.author.screen_name.toLowerCase())}
@@ -397,9 +395,7 @@ export default function XLive(): JSX.Element {
                         {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
                       </a>
                     </div>
-                    <p className="text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
-                      {t.text}
-                    </p>
+                    <p className="text-sm text-heading whitespace-pre-wrap break-words">{t.text}</p>
                     <PostSummary text={postSummaries.get(String(t.id))} />
                     {t.tweetfeed_tags.length > 0 && (
                       <div className="mt-1.5 flex flex-wrap gap-1">

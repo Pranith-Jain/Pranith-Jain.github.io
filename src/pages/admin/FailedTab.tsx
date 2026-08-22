@@ -152,9 +152,7 @@ export default function FailedTab() {
                       header: 'Retries',
                       align: 'right',
                       sortValue: (f: (typeof shown)[number]) => f.retries,
-                      render: (f) => (
-                        <span className="text-slate-700 dark:text-slate-300 tabular-nums">{f.retries}</span>
-                      ),
+                      render: (f) => <span className="text-body tabular-nums">{f.retries}</span>,
                     },
                     {
                       key: 'actions',

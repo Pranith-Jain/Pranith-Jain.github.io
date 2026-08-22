@@ -44,7 +44,7 @@ interface SearchResult {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 
 function fmt(n: number | null | undefined): string {
   return typeof n === 'number' ? n.toLocaleString() : '—';
@@ -215,10 +215,7 @@ export default function Destroylist(): JSX.Element {
         {searchResult && searchResult.roots.length > 0 && (
           <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5 max-h-80 overflow-y-auto">
             {searchResult.roots.map((d) => (
-              <li
-                key={d}
-                className="inline-flex items-center gap-1.5 text-sm font-mono text-slate-700 dark:text-slate-300"
-              >
+              <li key={d} className="inline-flex items-center gap-1.5 text-sm font-mono text-body">
                 <CheckCircle2 size={12} className="text-rose-500 shrink-0" aria-hidden="true" />
                 <span className="truncate">{d}</span>
               </li>

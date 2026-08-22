@@ -403,7 +403,7 @@ export default function AzureRbacAnalyzer(): JSX.Element {
   }, [analysis]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -514,7 +514,7 @@ export default function AzureRbacAnalyzer(): JSX.Element {
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>
                         <p className="text-meta font-mono text-slate-500 mt-2 break-all">{f.where}</p>
-                        <p className="text-tool text-slate-700 dark:text-slate-300 mt-2">
+                        <p className="text-tool text-body mt-2">
                           <span className="text-slate-500 font-mono text-mini uppercase tracking-wider">fix</span>{' '}
                           {f.fix}
                         </p>

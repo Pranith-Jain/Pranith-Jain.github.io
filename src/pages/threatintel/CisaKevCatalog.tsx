@@ -33,7 +33,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   High: 'bg-orange-500 text-white',
   Medium: 'bg-amber-500 text-white',
   Low: 'bg-emerald-500 text-white',
-  '(none)': 'bg-slate-300 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300',
+  '(none)': 'bg-slate-300 dark:bg-[rgb(var(--surface-300))] text-body',
 };
 
 const SEVERITY_PILL: Record<string, string> = {
@@ -219,7 +219,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       {/* KPI cards */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {[
-          { label: 'Total', value: stats.total, color: 'text-slate-900 dark:text-slate-100' },
+          { label: 'Total', value: stats.total, color: 'text-heading' },
           { label: 'Ransomware', value: stats.ransomware, color: 'text-red-600 dark:text-red-400' },
           { label: 'Last 30d', value: stats.last30, color: 'text-amber-600 dark:text-amber-400' },
           {
@@ -252,13 +252,13 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, name..."
-            className="w-full pl-8 pr-3 py-2 text-sm surface-card text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50"
+            className="w-full pl-8 pr-3 py-2 text-sm surface-card text-heading placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50"
           />
         </div>
         <select
           value={vendorFilter}
           onChange={(e) => setVendorFilter(e.target.value)}
-          className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm surface-card text-heading px-3 py-2"
         >
           <option value="">All vendors</option>
           {vendors.slice(0, 100).map((v) => (
@@ -270,7 +270,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
         <select
           value={daysFilter ?? ''}
           onChange={(e) => setDaysFilter(e.target.value ? Number(e.target.value) : null)}
-          className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm surface-card text-heading px-3 py-2"
         >
           <option value="">All time</option>
           <option value="7">Last 7 days</option>
@@ -281,7 +281,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
         <select
           value={severityFilter}
           onChange={(e) => setSeverityFilter(e.target.value)}
-          className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm surface-card text-heading px-3 py-2"
         >
           <option value="">All severity</option>
           {SEV_ORDER.map((s) => (
@@ -290,7 +290,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             </option>
           ))}
         </select>
-        <label className="inline-flex items-center gap-1.5 text-sm text-slate-700 dark:text-slate-300 cursor-pointer whitespace-nowrap">
+        <label className="inline-flex items-center gap-1.5 text-sm text-body cursor-pointer whitespace-nowrap">
           <input
             type="checkbox"
             checked={ransomwareOnly}
@@ -370,13 +370,13 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                 key: 'vendor_project',
                 header: 'Vendor',
                 sortValue: (v: (typeof pageEntries)[number]) => v.vendor_project,
-                render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.vendor_project}</span>,
+                render: (v) => <span className="text-body">{v.vendor_project}</span>,
               },
               {
                 key: 'product',
                 header: 'Product',
                 sortValue: (v: (typeof pageEntries)[number]) => v.product,
-                render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.product}</span>,
+                render: (v) => <span className="text-body">{v.product}</span>,
               },
               {
                 key: 'vulnerability_name',
@@ -445,7 +445,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   setPageSize(Number(e.target.value));
                   setPage(0);
                 }}
-                className="text-xs rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 px-2 py-1"
+                className="text-xs rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body px-2 py-1"
               >
                 {PAGE_SIZES.map((s) => (
                   <option key={s} value={s}>
@@ -464,7 +464,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                 >
                   <ChevronLeft size={14} />
                 </button>
-                <span className="min-w-[4ch] text-center text-slate-600 dark:text-slate-300">
+                <span className="min-w-[4ch] text-center text-body">
                   {page + 1}/{pageCount}
                 </span>
                 <button

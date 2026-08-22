@@ -237,7 +237,7 @@ export default function ActorKb(): JSX.Element {
     );
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       {!insideLayout && (
         <BackLink
           to="/threatintel"
@@ -269,7 +269,7 @@ export default function ActorKb(): JSX.Element {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search actor, alias, Gxxxx, technique, malware…"
               aria-label="Search threat actors"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             />
           </div>
           {selected && (
@@ -288,7 +288,7 @@ export default function ActorKb(): JSX.Element {
               {selected.aliases.length > 0 && (
                 <p className="text-meta font-mono text-muted mt-1">aka {selected.aliases.join(' · ')}</p>
               )}
-              <p className="text-sm text-slate-700 dark:text-slate-300 mt-3 leading-relaxed">{selected.description}</p>
+              <p className="text-sm text-body mt-3 leading-relaxed">{selected.description}</p>
 
               {selected.software.length > 0 && (
                 <div className="mt-4">
@@ -401,7 +401,7 @@ export default function ActorKb(): JSX.Element {
                                 rel="noopener noreferrer"
                                 className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                               >
-                                <span className="text-slate-900 dark:text-slate-100">{p.name}</span>
+                                <span className="text-heading">{p.name}</span>
                                 {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
                                 {p.tags && p.tags.length > 0 && (
                                   <span className="ml-2 text-micro text-slate-500">

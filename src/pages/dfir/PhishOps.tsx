@@ -365,7 +365,7 @@ export default function PhishOps(): JSX.Element {
   const nextStep = state.currentStep < 7 ? ((state.currentStep + 1) as StepId) : null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -486,7 +486,7 @@ export default function PhishOps(): JSX.Element {
               >
                 <div className="flex-1 min-w-0">
                   <div className="text-xs font-mono font-semibold text-muted mb-0.5">{f.label}</div>
-                  <div className="text-xs font-mono text-slate-800 dark:text-slate-200 break-all">{f.value}</div>
+                  <div className="text-xs font-mono text-heading break-all">{f.value}</div>
                 </div>
                 <CopyButton value={f.value} title={`Copy ${f.label}`} />
               </div>
@@ -518,7 +518,7 @@ export default function PhishOps(): JSX.Element {
                   <span
                     role="button"
                     tabIndex={0}
-                    className={`text-sm font-mono cursor-pointer ${item.done ? 'line-through text-muted' : 'text-slate-700 dark:text-slate-300'}`}
+                    className={`text-sm font-mono cursor-pointer ${item.done ? 'line-through text-muted' : 'text-body'}`}
                     onClick={() => toggleCheck(state.currentStep, item.id)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
@@ -552,7 +552,7 @@ export default function PhishOps(): JSX.Element {
             onChange={(e) => updateStepNotes(state.currentStep, e.target.value)}
             placeholder="Document findings, observations, and next steps for this phase..."
             rows={4}
-            className="w-full text-sm font-mono bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+            className="w-full text-sm font-mono bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-body focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400 dark:placeholder:text-slate-600"
           />
         </div>
       </div>

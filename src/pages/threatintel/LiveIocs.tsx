@@ -380,12 +380,12 @@ export default function LiveIocs(): JSX.Element {
             </div>
             <p className="text-mini font-mono text-slate-500 mt-3">
               Showing page{' '}
-              <span className="text-slate-700 dark:text-slate-300">
+              <span className="text-body">
                 {page}/{totalPages}
               </span>{' '}
-              · <span className="text-slate-700 dark:text-slate-300">{pageItems.length}</span> of{' '}
-              <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> filtered · {data.total}{' '}
-              total · snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+              · <span className="text-body">{pageItems.length}</span> of{' '}
+              <span className="text-body">{filtered.length}</span> filtered · {data.total} total · snapshot{' '}
+              <span className="text-body">{shortRel(data.generated_at)}</span>
             </p>
           </>
         )}

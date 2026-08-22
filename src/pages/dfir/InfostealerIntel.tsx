@@ -269,7 +269,7 @@ export default function InfostealerIntel(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               placeholder={currentTab.placeholder}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
@@ -315,13 +315,11 @@ export default function InfostealerIntel(): JSX.Element {
               v3
             </span>
             <span>
-              Infections:{' '}
-              <strong className="text-slate-900 dark:text-slate-100">{searchResult.total_infections}</strong>
+              Infections: <strong className="text-heading">{searchResult.total_infections}</strong>
             </span>
             {searchResult.total_credentials != null && (
               <span>
-                Credentials:{' '}
-                <strong className="text-slate-900 dark:text-slate-100">{searchResult.total_credentials}</strong>
+                Credentials: <strong className="text-heading">{searchResult.total_credentials}</strong>
               </span>
             )}
             {searchResult.has_more && (
@@ -367,10 +365,7 @@ export default function InfostealerIntel(): JSX.Element {
                     >
                       {cred.type}
                     </span>
-                    <span
-                      className="font-mono text-slate-700 dark:text-slate-300 truncate max-w-[300px]"
-                      title={cred.url}
-                    >
+                    <span className="font-mono text-body truncate max-w-[300px]" title={cred.url}>
                       {cred.url}
                     </span>
                     <span className="text-muted">·</span>
@@ -442,9 +437,7 @@ export default function InfostealerIntel(): JSX.Element {
                     {(infectionResult.analysis.infection_confidence * 100).toFixed(0)}%
                   </span>
                 </div>
-                <p className="text-sm text-slate-700 dark:text-slate-300 mb-2">
-                  {infectionResult.analysis.analyst_summary}
-                </p>
+                <p className="text-sm text-body mb-2">{infectionResult.analysis.analyst_summary}</p>
                 <p className="text-xs text-muted">
                   Likely source:{' '}
                   <a

@@ -170,7 +170,7 @@ export default function OnionWatch(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -199,7 +199,7 @@ export default function OnionWatch(): JSX.Element {
       </div>
 
       {/* Headline stats */}
-      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-line-1 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           <Stat label="reachable groups" value={data?.reachable_count} loading={loading} />
           <Stat label="tracked groups" value={data?.groups.length} loading={loading} />
@@ -240,7 +240,7 @@ export default function OnionWatch(): JSX.Element {
       )}
 
       {/* Filters */}
-      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-line-1 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
@@ -248,7 +248,7 @@ export default function OnionWatch(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search group name, .onion fqdn, or page title…"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search onion mirrors"
           />
         </div>
@@ -333,13 +333,11 @@ export default function OnionWatch(): JSX.Element {
                   className={`rounded-xl border p-3 ${
                     g.any_reachable
                       ? 'border-emerald-500/30 bg-emerald-500/5'
-                      : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 opacity-80'
+                      : 'border-line-1 bg-slate-50 dark:bg-slate-950 opacity-80'
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                    <h2 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
-                      {g.group}
-                    </h2>
+                    <h2 className="font-display font-semibold text-base text-heading">{g.group}</h2>
                     <div className="flex items-center gap-2">
                       <span className="text-micro font-mono text-muted">
                         {g.mirrors.length} mirror{g.mirrors.length === 1 ? '' : 's'}
@@ -373,7 +371,7 @@ export default function OnionWatch(): JSX.Element {
                           }`}
                           aria-label={m.available ? 'reachable' : 'offline'}
                         />
-                        <code className="text-slate-700 dark:text-slate-300 break-all flex-1 min-w-0">{m.fqdn}</code>
+                        <code className="text-body break-all flex-1 min-w-0">{m.fqdn}</code>
                         <button
                           type="button"
                           onClick={() => void copy(m.slug, m.slug)}
@@ -474,8 +472,8 @@ function Stat({
   loading: boolean;
 }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-2 py-2">
-      <div className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
+    <div className="rounded border border-line-1 bg-slate-50 dark:bg-slate-950 px-2 py-2">
+      <div className="text-2xl font-display font-bold text-heading tabular-nums">
         {loading ? '…' : (valueText ?? value ?? 0)}
       </div>
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>

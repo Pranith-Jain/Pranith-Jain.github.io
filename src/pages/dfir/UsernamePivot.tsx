@@ -126,7 +126,7 @@ export default function UsernamePivot(): JSX.Element {
   }, [rows]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <AtSign size={28} className="text-brand-600 dark:text-brand-400" /> Username Pivot
@@ -187,7 +187,7 @@ export default function UsernamePivot(): JSX.Element {
           <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
-                Results for <span className="text-slate-900 dark:text-slate-100">{submitted}</span>
+                Results for <span className="text-heading">{submitted}</span>
               </h2>
               <span className="text-mini font-mono text-slate-400 dark:text-slate-400">
                 {stats.exists} exists · {stats['not-found']} not found · {stats['rate-limited']} rate-limited ·{' '}
@@ -237,9 +237,7 @@ export default function UsernamePivot(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                        {row.service.name}
-                      </span>
+                      <span className="font-display font-semibold text-sm text-heading">{row.service.name}</span>
                       <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
                         {CATEGORY_LABELS[row.service.category]}
                       </span>

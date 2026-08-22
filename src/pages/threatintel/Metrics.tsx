@@ -98,7 +98,7 @@ function HBar({
         return (
           <li key={`${it.label}-${idx}`} className="text-mini font-mono">
             <div className="flex items-baseline justify-between mb-0.5">
-              <span className="text-slate-700 dark:text-slate-300 truncate" title={String(it.label)}>
+              <span className="text-body truncate" title={String(it.label)}>
                 {String(it.label)}
               </span>
               <span className="text-slate-500 tabular-nums shrink-0">
@@ -151,7 +151,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
                 className="inline-block w-2 h-2 rounded shrink-0"
                 style={{ backgroundColor: SEVERITY_COLORS[sev] }}
               />
-              <span className="text-slate-700 dark:text-slate-300">{sev}</span>
+              <span className="text-body">{sev}</span>
               <span className="ml-auto text-slate-500 tabular-nums">
                 {n} <span className="text-muted">({pct.toFixed(0)}%)</span>
               </span>
@@ -956,7 +956,7 @@ export default function Metrics(): JSX.Element {
   }, [state.refreshedAt]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
@@ -1062,9 +1062,7 @@ export default function Metrics(): JSX.Element {
         <section className="rounded-xl border border-rose-500/30 bg-gradient-to-br from-rose-50/40 to-transparent dark:from-rose-900/20 dark:to-transparent p-5 sm:p-6 mb-6">
           <div className="flex items-baseline gap-3 mb-3">
             <Flame size={18} className="text-rose-600 dark:text-rose-400" />
-            <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
-              This week's read: ransomware posture
-            </h2>
+            <h2 className="font-display font-bold text-lg text-heading">This week's read: ransomware posture</h2>
             <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
               auto-computed · updates on refresh
             </span>
@@ -1075,15 +1073,11 @@ export default function Metrics(): JSX.Element {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 text-mini font-mono">
                 <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1.5">
                   <div className="text-slate-500">last 7d</div>
-                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
-                    {String(headlineRead.last7)}
-                  </div>
+                  <div className="text-heading font-semibold text-sm">{String(headlineRead.last7)}</div>
                 </div>
                 <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1.5">
                   <div className="text-slate-500">prior 7d</div>
-                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
-                    {String(headlineRead.prior7)}
-                  </div>
+                  <div className="text-heading font-semibold text-sm">{String(headlineRead.prior7)}</div>
                 </div>
                 <div
                   className={`rounded border px-2 py-1.5 ${
@@ -1091,7 +1085,7 @@ export default function Metrics(): JSX.Element {
                       ? 'border-rose-500/40 text-rose-600 dark:text-rose-300'
                       : headlineRead.trendLabel === 'cooling'
                         ? 'border-emerald-500/40 text-emerald-600 dark:text-emerald-300'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-body'
                   }`}
                 >
                   <div className="opacity-70">trend</div>
@@ -1101,12 +1095,7 @@ export default function Metrics(): JSX.Element {
             </div>
             <div className="space-y-3">
               {headlineRead.sentences.map((s, i) => (
-                <p
-                  key={i}
-                  className={`text-sm leading-relaxed ${
-                    i === 0 ? 'text-slate-900 dark:text-slate-100 font-medium' : 'text-slate-700 dark:text-slate-300'
-                  }`}
-                >
+                <p key={i} className={`text-sm leading-relaxed ${i === 0 ? 'text-heading font-medium' : 'text-body'}`}>
                   {typeof s === 'string' ? s : String(s)}
                 </p>
               ))}
@@ -1360,25 +1349,25 @@ export default function Metrics(): JSX.Element {
         <div className="grid sm:grid-cols-2 gap-2 text-meta font-mono">
           <Link
             to="/threatintel/iocs/cross"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
           >
             Cross-source IOC correlation →
           </Link>
           <Link
             to="/threatintel/actors/hub"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
           >
             Actor activity timeline + MITRE TTPs →
           </Link>
           <Link
             to="/threatintel/darkweb/leaks"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
           >
             Victim re-leak detection →
           </Link>
           <Link
             to="/threatintel/catalog?cat=iocs"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
           >
             Live IOC stream →
           </Link>
@@ -1424,7 +1413,7 @@ function Stat({
       <span className="inline-flex items-baseline gap-1.5">
         <span
           className={`tabular-nums text-base font-display font-semibold ${
-            accent === 'rose' ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-100'
+            accent === 'rose' ? 'text-rose-600 dark:text-rose-400' : 'text-heading'
           }`}
         >
           {loading ? '-' : typeof value === 'number' ? value.toLocaleString() : value}
@@ -1482,9 +1471,7 @@ function ChartCard({
       <p className="text-xs italic text-slate-500 mb-3 leading-relaxed">{question}</p>
       <div className="mb-3">{children}</div>
       {interpretation && (
-        <p className="text-meta text-slate-700 dark:text-slate-300 leading-relaxed mb-2 border-l-2 border-rose-500/40 pl-3">
-          {interpretation}
-        </p>
+        <p className="text-meta text-body leading-relaxed mb-2 border-l-2 border-rose-500/40 pl-3">{interpretation}</p>
       )}
       <p className="text-micro font-mono text-muted">{footer}</p>
     </div>

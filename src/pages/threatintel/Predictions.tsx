@@ -88,10 +88,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
           className="text-muted opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5"
         />
       </div>
-      <p
-        className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug mb-4 line-clamp-3"
-        title={m.question}
-      >
+      <p className="text-sm font-medium text-heading leading-snug mb-4 line-clamp-3" title={m.question}>
         {m.question}
       </p>
       <div className="flex items-center justify-between text-xs mb-1.5">

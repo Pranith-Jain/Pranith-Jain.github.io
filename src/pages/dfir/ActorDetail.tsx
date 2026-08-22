@@ -89,7 +89,7 @@ export default function ActorDetail(): JSX.Element {
 
   if (!actor) {
     return (
-      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-heading">
         <BackLink to="/threatintel">back</BackLink>
         <h1 className="font-display font-bold text-3xl">Actor not found</h1>
       </div>
@@ -97,7 +97,7 @@ export default function ActorDetail(): JSX.Element {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <Link
         to="/threatintel/catalog?cat=actors"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -138,7 +138,7 @@ export default function ActorDetail(): JSX.Element {
       <div className="grid sm:grid-cols-2 gap-6 mb-8">
         <section className="surface-card p-6">
           <h2 className="font-display font-bold text-lg mb-3">Motivation</h2>
-          <p className="font-mono text-sm text-slate-900 dark:text-slate-100">{actor.motivation}</p>
+          <p className="font-mono text-sm text-heading">{actor.motivation}</p>
           {actor.active_since && (
             <p className="mt-2 font-mono text-xs text-muted">active since: {actor.active_since}</p>
           )}
@@ -162,7 +162,7 @@ export default function ActorDetail(): JSX.Element {
             {actor.malware.map((m) => (
               <span
                 key={m}
-                className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-heading border border-slate-200 dark:border-[rgb(var(--border-400))]"
               >
                 {m}
               </span>
@@ -199,7 +199,7 @@ export default function ActorDetail(): JSX.Element {
               <Link
                 key={cve}
                 to={`/dfir/cve?id=${encodeURIComponent(cve)}`}
-                className="block rounded border border-rose-400/30 hover:border-brand-500/40 bg-rose-50/40 dark:bg-rose-950/20 px-3 py-2 transition-colors font-mono text-sm text-slate-900 dark:text-slate-100"
+                className="block rounded border border-rose-400/30 hover:border-brand-500/40 bg-rose-50/40 dark:bg-rose-950/20 px-3 py-2 transition-colors font-mono text-sm text-heading"
               >
                 {cve}
               </Link>
@@ -232,7 +232,7 @@ export default function ActorDetail(): JSX.Element {
             {profile.profile.malpedia && !(profile.profile.malpedia as { error?: string }).error && (
               <div>
                 <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">Malpedia</div>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm text-body leading-relaxed">
                   {(profile.profile.malpedia as { description?: string }).description ?? 'No description'}
                 </p>
               </div>
@@ -245,7 +245,7 @@ export default function ActorDetail(): JSX.Element {
                 </div>
                 <ul className="space-y-1 text-sm">
                   {profile.profile.otx_pulses.slice(0, 5).map((p) => (
-                    <li key={p.id} className="font-mono text-slate-700 dark:text-slate-300">
+                    <li key={p.id} className="font-mono text-body">
                       <a
                         href={`https://otx.alienvault.com/pulse/${p.id}`}
                         target="_blank"
@@ -268,7 +268,7 @@ export default function ActorDetail(): JSX.Element {
                 <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">
                   Maltrail Skeleton
                 </div>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm text-body leading-relaxed">
                   {(profile.profile.skeleton as { description?: string }).description ?? 'Profile present'}
                 </p>
               </div>

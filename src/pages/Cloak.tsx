@@ -69,7 +69,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
     <Modal open onClose={onClose} title={body.name} size="lg">
       <div className="space-y-4 max-h-[70vh] overflow-y-auto">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
+          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
             T{body.id}
           </span>
           <span className="font-mono text-micro px-2 py-0.5 rounded border border-indigo-300 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40">
@@ -81,7 +81,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
             </span>
           )}
         </div>
-        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
+        <p className="text-sm text-body leading-relaxed">{body.description}</p>
 
         {body.subtechniques.length > 0 && (
           <div>
@@ -105,13 +105,13 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 mb-2">{sub.description}</p>
+                  <p className="text-xs text-body mb-2">{sub.description}</p>
                   {sub.procedures.length > 0 && (
                     <div className="space-y-1">
                       {sub.procedures.map((p) => (
                         <div key={p.id} className="flex items-start gap-2 text-micro">
                           <span className="font-mono text-slate-400 shrink-0">{p.id}</span>
-                          <span className="text-slate-600 dark:text-slate-300">{p.name}</span>
+                          <span className="text-body">{p.name}</span>
                         </div>
                       ))}
                     </div>
@@ -131,7 +131,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
               {body.procedures.map((p) => (
                 <div key={p.id} className="flex items-start gap-2 text-micro">
                   <span className="font-mono text-slate-400 shrink-0">{p.id}</span>
-                  <span className="text-slate-600 dark:text-slate-300">{p.name}</span>
+                  <span className="text-body">{p.name}</span>
                 </div>
               ))}
             </div>
@@ -233,13 +233,13 @@ export default function Cloak() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search tactics or techniques..."
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-800 dark:text-slate-200"
+          className="px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading"
         >
           <option value="">All types</option>
           <option value="Technical">Technical</option>
@@ -280,7 +280,7 @@ export default function Cloak() {
                       className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors text-left"
                     >
                       <span className="font-mono text-micro text-slate-400 shrink-0">T{tech.id}</span>
-                      <span className="text-sm text-slate-700 dark:text-slate-200 flex-1">{tech.name}</span>
+                      <span className="text-sm text-body flex-1">{tech.name}</span>
                       {tech.type && (
                         <span
                           className={`font-mono text-micro px-1.5 py-0.5 rounded border shrink-0 ${TYPE_TONE[tech.type] ?? ''}`}

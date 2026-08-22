@@ -166,7 +166,7 @@ export default function Grc(): JSX.Element {
                 <span className="text-mini font-mono uppercase tracking-[0.2em] text-muted">
                   {FRAMEWORK_META[fid].label}
                 </span>
-                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{c.score}%</span>
+                <span className="text-xs font-mono font-bold text-heading">{c.score}%</span>
               </div>
               <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
                 <div className={`h-full ${scoreColour(c.score)}`} style={{ width: `${Math.max(2, c.score)}%` }} />
@@ -226,9 +226,7 @@ export default function Grc(): JSX.Element {
                   {fn.shortId}
                 </span>
                 <span className="flex-1 min-w-0">
-                  <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">
-                    {fn.title}
-                  </span>
+                  <span className="block font-display font-semibold text-heading">{fn.title}</span>
                   <span className="block text-xs font-mono text-muted truncate">{fn.description}</span>
                 </span>
                 <span className="flex-none text-micro font-mono uppercase tracking-wider text-muted">
@@ -240,7 +238,7 @@ export default function Grc(): JSX.Element {
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
                   {fn.categories.map((cat) => (
                     <div key={cat.id}>
-                      <h4 className="font-display font-semibold text-sm text-slate-800 dark:text-slate-200 mb-1">
+                      <h4 className="font-display font-semibold text-sm text-heading mb-1">
                         {cat.shortId} - {cat.title}
                       </h4>
                       <p className="text-xs font-mono text-muted mb-2">{cat.description}</p>
@@ -259,7 +257,7 @@ export default function Grc(): JSX.Element {
                                 >
                                   {STATUS_STYLES[s].label}
                                 </button>
-                                <span className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100">
+                                <span className="font-display font-semibold text-xs text-heading">
                                   {ctl.shortId} {ctl.title}
                                 </span>
                                 {ctl.mappings?.map((m) => (
@@ -293,7 +291,7 @@ export default function Grc(): JSX.Element {
             <div key={theme.id} className="surface-card p-4">
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">A.{theme.number}</span>
-                <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{theme.title}</h3>
+                <h3 className="font-display font-semibold text-heading">{theme.title}</h3>
                 <span className="text-micro font-mono text-slate-400 dark:text-slate-400 ml-auto">
                   {theme.controls.length}/{theme.controlCount} sampled
                 </span>
@@ -314,7 +312,7 @@ export default function Grc(): JSX.Element {
                         >
                           {STATUS_STYLES[s].label}
                         </button>
-                        <span className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100">
+                        <span className="font-display font-semibold text-xs text-heading">
                           {ctl.shortId} {ctl.title}
                         </span>
                         {ctl.mappings?.map((m) => (
@@ -361,7 +359,7 @@ export default function Grc(): JSX.Element {
             <div key={domain.id} className="surface-card p-4">
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">{domain.shortId}</span>
-                <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{domain.title}</h3>
+                <h3 className="font-display font-semibold text-heading">{domain.title}</h3>
                 <span className="text-micro font-mono text-slate-400 dark:text-slate-400 ml-auto">
                   {domain.controls.length} control{domain.controls.length === 1 ? '' : 's'}
                 </span>
@@ -382,7 +380,7 @@ export default function Grc(): JSX.Element {
                         >
                           {STATUS_STYLES[s].label}
                         </button>
-                        <span className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100">
+                        <span className="font-display font-semibold text-xs text-heading">
                           {ctl.shortId} {ctl.title}
                         </span>
                         {ctl.mappings?.map((m) => (
@@ -419,9 +417,7 @@ export default function Grc(): JSX.Element {
                   <span className="flex-none w-7 h-7 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-xs font-bold flex items-center justify-center">
                     {c.number}
                   </span>
-                  <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 flex-1">
-                    {c.title}
-                  </span>
+                  <span className="font-display font-semibold text-sm text-heading flex-1">{c.title}</span>
                   <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
                     IG{c.igLevel}
                   </span>
@@ -448,7 +444,7 @@ export default function Grc(): JSX.Element {
               if (items.length === 0) return null;
               return (
                 <div key={cat} className="surface-card p-4">
-                  <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
+                  <h3 className="font-display font-semibold text-sm text-heading mb-2">
                     {cat} ({items.length})
                   </h3>
                   <div className="space-y-1.5">
@@ -466,7 +462,7 @@ export default function Grc(): JSX.Element {
                             >
                               {STATUS_STYLES[s].label}
                             </button>
-                            <span className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100">
+                            <span className="font-display font-semibold text-xs text-heading">
                               {c.shortId} {c.title}
                             </span>
                           </div>
@@ -493,7 +489,7 @@ export default function Grc(): JSX.Element {
             return (
               <div key={d.id} className="surface-card p-4">
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.title}</h3>
+                  <h3 className="font-display font-semibold text-heading">{d.title}</h3>
                   <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{d.description}</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
@@ -511,7 +507,7 @@ export default function Grc(): JSX.Element {
                     </button>
                   ))}
                 </div>
-                <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-xs font-mono text-body leading-relaxed">
                   <span className="font-semibold">Level {lvl}:</span> {d.levels[lvl]}
                 </p>
               </div>

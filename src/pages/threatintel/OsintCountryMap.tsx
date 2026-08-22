@@ -284,7 +284,7 @@ export default function OsintCountryMap(): JSX.Element {
             placeholder={
               selectedCountry ? `Search within ${selectedCountry.name}...` : 'Search countries or resources...'
             }
-            className="w-full pl-9 pr-4 py-2 surface-card text-sm text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-500"
+            className="w-full pl-9 pr-4 py-2 surface-card text-sm text-body placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-500"
           />
           {query && (
             <button
@@ -304,7 +304,7 @@ export default function OsintCountryMap(): JSX.Element {
               <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-muted" />
-                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <span className="text-sm font-medium text-body">
                     {selectedCountry ? selectedCountry.name : `${OSINT_COUNTRIES.length} countries`}
                   </span>
                 </div>
@@ -347,7 +347,7 @@ export default function OsintCountryMap(): JSX.Element {
                         handleSelect(c.alpha2);
                         setQuery('');
                       }}
-                      className="w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] flex items-center gap-2"
+                      className="w-full text-left px-4 py-2 text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] flex items-center gap-2"
                     >
                       <span className="text-slate-500">{c.name}</span>
                       <span className="text-xs text-muted ml-auto">{c.resources.length} resources</span>
@@ -365,7 +365,7 @@ export default function OsintCountryMap(): JSX.Element {
                 {/* Header */}
                 <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between shrink-0">
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{selectedCountry.name}</h3>
+                    <h3 className="text-sm font-semibold text-heading">{selectedCountry.name}</h3>
                     <p className="text-xs text-slate-500">
                       {selectedResources.length} of {selectedCountry.resources.length} resources
                     </p>
@@ -398,7 +398,7 @@ export default function OsintCountryMap(): JSX.Element {
                           }}
                           className={`text-xs px-2 py-0.5 rounded-full border transition-colors ${
                             active
-                              ? 'bg-slate-200 dark:bg-slate-700 border-slate-400 dark:border-slate-500 text-slate-800 dark:text-slate-200'
+                              ? 'bg-slate-200 dark:bg-slate-700 border-slate-400 dark:border-slate-500 text-heading'
                               : 'bg-white dark:bg-[rgb(var(--surface-300)/0.5)] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
                           }`}
                         >
@@ -494,7 +494,7 @@ function ResourceRow({ resource }: { resource: OsintCountryResource }): JSX.Elem
       <div className="flex items-start gap-2">
         <a href={sanitizeUrl(resource.url)} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
-            <span className="text-sm text-slate-700 dark:text-slate-300 truncate">{resource.name}</span>
+            <span className="text-sm text-body truncate">{resource.name}</span>
             <ExternalLink className="w-3 h-3 text-muted shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </a>

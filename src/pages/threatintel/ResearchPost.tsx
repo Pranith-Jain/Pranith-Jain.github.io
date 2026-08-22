@@ -119,7 +119,7 @@ export default function ResearchPost(): JSX.Element {
       headerExtra={
         <>
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500 mt-4">
-            <span className="text-slate-700 dark:text-slate-300 font-medium">Pranith Jain</span>
+            <span className="text-body font-medium">Pranith Jain</span>
             <span aria-hidden="true">·</span>
             <time dateTime={post.publishedAt}>
               {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -177,7 +177,7 @@ export default function ResearchPost(): JSX.Element {
           <article
             ref={bodyRef}
             className={
-              'text-base sm:text-[17px] leading-relaxed text-slate-700 dark:text-slate-300 ' +
+              'text-base sm:text-[17px] leading-relaxed text-body ' +
               '[&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:tracking-tight ' +
               '[&_h3]:font-display [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_h3]:mt-6 [&_h3]:mb-2 ' +
               '[&_p]:mb-4 ' +
@@ -269,7 +269,7 @@ export default function ResearchPost(): JSX.Element {
                       <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500 mb-0.5">
                         {r.kicker}
                       </div>
-                      <div className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
+                      <div className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
                         {r.title}
                       </div>
                     </div>

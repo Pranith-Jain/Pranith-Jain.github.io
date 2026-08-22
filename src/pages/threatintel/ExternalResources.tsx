@@ -416,7 +416,7 @@ export default function ExternalResources(): JSX.Element {
                 href={sanitizeUrl(r.url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
+                className="font-display font-semibold text-base text-heading hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
               >
                 {r.name} <ExternalLink size={12} className="opacity-60 shrink-0" />
               </a>
@@ -713,7 +713,7 @@ function AddResourceCard({
               setOpen(false);
               reset();
             }}
-            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             Cancel
           </button>

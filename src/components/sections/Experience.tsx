@@ -60,7 +60,7 @@ export function Experience({ experiences }: ExperienceProps) {
               >
                 <div className="flex-1 min-w-0">
                   <div className="text-lg font-semibold text-slate-900 dark:text-white">{exp.title}</div>
-                  <div className="text-sm text-slate-700 dark:text-slate-300">
+                  <div className="text-sm text-body">
                     {exp.company}
                     {exp.location && ` • ${exp.location}`} • {exp.period}
                   </div>
@@ -99,7 +99,7 @@ export function Experience({ experiences }: ExperienceProps) {
                             {IconComponent && <IconComponent className="w-4 h-4" aria-hidden="true" />}
                             {section.title}
                           </h3>
-                          <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300 ml-6">
+                          <ul className="space-y-2 text-sm text-body ml-6">
                             {section.items.map((item, iIndex) => (
                               <li key={iIndex} className="relative pl-4">
                                 <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">
@@ -115,7 +115,7 @@ export function Experience({ experiences }: ExperienceProps) {
 
                   {/* Items (for other experiences) */}
                   {exp.items && (
-                    <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                    <ul className="space-y-2 text-sm text-body">
                       {exp.items.map((item, iIndex) => (
                         <li key={iIndex} className="relative pl-4">
                           <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">

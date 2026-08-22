@@ -697,7 +697,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="surface-card-faint p-3">
           <div className="text-micro font-mono uppercase text-slate-500 mb-1">Total</div>
-          <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.total}</div>
+          <div className="text-2xl font-bold text-heading">{stats.total}</div>
         </div>
         <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3">
           <div className="text-micro font-mono uppercase text-rose-600 dark:text-rose-400 mb-1">Critical</div>
@@ -722,7 +722,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search facilities..."
-            className="w-full pl-9 pr-3 py-2 text-sm font-mono surface-card-faint text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/40"
+            className="w-full pl-9 pr-3 py-2 text-sm font-mono surface-card-faint text-heading placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/40"
           />
         </div>
         <div className="flex items-center gap-1">
@@ -752,7 +752,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
         <select
           value={regionFilter}
           onChange={(e) => setRegionFilter(e.target.value as 'all' | 'mena')}
-          className="px-3 py-1.5 text-xs font-mono surface-card-faint text-slate-900 dark:text-slate-100"
+          className="px-3 py-1.5 text-xs font-mono surface-card-faint text-heading"
         >
           <option value="all">All Regions</option>
           <option value="mena">MENA Focus</option>
@@ -760,7 +760,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as 'name' | 'severity' | 'type')}
-          className="px-3 py-1.5 text-xs font-mono surface-card-faint text-slate-900 dark:text-slate-100"
+          className="px-3 py-1.5 text-xs font-mono surface-card-faint text-heading"
         >
           <option value="type">Sort by Type</option>
           <option value="severity">Sort by Severity</option>
@@ -862,7 +862,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
                             ) : (
                               <ChevronDown size={12} className="text-muted" />
                             )}
-                            <span className="font-medium text-slate-900 dark:text-slate-100">{f.name}</span>
+                            <span className="font-medium text-heading">{f.name}</span>
                           </div>
                         </td>
                         <td className="px-4 py-3">

@@ -374,7 +374,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste the report here. Plain text or markdown. Up to 80KB."
-              className="w-full h-40 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-40 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
           </div>
           <div>
@@ -389,7 +389,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputUrl}
               onChange={(e) => setInputUrl(e.target.value)}
               placeholder="https://example.com/report"
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
             <p className="mt-1 text-mini text-muted leading-snug">
               Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant,
@@ -406,7 +406,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={imageUrls}
               onChange={(e) => setImageUrls(e.target.value)}
               placeholder="https://example.com/screenshot1.png"
-              className="w-full h-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-xs font-mono text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
             <div className="mt-3 flex items-start gap-2 text-xs text-muted">
               <input
@@ -451,7 +451,7 @@ export default function ReportAnalyzer(): JSX.Element {
           {/* Status bar */}
           <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted">
             <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
-              title <span className="text-slate-700 dark:text-slate-200">{data.title}</span>
+              title <span className="text-body">{data.title}</span>
             </span>
             <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
               {data.textLength.toLocaleString()} chars
@@ -615,7 +615,7 @@ function FilterInput({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-1.5 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-1.5 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
       />
     </div>
   );
@@ -628,11 +628,9 @@ function SummaryTab({ data }: { data: AnalyzerOutput }) {
   return (
     <section className="surface-card p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
-        model <span className="text-slate-700 dark:text-slate-200">{data.summary.model}</span>
+        model <span className="text-body">{data.summary.model}</span>
       </div>
-      <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
-        {data.summary.text}
-      </p>
+      <p className="text-sm text-body leading-relaxed whitespace-pre-wrap">{data.summary.text}</p>
     </section>
   );
 }
@@ -710,7 +708,7 @@ function IocsTab({
                 ocr
               </span>
             )}
-            <code className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{i.value}</code>
+            <code className="font-mono text-sm text-heading break-all">{i.value}</code>
             {i.evidence && <span className="ml-auto text-xs text-muted truncate max-w-[40%]">{i.evidence}</span>}
           </li>
         ))}
@@ -757,7 +755,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
                     >
                       {t.id}
                     </a>
-                    <span className="text-sm text-slate-700 dark:text-slate-200">{t.name}</span>
+                    <span className="text-sm text-body">{t.name}</span>
                     <span
                       className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
                     >
@@ -837,7 +835,7 @@ function CvesTab({
               )}
               {c.epss != null && (
                 <span
-                  className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-600 dark:text-slate-300"
+                  className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-body"
                   title={`EPSS percentile: ${c.epss_percentile != null ? (c.epss_percentile * 100).toFixed(1) : '?'}%`}
                 >
                   EPSS {(c.epss * 100).toFixed(1)}%
@@ -849,9 +847,7 @@ function CvesTab({
                 </span>
               )}
             </div>
-            {c.description && (
-              <p className="text-xs text-slate-600 dark:text-slate-300 mb-1.5 line-clamp-2">{c.description}</p>
-            )}
+            {c.description && <p className="text-xs text-body mb-1.5 line-clamp-2">{c.description}</p>}
             {c.products && c.products.length > 0 && (
               <div className="flex flex-wrap gap-1 mb-1.5">
                 {c.products.map((p) => (
@@ -888,7 +884,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
   return (
     <section className="surface-card p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
-        confidence <span className="text-slate-700 dark:text-slate-200">{Math.round(fiveW.confidence * 100)}%</span>
+        confidence <span className="text-body">{Math.round(fiveW.confidence * 100)}%</span>
       </div>
       <dl className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
         {rows.map((r) => (
@@ -897,7 +893,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
             className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
           >
             <dt className="text-micro font-mono uppercase tracking-wider text-muted">{r.label}</dt>
-            <dd className="mt-0.5 text-sm text-slate-900 dark:text-slate-100 break-words">{r.value || '-'}</dd>
+            <dd className="mt-0.5 text-sm text-heading break-words">{r.value || '-'}</dd>
           </div>
         ))}
       </dl>
@@ -909,9 +905,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
               className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
             >
               <dt className="text-micro font-mono uppercase tracking-wider text-muted">{r.label}</dt>
-              <dd className="mt-0.5 text-sm text-slate-700 dark:text-slate-200 leading-relaxed break-words">
-                {r.value}
-              </dd>
+              <dd className="mt-0.5 text-sm text-body leading-relaxed break-words">{r.value}</dd>
             </div>
           ))}
         </div>
@@ -1018,15 +1012,15 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
         <div key="v" className="space-y-1 text-xs">
           <p>
             <span className="text-micro font-mono uppercase text-slate-500">sector</span> ·{' '}
-            <span className="font-mono text-slate-700 dark:text-slate-300">{diamond.victim.sector}</span>
+            <span className="font-mono text-body">{diamond.victim.sector}</span>
           </p>
           <p>
             <span className="text-micro font-mono uppercase text-slate-500">geography</span> ·{' '}
-            <span className="font-mono text-slate-700 dark:text-slate-300">{diamond.victim.geography}</span>
+            <span className="font-mono text-body">{diamond.victim.geography}</span>
           </p>
           <p>
             <span className="text-micro font-mono uppercase text-slate-500">asset</span> ·{' '}
-            <span className="font-mono text-slate-700 dark:text-slate-300">{diamond.victim.asset}</span>
+            <span className="font-mono text-body">{diamond.victim.asset}</span>
           </p>
         </div>,
       ],
@@ -1037,8 +1031,8 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
       {facets.map((f) => (
         <div key={f.pillar} className={`rounded-xl border ${f.tone} p-4 shadow-e1`}>
           <div className="mb-2 flex items-center gap-2">
-            <Diamond className="h-4 w-4 text-slate-600 dark:text-slate-300" />
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{f.title}</h3>
+            <Diamond className="h-4 w-4 text-body" />
+            <h3 className="text-sm font-semibold text-heading">{f.title}</h3>
             <span className="ml-auto text-micro font-mono uppercase text-slate-500">{f.pillar}</span>
           </div>
           <div className="flex flex-wrap gap-1.5">{f.items}</div>
@@ -1066,7 +1060,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
         >
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
             <GitBranch className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{p.phase}</h3>
+            <h3 className="text-sm font-semibold text-heading">{p.phase}</h3>
             <span className="ml-auto text-micro font-mono uppercase text-slate-500">
               {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
             </span>
@@ -1078,7 +1072,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
                   {t.id}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{t.name}</p>
+                  <p className="text-sm font-medium text-heading">{t.name}</p>
                   {t.evidence && <p className="mt-0.5 text-xs text-muted line-clamp-2">{t.evidence}</p>}
                 </div>
               </li>
@@ -1150,7 +1144,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
             className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
           >
             <div className="text-micro font-mono uppercase tracking-wider text-muted">{type}</div>
-            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{n}</div>
+            <div className="text-sm font-semibold text-heading">{n}</div>
           </div>
         ))}
       </div>
@@ -1158,7 +1152,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
         <summary className="cursor-pointer text-micro font-mono uppercase tracking-wider text-muted">
           view raw JSON
         </summary>
-        <pre className="mt-2 max-h-96 overflow-auto text-xs font-mono text-slate-800 dark:text-slate-200">
+        <pre className="mt-2 max-h-96 overflow-auto text-xs font-mono text-heading">
           {JSON.stringify(bundle, null, 2)}
         </pre>
       </details>
@@ -1200,7 +1194,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
         <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">SIEM Detection Rules</h3>
+            <h3 className="text-sm font-semibold text-heading">SIEM Detection Rules</h3>
             <span className="ml-auto text-micro font-mono uppercase text-slate-500">
               {detection.siemRules.length} rules
             </span>
@@ -1212,7 +1206,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
               >
                 <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <span className="text-sm font-medium text-slate-900 dark:text-slate-100">{rule.title}</span>
+                  <span className="text-sm font-medium text-heading">{rule.title}</span>
                   <span
                     className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${severityColor[rule.severity] ?? severityColor.medium}`}
                   >
@@ -1223,9 +1217,9 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                   )}
                   {rule.platform && <span className="text-micro font-mono text-muted">{rule.platform}</span>}
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-300 mb-2">{rule.description}</p>
+                <p className="text-xs text-body mb-2">{rule.description}</p>
                 {rule.query && (
-                  <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
+                  <pre className="text-xs font-mono text-heading bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
                     {rule.query}
                   </pre>
                 )}
@@ -1240,7 +1234,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
         <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Network className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Monitoring Guidance</h3>
+            <h3 className="text-sm font-semibold text-heading">Monitoring Guidance</h3>
           </div>
           <div className="space-y-3">
             {detection.monitoringGuidance.map((cat, i) => (
@@ -1248,7 +1242,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                 <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">{cat.category}</div>
                 <ul className="space-y-1">
                   {cat.items.map((item, j) => (
-                    <li key={j} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">
+                    <li key={j} className="flex items-start gap-2 text-xs text-body">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-500 shrink-0" />
                       {item}
                     </li>
@@ -1265,7 +1259,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
         <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Terminal className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">CLI Verification Commands</h3>
+            <h3 className="text-sm font-semibold text-heading">CLI Verification Commands</h3>
           </div>
           <div className="space-y-2">
             {detection.cliCommands.map((cmd, i) => (
@@ -1273,8 +1267,8 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                 key={i}
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2"
               >
-                <div className="text-xs text-slate-600 dark:text-slate-300 mb-1">{cmd.purpose}</div>
-                <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
+                <div className="text-xs text-body mb-1">{cmd.purpose}</div>
+                <pre className="text-xs font-mono text-heading bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
                   {cmd.command}
                 </pre>
                 {cmd.platform && <div className="mt-1 text-micro font-mono text-muted">{cmd.platform}</div>}
@@ -1334,11 +1328,11 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
         <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <CheckCircle className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Key Takeaways</h3>
+            <h3 className="text-sm font-semibold text-heading">Key Takeaways</h3>
           </div>
           <ul className="space-y-2">
             {conclusion.keyTakeaways.map((t, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-200">
+              <li key={i} className="flex items-start gap-2 text-sm text-body">
                 <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-500 shrink-0" />
                 {t}
               </li>
@@ -1352,7 +1346,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
         <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Recommended Actions</h3>
+            <h3 className="text-sm font-semibold text-heading">Recommended Actions</h3>
           </div>
           <div className="space-y-2">
             {conclusion.recommendedActions.map((action, i) => (
@@ -1367,7 +1361,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
                     {action.priority}
                   </span>
                 </div>
-                <p className="text-sm text-slate-900 dark:text-slate-100">{action.action}</p>
+                <p className="text-sm text-heading">{action.action}</p>
                 {action.rationale && <p className="mt-1 text-xs text-muted">{action.rationale}</p>}
               </div>
             ))}
@@ -1432,13 +1426,13 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-muted">MITRE ATT&CK Heatmap</div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
             {uniqueTechniques} techniques
           </span>
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
             {activeTactics.length + otherTactics.length} tactics
           </span>
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
             {ttp.length} mappings
           </span>
         </div>
@@ -1477,7 +1471,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
               }}
             >
               <div className="px-2 py-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
+                <div className="text-micro font-mono font-semibold uppercase tracking-wider text-body truncate">
                   {tactic}
                 </div>
                 <div className="text-micro font-mono text-muted">
@@ -1521,7 +1515,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
                     style={{ width: `${pct}%` }}
                   />
                 </div>
-                <span className="w-6 text-right font-mono text-slate-600 dark:text-slate-300">{hits.length}</span>
+                <span className="w-6 text-right font-mono text-body">{hits.length}</span>
               </div>
             );
           })}
@@ -1551,7 +1545,7 @@ function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
         )}
       </div>
       {displayText ? (
-        <pre className="max-h-[600px] overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
+        <pre className="max-h-[600px] overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs font-mono text-heading whitespace-pre-wrap break-words">
           {displayText}
         </pre>
       ) : (
@@ -1620,7 +1614,7 @@ function TimelineTab() {
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-muted">Report Timeline</div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
             {timeline.length} reports
           </span>
           <span className="rounded bg-amber-100 dark:bg-amber-900/40 px-2 py-0.5 font-mono text-amber-700 dark:text-amber-300">
@@ -1676,7 +1670,7 @@ function TimelineTab() {
                 {/* Report card */}
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{report.title}</span>
+                    <span className="text-sm font-semibold text-heading">{report.title}</span>
                     <span className="text-xs text-muted font-mono">
                       {dateStr} {timeStr}
                     </span>

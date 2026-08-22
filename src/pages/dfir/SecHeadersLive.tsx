@@ -124,7 +124,7 @@ export default function SecHeadersLive(): JSX.Element {
         : 'text-rose-700 dark:text-rose-300 ring-rose-500/40 bg-rose-500/10';
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink to="/dfir" />
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Live Security Headers</h1>
@@ -155,7 +155,7 @@ export default function SecHeadersLive(): JSX.Element {
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
           placeholder="example.com"
-          className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           type="submit"
@@ -234,7 +234,7 @@ export default function SecHeadersLive(): JSX.Element {
                           <span className={`text-micro font-mono uppercase tracking-wider ${t.text}`}>{status}</span>
                         </div>
                         {h.value && (
-                          <pre className="mt-1 text-micro font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all">
+                          <pre className="mt-1 text-micro font-mono text-body whitespace-pre-wrap break-all">
                             {h.value}
                           </pre>
                         )}
@@ -280,9 +280,7 @@ export default function SecHeadersLive(): JSX.Element {
                       </button>
                       {isOpen && (
                         <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 relative">
-                          <pre className="text-micro font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
-                            {value}
-                          </pre>
+                          <pre className="text-micro font-mono text-heading whitespace-pre-wrap break-all">{value}</pre>
                           <CopyButton
                             text={value}
                             variant="ghost"

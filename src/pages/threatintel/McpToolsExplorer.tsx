@@ -39,7 +39,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   detection: 'bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-800',
   osint: 'bg-lime-50 dark:bg-lime-950/40 text-lime-700 dark:text-lime-300 border-lime-200 dark:border-lime-800',
   pdns: 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800',
-  search: 'bg-slate-50 dark:bg-slate-950/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800',
+  search: 'bg-slate-50 dark:bg-slate-950/40 text-body border-line-1',
   exposure:
     'bg-yellow-50 dark:bg-yellow-950/40 text-yellow-700 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800',
   other: 'bg-slate-50 dark:bg-slate-950/40 text-muted border-slate-200 dark:border-slate-700',
@@ -47,7 +47,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
+  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
 
 function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: boolean; onToggle: () => void }) {
   const [copied, setCopied] = useState(false);
@@ -70,7 +70,7 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
           {tool.category}
         </span>
         <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-mono font-semibold text-slate-900 dark:text-slate-100 truncate">{tool.name}</h4>
+          <h4 className="text-sm font-mono font-semibold text-heading truncate">{tool.name}</h4>
           <p className="text-xs text-muted mt-0.5 line-clamp-2">{tool.description}</p>
         </div>
         <div className="shrink-0 flex items-center gap-1 mt-0.5">
@@ -94,10 +94,10 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
       </button>
       {isExpanded && (
         <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 space-y-2">
-          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{tool.description}</p>
+          <p className="text-xs text-body leading-relaxed">{tool.description}</p>
           <div className="flex items-center gap-2">
             <span className="text-micro font-mono text-muted">MCP name:</span>
-            <code className="text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300">
+            <code className="text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5 text-body">
               {tool.name}
             </code>
           </div>

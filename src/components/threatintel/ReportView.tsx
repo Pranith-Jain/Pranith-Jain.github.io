@@ -76,7 +76,7 @@ function renderBody(md: string): JSX.Element {
     const heading = /^\s{0,3}#{1,6}\s+(.*)$/.exec(line);
     if (heading) {
       blocks.push(
-        <p key={`h${blocks.length}`} className="font-semibold text-slate-800 dark:text-slate-200 mt-2">
+        <p key={`h${blocks.length}`} className="font-semibold text-heading mt-2">
           {renderInline(heading[1]!)}
         </p>
       );
@@ -108,7 +108,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       <div className="surface-card overflow-hidden">
         <div className={`px-4 py-1.5 text-mini font-mono font-semibold tracking-wide ${TLP_CLASS[tlp]}`}>TLP:{tlp}</div>
         <div className="p-5">
-          <h1 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{report.cover.title}</h1>
+          <h1 className="font-display font-bold text-xl text-heading">{report.cover.title}</h1>
           <p className="text-sm text-muted mt-1">{report.cover.subtitle}</p>
           <div className="flex flex-wrap items-center gap-2 mt-3 text-mini font-mono text-muted">
             <span>generated {report.cover.generated_at}</span>
@@ -151,9 +151,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       {/* Executive summary */}
       <section className="surface-card p-5">
         <h2 className="font-display font-semibold text-lg mb-2">Executive Summary</h2>
-        <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          {renderBody(report.executive_summary)}
-        </div>
+        <div className="text-sm leading-relaxed text-body">{renderBody(report.executive_summary)}</div>
       </section>
 
       {/* Key findings */}
@@ -162,7 +160,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
           <h2 className="font-display font-semibold text-lg mb-2">Key Findings</h2>
           <ul className="space-y-2">
             {report.key_findings.map((f, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
+              <li key={i} className="flex items-start gap-2 text-sm text-body">
                 <span
                   className={`shrink-0 mt-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${CONF_CLASS[f.confidence] ?? ''}`}
                 >
@@ -179,7 +177,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       {report.sections.map((sec) => (
         <section key={sec.id} className="surface-card p-5">
           <h2 className="font-display font-semibold text-lg mb-2">{sec.heading}</h2>
-          <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{renderBody(sec.body_md)}</div>
+          <div className="text-sm leading-relaxed text-body">{renderBody(sec.body_md)}</div>
         </section>
       ))}
 
@@ -233,11 +231,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
           <h2 className="font-display font-semibold text-lg mb-3">Appendix D - Sources</h2>
           <ul className="space-y-1.5">
             {report.appendices.sources.map((s) => (
-              <li
-                key={s.ref}
-                id={`report-src-${s.ref}`}
-                className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300"
-              >
+              <li key={s.ref} id={`report-src-${s.ref}`} className="flex items-center gap-2 text-sm text-body">
                 <span className="font-mono text-xs text-muted">[{s.ref}]</span>
                 <span
                   className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]"
@@ -275,7 +269,7 @@ function AppendixTable({ title, head, rows }: { title: string; head: string[]; r
           head.map((h, j) => ({
             key: `col-${j}`,
             header: h,
-            render: (r: string[]) => <span className="break-all text-slate-700 dark:text-slate-300">{r[j]}</span>,
+            render: (r: string[]) => <span className="break-all text-body">{r[j]}</span>,
           })) as DataTableColumn<string[]>[]
         }
         rows={rows}

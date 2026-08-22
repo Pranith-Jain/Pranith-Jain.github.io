@@ -63,13 +63,13 @@ export default function CampaignLifecycle(): JSX.Element {
         value={campaignName}
         onChange={(e) => setCampaignName(e.target.value)}
         placeholder="Campaign name…"
-        className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 mb-3"
+        className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 mb-3"
       />
       <textarea
         value={indicators}
         onChange={(e) => setIndicators(e.target.value)}
         placeholder="Related IOCs (optional, one per line)…"
-        className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
+        className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
       />
       <button
         type="button"

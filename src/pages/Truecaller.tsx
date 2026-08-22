@@ -126,9 +126,7 @@ export default function Truecaller() {
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Identity</h2>
                 <div className="space-y-3">
                   <div>
-                    <div className="text-xl font-bold text-slate-900 dark:text-slate-100">
-                      {r.name || 'Unknown Caller'}
-                    </div>
+                    <div className="text-xl font-bold text-heading">{r.name || 'Unknown Caller'}</div>
                     {r.alt_name && <div className="text-sm text-muted mt-0.5">{r.alt_name}</div>}
                     <div className="font-mono text-sm text-muted mt-1">{data.phone_number}</div>
                   </div>
@@ -137,19 +135,19 @@ export default function Truecaller() {
                     {r.carrier && (
                       <div className="flex items-center gap-1.5 text-sm font-mono">
                         <span className="text-muted">Carrier:</span>
-                        <span className="text-slate-900 dark:text-slate-100">{r.carrier}</span>
+                        <span className="text-heading">{r.carrier}</span>
                       </div>
                     )}
                     {r.number_type && (
                       <div className="flex items-center gap-1.5 text-sm font-mono">
                         <span className="text-muted">Type:</span>
-                        <span className="text-slate-900 dark:text-slate-100">{r.number_type}</span>
+                        <span className="text-heading">{r.number_type}</span>
                       </div>
                     )}
                     {r.country_code && (
                       <div className="flex items-center gap-1.5 text-sm font-mono">
                         <MapPin size={12} className="text-muted" />
-                        <span className="text-slate-900 dark:text-slate-100">{r.country_code}</span>
+                        <span className="text-heading">{r.country_code}</span>
                       </div>
                     )}
                   </div>
@@ -177,7 +175,7 @@ export default function Truecaller() {
                     {r.spam_score}
                   </div>
                   <div>
-                    <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
+                    <div className="text-sm font-mono text-heading">
                       {r.is_spam ? 'Known Spam' : r.spam_score > 0 ? 'Low Spam Score' : 'Clean'}
                     </div>
                     {typeof r.spam_reports === 'number' && (
@@ -214,7 +212,7 @@ export default function Truecaller() {
                     .map((item) => (
                       <div key={item.label}>
                         <div className="text-micro font-mono uppercase tracking-wider text-muted">{item.label}</div>
-                        <div className="text-sm font-mono text-slate-900 dark:text-slate-100 mt-0.5">{item.value}</div>
+                        <div className="text-sm font-mono text-heading mt-0.5">{item.value}</div>
                       </div>
                     ))}
                 </div>

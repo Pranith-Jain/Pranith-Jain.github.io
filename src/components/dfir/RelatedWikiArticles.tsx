@@ -39,9 +39,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
               to={`/threatintel/wiki/${a.slug}`}
               className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 hover:border-cyan-500/40"
             >
-              <div className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-0.5">
-                {a.title}
-              </div>
+              <div className="font-display font-semibold text-sm text-heading mb-0.5">{a.title}</div>
               <div className="text-micro font-mono text-muted">
                 mentions: {a.matchedTerms.slice(0, 3).join(', ')}
                 {a.matchedTerms.length > 3 && ` +${a.matchedTerms.length - 3}`}

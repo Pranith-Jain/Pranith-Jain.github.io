@@ -175,7 +175,7 @@ export default function StixIpExport() {
                 onChange={(e) => setIpInput(e.target.value)}
                 placeholder={isBatch ? '203.0.113.42&#10;198.51.100.7' : '203.0.113.42'}
                 rows={isBatch ? 4 : 1}
-                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50 font-mono"
+                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-heading placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50 font-mono"
               />
             </div>
             <div>
@@ -183,7 +183,7 @@ export default function StixIpExport() {
               <select
                 value={tlp}
                 onChange={(e) => setTlp(e.target.value as typeof tlp)}
-                className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
+                className="text-sm surface-card text-heading px-3 py-2"
               >
                 <option value="WHITE">TLP:WHITE</option>
                 <option value="GREEN">TLP:GREEN</option>
@@ -217,7 +217,7 @@ export default function StixIpExport() {
                 return (
                   <div key={r.ip} className="surface-card p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">{r.ip}</span>
+                      <span className="font-mono text-sm font-bold text-heading">{r.ip}</span>
                       <span className={`text-xs font-bold ${confidenceColor(conf)}`}>{conf}% confidence</span>
                     </div>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted">
@@ -294,7 +294,7 @@ export default function StixIpExport() {
               <div className="surface-card p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">STIX 2.1 Bundle</h3>
+                    <h3 className="text-sm font-semibold text-heading">STIX 2.1 Bundle</h3>
                     <p className="text-xs text-muted">
                       {bundle.objects.length} objects · {bundle.id}
                     </p>
@@ -303,7 +303,7 @@ export default function StixIpExport() {
                     <button
                       type="button"
                       onClick={copyJson}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                       {copied ? 'Copied' : 'Copy JSON'}
@@ -330,7 +330,7 @@ export default function StixIpExport() {
                   ).map(([type, count]) => (
                     <span
                       key={type}
-                      className="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300"
+                      className="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body"
                     >
                       {type}: {String(count)}
                     </span>

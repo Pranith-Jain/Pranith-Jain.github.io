@@ -164,7 +164,7 @@ export default function OneTimeSecret() {
       </BackLink>
 
       <div className="flex items-baseline gap-2 mb-2">
-        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">One-Time Secret</h1>
+        <h1 className="font-display font-bold text-2xl text-heading">One-Time Secret</h1>
         <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
           Encrypted &middot; Burn after reading
         </span>
@@ -184,7 +184,7 @@ export default function OneTimeSecret() {
                 value={secret}
                 onChange={(e) => setSecret(e.target.value)}
                 rows={6}
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
                 placeholder="Paste your secret here..."
               />
             </label>
@@ -196,7 +196,7 @@ export default function OneTimeSecret() {
               <select
                 value={expiry}
                 onChange={(e) => setExpiry(e.target.value)}
-                className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100"
+                className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-heading"
               >
                 {EXPIRY_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -250,7 +250,7 @@ export default function OneTimeSecret() {
                   <input
                     readOnly
                     value={shareUrl}
-                    className="flex-1 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+                    className="flex-1 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading"
                   />
                   <button
                     type="button"
@@ -291,7 +291,7 @@ export default function OneTimeSecret() {
                     readOnly
                     value={view.content}
                     rows={8}
-                    className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                    className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
                   />
                 </label>
                 <button

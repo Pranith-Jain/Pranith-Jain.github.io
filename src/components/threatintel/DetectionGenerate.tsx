@@ -96,7 +96,7 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
       {open && (
         <div className="mt-2 space-y-2 rounded-xl border border-slate-200 bg-slate-50/50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]">
           <div className="flex items-center gap-1.5">
-            <span className="text-mini font-medium text-slate-600 dark:text-slate-300">Format:</span>
+            <span className="text-mini font-medium text-body">Format:</span>
             {RULE_TYPES.map((r) => (
               <button
                 key={r.id}

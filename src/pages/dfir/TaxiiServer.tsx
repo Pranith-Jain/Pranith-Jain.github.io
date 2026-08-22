@@ -81,7 +81,7 @@ export default function TaxiiServer(): JSX.Element {
   const baseUrl = typeof window !== 'undefined' ? `${window.location.origin}/api/taxii2/` : '/api/taxii2/';
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Server size={28} className="text-brand-600 dark:text-brand-400" /> TAXII 2.1 Server
@@ -232,8 +232,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs space-y-1">
           <div>
-            <span className="text-slate-500">ID:</span>{' '}
-            <code className="font-mono text-slate-600 dark:text-slate-300">{obj.id}</code>
+            <span className="text-slate-500">ID:</span> <code className="font-mono text-body">{obj.id}</code>
           </div>
           {obj.created && (
             <div>
@@ -259,7 +258,7 @@ function CodeBlock({ title, code }: { title: string; code: string }) {
     <div>
       <div className="text-xs text-muted mb-1">{title}</div>
       <div className="flex items-start gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-        <pre className="text-xs text-slate-700 dark:text-slate-300 flex-1 overflow-x-auto font-mono">{code}</pre>
+        <pre className="text-xs text-body flex-1 overflow-x-auto font-mono">{code}</pre>
         <CopyButton value={code} />
       </div>
     </div>

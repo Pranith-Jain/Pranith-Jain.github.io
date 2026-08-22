@@ -175,7 +175,7 @@ export default function InfostealerDetail(): JSX.Element {
       </div>
 
       <section className="mb-8 animate-fade-in-up">
-        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{family.description}</p>
+        <p className="text-sm text-body leading-relaxed">{family.description}</p>
       </section>
 
       <section className="mb-8">
@@ -224,8 +224,7 @@ export default function InfostealerDetail(): JSX.Element {
           )}
           {family.threatfoxTag && (
             <span className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
-              <Shield size={12} /> ThreatFox:{' '}
-              <code className="text-slate-700 dark:text-slate-300">{family.threatfoxTag}</code>
+              <Shield size={12} /> ThreatFox: <code className="text-body">{family.threatfoxTag}</code>
             </span>
           )}
         </div>

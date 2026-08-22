@@ -136,7 +136,7 @@ export default function IocFeedsPage(): JSX.Element {
                   sortValue: (feed: IocFeed) => feed.title,
                   render: (feed) => (
                     <span>
-                      <span className="text-slate-900 dark:text-slate-100">{feed.title}</span>
+                      <span className="text-heading">{feed.title}</span>
                       <span className="text-slate-500 ml-2">· {feed.date}</span>
                     </span>
                   ),
@@ -162,7 +162,7 @@ export default function IocFeedsPage(): JSX.Element {
                   header: 'IOCs',
                   align: 'right',
                   sortValue: (feed: IocFeed) => feed.iocCount,
-                  render: (feed) => <span className="text-slate-700 dark:text-slate-300">{feed.iocCount}</span>,
+                  render: (feed) => <span className="text-body">{feed.iocCount}</span>,
                 },
                 {
                   key: 'actions',

@@ -121,7 +121,7 @@ export default function DomainReputation(): JSX.Element {
   const totalChecks = allChecks.length;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Domain & IP Reputation
@@ -307,7 +307,7 @@ export default function DomainReputation(): JSX.Element {
                   aria-label={`${t.name} (opens in new tab)`}
                   className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 hover:border-brand-500/40 transition-colors block"
                 >
-                  <div className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100 inline-flex items-center gap-1">
+                  <div className="font-display font-semibold text-xs text-heading inline-flex items-center gap-1">
                     {t.name} <ExternalLink size={10} aria-hidden="true" />
                   </div>
                   <p className="text-micro font-mono text-muted mt-0.5">{t.description}</p>

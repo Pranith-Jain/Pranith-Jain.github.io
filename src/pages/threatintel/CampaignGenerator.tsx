@@ -502,7 +502,7 @@ export default function CampaignGenerator(): JSX.Element {
           </div>
 
           {result.campaign.summary && (
-            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">{result.campaign.summary}</p>
+            <p className="text-sm text-body leading-relaxed mb-4">{result.campaign.summary}</p>
           )}
 
           <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -519,9 +519,7 @@ export default function CampaignGenerator(): JSX.Element {
           {result.campaign.actor_context && (
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">Actor context</h3>
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                {result.campaign.actor_context}
-              </p>
+              <p className="text-sm text-body leading-relaxed">{result.campaign.actor_context}</p>
             </div>
           )}
 
@@ -537,7 +535,7 @@ export default function CampaignGenerator(): JSX.Element {
                     <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
                     </div>
-                    <div className="text-sm text-slate-700 dark:text-slate-300">{k.description}</div>
+                    <div className="text-sm text-body">{k.description}</div>
                   </li>
                 ))}
               </ol>
@@ -561,7 +559,7 @@ export default function CampaignGenerator(): JSX.Element {
                     >
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}
-                    <span className="font-semibold text-slate-800 dark:text-slate-200">- {m.name}</span>
+                    <span className="font-semibold text-heading">- {m.name}</span>
                     <div className="text-mini font-mono text-slate-500 mt-0.5">{m.rationale}</div>
                   </li>
                 ))}
@@ -572,7 +570,7 @@ export default function CampaignGenerator(): JSX.Element {
           {result.campaign.hunting_hypotheses.length > 0 && (
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Hunting hypotheses</h3>
-              <ul className="space-y-1.5 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+              <ul className="space-y-1.5 list-disc list-inside text-sm text-body">
                 {result.campaign.hunting_hypotheses.map((h) => (
                   <li key={h}>{h}</li>
                 ))}
@@ -589,7 +587,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {result.campaign.detection_opportunities.map((d) => (
                   <li
                     key={d}
-                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 text-slate-700 dark:text-slate-300"
+                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 text-body"
                   >
                     {d}
                   </li>
@@ -609,7 +607,7 @@ export default function CampaignGenerator(): JSX.Element {
                       key={ioc}
                       className="text-sm flex items-start gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2"
                     >
-                      <span className="flex-1 text-slate-700 dark:text-slate-300">{ioc}</span>
+                      <span className="flex-1 text-body">{ioc}</span>
                       <Link
                         to={`/dfir/ioc-check?indicator=${encodeURIComponent(fragment)}`}
                         className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline shrink-0"

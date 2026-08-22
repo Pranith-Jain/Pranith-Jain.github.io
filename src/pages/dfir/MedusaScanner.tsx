@@ -391,7 +391,7 @@ export default function MedusaScanner(): JSX.Element {
   }, [result]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -417,7 +417,7 @@ export default function MedusaScanner(): JSX.Element {
             Pantheon-Security/medusa
           </a>
           . Detects SAST vulns, leaked secrets, prompt injection, and cloud misconfigs.
-          <strong className="text-slate-900 dark:text-slate-100"> Client-side only.</strong>
+          <strong className="text-heading"> Client-side only.</strong>
         </p>
       </div>
 
@@ -476,7 +476,7 @@ export default function MedusaScanner(): JSX.Element {
           value={filename}
           onChange={(e) => setFilename(e.target.value)}
           placeholder="filename.ext (optional - enables language-aware rules)"
-          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -586,7 +586,7 @@ export default function MedusaScanner(): JSX.Element {
                                   </span>
                                 </div>
                                 {hit.snippet && (
-                                  <pre className="mt-1.5 text-xs font-mono bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded px-2.5 py-1.5 text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all border border-slate-100 dark:border-[rgb(var(--border-400))]">
+                                  <pre className="mt-1.5 text-xs font-mono bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded px-2.5 py-1.5 text-body overflow-x-auto whitespace-pre-wrap break-all border border-slate-100 dark:border-[rgb(var(--border-400))]">
                                     {hit.snippet.length > 120 ? hit.snippet.slice(0, 120) + '…' : hit.snippet}
                                   </pre>
                                 )}

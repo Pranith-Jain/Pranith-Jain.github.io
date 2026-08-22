@@ -205,7 +205,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
     >
       {/* ── Package Verdict Checker ────────────────────────────────────── */}
       <section className="surface-card/50 p-6 mb-8">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-heading mb-4 flex items-center gap-2">
           <Search className="w-5 h-5 text-rose-500" /> Package Verdict Checker
         </h2>
         <p className="text-xs text-muted mb-4">
@@ -219,7 +219,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           <select
             value={verdictEco}
             onChange={(e) => setVerdictEco(e.target.value)}
-            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
           >
             {ECOSYSTEMS.map((e) => (
               <option key={e.id} value={e.id}>
@@ -233,7 +233,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && checkVerdict()}
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
           />
           <button
             type="button"
@@ -323,7 +323,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       {/* ── OSSF Malicious Packages Directory ──────────────────────────── */}
       <section className="surface-card/50 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg font-bold text-heading flex items-center gap-2">
             <Bug className="w-5 h-5 text-rose-500" /> OSSF Malicious Packages
             {ossfData?.stale && <span className="text-xs font-mono text-amber-500">(stale)</span>}
           </h2>
@@ -357,7 +357,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             placeholder="Filter packages…"
             value={ossfSearch}
             onChange={(e) => setOssfSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
           />
         </div>
 
@@ -380,7 +380,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 href={p.ossf_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-rose-500/50 hover:bg-rose-50 dark:hover:bg-rose-900/10 transition truncate"
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] text-xs font-mono text-body hover:border-rose-500/50 hover:bg-rose-50 dark:hover:bg-rose-900/10 transition truncate"
                 title={p.name}
               >
                 {p.name}
@@ -417,12 +417,12 @@ export default function SupplyChainIntelligence(): JSX.Element {
           className="surface-card/50 p-4 hover:shadow-e1 transition text-center"
         >
           <Package className="w-6 h-6 text-rose-500 mx-auto mb-2" />
-          <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Malicious Packages</div>
+          <div className="text-sm font-semibold text-heading">Malicious Packages</div>
           <div className="text-xs text-slate-500">Full OSSF directory browser</div>
         </a>
         <a href="/threatintel/supply-chain" className="surface-card/50 p-4 hover:shadow-e1 transition text-center">
           <AlertOctagon className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-          <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Supply Chain Attacks</div>
+          <div className="text-sm font-semibold text-heading">Supply Chain Attacks</div>
           <div className="text-xs text-slate-500">Incident catalog from supplychainattack.org</div>
         </a>
         <a
@@ -432,7 +432,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           className="surface-card/50 p-4 hover:shadow-e1 transition text-center"
         >
           <Shield className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
-          <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">OSV.dev</div>
+          <div className="text-sm font-semibold text-heading">OSV.dev</div>
           <div className="text-xs text-slate-500">Open Source Vulnerabilities database</div>
         </a>
       </div>

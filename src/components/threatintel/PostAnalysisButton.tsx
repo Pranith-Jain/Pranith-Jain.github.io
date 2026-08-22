@@ -281,9 +281,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                       <p className="text-xs text-amber-600 dark:text-amber-400 mb-1.5">
                         The model returned unstructured text — raw output shown below:
                       </p>
-                      <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono">
-                        {analysis.raw}
-                      </p>
+                      <p className="text-xs text-body leading-relaxed whitespace-pre-wrap font-mono">{analysis.raw}</p>
                     </div>
                   ) : (
                     <>
@@ -297,7 +295,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                         <span className="text-micro font-mono text-slate-500">conf: {analysis.confidence}</span>
                       </div>
 
-                      <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
+                      <p className="text-xs text-body leading-relaxed">{analysis.summary}</p>
 
                       {analysis.impact && (
                         <div className="rounded-xl bg-slate-50 dark:bg-white/[0.04] p-2.5">

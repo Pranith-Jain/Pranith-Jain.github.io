@@ -258,7 +258,7 @@ export default function MitreMatrix(): JSX.Element {
   }, [coverage, totalTechniques]);
 
   return (
-    <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-full px-4 sm:px-8 py-12 text-heading">
       <div className="max-w-7xl mx-auto">
         <BackLink
           to="/threatintel"
@@ -287,15 +287,15 @@ export default function MitreMatrix(): JSX.Element {
           </p>
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500 mb-3">
             <span>
-              <span className="text-slate-900 dark:text-slate-100">{totalTactics}</span> tactics
+              <span className="text-heading">{totalTactics}</span> tactics
             </span>
             <span aria-hidden="true">·</span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100">{totalTechniques}</span> techniques
+              <span className="text-heading">{totalTechniques}</span> techniques
             </span>
             <span aria-hidden="true">·</span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100">{usedByActors.size}</span> actor-tracked IDs
+              <span className="text-heading">{usedByActors.size}</span> actor-tracked IDs
             </span>
             {coverageStats.covered + coverageStats.partial + coverageStats.uncovered > 0 && (
               <>
@@ -335,7 +335,7 @@ export default function MitreMatrix(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description - matches highlight, others dim…"
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search MITRE ATT&CK techniques"
             />
           </div>
@@ -409,7 +409,7 @@ export default function MitreMatrix(): JSX.Element {
                     <div className="text-micro font-mono text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider">
                       {tactic.id}
                     </div>
-                    <div className="text-sm font-display font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                    <div className="text-sm font-display font-semibold text-heading flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                       {tactic.name}
                       <ExternalLink size={10} className="opacity-50 flex-shrink-0" />
                     </div>
@@ -455,7 +455,7 @@ export default function MitreMatrix(): JSX.Element {
                           />
                         )}
                         <div className="text-micro font-mono text-slate-400 dark:text-slate-400">{technique.id}</div>
-                        <div className="text-tool sm:text-xs font-medium text-slate-800 dark:text-slate-200 leading-snug line-clamp-2 mt-0.5">
+                        <div className="text-tool sm:text-xs font-medium text-heading leading-snug line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>
                         {isUsed && (
@@ -513,10 +513,7 @@ export default function MitreMatrix(): JSX.Element {
                 <span className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                   {selectedId}
                 </span>
-                <h2
-                  id="mitre-detail-title"
-                  className="font-display font-bold text-lg text-slate-900 dark:text-slate-100 truncate"
-                >
+                <h2 id="mitre-detail-title" className="font-display font-bold text-lg text-heading truncate">
                   {detail?.technique?.name ?? (detailLoading ? 'Loading…' : selectedId)}
                 </h2>
               </div>
@@ -539,13 +536,13 @@ export default function MitreMatrix(): JSX.Element {
                 <>
                   {detail.technique.tactic && (
                     <div className="text-xs font-mono text-slate-500">
-                      Tactic: <span className="text-slate-900 dark:text-slate-100">{detail.technique.tactic}</span>
+                      Tactic: <span className="text-heading">{detail.technique.tactic}</span>
                     </div>
                   )}
                   {detail.technique.description && (
                     <div>
                       <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">Description</h3>
-                      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                      <p className="text-sm text-body leading-relaxed whitespace-pre-line">
                         {detail.technique.description}
                       </p>
                     </div>
@@ -557,7 +554,7 @@ export default function MitreMatrix(): JSX.Element {
                         {detail.technique.platforms.map((p) => (
                           <span
                             key={p}
-                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
+                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-body"
                           >
                             {p}
                           </span>
@@ -572,7 +569,7 @@ export default function MitreMatrix(): JSX.Element {
                         {detail.technique.dataSources.map((d) => (
                           <span
                             key={d}
-                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
+                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-body"
                           >
                             {d}
                           </span>
@@ -583,7 +580,7 @@ export default function MitreMatrix(): JSX.Element {
                   {detail.technique.detection && (
                     <div>
                       <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">Detection</h3>
-                      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                      <p className="text-sm text-body leading-relaxed whitespace-pre-line">
                         {detail.technique.detection}
                       </p>
                     </div>
@@ -602,7 +599,7 @@ export default function MitreMatrix(): JSX.Element {
                         to={`/threatintel/actors/${a.id}`}
                         className="block px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40 transition-colors"
                       >
-                        <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{a.name}</div>
+                        <div className="text-sm font-semibold text-heading">{a.name}</div>
                         {a.aliases.length > 0 && (
                           <div className="text-xs font-mono text-slate-500 mt-0.5">
                             aka {a.aliases.slice(0, 4).join(', ')}
@@ -635,7 +632,7 @@ export default function MitreMatrix(): JSX.Element {
                   href={detail.technique.mitreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   Open on attack.mitre.org <ExternalLink size={12} />
                 </a>

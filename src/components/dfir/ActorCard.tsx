@@ -20,7 +20,7 @@ function ActorCardInner({ actor }: { actor: ThreatActor }): JSX.Element {
     >
       <div className="flex items-start justify-between mb-2">
         <div>
-          <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">{actor.name}</h3>
+          <h3 className="font-display font-bold text-lg text-heading">{actor.name}</h3>
           {actor.aliases.length > 0 && (
             <p className="text-xs font-mono text-slate-500 mt-0.5">{actor.aliases.slice(0, 3).join(' · ')}</p>
           )}

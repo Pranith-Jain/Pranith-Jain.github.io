@@ -186,7 +186,7 @@ export default function GoogleDorks(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder='site:pastebin.com "password"  ·  intitle:"index of" .env  ·  filetype:sql intext:INSERT'
-              className="w-full pl-10 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-10 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <select
@@ -224,7 +224,7 @@ export default function GoogleDorks(): JSX.Element {
                 void runSearch(p.query, num);
               }}
               title={p.hint}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
             >
               {p.label}
             </button>
@@ -244,7 +244,7 @@ export default function GoogleDorks(): JSX.Element {
             {totalLabel}
             {data.query && (
               <>
-                {' · '}query: <span className="text-slate-700 dark:text-slate-300">{data.query}</span>
+                {' · '}query: <span className="text-body">{data.query}</span>
               </>
             )}
           </p>
@@ -260,7 +260,7 @@ export default function GoogleDorks(): JSX.Element {
                       href={sanitizeUrl(r.link) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words transition-colors"
+                      className="inline-flex items-center gap-1.5 font-medium text-heading hover:text-brand-600 dark:hover:text-brand-400 break-words transition-colors"
                     >
                       {r.title || r.displayedLink || r.link}
                       <ExternalLink size={12} className="opacity-60 shrink-0" />

@@ -260,19 +260,19 @@ export default function Settings(): JSX.Element {
       description={
         <>
           External data sources wired into the platform.{' '}
-          <span className="font-semibold text-slate-700 dark:text-slate-200">{liveCount} live</span> and serving the
-          analyst-facing pages now. Items marked <em>optional</em> light up when the operator enables them; they fail
-          soft until then so nothing else breaks.
+          <span className="font-semibold text-body">{liveCount} live</span> and serving the analyst-facing pages now.
+          Items marked <em>optional</em> light up when the operator enables them; they fail soft until then so nothing
+          else breaks.
         </>
       }
     >
       {/* ── Preferences ──────────────────────────────────────────── */}
       <section className="mb-10 animate-fade-in-up">
-        <h2 className="font-display font-semibold text-base mb-3 text-slate-800 dark:text-slate-200">Preferences</h2>
+        <h2 className="font-display font-semibold text-base mb-3 text-heading">Preferences</h2>
         <div className="surface-card p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm text-slate-900 dark:text-slate-100">Dark mode</p>
+              <p className="font-medium text-sm text-heading">Dark mode</p>
               <p className="text-xs text-muted mt-0.5">
                 {isDark ? 'Currently using dark theme' : 'Currently using light theme'}
               </p>
@@ -301,7 +301,7 @@ export default function Settings(): JSX.Element {
       <div className="space-y-8">
         {byCategory.map(({ cat, items }) => (
           <section key={cat} className="animate-fade-in-up">
-            <h2 className="font-display font-semibold text-base mb-3 text-slate-800 dark:text-slate-200">
+            <h2 className="font-display font-semibold text-base mb-3 text-heading">
               {CATEGORY_LABEL[cat]}
               <span className="ml-2 text-mini font-mono text-slate-500">{items.length}</span>
             </h2>

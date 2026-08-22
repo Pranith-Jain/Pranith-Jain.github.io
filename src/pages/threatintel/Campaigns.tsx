@@ -127,7 +127,7 @@ export default function Campaigns(): JSX.Element {
               <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
                 <Link
                   to={`/threatintel/campaigns/${it.id}`}
-                  className="font-display font-bold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                  className="font-display font-bold text-base text-heading hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
                 >
                   {it.name} <ExternalLink size={11} />
                 </Link>
@@ -150,12 +150,12 @@ export default function Campaigns(): JSX.Element {
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-mini font-mono text-slate-500">
                 {it.actor && (
                   <span>
-                    actor: <span className="text-slate-700 dark:text-slate-300">{it.actor}</span>
+                    actor: <span className="text-body">{it.actor}</span>
                   </span>
                 )}
                 {it.sector && (
                   <span>
-                    sector: <span className="text-slate-700 dark:text-slate-300">{it.sector}</span>
+                    sector: <span className="text-body">{it.sector}</span>
                   </span>
                 )}
                 <span>

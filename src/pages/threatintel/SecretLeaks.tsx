@@ -705,7 +705,7 @@ export default function SecretLeaks(): JSX.Element {
                   <div key={s.label} className="flex items-center gap-1.5">
                     <span className={`w-2 h-2 rounded-full ${s.color}`} />
                     <span className="text-slate-500">{s.label}</span>
-                    <strong className="text-slate-700 dark:text-slate-300">{s.count.toLocaleString()}</strong>
+                    <strong className="text-body">{s.count.toLocaleString()}</strong>
                   </div>
                 ))}
               </div>
@@ -724,7 +724,7 @@ export default function SecretLeaks(): JSX.Element {
                     <li key={p.name} className="flex items-center gap-3">
                       <span className="text-xs font-mono text-muted w-4 text-right">{i + 1}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{p.name}</div>
+                        <div className="text-sm font-medium text-heading truncate">{p.name}</div>
                         <div className="h-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full mt-1">
                           <div className="h-full bg-rose-500 rounded-full" style={{ width: `${p.pct}%` }} />
                         </div>
@@ -746,7 +746,7 @@ export default function SecretLeaks(): JSX.Element {
                     <li key={r.name} className="flex items-center gap-3">
                       <span className="text-xs font-mono text-muted w-4 text-right">{i + 1}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{r.name}</div>
+                        <div className="text-sm font-medium text-heading truncate">{r.name}</div>
                         <div className="text-micro font-mono text-muted">{r.owner}</div>
                       </div>
                       <span className="text-xs font-mono font-semibold text-rose-600 dark:text-rose-400">
@@ -768,7 +768,7 @@ export default function SecretLeaks(): JSX.Element {
                     <li key={o.name} className="flex items-center gap-3">
                       <span className="text-xs font-mono text-muted w-4 text-right">{i + 1}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{o.name}</div>
+                        <div className="text-sm font-medium text-heading truncate">{o.name}</div>
                         <div className="text-micro font-mono text-muted">{o.repos} repos</div>
                       </div>
                       <span className="text-xs font-mono font-semibold text-orange-600 dark:text-orange-400">

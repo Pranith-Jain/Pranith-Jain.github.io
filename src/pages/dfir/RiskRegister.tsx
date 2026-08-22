@@ -424,9 +424,7 @@ export default function RiskRegister(): JSX.Element {
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-                      {entry.title}
-                    </span>
+                    <span className="font-mono text-sm font-semibold text-heading truncate">{entry.title}</span>
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${residualStyle.chip} shrink-0`}
                     >

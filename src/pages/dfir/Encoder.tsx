@@ -122,7 +122,7 @@ export default function Encoder(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Plain text, JSON, command-line, URL. Anything you want to encode."
           rows={6}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
       </section>
@@ -189,7 +189,7 @@ export default function Encoder(): JSX.Element {
               <CopyButton value={finalOutput} />
             </div>
           </div>
-          <pre className="text-xs font-mono text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-80 overflow-auto">
+          <pre className="text-xs font-mono text-heading whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-80 overflow-auto">
             {finalOutput}
           </pre>
         </section>
@@ -210,13 +210,11 @@ export default function Encoder(): JSX.Element {
                 <div className="flex items-baseline justify-between gap-2 mb-2">
                   <span className="text-mini font-mono text-slate-400 dark:text-slate-400">
                     pass {i + 1} ·{' '}
-                    <span className="text-slate-700 dark:text-slate-300">
-                      {ENCODINGS.find((e) => e.id === step.encoding)?.label}
-                    </span>
+                    <span className="text-body">{ENCODINGS.find((e) => e.id === step.encoding)?.label}</span>
                   </span>
                   <CopyChip value={step.after} />
                 </div>
-                <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-32 overflow-auto">
+                <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all max-h-32 overflow-auto">
                   {step.after}
                 </pre>
               </li>

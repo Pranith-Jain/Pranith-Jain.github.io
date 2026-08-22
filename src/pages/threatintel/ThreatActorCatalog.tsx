@@ -127,9 +127,7 @@ function ActorCard({
       <button type="button" onClick={onToggle} className="w-full text-left p-4 flex items-start gap-4">
         <span className="text-lg mt-0.5">{actor.country.split(' ')[0]}</span>
         <div className="flex-1 min-w-0">
-          <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">
-            {actor.name}
-          </h3>
+          <h3 className="font-mono font-semibold text-sm text-heading leading-snug mb-1">{actor.name}</h3>
           <div className="flex items-center gap-3 text-mini font-mono text-slate-500 flex-wrap">
             <span className={`font-semibold ${STATUS_COLORS[actor.status]}`}>{actor.status}</span>
             <span>·</span>

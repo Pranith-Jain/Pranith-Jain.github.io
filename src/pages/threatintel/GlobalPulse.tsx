@@ -640,7 +640,7 @@ export default function GlobalPulse(): JSX.Element {
                 aria-label="Search events"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] bg-white dark:bg-white/[0.03] text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-rose-500/40 focus:ring-1 focus:ring-rose-500/20 transition-colors"
+                className="w-full pl-9 pr-3 py-2.5 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] bg-white dark:bg-white/[0.03] text-body placeholder-slate-400 focus:outline-none focus:border-rose-500/40 focus:ring-1 focus:ring-rose-500/20 transition-colors"
               />
               <svg
                 className="absolute left-3 top-2.5 w-4 h-4 text-muted"
@@ -1013,9 +1013,7 @@ export default function GlobalPulse(): JSX.Element {
                     <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 dark:bg-white/[0.04] flex items-center justify-center">
                       <Crosshair size={24} className="text-muted" />
                     </div>
-                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
-                      No Geolocated Events
-                    </p>
+                    <p className="text-sm font-semibold text-heading mb-1">No Geolocated Events</p>
                     <p className="text-xs text-muted mb-4">
                       Enable more layers in the Filters panel to see points on the globe
                     </p>
@@ -1113,7 +1111,7 @@ export default function GlobalPulse(): JSX.Element {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-60" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-500" />
                   </span>
-                  <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300">Live Feed</h3>
+                  <h3 className="text-xs font-semibold text-body">Live Feed</h3>
                   <span className="text-micro font-mono text-muted">{filteredEvents.length}</span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -1249,9 +1247,7 @@ export default function GlobalPulse(): JSX.Element {
                                   {formatTime(ev.timestamp)}
                                 </span>
                               </div>
-                              <p className="text-mini font-medium text-slate-800 dark:text-slate-200 line-clamp-1">
-                                {ev.title}
-                              </p>
+                              <p className="text-mini font-medium text-heading line-clamp-1">{ev.title}</p>
                               <p className="text-micro text-muted line-clamp-1 mt-0.5">{ev.description}</p>
                               <div className="flex items-center gap-1.5 mt-1">
                                 <span className="text-micro font-mono text-muted/70 dark:text-slate-500/70">
@@ -1333,15 +1329,13 @@ export default function GlobalPulse(): JSX.Element {
                       <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                         Source
                       </span>
-                      <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
-                        {selectedEvent.source}
-                      </span>
+                      <span className="text-mini font-mono text-body">{selectedEvent.source}</span>
                     </div>
                     <div>
                       <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                         Type
                       </span>
-                      <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
+                      <span className="text-mini font-mono text-body">
                         {LAYER_DEFS[selectedEvent.kind]?.label ?? selectedEvent.kind}
                       </span>
                     </div>
@@ -1349,18 +1343,14 @@ export default function GlobalPulse(): JSX.Element {
                       <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                         Time
                       </span>
-                      <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
-                        {formatTimeFull(selectedEvent.timestamp)}
-                      </span>
+                      <span className="text-mini font-mono text-body">{formatTimeFull(selectedEvent.timestamp)}</span>
                     </div>
                     {selectedEvent.country && (
                       <div>
                         <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                           Country
                         </span>
-                        <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
-                          {selectedEvent.country}
-                        </span>
+                        <span className="text-mini font-mono text-body">{selectedEvent.country}</span>
                       </div>
                     )}
                     {(selectedEvent.lat !== 0 || selectedEvent.lng !== 0) && (
@@ -1368,7 +1358,7 @@ export default function GlobalPulse(): JSX.Element {
                         <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                           Coordinates
                         </span>
-                        <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
+                        <span className="text-mini font-mono text-body">
                           {selectedEvent.lat.toFixed(4)}, {selectedEvent.lng.toFixed(4)}
                         </span>
                       </div>
@@ -1378,9 +1368,7 @@ export default function GlobalPulse(): JSX.Element {
                         <span className="text-micro font-mono uppercase tracking-wider text-muted block mb-0.5">
                           Magnitude
                         </span>
-                        <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
-                          {selectedEvent.magnitude.toFixed(1)}
-                        </span>
+                        <span className="text-mini font-mono text-body">{selectedEvent.magnitude.toFixed(1)}</span>
                       </div>
                     )}
                   </div>

@@ -146,9 +146,7 @@ function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
         </span>
 
         <div className="flex-1 min-w-0">
-          <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">
-            {bundle.title}
-          </h3>
+          <h3 className="font-mono font-semibold text-sm text-heading leading-snug mb-1">{bundle.title}</h3>
           <p className="text-xs text-muted leading-relaxed mb-2 line-clamp-2">{bundle.description}</p>
           <div className="flex items-center gap-3 text-mini font-mono text-slate-500 mb-2">
             <span>{bundle.date}</span>

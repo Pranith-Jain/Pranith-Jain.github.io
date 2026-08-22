@@ -343,9 +343,7 @@ export default function TelegramHub(): JSX.Element {
           <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-slate-50 to-white dark:from-slate-900/50 dark:to-slate-900/20 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Zap size={16} className="text-amber-500" />
-              <h2 className="font-mono text-sm uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Cross-source Telegram search
-              </h2>
+              <h2 className="font-mono text-sm uppercase tracking-wider text-body">Cross-source Telegram search</h2>
             </div>
             <form onSubmit={onSubmit} className="flex gap-2">
               <div className="relative flex-1">
@@ -378,7 +376,7 @@ export default function TelegramHub(): JSX.Element {
           {/* Search results */}
           {hasSearched && (
             <section className="mb-8">
-              <h2 className="font-mono text-sm uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
+              <h2 className="font-mono text-sm uppercase tracking-wider text-body mb-3">
                 Results for <span className="text-rose-600 dark:text-rose-400">“{submittedQ}”</span>
               </h2>
               <DataState
@@ -477,9 +475,7 @@ export default function TelegramHub(): JSX.Element {
 
           {/* KPI strip */}
           <section className="mb-8">
-            <h2 className="font-mono text-sm uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
-              At a glance
-            </h2>
+            <h2 className="font-mono text-sm uppercase tracking-wider text-body mb-3">At a glance</h2>
             <DataState loading={statsLoading} error={statsError} empty={false} rows={4}>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <KpiTile
@@ -518,9 +514,7 @@ export default function TelegramHub(): JSX.Element {
 
           {/* Hub cards */}
           <section>
-            <h2 className="font-mono text-sm uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
-              Telegram surfaces
-            </h2>
+            <h2 className="font-mono text-sm uppercase tracking-wider text-body mb-3">Telegram surfaces</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {HUB_CARDS.map((card) => (
                 <Link
@@ -576,7 +570,7 @@ function KpiTile({
   const accent =
     tone === 'rose'
       ? 'border-rose-500/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
-      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-slate-700 dark:text-slate-300';
+      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-body';
   return (
     <div className={`rounded border p-3 ${accent}`}>
       <div className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider opacity-80">

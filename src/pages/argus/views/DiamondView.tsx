@@ -142,7 +142,7 @@ export function DiamondView({ actors, onOpen }: Props) {
             </span>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">{a.name}</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-heading">{a.name}</h2>
                 {a.apt && <span className="chip chip-blue">{a.apt}</span>}
                 {a.mitre_id && <span className="chip">{a.mitre_id}</span>}
               </div>
@@ -348,7 +348,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                     <div className="text-mini text-muted">{fd.sub}</div>
                   </div>
                 </div>
-                <div className="text-[15px] font-semibold text-slate-900 dark:text-slate-100 mb-4">{fd.primary}</div>
+                <div className="text-[15px] font-semibold text-heading mb-4">{fd.primary}</div>
 
                 <div className="space-y-1">
                   {fd.items.map((item, i) => (
@@ -409,7 +409,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                   {a.campaigns.map((c) => (
                     <div key={c.name} className="surface-card card-hover hover-rose p-4">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[13.5px] font-medium text-slate-900 dark:text-slate-100">{c.name}</span>
+                        <span className="text-[13.5px] font-medium text-heading">{c.name}</span>
                         <span className="text-[10.5px] font-mono text-muted ml-auto">
                           {c.start} → {c.end}
                         </span>
@@ -433,21 +433,15 @@ export function DiamondView({ actors, onOpen }: Props) {
                 <div className="text-eyebrow font-mono text-muted mb-2">Cross-references</div>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
-                      {a.ttps.length}
-                    </div>
+                    <div className="text-[20px] font-mono font-semibold text-heading">{a.ttps.length}</div>
                     <div className="text-micro font-mono uppercase tracking-wider text-muted">MITRE TTPs</div>
                   </div>
                   <div>
-                    <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
-                      {a.malware.length}
-                    </div>
+                    <div className="text-[20px] font-mono font-semibold text-heading">{a.malware.length}</div>
                     <div className="text-micro font-mono uppercase tracking-wider text-muted">Malware</div>
                   </div>
                   <div>
-                    <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
-                      {a.cves.length}
-                    </div>
+                    <div className="text-[20px] font-mono font-semibold text-heading">{a.cves.length}</div>
                     <div className="text-micro font-mono uppercase tracking-wider text-muted">CVEs</div>
                   </div>
                 </div>

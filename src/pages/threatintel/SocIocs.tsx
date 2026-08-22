@@ -470,7 +470,7 @@ function TopCriticalList({ rows }: { rows: { ioc: LiveIoc; score: number }[] }):
         <li key={`${r.ioc.value}-${i}`} className="text-meta font-mono">
           <div className="flex items-baseline gap-2 mb-0.5">
             <span className="text-rose-600 dark:text-rose-400 tabular-nums shrink-0">{r.score}</span>
-            <span className="text-slate-700 dark:text-slate-300 truncate" title={r.ioc.value}>
+            <span className="text-body truncate" title={r.ioc.value}>
               {r.ioc.value}
             </span>
             <span className="ml-auto text-slate-500 text-mini uppercase tracking-wider shrink-0">{r.ioc.kind}</span>

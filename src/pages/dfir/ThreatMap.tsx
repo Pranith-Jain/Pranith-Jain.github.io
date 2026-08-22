@@ -378,7 +378,7 @@ export default function ThreatMap(): JSX.Element {
   }, [selected, selectedAgg, data]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -417,21 +417,14 @@ export default function ThreatMap(): JSX.Element {
         <>
           <header className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted mb-6">
             <span>
-              <span
-                className="text-slate-900 dark:text-slate-100 text-base font-bold tabular-nums"
-                aria-live="polite"
-                aria-atomic="true"
-              >
+              <span className="text-heading text-base font-bold tabular-nums" aria-live="polite" aria-atomic="true">
                 {displayTotal.toLocaleString()}
               </span>{' '}
               malicious IPs
             </span>
             <span aria-hidden="true">·</span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100 text-base font-bold tabular-nums">
-                {data.countries.length}
-              </span>{' '}
-              countries
+              <span className="text-heading text-base font-bold tabular-nums">{data.countries.length}</span> countries
             </span>
             <span aria-hidden="true">·</span>
             <span className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
@@ -545,14 +538,14 @@ export default function ThreatMap(): JSX.Element {
                         }}
                         className={`w-full flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 rounded border transition-colors ${
                           isSelected
-                            ? 'border-amber-400/60 bg-amber-400/10 text-slate-900 dark:text-slate-100'
+                            ? 'border-amber-400/60 bg-amber-400/10 text-heading'
                             : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
                         }`}
                         aria-pressed={isSelected}
                       >
                         <span className="truncate">
                           <span className="text-slate-500 mr-2">{c.countryCode}</span>
-                          <span className="text-slate-800 dark:text-slate-200">{c.country}</span>
+                          <span className="text-heading">{c.country}</span>
                         </span>
                         <span className="text-brand-600 dark:text-brand-400 font-bold shrink-0">{c.count}</span>
                       </button>
@@ -592,8 +585,7 @@ export default function ThreatMap(): JSX.Element {
                   </h3>
                   {selectedAgg ? (
                     <p className="text-xs font-mono text-muted mt-1">
-                      <span className="font-semibold text-slate-900 dark:text-slate-100">{selectedAgg.count}</span>{' '}
-                      malicious IPs · sources:{' '}
+                      <span className="font-semibold text-heading">{selectedAgg.count}</span> malicious IPs · sources:{' '}
                       {Object.entries(selectedAgg.sources)
                         .map(([s, n]) => `${s} (${n})`)
                         .join(' · ')}
@@ -605,7 +597,7 @@ export default function ThreatMap(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                   aria-label="Clear country selection"
                 >
                   <X size={12} /> clear
@@ -625,7 +617,7 @@ export default function ThreatMap(): JSX.Element {
                           to={`/dfir/ioc-check?indicator=${encodeURIComponent(ip)}`}
                           className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 transition-colors"
                         >
-                          <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
+                          <div className="font-mono text-sm text-heading break-all">{ip}</div>
                           <div className="text-mini font-mono text-muted mt-0.5">sources: {sources.join(', ')}</div>
                         </Link>
                       </li>
@@ -647,7 +639,7 @@ export default function ThreatMap(): JSX.Element {
                     to={`/dfir/ioc-check?indicator=${encodeURIComponent(s.ip)}`}
                     className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 hover:border-brand-500/40 transition-colors"
                   >
-                    <div className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate">{s.ip}</div>
+                    <div className="font-mono text-sm text-heading truncate">{s.ip}</div>
                     <div className="text-xs font-mono text-slate-500 flex items-center gap-2">
                       <span>{s.countryCode}</span>
                       <span className="truncate">{s.country}</span>
@@ -832,14 +824,12 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${r.name} (opens in new tab)`}
-                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 truncate transition-colors"
+                  className="font-display font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 truncate transition-colors"
                 >
                   {r.name}
                 </a>
               ) : (
-                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
-                  {r.name}
-                </span>
+                <span className="font-display font-semibold text-sm text-heading truncate">{r.name}</span>
               )}
               <span
                 className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border shrink-0 ${KIND_COLOUR_FOR_TAG(r.kind)}`}
@@ -923,7 +913,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
               className="flex items-center gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-2 hover:border-brand-500/40 transition-colors"
             >
               <span className={`inline-block w-2.5 h-2.5 rounded shrink-0 ${KIND_COLOUR[r.kind]}`} aria-hidden="true" />
-              <span className="text-slate-800 dark:text-slate-200 font-semibold">{KIND_LABEL[r.kind]}</span>
+              <span className="text-heading font-semibold">{KIND_LABEL[r.kind]}</span>
               <span className="text-slate-500 ml-auto tabular-nums">{r.count.toLocaleString()}</span>
               <span className="text-slate-400 dark:text-slate-400 text-micro tabular-nums">{pct.toFixed(0)}%</span>
             </Link>

@@ -116,7 +116,7 @@ export default function ThreatGraph(): JSX.Element {
   }, [searchType, fetchStats, fetchCommunities]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -184,7 +184,7 @@ export default function ThreatGraph(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && searchNode()}
               placeholder="Enter IP, domain, hash, or URL…"
-              className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               onClick={searchNode}
@@ -236,7 +236,7 @@ export default function ThreatGraph(): JSX.Element {
               <div className="space-y-2">
                 {stats.relationship_types.map((rt) => (
                   <div key={rt.relationship} className="flex items-center justify-between">
-                    <span className="text-xs text-slate-700 dark:text-slate-300">{rt.relationship}</span>
+                    <span className="text-xs text-body">{rt.relationship}</span>
                     <span className="text-xs text-slate-500 font-mono">{rt.count}</span>
                   </div>
                 ))}

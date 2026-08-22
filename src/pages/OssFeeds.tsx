@@ -44,8 +44,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 function catColor(category: string): string {
   return (
-    CATEGORY_COLORS[category] ??
-    'text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700'
+    CATEGORY_COLORS[category] ?? 'text-body bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700'
   );
 }
 
@@ -214,7 +213,9 @@ export default function OssFeeds() {
       <div className="space-y-2">
         {feeds.length === 0 && !loading && (
           <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
-            {debouncedSearch || categoryFilter ? 'No feeds match your filters.' : 'No feeds found. Ensure data is built.'}
+            {debouncedSearch || categoryFilter
+              ? 'No feeds match your filters.'
+              : 'No feeds found. Ensure data is built.'}
           </div>
         )}
 

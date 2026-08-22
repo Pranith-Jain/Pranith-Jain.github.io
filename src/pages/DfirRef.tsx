@@ -55,9 +55,7 @@ function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">{label}</div>
-      <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap font-mono">
-        {value}
-      </p>
+      <p className="text-sm text-body leading-relaxed whitespace-pre-wrap font-mono">{value}</p>
     </div>
   );
 }
@@ -71,7 +69,7 @@ function ListField({ label, items }: { label: string; items?: string[] }) {
         {items.map((it, i) => (
           <span
             key={i}
-            className="font-mono text-micro text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
+            className="font-mono text-micro text-body bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
           >
             {it}
           </span>
@@ -216,7 +214,7 @@ export default function DfirRef() {
               placeholder="Search event IDs, plugins, artifacts..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -275,7 +273,7 @@ export default function DfirRef() {
                     {CATEGORY_ICONS[item.category]} {item.categoryLabel}
                   </span>
                 </div>
-                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
                   {item.name}
                 </div>
                 {item.tags.length > 0 && (

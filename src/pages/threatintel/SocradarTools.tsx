@@ -280,7 +280,7 @@ function DDoSPanel() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="text-mini font-mono font-semibold text-slate-900 dark:text-slate-100">
+                      <span className="text-mini font-mono font-semibold text-heading">
                         {b.ip}:{b.port}
                       </span>
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
@@ -426,7 +426,7 @@ function FortiBleedPanel() {
               <h4 className="text-mini font-display font-semibold mb-1">Details</h4>
               <ul className="space-y-0.5">
                 {result.details.map((d, i) => (
-                  <li key={i} className="text-meta font-mono text-slate-700 dark:text-slate-300">
+                  <li key={i} className="text-meta font-mono text-body">
                     • {d}
                   </li>
                 ))}
@@ -439,7 +439,7 @@ function FortiBleedPanel() {
               <h4 className="text-mini font-display font-semibold mb-1">Recommendations</h4>
               <ul className="space-y-0.5">
                 {result.recommendations.map((r, i) => (
-                  <li key={i} className="text-meta font-mono text-slate-700 dark:text-slate-300">
+                  <li key={i} className="text-meta font-mono text-body">
                     → {r}
                   </li>
                 ))}
@@ -604,9 +604,7 @@ function HealthcarePanel() {
                   <div className="flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5">
-                        <span className="text-mini font-mono font-semibold text-slate-900 dark:text-slate-100 truncate">
-                          {b.name}
-                        </span>
+                        <span className="text-mini font-mono font-semibold text-heading truncate">{b.name}</span>
                         <span
                           className={`text-micro font-mono font-semibold px-1.5 py-0.5 rounded ${sevColor(b.severity)}`}
                         >
@@ -627,7 +625,7 @@ function HealthcarePanel() {
                   </div>
                   {expanded === i && b.description && (
                     <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-300))]">
-                      <p className="text-meta font-mono text-slate-700 dark:text-slate-300">{b.description}</p>
+                      <p className="text-meta font-mono text-body">{b.description}</p>
                       <p className="text-micro font-mono text-muted mt-1">Type: {b.breachType}</p>
                     </div>
                   )}
@@ -855,7 +853,7 @@ function ThreatReportsPanel() {
               <h4 className="text-mini font-display font-semibold mb-1">Recent Incidents</h4>
               <ul className="space-y-0.5">
                 {((data.country as ThreatReportCountry).recentIncidents || []).map((inc, i) => (
-                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                  <li key={i} className="text-micro font-mono text-body">
                     • {inc}
                   </li>
                 ))}
@@ -864,14 +862,11 @@ function ThreatReportsPanel() {
           </div>
           <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex gap-4 text-micro font-mono text-muted">
             <span>
-              Phishing:{' '}
-              <span className="text-slate-900 dark:text-slate-100">
-                {(data.country as ThreatReportCountry).phishingExposure}
-              </span>
+              Phishing: <span className="text-heading">{(data.country as ThreatReportCountry).phishingExposure}</span>
             </span>
             <span>
               Ransomware victims:{' '}
-              <span className="text-slate-900 dark:text-slate-100">
+              <span className="text-heading">
                 {(data.country as ThreatReportCountry).ransomwareVictims?.toLocaleString()}
               </span>
             </span>
@@ -910,7 +905,7 @@ function ThreatReportsPanel() {
               <h4 className="text-mini font-display font-semibold mb-1">Common Attack Vectors</h4>
               <ul className="space-y-0.5">
                 {((data.industry as ThreatReportIndustry).commonVectors || []).map((v, i) => (
-                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                  <li key={i} className="text-micro font-mono text-body">
                     • {v}
                   </li>
                 ))}
@@ -920,7 +915,7 @@ function ThreatReportsPanel() {
               <h4 className="text-mini font-display font-semibold mb-1">Recent Incidents</h4>
               <ul className="space-y-0.5">
                 {((data.industry as ThreatReportIndustry).recentIncidents || []).map((inc, i) => (
-                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                  <li key={i} className="text-micro font-mono text-body">
                     • {inc}
                   </li>
                 ))}
@@ -929,16 +924,11 @@ function ThreatReportsPanel() {
           </div>
           <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-muted">
             <span>
-              Exposure:{' '}
-              <span className="text-slate-900 dark:text-slate-100">
-                {(data.industry as ThreatReportIndustry).exposureLevel}
-              </span>
+              Exposure: <span className="text-heading">{(data.industry as ThreatReportIndustry).exposureLevel}</span>
             </span>
             <span className="ml-4">
               Compliance:{' '}
-              <span className="text-slate-900 dark:text-slate-100">
-                {(data.industry as ThreatReportIndustry).complianceNotes}
-              </span>
+              <span className="text-heading">{(data.industry as ThreatReportIndustry).complianceNotes}</span>
             </span>
           </div>
         </div>
@@ -1004,7 +994,7 @@ function ThreatReportsPanel() {
                 </p>
                 <p>
                   Grade:{' '}
-                  <span className="text-slate-900 dark:text-slate-100">
+                  <span className="text-heading">
                     {(data.assessment as ThreatReportAssessment).sections?.ssl?.grade}
                   </span>
                 </p>
@@ -1014,7 +1004,7 @@ function ThreatReportsPanel() {
               <h4 className="text-mini font-display font-semibold mb-1">Recommendations</h4>
               <ul className="space-y-0.5">
                 {((data.assessment as ThreatReportAssessment).sections?.recommendations || []).map((r, i) => (
-                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                  <li key={i} className="text-micro font-mono text-body">
                     → {r}
                   </li>
                 ))}

@@ -83,7 +83,7 @@ export function HypothesesPanel({ steps }: { steps: TraceStepWithHypotheses[] })
             <ChevronRight size={14} className="text-slate-400" />
           )}
           <FlaskConical size={14} className="text-violet-500" />
-          <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">Hypotheses</span>
+          <span className="text-xs font-mono font-semibold text-body">Hypotheses</span>
           <span className="text-xs text-muted">{summary}</span>
         </div>
       </button>
@@ -97,7 +97,7 @@ export function HypothesesPanel({ steps }: { steps: TraceStepWithHypotheses[] })
               <div key={`${h.firstStep}-${h.text}`} className="flex items-start gap-2 py-1">
                 <Icon size={14} className={`mt-0.5 shrink-0 ${meta.cls}`} />
                 <div className="min-w-0">
-                  <p className="text-sm text-slate-700 dark:text-slate-300">
+                  <p className="text-sm text-body">
                     {h.text}
                     <span className={`ml-2 font-mono text-[10px] uppercase tracking-wide ${meta.cls}`}>
                       {meta.label}

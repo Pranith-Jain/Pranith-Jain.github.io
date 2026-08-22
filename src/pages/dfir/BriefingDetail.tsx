@@ -424,11 +424,11 @@ function JumpNav({
       {cveCount > 0 && (
         <a
           href="#briefing-cves"
-          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1 font-semibold text-slate-700 dark:text-slate-200 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1 font-semibold text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
         >
           <ShieldAlert className="h-3.5 w-3.5" />
           CVEs
-          <span className="rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1.5 text-mini font-mono text-body">
             {cveCount.toLocaleString()}
           </span>
         </a>
@@ -460,11 +460,11 @@ function JumpNav({
       {mitreCount > 0 && (
         <a
           href="#briefing-mitre"
-          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1 font-semibold text-slate-700 dark:text-slate-200 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1 font-semibold text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
         >
           <Compass className="h-3.5 w-3.5" />
           MITRE
-          <span className="rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1.5 text-mini font-mono text-body">
             {mitreCount.toLocaleString()}
           </span>
         </a>
@@ -537,7 +537,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
         <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
           <Sparkles size={18} className="text-brand-600 dark:text-brand-400" /> Executive Summary
         </h2>
-        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{briefing.executive_summary}</p>
+        <p className="text-sm text-body leading-relaxed">{briefing.executive_summary}</p>
       </section>
 
       {/* Sections */}
@@ -560,7 +560,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                       {f.title}
                     </h4>
                     {f.count !== undefined && (
-                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 shrink-0">
+                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-[rgb(var(--border-400))] text-body shrink-0">
                         ×{f.count}
                       </span>
                     )}
@@ -827,7 +827,7 @@ export default function BriefingDetail(): JSX.Element {
             <StatPill label="critical" value={stats.critical} accent="text-rose-600 dark:text-rose-400" />
             <StatPill label="high" value={stats.high} accent="text-orange-600 dark:text-orange-400" />
             <StatPill label="medium" value={stats.medium} accent="text-amber-600 dark:text-amber-400" />
-            <StatPill label="low" value={stats.low} accent="text-slate-600 dark:text-slate-300" />
+            <StatPill label="low" value={stats.low} accent="text-body" />
           </div>
         </section>
       )}
@@ -839,7 +839,7 @@ export default function BriefingDetail(): JSX.Element {
         <section className="surface-card p-4 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <Compass size={15} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
-            <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Related briefings</h2>
+            <h2 className="text-sm font-semibold text-heading">Related briefings</h2>
             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
               shared IOCs · tactic keywords
             </span>
@@ -859,7 +859,7 @@ export default function BriefingDetail(): JSX.Element {
                     {rel.severity}
                   </span>
                   <span className="min-w-0 leading-tight">
-                    <span className="block text-xs font-medium text-slate-800 dark:text-slate-200 group-hover:text-brand-600 dark:group-hover:text-brand-400 truncate">
+                    <span className="block text-xs font-medium text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 truncate">
                       {rel.title}
                     </span>
                     <span className="block text-[10px] font-mono text-slate-400 mt-0.5">
@@ -913,7 +913,7 @@ export default function BriefingDetail(): JSX.Element {
         <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
           <ShieldAlert size={18} className="text-brand-600 dark:text-brand-400" /> Executive Summary
         </h2>
-        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{briefing.executive_summary}</p>
+        <p className="text-sm text-body leading-relaxed">{briefing.executive_summary}</p>
       </section>
 
       {/* Sections - daily/weekly only; landscape uses LandscapeReportView above.

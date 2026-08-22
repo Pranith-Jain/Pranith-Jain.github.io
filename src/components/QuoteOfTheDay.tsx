@@ -76,9 +76,7 @@ export function QuoteOfTheDay(): JSX.Element | null {
           <Quote size={14} aria-hidden="true" />
         </div>
         <div>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 italic">
-            &ldquo;{quote.text}&rdquo;
-          </p>
+          <p className="text-sm leading-relaxed text-body italic">&ldquo;{quote.text}&rdquo;</p>
           <p className="mt-2 text-xs font-mono text-muted">- {quote.author}</p>
         </div>
       </div>

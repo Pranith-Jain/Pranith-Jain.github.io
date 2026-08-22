@@ -316,7 +316,7 @@ export default function EmailReputation(): JSX.Element {
                               ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
                               : result.emailRep.verdict === 'clean'
                                 ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
-                                : 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30'
+                                : 'bg-slate-500/15 text-body border-slate-500/30'
                         }`}
                       >
                         {result.emailRep.verdict}
@@ -337,7 +337,7 @@ export default function EmailReputation(): JSX.Element {
                       {result.emailRep.tags.map((t) => (
                         <span
                           key={t}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-slate-700 dark:text-slate-300"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-body"
                         >
                           {t}
                         </span>
@@ -446,9 +446,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
       className={`rounded-xl border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'}`}
     >
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>
-      <div
-        className={`text-sm font-mono ${good ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-200'}`}
-      >
+      <div className={`text-sm font-mono ${good ? 'text-emerald-700 dark:text-emerald-300' : 'text-heading'}`}>
         {value}
       </div>
     </div>

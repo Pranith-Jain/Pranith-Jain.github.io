@@ -205,7 +205,7 @@ export default function VerdiktAi(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -237,10 +237,10 @@ export default function VerdiktAi(): JSX.Element {
                 value={iocValue}
                 onChange={(e) => setIocValue(e.target.value)}
                 placeholder="Enter IP, domain, URL, or hash…"
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 pr-20 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 pr-20 text-sm text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
               />
               {iocValue.trim() && (
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-body">
                   {TYPE_ICONS[iocType]}
                   {TYPE_LABELS[iocType]}
                 </div>
@@ -280,7 +280,7 @@ export default function VerdiktAi(): JSX.Element {
           {loading && (
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
-              <p className="text-sm text-slate-600 dark:text-slate-300">Checking IOC sources…</p>
+              <p className="text-sm text-body">Checking IOC sources…</p>
               <p className="text-xs text-muted mt-1">Generating analyst narrative</p>
             </div>
           )}
@@ -293,10 +293,10 @@ export default function VerdiktAi(): JSX.Element {
                   <Fingerprint size={14} className="text-brand-600 dark:text-brand-400" /> IOC Details
                 </h2>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
+                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body">
                     {result.iocType?.toUpperCase()}
                   </span>
-                  <span className="text-sm font-mono text-slate-800 dark:text-slate-200">{result.iocValue}</span>
+                  <span className="text-sm font-mono text-heading">{result.iocValue}</span>
                 </div>
                 {result.iocDetails && (
                   <div className="grid grid-cols-2 gap-2 text-xs text-muted">
@@ -324,7 +324,7 @@ export default function VerdiktAi(): JSX.Element {
                         key={i}
                         className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                       >
-                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.name}</span>
+                        <span className="text-xs font-mono text-body">{s.name}</span>
                         <span
                           className={`text-micro font-mono px-1.5 py-0.5 rounded ${
                             s.status === 'success'
@@ -351,15 +351,13 @@ export default function VerdiktAi(): JSX.Element {
                     </h2>
                     <button
                       onClick={copyNarrative}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copiedNarrative ? <Check size={13} /> : <Copy size={13} />}
                       {copiedNarrative ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
-                    {result.narrative}
-                  </p>
+                  <p className="text-sm text-body leading-relaxed whitespace-pre-wrap">{result.narrative}</p>
                   <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <ShareBar
                       shareText={
@@ -413,7 +411,7 @@ export default function VerdiktAi(): JSX.Element {
                           </span>
                           <CopyButton value={q.query} />
                         </div>
-                        <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-3 text-xs font-mono text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-x-auto whitespace-pre-wrap">
+                        <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-3 text-xs font-mono text-body border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-x-auto whitespace-pre-wrap">
                           {q.query}
                         </pre>
                       </div>
@@ -424,7 +422,7 @@ export default function VerdiktAi(): JSX.Element {
 
               <button
                 onClick={downloadReport}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
               >
                 <Download size={13} /> Download Report
               </button>

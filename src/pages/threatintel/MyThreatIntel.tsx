@@ -322,9 +322,8 @@ function DnsScanPanel(): JSX.Element {
             <>
               <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
                 <p className="text-mini font-mono text-muted">
-                  {data.count.toLocaleString()} permutations for{' '}
-                  <span className="text-slate-700 dark:text-slate-300">{data.domain}</span> · showing{' '}
-                  {rows.length.toLocaleString()}
+                  {data.count.toLocaleString()} permutations for <span className="text-body">{data.domain}</span> ·
+                  showing {rows.length.toLocaleString()}
                 </p>
                 <button
                   type="button"
@@ -357,9 +356,7 @@ function DnsScanPanel(): JSX.Element {
                         header: 'Domain',
                         sortValue: (r: (typeof rows)[number]) => r.domain ?? '',
                         render: (r) => (
-                          <span className="font-mono text-meta text-slate-800 dark:text-slate-200 break-all">
-                            {r.domain || '-'}
-                          </span>
+                          <span className="font-mono text-meta text-heading break-all">{r.domain || '-'}</span>
                         ),
                       },
                       {
@@ -613,9 +610,7 @@ export default function MyThreatIntel(): JSX.Element {
                           <td
                             key={col.key}
                             className={`px-3 py-2 ${
-                              isHash
-                                ? 'font-mono text-mini text-violet-700 dark:text-violet-300'
-                                : 'text-slate-700 dark:text-slate-300'
+                              isHash ? 'font-mono text-mini text-violet-700 dark:text-violet-300' : 'text-body'
                             } ${isLong ? 'max-w-md' : 'whitespace-nowrap'}`}
                           >
                             {text === '-' ? (

@@ -439,23 +439,19 @@ export default function NhiScan() {
               </div>
               <div className="flex flex-wrap gap-6">
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-                    {summary.total_identities}
-                  </div>
+                  <div className="text-2xl font-bold text-heading">{summary.total_identities}</div>
                   <div className="text-mini font-mono text-slate-400">identities</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{summary.findings}</div>
+                  <div className="text-2xl font-bold text-heading">{summary.findings}</div>
                   <div className="text-mini font-mono text-slate-400">findings</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{summary.orphaned}</div>
+                  <div className="text-2xl font-bold text-heading">{summary.orphaned}</div>
                   <div className="text-mini font-mono text-slate-400">orphaned</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-                    {summary.long_lived_secrets}
-                  </div>
+                  <div className="text-2xl font-bold text-heading">{summary.long_lived_secrets}</div>
                   <div className="text-mini font-mono text-slate-400">long-lived secrets</div>
                 </div>
               </div>
@@ -483,7 +479,7 @@ export default function NhiScan() {
                       key={code}
                       className="flex items-center justify-between text-sm py-1 border-b border-slate-100 dark:border-slate-800 last:border-0"
                     >
-                      <span className="font-mono text-slate-900 dark:text-slate-100">
+                      <span className="font-mono text-heading">
                         {code}
                         <span className="text-muted ml-2 text-mini">{OWASP_TITLES[code] ?? ''}</span>
                       </span>
@@ -513,7 +509,7 @@ export default function NhiScan() {
                           >
                             tier {idn.tier} · {idn.tier_label}
                           </span>
-                          <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{idn.name}</span>
+                          <span className="text-sm font-semibold text-heading">{idn.name}</span>
                           <span className="text-mini font-mono text-muted">({idn.type})</span>
                         </div>
                         <p className="text-mini font-mono text-muted mt-1">
@@ -535,21 +531,21 @@ export default function NhiScan() {
                             <span className="block text-micro uppercase tracking-wider text-slate-400">
                               matched rules
                             </span>
-                            <span className="text-slate-900 dark:text-slate-100">{idn.reasons.length}</span>
+                            <span className="text-heading">{idn.reasons.length}</span>
                           </div>
                           <div>
                             <span className="block text-micro uppercase tracking-wider text-slate-400">top rule</span>
-                            <span className="text-slate-900 dark:text-slate-100">{idn.reasons[0]?.rule}</span>
+                            <span className="text-heading">{idn.reasons[0]?.rule}</span>
                           </div>
                           <div>
                             <span className="block text-micro uppercase tracking-wider text-slate-400">
                               OWASP findings
                             </span>
-                            <span className="text-slate-900 dark:text-slate-100">{idn.findings.length}</span>
+                            <span className="text-heading">{idn.findings.length}</span>
                           </div>
                           <div>
                             <span className="block text-micro uppercase tracking-wider text-slate-400">risk score</span>
-                            <span className="text-slate-900 dark:text-slate-100">{idn.risk_score}</span>
+                            <span className="text-heading">{idn.risk_score}</span>
                           </div>
                         </div>
 
@@ -566,12 +562,12 @@ export default function NhiScan() {
                                   >
                                     {f.severity}
                                   </span>
-                                  <span className="text-xs font-mono font-semibold text-slate-900 dark:text-slate-100">
+                                  <span className="text-xs font-mono font-semibold text-heading">
                                     {f.owasp_id} {f.owasp_title}
                                   </span>
                                 </div>
                                 <p className="text-xs font-mono text-muted mt-1.5">{f.evidence}</p>
-                                <p className="text-xs text-slate-700 dark:text-slate-300 mt-1">→ {f.remediation}</p>
+                                <p className="text-xs text-body mt-1">→ {f.remediation}</p>
                               </div>
                             ))}
                           </div>
@@ -602,7 +598,7 @@ export default function NhiScan() {
                 download
               </Button>
             </div>
-            <pre className="text-xs font-mono leading-relaxed whitespace-pre-wrap text-slate-800 dark:text-slate-200 max-h-96 overflow-y-auto">
+            <pre className="text-xs font-mono leading-relaxed whitespace-pre-wrap text-heading max-h-96 overflow-y-auto">
               {markdown}
             </pre>
           </section>

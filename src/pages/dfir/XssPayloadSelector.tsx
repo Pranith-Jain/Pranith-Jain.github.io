@@ -692,7 +692,7 @@ export default function XssPayloadSelector(): JSX.Element {
                   </div>
                   <p className="text-xs text-muted mt-1">{p.description}</p>
                   <div className="mt-2 flex items-center gap-2">
-                    <code className="flex-1 px-2 py-1.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 text-xs font-mono overflow-x-auto whitespace-nowrap">
+                    <code className="flex-1 px-2 py-1.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-heading text-xs font-mono overflow-x-auto whitespace-nowrap">
                       {p.payload}
                     </code>
                     <button

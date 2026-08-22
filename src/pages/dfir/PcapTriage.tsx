@@ -204,7 +204,7 @@ export default function PcapTriage(): JSX.Element {
   const [err, setErr] = useState('');
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=artifacts"
@@ -228,9 +228,7 @@ export default function PcapTriage(): JSX.Element {
         aria-label="Drop a capture file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
-          Drop a capture file file here, or click to choose
-        </p>
+        <p className="text-sm font-mono text-body">Drop a capture file file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">100% client-side. No upload.</p>
       </button>
       <input
@@ -297,7 +295,7 @@ function Block({ title, rows }: { title: string; rows: Array<[string, number]> }
       <ul className="font-mono text-meta space-y-0.5">
         {rows.map(([k, v]) => (
           <li key={k} className="flex justify-between gap-4">
-            <span className="truncate text-slate-700 dark:text-slate-300">{k}</span>
+            <span className="truncate text-body">{k}</span>
             <span className="text-slate-500">{v}</span>
           </li>
         ))}
@@ -314,7 +312,7 @@ function List({ title, items }: { title: string; items: string[] }) {
         {items.map((i) => (
           <span
             key={i}
-            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 break-all"
+            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body break-all"
           >
             {i}
           </span>

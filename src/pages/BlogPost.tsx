@@ -295,7 +295,7 @@ export default function BlogPost() {
   );
 
   return (
-    <article ref={articleRef} className="blog-post mx-auto max-w-5xl text-slate-900 dark:text-slate-100">
+    <article ref={articleRef} className="blog-post mx-auto max-w-5xl text-heading">
       <style>{`
         .blog-post details[open] summary {
           border-bottom: 1px solid rgb(226 232 240);
@@ -603,7 +603,7 @@ export default function BlogPost() {
                     <li key={`${i.type}-${i.value}-${k}`}>
                       <Link
                         to={`/dfir/ioc-check?indicator=${encodeURIComponent(i.value)}`}
-                        className="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
+                        className="text-body hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
                       >
                         [{i.type}] {i.value}
                       </Link>
@@ -697,7 +697,7 @@ export default function BlogPost() {
                   </Link>
                   <Link
                     to="/threatintel"
-                    className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                    className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-4 py-2 text-sm font-semibold text-body transition hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
                   >
                     Threat Intel
                   </Link>

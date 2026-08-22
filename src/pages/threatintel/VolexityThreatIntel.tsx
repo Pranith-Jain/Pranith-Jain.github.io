@@ -136,9 +136,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
           {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug break-words">
-            {folder.label}
-          </span>
+          <span className="block font-semibold text-sm text-heading leading-snug break-words">{folder.label}</span>
           <span className="flex flex-wrap items-center gap-1.5 mt-1.5">
             {folder.has_indicators && (
               <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-emerald-500/40 text-emerald-600 dark:text-emerald-400">
@@ -237,7 +235,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                           header: 'indicator',
                           sortValue: (ioc: (typeof data.iocs)[number]) => ioc.value,
                           render: (ioc) => (
-                            <span className="font-mono break-all text-slate-800 dark:text-slate-200">
+                            <span className="font-mono break-all text-heading">
                               {pivotable(ioc.kind) ? (
                                 <Link
                                   to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`}
@@ -379,7 +377,7 @@ export default function VolexityThreatIntel(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="filter by actor / campaign…"
-          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-rose-500/60"
+          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body focus:outline-none focus:border-rose-500/60"
         />
       </div>
     ) : undefined;

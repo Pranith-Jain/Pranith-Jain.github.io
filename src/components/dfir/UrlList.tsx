@@ -46,7 +46,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
             >
               <div className="flex items-baseline gap-2 mb-1">
                 <ExternalLink size={12} className="text-muted flex-shrink-0" />
-                <span className="font-mono text-xs text-slate-700 dark:text-slate-300 break-all flex-1">{url}</span>
+                <span className="font-mono text-xs text-body break-all flex-1">{url}</span>
               </div>
               <div className="flex flex-wrap gap-2 ml-5">
                 <Link

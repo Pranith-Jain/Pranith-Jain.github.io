@@ -111,7 +111,7 @@ export function ActorTtpsPanel({
                   href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline text-slate-700 dark:text-slate-300 truncate inline-flex items-center gap-1 transition-colors"
+                  className="hover:underline text-body truncate inline-flex items-center gap-1 transition-colors"
                   title={`${t.id} · ${t.name}`}
                 >
                   <span className="text-brand-600 dark:text-brand-400">{t.id}</span>

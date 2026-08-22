@@ -117,7 +117,7 @@ export default function TelegramLeakStats(): JSX.Element {
                 <div className="space-y-2">
                   {stats.top_channels.map((ch, i) => (
                     <div key={ch.channel_handle} className="flex items-center justify-between text-xs font-mono">
-                      <span className="truncate text-slate-700 dark:text-slate-300">
+                      <span className="truncate text-body">
                         {i + 1}. {ch.channel_handle}
                       </span>
                       <span className="text-slate-500 shrink-0 ml-2">{ch.n} entries</span>
@@ -137,7 +137,7 @@ export default function TelegramLeakStats(): JSX.Element {
                 <div className="space-y-2">
                   {stats.top_domains.map((d, i) => (
                     <div key={d.domain} className="flex items-center justify-between text-xs font-mono">
-                      <span className="truncate text-slate-700 dark:text-slate-300">
+                      <span className="truncate text-body">
                         {i + 1}. {d.domain}
                       </span>
                       <span className="text-slate-500 shrink-0 ml-2">{d.count} hits</span>

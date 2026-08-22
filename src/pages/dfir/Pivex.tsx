@@ -52,9 +52,9 @@ const ENTITY_COLORS: Record<string, string> = {
   ransomware: 'border-rose-600/40 bg-rose-600/10 text-rose-700 dark:text-rose-300',
   malware: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   campaign: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
-  hash: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  hash: 'border-slate-500/40 bg-slate-500/10 text-body',
   technique: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
-  victim: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  victim: 'border-slate-500/40 bg-slate-500/10 text-body',
   c2_framework: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
   product: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
   reference: 'border-slate-400/40 bg-slate-400/10 text-muted',
@@ -244,7 +244,7 @@ export default function Pivex(): JSX.Element {
   const uniqueEdgeLabels = useMemo(() => [...new Set(edges.map((e) => e.label))], [edges]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -277,7 +277,7 @@ export default function Pivex(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleBuildGraph()}
               placeholder="IP address, domain, CVE, actor name, or hash…"
-              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
@@ -302,8 +302,7 @@ export default function Pivex(): JSX.Element {
           <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-400" />
           <p className="text-sm text-muted">
             Enter an IP, domain, CVE, or actor name and click{' '}
-            <span className="font-semibold text-slate-700 dark:text-slate-300">Build Graph</span> to visualise the
-            infrastructure pivot graph.
+            <span className="font-semibold text-body">Build Graph</span> to visualise the infrastructure pivot graph.
           </p>
         </div>
       )}
@@ -313,7 +312,7 @@ export default function Pivex(): JSX.Element {
           {seedInfo && (
             <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
               <span>
-                Seed: <span className="text-slate-700 dark:text-slate-300">{seedInfo.seed}</span>
+                Seed: <span className="text-body">{seedInfo.seed}</span>
               </span>
               {seedInfo.type && <span className="text-muted">({seedInfo.type})</span>}
               {seedInfo.truncated && <span className="text-amber-600">· truncated</span>}
@@ -475,7 +474,7 @@ function GraphCluster({
                     >
                       <span className="text-slate-500">{n.label}</span>
                       <span className="text-muted">── {e.label} ──</span>
-                      <span className="text-slate-600 dark:text-slate-300">{target.label}</span>
+                      <span className="text-body">{target.label}</span>
                     </div>
                   );
                 })

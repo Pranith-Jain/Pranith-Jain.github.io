@@ -108,7 +108,7 @@ const IOC_CLR: Record<string, string> = {
   url: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   btc: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   eth: 'bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300',
-  onion: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300',
+  onion: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-body',
 };
 
 const IOC_ICO: Record<string, typeof Server> = {
@@ -337,7 +337,7 @@ function TgIntelSearch() {
               placeholder={
                 mode === 'boolean' ? 'ransomware AND channel.title:TeamPCP NOT tutorial' : 'search keywords...'
               }
-              className="flex-1 px-3 py-2 bg-transparent font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none"
+              className="flex-1 px-3 py-2 bg-transparent font-mono text-tool text-heading placeholder:text-slate-500 focus:outline-none"
             />
             {query && (
               <button
@@ -665,9 +665,7 @@ function TgIntelSearch() {
                           {entry.discovered_at?.split('T')[0]}
                         </span>
                       </div>
-                      <p
-                        className={`text-meta font-mono text-slate-700 dark:text-slate-300 ${isExpanded ? '' : 'line-clamp-2'}`}
-                      >
+                      <p className={`text-meta font-mono text-body ${isExpanded ? '' : 'line-clamp-2'}`}>
                         {entry.message_text || '(no text)'}
                       </p>
                       {domains.length > 0 && !isExpanded && (
@@ -836,9 +834,9 @@ function TgIntelSearch() {
           <p className="font-mono text-sm mb-3">Search across indexed Telegram messages</p>
           <div className="max-w-md mx-auto text-left space-y-1 text-meta font-mono">
             <p className="text-slate-500">Examples:</p>
-            <p className="text-slate-700 dark:text-slate-300">ransomware AND "dark web"</p>
-            <p className="text-slate-700 dark:text-slate-300">channel.title:TeamPCP AND text:credential</p>
-            <p className="text-slate-700 dark:text-slate-300">stealer NOT tutorial</p>
+            <p className="text-body">ransomware AND "dark web"</p>
+            <p className="text-body">channel.title:TeamPCP AND text:credential</p>
+            <p className="text-body">stealer NOT tutorial</p>
           </div>
         </div>
       )}

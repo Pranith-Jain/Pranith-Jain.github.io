@@ -284,9 +284,9 @@ export default function Writeups(): JSX.Element {
         )}
         {data && (
           <p className="text-mini font-mono text-slate-500 mt-3">
-            Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
-            <span className="text-slate-700 dark:text-slate-300">{data.total}</span> writeups across{' '}
-            <span className="text-slate-700 dark:text-slate-300">
+            Showing <span className="text-body">{filtered.length}</span> of{' '}
+            <span className="text-body">{data.total}</span> writeups across{' '}
+            <span className="text-body">
               {data.sources.filter((s) => s.ok).length}/{data.sources.length}
             </span>{' '}
             sources.
@@ -330,7 +330,7 @@ export default function Writeups(): JSX.Element {
           <li key={`${it.url}-${i}`} className="surface-card p-4 hover:border-rose-500/40 transition-colors">
             <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
               <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
-                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
+                <h3 className="font-display font-semibold text-base text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
                   {it.title}
                 </h3>
                 <ExternalLink size={12} className="text-muted shrink-0 mt-1" />

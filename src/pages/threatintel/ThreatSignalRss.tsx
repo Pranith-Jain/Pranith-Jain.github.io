@@ -80,12 +80,12 @@ function categoryStyle(cat: string | null): { label: string; className: string }
   if (!cat)
     return {
       label: 'Uncategorised',
-      className: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
+      className: 'bg-slate-500/15 text-body border-slate-500/30',
     };
   return (
     CATEGORY_STYLE[cat] ?? {
       label: cat.charAt(0) + cat.slice(1).toLowerCase(),
-      className: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
+      className: 'bg-slate-500/15 text-body border-slate-500/30',
     }
   );
 }
@@ -97,7 +97,7 @@ const ACCENT_PILL: Record<Accent, string> = {
   cyan: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
   violet: 'bg-violet-500/15 text-violet-300 border-violet-500/30',
   sky: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
-  slate: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
+  slate: 'bg-slate-500/15 text-body border-slate-500/30',
 };
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
@@ -565,7 +565,7 @@ function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.E
           href={sanitizeUrl(item.link)}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
+          className="flex-1 font-semibold text-heading text-sm leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
         >
           {item.title}
           <ExternalLink size={12} className="text-muted group-hover:text-rose-500 shrink-0 mt-0.5" />

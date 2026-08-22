@@ -328,9 +328,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <Icon className="w-4 h-4 text-muted" />
-                    <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">
-                      {cfg?.label ?? cat}
-                    </span>
+                    <span className="text-xs font-semibold text-heading truncate">{cfg?.label ?? cat}</span>
                   </div>
                   <div className="text-lg font-bold text-slate-900 dark:text-white">{count}</div>
                 </button>
@@ -351,7 +349,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
         <select
           value={confidenceFilter}
           onChange={(e) => setConfidenceFilter(e.target.value)}
-          className="px-2 py-1.5 text-xs rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-700 dark:text-slate-300"
+          className="px-2 py-1.5 text-xs rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-body"
         >
           <option value="">All Confidence</option>
           <option value="very-high">Very High</option>
@@ -416,7 +414,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                       className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] cursor-pointer"
                       onClick={() => setExpandedIp(isExpanded ? null : entry.value)}
                     >
-                      <td className="px-3 py-2 font-mono text-slate-800 dark:text-slate-200">{entry.value}</td>
+                      <td className="px-3 py-2 font-mono text-heading">{entry.value}</td>
                       <td className="px-3 py-2">
                         <span
                           className={`px-1.5 py-0.5 text-micro font-medium rounded border ${cfg?.color ?? 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20'}`}
@@ -431,9 +429,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                           {entry.confidence}
                         </span>
                       </td>
-                      <td className="px-3 py-2 text-right font-mono text-slate-800 dark:text-slate-200">
-                        {formatHits(entry.total_hits)}
-                      </td>
+                      <td className="px-3 py-2 text-right font-mono text-heading">{formatHits(entry.total_hits)}</td>
                       <td className="px-3 py-2 text-right font-mono text-slate-500 dark:text-slate-500">
                         {entry.ttps.length > 0 ? entry.ttps.length : '-'}
                       </td>
@@ -453,32 +449,32 @@ export default function AiHoneypotObservatory(): JSX.Element {
                         >
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-mini">
                             <div>
-                              <span className="font-semibold text-slate-700 dark:text-slate-300">TTPs:</span>{' '}
+                              <span className="font-semibold text-body">TTPs:</span>{' '}
                               <span className="font-mono text-muted">
                                 {entry.ttps.length > 0 ? entry.ttps.join(', ') : 'None mapped'}
                               </span>
                             </div>
                             <div>
-                              <span className="font-semibold text-slate-700 dark:text-slate-300">Personas:</span>{' '}
+                              <span className="font-semibold text-body">Personas:</span>{' '}
                               <span className="text-muted">{entry.distinct_personas}</span>
                             </div>
                             <div>
-                              <span className="font-semibold text-slate-700 dark:text-slate-300">Paths probed:</span>{' '}
+                              <span className="font-semibold text-body">Paths probed:</span>{' '}
                               <span className="font-mono text-muted">{entry.interesting_paths.join(', ') || '-'}</span>
                             </div>
                             <div>
-                              <span className="font-semibold text-slate-700 dark:text-slate-300">Prompts:</span>{' '}
+                              <span className="font-semibold text-body">Prompts:</span>{' '}
                               <span className="text-muted">{formatHits(entry.prompt_count)}</span>
                             </div>
                             {entry.user_agents.length > 0 && (
                               <div className="sm:col-span-2">
-                                <span className="font-semibold text-slate-700 dark:text-slate-300">User Agents:</span>{' '}
+                                <span className="font-semibold text-body">User Agents:</span>{' '}
                                 <span className="font-mono text-muted">{entry.user_agents.join(', ')}</span>
                               </div>
                             )}
                             {entry.models_requested.length > 0 && (
                               <div className="sm:col-span-2">
-                                <span className="font-semibold text-slate-700 dark:text-slate-300">Models:</span>{' '}
+                                <span className="font-semibold text-body">Models:</span>{' '}
                                 <span className="font-mono text-muted">
                                   {entry.models_requested.slice(0, 5).join(', ')}
                                   {entry.models_requested.length > 5 && ` +${entry.models_requested.length - 5} more`}
@@ -487,15 +483,13 @@ export default function AiHoneypotObservatory(): JSX.Element {
                             )}
                             {entry.details && (
                               <div className="sm:col-span-2">
-                                <span className="font-semibold text-slate-700 dark:text-slate-300">Details:</span>{' '}
+                                <span className="font-semibold text-body">Details:</span>{' '}
                                 <span className="text-muted">{entry.details}</span>
                               </div>
                             )}
                             {entry.sample_prompts.length > 0 && (
                               <div className="sm:col-span-2">
-                                <span className="font-semibold text-slate-700 dark:text-slate-300">
-                                  Sample Prompts:
-                                </span>
+                                <span className="font-semibold text-body">Sample Prompts:</span>
                                 <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] p-2 font-mono text-micro text-muted whitespace-pre-wrap">
                                   {entry.sample_prompts[0]}
                                 </div>
@@ -526,7 +520,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                   <Icon className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                  <div className="text-xs font-semibold text-heading">
                     {cfg?.label ?? key}
                     {count > 0 && <span className="ml-1.5 text-slate-500 dark:text-slate-500">({count})</span>}
                   </div>
@@ -541,7 +535,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
       {/* Confidence levels */}
       {feed?.taxonomy?.confidence_levels && (
         <div className="mt-4 p-3 surface-card">
-          <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Confidence Levels</h3>
+          <h3 className="text-xs font-semibold text-body mb-2">Confidence Levels</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {Object.entries(feed.taxonomy.confidence_levels).map(([level, desc]) => (
               <div key={level} className="text-mini">

@@ -152,16 +152,16 @@ export default function IntelX() {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Summary</h2>
               <div className="flex gap-6">
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.total}</div>
+                  <div className="text-2xl font-bold text-heading">{data.total}</div>
                   <div className="text-mini font-mono text-slate-400">Records Found</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.mode}</div>
+                  <div className="text-2xl font-bold text-heading">{data.mode}</div>
                   <div className="text-mini font-mono text-slate-400">Search Mode</div>
                 </div>
                 {data.search_id && (
                   <div>
-                    <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-mono text-sm">
+                    <div className="text-2xl font-bold text-heading font-mono text-sm">
                       {data.search_id.slice(0, 8)}…
                     </div>
                     <div className="text-mini font-mono text-slate-400">Search ID</div>
@@ -182,7 +182,7 @@ export default function IntelX() {
                       className="flex items-start gap-3 p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200))]/50"
                     >
                       <div className="flex-1 min-w-0">
-                        <div className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate">
+                        <div className="font-mono text-sm text-heading truncate">
                           {r.value || r.name || JSON.stringify(r)}
                         </div>
                         <div className="flex gap-3 mt-1 text-micro font-mono text-muted">

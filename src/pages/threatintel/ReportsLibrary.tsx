@@ -148,7 +148,7 @@ export default function ReportsLibrary(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} reports\u2026`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap items-center gap-3">
@@ -184,12 +184,12 @@ export default function ReportsLibrary(): JSX.Element {
                     value={yearFilter}
                     onChange={(e) => setYearFilter(e.target.value)}
                     placeholder="Year"
-                    className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                    className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                   />
                   <select
                     value={publisherFilter}
                     onChange={(e) => setPublisherFilter(e.target.value)}
-                    className="w-36 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-rose-500/60 focus:outline-none"
+                    className="w-36 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-heading focus:border-rose-500/60 focus:outline-none"
                   >
                     <option value="">All publishers</option>
                     {publishers.map((p) => (
@@ -234,7 +234,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
+      <div className="text-lg font-semibold text-heading truncate">{value}</div>
     </div>
   );
 }
@@ -256,7 +256,7 @@ function ReportCard({ report }: { report: ReportEntry }) {
         </span>
       </div>
 
-      <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+      <h3 className="font-display font-semibold text-sm text-heading leading-snug mb-1 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
         {report.title}
       </h3>
 

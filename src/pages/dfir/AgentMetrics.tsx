@@ -56,7 +56,7 @@ function Stat({ label, value, suffix }: { label: string; value: string | number;
   return (
     <div className="surface-card p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</div>
-      <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+      <div className="text-2xl font-bold text-heading">
         {value}
         {suffix ? <span className="text-sm font-normal text-slate-400">{suffix}</span> : null}
       </div>
@@ -151,7 +151,7 @@ export default function AgentMetrics(): JSX.Element {
             {Object.entries(providers).map(([name, p]) => (
               <div key={name} className="surface-card p-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">{name}</span>
+                  <span className="font-mono font-semibold text-heading">{name}</span>
                   <span
                     className={`rounded px-1.5 py-0.5 text-micro font-mono font-bold ${
                       p.healthy ? 'bg-emerald-500/10 text-emerald-600' : 'bg-rose-500/10 text-rose-600'
@@ -184,7 +184,7 @@ export default function AgentMetrics(): JSX.Element {
                   key: 'tool',
                   header: 'Tool',
                   sortValue: (t: (typeof data.topTools)[number]) => t.tool,
-                  render: (t) => <span className="font-mono text-slate-800 dark:text-slate-200">{t.tool}</span>,
+                  render: (t) => <span className="font-mono text-heading">{t.tool}</span>,
                 },
                 {
                   key: 'count',
@@ -227,7 +227,7 @@ export default function AgentMetrics(): JSX.Element {
           <div className="surface-card divide-y divide-slate-100 dark:divide-[rgb(var(--border-400)/0.5)]">
             {data.topModels.map((m) => (
               <div key={m.model} className="flex items-center justify-between px-3 py-2 text-sm">
-                <span className="font-mono text-slate-800 dark:text-slate-200">{m.model}</span>
+                <span className="font-mono text-heading">{m.model}</span>
                 <span className="tabular-nums text-slate-500">
                   {m.count}× · avg {m.avgScore}
                 </span>
@@ -244,7 +244,7 @@ export default function AgentMetrics(): JSX.Element {
             ) : (
               data.recentErrors.map((e, i) => (
                 <div key={i} className="px-3 py-2 text-sm">
-                  <div className="font-mono text-slate-800 dark:text-slate-200 truncate">{e.query}</div>
+                  <div className="font-mono text-heading truncate">{e.query}</div>
                   <div className="text-rose-600 text-xs truncate">{e.error}</div>
                 </div>
               ))
@@ -260,7 +260,7 @@ export default function AgentMetrics(): JSX.Element {
             {memory.map((m, i) => (
               <div key={i} className="px-3 py-2 text-sm">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-slate-800 dark:text-slate-200 truncate">{m.query}</span>
+                  <span className="font-mono text-heading truncate">{m.query}</span>
                   <span className="shrink-0 tabular-nums text-micro text-slate-500">{m.qualityScore}/100</span>
                 </div>
                 <div className="mt-0.5 flex flex-wrap gap-1 text-micro font-mono text-slate-500">

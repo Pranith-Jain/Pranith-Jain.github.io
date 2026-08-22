@@ -28,7 +28,7 @@ const CATEGORY_CLS: Record<string, string> = {
   gaming: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   creative: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   finance: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  other: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  other: 'border-slate-500/40 bg-slate-500/10 text-body',
 };
 
 export default function UsernameOsnit(): JSX.Element {
@@ -66,7 +66,7 @@ export default function UsernameOsnit(): JSX.Element {
   const notFound = filtered.filter((r) => r.status === 'not-found');
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Username OSINT
@@ -90,7 +90,7 @@ export default function UsernameOsnit(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="username (letters / digits / . _ -)"
-              className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-heading focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
               aria-label="Username"
@@ -125,8 +125,7 @@ export default function UsernameOsnit(): JSX.Element {
         <div className="space-y-6">
           <div className="flex items-center gap-4 font-mono text-sm">
             <span className="text-slate-500">
-              Checked <span className="text-slate-900 dark:text-slate-100 font-bold">{result.total_checked}</span>{' '}
-              platforms
+              Checked <span className="text-heading font-bold">{result.total_checked}</span> platforms
             </span>
             <span className="text-slate-500">
               Found <span className="text-emerald-600 dark:text-emerald-400 font-bold">{result.found}</span>
@@ -164,7 +163,7 @@ export default function UsernameOsnit(): JSX.Element {
                     className="flex items-center gap-2 p-2.5 rounded-xl bg-emerald-500/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition text-sm font-mono"
                   >
                     <span className="text-emerald-500">ok</span>
-                    <span className="font-medium text-slate-900 dark:text-slate-100">{r.name}</span>
+                    <span className="font-medium text-heading">{r.name}</span>
                     <span
                       className={`text-micro px-1.5 py-0.5 rounded border ${CATEGORY_CLS[r.category] ?? CATEGORY_CLS.other}`}
                     >

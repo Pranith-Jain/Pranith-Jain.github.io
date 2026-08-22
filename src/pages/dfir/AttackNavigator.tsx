@@ -280,7 +280,7 @@ export default function AttackNavigator(): JSX.Element {
   }, [selectedId, mitreMatrix]);
 
   return (
-    <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-full px-4 sm:px-8 py-12 text-heading">
       <div className="max-w-[1600px] mx-auto">
         <BackLink
           to="/dfir"
@@ -313,25 +313,22 @@ export default function AttackNavigator(): JSX.Element {
           </p>
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500 mb-3">
             <span>
-              <span className="text-slate-900 dark:text-slate-100">{Object.keys(scores).length}</span> scored techniques
+              <span className="text-heading">{Object.keys(scores).length}</span> scored techniques
             </span>
             <span aria-hidden="true">&middot;</span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100">{mitreMatrix.length}</span> tactics
+              <span className="text-heading">{mitreMatrix.length}</span> tactics
             </span>
             <span aria-hidden="true">&middot;</span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100">
-                {mitreMatrix.reduce((sum, t) => sum + t.techniques.length, 0)}
-              </span>{' '}
+              <span className="text-heading">{mitreMatrix.reduce((sum, t) => sum + t.techniques.length, 0)}</span>{' '}
               techniques tracked
             </span>
             {generatedAt && (
               <>
                 <span aria-hidden="true">&middot;</span>
                 <span>
-                  Updated:{' '}
-                  <span className="text-slate-900 dark:text-slate-100">{new Date(generatedAt).toLocaleString()}</span>
+                  Updated: <span className="text-heading">{new Date(generatedAt).toLocaleString()}</span>
                 </span>
               </>
             )}
@@ -427,7 +424,7 @@ export default function AttackNavigator(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description..."
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search techniques"
             />
           </div>
@@ -437,7 +434,7 @@ export default function AttackNavigator(): JSX.Element {
               <select
                 value={colorMode}
                 onChange={(e) => setColorMode(e.target.value as ColorMode)}
-                className="bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1.5 text-xs font-mono text-heading focus:outline-none focus:border-brand-500"
               >
                 <option value="actor_pct">% of observed actors</option>
                 <option value="risk">LLM Risk Score (ARiES)</option>
@@ -511,9 +508,7 @@ export default function AttackNavigator(): JSX.Element {
                         className="block hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         title={tactic.description ?? tactic.name}
                       >
-                        <div className="text-micro font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
-                          {tactic.name}
-                        </div>
+                        <div className="text-micro font-mono font-bold leading-tight text-heading">{tactic.name}</div>
                         <div className="text-micro font-mono text-muted mt-0.5">{tacticCount} techniques</div>
                       </a>
                     </div>
@@ -614,10 +609,7 @@ export default function AttackNavigator(): JSX.Element {
                 <span className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                   {selectedId}
                 </span>
-                <h2
-                  id="navigator-detail-title"
-                  className="font-display font-bold text-lg text-slate-900 dark:text-slate-100 truncate"
-                >
+                <h2 id="navigator-detail-title" className="font-display font-bold text-lg text-heading truncate">
                   {selectedTechnique?.name ?? selectedId}
                 </h2>
               </div>
@@ -693,7 +685,7 @@ export default function AttackNavigator(): JSX.Element {
                         key={a.slug}
                         className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
                       >
-                        <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{a.name}</div>
+                        <div className="text-sm font-semibold text-heading">{a.name}</div>
                         {a.aliases.length > 0 && (
                           <div className="text-xs font-mono text-slate-500 mt-0.5">
                             aka {a.aliases.slice(0, 4).join(', ')}
@@ -723,7 +715,7 @@ export default function AttackNavigator(): JSX.Element {
                               <span className="text-xs font-mono text-brand-600 dark:text-brand-400 w-20 flex-shrink-0">
                                 {sub.id}
                               </span>
-                              <span className="text-sm text-slate-800 dark:text-slate-200 flex-1">{sub.name}</span>
+                              <span className="text-sm text-heading flex-1">{sub.name}</span>
                               {subScore && (
                                 <span
                                   className="text-xs font-mono px-2 py-0.5 rounded font-semibold"
@@ -749,7 +741,7 @@ export default function AttackNavigator(): JSX.Element {
                 (selectedTechnique as MitreTechniqueLite & { d3fend_id?: string; definition?: string }).definition && (
                   <div>
                     <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Definition</h3>
-                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <p className="text-sm text-body leading-relaxed">
                       {(selectedTechnique as MitreTechniqueLite & { definition?: string }).definition}
                     </p>
                   </div>
@@ -766,7 +758,7 @@ export default function AttackNavigator(): JSX.Element {
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {matrixSource === 'attack'
                   ? 'Open on attack.mitre.org'

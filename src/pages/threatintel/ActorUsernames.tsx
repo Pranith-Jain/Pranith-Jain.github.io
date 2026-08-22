@@ -179,9 +179,7 @@ export default function ActorUsernames(): JSX.Element {
             {data?.results.map((m) => (
               <li key={m.username} className="surface-card p-3">
                 <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
-                  <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
-                    {m.username}
-                  </span>
+                  <span className="font-mono font-semibold text-sm text-heading break-all">{m.username}</span>
                   <span className="text-mini font-mono text-slate-500 shrink-0">
                     {m.forum_count} forum{m.forum_count === 1 ? '' : 's'}
                   </span>

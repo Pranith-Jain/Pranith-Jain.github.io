@@ -94,7 +94,7 @@ export default function RetentionTab() {
     <div className="space-y-6 max-w-3xl">
       {/* ── Telegram Leak Cleanup ─────────────────────────── */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Telegram leak cleanup</h2>
+        <h2 className="text-lg font-semibold text-heading mb-1">Telegram leak cleanup</h2>
         <p className="text-sm text-muted mb-4">
           Deletes <code className="font-mono">telegram_leak_entries</code> older than the retention window. The weekly
           cron runs this automatically at 7 days; use this to force an immediate cleanup or adjust the window.
@@ -112,7 +112,7 @@ export default function RetentionTab() {
               value={tgDays}
               onChange={(e) => setTgDays(Math.max(1, Math.min(365, Number(e.target.value) || TG_DEFAULT_DAYS)))}
               disabled={busy !== null}
-              className="w-32 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-32 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <button
@@ -134,7 +134,7 @@ export default function RetentionTab() {
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 text-sm">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Done</span>
-              <span className="text-slate-700 dark:text-slate-300">
+              <span className="text-body">
                 Deleted <strong>{tgResult.deleted}</strong> row(s) older than {tgResult.max_age_days} days.
               </span>
             </div>
@@ -147,7 +147,7 @@ export default function RetentionTab() {
 
       {/* ── Full Retention Sweep ──────────────────────────── */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Full data retention sweep</h2>
+        <h2 className="text-lg font-semibold text-heading mb-1">Full data retention sweep</h2>
         <p className="text-sm text-muted mb-4">
           Deletes rows older than the retention window across 13 data tables (briefings, IOC logs, report-extraction
           cache, etc.). The cron runs this hourly; use this to preview impact or override the window.
@@ -165,13 +165,13 @@ export default function RetentionTab() {
               value={days}
               onChange={(e) => setDays(Math.max(1, Math.min(3650, Number(e.target.value) || DEFAULT_DAYS)))}
               disabled={busy !== null}
-              className="w-32 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-32 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <button
             onClick={() => runSweep(true)}
             disabled={busy !== null}
-            className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+            className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
           >
             {busy === 'dry' ? 'Previewing…' : 'Dry-run preview'}
           </button>
@@ -192,7 +192,7 @@ export default function RetentionTab() {
 
         {result && (
           <div className="mt-4">
-            <div className="text-sm text-slate-700 dark:text-slate-300 mb-3">
+            <div className="text-sm text-body mb-3">
               {wasDry ? (
                 <>
                   <span className="text-amber-700 dark:text-amber-300 font-semibold">Dry run</span> - {totalDeleted}{' '}
@@ -227,14 +227,14 @@ export default function RetentionTab() {
                         key: 'table',
                         header: 'Table',
                         sortValue: (r: (typeof result.tables_swept)[number]) => r.table,
-                        render: (r) => <span className="font-mono text-slate-700 dark:text-slate-300">{r.table}</span>,
+                        render: (r) => <span className="font-mono text-body">{r.table}</span>,
                       },
                       {
                         key: 'deleted',
                         header: wasDry ? 'Would delete' : 'Deleted',
                         align: 'right',
                         sortValue: (r: (typeof result.tables_swept)[number]) => r.deleted,
-                        render: (r) => <span className="text-slate-900 dark:text-slate-100">{r.deleted}</span>,
+                        render: (r) => <span className="text-heading">{r.deleted}</span>,
                       },
                     ] as DataTableColumn<(typeof result.tables_swept)[number]>[]
                   }

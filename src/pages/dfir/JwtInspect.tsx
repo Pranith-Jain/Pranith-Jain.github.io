@@ -133,7 +133,7 @@ export default function JwtInspect(): JSX.Element {
   }, [token, setSearchParams]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -195,9 +195,7 @@ export default function JwtInspect(): JSX.Element {
           <Section title="Payload" json={decoded.payload} />
           <section className="surface-card p-5">
             <h3 className="font-display font-semibold mb-3">Signature</h3>
-            <pre className="font-mono text-sm break-all text-slate-700 dark:text-slate-300">
-              {decoded.signature || '(empty)'}
-            </pre>
+            <pre className="font-mono text-sm break-all text-body">{decoded.signature || '(empty)'}</pre>
           </section>
         </div>
       )}
@@ -209,7 +207,7 @@ function Section({ title, json }: { title: string; json: Record<string, unknown>
   return (
     <section className="surface-card p-5">
       <h3 className="font-display font-semibold mb-3">{title}</h3>
-      <pre className="font-mono text-sm text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-sm text-body overflow-x-auto whitespace-pre-wrap">
         {JSON.stringify(json, null, 2)}
       </pre>
     </section>

@@ -32,7 +32,7 @@ export function DataGapsPanel({ dataGaps }: { dataGaps: ToolFailure[] }): JSX.El
     <div className="mt-3 rounded-xl border border-amber-200 dark:border-amber-800/40 bg-amber-50/50 dark:bg-amber-900/5 p-4">
       <div className="flex items-center gap-2 mb-3">
         <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Data Gaps & Limitations</h4>
+        <h4 className="text-sm font-bold text-heading">Data Gaps & Limitations</h4>
         <span className="text-xs text-muted font-mono">
           {dataGaps.length} tool{dataGaps.length === 1 ? '' : 's'} failed
         </span>

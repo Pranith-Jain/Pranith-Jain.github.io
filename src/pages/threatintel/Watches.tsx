@@ -266,7 +266,7 @@ export default function Watches(): JSX.Element {
                         <button
                           type="button"
                           onClick={cancelEdit}
-                          className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                          className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                         >
                           Cancel
                         </button>

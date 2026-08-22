@@ -27,7 +27,7 @@ function NumberField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="0"
-          className="w-full px-2.5 py-1.5 rounded-lg text-sm font-mono bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="w-full px-2.5 py-1.5 rounded-lg text-sm font-mono bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading focus:outline-none focus:border-brand-500"
         />
         {suffix && <span className="text-xs font-mono text-slate-400">{suffix}</span>}
       </div>
@@ -47,7 +47,7 @@ function Result({
   tone?: 'default' | 'good' | 'warn' | 'bad';
 }) {
   const tones = {
-    default: 'text-slate-900 dark:text-slate-100',
+    default: 'text-heading',
     good: 'text-emerald-600 dark:text-emerald-400',
     warn: 'text-amber-600 dark:text-amber-400',
     bad: 'text-rose-600 dark:text-rose-400',
@@ -76,7 +76,7 @@ function Panel({
     <section className="surface-card p-4">
       <div className="flex items-center gap-2 mb-1">
         {icon}
-        <h2 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{title}</h2>
+        <h2 className="font-display font-semibold text-sm text-heading">{title}</h2>
       </div>
       <p className="text-xs font-mono text-muted mb-4">{hint}</p>
       {children}

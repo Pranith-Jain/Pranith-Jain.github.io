@@ -316,7 +316,7 @@ export default function DfirCopilot(): JSX.Element {
           <div className="surface-card p-5">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">{result.query}</h2>
+                <h2 className="text-lg font-bold text-heading">{result.query}</h2>
                 {badge && (
                   <span className={`rounded px-2 py-0.5 text-micro font-semibold uppercase ${badge.color}`}>
                     {badge.label}
@@ -369,7 +369,7 @@ export default function DfirCopilot(): JSX.Element {
           <div className="overflow-hidden surface-card">
             <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
-              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
+              <span className="text-sm font-semibold text-body">Investigation Report</span>
               {result._meta && (
                 <span className="ml-auto font-mono text-mini text-muted">
                   {result._meta.total_items} data points across {result._meta.total_sources} sources
@@ -377,7 +377,7 @@ export default function DfirCopilot(): JSX.Element {
               )}
             </div>
             <div
-              className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+              className="px-6 py-5 text-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
               dangerouslySetInnerHTML={{ __html: narrativeHtml }}
             />
           </div>

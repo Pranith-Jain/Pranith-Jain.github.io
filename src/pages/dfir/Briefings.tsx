@@ -107,7 +107,7 @@ export default function Briefings(): JSX.Element {
   const filtered = items;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-10 font-mono transition-colors"
@@ -278,15 +278,11 @@ export default function Briefings(): JSX.Element {
               <div className="flex items-center gap-3 mt-3">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-slate-500 min-w-0 flex-1">
                   <span>
-                    <span className="text-slate-800 dark:text-slate-200 font-semibold">
-                      {item.metadata.stats.findings}
-                    </span>{' '}
-                    findings
+                    <span className="text-heading font-semibold">{item.metadata.stats.findings}</span> findings
                   </span>
                   <span aria-hidden="true">·</span>
                   <span>
-                    <span className="text-slate-800 dark:text-slate-200 font-semibold">{item.metadata.stats.cves}</span>{' '}
-                    CVEs
+                    <span className="text-heading font-semibold">{item.metadata.stats.cves}</span> CVEs
                   </span>
                   <span aria-hidden="true">·</span>
                   <span>

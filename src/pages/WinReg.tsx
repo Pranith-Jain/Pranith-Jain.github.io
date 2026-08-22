@@ -90,14 +90,14 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
         )}
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Description</div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
+          <p className="text-sm text-body leading-relaxed">{body.description}</p>
         </div>
         {body.forensic_value && (
           <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-50 dark:bg-violet-950/20 rounded-r-lg">
             <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
               Forensic Value
             </div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.forensic_value}</p>
+            <p className="text-sm text-body leading-relaxed">{body.forensic_value}</p>
           </div>
         )}
         <div className="flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export default function WinReg() {
               placeholder="Search artifacts by name, key, technique..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -293,7 +293,7 @@ export default function WinReg() {
                 onClick={() => setDetailSlug(art.slug)}
                 className={`${CARD} text-left p-4 transition-colors hover:border-brand-400 dark:hover:border-brand-600 group`}
               >
-                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
                   {art.name}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">

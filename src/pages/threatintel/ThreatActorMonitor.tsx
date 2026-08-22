@@ -366,7 +366,7 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
             >
               {t.ruleCount}
             </span>
-            <span className="text-[10px] font-mono text-slate-700 dark:text-slate-300 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+            <span className="text-[10px] font-mono text-body group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
               {t.id}
             </span>
             <span className="text-[10px] text-muted truncate flex-1">{t.name}</span>
@@ -890,7 +890,7 @@ export default function ThreatActorMonitor() {
                   onChange={(e) => setAlertSettings((s) => ({ ...s, enabled: e.target.checked }))}
                   className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
                 />
-                <span className="text-sm text-slate-700 dark:text-slate-300">Enable Alerts</span>
+                <span className="text-sm text-body">Enable Alerts</span>
               </label>
               <label className="flex items-center gap-3">
                 <input
@@ -902,7 +902,7 @@ export default function ThreatActorMonitor() {
                   }}
                   className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
                 />
-                <span className="text-sm text-slate-700 dark:text-slate-300">Desktop Notifications</span>
+                <span className="text-sm text-body">Desktop Notifications</span>
               </label>
             </div>
             <div>

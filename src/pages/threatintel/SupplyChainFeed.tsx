@@ -186,7 +186,7 @@ export default function SupplyChainFeed(): JSX.Element {
     >
       {/* ── Package check ───────────────────────────────────────────── */}
       <div className="rounded-xl border border-slate-200 bg-white p-4 mb-6 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Check a Package</h3>
+        <h3 className="text-sm font-semibold text-body mb-3">Check a Package</h3>
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
@@ -333,7 +333,7 @@ export default function SupplyChainFeed(): JSX.Element {
       {/* ── Ecosystem breakdown ─────────────────────────────────────── */}
       {!loading && Object.keys(ecoBreakdown).length > 0 && (
         <div className="mt-8 rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Ecosystem Breakdown</h3>
+          <h3 className="text-sm font-semibold text-body mb-3">Ecosystem Breakdown</h3>
           <div className="space-y-2">
             {Object.entries(ecoBreakdown)
               .sort((a, b) => b[1] - a[1])
@@ -395,9 +395,7 @@ function PackageCard({ entry }: { entry: FeedEntry }) {
       className="group flex items-center gap-2 rounded-xl border border-slate-150 bg-white px-3 py-2 transition-all hover:border-rose-300/50 hover:shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-rose-500/30"
     >
       <ShieldOff size={12} className="text-rose-400 shrink-0 group-hover:text-rose-500" />
-      <span className="font-mono text-xs font-medium text-slate-800 dark:text-slate-200 truncate flex-1">
-        {entry.name}
-      </span>
+      <span className="font-mono text-xs font-medium text-heading truncate flex-1">{entry.name}</span>
       <span
         className={`shrink-0 rounded px-1.5 py-0.5 text-micro font-mono ${meta?.color ?? 'bg-slate-100 text-slate-600'}`}
       >

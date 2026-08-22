@@ -316,7 +316,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
                         href={`https://insiderthreatmatrix.org${t.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-body hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                         title={`View on Insider Threat Matrix - ${t.name}`}
                       >
                         <span className="text-micro text-muted">{t.id}</span>

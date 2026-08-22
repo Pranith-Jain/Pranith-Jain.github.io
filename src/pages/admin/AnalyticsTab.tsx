@@ -97,17 +97,14 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
   }
 
   const inputCls =
-    'w-28 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50';
+    'w-28 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50';
 
   return (
     <section
       aria-labelledby="manual-metrics-heading"
       className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
     >
-      <h2
-        id="manual-metrics-heading"
-        className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3"
-      >
+      <h2 id="manual-metrics-heading" className="text-sm font-semibold uppercase tracking-wider text-body mb-3">
         Add / update metrics manually
       </h2>
       <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">
@@ -127,7 +124,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
               disabled={busy}
               aria-label="Post slug"
               required
-              className="w-44 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-44 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
 
@@ -141,7 +138,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
               onChange={(e) => set('platform', e.target.value as MetricsFormState['platform'])}
               disabled={busy}
               aria-label="Platform"
-              className="px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
             >
               <option value="linkedin">LinkedIn</option>
               <option value="instagram">Instagram</option>
@@ -190,7 +187,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
             placeholder="https://www.linkedin.com/posts/…"
             disabled={busy}
             aria-label="Post URL"
-            className="w-full max-w-sm px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+            className="w-full max-w-sm px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
           />
         </label>
 
@@ -198,7 +195,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
           <button
             type="submit"
             disabled={busy}
-            className="px-4 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
+            className="px-4 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy ? 'Saving…' : 'Save metrics'}
           </button>
@@ -220,10 +217,7 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
 
   return (
     <section aria-labelledby="by-type-heading">
-      <h2
-        id="by-type-heading"
-        className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3"
-      >
+      <h2 id="by-type-heading" className="text-sm font-semibold uppercase tracking-wider text-body mb-3">
         What performs - by content type
       </h2>
       <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -234,9 +228,7 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
                 key: 'type',
                 header: 'Type',
                 sortValue: (row: (typeof rows)[number]) => row.type,
-                render: (row) => (
-                  <span className="font-mono text-xs uppercase text-slate-700 dark:text-slate-300">{row.type}</span>
-                ),
+                render: (row) => <span className="font-mono text-xs uppercase text-body">{row.type}</span>,
               },
               {
                 key: 'posts',
@@ -253,9 +245,7 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
                 render: (row) => (
                   <div className="flex items-center justify-end gap-2">
                     <EngagementBar value={row.avgEngagement} max={maxAvg} />
-                    <span className="text-slate-900 dark:text-slate-100 tabular-nums">
-                      {row.avgEngagement.toFixed(1)}
-                    </span>
+                    <span className="text-heading tabular-nums">{row.avgEngagement.toFixed(1)}</span>
                   </div>
                 ),
               },
@@ -264,22 +254,14 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
                 header: 'Total engagement',
                 align: 'right',
                 sortValue: (row: (typeof rows)[number]) => row.totalEngagement,
-                render: (row) => (
-                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
-                    {row.totalEngagement.toLocaleString()}
-                  </span>
-                ),
+                render: (row) => <span className="tabular-nums text-body">{row.totalEngagement.toLocaleString()}</span>,
               },
               {
                 key: 'totalImpressions',
                 header: 'Total impressions',
                 align: 'right',
                 sortValue: (row: (typeof rows)[number]) => row.totalImpressions,
-                render: (row) => (
-                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
-                    {fmtNum(row.totalImpressions)}
-                  </span>
-                ),
+                render: (row) => <span className="tabular-nums text-body">{fmtNum(row.totalImpressions)}</span>,
               },
             ] as DataTableColumn<(typeof rows)[number]>[]
           }
@@ -297,10 +279,7 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
 function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
   return (
     <section aria-labelledby="posts-heading">
-      <h2
-        id="posts-heading"
-        className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3"
-      >
+      <h2 id="posts-heading" className="text-sm font-semibold uppercase tracking-wider text-body mb-3">
         Per-post breakdown
       </h2>
       <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -316,7 +295,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                     href={`/blog/${p.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors"
+                    className="font-mono text-xs text-body hover:underline transition-colors"
                     aria-label={`Open blog post ${p.slug}`}
                   >
                     {p.slug}
@@ -334,11 +313,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                 header: 'Engagement',
                 align: 'right',
                 sortValue: (p: (typeof posts)[number]) => p.engagement,
-                render: (p) => (
-                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
-                    {p.engagement.toLocaleString()}
-                  </span>
-                ),
+                render: (p) => <span className="tabular-nums text-body">{p.engagement.toLocaleString()}</span>,
               },
               {
                 key: 'likes',
@@ -346,9 +321,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                 align: 'right',
                 sortValue: (p: (typeof posts)[number]) => p.metrics.likes ?? 0,
                 render: (p) => (
-                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
-                    {(p.metrics.likes ?? 0).toLocaleString()}
-                  </span>
+                  <span className="tabular-nums text-body">{(p.metrics.likes ?? 0).toLocaleString()}</span>
                 ),
               },
               {
@@ -357,9 +330,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                 align: 'right',
                 sortValue: (p: (typeof posts)[number]) => p.metrics.reposts ?? 0,
                 render: (p) => (
-                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
-                    {(p.metrics.reposts ?? 0).toLocaleString()}
-                  </span>
+                  <span className="tabular-nums text-body">{(p.metrics.reposts ?? 0).toLocaleString()}</span>
                 ),
               },
               {
@@ -368,9 +339,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                 align: 'right',
                 sortValue: (p: (typeof posts)[number]) => p.metrics.replies ?? 0,
                 render: (p) => (
-                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
-                    {(p.metrics.replies ?? 0).toLocaleString()}
-                  </span>
+                  <span className="tabular-nums text-body">{(p.metrics.replies ?? 0).toLocaleString()}</span>
                 ),
               },
               {
@@ -378,11 +347,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                 header: 'Impressions',
                 align: 'right',
                 sortValue: (p: (typeof posts)[number]) => p.metrics.impressions ?? 0,
-                render: (p) => (
-                  <span className="tabular-nums text-slate-700 dark:text-slate-300">
-                    {fmtNum(p.metrics.impressions ?? 0)}
-                  </span>
-                ),
+                render: (p) => <span className="tabular-nums text-body">{fmtNum(p.metrics.impressions ?? 0)}</span>,
               },
               {
                 key: 'link',

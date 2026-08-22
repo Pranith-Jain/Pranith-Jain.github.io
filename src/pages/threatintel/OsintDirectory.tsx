@@ -157,7 +157,7 @@ export default function OsintDirectory(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} portals\u2026`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex gap-2">
@@ -236,7 +236,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
+      <div className="text-lg font-semibold text-heading truncate">{value}</div>
     </div>
   );
 }
@@ -251,7 +251,7 @@ function PortalCard({ portal }: { portal: OsintPortalEntry }) {
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-semibold text-slate-900 dark:text-slate-100 truncate">{portal.name}</span>
+            <span className="font-semibold text-heading truncate">{portal.name}</span>
             <span className={`text-xs px-2 py-0.5 rounded-full border ${badgeColor}`}>
               {CATEGORY_LABELS[portal.category] ?? portal.category}
             </span>

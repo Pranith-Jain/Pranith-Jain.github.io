@@ -156,7 +156,7 @@ export default function ArgusPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search actors, CVEs, TTPs, malware…"
-            className="w-full h-9 pl-9 pr-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-rose-500/50 dark:focus:border-rose-400/50 transition-colors"
+            className="w-full h-9 pl-9 pr-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-tool text-heading placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-rose-500/50 dark:focus:border-rose-400/50 transition-colors"
           />
         </div>
 

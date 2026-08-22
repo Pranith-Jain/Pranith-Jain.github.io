@@ -202,7 +202,7 @@ export default function IocPivot(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Pivot Graph</h1>
         <p className="text-muted mb-6 max-w-2xl">
@@ -219,7 +219,7 @@ export default function IocPivot(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder="IP · domain · URL · file hash"
             aria-label="Indicator"
-            className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <button

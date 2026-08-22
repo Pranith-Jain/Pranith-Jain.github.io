@@ -76,7 +76,7 @@ function EntityNodeBox({
           {data.nodeType}
         </span>
       </div>
-      <div className="text-slate-900 dark:text-slate-100 break-words leading-tight text-mini">{data.label}</div>
+      <div className="text-heading break-words leading-tight text-mini">{data.label}</div>
       {data.subtitle && <div className="text-micro text-muted mt-0.5 truncate">{data.subtitle}</div>}
       <Handle type="source" position={Position.Bottom} style={{ background: color }} />
     </div>

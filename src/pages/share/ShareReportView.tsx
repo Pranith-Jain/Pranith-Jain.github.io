@@ -8,7 +8,23 @@
  */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ShieldAlert, Bug, Crosshair, FileWarning, Building2, Clock, ExternalLink, Lock } from 'lucide-react';
+import { Crosshair, FileWarning, Building2, Clock, ExternalLink, Lock } from 'lucide-react';
+
+const IOC_LABELS: Record<string, string> = {
+  ipv4: 'IPv4',
+  ipv6: 'IPv6',
+  domain: 'Domains',
+  url: 'URLs',
+  sha256: 'SHA-256',
+  sha1: 'SHA-1',
+  md5: 'MD5',
+  email: 'Email Addresses',
+  mutex: 'Mutexes',
+  registry_key: 'Registry Keys',
+  file_path_windows: 'Windows Paths',
+  file_path_unix: 'Unix Paths',
+  cve: 'CVEs',
+};
 
 interface Branding {
   orgName?: string;
@@ -22,20 +38,18 @@ interface SharedPayload {
   title: string;
   source_url?: string | null;
   report: {
-    summary?: string;
-    iocs?: {
-      ipv4?: string[];
-      ipv6?: string[];
-      domains?: string[];
-      urls?: string[];
-      hashes?: { md5?: string[]; sha1?: string[]; sha256?: string[] };
-    };
-    threat_actors?: Array<{ name: string; confidence?: string; context?: string }>;
-    malware?: Array<{ name: string; confidence?: string; context?: string }>;
-    mitre_techniques?: Array<{ id: string; name?: string; context?: string }>;
-    cves?: Array<{ id: string; context?: string }>;
-    sectors?: string[];
-    affected_products?: Array<{ vendor?: string; product: string }>;
+    /** Analyzer emits { text, model } — older rows may hold a bare string. */
+    summary?: string | { text: string; model: string } | null;
+    /** Flat list of extracted observables (value/kind/confidence/evidence). */
+    iocs?: Array<{
+      value: string;
+      kind: string;
+      confidence?: number;
+      confidence_band?: string;
+      evidence?: string;
+    }>;
+    ttp?: Array<{ id: string; name: string; tactic: string; confidence?: string; evidence?: string }>;
+    cves?: Array<{ id: string; context?: string; cvss_v3?: number; cvss_severity?: string }>;
   } | null;
   branding: Branding | null;
   counts: { iocs: number; ttps: number; cves: number; textLength: number };
@@ -52,7 +66,7 @@ const CLASSIFICATION_COLORS: Record<string, string> = {
 
 function Chip({ children, tone = 'slate' }: { children: React.ReactNode; tone?: string }): JSX.Element {
   const tones: Record<string, string> = {
-    slate: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300',
+    slate: 'bg-slate-100 dark:bg-slate-800 text-body',
     red: 'bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300',
     amber: 'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
     violet: 'bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300',
@@ -125,6 +139,16 @@ export default function ShareReportView(): JSX.Element {
   const b = data.branding ?? {};
   const accent = /^#[0-9a-fA-F]{6}$/.test(b.accent ?? '') ? (b.accent as string) : '#4f46e5';
   const r = data.report;
+
+  // Group the flat ExtractedIoc list by kind for the IOC section. The
+  // analyzer emits a flat array — the old Fleet-style nested shape never
+  // existed server-side.
+  const iocGroups: Record<string, string[]> = {};
+  for (const ioc of (data.report?.iocs ?? []) as Array<{ value?: string; kind?: string }>) {
+    if (!ioc?.value || !ioc.kind) continue;
+    (iocGroups[ioc.kind] ??= []).push(ioc.value);
+  }
+
   const cls = b.classification?.toUpperCase().replace(/\s/g, '') ?? '';
   const clsColor =
     Object.entries(CLASSIFICATION_COLORS).find(([k]) => cls.startsWith(k.replace('TLP:', '')))?.[1] ??
@@ -195,63 +219,23 @@ export default function ShareReportView(): JSX.Element {
             <h2 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
               <FileWarning size={15} style={{ color: accent }} /> Executive Summary
             </h2>
-            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{r.summary}</p>
+            <p className="text-sm leading-relaxed text-body">
+              {typeof r.summary === 'string' ? r.summary : (r.summary?.text ?? '')}
+            </p>
           </section>
         )}
 
-        {/* Actors + malware */}
-        {r?.threat_actors?.length || r?.malware?.length ? (
-          <section className="grid gap-4 md:grid-cols-2">
-            {r.threat_actors && r.threat_actors.length > 0 && (
-              <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
-                <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
-                  <ShieldAlert size={15} style={{ color: accent }} /> Threat Actors
-                </h2>
-                <ul className="space-y-2">
-                  {r.threat_actors.map((a) => (
-                    <li key={a.name}>
-                      <span className="font-medium">{a.name}</span>{' '}
-                      {a.confidence && (
-                        <Chip tone={a.confidence === 'high' ? 'red' : a.confidence === 'medium' ? 'amber' : 'slate'}>
-                          {a.confidence}
-                        </Chip>
-                      )}
-                      {a.context && <p className="text-xs text-slate-500">{a.context}</p>}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {r.malware && r.malware.length > 0 && (
-              <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
-                <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
-                  <Bug size={15} style={{ color: accent }} /> Malware
-                </h2>
-                <ul className="space-y-2">
-                  {r.malware.map((m) => (
-                    <li key={m.name}>
-                      <span className="font-medium">{m.name}</span>{' '}
-                      {m.confidence && <Chip tone={m.confidence === 'high' ? 'red' : 'amber'}>{m.confidence}</Chip>}
-                      {m.context && <p className="text-xs text-slate-500">{m.context}</p>}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </section>
-        ) : null}
-
-        {/* MITRE techniques */}
-        {r?.mitre_techniques && r.mitre_techniques.length > 0 && (
+        {/* ATT&CK techniques */}
+        {r?.ttp && r.ttp.length > 0 && (
           <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
               <Crosshair size={15} style={{ color: accent }} /> MITRE ATT&CK Techniques
             </h2>
             <ul className="space-y-1.5">
-              {r.mitre_techniques.map((t) => (
-                <li key={t.id} className="font-mono text-sm">
-                  <span className="text-indigo-500">{t.id}</span> {t.name ?? ''}
-                  {t.context && <span className="ml-2 text-xs text-slate-500">— {t.context.slice(0, 120)}</span>}
+              {r.ttp.map((t) => (
+                <li key={t.id + t.name} className="font-mono text-sm">
+                  <span className="text-indigo-500">{t.id}</span> {t.name}
+                  {t.tactic && <span className="ml-2 text-xs text-slate-500">— {t.tactic}</span>}
                 </li>
               ))}
             </ul>
@@ -266,53 +250,28 @@ export default function ShareReportView(): JSX.Element {
               {r.cves.map((c) => (
                 <Chip key={c.id} tone="amber">
                   {c.id}
+                  {c.cvss_severity ? ` · ${c.cvss_severity}` : ''}
                 </Chip>
               ))}
             </div>
           </section>
         )}
 
-        {/* IOC block */}
-        {r?.iocs && (
+        {/* IOC block — grouped by kind from the flat ExtractedIoc list */}
+        {Object.keys(iocGroups).length > 0 && (
           <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
             <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Indicators of Compromise</h2>
-            <IocSection label="IPv4" values={r.iocs.ipv4} />
-            <IocSection label="IPv6" values={r.iocs.ipv6} />
-            <IocSection label="Domains" values={r.iocs.domains} tone="sky" />
-            <IocSection label="URLs" values={r.iocs.urls} tone="sky" />
-            {r.iocs.hashes && (
-              <>
-                <IocSection label="SHA-256" values={r.iocs.hashes.sha256} tone="red" />
-                <IocSection label="SHA-1" values={r.iocs.hashes.sha1} />
-                <IocSection label="MD5" values={r.iocs.hashes.md5} />
-              </>
-            )}
-          </section>
-        )}
-
-        {/* Sectors + products */}
-        {((r?.sectors?.length ?? 0) > 0 || (r?.affected_products?.length ?? 0) > 0) && (
-          <section className="grid gap-4 md:grid-cols-2">
-            {(r?.sectors?.length ?? 0) > 0 && (
-              <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
-                <h2 className="mb-2 text-sm font-bold uppercase tracking-wider text-slate-500">Targeted Sectors</h2>
-                <div className="flex flex-wrap gap-1.5">
-                  {(r?.sectors ?? []).map((s) => (
-                    <Chip key={s}>{s}</Chip>
-                  ))}
-                </div>
-              </div>
-            )}
-            {(r?.affected_products?.length ?? 0) > 0 && (
-              <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
-                <h2 className="mb-2 text-sm font-bold uppercase tracking-wider text-slate-500">Affected Products</h2>
-                <div className="flex flex-wrap gap-1.5">
-                  {(r?.affected_products ?? []).map((p, i) => (
-                    <Chip key={i}>{[p.vendor, p.product].filter(Boolean).join(' ')}</Chip>
-                  ))}
-                </div>
-              </div>
-            )}
+            {(Object.entries(IOC_LABELS) as Array<[string, string]>).map(([kind, label]) => {
+              const values = iocGroups[kind];
+              if (!values || values.length === 0) return null;
+              const tone =
+                kind === 'sha256' || kind === 'sha1' || kind === 'md5'
+                  ? 'red'
+                  : kind === 'domain' || kind === 'url'
+                    ? 'sky'
+                    : undefined;
+              return <IocSection key={kind} label={label} values={values} tone={tone} />;
+            })}
           </section>
         )}
 

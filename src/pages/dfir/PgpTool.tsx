@@ -118,7 +118,7 @@ export default function PgpTool() {
         back
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
-        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">PGP Tool</h1>
+        <h1 className="font-display font-bold text-2xl text-heading">PGP Tool</h1>
         <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
           Encrypt · Decrypt · Sign · Verify
         </span>
@@ -137,7 +137,7 @@ export default function PgpTool() {
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               mode === m.key
                 ? 'bg-brand-600 text-white border-brand-600'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-brand-500'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-500'
             }`}
           >
             {m.label}
@@ -155,7 +155,7 @@ export default function PgpTool() {
                   value={publicKey}
                   onChange={(e) => setPublicKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
                   placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
                 />
               </label>
@@ -169,7 +169,7 @@ export default function PgpTool() {
                   value={privateKey}
                   onChange={(e) => setPrivateKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
                   placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"
                 />
               </label>
@@ -183,7 +183,7 @@ export default function PgpTool() {
                   type="password"
                   value={passphrase}
                   onChange={(e) => setPassphrase(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
                   placeholder="Private key passphrase"
                 />
               </label>
@@ -201,7 +201,7 @@ export default function PgpTool() {
                 type="password"
                 value={passphrase}
                 onChange={(e) => setPassphrase(e.target.value)}
-                className="w-full max-w-md rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                className="w-full max-w-md rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
                 placeholder="Protect private key with passphrase"
               />
             </label>
@@ -232,7 +232,7 @@ export default function PgpTool() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={6}
-              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading"
               placeholder="Paste input here..."
             />
           </div>
@@ -276,7 +276,7 @@ export default function PgpTool() {
               readOnly
               value={output}
               rows={8}
-              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
             />
           </label>
           <button

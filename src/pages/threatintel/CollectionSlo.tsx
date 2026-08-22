@@ -103,7 +103,7 @@ export default function CollectionSlo(): JSX.Element {
                 {data.rows
                   .filter((s) => s.status === 'down')
                   .map((s) => (
-                    <p key={s.id} className="text-mini text-slate-700 dark:text-slate-300">
+                    <p key={s.id} className="text-mini text-body">
                       <span className="font-mono">{s.label}</span> - {s.reason}
                     </p>
                   ))}

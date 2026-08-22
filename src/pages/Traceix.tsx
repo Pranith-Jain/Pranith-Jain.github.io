@@ -147,15 +147,15 @@ export default function Traceix() {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Summary</h2>
               <div className="flex gap-6">
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{safeCount}</div>
+                  <div className="text-2xl font-bold text-heading">{safeCount}</div>
                   <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Safe</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{maliciousCount}</div>
+                  <div className="text-2xl font-bold text-heading">{maliciousCount}</div>
                   <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Malicious</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.avResults.length}</div>
+                  <div className="text-2xl font-bold text-heading">{data.avResults.length}</div>
                   <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Engines</div>
                 </div>
               </div>
@@ -173,9 +173,7 @@ export default function Traceix() {
                         key: 'engine',
                         header: 'Engine',
                         sortValue: (r) => r.engine,
-                        render: (r) => (
-                          <span className="text-sm text-slate-900 dark:text-slate-100 font-medium">{r.engine}</span>
-                        ),
+                        render: (r) => <span className="text-sm text-heading font-medium">{r.engine}</span>,
                       },
                       {
                         key: 'engine_type',

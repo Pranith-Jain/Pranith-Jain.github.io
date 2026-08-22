@@ -211,7 +211,7 @@ export default function AgentMap(): JSX.Element {
           rows={10}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
         />
         {parseError && (
           <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">JSON parse error: {parseError}</p>
@@ -278,7 +278,7 @@ export default function AgentMap(): JSX.Element {
                       className="inline-block w-3 h-3 rounded-full"
                       style={{ backgroundColor: CAPABILITY_COLORS[c] }}
                     />
-                    <span className="text-slate-700 dark:text-slate-300">{CAPABILITY_LABELS[c]}</span>
+                    <span className="text-body">{CAPABILITY_LABELS[c]}</span>
                     <span className="ml-auto text-muted">{graph.capCounts[c]}</span>
                   </li>
                 ))}
@@ -303,7 +303,7 @@ export default function AgentMap(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.title}</span>
+                      <span className="font-display font-semibold text-heading">{r.title}</span>
                       <span
                         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[r.severity]}`}
                       >
@@ -311,7 +311,7 @@ export default function AgentMap(): JSX.Element {
                       </span>
                       <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{r.kind}</span>
                     </div>
-                    <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">{r.detail}</p>
+                    <p className="text-sm font-mono text-body mb-2">{r.detail}</p>
                     <div className="flex flex-wrap items-center gap-1.5 mb-2">
                       {r.nodes.map((id) => {
                         const t = graph.tools.find((x) => x.id === id);
@@ -344,7 +344,7 @@ export default function AgentMap(): JSX.Element {
                 {graph.tools.map((t) => (
                   <li key={t.id} className="text-meta font-mono">
                     <div className="flex flex-wrap items-baseline gap-2">
-                      <span className="font-semibold text-slate-900 dark:text-slate-100">{t.label}</span>
+                      <span className="font-semibold text-heading">{t.label}</span>
                       <span className="text-muted">[{t.origin}]</span>
                       {t.capabilities.length === 0 ? (
                         <span className="text-micro text-slate-400 dark:text-slate-400">no capability classified</span>

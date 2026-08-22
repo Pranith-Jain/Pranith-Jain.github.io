@@ -475,9 +475,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
 
           {profile.description && (
             <Section title="Overview">
-              <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
-                {profile.description}
-              </p>
+              <p className="text-sm leading-relaxed text-body whitespace-pre-wrap">{profile.description}</p>
             </Section>
           )}
 
@@ -486,14 +484,13 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
               <div className="space-y-3">
                 {ttps.map((t) => (
                   <div key={t.tactic_id ?? t.tactic_name}>
-                    <div className="text-meta font-mono font-semibold text-slate-800 dark:text-slate-200">
+                    <div className="text-meta font-mono font-semibold text-heading">
                       {t.tactic_id} · {t.tactic_name}
                     </div>
                     <ul className="mt-1 space-y-0.5">
                       {(t.techniques ?? []).map((tech, i) => (
                         <li key={`${tech.technique_id}-${i}`} className="text-meta text-muted">
-                          <span className="font-mono text-slate-700 dark:text-slate-300">{tech.technique_id}</span>{' '}
-                          {tech.technique_name}
+                          <span className="font-mono text-body">{tech.technique_id}</span> {tech.technique_name}
                           {tech.technique_details ? ` - ${tech.technique_details}` : ''}
                         </li>
                       ))}
@@ -571,9 +568,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
               <div className="space-y-2">
                 {toolCats.map(([cat, tools]) => (
                   <div key={cat}>
-                    <span className="text-mini font-mono font-semibold text-slate-700 dark:text-slate-300">
-                      {cat}:{' '}
-                    </span>
+                    <span className="text-mini font-mono font-semibold text-body">{cat}: </span>
                     <span className="text-meta text-muted">{tools.join(', ')}</span>
                   </div>
                 ))}
@@ -607,11 +602,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
                         key: 'victim',
                         header: 'Victim',
                         sortValue: (v: (typeof victims)[number]) => v.victim ?? '',
-                        render: (v) => (
-                          <span className="text-meta text-slate-700 dark:text-slate-300 break-all">
-                            {v.victim ?? '-'}
-                          </span>
-                        ),
+                        render: (v) => <span className="text-meta text-body break-all">{v.victim ?? '-'}</span>,
                       },
                       {
                         key: 'country',

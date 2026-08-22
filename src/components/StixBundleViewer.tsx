@@ -160,7 +160,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
   return (
     <div className="mt-4 mb-4 surface-card p-4">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
-        <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">STIX 2.1 Objects</span>
+        <span className="text-xs font-mono font-bold text-body">STIX 2.1 Objects</span>
         <span className="text-micro font-mono text-slate-500">{bundle.objects.length} total</span>
         <div className="flex gap-1.5 flex-wrap">
           {stats.map(({ type, count }) => (
@@ -210,9 +210,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
                   {expanded.has(obj.id) && (
                     <div className="px-3 pb-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-1.5 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
                       <div className="text-micro font-mono text-slate-500 break-all">ID: {obj.id}</div>
-                      {obj.description && (
-                        <div className="text-micro font-mono text-slate-700 dark:text-slate-300">{obj.description}</div>
-                      )}
+                      {obj.description && <div className="text-micro font-mono text-body">{obj.description}</div>}
                       {obj.pattern && (
                         <div className="text-micro font-mono text-amber-700 dark:text-amber-300 bg-amber-500/5 p-1.5 rounded break-all">
                           {obj.pattern}

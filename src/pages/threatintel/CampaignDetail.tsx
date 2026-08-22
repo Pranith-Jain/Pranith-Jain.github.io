@@ -162,7 +162,7 @@ export default function CampaignDetail(): JSX.Element {
 
   if (deleted) {
     return (
-      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-heading text-center">
         <Trash2 size={28} className="mx-auto text-muted mb-2" />
         <p className="text-sm font-mono text-slate-500 mb-3">Campaign deleted.</p>
         <Link
@@ -232,21 +232,19 @@ export default function CampaignDetail(): JSX.Element {
           {(data.input.actor || data.input.sector) && (
             <div className="flex flex-wrap gap-2 mb-4 text-mini font-mono">
               {data.input.actor && (
-                <span className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-0.5 text-slate-700 dark:text-slate-300">
+                <span className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-0.5 text-body">
                   actor: {data.input.actor}
                 </span>
               )}
               {data.input.sector && (
-                <span className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-0.5 text-slate-700 dark:text-slate-300">
+                <span className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-0.5 text-body">
                   sector: {data.input.sector}
                 </span>
               )}
             </div>
           )}
 
-          {data.campaign.summary && (
-            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">{data.campaign.summary}</p>
-          )}
+          {data.campaign.summary && <p className="text-sm text-body leading-relaxed mb-4">{data.campaign.summary}</p>}
 
           <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
             <ShareBar
@@ -262,9 +260,7 @@ export default function CampaignDetail(): JSX.Element {
           {data.campaign.actor_context && (
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">Actor context</h3>
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                {data.campaign.actor_context}
-              </p>
+              <p className="text-sm text-body leading-relaxed">{data.campaign.actor_context}</p>
             </div>
           )}
 
@@ -280,7 +276,7 @@ export default function CampaignDetail(): JSX.Element {
                     <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
                     </div>
-                    <div className="text-sm text-slate-700 dark:text-slate-300">{k.description}</div>
+                    <div className="text-sm text-body">{k.description}</div>
                   </li>
                 ))}
               </ol>
@@ -304,7 +300,7 @@ export default function CampaignDetail(): JSX.Element {
                     >
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}
-                    <span className="font-semibold text-slate-800 dark:text-slate-200">- {m.name}</span>
+                    <span className="font-semibold text-heading">- {m.name}</span>
                     <div className="text-mini font-mono text-slate-500 mt-0.5">{m.rationale}</div>
                   </li>
                 ))}
@@ -323,7 +319,7 @@ export default function CampaignDetail(): JSX.Element {
                     key={ioc}
                     className="flex items-center gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono"
                   >
-                    <span className="flex-1 truncate text-slate-700 dark:text-slate-300" title={ioc}>
+                    <span className="flex-1 truncate text-body" title={ioc}>
                       {ioc}
                     </span>
                     <Link
@@ -341,7 +337,7 @@ export default function CampaignDetail(): JSX.Element {
           {data.campaign.hunting_hypotheses.length > 0 && (
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Hunting hypotheses</h3>
-              <ul className="space-y-1.5 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+              <ul className="space-y-1.5 list-disc list-inside text-sm text-body">
                 {data.campaign.hunting_hypotheses.map((h) => (
                   <li key={h}>{h}</li>
                 ))}
@@ -358,7 +354,7 @@ export default function CampaignDetail(): JSX.Element {
                 {data.campaign.detection_opportunities.map((d) => (
                   <li
                     key={d}
-                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 text-slate-700 dark:text-slate-300"
+                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 text-body"
                   >
                     {d}
                   </li>
@@ -374,7 +370,7 @@ export default function CampaignDetail(): JSX.Element {
                 {data.campaign.iocs_to_pivot.map((i, idx) => (
                   <li
                     key={idx}
-                    className="text-sm rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-slate-700 dark:text-slate-300"
+                    className="text-sm rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-body"
                   >
                     {i}
                   </li>

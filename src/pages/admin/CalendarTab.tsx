@@ -209,7 +209,7 @@ export default function CalendarTab() {
                     </span>
                   </div>
                   {slot.title && (
-                    <p className="text-xs text-slate-700 dark:text-slate-300 truncate" title={slot.title}>
+                    <p className="text-xs text-body truncate" title={slot.title}>
                       {slot.title}
                     </p>
                   )}
@@ -226,7 +226,7 @@ export default function CalendarTab() {
                       />
                       <span className="text-micro font-mono text-emerald-500">published</span>
                     </div>
-                    <p className="text-xs text-slate-700 dark:text-slate-300 truncate" title={pub.title}>
+                    <p className="text-xs text-body truncate" title={pub.title}>
                       {pub.title}
                     </p>
                     <span className="text-micro font-mono text-slate-400">{pub.type}</span>

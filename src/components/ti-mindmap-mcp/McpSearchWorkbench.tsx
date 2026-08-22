@@ -294,7 +294,7 @@ export function McpSearchWorkbench(props: {
       <div className={props.compact ? '' : 'p-4'}>
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          <h3 className="text-sm font-semibold text-heading">
             {props.compact ? 'Quick MCP search' : 'TI-Mindmap-Hub Search'}
           </h3>
           <span className="ml-auto text-micro font-mono uppercase text-slate-500">via MCP · 25 tools</span>
@@ -313,7 +313,7 @@ export function McpSearchWorkbench(props: {
                 key={m}
                 type="button"
                 onClick={() => setMode(m)}
-                className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
+                className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
               >
                 {m}
               </button>
@@ -325,7 +325,7 @@ export function McpSearchWorkbench(props: {
             onChange={(e) => setQ(e.target.value)}
             disabled={mode === 'briefing'}
             placeholder={placeholders[mode]}
-            className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200 disabled:opacity-50"
+            className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 font-mono text-sm text-heading disabled:opacity-50"
             autoComplete="off"
             spellCheck={false}
           />
@@ -348,7 +348,7 @@ export function McpSearchWorkbench(props: {
                 setReportDetail(null);
                 setReportSummary(null);
               }}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs text-slate-600 dark:text-slate-300"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs text-body"
               aria-label="Clear results"
             >
               <X className="h-3.5 w-3.5" />
@@ -438,15 +438,15 @@ export function McpSearchWorkbench(props: {
                 <span>
                   {hasFilters ? (
                     <>
-                      <span className="text-slate-800 dark:text-slate-200 font-medium">{filteredCount}</span> of{' '}
-                      <span className="text-slate-800 dark:text-slate-200">{totalCount}</span> reports
+                      <span className="text-heading font-medium">{filteredCount}</span> of{' '}
+                      <span className="text-heading">{totalCount}</span> reports
                       {typeof apiTotal === 'number' && apiTotal > totalCount && (
                         <span className="text-muted"> (of {apiTotal} total)</span>
                       )}
                     </>
                   ) : (
                     <>
-                      <span className="text-slate-800 dark:text-slate-200 font-medium">{totalCount}</span> reports
+                      <span className="text-heading font-medium">{totalCount}</span> reports
                       {typeof apiTotal === 'number' && apiTotal > totalCount && (
                         <span className="text-muted"> (of {apiTotal} total)</span>
                       )}
@@ -513,7 +513,7 @@ export function McpSearchWorkbench(props: {
                   setQ(text);
                   void run(text);
                 }}
-                className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 text-micro font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400"
+                className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 text-micro font-mono text-body hover:border-brand-400"
                 title={h}
               >
                 {h}
@@ -588,9 +588,7 @@ function IocHitCard({
           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300">
             IOC
           </span>
-          <span className="text-sm font-mono font-semibold text-slate-800 dark:text-slate-200 truncate">
-            {hit.ioc_value}
-          </span>
+          <span className="text-sm font-mono font-semibold text-heading truncate">{hit.ioc_value}</span>
           {hit.ioc_type && (
             <span className="shrink-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-micro font-mono text-slate-500">
               {hit.ioc_type}
@@ -635,17 +633,17 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex items-center gap-2 min-w-0">
           <Shield className="h-4 w-4 text-orange-500 shrink-0" />
-          <span className="text-sm font-mono font-semibold text-slate-800 dark:text-slate-200">{hit.cve_id}</span>
+          <span className="text-sm font-mono font-semibold text-heading">{hit.cve_id}</span>
           {hit.severity && <SeverityBadge severity={hit.severity} />}
         </div>
         <div className="flex items-center gap-2 shrink-0">
           {typeof hit.cvss_score === 'number' && (
-            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body">
               CVSS {hit.cvss_score.toFixed(1)}
             </span>
           )}
           {typeof hit.epss_score === 'number' && (
-            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body">
               EPSS {(hit.epss_score * 100).toFixed(1)}%
             </span>
           )}
@@ -657,9 +655,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
         </div>
       </div>
       <div className="p-3 space-y-2">
-        {hit.description && (
-          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{hit.description}</p>
-        )}
+        {hit.description && <p className="text-xs text-body leading-relaxed">{hit.description}</p>}
         {(hit.affected_products?.length ?? 0) > 0 && (
           <div>
             <p className="text-micro font-mono uppercase text-slate-500 mb-1">affected</p>
@@ -725,7 +721,7 @@ function ReportsHitCard({
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex items-center gap-2">
           <FileText className="h-4 w-4 text-brand-500" />
-          <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">Reports</span>
+          <span className="text-xs font-semibold text-heading">Reports</span>
           <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950/40 text-brand-700 dark:text-brand-300">
             {reports.length}
           </span>
@@ -779,7 +775,7 @@ function ReportDetailPanel({
     <div className="mt-2 rounded border border-brand-200 dark:border-brand-800 bg-white dark:bg-[rgb(var(--surface-200))] p-3 space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold text-slate-900 dark:text-slate-100 line-clamp-2">{report.title || rid}</p>
+          <p className="text-xs font-semibold text-heading line-clamp-2">{report.title || rid}</p>
           <div className="flex flex-wrap items-center gap-2 mt-1 text-micro font-mono text-muted">
             {report.source && <span>{report.source}</span>}
             {report.published_at && <span>· {report.published_at}</span>}
@@ -865,7 +861,7 @@ function BriefingsHitCard({ briefings }: { briefings: BriefingSummary[] }): JSX.
   return (
     <div className="surface-card overflow-hidden">
       <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">Briefings</span>
+        <span className="text-xs font-semibold text-heading">Briefings</span>
         <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300">
           {briefings.length}
         </span>
@@ -885,7 +881,7 @@ function BriefingInline({ hit }: { hit: BriefingSummary }): JSX.Element {
   return (
     <div className="flex items-start gap-2">
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
+        <p className="text-xs font-medium text-heading">{hit.title ?? hit.briefing_id}</p>
         <p className="text-micro font-mono uppercase text-muted">
           {hit.type ?? 'briefing'} · {hit.date ?? '-'}
         </p>
@@ -898,7 +894,7 @@ function BriefingInline({ hit }: { hit: BriefingSummary }): JSX.Element {
 function BriefingRow({ hit }: { hit: BriefingSummary }): JSX.Element {
   return (
     <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
-      <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
+      <p className="text-xs font-medium text-heading">{hit.title ?? hit.briefing_id}</p>
       <p className="text-micro font-mono uppercase text-muted">
         {hit.type ?? 'briefing'} · {hit.date ?? '-'}
       </p>
@@ -931,9 +927,7 @@ function ReportRow({
       }`}
     >
       <div className="flex items-start justify-between gap-2">
-        <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2 flex-1 min-w-0">
-          {r.title ?? id}
-        </p>
+        <p className="text-xs font-medium text-heading line-clamp-2 flex-1 min-w-0">{r.title ?? id}</p>
         {sourceUrl && (
           <a
             href={sourceUrl}

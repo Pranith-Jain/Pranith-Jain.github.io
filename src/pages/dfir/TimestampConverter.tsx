@@ -54,7 +54,7 @@ export default function TimestampConverter(): JSX.Element {
   }, [val, setSearchParams]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=file-analysis"
@@ -98,7 +98,7 @@ export default function TimestampConverter(): JSX.Element {
         {rows.map((r, i) => (
           <li key={i} className="surface-card p-3">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{r.label}</div>
-            <div className="font-mono text-sm text-slate-900 dark:text-slate-100">{r.iso}</div>
+            <div className="font-mono text-sm text-heading">{r.iso}</div>
             <div className="font-mono text-mini text-slate-500">{new Date(r.iso).toUTCString()}</div>
           </li>
         ))}

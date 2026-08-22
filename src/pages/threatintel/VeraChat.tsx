@@ -735,9 +735,7 @@ export default function VeraChat(): JSX.Element {
             {hasMessages ? (
               <>
                 <MessageSquare size={14} className="shrink-0 text-rose-500" />
-                <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-200">
-                  {currentTitle ?? 'Vera'}
-                </span>
+                <span className="truncate text-sm font-medium text-body">{currentTitle ?? 'Vera'}</span>
                 <span className="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
                   {chatMessages.length} msgs
                 </span>
@@ -1376,7 +1374,7 @@ function SessionSidebar({
         }`}
       >
         <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-[rgb(var(--border-400))]">
-          <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Conversations</h2>
+          <h2 className="text-sm font-semibold text-body">Conversations</h2>
           <div className="flex items-center gap-1">
             <button
               type="button"
@@ -1416,7 +1414,7 @@ function SessionSidebar({
               >
                 <MessageSquare size={14} className="shrink-0 text-muted" />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{s.title}</div>
+                  <div className="truncate text-sm font-medium text-body">{s.title}</div>
                   <div className="flex items-center gap-2 text-mini font-mono text-muted">
                     <Clock size={10} />
                     <span>{formatTime(s.updated_at)}</span>

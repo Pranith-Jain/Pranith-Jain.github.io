@@ -224,10 +224,10 @@ export default function Workspaces() {
             {selected.description && <p className="text-sm font-mono text-muted max-w-2xl">{selected.description}</p>}
             <div className="flex flex-wrap items-center gap-3 mt-2 text-meta font-mono text-muted">
               <span>
-                Target: <span className="text-slate-900 dark:text-slate-100">{selected.target || 'N/A'}</span>
+                Target: <span className="text-heading">{selected.target || 'N/A'}</span>
               </span>
               <span>
-                Type: <span className="text-slate-900 dark:text-slate-100 capitalize">{selected.targetType}</span>
+                Type: <span className="text-heading capitalize">{selected.targetType}</span>
               </span>
             </div>
           </div>
@@ -261,9 +261,7 @@ export default function Workspaces() {
                     ) : (
                       <phase.icon className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-muted'} shrink-0`} />
                     )}
-                    <span className={isCurrent ? 'text-slate-900 dark:text-slate-100' : 'text-muted'}>
-                      {phase.label}
-                    </span>
+                    <span className={isCurrent ? 'text-heading' : 'text-muted'}>{phase.label}</span>
                   </div>
                   {i < PHASES.length - 1 && (
                     <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-400 mx-0.5 shrink-0" />
@@ -466,9 +464,7 @@ export default function Workspaces() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
-                      {ws.title}
-                    </h3>
+                    <h3 className="font-display font-semibold text-sm text-heading truncate">{ws.title}</h3>
                     <span
                       className={`text-micro font-mono font-semibold px-1.5 py-0.5 rounded border ${SEV[ws.exposureLabel] || SEV.Unknown}`}
                     >

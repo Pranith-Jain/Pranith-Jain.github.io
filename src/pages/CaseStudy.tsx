@@ -76,7 +76,7 @@ export default function CaseStudy(): JSX.Element {
   if (!study) return <Navigate to="/projects" replace />;
 
   return (
-    <div className="max-w-3xl mx-auto text-slate-900 dark:text-slate-100">
+    <div className="max-w-3xl mx-auto text-heading">
       <script
         type="application/ld+json"
         // Article structured data for richer SERP cards. All fields are our own
@@ -114,7 +114,7 @@ export default function CaseStudy(): JSX.Element {
         <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted">{study.kicker}</div>
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 mt-4">
-          <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
+          <span className="font-medium text-body">Pranith Jain</span>
           <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
             ·
           </span>
@@ -141,7 +141,7 @@ export default function CaseStudy(): JSX.Element {
             {study.outcome.split(' · ').map((metric) => (
               <span
                 key={metric}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono font-medium text-slate-700 dark:text-slate-200"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono font-medium text-body"
               >
                 {metric}
               </span>
@@ -177,7 +177,7 @@ export default function CaseStudy(): JSX.Element {
           // (not installed). Covers what the case-study body actually uses:
           // h2/h3, paragraphs, ul/ol, code, blockquotes, strong, links.
           className={
-            'text-base sm:text-[17px] leading-relaxed text-slate-700 dark:text-slate-300 ' +
+            'text-base sm:text-[17px] leading-relaxed text-body ' +
             '[&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:tracking-tight ' +
             '[&_h3]:font-display [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_h3]:mt-6 [&_h3]:mb-2 ' +
             '[&_p]:mb-4 ' +

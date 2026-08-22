@@ -433,7 +433,7 @@ export default function PhishBook(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -523,10 +523,7 @@ export default function PhishBook(): JSX.Element {
                       </h3>
                       <div className="space-y-2">
                         {phase.decisionTree.map((d, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start gap-2 text-xs font-mono text-slate-700 dark:text-slate-300"
-                          >
+                          <div key={i} className="flex items-start gap-2 text-xs font-mono text-body">
                             <span
                               className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-micro font-bold ${
                                 d.includes('Yes') ||
@@ -619,7 +616,7 @@ export default function PhishBook(): JSX.Element {
                             <span className="text-micro font-mono font-bold text-slate-500">{q.language}</span>
                             <CopyButton value={q.code} title={`Copy ${q.language} query`} />
                           </div>
-                          <pre className="p-4 text-xs font-mono text-slate-700 dark:text-slate-300 overflow-x-auto leading-relaxed">
+                          <pre className="p-4 text-xs font-mono text-body overflow-x-auto leading-relaxed">
                             {q.code}
                           </pre>
                         </div>

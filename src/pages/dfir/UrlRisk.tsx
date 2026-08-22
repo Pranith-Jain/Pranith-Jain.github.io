@@ -245,9 +245,7 @@ export default function UrlRisk() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-lg font-bold text-slate-900 dark:text-slate-100 leading-none">
-                        {risk.risk_score}
-                      </span>
+                      <span className="text-lg font-bold text-heading leading-none">{risk.risk_score}</span>
                       <span className="text-micro font-mono text-slate-400">/100</span>
                     </div>
                   </div>
@@ -259,7 +257,7 @@ export default function UrlRisk() {
                     >
                       {risk.verdict}
                     </span>
-                    <p className="text-sm text-slate-900 dark:text-slate-100 font-mono break-all">{result.url}</p>
+                    <p className="text-sm text-heading font-mono break-all">{result.url}</p>
                     <p className="text-mini font-mono text-slate-400">
                       hostname {result.hostname}
                       {result.ip_address ? ` · resolved ${result.ip_address}` : ''}
@@ -280,9 +278,7 @@ export default function UrlRisk() {
               <div className="space-y-2.5">
                 {providerRows.map((p) => (
                   <div key={p.key} className="flex items-center gap-3">
-                    <span className="w-40 text-sm font-medium text-slate-900 dark:text-slate-100 flex-shrink-0">
-                      {p.label}
-                    </span>
+                    <span className="w-40 text-sm font-medium text-heading flex-shrink-0">{p.label}</span>
                     <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                       <div
                         className={`h-full rounded-full ${p.score > 0 ? 'bg-rose-500/70' : 'bg-emerald-500/50'}`}
@@ -329,10 +325,7 @@ export default function UrlRisk() {
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">Evidence Chain</h2>
                 <ul className="space-y-1.5">
                   {risk.evidence.map((line, i) => (
-                    <li
-                      key={`${i}-${line}`}
-                      className="text-xs font-mono text-slate-800 dark:text-slate-200 flex gap-2"
-                    >
+                    <li key={`${i}-${line}`} className="text-xs font-mono text-heading flex gap-2">
                       <span className="text-slate-400">›</span>
                       {line}
                     </li>

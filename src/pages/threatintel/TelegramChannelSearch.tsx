@@ -140,7 +140,7 @@ export default function TelegramChannelSearch(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="keyword (e.g. ransomware, stealer, APT)"
-          className="flex-1 min-w-[220px] px-3 py-2 surface-card text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+          className="flex-1 min-w-[220px] px-3 py-2 surface-card text-sm font-mono text-heading placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
           aria-label="Search keyword"
         />
         <button
@@ -199,9 +199,7 @@ export default function TelegramChannelSearch(): JSX.Element {
             <div key={r.handle} className="surface-card p-4">
               <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
                 <div className="min-w-0">
-                  <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 truncate">
-                    {r.name}
-                  </h3>
+                  <h3 className="font-display font-semibold text-base text-heading truncate">{r.name}</h3>
                   <code className="text-xs font-mono text-slate-500">@{r.handle}</code>
                   {r.category && (
                     <span className="ml-2 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
@@ -219,11 +217,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                 </div>
               </div>
 
-              {r.description && (
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-3 line-clamp-2">
-                  {r.description}
-                </p>
-              )}
+              {r.description && <p className="text-sm text-body leading-relaxed mb-3 line-clamp-2">{r.description}</p>}
 
               {r.linked_actors.length > 0 && (
                 <div className="mb-3 rounded border border-rose-500/30 bg-rose-500/5 p-3">
@@ -233,7 +227,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                   <ul className="space-y-1.5">
                     {r.linked_actors.map((a) => (
                       <li key={`${r.handle}:${a.actor_id}`} className="text-xs font-mono">
-                        <span className="font-semibold text-slate-800 dark:text-slate-200">{a.name}</span>
+                        <span className="font-semibold text-heading">{a.name}</span>
                         {a.country && <span className="ml-1 text-slate-500">· {a.country}</span>}
                         <span
                           className={`ml-2 text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${confidenceTone(a.confidence)}`}

@@ -92,9 +92,7 @@ export default function InvestigationHistory(): JSX.Element {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <Bot size={14} className="text-rose-600 dark:text-rose-400 shrink-0" />
-                  <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-                    {entry.query}
-                  </span>
+                  <span className="font-mono text-sm font-semibold text-heading truncate">{entry.query}</span>
                   <ExternalLink
                     size={12}
                     className="text-muted opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
@@ -111,7 +109,7 @@ export default function InvestigationHistory(): JSX.Element {
                     {entry.keyFindings.slice(0, 3).map((f, i) => (
                       <span
                         key={i}
-                        className="text-mini font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 truncate max-w-[200px]"
+                        className="text-mini font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-body truncate max-w-[200px]"
                       >
                         {f}
                       </span>

@@ -190,7 +190,7 @@ function StaleChunkFallback(): JSX.Element {
             </button>{' '}
             <a
               href="/"
-              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))] hover:bg-slate-300 dark:hover:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors inline-flex items-center gap-2 min-h-[44px]"
+              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))] hover:bg-slate-300 dark:hover:bg-[rgb(var(--surface-300))] text-body text-sm font-medium transition-colors inline-flex items-center gap-2 min-h-[44px]"
             >
               <Home className="w-4 h-4" />
               Go home
@@ -267,7 +267,7 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
             </button>
             <a
               href="/"
-              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))] hover:bg-slate-300 dark:hover:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 min-h-[44px]"
+              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))] hover:bg-slate-300 dark:hover:bg-[rgb(var(--surface-300))] text-body text-sm font-medium transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 min-h-[44px]"
             >
               <Home className="w-4 h-4" />
               Go Home
@@ -357,7 +357,7 @@ export function SectionErrorBoundary({ sectionName, children }: { sectionName: s
       fallback={
         <div className="w-full p-8 rounded-2xl bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] border border-slate-200 dark:border-white/10 text-center">
           <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-3" />
-          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">{sectionName} Section</h3>
+          <h3 className="text-lg font-bold text-heading mb-2">{sectionName} Section</h3>
           <p className="text-sm text-muted mb-4">This section encountered an error and couldn't load.</p>
           <p className="text-xs text-slate-400 dark:text-slate-400">The rest of the page is still functional.</p>
         </div>

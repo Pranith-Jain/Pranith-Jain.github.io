@@ -159,7 +159,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="font-mono text-micro uppercase tracking-wider text-muted">{label}</div>
-      <div className="font-mono text-sm text-slate-900 dark:text-slate-100 mt-0.5 break-all">{value}</div>
+      <div className="font-mono text-sm text-heading mt-0.5 break-all">{value}</div>
     </div>
   );
 }
@@ -209,7 +209,7 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
             {data.open_ports.map((p) => (
               <span
                 key={p}
-                className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300"
+                className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body"
               >
                 {p}
               </span>
@@ -548,7 +548,7 @@ export default function AssetIntel(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 text-heading">
       <BackLink to="/dfir">back</BackLink>
 
       <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Asset Intelligence</h1>
@@ -566,7 +566,7 @@ export default function AssetIntel(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="IP (8.8.8.8) or domain (example.com)"
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button

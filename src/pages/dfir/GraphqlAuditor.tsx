@@ -405,7 +405,7 @@ export default function GraphqlAuditor(): JSX.Element {
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>
                         <p className="text-meta font-mono text-slate-500 mt-2 break-all">{f.where}</p>
-                        <p className="text-tool text-slate-700 dark:text-slate-300 mt-2">
+                        <p className="text-tool text-body mt-2">
                           <span className="text-slate-500 font-mono text-mini uppercase tracking-wider">fix</span>{' '}
                           {f.fix}
                         </p>

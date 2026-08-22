@@ -77,9 +77,7 @@ function StatPills({ stats }: { stats: BriefingStats | undefined }) {
   if (!stats) return <span className="text-slate-600 dark:text-slate-500">-</span>;
   const empty = isEmpty(stats);
   return (
-    <span
-      className={`font-mono text-xs ${empty ? 'text-rose-700 dark:text-rose-300' : 'text-slate-700 dark:text-slate-300'}`}
-    >
+    <span className={`font-mono text-xs ${empty ? 'text-rose-700 dark:text-rose-300' : 'text-body'}`}>
       {num(stats.findings)} findings · {num(stats.iocs)} IOCs · {num(stats.cves)} CVEs · {num(stats.kevs)} KEVs
       {empty && (
         <span className="ml-2 px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-900/40 border border-rose-200 dark:border-rose-800">
@@ -229,7 +227,7 @@ export default function BriefingsTab() {
     <div className="space-y-6 max-w-4xl">
       {/* Build now */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Build now</h2>
+        <h2 className="text-lg font-semibold text-heading mb-1">Build now</h2>
         <p className="text-sm text-muted mb-4">
           Rebuilds the latest closed window for the chosen type and writes it (overwriting an empty row; a richer
           existing row is preserved). Runs in request context with a full subrequest budget - use this to recover a
@@ -242,7 +240,7 @@ export default function BriefingsTab() {
               key={t}
               onClick={() => build(t)}
               disabled={building !== null}
-              className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50 capitalize"
+              className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50 capitalize"
             >
               {building === t ? `Building ${t}…` : `Build ${t}`}
             </button>
@@ -272,7 +270,7 @@ export default function BriefingsTab() {
             >
               {buildResult.ok ? 'Built' : 'Done'}
             </span>{' '}
-            <code className="font-mono text-slate-700 dark:text-slate-300">{buildResult.slug}</code>
+            <code className="font-mono text-body">{buildResult.slug}</code>
             {buildResult.reason && <span className="text-slate-600 dark:text-slate-500"> - {buildResult.reason}</span>}
             <div className="mt-1">
               <StatPills stats={buildResult.stats} />
@@ -289,7 +287,7 @@ export default function BriefingsTab() {
 
       {/* Backfill */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Backfill</h2>
+        <h2 className="text-lg font-semibold text-heading mb-1">Backfill</h2>
         <p className="text-sm text-muted mb-4">
           Rebuilds the past N daily + M weekly windows. With <strong>force</strong> on, existing rows are overwritten
           (use after a builder fix); off, existing rows are skipped. <code>days=1</code> targets only yesterday&apos;s
@@ -307,7 +305,7 @@ export default function BriefingsTab() {
               value={days}
               onChange={(e) => setDays(Math.max(0, Math.min(21, Number(e.target.value) || 0)))}
               disabled={backfilling}
-              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <label className="block">
@@ -321,10 +319,10 @@ export default function BriefingsTab() {
               value={weeks}
               onChange={(e) => setWeeks(Math.max(0, Math.min(4, Number(e.target.value) || 0)))}
               disabled={backfilling}
-              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
-          <label className="flex items-center gap-2 pb-1.5 text-sm text-slate-700 dark:text-slate-300">
+          <label className="flex items-center gap-2 pb-1.5 text-sm text-body">
             <input
               type="checkbox"
               checked={force}
@@ -340,7 +338,7 @@ export default function BriefingsTab() {
             className={`px-4 py-1.5 rounded text-sm disabled:opacity-50 ${
               force
                 ? 'border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 hover:bg-rose-50 dark:hover:bg-rose-900/30'
-                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
             } transition-colors`}
           >
             {backfilling ? 'Backfilling…' : 'Run backfill'}
@@ -352,7 +350,7 @@ export default function BriefingsTab() {
           </div>
         )}
         {backfillResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300 space-y-1">
+          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-body space-y-1">
             <div>
               <span className="text-emerald-700 dark:text-emerald-300">written:</span> daily{' '}
               {backfillResult.daily.length}, weekly {backfillResult.weekly.length} ·{' '}
@@ -371,7 +369,7 @@ export default function BriefingsTab() {
 
       {/* Sweep */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Sweep old briefings</h2>
+        <h2 className="text-lg font-semibold text-heading mb-1">Sweep old briefings</h2>
         <p className="text-sm text-muted mb-4">
           Deletes briefings older than the retention window (clamped to the policy ceiling). Also runs on the hourly
           cron - this is for a one-off prune.
@@ -388,7 +386,7 @@ export default function BriefingsTab() {
               value={maxAge}
               onChange={(e) => setMaxAge(Math.max(1, Math.min(3650, Number(e.target.value) || 30)))}
               disabled={sweeping}
-              className="w-28 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-28 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <button
@@ -405,7 +403,7 @@ export default function BriefingsTab() {
           </div>
         )}
         {sweepResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300">
+          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-body">
             <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Swept</span> -{' '}
             {sweepResult.deleted.length} deleted, {sweepResult.kept} kept (max age {sweepResult.max_age_days}d).
           </div>
@@ -415,7 +413,7 @@ export default function BriefingsTab() {
       {/* Recent briefings */}
       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Recent briefings</h2>
+          <h2 className="text-lg font-semibold text-heading">Recent briefings</h2>
           <div className="flex items-center gap-2">
             <button
               onClick={pruneEmpty}
@@ -428,7 +426,7 @@ export default function BriefingsTab() {
             <button
               onClick={() => void loadList()}
               disabled={listLoading}
-              className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+              className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
             >
               {listLoading ? 'Refreshing…' : 'Refresh'}
             </button>
@@ -439,7 +437,7 @@ export default function BriefingsTab() {
           lag - the build/backfill result above shows fresh stats.
         </p>
         {deleteMsg && (
-          <div className="mb-3 px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300">
+          <div className="mb-3 px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-body">
             {deleteMsg}
           </div>
         )}
@@ -456,7 +454,7 @@ export default function BriefingsTab() {
                   key: 'slug',
                   header: 'Slug',
                   sortValue: (it: (typeof items)[number]) => it.slug,
-                  render: (it) => <span className="font-mono text-slate-700 dark:text-slate-300">{it.slug}</span>,
+                  render: (it) => <span className="font-mono text-body">{it.slug}</span>,
                 },
                 {
                   key: 'type',

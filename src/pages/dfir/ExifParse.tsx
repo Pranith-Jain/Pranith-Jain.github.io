@@ -61,9 +61,7 @@ function Row({ label, value }: RowProps) {
   return (
     <div className="flex items-baseline justify-between py-1.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))] first:border-t-0">
       <span className="text-xs uppercase tracking-wider text-slate-500 font-mono">{label}</span>
-      <span className="text-sm font-mono text-slate-900 dark:text-slate-100 text-right break-all max-w-[60%]">
-        {String(value)}
-      </span>
+      <span className="text-sm font-mono text-heading text-right break-all max-w-[60%]">{String(value)}</span>
     </div>
   );
 }
@@ -202,7 +200,7 @@ export default function ExifParse(): JSX.Element {
         <div className="animate-fade-in-up space-y-6">
           {/* File name */}
           <div className="font-mono text-xs text-slate-500">
-            Parsed: <span className="text-slate-700 dark:text-slate-300">{fileName}</span>
+            Parsed: <span className="text-body">{fileName}</span>
           </div>
 
           {/* GPS */}

@@ -89,7 +89,7 @@ export default function ExploratoresBoard(): JSX.Element {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> Exploratores Pivot Board

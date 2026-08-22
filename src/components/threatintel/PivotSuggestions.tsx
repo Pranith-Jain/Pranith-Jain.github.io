@@ -158,7 +158,7 @@ export function PivotSuggestions({
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{s.label}</span>
+                  <span className="text-xs font-medium text-body">{s.label}</span>
                   <span className={`font-mono text-micro ${conf.color}`}>{conf.label}</span>
                 </div>
                 <p className="text-mini text-muted leading-tight">{s.rationale}</p>

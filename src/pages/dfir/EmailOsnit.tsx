@@ -155,7 +155,7 @@ export default function EmailOsnit() {
             </div>
           </div>
 
-          <p className="text-meta font-mono text-slate-700 dark:text-slate-300">{profile.summary}</p>
+          <p className="text-meta font-mono text-body">{profile.summary}</p>
 
           {/* GitHub */}
           {profile.github.found && (
@@ -168,22 +168,21 @@ export default function EmailOsnit() {
             >
               <div className="space-y-1.5 text-meta font-mono">
                 <p>
-                  Username:{' '}
-                  <span className="text-slate-900 dark:text-slate-100 font-semibold">{profile.github.username}</span>
+                  Username: <span className="text-heading font-semibold">{profile.github.username}</span>
                 </p>
                 {profile.github.company && (
                   <p>
-                    Company: <span className="text-slate-900 dark:text-slate-100">{profile.github.company}</span>
+                    Company: <span className="text-heading">{profile.github.company}</span>
                   </p>
                 )}
                 {profile.github.location && (
                   <p>
-                    Location: <span className="text-slate-900 dark:text-slate-100">{profile.github.location}</span>
+                    Location: <span className="text-heading">{profile.github.location}</span>
                   </p>
                 )}
                 {profile.github.repos !== null && (
                   <p>
-                    Public repos: <span className="text-slate-900 dark:text-slate-100">{profile.github.repos}</span>
+                    Public repos: <span className="text-heading">{profile.github.repos}</span>
                   </p>
                 )}
                 {profile.github.profileUrl && (
@@ -212,7 +211,7 @@ export default function EmailOsnit() {
               <div className="space-y-1.5">
                 {profile.breach.breaches.map((b, i) => (
                   <div key={i} className="flex items-center gap-2 text-meta font-mono">
-                    <span className="text-slate-900 dark:text-slate-100 font-semibold">{b.name}</span>
+                    <span className="text-heading font-semibold">{b.name}</span>
                     <span className="text-muted">{b.date}</span>
                     <span className="text-micro px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
                       {b.dataClasses.join(', ')}
@@ -236,15 +235,11 @@ export default function EmailOsnit() {
             <div className="grid grid-cols-2 gap-3 text-meta font-mono">
               <div>
                 <span className="text-muted">Score:</span>
-                <span className="text-slate-900 dark:text-slate-100 ml-1 font-semibold">
-                  {profile.reputation.score ?? 'N/A'}
-                </span>
+                <span className="text-heading ml-1 font-semibold">{profile.reputation.score ?? 'N/A'}</span>
               </div>
               <div>
                 <span className="text-muted">Reputation:</span>
-                <span className="text-slate-900 dark:text-slate-100 ml-1">
-                  {profile.reputation.reputation ?? 'N/A'}
-                </span>
+                <span className="text-heading ml-1">{profile.reputation.reputation ?? 'N/A'}</span>
               </div>
               <div>
                 <span className="text-muted">Suspicious:</span>
@@ -260,7 +255,7 @@ export default function EmailOsnit() {
               </div>
               <div>
                 <span className="text-muted">References:</span>
-                <span className="text-slate-900 dark:text-slate-100 ml-1">{profile.reputation.references}</span>
+                <span className="text-heading ml-1">{profile.reputation.references}</span>
               </div>
             </div>
           </Section>
@@ -326,13 +321,12 @@ export default function EmailOsnit() {
               <div className="space-y-1 text-meta font-mono">
                 {profile.pgp.keyId && (
                   <p>
-                    Key ID:{' '}
-                    <span className="text-slate-900 dark:text-slate-100 font-semibold">{profile.pgp.keyId}</span>
+                    Key ID: <span className="text-heading font-semibold">{profile.pgp.keyId}</span>
                   </p>
                 )}
                 {profile.pgp.uids.length > 0 && (
                   <p>
-                    UIDs: <span className="text-slate-900 dark:text-slate-100">{profile.pgp.uids.join(', ')}</span>
+                    UIDs: <span className="text-heading">{profile.pgp.uids.join(', ')}</span>
                   </p>
                 )}
               </div>

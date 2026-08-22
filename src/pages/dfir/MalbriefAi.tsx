@@ -138,7 +138,7 @@ export default function MalbriefAi(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -169,7 +169,7 @@ export default function MalbriefAi(): JSX.Element {
               onChange={(e) => setIndicators(e.target.value)}
               rows={10}
               placeholder="Paste behavioral indicators, sandbox output, or malware analysis notes…"
-              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -205,7 +205,7 @@ export default function MalbriefAi(): JSX.Element {
           {loading && (
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
-              <p className="text-sm text-slate-600 dark:text-slate-300">Analyzing indicators…</p>
+              <p className="text-sm text-body">Analyzing indicators…</p>
             </div>
           )}
 
@@ -225,7 +225,7 @@ export default function MalbriefAi(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{result.classification}</p>
+                  <p className="text-sm font-semibold text-heading">{result.classification}</p>
                 </div>
               )}
 
@@ -259,7 +259,7 @@ export default function MalbriefAi(): JSX.Element {
                     {result.signatures.map((s, i) => (
                       <div key={i} className="flex items-start gap-2">
                         <span className="text-brand-500 dark:text-brand-400 mt-0.5 text-xs">→</span>
-                        <pre className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 text-xs font-mono text-slate-700 dark:text-slate-300 overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+                        <pre className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 text-xs font-mono text-body overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                           {s}
                         </pre>
                       </div>
@@ -273,7 +273,7 @@ export default function MalbriefAi(): JSX.Element {
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Crosshair size={14} className="text-emerald-600 dark:text-emerald-400" /> Hunting Pivots
                   </h2>
-                  <ul className="space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
+                  <ul className="space-y-1.5 text-sm text-body">
                     {result.huntingPivots.map((p, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <span className="text-emerald-500 dark:text-emerald-400 mt-0.5">+</span>
@@ -289,9 +289,7 @@ export default function MalbriefAi(): JSX.Element {
                   <h2 className="font-display font-bold text-sm mb-2 flex items-center gap-2">
                     <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Analysis Summary
                   </h2>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
-                    {result.summary}
-                  </p>
+                  <p className="text-sm text-body leading-relaxed whitespace-pre-wrap">{result.summary}</p>
                   <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <ShareBar
                       shareText={
@@ -314,14 +312,14 @@ export default function MalbriefAi(): JSX.Element {
               <div className="flex gap-2">
                 <button
                   onClick={copyResult}
-                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
                 >
                   {copied ? <Check size={13} /> : <Copy size={13} />}
                   {copied ? 'Copied' : 'Copy Report'}
                 </button>
                 <button
                   onClick={downloadReport}
-                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
                 >
                   <Download size={13} /> Download .md
                 </button>

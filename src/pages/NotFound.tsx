@@ -115,7 +115,7 @@ export default function NotFound(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto text-heading">
       <div className="animate-fade-in-up text-center">
         <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-3">
           {moved ? '301 · Moved' : '404 · Not Found'}
@@ -126,8 +126,8 @@ export default function NotFound(): JSX.Element {
         {moved ? (
           <div className="mb-10">
             <p className="text-muted mb-3">
-              Intel pages live under <span className="font-mono text-slate-900 dark:text-slate-100">/threatintel/</span>{' '}
-              as of May 2026. The page you followed is at a new URL.
+              Intel pages live under <span className="font-mono text-heading">/threatintel/</span> as of May 2026. The
+              page you followed is at a new URL.
             </p>
             <Link
               to={moved.to}
@@ -139,8 +139,8 @@ export default function NotFound(): JSX.Element {
           </div>
         ) : (
           <p className="text-muted mb-6 max-w-xl mx-auto">
-            The URL <code className="font-mono text-slate-900 dark:text-slate-100">{location.pathname}</code> doesn't
-            match anything on this site. The link may be old, mistyped, or the page has moved.
+            The URL <code className="font-mono text-heading">{location.pathname}</code> doesn't match anything on this
+            site. The link may be old, mistyped, or the page has moved.
           </p>
         )}
 
@@ -171,19 +171,19 @@ export default function NotFound(): JSX.Element {
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
           >
             <Home size={14} aria-hidden="true" /> Home
           </Link>
           <Link
             to="/threatintel"
-            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
           >
             <Terminal size={14} aria-hidden="true" /> Threat Intel
           </Link>
           <Link
             to="/dfir"
-            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
           >
             <Terminal size={14} aria-hidden="true" /> DFIR Toolkit
           </Link>
@@ -204,7 +204,7 @@ export default function NotFound(): JSX.Element {
           <div className="space-y-6 sm:space-y-8">
             {sidebar.groups.map((group) => (
               <div key={group.title}>
-                <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 sm:mb-3">{group.title}</h2>
+                <h2 className="text-sm font-semibold text-body mb-2 sm:mb-3">{group.title}</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2.5">
                   {group.items.map((item) => {
                     const Icon = item.icon;
@@ -218,9 +218,7 @@ export default function NotFound(): JSX.Element {
                           <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                         </span>
                         <span className="flex flex-col min-w-0 leading-tight">
-                          <span className="text-tool sm:text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
-                            {item.label}
-                          </span>
+                          <span className="text-tool sm:text-sm font-medium text-heading truncate">{item.label}</span>
                           {item.description && (
                             <span className="text-mini text-muted line-clamp-2 hidden sm:block">
                               {item.description}

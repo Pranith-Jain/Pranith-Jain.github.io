@@ -59,7 +59,7 @@ export function renderMarkdown(safeMd: string): string {
     const trimmed = (code as string).replace(/\n$/, '');
     const escaped = (trimmed as string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const langAttr = lang ? ` data-language="${lang}"` : '';
-    return `<pre class="overflow-x-auto rounded-xl bg-slate-100 p-3 my-2 dark:bg-[rgb(var(--surface-300))]"${langAttr}><code class="text-xs font-mono leading-relaxed text-slate-800 dark:text-slate-200">${escaped}</code></pre>`;
+    return `<pre class="overflow-x-auto rounded-xl bg-slate-100 p-3 my-2 dark:bg-[rgb(var(--surface-300))]"${langAttr}><code class="text-xs font-mono leading-relaxed text-heading">${escaped}</code></pre>`;
   });
   html = html
     .replace(/### (.+)/g, '<h3 class="text-base font-semibold mt-4 mb-1.5">$1</h3>')
@@ -117,7 +117,7 @@ export function ChatNarrative({ markdown }: { markdown: string }) {
   }, [markdown]);
   return (
     <div
-      className="text-slate-800 dark:text-slate-200 [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
+      className="text-heading [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

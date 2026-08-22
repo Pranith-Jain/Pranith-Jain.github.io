@@ -35,7 +35,7 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
                   <div className="flex items-center gap-1.5 mb-1.5 text-micro font-mono uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
                     <CheckCircle2 size={11} aria-hidden="true" /> What it's for
                   </div>
-                  <p className="text-slate-700 dark:text-slate-300 leading-snug">{t.useCase}</p>
+                  <p className="text-body leading-snug">{t.useCase}</p>
                 </div>
               )}
               {t.cantDo && (
@@ -43,7 +43,7 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
                   <div className="flex items-center gap-1.5 mb-1.5 text-micro font-mono uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400">
                     <AlertCircle size={11} aria-hidden="true" /> What it isn't
                   </div>
-                  <p className="text-slate-700 dark:text-slate-300 leading-snug">{t.cantDo}</p>
+                  <p className="text-body leading-snug">{t.cantDo}</p>
                 </div>
               )}
               {t.workflow && (
@@ -51,7 +51,7 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
                   <div className="flex items-center gap-1.5 mb-1.5 text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
                     <ArrowRightCircle size={11} aria-hidden="true" /> Typical workflow
                   </div>
-                  <p className="text-slate-700 dark:text-slate-300 leading-snug">{t.workflow}</p>
+                  <p className="text-body leading-snug">{t.workflow}</p>
                 </div>
               )}
             </div>

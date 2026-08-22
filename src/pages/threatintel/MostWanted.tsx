@@ -185,7 +185,7 @@ export default function MostWanted(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, category, risk, origin, tools, or aliases…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -201,7 +201,7 @@ export default function MostWanted(): JSX.Element {
             className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-rose-500/50 hover:shadow-e2 flex flex-col"
           >
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+              <h3 className="font-display font-semibold text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                 {actor.name}
               </h3>
               <span

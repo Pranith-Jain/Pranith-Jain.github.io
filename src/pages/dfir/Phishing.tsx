@@ -186,7 +186,7 @@ export default function Phishing(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -257,7 +257,7 @@ export default function Phishing(): JSX.Element {
               </div>
             </div>
             <div className="font-mono text-sm text-muted">
-              score: <span className="text-slate-900 dark:text-slate-100">{result.score}</span> / 100
+              score: <span className="text-heading">{result.score}</span> / 100
             </div>
             {result.flags.length > 0 && (
               <ul className="mt-3 space-y-1 list-disc list-inside text-sm text-muted">

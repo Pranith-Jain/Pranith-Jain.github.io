@@ -417,16 +417,16 @@ export default function DmarcAnalyzer(): JSX.Element {
 
             <div className="text-xs text-muted font-mono space-y-1">
               <p>
-                Report from: <span className="text-slate-700 dark:text-slate-300">{report.orgName}</span>
+                Report from: <span className="text-body">{report.orgName}</span>
               </p>
               <p>
                 Policy:{' '}
-                <span className="text-slate-700 dark:text-slate-300">
+                <span className="text-body">
                   p={report.policy || 'none'} sp={report.subdomainPolicy || 'none'} pct={report.pct || 100}%
                 </span>
               </p>
               <p>
-                File: <span className="text-slate-700 dark:text-slate-300">{fileName}</span>
+                File: <span className="text-body">{fileName}</span>
               </p>
             </div>
           </div>

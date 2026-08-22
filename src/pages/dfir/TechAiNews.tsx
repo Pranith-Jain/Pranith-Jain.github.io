@@ -192,7 +192,7 @@ export default function TechAiNews(): JSX.Element {
   }, [items, urlToSection]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -308,9 +308,7 @@ export default function TechAiNews(): JSX.Element {
 
         {activeSection !== 'all' && (
           <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
-            <span className="text-slate-700 dark:text-slate-300">
-              {SECTIONS.find((s) => s.id === activeSection)?.label}:
-            </span>{' '}
+            <span className="text-body">{SECTIONS.find((s) => s.id === activeSection)?.label}:</span>{' '}
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
         )}
@@ -369,7 +367,7 @@ export default function TechAiNews(): JSX.Element {
                 href={sanitizeUrl(item.link) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+                className="font-display font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
               >
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>

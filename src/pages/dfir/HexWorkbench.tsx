@@ -234,9 +234,7 @@ export default function HexWorkbench() {
           }}
         />
         <Upload className="mx-auto mb-2 text-slate-400" size={28} />
-        <p className="text-sm text-slate-600 dark:text-slate-300">
-          Drop a sample here (any file ≤ 16 MB) — parsed locally, zero upload
-        </p>
+        <p className="text-sm text-body">Drop a sample here (any file ≤ 16 MB) — parsed locally, zero upload</p>
       </div>
 
       {error && (
@@ -248,17 +246,17 @@ export default function HexWorkbench() {
       {data && (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+            <div className="rounded-lg border border-line-1 p-3">
               <div className="text-xs uppercase tracking-wide text-slate-500">File</div>
               <div className="font-mono text-sm truncate" title={fileName}>
                 {fileName}
               </div>
             </div>
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+            <div className="rounded-lg border border-line-1 p-3">
               <div className="text-xs uppercase tracking-wide text-slate-500">Size</div>
               <div className="font-mono text-sm">{data.length.toLocaleString()} B</div>
             </div>
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+            <div className="rounded-lg border border-line-1 p-3">
               <div className="text-xs uppercase tracking-wide text-slate-500">Family</div>
               <div className="text-sm font-semibold">{family ? family.family : 'Unknown'}</div>
               {family && (
@@ -267,7 +265,7 @@ export default function HexWorkbench() {
                 </div>
               )}
             </div>
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+            <div className="rounded-lg border border-line-1 p-3">
               <div className="text-xs uppercase tracking-wide text-slate-500">Entropy (≤1MB)</div>
               <div className={`font-mono text-sm ${entropy > 7.2 ? 'text-red-600 dark:text-red-400 font-bold' : ''}`}>
                 {entropy.toFixed(2)} bits{entropy > 7.2 ? ' ⚠ packed?' : ''}
@@ -276,7 +274,7 @@ export default function HexWorkbench() {
           </div>
 
           <div className="flex flex-wrap gap-2 items-center mb-3">
-            <div className="flex flex-1 min-w-[220px] items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 px-3 py-1.5">
+            <div className="flex flex-1 min-w-[220px] items-center gap-2 rounded-lg border border-line-1 px-3 py-1.5">
               <Search size={16} className="text-slate-400" />
               <input
                 value={query}
@@ -298,23 +296,17 @@ export default function HexWorkbench() {
                   {hits.length} hit{hits.length !== 1 ? 's' : ''}
                   {hitIndex >= 0 ? ` · #${hitIndex + 1}` : ''}
                 </span>
-                <button
-                  onClick={() => gotoHit(-1)}
-                  className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800"
-                >
+                <button onClick={() => gotoHit(-1)} className="p-1.5 rounded-lg border border-line-1">
                   <ChevronLeft size={16} />
                 </button>
-                <button
-                  onClick={() => gotoHit(1)}
-                  className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800"
-                >
+                <button onClick={() => gotoHit(1)} className="p-1.5 rounded-lg border border-line-1">
                   <ChevronRight size={16} />
                 </button>
               </>
             )}
             <button
               onClick={copyVisible}
-              className="ml-auto flex items-center gap-1 rounded-lg border border-slate-200 dark:border-slate-800 px-3 py-1.5 text-sm"
+              className="ml-auto flex items-center gap-1 rounded-lg border border-line-1 px-3 py-1.5 text-sm"
             >
               {copied ? <Check size={14} /> : <Copy size={14} />} Copy view
             </button>
@@ -339,7 +331,7 @@ export default function HexWorkbench() {
             </div>
           )}
 
-          <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-3">
+          <div className="overflow-x-auto rounded-lg border border-line-1 bg-white dark:bg-slate-950 p-3">
             <pre className="font-mono text-xs leading-5">
               {visibleRows.map((r) => {
                 const hasHit = hits.some((h) => h >= r.off && h < r.off + ROW_BYTES);
@@ -397,7 +389,7 @@ export default function HexWorkbench() {
             <button
               onClick={() => setOffset(Math.max(0, offset - 4096))}
               disabled={offset === 0}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 px-3 py-1.5 text-sm disabled:opacity-40"
+              className="rounded-lg border border-line-1 px-3 py-1.5 text-sm disabled:opacity-40"
             >
               ← Prev 4KB
             </button>
@@ -407,14 +399,14 @@ export default function HexWorkbench() {
             <button
               onClick={() => setOffset(Math.min(Math.max(0, data.length - 1), offset + 4096))}
               disabled={offset + 4096 >= data.length}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 px-3 py-1.5 text-sm disabled:opacity-40"
+              className="rounded-lg border border-line-1 px-3 py-1.5 text-sm disabled:opacity-40"
             >
               Next 4KB →
             </button>
           </div>
 
           {stringsSample.length > 0 && (
-            <details className="mt-4 rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+            <details className="mt-4 rounded-lg border border-line-1 p-3">
               <summary className="cursor-pointer text-sm font-medium">Strings (first 50, ≥6 chars)</summary>
               <pre className="mt-2 font-mono text-xs whitespace-pre-wrap break-all max-h-60 overflow-y-auto">
                 {stringsSample.join('\n')}

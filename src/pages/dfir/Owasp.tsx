@@ -138,7 +138,7 @@ export default function Owasp(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -172,7 +172,7 @@ export default function Owasp(): JSX.Element {
               onClick={() => setActiveList(l.id)}
               className={`px-4 py-2 rounded-xl border text-sm font-mono transition-colors ${
                 on
-                  ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-900/20 text-slate-900 dark:text-slate-100'
+                  ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-900/20 text-heading'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/30'
               }`}
             >
@@ -240,7 +240,7 @@ export default function Owasp(): JSX.Element {
                 <button type="button" onClick={() => toggleExpanded(it.id)} className="flex-1 text-left">
                   <div className="flex items-baseline gap-2">
                     <span className="font-mono text-xs text-slate-500">{it.id}</span>
-                    <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{it.title}</h3>
+                    <h3 className="font-display font-semibold text-heading">{it.title}</h3>
                   </div>
                   <p className="text-sm text-muted mt-1 leading-relaxed">{it.summary}</p>
                 </button>
@@ -251,13 +251,13 @@ export default function Owasp(): JSX.Element {
                     <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1">
                       Attack
                     </div>
-                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{it.example}</p>
+                    <p className="text-body leading-relaxed">{it.example}</p>
                   </div>
                   <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 bg-white dark:bg-[rgb(var(--surface-200))]">
                     <div className="text-micro font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
                       Mitigation
                     </div>
-                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{it.mitigation}</p>
+                    <p className="text-body leading-relaxed">{it.mitigation}</p>
                   </div>
                   {it.attack && it.attack.length > 0 && (
                     <div className="sm:col-span-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">

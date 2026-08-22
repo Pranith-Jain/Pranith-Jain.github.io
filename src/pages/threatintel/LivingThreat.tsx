@@ -150,9 +150,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                 {entry.techniqueCount} techniques · {entry.cves} CVEs
               </span>
             </div>
-            <div className="mt-1.5 text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug">
-              {entry.title}
-            </div>
+            <div className="mt-1.5 text-sm font-medium text-heading leading-snug">{entry.title}</div>
             {entry.actors.length > 0 && (
               <div className="mt-1 flex items-center gap-1.5 flex-wrap">
                 {entry.actors.slice(0, 4).map((a) => (
@@ -187,9 +185,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
             </div>
           ) : body ? (
             <>
-              {body.doc_summary && (
-                <div className="text-mini text-slate-600 dark:text-slate-300 leading-relaxed">{body.doc_summary}</div>
-              )}
+              {body.doc_summary && <div className="text-mini text-body leading-relaxed">{body.doc_summary}</div>}
               <PostAnalysisButton
                 title={entry.title}
                 description={`${body.doc_summary ?? ''}\n\nKill chain: ${body.kill_chain_summary ?? 'n/a'}\nDiamond model: ${body.diamond_model_summary ?? 'n/a'}\nCVEs: ${body.CVEs.join(', ') || 'none'}\nTools: ${body.Tools.join(', ') || 'none'}`}
@@ -227,7 +223,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                           ))}
                         </div>
                       </div>
-                      <div className="mt-1.5 text-mini text-slate-700 dark:text-slate-300">{a.Description}</div>
+                      <div className="mt-1.5 text-mini text-body">{a.Description}</div>
                       {a.Detection && (
                         <div className="mt-1.5 text-mini text-slate-500">
                           <span className="font-mono text-sky-600 dark:text-sky-400">Detection: </span>
@@ -266,7 +262,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
               {body.kill_chain_summary && (
                 <div className="flex items-start gap-2 text-mini font-mono">
                   <Flame className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
-                  <div className="text-slate-600 dark:text-slate-300">{body.kill_chain_summary}</div>
+                  <div className="text-body">{body.kill_chain_summary}</div>
                 </div>
               )}
               {body.diamond_model_summary && (
@@ -280,7 +276,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                   <div className="flex items-center gap-1.5 text-micro text-slate-400 font-mono mb-1">
                     <FileText className="w-3 h-3" /> DETECTION RULES &amp; INDICATORS
                   </div>
-                  <ul className="space-y-1 list-disc list-inside text-mini text-slate-600 dark:text-slate-300">
+                  <ul className="space-y-1 list-disc list-inside text-mini text-body">
                     {body.Detection_Rules_And_Indicators.map((d, i) => (
                       <li key={i}>{d}</li>
                     ))}
@@ -292,7 +288,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                   <div className="flex items-center gap-1.5 text-micro text-slate-400 font-mono mb-1">
                     <Shield className="w-3 h-3" /> POST-INCIDENT RECOMMENDATIONS
                   </div>
-                  <ul className="space-y-1 list-disc list-inside text-mini text-slate-600 dark:text-slate-300">
+                  <ul className="space-y-1 list-disc list-inside text-mini text-body">
                     {body.Post_Incident_Recommendations.map((d, i) => (
                       <li key={i}>{d}</li>
                     ))}
@@ -449,13 +445,13 @@ export default function LivingThreat(): JSX.Element {
                 placeholder="Search title, source, actor, or technique…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
               value={tactic}
               onChange={(e) => setTactic(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
             >
               <option value="all">All tactics</option>
               {tactics.map(([t, n]) => (
@@ -467,7 +463,7 @@ export default function LivingThreat(): JSX.Element {
             <select
               value={severity}
               onChange={(e) => setSeverity(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
             >
               <option value="all">All severities</option>
               {Object.entries(data.counts.bySeverity)
@@ -483,12 +479,12 @@ export default function LivingThreat(): JSX.Element {
               placeholder="Technique ID (T1190)…"
               value={technique}
               onChange={(e) => setTechnique(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500 w-full lg:w-44"
+              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-mono text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500 w-full lg:w-44"
             />
             <select
               value={limit}
               onChange={(e) => setLimit(Number(e.target.value))}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
             >
               {[50, 100, 250, 500].map((n) => (
                 <option key={n} value={n}>

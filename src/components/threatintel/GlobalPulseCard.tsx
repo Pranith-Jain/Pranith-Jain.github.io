@@ -63,7 +63,7 @@ export function GlobalPulseCard(): JSX.Element | null {
           <span className="rounded bg-brand-100 px-1.5 py-0.5 text-mini font-semibold uppercase tracking-wide text-brand-700 dark:bg-brand-900/50 dark:text-brand-300">
             Global Pulse
           </span>
-          <span className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
+          <span className="truncate text-sm font-medium text-heading">
             {fmt(data.total_events)} events · {fmt(critical)} critical
           </span>
         </div>

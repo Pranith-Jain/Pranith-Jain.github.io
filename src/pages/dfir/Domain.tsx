@@ -103,7 +103,7 @@ export default function Domain(): JSX.Element {
   }, [result?.domain]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Domain Lookup</h1>
         <p className="text-muted mb-8 max-w-2xl">
@@ -118,7 +118,7 @@ export default function Domain(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -147,7 +147,7 @@ export default function Domain(): JSX.Element {
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="font-display font-bold text-2xl min-w-0 break-all">{result.domain}</h2>
               <span className="font-mono text-sm shrink-0">
-                health: <span className="text-slate-900 dark:text-slate-100">{result.score}/100</span>{' '}
+                health: <span className="text-heading">{result.score}/100</span>{' '}
                 <span
                   className={
                     result.verdict === 'strong'
@@ -190,7 +190,7 @@ export default function Domain(): JSX.Element {
                 {certTransparency.subdomains.map((s) => (
                   <span
                     key={s}
-                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-body"
                   >
                     {s}
                   </span>
@@ -242,14 +242,14 @@ export default function Domain(): JSX.Element {
                 webamon.results.map((hit, i) => (
                   <div key={hit.meta?.report_id ?? i} className="mt-4 grid grid-cols-2 gap-4 text-tool">
                     <div>
-                      <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                      <h4 className="font-semibold text-body mb-2 flex items-center gap-1.5">
                         <Shield size={13} /> Scan Summary
                       </h4>
                       <div className="space-y-1.5">
                         {hit.page_title && (
                           <div className="flex justify-between">
                             <span className="text-slate-500">Page Title</span>
-                            <span className="text-slate-700 dark:text-slate-300 truncate ml-2">{hit.page_title}</span>
+                            <span className="text-body truncate ml-2">{hit.page_title}</span>
                           </div>
                         )}
                         {hit.meta?.risk_score !== undefined && (
@@ -265,15 +265,13 @@ export default function Domain(): JSX.Element {
                         {hit.meta?.script_count !== undefined && (
                           <div className="flex justify-between">
                             <span className="text-slate-500">Scripts</span>
-                            <span className="font-mono text-slate-700 dark:text-slate-300">
-                              {hit.meta.script_count}
-                            </span>
+                            <span className="font-mono text-body">{hit.meta.script_count}</span>
                           </div>
                         )}
                         {hit.date && (
                           <div className="flex justify-between">
                             <span className="text-slate-500">Scanned</span>
-                            <span className="font-mono text-slate-700 dark:text-slate-300">{hit.date}</span>
+                            <span className="font-mono text-body">{hit.date}</span>
                           </div>
                         )}
                         {hit.resolved_url && (
@@ -293,7 +291,7 @@ export default function Domain(): JSX.Element {
                     </div>
                     {hit.fingerprint && Object.values(hit.fingerprint).some((v) => v) && (
                       <div>
-                        <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                        <h4 className="font-semibold text-body mb-2 flex items-center gap-1.5">
                           <Fingerprint size={13} /> Fingerprints
                         </h4>
                         <div className="flex flex-wrap gap-1.5">

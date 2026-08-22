@@ -199,7 +199,7 @@ function ProviderRow({ r }: { r: ProviderResultWire }): JSX.Element {
     <li className="flex items-center justify-between gap-2 rounded bg-slate-50 px-2 py-1.5 font-mono text-meta dark:bg-[rgb(var(--input-200))]">
       <span className="flex items-center gap-2 truncate">
         <span className={`inline-block size-1.5 shrink-0 rounded-full ${dot}`} />
-        <span className="truncate text-slate-700 dark:text-slate-300">{r.source}</span>
+        <span className="truncate text-body">{r.source}</span>
       </span>
       <span className="flex items-center gap-2 text-slate-500">
         {r.status === 'ok' ? (
@@ -315,7 +315,7 @@ export default function SampleScan(): JSX.Element {
   const busy = phase === 'hashing' || phase === 'streaming';
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <header className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <ScanSearch size={28} className="text-brand-600 dark:text-brand-400" /> Sample Scan
@@ -327,9 +327,9 @@ export default function SampleScan(): JSX.Element {
           free public sandboxes for deeper detonation.
         </p>
         <p className="mt-2 max-w-prose text-xs text-slate-500 dark:text-slate-500">
-          <strong className="text-slate-700 dark:text-slate-300">Free, no secrets required.</strong> Cloudflare Workers
-          Free caps server CPU at 10ms, so the SHA-256 is computed client-side (your file never leaves the browser until
-          the hash is dispatched). The hash fan-out is on the same /api/v1/ read-rate-limit as the rest of the toolkit.
+          <strong className="text-body">Free, no secrets required.</strong> Cloudflare Workers Free caps server CPU at
+          10ms, so the SHA-256 is computed client-side (your file never leaves the browser until the hash is
+          dispatched). The hash fan-out is on the same /api/v1/ read-rate-limit as the rest of the toolkit.
         </p>
       </header>
 
@@ -358,7 +358,7 @@ export default function SampleScan(): JSX.Element {
           className="mt-3 cursor-pointer rounded border-2 border-dashed border-slate-300 p-6 text-center hover:border-brand-500/40 focus-visible:border-brand-500 focus-visible:outline-none dark:border-[rgb(var(--border-400))]"
         >
           <FileSearch size={28} className="mx-auto mb-2 text-slate-500" />
-          <p className="font-mono text-sm text-slate-700 dark:text-slate-300">Drop a file here, or click to choose</p>
+          <p className="font-mono text-sm text-body">Drop a file here, or click to choose</p>
           <p className="mt-1 font-mono text-mini text-slate-500">8 MB hard cap (in-browser analysis limit)</p>
           <input
             id="sample-scan-file"
@@ -423,11 +423,11 @@ export default function SampleScan(): JSX.Element {
           </div>
           <dl className="mt-3 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1 font-mono text-meta">
             <dt className="text-slate-500">Type</dt>
-            <dd className="text-slate-800 dark:text-slate-200">
+            <dd className="text-heading">
               {analysis.fileType} · family <span className="text-brand-600 dark:text-brand-400">{analysis.family}</span>
             </dd>
             <dt className="text-slate-500">Entropy</dt>
-            <dd className="text-slate-800 dark:text-slate-200">
+            <dd className="text-heading">
               {analysis.entropy.toFixed(3)} / 8.000
               {analysis.entropy > 7.5 ? ' · ! likely packed/encrypted' : analysis.entropy > 7.0 ? ' · elevated' : ''}
             </dd>
@@ -435,17 +435,17 @@ export default function SampleScan(): JSX.Element {
           <ul className="mt-3 space-y-1 font-mono text-mini">
             <li className="flex items-center justify-between gap-2">
               <span className="w-16 text-slate-500">SHA-256</span>
-              <span className="flex-1 truncate text-slate-800 dark:text-slate-200">{analysis.sha256}</span>
+              <span className="flex-1 truncate text-heading">{analysis.sha256}</span>
               <CopyChip value={analysis.sha256} label="copy" />
             </li>
             <li className="flex items-center justify-between gap-2">
               <span className="w-16 text-slate-500">SHA-1</span>
-              <span className="flex-1 truncate text-slate-800 dark:text-slate-200">{analysis.sha1}</span>
+              <span className="flex-1 truncate text-heading">{analysis.sha1}</span>
               <CopyChip value={analysis.sha1} label="copy" />
             </li>
             <li className="flex items-center justify-between gap-2">
               <span className="w-16 text-slate-500">MD5</span>
-              <span className="flex-1 truncate text-slate-800 dark:text-slate-200">{analysis.md5}</span>
+              <span className="flex-1 truncate text-heading">{analysis.md5}</span>
               <CopyChip value={analysis.md5} label="copy" />
             </li>
           </ul>
@@ -485,7 +485,7 @@ export default function SampleScan(): JSX.Element {
           </div>
           <dl className="mt-3 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1 font-mono text-meta">
             <dt className="text-slate-500">Hash</dt>
-            <dd className="break-all text-slate-800 dark:text-slate-200">
+            <dd className="break-all text-heading">
               {done.hash} <span className="text-slate-500">({done.hash_type})</span>
             </dd>
           </dl>

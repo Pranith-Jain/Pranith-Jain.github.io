@@ -441,8 +441,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           {ransomware && (
             <>
               <p className="text-mini font-mono text-muted mb-2">
-                <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{recentVictims.length}</span>{' '}
-                claims in last 24h · {ransomware.count} total tracked
+                <span className="text-heading font-bold text-base">{recentVictims.length}</span> claims in last 24h ·{' '}
+                {ransomware.count} total tracked
               </p>
               {recentVictims.length === 0 ? (
                 <p className="text-mini font-mono text-slate-500">No claims in the last 24 h.</p>
@@ -478,7 +478,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           href={v.source_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 transition-colors"
+                          className="truncate text-body hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 transition-colors"
                           title={v.victim}
                         >
                           {v.victim}
@@ -513,8 +513,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           {telegram && (
             <>
               <p className="text-mini font-mono text-muted mb-2">
-                <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{telegram.items.length}</span>{' '}
-                posts · {telegram.channels.filter((c) => c.ok).length} channels live
+                <span className="text-heading font-bold text-base">{telegram.items.length}</span> posts ·{' '}
+                {telegram.channels.filter((c) => c.ok).length} channels live
               </p>
               {recentMessages.length === 0 ? (
                 <p className="text-mini font-mono text-slate-500">No recent messages.</p>
@@ -543,7 +543,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={m.permalink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
+                            className="font-display font-semibold text-body hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                           >
                             {m.channel_name}
                           </a>
@@ -581,8 +581,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           {scam && (
             <>
               <p className="text-mini font-mono text-muted mb-2">
-                <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{scam.total_items}</span>{' '}
-                official alerts · FTC + IC3
+                <span className="text-heading font-bold text-base">{scam.total_items}</span> official alerts · FTC + IC3
               </p>
               {recentScam.length === 0 ? (
                 <p className="text-mini font-mono text-slate-500">No recent alerts.</p>
@@ -611,7 +610,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
+                            className="font-display font-semibold text-body hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                             title={it.title}
                           >
                             {it.title}
@@ -645,10 +644,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           {threatIntel && (
             <>
               <p className="text-mini font-mono text-muted mb-2">
-                <span className="text-slate-900 dark:text-slate-100 font-bold text-base">
-                  {threatIntel.total_items}
-                </span>{' '}
-                posts · BleepingComputer · Krebs · DFIR Report · SecurityWeek
+                <span className="text-heading font-bold text-base">{threatIntel.total_items}</span> posts ·
+                BleepingComputer · Krebs · DFIR Report · SecurityWeek
               </p>
               {recentThreatIntel.length === 0 ? (
                 <p className="text-mini font-mono text-slate-500">No recent posts.</p>
@@ -677,7 +674,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
+                            className="font-display font-semibold text-body hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                             title={it.title}
                           >
                             {it.title}
@@ -711,8 +708,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           {techAi && (
             <>
               <p className="text-mini font-mono text-muted mb-2">
-                <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{techAi.total_items}</span>{' '}
-                posts · TechCrunch · VentureBeat · HN AI · YC blog · cyber funding
+                <span className="text-heading font-bold text-base">{techAi.total_items}</span> posts · TechCrunch ·
+                VentureBeat · HN AI · YC blog · cyber funding
               </p>
               {recentTechAi.length === 0 ? (
                 <p className="text-mini font-mono text-slate-500">No recent posts.</p>
@@ -741,7 +738,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
+                            className="font-display font-semibold text-body hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                             title={it.title}
                           >
                             {it.title}
@@ -778,8 +775,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           {briefings && (
             <>
               <p className="text-mini font-mono text-muted mb-2">
-                <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{briefings.items.length}</span>{' '}
-                most-recent · daily 00:05 · weekly Mon 00:15 UTC
+                <span className="text-heading font-bold text-base">{briefings.items.length}</span> most-recent · daily
+                00:05 · weekly Mon 00:15 UTC
               </p>
               {briefings.items.length === 0 ? (
                 <p className="text-mini font-mono text-slate-500">No briefings yet.</p>
@@ -806,7 +803,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                         </span>
                         <Link
                           to={`/threatintel/briefings/${b.slug}`}
-                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
+                          className="truncate text-body hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
                           title={m.title ?? b.slug}
                         >
                           {label}

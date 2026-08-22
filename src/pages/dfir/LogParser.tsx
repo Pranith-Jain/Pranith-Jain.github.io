@@ -80,7 +80,7 @@ export default function LogParser(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -129,7 +129,7 @@ export default function LogParser(): JSX.Element {
           placeholder="Paste log lines here - one per line, or paste a multi-line WinEvent XML blob (will be auto-collapsed per Event)…"
           rows={14}
           aria-label="Log lines input"
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
       </section>
@@ -143,19 +143,15 @@ export default function LogParser(): JSX.Element {
             </h2>
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
               <div>
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{summary.total}</div>
+                <div className="text-2xl font-bold text-heading">{summary.total}</div>
                 <div className="text-mini font-mono text-slate-400 dark:text-slate-400">total lines</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-                  {summary.unique_techniques.length}
-                </div>
+                <div className="text-2xl font-bold text-heading">{summary.unique_techniques.length}</div>
                 <div className="text-mini font-mono text-slate-400 dark:text-slate-400">unique MITRE techniques</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-                  {summary.unique_event_ids.length}
-                </div>
+                <div className="text-2xl font-bold text-heading">{summary.unique_event_ids.length}</div>
                 <div className="text-mini font-mono text-slate-400 dark:text-slate-400">unique event IDs</div>
               </div>
             </div>
@@ -225,9 +221,7 @@ export default function LogParser(): JSX.Element {
                   >
                     {r.severity}
                   </span>
-                  {r.event_id && (
-                    <span className="text-mini font-mono text-slate-700 dark:text-slate-300">EID {r.event_id}</span>
-                  )}
+                  {r.event_id && <span className="text-mini font-mono text-body">EID {r.event_id}</span>}
                   {r.source && (
                     <span className="text-mini font-mono text-slate-400 dark:text-slate-400">{r.source}</span>
                   )}
@@ -268,7 +262,7 @@ export default function LogParser(): JSX.Element {
                     {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} - show
                     structured JSON
                   </summary>
-                  <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-60 overflow-auto">
+                  <pre className="mt-2 text-mini font-mono text-body whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-60 overflow-auto">
                     {JSON.stringify(r.fields, null, 2)}
                   </pre>
                 </details>
@@ -291,7 +285,7 @@ export default function LogParser(): JSX.Element {
                       className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                     >
                       <div className="flex items-baseline justify-between gap-2 mb-2">
-                        <h3 className="text-meta font-mono text-slate-700 dark:text-slate-300">{q.label}</h3>
+                        <h3 className="text-meta font-mono text-body">{q.label}</h3>
                         <button
                           type="button"
                           onClick={() => void copy(id, q.query)}
@@ -301,9 +295,7 @@ export default function LogParser(): JSX.Element {
                           {copied === id ? 'copied' : 'copy'}
                         </button>
                       </div>
-                      <pre className="text-mini font-mono text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-all">
-                        {q.query}
-                      </pre>
+                      <pre className="text-mini font-mono text-heading whitespace-pre-wrap break-all">{q.query}</pre>
                     </li>
                   );
                 })}

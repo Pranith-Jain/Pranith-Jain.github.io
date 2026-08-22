@@ -172,7 +172,7 @@ export default function BreachDisclosures(): JSX.Element {
                       title={item.title ?? item.link}
                     >
                       <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors flex-1 min-w-0">
+                        <span className="font-display font-semibold text-sm text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors flex-1 min-w-0">
                           {item.title ?? '(untitled)'}
                         </span>
                         <ExternalLink size={11} className="text-muted shrink-0" aria-hidden="true" />

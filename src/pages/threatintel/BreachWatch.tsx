@@ -123,9 +123,7 @@ function BreachCard({
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <h4 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
-            {entry.title}
-          </h4>
+          <h4 className="font-display font-semibold text-sm text-heading truncate">{entry.title}</h4>
           <div className="flex items-center gap-2 mt-1 text-mini font-mono text-slate-500 flex-wrap">
             <span className="text-rose-600 dark:text-rose-400">{entry.group}</span>
             {entry.country && <span>{entry.country}</span>}
@@ -227,12 +225,12 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
             </div>
           </div>
 
-          {body.description && <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{body.description}</p>}
+          {body.description && <p className="text-body leading-relaxed">{body.description}</p>}
 
           {body.activity && (
             <div>
               <span className="text-slate-500 font-mono text-mini">Activity:</span>
-              <p className="text-slate-700 dark:text-slate-300 mt-0.5">{body.activity}</p>
+              <p className="text-body mt-0.5">{body.activity}</p>
             </div>
           )}
 
@@ -558,7 +556,7 @@ export default function BreachWatch(): JSX.Element {
                 value={searchQuery}
                 onChange={(e) => setFilter('q', e.target.value)}
                 placeholder="Search breaches…"
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
               />
             </div>
 
@@ -567,7 +565,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterGroup}
                 onChange={(e) => setFilter('group', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
               >
                 <option value="">All groups</option>
                 {groups.slice(0, 50).map((g) => (
@@ -580,7 +578,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterSeverity}
                 onChange={(e) => setFilter('severity', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
               >
                 <option value="">All severity</option>
                 <option value="critical">Critical</option>
@@ -592,7 +590,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterCountry}
                 onChange={(e) => setFilter('country', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
               >
                 <option value="">All countries</option>
                 {uniqueCountries.map((c) => (
@@ -605,7 +603,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterDays}
                 onChange={(e) => setFilter('days', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
               >
                 <option value="">All time</option>
                 {DAYS_OPTIONS.map((d) => (
@@ -697,9 +695,7 @@ export default function BreachWatch(): JSX.Element {
                     className="surface-card p-3 hover:border-rose-500/40 transition-colors text-left"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
-                        {g.name}
-                      </span>
+                      <span className="font-display font-semibold text-sm text-heading truncate">{g.name}</span>
                       <span className="text-micro font-mono text-slate-500 shrink-0 ml-2">{g.count}</span>
                     </div>
                     <span className="text-micro font-mono text-muted">

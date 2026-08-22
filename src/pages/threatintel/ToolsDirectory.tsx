@@ -139,7 +139,7 @@ export default function ToolsDirectory(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} tools…`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
 
@@ -222,7 +222,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
+      <div className="text-lg font-semibold text-heading truncate">{value}</div>
     </div>
   );
 }
@@ -236,7 +236,7 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
       className="group block surface-card p-4 hover:border-rose-500/50 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
+        <h3 className="font-display font-semibold text-base text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
           {tool.name}
         </h3>
         <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted group-hover:text-rose-500 transition-colors" />

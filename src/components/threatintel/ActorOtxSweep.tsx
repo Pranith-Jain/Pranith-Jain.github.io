@@ -190,7 +190,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
       {(running || results.length > 0) && (
         <ul className="mt-3 space-y-1.5 max-h-64 overflow-y-auto pr-1">
           {results.map((r, i) => (
-            <li key={`${r.slug}-${i}`} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+            <li key={`${r.slug}-${i}`} className="flex items-center gap-2 text-xs text-body">
               {r.status === 'ok' ? (
                 <CheckCircle2 size={12} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
               ) : (

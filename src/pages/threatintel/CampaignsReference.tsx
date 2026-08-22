@@ -26,7 +26,7 @@ interface CampaignsResponse {
 const STATUS_COLOR: Record<CampaignEntry['status'], string> = {
   active: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   dormant: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  concluded: 'border-slate-500/40 bg-slate-500/10 text-slate-600 dark:text-slate-300',
+  concluded: 'border-slate-500/40 bg-slate-500/10 text-body',
 };
 
 const CATEGORY_COLOR: Record<string, string> = {
@@ -153,7 +153,7 @@ export default function CampaignsReference(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by name, actor, description, tag, sector…"
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
               />
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
@@ -237,7 +237,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{value}</div>
+      <div className="text-lg font-semibold text-heading">{value}</div>
     </div>
   );
 }
@@ -258,7 +258,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
       }}
     >
       <div className="flex items-start justify-between gap-2 mb-2 flex-wrap">
-        <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">{c.name}</h3>
+        <h3 className="font-display font-semibold text-base text-heading">{c.name}</h3>
         <div className="flex items-center gap-1.5 shrink-0 flex-wrap">
           <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_COLOR[c.status]}`}>
             {c.status}
@@ -274,19 +274,19 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
       </div>
       {c.actor && (
         <p className="text-mini font-mono text-muted mb-1.5">
-          actor: <span className="text-slate-700 dark:text-slate-300">{c.actor}</span>
+          actor: <span className="text-body">{c.actor}</span>
         </p>
       )}
       <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{c.description}</p>
       <div className="flex items-center gap-3 text-micro font-mono text-muted mb-2 flex-wrap">
         {c.firstSeen && (
           <span>
-            first seen: <span className="text-slate-700 dark:text-slate-300">{formatDate(c.firstSeen)}</span>
+            first seen: <span className="text-body">{formatDate(c.firstSeen)}</span>
           </span>
         )}
         {c.lastUpdated && (
           <span>
-            updated: <span className="text-slate-700 dark:text-slate-300">{formatDate(c.lastUpdated)}</span>
+            updated: <span className="text-body">{formatDate(c.lastUpdated)}</span>
           </span>
         )}
       </div>
@@ -337,7 +337,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
           )}
           {c.geography && c.geography.length > 0 && (
             <p className="text-mini font-mono text-muted">
-              geography: <span className="text-slate-700 dark:text-slate-300">{c.geography.join(', ')}</span>
+              geography: <span className="text-body">{c.geography.join(', ')}</span>
             </p>
           )}
           {c.tags.length > 0 && (

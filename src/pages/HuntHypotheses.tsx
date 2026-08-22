@@ -45,7 +45,7 @@ function QueryBlock({ query }: { query: string }) {
       >
         {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
       </button>
-      <pre className="font-mono text-mini leading-relaxed text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-mini leading-relaxed text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
         {query}
       </pre>
     </div>
@@ -57,7 +57,7 @@ function HuntDetail({ body, onClose }: { body: HuntBody; onClose: () => void }) 
     <Modal open onClose={onClose} title={body.title} size="lg">
       <div className="space-y-4 max-h-[70vh] overflow-y-auto">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
+          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
             {body.id}
           </span>
           <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-sky-300 dark:border-sky-800 text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40">
@@ -77,12 +77,12 @@ function HuntDetail({ body, onClose }: { body: HuntBody; onClose: () => void }) 
           <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
             Hypothesis
           </div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.hypothesis}</p>
+          <p className="text-sm text-body leading-relaxed">{body.hypothesis}</p>
         </div>
 
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Rationale</div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.rationale}</p>
+          <p className="text-sm text-body leading-relaxed">{body.rationale}</p>
         </div>
 
         {body.queries.length > 0 && (
@@ -153,7 +153,7 @@ export default function HuntHypotheses() {
               placeholder="Search hypotheses, techniques..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -211,7 +211,7 @@ export default function HuntHypotheses() {
                     {h.tactic}
                   </span>
                 </div>
-                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
                   {h.title}
                 </div>
                 <div className="font-mono text-micro text-orange-600 dark:text-orange-400/70">{h.technique}</div>

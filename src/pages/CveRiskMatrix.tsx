@@ -158,7 +158,7 @@ export default function CveRiskMatrix() {
                   <span className={`font-mono text-micro font-bold px-1.5 py-0.5 rounded border ${meta.cls}`}>
                     {meta.label}
                   </span>
-                  <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{count}</span>
+                  <span className="text-xs font-mono font-bold text-heading">{count}</span>
                 </div>
                 <div className="h-1 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1.5">
                   <div
@@ -254,17 +254,15 @@ export default function CveRiskMatrix() {
                       <div className="text-micro font-mono text-slate-400 max-w-[220px] truncate">{r.description}</div>
                     </td>
                     <td className="py-2 pr-3">
-                      <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
-                        {r.ctiScore}
-                      </span>
+                      <span className="font-mono text-sm font-bold text-heading">{r.ctiScore}</span>
                     </td>
                     <td className="py-2 pr-3">
                       <span className={`font-mono text-micro font-bold px-1.5 py-0.5 rounded border ${meta.cls}`}>
                         {meta.label}
                       </span>
                     </td>
-                    <td className="py-2 pr-3 font-mono text-xs text-slate-600 dark:text-slate-300">{r.cvss ?? '—'}</td>
-                    <td className="py-2 pr-3 font-mono text-xs text-slate-600 dark:text-slate-300">
+                    <td className="py-2 pr-3 font-mono text-xs text-body">{r.cvss ?? '—'}</td>
+                    <td className="py-2 pr-3 font-mono text-xs text-body">
                       {r.epss != null ? `${(r.epss * 100).toFixed(1)}%` : '—'}
                     </td>
                     <td className="py-2 pr-3">
@@ -302,7 +300,7 @@ export default function CveRiskMatrix() {
               >
                 {detail.quadrant} · CTI {detail.ctiScore}/100
               </span>
-              <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
+              <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
                 SSVC: {detail.ssvc.decision}
               </span>
               {detail.reference && (
@@ -316,7 +314,7 @@ export default function CveRiskMatrix() {
                 </a>
               )}
             </div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{detail.description}</p>
+            <p className="text-sm text-body leading-relaxed">{detail.description}</p>
             <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
               {[
                 ['CVSS', detail.cvss != null ? String(detail.cvss) : '—'],
@@ -329,7 +327,7 @@ export default function CveRiskMatrix() {
                   className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                 >
                   <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">{label}</div>
-                  <div className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">{value}</div>
+                  <div className="font-mono text-sm font-bold text-heading">{value}</div>
                 </div>
               ))}
             </div>
@@ -338,7 +336,7 @@ export default function CveRiskMatrix() {
                 <ShieldAlert size={11} className="inline mr-1" />
                 SSVC rationale
               </div>
-              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{detail.ssvc.rationale}</p>
+              <p className="text-sm text-body leading-relaxed">{detail.ssvc.rationale}</p>
             </div>
           </div>
         </Modal>

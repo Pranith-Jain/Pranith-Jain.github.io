@@ -178,10 +178,7 @@ export function PivotsTab({
                     {p.source}
                   </span>
                 </div>
-                <code
-                  className="text-meta font-mono text-slate-900 dark:text-slate-100 break-all block truncate"
-                  title={p.value}
-                >
+                <code className="text-meta font-mono text-heading break-all block truncate" title={p.value}>
                   {p.value}
                 </code>
                 <span className="text-micro font-mono text-muted truncate block">{p.label}</span>

@@ -235,7 +235,7 @@ export default function ACH(): JSX.Element {
                                 key={`${ev.claim}-${ev.source}`}
                                 className="mb-2 p-2 rounded bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                               >
-                                <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
+                                <p className="text-mini text-body">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
                                   <span className="text-micro font-mono text-muted">source: {ev.source}</span>
                                   <span
@@ -278,7 +278,7 @@ export default function ACH(): JSX.Element {
                                 key={`${ev.claim}-${ev.source}`}
                                 className="mb-2 p-2 rounded bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                               >
-                                <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
+                                <p className="text-mini text-body">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
                                   <span className="text-micro font-mono text-muted">source: {ev.source}</span>
                                   <span

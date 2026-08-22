@@ -278,7 +278,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
         <p className="text-mini font-mono text-slate-500 mb-4">
           Showing page {page}/{totalPages} ({pageItems.length} of {filtered.length} filtered, {data.count} total) ·
           sources: {(data.sources ?? []).map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} ·
-          snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+          snapshot <span className="text-body">{shortRel(data.generated_at)}</span>
         </p>
       )}
 
@@ -299,7 +299,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
               <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
                 <Link
                   to={`/dfir/cve?id=${encodeURIComponent(c.id)}`}
-                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 font-mono inline-flex items-center gap-2"
+                  className="font-display font-semibold text-base text-heading hover:text-rose-600 dark:hover:text-rose-400 font-mono inline-flex items-center gap-2"
                 >
                   {c.id}
                   {isNew && (
@@ -448,8 +448,8 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             (full NVD + EPSS + KEV record).
           </p>
           <p className="text-xs text-muted font-mono">
-            Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
-            <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
+            Sources: <span className="text-body">NVD published-CVE feed</span> merged with the{' '}
+            <span className="text-body">CISA KEV catalogue</span>.
           </p>
         </>
       }

@@ -125,7 +125,7 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
   return (
     <section className="mt-10">
       <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <h2 className="font-display font-bold text-xl inline-flex items-center gap-2 text-slate-900 dark:text-slate-100">
+        <h2 className="font-display font-bold text-xl inline-flex items-center gap-2 text-heading">
           <Database size={18} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           External breach databases
         </h2>
@@ -145,7 +145,7 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
             className="glass group block p-4 rounded-xl hover:border-brand-500/40 transition-colors"
           >
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-sm font-display font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
+              <span className="text-sm font-display font-bold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
                 {db.name}
                 <ExternalLink size={11} className="opacity-60" aria-hidden="true" />
               </span>

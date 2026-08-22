@@ -60,7 +60,7 @@ function Group({ title, items }: { title: string; items: string[] }) {
             target="_blank"
             rel="noopener noreferrer"
             title="Check certificate transparency for this variant"
-            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
+            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-500/40 transition-colors"
           >
             {d}
           </a>
@@ -75,7 +75,7 @@ export default function BrandImpersonation(): JSX.Element {
   const v = useMemo(() => (input.trim() ? variants(input.trim()) : null), [input]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=identity-osint"

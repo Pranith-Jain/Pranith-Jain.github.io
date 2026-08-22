@@ -405,7 +405,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
   };
 
   return (
-    <div className="max-w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-12 text-heading">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between gap-2 mb-8">
           <BackLink
@@ -461,9 +461,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   key={p.title}
                   className="relative pl-3 pr-3 py-3 rounded bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 border-l-2 border-brand-500"
                 >
-                  <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug">
-                    {p.title}
-                  </h3>
+                  <h3 className="font-display font-semibold text-heading text-sm leading-snug">{p.title}</h3>
                   <p className="mt-1 text-meta font-mono text-muted leading-relaxed">{p.body}</p>
                   <p className="mt-2 text-mini font-mono text-muted leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                     <Lightbulb size={10} className="inline -mt-0.5 mr-1 text-brand-500" aria-hidden="true" />
@@ -478,7 +476,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               <h3 className="font-display font-bold text-amber-700 dark:text-amber-300 text-sm leading-snug">
                 THE DESIGN TEST: “Impossible, not tedious”
               </h3>
-              <p className="mt-1.5 text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="mt-1.5 text-meta font-mono text-body leading-relaxed">
                 Agentic attackers have unlimited patience and near-zero per-attempt cost, so friction-only controls
                 (rate limits, SMS MFA) fail. Prefer controls that remove a capability over ones that throttle it.
               </p>
@@ -525,7 +523,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   value={matrixQuery}
                   onChange={(e) => setMatrixQuery(e.target.value)}
                   placeholder="Filter domains, controls…"
-                  className="w-full pl-7 pr-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 focus-visible:ring-brand-500/40 text-meta font-mono text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none"
+                  className="w-full pl-7 pr-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 focus-visible:ring-brand-500/40 text-meta font-mono text-heading placeholder:text-slate-500 focus:outline-none"
                   aria-label="Filter capability matrix"
                 />
               </div>
@@ -599,7 +597,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                             ].join(' ')}
                             aria-hidden="true"
                           />
-                          <div className="font-display font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug">
+                          <div className="font-display font-semibold text-heading text-sm leading-snug">
                             {row.domain}
                           </div>
                         </div>
@@ -618,9 +616,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                                 aria-hidden="true"
                                 className={`absolute left-0 top-2 bottom-2 w-0.5 rounded-r ${cfg.bar} opacity-70`}
                               />
-                              <div className="text-[12.5px] font-mono text-slate-700 dark:text-slate-300 leading-snug pl-1.5">
-                                {row[t]}
-                              </div>
+                              <div className="text-[12.5px] font-mono text-body leading-snug pl-1.5">{row[t]}</div>
                             </div>
                           );
                         })}
@@ -634,17 +630,13 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                             <div className="flex items-center gap-1.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300 mb-1">
                               <Lightbulb size={10} aria-hidden="true" /> what good looks like
                             </div>
-                            <p className="text-[12.5px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                              {row.practice}
-                            </p>
+                            <p className="text-[12.5px] font-mono text-body leading-relaxed">{row.practice}</p>
                           </div>
                           <div className="rounded bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-rose-500/30 p-2.5">
                             <div className="flex items-center gap-1.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-1">
                               <AlertTriangle size={10} aria-hidden="true" /> if you skip this
                             </div>
-                            <p className="text-[12.5px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                              {row.failureMode}
-                            </p>
+                            <p className="text-[12.5px] font-mono text-body leading-relaxed">{row.failureMode}</p>
                           </div>
                         </div>
                       )}
@@ -656,9 +648,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
 
             <p className="mt-3 text-meta font-mono text-slate-500 dark:text-slate-500 leading-relaxed">
               Each tier builds on the last.{' '}
-              <span className="text-slate-700 dark:text-slate-300 font-semibold">
-                Skip one capability and attackers exploit the gap.
-              </span>{' '}
+              <span className="text-body font-semibold">Skip one capability and attackers exploit the gap.</span>{' '}
               <span className="text-slate-500">Click any row for practice notes and failure modes.</span>
             </p>
           </section>
@@ -720,7 +710,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                         aria-hidden="true"
                       />
                       <div className="min-w-0 flex-1">
-                        <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug">
+                        <h3 className="font-display font-semibold text-heading text-sm leading-snug">
                           <span className="text-rose-600 dark:text-rose-400 font-mono mr-1.5">{t.num}.</span>
                           {t.title}
                         </h3>
@@ -747,7 +737,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                           {t.mitigations.map((m) => (
                             <li
                               key={m}
-                              className="flex items-start gap-2 text-[12.5px] font-mono text-slate-700 dark:text-slate-300 leading-snug"
+                              className="flex items-start gap-2 text-[12.5px] font-mono text-body leading-snug"
                             >
                               <span
                                 aria-hidden="true"
@@ -810,7 +800,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     <h3
                       className={[
                         'font-display font-semibold text-[12.5px] leading-snug',
-                        isSelected ? 'text-brand-800 dark:text-white' : 'text-slate-900 dark:text-slate-100',
+                        isSelected ? 'text-brand-800 dark:text-white' : 'text-heading',
                       ].join(' ')}
                     >
                       {p.title}
@@ -833,9 +823,9 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   Phase {phase.num}
                 </span>
                 <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-muted">·</span>
-                <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{phase.title}</h3>
+                <h3 className="font-display font-bold text-heading text-base">{phase.title}</h3>
               </div>
-              <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.detail}</p>
+              <p className="text-meta font-mono text-body leading-relaxed">{phase.detail}</p>
             </div>
             <div>
               <div className="text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300 mb-2">
@@ -843,10 +833,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               </div>
               <ul className="space-y-1.5">
                 {phase.outputs.map((o) => (
-                  <li
-                    key={o}
-                    className="flex items-start gap-2 text-[12.5px] font-mono text-slate-700 dark:text-slate-200 leading-snug"
-                  >
+                  <li key={o} className="flex items-start gap-2 text-[12.5px] font-mono text-body leading-snug">
                     <span
                       aria-hidden="true"
                       className="mt-1.5 inline-block w-1.5 h-1.5 rounded bg-brand-500 shrink-0"

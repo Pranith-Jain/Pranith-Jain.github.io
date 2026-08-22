@@ -139,7 +139,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
       <div className="flex items-start justify-between gap-2 mb-1.5">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">{site.name}</h3>
+            <h3 className="text-base font-bold text-heading">{site.name}</h3>
             {site.recommended && (
               <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-micro font-mono rounded border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300">
                 <Star className="w-2.5 h-2.5" /> REC
@@ -343,13 +343,13 @@ export default function DarknetList(): JSX.Element {
                 placeholder="Search site name, DWD ID, category, or .onion address…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as 'all' | 'up' | 'down')}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
             >
               <option value="all">All status</option>
               <option value="up">Online only</option>

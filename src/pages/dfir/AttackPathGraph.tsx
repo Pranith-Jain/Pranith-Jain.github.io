@@ -345,7 +345,7 @@ export default function AttackPathGraph(): JSX.Element {
                       textAnchor="middle"
                       fill="currentColor"
                       fontSize={9}
-                      className="select-none text-slate-700 dark:text-slate-300"
+                      className="select-none text-body"
                     >
                       {n.label.length > 20 ? `${n.label.slice(0, 18)}..` : n.label}
                     </text>

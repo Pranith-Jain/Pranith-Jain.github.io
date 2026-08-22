@@ -282,13 +282,12 @@ export default function CveLookup(): JSX.Element {
             <div className="flex flex-wrap gap-4 font-mono text-xs text-slate-500">
               {result.published && (
                 <span>
-                  Published: <span className="text-slate-700 dark:text-slate-300">{result.published.slice(0, 10)}</span>
+                  Published: <span className="text-body">{result.published.slice(0, 10)}</span>
                 </span>
               )}
               {result.last_modified && (
                 <span>
-                  Modified:{' '}
-                  <span className="text-slate-700 dark:text-slate-300">{result.last_modified.slice(0, 10)}</span>
+                  Modified: <span className="text-body">{result.last_modified.slice(0, 10)}</span>
                 </span>
               )}
             </div>
@@ -321,7 +320,7 @@ export default function CveLookup(): JSX.Element {
 
                 <p className="text-sm font-mono text-muted mb-4">
                   Combined signal across CVSS severity, EPSS exploit probability, and CISA KEV listing. SLA suggestion:{' '}
-                  <strong className="text-slate-800 dark:text-slate-200">{p.sla}</strong>.
+                  <strong className="text-heading">{p.sla}</strong>.
                 </p>
 
                 {/* Per-signal contribution bar */}
@@ -365,7 +364,7 @@ export default function CveLookup(): JSX.Element {
                   </div>
                 )}
 
-                <ul className="space-y-1 text-sm font-mono text-slate-700 dark:text-slate-300">
+                <ul className="space-y-1 text-sm font-mono text-body">
                   {p.rationale.map((r, i) => (
                     <li key={i} className="flex gap-2">
                       <span className="text-slate-400 dark:text-slate-400 select-none">›</span>
@@ -381,10 +380,7 @@ export default function CveLookup(): JSX.Element {
                             .replace(/</g, '&lt;')
                             .replace(/>/g, '&gt;')
                             .replace(/"/g, '&quot;')
-                            .replace(
-                              /\*\*([^*]+)\*\*/g,
-                              '<strong class="text-slate-900 dark:text-slate-100">$1</strong>'
-                            ),
+                            .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-heading">$1</strong>'),
                         }}
                       />
                     </li>
@@ -409,7 +405,7 @@ export default function CveLookup(): JSX.Element {
               type="button"
               onClick={explainCve}
               disabled={explainLoading}
-              className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-body hover:border-brand-500/40 transition-colors disabled:opacity-50"
             >
               {explainLoading ? <Loader2 size={14} className="animate-spin" /> : <ChevronDown size={14} />}
               AI explain
@@ -434,7 +430,7 @@ export default function CveLookup(): JSX.Element {
                 type="button"
                 onClick={generateRule}
                 disabled={ruleLoading}
-                className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-body hover:border-brand-500/40 transition-colors disabled:opacity-50"
               >
                 {ruleLoading ? <Loader2 size={14} className="animate-spin" /> : <FileCode size={14} />}
                 Generate rule
@@ -458,7 +454,7 @@ export default function CveLookup(): JSX.Element {
                   {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                 </button>
               </div>
-              <div className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+              <div className="text-sm text-body leading-relaxed prose prose-sm dark:prose-invert max-w-none">
                 <div dangerouslySetInnerHTML={{ __html: explainText }} />
               </div>
             </section>
@@ -469,7 +465,7 @@ export default function CveLookup(): JSX.Element {
               <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center gap-2">
                   <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
-                  <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-300">{ruleName}</span>
+                  <span className="text-sm font-mono font-semibold text-body">{ruleName}</span>
                   <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                     {ruleFormat.toUpperCase()}
                   </span>
@@ -487,7 +483,7 @@ export default function CveLookup(): JSX.Element {
                   {copied === 'rule' ? 'Copied' : 'Copy'}
                 </button>
               </div>
-              <pre className="p-4 overflow-x-auto text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre max-h-96 overflow-y-auto">
+              <pre className="p-4 overflow-x-auto text-xs font-mono text-heading leading-relaxed whitespace-pre max-h-96 overflow-y-auto">
                 {ruleText}
               </pre>
             </section>
@@ -497,7 +493,7 @@ export default function CveLookup(): JSX.Element {
           {result.description && (
             <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Description</h3>
-              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{result.description}</p>
+              <p className="text-body leading-relaxed">{result.description}</p>
             </section>
           )}
 
@@ -579,19 +575,19 @@ export default function CveLookup(): JSX.Element {
                 {result.kev.date_added && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">Date Added</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.kev.date_added}</div>
+                    <div className="text-heading">{result.kev.date_added}</div>
                   </div>
                 )}
                 {result.kev.due_date && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">Due Date</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.kev.due_date}</div>
+                    <div className="text-heading">{result.kev.due_date}</div>
                   </div>
                 )}
                 {result.kev.required_action && (
                   <div className="sm:col-span-3">
                     <div className="text-xs text-slate-500 mb-1">Required Action</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.kev.required_action}</div>
+                    <div className="text-heading">{result.kev.required_action}</div>
                   </div>
                 )}
               </div>
@@ -633,7 +629,7 @@ export default function CveLookup(): JSX.Element {
                         <div className="flex items-start justify-between gap-2 mb-1.5 flex-wrap">
                           <Link
                             to={`/threatintel/actors/${encodeURIComponent(link.slug)}`}
-                            className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                            className="font-mono font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                           >
                             {link.slug}
                             <ExternalLink size={10} />
@@ -652,7 +648,7 @@ export default function CveLookup(): JSX.Element {
                           {link.sources.map((s) => (
                             <span
                               key={s}
-                              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-slate-700 dark:text-slate-300"
+                              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-body"
                               title={`Attribution sourced from ${ACTOR_LINK_SOURCE_LABEL[s] ?? s}`}
                             >
                               {ACTOR_LINK_SOURCE_LABEL[s] ?? s}

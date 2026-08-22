@@ -251,11 +251,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
               <span className="text-micro font-mono uppercase text-muted">{KIND_LABELS[hoveredMarker.kind]}</span>
             </div>
-            {hoveredMarker.title && (
-              <p className="text-xs font-medium text-slate-700 dark:text-slate-200 line-clamp-2">
-                {hoveredMarker.title}
-              </p>
-            )}
+            {hoveredMarker.title && <p className="text-xs font-medium text-body line-clamp-2">{hoveredMarker.title}</p>}
             <div className="flex items-center gap-2 mt-1">
               <span
                 className="text-micro font-mono capitalize"

@@ -53,7 +53,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
               <time className="text-xs font-mono text-slate-500">
                 {c.not_before.slice(0, 10)} → {c.not_after.slice(0, 10)}
               </time>
-              <p className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{c.issuer}</p>
+              <p className="font-display font-semibold text-sm text-heading">{c.issuer}</p>
               {c.subjects.length > 0 && (
                 <p className="text-xs font-mono text-muted mt-0.5">{c.subjects.slice(0, 2).join(' · ')}</p>
               )}
@@ -65,7 +65,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
           {visible.map((c) => (
             <div key={c.id} className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
               <div className="flex items-baseline justify-between text-sm">
-                <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{c.issuer}</span>
+                <span className="font-display font-semibold text-heading">{c.issuer}</span>
                 <span className="font-mono text-xs text-muted">
                   {c.not_before.slice(0, 10)} → {c.not_after.slice(0, 10)}
                 </span>

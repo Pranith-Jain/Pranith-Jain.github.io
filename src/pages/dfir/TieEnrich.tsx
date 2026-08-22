@@ -362,7 +362,7 @@ export default function TieEnrich() {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <Icon size={20} className="text-cyan-600" />
-            <span className="font-mono text-sm text-slate-800 dark:text-slate-200">{result.ioc}</span>
+            <span className="font-mono text-sm text-heading">{result.ioc}</span>
             <span className="text-xs text-muted">{IOC_LABELS[result.iocType]}</span>
           </div>
 

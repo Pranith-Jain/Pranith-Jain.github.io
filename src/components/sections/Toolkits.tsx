@@ -113,7 +113,7 @@ export function Toolkits() {
                 {app.rows.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[7.5rem_1fr] items-baseline gap-3 px-1 py-2 text-sm">
                     <dt className="text-eyebrow font-mono uppercase text-muted">{k}</dt>
-                    <dd className="text-slate-700 dark:text-slate-300 font-mono text-meta leading-snug">{v}</dd>
+                    <dd className="text-body font-mono text-meta leading-snug">{v}</dd>
                   </div>
                 ))}
               </dl>

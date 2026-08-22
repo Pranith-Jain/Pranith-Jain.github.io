@@ -88,7 +88,7 @@ export default function SandboxIntegration(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Upload size={28} className="text-brand-600 dark:text-brand-400" /> Sandbox Integration
@@ -120,7 +120,7 @@ export default function SandboxIntegration(): JSX.Element {
           onChange={(e) => setHash(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void handleLookup()}
           placeholder="MD5, SHA-1, or SHA-256…"
-          className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={handleLookup}
@@ -226,7 +226,7 @@ export default function SandboxIntegration(): JSX.Element {
                           {b.severity}
                         </span>
                         <span className="text-slate-500">{b.category}:</span>
-                        <span className="text-slate-700 dark:text-slate-300">{b.description}</span>
+                        <span className="text-body">{b.description}</span>
                       </div>
                     ))}
                   </div>

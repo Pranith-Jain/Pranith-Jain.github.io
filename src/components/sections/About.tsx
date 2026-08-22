@@ -15,7 +15,7 @@ export function About({ stats }: AboutProps) {
           Alerts first, then everything else
         </h2>
 
-        <div className="mt-6 space-y-5 text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div className="mt-6 space-y-5 text-lg sm:text-xl text-body leading-relaxed">
           <p>
             The work that taught me anything useful was the alert work. Phishing, BEC, malware, lookalike domains. Two
             hundred and fifty incidents in, you start seeing the same attacker patterns, the same defensive blind spots,

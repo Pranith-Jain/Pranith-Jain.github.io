@@ -52,12 +52,12 @@ function IocResultRowInner({ r }: { r: ProviderResultWire }): JSX.Element {
   return (
     <div className="surface-card p-4">
       <div className="flex items-center justify-between mb-2">
-        <span className="font-display font-semibold text-slate-900 dark:text-slate-100 capitalize">{r.source}</span>
+        <span className="font-display font-semibold text-heading capitalize">{r.source}</span>
         <VerdictChip verdict={r.verdict} />
       </div>
       <div className="flex items-center gap-4 text-sm font-mono text-muted flex-wrap">
         <span>
-          score: <span className="text-slate-900 dark:text-slate-100">{r.score}</span>
+          score: <span className="text-heading">{r.score}</span>
         </span>
         {r.cached && <span className="text-brand-600 dark:text-brand-400">cached</span>}
         {r.status === 'error' && r.error_code && (

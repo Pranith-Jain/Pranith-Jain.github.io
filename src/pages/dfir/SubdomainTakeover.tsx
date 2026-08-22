@@ -249,7 +249,7 @@ export default function SubdomainTakeover() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-sm text-slate-800 dark:text-slate-200">{r.subdomain}</span>
+                      <span className="font-mono text-sm text-heading">{r.subdomain}</span>
                       {r.status === 'vulnerable' && (
                         <span className="px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase rounded bg-red-100 text-red-700 dark:bg-red-900/60 dark:text-red-300">
                           Vulnerable
@@ -260,7 +260,7 @@ export default function SubdomainTakeover() {
                       CNAME: <span className="font-mono text-muted">{r.cname}</span>
                     </p>
                     <p className="text-xs text-muted">
-                      Provider: <span className="text-slate-700 dark:text-slate-300">{r.provider}</span> - {r.evidence}
+                      Provider: <span className="text-body">{r.provider}</span> - {r.evidence}
                     </p>
                   </div>
                   {r.status === 'vulnerable' && (

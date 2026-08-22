@@ -11,7 +11,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   NATO: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   'Middle East': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   Israel: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-  Unknown: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  Unknown: 'border-slate-500/40 bg-slate-500/10 text-body',
   Others: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
 };
 
@@ -23,7 +23,7 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
       className="text-left surface-card p-4 hover:border-rose-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{group.name}</h3>
+        <h3 className="font-display font-semibold text-sm text-heading">{group.name}</h3>
         <ChevronRight size={14} className="text-muted shrink-0 mt-0.5" />
       </div>
       {group.aliases.length > 0 && (
@@ -62,7 +62,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
         <div className="p-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{group.name}</h2>
+              <h2 className="font-display font-bold text-xl text-heading">{group.name}</h2>
               <p className="text-sm font-mono text-muted mt-1">{group.country}</p>
             </div>
             <button
@@ -224,7 +224,7 @@ export default function AptTracker(): JSX.Element {
                   {r.flag}
                 </span>
                 <div>
-                  <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">{r.name}</h3>
+                  <h3 className="font-display font-bold text-lg text-heading">{r.name}</h3>
                   <p className="text-micro font-mono text-slate-500">{r.groups.length} groups</p>
                 </div>
               </div>
@@ -245,7 +245,7 @@ export default function AptTracker(): JSX.Element {
           >
             ← Back to all regions
           </button>
-          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100 mb-2">
+          <h2 className="font-display font-bold text-xl text-heading mb-2">
             {APT_REGIONS.find((r) => r.name === selectedRegion)?.flag} {selectedRegion}
           </h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

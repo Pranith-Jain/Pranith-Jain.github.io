@@ -145,7 +145,7 @@ export default function UrlPreview(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -276,8 +276,7 @@ export default function UrlPreview(): JSX.Element {
               </p>
               {result.redirect_blocked.location && (
                 <div className="mt-2 text-sm font-mono text-muted">
-                  Location:{' '}
-                  <span className="text-slate-800 dark:text-slate-200">{result.redirect_blocked.location}</span>
+                  Location: <span className="text-heading">{result.redirect_blocked.location}</span>
                 </div>
               )}
             </section>
@@ -287,7 +286,7 @@ export default function UrlPreview(): JSX.Element {
           {result.title && (
             <section className="surface-card p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Page Title</div>
-              <p className="text-slate-900 dark:text-slate-100 font-semibold">{result.title}</p>
+              <p className="text-heading font-semibold">{result.title}</p>
             </section>
           )}
 
@@ -295,7 +294,7 @@ export default function UrlPreview(): JSX.Element {
           {result.description && (
             <section className="surface-card p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Meta Description</div>
-              <p className="text-slate-700 dark:text-slate-300 text-sm">{result.description}</p>
+              <p className="text-body text-sm">{result.description}</p>
             </section>
           )}
 
@@ -326,12 +325,12 @@ export default function UrlPreview(): JSX.Element {
                   </span>
                 )}
                 {result.lang && (
-                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
+                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
                     lang: {result.lang}
                   </span>
                 )}
                 {result.charset && (
-                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
+                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
                     charset: {result.charset}
                   </span>
                 )}
@@ -389,27 +388,25 @@ export default function UrlPreview(): JSX.Element {
                 {result.urlscan.scanned_at && (
                   <div>
                     <span className="text-xs text-slate-500">scanned</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200">
-                      {new Date(result.urlscan.scanned_at).toLocaleString()}
-                    </span>
+                    <span className="text-heading">{new Date(result.urlscan.scanned_at).toLocaleString()}</span>
                   </div>
                 )}
                 {result.urlscan.page?.ip && (
                   <div>
                     <span className="text-xs text-slate-500">IP</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200">{result.urlscan.page.ip}</span>
+                    <span className="text-heading">{result.urlscan.page.ip}</span>
                   </div>
                 )}
                 {result.urlscan.page?.server && (
                   <div>
                     <span className="text-xs text-slate-500">server</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200">{result.urlscan.page.server}</span>
+                    <span className="text-heading">{result.urlscan.page.server}</span>
                   </div>
                 )}
                 {result.urlscan.page?.country && (
                   <div>
                     <span className="text-xs text-slate-500">country</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200">{result.urlscan.page.country}</span>
+                    <span className="text-heading">{result.urlscan.page.country}</span>
                   </div>
                 )}
               </div>
@@ -435,7 +432,7 @@ export default function UrlPreview(): JSX.Element {
                   .map(([k, v]) => (
                     <div key={k}>
                       <div className="text-xs text-slate-500 mb-1">{k}</div>
-                      <div className="text-slate-800 dark:text-slate-200 break-words">{v}</div>
+                      <div className="text-heading break-words">{v}</div>
                     </div>
                   ))}
               </div>
@@ -482,25 +479,25 @@ export default function UrlPreview(): JSX.Element {
                 {result.og?.title && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">og:title</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.og.title}</div>
+                    <div className="text-heading">{result.og.title}</div>
                   </div>
                 )}
                 {result.og?.description && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">og:description</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.og.description}</div>
+                    <div className="text-heading">{result.og.description}</div>
                   </div>
                 )}
                 {result.og?.site_name && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">og:site_name</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.og.site_name}</div>
+                    <div className="text-heading">{result.og.site_name}</div>
                   </div>
                 )}
                 {result.og?.type && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">og:type</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.og.type}</div>
+                    <div className="text-heading">{result.og.type}</div>
                   </div>
                 )}
               </div>
@@ -529,19 +526,19 @@ export default function UrlPreview(): JSX.Element {
                 {result.twitter?.card && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">twitter:card</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.twitter.card}</div>
+                    <div className="text-heading">{result.twitter.card}</div>
                   </div>
                 )}
                 {result.twitter?.title && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">twitter:title</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.twitter.title}</div>
+                    <div className="text-heading">{result.twitter.title}</div>
                   </div>
                 )}
                 {result.twitter?.description && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">twitter:description</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.twitter.description}</div>
+                    <div className="text-heading">{result.twitter.description}</div>
                   </div>
                 )}
               </div>

@@ -423,7 +423,7 @@ export default function PatchTaskMgr(): JSX.Element {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span
-                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${w.status === 'completed' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : w.status === 'in_progress' ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : w.status === 'approved' ? 'border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300' : w.status === 'proposed' ? 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300' : 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300'}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${w.status === 'completed' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : w.status === 'in_progress' ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : w.status === 'approved' ? 'border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300' : w.status === 'proposed' ? 'border-slate-500/30 bg-slate-500/10 text-body' : 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300'}`}
                       >
                         {w.status}
                       </span>

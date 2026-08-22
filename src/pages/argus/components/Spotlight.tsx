@@ -105,11 +105,7 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
               }
             }}
           />
-          <button
-            aria-label="Close"
-            onClick={onClose}
-            className="text-muted hover:text-slate-900 dark:text-slate-100 transition-colors"
-          >
+          <button aria-label="Close" onClick={onClose} className="text-muted hover:text-heading transition-colors">
             <X size={16} />
           </button>
         </div>
@@ -142,7 +138,7 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
                 <span className="text-muted">
                   <Icon size={14} />
                 </span>
-                <span className="text-sm text-slate-900 dark:text-slate-100">{h.label}</span>
+                <span className="text-sm text-heading">{h.label}</span>
                 <span className="text-mini font-mono uppercase tracking-wider text-muted ml-auto">{h.type}</span>
                 <span className="text-meta text-muted truncate max-w-[260px]">{h.sub}</span>
               </button>

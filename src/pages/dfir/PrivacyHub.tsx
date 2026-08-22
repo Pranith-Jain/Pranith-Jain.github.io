@@ -141,7 +141,7 @@ export default function PrivacyHub(): JSX.Element {
   const active = REGIMES.find((r) => r.id === tab)!;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -194,7 +194,7 @@ export default function PrivacyHub(): JSX.Element {
               >
                 {regime.short}
               </span>
-              <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{c.score}%</span>
+              <span className="text-xs font-mono font-bold text-heading">{c.score}%</span>
             </div>
             <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
               <div
@@ -235,19 +235,19 @@ export default function PrivacyHub(): JSX.Element {
           >
             {active.short}
           </span>
-          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{active.longTitle}</h2>
+          <h2 className="font-display font-bold text-xl text-heading">{active.longTitle}</h2>
         </div>
         <div className="grid gap-2 sm:grid-cols-2 mb-3 text-meta font-mono text-muted">
           <div>
             <span className="text-muted">Jurisdiction: </span>
-            <span className="text-slate-700 dark:text-slate-300">{active.jurisdiction}</span>
+            <span className="text-body">{active.jurisdiction}</span>
           </div>
           <div>
             <span className="text-muted">Effective: </span>
-            <span className="text-slate-700 dark:text-slate-300">{active.effectiveDate}</span>
+            <span className="text-body">{active.effectiveDate}</span>
           </div>
         </div>
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-2">{active.scope}</p>
+        <p className="text-sm font-mono text-body leading-relaxed mb-2">{active.scope}</p>
         <p className="text-meta font-mono text-muted">{active.appliesTo}</p>
       </section>
 
@@ -256,16 +256,13 @@ export default function PrivacyHub(): JSX.Element {
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-700 dark:text-rose-300 font-mono mb-2">
           Breach notification - {active.breachNotification.summary}
         </h3>
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-2">
-          {active.breachNotification.detail}
-        </p>
+        <p className="text-sm font-mono text-body leading-relaxed mb-2">{active.breachNotification.detail}</p>
         <p className="text-mini font-mono text-muted mb-1">
-          <strong className="text-slate-700 dark:text-slate-300">Trigger:</strong> {active.breachNotification.trigger}
+          <strong className="text-body">Trigger:</strong> {active.breachNotification.trigger}
         </p>
         {active.breachNotification.toIndividuals && (
           <p className="text-mini font-mono text-muted">
-            <strong className="text-slate-700 dark:text-slate-300">Individuals:</strong>{' '}
-            {active.breachNotification.toIndividuals}
+            <strong className="text-body">Individuals:</strong> {active.breachNotification.toIndividuals}
           </p>
         )}
       </section>
@@ -301,7 +298,7 @@ export default function PrivacyHub(): JSX.Element {
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
           Enforcement &amp; penalties
         </h3>
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{active.enforcement}</p>
+        <p className="text-sm font-mono text-body leading-relaxed">{active.enforcement}</p>
       </section>
 
       {/* Cross-references */}
@@ -366,7 +363,7 @@ function ArticleRow({
         >
           {STATUS_STYLES[s].label}
         </button>
-        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{article.title}</span>
+        <span className="font-display font-semibold text-sm text-heading">{article.title}</span>
         {article.citation && (
           <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{article.citation}</span>
         )}

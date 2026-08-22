@@ -381,15 +381,15 @@ export default function SocRansomware(): JSX.Element {
             <dl className="space-y-2 text-meta font-mono">
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="text-muted">top country</dt>
-                <dd className="text-slate-700 dark:text-slate-300">{countrySlices[0]?.label ?? '-'}</dd>
+                <dd className="text-body">{countrySlices[0]?.label ?? '-'}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="text-muted">top group</dt>
-                <dd className="text-slate-700 dark:text-slate-300">{kpis.topName}</dd>
+                <dd className="text-body">{kpis.topName}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="text-muted">sectors hit</dt>
-                <dd className="text-slate-700 dark:text-slate-300">{sectorSlices.length}</dd>
+                <dd className="text-body">{sectorSlices.length}</dd>
               </div>
             </dl>
           </SocPanel>
@@ -448,7 +448,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
                 header: 'Victim',
                 sortValue: (v: (typeof rows)[number]) => v.victim,
                 render: (v) => (
-                  <span className="text-slate-900 dark:text-slate-100 truncate max-w-[200px]" title={v.victim}>
+                  <span className="text-heading truncate max-w-[200px]" title={v.victim}>
                     {v.victim}
                   </span>
                 ),
@@ -460,7 +460,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
                 render: (v) => (
                   <Link
                     to={`/threatintel/actors/${encodeURIComponent(slugifyGroup(v.group))}`}
-                    className="text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400"
+                    className="text-body hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     {v.group}
                   </Link>

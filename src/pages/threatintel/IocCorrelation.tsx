@@ -129,7 +129,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
         </div>
       </div>
       <div className="shrink-0 text-right">
-        <div className="font-display font-bold text-base text-slate-900 dark:text-slate-100">{ioc.source_count}</div>
+        <div className="font-display font-bold text-base text-heading">{ioc.source_count}</div>
         <div className={`text-micro font-mono uppercase tracking-wider ${conf.cls}`}>{conf.label}</div>
       </div>
     </li>
@@ -336,7 +336,7 @@ export default function IocCorrelation(): JSX.Element {
             type="button"
             onClick={() => downloadFilteredCsv(filtered)}
             disabled={filtered.length === 0}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-rose-500/40 disabled:opacity-40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/40 disabled:opacity-40"
             title="Download the currently filtered IOCs as CSV. Pasteable straight into a firewall blocklist."
           >
             <Download size={12} /> CSV
@@ -354,7 +354,7 @@ export default function IocCorrelation(): JSX.Element {
               type="button"
               onClick={() => void buildStixBundle(filtered, setStixLoading, setStixBundleId, setStixError)}
               disabled={stixLoading || filtered.length === 0}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-rose-500/40 disabled:opacity-40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/40 disabled:opacity-40"
             >
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
@@ -431,13 +431,9 @@ export default function IocCorrelation(): JSX.Element {
         </div>
         {data && (
           <p className="text-mini font-mono text-slate-500 mt-3">
-            Scanned{' '}
-            <span className="text-slate-700 dark:text-slate-300">
-              {data.totals.indicators_scanned.toLocaleString()}
-            </span>{' '}
-            indicators · correlated{' '}
-            <span className="text-slate-700 dark:text-slate-300">{data.totals.correlated_indicators}</span> · snapshot{' '}
-            <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+            Scanned <span className="text-body">{data.totals.indicators_scanned.toLocaleString()}</span> indicators ·
+            correlated <span className="text-body">{data.totals.correlated_indicators}</span> · snapshot{' '}
+            <span className="text-body">{shortRel(data.generated_at)}</span>
           </p>
         )}
       </section>

@@ -128,7 +128,7 @@ export default function FeedStatus(): JSX.Element {
                   <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                     <Link
                       to={r.page_path}
-                      className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400"
+                      className="font-display font-semibold text-sm text-heading hover:text-rose-600 dark:hover:text-rose-400"
                     >
                       {r.label}
                     </Link>

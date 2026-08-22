@@ -160,7 +160,7 @@ export default function PhishingWordlists(): JSX.Element {
       >
         <ul className="surface-card divide-y divide-slate-100 dark:divide-slate-800 font-mono text-tool">
           {filtered.slice(0, visible).map((line, i) => (
-            <li key={`${line}-${i}`} className="px-3 py-1.5 text-slate-700 dark:text-slate-300 break-all">
+            <li key={`${line}-${i}`} className="px-3 py-1.5 text-body break-all">
               {line}
             </li>
           ))}

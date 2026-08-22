@@ -250,7 +250,7 @@ export default function EntityResolution(): JSX.Element {
           onClick={() => setMode('resolve')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'resolve'
-              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 shadow-e1'
+              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-heading shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -261,7 +261,7 @@ export default function EntityResolution(): JSX.Element {
           onClick={() => setMode('extract')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'extract'
-              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 shadow-e1'
+              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-heading shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -310,9 +310,7 @@ export default function EntityResolution(): JSX.Element {
                         source: {entity.source.replace(/_/g, ' ')}
                       </span>
                     </div>
-                    <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
-                      {entity.label}
-                    </h2>
+                    <h2 className="font-display font-bold text-xl text-heading">{entity.label}</h2>
                     <p className="font-mono text-meta text-muted mt-0.5">{entity.id}</p>
                   </div>
                   <ConfidenceBar score={entity.confidence} />
@@ -412,7 +410,7 @@ export default function EntityResolution(): JSX.Element {
                           <div key={ref.source_id} className="flex items-center gap-2 text-meta font-mono">
                             <ExternalLink size={12} className="text-muted shrink-0" />
                             <span className="text-muted">{ref.source_name}:</span>
-                            <span className="text-slate-900 dark:text-slate-100">{ref.label}</span>
+                            <span className="text-heading">{ref.label}</span>
                           </div>
                         ))}
                       </div>
@@ -450,7 +448,7 @@ export default function EntityResolution(): JSX.Element {
                             <EntityBadge type={link.source_type} />
                             <span className="text-slate-500 text-mini">{link.relationship.replace(/_/g, ' ')}</span>
                             <EntityBadge type={link.target_type} />
-                            <span className="text-slate-900 dark:text-slate-100">{link.target_id}</span>
+                            <span className="text-heading">{link.target_id}</span>
                             <ConfidenceBar score={link.confidence} />
                           </div>
                         ))}
@@ -514,9 +512,7 @@ export default function EntityResolution(): JSX.Element {
                         <div>
                           <div className="flex items-center gap-2 mb-0.5">
                             <EntityBadge type={e.type} />
-                            <span className="font-mono font-medium text-sm text-slate-900 dark:text-slate-100">
-                              {e.label}
-                            </span>
+                            <span className="font-mono font-medium text-sm text-heading">{e.label}</span>
                           </div>
                           <span className="font-mono text-mini text-muted">{e.id}</span>
                         </div>

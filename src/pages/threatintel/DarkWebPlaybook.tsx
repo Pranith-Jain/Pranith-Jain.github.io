@@ -178,10 +178,8 @@ export default function DarkWebPlaybook(): JSX.Element {
         <div className="flex items-start gap-3">
           <ShieldAlert size={20} className="text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" aria-hidden="true" />
           <div className="flex-1">
-            <h2 className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-1">
-              Educational & security research only
-            </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <h2 className="font-display font-semibold text-heading mb-1">Educational & security research only</h2>
+            <p className="text-sm text-body leading-relaxed">
               Accessing illegal content on the dark web carries serious legal consequences. This playbook is for threat
               intelligence, defensive security, and finding <strong>your own</strong> leaked data — not marketplaces,
               illegal content, or evading law enforcement.
@@ -225,8 +223,8 @@ export default function DarkWebPlaybook(): JSX.Element {
                 </span>
                 <s.icon size={17} className="text-slate-400 dark:text-slate-500" aria-hidden="true" />
               </div>
-              <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-1">{s.title}</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 mb-2">{s.desc}</p>
+              <h3 className="font-display font-semibold text-heading mb-1">{s.title}</h3>
+              <p className="text-sm text-body mb-2">{s.desc}</p>
               <p className="text-xs text-muted leading-relaxed">{s.detail}</p>
             </li>
           ))}
@@ -267,9 +265,7 @@ export default function DarkWebPlaybook(): JSX.Element {
                 <o.icon size={17} aria-hidden="true" />
               </span>
               <div>
-                <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-0.5">
-                  {o.title}
-                </h3>
+                <h3 className="font-display font-semibold text-sm text-heading mb-0.5">{o.title}</h3>
                 <p className="text-xs text-muted leading-relaxed">{o.desc}</p>
               </div>
             </div>
@@ -290,7 +286,7 @@ export default function DarkWebPlaybook(): JSX.Element {
               <span className="grid place-items-center h-6 w-6 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-xs font-bold shrink-0 mt-0.5">
                 {i + 1}
               </span>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{step}</p>
+              <p className="text-sm text-body leading-relaxed">{step}</p>
             </li>
           ))}
         </ol>
@@ -298,7 +294,7 @@ export default function DarkWebPlaybook(): JSX.Element {
 
       {/* Continue */}
       <section className="surface-card p-5">
-        <h2 className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-1">Put it into practice</h2>
+        <h2 className="font-display font-semibold text-heading mb-1">Put it into practice</h2>
         <p className="text-sm text-muted mb-4">
           The platform's own dark-web tooling covers the search and recon stages of this playbook.
         </p>
@@ -311,7 +307,7 @@ export default function DarkWebPlaybook(): JSX.Element {
           </Link>
           <Link
             to="/threatintel/darkweb/recon"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-500/40 transition-colors"
           >
             Dark Web Recon <ArrowRight size={13} aria-hidden="true" />
           </Link>
@@ -319,7 +315,7 @@ export default function DarkWebPlaybook(): JSX.Element {
             href={VIDEO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-rose-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/40 transition-colors"
           >
             <Youtube size={13} aria-hidden="true" /> NetworkChuck Ep. 480 <ExternalLink size={11} aria-hidden="true" />
           </a>
@@ -327,7 +323,7 @@ export default function DarkWebPlaybook(): JSX.Element {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-slate-500/50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-slate-500/50 transition-colors"
           >
             <Github size={13} aria-hidden="true" /> Source guide <ExternalLink size={11} aria-hidden="true" />
           </a>
@@ -347,9 +343,7 @@ function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: string
       <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-1.5">
         {eyebrow}
       </div>
-      <h2 className="font-display font-bold text-xl sm:text-2xl text-slate-900 dark:text-slate-100 tracking-tight mb-1.5">
-        {title}
-      </h2>
+      <h2 className="font-display font-bold text-xl sm:text-2xl text-heading tracking-tight mb-1.5">{title}</h2>
       <p className="text-sm text-muted max-w-2xl leading-relaxed">{sub}</p>
     </div>
   );

@@ -115,9 +115,7 @@ export default function DiamondModelSection({ actor }: Props): JSX.Element {
                 <span className="text-micro font-mono font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
                   {v.label}
                 </span>
-                <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed break-words">
-                  {v.value(actor)}
-                </p>
+                <p className="text-sm font-mono text-body leading-relaxed break-words">{v.value(actor)}</p>
               </div>
             ))}
           </div>
@@ -127,21 +125,17 @@ export default function DiamondModelSection({ actor }: Props): JSX.Element {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <div>
               <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">Motivation</p>
-              <p className="text-xs font-mono text-slate-900 dark:text-slate-100 mt-0.5">{actor.motivation}</p>
+              <p className="text-xs font-mono text-heading mt-0.5">{actor.motivation}</p>
             </div>
             <div>
               <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">Active Since</p>
-              <p className="text-xs font-mono text-slate-900 dark:text-slate-100 mt-0.5">
-                {actor.active_since || '\u2014'}
-              </p>
+              <p className="text-xs font-mono text-heading mt-0.5">{actor.active_since || '\u2014'}</p>
             </div>
             <div>
               <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">
                 Sophistication
               </p>
-              <p className="text-xs font-mono capitalize text-slate-900 dark:text-slate-100 mt-0.5">
-                {actor.sophistication}
-              </p>
+              <p className="text-xs font-mono capitalize text-heading mt-0.5">{actor.sophistication}</p>
             </div>
           </div>
         </div>

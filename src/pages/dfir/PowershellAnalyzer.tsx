@@ -37,7 +37,7 @@ const SEVERITY_TONE: Record<Severity, string> = {
   Critical: 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300',
   High: 'border-orange-500/50 bg-orange-500/15 text-orange-700 dark:text-orange-300',
   Medium: 'border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300',
-  Low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
+  Low: 'border-slate-400/50 bg-slate-400/10 text-body',
   Informational: 'border-sky-500/50 bg-sky-500/15 text-sky-700 dark:text-sky-300',
 };
 
@@ -70,7 +70,7 @@ function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void 
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm font-medium text-slate-900 dark:text-slate-100">{f.name}</span>
+            <span className="text-sm font-medium text-heading">{f.name}</span>
             <span className="text-micro font-mono text-muted">{f.category}</span>
             <span className="text-micro font-mono text-slate-400">·</span>
             <button
@@ -100,7 +100,7 @@ function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void 
         <div className="px-3 pb-3 pl-10 space-y-2">
           <div>
             <span className="text-micro font-mono uppercase tracking-wider text-muted">snippet</span>
-            <pre className="mt-1 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <pre className="mt-1 text-mini font-mono text-body whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
               {f.snippet}
             </pre>
           </div>
@@ -216,7 +216,7 @@ export default function PowershellAnalyzer(): JSX.Element {
   }, [code]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -250,7 +250,7 @@ export default function PowershellAnalyzer(): JSX.Element {
           <div className="space-y-4">
             <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
               <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <span className="text-sm font-mono text-slate-600 dark:text-slate-300 flex items-center gap-2">
+                <span className="text-sm font-mono text-body flex items-center gap-2">
                   <Terminal size={14} /> {filename}
                 </span>
                 <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
@@ -262,7 +262,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                 onChange={(e) => setCode(e.target.value)}
                 placeholder="# Paste PowerShell code here..."
                 spellCheck={false}
-                className="w-full h-80 px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] text-sm font-mono text-slate-900 dark:text-slate-100 border-0 outline-none resize-y"
+                className="w-full h-80 px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] text-sm font-mono text-heading border-0 outline-none resize-y"
               />
               <div className="flex items-center gap-2 px-3 py-2.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <button
@@ -279,14 +279,14 @@ export default function PowershellAnalyzer(): JSX.Element {
                     setCode(SAMPLE);
                     setFilename('sample_suspicious.ps1');
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                 >
                   <FileCode size={14} /> Sample
                 </button>
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                 >
                   <Upload size={14} /> Upload
                 </button>
@@ -341,9 +341,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                           <span className="shrink-0 w-12 pr-3 text-right text-slate-400 dark:text-slate-500 select-none border-r border-slate-200 dark:border-[rgb(var(--border-400))] mr-3">
                             {ln}
                           </span>
-                          <span className="px-3 text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all">
-                            {line || ' '}
-                          </span>
+                          <span className="px-3 text-body whitespace-pre-wrap break-all">{line || ' '}</span>
                         </div>
                       );
                     })}
@@ -436,7 +434,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                     {result.risk.categories.map((c) => (
                       <span
                         key={c}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body"
                       >
                         {c}
                       </span>
@@ -454,9 +452,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                         style={{ width: `${result.obfuscation.score}%` }}
                       />
                     </div>
-                    <span className="text-sm font-mono tabular-nums text-slate-600 dark:text-slate-300">
-                      {result.obfuscation.score}/100
-                    </span>
+                    <span className="text-sm font-mono tabular-nums text-body">{result.obfuscation.score}/100</span>
                   </div>
                   <ul className="space-y-1">
                     {result.obfuscation.reasons.map((r, i) => (
@@ -512,7 +508,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                               <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20">
                                 {id}
                               </span>
-                              <span className="text-xs text-slate-600 dark:text-slate-300">{info.technique}</span>
+                              <span className="text-xs text-body">{info.technique}</span>
                               <span className="text-micro font-mono text-slate-400">· {info.tactic}</span>
                             </div>
                             <div className="mt-1 flex flex-wrap gap-1">
@@ -542,9 +538,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                           <span className="shrink-0 text-micro font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">
                             {ioc.type}
                           </span>
-                          <code className="flex-1 text-xs font-mono text-slate-700 dark:text-slate-300 break-all">
-                            {ioc.value}
-                          </code>
+                          <code className="flex-1 text-xs font-mono text-body break-all">{ioc.value}</code>
                           <span className="shrink-0 text-micro font-mono text-slate-400">L{ioc.line}</span>
                           <CopyChip value={ioc.value} title="Copy IOC" />
                         </div>

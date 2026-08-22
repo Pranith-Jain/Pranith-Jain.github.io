@@ -17,7 +17,7 @@ import type { InputHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes,
  */
 
 const BASE_INPUT =
-  'w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 transition-colors';
+  'w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 transition-colors';
 
 const MONO = 'font-mono';
 

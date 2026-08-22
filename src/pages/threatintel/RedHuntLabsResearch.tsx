@@ -61,7 +61,7 @@ const TAG_PILL: Record<string, string> = {
     'border-orange-300 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
   'awesome-list':
     'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
-  os: 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300',
+  os: 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body',
 };
 
 function hostnameOf(url: string): string {
@@ -112,7 +112,7 @@ function ToolRow({
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors"
+              className="font-medium text-heading hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors"
             >
               {tool.name}
             </a>
@@ -172,7 +172,7 @@ function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: strin
       <div className="flex items-start gap-2">
         <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400" />
         <div className="min-w-0 flex-1">
-          <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{item.title}</h3>
+          <h3 className="text-base font-medium text-heading">{item.title}</h3>
           <p className="mt-1 text-sm text-muted leading-relaxed">{item.summary}</p>
           {item.details && (
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-500 leading-relaxed line-clamp-3">
@@ -209,7 +209,7 @@ function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.
         <Database className="mt-0.5 h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-2">
-            <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{ds.title}</h3>
+            <h3 className="text-base font-medium text-heading">{ds.title}</h3>
             <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-muted">
               {ds.wave}
             </span>
@@ -310,7 +310,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
       headerExtra={
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
-            mirrored <span className="text-slate-700 dark:text-slate-200">2026-06-13</span>
+            mirrored <span className="text-body">2026-06-13</span>
           </span>
           <span className="rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 text-emerald-700 dark:text-emerald-300 font-mono">
             static seed
@@ -348,7 +348,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
       </div>
 
       {/* Section intro card */}
-      <div className="mb-3 flex items-start gap-2 rounded-xl border border-sky-200 dark:border-sky-900 bg-sky-50 dark:bg-sky-950/30 p-3 text-sm text-slate-700 dark:text-slate-300">
+      <div className="mb-3 flex items-start gap-2 rounded-xl border border-sky-200 dark:border-sky-900 bg-sky-50 dark:bg-sky-950/30 p-3 text-sm text-body">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-600 dark:text-sky-400" />
         <span>{section.intro}</span>
       </div>
@@ -369,7 +369,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                       ? `Search ${RESEARCH_ITEMS.length} research projects…`
                       : `Search ${DATASETS.length} datasets…`
                 }
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
               />
             </div>
             {query && (
@@ -457,22 +457,20 @@ export default function RedHuntLabsResearch(): JSX.Element {
         <div className="space-y-4">
           {/* Mission */}
           <div className="surface-card p-5">
-            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Our Mission</h2>
-            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{ABOUT.mission}</p>
+            <h2 className="text-lg font-semibold text-heading">Our Mission</h2>
+            <p className="mt-2 text-sm text-body leading-relaxed">{ABOUT.mission}</p>
           </div>
 
           {/* Principles */}
           <div>
-            <h2 className="mb-2 text-lg font-semibold text-slate-900 dark:text-slate-100">
-              Join Hands in our Research
-            </h2>
+            <h2 className="mb-2 text-lg font-semibold text-heading">Join Hands in our Research</h2>
             <div className="grid gap-2 sm:grid-cols-3">
               {ABOUT.principles.map((p) => (
                 <div
                   key={p.title}
                   className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4"
                 >
-                  <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">{p.title}</h3>
+                  <h3 className="text-sm font-medium text-heading">{p.title}</h3>
                   <p className="mt-1 text-xs text-muted leading-relaxed">{p.body}</p>
                 </div>
               ))}
@@ -482,7 +480,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
           {/* Contact + Socials */}
           <div className="grid gap-2 sm:grid-cols-2">
             <div className="surface-card p-4">
-              <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">Contact</h3>
+              <h3 className="text-sm font-medium text-heading">Contact</h3>
               <ul className="mt-2 space-y-1 text-sm">
                 {ABOUT.contact.map((c) => (
                   <li key={c.label}>
@@ -498,7 +496,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               </ul>
             </div>
             <div className="surface-card p-4">
-              <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">Social</h3>
+              <h3 className="text-sm font-medium text-heading">Social</h3>
               <ul className="mt-2 space-y-1 text-sm">
                 {ABOUT.socials.map((s) => {
                   const Icon = socialIcon(s.label);
@@ -533,7 +531,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }): JSX.
   return (
     <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
+      <div className="text-lg font-semibold text-heading truncate">{value}</div>
     </div>
   );
 }

@@ -319,7 +319,7 @@ export default function PublishedTab() {
                     key: 'title',
                     header: 'Title',
                     sortValue: (p: (typeof filtered)[number]) => p.title,
-                    render: (p) => <span className="text-slate-900 dark:text-slate-100">{p.title}</span>,
+                    render: (p) => <span className="text-heading">{p.title}</span>,
                   },
                   {
                     key: 'publishedAt',
@@ -340,7 +340,7 @@ export default function PublishedTab() {
                         href={`/blog/${p.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors"
+                        className="font-mono text-xs text-body hover:underline transition-colors"
                       >
                         {p.slug}
                       </a>
@@ -380,7 +380,7 @@ export default function PublishedTab() {
                       <div className="flex gap-1.5">
                         <button
                           onClick={() => viewSocial(p.slug)}
-                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         >
                           View
                         </button>
@@ -478,7 +478,7 @@ function SocialQueueAgenda() {
               <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
                 ·
               </span>
-              <span className="font-mono text-slate-700 dark:text-slate-300">{item.slug}</span>
+              <span className="font-mono text-body">{item.slug}</span>
               <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
                 ·
               </span>
@@ -651,9 +651,7 @@ function SocialContentPanel({
   return (
     <div className="mt-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-          Social Content
-        </h3>
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-body">Social Content</h3>
         <button
           onClick={onClose}
           className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
@@ -829,7 +827,7 @@ function InstagramSection({
           readOnly
           value={caption}
           rows={5}
-          className="w-full bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-slate-700 dark:text-slate-300 font-mono leading-relaxed border border-slate-200 dark:border-[rgb(var(--border-400))] resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1"
+          className="w-full bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-body font-mono leading-relaxed border border-slate-200 dark:border-[rgb(var(--border-400))] resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1"
           aria-label="Instagram caption"
         />
       </div>
@@ -974,7 +972,7 @@ function SocialSection({
         </div>
       </div>
       <pre
-        className={`bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-slate-700 dark:text-slate-300 whitespace-pre-wrap font-mono ${
+        className={`bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-body whitespace-pre-wrap font-mono ${
           tight ? 'leading-normal' : 'leading-relaxed'
         } max-h-80 overflow-y-auto`}
       >
@@ -983,7 +981,7 @@ function SocialSection({
       {parts.link && (
         <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
           <span className="text-slate-600 dark:text-slate-500">{parts.link.label}:</span>
-          <span className="font-mono text-slate-700 dark:text-slate-300 break-all">{parts.link.value}</span>
+          <span className="font-mono text-body break-all">{parts.link.value}</span>
           <button
             onClick={() => copy('link', parts.link!.value)}
             className="px-2 py-0.5 border border-sky-200 dark:border-sky-700 rounded hover:bg-sky-50 dark:hover:bg-sky-900/30"
@@ -1102,7 +1100,7 @@ function HookSelector({
             >
               {i + 1}
             </span>
-            <span className="flex-1 text-slate-700 dark:text-slate-300 leading-relaxed">{hook}</span>
+            <span className="flex-1 text-body leading-relaxed">{hook}</span>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -1315,7 +1313,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 onBlur={(e) => void saveTime(platform, e.target.value)}
                 disabled={busy === platform}
                 aria-label={`${platform} planned post time (saved on blur)`}
-                className="bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300 disabled:opacity-50"
+                className="bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5 text-body disabled:opacity-50"
                 title="Planned post time (saved on blur)"
               />
 

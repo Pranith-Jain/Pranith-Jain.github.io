@@ -178,9 +178,7 @@ export default function PcMedicalist() {
               <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
                 <FileText size={14} className="text-brand-500" /> Daily Security &amp; Standards Brief
               </div>
-              <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-                {digest.postA}
-              </pre>
+              <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-body">{digest.postA}</pre>
             </div>
           )}
 
@@ -189,9 +187,7 @@ export default function PcMedicalist() {
               <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
                 <FileText size={14} className="text-purple-500" /> Engineering &amp; Research Digest
               </div>
-              <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-                {digest.postB}
-              </pre>
+              <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-body">{digest.postB}</pre>
             </div>
           )}
 

@@ -292,7 +292,7 @@ const CONTRAST_COLUMNS: DataTableColumn<(typeof CONTRAST)[number]>[] = [
     headerClassName: 'text-emerald-600 dark:text-emerald-400',
     render: (r) => r.cp,
     sortValue: (r) => r.cp,
-    className: 'text-slate-700 dark:text-slate-300',
+    className: 'text-body',
   },
   {
     key: 'tool',
@@ -300,7 +300,7 @@ const CONTRAST_COLUMNS: DataTableColumn<(typeof CONTRAST)[number]>[] = [
     headerClassName: 'text-rose-600 dark:text-rose-400',
     render: (r) => r.tool,
     sortValue: (r) => r.tool,
-    className: 'text-slate-700 dark:text-slate-300',
+    className: 'text-body',
   },
 ];
 
@@ -869,7 +869,7 @@ export default function DetectionChokepointsHub() {
               {MATURITY_LEVELS.map((m) => (
                 <div key={m.level} className={`${CARD} p-4 border-l-4 ${m.border}`}>
                   <h3 className={`font-mono text-sm font-semibold ${m.color} mb-1`}>{m.level}</h3>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 mb-2">{m.desc}</p>
+                  <p className="text-sm text-body mb-2">{m.desc}</p>
                   <p className="text-xs text-muted">
                     FP Rate: {m.fp} · {m.use}
                   </p>
@@ -936,7 +936,7 @@ export default function DetectionChokepointsHub() {
                     <div className="flex flex-wrap gap-1.5">
                       {ch.stages.map((s, i) => (
                         <span key={i} className="flex items-center gap-1">
-                          <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300">
+                          <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body">
                             {s.label}
                           </span>
                           {i < ch.stages.length - 1 && <ArrowRight size={10} className="text-muted" />}
@@ -993,7 +993,7 @@ export default function DetectionChokepointsHub() {
                     <span className={`text-xs font-mono px-2 py-0.5 rounded border ${NODE_TONE[l.color]}`}>{l.to}</span>
                     <span className="text-xs font-mono text-muted">· {l.label}</span>
                   </div>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{l.desc}</p>
+                  <p className="text-sm text-body leading-relaxed">{l.desc}</p>
                 </div>
               ))}
             </div>
@@ -1007,7 +1007,7 @@ export default function DetectionChokepointsHub() {
                 <div key={e.title} className={`${CARD} p-4`}>
                   <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white mb-1">{e.title}</h3>
                   <p className="text-xs font-mono text-brand-600 dark:text-brand-400 mb-2">{e.chains}</p>
-                  <p className="text-sm text-slate-700 dark:text-slate-300">{e.detail}</p>
+                  <p className="text-sm text-body">{e.detail}</p>
                 </div>
               ))}
             </div>

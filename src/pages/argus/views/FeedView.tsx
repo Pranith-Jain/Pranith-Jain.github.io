@@ -266,7 +266,7 @@ export function FeedView({ feed, actors }: Props) {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Rss size={18} className="text-rose-600 dark:text-rose-400" />
-              <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Live Feed</h1>
+              <h1 className="text-xl font-bold tracking-tight text-heading">Live Feed</h1>
               {liveStatus === 'live' && (
                 <span className="flex items-center gap-1.5 text-micro font-mono text-emerald-500">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> LIVE

@@ -207,9 +207,7 @@ export default function ScheduleTab() {
                   header: 'Slot time',
                   sortValue: (s: Slot) => s.slotAt,
                   render: (s) => (
-                    <span className="text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                      {new Date(s.slotAt).toLocaleString()}
-                    </span>
+                    <span className="text-body whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</span>
                   ),
                 },
                 {
@@ -222,7 +220,7 @@ export default function ScheduleTab() {
                   key: 'status',
                   header: 'Status',
                   sortValue: (s: Slot) => s.status,
-                  render: (s) => <span className="text-slate-700 dark:text-slate-300">{s.status}</span>,
+                  render: (s) => <span className="text-body">{s.status}</span>,
                 },
                 {
                   key: 'actions',
@@ -276,7 +274,7 @@ export default function ScheduleTab() {
             >
               &larr; Prev
             </button>
-            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+            <h3 className="text-sm font-semibold text-heading">
               {calDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
             </h3>
             <button
@@ -324,7 +322,7 @@ export default function ScheduleTab() {
                 >
                   <span
                     className={`inline-block w-5 h-5 text-center leading-5 rounded-full text-micro ${
-                      isToday ? 'bg-brand-500 text-white font-bold' : 'text-slate-700 dark:text-slate-300'
+                      isToday ? 'bg-brand-500 text-white font-bold' : 'text-body'
                     }`}
                   >
                     {cell.day}
@@ -362,7 +360,7 @@ export default function ScheduleTab() {
                 >
                   <div className="flex items-center gap-2">
                     <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[s.status] ?? 'bg-slate-300'}`} />
-                    <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.candidateId}</span>
+                    <span className="text-xs font-mono text-body">{s.candidateId}</span>
                     <span className="text-micro uppercase text-muted">{s.status}</span>
                     <span className="text-micro text-muted">{new Date(s.slotAt).toLocaleTimeString()}</span>
                   </div>

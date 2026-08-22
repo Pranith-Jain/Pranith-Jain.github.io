@@ -337,8 +337,8 @@ export default function Blog() {
               </div>
             )}
             <p className="text-mini font-mono text-slate-500 mt-3">
-              Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
-              <span className="text-slate-700 dark:text-slate-300">{posts.length}</span> case studies.
+              Showing <span className="text-body">{filtered.length}</span> of{' '}
+              <span className="text-body">{posts.length}</span> case studies.
             </p>
           </section>
         )}
@@ -378,7 +378,7 @@ export default function Blog() {
                   <p className="text-muted mt-2 leading-relaxed">{p.excerpt}</p>
                 </Link>
                 <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-500">
-                  <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
+                  <span className="font-medium text-body">Pranith Jain</span>
                   <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
                     ·
                   </span>

@@ -193,7 +193,7 @@ function TopDomainsCloud({ domains }: { domains: Record<string, number> }): JSX.
           ratio > 0.66
             ? 'text-rose-600 dark:text-rose-300 font-semibold'
             : ratio > 0.33
-              ? 'text-slate-800 dark:text-slate-200 font-medium'
+              ? 'text-heading font-medium'
               : 'text-muted';
         return (
           <span
@@ -244,11 +244,11 @@ function BigStat({
   };
   return (
     <div className={`rounded-xl border ${toneCls[tone]} p-4 shadow-e1`}>
-      <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+      <div className="flex items-center gap-2 text-body">
         <Icon className={`h-4 w-4 ${iconTone[tone]}`} />
         <span className="text-xs font-mono uppercase tracking-wider">{label}</span>
       </div>
-      <div className="mt-2 text-2xl sm:text-3xl font-bold font-display text-slate-900 dark:text-slate-100 tabular-nums">
+      <div className="mt-2 text-2xl sm:text-3xl font-bold font-display text-heading tabular-nums">
         {fmtCount(total)}
       </div>
       <div className="mt-1 flex items-baseline gap-1.5 text-xs">
@@ -265,7 +265,7 @@ function SecretTypeRow({ name, count, max }: { name: string; count: number; max:
   return (
     <li>
       <div className="flex items-center gap-2 text-xs">
-        <span className="min-w-0 flex-1 truncate text-slate-700 dark:text-slate-300" title={name}>
+        <span className="min-w-0 flex-1 truncate text-body" title={name}>
           {name}
         </span>
         <span className="font-mono tabular-nums text-muted">{count.toLocaleString()}</span>
@@ -388,7 +388,7 @@ export default function RedHuntInsights(): JSX.Element {
           </button>
           {payload && (
             <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-muted">
-              fetched <span className="text-slate-700 dark:text-slate-200">{relTimeShort(payload.fetched_at)} ago</span>
+              fetched <span className="text-body">{relTimeShort(payload.fetched_at)} ago</span>
             </span>
           )}
           {payload?.ok && (
@@ -423,7 +423,7 @@ export default function RedHuntInsights(): JSX.Element {
                 <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
                   Internet-Wide Exposure Analytics
                 </p>
-                <h2 className="mt-1 text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-slate-100">
+                <h2 className="mt-1 text-2xl sm:text-3xl font-display font-bold text-heading">
                   3.7+ Billion Addresses Analyzed
                 </h2>
                 <p className="mt-1 text-sm text-muted max-w-2xl">
@@ -434,7 +434,7 @@ export default function RedHuntInsights(): JSX.Element {
               </div>
               <div className="text-right">
                 <p className="text-micro font-mono uppercase tracking-wider text-muted">Last updated</p>
-                <p className="font-mono text-sm text-slate-700 dark:text-slate-200">
+                <p className="font-mono text-sm text-body">
                   {data.timestamp ? new Date(data.timestamp).toLocaleString() : '-'}
                 </p>
                 <p className="text-micro font-mono text-muted">{relTime(data.timestamp)}</p>
@@ -513,7 +513,7 @@ export default function RedHuntInsights(): JSX.Element {
           {/* ── Collected Assets: 6-week chart for subdomains + APKs ─── */}
           <div className="mb-6 surface-card p-5">
             <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Collected Assets</h3>
+              <h3 className="text-lg font-semibold text-heading">Collected Assets</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 Total Subdomains & APKs Collected Over the Past 6 Weeks
               </p>
@@ -522,7 +522,7 @@ export default function RedHuntInsights(): JSX.Element {
               <div>
                 <div className="flex items-baseline justify-between">
                   <p className="text-sm text-muted">Subdomains</p>
-                  <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
+                  <p className="text-2xl font-display font-bold text-heading tabular-nums">
                     {fmtExact(trends.temp_domains_v1?.last_30_days_count)}
                   </p>
                 </div>
@@ -533,7 +533,7 @@ export default function RedHuntInsights(): JSX.Element {
               <div>
                 <div className="flex items-baseline justify-between">
                   <p className="text-sm text-muted">APKs</p>
-                  <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
+                  <p className="text-2xl font-display font-bold text-heading tabular-nums">
                     {fmtExact(trends.android_pkg_metadata_v1?.last_30_days_count)}
                   </p>
                 </div>
@@ -547,7 +547,7 @@ export default function RedHuntInsights(): JSX.Element {
           {/* ── Top 25 Domains Word Cloud ────────────────────────────── */}
           <div className="mb-6 surface-card p-5">
             <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Top 25 Domains Word Cloud</h3>
+              <h3 className="text-lg font-semibold text-heading">Top 25 Domains Word Cloud</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 Distribution of Top 25 Domains by Subdomain Count in the Past Month
               </p>
@@ -566,7 +566,7 @@ export default function RedHuntInsights(): JSX.Element {
                           key: 'domain',
                           header: 'Domain',
                           sortValue: (e: [string, number]) => e[0],
-                          render: (e) => <span className="font-mono text-slate-700 dark:text-slate-300">{e[0]}</span>,
+                          render: (e) => <span className="font-mono text-body">{e[0]}</span>,
                         },
                         {
                           key: 'count',
@@ -589,9 +589,7 @@ export default function RedHuntInsights(): JSX.Element {
 
           {/* ── Exposure Insights: Repositories and Secrets ──────────── */}
           <div className="mb-6">
-            <h3 className="mb-3 text-lg font-semibold text-slate-900 dark:text-slate-100">
-              Exposure Insights: Repositories and Secrets
-            </h3>
+            <h3 className="mb-3 text-lg font-semibold text-heading">Exposure Insights: Repositories and Secrets</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
               <BigStat
                 icon={GitBranch}
@@ -647,7 +645,7 @@ export default function RedHuntInsights(): JSX.Element {
           {/* ── Commits Over Time + Secrets Found Over Time ──────────── */}
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="surface-card p-5">
-              <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">Commits Over Time</h3>
+              <h3 className="mb-1 text-base font-semibold text-heading">Commits Over Time</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 Code Commits Scanned Across Major Code Platforms in Last 6 Weeks
               </p>
@@ -664,9 +662,7 @@ export default function RedHuntInsights(): JSX.Element {
               </div>
             </div>
             <div className="surface-card p-5">
-              <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
-                Secrets Found Over Time
-              </h3>
+              <h3 className="mb-1 text-base font-semibold text-heading">Secrets Found Over Time</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 Secrets Found Across Major Code Platforms in Last 6 Weeks
               </p>
@@ -687,9 +683,7 @@ export default function RedHuntInsights(): JSX.Element {
           {/* ── Recently Discovered Secrets + Top 10 Secret Types ────── */}
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="surface-card p-5">
-              <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
-                Recently Discovered Secrets
-              </h3>
+              <h3 className="mb-1 text-base font-semibold text-heading">Recently Discovered Secrets</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-muted">
                 20 most recent across all code platforms
               </p>
@@ -701,7 +695,7 @@ export default function RedHuntInsights(): JSX.Element {
                     <li key={s.id} className="flex items-start gap-3 py-2.5">
                       <Key className="mt-0.5 h-4 w-4 shrink-0 text-rose-500 dark:text-rose-400" />
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{s.type}</p>
+                        <p className="truncate text-sm font-medium text-heading">{s.type}</p>
                         <p className="text-xs text-muted">
                           <span className="font-mono">{s.organization}</span> · {s.platform}
                         </p>
@@ -714,8 +708,8 @@ export default function RedHuntInsights(): JSX.Element {
             </div>
             <div className="surface-card p-5">
               <div className="flex items-baseline justify-between">
-                <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Top 10 Secrets Type</h3>
-                <p className="text-sm font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
+                <h3 className="text-base font-semibold text-heading">Top 10 Secrets Type</h3>
+                <p className="text-sm font-display font-bold text-heading tabular-nums">
                   {fmtExact(topSecretEntries.reduce((n, [, c]) => n + c, 0))}
                 </p>
               </div>
@@ -732,9 +726,7 @@ export default function RedHuntInsights(): JSX.Element {
 
           {/* ── Postman Ecosystem ────────────────────────────────────── */}
           <div className="mb-2">
-            <h3 className="mb-3 text-lg font-semibold text-slate-900 dark:text-slate-100">
-              Exposure Insights: Postman Ecosystem
-            </h3>
+            <h3 className="mb-3 text-lg font-semibold text-heading">Exposure Insights: Postman Ecosystem</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <BigStat
                 icon={Zap}
@@ -755,9 +747,7 @@ export default function RedHuntInsights(): JSX.Element {
             </div>
           </div>
           <div className="mb-6 surface-card p-5">
-            <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
-              Collections and Environments Growth
-            </h3>
+            <h3 className="mb-1 text-base font-semibold text-heading">Collections and Environments Growth</h3>
             <p className="text-micro font-mono uppercase tracking-wider text-muted">
               Postman Collections & Environments Scanned Over The Past 6 Weeks
             </p>
@@ -780,7 +770,7 @@ export default function RedHuntInsights(): JSX.Element {
           {/* ── Footer / discover attack repeat ─────────────────────── */}
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-5 text-center">
             <p className="text-micro font-mono uppercase tracking-wider text-muted">RedHunt Labs Research Loop</p>
-            <p className="mt-2 font-display text-xl font-bold text-slate-900 dark:text-slate-100">
+            <p className="mt-2 font-display text-xl font-bold text-heading">
               <span className="text-rose-600 dark:text-rose-400">DISCOVER</span> ·{' '}
               <span className="text-emerald-600 dark:text-emerald-400">ATTACK</span> ·{' '}
               <span className="text-rose-600 dark:text-rose-400">REPEAT</span>

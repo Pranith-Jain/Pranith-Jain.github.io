@@ -155,9 +155,7 @@ export default function PromptInjection(): JSX.Element {
           <ShieldAlert className="h-5 w-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
         </div>
         <div>
-          <h1 className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">
-            Prompt Injection Detector
-          </h1>
+          <h1 className="text-2xl font-display font-bold text-heading">Prompt Injection Detector</h1>
           <p className="mt-1 text-sm font-mono text-muted">
             Scan system prompts, user inputs, or LLM outputs against {PATTERNS.length} known injection and jailbreak
             patterns. Pure client-side - nothing leaves your browser.
@@ -193,7 +191,7 @@ export default function PromptInjection(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           rows={8}
           placeholder="Paste a prompt, an LLM response, or untrusted content (web page, document, email) the model will see…"
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-sm text-heading focus:border-brand-500/60 focus:outline-none"
           aria-label="Prompt injection input"
         />
       </section>
@@ -231,7 +229,7 @@ export default function PromptInjection(): JSX.Element {
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
               Highlighted input
             </h2>
-            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-heading leading-relaxed">
               {highlight(input, matches)}
             </div>
           </section>
@@ -246,9 +244,7 @@ export default function PromptInjection(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-display font-semibold text-slate-900 dark:text-slate-100">
-                        {m.pattern.name}
-                      </span>
+                      <span className="font-display font-semibold text-heading">{m.pattern.name}</span>
                       <span
                         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_STYLES[m.pattern.severity]}`}
                       >
@@ -370,7 +366,7 @@ export default function PromptInjection(): JSX.Element {
               className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
             >
               <div className="flex flex-wrap items-center gap-2 mb-2">
-                <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
+                <span className="font-display font-semibold text-heading">{p.name}</span>
                 <span
                   className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_STYLES[p.severity]}`}
                 >
@@ -392,9 +388,7 @@ export default function PromptInjection(): JSX.Element {
                   <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">
                     Assumed system context
                   </div>
-                  <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                    {p.systemContext}
-                  </p>
+                  <p className="text-meta font-mono text-body leading-relaxed">{p.systemContext}</p>
                 </div>
               )}
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 mb-2">
@@ -404,17 +398,13 @@ export default function PromptInjection(): JSX.Element {
                   </span>
                   <CopyChip value={p.prompt} label="copy prompt" />
                 </div>
-                <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
-                  {p.prompt}
-                </pre>
+                <pre className="text-meta font-mono text-heading whitespace-pre-wrap break-words">{p.prompt}</pre>
               </div>
               <div className="rounded border border-emerald-500/30 bg-emerald-500/5 p-2">
                 <div className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
                   Expected behaviour
                 </div>
-                <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                  {p.expectedBehaviour}
-                </p>
+                <p className="text-meta font-mono text-body leading-relaxed">{p.expectedBehaviour}</p>
               </div>
               {p.source && (
                 <p className="mt-1.5 text-micro font-mono text-slate-400 dark:text-slate-400">Source: {p.source}</p>
@@ -465,7 +455,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
         {owaspFilter !== 'all' && (
           <p className="text-xs font-mono text-muted mb-3">
-            <span className="font-semibold text-slate-700 dark:text-slate-300">{LLM_TOP10[owaspFilter].title}</span>
+            <span className="font-semibold text-body">{LLM_TOP10[owaspFilter].title}</span>
             {' - '}
             {LLM_TOP10[owaspFilter].short}
           </p>
@@ -477,7 +467,7 @@ export default function PromptInjection(): JSX.Element {
               className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
             >
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
+                <span className="text-xs font-display font-semibold text-heading">{p.name}</span>
                 <span
                   className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEVERITY_STYLES[p.severity]}`}
                 >

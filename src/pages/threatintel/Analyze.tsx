@@ -300,10 +300,10 @@ export default function Analyze(): JSX.Element {
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1 font-mono text-sm text-muted">
             <span>
-              score: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.score}</span> / 100
+              score: <span className="font-semibold text-heading">{summary.score}</span> / 100
             </span>
             <span>
-              confidence: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.confidence}</span>
+              confidence: <span className="font-semibold text-heading">{summary.confidence}</span>
             </span>
             <span>
               {respondedCount} of {results.length} providers responded
@@ -409,7 +409,7 @@ export default function Analyze(): JSX.Element {
                         <td className="px-2 py-2.5 text-muted">
                           {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                         </td>
-                        <td className="px-3 py-2.5 font-display font-semibold capitalize text-slate-900 dark:text-slate-100">
+                        <td className="px-3 py-2.5 font-display font-semibold capitalize text-heading">
                           {r.source}
                           {r.cached && <span className="ml-2 text-micro text-rose-500">cached</span>}
                         </td>
@@ -523,7 +523,7 @@ export default function Analyze(): JSX.Element {
                             ))}
                           </ul>
                         )}
-                        <pre className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-all max-h-60 overflow-y-auto">
+                        <pre className="text-meta font-mono text-body leading-relaxed whitespace-pre-wrap break-all max-h-60 overflow-y-auto">
                           {JSON.stringify(r.raw_summary, null, 2)}
                         </pre>
                         {r.fetched_at && (

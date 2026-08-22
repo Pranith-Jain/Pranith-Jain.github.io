@@ -97,9 +97,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
             </span>
             {summary.sections.map(([id, count]) => (
               <div key={id} className="flex items-center gap-2">
-                <span className="text-xs text-slate-600 dark:text-slate-300 w-40 truncate flex-shrink-0">
-                  {sectionLabels[id] ?? id}
-                </span>
+                <span className="text-xs text-body w-40 truncate flex-shrink-0">{sectionLabels[id] ?? id}</span>
                 <div className="flex-1 h-2 rounded-full bg-slate-200/60 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                   <div
                     className="h-full rounded-full bg-brand-500/60"
@@ -121,7 +119,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
               {summary.sources.map(([host, count]) => (
                 <span
                   key={host}
-                  className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body bg-white dark:bg-[rgb(var(--surface-200))]"
                 >
                   {host} <span className="text-slate-400">×{count}</span>
                 </span>
@@ -142,7 +140,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
                       href={sanitizeUrl(e.link) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-brand-500 dark:hover:text-brand-400 leading-snug transition-colors"
+                      className="text-xs font-medium text-body hover:text-brand-500 dark:hover:text-brand-400 leading-snug transition-colors"
                     >
                       {e.title}
                     </a>

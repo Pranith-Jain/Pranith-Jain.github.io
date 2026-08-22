@@ -240,7 +240,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
             <Icon size={12} aria-hidden="true" />
             {title}
           </div>
-          <div className="mt-0.5 text-sm font-semibold text-slate-900 dark:text-slate-100">
+          <div className="mt-0.5 text-sm font-semibold text-heading">
             {snapshot.gradeInfo?.label ?? `Grade ${snapshot.grade}`}
             <span className="ml-2 font-mono text-mini font-normal text-muted">{snapshot.percentage}%</span>
           </div>
@@ -282,7 +282,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
       {issues.length > 0 && (
         <div className="mt-3 border-t border-slate-200 pt-3 dark:border-[rgb(var(--border-400))]">
           <div className="text-mini font-mono uppercase tracking-[0.16em] text-muted">top issues</div>
-          <ul className="mt-2 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
+          <ul className="mt-2 space-y-1.5 text-xs text-body">
             {issues.map((iss, i) => (
               <li key={iss.id ?? `iss-${i}`} className="flex items-start gap-2">
                 <span

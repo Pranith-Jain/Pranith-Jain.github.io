@@ -113,7 +113,7 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
       className="block surface-card p-4 transition-all hover:border-rose-500/50 hover:shadow-e3 hover:shadow-rose-500/5 hover:-translate-y-0.5"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
-        <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100">{tool.name}</span>
+        <span className="font-mono font-semibold text-sm text-heading">{tool.name}</span>
         <ExternalLink size={12} className="text-muted flex-shrink-0 mt-0.5" />
       </div>
       <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>

@@ -67,7 +67,7 @@ function QueryBlock({ label, query }: { label: string; query?: string }) {
           {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
         </button>
       </div>
-      <pre className="font-mono text-mini leading-relaxed text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-mini leading-relaxed text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 overflow-x-auto whitespace-pre-wrap">
         {query}
       </pre>
     </div>
@@ -84,7 +84,7 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
           >
             {body.severity}
           </span>
-          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
+          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
             {body.category}
           </span>
           <a
@@ -102,9 +102,7 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
             </span>
           )}
         </div>
-        {body.description && (
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
-        )}
+        {body.description && <p className="text-sm text-body leading-relaxed">{body.description}</p>}
         <QueryBlock label="KQL (Microsoft Sentinel)" query={body.kql} />
         <QueryBlock label="SPL (Splunk)" query={body.spl} />
         <QueryBlock label="Sigma" query={body.sigma} />
@@ -113,13 +111,13 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
             <div className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
               Tuning
             </div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.tuning}</p>
+            <p className="text-sm text-body leading-relaxed">{body.tuning}</p>
           </div>
         )}
         {(body.falsePositives || body.fpRate) && (
           <div>
             <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">False Positives</div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+            <p className="text-sm text-body leading-relaxed">
               {Array.isArray(body.falsePositives)
                 ? body.falsePositives.join(' · ')
                 : body.falsePositives || body.fpRate}
@@ -191,7 +189,7 @@ export default function SiemLibrary() {
               placeholder="Search use-cases, techniques..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -265,7 +263,7 @@ export default function SiemLibrary() {
                   </span>
                   <span className="font-mono text-micro text-slate-400 dark:text-slate-500">{uc.category}</span>
                 </div>
-                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
                   {uc.name}
                 </div>
                 <div className="font-mono text-micro text-orange-600 dark:text-orange-400/70">{uc.mitre}</div>

@@ -61,8 +61,7 @@ function saveDraft(doc: ReportDoc): void {
 }
 
 const TLP_COLORS: Record<Tlp, string> = {
-  CLEAR:
-    'bg-slate-100 dark:bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-500/30',
+  CLEAR: 'bg-slate-100 dark:bg-slate-500/10 text-body border-slate-300 dark:border-slate-500/30',
   GREEN:
     'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-500/30',
   AMBER:
@@ -233,7 +232,7 @@ export default function ReportComposer(): JSX.Element {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"

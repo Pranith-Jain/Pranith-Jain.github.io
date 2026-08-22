@@ -249,9 +249,7 @@ function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
           <p className="text-xs text-amber-600 dark:text-amber-400 mb-1.5">
             The model returned unstructured text — raw output shown below:
           </p>
-          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono">
-            {analysis._raw}
-          </p>
+          <p className="text-xs text-body leading-relaxed whitespace-pre-wrap font-mono">{analysis._raw}</p>
         </div>
       </div>
     );
@@ -268,7 +266,7 @@ function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
         <span className="text-micro font-mono text-slate-500">confidence: {analysis.confidence}</span>
       </div>
 
-      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
+      <p className="text-sm text-body leading-relaxed">{analysis.summary}</p>
 
       {analysis.impact && (
         <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
@@ -332,7 +330,7 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
         </span>
       </div>
 
-      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.executive_summary}</p>
+      <p className="text-sm text-body leading-relaxed">{analysis.executive_summary}</p>
 
       {analysis.cyber_threats && (
         <div className="rounded-xl bg-rose-500/5 border border-rose-500/10 p-3">
@@ -408,7 +406,7 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
         {analysis.indicator}
       </div>
 
-      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.assessment}</p>
+      <p className="text-sm text-body leading-relaxed">{analysis.assessment}</p>
 
       {analysis.possibleAttribution && (
         <div className="rounded-xl bg-purple-500/5 border border-purple-500/10 p-3">

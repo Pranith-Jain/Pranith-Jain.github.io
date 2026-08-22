@@ -76,7 +76,7 @@ export default function PredictiveIntel(): JSX.Element {
       {summary && (
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-rose-500/5 to-rose-500/10 dark:from-rose-500/10 dark:to-rose-500/5 p-5 mb-6">
           <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Executive Summary</div>
-          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{summary}</p>
+          <p className="text-sm text-body leading-relaxed">{summary}</p>
         </div>
       )}
 
@@ -114,9 +114,7 @@ export default function PredictiveIntel(): JSX.Element {
                       {s.trend}
                     </span>
                   </div>
-                  <span className="text-lg font-display font-bold text-slate-800 dark:text-slate-200">
-                    {s.current_risk}
-                  </span>
+                  <span className="text-lg font-display font-bold text-heading">{s.current_risk}</span>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
                   <div

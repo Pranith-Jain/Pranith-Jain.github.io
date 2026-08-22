@@ -253,7 +253,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
         >
           {data.status ?? 'unknown'}
         </span>
-        <span className="text-sm text-slate-800 dark:text-slate-200 font-mono">{data.address}</span>
+        <span className="text-sm text-heading font-mono">{data.address}</span>
       </div>
 
       {(data.first_seen || data.last_seen) && (
@@ -261,13 +261,13 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
           {data.first_seen && (
             <div>
               <span className="text-muted">First seen</span>
-              <p className="text-slate-700 dark:text-slate-300 mt-0.5">{data.first_seen}</p>
+              <p className="text-body mt-0.5">{data.first_seen}</p>
             </div>
           )}
           {data.last_seen && (
             <div>
               <span className="text-muted">Last seen</span>
-              <p className="text-slate-700 dark:text-slate-300 mt-0.5">{data.last_seen}</p>
+              <p className="text-body mt-0.5">{data.last_seen}</p>
             </div>
           )}
         </div>
@@ -276,7 +276,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
       {data.title && (
         <div>
           <span className="text-xs text-muted">Title</span>
-          <p className="text-sm text-slate-800 dark:text-slate-200 mt-0.5">{data.title}</p>
+          <p className="text-sm text-heading mt-0.5">{data.title}</p>
         </div>
       )}
 
@@ -285,10 +285,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
           <span className="text-xs text-muted">Tags</span>
           <div className="flex flex-wrap gap-1 mt-1">
             {data.tags.map((t, i) => (
-              <span
-                key={i}
-                className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-slate-700 dark:text-slate-300"
-              >
+              <span key={i} className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-body">
                 {t}
               </span>
             ))}
@@ -301,10 +298,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
           <span className="text-xs text-muted">Open ports</span>
           <div className="flex flex-wrap gap-1 mt-1">
             {data.ports.map((p) => (
-              <span
-                key={p}
-                className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-slate-700 dark:text-slate-300"
-              >
+              <span key={p} className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-body">
                 {p}
               </span>
             ))}
@@ -370,7 +364,7 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
                 </span>
                 {r.scamType && <span className="text-xs text-muted">{r.scamType}</span>}
               </div>
-              <p className="text-sm text-slate-700 dark:text-slate-300">{r.description}</p>
+              <p className="text-sm text-body">{r.description}</p>
               <p className="text-xs text-muted mt-1">{new Date(r.createdAt).toLocaleDateString()}</p>
             </div>
           ))}
@@ -393,7 +387,7 @@ function TorExitResults({ data }: { data: TorExitCheckResult }) {
         >
           {data.isTorExit ? 'TOR EXIT NODE' : 'NOT A TOR EXIT NODE'}
         </span>
-        <span className="text-sm text-slate-700 dark:text-slate-300 font-mono">{data.ip}</span>
+        <span className="text-sm text-body font-mono">{data.ip}</span>
       </div>
     </div>
   );

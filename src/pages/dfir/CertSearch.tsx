@@ -95,7 +95,7 @@ export default function CertSearch(): JSX.Element {
   const allNamesBlob = useMemo(() => filteredNames.join('\n'), [filteredNames]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -197,15 +197,15 @@ export default function CertSearch(): JSX.Element {
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">Summary</h2>
             <div className="grid sm:grid-cols-3 gap-4">
               <div>
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.total}</div>
+                <div className="text-2xl font-bold text-heading">{data.total}</div>
                 <div className="text-mini font-mono text-slate-400 dark:text-slate-400">total issuances</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.unique_names.length}</div>
+                <div className="text-2xl font-bold text-heading">{data.unique_names.length}</div>
                 <div className="text-mini font-mono text-slate-400 dark:text-slate-400">unique DNS names</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.issuers.length}</div>
+                <div className="text-2xl font-bold text-heading">{data.issuers.length}</div>
                 <div className="text-mini font-mono text-slate-400 dark:text-slate-400">distinct issuers</div>
               </div>
             </div>
@@ -246,7 +246,7 @@ export default function CertSearch(): JSX.Element {
                 className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
-            <ul className="font-mono text-meta text-slate-700 dark:text-slate-300 space-y-1 max-h-80 overflow-auto break-all">
+            <ul className="font-mono text-meta text-body space-y-1 max-h-80 overflow-auto break-all">
               {filteredNames.map((n, ni) => (
                 <li
                   key={`${n}-${ni}`}
@@ -296,7 +296,7 @@ export default function CertSearch(): JSX.Element {
                       )}
                     </span>
                   </div>
-                  <div className="text-mini font-mono text-slate-700 dark:text-slate-300 flex flex-wrap gap-x-3 gap-y-0.5 break-all">
+                  <div className="text-mini font-mono text-body flex flex-wrap gap-x-3 gap-y-0.5 break-all">
                     {it.dns_names.map((n, di) => (
                       <span key={`${n}-${di}`}>{n}</span>
                     ))}

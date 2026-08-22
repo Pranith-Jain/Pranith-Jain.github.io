@@ -58,7 +58,7 @@ function Diff({ before, after }: { before: string; after: string }): JSX.Element
           <div className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-0.5">
             before
           </div>
-          <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-rose-500/5 rounded p-2 border border-rose-500/20">
+          <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-rose-500/5 rounded p-2 border border-rose-500/20">
             {before}
           </pre>
         </div>
@@ -66,7 +66,7 @@ function Diff({ before, after }: { before: string; after: string }): JSX.Element
           <div className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-0.5">
             after
           </div>
-          <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-emerald-500/5 rounded p-2 border border-emerald-500/20">
+          <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-emerald-500/5 rounded p-2 border border-emerald-500/20">
             {after}
           </pre>
         </div>
@@ -75,7 +75,7 @@ function Diff({ before, after }: { before: string; after: string }): JSX.Element
   }
 
   return (
-    <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
       {head}
       <span className="bg-rose-500/15 text-rose-700 dark:text-rose-300 line-through px-0.5 rounded">{beforeMid}</span>
       <span className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-0.5 rounded">{afterMid}</span>
@@ -121,7 +121,7 @@ export default function PowershellDeobf(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -174,7 +174,7 @@ export default function PowershellDeobf(): JSX.Element {
           rows={8}
           spellCheck={false}
           placeholder="Paste an obfuscated PowerShell command, EncodedCommand blob, or stager fragment…"
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
         />
       </section>
 
@@ -201,7 +201,7 @@ export default function PowershellDeobf(): JSX.Element {
                 <CopyChip value={result.output} />
               </div>
             </div>
-            <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <pre className="text-xs font-mono text-heading whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))]">
               {result.output}
             </pre>
           </section>
@@ -218,14 +218,14 @@ export default function PowershellDeobf(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.label}</span>
+                      <span className="font-display font-semibold text-heading">{r.label}</span>
                       <span
                         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[r.severity]}`}
                       >
                         {r.severity}
                       </span>
                     </div>
-                    <p className="text-meta font-mono text-slate-700 dark:text-slate-300">{r.description}</p>
+                    <p className="text-meta font-mono text-body">{r.description}</p>
                   </li>
                 ))}
               </ul>

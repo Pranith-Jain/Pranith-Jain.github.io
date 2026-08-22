@@ -117,7 +117,7 @@ export default function HashCalculator(): JSX.Element {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=file-analysis"
@@ -182,7 +182,7 @@ export default function HashCalculator(): JSX.Element {
               <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
               <CopyButton text={v} variant="ghost" size="sm" label={`Copy ${k}`} />
             </div>
-            <code className="font-mono text-meta break-all text-slate-900 dark:text-slate-100">{v}</code>
+            <code className="font-mono text-meta break-all text-heading">{v}</code>
           </li>
         ))}
       </ul>

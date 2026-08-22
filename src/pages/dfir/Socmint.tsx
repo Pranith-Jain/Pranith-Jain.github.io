@@ -71,7 +71,7 @@ const CATEGORY_META: Record<PivotCategory, { label: string; blurb: string; icon:
     label: 'Domain / infra',
     blurb: 'Domain inspector, WHOIS, Shodan, Censys, SecurityTrails, crt.sh',
     icon: Network,
-    pillCls: 'border-slate-400/40 bg-slate-400/10 text-slate-700 dark:text-slate-300',
+    pillCls: 'border-slate-400/40 bg-slate-400/10 text-body',
   },
 };
 
@@ -164,7 +164,7 @@ export default function Socmint(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -350,7 +350,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
   return (
     <>
       <div className="flex items-baseline justify-between gap-2 mb-0.5">
-        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{pivot.label}</span>
+        <span className="font-display font-semibold text-sm text-heading">{pivot.label}</span>
         <span className="inline-flex items-center gap-1 text-micro font-mono text-muted">
           {pivot.paid && (
             <span className="px-1 py-0.5 rounded border border-amber-500/40 text-amber-700 dark:text-amber-300">

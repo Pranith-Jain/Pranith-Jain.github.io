@@ -122,7 +122,7 @@ export default function TelegramLeaks(): JSX.Element {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search leaks…"
-          className="w-56 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+          className="w-56 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading placeholder:text-slate-400 font-mono"
         />
         <button
           type="submit"
@@ -135,7 +135,7 @@ export default function TelegramLeaks(): JSX.Element {
       <select
         value={severityFilter}
         onChange={(e) => setSeverityFilter(e.target.value)}
-        className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
+        className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading font-mono"
       >
         <option value="">All severities</option>
         <option value="critical">Critical</option>
@@ -147,7 +147,7 @@ export default function TelegramLeaks(): JSX.Element {
       <select
         value={channelFilter}
         onChange={(e) => setChannelFilter(e.target.value)}
-        className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
+        className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading font-mono"
       >
         <option value="">All channels</option>
         {channels.map((ch) => (
@@ -216,9 +216,7 @@ export default function TelegramLeaks(): JSX.Element {
               </span>
             </div>
 
-            <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-3 mb-2 leading-relaxed font-mono">
-              {entry.message_text}
-            </p>
+            <p className="text-xs text-body line-clamp-3 mb-2 leading-relaxed font-mono">{entry.message_text}</p>
 
             <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-muted">
               {entry.credential_count > 0 && (

@@ -113,7 +113,7 @@ export default function CyberNewsFeed(): JSX.Element {
           className={`px-2.5 py-1 rounded-xl text-xs font-medium border transition-colors ${
             activeTier === null
               ? 'bg-rose-600 text-white border-rose-600'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
           }`}
         >
           <Filter className="h-3 w-3 inline mr-1" />

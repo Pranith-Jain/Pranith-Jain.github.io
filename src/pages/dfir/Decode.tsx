@@ -141,7 +141,7 @@ export default function Decode(): JSX.Element {
             className={`px-4 py-2 rounded-xl font-mono text-sm font-semibold transition-colors border ${
               mode === m
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400'
+                : 'bg-white dark:bg-[rgb(var(--surface-200))] text-body border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400'
             }`}
           >
             {m === 'auto' ? 'Auto-Detect' : m === 'base64' ? 'Base64 Decode' : 'URL Decode'}
@@ -206,7 +206,7 @@ export default function Decode(): JSX.Element {
               readOnly
               value={output}
               rows={12}
-              className="w-full px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 resize-none focus:outline-none"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading resize-none focus:outline-none"
               placeholder="Decoded output will appear here..."
             />
           </div>
@@ -240,7 +240,7 @@ export default function Decode(): JSX.Element {
                     {step.input.length > 80 ? '…' : ''}
                   </div>
                   <ChevronRight size={12} className="text-muted my-0.5" />
-                  <div className="font-mono text-xs text-slate-700 dark:text-slate-300 break-all">
+                  <div className="font-mono text-xs text-body break-all">
                     {step.output.slice(0, 200)}
                     {step.output.length > 200 ? '…' : ''}
                   </div>

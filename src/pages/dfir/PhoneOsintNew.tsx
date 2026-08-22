@@ -71,7 +71,7 @@ function Field({
     <div className="min-w-0">
       <div className="text-micro uppercase tracking-wider mb-1 text-muted">{label}</div>
       <div
-        className={`text-sm font-medium truncate ${mono ? 'font-mono' : ''} ${valueColor || 'text-slate-900 dark:text-slate-100'}`}
+        className={`text-sm font-medium truncate ${mono ? 'font-mono' : ''} ${valueColor || 'text-heading'}`}
         title={typeof value === 'string' ? value : undefined}
       >
         {value || '-'}
@@ -146,7 +146,7 @@ export default function PhoneOsintNew() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
           <Radar size={32} className="text-brand-600 dark:text-brand-400" />
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">AI Phone Intel Dashboard</h2>
+          <h2 className="text-2xl font-bold text-heading">AI Phone Intel Dashboard</h2>
         </div>
 
         {/* Status bar */}
@@ -197,7 +197,7 @@ export default function PhoneOsintNew() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handlePhoneScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium outline-none transition bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 border border-[rgb(var(--border-400))]"
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium outline-none transition bg-[rgb(var(--surface-100))] text-heading border border-[rgb(var(--border-400))]"
               />
               <button
                 onClick={handlePhoneScan}
@@ -310,9 +310,7 @@ export default function PhoneOsintNew() {
                         >
                           <span className="text-sm shrink-0">{CATEGORY_ICONS[l.category] || 'Link'}</span>
                           <div className="flex-1 min-w-0">
-                            <div className="text-xs font-medium truncate text-slate-900 dark:text-slate-100">
-                              {l.service}
-                            </div>
+                            <div className="text-xs font-medium truncate text-heading">{l.service}</div>
                             <div className="text-micro truncate text-muted">
                               {CATEGORY_LABELS[l.category] || l.category}
                             </div>
@@ -368,7 +366,7 @@ export default function PhoneOsintNew() {
                 value={hashInput}
                 onChange={(e) => setHashInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleMalwareScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium font-mono outline-none transition bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 border border-[rgb(var(--border-400))]"
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium font-mono outline-none transition bg-[rgb(var(--surface-100))] text-heading border border-[rgb(var(--border-400))]"
               />
               <button
                 onClick={handleMalwareScan}
@@ -390,9 +388,7 @@ export default function PhoneOsintNew() {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div>
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">Family</div>
-                      <div className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                        {malwareResult.malware_family || 'Unknown'}
-                      </div>
+                      <div className="text-sm font-bold text-heading">{malwareResult.malware_family || 'Unknown'}</div>
                     </div>
                     <div>
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">Verdict</div>
@@ -410,9 +406,7 @@ export default function PhoneOsintNew() {
                     </div>
                     <div>
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">First Seen</div>
-                      <div className="text-sm text-slate-900 dark:text-slate-100">
-                        {malwareResult.first_seen || 'N/A'}
-                      </div>
+                      <div className="text-sm text-heading">{malwareResult.first_seen || 'N/A'}</div>
                     </div>
                     <div>
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">Tags</div>
@@ -452,9 +446,7 @@ export default function PhoneOsintNew() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 p-2.5 rounded-xl transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
                       >
-                        <span className="text-xs font-medium flex-1 truncate text-slate-900 dark:text-slate-100">
-                          {link.name}
-                        </span>
+                        <span className="text-xs font-medium flex-1 truncate text-heading">{link.name}</span>
                         <ExternalLink size={10} className="text-muted" />
                       </a>
                     ))}
@@ -488,7 +480,7 @@ export default function PhoneOsintNew() {
                 className="flex items-center justify-between p-2.5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
               >
                 <div>
-                  <div className="text-xs font-medium font-mono text-slate-900 dark:text-slate-100">{scan.number}</div>
+                  <div className="text-xs font-medium font-mono text-heading">{scan.number}</div>
                   <div className="text-micro text-muted">{new Date(scan.timestamp).toLocaleTimeString()}</div>
                 </div>
                 <span className="text-micro font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500">

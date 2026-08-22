@@ -135,7 +135,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
             <span className="inline-flex items-center gap-1.5" aria-live="polite" aria-atomic="true">
               <Eye className="h-3.5 w-3.5" aria-hidden="true" />
               <span>
-                <span className="font-semibold text-slate-700 dark:text-slate-300">{formatViewCount(count)}</span> views
+                <span className="font-semibold text-body">{formatViewCount(count)}</span> views
                 {isNewSession && <span className="sr-only"> (new session)</span>}
               </span>
             </span>

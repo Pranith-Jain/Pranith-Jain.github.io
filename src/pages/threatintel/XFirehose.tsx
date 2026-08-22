@@ -45,7 +45,7 @@ const TOPIC_PILL: Record<XFeedItem['handle_topic'], string> = {
   gov: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   malware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   cve: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  darknet: 'border-slate-500/40 bg-slate-500/10 text-slate-600 dark:text-slate-300',
+  darknet: 'border-slate-500/40 bg-slate-500/10 text-body',
   ransom: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
   breach: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
 };
@@ -228,7 +228,7 @@ export default function XFirehose(): JSX.Element {
       {data && (
         <p className="text-mini font-mono text-slate-500 mt-3">
           Showing {filtered.length} of {data.items.length} posts · snapshot{' '}
-          <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+          <span className="text-body">{shortRel(data.generated_at)}</span>
           {data.warnings.length > 0 && (
             <span className="text-amber-600 dark:text-amber-400 ml-2">· {data.warnings.length} handle warnings</span>
           )}
@@ -300,7 +300,7 @@ export default function XFirehose(): JSX.Element {
                 </span>
                 <ExternalLink size={11} className="text-muted shrink-0" />
               </div>
-              <p className="text-tool text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 leading-relaxed mb-1.5 whitespace-pre-line">
+              <p className="text-tool text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 leading-relaxed mb-1.5 whitespace-pre-line">
                 {it.text}
               </p>
               <PostSummary text={postSummaries.get(String(it.link))} />

@@ -208,13 +208,13 @@ export default function XCookiesTab() {
   }
 
   const inputCls =
-    'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:border-brand-500';
+    'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading font-mono focus:outline-none focus:border-brand-500';
 
   return (
     <div className="space-y-8">
       {/* Current status */}
       <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
-        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">X (Twitter) Session Cookies</h2>
+        <h2 className="text-sm font-semibold text-heading mb-4">X (Twitter) Session Cookies</h2>
         {loading ? (
           <p className="text-sm text-slate-600 dark:text-slate-500">Loading…</p>
         ) : status ? (
@@ -234,13 +234,13 @@ export default function XCookiesTab() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
               <div className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
                 <span className="text-slate-500">auth_token: </span>
-                <span className={status.authToken.set ? 'text-slate-800 dark:text-slate-200' : 'text-rose-500'}>
+                <span className={status.authToken.set ? 'text-heading' : 'text-rose-500'}>
                   {status.authToken.set ? `set ····${status.authToken.last4}` : 'missing'}
                 </span>
               </div>
               <div className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
                 <span className="text-slate-500">ct0: </span>
-                <span className={status.ct0.set ? 'text-slate-800 dark:text-slate-200' : 'text-rose-500'}>
+                <span className={status.ct0.set ? 'text-heading' : 'text-rose-500'}>
                   {status.ct0.set ? `set ····${status.ct0.last4}` : 'missing'}
                 </span>
               </div>
@@ -261,7 +261,7 @@ export default function XCookiesTab() {
             type="button"
             onClick={() => void handleTest()}
             disabled={testing}
-            className="px-4 py-2 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+            className="px-4 py-2 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
           >
             {testing ? 'Testing…' : 'Test connection'}
           </button>
@@ -292,7 +292,7 @@ export default function XCookiesTab() {
 
       {/* Set override */}
       <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
-        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Set Admin Override</h2>
+        <h2 className="text-sm font-semibold text-heading mb-4">Set Admin Override</h2>
         {error && <p className="text-sm text-rose-600 dark:text-rose-400 mb-4">{error}</p>}
         {saved && <p className="text-sm text-emerald-600 dark:text-emerald-400 mb-4">{saved}</p>}
         <form onSubmit={handleSave} className="space-y-4">
@@ -362,7 +362,7 @@ export default function XCookiesTab() {
 
       {/* Query IDs */}
       <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
-        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">GraphQL Query IDs</h2>
+        <h2 className="text-sm font-semibold text-heading mb-4">GraphQL Query IDs</h2>
         <p className="text-xs text-slate-500 dark:text-slate-500 leading-relaxed mb-4">
           X rotates these query IDs every few weeks; stale IDs break every authenticated fetch. Paste fresh IDs from
           x.com DevTools → Network → filter <code>graphql</code> (the ID is the path segment after{' '}

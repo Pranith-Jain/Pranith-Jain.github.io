@@ -145,7 +145,7 @@ export default function LinkAuditTab() {
             <tbody>
               {audits.map((a) => (
                 <tr key={a.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <td className="py-2 pr-4 text-slate-900 dark:text-slate-100 max-w-md truncate" title={a.title}>
+                  <td className="py-2 pr-4 text-heading max-w-md truncate" title={a.title}>
                     <a
                       href={`/blog/${a.slug}`}
                       target="_blank"
@@ -156,7 +156,7 @@ export default function LinkAuditTab() {
                     </a>
                   </td>
                   <td className="py-2 pr-4 text-muted uppercase text-xs">{a.type}</td>
-                  <td className="py-2 pr-4 text-right text-slate-700 dark:text-slate-300 tabular-nums">{a.checked}</td>
+                  <td className="py-2 pr-4 text-right text-body tabular-nums">{a.checked}</td>
                   <td className="py-2 pr-4 text-right text-emerald-600 dark:text-emerald-400 tabular-nums">
                     {a.verified}
                   </td>

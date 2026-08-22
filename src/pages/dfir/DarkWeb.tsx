@@ -256,7 +256,7 @@ export default function DarkWeb(): JSX.Element {
                   aria-pressed={on}
                   className={`px-2 py-0.5 rounded border transition-colors ${
                     on
-                      ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
+                      ? 'border-brand-500/50 text-heading bg-brand-50 dark:bg-brand-900/20'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
                   }`}
                 >
@@ -276,7 +276,7 @@ export default function DarkWeb(): JSX.Element {
                 aria-pressed={dateWindow === w}
                 className={`px-2 py-0.5 rounded border transition-colors ${
                   dateWindow === w
-                    ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
+                    ? 'border-brand-500/50 text-heading bg-brand-50 dark:bg-brand-900/20'
                     : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
                 }`}
               >
@@ -421,7 +421,7 @@ export default function DarkWeb(): JSX.Element {
                     className="group block"
                   >
                     <div className="flex items-baseline justify-between gap-3">
-                      <h3 className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                      <h3 className="font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                         {highlightInText(it.title, highlightRe)}
                       </h3>
                       <ExternalLink size={12} className="text-slate-500 shrink-0 mt-1" />
@@ -578,7 +578,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
                   href={b.domain ? `https://haveibeenpwned.com/PwnedWebsites#${b.name}` : '#'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="font-display font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   {b.title}
                 </a>
@@ -598,9 +598,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
                 {b.breach_date && <span>breached {b.breach_date}</span>}
                 {b.added_date && <span>disclosed {b.added_date.slice(0, 10)}</span>}
                 {typeof b.pwn_count === 'number' && b.pwn_count > 0 && (
-                  <span className="text-slate-700 dark:text-slate-300 font-bold">
-                    {formatPwnCount(b.pwn_count)} accounts
-                  </span>
+                  <span className="text-body font-bold">{formatPwnCount(b.pwn_count)} accounts</span>
                 )}
               </div>
               {b.data_classes && b.data_classes.length > 0 && (
@@ -709,7 +707,7 @@ const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; toolti
   },
   x: {
     label: 'X',
-    cls: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+    cls: 'border-slate-500/40 bg-slate-500/10 text-body',
     tooltip: 'X / FalconFeeds + @DailyDarkWeb - leak-site claims parsed from posts',
   },
 };
@@ -832,7 +830,7 @@ export function RansomwareActivityPanel(): JSX.Element {
           onChange={(e) => setVictimQuery(e.target.value)}
           placeholder="Filter by victim or group…"
           aria-label="Filter ransomware activity by victim or group"
-          className="w-full sm:max-w-xs text-meta font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500/60"
+          className="w-full sm:max-w-xs text-meta font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body focus:outline-none focus:border-brand-500/60"
         />
       </div>
 
@@ -935,7 +933,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${v.victim} (opens in new tab)`}
-                      className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words transition-colors"
+                      className="font-display font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 break-words transition-colors"
                     >
                       {v.victim}
                     </a>
@@ -1402,7 +1400,7 @@ export function TelegramFeedPanel(): JSX.Element {
                     href={sanitizeUrl(it.permalink) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+                    className="font-display font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                     title={it.channel_blurb}
                   >
                     {it.channel_name}
@@ -1425,7 +1423,7 @@ export function TelegramFeedPanel(): JSX.Element {
                     </span>
                   )}
                 </div>
-                <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-words">
+                <p className="text-meta font-mono text-body leading-relaxed whitespace-pre-wrap break-words">
                   {highlightTelegramText(it.text, watchlist)}
                 </p>
                 <PostSummary text={postSummaries.get(it.permalink)} />

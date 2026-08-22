@@ -114,9 +114,7 @@ export default function McpAudit(): JSX.Element {
           <Plug className="h-5 w-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
         </div>
         <div>
-          <h1 className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">
-            MCP &amp; Claude Code Auditor
-          </h1>
+          <h1 className="text-2xl font-display font-bold text-heading">MCP &amp; Claude Code Auditor</h1>
           <p className="mt-1 text-sm font-mono text-muted">
             Paste an MCP server config (claude_desktop_config.json / Cursor) <em>or</em> a Claude Code{' '}
             <code>settings.json</code>. The auditor auto-detects the shape and checks for dangerous transports,
@@ -174,7 +172,7 @@ export default function McpAudit(): JSX.Element {
           rows={12}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
           aria-label="MCP config JSON"
         />
         {parseError && (
@@ -238,7 +236,7 @@ export default function McpAudit(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{f.title}</span>
+                      <span className="font-display font-semibold text-heading">{f.title}</span>
                       <span
                         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[f.severity]}`}
                       >
@@ -263,7 +261,7 @@ export default function McpAudit(): JSX.Element {
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <h3 className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 mb-2 inline-flex items-center gap-1.5">
+              <h3 className="text-xs font-mono font-bold text-body mb-2 inline-flex items-center gap-1.5">
                 <Plug size={12} aria-hidden="true" /> MCP config
               </h3>
               <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
@@ -288,7 +286,7 @@ export default function McpAudit(): JSX.Element {
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 mb-2 inline-flex items-center gap-1.5">
+              <h3 className="text-xs font-mono font-bold text-body mb-2 inline-flex items-center gap-1.5">
                 <Terminal size={12} aria-hidden="true" /> Claude Code settings
               </h3>
               <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">

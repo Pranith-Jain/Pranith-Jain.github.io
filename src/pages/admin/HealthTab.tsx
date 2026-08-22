@@ -126,9 +126,7 @@ export default function HealthTab() {
             className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)]"
           >
             <div className="text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500">{card.label}</div>
-            <div className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">
-              {health[card.key]}
-            </div>
+            <div className="text-2xl font-semibold text-heading mt-1 tabular-nums">{health[card.key]}</div>
           </div>
         ))}
       </div>

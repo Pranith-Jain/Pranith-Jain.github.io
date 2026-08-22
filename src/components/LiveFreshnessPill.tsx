@@ -7,7 +7,7 @@ const TONE_CLS: Record<FreshnessTone, string> = {
   fresh: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   recent: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   stale: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  cold: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-300',
+  cold: 'border-slate-400/40 bg-slate-400/10 text-body',
   unknown: 'border-slate-400/40 bg-slate-400/10 text-muted',
 };
 

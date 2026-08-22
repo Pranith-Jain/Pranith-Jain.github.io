@@ -251,7 +251,7 @@ export default function MispBrowser() {
               type="url"
               value={baseUrl}
               onChange={(e) => setBaseUrl(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading"
               placeholder="https://misp.example.com"
             />
           </div>
@@ -264,7 +264,7 @@ export default function MispBrowser() {
               type="password"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading"
               placeholder="MISP API key"
             />
           </div>
@@ -307,14 +307,12 @@ export default function MispBrowser() {
         <div className="surface-card p-6 space-y-4">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="space-y-1">
-              <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
-                {e.info || '(no info)'}
-              </h2>
+              <h2 className="font-display font-bold text-xl text-heading">{e.info || '(no info)'}</h2>
               <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
                 <Calendar size={12} /> {e.date}
-                <span className="text-slate-700 dark:text-slate-300">·</span>
+                <span className="text-body">·</span>
                 Org: {typeof e.orgc === 'object' ? e.orgc.name : e.orgc}
-                <span className="text-slate-700 dark:text-slate-300">·</span>
+                <span className="text-body">·</span>
                 ID: {e.uuid?.slice(0, 8)}…
               </div>
             </div>
@@ -358,9 +356,7 @@ export default function MispBrowser() {
                         key: 'value',
                         header: 'Value',
                         sortValue: (a: (typeof e.Attribute)[number]) => a.value,
-                        render: (a) => (
-                          <span className="text-slate-900 dark:text-slate-100 break-all max-w-md">{a.value}</span>
-                        ),
+                        render: (a) => <span className="text-heading break-all max-w-md">{a.value}</span>,
                       },
                       {
                         key: 'ids',
@@ -398,7 +394,7 @@ export default function MispBrowser() {
                     className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 space-y-2"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{o.name}</span>
+                      <span className="text-xs font-semibold text-body">{o.name}</span>
                       <span className="text-micro font-mono text-muted">{o.meta_category}</span>
                     </div>
                     {o.description && <p className="text-mini font-mono text-muted">{o.description}</p>}
@@ -431,7 +427,7 @@ export default function MispBrowser() {
                     key={g.Galaxy.id}
                     className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 max-w-sm"
                   >
-                    <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">{g.Galaxy.name}</div>
+                    <div className="text-xs font-semibold text-body">{g.Galaxy.name}</div>
                     {g.GalaxyCluster && g.GalaxyCluster.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-1">
                         {g.GalaxyCluster.map((c) => (
@@ -482,9 +478,9 @@ export default function MispBrowser() {
                     className="text-left text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-400 transition-colors"
                   >
                     <span className="text-muted">{r.Event.date}</span>
-                    <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
-                    <span className="text-slate-700 dark:text-slate-300">{r.Event.info || '(no info)'}</span>
-                    <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
+                    <span className="text-body mx-1">·</span>
+                    <span className="text-body">{r.Event.info || '(no info)'}</span>
+                    <span className="text-body mx-1">·</span>
                     <span className="text-slate-500">
                       {typeof r.Event.orgc === 'object' ? r.Event.orgc.name : r.Event.orgc}
                     </span>
@@ -537,7 +533,7 @@ export default function MispBrowser() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && void loadEvents(1)}
-              className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono text-heading"
               placeholder="Search events..."
             />
           </div>
@@ -552,7 +548,7 @@ export default function MispBrowser() {
             value={tagFilter}
             onChange={(e) => setTagFilter(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void loadEvents(1)}
-            className="w-full px-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono text-slate-900 dark:text-slate-100"
+            className="w-full px-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono text-heading"
             placeholder="tag_name"
           />
         </div>
@@ -595,7 +591,7 @@ export default function MispBrowser() {
               <div className="flex items-start justify-between gap-3 flex-wrap">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors truncate">
+                    <span className="font-display font-semibold text-sm text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors truncate">
                       {e.info || '(no info)'}
                     </span>
                     {e.published && (

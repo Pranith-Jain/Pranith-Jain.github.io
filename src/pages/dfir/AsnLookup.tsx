@@ -144,7 +144,7 @@ export default function AsnLookup(): JSX.Element {
                 </span>
               )}
             </div>
-            {result.description && <p className="text-slate-700 dark:text-slate-300 mb-3">{result.description}</p>}
+            {result.description && <p className="text-body mb-3">{result.description}</p>}
             <div className="flex flex-wrap gap-4 font-mono text-xs text-slate-500">
               {result.is_announced !== undefined && (
                 <span>
@@ -183,13 +183,13 @@ export default function AsnLookup(): JSX.Element {
                 {result.rir.name && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">Registry</div>
-                    <div className="text-slate-800 dark:text-slate-200 font-semibold">{result.rir.name}</div>
+                    <div className="text-heading font-semibold">{result.rir.name}</div>
                   </div>
                 )}
                 {result.rir.description && (
                   <div>
                     <div className="text-xs text-slate-500 mb-1">Description</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.rir.description}</div>
+                    <div className="text-heading">{result.rir.description}</div>
                   </div>
                 )}
               </div>
@@ -209,7 +209,7 @@ export default function AsnLookup(): JSX.Element {
                     {result.sample_prefixes_v4.map((p) => (
                       <li
                         key={p}
-                        className="font-mono text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded"
+                        className="font-mono text-sm text-body bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded"
                       >
                         {p}
                       </li>
@@ -231,7 +231,7 @@ export default function AsnLookup(): JSX.Element {
                     {result.sample_prefixes_v6.map((p) => (
                       <li
                         key={p}
-                        className="font-mono text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded break-all"
+                        className="font-mono text-sm text-body bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded break-all"
                       >
                         {p}
                       </li>

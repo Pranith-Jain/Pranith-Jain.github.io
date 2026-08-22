@@ -431,7 +431,7 @@ function InvestigationsPage(): JSX.Element {
                 <select
                   value={obsType}
                   onChange={(e) => setObsType(e.target.value)}
-                  className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+                  className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
                 >
                   <option value="ipv4">IPv4</option>
                   <option value="ipv6">IPv6</option>
@@ -445,7 +445,7 @@ function InvestigationsPage(): JSX.Element {
                   value={obsValue}
                   onChange={(e) => setObsValue(e.target.value)}
                   placeholder="observable value"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addObservable();
                   }}
@@ -470,9 +470,7 @@ function InvestigationsPage(): JSX.Element {
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="text-micro font-mono uppercase text-muted shrink-0 w-10">{o.type}</span>
-                        <span className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all">
-                          {o.value}
-                        </span>
+                        <span className="text-meta font-mono text-heading break-all">{o.value}</span>
                       </div>
                       <button
                         type="button"
@@ -497,7 +495,7 @@ function InvestigationsPage(): JSX.Element {
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
                   placeholder="new task"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addTask();
                   }}
@@ -532,7 +530,7 @@ function InvestigationsPage(): JSX.Element {
                         )}
                       </button>
                       <span
-                        className={`text-meta font-mono flex-1 ${t.status === 'completed' ? 'line-through text-muted' : 'text-slate-800 dark:text-slate-200'}`}
+                        className={`text-meta font-mono flex-1 ${t.status === 'completed' ? 'line-through text-muted' : 'text-heading'}`}
                       >
                         {t.title}
                       </span>
@@ -568,7 +566,7 @@ function InvestigationsPage(): JSX.Element {
                     key={ev.id}
                     className="relative pl-4 border-l-2 border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
-                    <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-snug">{ev.message}</p>
+                    <p className="text-meta font-mono text-body leading-snug">{ev.message}</p>
                     <p className="text-micro font-mono text-muted mt-0.5">{relativeTime(ev.created_at)}</p>
                   </div>
                 ))}
@@ -580,7 +578,7 @@ function InvestigationsPage(): JSX.Element {
                     value={noteText}
                     onChange={(e) => setNoteText(e.target.value)}
                     placeholder="add a note…"
-                    className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                    className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') void addNote();
                     }}
@@ -635,13 +633,13 @@ function InvestigationsPage(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search investigations…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={filterSeverity}
           onChange={(e) => setFilterSeverity(e.target.value)}
-          className="text-meta font-mono px-2 py-2 surface-card text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 surface-card text-body"
         >
           <option value="all">All severity</option>
           <option value="critical">Critical</option>
@@ -652,7 +650,7 @@ function InvestigationsPage(): JSX.Element {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="text-meta font-mono px-2 py-2 surface-card text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 surface-card text-body"
         >
           <option value="all">All status</option>
           <option value="open">Open</option>
@@ -776,7 +774,7 @@ function InvestigationsPage(): JSX.Element {
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{inv.title}</h3>
+                  <h3 className="font-display font-semibold text-sm text-heading">{inv.title}</h3>
                   <div className="flex flex-wrap items-center gap-2 mt-1.5">
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[inv.severity]}`}

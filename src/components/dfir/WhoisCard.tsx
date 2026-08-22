@@ -23,25 +23,19 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
           {rdap.registry_domain_id && (
             <>
               <dt className="text-muted">Domain ID</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{rdap.registry_domain_id}</dd>
+              <dd className="text-heading">{rdap.registry_domain_id}</dd>
             </>
           )}
           <dt className="text-muted">Created</dt>
-          <dd className="text-slate-900 dark:text-slate-100">{fmtDateTime(rdap.created)}</dd>
+          <dd className="text-heading">{fmtDateTime(rdap.created)}</dd>
           <dt className="text-muted">Updated</dt>
-          <dd className="text-slate-900 dark:text-slate-100">{fmtDateTime(rdap.updated)}</dd>
+          <dd className="text-heading">{fmtDateTime(rdap.updated)}</dd>
           <dt className="text-muted">Expires</dt>
-          <dd className="text-slate-900 dark:text-slate-100">{fmt(rdap.expires)}</dd>
+          <dd className="text-heading">{fmt(rdap.expires)}</dd>
           {rdap.dnssec && (
             <>
               <dt className="text-muted">DNSSEC</dt>
-              <dd
-                className={
-                  rdap.dnssec === 'signed'
-                    ? 'text-emerald-600 dark:text-emerald-400'
-                    : 'text-slate-900 dark:text-slate-100'
-                }
-              >
+              <dd className={rdap.dnssec === 'signed' ? 'text-emerald-600 dark:text-emerald-400' : 'text-heading'}>
                 {rdap.dnssec}
               </dd>
             </>
@@ -54,11 +48,11 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
         <span className="text-xs text-muted font-mono uppercase tracking-wider">Registrar</span>
         <dl className="mt-2 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1.5 text-sm font-mono">
           <dt className="text-muted">Name</dt>
-          <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar ?? '-'}</dd>
+          <dd className="text-heading">{rdap.registrar ?? '-'}</dd>
           {rdap.registrar_iana_id && (
             <>
               <dt className="text-muted">IANA ID</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar_iana_id}</dd>
+              <dd className="text-heading">{rdap.registrar_iana_id}</dd>
             </>
           )}
           {rdap.registrar_abuse_email && (
@@ -77,7 +71,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
           {rdap.registrar_abuse_phone && (
             <>
               <dt className="text-muted">Abuse Phone</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar_abuse_phone}</dd>
+              <dd className="text-heading">{rdap.registrar_abuse_phone}</dd>
             </>
           )}
           {rdap.registrar_url && (
@@ -102,7 +96,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
       {rdap.nameservers.length > 0 && (
         <div className="mb-4">
           <span className="text-xs text-muted font-mono uppercase tracking-wider">Name Servers</span>
-          <ul className="mt-1 space-y-0.5 text-sm font-mono text-slate-900 dark:text-slate-100">
+          <ul className="mt-1 space-y-0.5 text-sm font-mono text-heading">
             {rdap.nameservers.map((ns) => (
               <li key={ns}>{ns.toLowerCase()}</li>
             ))}

@@ -44,9 +44,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
       {hops !== undefined && (
         <div className="mb-4 text-xs font-mono text-muted">
           Received hops:{' '}
-          <span
-            className={`font-semibold ${hops > 8 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-100'}`}
-          >
+          <span className={`font-semibold ${hops > 8 ? 'text-rose-600 dark:text-rose-400' : 'text-heading'}`}>
             {hops}
           </span>
         </div>
@@ -59,9 +57,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
                 <th scope="row" className="py-2 pr-4 text-muted align-top whitespace-nowrap w-40 font-normal text-left">
                   {key}
                 </th>
-                <td className="py-2 text-slate-900 dark:text-slate-100 break-all whitespace-pre-wrap">
-                  {String(value)}
-                </td>
+                <td className="py-2 text-heading break-all whitespace-pre-wrap">{String(value)}</td>
               </tr>
             ))}
           </tbody>

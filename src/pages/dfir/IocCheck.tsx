@@ -445,7 +445,7 @@ export default function IocCheck(): JSX.Element {
   );
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <BackLink to="/dfir" />
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Checker</h1>
@@ -571,7 +571,7 @@ export default function IocCheck(): JSX.Element {
               <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
                 {Object.entries(bulkVerdictCounts).map(([v, count]) => (
                   <span key={v} className="inline-flex items-center gap-1.5">
-                    <span className="text-meta font-mono text-slate-700 dark:text-slate-300 tabular-nums">{count}</span>
+                    <span className="text-meta font-mono text-body tabular-nums">{count}</span>
                     <VerdictChip verdict={v as 'clean' | 'suspicious' | 'malicious' | 'unknown'} />
                   </span>
                 ))}
@@ -657,7 +657,7 @@ export default function IocCheck(): JSX.Element {
                         <td className="px-3 py-2 text-meta font-mono text-slate-500">
                           {r.contributing !== undefined && r.total !== undefined ? `${r.contributing}/${r.total}` : '-'}
                         </td>
-                        <td className="px-3 py-2 text-meta font-mono text-slate-700 dark:text-slate-300">
+                        <td className="px-3 py-2 text-meta font-mono text-body">
                           {r.flagged && r.flagged.length > 0 ? r.flagged.join(', ') : '-'}
                           {r.error && <span className="text-rose-500"> ({r.error})</span>}
                         </td>
@@ -710,9 +710,9 @@ export default function IocCheck(): JSX.Element {
           </div>
           {input && redirectPivot && richIoc ? (
             <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl border border-brand-500/30 bg-brand-500/5 px-3 py-2 text-xs font-mono">
-              <span className="text-slate-600 dark:text-slate-300">
-                <code className="font-semibold text-slate-900 dark:text-slate-100">{richIoc.value}</code> is a{' '}
-                {IOC_TYPE_LABEL[richIoc.type]} - the IOC Checker enriches network indicators &amp; hashes. Open it in:
+              <span className="text-body">
+                <code className="font-semibold text-heading">{richIoc.value}</code> is a {IOC_TYPE_LABEL[richIoc.type]}{' '}
+                - the IOC Checker enriches network indicators &amp; hashes. Open it in:
               </span>
               {redirectPivot.external ? (
                 <a
@@ -772,12 +772,10 @@ export default function IocCheck(): JSX.Element {
                 </div>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-muted">
                   <span>
-                    score: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.score}</span> /
-                    100
+                    score: <span className="font-semibold text-heading">{summary.score}</span> / 100
                   </span>
                   <span>
-                    confidence:{' '}
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.confidence}</span>
+                    confidence: <span className="font-semibold text-heading">{summary.confidence}</span>
                   </span>
                   <span>
                     {summary.contributing} of {eligible.length} responding
@@ -801,7 +799,7 @@ export default function IocCheck(): JSX.Element {
                   type="button"
                   onClick={explainVerdict}
                   disabled={explainLoading}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-body hover:border-brand-500/40 transition-colors disabled:opacity-50"
                 >
                   {explainLoading ? <Loader2 size={14} className="animate-spin" /> : <ChevronDown size={14} />}
                   AI explain verdict
@@ -827,7 +825,7 @@ export default function IocCheck(): JSX.Element {
                     type="button"
                     onClick={generateRule}
                     disabled={ruleLoading}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-body hover:border-brand-500/40 transition-colors disabled:opacity-50"
                   >
                     {ruleLoading ? <Loader2 size={14} className="animate-spin" /> : <FileCode size={14} />}
                     Generate rule
@@ -853,9 +851,7 @@ export default function IocCheck(): JSX.Element {
                       {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                     </button>
                   </div>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
-                    {explainText}
-                  </p>
+                  <p className="text-sm text-body leading-relaxed whitespace-pre-line">{explainText}</p>
                 </section>
               )}
 
@@ -864,9 +860,7 @@ export default function IocCheck(): JSX.Element {
                   <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <div className="flex items-center gap-2">
                       <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
-                      <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-300">
-                        {ruleName}
-                      </span>
+                      <span className="text-sm font-mono font-semibold text-body">{ruleName}</span>
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                         {ruleFormat.toUpperCase()}
                       </span>
@@ -884,7 +878,7 @@ export default function IocCheck(): JSX.Element {
                       {copied === 'rule' ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <pre className="p-4 overflow-x-auto text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre max-h-96 overflow-y-auto">
+                  <pre className="p-4 overflow-x-auto text-xs font-mono text-heading leading-relaxed whitespace-pre max-h-96 overflow-y-auto">
                     {ruleText}
                   </pre>
                 </section>

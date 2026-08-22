@@ -205,8 +205,8 @@ export function IocSnapshotPanel(): JSX.Element {
               {summary && (
                 <>
                   <p className="text-mini font-mono text-muted mb-2">
-                    <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{summary.count}</span>{' '}
-                    fresh · {summary.source_name}
+                    <span className="text-heading font-bold text-base">{summary.count}</span> fresh ·{' '}
+                    {summary.source_name}
                   </p>
                   {entries.length === 0 ? (
                     <p className="text-mini font-mono text-slate-500">No fresh entries.</p>
@@ -234,16 +234,13 @@ export function IocSnapshotPanel(): JSX.Element {
                             {c.pivot ? (
                               <Link
                                 to={c.pivot(e)}
-                                className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
+                                className="truncate text-body hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
                                 title={e.value}
                               >
                                 {e.value}
                               </Link>
                             ) : (
-                              <code
-                                className="truncate text-slate-700 dark:text-slate-300 flex-1 min-w-0"
-                                title={e.value}
-                              >
+                              <code className="truncate text-body flex-1 min-w-0" title={e.value}>
                                 {e.value}
                               </code>
                             )}

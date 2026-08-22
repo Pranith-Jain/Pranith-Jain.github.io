@@ -126,7 +126,7 @@ export default function DfirCatalogPage(): JSX.Element {
               count={totalEntries}
               active={activeCat === 'all'}
               onClick={() => setActiveCat('all')}
-              accent="text-slate-700 dark:text-slate-300"
+              accent="text-body"
             />
             {CATALOG.map((c) => (
               <CategoryPill

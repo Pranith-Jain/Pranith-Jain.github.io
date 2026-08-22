@@ -344,9 +344,7 @@ export default function CtiDashboard(): JSX.Element {
                       >
                         {type}
                       </span>
-                      <span className="text-sm font-mono text-slate-800 dark:text-slate-200">
-                        {count.toLocaleString()}
-                      </span>
+                      <span className="text-sm font-mono text-heading">{count.toLocaleString()}</span>
                     </div>
                   ))}
                 {Object.keys(stats.type_breakdown).length === 0 && (
@@ -366,7 +364,7 @@ export default function CtiDashboard(): JSX.Element {
                       key={f.family}
                       className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                     >
-                      <span className="text-sm text-slate-700 dark:text-slate-300">{f.family}</span>
+                      <span className="text-sm text-body">{f.family}</span>
                       <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
                         {f.count}
                       </span>
@@ -419,11 +417,7 @@ export default function CtiDashboard(): JSX.Element {
                           header: 'Obs.',
                           align: 'right',
                           sortValue: (t: (typeof stats.trending)[number]) => t.observations,
-                          render: (t) => (
-                            <span className="font-mono text-xs text-slate-800 dark:text-slate-200">
-                              {t.observations}
-                            </span>
-                          ),
+                          render: (t) => <span className="font-mono text-xs text-heading">{t.observations}</span>,
                         },
                       ] as DataTableColumn<(typeof stats.trending)[number]>[]
                     }
@@ -465,9 +459,7 @@ export default function CtiDashboard(): JSX.Element {
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="min-w-0">
                         <span className="text-mini font-mono text-muted">{p.prediction_id}</span>
-                        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
-                          {p.title}
-                        </h3>
+                        <h3 className="text-sm font-semibold text-heading mt-0.5 leading-snug">{p.title}</h3>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <span
@@ -527,7 +519,7 @@ export default function CtiDashboard(): JSX.Element {
                 value={mutationInput}
                 onChange={(e) => setMutationInput(e.target.value)}
                 placeholder="Describe an attack pattern, campaign, or malware (e.g. 'LockBit ransomware exploiting CVE-2024-21413 via phishing email to encrypt ESXi servers')"
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 dark:focus:border-rose-400"
+                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-heading placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 dark:focus:border-rose-400"
               />
               <button
                 type="button"
@@ -568,9 +560,7 @@ export default function CtiDashboard(): JSX.Element {
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <span className="text-mini font-mono text-muted">{v.variant_id}</span>
-                        <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
-                          {v.title}
-                        </h4>
+                        <h4 className="text-sm font-semibold text-heading mt-0.5 leading-snug">{v.title}</h4>
                         {v.seed_name && <p className="text-mini font-mono text-muted mt-0.5">Seed: {v.seed_name}</p>}
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
@@ -622,7 +612,7 @@ export default function CtiDashboard(): JSX.Element {
                     className="group block surface-card-faint p-4 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 flex-1 leading-snug line-clamp-2">
+                      <h4 className="text-sm font-medium text-heading flex-1 leading-snug line-clamp-2">
                         {String(n.title)}
                       </h4>
                       <span className="text-mini font-mono text-muted whitespace-nowrap flex-shrink-0">

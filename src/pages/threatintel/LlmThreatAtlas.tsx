@@ -195,7 +195,7 @@ export default function LlmThreatAtlas(): JSX.Element {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search vectors, IDs, or domains…"
           aria-label="Search LLM threat vectors"
-          className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
+          className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
         />
       </div>
 
@@ -257,9 +257,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                     {count}
                   </span>
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mt-0.5 leading-snug">
-                  {first?.domain_title ?? ''}
-                </h3>
+                <h3 className="text-sm font-semibold text-heading mt-0.5 leading-snug">{first?.domain_title ?? ''}</h3>
                 <p className="text-xs text-muted mt-1 leading-relaxed line-clamp-2">{DOMAIN_DESCRIPTIONS[key] ?? ''}</p>
               </div>
             );
@@ -298,9 +296,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                       {item.score_tier}
                     </span>
                   </div>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mt-1 leading-snug">
-                    {item.attack_vector}
-                  </h3>
+                  <h3 className="text-sm font-semibold text-heading mt-1 leading-snug">{item.attack_vector}</h3>
                   <p className="text-xs text-muted mt-0.5 leading-relaxed">{item.threat_model_question}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -332,7 +328,7 @@ export default function LlmThreatAtlas(): JSX.Element {
               </div>
 
               {expanded && (
-                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-xs text-body">
                   {/* Framework cross-walk chips */}
                   <div className="flex flex-wrap gap-1.5">
                     {item.owasp_llm_2025.map((f) => (
@@ -426,7 +422,7 @@ export default function LlmThreatAtlas(): JSX.Element {
 function Section({ icon: Icon, title, text }: { icon: typeof Shield; title: string; text: string }) {
   return (
     <div>
-      <h4 className="flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-200 mb-1">
+      <h4 className="flex items-center gap-1.5 font-semibold text-heading mb-1">
         <Icon size={12} className="text-muted" aria-hidden="true" />
         {title}
       </h4>

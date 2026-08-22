@@ -163,7 +163,7 @@ export default function DataClassification(): JSX.Element {
                   >
                     {TIER_LABELS[t]}
                   </span>
-                  <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{p.description}</h3>
+                  <h3 className="font-display font-semibold text-heading">{p.description}</h3>
                 </div>
                 <div className="grid gap-2 sm:grid-cols-2">
                   <Field label="Access policy">
@@ -295,7 +295,7 @@ export default function DataClassification(): JSX.Element {
                     className="w-full flex items-center gap-3 text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.4)]"
                   >
                     <span className="flex-1 min-w-0">
-                      <span className="block font-display font-semibold text-slate-900 dark:text-slate-100 truncate">
+                      <span className="block font-display font-semibold text-heading truncate">
                         {d.name || '(unnamed)'}
                       </span>
                       <span className="block text-xs font-mono text-muted truncate">
@@ -461,11 +461,11 @@ export default function DataClassification(): JSX.Element {
                 ] as Array<[string, keyof TierPolicy]>
               ).map(([label, key]) => (
                 <tr key={key} className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300 font-bold">{label}</td>
+                  <td className="px-3 py-2 text-body font-bold">{label}</td>
                   {TIERS.map((t) => (
                     <td
                       key={t}
-                      className="px-3 py-2 border-l border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 align-top"
+                      className="px-3 py-2 border-l border-slate-200 dark:border-[rgb(var(--border-400))] text-body align-top"
                     >
                       {String(state.policies[t][key])}
                     </td>
@@ -473,11 +473,11 @@ export default function DataClassification(): JSX.Element {
                 </tr>
               ))}
               <tr className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <td className="px-3 py-2 text-slate-700 dark:text-slate-300 font-bold">Datasets in tier</td>
+                <td className="px-3 py-2 text-body font-bold">Datasets in tier</td>
                 {TIERS.map((t) => (
                   <td
                     key={t}
-                    className="px-3 py-2 border-l border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 align-top"
+                    className="px-3 py-2 border-l border-slate-200 dark:border-[rgb(var(--border-400))] text-body align-top"
                   >
                     {dist[t]}
                   </td>

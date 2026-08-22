@@ -149,7 +149,7 @@ export default function BlocklistsPage(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -176,7 +176,7 @@ export default function BlocklistsPage(): JSX.Element {
           ) : meta ? (
             <span>
               <span className="text-slate-500">Last updated: </span>
-              <span className="text-slate-900 dark:text-slate-100">
+              <span className="text-heading">
                 {new Date(meta.generated_at).toLocaleDateString('en-US', {
                   weekday: 'short',
                   year: 'numeric',
@@ -187,9 +187,7 @@ export default function BlocklistsPage(): JSX.Element {
                 })}
               </span>
               <span className="ml-3 text-slate-500">·</span>
-              <span className="ml-3 text-slate-900 dark:text-slate-100 font-semibold">
-                {meta.ip_count.toLocaleString()} IPs
-              </span>
+              <span className="ml-3 text-heading font-semibold">{meta.ip_count.toLocaleString()} IPs</span>
               {meta.source === 'kv' && (
                 <span className="ml-2 text-micro uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   cached
@@ -215,7 +213,7 @@ export default function BlocklistsPage(): JSX.Element {
           <div key={fmt.key} className="surface-card p-5 flex flex-col">
             <div className="flex items-center gap-2 mb-3">
               <fmt.icon size={18} className="text-brand-600 dark:text-brand-400" />
-              <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{fmt.label}</h3>
+              <h3 className="font-display font-semibold text-heading">{fmt.label}</h3>
             </div>
             <p className="text-xs text-slate-500 mb-4 flex-1">{fmt.desc}</p>
             <div className="flex gap-2">
@@ -241,7 +239,7 @@ export default function BlocklistsPage(): JSX.Element {
       {/* Preview section */}
       {!loading && !error && (
         <details className="mt-8 surface-card">
-          <summary className="px-4 py-3 cursor-pointer text-sm font-mono text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400">
+          <summary className="px-4 py-3 cursor-pointer text-sm font-mono text-body hover:text-brand-600 dark:hover:text-brand-400">
             Preview blocklist contents
           </summary>
           <div className="px-4 pb-4 space-y-4">
@@ -254,7 +252,7 @@ export default function BlocklistsPage(): JSX.Element {
 
       {/* Usage instructions */}
       <div className="mt-8 surface-card p-5">
-        <h3 className="font-display font-semibold text-sm mb-3 text-slate-900 dark:text-slate-100">Usage</h3>
+        <h3 className="font-display font-semibold text-sm mb-3 text-heading">Usage</h3>
         <div className="space-y-2 text-xs font-mono text-muted">
           <p>
             <span className="text-brand-600 dark:text-brand-400">pfSense:</span> Add the URL as an Alias of type URL
@@ -325,7 +323,7 @@ function FormatPreview({ label, url, maxLines }: { label: string; url: string; m
         {show ? '▼' : '▶'} {label}
       </button>
       {show && preview && (
-        <pre className="text-micro font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <pre className="text-micro font-mono text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))]">
           {preview}
         </pre>
       )}

@@ -70,9 +70,7 @@ export function LatestBriefingCard(): JSX.Element | null {
           <span className="rounded bg-rose-100 px-1.5 py-0.5 text-mini font-semibold uppercase tracking-wide text-rose-700 dark:bg-rose-900/50 dark:text-rose-300">
             Latest {kind} Briefing
           </span>
-          <span className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
-            {m.title ?? item.slug}
-          </span>
+          <span className="truncate text-sm font-medium text-heading">{m.title ?? item.slug}</span>
         </div>
         <p className="mt-0.5 text-xs text-muted">
           {fmt(s.findings)} findings · {fmt(s.kevs)} KEVs · {fmt(s.iocs)} IOCs

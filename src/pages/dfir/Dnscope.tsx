@@ -181,7 +181,7 @@ export default function Dnscope(): JSX.Element {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="example.com"
-              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
             <div className="flex gap-2 mt-3">
               <button
@@ -233,7 +233,7 @@ export default function Dnscope(): JSX.Element {
                 {sections.map((section) => (
                   <div key={section.id} className="surface-card/40 shadow-e1 p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                      <h3 className="font-mono text-xs font-semibold text-body uppercase tracking-wider">
                         {section.label}
                       </h3>
                       <ShieldCheck size={12} className="text-emerald-500" />

@@ -135,7 +135,7 @@ export default function DomainMonitor(): JSX.Element {
             <h2 className="font-display font-bold text-xl mb-4">{results.domain}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{results.total_variants}</div>
+                <div className="text-2xl font-bold text-heading">{results.total_variants}</div>
                 <div className="text-xs font-mono text-muted">Total Variants</div>
               </div>
               <div className="text-center">
@@ -187,7 +187,7 @@ export default function DomainMonitor(): JSX.Element {
                       <Globe size={14} className="text-rose-500" />
                       <span className="font-mono text-sm">{v.domain}</span>
                       <span
-                        className={`text-micro font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-800 dark:text-slate-200'}`}
+                        className={`text-micro font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-heading'}`}
                       >
                         {TYPE_LABELS[v.type]?.label ?? v.type}
                       </span>

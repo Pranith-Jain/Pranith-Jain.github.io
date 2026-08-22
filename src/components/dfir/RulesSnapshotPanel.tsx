@@ -178,7 +178,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                           href={sanitizeUrl(cm.link)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 inline-flex items-center gap-1 transition-colors"
+                          className="truncate text-body hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 inline-flex items-center gap-1 transition-colors"
                           title={`${decodeHtml(cm.title)} - ${cm.source_label}`}
                         >
                           <GitCommit size={9} className="opacity-50 shrink-0" />

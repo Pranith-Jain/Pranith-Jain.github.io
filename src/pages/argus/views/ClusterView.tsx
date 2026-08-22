@@ -447,7 +447,7 @@ export function ClusterView({ actors, onOpen }: Props) {
         {/* Stats overlay */}
         <div className="absolute bottom-4 left-4 flex gap-2 pointer-events-none">
           <div className="surface-card px-3 py-1.5">
-            <div className="font-mono text-lg font-bold text-slate-900 dark:text-slate-100">{filteredEdges.length}</div>
+            <div className="font-mono text-lg font-bold text-heading">{filteredEdges.length}</div>
             <div className="text-micro font-mono uppercase tracking-wider text-muted">connections</div>
           </div>
         </div>
@@ -480,7 +480,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
           style={{ background: nation?.color, boxShadow: `0 0 8px ${nation?.color}44` }}
         />
         <div className="flex-1 min-w-0">
-          <div className="text-[14px] font-bold text-slate-900 dark:text-slate-100">{a.name}</div>
+          <div className="text-[14px] font-bold text-heading">{a.name}</div>
           <div className="text-micro font-mono text-muted uppercase tracking-wider">
             {a.apt} · {nation?.name}
           </div>
@@ -507,7 +507,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
               return (
                 <div key={i} className="flex items-center gap-2 text-mini">
                   <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: otherNation?.color }} />
-                  <span className="text-slate-900 dark:text-slate-100 truncate flex-1">{other.name}</span>
+                  <span className="text-heading truncate flex-1">{other.name}</span>
                   {e.shared.malware?.length ? <span className="chip chip-cyan">{e.shared.malware.length}m</span> : null}
                   {e.shared.cves?.length ? <span className="chip chip-gold">{e.shared.cves.length}c</span> : null}
                   {e.shared.ttps?.length ? <span className="chip chip-violet">{e.shared.ttps.length}t</span> : null}

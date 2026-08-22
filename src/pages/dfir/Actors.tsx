@@ -29,7 +29,7 @@ export default function Actors(): JSX.Element {
   }, [search, status, sophistication]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       {!insideLayout && (
         <BackLink
           to="/threatintel"
@@ -70,7 +70,7 @@ export default function Actors(): JSX.Element {
 
       <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-5">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-2">Have a STIX 2.1 bundle?</h2>
-        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+        <p className="text-sm text-body leading-relaxed">
           Open the{' '}
           <Link to="/dfir/stix-workbench" className="text-brand-600 dark:text-brand-400 hover:underline font-semibold">
             STIX Viewer

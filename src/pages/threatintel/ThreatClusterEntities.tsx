@@ -234,7 +234,7 @@ export default function ThreatClusterEntities() {
                     }`}
                     title={`${TYPE_META[t].label}s`}
                   >
-                    <div className="text-sm font-bold text-slate-900 dark:text-slate-100">{idx.counts[t]}</div>
+                    <div className="text-sm font-bold text-heading">{idx.counts[t]}</div>
                     <div className="text-micro uppercase tracking-wider text-slate-500">{TYPE_META[t].label}s</div>
                   </button>
                 ))}
@@ -247,7 +247,7 @@ export default function ThreatClusterEntities() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search name or alias…"
-                  className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                  className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
                 />
               </div>
 
@@ -319,9 +319,7 @@ export default function ThreatClusterEntities() {
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2 min-w-0">
                         <Icon className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                        <span className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-                          {e.name}
-                        </span>
+                        <span className="text-sm font-semibold text-heading truncate">{e.name}</span>
                       </div>
                       <Badge cls={meta.cls}>{e.mentionCount}</Badge>
                     </div>
@@ -403,7 +401,7 @@ function EntityProfile({
         <div className="flex items-center gap-2.5 min-w-0">
           <Icon className="w-5 h-5 text-slate-400 shrink-0" />
           <div className="min-w-0">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 truncate">{body.name}</h2>
+            <h2 className="text-lg font-bold text-heading truncate">{body.name}</h2>
             <div className="flex flex-wrap items-center gap-1.5 mt-1">
               <Badge cls={meta.cls}>{meta.label}</Badge>
               {body.aliases.slice(0, 4).map((a) => (
@@ -423,12 +421,12 @@ function EntityProfile({
             {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
             {copied ? 'copied' : 'copy'}
           </button>
-          <div className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1">{body.mentionCount}</div>
+          <div className="text-xl font-bold text-heading mt-1">{body.mentionCount}</div>
           <div className="text-micro uppercase tracking-wider text-slate-500">mentions</div>
         </div>
       </div>
 
-      <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{body.summary}</p>
+      <p className="text-xs text-body leading-relaxed">{body.summary}</p>
 
       <div className="flex flex-wrap items-center gap-1.5">
         {body.sources.map((s) => (
@@ -506,7 +504,7 @@ function EntityProfile({
               <tbody className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
                 {body.victims.slice(0, 20).map((v) => (
                   <tr key={v.id}>
-                    <td className="px-3 py-2 font-medium text-slate-900 dark:text-slate-100">{v.victim}</td>
+                    <td className="px-3 py-2 font-medium text-heading">{v.victim}</td>
                     <td className="px-3 py-2 text-slate-500">{v.sector ?? '—'}</td>
                     <td className="px-3 py-2 text-slate-500">{v.country ?? '—'}</td>
                     <td className="px-3 py-2 text-slate-400 font-mono">{fmtDate(v.pubDate)}</td>
@@ -546,7 +544,7 @@ function EntityProfile({
               return (
                 <div key={`${a.recordType}/${a.slug}`} className="flex items-center gap-2 text-xs">
                   <Badge cls={am.cls}>{am.label}</Badge>
-                  <span className="text-slate-800 dark:text-slate-200 truncate min-w-0">{a.title}</span>
+                  <span className="text-heading truncate min-w-0">{a.title}</span>
                   <span className="text-micro font-mono text-slate-400 ml-auto shrink-0">{fmtDate(a.pubDate)}</span>
                 </div>
               );

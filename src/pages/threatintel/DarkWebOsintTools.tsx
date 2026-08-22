@@ -164,7 +164,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 href={sanitizeUrl(t.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
+                className="font-display font-semibold text-base text-heading hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 {t.name} <ExternalLink size={12} className="opacity-60" />
               </a>

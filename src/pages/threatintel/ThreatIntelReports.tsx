@@ -139,9 +139,7 @@ function ReportCard({
           {report.severity}
         </span>
         <div className="flex-1 min-w-0">
-          <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">
-            {report.title}
-          </h3>
+          <h3 className="font-mono font-semibold text-sm text-heading leading-snug mb-1">{report.title}</h3>
           <div className="flex items-center gap-3 text-mini font-mono text-slate-500">
             <span>{report.date}</span>
             <span>·</span>
@@ -191,7 +189,7 @@ function ReportCard({
                 {report.iocs.map((ioc, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="text-muted w-16 shrink-0">{ioc.type}</span>
-                    <span className="text-slate-700 dark:text-slate-300 break-all">{ioc.value}</span>
+                    <span className="text-body break-all">{ioc.value}</span>
                   </div>
                 ))}
               </div>

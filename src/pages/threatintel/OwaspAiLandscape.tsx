@@ -271,7 +271,7 @@ export default function OwaspAiLandscape(): JSX.Element {
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
-            synced <span className="text-slate-700 dark:text-slate-200">{relativeTime(meta?.fetchedAt)}</span>
+            synced <span className="text-body">{relativeTime(meta?.fetchedAt)}</span>
           </span>
           {meta?.ok === false && (
             <span
@@ -306,7 +306,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search resources…"
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -361,7 +361,7 @@ export default function OwaspAiLandscape(): JSX.Element {
           </div>
 
           {data.description && (
-            <div className="mb-3 flex items-start gap-2 rounded-xl border border-sky-200 dark:border-sky-900 bg-sky-50 dark:bg-sky-950/30 p-3 text-sm text-slate-700 dark:text-slate-300">
+            <div className="mb-3 flex items-start gap-2 rounded-xl border border-sky-200 dark:border-sky-900 bg-sky-50 dark:bg-sky-950/30 p-3 text-sm text-body">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-600 dark:text-sky-400" />
               <span>{data.description}</span>
             </div>
@@ -390,7 +390,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
+      <div className="text-lg font-semibold text-heading truncate">{value}</div>
     </div>
   );
 }

@@ -714,8 +714,8 @@ export default function XWatch(): JSX.Element {
           <div className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-4 text-center">
             {data.items.length === 0 ? (
               <>
-                No tweets within the last <span className="text-slate-700 dark:text-slate-300">{sinceDays}d</span> for{' '}
-                <span className="text-slate-700 dark:text-slate-300">@{active}</span>.
+                No tweets within the last <span className="text-body">{sinceDays}d</span> for{' '}
+                <span className="text-body">@{active}</span>.
                 {!includeReplies && (
                   <>
                     {' '}
@@ -777,9 +777,7 @@ export default function XWatch(): JSX.Element {
                     )}
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                          {t.author.name}
-                        </span>
+                        <span className="font-display font-semibold text-sm text-heading">{t.author.name}</span>
                         <span className="text-mini font-mono text-muted">@{t.author.screen_name}</span>
                         {t.is_pinned && (
                           <span className="text-micro font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
@@ -811,9 +809,7 @@ export default function XWatch(): JSX.Element {
                           {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
                         </a>
                       </div>
-                      <p className="text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
-                        {t.text}
-                      </p>
+                      <p className="text-sm text-heading whitespace-pre-wrap break-words">{t.text}</p>
                       <PostSummary text={postSummaries.get(String(t.id))} />
                       {t.media.length > 0 && (
                         <div className="mt-2 grid grid-cols-2 gap-1.5">

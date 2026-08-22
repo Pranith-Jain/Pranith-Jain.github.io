@@ -157,7 +157,7 @@ export function SocBar({
                 onClick={() => onItemClick?.(it, i)}
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
-                className={`text-left truncate text-slate-700 dark:text-slate-300 ${onItemClick ? 'hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer' : 'cursor-default'}`}
+                className={`text-left truncate text-body ${onItemClick ? 'hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer' : 'cursor-default'}`}
                 title={it.label}
               >
                 {it.label}
@@ -296,9 +296,7 @@ export function SocDonut({
           <div className="absolute inset-0 grid place-items-center text-center pointer-events-none">
             <div>
               {centerLabel && (
-                <div className="font-mono font-bold text-xl text-slate-900 dark:text-slate-100 tabular-nums">
-                  {centerLabel}
-                </div>
+                <div className="font-mono font-bold text-xl text-heading tabular-nums">{centerLabel}</div>
               )}
               {centerSub && (
                 <div className="text-mini font-mono uppercase tracking-wider text-muted mt-0.5">{centerSub}</div>
@@ -323,7 +321,7 @@ export function SocDonut({
                 onMouseLeave={() => setHover(null)}
               >
                 <span className="inline-block h-2.5 w-2.5 rounded shrink-0" style={{ backgroundColor: s.color }} />
-                <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
+                <span className="truncate text-body">{s.label}</span>
                 <span className="ml-auto text-slate-500 tabular-nums">
                   {s.value.toLocaleString('en-US')}{' '}
                   <span className="text-muted">({((s.value / total) * 100).toFixed(1)}%)</span>
@@ -341,7 +339,7 @@ export function SocDonut({
               onMouseLeave={() => setHover(null)}
             >
               <span className="inline-block h-2 w-2 rounded shrink-0" style={{ backgroundColor: s.color }} />
-              <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
+              <span className="truncate text-body">{s.label}</span>
               <span className="ml-auto text-slate-500 tabular-nums">{((s.value / total) * 100).toFixed(1)}%</span>
             </li>
           ))}

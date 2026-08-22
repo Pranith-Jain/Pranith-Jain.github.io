@@ -134,7 +134,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-e1 transition-colors dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <header className="flex flex-wrap items-baseline gap-2">
-        <h3 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">{view.title}</h3>
+        <h3 className="font-display text-base font-semibold text-heading">{view.title}</h3>
         <Badge tone="mono" size="xs">
           TLP:{view.tlp}
         </Badge>
@@ -165,9 +165,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         )}
       </p>
 
-      {view.summary && (
-        <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">{view.summary}</p>
-      )}
+      {view.summary && <p className="mt-3 text-sm leading-relaxed text-body">{view.summary}</p>}
 
       {hasAnyDetail && !expanded && (
         <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -279,7 +277,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         <Section title="Affected products">
           <ul className="space-y-1 text-xs">
             {view.affectedProducts.map((p) => (
-              <li key={`${p.vendor}|${p.product}`} className="font-mono text-slate-700 dark:text-slate-300">
+              <li key={`${p.vendor}|${p.product}`} className="font-mono text-body">
                 <span className="text-muted">{p.vendor}</span> · {p.product}
               </li>
             ))}
@@ -322,7 +320,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
                 <ul className="space-y-1">
                   {view.actorCandidates.map((c) => (
                     <li key={c.name}>
-                      <span className="font-mono text-slate-700 dark:text-slate-300">{c.name}</span>
+                      <span className="font-mono text-body">{c.name}</span>
                       {c.rationale && <span className="text-muted"> - {c.rationale}</span>}
                     </li>
                   ))}
@@ -335,7 +333,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
                 <ul className="space-y-1">
                   {view.malwareCandidates.map((c) => (
                     <li key={c.name}>
-                      <span className="font-mono text-slate-700 dark:text-slate-300">{c.name}</span>
+                      <span className="font-mono text-body">{c.name}</span>
                       {c.rationale && <span className="text-muted"> - {c.rationale}</span>}
                     </li>
                   ))}
@@ -385,7 +383,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
 function CountPill({ label, n }: { label: string; n: number }): JSX.Element {
   return (
     <span className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-mini font-mono text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-300">
-      <span className="font-semibold text-slate-900 dark:text-slate-100">{n}</span>
+      <span className="font-semibold text-heading">{n}</span>
       <span>
         {label}
         {n === 1 ? '' : 's'}

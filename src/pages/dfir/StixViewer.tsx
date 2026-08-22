@@ -250,7 +250,7 @@ export default function StixViewer(): JSX.Element {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">STIX Viewer</h1>
         <p className="text-muted mb-8 max-w-3xl">
@@ -344,7 +344,7 @@ export default function StixViewer(): JSX.Element {
               onChange={(e) => setInput(e.target.value)}
               placeholder='{ "type": "bundle", "objects": [...] }'
               rows={12}
-              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-xs text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               spellCheck={false}
             />
             {parseError && <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">{parseError}</p>}
@@ -365,7 +365,7 @@ export default function StixViewer(): JSX.Element {
                       onClick={() => toggleType(t)}
                       className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                         active
-                          ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
+                          ? 'border-brand-500/50 text-heading bg-brand-50 dark:bg-brand-900/20'
                           : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
                       }`}
                     >
@@ -405,10 +405,10 @@ export default function StixViewer(): JSX.Element {
               >
                 {selected.type}
               </div>
-              <div className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-2 break-words">
+              <div className="font-display font-semibold text-heading mb-2 break-words">
                 {selected.name ?? selected.value ?? selected.id}
               </div>
-              <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-96">
+              <pre className="font-mono text-mini text-body overflow-x-auto whitespace-pre-wrap break-all max-h-96">
                 {JSON.stringify(selected, null, 2)}
               </pre>
             </section>

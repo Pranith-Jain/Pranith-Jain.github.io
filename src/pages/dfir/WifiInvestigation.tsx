@@ -222,7 +222,7 @@ export default function WifiInvestigation(): JSX.Element {
   const FLAG_STYLES: Record<string, string> = {
     danger: 'border-red-500/40 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300',
     warning: 'border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300',
-    info: 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300',
+    info: 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body',
   };
 
   return (
@@ -262,9 +262,7 @@ export default function WifiInvestigation(): JSX.Element {
         {input.trim() && inputType && (
           <p className="text-mini font-mono text-muted mt-2">
             Detected as:{' '}
-            <span className="text-slate-600 dark:text-slate-300">
-              {inputType === 'bssid' ? 'BSSID (MAC address)' : 'SSID (network name)'}
-            </span>
+            <span className="text-body">{inputType === 'bssid' ? 'BSSID (MAC address)' : 'SSID (network name)'}</span>
           </p>
         )}
         {input.trim() && !inputType && (
@@ -276,21 +274,21 @@ export default function WifiInvestigation(): JSX.Element {
 
       {result && result.type === 'bssid' && (
         <div className="mb-6 surface-card p-4">
-          <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+          <h3 className="font-display font-semibold text-sm text-heading mb-3 flex items-center gap-2">
             <Radio size={14} /> MAC Address Analysis
           </h3>
           <div className="grid gap-3 sm:grid-cols-2 font-mono text-sm">
             <div>
               <span className="text-muted">BSSID:</span>{' '}
-              <span className="text-slate-900 dark:text-slate-100 font-semibold">{formatMac(result.value)}</span>
+              <span className="text-heading font-semibold">{formatMac(result.value)}</span>
             </div>
             <div>
               <span className="text-muted">OUI Prefix:</span>{' '}
-              <span className="text-slate-900 dark:text-slate-100">{formatMac(result.value).substring(0, 8)}</span>
+              <span className="text-heading">{formatMac(result.value).substring(0, 8)}</span>
             </div>
             <div>
               <span className="text-muted">First Octet:</span>{' '}
-              <span className="text-slate-900 dark:text-slate-100">{formatMac(result.value).substring(0, 2)}</span>
+              <span className="text-heading">{formatMac(result.value).substring(0, 2)}</span>
               <span className="text-muted ml-2">
                 (
                 {parseInt(formatMac(result.value).substring(0, 2), 16) & 0x02
@@ -301,7 +299,7 @@ export default function WifiInvestigation(): JSX.Element {
             </div>
             <div>
               <span className="text-muted">Format:</span>{' '}
-              <span className="text-slate-900 dark:text-slate-100">Colon-separated, uppercase</span>
+              <span className="text-heading">Colon-separated, uppercase</span>
             </div>
           </div>
           {!!apiResult?.mac && (
@@ -310,15 +308,13 @@ export default function WifiInvestigation(): JSX.Element {
               <div className="grid gap-2 sm:grid-cols-2 font-mono text-sm">
                 <div>
                   <span className="text-muted">Vendor:</span>{' '}
-                  <span className="text-slate-900 dark:text-slate-100 font-semibold">
+                  <span className="text-heading font-semibold">
                     {(apiResult.mac as Record<string, unknown>).vendor as string}
                   </span>
                 </div>
                 <div>
                   <span className="text-muted">OUI:</span>{' '}
-                  <span className="text-slate-900 dark:text-slate-100">
-                    {(apiResult.mac as Record<string, unknown>).oui as string}
-                  </span>
+                  <span className="text-heading">{(apiResult.mac as Record<string, unknown>).oui as string}</span>
                 </div>
               </div>
             </div>
@@ -356,17 +352,17 @@ export default function WifiInvestigation(): JSX.Element {
 
       {result && result.type === 'ssid' && (
         <div className="mb-6 surface-card p-4">
-          <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+          <h3 className="font-display font-semibold text-sm text-heading mb-3 flex items-center gap-2">
             <Radio size={14} /> SSID Analysis
           </h3>
           <div className="font-mono text-sm">
             <div>
               <span className="text-muted">Network Name:</span>{' '}
-              <span className="text-slate-900 dark:text-slate-100 font-semibold">{result.value}</span>
+              <span className="text-heading font-semibold">{result.value}</span>
             </div>
             <div className="mt-2">
               <span className="text-muted">Length:</span>{' '}
-              <span className="text-slate-900 dark:text-slate-100">{result.value.length} characters</span>
+              <span className="text-heading">{result.value.length} characters</span>
             </div>
           </div>
           {Array.isArray(apiResult?.lookups) && (
@@ -414,7 +410,7 @@ export default function WifiInvestigation(): JSX.Element {
 
       {securityFlags.length > 0 && (
         <div className="mb-6 space-y-2">
-          <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">Security Flags</h3>
+          <h3 className="font-display font-semibold text-sm text-heading mb-2">Security Flags</h3>
           {securityFlags.map((flag) => {
             const Icon = FLAG_ICONS[flag.type] ?? AlertTriangle;
             return (
@@ -435,7 +431,7 @@ export default function WifiInvestigation(): JSX.Element {
 
       {lookups.length > 0 && (
         <div className="mb-6">
-          <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">Lookup Links</h3>
+          <h3 className="font-display font-semibold text-sm text-heading mb-3">Lookup Links</h3>
           <ul className="grid gap-3 md:grid-cols-2">
             {lookups.map((l) => (
               <li key={l.service + l.url} className="surface-card p-4">
@@ -443,7 +439,7 @@ export default function WifiInvestigation(): JSX.Element {
                   href={l.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
+                  className="font-display font-semibold text-base text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
                 >
                   {l.service} <ExternalLink size={12} className="opacity-60 shrink-0" />
                 </a>
@@ -458,9 +454,7 @@ export default function WifiInvestigation(): JSX.Element {
       )}
 
       <div className="mt-8 surface-card p-4">
-        <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
-          Investigation Tips
-        </h3>
+        <h3 className="font-display font-semibold text-sm text-heading mb-2">Investigation Tips</h3>
         <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
             <strong>BSSID to location:</strong> WiGLE.net maintains a global database of wireless access points - a

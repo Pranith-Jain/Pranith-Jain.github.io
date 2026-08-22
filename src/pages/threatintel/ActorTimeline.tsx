@@ -137,7 +137,7 @@ export default function ActorTimeline(): JSX.Element {
           {data && (
             <p className="text-mini font-mono text-muted">
               {data.groups.length} active groups · snapshot{' '}
-              <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+              <span className="text-body">{shortRel(data.generated_at)}</span>
               {data.warnings.length > 0 && (
                 <span className="text-amber-600 dark:text-amber-400 ml-2">
                   · {data.warnings.length} per-group fetch warnings

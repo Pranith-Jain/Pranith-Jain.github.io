@@ -233,7 +233,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
                 />
               )}
               <div className="min-w-0">
-                <h4 className="font-semibold text-slate-900 dark:text-slate-100 truncate">{b.name}</h4>
+                <h4 className="font-semibold text-heading truncate">{b.name}</h4>
                 {b.domain && <p className="text-xs text-slate-500 truncate">{b.domain}</p>}
               </div>
             </div>
@@ -254,7 +254,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
               {b.data_classes.slice(0, 8).map((d, j) => (
                 <span
                   key={j}
-                  className="text-xs px-2 py-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 rounded"
+                  className="text-xs px-2 py-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-body rounded"
                 >
                   {d}
                 </span>
@@ -365,7 +365,7 @@ function SourceSignal({ label, t, r }: { label: string; t: boolean; r: boolean }
         className={`inline-block w-1.5 h-1.5 rounded-full ${r ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
       />
       <span className="sr-only">{r ? 'present' : 'absent'} (reverse record)</span>
-      <span className="text-slate-700 dark:text-slate-300">{label}</span>
+      <span className="text-body">{label}</span>
     </div>
   );
 }
@@ -378,7 +378,7 @@ function Signal({ label, value }: { label: string; value: boolean }): JSX.Elemen
         className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
       />
       <span className="sr-only">{value ? 'pass' : 'fail'}:</span>
-      <span className={value ? 'text-slate-700 dark:text-slate-300' : 'text-muted'}>{label}</span>
+      <span className={value ? 'text-body' : 'text-muted'}>{label}</span>
     </div>
   );
 }
@@ -479,7 +479,7 @@ function PasswordTab(): JSX.Element {
               data-form-type="other"
               aria-label="Password to check against breach datasets"
               style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' } as CSSProperties}
-              className="w-full px-4 py-3 pr-12 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 pr-12 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               type="button"
@@ -693,7 +693,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -797,7 +797,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
             <div className="flex items-center gap-3">
               <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />
               <div className="flex-1">
-                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
+                <h3 className="font-display font-semibold text-base text-heading">
                   Pivot this email to SOCMINT sources →
                 </h3>
                 <p className="text-xs font-mono text-muted mt-0.5">
@@ -933,7 +933,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -1037,7 +1037,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
             <div className="flex items-center gap-3">
               <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />
               <div className="flex-1">
-                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
+                <h3 className="font-display font-semibold text-base text-heading">
                   Pivot this domain to SOCMINT sources →
                 </h3>
                 <p className="text-xs font-mono text-muted mt-0.5">

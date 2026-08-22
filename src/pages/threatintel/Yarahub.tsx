@@ -309,7 +309,7 @@ export default function Yarahub(): JSX.Element {
               </button>
             </div>
           </div>
-          <pre className="p-4 overflow-auto max-h-[70vh] text-meta font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-all">
+          <pre className="p-4 overflow-auto max-h-[70vh] text-meta font-mono text-heading leading-relaxed whitespace-pre-wrap break-all">
             {ruleContent}
           </pre>
         </div>

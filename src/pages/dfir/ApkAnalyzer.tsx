@@ -86,7 +86,7 @@ export default function ApkAnalyzer(): JSX.Element {
           aria-label="Drop an APK file or click to choose"
         >
           <Upload size={32} className="mx-auto mb-2 text-slate-500" />
-          <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop an APK here, or click to choose</p>
+          <p className="text-sm font-mono text-body">Drop an APK here, or click to choose</p>
           <p className="text-mini font-mono text-muted mt-1">100% client-side. Max 100 MB.</p>
         </button>
         <input
@@ -122,19 +122,17 @@ export default function ApkAnalyzer(): JSX.Element {
             </div>
             <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-meta font-mono">
               <dt className="text-slate-500">Package</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-all">
-                {result.analysis.packageName || 'unknown'}
-              </dd>
+              <dd className="text-heading break-all">{result.analysis.packageName || 'unknown'}</dd>
               {result.analysis.appName && (
                 <>
                   <dt className="text-slate-500">App name</dt>
-                  <dd className="text-slate-900 dark:text-slate-100">{result.analysis.appName}</dd>
+                  <dd className="text-heading">{result.analysis.appName}</dd>
                 </>
               )}
               {result.analysis.versionName && (
                 <>
                   <dt className="text-slate-500">Version</dt>
-                  <dd className="text-slate-900 dark:text-slate-100">
+                  <dd className="text-heading">
                     {result.analysis.versionName} ({result.analysis.versionCode})
                   </dd>
                 </>
@@ -142,26 +140,26 @@ export default function ApkAnalyzer(): JSX.Element {
               {result.analysis.minSdk && (
                 <>
                   <dt className="text-slate-500">Min SDK</dt>
-                  <dd className="text-slate-900 dark:text-slate-100">{result.analysis.minSdk}</dd>
+                  <dd className="text-heading">{result.analysis.minSdk}</dd>
                 </>
               )}
               {result.analysis.targetSdk && (
                 <>
                   <dt className="text-slate-500">Target SDK</dt>
-                  <dd className="text-slate-900 dark:text-slate-100">{result.analysis.targetSdk}</dd>
+                  <dd className="text-heading">{result.analysis.targetSdk}</dd>
                 </>
               )}
               <dt className="text-slate-500">Entropy</dt>
-              <dd className="text-slate-900 dark:text-slate-100">
+              <dd className="text-heading">
                 {result.entropy.toFixed(3)} / 8{' '}
                 {result.entropy > 7.5 && <span className="text-rose-600 dark:text-rose-400">(likely packed)</span>}
               </dd>
               <dt className="text-slate-500">DEX files</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{result.analysis.dexFiles.length}</dd>
+              <dd className="text-heading">{result.analysis.dexFiles.length}</dd>
               <dt className="text-slate-500">Native libs</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{result.analysis.nativeLibs.length}</dd>
+              <dd className="text-heading">{result.analysis.nativeLibs.length}</dd>
               <dt className="text-slate-500">Files</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{result.analysis.fileCount} entries</dd>
+              <dd className="text-heading">{result.analysis.fileCount} entries</dd>
               <dt className="text-slate-500">Suspicious</dt>
               <dd
                 className={`font-semibold ${result.analysis.suspicious.length > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}
@@ -186,7 +184,7 @@ export default function ApkAnalyzer(): JSX.Element {
               ).map(([label, val]) => (
                 <div key={label} className="flex items-center gap-2">
                   <span className="text-slate-500 w-20 shrink-0">{label}</span>
-                  <code className="text-slate-900 dark:text-slate-100 break-all flex-1">{val}</code>
+                  <code className="text-heading break-all flex-1">{val}</code>
                   <CopyChip value={val} label="copy" />
                 </div>
               ))}
@@ -267,7 +265,7 @@ export default function ApkAnalyzer(): JSX.Element {
                     key={dex.name}
                     className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                   >
-                    <div className="font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">{dex.name}</div>
+                    <div className="font-semibold text-sm text-heading mb-1">{dex.name}</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 text-micro font-mono text-muted">
                       <span>DEX v{dex.version}</span>
                       <span>{fmtBytes(dex.size)}</span>

@@ -660,7 +660,7 @@ export default function Tracepulse(): JSX.Element {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -706,7 +706,7 @@ export default function Tracepulse(): JSX.Element {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by CVE, campaign, actor, technique…"
-          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -814,7 +814,7 @@ export default function Tracepulse(): JSX.Element {
                         <CopyButton value={q.code} />
                       </button>
                       {expandedQuery === `${pack.id}-${i}` && (
-                        <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] px-5 py-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border-t border-slate-100 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+                        <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] px-5 py-4 overflow-x-auto text-xs text-body font-mono border-t border-slate-100 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                           {q.code}
                         </pre>
                       )}

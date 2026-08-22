@@ -123,13 +123,13 @@ function CopyableJson({ value, label }: { value: string; label: string }) {
         <button
           type="button"
           onClick={onCopy}
-          className="inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-slate-600 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-body hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
-      <pre className="overflow-x-auto px-3 py-2 text-meta font-mono text-slate-700 dark:text-slate-200">
+      <pre className="overflow-x-auto px-3 py-2 text-meta font-mono text-body">
         <code>{value}</code>
       </pre>
     </div>
@@ -210,14 +210,14 @@ export default function McpCatalogPage(): JSX.Element {
         <section className="surface-card p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
           <div className="flex flex-wrap items-center gap-3 text-meta text-muted">
             <span>
-              <span className="text-slate-900 dark:text-slate-100 font-medium">Endpoint</span>{' '}
-              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
+              <span className="text-heading font-medium">Endpoint</span>{' '}
+              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-body">
                 {ENDPOINT}
               </code>
             </span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100 font-medium">Transport</span>{' '}
-              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
+              <span className="text-heading font-medium">Transport</span>{' '}
+              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-body">
                 streamable-http
               </code>
             </span>
@@ -232,9 +232,7 @@ export default function McpCatalogPage(): JSX.Element {
 
         {/* Config snippets */}
         <section className="mb-8">
-          <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100">
-            Connect in 30 seconds
-          </h2>
+          <h2 className="mb-3 text-lg font-display font-semibold text-heading">Connect in 30 seconds</h2>
           <ol className="mb-5 list-decimal space-y-2 pl-5 text-tool text-muted leading-relaxed">
             <li>
               Generate an API key at{' '}
@@ -263,7 +261,7 @@ export default function McpCatalogPage(): JSX.Element {
             {Object.entries(CONFIG_SNIPPETS).map(([k, s]) => (
               <div key={k}>
                 <div className="mb-1.5 flex items-baseline justify-between text-tool">
-                  <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{s.title}</span>
+                  <span className="font-display font-semibold text-heading">{s.title}</span>
                   <code className="text-micro text-muted">{s.path}</code>
                 </div>
                 <CopyableJson value={s.json} label={s.title} />
@@ -281,7 +279,7 @@ export default function McpCatalogPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${manifest?.toolCount ?? ''} tools...`}
-              className="w-full rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
+              className="w-full rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-heading placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
             />
             {query && (
               <button
@@ -324,7 +322,7 @@ export default function McpCatalogPage(): JSX.Element {
         <div className="space-y-8">
           {grouped.map(([cat, tools]) => (
             <section key={cat}>
-              <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100 flex items-baseline gap-2">
+              <h2 className="mb-3 text-lg font-display font-semibold text-heading flex items-baseline gap-2">
                 {cat}
                 <span className="text-meta font-mono font-normal text-muted">({tools.length})</span>
               </h2>

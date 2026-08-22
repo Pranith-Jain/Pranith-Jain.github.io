@@ -157,7 +157,7 @@ export default function DisarmFramework(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search techniques / tactics (name, description, T-id)…"
-          className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+          className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-1.5 text-sm font-mono text-body placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
         />
         <div className="flex flex-wrap gap-1.5">
           <button type="button" onClick={() => setType('all')} className={chip(type === 'all')}>
@@ -199,7 +199,7 @@ export default function DisarmFramework(): JSX.Element {
               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
             >
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">
+                <h3 className="font-semibold text-sm text-heading leading-snug">
                   {primaryRef ? (
                     <a
                       href={primaryRef}

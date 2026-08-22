@@ -146,7 +146,7 @@ export default function AlertFeed() {
         <button
           type="button"
           onClick={loadAlerts}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
         </button>

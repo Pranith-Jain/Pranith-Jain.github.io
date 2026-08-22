@@ -158,7 +158,7 @@ export default function Nhi(): JSX.Element {
   }, [items]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -233,9 +233,7 @@ export default function Nhi(): JSX.Element {
                     {item.id}
                   </span>
                   <span className="flex-1 min-w-0">
-                    <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">
-                      {item.title}
-                    </span>
+                    <span className="block font-display font-semibold text-heading">{item.title}</span>
                     <span className="block text-xs font-mono text-muted truncate">
                       {item.summary.slice(0, 110)}
                       {item.summary.length > 110 && '…'}
@@ -250,24 +248,18 @@ export default function Nhi(): JSX.Element {
                 {expanded && (
                   <div className="animate-fade-in-up overflow-hidden">
                     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-3">
-                      <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                        {item.summary}
-                      </p>
+                      <p className="text-sm font-mono text-body leading-relaxed">{item.summary}</p>
                       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
                         <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
                           Attack
                         </h4>
-                        <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                          {item.attack}
-                        </p>
+                        <p className="text-xs font-mono text-body leading-relaxed">{item.attack}</p>
                       </div>
                       <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
                         <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
                           Mitigation
                         </h4>
-                        <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                          {item.mitigation}
-                        </p>
+                        <p className="text-xs font-mono text-body leading-relaxed">{item.mitigation}</p>
                       </div>
                       {item.attCK && item.attCK.length > 0 && (
                         <div className="flex flex-wrap items-center gap-1.5">
@@ -366,7 +358,7 @@ export default function Nhi(): JSX.Element {
                       aria-expanded={isOpen}
                     >
                       <span className="flex-1 min-w-0">
-                        <span className="block font-display font-semibold text-slate-900 dark:text-slate-100 truncate">
+                        <span className="block font-display font-semibold text-heading truncate">
                           {e.name || '(unnamed)'}
                         </span>
                         <span className="block text-xs font-mono text-muted truncate">
@@ -505,7 +497,7 @@ export default function Nhi(): JSX.Element {
                                   className={`flex items-center gap-3 text-left rounded border px-2 py-1.5 text-xs font-mono ${STATUS_STYLES[s].cls}`}
                                 >
                                   <span className="flex-none w-12 font-bold">{it.id}</span>
-                                  <span className="flex-1 truncate text-slate-700 dark:text-slate-300">{it.title}</span>
+                                  <span className="flex-1 truncate text-body">{it.title}</span>
                                   <span className="flex-none">{STATUS_STYLES[s].label}</span>
                                 </button>
                               );

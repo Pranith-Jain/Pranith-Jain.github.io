@@ -142,7 +142,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                 if (e.key === 'Enter') saveToken();
               }}
               placeholder="paste ADMIN_TOKEN…"
-              className="flex-1 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+              className="flex-1 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading placeholder:text-slate-400 font-mono"
             />
             <button
               type="button"
@@ -164,14 +164,14 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Filter handles…"
-            className="w-48 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+            className="w-48 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading placeholder:text-slate-400 font-mono"
           />
         </div>
 
         <select
           value={filterReviewed}
           onChange={(e) => setFilterReviewed(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
+          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading font-mono"
         >
           <option value="false">Unreviewed only</option>
           <option value="true">Reviewed only</option>
@@ -191,9 +191,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
               <div key={ch.id} className="surface-card p-3.5 flex items-center justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      {ch.handle}
-                    </span>
+                    <span className="font-mono text-sm font-semibold text-heading">{ch.handle}</span>
                     {ch.reviewed === 1 && ch.added_to_watch === 0 ? (
                       <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-400/40 bg-slate-400/10 text-muted">
                         rejected

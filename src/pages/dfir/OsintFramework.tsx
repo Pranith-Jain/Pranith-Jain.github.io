@@ -47,7 +47,7 @@ export default function OsintFramework(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -167,7 +167,7 @@ export default function OsintFramework(): JSX.Element {
                 href={sanitizeUrl(e.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+                className="font-display font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
               >
                 {e.name} <ExternalLink size={11} />
               </a>

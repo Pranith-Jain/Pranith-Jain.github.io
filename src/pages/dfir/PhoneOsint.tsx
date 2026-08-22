@@ -305,13 +305,12 @@ export default function PhoneOsint(): JSX.Element {
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono">
             <div>
               <span className="text-muted">E.164:</span>{' '}
-              <span className="text-slate-900 dark:text-slate-100 font-semibold">{parsed.e164}</span>
+              <span className="text-heading font-semibold">{parsed.e164}</span>
               <CopyChip value={parsed.e164} className="ml-1" />
             </div>
             {parsed.countryHint && (
               <div>
-                <span className="text-muted">Country:</span>{' '}
-                <span className="text-slate-900 dark:text-slate-100">{parsed.countryHint}</span>
+                <span className="text-muted">Country:</span> <span className="text-heading">{parsed.countryHint}</span>
               </div>
             )}
           </div>
@@ -335,9 +334,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* API Result - carrier + breach details */}
       {apiResult && (
         <div className="mb-6 surface-card p-4">
-          <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
-            Server-Side Intel
-          </h3>
+          <h3 className="font-display font-semibold text-sm text-heading mb-3">Server-Side Intel</h3>
 
           {!!apiResult.carrier && (
             <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -346,9 +343,7 @@ export default function PhoneOsint(): JSX.Element {
                 <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
                   {(apiResult.carrier as Record<string, string>).type}
                 </span>
-                <span className="text-slate-600 dark:text-slate-300">
-                  {(apiResult.carrier as Record<string, string>).carrier}
-                </span>
+                <span className="text-body">{(apiResult.carrier as Record<string, string>).carrier}</span>
                 <span className="text-muted">
                   confidence: {(apiResult.carrier as Record<string, string>).confidence}
                 </span>
@@ -363,8 +358,7 @@ export default function PhoneOsint(): JSX.Element {
                 {Object.entries(apiResult.numverify as Record<string, string>).map(([k, v]) =>
                   v ? (
                     <div key={k}>
-                      <span className="text-muted">{k}:</span>{' '}
-                      <span className="text-slate-900 dark:text-slate-100">{v}</span>
+                      <span className="text-muted">{k}:</span> <span className="text-heading">{v}</span>
                     </div>
                   ) : null
                 )}
@@ -458,7 +452,7 @@ export default function PhoneOsint(): JSX.Element {
                       href={l.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
+                      className="font-display font-semibold text-base text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
                     >
                       {l.service} <ExternalLink size={12} className="opacity-60 shrink-0" />
                     </a>
@@ -489,9 +483,7 @@ export default function PhoneOsint(): JSX.Element {
 
       {/* Tips */}
       <div className="mt-8 surface-card p-4">
-        <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
-          Investigation Tips
-        </h3>
+        <h3 className="font-display font-semibold text-sm text-heading mb-2">Investigation Tips</h3>
         <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
             <strong>WhatsApp check:</strong> Click the WhatsApp link - if a profile photo appears, the number is active.

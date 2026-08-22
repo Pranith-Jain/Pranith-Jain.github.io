@@ -130,7 +130,7 @@ export const SEVERITY_COLORS: Record<Severity, { bg: string; text: string; ring:
   },
   info: {
     bg: 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]',
-    text: 'text-slate-700 dark:text-slate-300',
+    text: 'text-body',
     ring: 'ring-slate-300 dark:ring-slate-700',
     pill: 'bg-slate-500 text-white',
   },

@@ -940,7 +940,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
         <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
           <div className="mt-3">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Plan</div>
-            <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.plan}</p>
+            <p className="text-xs font-mono text-body">{step.plan}</p>
           </div>
 
           {(step.results ?? []).map((r, i) => (
@@ -968,7 +968,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
           {step.observation && (
             <div>
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Observation</div>
-              <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.observation}</p>
+              <p className="text-xs font-mono text-body">{step.observation}</p>
             </div>
           )}
         </div>

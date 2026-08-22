@@ -42,6 +42,8 @@
   --color-severity-info: #0ea5e9;
 
   --color-muted: rgb(var(--muted));
+  --color-heading: rgb(var(--ink-heading));
+  --color-body: rgb(var(--ink-body));
   /* Semantic surface + hairline utilities (auto-adapting, no dark: prefix).
      Consumed as bg-surface-100 / text-surface-300 / border-line-1 etc. */
   --color-surface-100: rgb(var(--surface-100));
@@ -117,6 +119,10 @@
 
   :root {
     --muted: 71 85 105;
+    /* Ink ramp: primary headings + body copy. Pairs with --muted as the
+       third step so text color has exactly three semantic stops. */
+    --ink-heading: 15 23 42;
+    --ink-body: 51 65 85;
     --surface-100: 255 255 255;
     --surface-200: 250 250 250;
     --surface-300: 245 245 245;
@@ -129,6 +135,8 @@
 
   html.dark {
     --muted: 148 163 184;
+    --ink-heading: 241 245 249;
+    --ink-body: 203 213 225;
     /* Surface ladder tinted into the navy family (--bg-base #070b1c) so cards
        read as one palette with the slate-900 surfaces used elsewhere, instead
        of neutral-gray panels floating on a blue canvas. Blue stays dominant

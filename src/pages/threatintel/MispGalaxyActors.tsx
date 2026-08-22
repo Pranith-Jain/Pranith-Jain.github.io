@@ -134,7 +134,7 @@ export default function MispGalaxyActors(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actor or alias (e.g. APT28, Fancy Bear, Lazarus)…"
             aria-label="Search threat actor or alias"
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
           />
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -173,7 +173,7 @@ export default function MispGalaxyActors(): JSX.Element {
             className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
           >
             <div className="flex items-start justify-between gap-2">
-              <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">{actor.value}</h3>
+              <h3 className="font-semibold text-sm text-heading leading-snug">{actor.value}</h3>
               {actor.country && (
                 <span className="shrink-0 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-sky-500/40 text-sky-600 dark:text-sky-400 flex items-center gap-1">
                   <Flag size={10} aria-hidden="true" /> {actor.country}
@@ -191,7 +191,7 @@ export default function MispGalaxyActors(): JSX.Element {
               </Link>
               <Link
                 to={`/dfir/ioc-check?indicator=${encodeURIComponent(actor.value)}`}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                 title="Pivot to IOC checker"
               >
                 ioc-check →
@@ -208,7 +208,7 @@ export default function MispGalaxyActors(): JSX.Element {
                 {actor.synonyms.map((alias) => (
                   <span
                     key={alias}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body"
                   >
                     {alias}
                   </span>

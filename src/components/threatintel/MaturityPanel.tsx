@@ -104,9 +104,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
         {report.domains.map((d) => (
           <div key={d.id} className="surface-card p-3">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
-                {d.name}
-              </span>
+              <span className="text-xs font-mono font-semibold uppercase tracking-wider text-body">{d.name}</span>
               <span className={`text-xs font-mono font-bold ${BAND_TONE[d.band]}`}>
                 {d.score}/{d.max_score}
               </span>
@@ -166,7 +164,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
           const barPct = (n / max) * 100;
           return (
             <div key={g} className="flex items-center gap-2">
-              <span className="w-4 text-xs font-mono font-bold text-slate-600 dark:text-slate-300 shrink-0">{g}</span>
+              <span className="w-4 text-xs font-mono font-bold text-body shrink-0">{g}</span>
               <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                 <div
                   className={`h-full ${RELIABILITY_TONE[g] ?? 'bg-slate-400'} transition-all`}

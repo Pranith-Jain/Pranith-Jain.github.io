@@ -44,13 +44,13 @@ export function SearchFilter<T extends FilterableItem>({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 min-w-[200px] px-3 py-1.5 text-sm bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded placeholder-slate-400 dark:placeholder-slate-500 text-slate-700 dark:text-slate-300"
+          className="flex-1 min-w-[200px] px-3 py-1.5 text-sm bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded placeholder-slate-400 dark:placeholder-slate-500 text-body"
         />
         {types.length > 1 && (
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-2 py-1.5 text-sm bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-slate-700 dark:text-slate-300"
+            className="px-2 py-1.5 text-sm bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-body"
           >
             <option value="">All types</option>
             {types.map((t) => (

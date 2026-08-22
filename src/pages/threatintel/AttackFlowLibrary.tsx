@@ -166,7 +166,7 @@ export default function AttackFlowLibrary(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Filter ${data.total} flows…`}
-          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-800 dark:text-slate-200 focus:outline-none focus:border-rose-500/60"
+          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading focus:outline-none focus:border-rose-500/60"
         />
       </div>
     ) : undefined;
@@ -188,7 +188,7 @@ export default function AttackFlowLibrary(): JSX.Element {
         <div className="mb-6 rounded-xl border border-rose-500/30 bg-rose-500/5 p-4">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{activeFlow}</h2>
+              <h2 className="text-sm font-semibold text-heading">{activeFlow}</h2>
               {flowData && (
                 <p className="text-micro font-mono text-slate-500 mt-0.5">
                   {flowData.bundle.objects.length} STIX objects · spec{' '}
@@ -265,7 +265,7 @@ export default function AttackFlowLibrary(): JSX.Element {
               }`}
             >
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">{flow.name}</h3>
+                <h3 className="font-semibold text-sm text-heading leading-snug">{flow.name}</h3>
                 {flow.size > 0 && (
                   <span className="shrink-0 text-micro font-mono text-muted">{fmtSize(flow.size)}</span>
                 )}

@@ -284,7 +284,7 @@ export default function CyberCrime(): JSX.Element {
                   href={sanitizeUrl(it.url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 break-words transition-colors"
+                  className="font-display font-semibold text-base text-heading hover:text-rose-600 dark:hover:text-rose-400 break-words transition-colors"
                 >
                   {it.title} <ExternalLink size={11} className="inline ml-0.5 opacity-60" />
                 </a>
@@ -347,7 +347,7 @@ export default function CyberCrime(): JSX.Element {
                       : 'border-slate-200/40 dark:border-[rgb(var(--border-400))]/40 bg-slate-100/40 dark:bg-[rgb(var(--input-200)/0.4)] opacity-60'
                   }`}
                 >
-                  <span className={s.ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'}>
+                  <span className={s.ok ? 'text-body' : 'text-rose-600 dark:text-rose-400'}>
                     {enabled ? (s.ok ? 'on' : 'off') : '-'} {s.label}
                   </span>
                   <span className="text-slate-500">

@@ -284,7 +284,7 @@ export default function ThreatFeeds(): JSX.Element {
   const failedCount = feedStatuses.filter((s) => !s.ok).length;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -329,9 +329,7 @@ export default function ThreatFeeds(): JSX.Element {
               <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
                 <Brain size={14} className="text-brand-600 dark:text-brand-400" />
               </span>
-              <span className="text-sm font-display font-bold text-slate-900 dark:text-slate-100">
-                AI Threat Analysis
-              </span>
+              <span className="text-sm font-display font-bold text-heading">AI Threat Analysis</span>
               {topAnalysis && (
                 <span className="text-micro font-mono text-muted ml-1">
                   {topAnalysisModel && topAnalysisModel.split(':').pop()}
@@ -382,7 +380,7 @@ export default function ThreatFeeds(): JSX.Element {
                     <span className="text-micro font-mono text-slate-500">conf: {topAnalysis.confidence}</span>
                   </div>
 
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{topAnalysis.summary}</p>
+                  <p className="text-sm text-body leading-relaxed">{topAnalysis.summary}</p>
 
                   {topAnalysis.impact && (
                     <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
@@ -426,9 +424,7 @@ export default function ThreatFeeds(): JSX.Element {
               {topAnalysis?.raw && (
                 <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3">
                   <p className="text-xs text-amber-600 dark:text-amber-400 mb-1.5">Unstructured model output:</p>
-                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono">
-                    {topAnalysis.raw}
-                  </p>
+                  <p className="text-xs text-body leading-relaxed whitespace-pre-wrap font-mono">{topAnalysis.raw}</p>
                 </div>
               )}
 
@@ -593,9 +589,7 @@ export default function ThreatFeeds(): JSX.Element {
                           tabIndex={-1}
                         />
                         <span className="flex-1 min-w-0">
-                          <span className="block font-mono text-mini text-slate-700 dark:text-slate-300 truncate">
-                            {meta?.name ?? fid}
-                          </span>
+                          <span className="block font-mono text-mini text-body truncate">{meta?.name ?? fid}</span>
                           {isEnabled && status && (
                             <span
                               className={`block text-micro font-mono truncate ${
@@ -628,9 +622,7 @@ export default function ThreatFeeds(): JSX.Element {
 
         {activeSection !== 'all' && (
           <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
-            <span className="text-slate-700 dark:text-slate-300">
-              {SECTIONS.find((s) => s.id === activeSection)?.label}:
-            </span>{' '}
+            <span className="text-body">{SECTIONS.find((s) => s.id === activeSection)?.label}:</span>{' '}
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
         )}
@@ -704,7 +696,7 @@ export default function ThreatFeeds(): JSX.Element {
                 href={sanitizeUrl(item.link) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+                className="font-display font-semibold text-sm text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
               >
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>

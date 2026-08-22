@@ -328,7 +328,7 @@ export default function IocExtractor(): JSX.Element {
           <summary className="text-xs font-mono text-sky-700 dark:text-sky-300 cursor-pointer inline-flex items-center gap-2">
             <ShieldAlert size={12} /> input was refanged before extraction - click to see normalised text
           </summary>
-          <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-40 overflow-auto">
+          <pre className="mt-2 text-mini font-mono text-body whitespace-pre-wrap break-all max-h-40 overflow-auto">
             {refangedPreview}
           </pre>
         </details>
@@ -356,7 +356,7 @@ export default function IocExtractor(): JSX.Element {
           return (
             <section key={bucket} className="surface-card p-5">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">
+                <h3 className="font-display font-semibold text-heading">
                   {LABELS[bucket]} <span className="text-xs font-mono text-slate-500 ml-2">{values.length}</span>
                 </h3>
                 <button
@@ -368,7 +368,7 @@ export default function IocExtractor(): JSX.Element {
                   {copied === id ? 'copied' : 'copy all'}
                 </button>
               </div>
-              <ul className="space-y-1 font-mono text-sm text-slate-700 dark:text-slate-300 break-all">
+              <ul className="space-y-1 font-mono text-sm text-body break-all">
                 {values.map((v) => (
                   <li key={v}>{renderValue(bucket, v)}</li>
                 ))}

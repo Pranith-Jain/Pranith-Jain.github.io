@@ -195,7 +195,7 @@ function BlufPanel({ header }: { header: NonNullable<ReportActionCard['reportHea
       {header.primary_indicator && (
         <div className="mt-2 flex items-center gap-1.5 text-xs">
           <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Primary IOC:</span>
-          <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 font-mono text-xs">
+          <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-heading font-mono text-xs">
             {header.primary_indicator.type}: {header.primary_indicator.value}
           </code>
         </div>
@@ -258,7 +258,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">CVSS v3.1</div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-xl font-bold text-slate-900 dark:text-slate-100">{card.cvss.score.toFixed(1)}</span>
+              <span className="text-xl font-bold text-heading">{card.cvss.score.toFixed(1)}</span>
               <span
                 className={`px-1.5 py-0.5 rounded text-micro font-mono font-bold ${cvssSeverityColor(card.cvss.severity)}`}
               >
@@ -276,9 +276,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
         {card.epss?.score != null && (
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">EPSS</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-              {(card.epss.score * 100).toFixed(1)}%
-            </div>
+            <div className="text-xl font-bold text-heading mt-0.5">{(card.epss.score * 100).toFixed(1)}%</div>
             {card.epss.percentile != null && (
               <div className="text-micro font-mono text-slate-500">
                 P{(card.epss.percentile * 100).toFixed(0)} percentile
@@ -553,10 +551,7 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
               items.map((m, idx) => (
                 <tr key={`${m.id}-${idx}`} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                   {idx === 0 && (
-                    <td
-                      className="px-3 py-1.5 font-mono text-sm text-slate-700 dark:text-slate-300 align-top"
-                      rowSpan={items.length}
-                    >
+                    <td className="px-3 py-1.5 font-mono text-sm text-body align-top" rowSpan={items.length}>
                       {tactic}
                     </td>
                   )}
@@ -616,11 +611,11 @@ function DiamondQuadrant({ title, value, items }: { title: string; value?: strin
   return (
     <div className="bg-white dark:bg-[rgb(var(--surface-200))] p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">{title}</div>
-      {value && <div className="text-sm text-slate-700 dark:text-slate-300">{value}</div>}
+      {value && <div className="text-sm text-body">{value}</div>}
       {items && items.length > 0 && (
         <ul className="space-y-0.5">
           {items.map((it, idx) => (
-            <li key={idx} className="text-sm font-mono text-slate-700 dark:text-slate-300 break-all">
+            <li key={idx} className="text-sm font-mono text-body break-all">
               • {it}
             </li>
           ))}
@@ -660,7 +655,7 @@ function ActionsList({
                 {a.severity.toUpperCase()}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">{a.action}</p>
+                <p className="text-sm text-heading leading-relaxed">{a.action}</p>
                 <div className="mt-1 flex flex-wrap items-center gap-1.5 text-micro font-mono text-slate-500">
                   {a.target && (
                     <span className="inline-flex items-center gap-0.5">
@@ -711,7 +706,7 @@ function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
               className={`shrink-0 w-2 h-2 rounded-full mt-1.5 ${p.relevant ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-700'}`}
             />
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-slate-900 dark:text-slate-100">{p.pir}</p>
+              <p className="text-sm text-heading">{p.pir}</p>
               {p.bluf && <p className="text-xs text-muted mt-1">{p.bluf}</p>}
               {p.businessOutcome && (
                 <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-1 inline-flex items-center gap-1">
@@ -739,7 +734,7 @@ function TimelineList({ timeline }: { timeline: ReportActionCard['timeline'] }):
           <li key={idx} className="relative py-1.5">
             <div className="absolute -left-3 mt-1.5 w-2 h-2 rounded-full bg-brand-500 ring-2 ring-white dark:ring-slate-900" />
             <div className="text-mini font-mono text-slate-500">{t.date ?? '-'}</div>
-            <div className="text-sm text-slate-900 dark:text-slate-100">{t.event}</div>
+            <div className="text-sm text-heading">{t.event}</div>
             {t.source && <div className="text-micro font-mono text-muted">[{t.source}]</div>}
           </li>
         ))}
@@ -876,7 +871,7 @@ function NextActionsBar({
                 actionCard && navigator.clipboard.writeText(JSON.stringify(actionCard, null, 2)).then(() => void 0)
               }
               disabled={!actionCard}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 text-mini font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)] disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body text-mini font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)] disabled:opacity-50"
             >
               <Copy size={11} />
               Copy Action Card JSON
@@ -905,7 +900,7 @@ function NextActionsBar({
                     URL.revokeObjectURL(url);
                   }
                 }}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 text-mini font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)]"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body text-mini font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)]"
               >
                 <Share2 size={11} />
                 Share as Markdown
@@ -1056,7 +1051,7 @@ export function ReportView({
         {headline && (
           <div className="rounded-xl p-3 bg-slate-100 dark:bg-[rgb(var(--surface-300))] mb-3 flex items-start gap-2">
             <Info size={14} className="mt-0.5 text-slate-500" />
-            <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{headline}</p>
+            <p className="text-sm font-semibold text-heading">{headline}</p>
           </div>
         )}
         <div
@@ -1087,7 +1082,7 @@ export function ReportView({
       {actionCard.reportHeader?.bluf && (
         <div className="surface-card p-3 mb-4">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Executive Summary</div>
-          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{actionCard.reportHeader.bluf}</p>
+          <p className="text-sm text-body leading-relaxed">{actionCard.reportHeader.bluf}</p>
           {actionCard.reportHeader.key_takeaway && (
             <p className="text-xs text-muted mt-2 italic">
               <span className="font-bold not-italic uppercase tracking-wider mr-1">Business impact:</span>
@@ -1103,15 +1098,13 @@ export function ReportView({
             <AlertOctagon size={14} className="mt-0.5 text-slate-500 shrink-0" />
             <div className="flex-1 min-w-0">
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-0.5">Headline</div>
-              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{headline}</p>
+              <p className="text-sm font-semibold text-heading">{headline}</p>
             </div>
           </div>
           {executiveSummary && (
             <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Executive Summary</div>
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
-                {executiveSummary}
-              </p>
+              <p className="text-sm text-body leading-relaxed whitespace-pre-line">{executiveSummary}</p>
             </div>
           )}
         </div>
@@ -1176,12 +1169,10 @@ export function ReportView({
           <div className="space-y-1">
             {reportVersioning.versions.map((v) => (
               <div key={v.version} className="flex items-center justify-between text-sm">
-                <span className="font-mono text-slate-700 dark:text-slate-300">
+                <span className="font-mono text-body">
                   v{v.version} · {v.reason}
                 </span>
-                <span className="tabular-nums font-semibold text-slate-900 dark:text-slate-100">
-                  {v.qualityScore}/100
-                </span>
+                <span className="tabular-nums font-semibold text-heading">{v.qualityScore}/100</span>
               </div>
             ))}
           </div>

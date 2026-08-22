@@ -221,7 +221,7 @@ export default function RedditFirehose(): JSX.Element {
       {data && (
         <p className="text-mini font-mono text-slate-500 mb-4">
           Showing {filtered.length} of {data.items.length} posts · snapshot{' '}
-          <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+          <span className="text-body">{shortRel(data.generated_at)}</span>
           {data.warnings.length > 0 && (
             <span className="text-amber-600 dark:text-amber-400 ml-2">· {data.warnings.length} feed warnings</span>
           )}
@@ -287,7 +287,7 @@ export default function RedditFirehose(): JSX.Element {
                   className="group block"
                 >
                   <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
+                    <span className="font-display font-semibold text-sm text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
                       {it.title}
                     </span>
                     <ExternalLink size={11} className="text-muted shrink-0" />

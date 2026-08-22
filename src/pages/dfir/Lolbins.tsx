@@ -43,7 +43,7 @@ export default function Lolbins(): JSX.Element {
   }, [query, platform, category]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -149,7 +149,7 @@ export default function Lolbins(): JSX.Element {
         {filtered.map((b) => (
           <article key={b.id} className="surface-card p-4">
             <header className="flex flex-wrap items-center gap-2 mb-2">
-              <code className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{b.binary}</code>
+              <code className="font-display font-bold text-heading text-base">{b.binary}</code>
               <span
                 className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_STYLES[b.source]}`}
               >
@@ -186,7 +186,7 @@ export default function Lolbins(): JSX.Element {
               </a>
             </header>
 
-            <p className="text-sm font-mono text-slate-800 dark:text-slate-200 mb-2">{b.technique}</p>
+            <p className="text-sm font-mono text-heading mb-2">{b.technique}</p>
 
             <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 mb-2">
               <div className="flex items-center justify-between gap-2 mb-1">
@@ -195,9 +195,7 @@ export default function Lolbins(): JSX.Element {
                 </span>
                 <CopyChip value={b.example} />
               </div>
-              <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
-                {b.example}
-              </pre>
+              <pre className="text-meta font-mono text-heading whitespace-pre-wrap break-all">{b.example}</pre>
             </div>
 
             <div className="grid gap-2 md:grid-cols-2">
@@ -205,13 +203,13 @@ export default function Lolbins(): JSX.Element {
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted block mb-1">
                   Legitimate use
                 </span>
-                <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.legit}</p>
+                <p className="text-meta font-mono text-body leading-relaxed">{b.legit}</p>
               </div>
               <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 block mb-1">
                   Detection
                 </span>
-                <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.detection}</p>
+                <p className="text-meta font-mono text-body leading-relaxed">{b.detection}</p>
               </div>
             </div>
           </article>

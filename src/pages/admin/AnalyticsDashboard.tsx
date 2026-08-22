@@ -140,7 +140,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               <div key={e.type} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
                   <Activity size={14} className="text-muted" />
-                  <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{e.type}</span>
+                  <span className="font-mono text-sm text-body">{e.type}</span>
                 </div>
                 <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
                   {e.count.toLocaleString()}
@@ -162,7 +162,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               <div key={c.country} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
                   <Globe size={14} className="text-muted" />
-                  <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{c.country}</span>
+                  <span className="font-mono text-sm text-body">{c.country}</span>
                 </div>
                 <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
                   {c.count.toLocaleString()}
@@ -185,9 +185,7 @@ export default function AnalyticsDashboard(): JSX.Element {
                 <div className="flex items-center gap-3">
                   <Activity size={14} className="text-muted" />
                   <div>
-                    <span className="font-mono text-sm text-slate-700 dark:text-slate-300">
-                      {e.blobs[0] ?? 'unknown'}
-                    </span>
+                    <span className="font-mono text-sm text-body">{e.blobs[0] ?? 'unknown'}</span>
                     {e.blobs[1] && <span className="text-xs text-slate-500 ml-2">{e.blobs[1]}</span>}
                   </div>
                 </div>

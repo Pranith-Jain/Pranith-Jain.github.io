@@ -111,7 +111,7 @@ export default function ScreenshotIntel(): JSX.Element {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=identity-osint"
@@ -136,7 +136,7 @@ export default function ScreenshotIntel(): JSX.Element {
         aria-label="Drop an image file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
+        <p className="text-sm font-mono text-body">
           {busy ? 'Analyzing...' : 'Drop an image here, or click to choose'}
         </p>
         <p className="text-mini font-mono text-muted mt-1">OCR, QR decode, EXIF/GPS extraction. 100% client-side.</p>
@@ -157,14 +157,14 @@ export default function ScreenshotIntel(): JSX.Element {
       {qr ? (
         <div className="mt-6 surface-card p-3">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">QR / barcode payload</div>
-          <code className="font-mono text-meta break-all text-slate-900 dark:text-slate-100">{qr}</code>
+          <code className="font-mono text-meta break-all text-heading">{qr}</code>
         </div>
       ) : null}
 
       {ocr !== null && ocr !== '' && (
         <div className="mt-4 surface-card p-3">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">OCR text</div>
-          <pre className="font-mono text-mini whitespace-pre-wrap break-words text-slate-700 dark:text-slate-300 max-h-[40vh] overflow-auto">
+          <pre className="font-mono text-mini whitespace-pre-wrap break-words text-body max-h-[40vh] overflow-auto">
             {ocr}
           </pre>
         </div>
@@ -195,7 +195,7 @@ export default function ScreenshotIntel(): JSX.Element {
       {meta && (
         <div className="mt-4 surface-card p-3">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">EXIF / metadata</div>
-          <pre className="font-mono text-mini overflow-auto max-h-[40vh] text-slate-700 dark:text-slate-300">
+          <pre className="font-mono text-mini overflow-auto max-h-[40vh] text-body">
             {JSON.stringify(meta, (_k, v) => (v instanceof Date ? v.toISOString() : v), 2)}
           </pre>
         </div>

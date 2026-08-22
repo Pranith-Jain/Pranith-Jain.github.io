@@ -16,7 +16,7 @@ export const SEVERITY_TONE: Record<Severity, string> = {
   critical: 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300',
   high: 'border-orange-500/50 bg-orange-500/15 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
+  low: 'border-slate-400/50 bg-slate-400/10 text-body',
   info: 'border-sky-500/50 bg-sky-500/15 text-sky-700 dark:text-sky-300',
 };
 

@@ -157,7 +157,7 @@ interface SfiResponse {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[55vh]">
+    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-body max-h-[55vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -605,7 +605,7 @@ export default function Infostealer(): JSX.Element {
                 <div className="min-w-0">
                   <Link
                     to={`/threatintel/infostealer/${fam.slug}`}
-                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400"
+                    className="font-display font-semibold text-sm text-heading hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     {fam.name}
                   </Link>
@@ -621,7 +621,7 @@ export default function Infostealer(): JSX.Element {
                 </div>
               </summary>
               <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3">
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{fam.description}</p>
+                <p className="text-sm text-body leading-relaxed">{fam.description}</p>
 
                 <div className="flex flex-wrap gap-1.5">
                   {fam.capabilities.map((c) => (
@@ -664,7 +664,7 @@ export default function Infostealer(): JSX.Element {
                   )}
                   {fam.threatfoxTag && (
                     <span className="text-slate-500">
-                      ThreatFox tag: <code className="text-slate-700 dark:text-slate-300">{fam.threatfoxTag}</code>
+                      ThreatFox tag: <code className="text-body">{fam.threatfoxTag}</code>
                     </span>
                   )}
                 </div>

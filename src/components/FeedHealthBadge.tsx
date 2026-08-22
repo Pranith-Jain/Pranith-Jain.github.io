@@ -59,7 +59,7 @@ export function FeedHealthBadge(): JSX.Element | null {
         <span className={`absolute inline-flex h-full w-full rounded-full ${meta.dot} opacity-75`} />
         <span className={`relative inline-flex h-2 w-2 rounded-full ${meta.dot}`} />
       </span>
-      <span className="text-slate-700 dark:text-slate-300">
+      <span className="text-body">
         {data.healthy}/{data.total_sources} feeds
       </span>
       <Activity size={11} className="text-muted" aria-hidden="true" />

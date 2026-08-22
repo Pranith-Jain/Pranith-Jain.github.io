@@ -45,7 +45,7 @@ export function LiveIndicator({
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
         <span className={`relative inline-flex ${dot} rounded-full bg-emerald-500`} />
       </span>
-      <span className={`font-mono uppercase tracking-[0.2em] ${text} text-slate-600 dark:text-slate-300`}>{label}</span>
+      <span className={`font-mono uppercase tracking-[0.2em] ${text} text-body`}>{label}</span>
       {trailing}
       {note && (
         <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-muted sm:inline">{note}</span>

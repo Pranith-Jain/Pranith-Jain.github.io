@@ -139,7 +139,7 @@ function Node({ k, depth }: { k: RKey; depth: number }): JSX.Element {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="text-left font-mono text-meta text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400"
+        className="text-left font-mono text-meta text-heading hover:text-brand-600 dark:hover:text-brand-400"
       >
         {has ? (open ? '▾ ' : '▸ ') : '· '}
         {k.name}{' '}
@@ -169,7 +169,7 @@ export default function RegistryHive(): JSX.Element {
   const [busy, setBusy] = useState(false);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
       <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/catalog?cat=artifacts"
@@ -194,9 +194,7 @@ export default function RegistryHive(): JSX.Element {
         aria-label="Drop a hive file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
-          Drop a hive file file here, or click to choose
-        </p>
+        <p className="text-sm font-mono text-body">Drop a hive file file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">100% client-side. No upload.</p>
       </button>
       <input

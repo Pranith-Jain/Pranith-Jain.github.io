@@ -35,7 +35,7 @@ interface GenerateResponse {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 const labelCls = 'block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1';
 
 export default function GenerateTab() {
@@ -210,10 +210,7 @@ export default function GenerateTab() {
                     ['twitter', 'X thread'],
                   ] as const
                 ).map(([k, label]) => (
-                  <label
-                    key={k}
-                    className="inline-flex items-center gap-1.5 text-sm text-slate-700 dark:text-slate-300 cursor-pointer"
-                  >
+                  <label key={k} className="inline-flex items-center gap-1.5 text-sm text-body cursor-pointer">
                     <input
                       type="checkbox"
                       checked={formats[k]}
@@ -241,7 +238,7 @@ export default function GenerateTab() {
             />
           </div>
 
-          <label className="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
+          <label className="inline-flex items-center gap-2 text-sm text-body cursor-pointer">
             <input
               type="checkbox"
               checked={dryRun}
@@ -291,7 +288,7 @@ export default function GenerateTab() {
                     <button
                       type="button"
                       onClick={() => void navigator.clipboard.writeText(r.final_post ?? '')}
-                      className="text-xs px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                      className="text-xs px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
                     >
                       Copy
                     </button>
@@ -303,13 +300,13 @@ export default function GenerateTab() {
                     regenerate.
                   </p>
                 ) : fmt === 'blog' ? (
-                  <p className="text-sm text-slate-700 dark:text-slate-300">
+                  <p className="text-sm text-body">
                     {dryRun ? 'Composed (dry run — not saved).' : 'Draft created.'} A generated post lives in the KV
                     drafts store until approved — it has no public /blog URL yet.{' '}
                     <span className="text-muted">Review it in the Drafts tab.</span>
                   </p>
                 ) : (
-                  <pre className="whitespace-pre-wrap text-sm font-mono text-slate-700 dark:text-slate-300 max-h-72 overflow-y-auto">
+                  <pre className="whitespace-pre-wrap text-sm font-mono text-body max-h-72 overflow-y-auto">
                     {r.final_post}
                   </pre>
                 )}

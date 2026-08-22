@@ -177,7 +177,7 @@ function SearchBox({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+        className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
       />
     </div>
   );
@@ -192,7 +192,7 @@ function ClusterCard({ item }: { item: TcCluster }) {
     <details className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]">
       <summary className="cursor-pointer list-none">
         <div className="flex items-start justify-between gap-2 mb-1.5">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">{item.title}</h3>
+          <h3 className="text-sm font-bold text-heading leading-snug">{item.title}</h3>
           {item.sourceCount != null && (
             <Badge cls="border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300 shrink-0">
               <LinkIcon className="w-2.5 h-2.5" />
@@ -239,7 +239,7 @@ function IocCard({ ioc, copied, onCopy }: { ioc: TcIoc; copied: boolean; onCopy:
       <div className="flex items-center justify-between gap-2 mb-1.5">
         <div className="flex items-center gap-2 min-w-0">
           <Badge cls={typeMeta}>{ioc.type}</Badge>
-          <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{ioc.value}</h3>
+          <h3 className="font-mono text-sm font-semibold text-heading truncate">{ioc.value}</h3>
         </div>
         <button
           onClick={onCopy}
@@ -249,7 +249,7 @@ function IocCard({ ioc, copied, onCopy }: { ioc: TcIoc; copied: boolean; onCopy:
           {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
         </button>
       </div>
-      {ioc.reason && <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5 leading-relaxed">{ioc.reason}</p>}
+      {ioc.reason && <p className="text-xs text-body mt-0.5 leading-relaxed">{ioc.reason}</p>}
       <div className="mt-2 flex flex-wrap items-center gap-2 text-mini text-slate-500 font-mono">
         <span>{ioc.source_count} sources</span>
         {ioc.first_seen && <FmtDate iso={ioc.first_seen} />}
@@ -562,9 +562,7 @@ export default function ThreatCluster(): JSX.Element {
                       <summary className="cursor-pointer list-none">
                         <div className="flex items-start justify-between gap-2 mb-1.5">
                           <div>
-                            <h3 className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
-                              {v.cveId}
-                            </h3>
+                            <h3 className="font-mono text-sm font-bold text-heading">{v.cveId}</h3>
                             <p className="text-mini text-slate-500 mt-0.5 font-mono">
                               <FmtDate iso={v.pubDate} />
                             </p>
@@ -587,7 +585,7 @@ export default function ThreatCluster(): JSX.Element {
                 <select
                   value={sevFilter}
                   onChange={(e) => setSevFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All severities</option>
                   <option value="CRITICAL">Critical</option>
@@ -619,9 +617,7 @@ export default function ThreatCluster(): JSX.Element {
                     <summary className="cursor-pointer list-none">
                       <div className="flex items-start justify-between gap-2 mb-1.5">
                         <div className="min-w-0">
-                          <h3 className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
-                            {e.cveId}
-                          </h3>
+                          <h3 className="font-mono text-sm font-bold text-heading truncate">{e.cveId}</h3>
                           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                             <ExploitBadges severity={e.severity} inKev={e.inKev} />
                             <span className="text-mini text-slate-500 font-mono">
@@ -676,9 +672,7 @@ export default function ThreatCluster(): JSX.Element {
                     <summary className="cursor-pointer list-none">
                       <div className="flex items-start justify-between gap-2 mb-1.5">
                         <div className="min-w-0">
-                          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
-                            {v.victim}
-                          </h3>
+                          <h3 className="text-sm font-bold text-heading leading-snug">{v.victim}</h3>
                           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                             <Badge cls="border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300">
                               {v.group ?? 'unknown group'}
@@ -711,7 +705,7 @@ export default function ThreatCluster(): JSX.Element {
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All types</option>
                   {iocTypes.map(([t, n]) => (
@@ -772,9 +766,7 @@ export default function ThreatCluster(): JSX.Element {
                     className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
-                      <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
-                        {e.info ?? e.uuid}
-                      </h3>
+                      <h3 className="text-sm font-bold text-heading leading-snug">{e.info ?? e.uuid}</h3>
                       <Badge cls="border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 shrink-0">
                         L{e.threat_level_id ?? '?'}
                       </Badge>
@@ -784,7 +776,7 @@ export default function ThreatCluster(): JSX.Element {
                       {e.tags.slice(0, 5).map((t) => (
                         <span
                           key={t}
-                          className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body"
                         >
                           {t}
                         </span>
@@ -851,9 +843,7 @@ function ClusterDetailBody({ slug }: { slug: string }) {
   if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
-      <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
-        {body.description}
-      </p>
+      <p className="mt-2 text-xs text-body leading-relaxed whitespace-pre-line">{body.description}</p>
       <PostAnalysisButton title={body.title} description={body.description} source="threatcluster.io" compact />
       <DetailLink href={body.link} />
     </>
@@ -865,7 +855,7 @@ function VulnDetailBody({ cveId }: { cveId: string }) {
   if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
-      <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>
+      <p className="mt-2 text-xs text-body leading-relaxed">{body.description}</p>
       <PostAnalysisButton
         title={`${body.cveId} — ${body.title}`}
         description={body.description}
@@ -882,7 +872,7 @@ function ExploitDetailBody({ cveId }: { cveId: string }) {
   if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
-      <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>
+      <p className="mt-2 text-xs text-body leading-relaxed">{body.description}</p>
       <PostAnalysisButton
         title={`${body.cveId} — ${body.title}`}
         description={body.description}
@@ -899,7 +889,7 @@ function VictimDetailBody({ id }: { id: string }) {
   if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
-      <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>
+      <p className="mt-2 text-xs text-body leading-relaxed">{body.description}</p>
       <PostAnalysisButton title={body.victim} description={body.description} source="threatcluster.io" compact />
       <DetailLink href={body.link} />
     </>

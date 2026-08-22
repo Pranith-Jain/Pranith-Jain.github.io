@@ -1028,7 +1028,7 @@ const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
     render: (e) => (
       <>
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-slate-900 dark:text-slate-100">{e.cve}</span>
+          <span className="font-semibold text-heading">{e.cve}</span>
           <CopyChip value={e.cve} />
           {e.hasExploit && (
             <span
@@ -1050,7 +1050,7 @@ const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
     render: (e) => (
       <div className="flex items-center gap-1.5">
         <Package size={12} className="text-muted shrink-0" />
-        <span className="text-slate-900 dark:text-slate-100">{e.product}</span>
+        <span className="text-heading">{e.product}</span>
       </div>
     ),
   },
@@ -1346,9 +1346,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
 
       {/* Info panel */}
       <div className="mt-8 surface-card p-4">
-        <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
-          About This Catalog
-        </h3>
+        <h3 className="font-display font-semibold text-sm text-heading mb-2">About This Catalog</h3>
         <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
             <strong>Purpose:</strong> Track CVE exploit toolkits and PoC releases for patch prioritization and detection

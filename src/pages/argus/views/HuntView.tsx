@@ -375,15 +375,15 @@ function TTPMatrixTab({
       <div className="grid grid-cols-3 gap-3">
         <div className="surface-card p-3">
           <div className="text-mini text-muted mb-1">Total Techniques</div>
-          <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{totalTechniques}</div>
+          <div className="text-xl font-bold text-body">{totalTechniques}</div>
         </div>
         <div className="surface-card p-3">
           <div className="text-mini text-muted mb-1">Active Actors</div>
-          <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{actors.length}</div>
+          <div className="text-xl font-bold text-body">{actors.length}</div>
         </div>
         <div className="surface-card p-3">
           <div className="text-mini text-muted mb-1">Tactics</div>
-          <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{tactics.length}</div>
+          <div className="text-xl font-bold text-body">{tactics.length}</div>
         </div>
       </div>
 
@@ -483,7 +483,7 @@ function TTPMatrixTab({
 
       {/* Technique Detail List */}
       <div className="space-y-2 mt-6">
-        <h3 className="text-tool font-semibold text-slate-700 dark:text-slate-200">Technique Details</h3>
+        <h3 className="text-tool font-semibold text-body">Technique Details</h3>
         {filteredTactics.map((tactic) => {
           const techniques = matrix.get(tactic);
           if (!techniques) return null;
@@ -498,9 +498,7 @@ function TTPMatrixTab({
                 ) : (
                   <ChevronRight size={12} className="text-muted" />
                 )}
-                <span className="text-meta font-semibold text-slate-700 dark:text-slate-200 capitalize">
-                  {tactic.replace(/-/g, ' ')}
-                </span>
+                <span className="text-meta font-semibold text-body capitalize">{tactic.replace(/-/g, ' ')}</span>
                 <span className="text-micro text-muted">({techniques.size} techniques)</span>
               </button>
               {expanded[`tactic-${tactic}`] && (
@@ -756,25 +754,19 @@ function SectorPivotTab({
       {/* Summary */}
       <div className="grid grid-cols-4 gap-3 mb-4">
         <div className="surface-card p-3 text-center">
-          <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{sectorData.length}</div>
+          <div className="text-xl font-bold text-body">{sectorData.length}</div>
           <div className="text-micro text-muted uppercase tracking-wider">Sectors</div>
         </div>
         <div className="surface-card p-3 text-center">
-          <div className="text-xl font-bold text-slate-700 dark:text-slate-200">
-            {sectorData.reduce((sum, s) => sum + s.actors.length, 0)}
-          </div>
+          <div className="text-xl font-bold text-body">{sectorData.reduce((sum, s) => sum + s.actors.length, 0)}</div>
           <div className="text-micro text-muted uppercase tracking-wider">Actor-Links</div>
         </div>
         <div className="surface-card p-3 text-center">
-          <div className="text-xl font-bold text-slate-700 dark:text-slate-200">
-            {sectorData.reduce((sum, s) => sum + s.totalCVEs, 0)}
-          </div>
+          <div className="text-xl font-bold text-body">{sectorData.reduce((sum, s) => sum + s.totalCVEs, 0)}</div>
           <div className="text-micro text-muted uppercase tracking-wider">CVEs</div>
         </div>
         <div className="surface-card p-3 text-center">
-          <div className="text-xl font-bold text-slate-700 dark:text-slate-200">
-            {sectorData.reduce((sum, s) => sum + s.totalMalware, 0)}
-          </div>
+          <div className="text-xl font-bold text-body">{sectorData.reduce((sum, s) => sum + s.totalMalware, 0)}</div>
           <div className="text-micro text-muted uppercase tracking-wider">Malware</div>
         </div>
       </div>
@@ -798,9 +790,7 @@ function SectorPivotTab({
               <ChevronRight size={12} className="text-muted" />
             )}
             <Target size={14} className="text-rose-600 dark:text-rose-400" />
-            <span className="text-tool font-semibold text-slate-700 dark:text-slate-200 capitalize flex-1">
-              {sector.replace(/-/g, ' ')}
-            </span>
+            <span className="text-tool font-semibold text-body capitalize flex-1">{sector.replace(/-/g, ' ')}</span>
             <span className="text-micro px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]">
               {sectorActors.length} actor{sectorActors.length !== 1 ? 's' : ''}
             </span>
@@ -883,7 +873,7 @@ function ReposTab({ search }: { search: string }) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <GitBranch size={12} className="text-muted shrink-0" />
-                  <span className="text-tool font-semibold text-slate-700 dark:text-slate-200 truncate group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                  <span className="text-tool font-semibold text-body truncate group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                     {repo.name}
                   </span>
                 </div>

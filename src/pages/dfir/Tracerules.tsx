@@ -33,7 +33,7 @@ export default function Tracerules(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -60,7 +60,7 @@ export default function Tracerules(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search queries by title, technique, or keyword…"
-              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
           <div className="flex gap-2">
@@ -93,7 +93,7 @@ export default function Tracerules(): JSX.Element {
           <select
             value={tacticFilter}
             onChange={(e) => setTacticFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-700 dark:text-slate-300"
+            className="px-3 py-1.5 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-body"
           >
             <option value="all">All Tactics</option>
             {tactics.map((t) => (
@@ -124,9 +124,7 @@ export default function Tracerules(): JSX.Element {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <FIcon size={14} className="text-muted" />
-                      <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                        {rule.title}
-                      </h3>
+                      <h3 className="font-display font-semibold text-sm text-heading">{rule.title}</h3>
                     </div>
                     <p className="text-xs text-muted line-clamp-2">{rule.description}</p>
                     <div className="flex flex-wrap gap-1.5 mt-2">
@@ -168,7 +166,7 @@ export default function Tracerules(): JSX.Element {
                       {copiedId === rule.id ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <pre className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-4 py-3 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
+                  <pre className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-4 py-3 text-xs font-mono text-heading leading-relaxed whitespace-pre-wrap">
                     {rule.query}
                   </pre>
                   <div className="flex flex-wrap gap-1.5 mt-3">

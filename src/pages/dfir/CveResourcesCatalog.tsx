@@ -200,7 +200,7 @@ export default function CveResourcesCatalog(): JSX.Element {
                 href={sanitizeUrl(r.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+                className="font-display font-semibold text-base text-heading hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
               >
                 {r.name} <ExternalLink size={12} className="opacity-60" />
               </a>

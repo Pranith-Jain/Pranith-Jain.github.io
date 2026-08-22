@@ -242,7 +242,7 @@ export default function DraftsTab() {
       )}
 
       {actionMsg && (
-        <div className="mb-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 text-xs font-mono text-slate-700 dark:text-slate-300">
+        <div className="mb-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 text-xs font-mono text-body">
           {actionMsg}
         </div>
       )}
@@ -266,7 +266,7 @@ export default function DraftsTab() {
                       key: 'title',
                       header: 'Title',
                       sortValue: (d: (typeof filtered)[number]) => d.title,
-                      render: (d) => <span className="text-slate-900 dark:text-slate-100">{d.title}</span>,
+                      render: (d) => <span className="text-heading">{d.title}</span>,
                     },
                     {
                       key: 'generated',
@@ -426,7 +426,7 @@ function DraftPreviewPanel({
     <div className="mt-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Preview</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-body">Preview</h3>
           <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
             <span className="font-mono">{post.slug}</span> · type <span className="uppercase">{post.type}</span>
             {post.quality?.total !== undefined && <> · quality {post.quality.total}</>}
@@ -461,7 +461,7 @@ function DraftPreviewPanel({
               type="text"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
-              className="w-full px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100"
+              className="w-full px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading"
             />
           </div>
           <div>
@@ -470,20 +470,20 @@ function DraftPreviewPanel({
               value={editBody}
               onChange={(e) => setEditBody(e.target.value)}
               rows={20}
-              className="w-full bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed resize-y"
+              className="w-full bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 text-xs font-mono text-body leading-relaxed resize-y"
             />
           </div>
         </div>
       ) : (
         <>
-          <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{post.title}</h1>
+          <h1 className="text-xl font-bold text-heading mb-1">{post.title}</h1>
           <p className="text-sm text-muted mb-4">
             <span className="font-mono text-micro uppercase tracking-wider text-muted mr-1.5">Excerpt</span>
             {post.excerpt}
           </p>
           <div
             className={
-              'mb-4 bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-slate-700 dark:text-slate-300 ' +
+              'mb-4 bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-body ' +
               '[&_h1]:text-xl [&_h1]:font-bold [&_h1]:text-slate-900 dark:[&_h1]:text-slate-100 [&_h1]:mt-4 [&_h1]:mb-2 ' +
               '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
               '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-slate-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +
@@ -519,7 +519,7 @@ function DraftPreviewPanel({
                 setEditBody(post.body);
               }}
               disabled={saving}
-              className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+              className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
             >
               Cancel
             </button>
@@ -638,7 +638,7 @@ function RegenInline({
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Admin notes for the rewrite (e.g. add an attack-flow chart instead of the Sigma rule)"
             rows={3}
-            className="w-full bg-slate-100 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-slate-800 dark:text-slate-200 text-xs font-mono"
+            className="w-full bg-slate-100 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-heading text-xs font-mono"
           />
           <button
             onClick={() => {

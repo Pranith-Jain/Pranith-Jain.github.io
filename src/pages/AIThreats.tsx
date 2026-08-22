@@ -47,7 +47,7 @@ const TTP_COLORS: Record<string, string | undefined> = {
 
 function ttpColor(ttp: string): string {
   const base = ttp.split('.')[0] as keyof typeof TTP_COLORS;
-  return TTP_COLORS[base] ?? 'text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-950/40';
+  return TTP_COLORS[base] ?? 'text-body bg-slate-50 dark:bg-slate-950/40';
 }
 
 const TABLE_STYLES: Record<string, string> = {

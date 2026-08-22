@@ -64,7 +64,7 @@ export default function AttributionFramework(): JSX.Element {
           value={indicators}
           onChange={(e) => setIndicators(e.target.value)}
           placeholder="Enter IOCs, one per line…"
-          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
+          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
         />
         <div className="mt-3">
           <label htmlFor="attribution-context" className="text-xs text-muted mb-1 block">
@@ -76,7 +76,7 @@ export default function AttributionFramework(): JSX.Element {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="e.g., targeting financial sector"
-            className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
         <button
@@ -140,7 +140,7 @@ export default function AttributionFramework(): JSX.Element {
                       {e.type}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <div className="text-xs text-slate-700 dark:text-slate-300">{e.description}</div>
+                      <div className="text-xs text-body">{e.description}</div>
                       <div className="text-micro font-mono text-muted mt-0.5">
                         Weight: {e.weight} · Source: {e.source}
                       </div>

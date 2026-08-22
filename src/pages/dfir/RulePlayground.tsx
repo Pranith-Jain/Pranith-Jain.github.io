@@ -124,7 +124,7 @@ export default function RulePlayground(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <FlaskConical size={28} className="text-brand-600 dark:text-brand-400" /> YARA / Sigma Playground
@@ -181,7 +181,7 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="rule MyRule { strings: $a = ... condition: ... }   - or -   title: …\nlogsource: …\ndetection: …"
             aria-labelledby="rule-playground-rule-label"
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
           />
         </section>
 
@@ -199,7 +199,7 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="Paste a log line, EDR cmdline, file fragment, or any text the rule should be tested against."
             aria-labelledby="rule-playground-sample-label"
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
           />
         </section>
       </div>
@@ -219,7 +219,7 @@ export default function RulePlayground(): JSX.Element {
                 {result.parsed.kind}
               </span>
             </div>
-            <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">
+            <p className="text-sm font-mono text-body mb-2">
               <span className="text-muted">Name:</span> {result.parsed.name}
             </p>
             {result.parsed.condition && (
@@ -227,9 +227,7 @@ export default function RulePlayground(): JSX.Element {
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted block mb-1">
                   Condition (informational)
                 </span>
-                <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap">
-                  {result.parsed.condition}
-                </pre>
+                <pre className="text-meta font-mono text-heading whitespace-pre-wrap">{result.parsed.condition}</pre>
               </div>
             )}
             {result.parsed.meta.length > 0 && (
@@ -289,7 +287,7 @@ export default function RulePlayground(): JSX.Element {
                 )}
               </span>
             </div>
-            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-heading leading-relaxed overflow-x-auto">
               {highlight(sample, result.matches)}
             </div>
           </section>
@@ -309,7 +307,7 @@ export default function RulePlayground(): JSX.Element {
                       {m.name}
                     </span>
                     <span className="text-muted">@ {m.index}</span>
-                    <code className="text-slate-800 dark:text-slate-200 break-all">{m.text}</code>
+                    <code className="text-heading break-all">{m.text}</code>
                   </li>
                 ))}
               </ul>

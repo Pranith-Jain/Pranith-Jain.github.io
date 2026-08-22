@@ -202,12 +202,9 @@ export default function SupplyChainAttacks(): JSX.Element {
           const titleHref = safeHref(inc.url);
           const packages = inc.iocs.packages ?? [];
           return (
-            <div
-              key={inc.id}
-              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
-            >
+            <div key={inc.id} className="rounded-xl border border-line-1 bg-slate-50 dark:bg-slate-950 p-3">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">
+                <h3 className="font-semibold text-sm text-heading leading-snug">
                   {titleHref ? (
                     <a
                       href={titleHref}
@@ -280,7 +277,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                     <Link
                       key={pkg}
                       to={`/dfir/ioc-check?indicator=${encodeURIComponent(pkg)}`}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                       title="Pivot to IOC checker"
                     >
                       {pkg} →
@@ -303,7 +300,7 @@ export default function SupplyChainAttacks(): JSX.Element {
               )}
 
               {inc.sources.length > 0 && (
-                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-line-1">
                   {inc.sources.map((s, i) => {
                     const href = safeHref(s.url);
                     return href ? (

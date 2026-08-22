@@ -246,7 +246,7 @@ export default function ThreatIntelHome(): JSX.Element {
           <br className="hidden sm:inline" />
           <span className="sm:inline"> Stop them before they strike.</span>
         </h1>
-        <p className="mt-5 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+        <p className="mt-5 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-body">
           Monitor ransomware activity, track threat actors, enrich IOCs, stay ahead of campaigns - live intelligence
           from 30+ public feeds, all in one place.
         </p>
@@ -417,9 +417,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-                          {item.label}
-                        </h3>
+                        <h3 className="font-display text-sm font-semibold text-heading truncate">{item.label}</h3>
                         {item.badge === 'live' && (
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                         )}
@@ -442,7 +440,7 @@ export default function ThreatIntelHome(): JSX.Element {
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div className="flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Live Intelligence</h2>
+                <h2 className="font-display font-bold text-lg text-heading">Live Intelligence</h2>
               </div>
               <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
             </summary>
@@ -462,7 +460,7 @@ export default function ThreatIntelHome(): JSX.Element {
           <details open className="group surface-card mt-8 sm:mt-10">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div>
-                <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Explore by topic</h2>
+                <h2 className="font-display font-bold text-lg text-heading">Explore by topic</h2>
                 <p className="text-xs text-muted mt-0.5">
                   {CATALOG.length} categories · {CATALOG.reduce((sum, h) => sum + h.pages.length, 0)} pages
                 </p>
@@ -481,9 +479,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     >
                       <div className="flex items-center gap-2">
                         <Icon size={16} aria-hidden="true" />
-                        <h3 className="font-display text-sm font-bold text-slate-900 dark:text-slate-100">
-                          {cat.label}
-                        </h3>
+                        <h3 className="font-display text-sm font-bold text-heading">{cat.label}</h3>
                         {cat.highlight === 'live' && (
                           <span className="ml-auto inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-rose-600 dark:text-rose-400">
                             <span className="relative inline-flex h-1 w-1">
@@ -503,7 +499,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       <dl className="mt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] pt-2 font-mono text-micro">
                         <div className="flex items-center gap-1.5 text-slate-500">
                           <dt className="uppercase tracking-wider opacity-70">pages</dt>
-                          <dd className="font-semibold tabular-nums text-slate-700 dark:text-slate-300">{cat.pages}</dd>
+                          <dd className="font-semibold tabular-nums text-body">{cat.pages}</dd>
                         </div>
                         <span className="inline-flex items-center gap-0.5 text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                           open
@@ -520,7 +516,7 @@ export default function ThreatIntelHome(): JSX.Element {
           {/* ── Collapsible: Getting started */}
           <details className="group surface-card mt-8 sm:mt-10">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
-              <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
+              <h2 className="font-display font-bold text-lg text-heading">New here?</h2>
               <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
@@ -547,9 +543,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       {s.step}
                     </span>
                     <div>
-                      <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
-                        {s.title}
-                      </h3>
+                      <h3 className="font-display text-sm font-semibold text-heading">{s.title}</h3>
                       <p className="text-xs text-muted mt-0.5 leading-relaxed">{s.desc}</p>
                     </div>
                   </div>

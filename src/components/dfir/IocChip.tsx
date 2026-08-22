@@ -165,7 +165,7 @@ function IocChipInner({
   const shown = middleTruncate(display, maxChars);
   const isTruncated = shown !== display;
 
-  const valueClasses = `min-w-0 truncate font-mono ${sz.text} text-slate-800 dark:text-slate-200`;
+  const valueClasses = `min-w-0 truncate font-mono ${sz.text} text-heading`;
   const srLabel = (
     <>
       <span className="sr-only">{typeLabel}: </span>
@@ -308,7 +308,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
           {pivots.map((p, i) => {
             const content = (
               <>
-                <span className="flex items-center gap-1.5 font-mono text-meta font-medium text-slate-800 dark:text-slate-200">
+                <span className="flex items-center gap-1.5 font-mono text-meta font-medium text-heading">
                   {p.label}
                   {p.external && <ExternalLink className="h-3 w-3 text-muted" aria-hidden="true" />}
                 </span>

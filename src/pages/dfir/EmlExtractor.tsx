@@ -158,7 +158,7 @@ export default function EmlExtractor(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste the raw .eml content here, or use the upload button. Headers + multipart body are parsed; attachments are decoded + hashed locally."
           rows={12}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
         <div className="flex items-center justify-end gap-2 mt-3">
@@ -166,7 +166,7 @@ export default function EmlExtractor(): JSX.Element {
             type="button"
             onClick={pipeToExtractor}
             disabled={!input.trim()}
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 transition-colors"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-body transition-colors"
           >
             <FileSearch size={14} />
             Extract IOCs →
@@ -198,15 +198,15 @@ export default function EmlExtractor(): JSX.Element {
             </h2>
             <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-meta font-mono">
               <dt className="text-muted">Subject</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.subject ?? '-'}</dd>
+              <dd className="text-heading break-words">{parsed.subject ?? '-'}</dd>
               <dt className="text-muted">From</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.from ?? '-'}</dd>
+              <dd className="text-heading break-words">{parsed.from ?? '-'}</dd>
               <dt className="text-muted">To</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.to ?? '-'}</dd>
+              <dd className="text-heading break-words">{parsed.to ?? '-'}</dd>
               <dt className="text-muted">Date</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{parsed.date ?? '-'}</dd>
+              <dd className="text-heading">{parsed.date ?? '-'}</dd>
               <dt className="text-muted">Content-Type</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-all">{parsed.contentType ?? '-'}</dd>
+              <dd className="text-heading break-all">{parsed.contentType ?? '-'}</dd>
             </dl>
           </section>
 
@@ -254,7 +254,7 @@ export default function EmlExtractor(): JSX.Element {
                 {parsed.headers.map((h, i) => (
                   <div key={`${h.name}-${i}`} className="contents">
                     <dt className="text-muted break-words">{h.name}</dt>
-                    <dd className="text-slate-900 dark:text-slate-100 break-all border-b border-slate-100 dark:border-[rgb(var(--border-400))] pb-1">
+                    <dd className="text-heading break-all border-b border-slate-100 dark:border-[rgb(var(--border-400))] pb-1">
                       {h.value}
                     </dd>
                   </div>
@@ -281,9 +281,7 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
   return (
     <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
-          {att.filename}
-        </span>
+        <span className="font-display font-semibold text-sm text-heading break-all">{att.filename}</span>
         <div className="flex flex-wrap items-center gap-1.5">
           <span className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${dispoCls}`}>
             {att.disposition}
@@ -312,7 +310,7 @@ function HashRow({ label, value }: { label: string; value: string }): JSX.Elemen
   return (
     <li className="flex items-center gap-2">
       <span className="text-muted w-16 shrink-0">{label}</span>
-      <span className="text-slate-900 dark:text-slate-100 break-all flex-1">{value}</span>
+      <span className="text-heading break-all flex-1">{value}</span>
       <CopyChip value={value} label="copy" />
       <Link
         to={`/dfir/ioc-check?indicator=${value}`}

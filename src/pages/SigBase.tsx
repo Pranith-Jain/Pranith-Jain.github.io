@@ -97,7 +97,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
         </div>
         {body.author && (
           <p className="text-sm text-muted">
-            by <span className="text-slate-700 dark:text-slate-200">{body.author}</span>
+            by <span className="text-body">{body.author}</span>
             {body.date ? ` · ${body.date}` : ''}
           </p>
         )}
@@ -105,9 +105,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
           {(body.rules ?? []).map((r) => (
             <div key={r.name} className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3">
               <div className="font-mono text-xs font-semibold text-brand-600 dark:text-brand-400 mb-1">{r.name}</div>
-              {r.meta.description && (
-                <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{r.meta.description}</p>
-              )}
+              {r.meta.description && <p className="text-sm text-body leading-relaxed">{r.meta.description}</p>}
               {r.meta.reference && (
                 <a
                   href={r.meta.reference}
@@ -130,7 +128,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
         </button>
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">YARA Source</div>
-          <pre className="font-mono text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-all max-h-80 overflow-y-auto">
+          <pre className="font-mono text-xs text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-all max-h-80 overflow-y-auto">
             {body.body}
           </pre>
         </div>
@@ -227,7 +225,7 @@ export default function SigBase() {
               placeholder="Search rules by filename, family, author..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -272,7 +270,7 @@ export default function SigBase() {
                 className={`${CARD} inline-flex items-center gap-2 px-3 py-2 text-xs hover:border-brand-400 dark:hover:border-brand-600 transition-colors`}
               >
                 <Hash size={12} className="text-brand-500" />
-                <span className="font-semibold text-slate-700 dark:text-slate-200">{i.title}</span>
+                <span className="font-semibold text-body">{i.title}</span>
                 <span className="text-muted font-mono">{i.entryCount.toLocaleString()} entries</span>
               </a>
             ))}
@@ -298,7 +296,7 @@ export default function SigBase() {
                 onClick={() => setDetailSlug(r.slug)}
                 className={`${CARD} text-left p-4 transition-colors hover:border-brand-400 dark:hover:border-brand-600 group`}
               >
-                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug break-all font-mono">
+                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug break-all font-mono">
                   {r.filename}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">

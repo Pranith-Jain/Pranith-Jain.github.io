@@ -98,7 +98,7 @@ export default function MalpediaPage(): JSX.Element {
                   ? 'Family name (e.g. cobalt strike, redline)'
                   : 'Search actors and families…'
             }
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
           <button
             type="button"
@@ -201,7 +201,7 @@ export default function MalpediaPage(): JSX.Element {
           </div>
 
           {typeof result.data.description === 'string' && (
-            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">{result.data.description}</p>
+            <p className="text-sm text-body leading-relaxed mb-4">{result.data.description}</p>
           )}
 
           {Array.isArray(result.data.associated_actors) && result.data.associated_actors.length > 0 && (

@@ -228,7 +228,7 @@ export function MtiLeaksPanel(): JSX.Element {
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)] p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1">
-                  <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate flex-1">
+                  <span className="font-display font-semibold text-sm text-heading truncate flex-1">
                     {it.name ?? '(no name)'}
                   </span>
                   {it.size && it.size !== 'N/D' && (

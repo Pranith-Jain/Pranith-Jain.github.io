@@ -29,7 +29,7 @@ const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
         <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded bg-brand-50 text-brand-600 ring-1 ring-brand-200/60 transition-colors group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-500/10 dark:text-brand-400 dark:ring-brand-500/20 dark:group-hover:bg-brand-500 dark:group-hover:text-white">
           <Icon size={16} aria-hidden="true" />
         </span>
-        <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
+        <span className="font-display font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
           {label}
           {external && <ExternalLink size={12} className="opacity-60" aria-hidden="true" />}
         </span>
@@ -146,8 +146,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
       <p className="text-tool text-muted leading-relaxed">
         {q ? (
           <>
-            {matchCount} match{matchCount === 1 ? '' : 'es'} for{' '}
-            <span className="text-slate-700 dark:text-slate-300">"{q}"</span>
+            {matchCount} match{matchCount === 1 ? '' : 'es'} for <span className="text-body">"{q}"</span>
           </>
         ) : (
           <>

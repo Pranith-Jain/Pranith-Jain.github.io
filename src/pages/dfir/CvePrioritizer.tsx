@@ -70,7 +70,7 @@ const SEV_STYLE: Record<Sev, { text: string; chip: string; bar: string; Icon: ty
     bar: SEVERITY_BAR.medium,
     Icon: AlertTriangle,
   },
-  low: { text: 'text-slate-600 dark:text-slate-300', chip: SEVERITY_TONE.low, bar: SEVERITY_BAR.low, Icon: Info },
+  low: { text: 'text-body', chip: SEVERITY_TONE.low, bar: SEVERITY_BAR.low, Icon: Info },
   info: { text: 'text-sky-700 dark:text-sky-300', chip: SEVERITY_TONE.info, bar: SEVERITY_BAR.info, Icon: Info },
 };
 
@@ -454,7 +454,7 @@ export default function CvePrioritizer(): JSX.Element {
                         <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-meta font-mono text-muted">
                           <span>
                             CVSS{' '}
-                            <span className="text-slate-900 dark:text-slate-100">
+                            <span className="text-heading">
                               {r.data.cvss ? `${r.data.cvss.base_score.toFixed(1)} ${r.data.cvss.severity}` : 'n/a'}
                             </span>
                             {vec.version && (
@@ -476,7 +476,7 @@ export default function CvePrioritizer(): JSX.Element {
                           </span>
                           <span>
                             EPSS{' '}
-                            <span className="text-slate-900 dark:text-slate-100">
+                            <span className="text-heading">
                               {r.data.epss
                                 ? `${(r.data.epss.score * 100).toFixed(1)}% · pct ${(r.data.epss.percentile * 100).toFixed(0)}`
                                 : 'n/a'}
@@ -484,7 +484,7 @@ export default function CvePrioritizer(): JSX.Element {
                           </span>
                           <span>
                             KEV{' '}
-                            <span className={r.data.kev.in_kev ? st.text : 'text-slate-900 dark:text-slate-100'}>
+                            <span className={r.data.kev.in_kev ? st.text : 'text-heading'}>
                               {r.data.kev.in_kev ? 'yes' : 'no'}
                             </span>
                             {r.data.kev.in_kev && days !== undefined && (
@@ -505,17 +505,13 @@ export default function CvePrioritizer(): JSX.Element {
                           </span>
                           <span>
                             Ransomware{' '}
-                            <span
-                              className={r.data.kev.known_ransomware ? st.text : 'text-slate-900 dark:text-slate-100'}
-                            >
+                            <span className={r.data.kev.known_ransomware ? st.text : 'text-heading'}>
                               {r.data.kev.known_ransomware ? 'yes' : 'no'}
                             </span>
                           </span>
                           <span>
                             Public PoC{' '}
-                            <span
-                              className={(r.data.poc?.count ?? 0) > 0 ? st.text : 'text-slate-900 dark:text-slate-100'}
-                            >
+                            <span className={(r.data.poc?.count ?? 0) > 0 ? st.text : 'text-heading'}>
                               {r.data.poc?.count ? `${r.data.poc.count} repo(s)` : 'none'}
                             </span>
                           </span>
@@ -585,11 +581,11 @@ export default function CvePrioritizer(): JSX.Element {
                               {r.score.factors.map((f) => (
                                 <li key={f.label} className="text-meta font-mono">
                                   <div className="flex items-baseline justify-between gap-2">
-                                    <span className="text-slate-700 dark:text-slate-300">{f.label}</span>
+                                    <span className="text-body">{f.label}</span>
                                     <span
                                       className={
                                         f.contribution >= 0
-                                          ? 'text-slate-900 dark:text-slate-100 tabular-nums'
+                                          ? 'text-heading tabular-nums'
                                           : 'text-rose-600 dark:text-rose-400 tabular-nums'
                                       }
                                     >
@@ -633,7 +629,7 @@ export default function CvePrioritizer(): JSX.Element {
                                   return (
                                     <div key={key} className="contents">
                                       <dt className="text-slate-500">{code}</dt>
-                                      <dd className="text-slate-800 dark:text-slate-200 truncate" title={label}>
+                                      <dd className="text-heading truncate" title={label}>
                                         {label}
                                       </dd>
                                     </div>
@@ -648,7 +644,7 @@ export default function CvePrioritizer(): JSX.Element {
                             <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                               Runbook · {ACTION_RUNBOOKS[r.verdict.verdict].title}
                             </div>
-                            <ol className="list-decimal pl-5 space-y-1 text-meta text-slate-700 dark:text-slate-300 leading-relaxed">
+                            <ol className="list-decimal pl-5 space-y-1 text-meta text-body leading-relaxed">
                               {ACTION_RUNBOOKS[r.verdict.verdict].steps.map((s) => (
                                 <li key={s}>{s}</li>
                               ))}
@@ -671,7 +667,7 @@ export default function CvePrioritizer(): JSX.Element {
             })}
             {visibleRows.length === 0 && filterVerdict && (
               <p className="text-meta font-mono text-slate-500 text-center py-4">
-                No CVEs match filter <span className="text-slate-700 dark:text-slate-300">{filterVerdict}</span>.
+                No CVEs match filter <span className="text-body">{filterVerdict}</span>.
               </p>
             )}
           </section>

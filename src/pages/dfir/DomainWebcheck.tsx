@@ -106,7 +106,7 @@ export default function DomainWebcheck(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Domain Web Check
@@ -124,7 +124,7 @@ export default function DomainWebcheck(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             autoComplete="off"
             spellCheck={false}
           />
@@ -183,7 +183,7 @@ export default function DomainWebcheck(): JSX.Element {
                   <span className={ch.secure ? 'text-emerald-500' : ch.present ? 'text-amber-500' : 'text-rose-500'}>
                     {ch.secure ? 'secure' : ch.present ? 'partial' : 'missing'}
                   </span>
-                  <span className="w-48 truncate text-slate-700 dark:text-slate-300">{ch.header}</span>
+                  <span className="w-48 truncate text-body">{ch.header}</span>
                   <span className="text-slate-500 text-xs flex-1 truncate">
                     {ch.present ? (ch.value?.slice(0, 60) ?? 'present') : 'MISSING'}
                   </span>
@@ -248,7 +248,7 @@ export default function DomainWebcheck(): JSX.Element {
               <div className="font-mono text-sm space-y-1">
                 <div>
                   <span className="text-muted">Provider:</span>{' '}
-                  <span className="text-slate-900 dark:text-slate-100 font-semibold">{cdnResult.provider}</span>
+                  <span className="text-heading font-semibold">{cdnResult.provider}</span>
                 </div>
                 <div>
                   <span className="text-muted">Type:</span> {cdnResult.type}
@@ -272,7 +272,7 @@ export default function DomainWebcheck(): JSX.Element {
                     {url}
                   </div>
                 ))}
-                <div className="text-slate-900 dark:text-slate-100 font-semibold">{result.http.url}</div>
+                <div className="text-heading font-semibold">{result.http.url}</div>
               </div>
             </section>
           )}
@@ -296,9 +296,7 @@ function StatCard({
   return (
     <div className="p-3 surface-card">
       <div className="text-xs font-mono text-muted">{label}</div>
-      <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-slate-900 dark:text-slate-100'}`}>
-        {value}
-      </div>
+      <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-heading'}`}>{value}</div>
       {sub && <div className="text-xs font-mono text-slate-500 mt-0.5">{sub}</div>}
     </div>
   );

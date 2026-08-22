@@ -383,7 +383,7 @@ function Meta({ label, value }: { label: string; value: string }): JSX.Element {
   return (
     <div>
       <dt className="text-slate-500 uppercase tracking-wider text-micro">{label}</dt>
-      <dd className="text-slate-900 dark:text-slate-100">{value}</dd>
+      <dd className="text-heading">{value}</dd>
     </div>
   );
 }
@@ -438,9 +438,7 @@ function FeedRow({
             return (
               <div key={k}>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-mini font-mono uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300">
-                    {meta.label}
-                  </span>
+                  <span className="text-mini font-mono uppercase tracking-wider font-bold text-body">{meta.label}</span>
                   <span className="text-micro font-mono text-slate-500" title={meta.tip}>
                     <Info size={10} className="inline" /> {p.label}
                   </span>
@@ -486,9 +484,7 @@ function PillarDetails({ details }: { details: Record<string, number | string> }
       {entries.map(([k, v]) => (
         <div key={k} className="flex items-baseline gap-1.5">
           <dt className="text-slate-500 uppercase tracking-wider text-micro">{k}</dt>
-          <dd className="text-slate-700 dark:text-slate-300 tabular-nums">
-            {typeof v === 'number' ? v.toLocaleString() : v}
-          </dd>
+          <dd className="text-body tabular-nums">{typeof v === 'number' ? v.toLocaleString() : v}</dd>
         </div>
       ))}
     </dl>

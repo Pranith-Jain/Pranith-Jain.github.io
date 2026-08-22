@@ -173,7 +173,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2 flex-wrap">
-            <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.rule_name}</span>
+            <span className="font-display font-semibold text-heading">{d.rule_name}</span>
             <span className="text-mini font-mono text-muted">×{d.match_count}</span>
           </div>
           {d.group_key && (
@@ -356,9 +356,7 @@ export default function Detections(): JSX.Element {
             <section className="rounded-xl border border-rose-500/30 bg-gradient-to-br from-rose-50/40 to-transparent dark:from-rose-900/20 dark:to-transparent p-5 sm:p-6 mb-6">
               <div className="flex items-baseline gap-3 mb-4 flex-wrap">
                 <Flame size={18} className="text-rose-600 dark:text-rose-400" />
-                <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
-                  Today's lead: {hero.rule_name}
-                </h2>
+                <h2 className="font-display font-bold text-lg text-heading">Today's lead: {hero.rule_name}</h2>
                 <span
                   className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[hero.severity]}`}
                 >
@@ -374,19 +372,19 @@ export default function Detections(): JSX.Element {
                     <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-1">
                       what fired
                     </div>
-                    <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">{n.what}</p>
+                    <p className="text-sm text-heading leading-relaxed">{n.what}</p>
                   </div>
                   <div>
                     <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-1">
                       why it matters
                     </div>
-                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{n.why}</p>
+                    <p className="text-sm text-body leading-relaxed">{n.why}</p>
                   </div>
                   <div className="rounded border-l-2 border-rose-500 pl-3 py-1 bg-rose-50/50 dark:bg-rose-900/10">
                     <div className="text-mini font-mono uppercase tracking-[0.18em] text-rose-700 dark:text-rose-300 mb-1">
                       do this
                     </div>
-                    <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">{n.action}</p>
+                    <p className="text-sm text-heading leading-relaxed">{n.action}</p>
                   </div>
                 </div>
                 <div>
@@ -435,9 +433,7 @@ export default function Detections(): JSX.Element {
                             >
                               {d.severity}
                             </span>
-                            <span className="font-display font-semibold text-tool text-slate-900 dark:text-slate-100">
-                              {d.rule_name}
-                            </span>
+                            <span className="font-display font-semibold text-tool text-heading">{d.rule_name}</span>
                             <span className="text-micro font-mono text-slate-500">×{d.match_count}</span>
                           </div>
                           <p className="text-meta text-muted leading-relaxed">{sn.what}</p>
@@ -526,11 +522,11 @@ export default function Detections(): JSX.Element {
         </div>
         {data && (
           <p className="text-mini font-mono text-slate-500 mt-3">
-            Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
-            <span className="text-slate-700 dark:text-slate-300">{data.detections.length}</span> detections ·{' '}
-            <span className="text-slate-700 dark:text-slate-300">{data.rule_count}</span> rules ·{' '}
-            <span className="text-slate-700 dark:text-slate-300">{data.source_total}</span> indicators evaluated ·
-            snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+            Showing <span className="text-body">{filtered.length}</span> of{' '}
+            <span className="text-body">{data.detections.length}</span> detections ·{' '}
+            <span className="text-body">{data.rule_count}</span> rules ·{' '}
+            <span className="text-body">{data.source_total}</span> indicators evaluated · snapshot{' '}
+            <span className="text-body">{shortRel(data.generated_at)}</span>
           </p>
         )}
       </section>
