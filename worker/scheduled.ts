@@ -74,11 +74,17 @@ import type { Env } from './env';
  * bodies run inside that DO's durable alarm (see durable-objects/cron-job.ts)
  * with a DO CPU budget — the free-plan 10ms cron cap cannot run them inline.
  * The bodies, keyed on cron string:
- * - "0 * * * *"  → hourly: telegram scan, cache-warm, graph-ingest,
+ * - "0 * * * *"  → hourly: telegram scan, graph-ingest,
  *                  feed-scheduler, infra-scan, retention, PIR alerts,
- *                  breach-forum snapshot, RAG re-index + BRIEFING HEAL
+ *                  breach-forum snapshot + BRIEFING HEAL
  *                  (conditional — only fires if the 00:30/00:45 primary
- *                  build left the row empty or degraded)
+ *                  build left the row empty or degraded).
+ *                  Optional heavy tenants (intel-bundle-warm, cti-collector,
+ *                  phishing-scan, rag-reindex, victim-releaks, ghsa sync)
+ *                  are admitted by an estimated subrequest-budget planner
+ *                  (50/invocation free-plan cap): each tick logs
+ *                  `subrequest-budget` with admitted vs deferred stages;
+ *                  every stage is periodic and catches up next hour.
  * - "5 0 * * *"  → daily case-study discovery + planner (chained; one
  *                  lease, planner runs after discovery finishes so it
  *                  sees the just-updated candidate queue)
@@ -637,6 +643,92 @@ export async function executeCronJob(
             );
           }
 
+          // ── Hourly subrequest-budget planner ─────────────────────────────
+          // The free plan caps EVERY invocation at 50 subrequests. Heavy
+          // optional tenants used to gate only on `dailyHealRan`, so on a
+          // normal hour the tail stages (phishing-scan, rag-reindex, …)
+          // threw "Too many subrequests" and were silently lost. This
+          // planner admits stages greedily against ESTIMATED costs (tuned
+          // to typical runs, not worst case) so deferrals are deterministic,
+          // ordered, and logged. Every deferred stage is periodic and
+          // catches up next hour.
+          const BUDGET_SOFT_CAP = 48; // 50 cap minus safety margin
+          const PREFIX_EST = 8; // daily-briefs top block + tg/x/reddit enqueues (+ heal fan-out below)
+          let estUsed = PREFIX_EST + (dailyHealRan ? 20 : 0);
+          const canSpend = (cost: number): boolean => estUsed + cost <= BUDGET_SOFT_CAP;
+          const spend = (cost: number): void => {
+            estUsed += cost;
+          };
+          const deferred: string[] = [];
+          const admitted: string[] = [];
+
+          const hour = csNow.getUTCHours();
+          // Priority order matters: phishing-scan only fits when nothing
+          // heavy has committed yet, so admit it before intel-bundle-warm.
+          let runPhishing = hour % 6 === 0;
+          if (runPhishing) {
+            if (canSpend(35)) {
+              spend(35);
+              admitted.push('phishing-scan');
+            } else {
+              runPhishing = false;
+              deferred.push('phishing-scan');
+            }
+          }
+
+          const runReleaks = hour % 6 === 3;
+          if (runReleaks) {
+            if (canSpend(4)) {
+              spend(4);
+              admitted.push('victim-releaks');
+            } else {
+              deferred.push('victim-releaks');
+            }
+          }
+
+          const runGhsa = hour % 6 === 4;
+          if (runGhsa) {
+            if (canSpend(6)) {
+              spend(6);
+              admitted.push('github-security-sync');
+            } else {
+              deferred.push('github-security-sync');
+            }
+          }
+
+          let runRag = hour % 6 === 2;
+          if (runRag) {
+            if (canSpend(6)) {
+              spend(6);
+              admitted.push('rag-reindex');
+            } else {
+              runRag = false;
+              deferred.push('rag-reindex');
+            }
+          }
+
+          const runBundles = !dailyHealRan && !runPhishing && canSpend(25);
+          if (runBundles) {
+            spend(25);
+            admitted.push('intel-bundle-warm');
+          } else deferred.push('intel-bundle-warm');
+
+          const runCti = !!env.BRIEFINGS_DB && !dailyHealRan && !runPhishing && canSpend(8);
+          if (runCti) {
+            spend(8);
+            admitted.push('cti-collector');
+          } else deferred.push('cti-collector');
+
+          console.log(
+            JSON.stringify({
+              job: 'subrequest-budget',
+              estimated_used: estUsed,
+              soft_cap: BUDGET_SOFT_CAP,
+              admitted,
+              deferred: deferred.length > 0 ? deferred : undefined,
+            })
+          );
+
           // ── Case-study publisher + Telegram archive + intel-bundle warm ─────
           // These were previously in a separate `0 * * * *` block with a shared
           // lease but no coordination — merged here so one lease + one heartbeat
@@ -656,12 +748,12 @@ export async function executeCronJob(
           );
           fireAndForget.push(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
           // enqueueAllFeeds moved to the TOP of this hourly handler (see above).
-          // intel-bundle-warm is subrequest-heavy (up to 35). When the daily
-          // briefing heal just ran its live fan-out in this same invocation,
-          // skip it this tick to stay under the free-plan 50-subrequest cap.
+          // intel-bundle-warm is subrequest-heavy (up to 35). The budget
+          // planner above admits it only when the tick can afford it (the
+          // daily briefing heal fan-out and phishing-scan hours defer it).
           // It also has its own dedicated `7 * * * *` cron, so skipping one
           // hourly tick loses no data — it catches up next hour.
-          if (!dailyHealRan) {
+          if (runBundles) {
             fireAndForget.push(
               warmIntelBundles(env as unknown as ApiEnv)
                 .then((r) =>
@@ -680,7 +772,7 @@ export async function executeCronJob(
                 .catch(logCronFail('intel-bundle-warm'))
             );
           }
-          if (csNow.getUTCHours() % 6 === 3) {
+          if (runReleaks) {
             fireAndForget.push(
               refreshVictimReleaksCache(env as unknown as ApiEnv)
                 .then((b) =>
@@ -707,7 +799,7 @@ export async function executeCronJob(
           // already have a fresh write — protects the per-IP budget
           // even if the cron fires on a non-divisible-by-6 hour
           // (e.g. retry, manual trigger, hourly override).
-          if (csNow.getUTCHours() % 6 === 4) {
+          if (runGhsa) {
             fireAndForget.push(
               (async (): Promise<void> => {
                 if (!env.KV_CACHE) return;
@@ -750,7 +842,7 @@ export async function executeCronJob(
           // subrequest count past the free-plan 50 cap. It catches up next
           // hour; no data is lost.
           try {
-            if (env.BRIEFINGS_DB && !dailyHealRan) {
+            if (env.BRIEFINGS_DB && runCti) {
               const ctiResult = await runFullCollection(env.BRIEFINGS_DB, env.ABUSECH_AUTH_KEY);
               console.log(
                 JSON.stringify({
@@ -944,8 +1036,8 @@ export async function executeCronJob(
             logCronFail('feed-scheduler-auto')(e);
           }
 
-          // === RAG corpus re-index (every 6h, at ~:20 past) ===
-          if (csNow.getUTCHours() % 6 === 2) {
+          // === RAG corpus re-index (every 6h, budget-permitted) ===
+          if (runRag) {
             try {
               // Independent indexers — run concurrently instead of chaining the
               // two awaits (the catch below still fails the whole job on either).
@@ -1054,7 +1146,9 @@ export async function executeCronJob(
           }
 
           // === Phishing scan (every 6 hours, at 0, 6, 12, 18 UTC) ===
-          if (csNow.getUTCHours() % 6 === 0) {
+          // Admitted first by the budget planner — at up to ~50 DNS/VT
+          // lookups it needs a mostly-empty invocation to fit the cap.
+          if (runPhishing) {
             try {
               if (db) {
                 const dnsEnv: PassiveDnsEnv = {
