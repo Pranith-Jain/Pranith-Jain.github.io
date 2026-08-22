@@ -29,6 +29,7 @@ import { ReportView, type ReportActionCard } from '../../components/dfir/ReportV
 import { SelfEvalScorecard, type SelfEvalResult } from '../../components/threatintel/SelfEvalScorecard';
 import { DataGapsPanel, type ToolFailure } from '../../components/threatintel/DataGapsPanel';
 import { InvestigationTrace } from '../../components/threatintel/InvestigationTrace';
+import { HypothesesPanel } from '../../components/threatintel/HypothesesPanel';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface AgentToolResult {
@@ -764,6 +765,9 @@ export default function AgentInvestigator(): JSX.Element {
           {agentState.dataGaps && agentState.dataGaps.length > 0 && (
             <DataGapsPanel dataGaps={agentState.dataGaps as ToolFailure[]} />
           )}
+
+          {/* Hypothesis ledger (Fleet-style) */}
+          {agentState.steps && agentState.steps.length > 0 && <HypothesesPanel steps={agentState.steps} />}
 
           {/* Investigation trace */}
           {agentState.steps && agentState.steps.length > 0 && <InvestigationTrace steps={agentState.steps} />}

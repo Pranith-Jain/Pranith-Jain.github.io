@@ -7640,6 +7640,21 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── Investigation recipes ─────────────────────────────────────────
+    this.tools(
+      'get_recipe',
+      'Fetch a proven multi-step investigation playbook (file-triage, phishing-email, c2-identification, dns-tunnel-hunt, report-ioc-sweep). Returns ordered steps with tool names, argument templates ({input}/{ioc} placeholders), and why each step matters.',
+      { recipe_id: z.string().describe('Playbook id') },
+      async ({ recipe_id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/tools/recipes/${encodeURIComponent(recipe_id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── Detection-rule validation & Sigma conversion ────────────────
     this.tools(
       'validate_detection_rule',
@@ -7697,11 +7712,16 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         max_hits: z.number().int().min(1).max(50000).optional().describe('Cap on unique observables (default 2000)'),
       },
       async ({ text, max_hits }) => {
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/observables/extract', this.apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ text, ...(max_hits ? { maxHits: max_hits } : {}) }),
-        });
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/observables/extract',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ text, ...(max_hits ? { maxHits: max_hits } : {}) }),
+          }
+        );
         return untrustedToolResult(data);
       }
     );
@@ -7720,7 +7740,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         if (approxBytes > 8 * 1024 * 1024) {
           return {
             content: [
-              { type: 'text', text: JSON.stringify({ error: `file too large for static triage (${approxBytes} bytes > 8MB limit)` }) },
+              {
+                type: 'text',
+                text: JSON.stringify({ error: `file too large for static triage (${approxBytes} bytes > 8MB limit)` }),
+              },
             ],
           };
         }
@@ -7746,11 +7769,16 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         const body: Record<string, unknown> = { timestamps };
         if (destination) body.destination = destination;
         if (bytes && bytes.length) body.bytes = bytes;
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/net-analytics/beacon', this.apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(body),
-        });
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/net-analytics/beacon',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(body),
+          }
+        );
         return untrustedToolResult(data);
       }
     );
@@ -7764,11 +7792,16 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       async ({ queries, zone }) => {
         const body: Record<string, unknown> = { queries };
         if (zone) body.zone = zone;
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/net-analytics/dns-tunnel', this.apiKey, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(body),
-        });
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/net-analytics/dns-tunnel',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(body),
+          }
+        );
         return untrustedToolResult(data);
       }
     );

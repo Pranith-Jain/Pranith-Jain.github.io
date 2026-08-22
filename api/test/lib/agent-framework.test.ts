@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import type { AgentStep } from '../../src/lib/agent/types';
-import { rebuildWorkingMemory, createWorkingMemory, buildFactList, upsertHypothesis } from '../../src/lib/agent/agent-framework';
+import {
+  rebuildWorkingMemory,
+  createWorkingMemory,
+  buildFactList,
+  upsertHypothesis,
+} from '../../src/lib/agent/agent-framework';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Regression gate for cross-alarm working-memory persistence.
@@ -325,17 +330,16 @@ describe('hypothesis tracking', () => {
           keyFacts: [],
           provenance: 'llm',
           gaps: [],
-          hypothesisUpdates: [
-            { text: 'loader for Emotet', status: 'supported', evidence: 'yara match 2 rules' },
-          ],
+          hypothesisUpdates: [{ text: 'loader for Emotet', status: 'supported', evidence: 'yara match 2 rules' }],
         },
       }),
     ];
     const mem = rebuildWorkingMemory(steps);
     expect(mem.hypotheses).toHaveLength(1);
-    expect(mem.hypotheses[0].status).toBe('supported');
-    expect(mem.hypotheses[0].evidence).toContain('yara');
-    expect(mem.hypotheses[0].stepProposed).toBe(1);
+    const h = mem.hypotheses[0]!;
+    expect(h.status).toBe('supported');
+    expect(h.evidence).toContain('yara');
+    expect(h.stepProposed).toBe(1);
   });
 
   it('memoryToPrompt surfaces hypotheses with statuses', async () => {
@@ -352,7 +356,8 @@ describe('hypothesis tracking', () => {
     expect(upsertHypothesis(mem, 'Hypothesis One', 'proposed', 1)).toBe(true);
     expect(upsertHypothesis(mem, 'hypothesis one', 'supported', 2, 'ev')).toBe(true);
     expect(mem.hypotheses).toHaveLength(1);
-    expect(mem.hypotheses[0].status).toBe('supported');
+    const h1 = mem.hypotheses[0]!;
+    expect(h1.status).toBe('supported');
     for (let i = 0; i < 9; i++) {
       upsertHypothesis(mem, `filler ${i}`, 'refuted', 3);
     }

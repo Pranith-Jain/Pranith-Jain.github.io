@@ -2290,7 +2290,8 @@ export function bridgeMcpTools(
       },
       { name: 'source', type: 'string', description: 'Full rule text to validate', required: true },
     ],
-    execute: async (args) => apiFetchWithMethod('/api/v1/rules/validate', 'POST', { kind: args.kind, source: args.source }),
+    execute: async (args) =>
+      apiFetchWithMethod('/api/v1/rules/validate', 'POST', { kind: args.kind, source: args.source }),
   });
   add({
     name: 'convert_sigma_rule',
@@ -2332,6 +2333,26 @@ export function bridgeMcpTools(
       }),
   });
   add({
+    name: 'get_recipe',
+    description:
+      'Fetch a proven multi-step investigation playbook (file triage, phishing email, C2 beacon, DNS tunnel hunt, report IOC sweep). Returns ordered steps with tool names and argument templates.',
+    params: [
+      {
+        name: 'recipe_id',
+        type: 'string',
+        description:
+          'Playbook id (file-triage | phishing-email | c2-identification | dns-tunnel-hunt | report-ioc-sweep)',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      const { getRecipeDetail, RECIPES } = await import('./recipes');
+      const recipe = getRecipeDetail(String(args.recipe_id));
+      if (!recipe) return { error: `unknown recipe "${String(args.recipe_id)}"`, available: RECIPES.map((r) => r.id) };
+      return { ok: true, ...recipe };
+    },
+  });
+  add({
     name: 'static_triage_file',
     description:
       'Static file triage from base64 bytes (max ~6MB): magic-byte family detection, hashes, entropy, PE header parse, packer signals, embedded artifacts. No execution.',
@@ -2355,12 +2376,26 @@ export function bridgeMcpTools(
     description:
       'Score connection timestamps to one destination for C2 beacon periodicity: jitter ratio, payload-size consistency, 0-100 beacon score.',
     params: [
-      { name: 'timestamps', type: 'string', description: 'Comma-separated timestamps (epoch ms or ISO)', required: true },
+      {
+        name: 'timestamps',
+        type: 'string',
+        description: 'Comma-separated timestamps (epoch ms or ISO)',
+        required: true,
+      },
       { name: 'destination', type: 'string', description: 'Destination ip or host:port', required: false },
-      { name: 'bytes', type: 'string', description: 'Optional comma-separated byte counts per connection', required: false },
+      {
+        name: 'bytes',
+        type: 'string',
+        description: 'Optional comma-separated byte counts per connection',
+        required: false,
+      },
     ],
     execute: async (args) => {
-      const parse = (s: unknown) => String(s ?? '').split(',').map((v) => v.trim()).filter(Boolean);
+      const parse = (s: unknown) =>
+        String(s ?? '')
+          .split(',')
+          .map((v) => v.trim())
+          .filter(Boolean);
       const ts = parse(args.timestamps);
       if (ts.length < 4) return { error: 'need at least 4 timestamps' };
       const bytes = args.bytes ? parse(args.bytes).map(Number).filter(Number.isFinite) : undefined;
@@ -2380,7 +2415,10 @@ export function bridgeMcpTools(
       { name: 'zone', type: 'string', description: 'Authoritative zone; inferred when omitted', required: false },
     ],
     execute: async (args) => {
-      const queries = String(args.queries ?? '').split(/[\n,]+/).map((q) => q.trim()).filter(Boolean);
+      const queries = String(args.queries ?? '')
+        .split(/[\n,]+/)
+        .map((q) => q.trim())
+        .filter(Boolean);
       if (queries.length < 5) return { error: 'need at least 5 DNS queries' };
       return apiFetchWithMethod('/api/v1/net-analytics/dns-tunnel', 'POST', {
         queries,

@@ -60,6 +60,7 @@ const CveRiskMatrix = lazy(() => import('./pages/CveRiskMatrix'));
 const CoCGenerator = lazy(() => import('./pages/dfir/CoCGenerator'));
 const SocCalculators = lazy(() => import('./pages/dfir/SocCalculators'));
 const SysmonConfig = lazy(() => import('./pages/dfir/SysmonConfig'));
+const HexWorkbench = lazy(() => import('./pages/dfir/HexWorkbench'));
 const SigBase = lazy(() => import('./pages/SigBase'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
@@ -444,6 +445,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/coc-generator', Component: CoCGenerator },
   { path: '/dfir/soc-calculators', Component: SocCalculators },
   { path: '/dfir/sysmon-config', Component: SysmonConfig },
+  { path: '/dfir/hex-workbench', Component: HexWorkbench },
   { path: '/dfir/sigbase', Component: SigBase },
   { path: '/dfir/traceix', Component: Traceix },
   { path: '/dfir/nhi-scan', Component: NhiScan },
