@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 343 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 346 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,7 +16,7 @@
       "listChanged": false
     }
   },
-  "toolCount": 343,
+  "toolCount": 346,
   "generatedAt": "2026-08-22T22:26:28+05:30",
   "tools": [
     {
@@ -1565,6 +1565,11 @@
       "category": "other"
     },
     {
+      "name": "velo_create_hunt",
+      "description": "Launch a Velociraptor HUNT across all managed endpoints (or a label subset) — fleet-wide artifact sweep. Returns hunt id; poll with velo_get_hunt.",
+      "category": "other"
+    },
+    {
       "name": "velo_get_client",
       "description": "Get one Velociraptor-managed endpoint by client id (C.xxxx) — OS build, labels, last check-in.",
       "category": "other"
@@ -1580,6 +1585,11 @@
       "category": "other"
     },
     {
+      "name": "velo_get_hunt",
+      "description": "Poll a Velociraptor hunt — state, scheduled/completed/erroring client counts.",
+      "category": "other"
+    },
+    {
       "name": "velo_list_clients",
       "description": "List Velociraptor-managed endpoints (hostname, OS, arch, labels, last-seen). Optional hostname search. Degrades gracefully when VELO_API_URL is not configured.",
       "category": "other"
@@ -1587,6 +1597,11 @@
     {
       "name": "velo_list_flows",
       "description": "List recent collections (flows) on a managed endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.",
+      "category": "other"
+    },
+    {
+      "name": "velo_list_hunts",
+      "description": "List recent Velociraptor hunts across the fleet — descriptions, states, completion counts.",
       "category": "other"
     },
     {

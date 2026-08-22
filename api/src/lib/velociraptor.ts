@@ -21,7 +21,12 @@ export interface VeloConfig {
   authHeader: string;
 }
 
-export function veloConfig(env: { VELO_API_URL?: string; VELO_API_TOKEN?: string; VELO_USERNAME?: string; VELO_PASSWORD?: string }): VeloConfig | null {
+export function veloConfig(env: {
+  VELO_API_URL?: string;
+  VELO_API_TOKEN?: string;
+  VELO_USERNAME?: string;
+  VELO_PASSWORD?: string;
+}): VeloConfig | null {
   const raw = env.VELO_API_URL?.trim().replace(/\/+$/, '');
   if (!raw) return null;
   let authHeader = '';
@@ -36,8 +41,7 @@ export function veloConfig(env: { VELO_API_URL?: string; VELO_API_TOKEN?: string
 
 /** Typed result — never throws past the caller. */
 export type VeloResult<T> =
-  | { ok: true; data: T; elapsedMs: number }
-  | { ok: false; error: string; status?: number; configured?: boolean };
+  { ok: true; data: T; elapsedMs: number } | { ok: false; error: string; status?: number; configured?: boolean };
 
 async function veloCall<T>(
   cfg: VeloConfig,
@@ -126,7 +130,14 @@ export async function veloListClients(
 ): Promise<VeloResult<{ configured: boolean; clients?: Record<string, unknown>[]; count?: number; hint?: string }>> {
   const cfg = veloConfig(env);
   if (!cfg) {
-    return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'set VELO_API_URL (+ VELO_API_TOKEN or VELO_USERNAME/VELO_PASSWORD) to enable endpoint acquisition' } };
+    return {
+      ok: true,
+      elapsedMs: 0,
+      data: {
+        configured: false,
+        hint: 'set VELO_API_URL (+ VELO_API_TOKEN or VELO_USERNAME/VELO_PASSWORD) to enable endpoint acquisition',
+      },
+    };
   }
   const r = await veloCall<{ clients?: VeloClientSummary[] }>(
     cfg,
@@ -146,7 +157,12 @@ export async function veloGetClient(
 ): Promise<VeloResult<{ configured: boolean; client?: Record<string, unknown>; hint?: string }>> {
   const cfg = veloConfig(env);
   if (!cfg) return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'VELO_API_URL not configured' } };
-  const r = await veloCall<{ client?: VeloClientSummary }>(cfg, 'GetClient', { client_id: clientId }, { self: opts.self });
+  const r = await veloCall<{ client?: VeloClientSummary }>(
+    cfg,
+    'GetClient',
+    { client_id: clientId },
+    { self: opts.self }
+  );
   if (!r.ok) return r;
   if (!r.data.client) return { ok: false, error: `client ${clientId} not found` };
   return { ok: true, elapsedMs: r.elapsedMs, data: { configured: true, client: normalizeClient(r.data.client) } };
@@ -194,14 +210,19 @@ export async function veloCollectArtifact(
   if (!cfg) return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'VELO_API_URL not configured' } };
   if (!p.artifacts.length) return { ok: false, error: 'artifacts list is empty' };
   const envVars = Object.entries(p.parameters ?? {}).map(([key, value]) => ({ key, value }));
-  const r = await veloCall<{ flow_id?: string; state?: string }>(cfg, 'CollectArtifact', {
-    client_id: p.client_id,
-    artifacts: p.artifacts,
-    ...(envVars.length ? { parameters: { env: envVars } } : {}),
-    urgent: p.urgent === true,
-    ...(p.timeout ? { timeout: p.timeout } : {}),
-    allow_queued: true,
-  }, { self: opts.self, timeoutMs: 30_000 });
+  const r = await veloCall<{ flow_id?: string; state?: string }>(
+    cfg,
+    'CollectArtifact',
+    {
+      client_id: p.client_id,
+      artifacts: p.artifacts,
+      ...(envVars.length ? { parameters: { env: envVars } } : {}),
+      urgent: p.urgent === true,
+      ...(p.timeout ? { timeout: p.timeout } : {}),
+      allow_queued: true,
+    },
+    { self: opts.self, timeoutMs: 30_000 }
+  );
   if (!r.ok) return r;
   return {
     ok: true,
@@ -211,7 +232,9 @@ export async function veloCollectArtifact(
       flowId: r.data.flow_id,
       artifacts: p.artifacts,
       state: r.data.state ?? 'RUNNING',
-      hint: r.data.flow_id ? `poll velo_get_flow_status(client_id='${p.client_id}', flow_id='${r.data.flow_id}')` : undefined,
+      hint: r.data.flow_id
+        ? `poll velo_get_flow_status(client_id='${p.client_id}', flow_id='${r.data.flow_id}')`
+        : undefined,
     },
   };
 }
@@ -224,12 +247,13 @@ export async function veloGetFlowStatus(
 ): Promise<VeloResult<{ configured: boolean; flow?: Record<string, unknown>; hint?: string }>> {
   const cfg = veloConfig(env);
   if (!cfg) return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'VELO_API_URL not configured' } };
-  const r = await veloCall<{ context?: VeloFlowSummary & { total_loaded_files?: number; total_collected_bytes?: number; execution_duration?: number } }>(
-    cfg,
-    'GetFlowDetails',
-    { client_id: clientId, flow_id: flowId },
-    { self: opts.self }
-  );
+  const r = await veloCall<{
+    context?: VeloFlowSummary & {
+      total_loaded_files?: number;
+      total_collected_bytes?: number;
+      execution_duration?: number;
+    };
+  }>(cfg, 'GetFlowDetails', { client_id: clientId, flow_id: flowId }, { self: opts.self });
   if (!r.ok) return r;
   const ctx = r.data.context;
   if (!ctx) return { ok: false, error: `flow ${flowId} not found` };
@@ -242,12 +266,18 @@ export async function veloGetFlowStatus(
         flow_id: ctx.flow_id,
         artifacts: ctx.request?.artifacts ?? ctx.artifacts?.map((a) => a.artifact),
         state: ctx.state,
-        durationSec: typeof ctx.execution_duration === 'number' ? Number((ctx.execution_duration / 1e9).toFixed(1)) : undefined,
+        durationSec:
+          typeof ctx.execution_duration === 'number' ? Number((ctx.execution_duration / 1e9).toFixed(1)) : undefined,
         collectedBytes: ctx.total_collected_bytes,
         filesLoaded: ctx.total_loaded_files,
         created: nsToIso(ctx.create_time),
       },
-      hint: ctx.state === 'RUNNING' ? 'still running — poll again' : ctx.state === 'FINISHED' ? "done — fetch rows with velo_get_flow_results" : undefined,
+      hint:
+        ctx.state === 'RUNNING'
+          ? 'still running — poll again'
+          : ctx.state === 'FINISHED'
+            ? 'done — fetch rows with velo_get_flow_results'
+            : undefined,
     },
   };
 }
@@ -257,7 +287,17 @@ export async function veloGetFlowResults(
   clientId: string,
   flowId: string,
   opts: { artifact?: string; offset?: number; rows?: number; self?: Fetcher } = {}
-): Promise<VeloResult<{ configured: boolean; artifact?: string; columns?: string[]; rows?: Record<string, unknown>[]; totalRows?: number; truncated?: boolean; hint?: string }>> {
+): Promise<
+  VeloResult<{
+    configured: boolean;
+    artifact?: string;
+    columns?: string[];
+    rows?: Record<string, unknown>[];
+    totalRows?: number;
+    truncated?: boolean;
+    hint?: string;
+  }>
+> {
   const cfg = veloConfig(env);
   if (!cfg) return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'VELO_API_URL not configured' } };
   const maxRows = Math.min(Math.max(opts.rows ?? 100, 1), 1000);
@@ -286,7 +326,120 @@ export async function veloGetFlowResults(
       rows,
       totalRows: total,
       truncated: total > (opts.offset ?? 0) + rows.length,
-      hint: total > (opts.offset ?? 0) + rows.length ? `more rows available — re-call with offset=${(opts.offset ?? 0) + rows.length}` : undefined,
+      hint:
+        total > (opts.offset ?? 0) + rows.length
+          ? `more rows available — re-call with offset=${(opts.offset ?? 0) + rows.length}`
+          : undefined,
     },
   };
+}
+
+// ── Hunts (fleet-wide sweeps) ───────────────────────────────────────────────
+
+export interface HuntSummary {
+  hunt_id?: string;
+  hunt_description?: string;
+  state?: 'RUNNING' | 'PAUSED' | 'STOPPED' | string;
+  create_time?: number;
+  start_time?: number;
+  total_clients_scheduled?: number;
+  total_clients_with_results?: number;
+  total_clients_errors?: number;
+  artifacts?: Array<{ artifact?: string }>;
+  request?: { artifacts?: string[] };
+}
+
+function normalizeHunt(h: HuntSummary): Record<string, unknown> {
+  return {
+    hunt_id: h.hunt_id,
+    description: h.hunt_description,
+    artifacts: h.request?.artifacts ?? h.artifacts?.map((a) => a.artifact).filter(Boolean) ?? [],
+    state: h.state,
+    created: nsToIso(h.create_time),
+    scheduled: h.total_clients_scheduled,
+    withResults: h.total_clients_with_results,
+    errors: h.total_clients_errors,
+  };
+}
+
+/** Create a hunt across ALL endpoints (condition.all) or a label subset. */
+export async function veloCreateHunt(
+  env: Parameters<typeof veloConfig>[0],
+  p: { artifacts: string[]; parameters?: Record<string, string>; labelText?: string; expireHours?: number },
+  opts: { self?: Fetcher } = {}
+): Promise<VeloResult<{ configured: boolean; huntId?: string; state?: string; hint?: string }>> {
+  const cfg = veloConfig(env);
+  if (!cfg) return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'VELO_API_URL not configured' } };
+  if (!p.artifacts.length) return { ok: false, error: 'artifacts list is empty' };
+  const envVars = Object.entries(p.parameters ?? {}).map(([key, value]) => ({ key, value }));
+  const r = await veloCall<{ hunt_id?: string; state?: string }>(
+    cfg,
+    'CreateHunt',
+    {
+      hunt_request: {
+        artifacts: p.artifacts,
+        ...(envVars.length ? { parameters: { env: envVars } } : {}),
+        expiry: p.expireHours ? Math.round(Date.now() / 1000 + p.expireHours * 3600) * 1e9 : undefined,
+        condition: p.labelText ? { labels: { label: [p.labelText] } } : { all: {} },
+      },
+    },
+    { self: opts.self, timeoutMs: 30_000 }
+  );
+  if (!r.ok) return r;
+  return {
+    ok: true,
+    elapsedMs: r.elapsedMs,
+    data: {
+      configured: true,
+      huntId: r.data.hunt_id,
+      state: r.data.state ?? 'RUNNING',
+      hint: r.data.hunt_id ? `poll velo_get_hunt(hunt_id='${r.data.hunt_id}')` : undefined,
+    },
+  };
+}
+
+export async function veloGetHunt(
+  env: Parameters<typeof veloConfig>[0],
+  huntId: string,
+  opts: { self?: Fetcher } = {}
+): Promise<VeloResult<{ configured: boolean; hunt?: Record<string, unknown>; hint?: string }>> {
+  const cfg = veloConfig(env);
+  if (!cfg) return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'VELO_API_URL not configured' } };
+  const r = await veloCall<{ hunt?: HuntSummary }>(cfg, 'GetHunt', { hunt_id: huntId }, { self: opts.self });
+  if (!r.ok) return r;
+  if (!r.data.hunt) return { ok: false, error: `hunt ${huntId} not found` };
+  const h = normalizeHunt(r.data.hunt);
+  return {
+    ok: true,
+    elapsedMs: r.elapsedMs,
+    data: {
+      configured: true,
+      hunt: h,
+      hint:
+        h.state === 'RUNNING'
+          ? 'still running — poll again'
+          : h.state === 'STOPPED' || h.state === 'PAUSED'
+            ? 'use the Velociraptor GUI to resume if needed'
+            : undefined,
+    },
+  };
+}
+
+export async function veloListHunts(
+  env: Parameters<typeof veloConfig>[0],
+  opts: { limit?: number; self?: Fetcher } = {}
+): Promise<VeloResult<{ configured: boolean; hunts?: Record<string, unknown>[]; count?: number; hint?: string }>> {
+  const cfg = veloConfig(env);
+  if (!cfg) return { ok: true, elapsedMs: 0, data: { configured: false, hint: 'VELO_API_URL not configured' } };
+  const r = await veloCall<{ hunts?: HuntSummary[] }>(
+    cfg,
+    'ListHunts',
+    {
+      limit: Math.min(Math.max(opts.limit ?? 20, 1), 200),
+    },
+    { self: opts.self }
+  );
+  if (!r.ok) return r;
+  const hunts = (r.data.hunts ?? []).map(normalizeHunt);
+  return { ok: true, elapsedMs: r.elapsedMs, data: { configured: true, hunts, count: hunts.length } };
 }

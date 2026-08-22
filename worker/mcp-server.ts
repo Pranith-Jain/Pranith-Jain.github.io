@@ -7849,6 +7849,72 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── Velociraptor hunts ────────────────────────────────────────────
+    this.tools(
+      'velo_create_hunt',
+      'Launch a Velociraptor HUNT across all managed endpoints (or a label subset) — fleet-wide artifact sweep. Returns hunt id; poll with velo_get_hunt.',
+      {
+        artifacts: z.array(z.string()).max(10).describe('Artifact names'),
+        parameters_json: z.string().optional().describe('JSON artifact parameters'),
+        label: z.string().optional().describe('Restrict to labeled endpoints'),
+        expire_hours: z.number().int().min(1).max(720).optional().describe('Hunt expiry hours'),
+      },
+      async ({ artifacts, parameters_json, label, expire_hours }) => {
+        let parameters: Record<string, string> | undefined;
+        if (parameters_json) {
+          try {
+            parameters = JSON.parse(parameters_json) as Record<string, string>;
+          } catch {
+            return {
+              content: [{ type: 'text', text: JSON.stringify({ error: 'parameters_json is not valid JSON' }) }],
+            };
+          }
+        }
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/velociraptor/hunts/create',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              artifacts,
+              ...(parameters ? { parameters } : {}),
+              ...(label ? { label } : {}),
+              ...(expire_hours ? { expire_hours } : {}),
+            }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'velo_get_hunt',
+      'Poll a Velociraptor hunt — state, scheduled/completed/erroring client counts.',
+      { hunt_id: z.string().describe("Hunt id ('H.xxxx')") },
+      async ({ hunt_id }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/hunt', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ hunt_id }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'velo_list_hunts',
+      'List recent Velociraptor hunts across the fleet — descriptions, states, completion counts.',
+      { limit: z.number().int().min(1).max(200).optional().describe('Max hunts') },
+      async ({ limit }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/hunts', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ ...(limit ? { limit } : {}) }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── Investigation recipes ─────────────────────────────────────────
     this.tools(
       'get_recipe',

@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**343 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**346 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (229)
+### other (232)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -217,11 +217,14 @@
 - `username_scrape_profiles` - Scrape profile metadata (display name, bio, avatar, follower counts) from platforms where the username is found. Returns rich profile data, not just found/not-found.
 - `validate_detection_rule` - Validate a detection rule before use: YARA (structure, string refs, hex tokens, dup names), Sigma (schema + logsource + detection + condition identifiers), Suricata/Snort (header grammar, msg/sid/rev, local sid range), osquery (read-only guard, paren balance, known tables).
 - `velo_collect_artifact` - Launch a Velociraptor artifact collection on a managed endpoint (evidence acquisition): e.g. Windows.KapeFiles.Collect. Returns flow id; poll with velo_get_flow_status then velo_get_flow_results.
+- `velo_create_hunt` - Launch a Velociraptor HUNT across all managed endpoints (or a label subset) — fleet-wide artifact sweep. Returns hunt id; poll with velo_get_hunt.
 - `velo_get_client` - Get one Velociraptor-managed endpoint by client id (C.xxxx) — OS build, labels, last check-in.
 - `velo_get_flow_results` - Fetch collected rows from a finished Velociraptor collection (VQL results table with pagination) — the evidence payload for the investigation.
 - `velo_get_flow_status` - Poll a Velociraptor collection status — state, duration, bytes collected, files loaded.
+- `velo_get_hunt` - Poll a Velociraptor hunt — state, scheduled/completed/erroring client counts.
 - `velo_list_clients` - List Velociraptor-managed endpoints (hostname, OS, arch, labels, last-seen). Optional hostname search. Degrades gracefully when VELO_API_URL is not configured.
 - `velo_list_flows` - List recent collections (flows) on a managed endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.
+- `velo_list_hunts` - List recent Velociraptor hunts across the fleet — descriptions, states, completion counts.
 - `virushee_check` - Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.
 - `wdtb_get_brief` - Return the full Webamon Daily Threat Brief for a given date. Includes estate stats, KPIs (new domains, takedowns, infra changes), notable movements (growth/takedown/rotation/lure-refresh), campaigns worth a look, and emerging clusters. Use wdtb_list_briefs to discover dates.
 - `wdtb_latest` - Return the most recent Webamon Daily Threat Brief. Includes estate stats, KPIs, notable movements, campaigns, and emerging clusters.

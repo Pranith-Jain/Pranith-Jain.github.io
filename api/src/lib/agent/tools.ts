@@ -1673,6 +1673,87 @@ export function buildToolRegistry(
         ),
     },
 
+    {
+      name: 'velo_create_hunt',
+      description:
+        'Launch a Velociraptor HUNT across all managed endpoints (or a label subset) — fleet-wide sweep for IOCs/artifacts. Returns hunt id; poll with velo_get_hunt. Use for proactive sweeps after confirming an IOC on one endpoint.',
+      params: [
+        { name: 'artifacts', type: 'string', description: 'Comma-separated artifact names (max 10)', required: true },
+        { name: 'parameters_json', type: 'string', description: 'Optional JSON artifact parameters', required: false },
+        {
+          name: 'label',
+          type: 'string',
+          description: 'Restrict to endpoints with this label (omit = all endpoints)',
+          required: false,
+        },
+        { name: 'expire_hours', type: 'number', description: 'Hunt expiry in hours (default 7 days)', required: false },
+      ],
+      execute: (args) => {
+        let parameters: Record<string, string> | undefined;
+        if (args.parameters_json) {
+          try {
+            parameters = JSON.parse(String(args.parameters_json)) as Record<string, string>;
+          } catch {
+            return Promise.resolve({ error: 'parameters_json is not valid JSON' });
+          }
+        }
+        return apiFetch(
+          self,
+          '/api/v1/velociraptor/hunts/create',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              artifacts: String(args.artifacts)
+                .split(',')
+                .map((s) => s.trim())
+                .filter(Boolean)
+                .slice(0, 10),
+              ...(parameters ? { parameters } : {}),
+              ...(args.label ? { label: String(args.label) } : {}),
+              ...(args.expire_hours ? { expire_hours: Number(args.expire_hours) } : {}),
+            }),
+          },
+          ih
+        );
+      },
+    },
+    {
+      name: 'velo_get_hunt',
+      description: 'Poll a Velociraptor hunt — state, scheduled/completed/erroring client counts.',
+      params: [{ name: 'hunt_id', type: 'string', description: "Hunt id ('H.xxxx')", required: true }],
+      execute: (args) =>
+        apiFetch(
+          self,
+          '/api/v1/velociraptor/hunt',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ hunt_id: String(args.hunt_id) }),
+          },
+          ih
+        ),
+    },
+    {
+      name: 'velo_list_hunts',
+      description: 'List recent Velociraptor hunts across the fleet — descriptions, states, client completion counts.',
+      params: [{ name: 'limit', type: 'number', description: 'Max hunts (default 20)', required: false }],
+      execute: (args) =>
+        apiFetch(
+          self,
+          '/api/v1/velociraptor/hunts',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ ...(args.limit ? { limit: Number(args.limit) } : {}) }),
+          },
+          ih
+        ),
+    },
+
     // ══════════════════════════════════════════════════════════════════════
     //  REPORT DELIVERY
     // ══════════════════════════════════════════════════════════════════════
