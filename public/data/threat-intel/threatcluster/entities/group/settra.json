@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "settra",
+  "name": "settra",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-21T05:49:55.000Z",
+  "lastSeen": "2026-08-21T05:50:27.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-21",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "avkvalves-com-32f4",
+      "title": "avkvalves.com — claimed by settra",
+      "pubDate": "2026-08-21T05:50:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gt-tele-com-8c00",
+      "title": "gt-tele.com — claimed by settra",
+      "pubDate": "2026-08-21T05:49:55.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "avkvalves-com-32f4",
+      "victim": "avkvalves.com — claimed by settra",
+      "sector": "Manufacturing",
+      "country": "SE",
+      "pubDate": "2026-08-21T05:50:27.000Z"
+    },
+    {
+      "id": "gt-tele-com-8c00",
+      "victim": "gt-tele.com — claimed by settra",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-21T05:49:55.000Z"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "type": "group",
+  "slug": "qilin",
+  "name": "qilin",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 7,
+  "firstSeen": "2026-08-21T09:55:36.000Z",
+  "lastSeen": "2026-08-21T14:56:15.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 6 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-21",
+      "count": 7
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "quaker-state-mexico-5b97",
+      "title": "Quaker State Mexico — claimed by qilin",
+      "pubDate": "2026-08-21T14:56:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ipic-5fcf",
+      "title": "iPic — claimed by qilin",
+      "pubDate": "2026-08-21T14:55:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cin-polis-400c",
+      "title": "Cinépolis — claimed by qilin",
+      "pubDate": "2026-08-21T12:56:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gindre-india-9ba2",
+      "title": "Gindre India — claimed by qilin",
+      "pubDate": "2026-08-21T11:57:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-pendas-law-firm-9f24",
+      "title": "The Pendas Law Firm — claimed by qilin",
+      "pubDate": "2026-08-21T09:56:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "blake-services-d3ff",
+      "title": "Blake Services — claimed by qilin",
+      "pubDate": "2026-08-21T09:56:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "professional-e96b",
+      "title": "Professional — claimed by qilin",
+      "pubDate": "2026-08-21T09:55:36.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "quaker-state-mexico-5b97",
+      "victim": "Quaker State Mexico — claimed by qilin",
+      "sector": "Energy & Utilities",
+      "country": "MX",
+      "pubDate": "2026-08-21T14:56:15.000Z"
+    },
+    {
+      "id": "ipic-5fcf",
+      "victim": "iPic — claimed by qilin",
+      "sector": "Hospitality",
+      "country": "US",
+      "pubDate": "2026-08-21T14:55:37.000Z"
+    },
+    {
+      "id": "cin-polis-400c",
+      "victim": "Cinépolis — claimed by qilin",
+      "sector": "Hospitality",
+      "country": "MX",
+      "pubDate": "2026-08-21T12:56:53.000Z"
+    },
+    {
+      "id": "gindre-india-9ba2",
+      "victim": "Gindre India — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "IN",
+      "pubDate": "2026-08-21T11:57:12.000Z"
+    },
+    {
+      "id": "the-pendas-law-firm-9f24",
+      "victim": "The Pendas Law Firm — claimed by qilin",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-21T09:56:54.000Z"
+    },
+    {
+      "id": "blake-services-d3ff",
+      "victim": "Blake Services — claimed by qilin",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-08-21T09:56:18.000Z"
+    },
+    {
+      "id": "professional-e96b",
+      "victim": "Professional — claimed by qilin",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-08-21T09:55:36.000Z"
+    }
+  ]
+}

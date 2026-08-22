@@ -4,21 +4,35 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-08-20T11:29:49.000Z",
-  "lastSeen": "2026-08-21T02:29:07.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-08-21T02:24:48.000Z",
+  "lastSeen": "2026-08-21T09:56:18.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 3 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-20",
-      "count": 2
-    },
-    {
       "date": "2026-08-21",
-      "count": 3
+      "count": 6
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "blake-services-d3ff",
+      "title": "Blake Services — claimed by qilin",
+      "pubDate": "2026-08-21T09:56:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lexacaucho-bbea",
+      "title": "Lexacaucho — claimed by thegentlemen",
+      "pubDate": "2026-08-21T08:29:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "almeer-9505",
+      "title": "Almeer — claimed by thegentlemen",
+      "pubDate": "2026-08-21T08:27:57.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "the-revel-collective-c60d",
@@ -36,18 +50,6 @@
       "slug": "mct-group-of-companies-43fe",
       "title": "MCT Group of Companies — claimed by direwolf",
       "pubDate": "2026-08-21T02:24:48.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "poema-s-r-l-c7ae",
-      "title": "POEMA S.r.l. — claimed by titan",
-      "pubDate": "2026-08-20T15:00:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "practi-cal-d38f",
-      "title": "Practi-Cal — claimed by pear",
-      "pubDate": "2026-08-20T11:29:49.000Z"
     }
   ],
   "relatedEntities": [
@@ -59,14 +61,14 @@
     },
     {
       "type": "group",
-      "slug": "titan",
-      "name": "titan",
-      "weight": 1
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "pear",
-      "name": "pear",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 1
     }
   ],

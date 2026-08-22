@@ -4,91 +4,59 @@
   "name": "pear",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-20T11:29:14.000Z",
-  "lastSeen": "2026-08-20T11:30:59.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-21T10:26:17.000Z",
+  "lastSeen": "2026-08-21T10:26:51.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-20",
-      "count": 4
+      "date": "2026-08-21",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "medical-arts-chemists-and-surgicals-b7d6",
-      "title": "Medical Arts Chemists and Surgicals — claimed by pear",
-      "pubDate": "2026-08-20T11:30:59.000Z"
+      "slug": "clifton-architectural-glass-amp-metal-d1aa",
+      "title": "Clifton Architectural Glass &amp; Metal — claimed by pear",
+      "pubDate": "2026-08-21T10:26:51.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "club-one-casino-ef41",
-      "title": "Club One Casino — claimed by pear",
-      "pubDate": "2026-08-20T11:30:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "practi-cal-d38f",
-      "title": "Practi-Cal — claimed by pear",
-      "pubDate": "2026-08-20T11:29:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "austin-plastic-surgery-institute-9b38",
-      "title": "Austin Plastic Surgery Institute — claimed by pear",
-      "pubDate": "2026-08-20T11:29:14.000Z"
+      "slug": "first-commerce-llc-7e98",
+      "title": "First Commerce LLC — claimed by pear",
+      "pubDate": "2026-08-21T10:26:17.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "medical-arts-chemists-and-surgicals-b7d6",
-      "victim": "Medical Arts Chemists and Surgicals — claimed by pear",
-      "sector": "Healthcare",
+      "id": "clifton-architectural-glass-amp-metal-d1aa",
+      "victim": "Clifton Architectural Glass &amp; Metal — claimed by pear",
+      "sector": "Manufacturing",
       "country": "US",
-      "pubDate": "2026-08-20T11:30:59.000Z"
+      "pubDate": "2026-08-21T10:26:51.000Z"
     },
     {
-      "id": "club-one-casino-ef41",
-      "victim": "Club One Casino — claimed by pear",
-      "sector": "Hospitality",
+      "id": "first-commerce-llc-7e98",
+      "victim": "First Commerce LLC — claimed by pear",
+      "sector": "Financial Services",
       "country": "US",
-      "pubDate": "2026-08-20T11:30:24.000Z"
-    },
-    {
-      "id": "practi-cal-d38f",
-      "victim": "Practi-Cal — claimed by pear",
-      "sector": "Other",
-      "country": "US",
-      "pubDate": "2026-08-20T11:29:49.000Z"
-    },
-    {
-      "id": "austin-plastic-surgery-institute-9b38",
-      "victim": "Austin Plastic Surgery Institute — claimed by pear",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-08-20T11:29:14.000Z"
+      "pubDate": "2026-08-21T10:26:17.000Z"
     }
   ]
 }
