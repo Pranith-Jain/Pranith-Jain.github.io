@@ -6,6 +6,7 @@
  * breach monitoring, and more.
  */
 import type { AgentTool } from './types';
+import { getRecipeDetail, RECIPES } from './recipes';
 
 const API_BASE = 'https://pranithjain.qzz.io';
 
@@ -1267,6 +1268,150 @@ export function buildToolRegistry(
     },
 
     // ══════════════════════════════════════════════════════════════════════
+    //  DETECTION RULE VALIDATION & CONVERSION
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'validate_detection_rule',
+      description:
+        'Validate a detection rule before delivering it: YARA (braces, sections, string refs, hex tokens, duplicate names), Sigma (schema + logsource + detection + condition identifiers), Suricata/Snort (header grammar, msg/sid/rev, local sid range), osquery (read-only guard, paren balance, known tables). Always run this on generated rules; fix reported errors before returning them.',
+      params: [
+        { name: 'kind', type: 'enum', description: 'Rule kind', required: true, enum: ['yara', 'sigma', 'suricata', 'snort', 'osquery'] },
+        { name: 'source', type: 'string', description: 'Full rule text to validate', required: true },
+      ],
+      execute: (args) =>
+        apiFetch(self, '/api/v1/rules/validate', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ kind: String(args.kind), source: String(args.source) }),
+        }, ih),
+    },
+    {
+      name: 'convert_sigma_rule',
+      description:
+        'Convert a Sigma rule to Splunk SPL or Microsoft Sentinel KQL. Handles field modifiers (contains/startswith/endswith/re/null/gt/lt), multi-value lists, N-of expansions, and optional field-name mapping.',
+      params: [
+        { name: 'yaml', type: 'string', description: 'Sigma rule YAML source', required: true },
+        { name: 'target', type: 'enum', description: 'Target query language', required: true, enum: ['splunk', 'kql'] },
+        { name: 'field_map_json', type: 'string', description: 'Optional JSON object mapping Sigma field names to target names', required: false },
+      ],
+      execute: (args) => {
+        let fieldNameMap: Record<string, string> | undefined;
+        if (args.field_map_json) {
+          try { fieldNameMap = JSON.parse(String(args.field_map_json)) as Record<string, string>; }
+          catch { return Promise.resolve({ error: 'field_map_json is not valid JSON' }); }
+        }
+        return apiFetch(self, '/api/v1/rules/sigma/convert', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ yaml: String(args.yaml), target: String(args.target), fieldNameMap }),
+        }, ih);
+      },
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  OBSERVABLE EXTRACTION (DETERMINISTIC)
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'extract_observables_fast',
+      description:
+        'Deterministic regex-based IOC extraction from raw text — no AI. Handles defanged indicators (hxxp, [.], [at], [dot]); extracts IPs, domains, URLs, emails, hashes, CVEs, mutexes, registry keys, file paths, crypto addresses with positions. Use for large inputs or literal extraction; use parse_threat_report for actors/mitre/context.',
+      params: [
+        { name: 'text', type: 'string', description: 'Raw text to extract observables from (max 500k chars)', required: true },
+        { name: 'max_hits', type: 'number', description: 'Cap on unique observables returned (default 2000)', required: false },
+      ],
+      execute: (args) =>
+        apiFetch(self, '/api/v1/observables/extract', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ text: String(args.text ?? '').slice(0, 500_000), ...(args.max_hits ? { maxHits: Number(args.max_hits) } : {}) }),
+        }, ih),
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  STATIC FILE TRIAGE
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'static_triage_file',
+      description:
+        'Static file triage from base64 bytes (max ~6MB decoded): magic-byte family detection, SHA-256 (+MD5/SHA-1), entropy per section, PE header parse, packer signals (UPX etc.), embedded artifacts (embedded PE/nested zip/OLE). No execution — pure structural analysis.',
+      params: [
+        { name: 'data_base64', type: 'string', description: 'Base64-encoded file bytes', required: true },
+        { name: 'filename', type: 'string', description: 'Original filename hint (optional)', required: false },
+      ],
+      execute: (args) => {
+        const b64 = String(args.data_base64 ?? '').replace(/\s+/g, '');
+        if (!b64) return Promise.resolve({ error: 'data_base64 is required' });
+        const approxBytes = Math.floor((b64.length * 3) / 4);
+        if (approxBytes > 8 * 1024 * 1024) return Promise.resolve({ error: `file too large for static triage (${approxBytes} bytes > 8MB limit)` });
+        return apiFetch(self, '/api/v1/file/triage-static', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ dataBase64: b64, ...(args.filename ? { filename: String(args.filename) } : {}) }),
+        }, ih);
+      },
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  NETWORK SIGNAL ANALYTICS
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'detect_c2_beaconing',
+      description:
+        'Score connection timestamps to one destination for C2 beacon periodicity: mean/stddev inter-arrival, jitter ratio, payload-size consistency. Returns 0-100 beacon score with verdict.',
+      params: [
+        { name: 'timestamps', type: 'string', description: 'Comma-separated timestamps (epoch ms or ISO 8601)', required: true },
+        { name: 'destination', type: 'string', description: 'Destination ip or host:port', required: false },
+        { name: 'bytes', type: 'string', description: 'Optional comma-separated per-connection byte counts', required: false },
+      ],
+      execute: (args) => {
+        const parse = (s: unknown) => String(s ?? '').split(',').map((v) => v.trim()).filter(Boolean);
+        const ts = parse(args.timestamps);
+        if (ts.length < 4) return Promise.resolve({ error: 'need at least 4 timestamps' });
+        const bytes = args.bytes ? parse(args.bytes).map(Number).filter(Number.isFinite) : undefined;
+        return apiFetch(self, '/api/v1/net-analytics/beacon', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ timestamps: ts, ...(args.destination ? { destination: String(args.destination) } : {}), ...(bytes && bytes.length ? { bytes } : {}) }),
+        }, ih);
+      },
+    },
+    {
+      name: 'detect_dns_tunneling',
+      description:
+        'Heuristic DNS-tunneling detection over query names targeting one zone: label length distribution, Shannon entropy, uniqueness ratio. Returns 0-100 tunnel score with verdict and indicators.',
+      params: [
+        { name: 'queries', type: 'string', description: 'Newline/comma-separated DNS query names', required: true },
+        { name: 'zone', type: 'string', description: 'Authoritative zone; inferred from queries when omitted', required: false },
+      ],
+      execute: (args) => {
+        const queries = String(args.queries ?? '').split(/[\n,]+/).map((q) => q.trim()).filter(Boolean);
+        if (queries.length < 5) return Promise.resolve({ error: 'need at least 5 DNS queries' });
+        return apiFetch(self, '/api/v1/net-analytics/dns-tunnel', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ queries, ...(args.zone ? { zone: String(args.zone) } : {}) }),
+        }, ih);
+      },
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  RECIPES (executable playbooks)
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'get_recipe',
+      description:
+        'Fetch a proven multi-step investigation playbook (file-triage, phishing-email, c2-identification, dns-tunnel-hunt, report-ioc-sweep). Returns ordered steps with tool names, argument templates ({input}/{ioc} placeholders), and why each step matters. Follow it step-by-step when the query matches.',
+      params: [
+        { name: 'recipe_id', type: 'enum', description: 'Playbook to fetch', required: true, enum: ['file-triage', 'phishing-email', 'c2-identification', 'dns-tunnel-hunt', 'report-ioc-sweep'] },
+      ],
+      execute: (args) => {
+        const recipe = getRecipeDetail(String(args.recipe_id));
+        if (!recipe) return Promise.resolve({ error: `unknown recipe "${String(args.recipe_id)}"`, available: RECIPES.map((r) => r.id) });
+        return Promise.resolve({ ok: true, ...recipe });
+      },
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
     //  IR & RESPONSE
     // ══════════════════════════════════════════════════════════════════════
     {
@@ -1442,6 +1587,64 @@ function toolSummary(tool: string, result: unknown): string {
       const nodes = pickArray(data, ['nodes', 'iocs', 'entities']);
       if (nodes) parts.push(`nodes=${nodes.length}`);
       return parts.join(' | ') + rawTail(data, ['relationships', 'correlations', 'edges', 'nodes', 'iocs']);
+    }
+
+    case 'validate_detection_rule': {
+      const valid = data.valid === true;
+      parts.push(valid ? 'valid=true' : 'valid=false');
+      if (typeof data.rules === 'number') parts.push(`rules=${data.rules}`);
+      const errs = Array.isArray(data.errors) ? data.errors as unknown[] : null;
+      const warns = Array.isArray(data.warnings) ? data.warnings as unknown[] : null;
+      if (errs) parts.push(`errors=${errs.length}`);
+      if (warns) parts.push(`warnings=${warns.length}`);
+      return parts.join(' | ') + rawTail(data, ['valid', 'rules', 'errors', 'warnings', 'parsed', 'tables']);
+    }
+    case 'convert_sigma_rule': {
+      if (data.ok !== true && typeof data.error === 'string') return `convert failed | error=${String(data.error).slice(0, 120)}`;
+      parts.push('ok=true');
+      if (typeof data.query === 'string') parts.push(`query="${data.query.slice(0, 160)}"`);
+      return parts.join(' | ');
+    }
+    case 'extract_observables_fast': {
+      const counts = data.counts as Record<string, number> | undefined;
+      let total = 0;
+      if (counts && typeof counts === 'object') {
+        for (const v of Object.values(counts)) total += Number(v) || 0;
+        const nz = Object.entries(counts).filter(([, v]) => v > 0);
+        if (nz.length) parts.push(`counts={${nz.map(([k, v]) => `${k}:${v}`).join(', ')}}`);
+      }
+      parts.push(`total=${total}`);
+      if (data.truncated === true) parts.push('truncated=true');
+      return parts.join(' | ') + rawTail(data, ['counts', 'observables']);
+    }
+    case 'static_triage_file': {
+      const ft = data.fileType as { family?: string; detail?: string } | undefined;
+      if (ft?.family) parts.push(`family=${ft.family}${ft.detail ? `(${ft.detail})` : ''}`);
+      const ent = data.entropy as { overall?: number } | undefined;
+      if (typeof ent?.overall === 'number') parts.push(`entropy=${ent.overall}`);
+      const sig = data.packerSignals as unknown[] | undefined;
+      if (sig) parts.push(`packerSignals=${sig.length}`);
+      const emb = data.embeddedArtifacts as unknown[] | undefined;
+      if (emb) parts.push(`embedded=${emb.length}`);
+      if (typeof data.sha256 === 'string') parts.push(`sha256=${data.sha256.slice(0, 16)}…`);
+      return parts.join(' | ') + rawTail(data, ['fileType', 'entropy', 'packerSignals', 'embeddedArtifacts', 'sha256', 'pe', 'zipMembers', 'scriptIndicators', 'md5', 'sha1']);
+    }
+    case 'detect_c2_beaconing': {
+      const st = data.intervalStats as { jitterRatio?: number; meanMs?: number } | undefined;
+      if (typeof data.beaconScore === 'number') parts.push(`beaconScore=${data.beaconScore}`);
+      if (typeof data.verdict === 'string') parts.push(`verdict=${data.verdict}`);
+      if (st?.jitterRatio !== undefined) parts.push(`jitter=${st.jitterRatio}`);
+      if (st?.meanMs !== undefined) parts.push(`meanInterval=${st.meanMs}ms`);
+      if (typeof data.connections === 'number') parts.push(`connections=${data.connections}`);
+      return parts.join(' | ') + rawTail(data, ['intervalStats', 'beaconScore', 'verdict', 'connections', 'notes']);
+    }
+    case 'detect_dns_tunneling': {
+      if (typeof data.tunnelScore === 'number') parts.push(`tunnelScore=${data.tunnelScore}`);
+      if (typeof data.verdict === 'string') parts.push(`verdict=${data.verdict}`);
+      if (typeof data.entropyAvg === 'number') parts.push(`entropy=${data.entropyAvg}`);
+      if (typeof data.avgLabelLength === 'number') parts.push(`avgLabel=${data.avgLabelLength}`);
+      if (typeof data.queriesAnalyzed === 'number') parts.push(`queries=${data.queriesAnalyzed}`);
+      return parts.join(' | ') + rawTail(data, ['tunnelScore', 'verdict', 'entropyAvg', 'avgLabelLength', 'queriesAnalyzed', 'indicators', 'sampleLabels']);
     }
 
     default: {

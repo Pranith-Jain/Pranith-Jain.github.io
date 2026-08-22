@@ -182,4 +182,4 @@ for (const route of routes) {
   }
 }
 
-console.log(`  page-og -> ${built} cards (${failed} failed) in dist/og/pages/`);
+console.log(`  page-og -> ${built} cards (${failed} failed) in .og-cache/pages/ -> KV ogpage:v1:* (best-effort)`);

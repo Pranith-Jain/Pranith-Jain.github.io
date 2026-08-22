@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 328 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 334 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 328,
-  "generatedAt": "2026-08-22T10:27:49+05:30",
+  "toolCount": 334,
+  "generatedAt": "2026-08-22T20:20:27+05:30",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -120,6 +120,11 @@
       "category": "ioc"
     },
     {
+      "name": "convert_sigma_rule",
+      "description": "Convert a Sigma rule to Splunk SPL or Microsoft Sentinel KQL. Handles field modifiers (contains/startswith/endswith/re/null), multi-value lists, N-of expansions, and optional field-name mapping.",
+      "category": "other"
+    },
+    {
       "name": "correlate_iocs",
       "description": "Search correlated IOCs. Find relationships between indicators — shared infrastructure, overlapping campaigns, and linked threat actors.",
       "category": "ioc"
@@ -172,6 +177,16 @@
     {
       "name": "depx_stats",
       "description": "Supply-chain intelligence statistics — ecosystem breakdown, recent advisory counts, and disclosure trends from the OpenSSF Malicious Packages database.",
+      "category": "other"
+    },
+    {
+      "name": "detect_c2_beaconing",
+      "description": "Score connection timestamps to one destination for C2 beacon periodicity: mean/stddev inter-arrival, jitter ratio, payload-size consistency. Returns 0-100 beacon score with verdict.",
+      "category": "other"
+    },
+    {
+      "name": "detect_dns_tunneling",
+      "description": "Heuristic DNS-tunneling detection over query names targeting one zone: label length distribution, Shannon entropy, uniqueness ratio → 0-100 tunnel score with verdict and indicators.",
       "category": "other"
     },
     {
@@ -523,6 +538,11 @@
       "name": "extract_iocs_from_image",
       "description": "Fetch an image and run Workers AI vision over it to extract IOCs that are only visible in screenshots (IPs, domains, URLs, hashes, CVEs, emails). Returns the OCR text + the per-IOC confidence band.",
       "category": "analysis"
+    },
+    {
+      "name": "extract_observables_fast",
+      "description": "Deterministic regex-based IOC extraction from raw text — no AI. Handles defanged indicators (hxxp, [.], [at], [dot]); extracts IPs, domains, URLs, emails, hashes, CVEs, mutexes, registry keys, file paths, and crypto addresses with positions.",
+      "category": "other"
     },
     {
       "name": "extract_ttps",
@@ -1180,6 +1200,11 @@
       "category": "other"
     },
     {
+      "name": "static_triage_file",
+      "description": "Static file triage from base64 bytes (max ~6MB decoded): magic-byte family detection, hashes, entropy analysis, PE header parse, packer signals (UPX etc.), embedded artifacts (embedded PE/nested zip/OLE). No execution — pure structural analysis.",
+      "category": "other"
+    },
+    {
       "name": "stix_query_bundles",
       "description": "Query the STIX 2.1 intelligence bundle store with PostgREST-style filters. Returns threat intelligence bundles matching your criteria. Use stix_translate first to convert natural language to structured filter parameters. Supports filters: source_type (eq.osint/eq.darknet), threat_actors (cs.{APT29}), malware_names, sectors, countries_target, vulnerabilities, date ranges (stix_published_at=gte.), and more. Supports select, order, limit, offset.",
       "category": "other"
@@ -1507,6 +1532,11 @@
     {
       "name": "username_scrape_profiles",
       "description": "Scrape profile metadata (display name, bio, avatar, follower counts) from platforms where the username is found. Returns rich profile data, not just found/not-found.",
+      "category": "other"
+    },
+    {
+      "name": "validate_detection_rule",
+      "description": "Validate a detection rule before use: YARA (structure, string refs, hex tokens, dup names), Sigma (schema + logsource + detection + condition identifiers), Suricata/Snort (header grammar, msg/sid/rev, local sid range), osquery (read-only guard, paren balance, known tables).",
       "category": "other"
     },
     {
