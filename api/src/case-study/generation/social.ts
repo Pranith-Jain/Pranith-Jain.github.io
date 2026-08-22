@@ -382,6 +382,10 @@ function validateSocial(
 
 /**
  * Strip untrusted URLs and ungrounded CVEs from social content.
+ * Also enforces the voice's punctuation bans deterministically:
+ *  - Em/en-dashes become "." before an uppercase letter (new sentence) or
+ *    "," otherwise (continuation) — never left in generated copy.
+ *  - Semicolons become periods.
  * Returns cleaned text.
  */
 function cleanSocial(text: string, sourceBody: string): string {
@@ -398,7 +402,32 @@ function cleanSocial(text: string, sourceBody: string): string {
     cleaned = cleaned.replace(new RegExp('\\b' + cve.replace(/-/g, '\\-') + '\\b', 'gi'), 'the vulnerability');
   }
 
+  cleaned = normalizeDashesAndSemicolons(cleaned);
+
   return cleaned;
+}
+
+/**
+ * Voice ban-list enforcement (prompted AND post-processed): no em-dashes,
+ * no semicolons. A dash/semicolon followed by an uppercase word reads as a
+ * new sentence ("." + capitalized continuation), otherwise as a continuation
+ * (","). Hyphenated compounds ("supply-chain"), ranges ("1-2"), and minus
+ * signs are untouched — only dash punctuation (—, –) with surrounding space
+ * is rewritten.
+ */
+export function normalizeDashesAndSemicolons(text: string): string {
+  // 1. Semicolons are always sentence breaks: ". " + capitalize the next
+  //    letter. (Digits/CVE ids pass through unchanged.)
+  let out = text.replace(/([^\s])\s*;\s*/g, '$1. ');
+  // 2. Em/en-dash punctuation: "." before an uppercase word (new sentence),
+  //    "," otherwise (continuation). Hyphenated compounds and ranges are
+  //    untouched (the dash must have surrounding space to count).
+  out = out.replace(/\s*[—–]\s*(\w)/g, (_m, next: string) => (/[A-Z]/.test(next) ? `. ${next}` : `, ${next}`));
+  // 3. Tidy doubled separators left by adjacent conversions.
+  out = out.replace(/,\s*,/g, ', ').replace(/\.\s*\./g, '. ').replace(/\s+,/g, ',');
+  // 4. Sentences (from step 1's inserted periods) start capitalized.
+  out = out.replace(/([.]\s+)([a-z])/g, (_m, pre: string, ch: string) => pre + ch.toUpperCase());
+  return out.trim();
 }
 
 // ── Self-heal loop ──────────────────────────────────────────────────────
@@ -504,7 +533,19 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="LinkedIn post — practitioner thought-leadership (2026 algorithm-optimized)">\n` +
-    `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final post — no reasoning, no option list, no commentary.\n` +
+    `CORE METHOD — VERBALIZED SAMPLING + PAS (do this before writing, silently):\n` +
+    `Step 1. Think through 5 different hooks out loud, each a different angle from THIS case's facts:\n` +
+    `  Option 1: [hard-number lead] - [why this angle works]\n` +
+    `  Option 2: [different emotional trigger: loss, urgency, or surprise]\n` +
+    `  Option 3: [contrarian take on the consensus read]\n` +
+    `  Option 4: [story opener - one victim, one moment, one decision]\n` +
+    `  Option 5: [bold statement / prediction]\n` +
+    `Pick the winner and say why (one line). Then DELETE all of it from the output.\n` +
+    `Step 2. Apply PAS to the winning hook:\n` +
+    `  Problem: name the specific pain (not vague)\n` +
+    `  Agitation: make the reader feel it viscerally (blast radius, dwell time, cost)\n` +
+    `  Solution: tease what the post delivers\n` +
+    `Output ONLY the final post. No reasoning, no option list, no commentary.\n` +
     `RANGE: 1300-2000 characters in the body.\n` +
     `CRITICAL — 2026 LinkedIn Algorithm Rules (non-negotiable):\n` +
     `- THE FOLD (first 3 lines, <= 210 characters) determines 70% of read-through rate. It MUST contain a COMPLETE, standalone point — NOT a teaser. A reader who never clicks "see more" should still learn one specific thing. Lead with a named entity + hard number + sharp contrast from THIS case.\n` +
@@ -517,17 +558,18 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
       ? `- The body must contain NO link. Putting a URL in the post body cuts reach 50-60%. The link goes on its own final line: "FIRST COMMENT: ${postUrl}".\n`
       : `- Do NOT include a FIRST COMMENT or link in the post.\n`) +
     `- Mobile-first formatting: short paragraphs (1-3 sentences), single blank line between paragraphs, generous white space. No paragraphs over 3 lines on a phone.\n` +
-    `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Professional but human. Specific results and numbers when relevant.\n` +
+    `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Professional but human. Contractions always ("you're", "don't" — never "do not"). Specific results and numbers when relevant. Vary rhythm: short sentence. Then a longer analytical one. Fragments ok when they land.\n` +
     `- Bold at most ONE phrase with **asterisks**, only if it earns the emphasis. No bolded sentences, no bolded lists.\n` +
     `- 0-3 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec.${
       src.hashtags?.length ? ` Use these (drop any that don't fit): ${src.hashtags.join(' ')}` : ''
     }\n` +
+    `- PUNCTUATION BANS: no em-dashes (use a period to start a new sentence, a comma to continue). No semicolons. No AI slop words: unlock, leverage, seamlessly, game-changer, dive into, synergy, ecosystem, best practices, move the needle. No generic openers: "In today's world", "It's no secret", "Have you ever wondered".\n` +
     `- Every CVE id, statistic, named victim, and named entity MUST come from the input data. Inventing a number is the fastest way to lose credibility.\n` +
     `\n` +
     `STRUCTURE — four blocks, each earns its place. Use a single blank line between blocks:\n` +
-    `  1. HOOK (first 1-2 lines, <= 210 chars, entirely inside THE FOLD): a specific fact, a hard number, a sharp contrast, or a contrarian read, taken from THIS case. NOT a teaser. The reader should be able to stop here and still have learned something concrete. Lead with the SUBJECT — never open on "You", "Your", or "If you". Do not reuse a hook shape you would use on another post.\n` +
-    `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable 4-8 item bulleted list of concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact. This block drives SAVES and SHARES.\n` +
-    `  3. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?". The question must demand a substantive (15+ word) response to optimize for the comment-weighting algorithm.\n` +
+    `  1. HOOK (first 1-2 lines, <= 210 chars, entirely inside THE FOLD): your winning sampled hook with PAS baked in — the Problem named specifically, the stake made felt, the Solution teased. Lead with the SUBJECT — never open on "You", "Your", or "If you". Do not reuse a hook shape you would use on another post.\n` +
+    `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Agitate here: what actually breaks, who pays, how long it takes to notice. Lead with the take, then support it with data. Include a scannable 4-8 item bulleted list of concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact. This block drives SAVES and SHARES.\n` +
+    `  3. CLOSE (1-2 lines): the takeaway (Solution landed) and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?". The question must demand a substantive (15+ word) response to optimize for the comment-weighting algorithm.\n` +
     `  4. CAROUSEL OUTLINE: — optional but the single highest-engagement format on LinkedIn in 2026 (document carousels earn ~6x the engagement of a text-only post, and ~3x even video). When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 7-10 one-line slide titles (slide 1 = the hook, slides 2-8 = one specific idea each, slide 9-10 = the takeaway + CTA). Skip the block entirely for thin or breaking items.\n` +
     (includeLink
       ? `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\nFIRST COMMENT: ${postUrl}\n\n`
@@ -544,9 +586,7 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `LockBit listed 14 new victims last week. 4 of those companies already appeared on a different affiliate's site earlier this quarter.\n` +
     `Same haul, second auction. That's affiliate churn, not fresh compromise.\n` +
     `\n` +
-    `Most coverage reads this as "LockBit is back, again." The story underneath is operational: affiliates rotate the same victim pool across leak sites to pressure payment. The encryptor and the negotiator are differentiators the public reporting doesn't separate.\n` +
-    `\n` +
-    `If your IR retainer treats every extortion note as a fresh compromise, you've already lost the timing advantage.\n` +
+    `Most coverage reads this as "LockBit is back, again." The story underneath is operational: affiliates rotate the same victim pool across leak sites to pressure payment. If your IR retainer treats every extortion note as compromise #1, you're paying twice for one incident. The encryptor and the negotiator are differentiators the public reporting doesn't separate.\n` +
     `\n` +
     `- 14 victims listed, 6 in healthcare, 3 in manufacturing\n` +
     `- 4 re-victimisations traced to a single haul across two affiliates\n` +
@@ -568,7 +608,7 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     (includeLink ? `FIRST COMMENT: ${postUrl}\n` : ``) +
     `#LockBit #Ransomware #DFIR #ThreatIntel\n` +
     `\n` +
-    `↑ Notes: 14 named victims, 4 re-victimisations, dwell time, named tactic — every number is in the case. Hook lands the whole point above the fold in two lines. Insight block carries the analytical take. Bullets are scannable, each one fact. Close is a question practitioners actually answer.\n` +
+    `↑ Notes (internal): Hook sampled 5 options, picked the hard-number lead. PAS: Problem = duplicate victims listed as new; Agitation = paying twice for one incident; Solution = the analytical take + bullets. Every number is from the case. Hook lands above the fold in two lines. Bullets scannable, one fact each. Close is a question practitioners answer.\n` +
     `\n` +
     `BAD — full post (exactly what to avoid):\n` +
     `\n` +
@@ -583,7 +623,7 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `\n` +
     `What do you think? Let me know in the comments! #cyber #security #infosec\n` +
     `\n` +
-    `↑ hype-nouns ("implications are huge"), throat-clearing ("in today's landscape"), decorative emoji, "many/several/a number of/some" bullets, link in body, generic hashtag stack, weak close. This is exactly the post the algorithm buries.\n` +
+    `↑ hype-nouns ("implications are huge"), throat-clearing ("in today's landscape"), decorative emoji, "many/several/a number of/some" bullets, corporate filler ("best practices"), link in body, generic hashtag stack, weak close. This is exactly the post the algorithm buries.\n` +
     `\n` +
     `CRITICAL: every number, victim, dwell time, and percentage in the GOOD example is there to show the SHAPE of a specific, scannable post — they are NOT facts to carry over. In your post, use only figures, names, and indicators present in the input data below. If the data does not support a bullet, drop the bullet. Inventing a precise-sounding number to match the example is the single fastest way to lose credibility.\n` +
     `</examples>\n\n` +

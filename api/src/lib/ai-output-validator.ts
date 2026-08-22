@@ -774,6 +774,18 @@ const SLOP_PATTERNS: Array<{ pattern: RegExp; label: string }> = [
     pattern: /\bthis (?:highlights|underscores|emphasizes) the (?:importance|need|critical)\b/gi,
     label: 'empty emphasis',
   },
+  // Reference-voice ban list (content-repurposing system): AI slop + corporate
+  { pattern: /\bunlock(?:s|ing|ed)?\b/gi, label: 'AI slop verb' },
+  { pattern: /\bleverag(?:e|es|ing|ed)\b/gi, label: 'AI slop verb' },
+  { pattern: /\bseamless(?:ly)?\b/gi, label: 'AI slop adverb' },
+  { pattern: /\bgame.?chang(?:er|ing)\b/gi, label: 'AI slop noun' },
+  { pattern: /\bdive into\b/gi, label: 'AI slop phrase' },
+  { pattern: /\bsynerg(?:y|ies|istic)\b/gi, label: 'corporate filler' },
+  { pattern: /\bbest practices\b/gi, label: 'corporate filler' },
+  { pattern: /\becosystem\b/gi, label: 'corporate filler' },
+  { pattern: /\bmove the needle\b/gi, label: 'corporate filler' },
+  { pattern: /\bin order to\b/gi, label: 'wordy' },
+  { pattern: /\bdue to the fact (?:that )?\b/gi, label: 'wordy' },
 ];
 
 export function detectSlop(text: string): Array<{ phrase: string; label: string }> {

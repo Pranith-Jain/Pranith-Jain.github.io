@@ -4,6 +4,7 @@ import { resolveSubject } from './subject-resolver';
 import { planSources } from './source-planner';
 import { gatherPhase, type GatherContext } from './gatherer';
 import { validateMitreIds, validateActorNames, detectContradictions, type Conflict } from './validator';
+import { loadAttackIdIndex } from '../attack-id-lazy';
 import { rankEvidence, type RankedItem } from './ranker';
 import { writeReport, type WriteDeps, type WriteOutput } from './writer';
 import { assembleReport } from './assemble';
@@ -99,6 +100,10 @@ export async function advance(s: ReportState, deps: PipelineDeps): Promise<Repor
         };
       }
       case 'validate': {
+        // Warm the ATT&CK id index before validating — validateMitreIds reads
+        // the memoised sync snapshot, which is empty until the lazy loader
+        // has fetched the runtime asset in this isolate.
+        await loadAttackIdIndex(deps.env).catch(() => {});
         const text = s.sources.flatMap((r) => r.items.map((i) => i.text)).join(' ');
         const mitre = validateMitreIds([...new Set(text.match(MITRE_RE) ?? [])]).valid;
         const actors = validateActorNames([s.subject!.canonical]).valid;
