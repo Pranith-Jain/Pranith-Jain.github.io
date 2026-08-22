@@ -17,6 +17,10 @@ Disallow: /private/
 # fetches) kept working. Allow the OG image path explicitly — it is more
 # specific than the /api/ disallow below, so it wins for these URLs.
 Allow: /api/v1/og-image/
+# Versioned per-page OG cards (emitted by pageCardUrl since the cache-bust):
+# same cards, but outside /api/ entirely — a fresh URL path each deploy also
+# forces X to re-fetch images whose card state it had cached as failed.
+Allow: /og-image/
 Disallow: /api/
 
 # AI answer-engine crawlers — explicitly allowed so blog/threat-intel content

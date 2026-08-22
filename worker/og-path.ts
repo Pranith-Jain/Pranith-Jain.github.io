@@ -19,6 +19,8 @@
  *                    with no image. The legacy forms are still accepted
  *                    for already-cached meta.
  */
+import { OG_BUILD_VERSION } from './og-version.generated';
+
 export type OgImageType = 'briefing' | 'blog' | 'page';
 
 const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog)\/([a-z0-9][a-z0-9-]{0,199})\.png$/i;
@@ -26,10 +28,15 @@ const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog)\/([a-z0-9][a-z0-9-]{0
 /** Pathname of the generic per-page card endpoint (legacy query form). */
 export const OG_PAGE_PATH = '/api/v1/og-image/page.png';
 
-/** Path prefix of the dot-encoded per-page card endpoint. */
+/** Path prefix of the dot-encoded per-page card endpoint (legacy, unversioned). */
 export const OG_PAGE_PREFIX = '/api/v1/og-image/page/';
 
-const OG_PAGE_DOT_RE = /^\/api\/v1\/og-image\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i;
+/** Versioned per-page card prefix emitted by pageCardUrl() — outside /api/,
+ *  version segment changes every build so X re-crawls fresh images.
+ *  {v} is substituted with OG_BUILD_VERSION at emit time. */
+export const OG_PAGE_VERSIONED_PREFIX = '/og-image/{v}/page/';
+
+const OG_PAGE_DOT_RE = /^\/(?:api\/v1\/)?og-image(?:\/v[a-z0-9]+)?\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i;
 
 /** Parse `/api/v1/og-image/:type/:slug.png` into its parts, or null if the
  *  path is not a valid entity-card OG-image request. */
@@ -44,6 +51,13 @@ export function matchOgImagePath(pathname: string): { type: 'briefing' | 'blog';
  *  valid page-card request. Rejects empty paths and anything that isn't a
  *  site-relative path starting with "/". */
 export function matchOgPagePath(url: URL): string | null {
+  // Versioned form first: /og-image/v<build>/page/<dot>.png — emitted by
+  // pageCardUrl() since the per-deploy version bump; normalize to the same
+  // dot-form handling as the legacy /api/v1/og-image/page/<dot>.png.
+  const vm = /^\/og-image\/v[a-z0-9]+\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i.exec(
+    url.pathname
+  );
+  if (vm) return `/${vm[1]!.replace(/\./g, '/')}`;
   // Legacy `?p=` form first — `/page.png` is the exact legacy pathname and
   // also matches the dot-form regex below, so it must win before that.
   if (url.pathname === OG_PAGE_PATH) {
@@ -81,5 +95,13 @@ export function pageCardUrl(pathname: string): string {
     .replace(/^\/+/, '')
     .replace(/\/+/g, '.')
     .replace(/\.png$/i, '');
-  return `${OG_PAGE_PREFIX}${flat}.png`;
+  // Versioned, /api/-free path. Two reasons this is NOT the legacy
+  // `/api/v1/og-image/...` form:
+  //   1. X caches card state (including image-fetch failures) per URL for
+  //      days — a per-deploy version makes every deploy emit fresh image
+  //      URLs that force a clean re-crawl.
+  //   2. Sits outside the /api/ prefix entirely (robots + any api-gate
+  //      edge cases), served by the same worker handler via the /og-image/
+  //      alias in worker/index.ts.
+  return `${OG_PAGE_VERSIONED_PREFIX.replace('{v}', OG_BUILD_VERSION)}${flat}.png`;
 }

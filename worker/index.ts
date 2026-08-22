@@ -89,10 +89,19 @@ export default {
       return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
     }
 
-    // Dynamic OG card PNGs (public, before /api/v1/* key-gate)
-    if (url.pathname.startsWith('/api/v1/og-image/')) {
+    // Dynamic OG card PNGs (public, before /api/v1/* key-gate).
+    // Two prefixes:
+    //   /api/v1/og-image/…  — legacy (already-cached meta, MCP bridge)
+    //   /og-image/v<ver>/…  — versioned form emitted by pageCardUrl() since
+    //                         the per-deploy cache-bust; internally mapped to
+    //                         the same handler by rewriting the prefix.
+    if (url.pathname.startsWith('/api/v1/og-image/') || url.pathname.startsWith('/og-image/')) {
       try {
-        const ogRes = await handleOgImage(request, env, url, ctx);
+        let ogUrl = url;
+        if (url.pathname.startsWith('/og-image/')) {
+          ogUrl = new URL(url.pathname.replace(/^\/og-image\//, '/api/v1/og-image/') + url.search, url.origin);
+        }
+        const ogRes = await handleOgImage(request, env, ogUrl, ctx);
         const h = new Headers(ogRes.headers);
         h.set('x-request-id', requestId);
         return withSecurityHeaders(
