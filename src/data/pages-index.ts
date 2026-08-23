@@ -3256,6 +3256,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['patch', 'task', 'manager', 'ptm', 'maintenance', 'deploy'],
   },
   {
+    path: '/dfir/console',
+    label: 'DFIR Console',
+    description:
+      'Fleet-parity acquisition console — Velociraptor endpoint collection, sample detonation (VT + Hybrid Analysis), rule validation/conversion, and deterministic IOC extraction.',
+    sectionLabel: 'DFIR · Acquisition',
+    group: 'dfir',
+    keywords: ['console', 'velociraptor', 'fleet', 'acquisition', 'sample', 'detonation', 'ioc', 'extraction'],
+  },
+  {
     path: '/dfir/soc-automation',
     label: 'SOC Automation Engine',
     description:
@@ -3265,6 +3274,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['soc', 'automation', 'playbook', 'webhook', 'orchestration'],
   },
 
+  {
+    path: '/share/report/:token',
+    label: 'Shared Investigation Report',
+    description: 'Capability-token shared report — branded investigation findings with IOCs, MITRE mapping and share controls.',
+    sectionLabel: 'Share',
+    group: 'portfolio',
+    keywords: ['share', 'report', 'capability', 'token', 'investigation'],
+  },
   {
     path: '/threatintel/catalog',
     label: 'Page Catalog',

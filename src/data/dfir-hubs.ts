@@ -1174,6 +1174,15 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Persistent notes, IOC snapshots, and findings for DFIR investigations.',
         compVar: 'Notebooks',
       },
+
+      {
+        path: '/dfir/console',
+        tabId: 'console',
+        label: 'DFIR Console',
+        desc: 'Fleet-parity acquisition console — Velociraptor, sample detonation, rule validation and IOC extraction.',
+        compVar: 'DfirConsole',
+        keywords: ['console', 'velociraptor', 'fleet', 'sample', 'detonation', 'ioc'],
+      },
     ],
   },
   {

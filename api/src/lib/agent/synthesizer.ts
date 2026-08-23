@@ -27,6 +27,8 @@ import {
   extractInfrastructure,
   SOURCE_DOMAINS,
   filterIocs,
+  isWebmailDomain,
+  sanitizeContactEmailInfra,
 } from './ioc-filter';
 
 interface DataQuality {
@@ -316,7 +318,12 @@ export function splitSynthOutput(raw: string): {
     .trim();
 
   // Trim trailing whitespace on the prose.
-  const prose = body.replace(/\n+$/, '');
+  // Contact-email hygiene: ransomware.live group profiles carry a
+  // negotiation email (e.g. xenoz84@duck.com). The LLM keeps writing it into
+  // the report as 'infrastructure' — but duck.com is a mail FORWARDER
+  // (Cloudflare), not attacker-controlled; resolving it to an IP produces
+  // false infrastructure claims in shared reports.
+  const prose = sanitizeContactEmailInfra(body.replace(/\n+$/, ''));
 
   // Parse the action card.
   let card: ReportActionCard | undefined;
@@ -458,7 +465,15 @@ function normaliseActionCard(card: ReportActionCard, prose: string): ReportActio
           ? card.diamond.capability.slice(0, 10).map((s) => String(s).slice(0, 200))
           : undefined,
         infrastructure: Array.isArray(card.diamond.infrastructure)
-          ? card.diamond.infrastructure.slice(0, 20).map((s) => String(s).slice(0, 200))
+          ? card.diamond.infrastructure
+              .map((s) => String(s).slice(0, 200))
+              .filter((line) => {
+                // Drop webmail-domain / contact-email 'infrastructure' lines
+                if (/^[^@\s]+@[^\s]+$/.test(line.trim())) return false;
+                const doms = line.toLowerCase().match(/\b([a-z0-9-]+\.[a-z0-9.-]+)\b/g) ?? [];
+                return !doms.some((d) => isWebmailDomain(d));
+              })
+              .slice(0, 20)
           : undefined,
         victim: card.diamond.victim ? String(card.diamond.victim).slice(0, 200) : undefined,
       }

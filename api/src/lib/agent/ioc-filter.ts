@@ -69,6 +69,70 @@ export const SOURCE_DOMAINS = new Set([
   'learn.microsoft.com',
 ]);
 
+/** True when the domain is a personal webmail provider. Contact emails in
+ *  ransomware.group profiles (e.g. xenoz84@duck.com) leak into LLM prose and
+ *  diamond.infrastructure as fake 'attacker infrastructure' — the domain is
+ *  a mail forwarder (duck.com → Cloudflare), never attacker-controlled. */
+/**
+ * Prose-level contact-email hygiene. Ransomware.live group profiles carry a
+ * negotiation email; the report LLM keeps promoting it to 'infrastructure'
+ * ("contact domain duck.com resolves to 20.x.x.x"). duck.com is a Cloudflare
+ * mail FORWARDER — that IP belongs to Cloudflare, not the attacker.
+ *
+ * Rewrites the report text:
+ *   - redacts the email address itself → '[negotiation contact redacted]'
+ *   - drops whole sentences/bullets that present a webmail domain as
+ *     attacker infrastructure
+ */
+export function sanitizeContactEmailInfra(text: string): string {
+  const EMAIL_RE = /[A-Za-z0-9._%+-]+@(?:duck\.com|gmail\.com|outlook\.com|hotmail\.com|live\.com|yahoo\.com|protonmail\.com|proton\.me|mail\.ru|yandex\.(?:ru|com)|tuta\.io|tutanota\.com)/g;
+  let out = text.replace(EMAIL_RE, '[negotiation contact redacted]');
+
+  // Drop bullets/sentences still referencing webmail domains as infrastructure
+  out = out
+    .split('\n')
+    .filter((line) => {
+      if (/^\s*(?:[-*•]|\d+\.)/.test(line)) {
+        // Bullet: drop when it mentions a webmail domain in an infra context
+        return !/(?:resolv\w*|infrastructure|C2|hosting|controlled|server)[^\n]*\b(?:duck|gmail|outlook|hotmail|yahoo|protonmail)\.com\b/i.test(line);
+      }
+      return true;
+    })
+    .join('\n');
+
+  // Inline sentence cleanup for prose paragraphs (non-bullets)
+  out = out.replace(
+    /(?:Passive DNS resolution data indicates that the domain [^.]*?(?:duck|gmail|outlook)\.com[^.]*\.|The group has utilized the contact email address [^.]*(?:duck|gmail|outlook)\.com[^.]*\.|For communications and negotiations[^.]*@(?:duck|gmail|outlook)\.com[^.]*\.)/gi,
+    ''
+  );
+
+  return out;
+}
+
+export function isWebmailDomain(domain: string): boolean {
+  const d = domain.toLowerCase().replace(/^www\./, '');
+  if (SOURCE_DOMAINS.has(d)) return true;
+  const WEBMAIL = new Set([
+    'duck.com',
+    'gmail.com',
+    'outlook.com',
+    'hotmail.com',
+    'live.com',
+    'yahoo.com',
+    'protonmail.com',
+    'proton.me',
+    'mail.ru',
+    'yandex.ru',
+    'yandex.com',
+    'zohomail.com',
+    'tuta.io',
+    'tutanota.com',
+    'onionmail.org',
+    'danwin1210.de',
+  ]);
+  return WEBMAIL.has(d);
+}
+
 /** Domains that are almost always VICTIMS (leak-site post URLs), not attacker
  *  infrastructure. Heuristic: if the domain appears in a ransomlook/ransomware.live
  *  post URL path, it's a victim. We can't know all victim domains, but we can
