@@ -7,7 +7,7 @@
   "mentionCount": 1,
   "firstSeen": "2026-08-21T16:51:22.000Z",
   "lastSeen": "2026-08-21T16:51:22.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
       "date": "2026-08-21",
@@ -25,8 +25,8 @@
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
@@ -35,8 +35,8 @@
     {
       "id": "nteitalia-b3fd",
       "victim": "Nteitalia — claimed by Panzer",
-      "sector": "Not Found",
-      "country": null,
+      "sector": "Technology",
+      "country": "IT",
       "pubDate": "2026-08-21T16:51:22.000Z"
     }
   ]

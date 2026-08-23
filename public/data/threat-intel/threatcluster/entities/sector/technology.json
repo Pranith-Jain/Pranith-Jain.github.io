@@ -4,17 +4,43 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-08-21T02:28:02.000Z",
-  "lastSeen": "2026-08-21T08:30:00.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 3 ransomware groups and 5 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-08-21T08:29:20.000Z",
+  "lastSeen": "2026-08-23T02:27:36.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-08-21",
-      "count": 6
+      "count": 3
+    },
+    {
+      "date": "2026-08-22",
+      "count": 1
+    },
+    {
+      "date": "2026-08-23",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "reliaquest-llc-604f",
+      "title": "ReliaQuest, LLC — claimed by shinyhunters",
+      "pubDate": "2026-08-23T02:27:36.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "island-networks-953c",
+      "title": "Island Networks — claimed by pear",
+      "pubDate": "2026-08-22T07:57:34.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "nteitalia-b3fd",
+      "title": "Nteitalia — claimed by Panzer",
+      "pubDate": "2026-08-21T16:51:22.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "dlp-motive-f5b5",
@@ -26,39 +52,9 @@
       "slug": "log-systems-b032",
       "title": "LOG Systems — claimed by thegentlemen",
       "pubDate": "2026-08-21T08:29:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gt-tele-com-8c00",
-      "title": "gt-tele.com — claimed by settra",
-      "pubDate": "2026-08-21T05:49:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "aztec-software-9fdf",
-      "title": "Aztec Software — claimed by direwolf",
-      "pubDate": "2026-08-21T02:29:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "prosim-aviation-research-d33b",
-      "title": "ProSim Aviation Research — claimed by direwolf",
-      "pubDate": "2026-08-21T02:28:35.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "authenticate-information-systems-40c8",
-      "title": "Authenticate Information Systems — claimed by direwolf",
-      "pubDate": "2026-08-21T02:28:02.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
-      "weight": 3
-    },
     {
       "type": "group",
       "slug": "thegentlemen",
@@ -67,8 +63,20 @@
     },
     {
       "type": "group",
-      "slug": "settra",
-      "name": "settra",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "pear",
+      "name": "pear",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "panzer",
+      "name": "Panzer",
       "weight": 1
     }
   ],

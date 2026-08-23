@@ -4,14 +4,14 @@
   "name": "thegentlemen",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 16,
-  "firstSeen": "2026-08-21T08:25:56.000Z",
+  "mentionCount": 9,
+  "firstSeen": "2026-08-21T08:28:18.000Z",
   "lastSeen": "2026-08-22T05:19:52.000Z",
-  "summary": "Ransomware group with 16 leak-site victims across 9 sectors and 13 countries.",
+  "summary": "Ransomware group with 9 leak-site victims across 7 sectors and 7 countries.",
   "frequency": [
     {
       "date": "2026-08-21",
-      "count": 15
+      "count": 8
     },
     {
       "date": "2026-08-22",
@@ -72,55 +72,13 @@
       "slug": "escon-group-dfda",
       "title": "ESCON Group — claimed by thegentlemen",
       "pubDate": "2026-08-21T08:28:18.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "almeer-9505",
-      "title": "Almeer — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:27:57.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "geb-sas-f24d",
-      "title": "Geb Sas — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:27:36.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "arbeiterkammern-2b50",
-      "title": "ARBEITERKAMMERN — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:27:17.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 2
-    },
-    {
-      "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
       "weight": 2
     },
     {
@@ -131,20 +89,32 @@
     },
     {
       "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
-      "weight": 2
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
     },
     {
       "type": "sector",
       "slug": "hospitality",
       "name": "Hospitality",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
       "weight": 1
     }
   ],
@@ -154,7 +124,7 @@
       "id": "meridian-logistics-group-c7de",
       "victim": "Meridian Logistics Group — claimed by thegentlemen",
       "sector": "Transportation",
-      "country": null,
+      "country": "US",
       "pubDate": "2026-08-22T05:19:52.000Z"
     },
     {
@@ -212,55 +182,6 @@
       "sector": "Manufacturing",
       "country": "US",
       "pubDate": "2026-08-21T08:28:18.000Z"
-    },
-    {
-      "id": "almeer-9505",
-      "victim": "Almeer — claimed by thegentlemen",
-      "sector": "Other",
-      "country": "AE",
-      "pubDate": "2026-08-21T08:27:57.000Z"
-    },
-    {
-      "id": "geb-sas-f24d",
-      "victim": "Geb Sas — claimed by thegentlemen",
-      "sector": "Not Found",
-      "country": "FR",
-      "pubDate": "2026-08-21T08:27:36.000Z"
-    },
-    {
-      "id": "arbeiterkammern-2b50",
-      "victim": "ARBEITERKAMMERN — claimed by thegentlemen",
-      "sector": "Professional Services",
-      "country": "AT",
-      "pubDate": "2026-08-21T08:27:17.000Z"
-    },
-    {
-      "id": "aquasea-41e9",
-      "victim": "Aquasea — claimed by thegentlemen",
-      "sector": "Energy & Utilities",
-      "country": "NO",
-      "pubDate": "2026-08-21T08:26:56.000Z"
-    },
-    {
-      "id": "caz-investments-fab8",
-      "victim": "CAZ Investments — claimed by thegentlemen",
-      "sector": "Financial Services",
-      "country": "BZ",
-      "pubDate": "2026-08-21T08:26:36.000Z"
-    },
-    {
-      "id": "oceanica-internacional-7d66",
-      "victim": "Oceanica Internacional — claimed by thegentlemen",
-      "sector": "Transportation",
-      "country": "WS",
-      "pubDate": "2026-08-21T08:26:16.000Z"
-    },
-    {
-      "id": "ariel-energia-3ad3",
-      "victim": "Ariel Energia — claimed by thegentlemen",
-      "sector": "Energy & Utilities",
-      "country": "IT",
-      "pubDate": "2026-08-21T08:25:56.000Z"
     }
   ]
 }

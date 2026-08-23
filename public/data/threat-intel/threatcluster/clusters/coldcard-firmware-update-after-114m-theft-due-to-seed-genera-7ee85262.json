@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/coldcard-firmware-update-after-114m-theft-due-to-seed-genera-7ee85262?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/coldcard-firmware-update-after-114m-theft-due-to-seed-genera-7ee85262",
   "pubDate": "2026-08-21T19:03:57.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
   "description": "Coldcard has released firmware 5.6.1 to address a seed-generation vulnerability exploited in an attack that drained $114 million 1,816 BTC from users' hardware wallets.",
   "sizeBytes": 168
 }

@@ -1,0 +1,14 @@
+{
+  "id": "el-group-fab3",
+  "victim": "el-group",
+  "group": "incransom",
+  "sector": "Other",
+  "country": "CH",
+  "title": "el-group — claimed by incransom",
+  "link": "https://threatcluster.io/dark-web/victim/el-group",
+  "guid": "darkweb-victim:incransom:el-group",
+  "pubDate": "2026-08-22T22:54:30.000Z",
+  "categories": ["Group: incransom", "Sector: Other", "Country: CH"],
+  "description": "CH · Other · Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&amp;D, and financial documentation.",
+  "sizeBytes": 158
+}

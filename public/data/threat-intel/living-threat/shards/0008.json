@@ -3,6 +3,591 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Threat actors exploiting the Oracle E-Business Suite vulnerability.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential financial gain or disruption.",
+      "Sophistication": "High, due to the use of zero-day vulnerability.",
+      "Strategic_Objectives": "Compromise Oracle E-Business Suite systems.",
+      "TTPs_Employed": ["Remote code execution", "Exploitation of zero-day vulnerabilities"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Development of proof-of-concept for CVE-2025-61882.",
+        "Detection": "Monitor for unusual access patterns to Oracle E-Business Suite.",
+        "Remediation": "Apply Oracle's security patches immediately.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
+            "tactic_id": "T1190",
+            "tactic_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of Oracle E-Business Suite vulnerability.",
+        "Detection": "Monitor for exploitation attempts using known IOCs.",
+        "Remediation": "Apply Oracle's security patches immediately.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
+            "tactic_id": "T1190",
+            "tactic_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential outbound TCP connections from compromised systems.",
+        "Detection": "Monitor network traffic for unusual outbound connections.",
+        "Remediation": "Block suspicious IP addresses and apply patches.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Use of application layer protocols for command and control.",
+            "tactic_id": "T1071",
+            "tactic_name": "Application Layer Protocol"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of application layer protocols for command and control.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Potential system compromise with high impact on confidentiality, integrity, and availability.",
+        "Detection": "Monitor for encryption activities on critical systems.",
+        "Remediation": "Ensure regular backups and apply security patches.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Encrypting data on target systems to disrupt availability.",
+            "tactic_id": "T1486",
+            "tactic_name": "Data Encrypted for Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Encrypting data on target systems to disrupt availability.",
+            "technique_id": "T1486",
+            "technique_name": "Data Encrypted for Impact"
+          }
+        ],
+        "Techniques": ["T1486"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of zero-day vulnerabilities and remote code execution."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of Oracle E-Business Suite zero-day vulnerability.",
+      "Exploits": ["CVE-2025-61882"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Nuclei vulnerability scanner"],
+      "Zero_Days": ["CVE-2025-61882"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for suspicious IP activity and file hashes."],
+    "Extracted_Entities": {
+      "Assets": ["Oracle E-Business Suite systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Oracle"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": ["200.107.207.26", "185.181.60.11"],
+      "Keywords": ["CVE-2025-61882", "zero-day", "remote code execution"],
+      "Malware_Families": [],
+      "Malware_Filenames": ["oracle_ebs_nday_exploit_poc_scattered_lapsus_retard_cl0p_hunters.zip"],
+      "Patches": ["October 2023 Critical Patch Update"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Oracle E-Business Suite"],
+      "Technologies": ["HTTP"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-61882"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["HTTP"],
+      "Description": "Infrastructure used to exploit Oracle E-Business Suite vulnerability.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": ["200.107.207.26", "185.181.60.11"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply security patches and monitor for IOCs."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": ["200.107.207.26", "185.181.60.11"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Remote code execution", "Exploitation of zero-day vulnerabilities"],
+      "Tools": ["Nuclei vulnerability scanner"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Nuclei vulnerability scanner"],
+    "Severity": "Critical",
+    "Threat_Actors": ["rxerium"],
+    "Timestamp": "2025-10-06T05:25:51Z",
+    "Title": "Critical Zero-Day Vulnerability in Oracle E-Business Suite Exploited",
+    "Tools": ["Nuclei vulnerability scanner", "Oracle E-Business Suite"],
+    "Victim": {
+      "Access_Vectors": ["Remote network access"],
+      "Data_Types_At_Risk": ["Confidentiality, integrity, and availability of systems"],
+      "Description": "Organizations using Oracle E-Business Suite versions 12.2.3 through 12.2.14.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to unpatched systems",
+      "Targeted_Assets": ["Oracle E-Business Suite systems"]
+    },
+    "diamond_model_summary": "The incident involves a critical zero-day vulnerability in Oracle E-Business Suite, exploited by threat actors potentially for financial gain or disruption. The adversary, identified as rxerium, has developed a proof-of-concept for CVE-2025-61882. The capability includes exploiting the vulnerability using the Nuclei vulnerability scanner. The infrastructure involves suspicious IP addresses and HTTP protocol for exploitation. Victims are organizations using Oracle E-Business Suite, with a critical impact on confidentiality, integrity, and availability.",
+    "doc_summary": "Oracle has issued an urgent security alert for a critical zero-day vulnerability affecting Oracle E-Business Suite, tracked as CVE-2025-61882. This vulnerability allows remote code execution without authentication and impacts versions 12.2.3 through 12.2.14. It carries a maximum CVSS 3.1 score of 9.8, indicating critical severity. The flaw can be exploited remotely over a network without requiring username and password credentials, making it particularly dangerous for exposed systems. Security researcher rxerium has developed a Nuclei detection template to identify vulnerable instances. Indicators of compromise include suspicious IP addresses 200.107.207.26 and 185.181.60.11, and a ZIP file named 'oracle_ebs_nday_exploit_poc_scattered_lapsus_retard_cl0p_hunters.zip'. Oracle strongly recommends immediate application of security updates. The October 2023 Critical Patch Update is a prerequisite for applying these emergency fixes.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:51.456648+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "a5df820e5246b42438d57dc7fab1632e1a04a85c",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals exploitation of a zero-day vulnerability in Oracle E-Business Suite, allowing remote code execution without authentication. The weaponization stage involves the development of a proof-of-concept by rxerium. Exploitation occurs through HTTP protocol, with potential command and control via outbound TCP connections. Actions on objectives may include system compromise and data encryption for impact. Detection involves monitoring for IOCs, while remediation requires immediate application of security patches.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies several indicators of compromise, including IP addresses and a specific malware filename. The presence of these indicators suggests active exploitation of the Oracle E-Business Suite vulnerability. The use of a zero-day exploit and the Nuclei vulnerability scanner highlights the sophistication of the threat actors. Monitoring for these IOCs and applying security patches are critical for mitigating the impact of this vulnerability.",
+    "relevance_score": 57,
+    "sequence": 17740,
+    "source": "https://gbhackers.com/poc-released-oracle-e-business-suite-0-day/",
+    "slug": "Critical_Zero-Day_Vulnerability_in_Oracle_E-Business_Suite_Exploited-017740",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Attackers exploiting the sudo vulnerability CVE-2025-32463",
+      "Known_Campaigns": [],
+      "Motivation": "Gain unauthorized administrative control",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Compromise systems for data theft or disruption",
+      "TTPs_Employed": ["Exploitation of sudo vulnerability"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of sudo vulnerability CVE-2025-32463",
+        "Detection": "Monitor sudo logs for unusual activity",
+        "Remediation": "Apply patches for CVE-2025-32463 • Review sudoers configurations",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a system through a vulnerability",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting a vulnerability to gain elevated privileges",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for data theft and service disruption",
+        "Detection": "Audit for unauthorized root commands",
+        "Remediation": "Restrict sudo access • Monitor system logs",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data of interest to the adversary",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing data stored on local systems",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of sudo vulnerability for privilege escalation"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of sudo vulnerability to gain root access",
+      "Exploits": ["CVE-2025-32463"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Sudo utility"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual sudo usage patterns"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor sudo logs", "Audit sudoers configurations"],
+    "Extracted_Entities": {
+      "Assets": ["Linux and Unix systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Cybersecurity and Infrastructure Security Agency"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CISA", "sudo", "vulnerability", "CVE-2025-32463"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["CVE-2025-32463"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["Sudo"],
+      "Technologies": ["Linux", "Unix"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-32463"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Linux and Unix systems with vulnerable sudo configurations",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply patches", "Restrict sudo access", "Monitor system logs"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of CVE-2025-32463"],
+      "Tools": ["Sudo utility"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Configuration management tools", "Patch management systems"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-09-30T10:43:01Z",
+    "Title": "CISA Alert: Critical Sudo Vulnerability CVE-2025-32463 Exploited",
+    "Tools": ["Sudo utility", "Sudo"],
+    "Victim": {
+      "Access_Vectors": ["Local access with limited sudo privileges"],
+      "Data_Types_At_Risk": ["Administrative credentials", "System data"],
+      "Description": "Organizations using Linux and Unix systems with sudo utility",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Information Technology",
+      "Security_Posture": "Vulnerable due to unpatched systems",
+      "Targeted_Assets": ["Linux and Unix systems"]
+    },
+    "diamond_model_summary": "The incident involves attackers exploiting a vulnerability in the sudo utility (CVE-2025-32463) on Linux and Unix systems. The adversary's capability includes exploiting this vulnerability to gain root access. The infrastructure consists of systems with vulnerable sudo configurations. Victims are organizations using these systems, primarily in the Information Technology sector.",
+    "doc_summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has issued an urgent alert regarding a critical vulnerability in the sudo utility, tracked as CVE-2025-32463, affecting Linux and Unix systems. This flaw allows attackers to gain full administrative control by exploiting the chroot option, bypassing normal permission checks. Active exploitation has been observed in targeted attacks, with potential consequences including data theft, service disruptions, and malware installation. CISA rates this issue as high priority and provides guidance for mitigation, including patch management and configuration reviews. Organizations must address this vulnerability by October 20, 2025, to prevent serious attacks. The alert emphasizes the importance of proactive patch management and monitoring for unusual sudo usage patterns.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:51.456616+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "edc5119eef01323ec85da63078eafca30d2f8916",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves exploiting a vulnerability in the sudo utility (CVE-2025-32463) to gain unauthorized administrative control. The exploitation stage is critical, allowing attackers to bypass permission checks. Potential actions on objectives include data theft and service disruption. Detection involves monitoring sudo logs and auditing configurations, while remediation focuses on patching and access restriction.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 74,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of a specific vulnerability (CVE-2025-32463) in the sudo utility. No specific hash values, IP addresses, or domain names are identified. The primary tool involved is the sudo utility itself, with the TTP being the exploitation of this vulnerability for privilege escalation. Detection and remediation focus on patch management and configuration review.",
+    "relevance_score": 47,
+    "sequence": 17739,
+    "source": "https://gbhackers.com/cisa-issues-alert-on-linux-and-unix-sudo-flaw/",
+    "slug": "CISA_Alert__Critical_Sudo_Vulnerability_CVE-2025-32463_Exploited-017739",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Threat actors are actively scanning for vulnerable systems to exploit CVE-2024-3400.",
+      "Known_Campaigns": [],
+      "Motivation": "Opportunistic exploitation of vulnerable systems for potential control.",
+      "Sophistication": "Moderate, leveraging publicly available proof-of-concept code.",
+      "Strategic_Objectives": "Gain unauthorized access and control over vulnerable systems.",
+      "TTPs_Employed": ["Scanning for vulnerabilities", "Exploitation of CVE-2024-3400"]
+    },
+    "Analyses": [
+      {
+        "Description": "Scanning for vulnerable PAN-OS systems.",
+        "Detection": "Monitor for unusual scanning activity from IP 141.98.82.26.",
+        "Remediation": "Block IP 141.98.82.26 and similar scanning activities.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerable systems.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Actively scanning for vulnerabilities in PAN-OS.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of CVE-2024-3400 to gain unauthorized access.",
+        "Detection": "Monitor for POST and GET requests to /ssl-vpn/hipreport.esp.",
+        "Remediation": "Apply patches provided by Palo Alto Networks immediately.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities to gain initial access.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting the GlobalProtect portal vulnerability.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Systematic targeting of GlobalProtect endpoints"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of a critical vulnerability in PAN-OS to gain unauthorized access.",
+      "Exploits": ["CVE-2024-3400"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Proof-of-concept code for CVE-2024-3400"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Signatures 95187, 95189, 95191"],
+    "Extracted_Entities": {
+      "Assets": ["Firewalls"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Palo Alto Networks"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": ["141.98.82.26"],
+      "Keywords": ["CVE-2024-3400", "GlobalProtect", "PAN-OS"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["PAN-OS 10.2.9-h1", "11.0.4-h1", "11.1.2-h3"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["Palo Alto Networks PAN-OS"],
+      "Technologies": ["GlobalProtect portal"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2024-3400"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Use of a single source IP address to target GlobalProtect endpoints.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": ["141.98.82.26"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Upgrade PAN-OS to patched versions immediately."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": ["141.98.82.26"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of CVE-2024-3400"],
+      "Tools": ["Proof-of-concept code for CVE-2024-3400"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network intrusion detection systems"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-09-30T12:13:35Z",
+    "Title": "Critical Vulnerability in Palo Alto Networks PAN-OS: CVE-2024-3400 Exploitation",
+    "Tools": ["Proof-of-concept code for CVE-2024-3400", "Palo Alto Networks PAN-OS"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": ["System control and configuration data"],
+      "Description": "Organizations using vulnerable versions of Palo Alto Networks PAN-OS.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Information Technology",
+      "Security_Posture": "Vulnerable if unpatched",
+      "Targeted_Assets": ["GlobalProtect portals and gateways"]
+    },
+    "diamond_model_summary": "The incident involves threat actors exploiting a critical vulnerability, CVE-2024-3400, in Palo Alto Networks PAN-OS. The adversary is using a single IP address to scan and exploit vulnerable systems. The capability involves leveraging publicly available proof-of-concept code to gain unauthorized access. The infrastructure includes the use of a specific IP address for targeting. The victims are organizations using vulnerable versions of PAN-OS, primarily in the Information Technology sector.",
+    "doc_summary": "An increase in internet-wide scanning activity has been observed, indicating that threat actors are probing for systems vulnerable to CVE-2024-3400, a critical flaw in Palo Alto Networks PAN-OS. The vulnerability affects PAN-OS versions 10.2, 11.0, and 11.1 when configured with a GlobalProtect portal or gateway. Security researchers at SANS ISC noted a single source IP address, 141.98.82.26, targeting the GlobalProtect portal’s file-upload endpoint. The exploitation involves a POST request to /ssl-vpn/hipreport.esp with a manipulated session ID, followed by a GET request to confirm file upload. This vulnerability has a CVSS score of 10.0 and demands immediate attention. Although no widespread attacks have been reported, proof-of-concept code is publicly available, increasing the risk for unpatched systems. Palo Alto Networks has released fixes, and organizations are urged to upgrade immediately. Monitoring for anomalous requests and deploying threat prevention signatures are recommended.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:51.456584+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "307d6d92c1a9f747a3c3a82a7c3749a163fff0d1",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the adversary is conducting reconnaissance by scanning for vulnerable PAN-OS systems. The exploitation phase involves leveraging CVE-2024-3400 to gain unauthorized access. No significant activities were detected in the weaponization, delivery, installation, command and control, or actions on objectives stages. Detection involves monitoring for unusual scanning activity and specific POST and GET requests. Remediation includes applying patches and blocking malicious IP addresses.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 92,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies IP addresses and TTPs as key indicators. The IP address 141.98.82.26 is used for scanning and exploitation attempts. The TTPs involve exploiting a known vulnerability, CVE-2024-3400, using publicly available proof-of-concept code. These indicators are crucial for detection and response efforts. Organizations should focus on monitoring network traffic for these indicators and applying patches to mitigate the threat.",
+    "relevance_score": 47,
+    "sequence": 17738,
+    "source": "https://gbhackers.com/hackers-actively-probe-palo-alto-pan-os-globalprotect-vulnerability/",
+    "slug": "Critical_Vulnerability_in_Palo_Alto_Networks_PAN-OS__CVE-2024-3400_Explo-017738",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "The adversary is likely exploiting known vulnerabilities in Splunk software to gain unauthorized access or disrupt services.",
       "Known_Campaigns": [],
       "Motivation": "Potential motivations include data theft, service disruption, or unauthorized access.",
@@ -97417,651 +98002,6 @@
     "sequence": 17242,
     "source": "https://gbhackers.com/cisa-issues-new-ics-advisories/",
     "slug": "Critical_Vulnerabilities_in_Industrial_Control_Systems_and_Medical_Softw-017242",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is exploiting a zero-day vulnerability in Fortinet products to gain unauthorized access.",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially financial gain or espionage.",
-      "Sophistication": "High, due to the use of zero-day vulnerabilities.",
-      "Strategic_Objectives": "Gain unauthorized access to enterprise networks.",
-      "TTPs_Employed": ["Exploitation of zero-day vulnerabilities", "Creation of rogue administrator accounts"]
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries scan for vulnerable Fortinet devices.",
-        "Detection": "Monitor network traffic for unusual scanning activity.",
-        "Remediation": "Restrict access to management interfaces.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable devices.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Crafting malicious requests to exploit the vulnerability.",
-        "Detection": "Analyze network traffic for crafted requests.",
-        "Remediation": "Apply patches to vulnerable systems.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating malicious payloads.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing or acquiring exploits.",
-            "technique_id": "T1588",
-            "technique_name": "Obtain Capabilities"
-          }
-        ],
-        "Techniques": ["T1588"]
-      },
-      {
-        "Description": "Delivering crafted requests to vulnerable devices.",
-        "Detection": "Monitor for unusual access patterns.",
-        "Remediation": "Restrict access to trusted IPs.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the target network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Exploiting the vulnerability to gain super-admin privileges.",
-        "Detection": "Monitor for privilege escalation attempts.",
-        "Remediation": "Apply security patches immediately.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the target network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Creating rogue administrator accounts on compromised devices.",
-        "Detection": "Monitor for unauthorized account creation.",
-        "Remediation": "Review and audit user accounts regularly.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to the target network.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating new accounts for persistence.",
-            "technique_id": "T1136",
-            "technique_name": "Create Account"
-          }
-        ],
-        "Techniques": ["T1136"]
-      },
-      {
-        "Description": "Using rogue accounts to modify firewall policies.",
-        "Detection": "Monitor for unusual configuration changes.",
-        "Remediation": "Restrict administrative access to trusted users.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using application layer protocols for communication.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Gaining access to SSL VPN user groups for unauthorized tunneling.",
-        "Detection": "Monitor for unauthorized access to VPN groups.",
-        "Remediation": "Regularly review VPN access logs.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from the target network.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using valid accounts to access resources.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The adversary has the capability to exploit zero-day vulnerabilities in Fortinet products.",
-      "Exploits": ["CVE-2025-24472"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["Creation of rogue administrator accounts"],
-      "Tools": ["Crafted CSF proxy requests"],
-      "Zero_Days": ["CVE-2025-24472"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Fortinet firewalls"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Fortinet", "Arctic Wolf"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["zero-day", "authentication bypass", "CVE-2025-24472"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["FortiOS 7.0.17", "FortiProxy 7.2.13"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["FortiOS", "FortiProxy"],
-      "Technologies": ["Node.js websocket module"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-24472", "CVE-2024-55591"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The adversary targets internet-exposed management interfaces on Fortinet devices.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of zero-day vulnerability"],
-      "Tools": ["Crafted CSF proxy requests"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-02-11T20:25:34Z",
-    "Title": "Fortinet Zero-Day Vulnerability Exploitation and Mitigation",
-    "Tools": ["Crafted CSF proxy requests", "FortiOS", "FortiProxy"],
-    "Victim": {
-      "Access_Vectors": ["Internet-exposed management interfaces"],
-      "Data_Types_At_Risk": ["Network configurations", "User credentials"],
-      "Description": "Organizations using vulnerable Fortinet products.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Information Technology",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Fortinet firewalls", "Enterprise networks"]
-    },
-    "diamond_model_summary": "The adversary exploited a zero-day vulnerability in Fortinet products to gain unauthorized access to enterprise networks. The capability involved crafting malicious CSF proxy requests to obtain super-admin privileges. The infrastructure targeted included internet-exposed management interfaces on Fortinet devices. Victims were organizations using vulnerable Fortinet products, primarily in the Information Technology sector. The attack demonstrated high sophistication and a structured campaign with multiple phases.",
-    "doc_summary": "Cybersecurity firm Fortinet has issued an urgent warning about a zero-day authentication bypass vulnerability (CVE-2025-24472) affecting FortiOS and FortiProxy products. This flaw allows remote attackers to gain super-admin privileges via crafted CSF proxy requests, impacting FortiOS versions 7.0.0 through 7.0.16 and FortiProxy versions 7.0.0 through 7.0.19 and 7.2.0 through 7.2.12. The vulnerability has been exploited in the wild, enabling attackers to hijack Fortinet firewalls and infiltrate enterprise networks. Attackers have been observed creating rogue administrator accounts to modify firewall policies and access SSL VPN user groups. Arctic Wolf identified indicators of compromise linked to these vulnerabilities, revealing a structured attack campaign with phases including vulnerability scanning, reconnaissance, SSL VPN configuration, and lateral movement. Fortinet has released critical security updates and urges administrators to apply patches immediately. For those unable to patch, disabling HTTP/HTTPS administrative interfaces or restricting access to trusted IPs is recommended. Enterprises must act swiftly to mitigate risks by applying patches or implementing workarounds.",
-    "enrichment": { "processed_at": "2026-02-18T00:36:36.777627+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "0c461fa252892656a3bb148af8f1a03e8d810b3a",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack followed a structured kill chain, beginning with reconnaissance through vulnerability scanning, followed by weaponization with crafted requests. Delivery involved exploiting public-facing applications, leading to exploitation and installation of rogue accounts. Command and control were achieved through unauthorized configuration changes, and actions on objectives included accessing SSL VPN user groups. Detection and remediation strategies focused on monitoring network activity, applying patches, and restricting access.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes indicators such as crafted CSF proxy requests (Tools) and the exploitation of a zero-day vulnerability (TTPs). The adversary's use of these indicators highlights the challenge of detection and response. Organizations must focus on applying patches, monitoring network activity, and restricting access to mitigate the impact of such sophisticated attacks. The scoring reflects the presence of high-impact indicators, emphasizing the need for robust security measures.",
-    "relevance_score": 59,
-    "sequence": 17241,
-    "source": "https://gbhackers.com/fortinet-fortios-fortiproxy-zero-day/",
-    "slug": "Fortinet_Zero-Day_Vulnerability_Exploitation_and_Mitigation-017241",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Unknown adversaries exploiting SAP NetWeaver Visual Composer vulnerability.",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially targeting manufacturing sector for industrial espionage or disruption.",
-      "Sophistication": "Moderate, leveraging zero-day vulnerability.",
-      "Strategic_Objectives": "Gain unauthorized access to sensitive enterprise systems.",
-      "TTPs_Employed": ["Exploitation of zero-day vulnerabilities", "Deployment of webshells"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2025-31324 to upload malicious files.",
-        "Detection": "Monitor for unusual POST requests to /developmentserver/metadatauploader",
-        "Remediation": "Apply patches for CVE-2025-31324 immediately",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Installation of webshells for persistent access.",
-        "Detection": "Scan for unexpected .jsp files in web directories",
-        "Remediation": "Remove unauthorized webshells and restore from clean backups",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may backdoor web servers with web shells.",
-            "technique_id": "T1505.003",
-            "technique_name": "Web Shell"
-          }
-        ],
-        "Techniques": ["T1505.003"]
-      },
-      {
-        "Description": "Use of webshells for remote command execution.",
-        "Detection": "Monitor for unusual outbound traffic from web servers",
-        "Remediation": "Restrict outbound traffic and use network segmentation",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may use an existing, legitimate external web service as a means for relaying commands to a compromised system.",
-            "technique_id": "T1102",
-            "technique_name": "Web Service"
-          }
-        ],
-        "Techniques": ["T1102"]
-      },
-      {
-        "Description": "Potential lateral movement and data exfiltration.",
-        "Detection": "Monitor for unusual access patterns within the network",
-        "Remediation": "Implement strict access controls and network segmentation",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to move through your environment.",
-            "tactic_id": "TA0008",
-            "tactic_name": "Lateral Movement"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of SAP NetWeaver Visual Composer vulnerability to gain unauthorized access.",
-      "Exploits": ["CVE-2025-31324"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["Webshells"],
-      "Tools": ["Webshells"],
-      "Zero_Days": ["CVE-2025-31324"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["SAP NetWeaver servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["SAP", "Onapsis", "Rapid7"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["zero-day", "vulnerability", "webshell", "CVE-2025-31324"],
-      "Malware_Families": [],
-      "Malware_Filenames": ["helper.jsp", "cache.jsp"],
-      "Patches": ["CVE-2025-31324"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Manufacturing"],
-      "Software": ["SAP NetWeaver Visual Composer"],
-      "Technologies": ["SAP NetWeaver", "Visual Composer"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-31324"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Compromised SAP NetWeaver servers with deployed webshells.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of zero-day vulnerabilities", "Deployment of webshells"],
-      "Tools": ["Webshells"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-04-28T13:23:37Z",
-    "Title": "Critical Zero-Day Vulnerability in SAP NetWeaver Visual Composer",
-    "Tools": ["Webshells", "SAP NetWeaver Visual Composer"],
-    "Victim": {
-      "Access_Vectors": ["Network"],
-      "Data_Types_At_Risk": ["Enterprise data", "Business intelligence"],
-      "Description": "Manufacturing companies using SAP NetWeaver Visual Composer.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Manufacturing",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["SAP NetWeaver servers"]
-    },
-    "diamond_model_summary": "The incident involves unknown adversaries exploiting a zero-day vulnerability in SAP NetWeaver Visual Composer, primarily targeting the manufacturing sector. The adversaries leverage the vulnerability to deploy webshells, enabling persistent access and potential lateral movement within compromised networks. The infrastructure includes compromised SAP servers, and the victims are manufacturing companies globally. The capability involves exploiting CVE-2025-31324 and deploying webshells for persistence.",
-    "doc_summary": "SAP disclosed a critical zero-day vulnerability, CVE-2025-31324, in its NetWeaver Visual Composer component. This vulnerability, with a CVSSv3 score of 10.0, arises from a missing authorization check in the Metadata Uploader module, allowing unauthenticated attackers to upload malicious files. Despite not being part of the default installation, Visual Composer is widely enabled, posing a significant risk. Active exploitation has been observed since March 27, 2025, primarily targeting manufacturing companies. Adversaries use the flaw to deploy webshells, such as helper.jsp and cache.jsp, for persistent access. SAP recommends urgent updates and monitoring to mitigate ongoing attacks.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:34.265838+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "9fb246d584d51e2d5ce44e79dcce932f1ca8963e",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with the exploitation of a zero-day vulnerability (CVE-2025-31324) in SAP NetWeaver Visual Composer, allowing adversaries to upload malicious files. Webshells are installed for persistence, enabling remote command execution and potential lateral movement. The adversaries use these webshells for command and control, maintaining stealthy access to compromised systems. The primary targets are manufacturing companies, with the attack observed since March 27, 2025.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as exploiting zero-day vulnerabilities and deploying webshells. Tools include webshells like helper.jsp and cache.jsp. No specific hash values, IP addresses, or domain names are identified. The focus is on detecting and mitigating the use of webshells and unauthorized access to SAP NetWeaver systems. The scoring reflects the presence of TTPs and tools, indicating a significant challenge in detection and response.",
-    "relevance_score": 51,
-    "sequence": 17240,
-    "source": "https://gbhackers.com/sap-netweaver-0-day-flaw/",
-    "slug": "Critical_Zero-Day_Vulnerability_in_SAP_NetWeaver_Visual_Composer-017240",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential adversaries could exploit the zero-click RCE vulnerability in Outlook.",
-      "Known_Campaigns": [],
-      "Motivation": "Exploitation of vulnerabilities for unauthorized access or data theft.",
-      "Sophistication": "Moderate to high, given the zero-click nature of the exploit.",
-      "Strategic_Objectives": "Gain unauthorized access to systems and data.",
-      "TTPs_Employed": ["Zero-click RCE", "Use After Free exploitation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Malicious email sent to target Outlook users.",
-        "Detection": "Monitor email traffic for suspicious patterns.",
-        "Remediation": "Implement email filtering and user training.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may send phishing emails to gain access.",
-            "technique_id": "T1566",
-            "technique_name": "Phishing"
-          }
-        ],
-        "Techniques": ["T1566"]
-      },
-      {
-        "Description": "Exploitation of the 'Use After Free' vulnerability.",
-        "Detection": "Monitor for unusual application behavior.",
-        "Remediation": "Apply security patches promptly.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to run malicious code.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of a zero-click RCE vulnerability in Outlook.",
-      "Exploits": ["CVE-2025-21298"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": ["CVE-2025-21298"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual email patterns and application behavior."],
-    "Extracted_Entities": {
-      "Assets": ["User data"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2025-21298", "zero-click", "RCE", "Use After Free"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Security patch for CVE-2025-21298"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Microsoft Outlook"],
-      "Technologies": ["Email clients"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-21298"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No specific infrastructure details detected.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches immediately, configure email clients for plain text viewing."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Zero-click RCE", "Use After Free exploitation"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Threat Intelligence Platforms", "Email Security Solutions"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-01-16T06:26:35Z",
-    "Title": "Critical Zero-Click RCE Vulnerability in Microsoft Outlook (CVE-2025-21298)",
-    "Tools": ["Microsoft Outlook"],
-    "Victim": {
-      "Access_Vectors": ["Email"],
-      "Data_Types_At_Risk": ["Confidentiality", "Integrity", "Availability"],
-      "Description": "Users of Microsoft Outlook are at risk.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable without patch",
-      "Targeted_Assets": ["Email clients", "User data"]
-    },
-    "diamond_model_summary": "The incident involves a critical zero-click RCE vulnerability in Microsoft Outlook, identified as CVE-2025-21298. The adversary could exploit this vulnerability to execute arbitrary code by sending a malicious email. The capability involves exploiting a 'Use After Free' weakness, with the potential victim being global Outlook users. The infrastructure details remain unspecified.",
-    "doc_summary": "Microsoft has issued a critical security patch for a newly discovered vulnerability in Outlook, identified as CVE-2025-21298. This zero-click remote code execution (RCE) vulnerability, stemming from a 'Use After Free' weakness (CWE-416), allows attackers to execute arbitrary code by sending a malicious email. With a CVSS score of 9.8, the vulnerability poses a significant risk to users, affecting confidentiality, integrity, and availability. Microsoft strongly advises users to update their systems immediately to mitigate potential exploitation. The vulnerability has not been publicly disclosed or exploited at the time of the patch release, but its exploitability is considered likely. Users are encouraged to configure Outlook to read emails in plain text and exercise caution with attachments from unknown sources.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:34.265809+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "9db4e02e6019a224c93f2a9917224013a2ed9998",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals that the adversary could deliver a malicious email to exploit the 'Use After Free' vulnerability in Outlook, leading to remote code execution. The delivery stage involves phishing tactics, while the exploitation stage leverages the vulnerability for client execution. No significant activities were detected in other stages.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 92,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis indicates a lack of specific indicators such as hash values, IP addresses, or domain names. The primary focus is on the TTPs, specifically the zero-click RCE and 'Use After Free' exploitation. The absence of detailed indicators limits the ability to provide a comprehensive analysis, highlighting the need for further investigation.",
-    "relevance_score": 43,
-    "sequence": 17239,
-    "source": "https://gbhackers.com/microsoft-patches-outlook-zero-click-rce-exploited-via-email-patch-now/",
-    "slug": "Critical_Zero-Click_RCE_Vulnerability_in_Microsoft_Outlook__CVE-2025-212-017239",
     "shard": 8
   }
 ]

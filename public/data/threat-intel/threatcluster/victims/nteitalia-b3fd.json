@@ -2,13 +2,13 @@
   "id": "nteitalia-b3fd",
   "victim": "Nteitalia",
   "group": "Panzer",
-  "sector": "Not Found",
-  "country": null,
+  "sector": "Technology",
+  "country": "IT",
   "title": "Nteitalia — claimed by Panzer",
   "link": "https://threatcluster.io/dark-web/victim/Nteitalia",
   "guid": "darkweb-victim:panzer:nteitalia",
   "pubDate": "2026-08-21T16:51:22.000Z",
-  "categories": ["Group: Panzer", "Sector: Not Found"],
-  "description": "Not Found · NTE Italia, an engineering and telecommunications service provider based in Catanzaro, Italy. Sensitive thousands of documents are compromised.",
-  "sizeBytes": 155
+  "categories": ["Group: Panzer", "Sector: Technology", "Country: IT"],
+  "description": "IT · Technology · NTE Italia, an engineering and telecommunications service provider based in Catanzaro, Italy. Sensitive thousands of documents are compromised.",
+  "sizeBytes": 161
 }

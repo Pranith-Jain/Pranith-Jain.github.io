@@ -3,12 +3,12 @@
   "victim": "JC Sales",
   "group": "akira",
   "sector": "Retail & E-Commerce",
-  "country": null,
+  "country": "US",
   "title": "JC Sales — claimed by akira",
   "link": "https://threatcluster.io/dark-web/victim/JC%20Sales",
   "guid": "darkweb-victim:akira:jc sales",
   "pubDate": "2026-08-21T13:21:20.000Z",
-  "categories": ["Group: akira", "Sector: Retail & E-Commerce"],
-  "description": "Retail &amp; E-Commerce · JC Sales is a leading full-service wholesaler based in Los Angeles, California, specializing in\na vast array of wholesale products including health and beauty items, food and beverages, gene\nral merchandise, and seasonal items.\n\nWe will upload 206gb of corporate data soon. Detailed personal employee information (passports,\nDLs, addresses, phones, contacts), confidential financials, contracts and a",
-  "sizeBytes": 426
+  "categories": ["Group: akira", "Sector: Retail & E-Commerce", "Country: US"],
+  "description": "US · Retail &amp; E-Commerce · JC Sales is a leading full-service wholesaler based in Los Angeles, California, specializing in\na vast array of wholesale products including health and beauty items, food and beverages, gene\nral merchandise, and seasonal items.\n\nWe will upload 206gb of corporate data soon. Detailed personal employee information (passports,\nDLs, addresses, phones, contacts), confidential financials, contracts and a",
+  "sizeBytes": 431
 }

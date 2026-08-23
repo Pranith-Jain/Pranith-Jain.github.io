@@ -4,63 +4,41 @@
   "name": "Transportation",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-21T02:25:21.000Z",
-  "lastSeen": "2026-08-22T05:19:52.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-22T05:19:52.000Z",
+  "lastSeen": "2026-08-22T13:59:20.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 3
-    },
-    {
       "date": "2026-08-22",
-      "count": 1
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "flecha-bus-4b8a",
+      "title": "Flecha Bus — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:59:20.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "meridian-logistics-group-c7de",
       "title": "Meridian Logistics Group — claimed by thegentlemen",
       "pubDate": "2026-08-22T05:19:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "oceanica-internacional-7d66",
-      "title": "Oceanica Internacional — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:26:16.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "yoma-fleet-3681",
-      "title": "Yoma Fleet — claimed by DYSPHOR1A",
-      "pubDate": "2026-08-21T06:20:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hp-carriers-9e0c",
-      "title": "HP Carriers — claimed by direwolf",
-      "pubDate": "2026-08-21T02:25:21.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "dysphor1a",
-      "name": "DYSPHOR1A",
+      "slug": "coinbasecartel",
+      "name": "coinbasecartel",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

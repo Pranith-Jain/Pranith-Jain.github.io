@@ -1,10 +1,10 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-22T05:52:37Z",
-  "syncedAt": "2026-08-22T05:52:37.609Z",
+  "generatedAt": "2026-08-23T05:54:32Z",
+  "syncedAt": "2026-08-23T05:54:32.993Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 39,
+  "count": 36,
   "iocs": [
     {
       "type": "domain",
@@ -570,19 +570,14 @@
       "value": "claude-pro.com",
       "confidence": "high",
       "reason": "Phishing site impersonating Claude AI, likely attacker-controlled.",
-      "first_seen": "2026-07-23T14:16:44+00:00",
+      "first_seen": "2026-07-24T11:24:08.687591+00:00",
       "last_seen": "2026-07-24T11:24:08.687591+00:00",
-      "source_count": 2,
+      "source_count": 1,
       "sources": [
         {
           "source": "www.group-ib.com",
           "url": "https://www.group-ib.com/blog/jadeprox-china-nexus-triback-loader/",
           "pub_date": "2026-07-24T11:24:08.687591+00:00"
-        },
-        {
-          "source": "Techtimes",
-          "url": "https://www.techtimes.com/articles/321375/20260723/china-nexus-hackers-breached-hospital-x-rays-embassy-congress-new-malware-loader.htm",
-          "pub_date": "2026-07-23T14:16:44+00:00"
         }
       ]
     },
@@ -599,54 +594,6 @@
           "source": "Trendmicro",
           "url": "https://www.trendmicro.com/en_us/research/26/g/plc-exploitation.html",
           "pub_date": "2026-07-24T09:07:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "8e8a88f8fc968996eed0d7ddd.6ceca998199c18f8d968889898896899789978997.westurn.in",
-      "confidence": "high",
-      "reason": "Identified as C2 server used by TrickBot",
-      "first_seen": "2026-07-23T12:19:54.088909+00:00",
-      "last_seen": "2026-07-23T12:19:54.088909+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.fortinet.com",
-          "url": "https://www.fortinet.com/blog/threat-research/inside-a-trickbot-variant-using-dns-tunneling-for-c2",
-          "pub_date": "2026-07-23T12:19:54.088909+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "mskmde.com",
-      "confidence": "high",
-      "reason": "Used as malware delivery.",
-      "first_seen": "2026-07-23T08:08:37.998373+00:00",
-      "last_seen": "2026-07-23T08:08:37.998373+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "attack.mitre.org",
-          "url": "https://attack.mitre.org/techniques/T1547/001/",
-          "pub_date": "2026-07-23T08:08:37.998373+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "tracking.adsafety.net",
-      "confidence": "high",
-      "reason": "Used for tracking before consent, indicating potential malicious use.",
-      "first_seen": "2026-07-23T08:02:59.893399+00:00",
-      "last_seen": "2026-07-23T08:02:59.893399+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "jscrambler.com",
-          "url": "https://jscrambler.com/blog/beyond-the-vault-what-banking-sites-share",
-          "pub_date": "2026-07-23T08:02:59.893399+00:00"
         }
       ]
     }
