@@ -143,6 +143,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Export Hub](https://pranithjain.qzz.io/dfir/export-hub) (dfir): Export IOCs to STIX 2.1, MISP, Sigma, YARA, Snort, Suricata, CSV.
 - [Blocklist Export](https://pranithjain.qzz.io/dfir/blocklists) (dfir): Generate network blocklists (pfSense, MikroTik, Cisco) from IOCs.
 - [Investigation Notebooks](https://pranithjain.qzz.io/dfir/notebooks) (dfir): Persistent notes, IOC snapshots, and findings for DFIR investigations.
+- [DFIR Console](https://pranithjain.qzz.io/dfir/console) (dfir): Fleet-parity acquisition console — Velociraptor, sample detonation, rule validation and IOC extraction.
 - [PGP Tool](https://pranithjain.qzz.io/dfir/pgp-tool) (dfir): Generate - encrypt - sign - verify PGP messages in-browser.
 - [One-Time Secret](https://pranithjain.qzz.io/dfir/one-time-secret) (dfir): Encrypted secret sharing - AES-GCM in-browser, burn after reading, zero-knowledge server.
 - [GRC Toolkit](https://pranithjain.qzz.io/dfir/grc) (dfir): Control mapping - risk register - vendor assessment.
