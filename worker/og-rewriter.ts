@@ -8,6 +8,7 @@ import { OG_BUILD_VERSION } from './og-version.generated';
 // card generator (scripts/generate-page-og.mjs) can resolve the SAME
 // title/description the rewriter serves — cards and meta can never drift.
 import { clampToBytes, findOgOverride, ogMetaForPath, OG_OVERRIDES } from './og-copy';
+import type { OgOverride } from './og-copy';
 // Blog KV reads are shared with the public API routes (api/src/lib/blog-kv
 // bridge) so the OG rewrite and /api/v1/blog/* hit the SAME per-colo shadow.
 import { readBlogPostShadowed, readBlogIndexShadowed } from './lib/blog-kv';
