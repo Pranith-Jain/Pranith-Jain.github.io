@@ -1,0 +1,48 @@
+{
+  "type": "disaster",
+  "date": "2026-08-22",
+  "overallThreat": "",
+  "executiveSummary": "Western Colombia earthquake caused heavy casualties, widespread building collapse, and severe access constraints across multiple departments, prompting a major humanitarian appeal. View Article Flores Island, Indonesia earthquake killed 70+ people, injured nearly 1,200, displaced over 40,000, and damaged thousands of homes and public facilities; road blockages continue to hinder aid delivery. Source Typhoon Maysak impacts in China resulted in at least 159 deaths, 10 missing, severe flooding after multiple dam collapses, and multi-billion-dollar economic losses. View Article British Columbia wildfires forced more than 20,000 evacuations, destroyed or damaged ~150 structures, and left about 2,200 people still displaced; one fatality reported. Source Severe flooding across Indiana led to at least seven deaths, widespread evacuations and boat rescues, road and bridge damage, and extended power outages. Supporting Report In the Philippines, floods and landslides killed at least 23 people, affected roughly 5 million, and drove tens of thousands into emergency shelters. View Article Hawaii tropical storm impacts included ~100 homes swept off foundations, a temporary 911 outage on the Big Island, and over 100,000 without power at peak. Source Security Advisory New IFRC DREF activations indicate emerging flood response needs in Cameroon, Sierra Leone, and Myanmar; details remain limited but signal escalating humanitarian requirements. Source",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Colombia",
+      "summary": "Reporting varies but indicates hundreds dead, thousands missing, severe hospital strain, and extensive building collapse across western departments. View Article"
+    },
+    {
+      "title": "Indonesia",
+      "summary": "Mass displacement (>40,000) and damage to health, education, and worship facilities underscore months-long recovery needs. Source"
+    },
+    {
+      "title": "China",
+      "summary": "Typhoon Maysak's cascading dam failures amplified downstream flooding impacts and fatalities; large-scale relief and infrastructure repair will be required. View Article"
+    },
+    {
+      "title": "Canada (BC)",
+      "summary": "Evacuation, temporary sheltering, power restoration, and debris clearance remain priority operations following structure losses. Supporting Report"
+    },
+    {
+      "title": "United States (Indiana)",
+      "summary": "Multi-day severe storms and flooding caused deaths, senior community evacuations, shelter openings, and critical infrastructure damage. View Article"
+    },
+    {
+      "title": "Philippines",
+      "summary": "Prolonged rainfall disrupted government services and schooling, with emergency shelters housing tens of thousands. Source"
+    },
+    {
+      "title": "Assam, India",
+      "summary": "2026 monsoon floods have exceeded 100 fatalities to date; communities reported rapid, life-threatening water rise with limited warning. View Article"
+    },
+    {
+      "title": "Europe",
+      "summary": "Synchronous wildfires across several countries triggered mass evacuations and hospitalizations, indicating stretched cross-border response capacity. Supporting Report"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Aftershocks possible in Indonesia and Colombia; anticipate additional damage assessments and evolving casualty figures as access improves. Source North American West: Continued wildfire suppression, air quality impacts, and phased re-entry in BC; maintain readiness for flare-ups under hot, dry conditions. Supporting Report Western/Central U.S.: Residual flood risks where soils remain saturated; monitor additional severe storms potential and utility restoration timelines. View Article Hawaii: New tropical development tracking toward the islands could complicate recovery; maintain preparedness messaging and shelter readiness. Source South/East Asia: Continued monsoon rainfall could prolong flooding in India and the Philippines; landslide risk remains elevated in saturated terrain. Supporting Report",
+  "regionalTrends": []
+}

@@ -1,0 +1,175 @@
+{
+  "type": "maritime",
+  "date": "2026-08-22",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Analysts should prioritize business-continuity measures for port IT dependencies and customs/manifest workflows; while OT compromise is not indicated, IT outages alone can materially slow cargo flows and increase safety risks at gates and yards through congestion and manual handling.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "MODERATE",
+        "label": "Overall Maritime Cyber Threat Level"
+      },
+      {
+        "value": "2",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "2",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "2",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "0",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "0",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "1",
+        "label": "Port or Terminal Threats"
+      },
+      {
+        "value": "0",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "0",
+        "label": "Vulnerabilities / CVEs Reported"
+      },
+      {
+        "value": "2",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [
+      "EU Import Control System 2 (ICS2) platform and connected carrier/forwarder EDI workflows. (From provided reporting)",
+      "North Carolina Ports enterprise IT systems; product names not disclosed. (From provided reporting)"
+    ],
+    "sectors": [
+      "Ports and terminals (United States - North Carolina)",
+      "Container shipping, carriers, and logistics parties filing EU ICS2 entries"
+    ]
+  },
+  "keyFindings": [
+    "North Carolina Ports experienced a confirmed cyber intrusion into IT systems, affecting multiple terminals and requiring manual operations; authorities are engaged. Confidence: high. View Article",
+    "EU ICS2 outage delayed advance manifest and temporary storage messages, queuing filings and acknowledgements; maritime cargo flows into the EU likely faced administrative delays rather than navigation issues. Confidence: high. View Article",
+    "No vulnerabilities, CVEs, or malware families were cited in the provided reporting; there is insufficient evidence to attribute the NC incident to a specific threat actor or technique. Confidence: medium-high.",
+    "Both events underscore maritime reliance on centralized IT (port IT and customs platforms) where outages can create schedule slippage, yard congestion, and increased demurrage risk without any confirmed OT compromise. Confidence: medium."
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime Domain: U.S. Ports and Terminals (Wilmington, Morehead City, Charlotte Inland Port) Assessment: External actor compromised port IT; USCG and state officials involved in investigation. No OT or navigation impact confirmed in source reporting. Operational Impact: Gate/IT disruption, manual operations, potential congestion and delays. Safety Impact: Possible increase in traffic and yard risks due to manual processes. Supply Chain Impact: Confirmed-processing slowdowns and schedule variability.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime Domain: U.S. Ports and Terminals (Wilmington, Morehead City, Charlotte Inland Port)",
+        "Assessment: External actor compromised port IT; USCG and state officials involved in investigation. No OT or navigation impact confirmed in source reporting.",
+        "Operational Impact: Gate/IT disruption, manual operations, potential congestion and delays.",
+        "Safety Impact: Possible increase in traffic and yard risks due to manual processes.",
+        "Supply Chain Impact: Confirmed-processing slowdowns and schedule variability."
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Maritime Domain: Supply Chain and Customs (EU Imports) Assessment: ICS2 outage starting ~Aug 7 caused delays in Entry Summary Declarations, vessel arrival notifications, and acknowledgements; filings queued pending restoration. Operational Impact: Administrative delays and rework; planning friction for carriers and terminals. Navigation Impact: None reported. Supply Chain Impact: Confirmed-documentation delays at EU entry.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maersk.com/news/articles/2026/08/10/eu-ics2-system-outage-advance-manifest-update",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime Domain: Supply Chain and Customs (EU Imports)",
+        "Assessment: ICS2 outage starting ~Aug 7 caused delays in Entry Summary Declarations, vessel arrival notifications, and acknowledgements; filings queued pending restoration.",
+        "Operational Impact: Administrative delays and rework; planning friction for carriers and terminals.",
+        "Navigation Impact: None reported.",
+        "Supply Chain Impact: Confirmed-documentation delays at EU entry."
+      ]
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime Domain: U.S. Ports and Terminals (Wilmington, Morehead City, Charlotte Inland Port) Assessment: External actor compromised port IT; USCG and state officials involved in investigation. No OT or navigation impact confirmed in source reporting. Operational Impact: Gate/IT disruption, manual operations, potential congestion and delays. Safety Impact: Possible increase in traffic and yard risks due to manual processes. Supply Chain Impact: Confirmed-processing slowdowns and schedule variability.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime Domain: U.S. Ports and Terminals (Wilmington, Morehead City, Charlotte Inland Port)",
+        "Assessment: External actor compromised port IT; USCG and state officials involved in investigation. No OT or navigation impact confirmed in source reporting.",
+        "Operational Impact: Gate/IT disruption, manual operations, potential congestion and delays.",
+        "Safety Impact: Possible increase in traffic and yard risks due to manual processes.",
+        "Supply Chain Impact: Confirmed-processing slowdowns and schedule variability."
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime Domain: U.S. Ports and Terminals (Wilmington, Morehead City, Charlotte Inland Port) Assessment: External actor compromised port IT; USCG and state officials involved in investigation. No OT or navigation impact confirmed in source reporting. Operational Impact: Gate/IT disruption, manual operations, potential congestion and delays. Safety Impact: Possible increase in traffic and yard risks due to manual processes. Supply Chain Impact: Confirmed-processing slowdowns and schedule variability.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime Domain: U.S. Ports and Terminals (Wilmington, Morehead City, Charlotte Inland Port)",
+        "Assessment: External actor compromised port IT; USCG and state officials involved in investigation. No OT or navigation impact confirmed in source reporting.",
+        "Operational Impact: Gate/IT disruption, manual operations, potential congestion and delays.",
+        "Safety Impact: Possible increase in traffic and yard risks due to manual processes.",
+        "Supply Chain Impact: Confirmed-processing slowdowns and schedule variability."
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Maritime Domain: Supply Chain and Customs (EU Imports) Assessment: ICS2 outage starting ~Aug 7 caused delays in Entry Summary Declarations, vessel arrival notifications, and acknowledgements; filings queued pending restoration. Operational Impact: Administrative delays and rework; planning friction for carriers and terminals. Navigation Impact: None reported. Supply Chain Impact: Confirmed-documentation delays at EU entry.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maersk.com/news/articles/2026/08/10/eu-ics2-system-outage-advance-manifest-update",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime Domain: Supply Chain and Customs (EU Imports)",
+        "Assessment: ICS2 outage starting ~Aug 7 caused delays in Entry Summary Declarations, vessel arrival notifications, and acknowledgements; filings queued pending restoration.",
+        "Operational Impact: Administrative delays and rework; planning friction for carriers and terminals.",
+        "Navigation Impact: None reported.",
+        "Supply Chain Impact: Confirmed-documentation delays at EU entry."
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional restoration updates or official statements regarding the North Carolina Ports incident, including any post-incident guidance or attribution developments. Confidence: medium. View Article Further carrier or customs communications about ICS2 status may emerge; be prepared for continued administrative delays and reconciliation tasks. Confidence: medium. View Article Opportunistic phishing leveraging ICS2 or \"port outage\" lures is plausible; immediate risk is moderate with low technical sophistication expected. Confidence: low-medium.",
+  "relatedCves": []
+}

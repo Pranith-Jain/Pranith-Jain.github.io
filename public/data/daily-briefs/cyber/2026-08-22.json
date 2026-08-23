@@ -1,0 +1,87 @@
+{
+  "type": "cyber",
+  "date": "2026-08-22",
+  "threatLevel": "",
+  "executiveSummary": "Multiple high-confidence U.S. and allied government advisories confirm active threat activity against OT environments, including AI-assisted reconnaissance and read/write access attempts targeting Siemens S7 PLCs across U.S. critical infrastructure, with Water/Wastewater explicitly called out. Security Advisory Iranian-affiliated actors continue to exploit internet-exposed PLCs (Rockwell, Schneider, Siemens) to alter logic and alarms, causing unsafe conditions and operational impacts in the U.S. WWS and Energy sectors. Security Advisory CISA reports a surge of real-world disruptions at water utilities from threat activity that changed PLC passwords and IPs to lock out operators, forcing boil-water notices and sustained manual operations; immediate exposure reduction is required. Alert State-backed operations continue to compromise or route through edge infrastructure: China-nexus campaigns abuse covert networks of compromised SOHO/IoT devices to pre-position in CI, and separate advisories detail router compromises and covert tunneling on backbone gear. Security Advisory Security Advisory OT-adjacent vulnerabilities with high operational impact include unauthenticated OCPP WebSocket RCE on Autel EV chargers (grid load manipulation risk) and multiple Eclipse Milo OPC UA server weaknesses (authorization bypass and DoS in industrial data backbones). CISA Bulletin CISA Bulletin Enterprise edge and collaboration platforms used by CI operators face active exploitation (e.g., Zimbra by state actors, TeamCity and NetScaler with public PoCs), increasing IT-to-OT pivot risk; immediate patching and compromise assessment are advised. Security Advisory JPCERT Advisory",
+  "keyFindings": [
+    {
+      "title": "AI-assisted scripts are being used to probe and access Siemens S7 PLCs over S7co",
+      "summary": "AI-assisted scripts are being used to probe and access Siemens S7 PLCs over S7comm (TCP/102), elevating pre-positioning risk in water, energy, and manufacturing operations. Security Advisory"
+    },
+    {
+      "title": "Iranian-affiliated campaigns against internet-exposed PLCs altered logic and dis",
+      "summary": "Iranian-affiliated campaigns against internet-exposed PLCs altered logic and disabled alarms, creating unsafe states in U.S. facilities. Security Advisory"
+    },
+    {
+      "title": "Real operational outages in WWS were driven by password/IP changes on PLCs; CISA",
+      "summary": "Real operational outages in WWS were driven by password/IP changes on PLCs; CISA mandates immediate removal of PLCs from direct internet exposure. Alert"
+    },
+    {
+      "title": "Autel EVSE OCPP unauthenticated RCE and Eclipse Milo OPC UA weaknesses could dis",
+      "summary": "Autel EVSE OCPP unauthenticated RCE and Eclipse Milo OPC UA weaknesses could disrupt charging operations and industrial data flows, respectively. CISA Bulletin CISA Bulletin"
+    },
+    {
+      "title": "Enterprise-edge compromises (NetScaler SAML RCE, vCenter, TeamCity, Metabase) re",
+      "summary": "Enterprise-edge compromises (NetScaler SAML RCE, vCenter, TeamCity, Metabase) remain common entry points into CI environments; public PoCs/web shells observed. Weekly Report"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "ESCALATE: 16 • MONITOR: 28 • IGNORE: 20",
+        "label": "Events by Decision"
+      },
+      {
+        "value": "14+",
+        "label": "Actively Exploited/KEV Items (observed)"
+      },
+      {
+        "value": "PLCs, OPC UA, EVSE, BACnet BAS",
+        "label": "OT-Direct Technology Families Impacted"
+      },
+      {
+        "value": "Water/Wastewater, Energy, Transport, Manufacturing",
+        "label": "Priority Sectors"
+      }
+    ],
+    "activelyExploited": [
+      "KEV Edge"
+    ],
+    "vendors": [
+      "Siemens S7 PLCs; Rockwell CompactLogix/MicroLogix; Schneider Modicon M340; Eclipse Milo (OPC UA); Autel EVSE (OCPP); Johnson Controls Airwall; Citrix NetScaler ADC/Gateway; VMware vCenter; JetBrains TeamCity; Metabase; Zimbra; TrueConf Server; BACnet controllers (Siemens Desigo); Cisco/routers (SNMP/SMI)."
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy and Utilities; Transportation (EV charging, automotive head-units); Critical Manufacturing; Government Facilities; Telecom/Service Providers."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "relevance": "- Direct OT impact: active PLC compromises (S7/CompactLogix/M340), OPC UA server weaknesses, BACnet BAS DoS; EVSE OCPP unauth RCE could affect load and site operations. - OT-adjacent paths: NetScaler, vCenter, TeamCity, Zimbra, TrueConf, routers-common pivots bridging enterprise into OT DMZs. - Key protocols at risk: S7comm (TCP/102), EtherNet/IP/CIP, OPC UA, BACnet/IP, OCPP WebSockets.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Autel EV chargers OCPP WebSocket unauth RCE (CVE-2026-13308). CISA Bulletin",
+        "Eclipse Milo OPC UA server auth bypass/DoS (multiple CVEs). CISA Bulletin",
+        "Johnson Controls Airwall hardcoded key (CVE-2026-64887). ICS Advisory",
+        "Citrix NetScaler ADC/Gateway SAML RCE (CVE-2026-8452). JPCERT Advisory",
+        "TeamCity deserialization RCE (KEV, CVE-2026-63077). CISA KEV",
+        "Zimbra OS command injection and XSS campaigns (KEV; APT activity). CISA KEV CSA"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "- Expect continued scanning and opportunistic attempts against S7-series PLCs (TCP/102); prioritize detection onboarding in facilities with any internet egress from control zones. - NetScaler/TeamCity/Metabase GitLab exploitation likely to persist; check exposed services for web shells and unauthorized admin creation. - Elevated risk of EVSE targeting (OCPP) around public charging corridors; review allowlists/mTLS and audit recent charger-to-CSMS connections. - Router telemetry spikes (SNMP set-requests, TFTP exfil) possible; monitor for anomalous config copy operations and AAA changes.",
+  "relatedCves": [
+    "CVE-2026-13308",
+    "CVE-2026-64887",
+    "CVE-2026-8452",
+    "CVE-2026-63077",
+    "CVE-2024-36401",
+    "CVE-2026-19478"
+  ]
+}
