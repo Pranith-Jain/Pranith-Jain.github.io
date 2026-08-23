@@ -12,9 +12,12 @@
  *
  * Sources of truth per route:
  *   - Route list:  all dist HTML files written by scripts/prerender.mjs
- *   - Title/desc:  extracted from the prerendered HTML itself (<title> +
- *                  <meta name=description>) — byte-identical to what a
- *                  crawler would read at runtime.
+ *   - Title/desc:  worker/og-copy.ts ogMetaForPath() — the SAME resolution the
+ *                  edge rewriter serves in <head>, bundled here via esbuild.
+ *                  (The generator previously extracted <title> from the
+ *                  prerendered HTML, but Helmet never renders for
+ *                  Suspense-lazy pages — 268 of 269 cards baked the shell's
+ *                  home copy, leaving only 4 distinct images site-wide.)
  *   - Visuals:     same flat-design card as worker/og-image.ts (dark slate,
  *                  accent discs + scan rings, left bar, section badge,
  *                  Hanken Grotesk).
@@ -30,6 +33,7 @@ import { initWasm, Resvg } from '@resvg/resvg-wasm';
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { build as esbuild } from 'esbuild';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(root, 'dist');
@@ -40,30 +44,25 @@ const DIST = join(root, 'dist');
 // KV first, so serving costs one KV read, not a wasm rasterization.
 const OUT_DIR = join(root, '.og-cache', 'pages');
 
+// Bundle worker/og-copy.ts (pure TS, import-free apart from prerender-routes)
+// into a loadable ESM chunk so this .mjs script resolves card copy from the
+// SAME source the edge rewriter uses. Keeps card text and served meta in
+// lockstep by construction — no mirrored logic to drift.
+const BUNDLE = join(root, '.og-cache', 'og-copy.bundle.mjs');
+await esbuild({
+  entryPoints: [join(root, 'worker', 'og-copy.ts')],
+  bundle: true,
+  format: 'esm',
+  platform: 'node',
+  outfile: BUNDLE,
+  logLevel: 'silent',
+});
+const { ogMetaForPath } = await import(BUNDLE);
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 // Branded surfaces already have hand-tuned static cards (public/og-*.png).
 const SKIP_ROUTES = new Set(['/', '/dfir', '/threatintel', '/radar', '/threatnexus']);
-
-// Section badge/product mapping — mirrors ogMetaForPath in worker/og-rewriter.ts.
-function sectionFor(first) {
-  if (first === 'dfir') return { badge: 'DFIR TOOLKIT', product: 'CRUCIBLE' };
-  if (first === 'threatintel') return { badge: 'THREAT INTEL', product: 'PANOPTICON' };
-  if (first === 'radar') return { badge: 'RECON SCANNER', product: 'SCOUT' };
-  if (first === 'blog') return { badge: 'BLOG POST', product: 'CRUCIBLE' };
-  return { badge: 'SECURITY TOOLS', product: 'CRUCIBLE' };
-}
-
-function deriveTitleFromRoute(route) {
-  const segs = route.split('/').filter(Boolean);
-  const last = segs[segs.length - 1] ?? '';
-  return segs.length === 0
-    ? 'Pranith Jain'
-    : last
-        .split(/[-_]/)
-        .map((w) => (w.length <= 3 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
-        .join(' ');
-}
 
 /** Collect routes from prerendered HTML: dist/__prerendered/<slug>.html.
  *  Slug -> route mirrors scripts/prerender.mjs in reverse:
@@ -80,16 +79,6 @@ function collectRoutes() {
     routes.push(route);
   }
   return routes;
-}
-
-/** Extract <title> + meta description from prerendered HTML (crawler view). */
-function extractMeta(html, route) {
-  const t = /<title>([^<]*)<\/title>/i.exec(html)?.[1]?.trim();
-  const d = /<meta\s+name="description"\s+content="([^"]*)"/i.exec(html)?.[1]?.trim();
-  return {
-    title: t || deriveTitleFromRoute(route),
-    description: d || `${deriveTitleFromRoute(route)} — pranithjain.qzz.io`,
-  };
 }
 
 function wrapTitle(title, max) {
@@ -109,12 +98,11 @@ function wrapTitle(title, max) {
 
 const truncate = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 
-function buildSvg(route, title, description) {
+function buildSvg(route, meta) {
   const WIDTH = 1200;
   const HEIGHT = 630;
   const accent = { primary: '#2c3ee5', secondary: '#435ef1', badge: '#1e3aaf' };
-  const first = route.split('/').filter(Boolean)[0] ?? '';
-  const { badge, product } = sectionFor(first);
+  const { title, description, badge, product } = meta;
 
   const titleLines = wrapTitle(truncate(title, 80), 38);
   const titleY = titleLines.length === 1 ? 280 : titleLines.length === 2 ? 250 : 230;
@@ -165,11 +153,14 @@ for (const route of routes) {
     const base = route.slice(1).split('/').join('__');
     const htmlPath = join(DIST, '__prerendered', `${base}.html`);
     if (!existsSync(htmlPath)) continue;
-    const html = readFileSync(htmlPath, 'utf8');
-    const { title, description } = extractMeta(html, route);
+    // Card copy comes from the worker's own resolution (ogMetaForPath) so the
+    // PNG always says exactly what the served <head> meta says. Returns null
+    // only for '/' — already excluded by SKIP_ROUTES above.
+    const meta = ogMetaForPath(route);
+    if (!meta) continue;
 
     const dotId = route.replace(/^\/+/, '').replace(/\//g, '.');
-    const svg = buildSvg(route, title, description);
+    const svg = buildSvg(route, meta);
     const resvg = new Resvg(svg, {
       fitTo: { mode: 'width', value: 1200 },
       font: { fontBuffers, defaultFontFamily: 'Hanken Grotesk', loadSystemFonts: true },

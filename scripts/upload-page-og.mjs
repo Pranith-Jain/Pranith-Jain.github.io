@@ -13,17 +13,27 @@
  * Runs as part of `npm run deploy` (after build, before wrangler deploy)
  * so every deployment has its full set of cards in KV before going live.
  *
- * Requires CLOUDFLARE_API_TOKEN (same secret wrangler deploy uses).
- * Free-plan KV write budget: 1,000 writes/day — ~261 uploads/day fits.
+ * QUOTA: the free plan allows only 1,000 KV writes/day — a full 269-card
+ * upload eats a quarter of that, and multiple deploys per day would exhaust
+ * it (observed live: error 10048 "reached the free usage limit"). So this
+ * script keeps an md5 manifest (.og-cache/uploaded.json) of what it last
+ * uploaded SUCCESSFULLY and skips byte-identical files. Cards change rarely
+ * (only when route copy changes), so steady-state deploys cost ~0 writes.
+ * Pass --force to ignore the manifest and re-upload everything.
+ *
+ * Requires wrangler auth (CLOUDFLARE_API_TOKEN or OAuth login).
  */
-import { readdirSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = join(root, '.og-cache', 'pages');
+const MANIFEST = join(root, '.og-cache', 'uploaded.json');
 const CONCURRENCY = 6;
+const FORCE = process.argv.includes('--force');
 
 let files;
 try {
@@ -37,7 +47,34 @@ if (files.length === 0) {
   process.exit(0);
 }
 
-console.log(`Uploading ${files.length} page OG cards to KV_CACHE…`);
+// md5 of what each local card's bytes were when they were last uploaded OK.
+// A missing/failed upload never enters the manifest, so failures self-heal on
+// the next run. --force bypasses the skip entirely.
+let uploaded = {};
+try {
+  uploaded = JSON.parse(readFileSync(MANIFEST, 'utf8'));
+} catch {
+  /* first run or corrupted manifest → treat as empty */
+}
+
+const md5 = (p) => createHash('md5').update(readFileSync(p)).digest('hex');
+
+const pending = [];
+let skipped = 0;
+for (const f of files) {
+  if (!FORCE && uploaded[f] && uploaded[f] === md5(join(DIR, f))) {
+    skipped += 1;
+    continue;
+  }
+  pending.push(f);
+}
+console.log(
+  `Uploading page OG cards to KV_CACHE… ${pending.length} to write` +
+    (skipped ? ` (${skipped} unchanged, skipped)` : '') +
+    (FORCE ? ' [--force]' : '')
+);
+if (pending.length === 0) process.exit(0);
+
 let done = 0;
 let failed = 0;
 const failures = [];
@@ -51,8 +88,10 @@ async function upload(file) {
       stdio: ['ignore', 'ignore', 'ignore'],
       timeout: 60_000,
     });
+    // Record ONLY after success so quota-exhausted runs retry next time.
+    uploaded[file] = md5(path);
     done += 1;
-    if (done % 25 === 0) console.log(`  ${done}/${files.length}`);
+    if (done % 25 === 0) console.log(`  ${done}/${pending.length}`);
   } catch (e) {
     failed += 1;
     failures.push(file);
@@ -63,15 +102,26 @@ async function upload(file) {
 // Simple concurrency pool.
 let idx = 0;
 async function worker() {
-  while (idx < files.length) {
-    const f = files[idx++];
+  while (idx < pending.length) {
+    const f = pending[idx++];
     await upload(f);
   }
 }
 await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
 
-console.log(`Uploaded ${done}/${files.length} (${failed} failed)`);
+if (done > 0) {
+  try {
+    writeFileSync(MANIFEST, JSON.stringify(uploaded, null, 2));
+  } catch (e) {
+    console.warn(`  ⚠ could not write manifest: ${e.message}`);
+  }
+}
+
+console.log(`Uploaded ${done}/${pending.length} (${failed} failed; ${skipped} skipped as unchanged)`);
 if (failed > 0) {
   console.warn(`  ${failed} uploads failed — deploy will continue; missing cards fall back to dynamic rasterization`);
+  if (/free usage limit/i.test(failures.join(' ') + '')) {
+    console.warn('  ⚠ KV daily WRITE quota hit (resets 00:00 UTC). Re-run `node scripts/upload-page-og.mjs` after reset.');
+  }
 }
 if (failures.length > 0) console.warn(`  failed files: ${failures.slice(0, 5).join(', ')}${failures.length > 5 ? '…' : ''}`);
