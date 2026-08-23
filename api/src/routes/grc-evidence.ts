@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { notFound } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 export interface GrcFramework {
   id: string;
@@ -118,12 +119,22 @@ const DEFAULT_FRAMEWORKS: GrcFramework[] = [
   },
 ];
 
+// Free per-colo Cache-API shadow TTL for the `:all` blobs (write-through on saveAll).
+const ALL_L1_TTL_SECONDS = 60;
+
 async function loadAll<T>(env: Env, type: string): Promise<T[]> {
   const kv = env.KV_CACHE;
   if (!kv) return [];
+  const allKey = `${KV_PREFIX}:${type}:all`;
+  // L1: per-colo Cache-API shadow (free) before any KV subrequest.
+  const l1 = await routeCacheGet<T[]>(allKey);
+  if (l1) return l1;
   try {
-    const blob = await kv.get(`${KV_PREFIX}:${type}:all`, 'json');
-    if (blob) return blob as T[];
+    const blob = await kv.get(allKey, 'json');
+    if (blob) {
+      void routeCachePut(allKey, blob, ALL_L1_TTL_SECONDS);
+      return blob as T[];
+    }
     const idsRaw = await kv.get(`${KV_PREFIX}:${type}:index`);
     const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
     const values = await kvBulkGetText(
@@ -145,6 +156,8 @@ async function saveAll<T>(env: Env, type: string, items: T[]): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
   await kv.put(`${KV_PREFIX}:${type}:all`, JSON.stringify(items));
+  // Write-through the L1 shadow so the next list read in this colo is free.
+  void routeCachePut(`${KV_PREFIX}:${type}:all`, items, ALL_L1_TTL_SECONDS);
 }
 
 async function readOne<T>(env: Env, type: string, id: string): Promise<T | null> {

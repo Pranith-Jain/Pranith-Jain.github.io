@@ -127,11 +127,35 @@ export class TwitterRateLimited extends Error {
   }
 }
 
+// Per-colo Cache-API shadow for the shared guest token. activateGuestToken
+// runs on every GraphQL timeline fetch; the shadow collapses repeats to ~1 KV
+// read per colo per window. 10min — comfortably shorter than the KV TTL and
+// than Twitter's guest-token lifetime, so a revoked token self-heals fast.
+const GUEST_TOKEN_SHADOW_TTL = 600;
+const GUEST_TOKEN_SHADOW_REQ = new Request('https://twitter-guest-token-cache.internal/v1');
+
 async function activateGuestToken(env: Env): Promise<string> {
   const kv = env.KV_CACHE;
+  // L1: per-colo Cache-API shadow (free) before the KV read.
+  try {
+    const hit = await (caches as unknown as { default: Cache }).default.match(GUEST_TOKEN_SHADOW_REQ);
+    if (hit) return await hit.text();
+  } catch {
+    /* fall through */
+  }
   if (kv) {
     const cached = await kv.get(KV_GUEST_TOKEN_KEY);
-    if (cached) return cached;
+    if (cached) {
+      try {
+        await (caches as unknown as { default: Cache }).default.put(
+          GUEST_TOKEN_SHADOW_REQ,
+          new Response(cached, { headers: { 'cache-control': `max-age=${GUEST_TOKEN_SHADOW_TTL}` } })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
+      return cached;
+    }
   }
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
@@ -156,10 +180,25 @@ async function activateGuestToken(env: Env): Promise<string> {
   if (kv) {
     await kv.put(KV_GUEST_TOKEN_KEY, token, { expirationTtl: KV_GUEST_TOKEN_TTL });
   }
+  // Write-through the shadow (also replaces a stale cached token after refresh).
+  try {
+    await (caches as unknown as { default: Cache }).default.put(
+      GUEST_TOKEN_SHADOW_REQ,
+      new Response(token, { headers: { 'cache-control': `max-age=${GUEST_TOKEN_SHADOW_TTL}` } })
+    );
+  } catch {
+    /* best-effort shadow */
+  }
   return token;
 }
 
 async function clearGuestToken(env: Env): Promise<void> {
+  // Purge both layers so a known-bad token isn't served from the shadow.
+  try {
+    await (caches as unknown as { default: Cache }).default.delete(GUEST_TOKEN_SHADOW_REQ);
+  } catch {
+    /* swallow */
+  }
   if (env.KV_CACHE) {
     try {
       await env.KV_CACHE.delete(KV_GUEST_TOKEN_KEY);
@@ -276,8 +315,7 @@ async function resolveUserId(
 function parseTimeline(raw: unknown, screenName: string): TwitterTimelineItem[] {
   const root = raw as Record<string, unknown>;
   const timeline = ((root.data as Record<string, unknown>)?.user as Record<string, unknown>)?.result as
-    | Record<string, unknown>
-    | undefined;
+    Record<string, unknown> | undefined;
   const v2 = (timeline?.timeline_v2 as Record<string, unknown>)?.timeline as Record<string, unknown> | undefined;
   const instructions = (v2?.instructions as unknown[]) ?? [];
   const items: TwitterTimelineItem[] = [];
@@ -288,8 +326,7 @@ function parseTimeline(raw: unknown, screenName: string): TwitterTimelineItem[] 
     if (!res) return;
     const core = res.core as Record<string, unknown> | undefined;
     const author = ((core?.user_results as Record<string, unknown>)?.result as Record<string, unknown>)?.legacy as
-      | Record<string, unknown>
-      | undefined;
+      Record<string, unknown> | undefined;
     const legacy = res.legacy as Record<string, unknown> | undefined;
     if (!legacy) return;
     const id = typeof legacy.id_str === 'string' ? legacy.id_str : '';

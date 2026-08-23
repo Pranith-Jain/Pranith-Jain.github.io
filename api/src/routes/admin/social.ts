@@ -15,6 +15,7 @@ import {
   readAutopostQueue,
 } from '../../case-study/storage/social-schedule';
 import { getAllMetrics, upsertMetric } from '../../case-study/storage/social-metrics';
+import { kvBulkGetText } from '../../lib/safe-catch';
 import { computeTypePerformance, engagementScore, type MetricsRecord } from '../../case-study/analytics/analytics';
 import { postToTwitter, postToLinkedin } from '../../case-study/posting/social-poster';
 import { notifySocialFailed, type WebhookEnv } from '../../case-study/notifications';
@@ -100,7 +101,7 @@ socialRouter.post('/social-schedule/:slug/:platform/unapprove', async (c) => {
 
 socialRouter.get('/social-queue', async (c) => {
   const queue = await readAutopostQueue(c.env.CASE_STUDIES);
-  const bySlug = new Map<string, Awaited<ReturnType<typeof getSocialSchedule>>>();
+  const bySlug = new Map<string, NonNullable<Awaited<ReturnType<typeof getSocialSchedule>>> | null>();
   const items: Array<{
     slug: string;
     platform: string;
@@ -110,12 +111,38 @@ socialRouter.get('/social-queue', async (c) => {
     error?: string;
     attempts?: number;
   }> = [];
+  // Dedupe slugs FIRST, then ONE batched KV read for all schedules. The old
+  // loop awaited one KV get per unique slug inline (up to MAX_SCHEDULE_READS
+  // = 40 sequential subrequests, brushing the free-plan 50 cap); a batch
+  // `get(keys[])` counts as ONE subrequest per ≤100-key chunk regardless of
+  // key count. Same total data, a fraction of the subrequest budget.
   const MAX_SCHEDULE_READS = 40;
+  const slugs: string[] = [];
   for (const q of queue) {
     if (!bySlug.has(q.slug)) {
-      if (bySlug.size >= MAX_SCHEDULE_READS) break;
-      bySlug.set(q.slug, await getSocialSchedule(c.env.CASE_STUDIES, q.slug));
+      if (slugs.length >= MAX_SCHEDULE_READS) break;
+      slugs.push(q.slug);
     }
+  }
+  if (slugs.length > 0) {
+    const rawSchedules = await kvBulkGetText(
+      c.env.CASE_STUDIES,
+      slugs.map((s) => csKvKeys.socialSchedule(s))
+    );
+    for (const s of slugs) {
+      const raw = rawSchedules.get(csKvKeys.socialSchedule(s));
+      if (!raw) {
+        bySlug.set(s, null);
+        continue;
+      }
+      try {
+        bySlug.set(s, JSON.parse(raw) as NonNullable<Awaited<ReturnType<typeof getSocialSchedule>>>);
+      } catch {
+        bySlug.set(s, null);
+      }
+    }
+  }
+  for (const q of queue) {
     const entry = bySlug.get(q.slug)?.[q.platform];
     if (!entry) continue;
     items.push({

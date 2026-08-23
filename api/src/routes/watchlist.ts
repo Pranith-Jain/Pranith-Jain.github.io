@@ -208,26 +208,38 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
     const actors = rows.results ?? [];
     const entries: DigestEntry[] = [];
 
-    for (const row of actors) {
+    // Sector-match first so only relevant actors' feeds are read…
+    const matchedActors = actors.filter((row) => {
       const sectors = JSON.parse(row.target_sectors) as string[];
-      const sectorMatch =
-        estateSector && sectors.length > 0
-          ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
-          : sectors.length === 0; // wildcard match if no sectors specified
+      return estateSector && sectors.length > 0
+        ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
+        : sectors.length === 0; // wildcard match if no sectors specified
+    });
 
-      if (!sectorMatch) continue;
+    // …then ONE bulk KV read for every actor's news+victims slices. The old
+    // loop issued 2 sequential KV gets PER ACTOR (2N subrequests); a batch
+    // get is ONE subrequest per ≤100-key chunk regardless of key count.
+    const feedKeys = matchedActors.flatMap((row) => [
+      `actor:news:${row.actor_name}`,
+      `ransomware:actor:${row.actor_name}`,
+    ]);
+    const feedRaw = await kvBulkGetText(kv, feedKeys);
+    const parseFeed = <T>(key: string): T[] | null => {
+      const raw = feedRaw.get(key);
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw) as T[];
+      } catch {
+        return null;
+      }
+    };
 
-      const activity = (await kv.get(`actor:news:${row.actor_name}`, 'json').catch(() => null)) as Array<{
-        title: string;
-        url: string;
-        date: string;
-      }> | null;
+    for (const row of matchedActors) {
+      const activity = parseFeed<{ title: string; url: string; date: string }>(`actor:news:${row.actor_name}`);
 
-      const victims = (await kv.get(`ransomware:actor:${row.actor_name}`, 'json').catch(() => null)) as Array<{
-        victim: string;
-        date: string;
-        country: string;
-      }> | null;
+      const victims = parseFeed<{ victim: string; date: string; country: string }>(
+        `ransomware:actor:${row.actor_name}`
+      );
 
       entries.push({
         actor: row.actor_name,

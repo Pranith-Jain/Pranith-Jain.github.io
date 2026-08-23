@@ -1,6 +1,9 @@
 import { injectScriptNonce } from './csp';
 import { readBriefing } from '../api/src/lib/briefing-builder';
 import { pageCardUrl } from './og-path';
+// Blog KV reads are shared with the public API routes (api/src/lib/blog-kv
+// bridge) so the OG rewrite and /api/v1/blog/* hit the SAME per-colo shadow.
+import { readBlogPostShadowed, readBlogIndexShadowed } from './lib/blog-kv';
 import type { Env } from './env';
 
 /**
@@ -23,100 +26,10 @@ import type { Env } from './env';
 
 /**
  * L1-shadowed read of a blog post record from CASE_STUDIES KV.
- *
- * `resolveOg` and `resolveBlogJsonLd` both read the same `posts:<slug>` on
- * every blog page render — without an L1 that's 2 KV reads per page view.
- * The per-colo Cache-API shadow collapses that to ~1 KV read per colo per
- * TTL window. Posts are immutable once published; a 60s TTL means a
- * delete/unpublish reflects within a minute (acceptable for OG/JSON-LD
- * metadata, which is best-effort and never blocks the page).
+ * Implementation lives in worker/lib/blog-kv.ts (shared with the public API
+ * routes); re-exported here for the existing og-data.ts import surface.
  */
-export const BLOG_POST_SHADOW_TTL = 60; // 60s — short so deletes reflect fast
-function blogPostShadowReq(slug: string): Request {
-  return new Request(`https://og-blog-post-shadow.internal/v1/${encodeURIComponent(slug)}`);
-}
-/** Safe per-colo Cache accessor — returns null when unavailable (e.g. in tests). */
-function ogCache(): Cache | null {
-  try {
-    return (caches as unknown as { default: Cache }).default;
-  } catch {
-    return null;
-  }
-}
-export async function readBlogPostShadowed<T>(env: Env, slug: string): Promise<T | null> {
-  if (!env.CASE_STUDIES) return null;
-  const cache = ogCache();
-  const shadowReq = blogPostShadowReq(slug);
-  if (cache) {
-    try {
-      const hit = await cache.match(shadowReq);
-      if (hit) return (await hit.json()) as T | null;
-    } catch {
-      /* fall through to KV */
-    }
-  }
-  let post: T | null = null;
-  try {
-    post = (await env.CASE_STUDIES.get(`posts:${slug}`, 'json')) as T | null;
-  } catch {
-    return null;
-  }
-  if (post) {
-    if (cache) {
-      try {
-        await cache.put(
-          shadowReq,
-          new Response(JSON.stringify(post), {
-            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${BLOG_POST_SHADOW_TTL}` },
-          })
-        );
-      } catch {
-        /* best-effort shadow */
-      }
-    }
-  }
-  return post;
-}
-
-/**
- * L1-shadowed read of the posts index (`posts:index`). Same rationale as
- * readBlogPostShadowed — the /blog listing page renders JSON-LD from the
- * index on every view.
- */
-const BLOG_INDEX_SHADOW_REQ = new Request('https://og-blog-index-shadow.internal/v1');
-async function readBlogIndexShadowed<T>(env: Env): Promise<T | null> {
-  if (!env.CASE_STUDIES) return null;
-  const cache = ogCache();
-  if (cache) {
-    try {
-      const hit = await cache.match(BLOG_INDEX_SHADOW_REQ);
-      if (hit) return (await hit.json()) as T | null;
-    } catch {
-      /* fall through to KV */
-    }
-  }
-  let index: T | null = null;
-  try {
-    index = (await env.CASE_STUDIES.get('posts:index', 'json')) as T | null;
-  } catch {
-    return null;
-  }
-  if (index) {
-    if (cache) {
-      try {
-        await cache.put(
-          BLOG_INDEX_SHADOW_REQ,
-          new Response(JSON.stringify(index), {
-            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${BLOG_POST_SHADOW_TTL}` },
-          })
-        );
-      } catch {
-        /* best-effort shadow */
-      }
-    }
-  }
-  return index;
-}
+export { readBlogPostShadowed } from './lib/blog-kv';
 
 /**
  * Per-route social metadata overrides. The SPA serves the same index.html

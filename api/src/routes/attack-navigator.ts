@@ -56,13 +56,22 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
   const kv = c.env.KV_CACHE;
   const kvKey = `${KV_PREFIX}:lastgood`;
 
-  // Try KV first (long-lived fallback)
+  // Try KV first (long-lived fallback). On a hit, write-through to the
+  // per-colo Cache API so repeat requests are served FREE — previously the
+  // edge cache was only populated by the live-fetch path, so while a KV
+  // value existed (7d TTL) every single request still paid one KV read.
   if (kv) {
     const stored = await kv.get(kvKey);
     if (stored) {
-      return new Response(stored, {
+      const res = new Response(stored, {
         headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
       });
+      try {
+        await cache.put(cacheKey, res.clone());
+      } catch {
+        /* best-effort */
+      }
+      return res;
     }
   }
 

@@ -2,8 +2,8 @@ import type { Hono } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound } from '../lib/api-error';
 import type { Post, PostIndexEntry } from '../case-study/types';
-import { kv } from '../case-study/kv-keys';
 import { renderMarkdown } from '../case-study/rendering/markdown';
+import { readBlogPostShadowed, readBlogIndexShadowed, readBlogRssShadowed } from '../lib/blog-kv';
 
 // Post slugs are `${candidate.key}-${slugified-title}` — strictly
 // [a-z0-9-]. Validate before it reaches a KV key. `index` is rejected
@@ -16,19 +16,18 @@ function validSlug(slug: string | undefined): slug is string {
 
 export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
   // Public read endpoints are hit once per visitor and the underlying data
-  // changes only when a post is published. Edge-cache the responses so
-  // repeat/concurrent reads collapse to one KV read per TTL window instead
-  // of one per request. Cache key = full request URL, so ?type=/?tag=
-  // variants and per-slug pages cache independently.
+  // changes only when a post is published.
+  //
+  // KV policy (see also the og-rewriter, which shares these shadows):
+  //   - L1 per-colo Cache-API shadow with a 60s TTL (readBlog*Shadowed).
+  //     Collapses repeat/concurrent reads to ~1 KV read per colo per window,
+  //     and — unlike the old read-through caches.default RESPONSE cache that
+  //     was removed here — a delete/unpublish reflects within 60s because the
+  //     shadow only caches values that still exist in KV (a deleted post is a
+  //     KV miss → null → never shadowed → 404 immediately).
+  //   - Short response Cache-Control for browser caching on top.
   app.get('/api/v1/blog/posts', async (c) => {
-    // NO read-through caches.default here. That pattern returned a cached
-    // hit unconditionally and was never busted on publish/delete, so a
-    // deleted post (and a pre-new-posts snapshot) kept being served for up
-    // to ~24h via the old stale-while-revalidate. This endpoint is a single
-    // cheap KV read + filter — rely on the short response Cache-Control for
-    // normal CDN caching, which self-expires in ~2min and reflects
-    // publishes/deletes without any invalidation bookkeeping.
-    const index = ((await c.env.CASE_STUDIES.get(kv.postsIndex, 'json')) as PostIndexEntry[]) ?? [];
+    const index = ((await readBlogIndexShadowed<PostIndexEntry[]>(c.env)) ?? []) as PostIndexEntry[];
     const type = c.req.query('type');
     const tag = c.req.query('tag');
     let filtered = index;
@@ -43,10 +42,7 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
     const slug = c.req.param('slug');
     if (!validSlug(slug)) return badRequest(c, 'invalid slug');
 
-    // Same fix as the list endpoint: no read-through caches.default (it made
-    // a DELETED post keep 200-ing from cache for ~24h). One KV read; rely on
-    // a short response Cache-Control so a delete/unpublish reflects fast.
-    const post = (await c.env.CASE_STUDIES.get(kv.post(slug), 'json')) as Post | null;
+    const post = await readBlogPostShadowed<Post>(c.env, slug);
     if (!post) {
       return notFound(c, 'not found');
     }
@@ -60,8 +56,10 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
   });
 
   app.get('/blog/rss.xml', async (c) => {
+    // RSS readers poll on fixed intervals — shadow through the per-colo
+    // Cache API so polls cost ~1 KV read per colo per window, not one each.
     const rss =
-      (await c.env.CASE_STUDIES.get(kv.metaRss)) ??
+      (await readBlogRssShadowed(c.env)) ??
       '<?xml version="1.0"?><rss version="2.0"><channel><title>Pranith Jain — Case Studies</title></channel></rss>';
     return new Response(rss, {
       headers: { 'content-type': 'application/rss+xml; charset=utf-8', 'cache-control': 'public, max-age=300' },

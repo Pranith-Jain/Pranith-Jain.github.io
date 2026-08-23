@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 export interface RansomScenario {
   id: string;
@@ -109,12 +110,23 @@ function computeCosts(
   };
 }
 
+// Free per-colo Cache-API shadow TTL (write-through on saveAll keeps
+// read-your-writes in the writing colo; other colos converge within this).
+const ALL_L1_TTL_SECONDS = 60;
+
 async function loadAll(env: Env): Promise<RansomScenario[]> {
   const kv = env.KV_CACHE;
   if (!kv) return [];
+  const allKey = `${KV_PREFIX}:all`;
+  // L1: per-colo Cache-API shadow (free) before any KV subrequest.
+  const l1 = await routeCacheGet<RansomScenario[]>(allKey);
+  if (l1) return l1;
   try {
-    const blob = await kv.get(`${KV_PREFIX}:all`, 'json');
-    if (blob) return blob as RansomScenario[];
+    const blob = await kv.get(allKey, 'json');
+    if (blob) {
+      void routeCachePut(allKey, blob, ALL_L1_TTL_SECONDS);
+      return blob as RansomScenario[];
+    }
     const idsRaw = await kv.get(`${KV_PREFIX}:index`);
     const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
     const values = await kvBulkGetText(
@@ -136,6 +148,8 @@ async function saveAll(env: Env, items: RansomScenario[]): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
   await kv.put(`${KV_PREFIX}:all`, JSON.stringify(items));
+  // Write-through the L1 shadow so the next list read in this colo is free.
+  void routeCachePut(`${KV_PREFIX}:all`, items, ALL_L1_TTL_SECONDS);
 }
 
 export async function ransomList(c: Context<{ Bindings: Env }>): Promise<Response> {

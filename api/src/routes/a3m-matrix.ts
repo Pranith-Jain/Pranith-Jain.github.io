@@ -48,13 +48,22 @@ export async function a3mMatrixHandler(c: Context<{ Bindings: Env }>): Promise<R
   const kv = c.env.KV_CACHE;
   const kvKey = `${KV_PREFIX}:lastgood`;
 
-  // Try KV first
+  // Try KV first. On a hit, write-through to the per-colo Cache API so this
+  // and future requests in the colo are served FREE — previously the edge
+  // cache was only populated by the live-fetch path, so while a KV value
+  // existed (7d TTL) every single request still paid one KV read.
   if (kv) {
     const stored = await kv.get(kvKey);
     if (stored) {
-      return new Response(stored, {
+      const res = new Response(stored, {
         headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
       });
+      try {
+        await cache.put(cacheKey, res.clone());
+      } catch {
+        /* best-effort */
+      }
+      return res;
     }
   }
 

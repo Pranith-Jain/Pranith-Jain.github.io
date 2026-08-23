@@ -59,9 +59,19 @@ export async function d3fendMatrixHandler(c: Context<{ Bindings: Env }>): Promis
   if (kv) {
     const stored = await kv.get(kvKey);
     if (stored) {
-      return new Response(stored, {
+      const res = new Response(stored, {
         headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
       });
+      // Write-through to the per-colo Cache API so repeat requests here are
+      // served FREE — previously the edge cache was only populated by the
+      // live-fetch path, so while a KV value existed (7d TTL) every single
+      // request still paid one KV read.
+      try {
+        await cache.put(cacheKey, res.clone());
+      } catch {
+        /* best-effort */
+      }
+      return res;
     }
   }
 

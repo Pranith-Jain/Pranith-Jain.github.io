@@ -17,7 +17,16 @@ vi.mock('../../src/lib/social-carousel-raster', () => ({
 function mockEnv(): any {
   const store = new Map<string, string>();
   const kv = {
-    async get(k: string, t?: 'json') {
+    async get(k: string | string[], t?: 'json' | 'text') {
+      // Array form: real KV batch get (used by kvBulkGetText) → Map.
+      if (Array.isArray(k)) {
+        const out = new Map<string, string>();
+        for (const key of k) {
+          const v = store.get(key);
+          if (v !== undefined) out.set(key, v);
+        }
+        return out;
+      }
       const v = store.get(k);
       if (v === undefined) return null;
       return t === 'json' ? JSON.parse(v) : v;
