@@ -36,16 +36,17 @@ if (!descM) {
   if (len > DESC_MAX) errors.push(`index.html <meta name="description"> is ${len} chars (max ${DESC_MAX})`);
 }
 
-// --- worker/og-rewriter.ts: OG_OVERRIDES title/description per route ---
+// --- worker/og-copy.ts: OG_OVERRIDES title/description per route ---
+// (the map moved here from og-rewriter.ts so the card generator can share it)
 // Static parse: each entry is `'/<route>': { title: '...', description: '...'[, image: '...'] },`.
 // Tolerates multi-line string literals and trailing commas; ignores the
 // dynamic `generateOgMeta()` paths (blog post, briefing) which are already
 // length-capped at runtime (.slice(0, 280)).
-const ogSrc = readFileSync(new URL('../worker/og-rewriter.ts', import.meta.url), 'utf8');
+const ogSrc = readFileSync(new URL('../worker/og-copy.ts', import.meta.url), 'utf8');
 // Pull everything between `export const OG_OVERRIDES = {` and the matching `};`.
 const ogBlock = ogSrc.match(/export const OG_OVERRIDES[^=]*=\s*\{([\s\S]*?)\n\};/);
 if (!ogBlock) {
-  errors.push('worker/og-rewriter.ts: OG_OVERRIDES block not found (parser drift)');
+  errors.push('worker/og-copy.ts: OG_OVERRIDES block not found (parser drift)');
 } else {
   const body = ogBlock[1];
   // Match `  '/path': { ... },` blocks (path may contain slashes, dots, dashes).

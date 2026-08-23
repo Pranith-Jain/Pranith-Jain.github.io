@@ -214,7 +214,7 @@ function extractH1(filePath) {
 // ── 3. Read hand-tuned OG_OVERRIDES so we don't duplicate them ─────────────
 
 function parseHandTunedOverrides() {
-  const src = readFileSync(resolve(ROOT, 'worker/og-rewriter.ts'), 'utf8');
+  const src = readFileSync(resolve(ROOT, 'worker/og-copy.ts'), 'utf8'); // map moved here from og-rewriter.ts
   const block = src.match(/export const OG_OVERRIDES[^=]*=\s*\{([\s\S]*?)\n\};/);
   if (!block) return new Set();
   const paths = new Set();
