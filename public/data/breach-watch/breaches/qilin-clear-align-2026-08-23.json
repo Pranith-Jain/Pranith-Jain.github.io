@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-clear-align-2026-08-23",
-  "title": "Clear Align",
-  "group": "qilin",
-  "discovered": "2026-08-23T12:28:50.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-clear-align-2026-08-23","title":"Clear Align","group":"qilin","discovered":"2026-08-23T12:28:50.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
