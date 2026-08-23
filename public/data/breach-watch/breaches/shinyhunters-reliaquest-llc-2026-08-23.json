@@ -1,1 +1,15 @@
-{"slug":"shinyhunters-reliaquest-llc-2026-08-23","title":"ReliaQuest, LLC","group":"shinyhunters","discovered":"2026-08-23T02:27:36.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"This time the post is about you , not us. Let Mandiant report and advise on us accurately, go away. DISCLAIMER: This information is being provided \"as is\" for informational purposes only. We do not endorse any commercial entity, product, company, or service, including any entities, products, or services linked within this post. Any reference to specific commercial entities, products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply endorsement, recommendation, or favour by us. | Updated: 23 Aug 2026","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "shinyhunters-reliaquest-llc-2026-08-23",
+  "title": "ReliaQuest, LLC",
+  "group": "ShinyHunters",
+  "discovered": "2026-08-23T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/reliaquest-llc-shinyhunters-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

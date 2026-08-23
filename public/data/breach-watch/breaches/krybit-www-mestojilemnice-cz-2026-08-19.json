@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-www-mestojilemnice-cz-2026-08-19",
+  "title": "www.mestojilemnice.cz",
+  "group": "krybit",
+  "discovered": "2026-08-19T11:58:55.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CZ",
+  "sizeBytes": 0,
+  "description": "Město Jilemnice (City of Jilemnice) is the official website of the municipality of Jilemnice, a historic town located i...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}
