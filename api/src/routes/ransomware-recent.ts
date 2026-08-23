@@ -919,7 +919,13 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
       'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
       'x-cache': 'LASTGOOD',
     });
-    c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()).catch(() => {}));
+    // Write-through ONLY the canonical unfiltered payload. A ?days=1/?group=x
+    // variant written under CACHE_KEY would poison every default consumer
+    // (GlobalPulse ransom layer, sparkline, feed-status probe) with truncated
+    // data for the full TTL — same rule the cache-hit branch above applies.
+    if (days === 7 && !groupFilter) {
+      c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()).catch(() => {}));
+    }
     return response;
   }
 

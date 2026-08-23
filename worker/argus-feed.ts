@@ -68,7 +68,9 @@ export async function handleArgusRss(request: Request, env: Env, url: URL): Prom
     const h = new Headers(cached.headers);
     h.set('access-control-allow-origin', '*');
     h.set('x-argus-feed', 'cache');
-    return new Response(cached.body, { status: cached.status, headers: h });
+    // Security headers on success responses too (csp.ts invariant: always
+    // override — third-party XML must not be served same-origin unguarded).
+    return withSecurityHeaders(new Response(cached.body, { status: cached.status, headers: h }), undefined, url.origin);
   }
 
   try {
@@ -97,7 +99,7 @@ export async function handleArgusRss(request: Request, env: Env, url: URL): Prom
       },
     });
     await caches.default.put(cacheKey, res.clone()).catch(() => {});
-    return res;
+    return withSecurityHeaders(res, undefined, url.origin);
   } catch {
     return withSecurityHeaders(
       new Response(JSON.stringify({ error: 'upstream fetch failed' }), {

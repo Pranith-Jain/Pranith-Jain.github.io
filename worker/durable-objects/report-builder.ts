@@ -110,9 +110,13 @@ export class ReportBuilderDO extends DurableObject<Env> {
     const msgReportId = (msg as Record<string, unknown>).reportId;
     for (const [id, ws] of this.sessions) {
       const watching = this.sessionReportIds.get(id);
-      // Deliver only if: session subscribed to this specific reportId,
-      // or the message has no reportId (broadcast to all, e.g. 'connected').
-      if (watching && watching !== msgReportId) continue;
+      // Deliver only if: session subscribed to this specific reportId, or the
+      // message is a connection-level broadcast with NO reportId at all.
+      // SECURITY: an unsubscribed session (undefined `watching`) must NOT be
+      // treated as "watches everything" — this shared `idFromName('global')`
+      // DO carries TLP-marked reports; the old condition leaked every report
+      // to any socket that connected but never sent {"reportId":...}.
+      if (msgReportId && watching !== msgReportId) continue;
       try {
         ws.send(payload);
       } catch (_catchErr) {

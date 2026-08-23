@@ -164,10 +164,17 @@ export async function acquireCronLease(
 
 export async function heartbeatCronLease(env: Env, cron: string, token: string, ttlMs: number): Promise<void> {
   try {
-    await lockStub(env).fetch(`${LOCK_ORIGIN}/heartbeat`, {
+    const res = await lockStub(env).fetch(`${LOCK_ORIGIN}/heartbeat`, {
       method: 'POST',
       body: JSON.stringify({ op: 'heartbeat', cron, token, ttlMs }),
     });
+    // A lost lease (ok:false — expired and re-acquired elsewhere) means the
+    // same cron is NOW running in another isolate: double-running the hourly
+    // fan-out burns the free-plan budget twice. Surface it loudly instead of
+    // silently continuing to believe we still hold the lease.
+    if (!res.ok) {
+      console.error(JSON.stringify({ job: 'cron-lease-heartbeat', status: 'lease-lost', cron }));
+    }
   } catch (_catchErr) {
     console.error('heartbeatCronLease failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */

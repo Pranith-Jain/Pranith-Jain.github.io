@@ -90,9 +90,10 @@ export async function handleQueue(
               await kv.put(key, body, { expirationTtl: GP_WARM_TTL_SECONDS });
             }
           } else {
-            // Previously silent — a non-ok warm fetch was acked with no trace,
-            // so a broken feed (e.g. a key-gated route returning 401/502) left
-            // gp:warm:<key> empty with nothing in the logs to explain it.
+            // Transient upstream failure (5xx/429) → retry with backoff
+            // instead of acking an empty warm window; the layer would stay
+            // dark until the next hourly enqueue otherwise. 4xx = permanent
+            // (bad path/key) — retrying can't fix it, ack to skip DLQ noise.
             console.error(
               JSON.stringify({
                 job: 'gp-warm-slice',
@@ -102,6 +103,10 @@ export async function handleQueue(
                 error: 'warm fetch not ok',
               })
             );
+            if (res.status >= 500 || res.status === 429) {
+              msg.retry({ delaySeconds: 60 });
+              return;
+            }
           }
           msg.ack();
           return;
@@ -139,6 +144,9 @@ export async function handleQueue(
                 error: e instanceof Error ? e.message : String(e),
               })
             );
+            // Transient fetcher failure → retry (see gp-warm rationale).
+            msg.retry({ delaySeconds: 60 });
+            return;
           }
           msg.ack();
           return;

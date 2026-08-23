@@ -17,6 +17,10 @@ export function getSiteUrl(env?: { SITE_URL?: string }): string {
  *
  * To include dev origins in production (e.g. for debugging), set
  * ALLOW_DEV_ORIGINS=true as a Worker secret.
+ *
+ * ⚠️ SECURITY: when true this flag widens BOTH the CSRF guard and the
+ * auth same-origin bypass to localhost origins. It must never be set in a
+ * production deployment — checked at startup in worker/bindings.ts.
  */
 export function getAllowedOrigins(env?: { SITE_URL?: string; ALLOW_DEV_ORIGINS?: string }): string[] {
   const origins = [getSiteUrl(env)];

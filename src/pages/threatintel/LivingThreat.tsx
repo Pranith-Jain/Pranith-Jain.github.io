@@ -167,7 +167,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
               <span className="flex items-center gap-1">
                 <Clock className="w-2.5 h-2.5" /> {fmtDate(entry.timestamp)}
               </span>
-              {entry.source && <span className="truncate max-w-[45ch]">{new URL(entry.source).hostname}</span>}
+              {entry.source && <span className="truncate max-w-[45ch]">{hostOf(entry.source)}</span>}
               {entry.tactics.length > 0 && <span className="truncate max-w-[40ch]">{entry.tactics.join(' → ')}</span>}
             </div>
           </div>
@@ -308,6 +308,17 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
       )}
     </div>
   );
+}
+
+/** Safe hostname extraction — feed `source` values are scraped third-party
+ *  strings; a relative/garbage URL must not throw during render (one bad row
+ *  used to blank the whole page via the top-level ErrorBoundary). */
+function hostOf(u: string): string {
+  try {
+    return new URL(u).hostname;
+  } catch {
+    return u;
+  }
 }
 
 export default function LivingThreat(): JSX.Element {
@@ -542,7 +553,7 @@ export default function LivingThreat(): JSX.Element {
                 items={incidents.slice(0, 30).map((e) => ({
                   title: e.title,
                   body: `severity: ${e.severity} · actors: ${e.actors.join(', ') || 'none'} · tactics: ${e.tactics.join(' → ') || 'none'}`,
-                  source: e.source ? new URL(e.source).hostname : 'living-threat',
+                  source: e.source ? hostOf(e.source) : 'living-threat',
                 }))}
                 requireAdmin={false}
               />

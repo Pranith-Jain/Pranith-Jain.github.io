@@ -29,17 +29,30 @@ export interface ExportableThreat {
 export function exportToStix21(data: ExportableIOC[]): string {
   const now = new Date().toISOString();
   const objects: Record<string, unknown>[] = [
-    { type: 'identity', id: 'identity--' + hashStr('export'), name: 'IOC Export', identity_class: 'system', created: now, modified: now },
+    {
+      type: 'identity',
+      id: 'identity--' + hashStr('export'),
+      name: 'IOC Export',
+      identity_class: 'system',
+      created: now,
+      modified: now,
+    },
   ];
 
   for (const ioc of data) {
     const stixType = mapToStixType(ioc.type);
     const id = `${stixType}--${hashStr(ioc.value)}`;
     objects.push({
-      type: stixType, id, created: now, modified: now,
-      name: ioc.value, pattern: buildStixPattern(ioc.type, ioc.value),
-      valid_from: ioc.first_seen, confidence: ioc.confidence,
-      labels: ioc.tags, object_marking_refs: ['marking-definition--613f2e26-407d-48c7-9eca-b8e91df99dc9'],
+      type: stixType,
+      id,
+      created: now,
+      modified: now,
+      name: ioc.value,
+      pattern: buildStixPattern(ioc.type, ioc.value),
+      valid_from: ioc.first_seen,
+      confidence: ioc.confidence,
+      labels: ioc.tags,
+      object_marking_refs: ['marking-definition--613f2e26-407d-48c7-9eca-b8e91df99dc9'],
     });
   }
 
@@ -50,19 +63,29 @@ export function exportToStix21(data: ExportableIOC[]): string {
 export function exportToMisp(data: ExportableIOC[], eventName: string): string {
   const now = new Date().toISOString();
   const attributes = data.map((ioc) => ({
-    type: mapToMispType(ioc.type), value: ioc.value,
-    category: 'Network activity', to_ids: true,
+    type: mapToMispType(ioc.type),
+    value: ioc.value,
+    category: 'Network activity',
+    to_ids: true,
     comment: `Confidence: ${ioc.confidence}% | Source: ${ioc.source}`,
     timestamp: Math.floor(new Date(ioc.last_seen).getTime() / 1000),
   }));
 
-  return JSON.stringify({
-    Event: {
-      info: eventName, date: now.slice(0, 10), timestamp: Math.floor(Date.now() / 1000).toString(),
-      distribution: '0', threat_level_id: '2', analysis: '2',
-      Attribute: attributes,
+  return JSON.stringify(
+    {
+      Event: {
+        info: eventName,
+        date: now.slice(0, 10),
+        timestamp: Math.floor(Date.now() / 1000).toString(),
+        distribution: '0',
+        threat_level_id: '2',
+        analysis: '2',
+        Attribute: attributes,
+      },
     },
-  }, null, 2);
+    null,
+    2
+  );
 }
 
 /** Export detection rule to Sigma format */
@@ -83,10 +106,16 @@ export function exportToSigma(name: string, description: string, iocs: Exportabl
 /** Export IOCs to YARA rule */
 export function exportToYara(name: string, description: string, hashIOCs: string[], stringIOCs: string[]): string {
   const cleanName = name.replace(/[^a-zA-Z0-9_]/g, '_');
-  let rule = `rule ${cleanName} {\n  meta:\n    description = "${description}"\n    author = "CTI Platform"\n    date = "${new Date().toISOString().slice(0, 10)}"\n  strings:\n`;
+  // A double-quote inside meta strings breaks rule syntax — escape for YARA.
+  const yaraStr = (s: string): string => s.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n');
+  let rule = `rule ${cleanName} {\n  meta:\n    description = "${yaraStr(description)}"\n    author = "CTI Platform"\n    date = "${new Date().toISOString().slice(0, 10)}"\n  strings:\n`;
 
-  hashIOCs.forEach((h, i) => { rule += `    $hash${i} = "${h}" ascii nocase\n`; });
-  stringIOCs.forEach((s, i) => { rule += `    $str${i} = "${s}" ascii\n`; });
+  hashIOCs.forEach((h, i) => {
+    rule += `    $hash${i} = "${yaraStr(h)}" ascii nocase\n`;
+  });
+  stringIOCs.forEach((s, i) => {
+    rule += `    $str${i} = "${yaraStr(s)}" ascii\n`;
+  });
 
   rule += '  condition:\n    any of them\n}\n';
   return rule;
@@ -94,58 +123,116 @@ export function exportToYara(name: string, description: string, hashIOCs: string
 
 /** Export IOCs to Snort rule */
 export function exportToSnort(name: string, ipIOCs: string[]): string {
-  return ipIOCs.map((ip, i) =>
-    `alert ip any any -> ${ip} any (msg:"CTI_${name}_${i}"; sid:${1000000 + i}; rev:1; classtype:trojan-activity; priority:1;)`
-  ).join('\n');
+  // `name` reaches a double-quoted option value — strip rule-syntax chars.
+  const safeName = name.replace(/[";\\]/g, '');
+  return ipIOCs
+    .map((ip, i) => {
+      const safeIp = /^[0-9a-fA-F:.]+$/.test(ip) ? ip : '0.0.0.0';
+      return `alert ip any any -> ${safeIp} any (msg:"CTI_${safeName}_${i}"; sid:${1000000 + i}; rev:1; classtype:trojan-activity; priority:1;)`;
+    })
+    .join('\n');
 }
 
 /** Export IOCs to Suricata rule */
 export function exportToSuricata(name: string, ipIOCs: string[]): string {
-  return ipIOCs.map((ip, i) =>
-    `alert ip any any -> ${ip} any (msg:"CTI ${name} - Malicious IP ${ip}"; flow:established; sid:${2000000 + i}; rev:1; classtype:trojan-activity; priority:1; metadata:severity critical;)`
-  ).join('\n');
+  return ipIOCs
+    .map(
+      (ip, i) =>
+        `alert ip any any -> ${ip} any (msg:"CTI ${name} - Malicious IP ${ip}"; flow:established; sid:${2000000 + i}; rev:1; classtype:trojan-activity; priority:1; metadata:severity critical;)`
+    )
+    .join('\n');
 }
 
-/** Export IOCs to CSV */
+/** Escape a value for double-quoted STIX pattern literals. */
+function stixEscape(value: string): string {
+  return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+/** Export IOCs to CSV (RFC-4180 quoting + spreadsheet formula-injection guard). */
 export function exportToCSV(data: ExportableIOC[]): string {
   const headers = 'Value,Type,Confidence,First Seen,Last Seen,Tags,Source';
+  const cell = (raw: string): string => {
+    // Neutralize formula injection (=, +, -, @ prefixes) then RFC-4180 quote
+    // (double the embedded quotes). IOC values come from scraped feeds.
+    const guarded = /^[=+\-@\t\r]/.test(raw) ? `'${raw}` : raw;
+    return `"${guarded.replace(/"/g, '""')}"`;
+  };
   const rows = data.map((ioc) =>
-    `"${ioc.value}","${ioc.type}",${ioc.confidence},"${ioc.first_seen}","${ioc.last_seen}","${ioc.tags.join(';')}","${ioc.source}"`
+    [
+      cell(ioc.value),
+      cell(ioc.type),
+      String(ioc.confidence),
+      cell(ioc.first_seen),
+      cell(ioc.last_seen),
+      cell(ioc.tags.join(';')),
+      cell(ioc.source),
+    ].join(',')
   );
   return [headers, ...rows].join('\n');
 }
 
 /** Export IOCs to pfSense alias format */
 export function exportToPfSense(data: ExportableIOC[]): string {
-  return data.filter((i) => i.type === 'ip').map((i) => i.value).join('\n');
+  return data
+    .filter((i) => i.type === 'ip')
+    .map((i) => i.value)
+    .join('\n');
 }
 
 // Helper functions
 function mapToStixType(iocType: string): string {
-  const map: Record<string, string> = { ip: 'indicator', domain: 'indicator', url: 'indicator', 'hash-md5': 'indicator', 'hash-sha1': 'indicator', 'hash-sha256': 'indicator', email: 'indicator' };
+  const map: Record<string, string> = {
+    ip: 'indicator',
+    domain: 'indicator',
+    url: 'indicator',
+    'hash-md5': 'indicator',
+    'hash-sha1': 'indicator',
+    'hash-sha256': 'indicator',
+    email: 'indicator',
+  };
   return map[iocType] ?? 'indicator';
 }
 
 function buildStixPattern(type: string, value: string): string {
+  const v = stixEscape(value);
   switch (type) {
-    case 'ip': return `[ipv4-addr:value = '${value}']`;
-    case 'domain': return `[domain-name:value = '${value}']`;
-    case 'url': return `[url:value = '${value}']`;
-    case 'hash-md5': return `[file:hashes.'MD5' = '${value}']`;
-    case 'hash-sha1': return `[file:hashes.'SHA-1' = '${value}']`;
-    case 'hash-sha256': return `[file:hashes.'SHA-256' = '${value}']`;
-    case 'email': return `[email-addr:value = '${value}']`;
-    default: return `[artifact:payload_bin = '${value}']`;
+    case 'ip':
+      return `[ipv4-addr:value = '${v}']`;
+    case 'domain':
+      return `[domain-name:value = '${v}']`;
+    case 'url':
+      return `[url:value = '${v}']`;
+    case 'hash-md5':
+      return `[file:hashes.'MD5' = '${v}']`;
+    case 'hash-sha1':
+      return `[file:hashes.'SHA-1' = '${v}']`;
+    case 'hash-sha256':
+      return `[file:hashes.'SHA-256' = '${v}']`;
+    case 'email':
+      return `[email-addr:value = '${v}']`;
+    default:
+      return `[artifact:payload_bin = '${v}']`;
   }
 }
 
 function mapToMispType(iocType: string): string {
-  const map: Record<string, string> = { ip: 'ip-dst', domain: 'domain', url: 'url', 'hash-md5': 'md5', 'hash-sha1': 'sha1', 'hash-sha256': 'sha256', email: 'email-dst' };
+  const map: Record<string, string> = {
+    ip: 'ip-dst',
+    domain: 'domain',
+    url: 'url',
+    'hash-md5': 'md5',
+    'hash-sha1': 'sha1',
+    'hash-sha256': 'sha256',
+    email: 'email-dst',
+  };
   return map[iocType] ?? 'text';
 }
 
 function hashStr(s: string): string {
   let hash = 0;
-  for (let i = 0; i < s.length; i++) { hash = ((hash << 5) - hash) + s.charCodeAt(i); hash |= 0; }
+  for (let i = 0; i < s.length; i++) {
+    hash = (hash << 5) - hash + s.charCodeAt(i);
+    hash |= 0;
+  }
   return Math.abs(hash).toString(16).padStart(32, '0');
 }

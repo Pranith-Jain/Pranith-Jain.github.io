@@ -59,7 +59,6 @@ export class CronJobDO extends DurableObject<Env> {
   override async alarm(): Promise<void> {
     const job = await this.ctx.storage.get<PendingJob>(JOB_KEY);
     if (!job) return;
-    await this.ctx.storage.delete(JOB_KEY);
 
     // The job bodies expect an ExecutionContext (waitUntil for cache writes,
     // passThroughOnException for the in-process apiApp.fetch). The DO state
@@ -75,7 +74,10 @@ export class CronJobDO extends DurableObject<Env> {
       await executeCronJob(job.cron, job.scheduledTime, this.env, shimCtx);
     } catch (e) {
       // executeCronJob swallows per-component failures; an unexpected throw
-      // here means the DO retries the alarm, which is the desired backstop.
+      // means the run failed — keep JOB_KEY so the alarm retry actually has a
+      // job to re-run. Deleting before execution (the old behavior) made the
+      // documented "DO retries the alarm" backstop dead code: on retry,
+      // `job` was already gone and the failed run was silently lost.
       console.error(
         JSON.stringify({
           job: 'cron-job',
@@ -86,5 +88,7 @@ export class CronJobDO extends DurableObject<Env> {
       );
       throw e;
     }
+    // Success — clear the pending job so a spurious extra alarm is a no-op.
+    await this.ctx.storage.delete(JOB_KEY);
   }
 }

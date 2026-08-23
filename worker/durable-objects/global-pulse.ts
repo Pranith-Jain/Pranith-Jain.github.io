@@ -97,14 +97,26 @@ export class GlobalPulseDO extends DurableObject<Env> {
     server.addEventListener('close', cleanup);
     server.addEventListener('error', cleanup);
 
-    server.send(JSON.stringify({ type: 'connected' }));
+    // A client that closes immediately after the upgrade makes send() throw
+    // inside fetch(), aborting before the 101 response is returned (client
+    // sees 503 + burns a WS rate-limit slot). Post-accept sends are
+    // best-effort — never let them escape the handshake.
+    try {
+      server.send(JSON.stringify({ type: 'connected' }));
+    } catch {
+      /* client gone — later sends are individually guarded */
+    }
 
     if (this.lastSnapshot.size === 0) {
       await this.pollFeeds();
     }
 
     const events = Array.from(this.lastSnapshot.values());
-    server.send(JSON.stringify({ type: 'snapshot', events, generated_at: this.lastGeneratedAt }));
+    try {
+      server.send(JSON.stringify({ type: 'snapshot', events, generated_at: this.lastGeneratedAt }));
+    } catch {
+      /* client gone */
+    }
 
     // Keep polling every 30s while clients are connected. The alarm is also
     // kept alive for 5m after the last client disconnects so a nudge from

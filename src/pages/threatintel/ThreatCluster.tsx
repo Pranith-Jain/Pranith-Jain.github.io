@@ -334,7 +334,9 @@ export default function ThreatCluster(): JSX.Element {
         else if (tab === 'iocs') setIocs((json.iocs as TcIoc[]) ?? []);
         else if (tab === 'misp') setMisp((json.events as TcMispEvent[]) ?? []);
       } catch {
-        /* list fetch failure is non-fatal */
+        // Allow a retry on the next tab visit — memoizing a FAILED load made
+        // one transient 500 show "0 of 0" for the whole session.
+        loadedTabs.current.delete(tab);
       }
     })();
   }, [tab]);

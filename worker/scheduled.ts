@@ -936,7 +936,7 @@ export async function executeCronJob(
           }
 
           // === Daily leak entry cleanup (6am UTC) ===
-          if (new Date().getUTCHours() === 6) {
+          if (csNow.getUTCHours() === 6) {
             try {
               if (env.BRIEFINGS_DB) {
                 const deleted = await cleanupLeakEntries(env.BRIEFINGS_DB, 7);
@@ -950,7 +950,7 @@ export async function executeCronJob(
           }
 
           // === Daily blocklist build (6am UTC) ===
-          if (new Date().getUTCHours() === 6) {
+          if (csNow.getUTCHours() === 6) {
             try {
               const bl = await buildBlocklists(env.KV_CACHE);
               console.log(

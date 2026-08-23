@@ -77,14 +77,24 @@ export class LiveFeedDO extends DurableObject<Env> {
     server.addEventListener('close', cleanup);
     server.addEventListener('error', cleanup);
 
-    server.send(JSON.stringify({ type: 'connected', feeds: CACHE_KEYS.map((c) => c.label) }));
+    // Post-accept sends are best-effort — a client that closed immediately
+    // must not blow up the handshake (see global-pulse.ts).
+    try {
+      server.send(JSON.stringify({ type: 'connected', feeds: CACHE_KEYS.map((c) => c.label) }));
+    } catch {
+      /* client gone — later sends are individually guarded */
+    }
 
     if (this.lastSnapshots.size === 0) {
       await this.pollFeeds();
     }
 
     for (const s of this.lastSnapshots.values()) {
-      server.send(JSON.stringify({ type: 'snapshot', feed: s.type, total: s.total, generated_at: s.generated_at }));
+      try {
+        server.send(JSON.stringify({ type: 'snapshot', feed: s.type, total: s.total, generated_at: s.generated_at }));
+      } catch {
+        /* client gone */
+      }
     }
 
     if (this.sessions.size > 0) {

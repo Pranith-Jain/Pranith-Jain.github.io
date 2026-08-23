@@ -9,6 +9,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
+import { pinnedFetchFollow } from '../lib/ssrf-guard';
 
 const CACHE_TTL = 3600;
 
@@ -80,7 +81,12 @@ export async function reverseImageSearchHandler(c: Context<{ Bindings: Env }>): 
   let contentLength: number | undefined;
 
   try {
-    const resp = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: AbortSignal.timeout(6000) });
+    // SSRF guard: the URL is fully user-supplied — validate + pin (and stop
+    // following redirects blindly; pinnedFetchFollow re-validates every hop).
+    const resp = await pinnedFetchFollow(url, {
+      method: 'HEAD',
+      signal: AbortSignal.timeout(6000),
+    });
     reachable = resp.ok;
     contentType = resp.headers.get('content-type') ?? undefined;
     contentLength = resp.headers.get('content-length') ? Number(resp.headers.get('content-length')) : undefined;

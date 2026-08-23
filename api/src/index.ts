@@ -901,6 +901,13 @@ app.use('/api/v1/admin/purge', requireAdminMiddleware);
 app.use('/api/v1/admin/retention/*', requireAdminMiddleware);
 app.use('/api/v1/admin/x-cookies', requireAdminMiddleware);
 app.use('/api/v1/admin/x-qids', requireAdminMiddleware);
+// Telegram bot-status leaks the operator's private monitored-channel map and
+// bot/poll triggers upstream fan-out + KV writes — both operator-only. These
+// two registrations sit BEFORE the case-study sub-app's catch-all admin gate,
+// so they need their own explicit gate (Hono does not retroactively wrap
+// earlier-registered handlers).
+app.use('/api/v1/admin/telegram', requireAdminMiddleware);
+app.use('/api/v1/admin/telegram/*', requireAdminMiddleware);
 // maltrail-sync writes KV-backed actor records and fans out to the GitHub API;
 // it is an operator-only mutation, not a public/readonly-key endpoint.
 app.use('/api/v1/maltrail-sync', requireAdminMiddleware);

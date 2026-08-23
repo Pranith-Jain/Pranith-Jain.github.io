@@ -868,6 +868,9 @@ export default function ThreaticonFeeds() {
 
   useEffect(() => {
     if (loadedTabs.current.has(tab)) return;
+    // 'catalog' is owned by the dedicated abort-guarded effect below —
+    // fetching it here too doubled the same request on first visit.
+    if (tab === 'catalog') return;
     loadedTabs.current.add(tab);
     const base = '/api/v1/threat-intel/threaticon';
     const endpoint =
@@ -883,13 +886,11 @@ export default function ThreaticonFeeds() {
                 ? `${base}/catalog/campaigns?limit=1000`
                 : tab === 'attack-patterns'
                   ? `${base}/catalog/attack-patterns?limit=1000`
-                  : tab === 'catalog'
-                    ? `${base}/catalog/${catalogSection}?limit=1000`
-                    : '';
+                  : '';
     (async () => {
       try {
         const r = await fetch(endpoint);
-        if (!r.ok) return;
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const json = (await r.json()) as Record<string, unknown>;
         if (tab === 'actors') setActors((json.actors as TiActor[]) ?? []);
         else if (tab === 'malware') setFamilies((json.families as TiMalwareFamily[]) ?? []);
@@ -899,7 +900,9 @@ export default function ThreaticonFeeds() {
         else if (tab === 'attack-patterns') setAttackPatterns((json.items as TiCatalogItem[]) ?? []);
         else if (tab === 'catalog') setCatalogItems((json.items as TiCatalogItem[]) ?? []);
       } catch {
-        /* list fetch failure is non-fatal */
+        // Allow a retry on the next visit — memoizing a FAILED load made one
+        // transient 500 show an empty tab forever (map tab rendered nothing).
+        loadedTabs.current.delete(tab);
       }
     })();
   }, [tab, catalogSection]);

@@ -92,8 +92,29 @@ export function buildShareMarkdown(report: string, actionCard?: ReportActionCard
   return lines.join('\n');
 }
 
+/**
+ * Strip EVERY html tag from untrusted source text (loop until stable so
+ * crafted nesting like `<scr<script>ipt>` cannot reassemble a tag), plus
+ * script/style blocks with their bodies. The markdown pipeline below emits
+ * only its own trusted markup, so a fully de-tagged source makes every
+ * downstream insertion safe for the dangerouslySetInnerHTML sink. This
+ * markdown renders LLM agent output that quotes untrusted third-party text
+ * (leak-site titles, Telegram captions, CVE descriptions).
+ */
+function stripHtmlTags(input: string): string {
+  let out = input.replace(/<script[\s\S]*?<\/script\s*>/gi, '').replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+  let prev = out;
+  do {
+    prev = out;
+    out = out.replace(/<[^>]*>/g, '');
+  } while (out !== prev);
+  return out;
+}
+
 export function renderMarkdown(md: string): string {
   if (!md) return '';
+  // SECURITY: de-tag the source BEFORE any transform — see stripHtmlTags.
+  md = stripHtmlTags(md);
   // Strip the trailing :::handoff + action-card blocks - UI handles those.
   let s = md;
   s = s.replace(/\n*:::handoff\s*\n[\s\S]*?\n:::\s*$/g, '');

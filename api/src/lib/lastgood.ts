@@ -30,10 +30,12 @@ const KEY_PREFIX = 'lastgood:v1:';
  * free, and survives across invocations. Shadowing collapses repeated reads of
  * the same key — the hourly cron precomputes (PIR alert scan) and the
  * request-path fallback bursts during an upstream outage — to ~1 KV read per
- * colo per TTL window. Coherency: `writeLastGood` write-throughs the shadow, so
- * a fresh value is never masked by a stale cached one after recovery. Staleness
- * is bounded by the TTL and is acceptable for what is already "stale fallback"
- * data (served only when the live upstream is down).
+ * colo per TTL window. Coherency: `writeLastGood` write-throughs the shadow,
+ * so a fresh value is never masked by a stale cached one AFTER RECOVERY IN
+ * THE SAME COLO. Cross-colo: a recovering colo B refreshes KV immediately but
+ * a still-failing colo A keeps serving its own shadow copy for up to
+ * SHADOW_TTL_SECONDS — bounded staleness on data that is already flagged
+ * `stale:true` fallback. Staleness is otherwise bounded by the TTL.
  */
 const SHADOW_TTL_SECONDS = 6 * 60 * 60; // 6h — comfortably spans the hourly cron
 function cacheApi(): Cache | null {

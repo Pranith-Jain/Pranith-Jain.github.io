@@ -148,8 +148,9 @@ async function saveAll(env: Env, items: RansomScenario[]): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
   await kv.put(`${KV_PREFIX}:all`, JSON.stringify(items));
-  // Write-through the L1 shadow so the next list read in this colo is free.
-  void routeCachePut(`${KV_PREFIX}:all`, items, ALL_L1_TTL_SECONDS);
+  // Write-through the L1 shadow (awaited — read-your-writes for the next
+  // list read in this colo must not depend on request-lifetime races).
+  await routeCachePut(`${KV_PREFIX}:all`, items, ALL_L1_TTL_SECONDS);
 }
 
 export async function ransomList(c: Context<{ Bindings: Env }>): Promise<Response> {

@@ -115,6 +115,19 @@ export function logStartupValidation(env: Record<string, unknown>): {
   ok: boolean;
   missing: BindingStatus[];
 } {
+  // Fail-loud config guard: ALLOW_DEV_ORIGINS=true widens the CSRF guard AND
+  // the auth same-origin bypass to localhost origins. Harmless in dev, a
+  // request-forgery hole in production.
+  if (env.ALLOW_DEV_ORIGINS === 'true' && !/localhost|127\.0\.0\.1/.test(String(env.SITE_URL ?? ''))) {
+    console.error(
+      JSON.stringify({
+        level: 'error',
+        event: 'security_config_warning',
+        message:
+          'ALLOW_DEV_ORIGINS=true on a non-localhost SITE_URL — CSRF + same-origin auth bypass are widened. Unset this in production.',
+      })
+    );
+  }
   const result = validateRequiredBindings(env);
   if (result.ok) return result;
   if (Date.now() - lastValidatedAt < VALIDATE_DEBOUNCE_MS) return result;

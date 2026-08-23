@@ -172,6 +172,7 @@ export default function CyberPulse(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState(0);
   const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [scanResult, setScanResult] = useState<string | null>(null);
 
@@ -181,7 +182,11 @@ export default function CyberPulse(): JSX.Element {
   const [platformFilter, setPlatformFilter] = useState(searchParams.get('plat') ?? '');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
   const debouncedSearch = useDebounce(searchQuery, 200);
-  const [days, setDays] = useState(Number(searchParams.get('days') ?? '7'));
+  const [days, setDays] = useState(() => {
+    // ?days=abc (shared/bookmarked URL) must not put NaN into API URLs.
+    const d = Number(searchParams.get('days') ?? '7');
+    return Number.isFinite(d) && d > 0 ? d : 7;
+  });
   const [refreshKey, setRefreshKey] = useState(0);
 
   const pulseRef = useRef<AbortController | null>(null);
@@ -409,7 +414,10 @@ export default function CyberPulse(): JSX.Element {
             <div className="text-center py-4">
               <button
                 type="button"
+                disabled={loadingMore}
                 onClick={() => {
+                  if (loadingMore) return; // double-click guard — same-offset dupes
+                  setLoadingMore(true);
                   const ctrl = new AbortController();
                   fetch(
                     `/api/v1/cyberpulse/incidents?limit=100&offset=${incidents.length}&days=${days}${typeFilter ? `&type=${typeFilter}` : ''}${severityFilter ? `&severity=${severityFilter}` : ''}${platformFilter ? `&platform=${platformFilter}` : ''}${debouncedSearch ? `&q=${debouncedSearch}` : ''}`,
@@ -423,7 +431,11 @@ export default function CyberPulse(): JSX.Element {
                       if (ctrl.signal.aborted) return;
                       setIncidents((prev) => [...prev, ...d.incidents]);
                       setHasMore(d.has_more);
-                    });
+                    })
+                    .catch(() => {
+                      if (!ctrl.signal.aborted) setError('Failed to load more incidents');
+                    })
+                    .finally(() => setLoadingMore(false));
                 }}
                 className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300"
               >

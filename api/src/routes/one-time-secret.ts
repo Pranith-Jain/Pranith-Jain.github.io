@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError } from '../lib/api-error';
-import { safeNullLog } from '../lib/safe-catch';
+import { safeJsonBody } from '../lib/safe-body';
 
 const KV_PREFIX = 'ots:';
 
@@ -26,10 +26,27 @@ function isValidExpiry(v: string): v is ExpiryKey {
   return v in EXPIRY_OPTIONS;
 }
 
+// Payload ceiling: ciphertext is client-side-encrypted base64 — anything
+// beyond ~48KB of secret text is abuse, not usage. Caps anonymous writes into
+// the SHARED free-plan KV namespace (1k writes/day across the whole platform:
+// phishing-fp, daily briefs, bot state all draw from the same quota).
+const MAX_CIPHERTEXT_B64_CHARS = 64_000;
+
 export async function createSecretHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const body = await safeNullLog('ots-parse-body', c.req.json());
-  if (!body || typeof body.ciphertext !== 'string' || typeof body.iv !== 'string') {
+  const parsed = await safeJsonBody<{ ciphertext?: unknown; iv?: unknown; expiresIn?: unknown }>(c, {
+    maxBytes: 96 * 1024,
+    maxDepth: 4,
+  });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
+  if (typeof body.ciphertext !== 'string' || typeof body.iv !== 'string') {
     return badRequest(c, 'ciphertext (base64) and iv (base64) required');
+  }
+  if (body.ciphertext.length > MAX_CIPHERTEXT_B64_CHARS || body.ciphertext.length < 8) {
+    return badRequest(c, `ciphertext must be between 8 and ${MAX_CIPHERTEXT_B64_CHARS} base64 chars`);
+  }
+  if (!/^[A-Za-z0-9+/=]+$/.test(body.ciphertext) || !/^[A-Za-z0-9+/=]+$/.test(body.iv)) {
+    return badRequest(c, 'ciphertext and iv must be base64');
   }
 
   const expiresIn: number =

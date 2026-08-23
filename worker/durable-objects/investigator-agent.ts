@@ -149,6 +149,8 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
   private workingMemoryCache = new Map<string, { stepCount: number; mem: WorkingMemory }>();
   private connectionAgentIds = new Map<string, string>();
   private ipConnections = new Map<string, number>();
+  /** conn.id -> client IP, so onClose can decrement the per-IP cap. */
+  private connIps = new Map<string, string>();
 
   /** Called for every non-WebSocket HTTP request to this DO instance.
    *
@@ -251,6 +253,10 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       return;
     }
     this.ipConnections.set(clientIp, ipCount + 1);
+    // Track which IP this socket belongs to so onClose can decrement —
+    // without this, refreshes accumulate against the cap until the DO is
+    // evicted and the client is permanently locked out with 1013.
+    this.connIps.set(conn.id, clientIp);
     conn.send(JSON.stringify({ type: 'connected' }));
   }
 
@@ -267,6 +273,13 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
   override async onClose(conn: Connection): Promise<void> {
     this.connectionAgentIds.delete(conn.id);
+    const ip = this.connIps.get(conn.id);
+    if (ip !== undefined) {
+      this.connIps.delete(conn.id);
+      const remaining = (this.ipConnections.get(ip) ?? 1) - 1;
+      if (remaining <= 0) this.ipConnections.delete(ip);
+      else this.ipConnections.set(ip, remaining);
+    }
   }
 
   private broadcastToWatchers(msg: unknown): void {

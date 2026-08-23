@@ -292,9 +292,17 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
     };
 
     // Store in KV
-    await kv
-      .put(`digest:weekly:${isoWeek}`, JSON.stringify(digest), { expirationTtl: 86400 * 14 })
-      .catch((err) => logError('watchlist digest cache put failed:', err));
+    await kv.put(`digest:weekly:${isoWeek}`, JSON.stringify(digest), { expirationTtl: 86400 * 14 });
+    // Digests are NOT immutable across regeneration (same key is overwritten
+    // when the week's digest is rebuilt) — evict the GET shadow so readers
+    // see the fresh digest immediately.
+    try {
+      await (caches as unknown as { default: Cache }).default.delete(
+        new Request(`https://watchlist-digest-cache.internal/v1/${encodeURIComponent(isoWeek)}`)
+      );
+    } catch {
+      /* best-effort */
+    }
 
     const indexRaw = await kv.get('digest:weekly:index').catch(() => null);
     const weeks: string[] = indexRaw ? JSON.parse(indexRaw) : [];
@@ -441,10 +449,14 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
 
     // Sector-match first, then ONE batched KV read for every matched actor's
     // news+victims slices (was 2 sequential gets per actor inside the loop).
+    // Wildcard rule MUST mirror watchlistDigestGenerateHandler above: an actor
+    // with no target_sectors matches ANY estate sector.
     const entries: DigestEntry[] = [];
     const matchedRows = (rows.results ?? []).filter((row) => {
       const sectors = JSON.parse(row.target_sectors) as string[];
-      return estateSector ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase()) : true;
+      return estateSector && sectors.length > 0
+        ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
+        : sectors.length === 0;
     });
     const feedKeys = matchedRows.flatMap((row) => [
       `actor:news:${row.actor_name}`,
@@ -487,6 +499,14 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
     };
 
     await kv.put(`digest:weekly:${isoWeek}`, JSON.stringify(digest), { expirationTtl: 86400 * 14 });
+    // Evict the GET shadow (digests regenerate under the same weekly key).
+    try {
+      await (caches as unknown as { default: Cache }).default.delete(
+        new Request(`https://watchlist-digest-cache.internal/v1/${encodeURIComponent(isoWeek)}`)
+      );
+    } catch {
+      /* best-effort */
+    }
 
     const indexRaw = await kv.get('digest:weekly:index').catch(() => null);
     const weeks: string[] = indexRaw ? JSON.parse(indexRaw) : [];

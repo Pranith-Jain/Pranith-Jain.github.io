@@ -327,7 +327,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
     return c;
   }, [items]);
 
-  const anyLoading = feedLoading && leakLoading && liveLoading;
+  const anyLoading = feedLoading || leakLoading || liveLoading;
   const anyError = feedError || leakError || liveError;
 
   return (

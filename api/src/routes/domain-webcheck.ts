@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
+import { assertPublicHost } from '../lib/ssrf-guard';
 
 /**
  * Web-Check style domain analysis — HTTP probe, SSL/TLS inspection,
@@ -269,6 +270,21 @@ async function probeHttp(domain: string): Promise<HttpProbeResult> {
   for (let i = 0; i <= maxRedirects; i++) {
     const start = Date.now();
     try {
+      // SSRF guard: the domain is user-supplied and every redirect hop is
+      // attacker-influenceable — validate + pin EACH hop (same contract as
+      // pinnedFetchFollow; done inline to keep the redirect-chain capture).
+      let parsed: URL;
+      try {
+        parsed = new URL(url);
+      } catch {
+        break;
+      }
+      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') break;
+      const check = await assertPublicHost(parsed.hostname);
+      if (!check.ok) {
+        logError('probeHttp blocked', new Error(check.error ?? 'blocked host'));
+        break;
+      }
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
       const res = await fetch(url, {
@@ -279,7 +295,8 @@ async function probeHttp(domain: string): Promise<HttpProbeResult> {
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
           accept: 'text/html,application/xhtml+xml,*/*',
         },
-      });
+        cf: { resolveOverride: check.pinIp },
+      } as RequestInit);
       clearTimeout(timer);
       result.responseTimeMs += Date.now() - start;
 
@@ -349,11 +366,16 @@ async function probeTls(domain: string): Promise<TlsInfo> {
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+    // SSRF guard: pin the resolved IP so the probe can't be pointed at
+    // internal/metadata addresses via DNS.
+    const check = await assertPublicHost(domain);
+    if (!check.ok) return {};
     const res = await fetch(`https://${domain}`, {
       method: 'HEAD',
       signal: ctrl.signal,
       headers: { 'user-agent': 'pranithjain-webcheck/1.0' },
-    });
+      cf: { resolveOverride: check.pinIp },
+    } as RequestInit);
     clearTimeout(timer);
 
     const hsts = res.headers.get('strict-transport-security');
