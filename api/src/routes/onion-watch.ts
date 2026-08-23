@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
  * .onion leak-site mirror tracker.
@@ -223,11 +224,6 @@ export async function fetchOnionWatch(): Promise<OnionWatchResponse | null> {
 
 const ONION_WATCH_LASTGOOD_KV_KEY = 'onion-watch:lastgood:v1';
 const LASTGOOD_TTL = 172_800; // 48h — covers long upstream outages
-// Per-colo L1 shadow for the last-good fallback. KV is global + durable but
-// metered; the fallback read fires on every request during an upstream outage,
-// so shadowing collapses that to ~1 KV read per colo per shadow window.
-const ONION_WATCH_LASTGOOD_SHADOW = new Request('https://onion-watch-lastgood-shadow.internal/v1');
-const ONION_WATCH_LASTGOOD_SHADOW_TTL = 1800; // 30min — short enough to recover
 
 export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
@@ -241,26 +237,15 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
     // upstream outages. Non-blocking — the response goes out immediately.
     if (c.env.KV_CACHE) {
       c.executionCtx.waitUntil(
-        (async () => {
-          try {
-            await c.env.KV_CACHE!.put(ONION_WATCH_LASTGOOD_KV_KEY, JSON.stringify(body), {
-              expirationTtl: LASTGOOD_TTL,
-            });
-            // Write-through the L1 shadow so the fallback read stays coherent.
-            const cache = (caches as unknown as { default: Cache }).default;
-            await cache.put(
-              ONION_WATCH_LASTGOOD_SHADOW,
-              new Response(JSON.stringify(body), {
-                headers: {
-                  'content-type': 'application/json',
-                  'cache-control': `max-age=${ONION_WATCH_LASTGOOD_SHADOW_TTL}`,
-                },
-              })
-            );
-          } catch (err) {
-            logError('onion-watch KV cache put failed', err);
-          }
-        })()
+        // Shared last-good helper (lib/lastgood.ts): debounced KV write + free
+        // per-colo Cache-API shadow write-through. The default debounce matches
+        // the 6h edge-cache TTL in front of this write, so it only trims
+        // duplicate cross-colo writes. keyPrefix '' keeps the legacy verbatim
+        // KV key.
+        writeLastGood(c.env, ONION_WATCH_LASTGOOD_KV_KEY, body, {
+          keyPrefix: '',
+          ttlSeconds: LASTGOOD_TTL,
+        })
       );
     }
     const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
@@ -271,34 +256,10 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
   // Upstream unreachable — try KV last-good fallback.
   if (c.env.KV_CACHE) {
     try {
-      // L1 shadow first — collapses repeated outage-fallback reads to ~1 KV
-      // read per colo per shadow window.
-      const cache = (caches as unknown as { default: Cache }).default;
-      let lastGood: OnionWatchResponse | null = null;
-      try {
-        const hit = await cache.match(ONION_WATCH_LASTGOOD_SHADOW);
-        if (hit) lastGood = (await hit.json()) as OnionWatchResponse;
-      } catch {
-        /* fall through to KV */
-      }
-      if (!lastGood) {
-        lastGood = await c.env.KV_CACHE.get<OnionWatchResponse>(ONION_WATCH_LASTGOOD_KV_KEY, 'json');
-        if (lastGood) {
-          try {
-            await cache.put(
-              ONION_WATCH_LASTGOOD_SHADOW,
-              new Response(JSON.stringify(lastGood), {
-                headers: {
-                  'content-type': 'application/json',
-                  'cache-control': `max-age=${ONION_WATCH_LASTGOOD_SHADOW_TTL}`,
-                },
-              })
-            );
-          } catch {
-            /* best-effort shadow */
-          }
-        }
-      }
+      // Shared helper: free per-colo Cache-API shadow first, then KV. Never throws.
+      const lastGood = await readLastGood<OnionWatchResponse>(c.env, ONION_WATCH_LASTGOOD_KV_KEY, {
+        keyPrefix: '',
+      });
       if (lastGood && lastGood.groups && lastGood.groups.length > 0) {
         lastGood.warnings.push('ransomlook upstream unreachable — showing cached data');
         return c.json(lastGood, 200, {

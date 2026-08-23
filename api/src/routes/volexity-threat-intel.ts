@@ -3,7 +3,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 
 import { fetchResilient } from '../lib/fetch-resilient';
-import { writeLastGood } from '../lib/lastgood';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
  * GET /api/v1/volexity-threat-intel
@@ -332,7 +332,6 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
   const limit = limitRaw ? Math.min(parseInt(limitRaw, 10) || MAX_FOLDER_LIST_LIMIT, MAX_FOLDER_LIST_LIMIT) : undefined;
 
   const cache = (caches as unknown as { default: Cache }).default;
-  const kv = c.env.KV_CACHE;
   const ghHeaders: Record<string, string> = {
     'User-Agent': 'pranithjain-dfir/1.0',
     accept: 'application/vnd.github+json',
@@ -372,17 +371,9 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
       upstreamError = err instanceof Error ? err.message : 'fetch failed';
     }
     // fall back to KV last-good tree
-    if (kv) {
-      try {
-        const staleRaw = await kv.get(KV_TREE_KEY);
-        if (staleRaw) {
-          const staleFull = JSON.parse(staleRaw) as TreeResponse;
-          return { full: { ...staleFull, stale: true, upstream_error: upstreamError }, error: upstreamError };
-        }
-      } catch (_catchErr) {
-        logError('handler failed', _catchErr);
-        /* stale read failed; fall through */
-      }
+    const staleFull = await readLastGood<TreeResponse>(c.env, KV_TREE_KEY, { keyPrefix: '' });
+    if (staleFull) {
+      return { full: { ...staleFull, stale: true, upstream_error: upstreamError }, error: upstreamError };
     }
     return { full: null, error: upstreamError || 'no data' };
   }
@@ -497,19 +488,11 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
 
     // CSV fetch failed → serve KV last-good for this folder, marked stale.
     if (!folderResp) {
-      if (kv) {
-        try {
-          const staleRaw = await kv.get(KV_FOLDER_PREFIX + meta.name);
-          if (staleRaw) {
-            const staleFull = JSON.parse(staleRaw) as FolderResponse;
-            return c.json({ ...staleFull, stale: true, upstream_error: upstreamError }, 200, {
-              'Cache-Control': 'public, max-age=300',
-            });
-          }
-        } catch (_catchErr) {
-          logError('handler failed', _catchErr);
-          /* fall through */
-        }
+      const staleFull = await readLastGood<FolderResponse>(c.env, KV_FOLDER_PREFIX + meta.name, { keyPrefix: '' });
+      if (staleFull) {
+        return c.json({ ...staleFull, stale: true, upstream_error: upstreamError }, 200, {
+          'Cache-Control': 'public, max-age=300',
+        });
       }
       return c.json(
         {

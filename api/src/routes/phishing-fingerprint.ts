@@ -13,6 +13,53 @@ const MAX_URLS_PER_FP = 20;
  *  Previously expirationTtl=0 (permanent) which violated the policy. */
 const FP_TTL_SECONDS = 30 * 86400;
 
+// Per-colo Cache-API shadow for fingerprint records. Every POST used to do a
+// raw per-hash KV get; the shadow collapses repeats to ~1 KV read per colo
+// per window. Records MUTATE (count/last_seen/urls), so the TTL is short and
+// every write path invalidates the shadow — same-colo reads stay exact,
+// other colos converge within 60s. Count drift across colos is acceptable:
+// these are advisory kit-tracking counters, not billing state.
+const FP_SHADOW_TTL_SECONDS = 60;
+function fpShadowReq(hash: string): Request {
+  return new Request(`https://phishing-fp-cache.internal/v1/${encodeURIComponent(hash)}`);
+}
+async function fpShadowGet(kv: KVNamespace, key: string, hash: string): Promise<FingerprintRecord | null> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const hit = await cache.match(fpShadowReq(hash));
+    if (hit) return (await hit.json()) as FingerprintRecord | null;
+  } catch (_catchErr) {
+    logError('fpShadowGet failed', _catchErr);
+    /* fall through to KV */
+  }
+  const existing = (await safeNullLog('kv-get-phishing-fp', kv.get(key, 'json'))) as FingerprintRecord | null;
+  if (existing && cache) {
+    try {
+      await cache.put(
+        fpShadowReq(hash),
+        new Response(JSON.stringify(existing), {
+          headers: {
+            'content-type': 'application/json',
+            'cache-control': `max-age=${FP_SHADOW_TTL_SECONDS}`,
+          },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
+  }
+  return existing;
+}
+/** Invalidate (not write-through) — callers compute the NEXT record from the
+ *  response shape, and a stale shadow would mask a just-written update. */
+async function fpShadowEvict(hash: string): Promise<void> {
+  try {
+    await (caches as unknown as { default: Cache }).default.delete(fpShadowReq(hash));
+  } catch {
+    /* best-effort */
+  }
+}
+
 interface FingerprintRecord {
   hash: string;
   first_seen: string;
@@ -64,10 +111,7 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
   if (!ctx.env.KV_CACHE) return ctx.json({ error: 'KV not available' }, 503);
 
   const key = `${FP_KV_PREFIX}${hash}`;
-  const existing = (await safeNullLog(
-    'kv-get-phishing-fp',
-    ctx.env.KV_CACHE.get(key, 'json')
-  )) as FingerprintRecord | null;
+  const existing = await fpShadowGet(ctx.env.KV_CACHE, key, hash);
 
   if (existing) {
     const updated: FingerprintRecord = {
@@ -83,6 +127,9 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
     if (await shouldWriteLastGood(`phishing-fp:${hash}`, 3600)) {
       await ctx.env.KV_CACHE.put(key, JSON.stringify(updated), { expirationTtl: FP_TTL_SECONDS });
     }
+    // The shadow may hold the pre-update record — evict so the next read
+    // in this colo re-reads KV instead of serving stale counts.
+    await fpShadowEvict(hash);
     return ctx.json({
       match: true,
       first_seen: existing.first_seen,
@@ -99,5 +146,6 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
     urls: url ? [url] : [],
   };
   await ctx.env.KV_CACHE.put(key, JSON.stringify(record), { expirationTtl: FP_TTL_SECONDS });
+  await fpShadowEvict(hash);
   return ctx.json({ match: false, count: 1 });
 }

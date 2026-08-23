@@ -3,7 +3,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 
 import { fetchResilient } from '../lib/fetch-resilient';
-import { writeLastGood } from '../lib/lastgood';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
  * GET /api/v1/disarm-framework
@@ -212,7 +212,6 @@ export async function disarmFrameworkHandler(c: Context<{ Bindings: Env }>): Pro
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
-  const kv = c.env.KV_CACHE;
   let full: DisarmResponse | null = null;
   let upstreamError = '';
 
@@ -273,20 +272,12 @@ export async function disarmFrameworkHandler(c: Context<{ Bindings: Env }>): Pro
 
   // Upstream failed → serve KV last-good (full bundle), filtered, marked stale.
   if (!full) {
-    if (kv) {
-      try {
-        const staleRaw = await kv.get(KV_LAST_GOOD_KEY);
-        if (staleRaw) {
-          const staleFull = JSON.parse(staleRaw) as DisarmResponse;
-          const out = applyFilters(staleFull, filterQ);
-          return c.json({ ...out, stale: true, upstream_error: upstreamError }, 200, {
-            'Cache-Control': 'public, max-age=300',
-          });
-        }
-      } catch (_catchErr) {
-        logError('handler failed', _catchErr);
-        /* stale read failed; fall through to error */
-      }
+    const staleFull = await readLastGood<DisarmResponse>(c.env, KV_LAST_GOOD_KEY, { keyPrefix: '' });
+    if (staleFull) {
+      const out = applyFilters(staleFull, filterQ);
+      return c.json({ ...out, stale: true, upstream_error: upstreamError }, 200, {
+        'Cache-Control': 'public, max-age=300',
+      });
     }
     return c.json(
       {

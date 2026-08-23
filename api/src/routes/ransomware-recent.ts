@@ -10,6 +10,7 @@ import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-ap
 import { readXClaimsCache } from './x-claims';
 import { normalizeGroup } from '../lib/group-normalize';
 import { normalizeVictimKey } from '../lib/briefing-builder/aggregate';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -759,48 +760,14 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
  * claims". KV is global: any healthy colo's fetch refreshes it, and every
  * other colo can fall back to it. 48h TTL covers a long upstream outage.
  *
- * Reads shadow through caches.default (per-colo, free) so repeated cache
- * misses on the same colo don't each hit KV. The shadow TTL matches the
- * edge-cache TTL so a stale shadow is never older than the edge cache.
+ * Read/write goes through the shared lib/lastgood.ts helper (free per-colo
+ * Cache-API shadow in front of KV). keyPrefix '' keeps the legacy verbatim KV
+ * key. The shared reader doesn't filter payloads on read, so the non-empty
+ * victims guard lives at the call site below — same guarantee as the old
+ * inline reader.
  */
 const RANSOMWARE_LASTGOOD_KV_KEY = 'ransomware-recent:lastgood:v1';
 const LASTGOOD_TTL_SECONDS = 172800;
-const LASTGOOD_SHADOW_TTL_SECONDS = 900; // matches edge-cache TTL
-
-const lastgoodShadowKey = new Request('https://ransomware-recent-lastgood-shadow.internal/v1');
-
-async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
-  if (!env.KV_CACHE) return null;
-  const cache = (caches as unknown as { default: Cache }).default;
-  try {
-    const hit = await cache.match(lastgoodShadowKey);
-    if (hit) return (await hit.json()) as ResponseBody;
-  } catch (_catchErr) {
-    logError('readRansomwareLastGood failed', _catchErr);
-    /* fall through to KV */
-  }
-  try {
-    const lg = (await env.KV_CACHE.get(RANSOMWARE_LASTGOOD_KV_KEY, 'json')) as ResponseBody | null;
-    if (lg && Array.isArray(lg.victims) && lg.victims.length > 0) {
-      try {
-        await cache.put(
-          lastgoodShadowKey,
-          new Response(JSON.stringify(lg), {
-            headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_SHADOW_TTL_SECONDS}` },
-          })
-        );
-      } catch (_catchErr) {
-        logError('readRansomwareLastGood failed', _catchErr);
-        /* best-effort shadow */
-      }
-      return lg;
-    }
-    return null;
-  } catch (_catchErr) {
-    logError('readRansomwareLastGood failed', _catchErr);
-    return null;
-  }
-}
 
 /**
  * Apply the `?days=N` window filter to a merged-victim response. The
@@ -911,8 +878,13 @@ export async function warmRansomwareRecentCache(env?: Env): Promise<{ count: num
   });
   await cache.put(new Request(CACHE_KEY), response);
   if (env?.KV_CACHE && upstreamOk && body.victims.length > 0) {
-    await env.KV_CACHE.put(RANSOMWARE_LASTGOOD_KV_KEY, JSON.stringify(body), {
-      expirationTtl: LASTGOOD_TTL_SECONDS,
+    // Cron-controlled refresh — force:true skips the request-path debounce so
+    // the global copy always advances on each warm. keyPrefix '' keeps the
+    // legacy verbatim KV key.
+    await writeLastGood(env, RANSOMWARE_LASTGOOD_KV_KEY, body, {
+      keyPrefix: '',
+      ttlSeconds: LASTGOOD_TTL_SECONDS,
+      force: true,
     });
   }
   return { count: body.victims.length, ok: upstreamOk };
@@ -937,8 +909,10 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
   // The hourly DO cron runs `warmRansomwareRecentCache` (30s DO budget) instead.
   // Serve the global KV last-good here; err on the side of a fast 503 if we
   // have nothing yet.
-  const lastGood = await readRansomwareLastGood(c.env);
-  if (lastGood) {
+  const lastGood = await readLastGood<ResponseBody>(c.env, RANSOMWARE_LASTGOOD_KV_KEY, { keyPrefix: '' });
+  // Only a real feed serves as last-good (guards against an empty/corrupt
+  // payload in KV — the write paths already filter, this keeps the guarantee).
+  if (lastGood && Array.isArray(lastGood.victims) && lastGood.victims.length > 0) {
     let finalBody = filterByDaysWindow(lastGood, days);
     if (groupFilter) finalBody = filterByGroup(finalBody, groupFilter);
     const response = c.json(finalBody, 200, {

@@ -288,11 +288,43 @@ export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaRe
 const TOR_EXIT_CACHE_KEY = 'tor:exit:nodes';
 const TOR_EXIT_CACHE_TTL_S = 3600;
 
+// Per-colo Cache-API shadow (free) in front of the KV list. torExitNodes is
+// the hot path for /darkweb-osint tor-exit checks AND MCP tool calls; the
+// shadow collapses repeats to ~1 KV read per colo per window. The list only
+// churns on refresh (1h KV TTL), so a 30min shadow is safely fresh.
+const TOR_EXIT_SHADOW_TTL_S = 1800;
+function torExitShadowReq(): Request {
+  return new Request('https://tor-exit-cache.internal/v1/nodes');
+}
+
 export async function torExitNodes(limit?: number, kv?: KVNamespace): Promise<string[]> {
+  // L1: per-colo Cache API first — no KV quota cost.
+  try {
+    const hit = await (caches as unknown as { default: Cache }).default.match(torExitShadowReq());
+    if (hit) {
+      const shadowed = (await hit.json()) as string[];
+      if (Array.isArray(shadowed) && shadowed.length > 0) {
+        return limit ? shadowed.slice(0, limit) : shadowed;
+      }
+    }
+  } catch {
+    /* fall through to KV */
+  }
   if (kv) {
     try {
       const cached = await kv.get(TOR_EXIT_CACHE_KEY, 'json');
       if (Array.isArray(cached) && cached.length > 0) {
+        // Populate the shadow so the next read in this colo skips KV.
+        try {
+          await (caches as unknown as { default: Cache }).default.put(
+            torExitShadowReq(),
+            new Response(JSON.stringify(cached), {
+              headers: { 'content-type': 'application/json', 'cache-control': `max-age=${TOR_EXIT_SHADOW_TTL_S}` },
+            })
+          );
+        } catch {
+          /* best-effort shadow */
+        }
         return limit ? cached.slice(0, limit) : cached;
       }
     } catch {
@@ -324,6 +356,17 @@ export async function torExitNodes(limit?: number, kv?: KVNamespace): Promise<st
   ];
   if (kv) {
     kv.put(TOR_EXIT_CACHE_KEY, JSON.stringify(ips), { expirationTtl: TOR_EXIT_CACHE_TTL_S }).catch(() => {});
+  }
+  // Write-through the shadow so this colo's next check is free.
+  try {
+    await (caches as unknown as { default: Cache }).default.put(
+      torExitShadowReq(),
+      new Response(JSON.stringify(ips), {
+        headers: { 'content-type': 'application/json', 'cache-control': `max-age=${TOR_EXIT_SHADOW_TTL_S}` },
+      })
+    );
+  } catch {
+    /* best-effort shadow */
   }
   return limit ? ips.slice(0, limit) : ips;
 }

@@ -30,6 +30,17 @@ repo's footguns so you don't rediscover them.
 - **Free-plan limits.** 50 subrequests per invocation (KV + Cache-API both count); the
   IOC fan-out must use one batched `primeBatch` + one `flushBatch`. Briefing self-heal
   runs its own `20 * * * *` cron, one build per invocation.
+- **KV policy — Cache API first.** The free per-colo `caches.default` fronts every
+  read-heavy request path; KV is the cross-colo durable layer only. Use the shared
+  helpers, never hand-roll a third pattern: `kvBackedGet`/`kvBackedPut`
+  (`api/src/lib/route-cache.ts`) for cached upstream data, `readLastGood`/`writeLastGood`
+  (`api/src/lib/lastgood.ts`, `keyPrefix: ''` for legacy verbatim keys) for upstream-
+  outage fallbacks, `routeCacheGet`/`routeCachePut` + evict-on-write for mutable blobs.
+  Records that mutate need short shadow TTLs + evict-on-write (see
+  `phishing-fingerprint.ts`, `feedback.ts`). Cross-colo correctness state stays on KV:
+  bot offsets, one-time secrets, dedup/idempotency markers, queue cooldowns.
+  Bulk reads: `kvBulkGetText` (`api/src/lib/safe-catch.ts`) — one subrequest per ≤100
+  keys; batch `get(keys[])` over per-key loops.
 - **`main` moves fast.** Feature branches auto-FF-merge into `main` mid-session; commit on
   a branch and let it merge — never rebase/force-push/`branch -f main`. Re-check the
   current branch before any git mutation. Rebase onto `origin/main` right before

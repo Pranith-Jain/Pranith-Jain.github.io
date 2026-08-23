@@ -31,6 +31,20 @@ interface FeedbackAgg {
 }
 
 const KV_PREFIX = 'feedback:v1';
+// Aggregate-read shadow TTL — short so counts stay near-live across colos.
+const FEEDBACK_AGG_SHADOW_TTL_S = 30;
+/** Evict the aggregate shadow after any aggregate mutation (submit/delete). */
+function evictAggShadow(targetType: string, targetId: string): void {
+  try {
+    void (caches as unknown as { default: Cache }).default.delete(
+      new Request(
+        `https://feedback-agg-cache.internal/v1/${encodeURIComponent(targetType)}/${encodeURIComponent(targetId)}`
+      )
+    );
+  } catch {
+    /* best-effort */
+  }
+}
 
 function generateId(): string {
   return `fb-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
@@ -101,6 +115,7 @@ export async function feedbackCreateHandler(c: Context<{ Bindings: Env }>): Prom
     agg[feedback.rating]++;
     agg.overall_score = Math.round(((agg.useful + agg.actioned + agg.accurate) / Math.max(1, agg.total)) * 100);
     await kv.put(aggKey, JSON.stringify(agg), { expirationTtl: 7776000 });
+    evictAggShadow(feedback.target_type, feedback.target_id);
     await invalidateFeedbackList();
 
     return c.json({ ok: true, feedback, aggregate: agg }, 201);
@@ -208,10 +223,46 @@ export async function feedbackAggregateHandler(c: Context<{ Bindings: Env }>): P
     const kv = c.env.KV_CACHE;
     if (!kv) return serviceUnavailable(c, 'feedback storage not configured');
     const aggKey = `${KV_PREFIX}:agg:${targetType}:${targetId}`;
+    // Per-colo Cache-API shadow (30s) — aggregate counts are public read-mostly
+    // data; writes (submit/delete) evict the shadow so same-colo stays exact
+    // and other colos converge within half a minute.
+    const cache = (caches as unknown as { default: Cache }).default;
+    const shadowReq = new Request(
+      `https://feedback-agg-cache.internal/v1/${encodeURIComponent(targetType)}/${encodeURIComponent(targetId)}`
+    );
+    try {
+      const hit = await cache.match(shadowReq);
+      if (hit) {
+        const text = await hit.text();
+        if (text === '') return c.json({ total: 0, overall_score: null });
+        return c.json(JSON.parse(text) as FeedbackAgg);
+      }
+    } catch {
+      /* fall through to KV */
+    }
     const raw = await kv.get(aggKey);
-    if (!raw) return c.json({ total: 0, overall_score: null });
-    const agg = JSON.parse(raw) as FeedbackAgg;
-    return c.json(agg);
+    if (!raw) {
+      // Negative-cache the empty state too, so a hot un-voted target doesn't
+      // re-hit KV on every poll; submit/delete evict it.
+      try {
+        await cache.put(
+          shadowReq,
+          new Response('', { headers: { 'cache-control': `max-age=${FEEDBACK_AGG_SHADOW_TTL_S}` } })
+        );
+      } catch {
+        /* best-effort */
+      }
+      return c.json({ total: 0, overall_score: null });
+    }
+    try {
+      await cache.put(
+        shadowReq,
+        new Response(raw, { headers: { 'cache-control': `max-age=${FEEDBACK_AGG_SHADOW_TTL_S}` } })
+      );
+    } catch {
+      /* best-effort */
+    }
+    return c.json(JSON.parse(raw) as FeedbackAgg);
   } catch (e) {
     logError('feedbackAggregateHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
@@ -250,6 +301,7 @@ export async function feedbackDeleteHandler(c: Context<{ Bindings: Env }>): Prom
         await kv.delete(aggKey);
       }
     }
+    evictAggShadow(fb.target_type, fb.target_id);
     await invalidateFeedbackList();
 
     return c.json({ ok: true, deleted: id });

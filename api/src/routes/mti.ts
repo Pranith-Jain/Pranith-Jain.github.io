@@ -27,8 +27,7 @@ import {
   type MtiSource,
   type MtiRecord,
 } from '../lib/mythreatintel-api';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
-import { safeNullLog } from '../lib/safe-catch';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
  * Global (cross-colo) last-good store for the default (no-query) view of each
@@ -39,14 +38,6 @@ import { safeNullLog } from '../lib/safe-catch';
  */
 const MTI_LASTGOOD_PREFIX = 'mti:lastgood:v1:';
 const MTI_LASTGOOD_TTL_SECONDS = 7 * 24 * 3600;
-// Per-colo L1 shadow for the last-good fallback. The fallback read fires on
-// every request during an upstream outage; shadowing collapses that to ~1 KV
-// read per colo per shadow window. Write-through on both the refresh path and
-// the fallback-miss path keeps it coherent.
-const MTI_LASTGOOD_SHADOW_TTL = 1800; // 30min
-function mtiLastGoodShadowReq(source: string): Request {
-  return new Request(`https://mti-lastgood-shadow.internal/v1/${encodeURIComponent(source)}`);
-}
 
 interface MtiLastGood {
   total: number;
@@ -83,35 +74,17 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
   if (result.ok && result.items.length > 0) {
     if (isDefaultQuery && c.env.KV_CACHE) {
       const payload: MtiLastGood = { total: result.total, count: result.count, items: result.items };
-      const kv = c.env.KV_CACHE;
       c.executionCtx.waitUntil(
-        (async () => {
-          // Debounce per source: a single shared KV key was otherwise rewritten
-          // on every cache-miss success across colos (KV 1-write/sec/key limit +
-          // write cost). The fallback only needs refreshing every few hours.
-          if (!(await shouldWriteLastGood('mti:' + source))) return;
-          await safeNullLog(
-            'kv-put-mti-lastgood',
-            (async () => {
-              await kv.put(lastGoodKey, JSON.stringify(payload), { expirationTtl: MTI_LASTGOOD_TTL_SECONDS });
-              // Write-through the L1 shadow so the fallback read stays coherent.
-              try {
-                const cache = (caches as unknown as { default: Cache }).default;
-                await cache.put(
-                  mtiLastGoodShadowReq(source),
-                  new Response(JSON.stringify(payload), {
-                    headers: {
-                      'content-type': 'application/json',
-                      'cache-control': `max-age=${MTI_LASTGOOD_SHADOW_TTL}`,
-                    },
-                  })
-                );
-              } catch {
-                /* best-effort shadow */
-              }
-            })()
-          );
-        })()
+        // Shared last-good helper (lib/lastgood.ts): debounced KV write + free
+        // per-colo Cache-API shadow write-through. Deliberately NOT force:true
+        // — a single shared KV key must not be rewritten on every cache-miss
+        // success across colos (KV 1-write/sec/key limit + write cost); the
+        // fallback only needs refreshing every few hours. keyPrefix '' keeps
+        // the legacy verbatim KV key.
+        writeLastGood(c.env, lastGoodKey, payload, {
+          keyPrefix: '',
+          ttlSeconds: MTI_LASTGOOD_TTL_SECONDS,
+        })
       );
     }
     return c.json(
@@ -125,31 +98,9 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
   // global last-good if we have one, flagged `stale` so the UI can say so.
   if (isDefaultQuery && c.env.KV_CACHE) {
     try {
-      // L1 shadow first — collapses repeated outage-fallback reads to ~1 KV
-      // read per colo per shadow window.
-      const cache = (caches as unknown as { default: Cache }).default;
-      let lg: MtiLastGood | null = null;
-      try {
-        const hit = await cache.match(mtiLastGoodShadowReq(source));
-        if (hit) lg = (await hit.json()) as MtiLastGood;
-      } catch {
-        /* fall through to KV */
-      }
-      if (!lg) {
-        lg = (await c.env.KV_CACHE.get(lastGoodKey, 'json')) as MtiLastGood | null;
-        if (lg) {
-          try {
-            await cache.put(
-              mtiLastGoodShadowReq(source),
-              new Response(JSON.stringify(lg), {
-                headers: { 'content-type': 'application/json', 'cache-control': `max-age=${MTI_LASTGOOD_SHADOW_TTL}` },
-              })
-            );
-          } catch {
-            /* best-effort shadow */
-          }
-        }
-      }
+      // Shared helper: free per-colo Cache-API shadow first, then KV (and it
+      // backfills the shadow on a KV hit). Never throws.
+      const lg = await readLastGood<MtiLastGood>(c.env, lastGoodKey, { keyPrefix: '' });
       if (lg && Array.isArray(lg.items) && lg.items.length > 0) {
         const items = lg.items.slice(0, limit);
         return c.json(

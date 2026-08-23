@@ -143,10 +143,35 @@ export async function watchlistActorActivityHandler(c: Context<{ Bindings: Env }
   if (!kv) return serviceUnavailable(c, 'KV cache not available');
 
   try {
-    const [news, victims] = await Promise.all([
-      kv.get(`actor:news:${actor}`, 'json').catch(() => null) as Promise<unknown>,
-      kv.get(`ransomware:actor:${actor}`, 'json').catch(() => null) as Promise<unknown>,
-    ]);
+    // Per-colo Cache-API shadows (free) — feeds change slowly, so a 5min
+    // shadow collapses repeat activity views to ~1 KV read per colo.
+    const cache = (caches as unknown as { default: Cache }).default;
+    const shadowed = async <T>(kind: string): Promise<T | null> => {
+      const req = new Request(`https://watchlist-activity-cache.internal/v1/${kind}/${encodeURIComponent(actor)}`);
+      try {
+        const hit = await cache.match(req);
+        if (hit) return (await hit.json()) as T | null;
+      } catch {
+        /* fall through to KV */
+      }
+      const value = (await kv
+        .get(`${kind === 'news' ? 'actor:news' : 'ransomware:actor'}:${actor}`, 'json')
+        .catch(() => null)) as T | null;
+      if (value && cache) {
+        try {
+          await cache.put(
+            req,
+            new Response(JSON.stringify(value), {
+              headers: { 'content-type': 'application/json', 'cache-control': 'max-age=300' },
+            })
+          );
+        } catch {
+          /* best-effort */
+        }
+      }
+      return value;
+    };
+    const [news, victims] = await Promise.all([shadowed<unknown>('news'), shadowed<unknown>('victims')]);
 
     return c.json({
       actor,
@@ -349,8 +374,29 @@ export async function watchlistDigestGetHandler(c: Context<{ Bindings: Env }>): 
   const kv = c.env.KV_CACHE;
   if (!kv) return serviceUnavailable(c, 'KV cache not available');
 
-  const val = await kv.get(`digest:weekly:${id}`, 'json').catch(() => null);
+  // Digests are immutable per ISO week — a per-colo Cache-API shadow (1h)
+  // makes repeat views free. Validate the id shape before it reaches a key.
+  if (!/^[a-z0-9-]{4,64}$/i.test(id)) return badRequest(c, 'invalid digest id');
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = new Request(`https://watchlist-digest-cache.internal/v1/${encodeURIComponent(id)}`);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit) return c.json((await hit.json()) as DigestResult);
+  } catch {
+    /* fall through to KV */
+  }
+  const val = (await kv.get(`digest:weekly:${id}`, 'json').catch(() => null)) as DigestResult | null;
   if (!val) return notFound(c, 'digest not found');
+  try {
+    await cache.put(
+      shadowReq,
+      new Response(JSON.stringify(val), {
+        headers: { 'content-type': 'application/json', 'cache-control': 'max-age=3600' },
+      })
+    );
+  } catch {
+    /* best-effort */
+  }
   return c.json(val);
 }
 
@@ -393,22 +439,31 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
       .prepare('SELECT id, actor_name, target_sectors FROM actor_watchlist WHERE active = 1')
       .all<{ id: string; actor_name: string; target_sectors: string }>();
 
+    // Sector-match first, then ONE batched KV read for every matched actor's
+    // news+victims slices (was 2 sequential gets per actor inside the loop).
     const entries: DigestEntry[] = [];
-    for (const row of rows.results ?? []) {
+    const matchedRows = (rows.results ?? []).filter((row) => {
       const sectors = JSON.parse(row.target_sectors) as string[];
-      const sectorMatch =
-        estateSector && sectors.length > 0
-          ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
-          : sectors.length === 0;
+      return estateSector ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase()) : true;
+    });
+    const feedKeys = matchedRows.flatMap((row) => [
+      `actor:news:${row.actor_name}`,
+      `ransomware:actor:${row.actor_name}`,
+    ]);
+    const feedRaw = await kvBulkGetText(kv, feedKeys);
+    const parseFeed = <T>(key: string): T[] | null => {
+      const raw = feedRaw.get(key);
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw) as T[];
+      } catch {
+        return null;
+      }
+    };
 
-      if (!sectorMatch && estateSector) continue;
-
-      const activity = (await kv.get(`actor:news:${row.actor_name}`, 'json').catch(() => null)) as Array<{
-        title: string;
-      }> | null;
-      const victims = (await kv
-        .get(`ransomware:actor:${row.actor_name}`, 'json')
-        .catch(() => null)) as Array<unknown> | null;
+    for (const row of matchedRows) {
+      const activity = parseFeed<{ title: string }>(`actor:news:${row.actor_name}`);
+      const victims = parseFeed<unknown>(`ransomware:actor:${row.actor_name}`);
 
       entries.push({
         actor: row.actor_name,
