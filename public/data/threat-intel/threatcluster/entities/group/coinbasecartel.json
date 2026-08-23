@@ -1,0 +1,229 @@
+{
+  "type": "group",
+  "slug": "coinbasecartel",
+  "name": "coinbasecartel",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 13,
+  "firstSeen": "2026-08-22T13:52:53.000Z",
+  "lastSeen": "2026-08-22T14:01:24.000Z",
+  "summary": "Ransomware group with 13 leak-site victims across 7 sectors and 7 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-22",
+      "count": 13
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "integrated-health-systems-9877",
+      "title": "Integrated Health Systems — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T14:01:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "rxpe-group-0b4d",
+      "title": "RXPE Group — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T14:00:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tower-insurance-11c3",
+      "title": "Tower Insurance — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T14:00:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "flecha-bus-4b8a",
+      "title": "Flecha Bus — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:59:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "oteis-conseil-amp-ing-nierie-a39f",
+      "title": "OTEIS Conseil &amp; Ingénierie — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:58:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "longhorn-investments-3e0c",
+      "title": "Longhorn Investments — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:57:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kessler-creative-8f2e",
+      "title": "Kessler Creative — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:57:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "klasko-immigration-law-partners-82f8",
+      "title": "Klasko Immigration Law Partners — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:56:32.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "patel-39d9",
+      "title": "Patel — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:55:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "abacus-advisors-e4e4",
+      "title": "Abacus Advisors — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:54:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lifebank-microfinance-foundation-7d9d",
+      "title": "LifeBank Microfinance Foundation — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:54:14.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pt-perusahaan-jamu-air-mancur-0e55",
+      "title": "PT Perusahaan Jamu Air Mancur — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:53:34.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 5
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "integrated-health-systems-9877",
+      "victim": "Integrated Health Systems — claimed by coinbasecartel",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-22T14:01:24.000Z"
+    },
+    {
+      "id": "rxpe-group-0b4d",
+      "victim": "RXPE Group — claimed by coinbasecartel",
+      "sector": "Manufacturing",
+      "country": "CN",
+      "pubDate": "2026-08-22T14:00:44.000Z"
+    },
+    {
+      "id": "tower-insurance-11c3",
+      "victim": "Tower Insurance — claimed by coinbasecartel",
+      "sector": "Financial Services",
+      "country": "NZ",
+      "pubDate": "2026-08-22T14:00:01.000Z"
+    },
+    {
+      "id": "flecha-bus-4b8a",
+      "victim": "Flecha Bus — claimed by coinbasecartel",
+      "sector": "Transportation",
+      "country": "AR",
+      "pubDate": "2026-08-22T13:59:20.000Z"
+    },
+    {
+      "id": "oteis-conseil-amp-ing-nierie-a39f",
+      "victim": "OTEIS Conseil &amp; Ingénierie — claimed by coinbasecartel",
+      "sector": "Professional Services",
+      "country": "FR",
+      "pubDate": "2026-08-22T13:58:39.000Z"
+    },
+    {
+      "id": "longhorn-investments-3e0c",
+      "victim": "Longhorn Investments — claimed by coinbasecartel",
+      "sector": "Financial Services",
+      "country": null,
+      "pubDate": "2026-08-22T13:57:58.000Z"
+    },
+    {
+      "id": "kessler-creative-8f2e",
+      "victim": "Kessler Creative — claimed by coinbasecartel",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-22T13:57:11.000Z"
+    },
+    {
+      "id": "klasko-immigration-law-partners-82f8",
+      "victim": "Klasko Immigration Law Partners — claimed by coinbasecartel",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-22T13:56:32.000Z"
+    },
+    {
+      "id": "patel-39d9",
+      "victim": "Patel — claimed by coinbasecartel",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-08-22T13:55:47.000Z"
+    },
+    {
+      "id": "abacus-advisors-e4e4",
+      "victim": "Abacus Advisors — claimed by coinbasecartel",
+      "sector": "Financial Services",
+      "country": null,
+      "pubDate": "2026-08-22T13:54:55.000Z"
+    },
+    {
+      "id": "lifebank-microfinance-foundation-7d9d",
+      "victim": "LifeBank Microfinance Foundation — claimed by coinbasecartel",
+      "sector": "Financial Services",
+      "country": "PH",
+      "pubDate": "2026-08-22T13:54:14.000Z"
+    },
+    {
+      "id": "pt-perusahaan-jamu-air-mancur-0e55",
+      "victim": "PT Perusahaan Jamu Air Mancur — claimed by coinbasecartel",
+      "sector": "Agriculture and Food Production",
+      "country": "ID",
+      "pubDate": "2026-08-22T13:53:34.000Z"
+    },
+    {
+      "id": "pt-bank-perekonomian-rakyat-bintan-3ce8",
+      "victim": "PT. Bank Perekonomian Rakyat Bintan — claimed by coinbasecartel",
+      "sector": "Financial Services",
+      "country": "ID",
+      "pubDate": "2026-08-22T13:52:53.000Z"
+    }
+  ]
+}

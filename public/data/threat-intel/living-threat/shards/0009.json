@@ -3,6 +3,651 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary is exploiting a zero-day vulnerability in Fortinet products to gain unauthorized access.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially financial gain or espionage.",
+      "Sophistication": "High, due to the use of zero-day vulnerabilities.",
+      "Strategic_Objectives": "Gain unauthorized access to enterprise networks.",
+      "TTPs_Employed": ["Exploitation of zero-day vulnerabilities", "Creation of rogue administrator accounts"]
+    },
+    "Analyses": [
+      {
+        "Description": "Adversaries scan for vulnerable Fortinet devices.",
+        "Detection": "Monitor network traffic for unusual scanning activity.",
+        "Remediation": "Restrict access to management interfaces.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerabilities.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for vulnerable devices.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Crafting malicious requests to exploit the vulnerability.",
+        "Detection": "Analyze network traffic for crafted requests.",
+        "Remediation": "Apply patches to vulnerable systems.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Creating malicious payloads.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Weaponization"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Developing or acquiring exploits.",
+            "technique_id": "T1588",
+            "technique_name": "Obtain Capabilities"
+          }
+        ],
+        "Techniques": ["T1588"]
+      },
+      {
+        "Description": "Delivering crafted requests to vulnerable devices.",
+        "Detection": "Monitor for unusual access patterns.",
+        "Remediation": "Restrict access to trusted IPs.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the target network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Exploiting the vulnerability to gain super-admin privileges.",
+        "Detection": "Monitor for privilege escalation attempts.",
+        "Remediation": "Apply security patches immediately.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the target network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Creating rogue administrator accounts on compromised devices.",
+        "Detection": "Monitor for unauthorized account creation.",
+        "Remediation": "Review and audit user accounts regularly.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to the target network.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating new accounts for persistence.",
+            "technique_id": "T1136",
+            "technique_name": "Create Account"
+          }
+        ],
+        "Techniques": ["T1136"]
+      },
+      {
+        "Description": "Using rogue accounts to modify firewall policies.",
+        "Detection": "Monitor for unusual configuration changes.",
+        "Remediation": "Restrict administrative access to trusted users.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using application layer protocols for communication.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Gaining access to SSL VPN user groups for unauthorized tunneling.",
+        "Detection": "Monitor for unauthorized access to VPN groups.",
+        "Remediation": "Regularly review VPN access logs.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from the target network.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to access resources.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The adversary has the capability to exploit zero-day vulnerabilities in Fortinet products.",
+      "Exploits": ["CVE-2025-24472"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": ["Creation of rogue administrator accounts"],
+      "Tools": ["Crafted CSF proxy requests"],
+      "Zero_Days": ["CVE-2025-24472"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Fortinet firewalls"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Fortinet", "Arctic Wolf"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["zero-day", "authentication bypass", "CVE-2025-24472"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["FortiOS 7.0.17", "FortiProxy 7.2.13"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["FortiOS", "FortiProxy"],
+      "Technologies": ["Node.js websocket module"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-24472", "CVE-2024-55591"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The adversary targets internet-exposed management interfaces on Fortinet devices.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of zero-day vulnerability"],
+      "Tools": ["Crafted CSF proxy requests"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-11T20:25:34Z",
+    "Title": "Fortinet Zero-Day Vulnerability Exploitation and Mitigation",
+    "Tools": ["Crafted CSF proxy requests", "FortiOS", "FortiProxy"],
+    "Victim": {
+      "Access_Vectors": ["Internet-exposed management interfaces"],
+      "Data_Types_At_Risk": ["Network configurations", "User credentials"],
+      "Description": "Organizations using vulnerable Fortinet products.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Information Technology",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Fortinet firewalls", "Enterprise networks"]
+    },
+    "diamond_model_summary": "The adversary exploited a zero-day vulnerability in Fortinet products to gain unauthorized access to enterprise networks. The capability involved crafting malicious CSF proxy requests to obtain super-admin privileges. The infrastructure targeted included internet-exposed management interfaces on Fortinet devices. Victims were organizations using vulnerable Fortinet products, primarily in the Information Technology sector. The attack demonstrated high sophistication and a structured campaign with multiple phases.",
+    "doc_summary": "Cybersecurity firm Fortinet has issued an urgent warning about a zero-day authentication bypass vulnerability (CVE-2025-24472) affecting FortiOS and FortiProxy products. This flaw allows remote attackers to gain super-admin privileges via crafted CSF proxy requests, impacting FortiOS versions 7.0.0 through 7.0.16 and FortiProxy versions 7.0.0 through 7.0.19 and 7.2.0 through 7.2.12. The vulnerability has been exploited in the wild, enabling attackers to hijack Fortinet firewalls and infiltrate enterprise networks. Attackers have been observed creating rogue administrator accounts to modify firewall policies and access SSL VPN user groups. Arctic Wolf identified indicators of compromise linked to these vulnerabilities, revealing a structured attack campaign with phases including vulnerability scanning, reconnaissance, SSL VPN configuration, and lateral movement. Fortinet has released critical security updates and urges administrators to apply patches immediately. For those unable to patch, disabling HTTP/HTTPS administrative interfaces or restricting access to trusted IPs is recommended. Enterprises must act swiftly to mitigate risks by applying patches or implementing workarounds.",
+    "enrichment": { "processed_at": "2026-02-18T00:36:36.777627+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "0c461fa252892656a3bb148af8f1a03e8d810b3a",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack followed a structured kill chain, beginning with reconnaissance through vulnerability scanning, followed by weaponization with crafted requests. Delivery involved exploiting public-facing applications, leading to exploitation and installation of rogue accounts. Command and control were achieved through unauthorized configuration changes, and actions on objectives included accessing SSL VPN user groups. Detection and remediation strategies focused on monitoring network activity, applying patches, and restricting access.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes indicators such as crafted CSF proxy requests (Tools) and the exploitation of a zero-day vulnerability (TTPs). The adversary's use of these indicators highlights the challenge of detection and response. Organizations must focus on applying patches, monitoring network activity, and restricting access to mitigate the impact of such sophisticated attacks. The scoring reflects the presence of high-impact indicators, emphasizing the need for robust security measures.",
+    "relevance_score": 59,
+    "sequence": 17241,
+    "source": "https://gbhackers.com/fortinet-fortios-fortiproxy-zero-day/",
+    "slug": "Fortinet_Zero-Day_Vulnerability_Exploitation_and_Mitigation-017241",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Unknown adversaries exploiting SAP NetWeaver Visual Composer vulnerability.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially targeting manufacturing sector for industrial espionage or disruption.",
+      "Sophistication": "Moderate, leveraging zero-day vulnerability.",
+      "Strategic_Objectives": "Gain unauthorized access to sensitive enterprise systems.",
+      "TTPs_Employed": ["Exploitation of zero-day vulnerabilities", "Deployment of webshells"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of CVE-2025-31324 to upload malicious files.",
+        "Detection": "Monitor for unusual POST requests to /developmentserver/metadatauploader",
+        "Remediation": "Apply patches for CVE-2025-31324 immediately",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Installation of webshells for persistent access.",
+        "Detection": "Scan for unexpected .jsp files in web directories",
+        "Remediation": "Remove unauthorized webshells and restore from clean backups",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may backdoor web servers with web shells.",
+            "technique_id": "T1505.003",
+            "technique_name": "Web Shell"
+          }
+        ],
+        "Techniques": ["T1505.003"]
+      },
+      {
+        "Description": "Use of webshells for remote command execution.",
+        "Detection": "Monitor for unusual outbound traffic from web servers",
+        "Remediation": "Restrict outbound traffic and use network segmentation",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may use an existing, legitimate external web service as a means for relaying commands to a compromised system.",
+            "technique_id": "T1102",
+            "technique_name": "Web Service"
+          }
+        ],
+        "Techniques": ["T1102"]
+      },
+      {
+        "Description": "Potential lateral movement and data exfiltration.",
+        "Detection": "Monitor for unusual access patterns within the network",
+        "Remediation": "Implement strict access controls and network segmentation",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to move through your environment.",
+            "tactic_id": "TA0008",
+            "tactic_name": "Lateral Movement"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of SAP NetWeaver Visual Composer vulnerability to gain unauthorized access.",
+      "Exploits": ["CVE-2025-31324"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": ["Webshells"],
+      "Tools": ["Webshells"],
+      "Zero_Days": ["CVE-2025-31324"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["SAP NetWeaver servers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["SAP", "Onapsis", "Rapid7"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["zero-day", "vulnerability", "webshell", "CVE-2025-31324"],
+      "Malware_Families": [],
+      "Malware_Filenames": ["helper.jsp", "cache.jsp"],
+      "Patches": ["CVE-2025-31324"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Manufacturing"],
+      "Software": ["SAP NetWeaver Visual Composer"],
+      "Technologies": ["SAP NetWeaver", "Visual Composer"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-31324"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Compromised SAP NetWeaver servers with deployed webshells.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of zero-day vulnerabilities", "Deployment of webshells"],
+      "Tools": ["Webshells"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-04-28T13:23:37Z",
+    "Title": "Critical Zero-Day Vulnerability in SAP NetWeaver Visual Composer",
+    "Tools": ["Webshells", "SAP NetWeaver Visual Composer"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": ["Enterprise data", "Business intelligence"],
+      "Description": "Manufacturing companies using SAP NetWeaver Visual Composer.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Manufacturing",
+      "Security_Posture": "Vulnerable due to unpatched systems",
+      "Targeted_Assets": ["SAP NetWeaver servers"]
+    },
+    "diamond_model_summary": "The incident involves unknown adversaries exploiting a zero-day vulnerability in SAP NetWeaver Visual Composer, primarily targeting the manufacturing sector. The adversaries leverage the vulnerability to deploy webshells, enabling persistent access and potential lateral movement within compromised networks. The infrastructure includes compromised SAP servers, and the victims are manufacturing companies globally. The capability involves exploiting CVE-2025-31324 and deploying webshells for persistence.",
+    "doc_summary": "SAP disclosed a critical zero-day vulnerability, CVE-2025-31324, in its NetWeaver Visual Composer component. This vulnerability, with a CVSSv3 score of 10.0, arises from a missing authorization check in the Metadata Uploader module, allowing unauthenticated attackers to upload malicious files. Despite not being part of the default installation, Visual Composer is widely enabled, posing a significant risk. Active exploitation has been observed since March 27, 2025, primarily targeting manufacturing companies. Adversaries use the flaw to deploy webshells, such as helper.jsp and cache.jsp, for persistent access. SAP recommends urgent updates and monitoring to mitigate ongoing attacks.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:34.265838+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "9fb246d584d51e2d5ce44e79dcce932f1ca8963e",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the exploitation of a zero-day vulnerability (CVE-2025-31324) in SAP NetWeaver Visual Composer, allowing adversaries to upload malicious files. Webshells are installed for persistence, enabling remote command execution and potential lateral movement. The adversaries use these webshells for command and control, maintaining stealthy access to compromised systems. The primary targets are manufacturing companies, with the attack observed since March 27, 2025.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as exploiting zero-day vulnerabilities and deploying webshells. Tools include webshells like helper.jsp and cache.jsp. No specific hash values, IP addresses, or domain names are identified. The focus is on detecting and mitigating the use of webshells and unauthorized access to SAP NetWeaver systems. The scoring reflects the presence of TTPs and tools, indicating a significant challenge in detection and response.",
+    "relevance_score": 51,
+    "sequence": 17240,
+    "source": "https://gbhackers.com/sap-netweaver-0-day-flaw/",
+    "slug": "Critical_Zero-Day_Vulnerability_in_SAP_NetWeaver_Visual_Composer-017240",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential adversaries could exploit the zero-click RCE vulnerability in Outlook.",
+      "Known_Campaigns": [],
+      "Motivation": "Exploitation of vulnerabilities for unauthorized access or data theft.",
+      "Sophistication": "Moderate to high, given the zero-click nature of the exploit.",
+      "Strategic_Objectives": "Gain unauthorized access to systems and data.",
+      "TTPs_Employed": ["Zero-click RCE", "Use After Free exploitation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Malicious email sent to target Outlook users.",
+        "Detection": "Monitor email traffic for suspicious patterns.",
+        "Remediation": "Implement email filtering and user training.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may send phishing emails to gain access.",
+            "technique_id": "T1566",
+            "technique_name": "Phishing"
+          }
+        ],
+        "Techniques": ["T1566"]
+      },
+      {
+        "Description": "Exploitation of the 'Use After Free' vulnerability.",
+        "Detection": "Monitor for unusual application behavior.",
+        "Remediation": "Apply security patches promptly.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to run malicious code.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting a vulnerability to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of a zero-click RCE vulnerability in Outlook.",
+      "Exploits": ["CVE-2025-21298"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": ["CVE-2025-21298"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual email patterns and application behavior."],
+    "Extracted_Entities": {
+      "Assets": ["User data"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-21298", "zero-click", "RCE", "Use After Free"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Security patch for CVE-2025-21298"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Microsoft Outlook"],
+      "Technologies": ["Email clients"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-21298"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No specific infrastructure details detected.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply patches immediately, configure email clients for plain text viewing."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Zero-click RCE", "Use After Free exploitation"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Threat Intelligence Platforms", "Email Security Solutions"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-01-16T06:26:35Z",
+    "Title": "Critical Zero-Click RCE Vulnerability in Microsoft Outlook (CVE-2025-21298)",
+    "Tools": ["Microsoft Outlook"],
+    "Victim": {
+      "Access_Vectors": ["Email"],
+      "Data_Types_At_Risk": ["Confidentiality", "Integrity", "Availability"],
+      "Description": "Users of Microsoft Outlook are at risk.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable without patch",
+      "Targeted_Assets": ["Email clients", "User data"]
+    },
+    "diamond_model_summary": "The incident involves a critical zero-click RCE vulnerability in Microsoft Outlook, identified as CVE-2025-21298. The adversary could exploit this vulnerability to execute arbitrary code by sending a malicious email. The capability involves exploiting a 'Use After Free' weakness, with the potential victim being global Outlook users. The infrastructure details remain unspecified.",
+    "doc_summary": "Microsoft has issued a critical security patch for a newly discovered vulnerability in Outlook, identified as CVE-2025-21298. This zero-click remote code execution (RCE) vulnerability, stemming from a 'Use After Free' weakness (CWE-416), allows attackers to execute arbitrary code by sending a malicious email. With a CVSS score of 9.8, the vulnerability poses a significant risk to users, affecting confidentiality, integrity, and availability. Microsoft strongly advises users to update their systems immediately to mitigate potential exploitation. The vulnerability has not been publicly disclosed or exploited at the time of the patch release, but its exploitability is considered likely. Users are encouraged to configure Outlook to read emails in plain text and exercise caution with attachments from unknown sources.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:34.265809+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "9db4e02e6019a224c93f2a9917224013a2ed9998",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the adversary could deliver a malicious email to exploit the 'Use After Free' vulnerability in Outlook, leading to remote code execution. The delivery stage involves phishing tactics, while the exploitation stage leverages the vulnerability for client execution. No significant activities were detected in other stages.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 92,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis indicates a lack of specific indicators such as hash values, IP addresses, or domain names. The primary focus is on the TTPs, specifically the zero-click RCE and 'Use After Free' exploitation. The absence of detailed indicators limits the ability to provide a comprehensive analysis, highlighting the need for further investigation.",
+    "relevance_score": 43,
+    "sequence": 17239,
+    "source": "https://gbhackers.com/microsoft-patches-outlook-zero-click-rce-exploited-via-email-patch-now/",
+    "slug": "Critical_Zero-Click_RCE_Vulnerability_in_Microsoft_Outlook__CVE-2025-212-017239",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Remote, authenticated attackers exploiting CVE-2025-3928",
       "Known_Campaigns": [],
       "Motivation": "Unauthorized access and potential data theft",
@@ -97970,627 +98615,6 @@
     "sequence": 16742,
     "source": "https://gbhackers.com/sophos-firewall-code-injection-flaw/",
     "slug": "Critical_RCE_Vulnerability_in_Sophos_Firewall_Exploited_by_Attackers-016742",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is likely an unauthenticated attacker exploiting the vulnerability for potential remote code execution.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential control over WordPress sites and data manipulation.",
-      "Sophistication": "Moderate, leveraging known PHP Object Injection techniques.",
-      "Strategic_Objectives": "Gain unauthorized access and control over WordPress sites.",
-      "TTPs_Employed": ["PHP Object Injection", "Remote Code Execution"]
-    },
-    "Analyses": [
-      {
-        "Description": "No specific reconnaissance activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Creation of serialized PHP payloads for exploitation.",
-        "Detection": "Monitor for unusual PHP object deserialization activities.",
-        "Remediation": "Apply security patches promptly and validate user inputs.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities in public-facing applications.",
-            "tactic_id": "T1190",
-            "tactic_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using PHP scripts to execute commands.",
-            "technique_id": "T1059.006",
-            "technique_name": "Command and Scripting Interpreter: PHP"
-          }
-        ],
-        "Techniques": ["T1059.006"]
-      },
-      {
-        "Description": "No specific delivery mechanism detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of the GiveWP plugin vulnerability via PHP Object Injection.",
-        "Detection": "Monitor for unauthorized PHP object deserialization.",
-        "Remediation": "Update to the latest plugin version and sanitize inputs.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities in public-facing applications.",
-            "tactic_id": "T1190",
-            "tactic_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using PHP scripts to execute commands.",
-            "technique_id": "T1059.006",
-            "technique_name": "Command and Scripting Interpreter: PHP"
-          }
-        ],
-        "Techniques": ["T1059.006"]
-      },
-      {
-        "Description": "No specific installation activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential use of shell_exec() for remote command execution.",
-        "Detection": "Monitor for shell_exec() function calls.",
-        "Remediation": "Restrict PHP functions that can execute system commands.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Using command shell for remote command execution.",
-            "tactic_id": "T1059.003",
-            "tactic_name": "Command and Scripting Interpreter: Windows Command Shell"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using command shell for remote command execution.",
-            "technique_id": "T1059.003",
-            "technique_name": "Command and Scripting Interpreter: Windows Command Shell"
-          }
-        ],
-        "Techniques": ["T1059.003"]
-      },
-      {
-        "Description": "Execution of arbitrary code and deletion of critical files.",
-        "Detection": "Monitor for unauthorized file deletion activities.",
-        "Remediation": "Implement file integrity monitoring and backups.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Deleting critical files to disrupt operations.",
-            "tactic_id": "T1485",
-            "tactic_name": "Data Destruction"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Deleting critical files to disrupt operations.",
-            "technique_id": "T1485",
-            "technique_name": "Data Destruction"
-          }
-        ],
-        "Techniques": ["T1485"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Exploitation of PHP Object Injection vulnerabilities."],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of PHP Object Injection vulnerability in GiveWP plugin.",
-      "Exploits": ["CVE-2024-5932"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Serialized PHP payloads"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for deserialization of untrusted data."],
-    "Extracted_Entities": {
-      "Assets": ["wp-config.php"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["StellarWP", "Wordfence"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-5932", "PHP Object Injection", "remote code execution"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Version 3.14.2"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Web Development"],
-      "Software": ["GiveWP plugin"],
-      "Technologies": ["WordPress"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-5932"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No specific infrastructure details detected.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Update to the latest plugin version and conduct regular security audits."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["PHP Object Injection", "Remote Code Execution"],
-      "Tools": ["Serialized PHP payloads"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Wordfence", "PHP code analysis tools"],
-    "Severity": "Critical",
-    "Threat_Actors": ["villu164"],
-    "Timestamp": "2024-08-20T08:24:18Z",
-    "Title": "Critical RCE Vulnerability in GiveWP Plugin Exposes WordPress Sites",
-    "Tools": ["Serialized PHP payloads", "GiveWP plugin"],
-    "Victim": {
-      "Access_Vectors": ["Web application"],
-      "Data_Types_At_Risk": ["Site configuration", "User data"],
-      "Description": "WordPress sites using the GiveWP plugin, particularly versions <= 3.14.1.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Web Development",
-      "Security_Posture": "Vulnerable due to outdated plugin versions.",
-      "Targeted_Assets": ["WordPress sites", "wp-config.php files"]
-    },
-    "diamond_model_summary": "The incident involves an unauthenticated attacker exploiting a PHP Object Injection vulnerability in the GiveWP plugin, affecting over 100,000 WordPress sites. The adversary's capability includes executing arbitrary code and deleting critical files, with the infrastructure being the vulnerable WordPress sites. Victims are primarily in the web development sector, with a critical impact severity.",
-    "doc_summary": "A critical vulnerability, CVE-2024-5932, was discovered in the GiveWP plugin, a popular WordPress donation platform, exposing over 100,000 sites to potential remote code execution attacks. The vulnerability, disclosed by security researcher villu164 through the Wordfence Bug Bounty Program, involves PHP Object Injection due to improper validation of the 'give_title' parameter. This allows unauthenticated attackers to inject malicious objects, execute arbitrary code, and delete critical files like wp-config.php. The vulnerability was reported to StellarWP on June 13, 2024, and escalated to WordPress.org on July 6, 2024. A patch was released on August 7, 2024, in version 3.14.2. Users are urged to update to the latest version to protect their sites. The incident underscores the importance of rigorous security practices and responsible disclosure in maintaining WordPress ecosystem safety.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:10.733131+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "5340a8328b12f53d0a792ab18ac8d2951fa7a4e2",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack follows a structured kill chain, starting with weaponization through serialized PHP payloads, exploitation of the GiveWP plugin vulnerability, and potential command and control via shell_exec(). The final stage involves actions on objectives, such as executing arbitrary code and deleting critical files. Detection and remediation focus on monitoring deserialization activities and updating to the latest plugin version.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 99,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs like PHP Object Injection and remote code execution, which are challenging to change. No specific hash values, IP addresses, or domain names were identified. The focus is on detecting and remediating the exploitation techniques used, such as monitoring for unauthorized deserialization and updating vulnerable plugins.",
-    "relevance_score": 57,
-    "sequence": 16741,
-    "source": "https://gbhackers.com/unauthenticated-rce-in-wordpress-plugin/",
-    "slug": "Critical_RCE_Vulnerability_in_GiveWP_Plugin_Exposes_WordPress_Sites-016741",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": ["APT41", "Conti"],
-      "Associated_Groups": ["APT41", "Conti"],
-      "Description": "Threat actors exploiting the Log4Shell vulnerability for cryptocurrency mining.",
-      "Known_Campaigns": ["Log4Shell exploitation for XMRig deployment"],
-      "Motivation": "Financial gain through cryptocurrency mining.",
-      "Sophistication": "High, due to the use of obfuscated payloads and persistence mechanisms.",
-      "Strategic_Objectives": "Exploitation of vulnerabilities for financial gain.",
-      "TTPs_Employed": ["Obfuscated LDAP requests", "Remote code execution", "Persistence mechanisms"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Obfuscation of LDAP requests to exploit Log4Shell.",
-        "Detection": "Monitor for obfuscated LDAP requests",
-        "Remediation": "Implement network monitoring and intrusion detection systems",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Use of obfuscation techniques to avoid detection.",
-            "tactic_id": "T1027",
-            "tactic_name": "Obfuscated Files or Information"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Obfuscation of payloads to evade detection.",
-            "technique_id": "T1027.002",
-            "technique_name": "Obfuscated Files or Information: Software Packing"
-          }
-        ],
-        "Techniques": ["T1027.002"]
-      },
-      {
-        "Description": "Delivery of malicious Java class via LDAP.",
-        "Detection": "Monitor LDAP traffic for suspicious activity",
-        "Remediation": "Patch vulnerable Log4j instances",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of vulnerabilities to execute code.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of Log4Shell vulnerability.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Exploitation of Log4Shell vulnerability for remote code execution.",
-        "Detection": "Monitor for unusual network activity",
-        "Remediation": "Apply security patches and updates",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of vulnerabilities in remote services.",
-            "tactic_id": "T1210",
-            "tactic_name": "Exploitation of Remote Services"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of Log4Shell vulnerability.",
-            "technique_id": "T1210",
-            "technique_name": "Exploitation of Remote Services"
-          }
-        ],
-        "Techniques": ["T1210"]
-      },
-      {
-        "Description": "Installation of XMRig and persistence mechanisms.",
-        "Detection": "Monitor for unauthorized cron job modifications",
-        "Remediation": "Restrict access to cron job configurations",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Use of systemd or cron jobs for persistence.",
-            "tactic_id": "T1546",
-            "tactic_name": "Event Triggered Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of cron jobs for persistence.",
-            "technique_id": "T1546.003",
-            "technique_name": "Event Triggered Execution: Unix Shell Configuration Modification"
-          }
-        ],
-        "Techniques": ["T1546.003"]
-      },
-      {
-        "Description": "Establishment of reverse shells for remote control.",
-        "Detection": "Monitor HTTP traffic for anomalies",
-        "Remediation": "Implement web application firewalls",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Use of HTTP for command and control.",
-            "tactic_id": "T1071",
-            "tactic_name": "Application Layer Protocol"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of HTTP POST requests for data exfiltration.",
-            "technique_id": "T1071.001",
-            "technique_name": "Application Layer Protocol: Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Execution of cryptocurrency mining and data exfiltration.",
-        "Detection": "Monitor for unauthorized cryptocurrency mining activity",
-        "Remediation": "Block known mining pools and domains",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Use of cryptocurrency mining software.",
-            "tactic_id": "T1486",
-            "tactic_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Deployment of XMRig for cryptocurrency mining.",
-            "technique_id": "T1486",
-            "technique_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Techniques": ["T1486"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of obfuscated payloads", "Establishment of reverse shells"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Overwriting bash history", "Erasing command history"],
-      "Description": "Exploitation of Log4Shell vulnerability to deploy cryptocurrency mining malware.",
-      "Exploits": ["Log4Shell"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Malicious Java class", "Obfuscated Bash script"],
-      "Persistence_Mechanisms": ["systemd", "cron jobs"],
-      "Tools": ["XMRig"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["HTTP POST requests to remote servers"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor LDAP and HTTP traffic for anomalies"],
-    "Extracted_Entities": {
-      "Assets": ["Java applications"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": ["superr.buzz", "cmpnst.info", "nfdo.shop", "rirosh.shop"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["185.220.101.34"],
-      "Keywords": ["Log4Shell", "vulnerability", "exploitation", "cryptocurrency mining"],
-      "Malware_Families": ["XMRig"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["Log4j", "XMRig"],
-      "Technologies": ["LDAP", "Java"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Log4Shell"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["Remote server for malicious Java class"],
-      "Communication_Protocols": ["HTTP POST requests"],
-      "Description": "Use of Tor exit nodes and remote servers for command and control.",
-      "Domains": ["superr.buzz", "cmpnst.info", "nfdo.shop", "rirosh.shop"],
-      "Hosting_Providers": [],
-      "IPs": ["185.220.101.34"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Patch Log4j vulnerabilities", "Implement network segmentation"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["superr.buzz", "cmpnst.info", "nfdo.shop", "rirosh.shop"],
-      "Hash_Values": [],
-      "IP_Addresses": ["185.220.101.34"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Obfuscated LDAP requests", "Remote code execution", "Persistence mechanisms"],
-      "Tools": ["XMRig"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network monitoring tools", "Intrusion detection systems"],
-    "Severity": "Critical",
-    "Threat_Actors": ["APT41", "Conti"],
-    "Timestamp": "2024-08-22T09:48:13Z",
-    "Title": "Exploitation of Log4Shell Vulnerability for Cryptocurrency Mining",
-    "Tools": ["XMRig", "Log4j"],
-    "Victim": {
-      "Access_Vectors": ["Remote code execution via LDAP"],
-      "Data_Types_At_Risk": ["System information", "User data"],
-      "Description": "Systems vulnerable to Log4Shell exploitation.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable due to unpatched Log4j",
-      "Targeted_Assets": ["Java applications using Log4j"]
-    },
-    "diamond_model_summary": "The incident involves threat actors exploiting the Log4Shell vulnerability to deploy cryptocurrency mining malware. The adversaries, including APT41 and Conti, demonstrate high sophistication through obfuscation and persistence mechanisms. The infrastructure includes Tor exit nodes and remote servers for command and control. Victims are systems using vulnerable Log4j instances, primarily in the Information Technology sector. The attack highlights the critical impact of unpatched vulnerabilities and the financial motivation of threat actors.",
-    "doc_summary": "Recent cyber attacks have exploited the Log4j vulnerability, known as Log4Shell, by sending obfuscated LDAP requests to trigger malicious script execution. This vulnerability, discovered in November 2021 with a CVSS score of 10, allows remote code execution and has been targeted by various threat actors, including nation-state groups like APT41 and cybercriminals such as Conti. On July 30, 2024, a Confluence honeypot detected a Log4Shell exploitation attempt from a Tor exit node, marking a new campaign. Attackers used the vulnerability to deploy XMRig, a cryptocurrency mining software, onto compromised systems. The attack involved downloading a malicious Java class and an obfuscated Bash script, which performed system reconnaissance, established persistence, and set up reverse shells for remote control. Indicators of compromise include IP address 185.220.101.34 and domains superr.buzz, cmpnst.info, nfdo.shop, and rirosh.shop.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:10.733107+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "9771c0751384732de8ae5d1228e26fac8894d74a",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack follows a structured kill chain, beginning with the weaponization of obfuscated LDAP requests to exploit the Log4Shell vulnerability. Delivery involves the transmission of a malicious Java class, leading to exploitation through remote code execution. Installation of XMRig and persistence mechanisms follows, with command and control established via reverse shells. The final stage involves cryptocurrency mining and data exfiltration. Detection and remediation focus on monitoring network traffic, patching vulnerabilities, and restricting unauthorized access.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes IP addresses, domain names, and tools used by the adversaries. The IP address 185.220.101.34 and domains such as superr.buzz are critical indicators. Tools like XMRig and obfuscated payloads represent the adversaries' capabilities. The pyramid highlights the challenges in detecting and responding to such sophisticated attacks, emphasizing the need for robust monitoring and threat intelligence.",
-    "relevance_score": 71,
-    "sequence": 16740,
-    "source": "https://gbhackers.com/log4j-exploited-crypto-mining/",
-    "slug": "Exploitation_of_Log4Shell_Vulnerability_for_Cryptocurrency_Mining-016740",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential attackers exploiting SQL Injection vulnerability in 3CX CRM Integration.",
-      "Known_Campaigns": [],
-      "Motivation": "Access to sensitive data and potential control over databases.",
-      "Sophistication": "Moderate, leveraging common SQL Injection techniques.",
-      "Strategic_Objectives": "Compromise database integrity and access sensitive information.",
-      "TTPs_Employed": ["SQL Injection"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of SQL Injection vulnerability in 3CX CRM Integration.",
-        "Detection": "Monitor database query logs for unusual patterns.",
-        "Remediation": "Implement web application firewalls and sanitize inputs.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system through SQL Injection.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting SQL Injection vulnerability to manipulate database queries.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of SQL Injection vulnerability in 3CX CRM Integration.",
-      "Exploits": ["CVE-2023-49954"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Database systems"],
-      "Breach_Types": ["SQL Injection"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["3CX"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["SQL Injection", "CVE-2023-49954", "3CX", "CRM Integration"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["VoIP Communications"],
-      "Software": ["3CX CRM Integration"],
-      "Technologies": ["MsSQL", "PostgreSQL", "MySQL", "MongoDB"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2023-49954"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "3CX CRM Integration templates for MsSQL, PostgreSQL, and MySQL databases.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["SQL Injection"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2023-12-18T16:18:21Z",
-    "Title": "3CX SQL Injection Vulnerability CVE-2023-49954 Incident Analysis",
-    "Tools": ["3CX CRM Integration"],
-    "Victim": {
-      "Access_Vectors": ["SQL Database integrations"],
-      "Data_Types_At_Risk": ["Sensitive data"],
-      "Description": "3CX customers using SQL Database integrations.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "VoIP Communications",
-      "Security_Posture": "Vulnerable if no web application firewall is present.",
-      "Targeted_Assets": ["Database systems"]
-    },
-    "diamond_model_summary": "The incident involves a SQL Injection vulnerability in 3CX CRM Integration, identified as CVE-2023-49954. The adversary is likely exploiting this vulnerability to gain unauthorized access to sensitive data. The capability involves exploiting SQL Injection, targeting 3CX's database integration templates. The infrastructure includes MsSQL, PostgreSQL, and MySQL databases. Victims are 3CX customers using these integrations, with a high impact severity due to potential data exposure.",
-    "doc_summary": "3CX, a VoIP communications firm, has identified a SQL Injection vulnerability in its CRM Integration, designated as CVE-2023-49954. This vulnerability affects integration templates for databases such as MsSQL, PostgreSQL, and MySQL, potentially allowing attackers to manipulate database queries and access sensitive data. The vulnerability does not impact MongoDB or web-based CRM integrations. 3CX has advised customers to disable SQL Database integrations as a precautionary measure while a solution is developed. The vulnerability is particularly concerning if the 3CX server is internet-accessible without a web application firewall. The report highlights that only 0.25% of users have integrated SQL, primarily in older, on-premise firewall-secured networks. Key figures involved include 3CX CEO Nick Galea and CISO Pierre Jourdan.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:10.733081+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "8729765cceaff83524a783d72563ae4e6714fa60",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involves the exploitation stage of the kill chain, where attackers leverage a SQL Injection vulnerability in 3CX CRM Integration to manipulate database queries. This exploitation can lead to unauthorized access to sensitive data. Detection involves monitoring database query logs, while remediation includes implementing web application firewalls and input sanitization.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to SQL Injection, specifically targeting 3CX CRM Integration. No specific hash values, IP addresses, or domain names were identified. The focus is on the exploitation technique, with remediation efforts aimed at mitigating SQL Injection risks through web application firewalls and input validation.",
-    "relevance_score": 41,
-    "sequence": 16739,
-    "source": "https://gbhackers.com/3cx-users-disable-database-integrations/",
-    "slug": "3CX_SQL_Injection_Vulnerability_CVE-2023-49954_Incident_Analysis-016739",
     "shard": 9
   }
 ]

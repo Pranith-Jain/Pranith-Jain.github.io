@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "termite",
+  "name": "termite",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-22T05:45:30.000Z",
+  "lastSeen": "2026-08-22T05:45:30.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-22",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "everglades-boats-a129",
+      "title": "Everglades Boats — claimed by termite",
+      "pubDate": "2026-08-22T05:45:30.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "everglades-boats-a129",
+      "victim": "Everglades Boats — claimed by termite",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-22T05:45:30.000Z"
+    }
+  ]
+}

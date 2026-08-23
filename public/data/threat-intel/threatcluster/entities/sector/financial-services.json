@@ -4,53 +4,81 @@
   "name": "Financial Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-21T02:24:16.000Z",
-  "lastSeen": "2026-08-21T10:26:17.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-21T10:26:17.000Z",
+  "lastSeen": "2026-08-22T14:13:39.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 3 ransomware groups and 4 countries.",
   "frequency": [
     {
       "date": "2026-08-21",
-      "count": 3
+      "count": 1
+    },
+    {
+      "date": "2026-08-22",
+      "count": 6
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "bok-financial-14ba",
+      "title": "BOK Financial — claimed by shinyhunters",
+      "pubDate": "2026-08-22T14:13:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tower-insurance-11c3",
+      "title": "Tower Insurance — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T14:00:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "longhorn-investments-3e0c",
+      "title": "Longhorn Investments — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:57:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "abacus-advisors-e4e4",
+      "title": "Abacus Advisors — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:54:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lifebank-microfinance-foundation-7d9d",
+      "title": "LifeBank Microfinance Foundation — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:54:14.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pt-bank-perekonomian-rakyat-bintan-3ce8",
+      "title": "PT. Bank Perekonomian Rakyat Bintan — claimed by coinbasecartel",
+      "pubDate": "2026-08-22T13:52:53.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "first-commerce-llc-7e98",
       "title": "First Commerce LLC — claimed by pear",
       "pubDate": "2026-08-21T10:26:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "caz-investments-fab8",
-      "title": "CAZ Investments — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:26:36.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "reviso-cloud-accounting-limited-b08a",
-      "title": "Reviso Cloud Accounting Limited — claimed by direwolf",
-      "pubDate": "2026-08-21T02:24:16.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "coinbasecartel",
+      "name": "coinbasecartel",
+      "weight": 5
+    },
+    {
+      "type": "group",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "pear",
       "name": "pear",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
       "weight": 1
     }
   ],

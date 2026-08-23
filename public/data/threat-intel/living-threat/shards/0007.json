@@ -1,6 +1,715 @@
 [
   {
     "Adversary": {
+      "Aliases": ["chubaka.kor", "nets"],
+      "Associated_Groups": ["Yanluowang", "Potential link to LockBit"],
+      "Description": "Aleksey Olegovich Volkov acted as an initial access broker for the Yanluowang ransomware group.",
+      "Known_Campaigns": ["Yanluowang ransomware attacks"],
+      "Motivation": "Financial gain",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Monetary extortion through ransomware",
+      "TTPs_Employed": ["Initial access brokerage", "Ransomware deployment"]
+    },
+    "Analyses": [
+      {
+        "Description": "Volkov identified and targeted vulnerable US companies.",
+        "Detection": "Monitor for unusual access patterns.",
+        "Remediation": "Implement network segmentation and access controls.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to select targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about victim networks.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Network Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Volkov sold access to the Yanluowang group.",
+        "Detection": "Monitor for unauthorized access attempts.",
+        "Remediation": "Enforce strong password policies and multi-factor authentication.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to victim networks.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using compromised credentials for access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Yanluowang ransomware was deployed on victim networks.",
+        "Detection": "Monitor for changes to startup configurations.",
+        "Remediation": "Regularly audit startup items and services.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to victim networks.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Ensuring malware runs on system startup.",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Ransomware encrypted data and demanded ransoms.",
+        "Detection": "Monitor for unusual file encryption activities.",
+        "Remediation": "Implement regular data backups and incident response plans.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Disrupting operations and demanding ransom.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Encrypting data to disrupt operations.",
+            "technique_id": "T1486",
+            "technique_name": "Data Encrypted for Impact"
+          }
+        ],
+        "Techniques": ["T1486"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Volkov provided initial access to corporate networks for ransomware deployment.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Yanluowang"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Ransomware", "Cryptocurrency exchanges"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Corporate networks", "Data"],
+      "Breach_Types": ["Ransomware"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Yanluowang", "LockBit"],
+      "Countries": ["United States", "Russian Federation", "Italy"],
+      "Domains": ["icloud.com", "mail.ru"],
+      "Email_Addresses": ["alekseyvolkov4574@icloud.com", "qwerty4574@mail.ru"],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["ransomware", "initial access broker", "Bitcoin"],
+      "Malware_Families": ["Yanluowang"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Engineering", "Telecommunications"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Volkov used servers, cryptocurrency exchanges, and social media for operations.",
+      "Domains": ["icloud.com", "mail.ru"],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["icloud.com", "mail.ru"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Initial access brokerage", "Ransomware deployment"],
+      "Tools": ["Yanluowang"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Aleksey Olegovich Volkov", "Yanluowang", "chubaka.kor", "nets"],
+    "Timestamp": "2025-11-10T14:12:00Z",
+    "Title": "Yanluowang Ransomware Attacks by Russian IAB Aleksey Volkov",
+    "Tools": ["Ransomware", "Cryptocurrency exchanges", "Yanluowang"],
+    "Victim": {
+      "Access_Vectors": ["Compromised credentials"],
+      "Data_Types_At_Risk": ["Sensitive corporate data"],
+      "Description": "US companies targeted by Yanluowang ransomware attacks.",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Various, including engineering and telecommunications",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Corporate networks", "Data"]
+    },
+    "diamond_model_summary": "Aleksey Olegovich Volkov, a Russian national, acted as an initial access broker for the Yanluowang ransomware group, targeting US companies. He breached networks and sold access, leading to ransomware deployment and ransom demands. The FBI traced his identity through digital evidence, including iCloud and cryptocurrency records.",
+    "doc_summary": "Aleksey Olegovich Volkov, a Russian national, acted as an initial access broker for Yanluowang ransomware attacks targeting at least eight US companies from July 2021 to November 2022. Volkov breached corporate networks and sold access to the Yanluowang group, which deployed ransomware, demanding ransoms between $300,000 and $15 million. The FBI traced Volkov's identity through iCloud data, cryptocurrency records, and social media accounts. Chat logs revealed negotiations with a co-conspirator, CC-1, and a potential link to the LockBit ransomware gang. Volkov faces a maximum sentence of 53 years and must pay over $9.1 million in restitution. The attacks affected companies in various US states, with two victims paying a total of $1.5 million in ransoms.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:20.607550+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "346b1d769375ff5b0e5220e271489c6c",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involved reconnaissance to identify vulnerable US companies, delivery of access credentials to the Yanluowang group, installation of ransomware, and actions on objectives through data encryption and ransom demands. The FBI investigation revealed Volkov's role and traced ransom payments through blockchain analysis.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 80,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names like icloud.com and mail.ru, email addresses used for operations, and the Yanluowang ransomware as a tool. The FBI's investigation leveraged these indicators to trace Volkov's activities and link him to the ransomware attacks.",
+    "relevance_score": 80,
+    "sequence": 18241,
+    "source": "https://www.bleepingcomputer.com/news/security/yanluowang-initial-access-broker-pleaded-guilty-to-ransomware-attacks/",
+    "slug": "Yanluowang_Ransomware_Attacks_by_Russian_IAB_Aleksey_Volkov-018241",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "UNC6485 is a threat cluster known for exploiting vulnerabilities in Triofox.",
+      "Known_Campaigns": [],
+      "Motivation": "Unknown",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Unauthorized access and control over Triofox systems",
+      "TTPs_Employed": ["Authentication Bypass", "Privilege Escalation", "Remote Access Tool Deployment"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of CVE-2025-12480 to bypass authentication.",
+        "Detection": "Monitor for unusual account creation activities. • Check for unauthorized access to configuration pages.",
+        "Remediation": "Apply patches for CVE-2025-12480. • Restrict access to configuration pages post-setup.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may use valid accounts to gain initial access to a network.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of the vulnerability to create a new admin account.",
+        "Detection": "Monitor for new admin account creation. • Check for unauthorized changes to account privileges.",
+        "Remediation": "Audit admin accounts regularly. • Implement multi-factor authentication.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to steal account names and passwords.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may use local accounts to gain access to a network.",
+            "technique_id": "T1078.003",
+            "technique_name": "Local Accounts"
+          }
+        ],
+        "Techniques": ["T1078.003"]
+      },
+      {
+        "Description": "Installation of remote access tools like Zoho Assist and AnyDesk.",
+        "Detection": "Monitor for installation of remote access tools. • Check for unusual service creation or modification.",
+        "Remediation": "Restrict installation of unauthorized software. • Use application whitelisting.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may create or modify Windows services to repeatedly execute malicious payloads.",
+            "technique_id": "T1543.003",
+            "technique_name": "Windows Service"
+          }
+        ],
+        "Techniques": ["T1543.003"]
+      },
+      {
+        "Description": "Use of encrypted tunnels for C2 communication.",
+        "Detection": "Monitor for unusual SSH traffic. • Check for encrypted tunnels over non-standard ports.",
+        "Remediation": "Block unauthorized outbound SSH connections. • Implement network segmentation.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
+            "technique_id": "T1573.001",
+            "technique_name": "Standard Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1573.001"]
+      },
+      {
+        "Description": "Privilege escalation and reconnaissance using remote access tools.",
+        "Detection": "Monitor for changes to domain admin group memberships. • Check for unusual remote access tool usage.",
+        "Remediation": "Regularly review domain admin group memberships. • Implement least privilege access controls.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to avoid being detected.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may use domain accounts to maintain access to a network.",
+            "technique_id": "T1078.002",
+            "technique_name": "Domain Accounts"
+          }
+        ],
+        "Techniques": ["T1078.002"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [
+      "Creation of new admin accounts",
+      "Use of remote access tools for reconnaissance"
+    ],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Encrypted Tunnels"],
+      "Description": "Exploitation of CVE-2025-12480 to gain unauthorized access and execute arbitrary code.",
+      "Exploits": ["CVE-2025-12480"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Zoho Assist", "AnyDesk", "Plink", "PuTTY"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for unauthorized access to Triofox configuration pages",
+      "Check for installation of remote access tools"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["Configuration Pages"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": ["centre_report.bat"],
+      "Companies": ["Google", "Mandiant", "Gladinet"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": ["84.200.80.252"],
+      "Keywords": ["CVE-2025-12480", "authentication bypass", "remote access", "privilege escalation"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["16.7.10368.56560"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Triofox", "Zoho Unified Endpoint Management System", "Zoho Assist", "AnyDesk"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-12480", "CVE-2025-30406", "CVE-2025-11371"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["SSH"],
+      "Description": "Use of remote access tools and encrypted tunnels for C2 communication.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": ["84.200.80.252"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Update Triofox to the latest version", "Audit and verify admin accounts"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": ["84.200.80.252"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Authentication Bypass", "Privilege Escalation", "Remote Access Tool Deployment"],
+      "Tools": ["Zoho Assist", "AnyDesk", "Plink", "PuTTY"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [
+      "Network traffic analysis for SSH connections",
+      "Audit of admin account creation and privilege changes"
+    ],
+    "Severity": "Critical",
+    "Threat_Actors": ["UNC6485"],
+    "Timestamp": "2025-11-09T18:30:00Z",
+    "Title": "Exploitation of CVE-2025-12480 in Triofox by UNC6485",
+    "Tools": ["Zoho Assist", "AnyDesk", "Plink", "PuTTY", "Triofox", "Zoho Unified Endpoint Management System"],
+    "Victim": {
+      "Access_Vectors": ["Remote Access"],
+      "Data_Types_At_Risk": ["Configuration Data", "Admin Credentials"],
+      "Description": "Users of Gladinet's Triofox platform.",
+      "Geography": "Unknown",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to unpatched systems",
+      "Targeted_Assets": ["Triofox Configuration Pages"]
+    },
+    "diamond_model_summary": "The incident involves the exploitation of CVE-2025-12480 in Triofox by the threat actor UNC6485. The adversary used the vulnerability to bypass authentication, create a new admin account, and deploy remote access tools. The infrastructure includes the use of IP 84.200.80.252 for downloading malicious payloads. The victim is primarily users of the Triofox platform, with a high impact severity due to unauthorized access and control.",
+    "doc_summary": "Google's Mandiant Threat Defense discovered the exploitation of a critical vulnerability, CVE-2025-12480, in Gladinet's Triofox platform by threat actor UNC6485. The flaw allows authentication bypass and arbitrary payload execution. Despite patches released in version 16.7.10368.56560, the flaw was weaponized by UNC6485 to create a new admin account, execute malicious scripts, and deploy remote access tools like Zoho Assist and AnyDesk. The attackers used tools like Plink and PuTTY to establish encrypted tunnels for C2 communication. Triofox users are advised to update, audit admin accounts, and verify antivirus configurations.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:19.336863+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "bf16248618011293217e4e371b234b5a3ab0ea573742de36fb3b0f512d36597b",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the exploitation of CVE-2025-12480, allowing the adversary to bypass authentication and create a new admin account. This leads to the installation of remote access tools like Zoho Assist and AnyDesk, enabling further actions such as privilege escalation and reconnaissance. The use of encrypted tunnels for C2 communication indicates a sophisticated approach to maintaining access and evading detection.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes IP addresses like 84.200.80.252, tools such as Zoho Assist and AnyDesk, and TTPs involving authentication bypass and privilege escalation. These indicators are critical for detection and response efforts, as they provide actionable intelligence to disrupt the adversary's operations. The use of encrypted tunnels and remote access tools highlights the need for robust monitoring and access controls.",
+    "relevance_score": 73,
+    "sequence": 18240,
+    "source": "https://thehackernews.com/2025/11/hackers-exploiting-triofox-flaw-to.html",
+    "slug": "Exploitation_of_CVE-2025-12480_in_Triofox_by_UNC6485-018240",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": ["UNC6485"],
+      "Associated_Groups": ["Google Threat Intelligence Group"],
+      "Description": "UNC6485 exploited the Triofox vulnerability to gain unauthorized access and execute malicious activities.",
+      "Known_Campaigns": ["Exploitation of CVE-2025-12480"],
+      "Motivation": "Unauthorized access and control over systems",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Gain unauthorized access and execute arbitrary code",
+      "TTPs_Employed": ["HTTP host header attack", "Abuse of anti-virus feature"]
+    },
+    "Analyses": [
+      {
+        "Description": "Identification of vulnerable Triofox servers",
+        "Detection": "Monitor for unusual scanning activities targeting Triofox servers",
+        "Remediation": "Regularly update and patch Triofox instances",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerable targets",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for vulnerable Triofox instances",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Preparation of payloads for execution on compromised servers",
+        "Detection": "Analyze code repositories for malicious payload development",
+        "Remediation": "Implement secure coding practices and code reviews",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to exploit vulnerabilities",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating payloads to exploit Triofox vulnerability",
+            "technique_id": "T1587",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587"]
+      },
+      {
+        "Description": "Exploitation of CVE-2025-12480 to deliver payloads",
+        "Detection": "Monitor for exploitation attempts on public-facing Triofox applications",
+        "Remediation": "Apply security patches and updates promptly",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to Triofox servers",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting Triofox vulnerability for access",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Execution of arbitrary code via Triofox vulnerability",
+        "Detection": "Monitor for unusual script execution on Triofox servers",
+        "Remediation": "Restrict script execution and enforce code signing",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code on compromised systems",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using scripts to execute code",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "Installation of remote access tools for persistence",
+        "Detection": "Monitor for new services or scheduled tasks",
+        "Remediation": "Audit and remove unauthorized startup items",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to compromised systems",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Configuring tools to start automatically",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "Establishment of encrypted tunnels for C2 communication",
+        "Detection": "Monitor for unusual encrypted traffic patterns",
+        "Remediation": "Implement network segmentation and traffic analysis",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using encrypted channels for C2",
+            "technique_id": "T1573",
+            "technique_name": "Encrypted Channel"
+          }
+        ],
+        "Techniques": ["T1573"]
+      },
+      {
+        "Description": "Execution of post-exploitation activities and data exfiltration",
+        "Detection": "Monitor for data exfiltration activities",
+        "Remediation": "Implement data loss prevention solutions",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from compromised systems",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting data from local systems",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Creation of new admin accounts", "Use of encrypted tunnels"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of encrypted tunnels", "Renamed legitimate tools"],
+      "Description": "Exploitation of vulnerabilities and use of remote access tools",
+      "Exploits": ["CVE-2025-12480"],
+      "Lateral_Movement_Tools": ["Zoho Assist"],
+      "Malware": [],
+      "Persistence_Mechanisms": ["Creation of new admin accounts"],
+      "Tools": ["PLINK", "Zoho UEMS", "Anydesk"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Suspicious Renamed Anydesk Install", "Suspicious Execution From Appcompat"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Gladinet or Triofox IIS Worker Spawns CMD",
+      "Gladinet or Triofox Suspicious File or Directory Activity"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["Triofox servers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [
+        "C:\\Windows\\system32\\cmd.exe /c \"\"c:\\triofox\\centre_report.bat\" C:\\Windows\\TEMP\\eset_temp\\ESET638946159761752413.av\""
+      ],
+      "Companies": ["Mandiant", "Gladinet"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [
+        "43c455274d41e58132be7f66139566a941190ceba46082eb2ad7a6a261bfd63f",
+        "50479953865b30775056441b10fdcb984126ba4f98af4f64756902a807b453e7",
+        "16cbe40fb24ce2d422afddb5a90a5801ced32ef52c22c2fc77b25a90837f28ad",
+        "ac7f226bdf1c6750afa6a03da2b483eee2ef02cd9c2d6af71ea7c6a9a4eace2f"
+      ],
+      "IP_Addresses": ["85.239.63.37", "65.109.204.197", "84.200.80.252", "216.107.136.46"],
+      "Keywords": ["CVE-2025-12480", "UNC6485", "Triofox", "Mandiant"],
+      "Malware_Families": [],
+      "Malware_Filenames": ["sihosts.exe", "silcon.exe"],
+      "Patches": ["Triofox version 16.7.10368.56560"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["Triofox", "Zoho UEMS", "Anydesk"],
+      "Technologies": ["HTTP host header", "SSH", "RDP"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-12480"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": ["216.107.136.46"],
+      "Communication_Protocols": ["SSH", "RDP"],
+      "Description": "Use of compromised Triofox servers and external IPs for command and control",
+      "Domains": [],
+      "Hosting_Providers": ["Clouvider Limited", "Hetzner Online GmbH", "Ultahost, Inc."],
+      "IPs": ["85.239.63.37", "65.109.204.197", "84.200.80.252"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Upgrade to the latest Triofox version",
+      "Audit admin accounts",
+      "Verify anti-virus engine configuration"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [
+        "43c455274d41e58132be7f66139566a941190ceba46082eb2ad7a6a261bfd63f",
+        "50479953865b30775056441b10fdcb984126ba4f98af4f64756902a807b453e7",
+        "16cbe40fb24ce2d422afddb5a90a5801ced32ef52c22c2fc77b25a90837f28ad",
+        "ac7f226bdf1c6750afa6a03da2b483eee2ef02cd9c2d6af71ea7c6a9a4eace2f"
+      ],
+      "IP_Addresses": ["85.239.63.37", "65.109.204.197", "84.200.80.252", "216.107.136.46"],
+      "Network_Host_Artifacts": ["sihosts.exe", "silcon.exe"],
+      "TTPs": ["HTTP host header attack", "Abuse of anti-virus feature"],
+      "Tools": ["PLINK", "Zoho UEMS", "Anydesk"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Google SecOps", "Mandiant Windows Threats rule pack"],
+    "Severity": "High",
+    "Threat_Actors": ["UNC6485"],
+    "Timestamp": "2025-11-10T14:00:00Z",
+    "Title": "Exploitation of Triofox Vulnerability CVE-2025-12480 by UNC6485",
+    "Tools": ["PLINK", "Zoho UEMS", "Anydesk", "Triofox"],
+    "Victim": {
+      "Access_Vectors": ["Unauthenticated access", "Remote code execution"],
+      "Data_Types_At_Risk": ["Configuration data", "User credentials"],
+      "Description": "Organizations using vulnerable versions of Triofox",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Various",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Triofox servers"]
+    },
+    "diamond_model_summary": "The incident involves the exploitation of a vulnerability in Triofox by the threat actor UNC6485. The adversary leveraged an unauthenticated access vulnerability to gain control over Triofox servers, using tools like PLINK and Zoho UEMS for persistence and command and control. The infrastructure included compromised Triofox servers and external IPs for C2 communication. Victims were organizations using vulnerable Triofox versions, facing high impact severity due to unauthorized access and data exfiltration risks.",
+    "doc_summary": "Mandiant's report on the exploitation of an unauthenticated access vulnerability in Gladinet's Triofox platform, CVE-2025-12480, by threat actor UNC6485. The vulnerability allowed attackers to bypass authentication, access configuration pages, and execute arbitrary payloads. The attack involved HTTP host header manipulation, abuse of the anti-virus feature for code execution, and deployment of remote access tools like Zoho UEMS and Anydesk. Mandiant's investigation revealed the use of PowerShell for downloading payloads and setting up encrypted tunnels for command and control. The report emphasizes the importance of upgrading to the latest Triofox version and monitoring for suspicious activities.",
+    "enrichment": { "processed_at": "2026-02-18T00:30:36.860604+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "7d262ef7bb229ee527e1a3f5402e4b80",
+    "index": "data_cached_global_rss",
+    "kill_chain_summary": "The attack followed a structured kill chain, starting with reconnaissance to identify vulnerable Triofox servers. Weaponization involved preparing payloads for execution. Delivery was achieved through exploiting CVE-2025-12480. Exploitation allowed arbitrary code execution. Installation involved deploying remote access tools. Command and control were established via encrypted tunnels. Actions on objectives included data exfiltration and post-exploitation activities. Each stage was meticulously executed to maintain persistence and evade detection.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 99,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes various indicators of compromise. Hash values of malicious files, IP addresses used for C2 communication, and network host artifacts like renamed legitimate tools were identified. Tools such as PLINK and Zoho UEMS were used for persistence and lateral movement. TTPs included HTTP host header attacks and abuse of anti-virus features. These indicators provide a comprehensive view of the attack, aiding in detection and response efforts.",
+    "relevance_score": 73,
+    "sequence": 18239,
+    "source": "https://cloud.google.com/blog/topics/threat-intelligence/triofox-vulnerability-cve-2025-12480/",
+    "slug": "Exploitation_of_Triofox_Vulnerability_CVE-2025-12480_by_UNC6485-018239",
+    "shard": 7
+  },
+  {
+    "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
       "Description": "No significant information detected",
@@ -106580,591 +107289,6 @@
     "sequence": 17741,
     "source": "https://gbhackers.com/poc-published-for-sudo-flaw-lets-attackers-escalate-to-root/",
     "slug": "Critical_Privilege_Escalation_Vulnerability_in_Sudo__CVE-2025-32463_-017741",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Threat actors exploiting the Oracle E-Business Suite vulnerability.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential financial gain or disruption.",
-      "Sophistication": "High, due to the use of zero-day vulnerability.",
-      "Strategic_Objectives": "Compromise Oracle E-Business Suite systems.",
-      "TTPs_Employed": ["Remote code execution", "Exploitation of zero-day vulnerabilities"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Development of proof-of-concept for CVE-2025-61882.",
-        "Detection": "Monitor for unusual access patterns to Oracle E-Business Suite.",
-        "Remediation": "Apply Oracle's security patches immediately.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
-            "tactic_id": "T1190",
-            "tactic_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of Oracle E-Business Suite vulnerability.",
-        "Detection": "Monitor for exploitation attempts using known IOCs.",
-        "Remediation": "Apply Oracle's security patches immediately.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
-            "tactic_id": "T1190",
-            "tactic_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential outbound TCP connections from compromised systems.",
-        "Detection": "Monitor network traffic for unusual outbound connections.",
-        "Remediation": "Block suspicious IP addresses and apply patches.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Use of application layer protocols for command and control.",
-            "tactic_id": "T1071",
-            "tactic_name": "Application Layer Protocol"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of application layer protocols for command and control.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Potential system compromise with high impact on confidentiality, integrity, and availability.",
-        "Detection": "Monitor for encryption activities on critical systems.",
-        "Remediation": "Ensure regular backups and apply security patches.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Encrypting data on target systems to disrupt availability.",
-            "tactic_id": "T1486",
-            "tactic_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Encrypting data on target systems to disrupt availability.",
-            "technique_id": "T1486",
-            "technique_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Techniques": ["T1486"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of zero-day vulnerabilities and remote code execution."],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Oracle E-Business Suite zero-day vulnerability.",
-      "Exploits": ["CVE-2025-61882"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Nuclei vulnerability scanner"],
-      "Zero_Days": ["CVE-2025-61882"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for suspicious IP activity and file hashes."],
-    "Extracted_Entities": {
-      "Assets": ["Oracle E-Business Suite systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Oracle"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["200.107.207.26", "185.181.60.11"],
-      "Keywords": ["CVE-2025-61882", "zero-day", "remote code execution"],
-      "Malware_Families": [],
-      "Malware_Filenames": ["oracle_ebs_nday_exploit_poc_scattered_lapsus_retard_cl0p_hunters.zip"],
-      "Patches": ["October 2023 Critical Patch Update"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Oracle E-Business Suite"],
-      "Technologies": ["HTTP"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-61882"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP"],
-      "Description": "Infrastructure used to exploit Oracle E-Business Suite vulnerability.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": ["200.107.207.26", "185.181.60.11"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply security patches and monitor for IOCs."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": ["200.107.207.26", "185.181.60.11"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote code execution", "Exploitation of zero-day vulnerabilities"],
-      "Tools": ["Nuclei vulnerability scanner"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Nuclei vulnerability scanner"],
-    "Severity": "Critical",
-    "Threat_Actors": ["rxerium"],
-    "Timestamp": "2025-10-06T05:25:51Z",
-    "Title": "Critical Zero-Day Vulnerability in Oracle E-Business Suite Exploited",
-    "Tools": ["Nuclei vulnerability scanner", "Oracle E-Business Suite"],
-    "Victim": {
-      "Access_Vectors": ["Remote network access"],
-      "Data_Types_At_Risk": ["Confidentiality, integrity, and availability of systems"],
-      "Description": "Organizations using Oracle E-Business Suite versions 12.2.3 through 12.2.14.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["Oracle E-Business Suite systems"]
-    },
-    "diamond_model_summary": "The incident involves a critical zero-day vulnerability in Oracle E-Business Suite, exploited by threat actors potentially for financial gain or disruption. The adversary, identified as rxerium, has developed a proof-of-concept for CVE-2025-61882. The capability includes exploiting the vulnerability using the Nuclei vulnerability scanner. The infrastructure involves suspicious IP addresses and HTTP protocol for exploitation. Victims are organizations using Oracle E-Business Suite, with a critical impact on confidentiality, integrity, and availability.",
-    "doc_summary": "Oracle has issued an urgent security alert for a critical zero-day vulnerability affecting Oracle E-Business Suite, tracked as CVE-2025-61882. This vulnerability allows remote code execution without authentication and impacts versions 12.2.3 through 12.2.14. It carries a maximum CVSS 3.1 score of 9.8, indicating critical severity. The flaw can be exploited remotely over a network without requiring username and password credentials, making it particularly dangerous for exposed systems. Security researcher rxerium has developed a Nuclei detection template to identify vulnerable instances. Indicators of compromise include suspicious IP addresses 200.107.207.26 and 185.181.60.11, and a ZIP file named 'oracle_ebs_nday_exploit_poc_scattered_lapsus_retard_cl0p_hunters.zip'. Oracle strongly recommends immediate application of security updates. The October 2023 Critical Patch Update is a prerequisite for applying these emergency fixes.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:51.456648+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "a5df820e5246b42438d57dc7fab1632e1a04a85c",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals exploitation of a zero-day vulnerability in Oracle E-Business Suite, allowing remote code execution without authentication. The weaponization stage involves the development of a proof-of-concept by rxerium. Exploitation occurs through HTTP protocol, with potential command and control via outbound TCP connections. Actions on objectives may include system compromise and data encryption for impact. Detection involves monitoring for IOCs, while remediation requires immediate application of security patches.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies several indicators of compromise, including IP addresses and a specific malware filename. The presence of these indicators suggests active exploitation of the Oracle E-Business Suite vulnerability. The use of a zero-day exploit and the Nuclei vulnerability scanner highlights the sophistication of the threat actors. Monitoring for these IOCs and applying security patches are critical for mitigating the impact of this vulnerability.",
-    "relevance_score": 57,
-    "sequence": 17740,
-    "source": "https://gbhackers.com/poc-released-oracle-e-business-suite-0-day/",
-    "slug": "Critical_Zero-Day_Vulnerability_in_Oracle_E-Business_Suite_Exploited-017740",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Attackers exploiting the sudo vulnerability CVE-2025-32463",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized administrative control",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Compromise systems for data theft or disruption",
-      "TTPs_Employed": ["Exploitation of sudo vulnerability"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of sudo vulnerability CVE-2025-32463",
-        "Detection": "Monitor sudo logs for unusual activity",
-        "Remediation": "Apply patches for CVE-2025-32463 • Review sudoers configurations",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a system through a vulnerability",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability to gain elevated privileges",
-            "technique_id": "T1068",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1068"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential for data theft and service disruption",
-        "Detection": "Audit for unauthorized root commands",
-        "Remediation": "Restrict sudo access • Monitor system logs",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data of interest to the adversary",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Accessing data stored on local systems",
-            "technique_id": "T1005",
-            "technique_name": "Data from Local System"
-          }
-        ],
-        "Techniques": ["T1005"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Exploitation of sudo vulnerability for privilege escalation"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of sudo vulnerability to gain root access",
-      "Exploits": ["CVE-2025-32463"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Sudo utility"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual sudo usage patterns"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor sudo logs", "Audit sudoers configurations"],
-    "Extracted_Entities": {
-      "Assets": ["Linux and Unix systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Cybersecurity and Infrastructure Security Agency"],
-      "Countries": ["United States of America"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CISA", "sudo", "vulnerability", "CVE-2025-32463"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["CVE-2025-32463"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["Sudo"],
-      "Technologies": ["Linux", "Unix"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-32463"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Linux and Unix systems with vulnerable sudo configurations",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches", "Restrict sudo access", "Monitor system logs"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2025-32463"],
-      "Tools": ["Sudo utility"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Configuration management tools", "Patch management systems"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-09-30T10:43:01Z",
-    "Title": "CISA Alert: Critical Sudo Vulnerability CVE-2025-32463 Exploited",
-    "Tools": ["Sudo utility", "Sudo"],
-    "Victim": {
-      "Access_Vectors": ["Local access with limited sudo privileges"],
-      "Data_Types_At_Risk": ["Administrative credentials", "System data"],
-      "Description": "Organizations using Linux and Unix systems with sudo utility",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["Linux and Unix systems"]
-    },
-    "diamond_model_summary": "The incident involves attackers exploiting a vulnerability in the sudo utility (CVE-2025-32463) on Linux and Unix systems. The adversary's capability includes exploiting this vulnerability to gain root access. The infrastructure consists of systems with vulnerable sudo configurations. Victims are organizations using these systems, primarily in the Information Technology sector.",
-    "doc_summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has issued an urgent alert regarding a critical vulnerability in the sudo utility, tracked as CVE-2025-32463, affecting Linux and Unix systems. This flaw allows attackers to gain full administrative control by exploiting the chroot option, bypassing normal permission checks. Active exploitation has been observed in targeted attacks, with potential consequences including data theft, service disruptions, and malware installation. CISA rates this issue as high priority and provides guidance for mitigation, including patch management and configuration reviews. Organizations must address this vulnerability by October 20, 2025, to prevent serious attacks. The alert emphasizes the importance of proactive patch management and monitoring for unusual sudo usage patterns.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:51.456616+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "edc5119eef01323ec85da63078eafca30d2f8916",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack involves exploiting a vulnerability in the sudo utility (CVE-2025-32463) to gain unauthorized administrative control. The exploitation stage is critical, allowing attackers to bypass permission checks. Potential actions on objectives include data theft and service disruption. Detection involves monitoring sudo logs and auditing configurations, while remediation focuses on patching and access restriction.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 74,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of a specific vulnerability (CVE-2025-32463) in the sudo utility. No specific hash values, IP addresses, or domain names are identified. The primary tool involved is the sudo utility itself, with the TTP being the exploitation of this vulnerability for privilege escalation. Detection and remediation focus on patch management and configuration review.",
-    "relevance_score": 47,
-    "sequence": 17739,
-    "source": "https://gbhackers.com/cisa-issues-alert-on-linux-and-unix-sudo-flaw/",
-    "slug": "CISA_Alert__Critical_Sudo_Vulnerability_CVE-2025-32463_Exploited-017739",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Threat actors are actively scanning for vulnerable systems to exploit CVE-2024-3400.",
-      "Known_Campaigns": [],
-      "Motivation": "Opportunistic exploitation of vulnerable systems for potential control.",
-      "Sophistication": "Moderate, leveraging publicly available proof-of-concept code.",
-      "Strategic_Objectives": "Gain unauthorized access and control over vulnerable systems.",
-      "TTPs_Employed": ["Scanning for vulnerabilities", "Exploitation of CVE-2024-3400"]
-    },
-    "Analyses": [
-      {
-        "Description": "Scanning for vulnerable PAN-OS systems.",
-        "Detection": "Monitor for unusual scanning activity from IP 141.98.82.26.",
-        "Remediation": "Block IP 141.98.82.26 and similar scanning activities.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerable systems.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Actively scanning for vulnerabilities in PAN-OS.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2024-3400 to gain unauthorized access.",
-        "Detection": "Monitor for POST and GET requests to /ssl-vpn/hipreport.esp.",
-        "Remediation": "Apply patches provided by Palo Alto Networks immediately.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain initial access.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting the GlobalProtect portal vulnerability.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Systematic targeting of GlobalProtect endpoints"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of a critical vulnerability in PAN-OS to gain unauthorized access.",
-      "Exploits": ["CVE-2024-3400"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Proof-of-concept code for CVE-2024-3400"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Signatures 95187, 95189, 95191"],
-    "Extracted_Entities": {
-      "Assets": ["Firewalls"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Palo Alto Networks"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["141.98.82.26"],
-      "Keywords": ["CVE-2024-3400", "GlobalProtect", "PAN-OS"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["PAN-OS 10.2.9-h1", "11.0.4-h1", "11.1.2-h3"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["Palo Alto Networks PAN-OS"],
-      "Technologies": ["GlobalProtect portal"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-3400"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Use of a single source IP address to target GlobalProtect endpoints.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": ["141.98.82.26"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Upgrade PAN-OS to patched versions immediately."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": ["141.98.82.26"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2024-3400"],
-      "Tools": ["Proof-of-concept code for CVE-2024-3400"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network intrusion detection systems"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-09-30T12:13:35Z",
-    "Title": "Critical Vulnerability in Palo Alto Networks PAN-OS: CVE-2024-3400 Exploitation",
-    "Tools": ["Proof-of-concept code for CVE-2024-3400", "Palo Alto Networks PAN-OS"],
-    "Victim": {
-      "Access_Vectors": ["Network"],
-      "Data_Types_At_Risk": ["System control and configuration data"],
-      "Description": "Organizations using vulnerable versions of Palo Alto Networks PAN-OS.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable if unpatched",
-      "Targeted_Assets": ["GlobalProtect portals and gateways"]
-    },
-    "diamond_model_summary": "The incident involves threat actors exploiting a critical vulnerability, CVE-2024-3400, in Palo Alto Networks PAN-OS. The adversary is using a single IP address to scan and exploit vulnerable systems. The capability involves leveraging publicly available proof-of-concept code to gain unauthorized access. The infrastructure includes the use of a specific IP address for targeting. The victims are organizations using vulnerable versions of PAN-OS, primarily in the Information Technology sector.",
-    "doc_summary": "An increase in internet-wide scanning activity has been observed, indicating that threat actors are probing for systems vulnerable to CVE-2024-3400, a critical flaw in Palo Alto Networks PAN-OS. The vulnerability affects PAN-OS versions 10.2, 11.0, and 11.1 when configured with a GlobalProtect portal or gateway. Security researchers at SANS ISC noted a single source IP address, 141.98.82.26, targeting the GlobalProtect portal’s file-upload endpoint. The exploitation involves a POST request to /ssl-vpn/hipreport.esp with a manipulated session ID, followed by a GET request to confirm file upload. This vulnerability has a CVSS score of 10.0 and demands immediate attention. Although no widespread attacks have been reported, proof-of-concept code is publicly available, increasing the risk for unpatched systems. Palo Alto Networks has released fixes, and organizations are urged to upgrade immediately. Monitoring for anomalous requests and deploying threat prevention signatures are recommended.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:51.456584+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "307d6d92c1a9f747a3c3a82a7c3749a163fff0d1",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals that the adversary is conducting reconnaissance by scanning for vulnerable PAN-OS systems. The exploitation phase involves leveraging CVE-2024-3400 to gain unauthorized access. No significant activities were detected in the weaponization, delivery, installation, command and control, or actions on objectives stages. Detection involves monitoring for unusual scanning activity and specific POST and GET requests. Remediation includes applying patches and blocking malicious IP addresses.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 92,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies IP addresses and TTPs as key indicators. The IP address 141.98.82.26 is used for scanning and exploitation attempts. The TTPs involve exploiting a known vulnerability, CVE-2024-3400, using publicly available proof-of-concept code. These indicators are crucial for detection and response efforts. Organizations should focus on monitoring network traffic for these indicators and applying patches to mitigate the threat.",
-    "relevance_score": 47,
-    "sequence": 17738,
-    "source": "https://gbhackers.com/hackers-actively-probe-palo-alto-pan-os-globalprotect-vulnerability/",
-    "slug": "Critical_Vulnerability_in_Palo_Alto_Networks_PAN-OS__CVE-2024-3400_Explo-017738",
     "shard": 7
   }
 ]

@@ -1,0 +1,85 @@
+{
+  "type": "group",
+  "slug": "shinyhunters",
+  "name": "shinyhunters",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-08-22T14:13:39.000Z",
+  "lastSeen": "2026-08-23T02:27:36.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-22",
+      "count": 2
+    },
+    {
+      "date": "2026-08-23",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "reliaquest-llc-604f",
+      "title": "ReliaQuest, LLC — claimed by shinyhunters",
+      "pubDate": "2026-08-23T02:27:36.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "novocure-limited-c4c2",
+      "title": "NovoCure Limited — claimed by shinyhunters",
+      "pubDate": "2026-08-22T14:13:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bok-financial-14ba",
+      "title": "BOK Financial — claimed by shinyhunters",
+      "pubDate": "2026-08-22T14:13:39.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "reliaquest-llc-604f",
+      "victim": "ReliaQuest, LLC — claimed by shinyhunters",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-23T02:27:36.000Z"
+    },
+    {
+      "id": "novocure-limited-c4c2",
+      "victim": "NovoCure Limited — claimed by shinyhunters",
+      "sector": "Healthcare",
+      "country": "IL",
+      "pubDate": "2026-08-22T14:13:59.000Z"
+    },
+    {
+      "id": "bok-financial-14ba",
+      "victim": "BOK Financial — claimed by shinyhunters",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-08-22T14:13:39.000Z"
+    }
+  ]
+}
