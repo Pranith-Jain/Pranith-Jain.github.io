@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pre-render EVERY route's OG card PNG at build time into dist/og/pages/.
+ * Pre-render EVERY route's OG card PNG at build time into .og-cache/pages/.
  *
  * WHY: page cards were previously rasterized on-demand inside the Worker
  * (/api/v1/og-image/page/<dot>.png). That pipeline works when curled, but X's
@@ -23,8 +23,8 @@
  * are skipped — they already ship hand-tuned static cards
  * (scripts/generate-og-png.mjs → public/og-*.png).
  *
- * Run: node scripts/generate-page-og.mjs   (wired into `npm run build`
- * after prerender so dist/ contains both the HTML and these PNGs)
+ * Run: node scripts/generate-page-og.mjs   (run after prerender; then
+ * scripts/upload-page-og.mjs pushes the PNGs to KV_CACHE)
  */
 import { initWasm, Resvg } from '@resvg/resvg-wasm';
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
@@ -65,7 +65,10 @@ function deriveTitleFromRoute(route) {
         .join(' ');
 }
 
-/** Collect routes from prerendered HTML: dist/__prerendered/<seg>__<seg>.html */
+/** Collect routes from prerendered HTML: dist/__prerendered/<slug>.html.
+ *  Slug -> route mirrors scripts/prerender.mjs in reverse:
+ *  '/' is prerendered as 'home.html', '/a/b' as 'a__b.html', '/about' as
+ *  'about.html' (single-segment slugs are real live routes too). */
 function collectRoutes() {
   const routes = [];
   const prDir = join(DIST, '__prerendered');
@@ -73,8 +76,7 @@ function collectRoutes() {
   for (const entry of readdirSync(prDir)) {
     if (!entry.endsWith('.html')) continue;
     const base = entry.replace(/\.html$/, '');
-    if (!base.includes('__')) continue; // flat legacy files, not prerendered routes
-    const route = '/' + base.split('__').join('/');
+    const route = base === 'home' ? '/' : '/' + base.split('__').join('/');
     routes.push(route);
   }
   return routes;

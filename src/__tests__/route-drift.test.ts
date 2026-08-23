@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path';
  * Three files must agree about which routes exist and which are prerendered:
  *   - src/App.tsx          - the ROUTES / REDIRECTS table (what routes exist)
  *   - scripts/prerender.mjs - the ROUTES array (what gets SSR'd to dist/__prerendered)
- *   - worker/router.ts     - PRERENDERED_ROUTES (what the Worker serves as prerendered)
+ *   - worker/prerender-routes.ts - PRERENDERED_ROUTES (what the Worker serves as prerendered)
  *
  * PR #83 had to hand-fix 12 drifted DFIR routes; this guards that bug class in
  * CI (pure file read, no build, <1s) instead of relying on someone noticing a
@@ -62,11 +62,11 @@ function prerenderPaths(): string[] {
   return [...noComments.matchAll(/'(\/[^']*)'/g)].map((m) => m[1]);
 }
 
-/** Keys of worker/router.ts's PRERENDERED_ROUTES map (what the Worker serves as prerendered). */
+/** Keys of worker/prerender-routes.ts's PRERENDERED_ROUTES map (what the Worker serves as prerendered). */
 function routerPrerenderedKeys(): string[] {
-  const src = read('worker/router.ts');
+  const src = read('worker/prerender-routes.ts');
   const start = src.indexOf('PRERENDERED_ROUTES = new Map');
-  const block = src.slice(start, src.indexOf('])', start));
+  const block = src.slice(start, src.indexOf(']);', start));
   return [...block.matchAll(/\[\s*'([^']+)'\s*,\s*'\/__prerendered/g)].map((m) => m[1]);
 }
 
@@ -86,7 +86,7 @@ describe('route source-of-truth drift guard', () => {
     const missing = routerPrerenderedKeys().filter((k) => !pre.has(k));
     expect(
       missing,
-      `worker/router.ts PRERENDERED_ROUTES serves paths that scripts/prerender.mjs never generates (would 404) - drift: ${missing.join(', ')}`
+      `worker/prerender-routes.ts PRERENDERED_ROUTES serves paths that scripts/prerender.mjs never generates (would 404) - drift: ${missing.join(', ')}`
     ).toEqual([]);
   });
 
@@ -96,7 +96,10 @@ describe('route source-of-truth drift guard', () => {
     // Before this guard, copilot-chat + observe drifted for an unknown
     // number of deploys.
     const router = new Set(routerPrerenderedKeys());
-    expect(router.size, 'worker/router.ts PRERENDERED_ROUTES extraction failed - adjust the regex').toBeGreaterThan(50);
+    expect(
+      router.size,
+      'worker/prerender-routes.ts PRERENDERED_ROUTES extraction failed - adjust the regex'
+    ).toBeGreaterThan(50);
     const wasted = prerenderPaths().filter((p) => !router.has(p));
     expect(
       wasted,

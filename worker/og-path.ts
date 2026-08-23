@@ -60,8 +60,10 @@ export function matchOgImagePath(pathname: string): { type: 'briefing' | 'blog';
  *  valid page-card request. Rejects empty paths and anything that isn't a
  *  site-relative path starting with "/". */
 export function matchOgPagePath(url: URL): string | null {
-  // STATIC build-time form first: /og/pages/<dot>.png — emitted by
-  // pageCardUrl(); files ship in dist/og/pages/ via generate-page-og.mjs.
+  // Legacy static-form URLs first: /og/pages/<dot>.png — emitted by
+  // pageCardUrl() during an intermediate deploy. Cards are rasterized into
+  // .og-cache/pages/ and uploaded to Workers KV (key prefix ogpage:v1:) by
+  // scripts/upload-page-og.mjs; served KV-first from worker/og-route.ts.
   const sm = /^\/og\/pages\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i.exec(url.pathname);
   if (sm) return `/${sm[1]!.replace(/\./g, '/')}`;
   // Versioned dynamic form: /og-image/v<build>/page/<dot>.png — emitted by

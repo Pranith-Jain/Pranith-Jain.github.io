@@ -293,7 +293,6 @@ const ROUTES = [
   '/dfir/traceix',
   '/dfir/nhi-scan',
   '/dfir/whoxy',
-  '/daily-briefs',
   '/dfir/ai-threats',
   '/dfir/oss-feeds',
   '/threatintel/external/cerast',

@@ -90,17 +90,27 @@ export default {
     }
 
     // Dynamic OG card PNGs (public, before /api/v1/* key-gate).
-    // Two prefixes:
+    // Accepted shapes:
     //   /api/v1/og-image/…  — legacy (already-cached meta, MCP bridge)
     //   /og-image/v<ver>/…  — versioned form emitted by pageCardUrl() since
     //                         the per-deploy cache-bust; internally mapped to
     //                         the same handler by rewriting the prefix.
-    if (url.pathname.startsWith('/api/v1/og-image/') || url.pathname.startsWith('/og-image/')) {
+    //   /og/pages/<dot>.png — static-form URLs emitted by an intermediate
+    //                         deploy; passed through unrewritten (see below).
+    if (
+      url.pathname.startsWith('/api/v1/og-image/') ||
+      url.pathname.startsWith('/og-image/') ||
+      (url.pathname.startsWith('/og/pages/') && url.pathname.endsWith('.png'))
+    ) {
       try {
         let ogUrl = url;
         if (url.pathname.startsWith('/og-image/')) {
           ogUrl = new URL(url.pathname.replace(/^\/og-image\//, '/api/v1/og-image/') + url.search, url.origin);
         }
+        // /og/pages/<dot>.png needs NO pathname rewrite: matchOgPagePath()'s
+        // first branch parses this exact shape. Legacy URL shape emitted by an
+        // intermediate deploy; X caches failed image fetches per URL for days,
+        // so this route must resolve instead of 404ing into ASSETS.
         const ogRes = await handleOgImage(request, env, ogUrl, ctx);
         const h = new Headers(ogRes.headers);
         h.set('x-request-id', requestId);

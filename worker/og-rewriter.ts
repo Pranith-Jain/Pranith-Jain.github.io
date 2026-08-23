@@ -1,6 +1,12 @@
 import { injectScriptNonce } from './csp';
 import { readBriefing } from '../api/src/lib/briefing-builder';
 import { pageCardUrl } from './og-path';
+// Per-deploy version token — mixed into the rewritten-HTML cache keys below so
+// a redeploy always gets fresh cache entries exactly when emitted card URLs change.
+import { OG_BUILD_VERSION } from './og-version.generated';
+// The full prerendered-route list (leaf module — importing router.ts back
+// would cycle, since router.ts imports THIS file).
+import { PRERENDERED_ROUTES } from './prerender-routes';
 // Blog KV reads are shared with the public API routes (api/src/lib/blog-kv
 // bridge) so the OG rewrite and /api/v1/blog/* hit the SAME per-colo shadow.
 import { readBlogPostShadowed, readBlogIndexShadowed } from './lib/blog-kv';
@@ -65,7 +71,17 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const OG_CACHE_VERSION = 'v13';
+/**
+ * Rewritten-HTML cache-key namespace. v14 additionally scopes keys by
+ * OG_BUILD_VERSION (see injectOgMeta / getOrInjectOg): asset etags are
+ * content-derived, and prerendered HTML bytes frequently DON'T change between
+ * deploys — so a pathname@etag key alone survives redeploys and keeps serving
+ * pre-deploy rewritten HTML whose og:image references the PREVIOUS deploy's
+ * card-version token (observed live: one route serving the old version while
+ * every other page had healed). Keying by build version invalidates exactly
+ * when emitted card URLs change.
+ */
+const OG_CACHE_VERSION = 'v14';
 
 /**
  * Clamp a string so its UTF-8 byte length stays within `maxBytes`. Some
@@ -203,7 +219,18 @@ function findOgOverride(pathname: string): OgOverride | null {
   matches.sort((a, b) => a.key.length - b.key.length);
 
   let merged: OgOverride = { title: '', description: '' };
-  for (const { value } of matches) {
+  for (const { key, value } of matches) {
+    if (key === pathname) {
+      // EXACT match is authoritative: replace wholesale, don't field-merge.
+      // Field-wise ?? merging let a parent's branded image (e.g. /dfir →
+      // og-dfir.png) survive into a child that has its own exact entry WITHOUT
+      // an image (e.g. /dfir/rule-converter); resolveOg then saw override.image
+      // + an exact OG_OVERRIDES key and served the hub banner instead of the
+      // child's unique generated card. An exact entry's absent image must
+      // CLEAR the inherited one so the child falls through to pageCardUrl().
+      merged = { ...value };
+      continue;
+    }
     merged = {
       title: value.title ?? merged.title,
       description: value.description ?? merged.description,
@@ -834,31 +861,90 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
 }
 
 /**
+ * Last-segment titles collide when two sections expose the same slug tail
+ * (e.g. /threatintel/catalog vs /threatintel/feeds/catalog both derived
+ * "Catalog · Threat Intel" — five such pairs were live). Computed once from
+ * the prerendered route list: every tail that appears under 2+ distinct
+ * parent paths. deriveOgFromPath consults this to build two-segment titles
+ * ONLY for colliding tails, so non-colliding routes keep byte-identical
+ * output and the fix costs nothing at request time beyond one Set lookup.
+ */
+const COLLIDING_TAILS: Set<string> = (() => {
+  const parentsByTail = new Map<string, Set<string>>();
+  for (const route of PRERENDERED_ROUTES.keys()) {
+    if (route === '/') continue;
+    const segs = route.split('/').filter(Boolean);
+    if (segs.length < 1) continue;
+    const tail = segs[segs.length - 1]!;
+    const parent = segs.length > 1 ? segs.slice(0, -1).join('/') : '';
+    let set = parentsByTail.get(tail);
+    if (!set) parentsByTail.set(tail, (set = new Set()));
+    set.add(parent);
+  }
+  const colliding = new Set<string>();
+  for (const [tail, parents] of parentsByTail) {
+    // Same tail under different parent chains (root '' counts as one) → ambiguous.
+    if (parents.size > 1) colliding.add(tail);
+  }
+  return colliding;
+})();
+
+/** Words that must keep specific branding in generated titles even though
+ *  they're longer than the existing ≤3-char rule (mapped to their exact site
+ *  spelling — e.g. IOCs, not IOCS). */
+const TITLE_ACRONYMS: Record<string, string> = {
+  ioc: 'IOC',
+  iocs: 'IOCs',
+  osint: 'OSINT',
+  cve: 'CVE',
+  cves: 'CVEs',
+  dfir: 'DFIR',
+  apt: 'APT',
+  yara: 'YARA',
+  stix: 'STIX',
+  misp: 'MISP',
+  llm: 'LLM',
+  api: 'API',
+  hub: 'Hub',
+};
+
+function titleCaseWord(w: string): string {
+  const branded = TITLE_ACRONYMS[w];
+  if (branded) return branded;
+  if (w.length <= 3) return w.toUpperCase();
+  return w.charAt(0).toUpperCase() + w.slice(1);
+}
+
+/**
  * Fallback OG override derived from the URL path. When no explicit
  * OG_OVERRIDES entry matches, the page would otherwise keep the home-page
  * <title> and <meta description> — meaning hundreds of deep links share
  * identical metadata, which Google reads as duplicate/thin content and
  * flags as "Crawled - currently not indexed."
  *
- * This generates a unique, human-readable title + description from the
- * last path segment so every page at least has its own title. The home
- * page and root sections are excluded (they have explicit overrides or
- * should keep the home card).
+ * This generates a unique, human-readable title + description from the last
+ * path segment so every page at least has its own title. When that tail is
+ * ambiguous (COLLIDING_TAILS), the parent segment is folded in so two
+ * sections' same-named tools don't share metadata. The home page and root
+ * sections are excluded (they have explicit overrides or should keep the
+ * home card).
  */
 function deriveOgFromPath(pathname: string): OgOverride | null {
   if (pathname === '/' || pathname === '') return null;
   const segments = pathname.split('/').filter(Boolean);
   if (segments.length === 0) return null;
 
-  // Title-case the last segment: "ioc-check" → "IOC Check"
   const last = segments[segments.length - 1]!;
-  const titlePart = last
-    .split(/[-_]/)
-    .map((w) => {
-      if (w.length <= 3) return w.toUpperCase();
-      return w.charAt(0).toUpperCase() + w.slice(1);
-    })
-    .join(' ');
+  const wordsOf = (seg: string) => seg.split(/[-_]/);
+  // Ambiguous tail → include the parent segment ("feeds catalog", "iocs map")
+  // so each section's tool gets distinct copy. Skip folding when the immediate
+  // parent IS the top-level section (/threatintel/catalog → parent 'threatintel'
+  // is already conveyed by "· Threat Intel ·" in the title suffix), otherwise
+  // the fold just duplicates it ("Threatintel Catalog"). Single-segment routes
+  // and non-colliding tails keep today's exact output.
+  const foldParent = segments.length > 2 && COLLIDING_TAILS.has(last) && segments[segments.length - 2] !== segments[0];
+  const titleSegs = foldParent ? segments.slice(-2) : [last];
+  const titlePart = titleSegs.flatMap(wordsOf).map(titleCaseWord).join(' ');
 
   // Build a short context prefix from the first segment: "dfir" → "DFIR", "threatintel" → "Threat Intel"
   const first = segments[0]!;
@@ -1024,7 +1110,7 @@ export async function injectOgMeta(
   const etag = nonce ? (response.headers.get('etag') ?? response.headers.get('last-modified') ?? '') : '';
   if (etag) {
     const cacheKey = new Request(
-      `https://og-html.internal/${OG_CACHE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+      `https://og-html.internal/${OG_CACHE_VERSION}/${OG_BUILD_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
     );
     const cached = await caches.default.match(cacheKey);
     const cachedText = cached ? await cached.text() : '';
@@ -1085,7 +1171,7 @@ export async function injectOgMeta(
       },
     });
     const ck = new Request(
-      `https://og-html.internal/${OG_CACHE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+      `https://og-html.internal/${OG_CACHE_VERSION}/${OG_BUILD_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
     );
     ctx.waitUntil(caches.default.put(ck, toCache).catch((e) => console.warn('og-html cache put failed:', e)));
   }
@@ -1135,7 +1221,7 @@ export async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionCo
   const etag = assetRes.headers.get('etag') ?? assetRes.headers.get('last-modified') ?? 'unversioned';
   const cache = caches.default;
   const cacheKey = new Request(
-    `https://og-html.internal/${OG_CACHE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+    `https://og-html.internal/${OG_CACHE_VERSION}/${OG_BUILD_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
   );
   const cached = await cache.match(cacheKey);
   // Poisoned-cache guard. An empty cached body was being served to SPA

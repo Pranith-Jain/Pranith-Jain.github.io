@@ -59,6 +59,18 @@ jobs:
       - name: Budget check
         run: node scripts/check-budgets.mjs
 
+      # ── OG page cards → KV_CACHE (must precede the deploy) ─────────
+      # Cards must land in KV BEFORE the new worker goes live: every page's
+      # og:image is versioned per git SHA (/og-image/v<sha>/page/<dot>.png —
+      # worker/og-version.generated.ts), so the freshly deployed worker would
+      # otherwise serve meta URLs whose KV keys don't exist yet. The script
+      # fails soft (exit 0 + warnings on per-key failures), so a partial
+      # upload just degrades to dynamic in-Worker rasterization instead of
+      # blocking the deploy.
+      - name: Upload OG page cards to KV
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
+        run: npm run og:upload
+
       # ── Deploy (skips cleanly when the token is absent) ────────────
       - name: Deploy to Cloudflare Workers
         if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
@@ -80,6 +92,39 @@ jobs:
             echo "$path -> HTTP $code"
             test "$code" = "200" || { echo "::error::$path returned HTTP $code after deploy"; exit 1; }
           done
+      # End-to-end OG check: with a Twitterbot UA the worker must rewrite
+      # /about's og:image to the SHA-versioned card URL AND that card must
+      # actually serve from KV as image/png — the exact X-crawler failure
+      # mode this pipeline exists to prevent.
+      - name: Smoke — OG card serves from KV (Twitterbot)
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
+        run: |
+          sleep 8  # extra propagation margin on top of the public-pages wait
+          ua="Twitterbot/1.0"
+          html=$(curl -sS -A "$ua" "https://pranithjain.qzz.io/about")
+          # The <meta> tag can span lines and attribute order varies — flatten
+          # newlines first, then try both property/content orders.
+          flat=$(printf '%s' "$html" | tr '\n' ' ')
+          og=$(printf '%s' "$flat" | grep -o 'property="og:image"[^>]*content="[^"]*"' | head -1 | sed 's/.*content="\([^"]*\)".*/\1/')
+          if [ -z "$og" ]; then
+            og=$(printf '%s' "$flat" | grep -o 'content="[^"]*"[^>]*property="og:image"' | head -1 | sed 's/^content="\([^"]*\)".*/\1/')
+          fi
+          echo "og:image -> ${og:-<not found>}"
+          case "$og" in
+            https://pranithjain.qzz.io/og-image/v*/page/about.png) ;;
+            *)
+              echo "::error::/about did not serve a versioned page-card og:image under Twitterbot (got: ${og:-nothing})"
+              exit 1
+              ;;
+          esac
+          out=$(curl -sS -A "$ua" -o /dev/null -w '%{http_code} %{content_type}' "$og")
+          code=${out%% *}
+          ctype=${out#* }
+          echo "card -> HTTP $code ($ctype)"
+          if [ "$code" != "200" ] || ! printf '%s' "$ctype" | grep -qi 'image/png'; then
+            echo "::error::OG card $og returned HTTP $code with content-type '$ctype' (expected 200 + image/png)"
+            exit 1
+          fi
       # Full suite (keyed endpoints) — only when a smoke key is configured.
       - name: Smoke — full suite
         if: ${{ env.CLOUDFLARE_API_TOKEN != '' && env.SMOKE_API_KEY != '' }}

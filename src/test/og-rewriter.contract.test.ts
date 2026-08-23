@@ -115,7 +115,8 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
 
   it('gives a deep page a UNIQUE generated page card (og:image + twitter:image)', async () => {
     const html = await serve('/dfir/cve');
-    // Static build-time card: /og/pages/<dot>.png (generate-page-og.mjs).
+    // Versioned dynamic card: /og-image/v<build>/page/<dot>.png (emitted by
+    // pageCardUrl()), pre-rendered at build time and served from Workers KV.
     expect(metaByProperty(html, 'og:image')).toMatch(/\/og-image\/v[a-z0-9]+\/page\/dfir\.cve\.png$/);
     expect(metaByName(html, 'twitter:image')).toMatch(/\/og-image\/v[a-z0-9]+\/page\/dfir\.cve\.png$/);
     // X-compat contract: the card image URL must contain no query string and

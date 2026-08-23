@@ -37,7 +37,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Misc (4) -->
+  <!-- Misc (3) -->
   <url>
     <loc>https://pranithjain.qzz.io/daily-briefs</loc>
     <lastmod>2026-08-23</lastmod>
@@ -46,12 +46,6 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/radar</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/daily-briefs</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
