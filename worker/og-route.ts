@@ -84,7 +84,10 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
 
   // Cache-first: a cached card must always be served, even during a crawl
   // burst — the rate limiter below only governs actual renders.
-  const cacheKey = new Request(`https://og-png.internal/v5/${type}/${keySlug}.png`);
+  // v6: invalidated the v5 namespace after re-uploading all 269 KV cards with
+  // per-route artwork (2026-08-24) — v5 held 24h-old generic-banner entries
+  // that would otherwise shadow the new KV bytes until their TTL lapsed.
+  const cacheKey = new Request(`https://og-png.internal/v6/${type}/${keySlug}.png`);
   const cached = await caches.default.match(cacheKey);
   if (cached) return cached;
 
