@@ -41,6 +41,9 @@ repo's footguns so you don't rediscover them.
   bot offsets, one-time secrets, dedup/idempotency markers, queue cooldowns.
   Bulk reads: `kvBulkGetText` (`api/src/lib/safe-catch.ts`) — one subrequest per ≤100
   keys; batch `get(keys[])` over per-key loops.
+  **Guardrail:** the `no-raw-kv-access` ESLint rule (error) enforces this — raw KV
+  ops outside `eslint-rules/kv-policy.js`'s allowlist fail lint. Add a file there
+  only as a conscious decision; prefer the helpers.
 - **`main` moves fast.** Feature branches auto-FF-merge into `main` mid-session; commit on
   a branch and let it merge — never rebase/force-push/`branch -f main`. Re-check the
   current branch before any git mutation. Rebase onto `origin/main` right before

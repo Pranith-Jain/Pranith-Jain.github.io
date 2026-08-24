@@ -3,6 +3,8 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import * as noRawDarkColors from './eslint-rules/no-raw-dark-colors.js';
+import * as noRawKvAccess from './eslint-rules/no-raw-kv-access.js';
+import { KV_ALLOW_FILES } from './eslint-rules/kv-policy.js';
 
 export default tseslint.config(
   {
@@ -81,6 +83,23 @@ export default tseslint.config(
           'no-raw-dark-colors': noRawDarkColors.default,
         },
       },
+      'no-raw-kv-access': {
+        rules: {
+          'no-raw-kv-access': noRawKvAccess.default,
+        },
+      },
+    },
+  },
+
+  // KV policy guardrail for worker/** (CLAUDE.md "KV policy — Cache API
+  // first"). api/** is governed by api/eslint.config.js (flat-config
+  // cascading: nearest eslint.config.js wins per subtree) — the allowlist is
+  // shared via eslint-rules/kv-policy.js so both stay in sync.
+  {
+    files: ['worker/**/*.ts'],
+    ignores: ['**/*.test.ts', '**/*.test.tsx', '**/__tests__/**'],
+    rules: {
+      'no-raw-kv-access/no-raw-kv-access': ['error', { allowFiles: KV_ALLOW_FILES }],
     },
   },
 

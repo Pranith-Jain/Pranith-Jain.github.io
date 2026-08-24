@@ -1,4 +1,6 @@
 import tseslint from 'typescript-eslint';
+import * as noRawKvAccess from '../eslint-rules/no-raw-kv-access.js';
+import { KV_ALLOW_FILES } from '../eslint-rules/kv-policy.js';
 
 export default tseslint.config(
   { ignores: ['**/*.test.ts', '**/*.d.ts'] },
@@ -113,6 +115,27 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    },
+  },
+
+  // KV policy guardrail — MUST mirror the root eslint.config.js block (flat-
+  // config cascading means api/** files resolve to THIS config, so without
+  // this block api/src silently loses the guardrail). See
+  // eslint-rules/kv-policy.js for the shared allowlist and its rationale.
+  {
+    plugins: {
+      'no-raw-kv-access': {
+        rules: {
+          'no-raw-kv-access': noRawKvAccess.default,
+        },
+      },
+    },
+  },
+  {
+    files: ['src/**/*.ts'],
+    ignores: ['**/*.test.ts'],
+    rules: {
+      'no-raw-kv-access/no-raw-kv-access': ['error', { allowFiles: KV_ALLOW_FILES }],
     },
   }
 );
