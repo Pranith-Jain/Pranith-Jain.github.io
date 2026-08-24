@@ -1,15 +1,15 @@
 {
   "slug": "shinyhunters-cyrusone-llc-2026-08-23",
   "title": "CyrusOne, LLC.",
-  "group": "shinyhunters",
-  "discovered": "2026-08-23T20:27:42.000Z",
+  "group": "ShinyHunters",
+  "discovered": "2026-08-23T00:00:00.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Update 23 Aug : We are removing the clients name off this post. They are refusing to pay a $13 million demand. They have 24 hours left to engage with us. We hold 12.9 million Salesforce records along with: Sharepoint:\n(369.6 GB Compressed / 645 GB Uncompressed)\n288,729 Files, 60,513 Folders\n\n- More than 182,000 rows of Customer data Extracted from the \"Contacts\" Salesforce Object. - Over 8,300 Rows of Employee PII (Full Name, Email, Job Title, Phone Number, ect.) - Thousands of executed contracts, MSAs, NDAs, amendments, leases, and SOWs - Extensive physical key inventory logs, verification photos, and contractor Green Badge audits - Large collection of data center drawings, floor plans, electrical one-line diagrams, security system drawings, and site schematics - Full CERM (Critical Environment Reliability Management) process library - Physical and information security policy suite plus governance materials - Regional security scorecards, KPI workbooks, GAM sheets, and signed performance packages - Credential and access-control artifacts (including PasswordList.xlsx, Okta SSC Access lists, active badge reports, and multiple Data Center Access Control forms) This is a final warning to reach out by end of day 24 Aug 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 23 Aug 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/cyrusone-llc-shinyhunters-2026-08",
   "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["RecentBreaches.com"]
 }

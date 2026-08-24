@@ -1,14 +1,14 @@
 {
-  "slug": "lockbit5-adt-com-2026-08-23",
-  "title": "adt.com",
-  "group": "Lockbit5",
+  "slug": "genesis-hospitality-health-er-longview-2026-08-23",
+  "title": "Hospitality Health ER (Longview)",
+  "group": "Genesis",
   "discovered": "2026-08-23T00:00:00.000Z",
   "category": "ransomware",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
   "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/adt-com-lockbit5-2026-08",
+  "source_url": "https://recentbreaches.com/breach/hospitality-health-er-longview-genesis-2026-08",
   "groupAliases": [],
   "activity": null,
   "references": ["RecentBreaches.com"]

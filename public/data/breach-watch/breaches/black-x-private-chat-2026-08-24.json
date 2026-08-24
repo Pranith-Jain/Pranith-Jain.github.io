@@ -1,0 +1,15 @@
+{
+  "slug": "black-x-private-chat-2026-08-24",
+  "title": "Private(Chat...)",
+  "group": "Black X",
+  "discovered": "2026-08-24T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/private-chat-black-x-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

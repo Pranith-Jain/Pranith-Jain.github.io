@@ -1,1 +1,15 @@
-{"slug":"qilin-difor-2026-08-23","title":"Difor","group":"Qilin","discovered":"2026-08-23T00:00:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/difor-qilin-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}
+{
+  "slug": "qilin-difor-2026-08-23",
+  "title": "Difor",
+  "group": "qilin",
+  "discovered": "2026-08-23T12:28:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CL",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}
