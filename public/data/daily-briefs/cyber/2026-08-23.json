@@ -1,0 +1,102 @@
+{
+  "type": "cyber",
+  "date": "2026-08-23",
+  "threatLevel": "",
+  "executiveSummary": "Multiple credible, high-urgency advisories detail active targeting of industrial control environments and perimeters used by critical infrastructure. U.S. government guidance warns of ongoing campaigns against Siemens S7 PLCs using AI-assisted tooling, requiring immediate removal of internet exposure, enforcement of S7 protections, and enhanced monitoring of S7comm traffic. Security Advisory Water and Wastewater Systems operators are experiencing direct PLC targeting that has driven operational workarounds; rapid isolation of OT assets from the internet and strong access control are prioritized. Security Advisory A universal hardcoded cryptographic key in Johnson Controls' Airwall (an OT secure connectivity platform) creates cross-deployment compromise risk until patched and all keys rotated. ICS Advisory CISA weekly bulletins surface multiple OT-relevant vulnerabilities: unauthenticated deserialization in ibaPDA/ibaDatCoordinator (industrial data acquisition), and critical flaws in OPC UA server stacks (Eclipse Milo) that can enable unauthorized actions or DoS on ICS endpoints. Bulletin Bulletin Edge and supply-chain perimeters remain high-value: NetScaler ADC/Gateway SAML RCE has public PoC and exploitation paths; TeamCity CI/CD deserialization and N-able N-central auth bypass are in CISA's KEV, demanding rapid remediation and compromise assessment. Security Advisory KEV Notice",
+  "keyFindings": [
+    {
+      "title": "Active, AI-assisted attacks against Siemens S7 PLCs across multiple sectors require immediate removal of internet exposure, S7 protection levels, and S7comm monitoring",
+      "summary": "Security Advisory"
+    },
+    {
+      "title": "2) WWS sector",
+      "summary": "PLC lockouts and operational impacts observed; isolate PLCs, implement MFA for remote access, and prepare clean restore images. Security Advisory"
+    },
+    {
+      "title": "3) Johnson Controls Airwall",
+      "summary": "universal hardcoded key exposure demands upgrade to v4.1.0+, immediate key rotation, and admin plane hardening. ICS Advisory"
+    },
+    {
+      "title": "4) Industrial data & protocol risks",
+      "summary": "unauthenticated RCE in ibaPDA/ibaDatCoordinator and multiple OPC UA server issues (Eclipse Milo) may enable unauthorized actions or visibility loss if unpatched. Bulletin Bulletin"
+    },
+    {
+      "title": "5) Perimeter & CI/CD exploitation",
+      "summary": "NetScaler SAML RCE (public PoC), JetBrains TeamCity RCE (KEV), N-able N-central (KEV) enable initial access and supply-chain tampering; patch and hunt for persistence. Security Advisory KEV Notice"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "18 Escalate • 12 Monitor • 6 Ignore",
+        "label": "Events Covered (This Brief)"
+      },
+      {
+        "value": "10+",
+        "label": "Actively Exploited/KEV Items"
+      },
+      {
+        "value": "15+",
+        "label": "OT/ICS Vendors Affected"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens (S7-1200/1500/300/400, TIA/STEP 7), Johnson Controls (Airwall), NetScaler ADC/Gateway, VMware vCenter, JetBrains TeamCity, N-able N-central, Zimbra, ibaPDA/ibaDatCoordinator, OPC UA (Eclipse Milo), TrueConf, Microsoft Windows/Entra (adjacent), multiple router/IoT platforms (covert proxying)."
+    ],
+    "sectors": [
+      "Water and Wastewater Systems, Energy, Critical Manufacturing, Transportation, Chemical, Food & Agriculture, Healthcare and Public Health, Government Facilities, and cross-sector enterprises supporting OT operations."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "PRC operators repurposing large covert botnets of compromised SOHO/IoT devices to proxy CI targeting and degrade attribution. Advisory",
+        "Russian APTs (Void Blizzard/LAUNDRY BEAR) exploiting Zimbra XSS for mailbox theft and persistence; widespread enterprise exposure. Advisory",
+        "Pro-Russia hacktivists abusing exposed VNC on HMIs to deface or manipulate processes; opportunistic but operationally impactful. Advisory",
+        "Head Mare APT exploiting TrueConf to distribute backdoors across enterprises in energy/transport sectors. Vendor Report"
+      ]
+    }
+  ],
+  "relevance": "Threat activity this period materially affects OT operations and OT-adjacent perimeters: Direct OT impacts: Siemens S7 PLC targeting; WWS PLC lockouts; potential cross-deployment compromise via JCI Airwall universal key. Industrial data paths at risk: ibaPDA/ibaDatCoordinator RCE; OPC UA server flaws (Eclipse Milo) enabling unauthorized operations or DoS. Perimeter-to-OT pivots: NetScaler SAML RCE; TeamCity/N-central KEV; Zimbra phishing/XSS campaign; PRC router/IoT proxy networks. Supply chain concerns: TrueConf exploitation (Head Mare APT) and CI/CD tampering pathways threatening engineering workflows.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "ibaPDA/ibaDatCoordinator unauthenticated deserialization (RCE) - impacts industrial data acquisition/coordination hosts. Bulletin",
+        "OPC UA (Eclipse Milo) - auth bypass/data exposure/DoS affecting ICS/SCADA endpoints. Bulletin",
+        "Johnson Controls Airwall universal key - patch v4.1.0+, rotate keys; cross-tenant exposure risk. ICS Advisory",
+        "NetScaler ADC/Gateway SAML RCE (public PoC) - perimeter device; disable SAML or patch immediately. Security Advisory",
+        "TeamCity RCE (KEV) - supply chain hazard to builds impacting OT software and tooling. KEV",
+        "N-able N-central auth bypass (KEV) - MSP/RMM risk with downstream impact to utilities/municipal operators. KEV"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Discovery and initial access via internet-exposed PLCs, NetScaler SAML flows, Zimbra webmail XSS, and KEV-listed CI/CD/RMM platforms.",
+      "Living off the land on network devices (SNMP/AAA/Smart Install), router config theft (T1040/T1552), covert SPAN/RSPAN/ERSPAN mirroring.",
+      "AI-assisted S7 tooling using snap7 and S7comm (TCP/102) to read/write blocks; unauthorized PUT/GET (T0837/T0831, ATT&CK for ICS).",
+      "Webshell deployment on NetScaler and TrueConf, C2 via cloud storage (OneDrive); lateral movement via RDP/SMB/Impacket."
+    ],
+    "mitreIds": [
+      "T1040",
+      "T1552",
+      "T0837",
+      "T0831"
+    ]
+  },
+  "outlook72h": "Inventory and immediately remove any internet exposure on PLCs (TCP/102/502), NetScaler admin, TeamCity, Zimbra, and RMM consoles. Patch priorities: NetScaler SAML RCE; TeamCity (KEV); N-central (KEV); Johnson Controls Airwall v4.1.0+ with key rotation; OPC UA (Milo) & ibaPDA RCE. Hunt tasks: NetScaler webshells; anomalous S7comm writes; suspicious TeamCity builds; Zimbra SOAP/IMAP anomalies; router config/TACACS+/SPAN abuse. Strengthen remote access to OT: enforce MFA, session recording, and least privilege on jump hosts; validate backups and PLC project integrity.",
+  "relatedCves": [
+    "CVE-2026-19478",
+    "CVE-2026-71391",
+    "CVE-2026-8452"
+  ]
+}

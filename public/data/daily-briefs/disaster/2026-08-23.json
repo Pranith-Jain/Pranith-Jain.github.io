@@ -1,0 +1,49 @@
+{
+  "type": "disaster",
+  "date": "2026-08-23",
+  "overallThreat": "",
+  "executiveSummary": "",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "High-impact earthquakes in Colombia and Indonesia created concurrent life-saving",
+      "summary": "High-impact earthquakes in Colombia and Indonesia created concurrent life-saving needs, with SAR, WASH, shelter, and health support prioritized. Supporting Report"
+    },
+    {
+      "title": "China's Guangxi flooding represents the deadliest recent flood event in this cyc",
+      "summary": "China's Guangxi flooding represents the deadliest recent flood event in this cycle, with confirmed triple-digit fatalities and critical dam infrastructure failures. AP News"
+    },
+    {
+      "title": "Midwestern US flooding remains operationally complex, with fatalities, mass resc",
+      "summary": "Midwestern US flooding remains operationally complex, with fatalities, mass rescues, power outages, and transportation corridors degraded. View Article"
+    },
+    {
+      "title": "British Columbia wildfires continue to drive displacement and housing needs unde",
+      "summary": "British Columbia wildfires continue to drive displacement and housing needs under a provincial emergency, with utilities and access constraints slowing return. AP News"
+    },
+    {
+      "title": "Rain-driven landslides and urban runoff hazards remain elevated in parts of East",
+      "summary": "Rain-driven landslides and urban runoff hazards remain elevated in parts of East Asia amid saturated soils and disrupted transport. View Article"
+    },
+    {
+      "title": "New IFRC flood operations in Cameroon, Myanmar, and Sierra Leone signal emerging",
+      "summary": "New IFRC flood operations in Cameroon, Myanmar, and Sierra Leone signal emerging humanitarian needs despite limited open-source detail. IFRC Appeals"
+    },
+    {
+      "title": "Pre-impact evacuations and mass transport disruptions in eastern China ahead of ",
+      "summary": "Pre-impact evacuations and mass transport disruptions in eastern China ahead of Typhoon Dolphin underscore effective risk reduction but also large-scale shelter and logistics burdens. View Article"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Indonesia earthquake zone: Aftershocks and landslide risk may continue to affect access and shelter conditions; prioritize contingency shelter and mobile health support. China flood-affected areas (Guangxi): High residual flood and infrastructure failure risks warrant continued monitoring of dam safety and downstream communities. Midwestern U.S.: Receding waters will reveal additional damage; expect ongoing sheltering needs and debris management, with localized flash flood potential where soils remain saturated. British Columbia wildfires: Evacuation patterns may fluctuate with wind shifts and heat; anticipate air quality impacts and intermittent power restoration challenges. Japan/South Korea: Saturated soils sustain elevated landslide risk; transport disruption and localized outage recovery likely to continue. Humanitarian pipelines: IFRC operations (Africa, Myanmar) likely to scale as access improves and assessment data clarifies needs.",
+  "regionalTrends": [
+    "Asia: Concurrent quake and hydro-meteorological crises (Indonesia, China, Japan, South Korea) are straining SAR capacity, shelter, and transport systems.",
+    "North America: Flooding (Indiana) and wildfires (British Columbia, U.S. Northwest) are driving prolonged displacement and infrastructure repair backlogs.",
+    "Africa: New Red Cross flood operations (Cameroon, Sierra Leone) suggest early-season escalation; situational detail remains limited pending assessments.",
+    "Europe: Regional wildfire conditions continue under wind and heat, with Croatia among the hardest hit and cross-border evacuations reported."
+  ]
+}

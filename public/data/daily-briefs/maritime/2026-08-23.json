@@ -1,0 +1,190 @@
+{
+  "type": "maritime",
+  "date": "2026-08-23",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Current maritime threat level is assessed as HIGH due to an active U.S. government ransomware alert highlighting broad-sector risk, combined with a recently confirmed port disruption earlier this month that required manual operations. Confidence: medium.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "3",
+        "label": "Intelligence Records (with decisions)"
+      },
+      {
+        "value": "2",
+        "label": "Unique Maritime Events"
+      },
+      {
+        "value": "1",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "1",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "1",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "0",
+        "label": "Active Incidents"
+      },
+      {
+        "value": "1",
+        "label": "Port/Terminal Threats"
+      },
+      {
+        "value": "0",
+        "label": "Vessel/Shipboard Threats"
+      },
+      {
+        "value": "0",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "0",
+        "label": "Vulnerabilities / CVEs"
+      },
+      {
+        "value": "1",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [
+      "No specific vendors or products were identified in the supplied reporting."
+    ],
+    "sectors": [
+      "Ports and Terminals (United States): Disruption confirmed at North Carolina Ports facilities. View Article",
+      "Cross-sector maritime enterprises: At risk from Medusa ransomware (FBI alert). Government Advisory"
+    ]
+  },
+  "keyFindings": [
+    "FBI highlights active Medusa ransomware activity using double extortion with more than 500 victims across U.S. critical infrastructure sectors; techniques and mitigations are applicable to maritime enterprises and port authorities. Government Advisory",
+    "Cyberattack on North Carolina Ports required manual processing at Wilmington, Morehead City, and Charlotte Inland Port, causing operational disruption; navigation systems were not reported affected. View Article",
+    "No additional distinct maritime-specific cyber incidents were confirmed in the last 10 days in the supplied dataset. Confidence: medium."
+  ],
+  "topThreats": [
+    {
+      "title": "1) NC Ports Cyberattack disrupted operations; manual processing required",
+      "action": "Demonstrates that enterprise IT disruptions can rapidly cascade into port throughput delays even without confirmed OT impact.",
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "2) FBI: Medusa ransomware uses double extortion; cross-sector risk to maritime enterprises",
+      "action": "Double extortion increases business pressure; enterprise IT compromise of port or liner operations can cause service delays and data exposure.",
+      "sources": [
+        {
+          "url": "https://www.fbi.gov/investigate/cyber/alerts",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "3) No additional qualifying maritime-specific reports in last 10 days (supplied sources)",
+      "action": "Monitoring gap underscores the need for internal telemetry and sector sharing; absence of reporting ≠ absence of risk.",
+      "sources": []
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "No CVEs or vendor-specific vulnerabilities were reported in the supplied dataset for this period."
+      ]
+    }
+  ],
+  "events": [
+    {
+      "title": "Cyberattack on North Carolina Ports contained; manual processing during recovery",
+      "severity": "escalate",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "#StopRansomware: Medusa ransomware advisory (FBI)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.fbi.gov/investigate/cyber/alerts",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "No qualifying maritime-specific article identified in the last 10 days (dataset note)",
+      "severity": "ignore",
+      "text": "",
+      "chips": [],
+      "sources": []
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Cyberattack on North Carolina Ports contained; manual processing during recovery",
+      "severity": "escalate",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Cyberattack on North Carolina Ports contained; manual processing during recovery",
+      "severity": "escalate",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "#StopRansomware: Medusa ransomware advisory (FBI)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.fbi.gov/investigate/cyber/alerts",
+          "label": "Government Advisory"
+        }
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "Double extortion: theft of data followed by encryption to pressure payment (per FBI Medusa alert). Government Advisory",
+      "Likely enterprise-focused intrusion routes include phishing and abuse of external remote services; specific techniques for the current week were not detailed in the supplied dataset.",
+      "No confirmed behaviors mapped to MITRE ATT&CK for ICS in this period from the provided records."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor enterprise IT for ransomware precursors (phishing, external remote access abuse) as cross-sector Medusa activity remains a concern. Confidence: medium. Government Advisory Additional disclosures about the NC Ports incident are possible but current public reporting suggests recovery is underway/contained; immediate risk to navigation systems remains low. Confidence: medium. View Article No evidence currently indicates GNSS/AIS interference targeting maritime operations in the period; maintain routine monitoring. Confidence: high.",
+  "relatedCves": []
+}
