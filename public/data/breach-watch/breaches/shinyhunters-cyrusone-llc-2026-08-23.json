@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-cyrusone-llc-2026-08-23",
-  "title": "CyrusOne, LLC.",
-  "group": "ShinyHunters",
-  "discovered": "2026-08-23T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/cyrusone-llc-shinyhunters-2026-08",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"shinyhunters-cyrusone-llc-2026-08-23","title":"CyrusOne, LLC.","group":"ShinyHunters","discovered":"2026-08-23T00:00:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/cyrusone-llc-shinyhunters-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}

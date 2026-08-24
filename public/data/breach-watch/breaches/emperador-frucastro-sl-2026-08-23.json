@@ -1,15 +1,1 @@
-{
-  "slug": "emperador-frucastro-sl-2026-08-23",
-  "title": "Frucastro Sl",
-  "group": "Emperador",
-  "discovered": "2026-08-23T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/frucastro-sl-emperador-2026-08",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"emperador-frucastro-sl-2026-08-23","title":"Frucastro Sl","group":"Emperador","discovered":"2026-08-23T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/frucastro-sl-emperador-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}
