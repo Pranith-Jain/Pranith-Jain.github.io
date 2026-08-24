@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "majinahanashi",
+  "name": "majinahanashi",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-23T06:49:24.000Z",
+  "lastSeen": "2026-08-23T06:49:24.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-23",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pca-dee9",
+      "title": "PCA ***** — claimed by majinahanashi",
+      "pubDate": "2026-08-23T06:49:24.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "pca-dee9",
+      "victim": "PCA ***** — claimed by majinahanashi",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-08-23T06:49:24.000Z"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "sector": "financial",
   "title": "Financial sector brief",
-  "generatedAt": "2026-08-23",
+  "generatedAt": "2026-08-24",
   "topCount": 8,
   "preview": "CVE-2026-65400 (critical) leads with priority 92.",
   "sizeBytes": 2683,
@@ -36,17 +36,17 @@
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2026-55040",
-      "title": "Weak authentication in Microsoft Office SharePoint allows an unauthorized attacker to bypass a security feature over a n",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.1; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
       "cveId": "CVE-2022-26486",
       "title": "An unexpected message in the WebGPU IPC framework could lead to a use-after-free and exploitable sandbox escape. We have",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.6; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-55040",
+      "title": "Weak authentication in Microsoft Office SharePoint allows an unauthorized attacker to bypass a security feature over a n",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.1; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {

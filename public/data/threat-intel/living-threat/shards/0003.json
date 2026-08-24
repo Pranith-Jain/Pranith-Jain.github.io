@@ -3,6 +3,201 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Threat actors in the underground credit card market are adopting structured approaches to minimize risk and identify reliable suppliers.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through the sale and use of stolen credit card data.",
+      "Sophistication": "Medium to high, with structured vetting protocols and operational security measures.",
+      "Strategic_Objectives": "To maintain operational continuity and minimize exposure to scams and law enforcement.",
+      "TTPs_Employed": ["Structured vetting protocols", "Operational security practices", "Community validation"]
+    },
+    "Analyses": [
+      {
+        "Description": "Threat actors gather information on potential suppliers and marketplaces.",
+        "Detection": "Monitor underground forums for discussions about credit card data.",
+        "Remediation": "Implement threat intelligence monitoring to detect early signs of reconnaissance.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about victims to facilitate further operations.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Threat actors use structured approaches to evaluate suppliers and maintain operational security.",
+        "Detection": "Monitor for unusual patterns in credit card transactions.",
+        "Remediation": "Enhance fraud detection systems to identify compromised credit card data.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information relevant to the adversary's objectives.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using application layer protocols for communication.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of mirror domains", "DDoS protection", "Avoidance of tracking mechanisms"],
+      "Description": "Threat actors employ structured vetting protocols and operational security practices to navigate the underground credit card market.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Proxy services", "Cryptocurrency wallets"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Credit card data"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": [
+        "credit card data",
+        "underground market",
+        "vetting protocols",
+        "operational security",
+        "community validation",
+        "cryptocurrency",
+        "structured approaches"
+      ],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Financial Services"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Carding shops utilize security-first infrastructure with mirror domains and backup access points to ensure operational continuity.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-04-17T10:01:00Z",
+    "Title": "Analysis of Underground Credit Card Market Dynamics",
+    "Tools": ["Proxy services", "Cryptocurrency wallets"],
+    "Victim": {
+      "Access_Vectors": ["Point-of-sale breaches", "Infections"],
+      "Data_Types_At_Risk": ["Financial data"],
+      "Description": "Victims are primarily financial institutions and individuals whose credit card data is stolen and sold in underground markets.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Financial Services",
+      "Security_Posture": "Vulnerable to data breaches and fraud.",
+      "Targeted_Assets": ["Credit card data"]
+    },
+    "diamond_model_summary": "The underground credit card market is characterized by threat actors employing structured vetting protocols and operational security practices to navigate a volatile ecosystem. These actors prioritize supplier evaluation and community validation to minimize risk and maintain operational continuity. The emphasis on survivability and fresh data sources reflects a shift from opportunistic fraud to a process-driven discipline.",
+    "doc_summary": "The underground market for stolen credit card data is a volatile ecosystem where even experienced actors face scams and compromised services. Increased law enforcement pressure and internal distrust have led to more structured approaches in identifying reliable suppliers. A guide from an underground forum reveals how threat actors navigate credit card marketplaces, emphasizing supplier evaluation over card usage. The guide outlines vetting protocols, operational security practices, and sourcing strategies, highlighting the shift from opportunistic fraud to a process-driven discipline. It stresses legitimacy through survivability, not branding, and emphasizes the importance of fresh data sources. Transparency, community validation, and security-first infrastructure are key themes. The guide also categorizes carding shops into automated platforms and boutique vendor groups, reflecting the diversification of the underground economy. Despite potential biases, the guide offers insights into threat actor risk assessment and operational decisions, emphasizing verification, community validation, and layered security.",
+    "enrichment": null,
+    "id": "82491b36c6d5bb0a45c280222e97cd94",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "Threat actors in the underground credit card market engage in reconnaissance to gather information on potential suppliers and marketplaces. They employ structured approaches to evaluate suppliers and maintain operational security, emphasizing community validation and layered security. The focus on verification and risk assessment complicates traditional disruption efforts, as actors build redundancy and adaptability into their workflows.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 78,
+    "pyramid_of_pain_summary": "The pyramid of pain for this incident is characterized by the absence of specific indicators such as hashes, IPs, and domains. Instead, the focus is on structured vetting protocols, operational security practices, and community validation. These elements reflect a shift towards more disciplined and resilient threat actor behaviors, complicating traditional detection and disruption efforts.",
+    "relevance_score": 47,
+    "sequence": 20213,
+    "source": "https://www.bleepingcomputer.com/news/security/inside-an-underground-guide-how-threat-actors-vet-stolen-credit-card-shops/",
+    "slug": "Analysis_of_Underground_Credit_Card_Market_Dynamics-020213",
+    "shard": 3
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Attributed to foreign intelligence agencies with high resources and technology.",
       "Known_Campaigns": [],
       "Motivation": "Harming Russia's financial sovereignty",
@@ -105321,169 +105516,6 @@
     "sequence": 19716,
     "source": "https://thehackernews.com/2026/03/iran-linked-muddywater-hackers-target.html",
     "slug": "MuddyWater_Campaign_Targets_U.S._and_Israeli_Companies_with_Dindoor_and_-019716",
-    "shard": 3
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2026-03-05T18:30:00Z",
-    "Title": "(no title)",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
-    "doc_summary": "The text discusses the challenges and strategies for Managed Service Providers (MSPs) and Managed Security Service Providers (MSSPs) in scaling cybersecurity services. It emphasizes the importance of a risk-based approach to cybersecurity, leveraging AI-powered risk management platforms to enhance service delivery, operational efficiency, and client trust. The document highlights the need for MSPs to transition from isolated engagements to continuous, proactive services by assessing the full threat landscape and prioritizing risks based on business impact. It also mentions the potential barriers to growth and the key capabilities to look for in a modern risk management platform.",
-    "enrichment": null,
-    "id": "3782742bd185b47898fad96f5bc1bf2d7ede5bca246151e8103c3b4dc3b58733",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
-    "relevance_score": 35,
-    "sequence": 19715,
-    "source": "https://thehackernews.com/2026/03/the-msp-guide-to-using-ai-powered-risk.html",
-    "slug": "_no_title_-019715",
     "shard": 3
   }
 ]

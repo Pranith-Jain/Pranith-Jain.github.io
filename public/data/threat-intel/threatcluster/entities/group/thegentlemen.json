@@ -4,93 +4,53 @@
   "name": "thegentlemen",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-08-21T08:28:18.000Z",
-  "lastSeen": "2026-08-22T05:19:52.000Z",
-  "summary": "Ransomware group with 9 leak-site victims across 7 sectors and 7 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-23T06:33:51.000Z",
+  "lastSeen": "2026-08-23T06:34:52.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 8
-    },
-    {
-      "date": "2026-08-22",
-      "count": 1
+      "date": "2026-08-23",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "meridian-logistics-group-c7de",
-      "title": "Meridian Logistics Group — claimed by thegentlemen",
-      "pubDate": "2026-08-22T05:19:52.000Z"
+      "slug": "ags-cinemas-555e",
+      "title": "AGS Cinemas — claimed by thegentlemen",
+      "pubDate": "2026-08-23T06:34:52.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "uolconsult-10ec",
-      "title": "UOLconsult — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:30:17.000Z"
+      "slug": "eyecare-center-of-snohomish-2149",
+      "title": "Eyecare Center of Snohomish — claimed by thegentlemen",
+      "pubDate": "2026-08-23T06:34:31.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "dlp-motive-f5b5",
-      "title": "dlp motive — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:30:00.000Z"
+      "slug": "gould-sherwood-consulting-07ef",
+      "title": "Gould Sherwood Consulting — claimed by thegentlemen",
+      "pubDate": "2026-08-23T06:34:11.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "awj-holding-0c64",
-      "title": "AWJ Holding — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:29:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "lexacaucho-bbea",
-      "title": "Lexacaucho — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:29:40.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "log-systems-b032",
-      "title": "LOG Systems — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:29:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "magdalena-grand-beach-golf-resort-8e84",
-      "title": "Magdalena Grand Beach Golf Resort — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:28:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "akatake-engineering-b2a1",
-      "title": "Akatake Engineering — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:28:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "escon-group-dfda",
-      "title": "ESCON Group — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:28:18.000Z"
+      "slug": "espac-335b",
+      "title": "Espac — claimed by thegentlemen",
+      "pubDate": "2026-08-23T06:33:51.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 2
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
+      "slug": "healthcare",
+      "name": "Healthcare",
       "weight": 1
     },
     {
@@ -101,87 +61,40 @@
     },
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "meridian-logistics-group-c7de",
-      "victim": "Meridian Logistics Group — claimed by thegentlemen",
-      "sector": "Transportation",
-      "country": "US",
-      "pubDate": "2026-08-22T05:19:52.000Z"
-    },
-    {
-      "id": "uolconsult-10ec",
-      "victim": "UOLconsult — claimed by thegentlemen",
-      "sector": "Professional Services",
-      "country": "BR",
-      "pubDate": "2026-08-21T08:30:17.000Z"
-    },
-    {
-      "id": "dlp-motive-f5b5",
-      "victim": "dlp motive — claimed by thegentlemen",
-      "sector": "Technology",
-      "country": "DE",
-      "pubDate": "2026-08-21T08:30:00.000Z"
-    },
-    {
-      "id": "awj-holding-0c64",
-      "victim": "AWJ Holding — claimed by thegentlemen",
-      "sector": "Not Found",
-      "country": "AE",
-      "pubDate": "2026-08-21T08:29:56.000Z"
-    },
-    {
-      "id": "lexacaucho-bbea",
-      "victim": "Lexacaucho — claimed by thegentlemen",
-      "sector": "Other",
-      "country": null,
-      "pubDate": "2026-08-21T08:29:40.000Z"
-    },
-    {
-      "id": "log-systems-b032",
-      "victim": "LOG Systems — claimed by thegentlemen",
-      "sector": "Technology",
-      "country": "PL",
-      "pubDate": "2026-08-21T08:29:20.000Z"
-    },
-    {
-      "id": "magdalena-grand-beach-golf-resort-8e84",
-      "victim": "Magdalena Grand Beach Golf Resort — claimed by thegentlemen",
+      "id": "ags-cinemas-555e",
+      "victim": "AGS Cinemas — claimed by thegentlemen",
       "sector": "Hospitality",
-      "country": "MX",
-      "pubDate": "2026-08-21T08:28:59.000Z"
+      "country": "IN",
+      "pubDate": "2026-08-23T06:34:52.000Z"
     },
     {
-      "id": "akatake-engineering-b2a1",
-      "victim": "Akatake Engineering — claimed by thegentlemen",
-      "sector": "Manufacturing",
-      "country": "JP",
-      "pubDate": "2026-08-21T08:28:39.000Z"
-    },
-    {
-      "id": "escon-group-dfda",
-      "victim": "ESCON Group — claimed by thegentlemen",
-      "sector": "Manufacturing",
+      "id": "eyecare-center-of-snohomish-2149",
+      "victim": "Eyecare Center of Snohomish — claimed by thegentlemen",
+      "sector": "Healthcare",
       "country": "US",
-      "pubDate": "2026-08-21T08:28:18.000Z"
+      "pubDate": "2026-08-23T06:34:31.000Z"
+    },
+    {
+      "id": "gould-sherwood-consulting-07ef",
+      "victim": "Gould Sherwood Consulting — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-23T06:34:11.000Z"
+    },
+    {
+      "id": "espac-335b",
+      "victim": "Espac — claimed by thegentlemen",
+      "sector": "Technology",
+      "country": "CL",
+      "pubDate": "2026-08-23T06:33:51.000Z"
     }
   ]
 }

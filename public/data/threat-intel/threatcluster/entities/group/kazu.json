@@ -1,0 +1,153 @@
+{
+  "type": "group",
+  "slug": "kazu",
+  "name": "kazu",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 9,
+  "firstSeen": "2026-08-23T08:07:31.000Z",
+  "lastSeen": "2026-08-23T08:10:25.000Z",
+  "summary": "Ransomware group with 9 leak-site victims across 2 sectors and 6 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-23",
+      "count": 9
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pappyjoe-healthcare-management-system-1bce",
+      "title": "PappyJoe: Healthcare Management System — claimed by kazu",
+      "pubDate": "2026-08-23T08:10:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "instituto-ferrero-de-neurolog-a-y-sue-o-66c9",
+      "title": "Instituto Ferrero de Neurología y Sueño — claimed by kazu",
+      "pubDate": "2026-08-23T08:10:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "brazil-mobilemed-cloud-pacs-platform-1546",
+      "title": "Brazil Mobilemed: Cloud PACS Platform — claimed by kazu",
+      "pubDate": "2026-08-23T08:09:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "canada-yocale-appointment-management-system-0aa7",
+      "title": "Canada Yocale: Appointment Management System — claimed by kazu",
+      "pubDate": "2026-08-23T08:09:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pawlyclinic-digital-veterinary-care-platform-a24a",
+      "title": "PawlyClinic: Digital Veterinary Care Platform — claimed by kazu",
+      "pubDate": "2026-08-23T08:08:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dr-akbar-niazi-teaching-hospital-f8cd",
+      "title": "Dr Akbar Niazi Teaching Hospital — claimed by kazu",
+      "pubDate": "2026-08-23T08:08:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "centro-m-dico-especializado-osi-healthcare-solutions-ce45",
+      "title": "Centro Médico Especializado OSI: Healthcare Solutions — claimed by kazu",
+      "pubDate": "2026-08-23T08:08:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "meducar-telemedicine-and-patient-management-system-bee6",
+      "title": "Meducar: Telemedicine and Patient Management System — claimed by kazu",
+      "pubDate": "2026-08-23T08:07:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "consultoriomovil-telemedicine-and-healthcare-system-7783",
+      "title": "ConsultorioMovil: Telemedicine and Healthcare System — claimed by kazu",
+      "pubDate": "2026-08-23T08:07:31.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 8
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "pappyjoe-healthcare-management-system-1bce",
+      "victim": "PappyJoe: Healthcare Management System — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-23T08:10:25.000Z"
+    },
+    {
+      "id": "instituto-ferrero-de-neurolog-a-y-sue-o-66c9",
+      "victim": "Instituto Ferrero de Neurología y Sueño — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "AR",
+      "pubDate": "2026-08-23T08:10:00.000Z"
+    },
+    {
+      "id": "brazil-mobilemed-cloud-pacs-platform-1546",
+      "victim": "Brazil Mobilemed: Cloud PACS Platform — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "BR",
+      "pubDate": "2026-08-23T08:09:40.000Z"
+    },
+    {
+      "id": "canada-yocale-appointment-management-system-0aa7",
+      "victim": "Canada Yocale: Appointment Management System — claimed by kazu",
+      "sector": "Professional Services",
+      "country": "CA",
+      "pubDate": "2026-08-23T08:09:19.000Z"
+    },
+    {
+      "id": "pawlyclinic-digital-veterinary-care-platform-a24a",
+      "victim": "PawlyClinic: Digital Veterinary Care Platform — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-23T08:08:58.000Z"
+    },
+    {
+      "id": "dr-akbar-niazi-teaching-hospital-f8cd",
+      "victim": "Dr Akbar Niazi Teaching Hospital — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "PK",
+      "pubDate": "2026-08-23T08:08:38.000Z"
+    },
+    {
+      "id": "centro-m-dico-especializado-osi-healthcare-solutions-ce45",
+      "victim": "Centro Médico Especializado OSI: Healthcare Solutions — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "MX",
+      "pubDate": "2026-08-23T08:08:17.000Z"
+    },
+    {
+      "id": "meducar-telemedicine-and-patient-management-system-bee6",
+      "victim": "Meducar: Telemedicine and Patient Management System — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "BR",
+      "pubDate": "2026-08-23T08:07:52.000Z"
+    },
+    {
+      "id": "consultoriomovil-telemedicine-and-healthcare-system-7783",
+      "victim": "ConsultorioMovil: Telemedicine and Healthcare System — claimed by kazu",
+      "sector": "Healthcare",
+      "country": "MX",
+      "pubDate": "2026-08-23T08:07:31.000Z"
+    }
+  ]
+}

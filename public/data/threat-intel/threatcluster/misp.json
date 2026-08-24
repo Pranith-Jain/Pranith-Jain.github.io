@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-23T05:54:34.034Z",
-  "eventCount": 7,
+  "syncedAt": "2026-08-24T06:02:51.579Z",
+  "eventCount": 6,
   "events": [
     {
       "uuid": "84e7ebe2-89fd-5e62-a924-0d78728ac032",
@@ -64,16 +64,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "80db36ab-8289-5d81-81fc-ac5a50adad17",
-      "info": "Critical Stored XSS Vulnerabilities Found in SiYuan Versions Before 3.7.4",
-      "date": "2026-08-16",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1786874615",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "fac2391d-fcbb-504d-8a7b-9741b7a14583",
       "info": "Critical Account Takeover Vulnerability in Red Hat Keycloak",
       "date": "2026-08-21",
@@ -84,13 +74,13 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "30599276-9ca6-553b-b32d-ae6117f5804e",
-      "info": "Critical Authentication Bypass Vulnerability in WordPress Plugin CVE-2026-15341",
-      "date": "2026-08-16",
+      "uuid": "3ade4e5c-44b1-5ce6-baa8-e692bf0a5c37",
+      "info": "17 Iranians Charged in Cyber Theft Campaign Targeting U.S. Institutions",
+      "date": "2026-08-18",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1786871841",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "timestamp": "1787083770",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:malware"],
       "orgc": "ThreatCluster"
     }
   ]

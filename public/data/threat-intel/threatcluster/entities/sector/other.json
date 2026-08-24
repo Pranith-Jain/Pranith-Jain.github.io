@@ -4,57 +4,65 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-21T08:29:40.000Z",
-  "lastSeen": "2026-08-22T22:54:30.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-08-23T06:41:44.000Z",
+  "lastSeen": "2026-08-23T16:00:43.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 3 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 2
-    },
-    {
-      "date": "2026-08-22",
-      "count": 1
+      "date": "2026-08-23",
+      "count": 5
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "el-group-fab3",
-      "title": "el-group — claimed by incransom",
-      "pubDate": "2026-08-22T22:54:30.000Z"
+      "slug": "tecnici-associati-stp-a904",
+      "title": "Tecnici Associati STP — claimed by qilin",
+      "pubDate": "2026-08-23T16:00:43.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "blake-services-d3ff",
-      "title": "Blake Services — claimed by qilin",
-      "pubDate": "2026-08-21T09:56:18.000Z"
+      "slug": "aurore-development-s-p-a-4e96",
+      "title": "Aurore Development S.p.A. — claimed by qilin",
+      "pubDate": "2026-08-23T14:58:25.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "lexacaucho-bbea",
-      "title": "Lexacaucho — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:29:40.000Z"
+      "slug": "woodlore-international-inc-71f5",
+      "title": "Woodlore International Inc. — claimed by metaencryptor",
+      "pubDate": "2026-08-23T07:38:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "corona-corporation-691c",
+      "title": "Corona Corporation — claimed by metaencryptor",
+      "pubDate": "2026-08-23T07:35:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "phoenix-group-of-companies-d6da",
+      "title": "Phoenix Group of Companies — claimed by Storm",
+      "pubDate": "2026-08-23T06:41:44.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 1
-    },
-    {
-      "type": "group",
       "slug": "qilin",
       "name": "qilin",
-      "weight": 1
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "Storm",
       "weight": 1
     }
   ],

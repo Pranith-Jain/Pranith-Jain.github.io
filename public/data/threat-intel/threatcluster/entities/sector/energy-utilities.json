@@ -4,69 +4,29 @@
   "name": "Energy & Utilities",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-21T14:56:15.000Z",
-  "lastSeen": "2026-08-22T19:21:33.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-23T07:37:38.000Z",
+  "lastSeen": "2026-08-23T07:37:38.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "count": 1
-    },
-    {
-      "date": "2026-08-22",
-      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "amspec-e998",
-      "title": "AmSpec — claimed by Helix",
-      "pubDate": "2026-08-22T19:21:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "vietnam-electricity-evnhanoi-73e6",
-      "title": "Vietnam Electricity(EVNHANOI) — claimed by emperador",
-      "pubDate": "2026-08-22T16:20:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cri-electric-bb00",
-      "title": "CRI Electric — claimed by rhysida",
-      "pubDate": "2026-08-22T05:56:26.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "quaker-state-mexico-5b97",
-      "title": "Quaker State Mexico — claimed by qilin",
-      "pubDate": "2026-08-21T14:56:15.000Z"
+      "slug": "weber-water-resources-19c2",
+      "title": "Weber Water Resources — claimed by metaencryptor",
+      "pubDate": "2026-08-23T07:37:38.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "helix",
-      "name": "Helix",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "emperador",
-      "name": "emperador",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "rhysida",
-      "name": "rhysida",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
       "weight": 1
     }
   ],

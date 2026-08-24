@@ -4,43 +4,25 @@
   "name": "Hospitality",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-21T08:28:59.000Z",
-  "lastSeen": "2026-08-21T14:55:37.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-23T06:34:52.000Z",
+  "lastSeen": "2026-08-23T06:34:52.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 3
+      "date": "2026-08-23",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ipic-5fcf",
-      "title": "iPic — claimed by qilin",
-      "pubDate": "2026-08-21T14:55:37.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cin-polis-400c",
-      "title": "Cinépolis — claimed by qilin",
-      "pubDate": "2026-08-21T12:56:53.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "magdalena-grand-beach-golf-resort-8e84",
-      "title": "Magdalena Grand Beach Golf Resort — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:28:59.000Z"
+      "slug": "ags-cinemas-555e",
+      "title": "AGS Cinemas — claimed by thegentlemen",
+      "pubDate": "2026-08-23T06:34:52.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 2
-    },
     {
       "type": "group",
       "slug": "thegentlemen",

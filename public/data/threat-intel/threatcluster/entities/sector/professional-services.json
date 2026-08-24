@@ -5,74 +5,76 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 6,
-  "firstSeen": "2026-08-21T08:30:17.000Z",
-  "lastSeen": "2026-08-22T13:58:39.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 4 ransomware groups and 3 countries.",
+  "firstSeen": "2026-08-23T06:34:11.000Z",
+  "lastSeen": "2026-08-23T18:13:35.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 2
-    },
-    {
-      "date": "2026-08-22",
-      "count": 4
+      "date": "2026-08-23",
+      "count": 6
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "oteis-conseil-amp-ing-nierie-a39f",
-      "title": "OTEIS Conseil &amp; Ingénierie — claimed by coinbasecartel",
-      "pubDate": "2026-08-22T13:58:39.000Z"
+      "slug": "adt-com-2fb6",
+      "title": "adt.com — claimed by lockbit5",
+      "pubDate": "2026-08-23T18:13:35.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "kessler-creative-8f2e",
-      "title": "Kessler Creative — claimed by coinbasecartel",
-      "pubDate": "2026-08-22T13:57:11.000Z"
+      "slug": "studio-boldrin-paolo-c790",
+      "title": "Studio BOLDRIN PAOLO — claimed by qilin",
+      "pubDate": "2026-08-23T15:27:29.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "klasko-immigration-law-partners-82f8",
-      "title": "Klasko Immigration Law Partners — claimed by coinbasecartel",
-      "pubDate": "2026-08-22T13:56:32.000Z"
+      "slug": "compendiumusa-net-9386",
+      "title": "compendiumusa.net — claimed by L Group",
+      "pubDate": "2026-08-23T13:51:04.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mogren-glessner-amp-ahrens-p-s-120e",
-      "title": "Mogren, Glessner &amp; Ahrens, P.S. — claimed by pear",
-      "pubDate": "2026-08-22T07:57:08.000Z"
+      "slug": "clear-align-c7b6",
+      "title": "Clear Align — claimed by qilin",
+      "pubDate": "2026-08-23T12:28:50.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "the-pendas-law-firm-9f24",
-      "title": "The Pendas Law Firm — claimed by qilin",
-      "pubDate": "2026-08-21T09:56:54.000Z"
+      "slug": "canada-yocale-appointment-management-system-0aa7",
+      "title": "Canada Yocale: Appointment Management System — claimed by kazu",
+      "pubDate": "2026-08-23T08:09:19.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "uolconsult-10ec",
-      "title": "UOLconsult — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:30:17.000Z"
+      "slug": "gould-sherwood-consulting-07ef",
+      "title": "Gould Sherwood Consulting — claimed by thegentlemen",
+      "pubDate": "2026-08-23T06:34:11.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "coinbasecartel",
-      "name": "coinbasecartel",
-      "weight": 3
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "pear",
-      "name": "pear",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "l-group",
+      "name": "L Group",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "kazu",
+      "name": "kazu",
       "weight": 1
     },
     {

@@ -4,29 +4,53 @@
   "name": "Agriculture and Food Production",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-08-22T13:53:34.000Z",
-  "lastSeen": "2026-08-22T13:53:34.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "mentionCount": 3,
+  "firstSeen": "2026-08-23T07:36:08.000Z",
+  "lastSeen": "2026-08-23T16:01:21.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-22",
-      "count": 1
+      "date": "2026-08-23",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "pt-perusahaan-jamu-air-mancur-0e55",
-      "title": "PT Perusahaan Jamu Air Mancur — claimed by coinbasecartel",
-      "pubDate": "2026-08-22T13:53:34.000Z"
+      "slug": "euroflora-srl-d3a7",
+      "title": "Euroflora srl — claimed by qilin",
+      "pubDate": "2026-08-23T16:01:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "frucastro-sl-883a",
+      "title": "FRUCASTRO SL — claimed by emperador",
+      "pubDate": "2026-08-23T12:20:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "aquamar-inc-d58c",
+      "title": "Aquamar Inc — claimed by metaencryptor",
+      "pubDate": "2026-08-23T07:36:08.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "coinbasecartel",
-      "name": "coinbasecartel",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "emperador",
+      "name": "emperador",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
       "weight": 1
     }
   ],

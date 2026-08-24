@@ -3,6 +3,193 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Local attackers exploiting privilege escalation vulnerability in Nagios XI.",
+      "Known_Campaigns": [],
+      "Motivation": "Unauthorized access and control of enterprise systems.",
+      "Sophistication": "Moderate, requires local system access.",
+      "Strategic_Objectives": "Gain root-level access to enterprise systems.",
+      "TTPs_Employed": ["Privilege Escalation", "Code Injection"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of incorrect permission assignment in Nagios XI.",
+        "Detection": "Monitor for changes to application file permissions. • Audit sudo command usage for maintenance scripts.",
+        "Remediation": "Upgrade to Nagios XI version 2026R1.1 or later. • Restrict access to the application account.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gain higher-level permissions.",
+            "tactic_id": "TA0004",
+            "tactic_name": "Privilege Escalation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting a vulnerability to gain elevated access.",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Execution of arbitrary code with root privileges.",
+        "Detection": "Monitor for execution of maintenance scripts with elevated privileges.",
+        "Remediation": "Review and update sudo configurations for maintenance scripts.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to avoid being detected.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may abuse command and script interpreters to execute commands.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of incorrect permission assignment in Nagios XI.",
+      "Exploits": ["CVE-2025-34288"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Monitoring Systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Nagios"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Privilege Escalation", "CVE-2025-34288", "CWE-732"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["2026R1.1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["Nagios XI"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-34288"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Nagios XI monitoring platform vulnerable to privilege escalation.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of CVE-2025-34288"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-12-17T09:26:53Z",
+    "Title": "Nagios XI Privilege Escalation Vulnerability CVE-2025-34288",
+    "Tools": ["Nagios XI"],
+    "Victim": {
+      "Access_Vectors": ["Local Access"],
+      "Data_Types_At_Risk": ["System Control", "Configuration Data"],
+      "Description": "Organizations using Nagios XI for monitoring infrastructure.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Information Technology",
+      "Security_Posture": "Vulnerable due to incorrect permission settings.",
+      "Targeted_Assets": ["Monitoring Systems"]
+    },
+    "diamond_model_summary": "The incident involves a critical privilege escalation vulnerability in Nagios XI, identified as CVE-2025-34288. The adversary, likely a local attacker, exploits incorrect permission assignments to gain root access. The capability involves exploiting the vulnerability to execute arbitrary code. The infrastructure affected is the Nagios XI monitoring platform, widely used in enterprise environments. Victims are organizations using Nagios XI, facing potential unauthorized access and control of their systems.",
+    "doc_summary": "Nagios has released version 2026R1.1 to address a critical privilege escalation vulnerability, CVE-2025-34288, affecting earlier versions of its monitoring platform. This flaw allows local attackers to execute arbitrary code with root privileges due to unsafe interactions between sudo permissions and application file permissions in Nagios XI. The vulnerability is classified as CWE-732, highlighting incorrect permission assignment for critical resources. Organizations using Nagios XI should upgrade immediately to mitigate the risk of system compromise. The vulnerability poses a significant threat to enterprise infrastructure, potentially exposing systems to unauthorized access and control. Administrators are advised to audit access logs and restrict access to the application account until patching is complete.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:22.965091+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "d109a5951757d7e7274c1fa341829e604101a5db",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident involves exploitation of a privilege escalation vulnerability in Nagios XI. The adversary gains local access and exploits incorrect permission settings to execute arbitrary code with root privileges. The exploitation stage is critical, as it allows the attacker to bypass traditional privilege boundaries. The actions on objectives involve executing malicious code to gain control over the system. Detection focuses on monitoring file permission changes and sudo command usage, while remediation includes upgrading to the patched version and restricting access.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 90,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on TTPs, as the key indicator is the exploitation of a specific vulnerability (CVE-2025-34288) in Nagios XI. No specific hash values, IP addresses, or domain names are identified, making detection reliant on monitoring for changes in file permissions and sudo command usage. The scoring reflects the challenge of detecting and responding to this type of attack, emphasizing the importance of patching and configuration management to mitigate the risk.",
+    "relevance_score": 43,
+    "sequence": 18727,
+    "source": "https://gbhackers.com/nagios-xi-2026r1-1-released/",
+    "slug": "Nagios_XI_Privilege_Escalation_Vulnerability_CVE-2025-34288-018727",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Participants in the Zeroday Cloud hacking competition",
       "Known_Campaigns": [],
       "Motivation": "Financial reward and recognition",
@@ -102736,253 +102923,6 @@
     "sequence": 18243,
     "source": "https://www.bleepingcomputer.com/news/security/quantum-route-redirect-phaas-targets-microsoft-365-users-worldwide/",
     "slug": "Quantum_Route_Redirect_Phishing_Campaign_Targeting_Microsoft_365_Users-018243",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Earth Imp", "Opal Sleet", "Osmium", "TA406", "Vedalia"],
-      "Associated_Groups": [],
-      "Description": "Konni APT is a North Korea-affiliated threat actor known for targeting Android and Windows devices.",
-      "Known_Campaigns": [],
-      "Motivation": "Espionage and data theft",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Targeting Korea-focused operations for data theft and espionage",
-      "TTPs_Employed": ["Spear-phishing", "Remote device reset", "Credential theft"]
-    },
-    "Analyses": [
-      {
-        "Description": "The attackers likely conducted reconnaissance to identify targets for spear-phishing.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify targets.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Actively scanning for information about targets.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "The attackers weaponized legitimate management functions and crafted spear-phishing emails.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing or acquiring malware for operations.",
-            "technique_id": "T1588.002",
-            "technique_name": "Malware"
-          }
-        ],
-        "Techniques": ["T1588.002"]
-      },
-      {
-        "Description": "Spear-phishing emails were used to deliver malware to targets.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a network or system.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Sending emails with malicious attachments.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spear Phishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Exploitation of Google's Find Hub for remote device reset.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Executing malicious code on a system.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Installation of malware like Lilith RAT and EndRAT on victim devices.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to a system.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using registry keys or startup folders for persistence.",
-            "technique_id": "T1547.001",
-            "technique_name": "Registry Run Keys / Startup Folder"
-          }
-        ],
-        "Techniques": ["T1547.001"]
-      },
-      {
-        "Description": "Establishing communication with C2 servers for remote control.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols for C2 communication.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Data theft and remote control of victim devices.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Capturing screenshots of the victim's desktop.",
-            "technique_id": "T1113",
-            "technique_name": "Screen Capture"
-          }
-        ],
-        "Techniques": ["T1113"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of legitimate signatures", "Deletion of security alerts"],
-      "Description": "Konni APT uses spear-phishing, malware like Lilith RAT and EndRAT, and exploits legitimate services for remote control.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Lilith RAT", "EndRAT"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Lilith RAT", "EndRAT", "Remcos RAT", "Quasar RAT", "RftRAT"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Android devices", "Windows devices"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": ["Korea"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["116.202.99.218"],
-      "Keywords": ["spear-phishing", "remote control", "data theft"],
-      "Malware_Families": ["Lilith RAT", "EndRAT", "Remcos RAT", "Quasar RAT", "RftRAT"],
-      "Malware_Filenames": ["Stress Clear.msi"],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Google Find Hub", "KakaoTalk"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["116.202.99.218"],
-      "Communication_Protocols": ["HTTPS"],
-      "Description": "The infrastructure includes C2 servers and the use of Google's Find Hub for remote device management.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": ["116.202.99.218"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": ["116.202.99.218"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Spear-phishing", "Remote device reset"],
-      "Tools": ["Lilith RAT", "EndRAT", "Remcos RAT", "Quasar RAT", "RftRAT"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Konni", "Earth Imp", "Opal Sleet", "Osmium", "TA406", "Vedalia"],
-    "Timestamp": "2025-11-09T18:30:00Z",
-    "Title": "Konni APT Targets Android and Windows Devices for Data Theft and Remote Control",
-    "Tools": ["Lilith RAT", "EndRAT", "Remcos RAT", "Quasar RAT", "RftRAT", "Google Find Hub", "KakaoTalk"],
-    "Victim": {
-      "Access_Vectors": ["Spear-phishing emails", "KakaoTalk"],
-      "Data_Types_At_Risk": ["Google credentials", "Naver credentials", "Personal data"],
-      "Description": "Targets include Android and Windows device users, particularly in Korea-focused operations.",
-      "Geography": "Korea",
-      "Impact_Severity": "High",
-      "Industry": "General",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Android devices", "Windows devices"]
-    },
-    "diamond_model_summary": "The Konni APT, a North Korea-affiliated threat actor, has been identified as the adversary in this incident. Their capability includes the use of spear-phishing emails and malware like Lilith RAT and EndRAT. The infrastructure involves C2 servers and the exploitation of Google's Find Hub. Victims are primarily Android and Windows device users, with a focus on Korea-related operations.",
-    "doc_summary": "The North Korea-affiliated threat actor Konni, also known as Earth Imp, Opal Sleet, Osmium, TA406, and Vedalia, has launched a new set of attacks targeting Android and Windows devices. The attacks involve spear-phishing emails mimicking entities like the National Tax Service to deliver malware such as Lilith RAT and EndRAT. The attackers exploit Google's Find Hub to remotely reset devices, leading to unauthorized data deletion. They also use KakaoTalk to distribute malicious payloads. The malware allows internal reconnaissance, credential theft, and remote control. The campaign uses tools like Remcos RAT, Quasar RAT, and RftRAT, indicating a focus on Korea-related operations. The attacks were detected in early September 2025.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:20.607599+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "1e27ecd8f78a5a9e4498c4ec1db807ca3518e7c7b06f9824a6966b7d157139e8",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with reconnaissance to identify targets, followed by weaponization through spear-phishing emails. Delivery occurs via malicious attachments, leading to exploitation of Google's Find Hub for remote device reset. Installation of malware like Lilith RAT and EndRAT allows for command and control, enabling actions on objectives such as data theft and remote control.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes IP addresses like 116.202.99.218, tools such as Lilith RAT and EndRAT, and TTPs involving spear-phishing and remote device reset. These indicators are crucial for detection and response, with a focus on identifying and mitigating the use of legitimate services for malicious purposes.",
-    "relevance_score": 94,
-    "sequence": 18242,
-    "source": "https://thehackernews.com/2025/11/konni-hackers-turn-googles-find-hub.html",
-    "slug": "Konni_APT_Targets_Android_and_Windows_Devices_for_Data_Theft_and_Remote_-018242",
     "shard": 6
   }
 ]

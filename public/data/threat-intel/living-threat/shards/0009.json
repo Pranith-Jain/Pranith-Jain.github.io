@@ -3,6 +3,203 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Potential threat actors exploiting vulnerabilities in ICS and medical software.",
+      "Known_Campaigns": [],
+      "Motivation": "Gain unauthorized access and control over critical systems.",
+      "Sophistication": "Moderate to high, given the exploitation of critical vulnerabilities.",
+      "Strategic_Objectives": "Disrupt industrial and medical operations, steal sensitive data.",
+      "TTPs_Employed": [
+        "Exploitation of missing authentication",
+        "Path traversal attacks",
+        "Cross-site scripting (XSS)"
+      ]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in ICS and medical software.",
+        "Detection": "Monitor for unusual access patterns • Check for known exploit signatures",
+        "Remediation": "Apply patches promptly • Implement strong authentication mechanisms",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the system through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of critical vulnerabilities in ICS and medical software.",
+      "Exploits": [
+        "CVE-2025-24522",
+        "CVE-2025-32011",
+        "CVE-2025-35996",
+        "CVE-2025-36558",
+        "CVE-2025-35975",
+        "CVE-2025-36521"
+      ],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Industrial Control Systems", "Medical Imaging Software"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["KUNBUS GmbH"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CISA", "ICS", "vulnerabilities", "authentication", "exploitation"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Manufacturing", "Healthcare"],
+      "Software": ["Revolution Pi", "MicroDicom DICOM Viewer"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": [
+        "CVE-2025-24522",
+        "CVE-2025-32011",
+        "CVE-2025-35996",
+        "CVE-2025-36558",
+        "CVE-2025-35975",
+        "CVE-2025-36521"
+      ]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Targeted ICS and medical software environments.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Regularly update and patch systems",
+      "Implement strong authentication measures",
+      "Conduct security audits and vulnerability assessments"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of missing authentication", "Path traversal attacks", "Cross-site scripting (XSS)"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-05-02T07:11:44Z",
+    "Title": "Critical Vulnerabilities in Industrial Control Systems and Medical Software",
+    "Tools": ["Revolution Pi", "MicroDicom DICOM Viewer"],
+    "Victim": {
+      "Access_Vectors": ["Remote exploitation"],
+      "Data_Types_At_Risk": ["Operational data", "Medical images"],
+      "Description": "Organizations using KUNBUS GmbH’s Revolution Pi and MicroDicom DICOM Viewer.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Manufacturing and Healthcare",
+      "Security_Posture": "Vulnerable due to unpatched systems",
+      "Targeted_Assets": ["Industrial Control Systems", "Medical Imaging Software"]
+    },
+    "diamond_model_summary": "The incident involves potential adversaries exploiting critical vulnerabilities in KUNBUS GmbH’s Revolution Pi and MicroDicom DICOM Viewer. The capabilities include exploiting missing authentication and path traversal flaws. The infrastructure targeted includes ICS and medical software environments, with victims primarily in the manufacturing and healthcare sectors. The adversaries aim to gain unauthorized access and control over critical systems, posing a significant risk to operational integrity and data security.",
+    "doc_summary": "The Cybersecurity and Infrastructure Security Agency (CISA) issued advisories on May 1, 2025, revealing critical vulnerabilities in Industrial Control Systems (ICS) and medical software. The advisories focus on KUNBUS GmbH’s Revolution Pi devices and the MicroDicom DICOM Viewer, highlighting severe security risks with some vulnerabilities scoring a CVSS v3.1 base score of 10.0. The vulnerabilities include missing authentication, path traversal, and improper neutralization of server-side includes, which could lead to unauthorized access and cross-site scripting attacks. CISA urges timely patching and enhanced authentication configurations to protect ICS and medical environments. The advisories emphasize the importance of addressing these vulnerabilities to prevent potential exploitation.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:34.265868+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "517c42dbb978b877842accd20502d1a779370eae",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the primary stage of concern is exploitation, where adversaries leverage vulnerabilities in ICS and medical software to gain initial access. The tactics and techniques employed include exploiting public-facing applications through missing authentication and path traversal flaws. Detection involves monitoring for unusual access patterns and known exploit signatures, while remediation focuses on timely patching and implementing strong authentication mechanisms. The incident highlights the critical need for proactive security measures to prevent exploitation and protect sensitive environments.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 85,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies several indicators of compromise, including specific vulnerabilities (CVE-2025-24522, CVE-2025-32011, CVE-2025-35996, CVE-2025-36558, CVE-2025-35975, CVE-2025-36521) that adversaries may exploit. These vulnerabilities represent significant pain points for defenders, as they require timely patching and enhanced security configurations to mitigate. The analysis underscores the importance of addressing these vulnerabilities to prevent potential exploitation and protect critical systems in the manufacturing and healthcare sectors.",
+    "relevance_score": 45,
+    "sequence": 17242,
+    "source": "https://gbhackers.com/cisa-issues-new-ics-advisories/",
+    "slug": "Critical_Vulnerabilities_in_Industrial_Control_Systems_and_Medical_Softw-017242",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "The adversary is exploiting a zero-day vulnerability in Fortinet products to gain unauthorized access.",
       "Known_Campaigns": [],
       "Motivation": "Potentially financial gain or espionage.",
@@ -98406,215 +98603,6 @@
     "sequence": 16743,
     "source": "https://gbhackers.com/russian-apt-hackers-attacking-critical-infrastructure/",
     "slug": "Russian_APTs_Target_Energy_and_Telecom_Sectors_in_Denmark_and_Ukraine-016743",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Attackers exploiting the Sophos Firewall vulnerability",
-      "Known_Campaigns": [],
-      "Motivation": "Data theft and system takeover",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Targeting companies in South Asia",
-      "TTPs_Employed": ["Remote Code Execution", "Exploitation of EOL firmware"]
-    },
-    "Analyses": [
-      {
-        "Description": "Attackers identify vulnerable Sophos Firewall devices",
-        "Detection": "Monitor network traffic for unusual scanning activity",
-        "Remediation": "Regularly update and patch firewall devices",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerable targets",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable devices",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Creation of exploit code for the RCE vulnerability",
-        "Detection": "Analyze code repositories for exploit development",
-        "Remediation": "Implement secure coding practices",
-        "Stage": "Weaponization",
-        "Tactics": [
-          { "tactic_description": "Developing exploit code", "tactic_id": "TA0042", "tactic_name": "Weaponization" }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating custom exploit scripts",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of the RCE vulnerability in Sophos Firewall",
-        "Detection": "Monitor for unusual access patterns to firewall interfaces",
-        "Remediation": "Apply patches and updates to vulnerable devices",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access through RCE vulnerability",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting the Sophos Firewall vulnerability",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential data theft and system takeover",
-        "Detection": "Monitor for unusual data access and exfiltration",
-        "Remediation": "Implement data loss prevention measures",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          { "tactic_description": "Gathering sensitive data", "tactic_id": "TA0009", "tactic_name": "Collection" }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Accessing sensitive data on compromised systems",
-            "technique_id": "T1005",
-            "technique_name": "Data from Local System"
-          }
-        ],
-        "Techniques": ["T1005"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [
-      "Exploitation of outdated firmware",
-      "Targeting specific geographic regions"
-    ],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of RCE vulnerability in Sophos Firewall",
-      "Exploits": ["CVE associated with Sophos Firewall RCE"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Custom exploit scripts"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data access patterns", "Data transfer to unknown destinations"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unusual access patterns",
-      "Analyze network traffic for scanning activity"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Firewall devices"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Sophos"],
-      "Countries": ["South Asia"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["RCE vulnerability", "end-of-life firmware", "data theft"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Sophos Firewall hotfix"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Various sectors"],
-      "Software": ["Sophos Firewall"],
-      "Technologies": ["VPN", "Sophos Central"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["RCE vulnerability in Sophos Firewall"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Compromised Sophos Firewall devices",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches and updates", "Disable WAN access to User Portal and Webadmin"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote Code Execution", "Exploitation of EOL firmware"],
-      "Tools": ["Custom exploit scripts"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Vulnerability scanners"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2023-12-13T13:21:13Z",
-    "Title": "Critical RCE Vulnerability in Sophos Firewall Exploited by Attackers",
-    "Tools": ["Custom exploit scripts", "Sophos Firewall"],
-    "Victim": {
-      "Access_Vectors": ["Remote code execution"],
-      "Data_Types_At_Risk": ["Sensitive corporate data"],
-      "Description": "Organizations using outdated Sophos Firewall firmware",
-      "Geography": "South Asia",
-      "Impact_Severity": "Critical",
-      "Industry": "Various sectors",
-      "Security_Posture": "Vulnerable due to EOL firmware",
-      "Targeted_Assets": ["Firewall devices", "Network infrastructure"]
-    },
-    "diamond_model_summary": "The incident involves attackers exploiting a critical RCE vulnerability in Sophos Firewall, targeting organizations in South Asia. The adversary's capability includes exploiting outdated firmware, with the infrastructure being compromised firewall devices. Victims are organizations using end-of-life firmware, facing risks of data theft and system takeover.",
-    "doc_summary": "A critical security flaw has been discovered in the Sophos Firewall User Portal and Webadmin, allowing hackers to execute malicious code remotely. This vulnerability, with a critical score of 9.8, enables attackers to inject harmful code, potentially leading to system takeover and data theft. Sophos has updated their firewalls to detect new exploit attempts, but devices running end-of-life firmware remain vulnerable. The flaw has been exploited to target companies in South Asia. Organizations are advised to disable WAN access to the User Portal and Webadmin, use VPN or Sophos Central for remote access, and ensure hotfixes are automatically installed.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:10.733157+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "7f9b365acb18e76b9e2f9f11ef76539f521ee567",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack follows a structured kill chain, starting with reconnaissance to identify vulnerable devices, weaponization through exploit development, and exploitation of the RCE vulnerability. The attackers aim for data theft and system takeover, highlighting the need for robust detection and remediation strategies to protect against such threats.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to RCE exploitation and tools like custom exploit scripts. The lack of specific IPs, domains, or hashes indicates a focus on exploiting known vulnerabilities in outdated firmware, emphasizing the importance of timely updates and patches to mitigate such risks.",
-    "relevance_score": 51,
-    "sequence": 16742,
-    "source": "https://gbhackers.com/sophos-firewall-code-injection-flaw/",
-    "slug": "Critical_RCE_Vulnerability_in_Sophos_Firewall_Exploited_by_Attackers-016742",
     "shard": 9
   }
 ]

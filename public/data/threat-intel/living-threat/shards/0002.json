@@ -1,6 +1,181 @@
 [
   {
     "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "GREYVIBE is a Russian-speaking threat actor targeting Ukraine, aligning with Kremlin interests.",
+      "Known_Campaigns": [],
+      "Motivation": "Intelligence gathering related to the Russo-Ukrainian war.",
+      "Sophistication": "Low-to-moderately sophisticated with operational security blunders.",
+      "Strategic_Objectives": "Gather intelligence on Ukraine.",
+      "TTPs_Employed": ["Spear-phishing", "Fake captcha pages", "Fraudulent websites"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "GREYVIBE uses spear-phishing emails and fake captcha pages for malware delivery.",
+        "Detection": "Monitor email traffic for suspicious attachments. • Analyze web traffic for fake captcha pages.",
+        "Remediation": "Implement email filtering solutions. • Educate users on phishing awareness.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to deliver malicious code to the victim.",
+            "tactic_id": "TA0004",
+            "tactic_name": "Delivery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary sends a spear-phishing email with a malicious attachment.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Custom-developed obfuscators", "Loaders"],
+      "Description": "GREYVIBE uses AI-assisted tools for malware development and delivery.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["LegionRelay"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["WithSecure"],
+      "Countries": ["Ukraine", "Russian Federation"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["GREYVIBE", "spear-phishing", "fake captcha", "malware", "AI", "LegionRelay"],
+      "Malware_Families": ["LegionRelay"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government", "Military", "Civilian", "Business"],
+      "Software": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "GREYVIBE uses diverse infrastructure for malware delivery and command and control.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Spear-phishing", "Fake captcha pages"],
+      "Tools": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["GREYVIBE"],
+    "Timestamp": "2026-05-28T18:30:00Z",
+    "Title": "GREYVIBE Cyber Attacks Targeting Ukraine",
+    "Tools": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"],
+    "Victim": {
+      "Access_Vectors": ["Email", "Web"],
+      "Data_Types_At_Risk": [],
+      "Description": "Targets include military, government, civilian, and business organizations in Ukraine.",
+      "Geography": "Ukraine",
+      "Impact_Severity": "High",
+      "Industry": "Government, Military, Civilian, Business",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "GREYVIBE is a Russian-speaking threat actor targeting Ukraine, aligning with Kremlin interests. The group uses AI-assisted tools for malware development and delivery, employing spear-phishing and fake captcha pages. Victims include military, government, civilian, and business organizations in Ukraine.",
+    "doc_summary": "GREYVIBE is a previously undocumented threat actor attributed to persistent attacks targeting Ukraine and related entities since August 2025. The group is assessed to be Russian-speaking, operating in the Russian time zone, and aligning with Kremlin state interests. GREYVIBE uses multiple attack vectors, including spear-phishing emails, fake captcha pages, and fraudulent websites, to deliver malware. The group employs custom-developed obfuscators, loaders, and malware, with a victimology footprint spanning military, government, civilian, and business organizations. GREYVIBE is linked to the Russian cybercrime ecosystem and uses generative AI and large language models to enhance its operations. The use of AI introduces design flaws, suggesting GREYVIBE may not be a pure nation-state actor. The group's activities complicate attribution efforts, blurring lines between cybercrime and state-affiliated activity.",
+    "enrichment": null,
+    "id": "101108663e25444de8e2bf6ea96c155e9430b329f1cbb45585ed1e0f87e01e8d",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "GREYVIBE's attack chain involves spear-phishing emails and fake captcha pages for malware delivery. The group uses AI-assisted tools to enhance malware development, complicating attribution efforts. The use of AI introduces design flaws, suggesting GREYVIBE may not be a pure nation-state actor.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 65,
+    "pyramid_of_pain_summary": "GREYVIBE employs spear-phishing and fake captcha pages, using AI-assisted tools for malware development. The group's use of AI complicates traditional detection methods, as frequent changes in technical artifacts reduce the reliability of clustering methods. Design flaws in LegionRelay suggest operational security weaknesses.",
+    "relevance_score": 57,
+    "sequence": 20712,
+    "source": "https://thehackernews.com/2026/05/new-russian-linked-greyvibe-targets.html",
+    "slug": "GREYVIBE_Cyber_Attacks_Targeting_Ukraine-020712",
+    "shard": 2
+  },
+  {
+    "Adversary": {
       "Aliases": ["Chaotic Eclipse", "Nightmare-Eclipse"],
       "Associated_Groups": [],
       "Description": "The adversary is a researcher known as Chaotic Eclipse, also known as Nightmare-Eclipse, who disclosed multiple zero-day vulnerabilities affecting Microsoft products.",
@@ -104426,201 +104601,6 @@
     "sequence": 20214,
     "source": "https://www.bleepingcomputer.com/news/security/webinar-from-phishing-to-fallout-why-msps-must-rethink-both-security-and-recovery/",
     "slug": "Analysis_of_AI-Powered_Phishing_and_Ransomware_Threats-020214",
-    "shard": 2
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Threat actors in the underground credit card market are adopting structured approaches to minimize risk and identify reliable suppliers.",
-      "Known_Campaigns": [],
-      "Motivation": "Financial gain through the sale and use of stolen credit card data.",
-      "Sophistication": "Medium to high, with structured vetting protocols and operational security measures.",
-      "Strategic_Objectives": "To maintain operational continuity and minimize exposure to scams and law enforcement.",
-      "TTPs_Employed": ["Structured vetting protocols", "Operational security practices", "Community validation"]
-    },
-    "Analyses": [
-      {
-        "Description": "Threat actors gather information on potential suppliers and marketplaces.",
-        "Detection": "Monitor underground forums for discussions about credit card data.",
-        "Remediation": "Implement threat intelligence monitoring to detect early signs of reconnaissance.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victims to facilitate further operations.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Identity Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Threat actors use structured approaches to evaluate suppliers and maintain operational security.",
-        "Detection": "Monitor for unusual patterns in credit card transactions.",
-        "Remediation": "Enhance fraud detection systems to identify compromised credit card data.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information relevant to the adversary's objectives.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using application layer protocols for communication.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of mirror domains", "DDoS protection", "Avoidance of tracking mechanisms"],
-      "Description": "Threat actors employ structured vetting protocols and operational security practices to navigate the underground credit card market.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Proxy services", "Cryptocurrency wallets"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Credit card data"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "credit card data",
-        "underground market",
-        "vetting protocols",
-        "operational security",
-        "community validation",
-        "cryptocurrency",
-        "structured approaches"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Financial Services"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Carding shops utilize security-first infrastructure with mirror domains and backup access points to ensure operational continuity.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-04-17T10:01:00Z",
-    "Title": "Analysis of Underground Credit Card Market Dynamics",
-    "Tools": ["Proxy services", "Cryptocurrency wallets"],
-    "Victim": {
-      "Access_Vectors": ["Point-of-sale breaches", "Infections"],
-      "Data_Types_At_Risk": ["Financial data"],
-      "Description": "Victims are primarily financial institutions and individuals whose credit card data is stolen and sold in underground markets.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Financial Services",
-      "Security_Posture": "Vulnerable to data breaches and fraud.",
-      "Targeted_Assets": ["Credit card data"]
-    },
-    "diamond_model_summary": "The underground credit card market is characterized by threat actors employing structured vetting protocols and operational security practices to navigate a volatile ecosystem. These actors prioritize supplier evaluation and community validation to minimize risk and maintain operational continuity. The emphasis on survivability and fresh data sources reflects a shift from opportunistic fraud to a process-driven discipline.",
-    "doc_summary": "The underground market for stolen credit card data is a volatile ecosystem where even experienced actors face scams and compromised services. Increased law enforcement pressure and internal distrust have led to more structured approaches in identifying reliable suppliers. A guide from an underground forum reveals how threat actors navigate credit card marketplaces, emphasizing supplier evaluation over card usage. The guide outlines vetting protocols, operational security practices, and sourcing strategies, highlighting the shift from opportunistic fraud to a process-driven discipline. It stresses legitimacy through survivability, not branding, and emphasizes the importance of fresh data sources. Transparency, community validation, and security-first infrastructure are key themes. The guide also categorizes carding shops into automated platforms and boutique vendor groups, reflecting the diversification of the underground economy. Despite potential biases, the guide offers insights into threat actor risk assessment and operational decisions, emphasizing verification, community validation, and layered security.",
-    "enrichment": null,
-    "id": "82491b36c6d5bb0a45c280222e97cd94",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Threat actors in the underground credit card market engage in reconnaissance to gather information on potential suppliers and marketplaces. They employ structured approaches to evaluate suppliers and maintain operational security, emphasizing community validation and layered security. The focus on verification and risk assessment complicates traditional disruption efforts, as actors build redundancy and adaptability into their workflows.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 78,
-    "pyramid_of_pain_summary": "The pyramid of pain for this incident is characterized by the absence of specific indicators such as hashes, IPs, and domains. Instead, the focus is on structured vetting protocols, operational security practices, and community validation. These elements reflect a shift towards more disciplined and resilient threat actor behaviors, complicating traditional detection and disruption efforts.",
-    "relevance_score": 47,
-    "sequence": 20213,
-    "source": "https://www.bleepingcomputer.com/news/security/inside-an-underground-guide-how-threat-actors-vet-stolen-credit-card-shops/",
-    "slug": "Analysis_of_Underground_Credit_Card_Market_Dynamics-020213",
     "shard": 2
   }
 ]

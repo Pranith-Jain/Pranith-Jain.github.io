@@ -4,57 +4,131 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-21T12:28:19.000Z",
-  "lastSeen": "2026-08-22T14:13:59.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "mentionCount": 15,
+  "firstSeen": "2026-08-23T06:34:31.000Z",
+  "lastSeen": "2026-08-23T21:27:57.000Z",
+  "summary": "Sector hit by 15 leak-site victims across 7 ransomware groups and 6 countries.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 1
-    },
-    {
-      "date": "2026-08-22",
-      "count": 2
+      "date": "2026-08-23",
+      "count": 15
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "novocure-limited-c4c2",
-      "title": "NovoCure Limited — claimed by shinyhunters",
-      "pubDate": "2026-08-22T14:13:59.000Z"
+      "slug": "hospitality-health-er-longview-ccc8",
+      "title": "Hospitality Health ER (Longview) — claimed by genesis",
+      "pubDate": "2026-08-23T21:27:57.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "integrated-health-systems-9877",
-      "title": "Integrated Health Systems — claimed by coinbasecartel",
-      "pubDate": "2026-08-22T14:01:24.000Z"
+      "slug": "pappyjoe-healthcare-management-system-1bce",
+      "title": "PappyJoe: Healthcare Management System — claimed by kazu",
+      "pubDate": "2026-08-23T08:10:25.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "fairview-dental-group-daec",
-      "title": "Fairview Dental Group — claimed by rhysida",
-      "pubDate": "2026-08-21T12:28:19.000Z"
+      "slug": "instituto-ferrero-de-neurolog-a-y-sue-o-66c9",
+      "title": "Instituto Ferrero de Neurología y Sueño — claimed by kazu",
+      "pubDate": "2026-08-23T08:10:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "brazil-mobilemed-cloud-pacs-platform-1546",
+      "title": "Brazil Mobilemed: Cloud PACS Platform — claimed by kazu",
+      "pubDate": "2026-08-23T08:09:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pawlyclinic-digital-veterinary-care-platform-a24a",
+      "title": "PawlyClinic: Digital Veterinary Care Platform — claimed by kazu",
+      "pubDate": "2026-08-23T08:08:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dr-akbar-niazi-teaching-hospital-f8cd",
+      "title": "Dr Akbar Niazi Teaching Hospital — claimed by kazu",
+      "pubDate": "2026-08-23T08:08:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "centro-m-dico-especializado-osi-healthcare-solutions-ce45",
+      "title": "Centro Médico Especializado OSI: Healthcare Solutions — claimed by kazu",
+      "pubDate": "2026-08-23T08:08:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "meducar-telemedicine-and-patient-management-system-bee6",
+      "title": "Meducar: Telemedicine and Patient Management System — claimed by kazu",
+      "pubDate": "2026-08-23T08:07:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "consultoriomovil-telemedicine-and-healthcare-system-7783",
+      "title": "ConsultorioMovil: Telemedicine and Healthcare System — claimed by kazu",
+      "pubDate": "2026-08-23T08:07:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mpa-pharma-gmbh-ed35",
+      "title": "MPA Pharma GmbH — claimed by metaencryptor",
+      "pubDate": "2026-08-23T07:36:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "skyline-implants-amp-periodontics-9114",
+      "title": "Skyline Implants &amp; Periodontics — claimed by Barracuda",
+      "pubDate": "2026-08-23T07:07:51.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "clinical-associates-of-the-finger-lakes-cafl-31ac",
+      "title": "Clinical Associates of the Finger Lakes (CAFL) — claimed by Barracuda",
+      "pubDate": "2026-08-23T07:06:43.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "shinyhunters",
-      "name": "shinyhunters",
+      "slug": "kazu",
+      "name": "kazu",
+      "weight": 8
+    },
+    {
+      "type": "group",
+      "slug": "barracuda",
+      "name": "Barracuda",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "genesis",
+      "name": "genesis",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "coinbasecartel",
-      "name": "coinbasecartel",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "rhysida",
-      "name": "rhysida",
+      "slug": "storm",
+      "name": "Storm",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "eclipse",
+      "name": "Eclipse",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

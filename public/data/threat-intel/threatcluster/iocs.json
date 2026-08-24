@@ -1,10 +1,10 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-23T05:54:32Z",
-  "syncedAt": "2026-08-23T05:54:32.993Z",
+  "generatedAt": "2026-08-24T06:02:50Z",
+  "syncedAt": "2026-08-24T06:02:50.176Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 36,
+  "count": 23,
   "iocs": [
     {
       "type": "domain",
@@ -35,59 +35,6 @@
           "source": "cloud.google.com",
           "url": "https://cloud.google.com/blog/topics/threat-intelligence/distinct-clusters-target-individuals-of-interest-to-russia",
           "pub_date": "2026-08-21T00:32:07.289805+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv6",
-      "value": "2605:6400::",
-      "confidence": "high",
-      "reason": "Listed as an IP used for spraying attacks.",
-      "first_seen": "2026-08-19T14:18:19.959764+00:00",
-      "last_seen": "2026-08-19T14:18:19.959764+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.huntress.com",
-          "url": "https://www.huntress.com/blog/twist-the-nozzle-on-password-spraying-a-tradecraft-tuesday-recap?hnt=ns5oa1n4i3gx",
-          "pub_date": "2026-08-19T14:18:19.959764+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv6",
-      "value": "2605:6404::",
-      "confidence": "high",
-      "reason": "Listed as an IP used for spraying attacks.",
-      "first_seen": "2026-08-19T14:18:19.959764+00:00",
-      "last_seen": "2026-08-19T14:18:19.959764+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.huntress.com",
-          "url": "https://www.huntress.com/blog/twist-the-nozzle-on-password-spraying-a-tradecraft-tuesday-recap?hnt=ns5oa1n4i3gx",
-          "pub_date": "2026-08-19T14:18:19.959764+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv6",
-      "value": "2a0a:d683::",
-      "confidence": "high",
-      "reason": "Listed as an IP range used in attacks.",
-      "first_seen": "2026-08-19T14:00:10+00:00",
-      "last_seen": "2026-08-19T14:18:19.959764+00:00",
-      "source_count": 2,
-      "sources": [
-        {
-          "source": "www.huntress.com",
-          "url": "https://www.huntress.com/blog/twist-the-nozzle-on-password-spraying-a-tradecraft-tuesday-recap?hnt=ns5oa1n4i3gx",
-          "pub_date": "2026-08-19T14:18:19.959764+00:00"
-        },
-        {
-          "source": "Bleepingcomputer",
-          "url": "https://www.bleepingcomputer.com/news/security/password-spraying-attacks-surge-155x-as-hackers-exploit-mfa-gaps/",
-          "pub_date": "2026-08-19T14:00:10+00:00"
         }
       ]
     },
@@ -215,38 +162,6 @@
     },
     {
       "type": "domain",
-      "value": "sinbad.io",
-      "confidence": "high",
-      "reason": "Identified as a mixer used by DPRK.",
-      "first_seen": "2026-08-09T14:20:27.583290+00:00",
-      "last_seen": "2026-08-09T14:20:27.583290+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.elliptic.co",
-          "url": "https://www.elliptic.co/insights/bybit-exploit-six-months-on/",
-          "pub_date": "2026-08-09T14:20:27.58329+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "yomix.io",
-      "confidence": "high",
-      "reason": "Identified as a mixer used by DPRK.",
-      "first_seen": "2026-08-09T14:20:27.583290+00:00",
-      "last_seen": "2026-08-09T14:20:27.583290+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.elliptic.co",
-          "url": "https://www.elliptic.co/insights/bybit-exploit-six-months-on/",
-          "pub_date": "2026-08-09T14:20:27.58329+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
       "value": "login.microsoft-secure-portal.com",
       "confidence": "high",
       "reason": "Clearly identified as an attacker-controlled domain.",
@@ -274,38 +189,6 @@
           "source": "www.trendmicro.com",
           "url": "https://www.trendmicro.com/en_us/research/26/e/inside-the-influence-and-fraud-patriot-bait-campaign.html?ct=1783532687994",
           "pub_date": "2026-08-06T11:21:24.300532+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "pool.supportxmr.com",
-      "confidence": "high",
-      "reason": "Identified as a mining pool used by attackers.",
-      "first_seen": "2026-08-06T11:17:42.483045+00:00",
-      "last_seen": "2026-08-06T11:17:42.483045+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.oligo.security",
-          "url": "https://www.oligo.security/blog/shadowray-2-0-attackers-turn-ai-against-itself-in-global-campaign-that-hijacks-ai-into-self-propagating-botnet",
-          "pub_date": "2026-08-06T11:17:42.483045+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "supportxmr.com",
-      "confidence": "high",
-      "reason": "Connected to mining operations by attackers.",
-      "first_seen": "2026-08-06T11:17:42.483045+00:00",
-      "last_seen": "2026-08-06T11:17:42.483045+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.oligo.security",
-          "url": "https://www.oligo.security/blog/shadowray-2-0-attackers-turn-ai-against-itself-in-global-campaign-that-hijacks-ai-into-self-propagating-botnet",
-          "pub_date": "2026-08-06T11:17:42.483045+00:00"
         }
       ]
     },
@@ -498,102 +381,6 @@
           "source": "Zscaler",
           "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
           "pub_date": "2026-07-28T05:26:30+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "claude.ai.download-app.us",
-      "confidence": "high",
-      "reason": "Redirects users to malicious content.",
-      "first_seen": "2026-07-25T01:04:41.598641+00:00",
-      "last_seen": "2026-07-25T01:04:41.598641+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.huntress.com",
-          "url": "https://www.huntress.com/blog/fakeagent-claude-desktop-malvertising-ends-in-dotnet-rat",
-          "pub_date": "2026-07-25T01:04:41.598641+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "goog1e.com",
-      "confidence": "high",
-      "reason": "Identified as a typosquatted domain mimicking Google.",
-      "first_seen": "2026-07-24T17:38:33.825555+00:00",
-      "last_seen": "2026-07-24T17:38:33.825555+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "hunt.io",
-          "url": "https://hunt.io/blog/operation-roundish-apt28-roundcube-exploitation",
-          "pub_date": "2026-07-24T17:38:33.825555+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "zhblz.com",
-      "confidence": "high",
-      "reason": "Identified as a domain used in an attack.",
-      "first_seen": "2026-07-24T17:38:33.825555+00:00",
-      "last_seen": "2026-07-24T17:38:33.825555+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "hunt.io",
-          "url": "https://hunt.io/blog/operation-roundish-apt28-roundcube-exploitation",
-          "pub_date": "2026-07-24T17:38:33.825555+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "203.161.50.145",
-      "confidence": "high",
-      "reason": "Identified as an IP address associated with malicious activity.",
-      "first_seen": "2026-07-24T17:38:33.825555+00:00",
-      "last_seen": "2026-07-24T17:38:33.825555+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "hunt.io",
-          "url": "https://hunt.io/blog/operation-roundish-apt28-roundcube-exploitation",
-          "pub_date": "2026-07-24T17:38:33.825555+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "claude-pro.com",
-      "confidence": "high",
-      "reason": "Phishing site impersonating Claude AI, likely attacker-controlled.",
-      "first_seen": "2026-07-24T11:24:08.687591+00:00",
-      "last_seen": "2026-07-24T11:24:08.687591+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.group-ib.com",
-          "url": "https://www.group-ib.com/blog/jadeprox-china-nexus-triback-loader/",
-          "pub_date": "2026-07-24T11:24:08.687591+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "185.225.17.225",
-      "confidence": "high",
-      "reason": "listed as potential attacker IP",
-      "first_seen": "2026-07-24T09:07:26+00:00",
-      "last_seen": "2026-07-24T09:07:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Trendmicro",
-          "url": "https://www.trendmicro.com/en_us/research/26/g/plc-exploitation.html",
-          "pub_date": "2026-07-24T09:07:26+00:00"
         }
       ]
     }

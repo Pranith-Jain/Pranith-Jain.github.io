@@ -4,148 +4,155 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-21T09:55:36.000Z",
-  "lastSeen": "2026-08-21T14:56:15.000Z",
-  "summary": "Ransomware group with 7 leak-site victims across 6 sectors and 3 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-08-23T12:27:36.000Z",
+  "lastSeen": "2026-08-23T18:58:22.000Z",
+  "summary": "Ransomware group with 8 leak-site victims across 5 sectors and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 7
+      "date": "2026-08-23",
+      "count": 8
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "quaker-state-mexico-5b97",
-      "title": "Quaker State Mexico — claimed by qilin",
-      "pubDate": "2026-08-21T14:56:15.000Z"
+      "slug": "s-e-m-p-s-r-l-f642",
+      "title": "S.E.M.P. s.r.l. — claimed by qilin",
+      "pubDate": "2026-08-23T18:58:22.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "ipic-5fcf",
-      "title": "iPic — claimed by qilin",
-      "pubDate": "2026-08-21T14:55:37.000Z"
+      "slug": "euroflora-srl-d3a7",
+      "title": "Euroflora srl — claimed by qilin",
+      "pubDate": "2026-08-23T16:01:21.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "cin-polis-400c",
-      "title": "Cinépolis — claimed by qilin",
-      "pubDate": "2026-08-21T12:56:53.000Z"
+      "slug": "tecnici-associati-stp-a904",
+      "title": "Tecnici Associati STP — claimed by qilin",
+      "pubDate": "2026-08-23T16:00:43.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "gindre-india-9ba2",
-      "title": "Gindre India — claimed by qilin",
-      "pubDate": "2026-08-21T11:57:12.000Z"
+      "slug": "studio-boldrin-paolo-c790",
+      "title": "Studio BOLDRIN PAOLO — claimed by qilin",
+      "pubDate": "2026-08-23T15:27:29.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "the-pendas-law-firm-9f24",
-      "title": "The Pendas Law Firm — claimed by qilin",
-      "pubDate": "2026-08-21T09:56:54.000Z"
+      "slug": "aurore-development-s-p-a-4e96",
+      "title": "Aurore Development S.p.A. — claimed by qilin",
+      "pubDate": "2026-08-23T14:58:25.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "blake-services-d3ff",
-      "title": "Blake Services — claimed by qilin",
-      "pubDate": "2026-08-21T09:56:18.000Z"
+      "slug": "clear-align-c7b6",
+      "title": "Clear Align — claimed by qilin",
+      "pubDate": "2026-08-23T12:28:50.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "professional-e96b",
-      "title": "Professional — claimed by qilin",
-      "pubDate": "2026-08-21T09:55:36.000Z"
+      "slug": "difor-5953",
+      "title": "Difor — claimed by qilin",
+      "pubDate": "2026-08-23T12:28:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "black-cat-engineering-amp-construction-wll-7fe3",
+      "title": "Black Cat Engineering &amp; Construction WLL — claimed by qilin",
+      "pubDate": "2026-08-23T12:27:36.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
-      "weight": 1
-    },
-    {
-      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 1
+      "weight": 2
     },
     {
       "type": "sector",
       "slug": "other",
       "name": "Other",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "quaker-state-mexico-5b97",
-      "victim": "Quaker State Mexico — claimed by qilin",
-      "sector": "Energy & Utilities",
-      "country": "MX",
-      "pubDate": "2026-08-21T14:56:15.000Z"
-    },
-    {
-      "id": "ipic-5fcf",
-      "victim": "iPic — claimed by qilin",
-      "sector": "Hospitality",
-      "country": "US",
-      "pubDate": "2026-08-21T14:55:37.000Z"
-    },
-    {
-      "id": "cin-polis-400c",
-      "victim": "Cinépolis — claimed by qilin",
-      "sector": "Hospitality",
-      "country": "MX",
-      "pubDate": "2026-08-21T12:56:53.000Z"
-    },
-    {
-      "id": "gindre-india-9ba2",
-      "victim": "Gindre India — claimed by qilin",
+      "id": "s-e-m-p-s-r-l-f642",
+      "victim": "S.E.M.P. s.r.l. — claimed by qilin",
       "sector": "Manufacturing",
-      "country": "IN",
-      "pubDate": "2026-08-21T11:57:12.000Z"
+      "country": "IT",
+      "pubDate": "2026-08-23T18:58:22.000Z"
     },
     {
-      "id": "the-pendas-law-firm-9f24",
-      "victim": "The Pendas Law Firm — claimed by qilin",
+      "id": "euroflora-srl-d3a7",
+      "victim": "Euroflora srl — claimed by qilin",
+      "sector": "Agriculture and Food Production",
+      "country": "IT",
+      "pubDate": "2026-08-23T16:01:21.000Z"
+    },
+    {
+      "id": "tecnici-associati-stp-a904",
+      "victim": "Tecnici Associati STP — claimed by qilin",
+      "sector": "Other",
+      "country": "IT",
+      "pubDate": "2026-08-23T16:00:43.000Z"
+    },
+    {
+      "id": "studio-boldrin-paolo-c790",
+      "victim": "Studio BOLDRIN PAOLO — claimed by qilin",
+      "sector": "Professional Services",
+      "country": "IT",
+      "pubDate": "2026-08-23T15:27:29.000Z"
+    },
+    {
+      "id": "aurore-development-s-p-a-4e96",
+      "victim": "Aurore Development S.p.A. — claimed by qilin",
+      "sector": "Other",
+      "country": "IT",
+      "pubDate": "2026-08-23T14:58:25.000Z"
+    },
+    {
+      "id": "clear-align-c7b6",
+      "victim": "Clear Align — claimed by qilin",
       "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-08-21T09:56:54.000Z"
+      "pubDate": "2026-08-23T12:28:50.000Z"
     },
     {
-      "id": "blake-services-d3ff",
-      "victim": "Blake Services — claimed by qilin",
-      "sector": "Other",
-      "country": "US",
-      "pubDate": "2026-08-21T09:56:18.000Z"
+      "id": "difor-5953",
+      "victim": "Difor — claimed by qilin",
+      "sector": "Technology",
+      "country": "CL",
+      "pubDate": "2026-08-23T12:28:13.000Z"
     },
     {
-      "id": "professional-e96b",
-      "victim": "Professional — claimed by qilin",
-      "sector": "Not Found",
-      "country": "US",
-      "pubDate": "2026-08-21T09:55:36.000Z"
+      "id": "black-cat-engineering-amp-construction-wll-7fe3",
+      "victim": "Black Cat Engineering &amp; Construction WLL — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "QA",
+      "pubDate": "2026-08-23T12:27:36.000Z"
     }
   ]
 }

@@ -1,6 +1,246 @@
 [
   {
     "Adversary": {
+      "Aliases": ["Kali365", "Octopi365", "Freedom365"],
+      "Associated_Groups": [],
+      "Description": "Forg365 is a phishing-as-a-service operation targeting Microsoft 365 accounts.",
+      "Known_Campaigns": ["Business document-themed lures", "Remittance approval lures"],
+      "Motivation": "Financial gain through credential theft and account compromise.",
+      "Sophistication": "Medium",
+      "Strategic_Objectives": "Credential theft and unauthorized access to Microsoft 365 accounts.",
+      "TTPs_Employed": ["Device code phishing", "Adversary-in-the-middle tactics", "AI-assisted lure creation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "AI-assisted lure creation and phishing kit preparation.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may send spearphishing emails with a malicious attachment to gain access to victim systems.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Phishing emails delivered using Amazon SES and Twilio SendGrid.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may send spearphishing emails with a malicious link to gain access to victim systems.",
+            "technique_id": "T1566.002",
+            "technique_name": "Spearphishing Link"
+          }
+        ],
+        "Techniques": ["T1566.002"]
+      },
+      {
+        "Description": "Device code phishing and adversary-in-the-middle tactics employed.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "ForgCookie extension installed for persistence.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may use browser extensions to establish persistence.",
+            "technique_id": "T1176",
+            "technique_name": "Browser Extensions"
+          }
+        ],
+        "Techniques": ["T1176"]
+      },
+      {
+        "Description": "Session cookies and tokens managed for continued access.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "Monitoring for keywords and drafting responses using AI.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may target user email to collect sensitive information.",
+            "technique_id": "T1114.001",
+            "technique_name": "Email Collection"
+          }
+        ],
+        "Techniques": ["T1114.001"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Antibot evasion", "Traffic classification"],
+      "Description": "Forg365 provides tools and infrastructure for phishing campaigns targeting Microsoft 365.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": ["Browser extension for cookie refresh"],
+      "Tools": ["ForgCookie", "AI email generation"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Microsoft 365 accounts"],
+      "Breach_Types": ["Credential theft"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Amazon", "Twilio"],
+      "Countries": [],
+      "Domains": ["logfriend.com"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": [
+        "phishing-as-a-service",
+        "device code phishing",
+        "adversary-in-the-middle",
+        "AI-assisted lure creation"
+      ],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": ["Amazon SES", "Twilio SendGrid"],
+      "Sectors": ["Technology"],
+      "Software": ["Microsoft 365"],
+      "Technologies": ["Amazon SES", "Twilio SendGrid"],
+      "Threat_Infrastructure": ["Forg365 platform", "ForgCookie extension"],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["SMTP"],
+      "Description": "Forg365 uses legitimate email delivery services and a web-based operator panel.",
+      "Domains": ["logfriend.com"],
+      "Hosting_Providers": ["Amazon SES", "Twilio SendGrid"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["logfriend.com"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Device code phishing", "Adversary-in-the-middle tactics"],
+      "Tools": ["ForgCookie", "AI email generation"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Forg365", "Kali365", "Octopi365", "Freedom365"],
+    "Timestamp": "2026-07-12T18:30:00Z",
+    "Title": "Forg365 Phishing-as-a-Service Targeting Microsoft 365 Accounts",
+    "Tools": ["ForgCookie", "AI email generation", "Microsoft 365"],
+    "Victim": {
+      "Access_Vectors": ["Email phishing"],
+      "Data_Types_At_Risk": ["Credentials", "Email content"],
+      "Description": "Targets include Microsoft 365 account holders, particularly in organizations with active forwarding relationships.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to legacy aliases and forwarding relationships.",
+      "Targeted_Assets": ["Microsoft 365 accounts"]
+    },
+    "diamond_model_summary": "Forg365 is a phishing-as-a-service operation targeting Microsoft 365 accounts. It employs device code phishing, adversary-in-the-middle tactics, and AI-assisted lure creation. The infrastructure includes Amazon SES and Twilio SendGrid for email delivery, and a browser extension for persistence. The operation lowers the skill threshold for affiliates, allowing even those with minimal technical expertise to conduct phishing campaigns.",
+    "doc_summary": "Forg365 is a phishing-as-a-service operation targeting Microsoft 365 accounts using device code phishing, adversary-in-the-middle tactics, and AI-assisted lure creation. Distributed via Telegram, it costs $400 a month and uses Amazon SES and Twilio SendGrid for email delivery. The platform includes a panel for managing campaigns and a browser extension called ForgCookie for continued access to compromised accounts. ZeroBAC highlights the industrialization of phishing with prebuilt templates and customizable options. Recommendations include blocking device code authentication and reviewing mailbox artifacts for unusual activity.",
+    "enrichment": null,
+    "id": "cc098c939906a0d23539c36e2e9c95f557103dfbaa9ffe2fbe424cf42701f9fb",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The Forg365 operation follows a structured kill chain, starting with AI-assisted lure creation and delivery via Amazon SES and Twilio SendGrid. Device code phishing and adversary-in-the-middle tactics are used for exploitation. The ForgCookie extension ensures persistence, while session cookies and tokens are managed for command and control. Actions on objectives include monitoring compromised accounts and drafting responses using AI.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 83,
+    "pyramid_of_pain_summary": "The Forg365 operation presents challenges across the Pyramid of Pain. Domain names like logfriend.com are used for phishing infrastructure. Tools such as the ForgCookie extension and AI email generation are employed. TTPs include device code phishing and adversary-in-the-middle tactics. The operation's use of legitimate email services complicates detection and response efforts.",
+    "relevance_score": 82,
+    "sequence": 21209,
+    "source": "https://thehackernews.com/2026/07/forg365-phaas-targets-microsoft-365.html",
+    "slug": "Forg365_Phishing-as-a-Service_Targeting_Microsoft_365_Accounts-021209",
+    "shard": 1
+  },
+  {
+    "Adversary": {
       "Aliases": ["Turla", "GRU", "FSB"],
       "Associated_Groups": ["GRU", "FSB"],
       "Description": "Russian state-backed and affiliated cyber threat actors targeting European critical infrastructure.",
@@ -104291,181 +104531,6 @@
     "sequence": 20713,
     "source": "https://thehackernews.com/2026/05/pan-os-globalprotect-authentication.html",
     "slug": "Active_Exploitation_of_CVE-2026-0257_in_PAN-OS_and_Prisma_Access-020713",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "GREYVIBE is a Russian-speaking threat actor targeting Ukraine, aligning with Kremlin interests.",
-      "Known_Campaigns": [],
-      "Motivation": "Intelligence gathering related to the Russo-Ukrainian war.",
-      "Sophistication": "Low-to-moderately sophisticated with operational security blunders.",
-      "Strategic_Objectives": "Gather intelligence on Ukraine.",
-      "TTPs_Employed": ["Spear-phishing", "Fake captcha pages", "Fraudulent websites"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "GREYVIBE uses spear-phishing emails and fake captcha pages for malware delivery.",
-        "Detection": "Monitor email traffic for suspicious attachments. • Analyze web traffic for fake captcha pages.",
-        "Remediation": "Implement email filtering solutions. • Educate users on phishing awareness.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to deliver malicious code to the victim.",
-            "tactic_id": "TA0004",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary sends a spear-phishing email with a malicious attachment.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Custom-developed obfuscators", "Loaders"],
-      "Description": "GREYVIBE uses AI-assisted tools for malware development and delivery.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["LegionRelay"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["WithSecure"],
-      "Countries": ["Ukraine", "Russian Federation"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["GREYVIBE", "spear-phishing", "fake captcha", "malware", "AI", "LegionRelay"],
-      "Malware_Families": ["LegionRelay"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Government", "Military", "Civilian", "Business"],
-      "Software": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "GREYVIBE uses diverse infrastructure for malware delivery and command and control.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Spear-phishing", "Fake captcha pages"],
-      "Tools": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["GREYVIBE"],
-    "Timestamp": "2026-05-28T18:30:00Z",
-    "Title": "GREYVIBE Cyber Attacks Targeting Ukraine",
-    "Tools": ["Ideogram AI", "OpenAI ChatGPT", "Google Gemini"],
-    "Victim": {
-      "Access_Vectors": ["Email", "Web"],
-      "Data_Types_At_Risk": [],
-      "Description": "Targets include military, government, civilian, and business organizations in Ukraine.",
-      "Geography": "Ukraine",
-      "Impact_Severity": "High",
-      "Industry": "Government, Military, Civilian, Business",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "GREYVIBE is a Russian-speaking threat actor targeting Ukraine, aligning with Kremlin interests. The group uses AI-assisted tools for malware development and delivery, employing spear-phishing and fake captcha pages. Victims include military, government, civilian, and business organizations in Ukraine.",
-    "doc_summary": "GREYVIBE is a previously undocumented threat actor attributed to persistent attacks targeting Ukraine and related entities since August 2025. The group is assessed to be Russian-speaking, operating in the Russian time zone, and aligning with Kremlin state interests. GREYVIBE uses multiple attack vectors, including spear-phishing emails, fake captcha pages, and fraudulent websites, to deliver malware. The group employs custom-developed obfuscators, loaders, and malware, with a victimology footprint spanning military, government, civilian, and business organizations. GREYVIBE is linked to the Russian cybercrime ecosystem and uses generative AI and large language models to enhance its operations. The use of AI introduces design flaws, suggesting GREYVIBE may not be a pure nation-state actor. The group's activities complicate attribution efforts, blurring lines between cybercrime and state-affiliated activity.",
-    "enrichment": null,
-    "id": "101108663e25444de8e2bf6ea96c155e9430b329f1cbb45585ed1e0f87e01e8d",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "GREYVIBE's attack chain involves spear-phishing emails and fake captcha pages for malware delivery. The group uses AI-assisted tools to enhance malware development, complicating attribution efforts. The use of AI introduces design flaws, suggesting GREYVIBE may not be a pure nation-state actor.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "GREYVIBE employs spear-phishing and fake captcha pages, using AI-assisted tools for malware development. The group's use of AI complicates traditional detection methods, as frequent changes in technical artifacts reduce the reliability of clustering methods. Design flaws in LegionRelay suggest operational security weaknesses.",
-    "relevance_score": 57,
-    "sequence": 20712,
-    "source": "https://thehackernews.com/2026/05/new-russian-linked-greyvibe-targets.html",
-    "slug": "GREYVIBE_Cyber_Attacks_Targeting_Ukraine-020712",
     "shard": 1
   }
 ]
