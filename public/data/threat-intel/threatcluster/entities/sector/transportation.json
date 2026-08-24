@@ -4,41 +4,57 @@
   "name": "Transportation",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-22T05:19:52.000Z",
-  "lastSeen": "2026-08-22T13:59:20.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-08-23T07:38:18.000Z",
+  "lastSeen": "2026-08-24T04:51:59.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-22",
+      "date": "2026-08-23",
       "count": 2
+    },
+    {
+      "date": "2026-08-24",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "flecha-bus-4b8a",
-      "title": "Flecha Bus — claimed by coinbasecartel",
-      "pubDate": "2026-08-22T13:59:20.000Z"
+      "slug": "sharp-motor-group-6802",
+      "title": "Sharp Motor Group — claimed by Storm",
+      "pubDate": "2026-08-24T04:51:59.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "meridian-logistics-group-c7de",
-      "title": "Meridian Logistics Group — claimed by thegentlemen",
-      "pubDate": "2026-08-22T05:19:52.000Z"
+      "slug": "global-go-c6d8",
+      "title": "Global Go — claimed by killsec",
+      "pubDate": "2026-08-23T16:20:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "trailer-transit-inc-89b2",
+      "title": "Trailer Transit Inc — claimed by metaencryptor",
+      "pubDate": "2026-08-23T07:38:18.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "coinbasecartel",
-      "name": "coinbasecartel",
+      "slug": "storm",
+      "name": "Storm",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "killsec",
+      "name": "killsec",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
       "weight": 1
     }
   ],

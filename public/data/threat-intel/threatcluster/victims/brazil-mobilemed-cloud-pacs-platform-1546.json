@@ -1,0 +1,14 @@
+{
+  "id": "brazil-mobilemed-cloud-pacs-platform-1546",
+  "victim": "Brazil Mobilemed: Cloud PACS Platform",
+  "group": "kazu",
+  "sector": "Healthcare",
+  "country": "BR",
+  "title": "Brazil Mobilemed: Cloud PACS Platform — claimed by kazu",
+  "link": "https://threatcluster.io/dark-web/victim/Brazil%20Mobilemed%3A%20Cloud%20PACS%20Platform",
+  "guid": "darkweb-victim:kazu:brazil mobilemed: cloud pacs platform",
+  "pubDate": "2026-08-23T08:09:40.000Z",
+  "categories": ["Group: kazu", "Sector: Healthcare", "Country: BR"],
+  "description": "BR · Healthcare · Mobilemed is a Brazil-based health technology company that provides a cloud-based PACS (Picture Archiving and Communication System) for radiologists, hospitals, and diagnostic imaging centers. Its platform enables healthcare professionals to securely store, access, manage, and share medical images and diagnostic reports from anywhere, supporting teleradiology and improving workflow efficiency.",
+  "sizeBytes": 414
+}

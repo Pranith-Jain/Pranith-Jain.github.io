@@ -2,8 +2,8 @@
   "source": "threaticon.com",
   "url": "https://threaticon.com/",
   "description": "Threaticon is a STIX 2.1 / TAXII 2.1 threat-intel platform (solo-run by Jefferson Shillingford) aggregating threat actors, malware families, campaigns, CVEs and ATT&CK detection coverage. Public preview content mirrored for read-only reference — structured facts only, AI-generated prose excluded.",
-  "syncedAt": "2026-08-21T06:01:35.621Z",
-  "builtAt": "2026-08-21T07:20:34.181Z",
+  "syncedAt": "2026-08-24T06:03:30.309Z",
+  "builtAt": "2026-08-24T07:32:57.810Z",
   "counts": {
     "actors": 1502,
     "actorsWithProfiles": 1502,

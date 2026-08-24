@@ -3,6 +3,243 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary behind ToxicPanda 2.0 is sophisticated, leveraging advanced techniques to target financial applications.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise financial applications to steal credentials and financial data.",
+      "TTPs_Employed": ["VPN service abuse", "ADB shell access", "Phishing overlays", "PIN harvesting"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "ToxicPanda 2.0 is distributed through Amazon AWS-hosted buckets.",
+        "Detection": "Monitor AWS bucket access logs for unusual activity.",
+        "Remediation": "Implement strict access controls on AWS buckets.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is delivering the malware to the target environment.",
+            "tactic_id": "TA0007",
+            "tactic_name": "Delivery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary exploits a vulnerability in a public-facing application to deliver the malware.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "ToxicPanda 2.0 installs itself by requesting VPN and Accessibility Service permissions.",
+        "Detection": "Monitor for unusual requests for Accessibility Service permissions.",
+        "Remediation": "Restrict VPN and Accessibility Service permissions to trusted applications.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary abuses accessibility features to maintain persistence.",
+            "technique_id": "T1546.004",
+            "technique_name": "Event Triggered Execution: Accessibility Features"
+          }
+        ],
+        "Techniques": ["T1546.004"]
+      },
+      {
+        "Description": "ToxicPanda 2.0 uses VPN to control network traffic and ADB for shell access.",
+        "Detection": "Monitor network traffic for unusual VPN connections.",
+        "Remediation": "Implement network segmentation to limit VPN access.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary uses web protocols to communicate with the compromised system.",
+            "technique_id": "T1071.001",
+            "technique_name": "Application Layer Protocol: Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "ToxicPanda 2.0 captures credentials and financial data through phishing overlays and PIN harvesting.",
+        "Detection": "Monitor for unusual app overlay activities.",
+        "Remediation": "Educate users on recognizing phishing overlays.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary captures user input to steal credentials.",
+            "technique_id": "T1056.002",
+            "technique_name": "Input Capture: GUI Input Capture"
+          }
+        ],
+        "Techniques": ["T1056.002"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Bypassing Android runtime consent", "Blocking Google Play communications"],
+      "Description": "ToxicPanda 2.0 has enhanced capabilities, including network traffic control, ADB automation, and credential theft.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["ToxicPanda 2.0"],
+      "Persistence_Mechanisms": ["OEM-specific auto-start settings"],
+      "Tools": ["Android Debug Bridge (ADB)"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Banking apps", "Cryptocurrency apps", "E-wallet apps"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Zimperium"],
+      "Countries": [
+        "China",
+        "India",
+        "United States",
+        "United Kingdom",
+        "Germany",
+        "France",
+        "Italy",
+        "Spain",
+        "Brazil",
+        "Mexico",
+        "Russia",
+        "Japan",
+        "South Korea",
+        "Australia",
+        "Canada",
+        "Netherlands"
+      ],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": [
+        "ToxicPanda",
+        "malware",
+        "VPN",
+        "ADB",
+        "phishing",
+        "PIN harvesting",
+        "Google Play",
+        "Accessibility Service"
+      ],
+      "Malware_Families": ["ToxicPanda"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Financial"],
+      "Software": ["Android"],
+      "Technologies": ["VPN", "Wireless ADB"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["VPN", "Wireless ADB"],
+      "Description": "ToxicPanda 2.0 uses Amazon AWS-hosted buckets for distribution.",
+      "Domains": [],
+      "Hosting_Providers": ["Amazon AWS"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["VPN service permissions", "ADB shell access"],
+      "TTPs": ["Phishing overlays", "PIN harvesting"],
+      "Tools": ["Android Debug Bridge (ADB)"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-08-23T10:23:00Z",
+    "Title": "ToxicPanda 2.0 Android Malware Expands Functionality and Targeting",
+    "Tools": ["Android Debug Bridge (ADB)", "Android"],
+    "Victim": {
+      "Access_Vectors": ["Mobile applications"],
+      "Data_Types_At_Risk": ["Credentials", "PINs", "Financial data"],
+      "Description": "Targets include users of banking, financial, cryptocurrency, and e-wallet applications in 16 countries.",
+      "Geography": "16 countries",
+      "Impact_Severity": "High",
+      "Industry": "Financial",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Banking apps", "Cryptocurrency apps", "E-wallet apps"]
+    },
+    "diamond_model_summary": "ToxicPanda 2.0 represents a sophisticated adversary targeting financial applications across multiple countries. The malware's capabilities include network traffic control, ADB automation, and credential theft. It uses Amazon AWS for distribution and targets users in the financial sector, posing a high impact severity.",
+    "doc_summary": "ToxicPanda 2.0 is an evolved Android malware targeting 349 applications across 16 countries. It requests VPN service permissions to control network traffic, blocking Google Play communications. Distributed via Amazon AWS, it automates ADB for shell access, bypassing Android runtime consent. It targets banking, financial, cryptocurrency, and e-wallet apps with phishing overlays and a PIN-harvesting module. The malware captures touch inputs and spoofs lock screens to steal credentials. It maintains persistence by exploiting OEM-specific settings on devices from Xiaomi, OPPO, Vivo, Samsung, and Huawei.",
+    "enrichment": null,
+    "id": "49dfee330dd574536ba5aca719363ab3",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "ToxicPanda 2.0 follows a structured attack pattern, starting with delivery via AWS-hosted buckets. It installs by requesting VPN and Accessibility Service permissions, then establishes command and control through VPN and ADB. The malware's actions on objectives include credential theft via phishing overlays and PIN harvesting.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 88,
+    "pyramid_of_pain_summary": "ToxicPanda 2.0's indicators include network artifacts like VPN and ADB usage, making detection challenging. The malware's use of AWS for distribution and its sophisticated evasion tactics, such as bypassing Android runtime consent, highlight the need for robust detection and remediation strategies.",
+    "relevance_score": 51,
+    "sequence": 21706,
+    "source": "https://www.bleepingcomputer.com/news/security/toxicpanda-android-malware-uses-vpn-permissions-to-block-google-play/",
+    "slug": "ToxicPanda_2.0_Android_Malware_Expands_Functionality_and_Targeting-021706",
+    "shard": 0
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "ByteDance, the parent company of TikTok, involved in privacy law violations.",
       "Known_Campaigns": [],
       "Motivation": "Commercial gain through data collection",
@@ -105587,246 +105824,6 @@
     "sequence": 21210,
     "source": "https://thehackernews.com/2026/07/meta-files-patent-for-ai-that-can.html",
     "slug": "Meta_s_AI_Patent_for_Emotional_State_Analysis_and_Fitness_Coaching-021210",
-    "shard": 0
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Kali365", "Octopi365", "Freedom365"],
-      "Associated_Groups": [],
-      "Description": "Forg365 is a phishing-as-a-service operation targeting Microsoft 365 accounts.",
-      "Known_Campaigns": ["Business document-themed lures", "Remittance approval lures"],
-      "Motivation": "Financial gain through credential theft and account compromise.",
-      "Sophistication": "Medium",
-      "Strategic_Objectives": "Credential theft and unauthorized access to Microsoft 365 accounts.",
-      "TTPs_Employed": ["Device code phishing", "Adversary-in-the-middle tactics", "AI-assisted lure creation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "AI-assisted lure creation and phishing kit preparation.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may send spearphishing emails with a malicious attachment to gain access to victim systems.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Phishing emails delivered using Amazon SES and Twilio SendGrid.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may send spearphishing emails with a malicious link to gain access to victim systems.",
-            "technique_id": "T1566.002",
-            "technique_name": "Spearphishing Link"
-          }
-        ],
-        "Techniques": ["T1566.002"]
-      },
-      {
-        "Description": "Device code phishing and adversary-in-the-middle tactics employed.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "ForgCookie extension installed for persistence.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may use browser extensions to establish persistence.",
-            "technique_id": "T1176",
-            "technique_name": "Browser Extensions"
-          }
-        ],
-        "Techniques": ["T1176"]
-      },
-      {
-        "Description": "Session cookies and tokens managed for continued access.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Monitoring for keywords and drafting responses using AI.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may target user email to collect sensitive information.",
-            "technique_id": "T1114.001",
-            "technique_name": "Email Collection"
-          }
-        ],
-        "Techniques": ["T1114.001"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Antibot evasion", "Traffic classification"],
-      "Description": "Forg365 provides tools and infrastructure for phishing campaigns targeting Microsoft 365.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["Browser extension for cookie refresh"],
-      "Tools": ["ForgCookie", "AI email generation"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Microsoft 365 accounts"],
-      "Breach_Types": ["Credential theft"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Amazon", "Twilio"],
-      "Countries": [],
-      "Domains": ["logfriend.com"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "phishing-as-a-service",
-        "device code phishing",
-        "adversary-in-the-middle",
-        "AI-assisted lure creation"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": ["Amazon SES", "Twilio SendGrid"],
-      "Sectors": ["Technology"],
-      "Software": ["Microsoft 365"],
-      "Technologies": ["Amazon SES", "Twilio SendGrid"],
-      "Threat_Infrastructure": ["Forg365 platform", "ForgCookie extension"],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["SMTP"],
-      "Description": "Forg365 uses legitimate email delivery services and a web-based operator panel.",
-      "Domains": ["logfriend.com"],
-      "Hosting_Providers": ["Amazon SES", "Twilio SendGrid"],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["logfriend.com"],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Device code phishing", "Adversary-in-the-middle tactics"],
-      "Tools": ["ForgCookie", "AI email generation"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Forg365", "Kali365", "Octopi365", "Freedom365"],
-    "Timestamp": "2026-07-12T18:30:00Z",
-    "Title": "Forg365 Phishing-as-a-Service Targeting Microsoft 365 Accounts",
-    "Tools": ["ForgCookie", "AI email generation", "Microsoft 365"],
-    "Victim": {
-      "Access_Vectors": ["Email phishing"],
-      "Data_Types_At_Risk": ["Credentials", "Email content"],
-      "Description": "Targets include Microsoft 365 account holders, particularly in organizations with active forwarding relationships.",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to legacy aliases and forwarding relationships.",
-      "Targeted_Assets": ["Microsoft 365 accounts"]
-    },
-    "diamond_model_summary": "Forg365 is a phishing-as-a-service operation targeting Microsoft 365 accounts. It employs device code phishing, adversary-in-the-middle tactics, and AI-assisted lure creation. The infrastructure includes Amazon SES and Twilio SendGrid for email delivery, and a browser extension for persistence. The operation lowers the skill threshold for affiliates, allowing even those with minimal technical expertise to conduct phishing campaigns.",
-    "doc_summary": "Forg365 is a phishing-as-a-service operation targeting Microsoft 365 accounts using device code phishing, adversary-in-the-middle tactics, and AI-assisted lure creation. Distributed via Telegram, it costs $400 a month and uses Amazon SES and Twilio SendGrid for email delivery. The platform includes a panel for managing campaigns and a browser extension called ForgCookie for continued access to compromised accounts. ZeroBAC highlights the industrialization of phishing with prebuilt templates and customizable options. Recommendations include blocking device code authentication and reviewing mailbox artifacts for unusual activity.",
-    "enrichment": null,
-    "id": "cc098c939906a0d23539c36e2e9c95f557103dfbaa9ffe2fbe424cf42701f9fb",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The Forg365 operation follows a structured kill chain, starting with AI-assisted lure creation and delivery via Amazon SES and Twilio SendGrid. Device code phishing and adversary-in-the-middle tactics are used for exploitation. The ForgCookie extension ensures persistence, while session cookies and tokens are managed for command and control. Actions on objectives include monitoring compromised accounts and drafting responses using AI.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 83,
-    "pyramid_of_pain_summary": "The Forg365 operation presents challenges across the Pyramid of Pain. Domain names like logfriend.com are used for phishing infrastructure. Tools such as the ForgCookie extension and AI email generation are employed. TTPs include device code phishing and adversary-in-the-middle tactics. The operation's use of legitimate email services complicates detection and response efforts.",
-    "relevance_score": 82,
-    "sequence": 21209,
-    "source": "https://thehackernews.com/2026/07/forg365-phaas-targets-microsoft-365.html",
-    "slug": "Forg365_Phishing-as-a-Service_Targeting_Microsoft_365_Accounts-021209",
     "shard": 0
   }
 ]

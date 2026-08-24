@@ -1,0 +1,14 @@
+{
+  "id": "clinical-associates-of-the-finger-lakes-cafl-31ac",
+  "victim": "Clinical Associates of the Finger Lakes (CAFL)",
+  "group": "Barracuda",
+  "sector": "Healthcare",
+  "country": "US",
+  "title": "Clinical Associates of the Finger Lakes (CAFL) — claimed by Barracuda",
+  "link": "https://threatcluster.io/dark-web/victim/Clinical%20Associates%20of%20the%20Finger%20Lakes%20%28CAFL%29",
+  "guid": "darkweb-victim:barracuda:clinical associates of the finger lakes (cafl)",
+  "pubDate": "2026-08-23T07:06:43.000Z",
+  "categories": ["Group: Barracuda", "Sector: Healthcare", "Country: US"],
+  "description": "US · Healthcare · The company mishandled its clients' and employees' data, which is why it was leaked. We extracted all files and documents from the infrastructure. These documents included children's medical records, personal information of parents and employees, a full dump of all emails from the mail server, and much more.\nTarget website: https://www.clinassoc.com/\n | Severity: HIGH | Size: 447 GB | Status: sell",
+  "sizeBytes": 418
+}

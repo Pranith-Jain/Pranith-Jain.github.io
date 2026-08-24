@@ -3,6 +3,193 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Potential attackers exploiting CVE-2025-32463 to gain unauthorized root access.",
+      "Known_Campaigns": [],
+      "Motivation": "Gain unauthorized root access to Linux systems.",
+      "Sophistication": "Moderate, given the availability of a public proof-of-concept.",
+      "Strategic_Objectives": "Compromise Linux systems for unauthorized access.",
+      "TTPs_Employed": ["Privilege Escalation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of CVE-2025-32463 to gain root access.",
+        "Detection": "Monitor for abnormal Sudo invocations.",
+        "Remediation": "Update Sudo to version 1.9.17p1 or later.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining higher-level permissions on a system.",
+            "tactic_id": "TA0004",
+            "tactic_name": "Privilege Escalation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting a vulnerability to elevate privileges.",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for lateral movement and system compromise.",
+        "Detection": "Monitor for unusual account activity.",
+        "Remediation": "Implement network segmentation and access controls.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Moving through a network to gain access to additional systems.",
+            "tactic_id": "TA0008",
+            "tactic_name": "Lateral Movement"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to access systems.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of Sudo vulnerability CVE-2025-32463.",
+      "Exploits": ["CVE-2025-32463"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Proof-of-concept exploit published on GitHub"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for abnormal Sudo invocations."],
+    "Extracted_Entities": {
+      "Assets": ["Linux systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-32463", "Sudo", "Linux", "privilege escalation"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Sudo 1.9.17p1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["Sudo"],
+      "Technologies": ["Linux"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-32463"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Linux systems running vulnerable versions of Sudo.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Update Sudo to version 1.9.17p1 or later."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Privilege Escalation"],
+      "Tools": ["Proof-of-concept exploit"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["AppArmor", "SELinux"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-10-06T05:24:11Z",
+    "Title": "Critical Privilege Escalation Vulnerability in Sudo (CVE-2025-32463)",
+    "Tools": ["Proof-of-concept exploit published on GitHub", "Proof-of-concept exploit", "Sudo"],
+    "Victim": {
+      "Access_Vectors": ["Local access"],
+      "Data_Types_At_Risk": ["System integrity"],
+      "Description": "Organizations running Linux systems with vulnerable Sudo versions.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Information Technology",
+      "Security_Posture": "Vulnerable due to outdated Sudo versions.",
+      "Targeted_Assets": ["Linux systems"]
+    },
+    "diamond_model_summary": "The incident involves a critical vulnerability in the Sudo utility, CVE-2025-32463, allowing local privilege escalation on Linux systems. The adversary is any potential attacker exploiting this flaw to gain root access. The capability is the exploitation of the vulnerability, with the infrastructure being Linux systems running vulnerable Sudo versions. Victims are organizations using these systems, facing critical risks of system compromise.",
+    "doc_summary": "A critical local privilege escalation vulnerability, CVE-2025-32463, has been identified in the Sudo binary, allowing attackers to gain root access on Linux systems. Discovered by security researcher Rich Mirch, this flaw affects Sudo versions 1.9.14 through 1.9.17, specifically targeting the chroot functionality. Security researcher Mohsen Khashei has published a proof-of-concept exploit on GitHub, highlighting the vulnerability's potential for exploitation. Organizations using affected Sudo versions face significant risks, as attackers can leverage this flaw to compromise entire systems. The patched version, Sudo 1.9.17p1, addresses the issue. Immediate action is required to update vulnerable systems and implement additional security measures like AppArmor or SELinux. The vulnerability underscores the importance of maintaining up-to-date system components, especially for critical utilities like Sudo.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:51.456678+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "5e1870374a19bc5fc421daf70e11b27753c9173e",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain involves exploitation of the CVE-2025-32463 vulnerability in Sudo, allowing attackers to escalate privileges to root level. The primary tactic is privilege escalation, with the technique being exploitation of the vulnerability. Detection involves monitoring for abnormal Sudo invocations, and remediation requires updating to the patched version. The potential for lateral movement and system compromise is significant.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 92,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the proof-of-concept exploit as a tool, and the TTP of privilege escalation. No specific hash values, IP addresses, or domain names are identified. The public availability of the exploit increases the likelihood of attacks, emphasizing the need for rapid patching and monitoring. The summary highlights the critical nature of the vulnerability and the importance of mitigation.",
+    "relevance_score": 51,
+    "sequence": 17741,
+    "source": "https://gbhackers.com/poc-published-for-sudo-flaw-lets-attackers-escalate-to-root/",
+    "slug": "Critical_Privilege_Escalation_Vulnerability_in_Sudo__CVE-2025-32463_-017741",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Threat actors exploiting the Oracle E-Business Suite vulnerability.",
       "Known_Campaigns": [],
       "Motivation": "Potential financial gain or disruption.",
@@ -97805,203 +97992,6 @@
     "sequence": 17243,
     "source": "https://gbhackers.com/critical-flaw-in-progress-loadmaster/",
     "slug": "Critical_Vulnerabilities_in_Progress_Software_s_LoadMaster_Application-017243",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential threat actors exploiting vulnerabilities in ICS and medical software.",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized access and control over critical systems.",
-      "Sophistication": "Moderate to high, given the exploitation of critical vulnerabilities.",
-      "Strategic_Objectives": "Disrupt industrial and medical operations, steal sensitive data.",
-      "TTPs_Employed": [
-        "Exploitation of missing authentication",
-        "Path traversal attacks",
-        "Cross-site scripting (XSS)"
-      ]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in ICS and medical software.",
-        "Detection": "Monitor for unusual access patterns • Check for known exploit signatures",
-        "Remediation": "Apply patches promptly • Implement strong authentication mechanisms",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system through vulnerabilities.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of critical vulnerabilities in ICS and medical software.",
-      "Exploits": [
-        "CVE-2025-24522",
-        "CVE-2025-32011",
-        "CVE-2025-35996",
-        "CVE-2025-36558",
-        "CVE-2025-35975",
-        "CVE-2025-36521"
-      ],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Industrial Control Systems", "Medical Imaging Software"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["KUNBUS GmbH"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CISA", "ICS", "vulnerabilities", "authentication", "exploitation"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Manufacturing", "Healthcare"],
-      "Software": ["Revolution Pi", "MicroDicom DICOM Viewer"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": [
-        "CVE-2025-24522",
-        "CVE-2025-32011",
-        "CVE-2025-35996",
-        "CVE-2025-36558",
-        "CVE-2025-35975",
-        "CVE-2025-36521"
-      ]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Targeted ICS and medical software environments.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Regularly update and patch systems",
-      "Implement strong authentication measures",
-      "Conduct security audits and vulnerability assessments"
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of missing authentication", "Path traversal attacks", "Cross-site scripting (XSS)"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-05-02T07:11:44Z",
-    "Title": "Critical Vulnerabilities in Industrial Control Systems and Medical Software",
-    "Tools": ["Revolution Pi", "MicroDicom DICOM Viewer"],
-    "Victim": {
-      "Access_Vectors": ["Remote exploitation"],
-      "Data_Types_At_Risk": ["Operational data", "Medical images"],
-      "Description": "Organizations using KUNBUS GmbH’s Revolution Pi and MicroDicom DICOM Viewer.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Manufacturing and Healthcare",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["Industrial Control Systems", "Medical Imaging Software"]
-    },
-    "diamond_model_summary": "The incident involves potential adversaries exploiting critical vulnerabilities in KUNBUS GmbH’s Revolution Pi and MicroDicom DICOM Viewer. The capabilities include exploiting missing authentication and path traversal flaws. The infrastructure targeted includes ICS and medical software environments, with victims primarily in the manufacturing and healthcare sectors. The adversaries aim to gain unauthorized access and control over critical systems, posing a significant risk to operational integrity and data security.",
-    "doc_summary": "The Cybersecurity and Infrastructure Security Agency (CISA) issued advisories on May 1, 2025, revealing critical vulnerabilities in Industrial Control Systems (ICS) and medical software. The advisories focus on KUNBUS GmbH’s Revolution Pi devices and the MicroDicom DICOM Viewer, highlighting severe security risks with some vulnerabilities scoring a CVSS v3.1 base score of 10.0. The vulnerabilities include missing authentication, path traversal, and improper neutralization of server-side includes, which could lead to unauthorized access and cross-site scripting attacks. CISA urges timely patching and enhanced authentication configurations to protect ICS and medical environments. The advisories emphasize the importance of addressing these vulnerabilities to prevent potential exploitation.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:34.265868+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "517c42dbb978b877842accd20502d1a779370eae",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals that the primary stage of concern is exploitation, where adversaries leverage vulnerabilities in ICS and medical software to gain initial access. The tactics and techniques employed include exploiting public-facing applications through missing authentication and path traversal flaws. Detection involves monitoring for unusual access patterns and known exploit signatures, while remediation focuses on timely patching and implementing strong authentication mechanisms. The incident highlights the critical need for proactive security measures to prevent exploitation and protect sensitive environments.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies several indicators of compromise, including specific vulnerabilities (CVE-2025-24522, CVE-2025-32011, CVE-2025-35996, CVE-2025-36558, CVE-2025-35975, CVE-2025-36521) that adversaries may exploit. These vulnerabilities represent significant pain points for defenders, as they require timely patching and enhanced security configurations to mitigate. The analysis underscores the importance of addressing these vulnerabilities to prevent potential exploitation and protect critical systems in the manufacturing and healthcare sectors.",
-    "relevance_score": 45,
-    "sequence": 17242,
-    "source": "https://gbhackers.com/cisa-issues-new-ics-advisories/",
-    "slug": "Critical_Vulnerabilities_in_Industrial_Control_Systems_and_Medical_Softw-017242",
     "shard": 8
   }
 ]

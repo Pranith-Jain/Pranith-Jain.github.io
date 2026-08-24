@@ -1,0 +1,14 @@
+{
+  "id": "namyang-industrial-co-ltd-e37e",
+  "victim": "Namyang Industrial Co., Ltd.",
+  "group": "Barracuda",
+  "sector": "Manufacturing",
+  "country": "KR",
+  "title": "Namyang Industrial Co., Ltd. — claimed by Barracuda",
+  "link": "https://threatcluster.io/dark-web/victim/Namyang%20Industrial%20Co.%2C%20Ltd.",
+  "guid": "darkweb-victim:barracuda:namyang industrial co., ltd.",
+  "pubDate": "2026-08-23T07:07:20.000Z",
+  "categories": ["Group: Barracuda", "Sector: Manufacturing", "Country: KR"],
+  "description": "KR · Manufacturing · Selling fresh full database dumps of company Namyang Industrial Co., Ltd. (renamed to Namyang Nexmo). \nInfrastructure dump, not website! There information about employers, manufacturing, parts, clients, partners and etc. Total lines (csv format): 17 641 181. | Severity: HIGH | Size: 2.51 GB | Status: free | FREE",
+  "sizeBytes": 334
+}

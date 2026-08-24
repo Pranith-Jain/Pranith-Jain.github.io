@@ -4,57 +4,45 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-21T13:21:20.000Z",
-  "lastSeen": "2026-08-22T08:00:14.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-23T21:26:15.000Z",
+  "lastSeen": "2026-08-24T00:54:35.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "count": 1
     },
     {
-      "date": "2026-08-22",
-      "count": 2
+      "date": "2026-08-24",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "holzmarkt-chemnitz-fcaf",
-      "title": "holzmarkt chemnitz — claimed by spacebears",
-      "pubDate": "2026-08-22T08:00:14.000Z"
+      "slug": "resi-com-6016",
+      "title": "resi.com — claimed by krybit",
+      "pubDate": "2026-08-24T00:54:35.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "victory-personal-care-inc-01bd",
-      "title": "Victory Personal Care, Inc — claimed by nightspire",
-      "pubDate": "2026-08-22T03:25:30.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "jc-sales-3b46",
-      "title": "JC Sales — claimed by akira",
-      "pubDate": "2026-08-21T13:21:20.000Z"
+      "slug": "westwing-group-se-2ed0",
+      "title": "Westwing Group SE — claimed by coinbasecartel",
+      "pubDate": "2026-08-23T21:26:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "spacebears",
-      "name": "spacebears",
+      "slug": "krybit",
+      "name": "krybit",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "nightspire",
-      "name": "nightspire",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "akira",
-      "name": "akira",
+      "slug": "coinbasecartel",
+      "name": "coinbasecartel",
       "weight": 1
     }
   ],

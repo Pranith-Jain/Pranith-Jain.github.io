@@ -4,87 +4,83 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-08-21T08:28:18.000Z",
-  "lastSeen": "2026-08-22T14:00:44.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 4 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-23T06:41:01.000Z",
+  "lastSeen": "2026-08-23T18:58:22.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 4 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-21",
-      "count": 4
-    },
-    {
-      "date": "2026-08-22",
-      "count": 2
+      "date": "2026-08-23",
+      "count": 7
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "rxpe-group-0b4d",
-      "title": "RXPE Group — claimed by coinbasecartel",
-      "pubDate": "2026-08-22T14:00:44.000Z"
+      "slug": "s-e-m-p-s-r-l-f642",
+      "title": "S.E.M.P. s.r.l. — claimed by qilin",
+      "pubDate": "2026-08-23T18:58:22.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "everglades-boats-a129",
-      "title": "Everglades Boats — claimed by termite",
-      "pubDate": "2026-08-22T05:45:30.000Z"
+      "slug": "black-cat-engineering-amp-construction-wll-7fe3",
+      "title": "Black Cat Engineering &amp; Construction WLL — claimed by qilin",
+      "pubDate": "2026-08-23T12:27:36.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "gindre-india-9ba2",
-      "title": "Gindre India — claimed by qilin",
-      "pubDate": "2026-08-21T11:57:12.000Z"
+      "slug": "factoryfive-4a17",
+      "title": "FactoryFive — claimed by metaencryptor",
+      "pubDate": "2026-08-23T07:34:43.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "clifton-architectural-glass-amp-metal-d1aa",
-      "title": "Clifton Architectural Glass &amp; Metal — claimed by pear",
-      "pubDate": "2026-08-21T10:26:51.000Z"
+      "slug": "namyang-industrial-co-ltd-e37e",
+      "title": "Namyang Industrial Co., Ltd. — claimed by Barracuda",
+      "pubDate": "2026-08-23T07:07:20.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "akatake-engineering-b2a1",
-      "title": "Akatake Engineering — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:28:39.000Z"
+      "slug": "ruggles-sign-company-227e",
+      "title": "Ruggles Sign Company — claimed by Storm",
+      "pubDate": "2026-08-23T06:45:00.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "escon-group-dfda",
-      "title": "ESCON Group — claimed by thegentlemen",
-      "pubDate": "2026-08-21T08:28:18.000Z"
+      "slug": "autodie-29db",
+      "title": "AutoDie — claimed by Storm",
+      "pubDate": "2026-08-23T06:44:06.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "schardein-mechanical-4006",
+      "title": "Schardein Mechanical — claimed by Storm",
+      "pubDate": "2026-08-23T06:41:01.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "coinbasecartel",
-      "name": "coinbasecartel",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "termite",
-      "name": "termite",
-      "weight": 1
+      "slug": "storm",
+      "name": "Storm",
+      "weight": 3
     },
     {
       "type": "group",
       "slug": "qilin",
       "name": "qilin",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "pear",
-      "name": "pear",
+      "slug": "barracuda",
+      "name": "Barracuda",
       "weight": 1
     }
   ],
