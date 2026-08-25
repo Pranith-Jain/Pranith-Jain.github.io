@@ -1,0 +1,45 @@
+{
+  "type": "disaster",
+  "date": "2026-08-24",
+  "overallThreat": "escalate",
+  "executiveSummary": "",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Life-saving operations in western Colombia have transitioned to sustained relief",
+      "summary": "Life-saving operations in western Colombia have transitioned to sustained relief, with IFRC launching a CHF 25M appeal as destroyed homes, schools, and health facilities strain services. Supporting Report"
+    },
+    {
+      "title": "Indonesia's Flores earthquake left thousands displaced and key transport corrido",
+      "summary": "Indonesia's Flores earthquake left thousands displaced and key transport corridors blocked by landslides, complicating aid delivery. View Article"
+    },
+    {
+      "title": "Hawaii faces compound risk",
+      "summary": "destructive flooding and power loss from Lala followed by a renewed life-threatening flood and mudslide threat from Tropical Storm Moke. View Article"
+    },
+    {
+      "title": "Central Indiana's flood emergency produced multiple fatalities, historic river c",
+      "summary": "Central Indiana's flood emergency produced multiple fatalities, historic river crests, and prolonged power outages, with state and federal resources mobilized. Supporting Report"
+    },
+    {
+      "title": "British Columbia's wildfire crisis triggered mass evacuations and significant st",
+      "summary": "British Columbia's wildfire crisis triggered mass evacuations and significant structure loss, with displacement persisting days later. View Article"
+    },
+    {
+      "title": "Afghanistan flash floods caused casualties and damaged homes, schools, bridges, ",
+      "summary": "Afghanistan flash floods caused casualties and damaged homes, schools, bridges, and water systems, heightening WASH and protection risks. Supporting Report"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Hawaii: Maintain high alert for flash flooding and mudslides as Tropical Storm Moke impacts saturated terrain; prioritize isolated communities and water systems. View Article Indonesia (Flores): Continued aftershock anxiety and landslide-related access issues likely to sustain displacement and shelter needs. Source Colombia: Transition from SAR to recovery continues; prioritize WASH, shelter, and essential services restoration, especially in remote/landslide-affected areas. View Article U.S. Midwest: Hazard persists in flood-damaged areas despite receding waters; monitor unstable structures, debris hazards, and localized severe weather. Source Wildfires (BC, Reno): Expect continuing evacuations and air quality deterioration as containment improves gradually; wind shifts could prompt new warnings. Source",
+  "regionalTrends": [
+    "Americas: Concurrent large-scale emergencies-Colombia earthquake, Hawaii cyclone flooding and renewed storm threat, and significant wildfire operations (BC, Spokane, Reno).",
+    "South/East Asia: Strong monsoon/typhoon signal-Afghanistan flash floods; China's Guangxi extreme flood mortality following typhoon; Japan record rain impacts; Indonesia major quake in NTT province. Source",
+    "Compound risk: Hawaii illustrates cascading hazards-initial hurricane flooding, infrastructure damage, and then renewed heavy-rain/mudslide risk from a subsequent tropical storm. View Article",
+    "Wildland-urban interface: Evacuation complexity and structure loss grow where fires meet urban edges (Reno, Okanagan), increasing needs for shelter and rapid damage assessments. Source"
+  ]
+}

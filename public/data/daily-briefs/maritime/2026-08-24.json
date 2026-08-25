@@ -1,0 +1,102 @@
+{
+  "type": "maritime",
+  "date": "2026-08-24",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Analytical assessment: The collected intelligence supports an assessment that the overall maritime cyber risk remains HIGH. This is driven by an active U.S. port disruption with supply-chain impact, persistent GNSS interference in key shipping lanes, and renewed regulatory emphasis on vessel cybersecurity even during inactive periods. Confidence is medium-to-high given multiple corroborating sources and government advisories. Outlook judgment: In the next 72 hours, analysts should monitor continued North Carolina Ports recovery steps and potential downstream logistics delays, maintain heightened navigation vigilance in GNSS-interference hotspots, and ensure compliance posture reviews for vessels in layup or reduced manning. Confidence in this short-term outlook is medium.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "Kraken Unmanned Surface Vessel subsystem (unexpected outbound communications). Source",
+      "Navigation systems and sensors: GNSS, ECDIS, AIS, radar cross-checks (general resilience focus). IRClass USCG GUIDE",
+      "Port IT/gate systems: Port authority enterprise and terminal-support systems (NC Ports incident). Source"
+    ],
+    "sectors": [
+      "Ports and Terminals; Maritime Logistics; Commercial Shipping",
+      "Naval and Defense; Maritime Technology (autonomous vessels)"
+    ]
+  },
+  "keyFindings": [
+    "Confirmed cyberattack caused multi-facility operational delays at North Carolina Ports; contingency plans were activated and recovery is underway. View Article Supporting Report",
+    "Government reporting shows ongoing GPS/GNSS spoofing and jamming affecting merchant vessels, with confirmed navigation anomalies in 2026 reports. Government Advisory",
+    "Classification-society guidance emphasizes cross-validating ECDIS, radar, AIS, and visual fixes to detect spoofing/jamming, and outlines operational indicators and response measures for bridge teams. Maritime Advisory",
+    "USCG MSIB 04-26 clarifies MTSA cybersecurity requirements apply to inactive vessels with valid COI/COC, stressing controls for unattended IT/OT, remote access, vendor maintenance, and portable media. MSIB 04-26",
+    "Royal Navy unmanned surface vessel subsystem exhibited unexpected outbound communications to China; MoD reports no data compromise, highlighting supply-chain and embedded component assurance needs. View Article"
+  ],
+  "topThreats": [
+    {
+      "title": "1) North Carolina Ports cyberattack disrupts multi-facility operations",
+      "action": "Systems-wide outage and delayed gate operations indicate direct impact to cargo flow and trucking. Operational impact: Port/terminal operations, cargo operations, logistics, business operations Affected: Port of Wilmington, Port of Morehead City, Charlotte Inland Port (United States) Defensive attention: Validate and exercise cyber contingency plans; segment terminal OT from enterprise IT; enhance monitoring of access and remote pathways. Confidence: High",
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/article/cyberattack-slows-operations-at-north-carolina-s-three-ports",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/amp/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "2) Continued GNSS spoofing/jamming affecting vessels (USCG GUIDE)",
+      "action": "Confirmed position jumps and AIS anomalies degrade situational awareness, potentially affecting COLREGs compliance and traffic separation integrity. Operational impact: Navigation data integrity; possible bridge decision-making delays and rerouting. Defensive attention: Cross-validate GNSS with radar, visual, inertial, and terrestrial aids; enable AIS/GNSS anomaly detection and logging. Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "3) MTSA cybersecurity requirements apply to inactive vessels (USCG MSIB 04-26)",
+      "action": "Layups and reduced manning elevate risk via unattended systems, remote access, portable media, and vendor maintenance pathways. Operational impact: Vessel control, safety, communications, business operations Defensive attention: Maintain controls during inactivity; tightly govern third-party access; apply updates and monitor unattended systems. Confidence: High",
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/sites/default/files/pdf/msib/MSIB%2004-26%20Applicability%20of%20MTSA%20Cybersecurity%20Requirements%20for%20Inactive%20Vessels.pdf",
+          "label": "MSIB 04-26"
+        }
+      ]
+    },
+    {
+      "title": "4) Royal Navy USV subsystem shows unexpected outbound communications to China",
+      "action": "Highlights embedded component trust and outbound network control risks for autonomous platforms. Operational impact: Communications assurance, potential safety-of-mission considerations, supply-chain assurance Defensive attention: Inventory and restrict embedded components' egress; implement allow-listing and continuous assessment of mission subsystems. Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://www.theregister.com/edge-and-iot/2026/08/10/cyber-vulnerability-sweep-picks-up-royal-navy-drones-sending-data-to-china/5285430",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "5) Classification-society guidance: GNSS spoofing and jamming indicators and responses",
+      "action": "Provides practical indicators and cross-check procedures enhancing navigation resilience. Operational impact: Bridge workload, routing, potential delays; safety-of-navigation implications Defensive attention: Train bridge teams on cross-validation drills; predefine fallbacks and no-go area checks independent of GNSS. Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://www.irclass.org/technical-circulars/guidance-on-risks-associated-with-gnss-spoofing-and-gnss-jamming/",
+          "label": "Maritime Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Exploitation of public-facing/enterprise IT leading to disruption of terminal support services (observed effect at NC Ports; technique ID not specified in sources).",
+      "Abuse of unattended systems during inactive periods; compromise via remote access pathways; vendor/third-party access risk; portable media exposure (explicit in USCG MSIB 04-26).",
+      "Unexpected outbound beaconing/heartbeat traffic from embedded components (Royal Navy USV subsystem case).",
+      "GNSS spoofing/jamming causing loss of view/manipulation of navigation information and AIS anomalies (behavioral observation; no formal ATT&CK mapping provided by sources)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor North Carolina Ports recovery operations and potential residual gate or scheduling impacts across connected logistics flows. View Article Continued reporting of GNSS interference is likely; vessels transiting affected regions (e.g., Red Sea) should maintain heightened navigation cross-checks and logging. USCG GUIDE U.S.-regulated operators with vessels in layup should verify MTSA cybersecurity compliance and vendor-access controls this week to address USCG expectations. MSIB 04-26 There is insufficient information to determine attribution or further spread of the NC Ports incident at this time. Confidence in this outlook is medium.",
+  "relatedCves": []
+}
