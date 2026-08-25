@@ -1,7 +1,7 @@
 {
   "source": "github.com/Neo23x0/signature-base",
   "license": "Detection Rule License 1.1",
-  "replicatedAt": "2026-08-18",
+  "replicatedAt": "2026-08-25",
   "counts": { "yaraFiles": 746, "yaraRules": 5784, "iocFiles": 4, "iocEntries": 8962, "externalVarFiles": 13 },
   "yaraIndex": [
     {
