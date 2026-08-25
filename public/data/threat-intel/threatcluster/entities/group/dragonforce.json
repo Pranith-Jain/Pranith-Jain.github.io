@@ -1,0 +1,94 @@
+{
+  "type": "group",
+  "slug": "dragonforce",
+  "name": "dragonforce",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-08-24T15:24:41.000Z",
+  "lastSeen": "2026-08-24T16:25:11.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-24",
+      "count": 4
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "frato-3a19",
+      "title": "Frato — claimed by dragonforce",
+      "pubDate": "2026-08-24T16:25:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "criba-39e3",
+      "title": "Criba — claimed by dragonforce",
+      "pubDate": "2026-08-24T16:24:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "brookview-financial-4ca8",
+      "title": "Brookview Financial — claimed by dragonforce",
+      "pubDate": "2026-08-24T15:25:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "wozair-a4cd",
+      "title": "Wozair — claimed by dragonforce",
+      "pubDate": "2026-08-24T15:24:41.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "frato-3a19",
+      "victim": "Frato — claimed by dragonforce",
+      "sector": "Other",
+      "country": "BR",
+      "pubDate": "2026-08-24T16:25:11.000Z"
+    },
+    {
+      "id": "criba-39e3",
+      "victim": "Criba — claimed by dragonforce",
+      "sector": "Technology",
+      "country": "AR",
+      "pubDate": "2026-08-24T16:24:19.000Z"
+    },
+    {
+      "id": "brookview-financial-4ca8",
+      "victim": "Brookview Financial — claimed by dragonforce",
+      "sector": "Financial Services",
+      "country": "CA",
+      "pubDate": "2026-08-24T15:25:38.000Z"
+    },
+    {
+      "id": "wozair-a4cd",
+      "victim": "Wozair — claimed by dragonforce",
+      "sector": "Other",
+      "country": "AE",
+      "pubDate": "2026-08-24T15:24:41.000Z"
+    }
+  ]
+}
