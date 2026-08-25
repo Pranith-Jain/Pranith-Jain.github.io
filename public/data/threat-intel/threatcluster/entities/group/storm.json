@@ -3,20 +3,12 @@
   "slug": "storm",
   "name": "Storm",
   "aliases": [],
-  "sources": ["dictionary", "victims"],
-  "mentionCount": 10,
-  "firstSeen": "2026-08-17T15:33:26.000Z",
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-24T04:51:29.000Z",
   "lastSeen": "2026-08-24T04:51:59.000Z",
-  "summary": "Ransomware group with 9 leak-site victims across 7 sectors and 2 countries.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-08-17",
-      "count": 1
-    },
-    {
-      "date": "2026-08-23",
-      "count": 7
-    },
     {
       "date": "2026-08-24",
       "count": 2
@@ -34,63 +26,9 @@
       "slug": "city-of-mitchell-b1be",
       "title": "City of Mitchell — claimed by Storm",
       "pubDate": "2026-08-24T04:51:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ruggles-sign-company-227e",
-      "title": "Ruggles Sign Company — claimed by Storm",
-      "pubDate": "2026-08-23T06:45:00.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "autodie-29db",
-      "title": "AutoDie — claimed by Storm",
-      "pubDate": "2026-08-23T06:44:06.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "proveli-a52e",
-      "title": "Proveli — claimed by Storm",
-      "pubDate": "2026-08-23T06:43:04.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "pinnacle-hospital-c14d",
-      "title": "Pinnacle Hospital — claimed by Storm",
-      "pubDate": "2026-08-23T06:42:15.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "phoenix-group-of-companies-d6da",
-      "title": "Phoenix Group of Companies — claimed by Storm",
-      "pubDate": "2026-08-23T06:41:44.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "schardein-mechanical-4006",
-      "title": "Schardein Mechanical — claimed by Storm",
-      "pubDate": "2026-08-23T06:41:01.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "the-cecilian-bank-d026",
-      "title": "The Cecilian Bank — claimed by Storm",
-      "pubDate": "2026-08-23T06:40:21.000Z"
-    },
-    {
-      "recordType": "cluster",
-      "slug": "storm-0501-cybercrime-group-targets-azure-with-ransomware-ta-29a2be12",
-      "title": "Storm-0501 Cybercrime Group Targets Azure with Ransomware Tactics",
-      "pubDate": "2026-08-17T15:33:26.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 3
-    },
     {
       "type": "sector",
       "slug": "transportation",
@@ -101,30 +39,6 @@
       "type": "sector",
       "slug": "government-defense",
       "name": "Government & Defense",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
       "weight": 1
     }
   ],
@@ -143,55 +57,6 @@
       "sector": "Government & Defense",
       "country": "US",
       "pubDate": "2026-08-24T04:51:29.000Z"
-    },
-    {
-      "id": "ruggles-sign-company-227e",
-      "victim": "Ruggles Sign Company — claimed by Storm",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-08-23T06:45:00.000Z"
-    },
-    {
-      "id": "autodie-29db",
-      "victim": "AutoDie — claimed by Storm",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-08-23T06:44:06.000Z"
-    },
-    {
-      "id": "proveli-a52e",
-      "victim": "Proveli — claimed by Storm",
-      "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-08-23T06:43:04.000Z"
-    },
-    {
-      "id": "pinnacle-hospital-c14d",
-      "victim": "Pinnacle Hospital — claimed by Storm",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-08-23T06:42:15.000Z"
-    },
-    {
-      "id": "phoenix-group-of-companies-d6da",
-      "victim": "Phoenix Group of Companies — claimed by Storm",
-      "sector": "Other",
-      "country": "US",
-      "pubDate": "2026-08-23T06:41:44.000Z"
-    },
-    {
-      "id": "schardein-mechanical-4006",
-      "victim": "Schardein Mechanical — claimed by Storm",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-08-23T06:41:01.000Z"
-    },
-    {
-      "id": "the-cecilian-bank-d026",
-      "victim": "The Cecilian Bank — claimed by Storm",
-      "sector": "Financial Services",
-      "country": "US",
-      "pubDate": "2026-08-23T06:40:21.000Z"
     }
   ]
 }

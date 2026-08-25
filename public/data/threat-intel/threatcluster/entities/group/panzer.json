@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "panzer",
+  "name": "Panzer",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-24T12:21:38.000Z",
+  "lastSeen": "2026-08-24T14:22:11.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-24",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "government-of-vojvodina-868e",
+      "title": "Government of Vojvodina — claimed by Panzer",
+      "pubDate": "2026-08-24T14:22:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "senvibe-694e",
+      "title": "Senvibe — claimed by Panzer",
+      "pubDate": "2026-08-24T12:21:38.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "government-of-vojvodina-868e",
+      "victim": "Government of Vojvodina — claimed by Panzer",
+      "sector": "Government & Defense",
+      "country": "RS",
+      "pubDate": "2026-08-24T14:22:11.000Z"
+    },
+    {
+      "id": "senvibe-694e",
+      "victim": "Senvibe — claimed by Panzer",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-08-24T12:21:38.000Z"
+    }
+  ]
+}

@@ -1,5 +1,15 @@
 [
   {
+    "cveId": "CVE-2026-21962",
+    "vendor": "Oracle",
+    "product": "HTTP Server and Oracle Weblogic Server Proxy Plug-in",
+    "name": "Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in contain an improper access control vulnerability that can result in unauthorized creation, deletion or modification access to critical data as well as unauthorized access to critical data or complete access to all Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in accessible data.",
+    "dateAdded": "2026-08-24",
+    "shortDescription": "Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in contain an improper access control vulnerability that can result in unauthorized creation, deletion or modification access to critical data as well as unauthorized access to critical data or complete access to all Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in accessible data.",
+    "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+    "dueDate": "2026-08-27"
+  },
+  {
     "cveId": "CVE-2026-73570",
     "vendor": "Synacor",
     "product": "Zimbra Collaboration Suite (ZCS)",

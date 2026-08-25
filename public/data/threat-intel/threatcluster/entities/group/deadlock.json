@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "deadlock",
+  "name": "Deadlock",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-24T21:21:08.000Z",
+  "lastSeen": "2026-08-24T21:21:27.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-24",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "shaheen-law-group-plc-richmond-virginia-usa-7c0d",
+      "title": "SHAHEEN LAW GROUP PLC - Richmond, Virginia, USA — claimed by Deadlock",
+      "pubDate": "2026-08-24T21:21:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "fbc-9408",
+      "title": "FBC — claimed by Deadlock",
+      "pubDate": "2026-08-24T21:21:08.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "shaheen-law-group-plc-richmond-virginia-usa-7c0d",
+      "victim": "SHAHEEN LAW GROUP PLC - Richmond, Virginia, USA — claimed by Deadlock",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-24T21:21:27.000Z"
+    },
+    {
+      "id": "fbc-9408",
+      "victim": "FBC — claimed by Deadlock",
+      "sector": "Not Found",
+      "country": "ZA",
+      "pubDate": "2026-08-24T21:21:08.000Z"
+    }
+  ]
+}

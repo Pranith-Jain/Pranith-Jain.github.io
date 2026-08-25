@@ -4,17 +4,39 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
+  "mentionCount": 11,
   "firstSeen": "2026-08-23T12:27:36.000Z",
-  "lastSeen": "2026-08-23T18:58:22.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 5 sectors and 4 countries.",
+  "lastSeen": "2026-08-24T22:27:31.000Z",
+  "summary": "Ransomware group with 11 leak-site victims across 6 sectors and 6 countries.",
   "frequency": [
     {
       "date": "2026-08-23",
       "count": 8
+    },
+    {
+      "date": "2026-08-24",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "consultores-de-seguros-213b",
+      "title": "Consultores de Seguros — claimed by qilin",
+      "pubDate": "2026-08-24T22:27:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "coldfish-seafood-2268",
+      "title": "Coldfish Seafood — claimed by qilin",
+      "pubDate": "2026-08-24T13:58:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "a-amp-e-sma-design-c317",
+      "title": "A&amp;E + SMA Design — claimed by qilin",
+      "pubDate": "2026-08-24T11:29:02.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "s-e-m-p-s-r-l-f642",
@@ -67,6 +89,18 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 2
+    },
+    {
+      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
       "weight": 2
@@ -79,14 +113,8 @@
     },
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     },
     {
@@ -98,6 +126,27 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "consultores-de-seguros-213b",
+      "victim": "Consultores de Seguros — claimed by qilin",
+      "sector": "Financial Services",
+      "country": null,
+      "pubDate": "2026-08-24T22:27:31.000Z"
+    },
+    {
+      "id": "coldfish-seafood-2268",
+      "victim": "Coldfish Seafood — claimed by qilin",
+      "sector": "Agriculture and Food Production",
+      "country": "CA",
+      "pubDate": "2026-08-24T13:58:57.000Z"
+    },
+    {
+      "id": "a-amp-e-sma-design-c317",
+      "victim": "A&amp;E + SMA Design — claimed by qilin",
+      "sector": "Professional Services",
+      "country": "AE",
+      "pubDate": "2026-08-24T11:29:02.000Z"
+    },
     {
       "id": "s-e-m-p-s-r-l-f642",
       "victim": "S.E.M.P. s.r.l. — claimed by qilin",

@@ -4,14 +4,14 @@
   "name": "kazu",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-08-23T08:07:31.000Z",
+  "mentionCount": 6,
+  "firstSeen": "2026-08-23T08:08:38.000Z",
   "lastSeen": "2026-08-23T08:10:25.000Z",
-  "summary": "Ransomware group with 9 leak-site victims across 2 sectors and 6 countries.",
+  "summary": "Ransomware group with 6 leak-site victims across 2 sectors and 5 countries.",
   "frequency": [
     {
       "date": "2026-08-23",
-      "count": 9
+      "count": 6
     }
   ],
   "recentActivity": [
@@ -50,24 +50,6 @@
       "slug": "dr-akbar-niazi-teaching-hospital-f8cd",
       "title": "Dr Akbar Niazi Teaching Hospital — claimed by kazu",
       "pubDate": "2026-08-23T08:08:38.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "centro-m-dico-especializado-osi-healthcare-solutions-ce45",
-      "title": "Centro Médico Especializado OSI: Healthcare Solutions — claimed by kazu",
-      "pubDate": "2026-08-23T08:08:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "meducar-telemedicine-and-patient-management-system-bee6",
-      "title": "Meducar: Telemedicine and Patient Management System — claimed by kazu",
-      "pubDate": "2026-08-23T08:07:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "consultoriomovil-telemedicine-and-healthcare-system-7783",
-      "title": "ConsultorioMovil: Telemedicine and Healthcare System — claimed by kazu",
-      "pubDate": "2026-08-23T08:07:31.000Z"
     }
   ],
   "relatedEntities": [
@@ -75,7 +57,7 @@
       "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
-      "weight": 8
+      "weight": 5
     },
     {
       "type": "sector",
@@ -127,27 +109,6 @@
       "sector": "Healthcare",
       "country": "PK",
       "pubDate": "2026-08-23T08:08:38.000Z"
-    },
-    {
-      "id": "centro-m-dico-especializado-osi-healthcare-solutions-ce45",
-      "victim": "Centro Médico Especializado OSI: Healthcare Solutions — claimed by kazu",
-      "sector": "Healthcare",
-      "country": "MX",
-      "pubDate": "2026-08-23T08:08:17.000Z"
-    },
-    {
-      "id": "meducar-telemedicine-and-patient-management-system-bee6",
-      "victim": "Meducar: Telemedicine and Patient Management System — claimed by kazu",
-      "sector": "Healthcare",
-      "country": "BR",
-      "pubDate": "2026-08-23T08:07:52.000Z"
-    },
-    {
-      "id": "consultoriomovil-telemedicine-and-healthcare-system-7783",
-      "victim": "ConsultorioMovil: Telemedicine and Healthcare System — claimed by kazu",
-      "sector": "Healthcare",
-      "country": "MX",
-      "pubDate": "2026-08-23T08:07:31.000Z"
     }
   ]
 }

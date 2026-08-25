@@ -1,0 +1,94 @@
+{
+  "type": "group",
+  "slug": "booba-project",
+  "name": "Booba Project",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-08-24T13:20:21.000Z",
+  "lastSeen": "2026-08-24T14:50:43.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-24",
+      "count": 4
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "davroc-2f89",
+      "title": "Davroc — claimed by Booba Project",
+      "pubDate": "2026-08-24T14:50:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "chernyy-amp-associates-89cf",
+      "title": "Chernyy &amp; Associates — claimed by Booba Project",
+      "pubDate": "2026-08-24T14:50:22.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "country-wide-insurance-44ac",
+      "title": "Country-Wide Insurance — claimed by Booba Project",
+      "pubDate": "2026-08-24T13:50:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "federis-abogados-fd6a",
+      "title": "Federis Abogados — claimed by Booba Project",
+      "pubDate": "2026-08-24T13:20:21.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "davroc-2f89",
+      "victim": "Davroc — claimed by Booba Project",
+      "sector": "Technology",
+      "country": "GB",
+      "pubDate": "2026-08-24T14:50:43.000Z"
+    },
+    {
+      "id": "chernyy-amp-associates-89cf",
+      "victim": "Chernyy &amp; Associates — claimed by Booba Project",
+      "sector": "Professional Services",
+      "country": "RU",
+      "pubDate": "2026-08-24T14:50:22.000Z"
+    },
+    {
+      "id": "country-wide-insurance-44ac",
+      "victim": "Country-Wide Insurance — claimed by Booba Project",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-08-24T13:50:21.000Z"
+    },
+    {
+      "id": "federis-abogados-fd6a",
+      "victim": "Federis Abogados — claimed by Booba Project",
+      "sector": "Professional Services",
+      "country": "MX",
+      "pubDate": "2026-08-24T13:20:21.000Z"
+    }
+  ]
+}
