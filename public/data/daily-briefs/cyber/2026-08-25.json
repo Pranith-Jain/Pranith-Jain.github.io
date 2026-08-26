@@ -1,0 +1,95 @@
+{
+  "type": "cyber",
+  "date": "2026-08-25",
+  "threatLevel": "",
+  "executiveSummary": "Overall OT/ICS Threat Level HIGH Actively Exploited OT/Edge Items 8+ Notable New/Updated OT-Adjacent CVEs (7 days) 15+ Sectors Most At Risk Water/Wastewater, Energy, Transportation, Manufacturing, Buildings US agencies warn of an active threat to Siemens S7 PLCs using AI-generated snap7 tooling to probe S7comm (TCP/102); immediate removal of Internet exposure and hardening are urged Security Advisory . Iran-affiliated actors continue exploiting Internet-exposed PLCs (Rockwell, Schneider, Siemens) to change logic and disable alarms in US critical infrastructure Security Advisory . Pro-Russia hacktivists opportunistically target exposed VNC on OT HMIs/SCADA, causing loss of view/control events; remove public VNC and enforce MFA Security Advisory . Citrix NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) with public PoC enables webshell placement on widely used remote access gateways-patch and hunt immediately JPCERT Advisory . FortiBleed dataset exposes 86k+ Fortinet credentials; many remain valid, enabling AD pivot and site-to-site VPN abuse. Enforce PBKDF2, rotate creds, and validate segmentation JPCERT Advisory . CISA bulletins highlight critical OT/edge CVEs: EV chargers (EVbee), OPC UA (Eclipse Milo), PcVue HMI, and others-prioritize patching and isolating device management planes Bulletin Bulletin . Confirmed UK power plant outage (4 days) underscores real OT disruption risk; investigate PLC and remote access exposures View Article .",
+  "keyFindings": [
+    {
+      "title": "AI-enabled reconnaissance tools are accelerating PLC targeting; Siemens S7 Inter",
+      "summary": "AI-enabled reconnaissance tools are accelerating PLC targeting; Siemens S7 Internet exposure remains unacceptably common Security Advisory ."
+    },
+    {
+      "title": "Edge gateways (Citrix NetScaler, SonicWall SMA, Fortinet) are priority entry poi",
+      "summary": "Edge gateways (Citrix NetScaler, SonicWall SMA, Fortinet) are priority entry points for IT-to-OT pivot-patch and perform compromise assessments now JPCERT NetScaler Advisory CERT-FR SonicWall Alert ."
+    },
+    {
+      "title": "Multiple OT/ICS-adjacent CVEs (OPC UA servers, EVSE/OCPP, PcVue SCADA) present l",
+      "summary": "Multiple OT/ICS-adjacent CVEs (OPC UA servers, EVSE/OCPP, PcVue SCADA) present low-complexity paths to DoS or unauthorized control if unsegmented CISA Bulletin CISA Bulletin ."
+    },
+    {
+      "title": "Confirmed destructive OT incident via misconfigured private APN highlights cellu",
+      "summary": "Confirmed destructive OT incident via misconfigured private APN highlights cellular access as a realistic ICS intrusion vector-review APN routing and SIM policies CERT Polska Report ."
+    },
+    {
+      "title": "TrueConf exploitation campaigns trojanize installers (OneDrive C2) and target tr",
+      "summary": "TrueConf exploitation campaigns trojanize installers (OneDrive C2) and target transportation/energy-treat conferencing servers as low-trust and segment from OT Kaspersky ICS CERT ."
+    }
+  ],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 PLCs (S7-200/300/400/1200/1500) Rockwell CompactLogix/Micro850 Schneider Modicon M340 Citrix NetScaler ADC/Gateway Fortinet FortiGate SonicWall SMA 1000 OPC UA (Eclipse Milo) PcVue (SCADA/HMI) EVbee DC-80 EVSE / OCPP CISA Malcolm TrueConf Server GeoServer (Tomcat)"
+    ],
+    "sectors": [
+      "Water & Wastewater Electric Power & EV Infrastructure Transportation Critical Manufacturing Healthcare/Buildings (BMS) Government Facilities Telecom/Carrier Networks"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated APTs modifying ladder logic/AOIs and disabling alarms on exposed PLCs Security Advisory .",
+        "Pro-Russia hacktivists (e.g., NoName057(16), CARR) abusing exposed VNC to deface HMIs and change setpoints Security Advisory .",
+        "PRC-nexus operations using covert SOHO/IoT proxy networks and router compromises to pre-position in CI environments Advisory Advisory .",
+        "\"Head Mare\" APT exploiting TrueConf servers to deliver PhantomCore/Graph, trojanizing client installers in energy/transport Kaspersky ICS CERT ."
+      ]
+    }
+  ],
+  "relevance": "Current activity clusters around three dominant risk themes for critical infrastructure: (1) direct PLC targeting (read-first reconnaissance with credible paths to write/logic changes); (2) exploitation of remote access and identity edge (NetScaler, SonicWall SMA, FortiGate credentials) providing realistic IT-to-OT pivot avenues; and (3) critical vulnerabilities in operational integration components (OPC UA servers, EVSE/OCPP, HMI/SCADA platforms) where segmentation gaps can lead to loss of control or disruptive DoS. Collectively, these observations sustain a HIGH threat level for OT defenders over the next week.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Citrix NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) with public PoC-patch and hunt for webshells JPCERT .",
+        "SonicWall SMA 1000 SSRF + admin RCE (actively exploited)-patch, IOC hunt, rebuild if compromised CERT-FR .",
+        "FortiBleed Fortinet credential exposure-rotate, enforce PBKDF2, audit VPN trust paths JPCERT .",
+        "OPC UA (Eclipse Milo) server issues enabling DoS/privilege bypass-update, disable weak modes CISA .",
+        "PcVue (SCADA/HMI) credential weaknesses-upgrade and isolate HMIs CISA .",
+        "CISA Malcolm monitoring platform multiple vulns-update to latest CISA ICSA .",
+        "EVbee DC-80 EV charger RCE/unsigned firmware-segment EVSE, apply firmware only with signature enforcement CISA .",
+        "Citrix/NetScaler exploitation tied to SAML configs-credential rotation and SAML key renewal recommended JPCERT WR .",
+        "GeoServer RCE (CVE-2024-36401) exploited at FCEB-patch and restrict lateral movement CISA IR Lessons ."
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Valid accounts and edge device exploitation for initial access: ATT&CK T1078, T1190.",
+      "Living-off-the-land in OT perimeters (PowerShell, BITS, xp_cmdshell): T1059, T1197, T1505.",
+      "Webshell placement on appliance/web gateways (NetScaler theme path, Tomcat): T1505.003.",
+      "Credential access via LSASS/AD/LDAP paths from compromised servers: T1003, T1552.",
+      "ICS-specific: PLC logic tampering, command/variable manipulation (ATT&CK for ICS T0831, T0829); unauthorized S7comm PUT/GET; VNC abuse for HMI manipulation.",
+      "C2 and exfil using cloud services (OneDrive) and residential/SOHO proxy infrastructure."
+    ],
+    "mitreIds": [
+      "T1078",
+      "T1190",
+      "T1059",
+      "T1197",
+      "T1505",
+      "T1505.003",
+      "T1003",
+      "T1552",
+      "T0831",
+      "T0829"
+    ]
+  },
+  "outlook72h": "Expect continued scanning for Internet-exposed S7 and open VNC; prioritize external attack surface reduction and monitoring. Follow-on exploitation waves likely against unpatched NetScaler/SonicWall appliances given public PoCs and KEV momentum. Increase of opportunistic attacks on EVSE and OPC UA as proofs-of-concept circulate; tighten segmentation and apply virtual patching where needed. Anticipate credential replay from FortiBleed dataset; enforce MFA and device posture for administrative access paths.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2024-36401"
+  ]
+}

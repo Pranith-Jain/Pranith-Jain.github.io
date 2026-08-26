@@ -1,0 +1,92 @@
+{
+  "type": "maritime",
+  "date": "2026-08-25",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates a confirmed cyberattack at a U.S. port authority and persistent GNSS interference across multiple sea lanes are the most operationally relevant maritime cyber risks this period. Confidence: medium-high.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "Technologies: Terminal Operating Systems, automated ship-to-shore cranes, port scanning/inspection systems, logistics data platforms, GNSS receivers, AIS-dependent situational awareness.",
+      "Named platforms from advisory: LOGINK (logistics platform), Nuctech (scanners), automated STS cranes (various vendors). MARAD Advisory"
+    ],
+    "sectors": []
+  },
+  "keyFindings": [
+    "NC Ports shifted to manual operations after a cyberattack, causing processing delays across multiple facilities.",
+    "USCG NAVCEN reported a Baltic Sea GPS interference case with no identified benign cause.",
+    "Industry research emphasizes scale and safety risk of GNSS jamming/spoofing for the maritime sector.",
+    "MARAD highlights risks from foreign-manufactured logistics platforms, scanners, and automated cranes."
+  ],
+  "topThreats": [
+    {
+      "title": "",
+      "action": "Disruption at Wilmington, Morehead City, and Charlotte Inland Port demonstrates material impact to U.S. maritime logistics. Operational impact: Manual processing, delays; no evidence of OT compromise. Recommended attention: Validate port partner connectivity, review EDI/API trust, and update incident runbooks for manual gate/yard continuity. Confidence: High Domain: Ports & Terminals Supply Chain Impact: Confirmed",
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Logistics platforms, scanners, and automated cranes may introduce cyber and national-security exposure to port IT/OT. Operational impact: Potential data compromise, remote access abuse, and operational disruption pathways. Recommended attention: Conduct supplier risk assessments; segment crane/ICS networks; monitor remote vendor sessions. Confidence: High Domain: Port IT/OT Supply Chain Impact: Confirmed",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Official anomaly indicates ongoing maritime GNSS risk without benign explanation. Operational impact: Possible loss of position integrity; increased bridge workload and risk to navigation safety margins. Recommended attention: Employ radar/visual fixes, gyro/dead-reckoning, and ECDIS cross-checks; log and report anomalies. Confidence: High Domain: Navigation Safety Impact: Possible",
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Scale of disruption implies persistent operational risk to global shipping. Operational impact: Route planning and watchkeeping complexity; potential for position spoofing misleads. Recommended attention: Elevate bridge team training and cross-sensor validation procedures. Confidence: Medium Domain: Navigation Navigation Impact: Confirmed",
+      "sources": [
+        {
+          "url": "https://www.mpc-uk.org/rin-publishes-report-into-the-impacts-of-gnss-interference-on-maritime-safety/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Advisory provides practical crew precautions for jamming/spoofing hotspots. Operational impact: Increased false targets, track jumps, or loss of satellite lock; potential schedule knock-on effects. Recommended attention: Enable ECDIS alarms, monitor AIS consistency, and record anomalies for port state or flag reporting. Confidence: Medium Domain: Navigation & Situational Awareness Safety Impact: Possible",
+      "sources": [
+        {
+          "url": "https://www.tridentrisk.org/maritime-cyber/gnss-interference-advisory",
+          "label": "Threat Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "NC Ports incident: Disruption of enterprise IT leading to manualized operational workflows; specific intrusion techniques not reported (no confirmed MITRE mappings). Source",
+      "GNSS threats: Jamming (denial of satellite signals) and spoofing (deceptive positioning) affecting navigation integrity; formal ATT&CK technique IDs not assigned in sources.",
+      "Supply-chain exposure: Potential remote access abuse and data exfiltration via logistics/inspection equipment supply chains; no specific malware reported. MARAD Advisory"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "GNSS interference: Continued sporadic reports are likely in known hotspots; operators should maintain enhanced navigation cross-checks and anomaly reporting. Confidence: medium. USCG NAVCEN Threat Advisory Port IT disruptions: Additional disclosures or service updates may emerge as investigations mature; immediate risk to OT remains unconfirmed. Confidence: medium. Supporting Report Supply-chain controls: Expect inquiries and potential mitigations around foreign-manufactured port systems following MARAD guidance; immediate operational changes may focus on remote-access oversight. Confidence: high. MARAD Advisory",
+  "relatedCves": []
+}
