@@ -1,0 +1,14 @@
+{
+  "id": "a-plus-software-limited-8670",
+  "victim": "A-Plus Software Limited",
+  "group": "ShadowByt3$",
+  "sector": "Technology",
+  "country": "GB",
+  "title": "A-Plus Software Limited — claimed by ShadowByt3$",
+  "link": "https://threatcluster.io/dark-web/victim/A-Plus%20Software%20Limited",
+  "guid": "darkweb-victim:shadowbyt3$:a-plus software limited",
+  "pubDate": "2026-08-25T14:25:27.000Z",
+  "categories": ["Group: ShadowByt3$", "Sector: Technology", "Country: GB"],
+  "description": "GB · Technology · We Breached A-plus through a sql injection vulnerability and downloaded everything in there backend. We gained access to there system on 08/18/2026\n\nThe following data was stolen:\n\n1. Website User Data (`usr.csv`)\n- This file contains the administrative backend infrastructure for the website, exposing:\n- 10 internal accounts, including the usernames `admin`, `debuger`, `camby`, `asuka`, `jimmy`, `",
+  "sizeBytes": 418
+}

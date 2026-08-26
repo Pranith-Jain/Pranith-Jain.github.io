@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "auditteam",
+  "name": "AuditTeam",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-25T21:20:18.000Z",
+  "lastSeen": "2026-08-25T21:20:18.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-25",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ma-up-9c8c",
+      "title": "ma***up — claimed by AuditTeam",
+      "pubDate": "2026-08-25T21:20:18.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ma-up-9c8c",
+      "victim": "ma***up — claimed by AuditTeam",
+      "sector": "Not Found",
+      "country": "RU",
+      "pubDate": "2026-08-25T21:20:18.000Z"
+    }
+  ]
+}

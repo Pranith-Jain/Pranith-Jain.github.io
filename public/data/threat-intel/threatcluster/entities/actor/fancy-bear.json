@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "fancy-bear",
+  "name": "Fancy Bear",
+  "aliases": ["Apt28"],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-25T00:00:00.000Z",
+  "lastSeen": "2026-08-25T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-08-25",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "245013a1-985e-596b-949e-0efa0b4c309f",
+      "title": "Russia's Hybrid Warfare Threatens UK with Cyberattacks and Sabotage",
+      "pubDate": "2026-08-25T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

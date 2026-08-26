@@ -4,17 +4,33 @@
   "name": "Dark Project",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
+  "mentionCount": 6,
   "firstSeen": "2026-08-24T17:51:12.000Z",
-  "lastSeen": "2026-08-24T18:21:30.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 1 country.",
+  "lastSeen": "2026-08-25T09:51:49.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 5 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-08-24",
       "count": 4
+    },
+    {
+      "date": "2026-08-25",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pump-engineering-company-8276",
+      "title": "Pump Engineering Company — claimed by Dark Project",
+      "pubDate": "2026-08-25T09:51:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dentist-in-new-britain-ct-0cdf",
+      "title": "Dentist in New Britain, CT — claimed by Dark Project",
+      "pubDate": "2026-08-25T09:21:23.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "the-liberty-group-6a5b",
@@ -43,6 +59,18 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
       "weight": 1
@@ -55,12 +83,6 @@
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
-    },
-    {
-      "type": "sector",
       "slug": "hospitality",
       "name": "Hospitality",
       "weight": 1
@@ -68,6 +90,20 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "pump-engineering-company-8276",
+      "victim": "Pump Engineering Company — claimed by Dark Project",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-25T09:51:49.000Z"
+    },
+    {
+      "id": "dentist-in-new-britain-ct-0cdf",
+      "victim": "Dentist in New Britain, CT — claimed by Dark Project",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-25T09:21:23.000Z"
+    },
     {
       "id": "the-liberty-group-6a5b",
       "victim": "The Liberty Group — claimed by Dark Project",

@@ -4,21 +4,55 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 11,
-  "firstSeen": "2026-08-23T12:27:36.000Z",
-  "lastSeen": "2026-08-24T22:27:31.000Z",
-  "summary": "Ransomware group with 11 leak-site victims across 6 sectors and 6 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-24T13:58:57.000Z",
+  "lastSeen": "2026-08-26T01:57:16.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 4 sectors and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-23",
-      "count": 8
+      "date": "2026-08-24",
+      "count": 2
     },
     {
-      "date": "2026-08-24",
-      "count": 3
+      "date": "2026-08-25",
+      "count": 4
+    },
+    {
+      "date": "2026-08-26",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "air-international-thermal-systems-5a02",
+      "title": "Air International Thermal Systems — claimed by qilin",
+      "pubDate": "2026-08-26T01:57:16.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "brazosport-college-ae98",
+      "title": "Brazosport College — claimed by qilin",
+      "pubDate": "2026-08-25T21:28:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sc-paderteg-cabluri-electrice-1b00",
+      "title": "SC PaderTeG Cabluri Electrice — claimed by qilin",
+      "pubDate": "2026-08-25T19:00:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "structured-settlement-capital-llc-ee87",
+      "title": "STRUCTURED SETTLEMENT CAPITAL LLC — claimed by qilin",
+      "pubDate": "2026-08-25T12:28:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "agroland-s-a-0ae4",
+      "title": "AGROLAND S.A. — claimed by qilin",
+      "pubDate": "2026-08-25T11:57:31.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "consultores-de-seguros-213b",
@@ -30,68 +64,20 @@
       "slug": "coldfish-seafood-2268",
       "title": "Coldfish Seafood — claimed by qilin",
       "pubDate": "2026-08-24T13:58:57.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "a-amp-e-sma-design-c317",
-      "title": "A&amp;E + SMA Design — claimed by qilin",
-      "pubDate": "2026-08-24T11:29:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "s-e-m-p-s-r-l-f642",
-      "title": "S.E.M.P. s.r.l. — claimed by qilin",
-      "pubDate": "2026-08-23T18:58:22.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "euroflora-srl-d3a7",
-      "title": "Euroflora srl — claimed by qilin",
-      "pubDate": "2026-08-23T16:01:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tecnici-associati-stp-a904",
-      "title": "Tecnici Associati STP — claimed by qilin",
-      "pubDate": "2026-08-23T16:00:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "studio-boldrin-paolo-c790",
-      "title": "Studio BOLDRIN PAOLO — claimed by qilin",
-      "pubDate": "2026-08-23T15:27:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "aurore-development-s-p-a-4e96",
-      "title": "Aurore Development S.p.A. — claimed by qilin",
-      "pubDate": "2026-08-23T14:58:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "clear-align-c7b6",
-      "title": "Clear Align — claimed by qilin",
-      "pubDate": "2026-08-23T12:28:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "difor-5953",
-      "title": "Difor — claimed by qilin",
-      "pubDate": "2026-08-23T12:28:13.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "black-cat-engineering-amp-construction-wll-7fe3",
-      "title": "Black Cat Engineering &amp; Construction WLL — claimed by qilin",
-      "pubDate": "2026-08-23T12:27:36.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 3
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 2
     },
     {
       "type": "sector",
@@ -101,31 +87,48 @@
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "education",
+      "name": "Education",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "air-international-thermal-systems-5a02",
+      "victim": "Air International Thermal Systems — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "GB",
+      "pubDate": "2026-08-26T01:57:16.000Z"
+    },
+    {
+      "id": "brazosport-college-ae98",
+      "victim": "Brazosport College — claimed by qilin",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-08-25T21:28:26.000Z"
+    },
+    {
+      "id": "sc-paderteg-cabluri-electrice-1b00",
+      "victim": "SC PaderTeG Cabluri Electrice — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "RO",
+      "pubDate": "2026-08-25T19:00:00.000Z"
+    },
+    {
+      "id": "structured-settlement-capital-llc-ee87",
+      "victim": "STRUCTURED SETTLEMENT CAPITAL LLC — claimed by qilin",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-08-25T12:28:44.000Z"
+    },
+    {
+      "id": "agroland-s-a-0ae4",
+      "victim": "AGROLAND S.A. — claimed by qilin",
+      "sector": "Agriculture and Food Production",
+      "country": "RO",
+      "pubDate": "2026-08-25T11:57:31.000Z"
+    },
     {
       "id": "consultores-de-seguros-213b",
       "victim": "Consultores de Seguros — claimed by qilin",
@@ -139,69 +142,6 @@
       "sector": "Agriculture and Food Production",
       "country": "CA",
       "pubDate": "2026-08-24T13:58:57.000Z"
-    },
-    {
-      "id": "a-amp-e-sma-design-c317",
-      "victim": "A&amp;E + SMA Design — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "AE",
-      "pubDate": "2026-08-24T11:29:02.000Z"
-    },
-    {
-      "id": "s-e-m-p-s-r-l-f642",
-      "victim": "S.E.M.P. s.r.l. — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "IT",
-      "pubDate": "2026-08-23T18:58:22.000Z"
-    },
-    {
-      "id": "euroflora-srl-d3a7",
-      "victim": "Euroflora srl — claimed by qilin",
-      "sector": "Agriculture and Food Production",
-      "country": "IT",
-      "pubDate": "2026-08-23T16:01:21.000Z"
-    },
-    {
-      "id": "tecnici-associati-stp-a904",
-      "victim": "Tecnici Associati STP — claimed by qilin",
-      "sector": "Other",
-      "country": "IT",
-      "pubDate": "2026-08-23T16:00:43.000Z"
-    },
-    {
-      "id": "studio-boldrin-paolo-c790",
-      "victim": "Studio BOLDRIN PAOLO — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "IT",
-      "pubDate": "2026-08-23T15:27:29.000Z"
-    },
-    {
-      "id": "aurore-development-s-p-a-4e96",
-      "victim": "Aurore Development S.p.A. — claimed by qilin",
-      "sector": "Other",
-      "country": "IT",
-      "pubDate": "2026-08-23T14:58:25.000Z"
-    },
-    {
-      "id": "clear-align-c7b6",
-      "victim": "Clear Align — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-08-23T12:28:50.000Z"
-    },
-    {
-      "id": "difor-5953",
-      "victim": "Difor — claimed by qilin",
-      "sector": "Technology",
-      "country": "CL",
-      "pubDate": "2026-08-23T12:28:13.000Z"
-    },
-    {
-      "id": "black-cat-engineering-amp-construction-wll-7fe3",
-      "victim": "Black Cat Engineering &amp; Construction WLL — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "QA",
-      "pubDate": "2026-08-23T12:27:36.000Z"
     }
   ]
 }

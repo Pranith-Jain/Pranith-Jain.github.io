@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-23T21:27:57.000Z",
-  "lastSeen": "2026-08-23T21:27:57.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "firstSeen": "2026-08-25T13:57:53.000Z",
+  "lastSeen": "2026-08-25T13:57:53.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
-      "date": "2026-08-23",
+      "date": "2026-08-25",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "hospitality-health-er-longview-ccc8",
-      "title": "Hospitality Health ER (Longview) — claimed by genesis",
-      "pubDate": "2026-08-23T21:27:57.000Z"
+      "slug": "s-4853",
+      "title": "S******* — claimed by genesis",
+      "pubDate": "2026-08-25T13:57:53.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "hospitality-health-er-longview-ccc8",
-      "victim": "Hospitality Health ER (Longview) — claimed by genesis",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-08-23T21:27:57.000Z"
+      "id": "s-4853",
+      "victim": "S******* — claimed by genesis",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-08-25T13:57:53.000Z"
     }
   ]
 }
