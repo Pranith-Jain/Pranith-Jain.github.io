@@ -4,17 +4,33 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 3,
   "firstSeen": "2026-08-24T14:52:14.000Z",
-  "lastSeen": "2026-08-24T14:52:14.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-08-25T12:53:05.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-08-24",
       "count": 1
+    },
+    {
+      "date": "2026-08-25",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "winter-ingenieure-f47f",
+      "title": "WINTER Ingenieure — claimed by akira",
+      "pubDate": "2026-08-25T12:53:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "davis-amp-ferber-86c5",
+      "title": "Davis &amp; Ferber — claimed by akira",
+      "pubDate": "2026-08-25T12:22:44.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "bihl-d9ce",
@@ -25,6 +41,18 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "other",
       "name": "Other",
       "weight": 1
@@ -32,6 +60,20 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "winter-ingenieure-f47f",
+      "victim": "WINTER Ingenieure — claimed by akira",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-08-25T12:53:05.000Z"
+    },
+    {
+      "id": "davis-amp-ferber-86c5",
+      "victim": "Davis &amp; Ferber — claimed by akira",
+      "sector": "Professional Services",
+      "country": null,
+      "pubDate": "2026-08-25T12:22:44.000Z"
+    },
     {
       "id": "bihl-d9ce",
       "victim": "Bihl — claimed by akira",

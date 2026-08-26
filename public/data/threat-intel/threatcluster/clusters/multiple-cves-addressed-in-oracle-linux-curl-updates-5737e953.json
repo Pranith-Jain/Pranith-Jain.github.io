@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/multiple-cves-addressed-in-oracle-linux-curl-updates-5737e953?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/multiple-cves-addressed-in-oracle-linux-curl-updates-5737e953",
   "pubDate": "2026-08-20T10:25:46.000Z",
-  "sourceCount": 3,
-  "categories": ["3 Sources"],
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
   "description": "Oracle has released important updates for its curl software, addressing multiple vulnerabilities. The updates include fixes for CVE-2026-1965 and CVE-2026-3783, which involve HTTP Negotiate connection…",
   "sizeBytes": 201
 }

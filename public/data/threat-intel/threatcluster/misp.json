@@ -1,28 +1,9 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-25T05:58:41.712Z",
+  "syncedAt": "2026-08-26T05:59:23.803Z",
   "eventCount": 6,
   "events": [
-    {
-      "uuid": "84e7ebe2-89fd-5e62-a924-0d78728ac032",
-      "info": "AI-Generated Exploits Target Siemens PLCs Amid Zimbra RCE Vulnerability Exploitation",
-      "date": "2026-08-21",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1787350742",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:apt",
-        "type:ransomware",
-        "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:ransomware=\"Cl0p\""
-      ],
-      "orgc": "ThreatCluster"
-    },
     {
       "uuid": "842985af-c2f9-5a81-84d7-6a6c2ac8efd8",
       "info": "Active Exploitation of GitLab CVE-2026-19478 and Microsoft Entra ID Flaw",
@@ -64,6 +45,16 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "ad642995-9cd6-5f76-9f46-fca13a4192fd",
+      "info": "Critical Oracle WebLogic Flaw Under Active Exploitation",
+      "date": "2026-08-25",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1787642437",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "fac2391d-fcbb-504d-8a7b-9741b7a14583",
       "info": "Critical Account Takeover Vulnerability in Red Hat Keycloak",
       "date": "2026-08-21",
@@ -74,13 +65,22 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "3ade4e5c-44b1-5ce6-baa8-e692bf0a5c37",
-      "info": "17 Iranians Charged in Cyber Theft Campaign Targeting U.S. Institutions",
-      "date": "2026-08-18",
+      "uuid": "245013a1-985e-596b-949e-0efa0b4c309f",
+      "info": "Russia's Hybrid Warfare Threatens UK with Cyberattacks and Sabotage",
+      "date": "2026-08-25",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1787083770",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:malware"],
+      "timestamp": "1787673036",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "misp-galaxy:threat-actor=\"Apt28\"",
+        "misp-galaxy:threat-actor=\"Fancy Bear\"",
+        "misp-galaxy:ransomware=\"BlackBasta\""
+      ],
       "orgc": "ThreatCluster"
     }
   ]

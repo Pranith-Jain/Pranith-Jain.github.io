@@ -4,17 +4,45 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 7,
   "firstSeen": "2026-08-24T13:53:35.000Z",
-  "lastSeen": "2026-08-24T21:21:08.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
+  "lastSeen": "2026-08-25T21:20:18.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 7 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-08-24",
       "count": 3
+    },
+    {
+      "date": "2026-08-25",
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ma-up-9c8c",
+      "title": "ma***up — claimed by AuditTeam",
+      "pubDate": "2026-08-25T21:20:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "copcp-com-591b",
+      "title": "copcp.com — claimed by chaos",
+      "pubDate": "2026-08-25T19:23:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "s-4853",
+      "title": "S******* — claimed by genesis",
+      "pubDate": "2026-08-25T13:57:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "redacted-586d",
+      "title": "Redacted — claimed by kazu",
+      "pubDate": "2026-08-25T12:56:02.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "fbc-9408",
@@ -35,6 +63,30 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "auditteam",
+      "name": "AuditTeam",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "chaos",
+      "name": "chaos",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "genesis",
+      "name": "genesis",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "kazu",
+      "name": "kazu",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "deadlock",

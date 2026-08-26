@@ -6,11 +6,11 @@
   "url": "http://darkmat3kdxestusl437urshpsravq7oqb7t3m36u2l62vnmmldzdmid.onion",
   "onion": "darkmat3kdxestusl437urshpsravq7oqb7t3m36u2l62vnmmldzdmid",
   "status": "up",
-  "upMirrors": 1,
+  "upMirrors": 2,
   "totalMirrors": 3,
   "latencyMs": 1217,
   "httpCode": "200",
-  "pageSize": "23kb",
+  "pageSize": "102kb",
   "fingerprint": "737F2F32",
   "recommended": false,
   "isOnion": true

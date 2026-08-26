@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-24T13:52:48.000Z",
-  "lastSeen": "2026-08-24T13:52:48.000Z",
+  "firstSeen": "2026-08-25T06:24:02.000Z",
+  "lastSeen": "2026-08-25T06:24:02.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-24",
+      "date": "2026-08-25",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "meridian-forest-services-db3e",
-      "title": "Meridian Forest Services — claimed by beast",
-      "pubDate": "2026-08-24T13:52:48.000Z"
+      "slug": "cosmon-7813",
+      "title": "Cosmon — claimed by beast",
+      "pubDate": "2026-08-25T06:24:02.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "meridian-forest-services-db3e",
-      "victim": "Meridian Forest Services — claimed by beast",
-      "sector": "Agriculture and Food Production",
-      "country": "CA",
-      "pubDate": "2026-08-24T13:52:48.000Z"
+      "id": "cosmon-7813",
+      "victim": "Cosmon — claimed by beast",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-25T06:24:02.000Z"
     }
   ]
 }
