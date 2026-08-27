@@ -1,0 +1,56 @@
+{
+  "type": "group",
+  "slug": "iah6477",
+  "name": "iah6477",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-26T20:25:16.000Z",
+  "lastSeen": "2026-08-26T22:24:52.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-26",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "proampac-59cb",
+      "title": "proampac — claimed by iah6477",
+      "pubDate": "2026-08-26T22:24:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mat-holdings-inc-5ce8",
+      "title": "mat-holdings-inc — claimed by iah6477",
+      "pubDate": "2026-08-26T20:25:16.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "proampac-59cb",
+      "victim": "proampac — claimed by iah6477",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-26T22:24:52.000Z"
+    },
+    {
+      "id": "mat-holdings-inc-5ce8",
+      "victim": "mat-holdings-inc — claimed by iah6477",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-26T20:25:16.000Z"
+    }
+  ]
+}

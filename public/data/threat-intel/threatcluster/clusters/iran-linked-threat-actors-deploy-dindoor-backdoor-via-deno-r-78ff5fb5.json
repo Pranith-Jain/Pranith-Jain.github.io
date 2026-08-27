@@ -1,0 +1,11 @@
+{
+  "slug": "iran-linked-threat-actors-deploy-dindoor-backdoor-via-deno-r-78ff5fb5",
+  "title": "Iran-Linked Threat Actors Deploy Dindoor Backdoor via Deno Runtime",
+  "link": "https://threatcluster.io/cluster/iran-linked-threat-actors-deploy-dindoor-backdoor-via-deno-r-78ff5fb5?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/iran-linked-threat-actors-deploy-dindoor-backdoor-via-deno-r-78ff5fb5",
+  "pubDate": "2026-08-26T10:29:39.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "Iran-linked threat actors associated with MuddyWater are exploiting a Windows backdoor named Dindoor. This malware utilizes the legitimate Deno runtime to execute malicious JavaScript and TypeScript p…",
+  "sizeBytes": 201
+}

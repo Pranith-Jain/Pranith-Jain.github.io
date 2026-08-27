@@ -5,84 +5,86 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 6,
-  "firstSeen": "2026-08-24T17:51:49.000Z",
-  "lastSeen": "2026-08-26T01:57:16.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 4 ransomware groups and 5 countries.",
+  "firstSeen": "2026-08-26T15:35:55.000Z",
+  "lastSeen": "2026-08-27T14:31:07.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-24",
-      "count": 1
-    },
-    {
-      "date": "2026-08-25",
-      "count": 4
-    },
-    {
       "date": "2026-08-26",
-      "count": 1
+      "count": 3
+    },
+    {
+      "date": "2026-08-27",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "air-international-thermal-systems-5a02",
-      "title": "Air International Thermal Systems — claimed by qilin",
-      "pubDate": "2026-08-26T01:57:16.000Z"
+      "slug": "rohloff-group-14b7",
+      "title": "Rohloff Group — claimed by incransom",
+      "pubDate": "2026-08-27T14:31:07.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "industry-airliquide-kr-b2c3",
-      "title": "industry.airliquide.kr — claimed by safepay",
-      "pubDate": "2026-08-25T20:57:25.000Z"
+      "slug": "cetylite-23d2",
+      "title": "Cetylite — claimed by akira",
+      "pubDate": "2026-08-27T14:27:52.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "sc-paderteg-cabluri-electrice-1b00",
-      "title": "SC PaderTeG Cabluri Electrice — claimed by qilin",
-      "pubDate": "2026-08-25T19:00:00.000Z"
+      "slug": "qualisteel-6cfc",
+      "title": "Qualisteel — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:27:37.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "winter-ingenieure-f47f",
-      "title": "WINTER Ingenieure — claimed by akira",
-      "pubDate": "2026-08-25T12:53:05.000Z"
+      "slug": "proampac-59cb",
+      "title": "proampac — claimed by iah6477",
+      "pubDate": "2026-08-26T22:24:52.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "pump-engineering-company-8276",
-      "title": "Pump Engineering Company — claimed by Dark Project",
-      "pubDate": "2026-08-25T09:51:49.000Z"
+      "slug": "mat-holdings-inc-5ce8",
+      "title": "mat-holdings-inc — claimed by iah6477",
+      "pubDate": "2026-08-26T20:25:16.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "design-aire-engineering-inc-c86c",
-      "title": "Design-Aire Engineering, INC — claimed by Dark Project",
-      "pubDate": "2026-08-24T17:51:49.000Z"
+      "slug": "tec-container-fdee",
+      "title": "TEC Container — claimed by thegentlemen",
+      "pubDate": "2026-08-26T15:35:55.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "iah6477",
+      "name": "iah6477",
       "weight": 2
     },
     {
       "type": "group",
-      "slug": "dark-project",
-      "name": "Dark Project",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
+      "slug": "incransom",
+      "name": "incransom",
       "weight": 1
     },
     {
       "type": "group",
       "slug": "akira",
       "name": "akira",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "medusalocker",
+      "name": "medusalocker",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

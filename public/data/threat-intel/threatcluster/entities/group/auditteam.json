@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-25T21:20:18.000Z",
-  "lastSeen": "2026-08-25T21:20:18.000Z",
+  "firstSeen": "2026-08-27T11:50:22.000Z",
+  "lastSeen": "2026-08-27T11:50:22.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-25",
+      "date": "2026-08-27",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ma-up-9c8c",
-      "title": "ma***up — claimed by AuditTeam",
-      "pubDate": "2026-08-25T21:20:18.000Z"
+      "slug": "pi-al-9624",
+      "title": "PI***al — claimed by AuditTeam",
+      "pubDate": "2026-08-27T11:50:22.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "ma-up-9c8c",
-      "victim": "ma***up — claimed by AuditTeam",
-      "sector": "Not Found",
-      "country": "RU",
-      "pubDate": "2026-08-25T21:20:18.000Z"
+      "id": "pi-al-9624",
+      "victim": "PI***al — claimed by AuditTeam",
+      "sector": "Financial Services",
+      "country": "CO",
+      "pubDate": "2026-08-27T11:50:22.000Z"
     }
   ]
 }

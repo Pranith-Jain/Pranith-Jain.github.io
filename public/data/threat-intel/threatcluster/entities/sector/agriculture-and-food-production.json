@@ -5,62 +5,56 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 4,
-  "firstSeen": "2026-08-24T13:58:57.000Z",
-  "lastSeen": "2026-08-25T14:26:02.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 4 countries.",
+  "firstSeen": "2026-08-26T15:29:13.000Z",
+  "lastSeen": "2026-08-27T06:28:05.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-24",
-      "count": 2
+      "date": "2026-08-26",
+      "count": 3
     },
     {
-      "date": "2026-08-25",
-      "count": 2
+      "date": "2026-08-27",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "sinar-mas-agribusiness-and-food-golden-agri-resources-ef64",
-      "title": "Sinar Mas Agribusiness and Food Golden Agri-Resources) — claimed by ShadowByt3$",
-      "pubDate": "2026-08-25T14:26:02.000Z"
+      "slug": "servifruit-de84",
+      "title": "Servifruit — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:28:05.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "agroland-s-a-0ae4",
-      "title": "AGROLAND S.A. — claimed by qilin",
-      "pubDate": "2026-08-25T11:57:31.000Z"
+      "slug": "ferretornillos-gt-0048",
+      "title": "ferretornillos.gt — claimed by krybit",
+      "pubDate": "2026-08-26T15:55:02.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "lagegepesca-it-cc45",
-      "title": "lagegepesca.it — claimed by safepay",
-      "pubDate": "2026-08-24T19:29:25.000Z"
+      "slug": "lemonfarm-com-15e0",
+      "title": "lemonfarm.com — claimed by krybit",
+      "pubDate": "2026-08-26T15:30:32.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "coldfish-seafood-2268",
-      "title": "Coldfish Seafood — claimed by qilin",
-      "pubDate": "2026-08-24T13:58:57.000Z"
+      "slug": "mimafoods-net-b059",
+      "title": "mimafoods.net — claimed by krybit",
+      "pubDate": "2026-08-26T15:29:13.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 2
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 3
     },
     {
       "type": "group",
-      "slug": "shadowbyt3",
-      "name": "ShadowByt3$",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
+      "slug": "medusalocker",
+      "name": "medusalocker",
       "weight": 1
     }
   ],
