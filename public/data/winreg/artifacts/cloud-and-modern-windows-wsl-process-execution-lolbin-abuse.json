@@ -1,0 +1,17 @@
+{
+  "slug": "cloud-and-modern-windows-wsl-process-execution-lolbin-abuse",
+  "name": "WSL Process Execution & LOLBIN Abuse",
+  "category": "cloud_and_modern_windows",
+  "categoryLabel": "Cloud & Modern Windows",
+  "categoryDescription": "Modern Windows artifacts — UWP/AppX packages, OneDrive, and Windows Subsystem for Linux.",
+  "hive": ["N/A"],
+  "keys": ["(Process/command-line telemetry — not a registry artifact)"],
+  "description": "Behavioral abuse of Windows Subsystem for Linux via wsl.exe, wslhost.exe, and bash.exe — used to execute Linux ELF binaries outside Windows-focused EDR visibility, chain LOLBIN commands past process-tree monitoring, or stage a full penetration-testing toolkit (Kali Linux) directly on the host.",
+  "forensic_value": "Detection here is entirely process/command-line based, not registry-based — this artifact complements the Lxss registry key (which only proves a distro is installed). Key patterns: a Windows LOLBIN (powershell.exe, mshta.exe, rundll32.exe...) spawned as a child of wsl.exe/wslhost.exe; a Windows binary invoked from inside a WSL instance (masquerading the parent/child relationship); bash.exe run with -c or against a script file to indirectly execute commands; or installation/use of the Kali Linux WSL distro, which ships a full offensive toolkit.",
+  "mitre": "TA0005",
+  "techniques": ["T1202", "T1059"],
+  "parsers": ["Sysmon Event ID 1 (Process Creation)", "EDR process telemetry"],
+  "source": "github.com/dfir-scripts/dfir-scripts.github.io",
+  "sourceUrl": "https://dfir-scripts.github.io/registry/",
+  "license": "MIT"
+}
