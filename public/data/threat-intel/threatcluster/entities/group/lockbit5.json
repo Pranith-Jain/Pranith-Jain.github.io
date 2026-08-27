@@ -1,0 +1,75 @@
+{
+  "type": "group",
+  "slug": "lockbit5",
+  "name": "lockbit5",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-08-27T13:01:41.000Z",
+  "lastSeen": "2026-08-27T13:02:10.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-27",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "theheartcenterofmemphis-com-a558",
+      "title": "theheartcenterofmemphis.com — claimed by lockbit5",
+      "pubDate": "2026-08-27T13:02:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dece-cz-17e4",
+      "title": "dece.cz — claimed by lockbit5",
+      "pubDate": "2026-08-27T13:01:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "takt-be-decc",
+      "title": "takt.be — claimed by lockbit5",
+      "pubDate": "2026-08-27T13:01:41.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "theheartcenterofmemphis-com-a558",
+      "victim": "theheartcenterofmemphis.com — claimed by lockbit5",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-27T13:02:10.000Z"
+    },
+    {
+      "id": "dece-cz-17e4",
+      "victim": "dece.cz — claimed by lockbit5",
+      "sector": "Technology",
+      "country": "CZ",
+      "pubDate": "2026-08-27T13:01:55.000Z"
+    },
+    {
+      "id": "takt-be-decc",
+      "victim": "takt.be — claimed by lockbit5",
+      "sector": "Technology",
+      "country": "BE",
+      "pubDate": "2026-08-27T13:01:41.000Z"
+    }
+  ]
+}

@@ -4,29 +4,41 @@
   "name": "Transportation",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-08-25T15:55:00.000Z",
-  "lastSeen": "2026-08-25T15:55:00.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-27T08:50:40.000Z",
+  "lastSeen": "2026-08-27T10:52:15.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-25",
-      "count": 1
+      "date": "2026-08-27",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "tiseo-paving-fd08",
-      "title": "Tiseo Paving — claimed by Global Secret Group",
-      "pubDate": "2026-08-25T15:55:00.000Z"
+      "slug": "sca-logistik-amp-fulfillment-gmbh-db35",
+      "title": "SCA Logistik &amp; Fulfillment GmbH — claimed by aurora",
+      "pubDate": "2026-08-27T10:52:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "capitol-mechanics-da52",
+      "title": "Capitol Mechanics — claimed by emperador",
+      "pubDate": "2026-08-27T08:50:40.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "global-secret-group",
-      "name": "Global Secret Group",
+      "slug": "aurora",
+      "name": "aurora",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "emperador",
+      "name": "emperador",
       "weight": 1
     }
   ],

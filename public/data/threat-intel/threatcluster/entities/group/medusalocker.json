@@ -1,0 +1,119 @@
+{
+  "type": "group",
+  "slug": "medusalocker",
+  "name": "medusalocker",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 5,
+  "firstSeen": "2026-08-27T06:27:23.000Z",
+  "lastSeen": "2026-08-27T06:28:20.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 5 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-27",
+      "count": 5
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "jgsee-5b3f",
+      "title": "Jgsee — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:28:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "servifruit-de84",
+      "title": "Servifruit — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:28:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hungry-lion-663e",
+      "title": "Hungry Lion — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:27:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "qualisteel-6cfc",
+      "title": "Qualisteel — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:27:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "health-be66",
+      "title": "Health — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:27:23.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "jgsee-5b3f",
+      "victim": "Jgsee — claimed by medusalocker",
+      "sector": "Not Found",
+      "country": "TH",
+      "pubDate": "2026-08-27T06:28:20.000Z"
+    },
+    {
+      "id": "servifruit-de84",
+      "victim": "Servifruit — claimed by medusalocker",
+      "sector": "Agriculture and Food Production",
+      "country": "MX",
+      "pubDate": "2026-08-27T06:28:05.000Z"
+    },
+    {
+      "id": "hungry-lion-663e",
+      "victim": "Hungry Lion — claimed by medusalocker",
+      "sector": "Retail & E-Commerce",
+      "country": "GH",
+      "pubDate": "2026-08-27T06:27:50.000Z"
+    },
+    {
+      "id": "qualisteel-6cfc",
+      "victim": "Qualisteel — claimed by medusalocker",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-08-27T06:27:37.000Z"
+    },
+    {
+      "id": "health-be66",
+      "victim": "Health — claimed by medusalocker",
+      "sector": "Healthcare",
+      "country": "AU",
+      "pubDate": "2026-08-27T06:27:23.000Z"
+    }
+  ]
+}

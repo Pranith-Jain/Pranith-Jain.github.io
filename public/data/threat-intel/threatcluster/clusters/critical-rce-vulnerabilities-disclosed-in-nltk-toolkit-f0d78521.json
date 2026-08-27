@@ -1,0 +1,11 @@
+{
+  "slug": "critical-rce-vulnerabilities-disclosed-in-nltk-toolkit-f0d78521",
+  "title": "Critical RCE Vulnerabilities Disclosed in NLTK Toolkit",
+  "link": "https://threatcluster.io/cluster/critical-rce-vulnerabilities-disclosed-in-nltk-toolkit-f0d78521?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-rce-vulnerabilities-disclosed-in-nltk-toolkit-f0d78521",
+  "pubDate": "2026-08-26T06:36:58.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "A mass disclosure of four CVEs affecting NLTK versions before 3.10.3 was announced, with CVE-2026-79657 rated at CVSS 9.8.",
+  "sizeBytes": 122
+}

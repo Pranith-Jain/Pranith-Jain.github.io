@@ -4,40 +4,59 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-08-24T15:53:58.000Z",
-  "lastSeen": "2026-08-24T15:53:58.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-27T13:31:56.000Z",
+  "lastSeen": "2026-08-27T14:31:07.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-24",
-      "count": 1
+      "date": "2026-08-27",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ffkr-architects-bd6a",
-      "title": "FFKR Architects — claimed by incransom",
-      "pubDate": "2026-08-24T15:53:58.000Z"
+      "slug": "rohloff-group-14b7",
+      "title": "Rohloff Group — claimed by incransom",
+      "pubDate": "2026-08-27T14:31:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ruby-seven-studios-9aa7",
+      "title": "Ruby Seven Studios — claimed by incransom",
+      "pubDate": "2026-08-27T13:31:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "ffkr-architects-bd6a",
-      "victim": "FFKR Architects — claimed by incransom",
-      "sector": "Professional Services",
+      "id": "rohloff-group-14b7",
+      "victim": "Rohloff Group — claimed by incransom",
+      "sector": "Manufacturing",
+      "country": "ZA",
+      "pubDate": "2026-08-27T14:31:07.000Z"
+    },
+    {
+      "id": "ruby-seven-studios-9aa7",
+      "victim": "Ruby Seven Studios — claimed by incransom",
+      "sector": "Technology",
       "country": "US",
-      "pubDate": "2026-08-24T15:53:58.000Z"
+      "pubDate": "2026-08-27T13:31:56.000Z"
     }
   ]
 }

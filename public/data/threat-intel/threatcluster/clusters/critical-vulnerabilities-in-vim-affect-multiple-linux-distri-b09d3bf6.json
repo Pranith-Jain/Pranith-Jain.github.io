@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-in-vim-affect-multiple-linux-distri-b09d3bf6",
+  "title": "Critical Vulnerabilities in Vim Affect Multiple Linux Distributions",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-vim-affect-multiple-linux-distri-b09d3bf6?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-vim-affect-multiple-linux-distri-b09d3bf6",
+  "pubDate": "2026-08-22T00:33:24.000Z",
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
+  "description": "Recent updates for Vim have addressed several critical vulnerabilities, including CVE-2026-73070, CVE-2026-73071, and CVE-2026-73072, which could lead to denial of service and arbitrary code execution…",
+  "sizeBytes": 201
+}

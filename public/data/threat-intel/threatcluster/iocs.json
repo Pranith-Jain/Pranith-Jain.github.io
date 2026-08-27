@@ -1,11 +1,155 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-26T05:59:22Z",
-  "syncedAt": "2026-08-26T05:59:22.768Z",
+  "generatedAt": "2026-08-27T16:40:02Z",
+  "syncedAt": "2026-08-27T16:40:02.630Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 26,
+  "count": 31,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "instantmessagehub.tech",
+      "confidence": "high",
+      "reason": "Listed as a core infrastructure element for Fast Labyrinth",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "jump.qt-proxy.org",
+      "confidence": "high",
+      "reason": "Listed as an active operational jump box for Fast Labyrinth",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "qt-proxy.org",
+      "confidence": "high",
+      "reason": "Active infrastructure element for Fast Labyrinth",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "qtproxy.xyz",
+      "confidence": "high",
+      "reason": "Primary administrative domain for proxy orchestration",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "qt-team.com",
+      "confidence": "high",
+      "reason": "Legacy assets replaced by qt-proxy.org",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "1.32.216.171",
+      "confidence": "high",
+      "reason": "Mapped to Fast Labyrinth admin plane",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "154.64.238.222",
+      "confidence": "high",
+      "reason": "Mapped to QScan broker",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "154.64.238.247",
+      "confidence": "high",
+      "reason": "Mapped to QScan backend",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "8.148.149.147",
+      "confidence": "high",
+      "reason": "Mapped to active operational jump box",
+      "first_seen": "2026-08-26T20:18:54.083342+00:00",
+      "last_seen": "2026-08-26T20:18:54.083342+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.lumen.com",
+          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
+          "pub_date": "2026-08-26T20:18:54.083342+00:00"
+        }
+      ]
+    },
     {
       "type": "ipv4",
       "value": "102.91.71.83",
@@ -365,70 +509,6 @@
           "source": "Feeds.Feedburner",
           "url": "https://www.scworld.com/brief/arista-patches-critical-command-injection-flaw-in-velocloud-orchestrator-exploited-in-attacks",
           "pub_date": "2026-07-28T21:52:08+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "re2.filesdwnload.top",
-      "confidence": "high",
-      "reason": "Listed as C2 server deploying tools.",
-      "first_seen": "2026-07-28T05:26:30+00:00",
-      "last_seen": "2026-07-28T05:26:30+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zscaler",
-          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
-          "pub_date": "2026-07-28T05:26:30+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "re8.dowlfles.online",
-      "confidence": "high",
-      "reason": "Listed as C2 server deploying tools.",
-      "first_seen": "2026-07-28T05:26:30+00:00",
-      "last_seen": "2026-07-28T05:26:30+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zscaler",
-          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
-          "pub_date": "2026-07-28T05:26:30+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "update19.upldf.online",
-      "confidence": "high",
-      "reason": "Listed as C2 server deploying tools.",
-      "first_seen": "2026-07-28T05:26:30+00:00",
-      "last_seen": "2026-07-28T05:26:30+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zscaler",
-          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
-          "pub_date": "2026-07-28T05:26:30+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "xeds.geranteeg.online",
-      "confidence": "high",
-      "reason": "Listed as C2 server deploying tools.",
-      "first_seen": "2026-07-28T05:26:30+00:00",
-      "last_seen": "2026-07-28T05:26:30+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zscaler",
-          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
-          "pub_date": "2026-07-28T05:26:30+00:00"
         }
       ]
     }

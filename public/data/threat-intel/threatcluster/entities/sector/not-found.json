@@ -4,105 +4,111 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-24T13:53:35.000Z",
-  "lastSeen": "2026-08-25T21:20:18.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 7 ransomware groups and 5 countries.",
+  "mentionCount": 11,
+  "firstSeen": "2026-08-26T15:35:43.000Z",
+  "lastSeen": "2026-08-27T06:28:20.000Z",
+  "summary": "Sector hit by 11 leak-site victims across 4 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-24",
-      "count": 3
+      "date": "2026-08-26",
+      "count": 10
     },
     {
-      "date": "2026-08-25",
-      "count": 4
+      "date": "2026-08-27",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ma-up-9c8c",
-      "title": "ma***up — claimed by AuditTeam",
-      "pubDate": "2026-08-25T21:20:18.000Z"
+      "slug": "jgsee-5b3f",
+      "title": "Jgsee — claimed by medusalocker",
+      "pubDate": "2026-08-27T06:28:20.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "copcp-com-591b",
-      "title": "copcp.com — claimed by chaos",
-      "pubDate": "2026-08-25T19:23:40.000Z"
+      "slug": "q-e-dbf4",
+      "title": "Q... E... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T22:58:27.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "s-4853",
-      "title": "S******* — claimed by genesis",
-      "pubDate": "2026-08-25T13:57:53.000Z"
+      "slug": "n-m-7e83",
+      "title": "N... M... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T22:57:19.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "redacted-586d",
-      "title": "Redacted — claimed by kazu",
-      "pubDate": "2026-08-25T12:56:02.000Z"
+      "slug": "s-p-c4f3",
+      "title": "S... P... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T22:56:12.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "fbc-9408",
-      "title": "FBC — claimed by Deadlock",
-      "pubDate": "2026-08-24T21:21:08.000Z"
+      "slug": "k-m-210e",
+      "title": "K... M... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T22:55:02.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "the-liberty-group-6a5b",
-      "title": "The Liberty Group — claimed by Dark Project",
-      "pubDate": "2026-08-24T18:21:30.000Z"
+      "slug": "h-k-c397",
+      "title": "H... K... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T22:53:53.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "www-ptesm-com-e071",
-      "title": "www.ptesm.com — claimed by blackwater",
-      "pubDate": "2026-08-24T13:53:35.000Z"
+      "slug": "h-l-c398",
+      "title": "H... L... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T22:52:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "c-o-7d2b",
+      "title": "C... O... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T22:51:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "a-3383",
+      "title": "A... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-26T21:52:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "www-sankovn-com-26b3",
+      "title": "www.sankovn.com — claimed by krybit",
+      "pubDate": "2026-08-26T15:54:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "verbux-c585",
+      "title": "Verbux — claimed by thegentlemen",
+      "pubDate": "2026-08-26T15:35:43.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "auditteam",
-      "name": "AuditTeam",
+      "slug": "silentransomgroup",
+      "name": "SilentRansomGroup",
+      "weight": 8
+    },
+    {
+      "type": "group",
+      "slug": "medusalocker",
+      "name": "medusalocker",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "chaos",
-      "name": "chaos",
+      "slug": "krybit",
+      "name": "krybit",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "genesis",
-      "name": "genesis",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "kazu",
-      "name": "kazu",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "deadlock",
-      "name": "Deadlock",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "dark-project",
-      "name": "Dark Project",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "blackwater",
-      "name": "blackwater",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

@@ -1,0 +1,14 @@
+{
+  "id": "health-be66",
+  "victim": "Health",
+  "group": "medusalocker",
+  "sector": "Healthcare",
+  "country": "AU",
+  "title": "Health — claimed by medusalocker",
+  "link": "https://threatcluster.io/dark-web/victim/Health",
+  "guid": "darkweb-victim:medusalocker:health",
+  "pubDate": "2026-08-27T06:27:23.000Z",
+  "categories": ["Group: medusalocker", "Sector: Healthcare", "Country: AU"],
+  "description": "AU · Healthcare · Organization with 103 emails extracted. Domain: health.nsw.gov.au",
+  "sizeBytes": 83
+}

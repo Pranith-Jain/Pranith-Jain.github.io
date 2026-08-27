@@ -4,73 +4,75 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-24T13:58:57.000Z",
-  "lastSeen": "2026-08-26T01:57:16.000Z",
-  "summary": "Ransomware group with 7 leak-site victims across 4 sectors and 4 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-08-26T18:57:05.000Z",
+  "lastSeen": "2026-08-27T13:04:09.000Z",
+  "summary": "Ransomware group with 8 leak-site victims across 6 sectors and 5 countries.",
   "frequency": [
     {
-      "date": "2026-08-24",
+      "date": "2026-08-26",
       "count": 2
     },
     {
-      "date": "2026-08-25",
-      "count": 4
-    },
-    {
-      "date": "2026-08-26",
-      "count": 1
+      "date": "2026-08-27",
+      "count": 6
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "air-international-thermal-systems-5a02",
-      "title": "Air International Thermal Systems — claimed by qilin",
-      "pubDate": "2026-08-26T01:57:16.000Z"
+      "slug": "gps-grothkopp-und-partner-b212",
+      "title": "GPS Grothkopp und Partner — claimed by qilin",
+      "pubDate": "2026-08-27T13:04:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "brazosport-college-ae98",
-      "title": "Brazosport College — claimed by qilin",
-      "pubDate": "2026-08-25T21:28:26.000Z"
+      "slug": "providence-investments-112d",
+      "title": "Providence Investments — claimed by qilin",
+      "pubDate": "2026-08-27T11:59:43.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "sc-paderteg-cabluri-electrice-1b00",
-      "title": "SC PaderTeG Cabluri Electrice — claimed by qilin",
-      "pubDate": "2026-08-25T19:00:00.000Z"
+      "slug": "lgg-advisors-4397",
+      "title": "LGG Advisors — claimed by qilin",
+      "pubDate": "2026-08-27T11:59:24.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "structured-settlement-capital-llc-ee87",
-      "title": "STRUCTURED SETTLEMENT CAPITAL LLC — claimed by qilin",
-      "pubDate": "2026-08-25T12:28:44.000Z"
+      "slug": "open-sports-3216",
+      "title": "Open Sports — claimed by qilin",
+      "pubDate": "2026-08-27T11:59:03.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "agroland-s-a-0ae4",
-      "title": "AGROLAND S.A. — claimed by qilin",
-      "pubDate": "2026-08-25T11:57:31.000Z"
+      "slug": "dab-investments-fd97",
+      "title": "DAB Investments — claimed by qilin",
+      "pubDate": "2026-08-27T11:27:59.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "consultores-de-seguros-213b",
-      "title": "Consultores de Seguros — claimed by qilin",
-      "pubDate": "2026-08-24T22:27:31.000Z"
+      "slug": "displaydata-430c",
+      "title": "Displaydata — claimed by qilin",
+      "pubDate": "2026-08-27T11:27:41.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "coldfish-seafood-2268",
-      "title": "Coldfish Seafood — claimed by qilin",
-      "pubDate": "2026-08-24T13:58:57.000Z"
+      "slug": "sanatorio-modelo-de-caseros-6820",
+      "title": "Sanatorio Modelo de Caseros — claimed by qilin",
+      "pubDate": "2026-08-26T18:57:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kenep-resources-d8e6",
+      "title": "KenEp Resources — claimed by qilin",
+      "pubDate": "2026-08-26T18:57:05.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "professional-services",
+      "name": "Professional Services",
       "weight": 2
     },
     {
@@ -81,67 +83,86 @@
     },
     {
       "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
-      "weight": 2
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "education",
-      "name": "Education",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "air-international-thermal-systems-5a02",
-      "victim": "Air International Thermal Systems — claimed by qilin",
-      "sector": "Manufacturing",
+      "id": "gps-grothkopp-und-partner-b212",
+      "victim": "GPS Grothkopp und Partner — claimed by qilin",
+      "sector": "Professional Services",
+      "country": "DE",
+      "pubDate": "2026-08-27T13:04:09.000Z"
+    },
+    {
+      "id": "providence-investments-112d",
+      "victim": "Providence Investments — claimed by qilin",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-08-27T11:59:43.000Z"
+    },
+    {
+      "id": "lgg-advisors-4397",
+      "victim": "LGG Advisors — claimed by qilin",
+      "sector": "Professional Services",
       "country": "GB",
-      "pubDate": "2026-08-26T01:57:16.000Z"
+      "pubDate": "2026-08-27T11:59:24.000Z"
     },
     {
-      "id": "brazosport-college-ae98",
-      "victim": "Brazosport College — claimed by qilin",
-      "sector": "Education",
-      "country": "US",
-      "pubDate": "2026-08-25T21:28:26.000Z"
+      "id": "open-sports-3216",
+      "victim": "Open Sports — claimed by qilin",
+      "sector": "Retail & E-Commerce",
+      "country": "AR",
+      "pubDate": "2026-08-27T11:59:03.000Z"
     },
     {
-      "id": "sc-paderteg-cabluri-electrice-1b00",
-      "victim": "SC PaderTeG Cabluri Electrice — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "RO",
-      "pubDate": "2026-08-25T19:00:00.000Z"
-    },
-    {
-      "id": "structured-settlement-capital-llc-ee87",
-      "victim": "STRUCTURED SETTLEMENT CAPITAL LLC — claimed by qilin",
+      "id": "dab-investments-fd97",
+      "victim": "DAB Investments — claimed by qilin",
       "sector": "Financial Services",
-      "country": "US",
-      "pubDate": "2026-08-25T12:28:44.000Z"
+      "country": "GB",
+      "pubDate": "2026-08-27T11:27:59.000Z"
     },
     {
-      "id": "agroland-s-a-0ae4",
-      "victim": "AGROLAND S.A. — claimed by qilin",
-      "sector": "Agriculture and Food Production",
-      "country": "RO",
-      "pubDate": "2026-08-25T11:57:31.000Z"
+      "id": "displaydata-430c",
+      "victim": "Displaydata — claimed by qilin",
+      "sector": "Technology",
+      "country": "GB",
+      "pubDate": "2026-08-27T11:27:41.000Z"
     },
     {
-      "id": "consultores-de-seguros-213b",
-      "victim": "Consultores de Seguros — claimed by qilin",
-      "sector": "Financial Services",
-      "country": null,
-      "pubDate": "2026-08-24T22:27:31.000Z"
+      "id": "sanatorio-modelo-de-caseros-6820",
+      "victim": "Sanatorio Modelo de Caseros — claimed by qilin",
+      "sector": "Healthcare",
+      "country": "AR",
+      "pubDate": "2026-08-26T18:57:41.000Z"
     },
     {
-      "id": "coldfish-seafood-2268",
-      "victim": "Coldfish Seafood — claimed by qilin",
-      "sector": "Agriculture and Food Production",
-      "country": "CA",
-      "pubDate": "2026-08-24T13:58:57.000Z"
+      "id": "kenep-resources-d8e6",
+      "victim": "KenEp Resources — claimed by qilin",
+      "sector": "Energy & Utilities",
+      "country": "MY",
+      "pubDate": "2026-08-26T18:57:05.000Z"
     }
   ]
 }

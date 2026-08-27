@@ -5,9 +5,9 @@
   "aliases": [],
   "firstSeen": null,
   "mitreTechniques": [],
-  "indicatorCount": 60,
+  "indicatorCount": 62,
   "description": "🔎INTEL",
-  "sizeBytes": 5904,
+  "sizeBytes": 6042,
   "indicators": [
     { "type": "md5", "value": "ef846baabc14fe461cff4c4a0fd5056f", "firstSeen": null, "confidence": "medium" },
     { "type": "md5", "value": "be15f62d14d1cbe2aecce8396f4c6289", "firstSeen": null, "confidence": "medium" },
@@ -159,6 +159,12 @@
       "confidence": "medium"
     },
     {
+      "type": "onion",
+      "value": "cd3jm77zz4bfmjs7fabzeevgqsdfczn2kqerbi6o6grnkc4legks3pqd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
       "type": "domain",
       "value": "novadmrkp4vbk2padk5t6pbxolndceuc7hrcq4mjaoyed6nxsqiuzyyd.onion",
       "firstSeen": null,
@@ -295,6 +301,12 @@
     {
       "type": "domain",
       "value": "cjhbmxday44tcjhwo6ck33h5popgqvrhfrvp77wpm4kx45yd5dlcx3ad.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "cd3jm77zz4bfmjs7fabzeevgqsdfczn2kqerbi6o6grnkc4legks3pqd.onion",
       "firstSeen": null,
       "confidence": "medium"
     },

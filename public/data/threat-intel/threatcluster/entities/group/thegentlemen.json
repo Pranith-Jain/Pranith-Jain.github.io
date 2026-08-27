@@ -1,0 +1,113 @@
+{
+  "type": "group",
+  "slug": "thegentlemen",
+  "name": "thegentlemen",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 5,
+  "firstSeen": "2026-08-26T15:35:01.000Z",
+  "lastSeen": "2026-08-26T15:36:04.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 5 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-26",
+      "count": 5
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "party-rental-57a8",
+      "title": "Party Rental — claimed by thegentlemen",
+      "pubDate": "2026-08-26T15:36:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tec-container-fdee",
+      "title": "TEC Container — claimed by thegentlemen",
+      "pubDate": "2026-08-26T15:35:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "verbux-c585",
+      "title": "Verbux — claimed by thegentlemen",
+      "pubDate": "2026-08-26T15:35:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "espinos-7a26",
+      "title": "Espinos — claimed by thegentlemen",
+      "pubDate": "2026-08-26T15:35:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "incolur-a17d",
+      "title": "Incolur — claimed by thegentlemen",
+      "pubDate": "2026-08-26T15:35:01.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "party-rental-57a8",
+      "victim": "Party Rental — claimed by thegentlemen",
+      "sector": "Hospitality",
+      "country": "GB",
+      "pubDate": "2026-08-26T15:36:04.000Z"
+    },
+    {
+      "id": "tec-container-fdee",
+      "victim": "TEC Container — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "BR",
+      "pubDate": "2026-08-26T15:35:55.000Z"
+    },
+    {
+      "id": "verbux-c585",
+      "victim": "Verbux — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "DE",
+      "pubDate": "2026-08-26T15:35:43.000Z"
+    },
+    {
+      "id": "espinos-7a26",
+      "victim": "Espinos — claimed by thegentlemen",
+      "sector": "Other",
+      "country": "MX",
+      "pubDate": "2026-08-26T15:35:23.000Z"
+    },
+    {
+      "id": "incolur-a17d",
+      "victim": "Incolur — claimed by thegentlemen",
+      "sector": "Other",
+      "country": "CL",
+      "pubDate": "2026-08-26T15:35:01.000Z"
+    }
+  ]
+}

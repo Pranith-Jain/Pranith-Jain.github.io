@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "aurora",
+  "name": "aurora",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-27T10:52:15.000Z",
+  "lastSeen": "2026-08-27T10:52:15.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-27",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "sca-logistik-amp-fulfillment-gmbh-db35",
+      "title": "SCA Logistik &amp; Fulfillment GmbH — claimed by aurora",
+      "pubDate": "2026-08-27T10:52:15.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "sca-logistik-amp-fulfillment-gmbh-db35",
+      "victim": "SCA Logistik &amp; Fulfillment GmbH — claimed by aurora",
+      "sector": "Transportation",
+      "country": "DE",
+      "pubDate": "2026-08-27T10:52:15.000Z"
+    }
+  ]
+}
