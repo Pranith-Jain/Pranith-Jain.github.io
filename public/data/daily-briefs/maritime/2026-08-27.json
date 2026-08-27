@@ -1,0 +1,317 @@
+{
+  "type": "maritime",
+  "date": "2026-08-27",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Port operations risk remains elevated following a confirmed cyberattack on North Carolina Ports that forced manual processing across Wilmington, Morehead City, and the Charlotte inland port, demonstrating continued susceptibility of U.S. maritime logistics nodes to IT disruption View Article Supporting Report . Navigation and situational-awareness risk is sustained by ongoing GNSS interference. Industry research indicates hundreds of vessels are affected daily by jamming/spoofing, with impacts extending to GMDSS, radar, radios, NAVTEX, speed logs, clocks, and SATCOM-creating material safety and cyber-physical risk Source . A recent NAVCEN GUIDE entry confirms marine GPS interference in the Baltic Sea on 2026-08-14 Government Advisory . Government advisories continue to emphasize structural maritime cyber risks: MARAD warns about foreign-manufactured port equipment, remote service pathways, and logistics platforms (e.g., LOGINK, Nuctech, remotely serviceable ship-to-shore cranes), recommending segmentation, secure remote access, and reduced unnecessary communications Maritime Advisory . USCG clarifies MTSA cybersecurity requirements apply to inactive vessels with valid certificates, citing increased risks from unattended networks and vendor interfaces Government Advisory . Class guidance for ship cyber resilience (IACS UR E26/E27) is actively available from ClassNK, supporting operators in implementing governance and technical controls for onboard systems View Article . Outlook: Over the next 72 hours, analysts should monitor for residual port processing impacts and opportunistic targeting of logistics nodes; continued GNSS interference reports are likely; port facilities should reaffirm segmentation and remote-access controls per MARAD/USCG guidance. Confidence in this outlook is medium based on mixed incident and advisory reporting. Specific forecasts are not guaranteed. Facts reflect cited sources; risk judgments synthesize multiple records and standard maritime cyber operations knowledge.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "Port equipment and logistics platforms referenced by MARAD (e.g., LOGINK, Nuctech systems, remotely serviceable ship-to-shore cranes). MARAD Advisory",
+      "Shipboard systems governed by IACS UR E26/E27, per ClassNK implementation guidance (coverage of onboard cyber-resilience controls). ClassNK"
+    ],
+    "sectors": [
+      "Ports and Terminals: Operational disruption and advisory-driven risk management.",
+      "Deep-Sea/Coastal Shipping: Navigation safety affected by GNSS interference; governance requirements for inactive vessels.",
+      "Logistics and Warehousing: Upstream/downstream disruption affecting maritime cargo flows."
+    ]
+  },
+  "keyFindings": [
+    "Confirmed port IT disruption: North Carolina Ports required manual processing across multiple facilities after a cyberattack, indicating operational fragility and cross-terminal dependencies. View Article Supporting Report",
+    "GNSS interference remains widespread and operationally consequential, degrading not only navigation but also safety and communications systems aboard vessels. View Article",
+    "Recent NAVCEN GUIDE data confirms marine GPS interference in the Baltic Sea on 14 August 2026, reinforcing the need for cross-checking and procedural navigation safeguards. Government Advisory",
+    "MARAD highlights cyber and data-security risks tied to foreign-manufactured port equipment, logistics platforms, and remote service access; segmentation and secure remote-access controls remain priority mitigations. Maritime Advisory",
+    "USCG clarifies MTSA cybersecurity requirements continue to apply to vessels categorized as inactive but still holding valid certifications, addressing elevated risks during reduced-manning/layup periods. Government Advisory"
+  ],
+  "topThreats": [
+    {
+      "title": "North Carolina Ports cyberattack disrupts multi-site operations",
+      "action": "Multi-facility disruption forced manual processes, slowing cargo flows and testing port resilience and incident response.",
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Widespread GNSS interference degrading navigation and safety systems",
+      "action": "Scale of jamming/spoofing introduces collision/grounding risk and degrades safety and comms dependencies.",
+      "sources": [
+        {
+          "url": "https://www.mpc-uk.org/rin-publishes-report-into-the-impacts-of-gnss-interference-on-maritime-safety/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Confirmed marine GPS interference in the Baltic Sea (14 Aug 2026)",
+      "action": "Current regional degradation demands bridge watch-standing adjustments and redundancy checks.",
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "MARAD advisory on foreign-manufactured port equipment and logistics platforms",
+      "action": "Highlights systemic cyber risks in cranes, screening systems, remote service channels, and logistics data platforms.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Maritime Advisory"
+        }
+      ]
+    },
+    {
+      "title": "USCG MSIB: MTSA cybersecurity requirements apply to inactive vessels",
+      "action": "Clarifies persistent cyber obligations and highlights layup/low-manning vulnerabilities.",
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/sites/default/files/pdf/msib/MSIB%2004-26%20Applicability%20of%20MTSA%20Cybersecurity%20Requirements%20for%20Inactive%20Vessels.pdf",
+          "label": "Government Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "Cyberattack on North Carolina Ports disrupts multi-site operations",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "The Record"
+        },
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/",
+          "label": "BleepingComputer"
+        }
+      ]
+    },
+    {
+      "title": "Widespread GNSS interference impacting maritime safety and systems",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.mpc-uk.org/rin-publishes-report-into-the-impacts-of-gnss-interference-on-maritime-safety/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Marine GPS interference in the Baltic Sea (NAVCEN GUIDE)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ]
+    },
+    {
+      "title": "MARAD 2026-007: Risks in foreign-manufactured port equipment and logistics platforms",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "MARAD Advisory"
+        }
+      ]
+    },
+    {
+      "title": "USCG MSIB 04-26: MTSA cybersecurity requirements for inactive vessels",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/sites/default/files/pdf/msib/MSIB%2004-26%20Applicability%20of%20MTSA%20Cybersecurity%20Requirements%20for%20Inactive%20Vessels.pdf",
+          "label": "MSIB 04-26"
+        }
+      ]
+    },
+    {
+      "title": "ClassNK: IACS UR E26/E27 cyber-resilience implementation resources",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.classnk.or.jp/hp/en/activities/cybersecurity/ur-e26e27.html",
+          "label": "ClassNK"
+        }
+      ]
+    },
+    {
+      "title": "CEVA Logistics cyber incident disrupts European warehouses",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/ceva-logistics-operations-disrupted-by-cyberattack/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "IMO: Resurgence of piracy and armed robbery in Gulf of Aden (contextual risk)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.imo.org/en/mediacentre/pressbriefings/pages/imo-calls-for-action-on-piracy-following-recent-attacks.aspx",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "No qualifying recent maritime-cyber item (administrative note)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": []
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "Cyberattack on North Carolina Ports disrupts multi-site operations",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "The Record"
+        },
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/",
+          "label": "BleepingComputer"
+        }
+      ]
+    },
+    {
+      "title": "Widespread GNSS interference impacting maritime safety and systems",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.mpc-uk.org/rin-publishes-report-into-the-impacts-of-gnss-interference-on-maritime-safety/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Marine GPS interference in the Baltic Sea (NAVCEN GUIDE)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ]
+    },
+    {
+      "title": "MARAD 2026-007: Risks in foreign-manufactured port equipment and logistics platforms",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "MARAD Advisory"
+        }
+      ]
+    },
+    {
+      "title": "USCG MSIB 04-26: MTSA cybersecurity requirements for inactive vessels",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/sites/default/files/pdf/msib/MSIB%2004-26%20Applicability%20of%20MTSA%20Cybersecurity%20Requirements%20for%20Inactive%20Vessels.pdf",
+          "label": "MSIB 04-26"
+        }
+      ]
+    },
+    {
+      "title": "ClassNK: IACS UR E26/E27 cyber-resilience implementation resources",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.classnk.or.jp/hp/en/activities/cybersecurity/ur-e26e27.html",
+          "label": "ClassNK"
+        }
+      ]
+    },
+    {
+      "title": "CEVA Logistics cyber incident disrupts European warehouses",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/ceva-logistics-operations-disrupted-by-cyberattack/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "IMO: Resurgence of piracy and armed robbery in Gulf of Aden (contextual risk)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.imo.org/en/mediacentre/pressbriefings/pages/imo-calls-for-action-on-piracy-following-recent-attacks.aspx",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "No qualifying recent maritime-cyber item (administrative note)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": []
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "Navigation interference behaviors: GNSS jamming/spoofing resulting in loss of PNT integrity and dependent-system degradation (formal ATT&CK mapping not confirmed in sources).",
+      "Potential initial access vectors at ports/logistics: External remote services and third-party vendor access pathways (inferred from MARAD advisory and incident patterns; no specific technique IDs provided).",
+      "Operational impact behaviors: Loss of view/degraded situational awareness on the bridge; IT service disruption causing manual fallback in port operations."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Ports: Analysts should monitor for lingering processing constraints and third-party integration issues following the NC Ports incident; similar attempts against other port authorities are plausible but not confirmed. Confidence: medium. Source Navigation: Continued GNSS interference reports are likely, including region-specific entries to NAVCEN GUIDE; crews in affected theaters should maintain elevated PNT anomaly vigilance. Confidence: medium-high. NAVCEN GUIDE RIN Summary Port OT exposure: Expect continued emphasis and possible follow-on guidance regarding segmentation and remote-service risks in cranes and logistics platforms. Confidence: high (based on current MARAD advisory posture). MARAD Advisory This outlook is an evidence-based assessment, not a prediction of certainty.",
+  "relatedCves": []
+}

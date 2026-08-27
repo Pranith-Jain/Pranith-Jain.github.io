@@ -1,0 +1,96 @@
+{
+  "type": "disaster",
+  "date": "2026-08-27",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic flash floods along the Nepal-Tibet Himalayan border have caused at least 168 deaths and more than 1,300 missing, with dozens of bridges destroyed and travel halted. View Article A major earthquake sequence in Indonesia's Flores Island continues to drive large-scale displacement; reporting indicates 70-71 deaths, nearly 1,200 injuries, and more than 40,000-59,000 people in shelters, with widespread damage to homes, schools, and health facilities. View Article Western Colombia's earthquake has left at least 176 dead, thousands injured, and major humanitarian needs across 14 departments; an IFRC emergency operation is active. Supporting Report The Hawk Fire near Reno, Nevada forced mass evacuations, injured residents, destroyed 30+ homes, and triggered school closures and power outages; containment is improving but community disruption persists. View Article Typhoon-linked flooding in southern China drove large-scale evacuations and business shutdowns as water reached rooftops and power lines in parts of Guangxi and Hainan. View Article Additional severe flooding killed at least five in Indiana, USA, with active rescues for stranded residents. Source Japan's Chiba Prefecture experienced deadly flooding and transport disruption; thousands stranded and 18,000+ households without power at one point. View Article Hawaii continues recovery from Hurricane Lala amid renewed tropical storm hazards, with prior fatalities reported and authorities warning of flooding and mudslides. Security Advisory",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Extreme",
+        "label": ""
+      },
+      {
+        "value": "Severe",
+        "label": ""
+      },
+      {
+        "value": "High",
+        "label": ""
+      },
+      {
+        "value": "Elevated",
+        "label": ""
+      }
+    ]
+  },
+  "keyFindings": [],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least 168 dead, 1,300+ missing; bridges destroyed, roads cut, hundreds displaced including tourists and pilgrims. Immediate SAR, access restoration, and family tracing required.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/61b592d428e4631add31ce052d0daf1f",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/8/27/nepal-tibet-floods-what-happened-what-caused-them-and-who-is-missing",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "71 dead, ~1,200 injured, >59,000 in shelters; thousands of homes, schools, and health facilities damaged; blocked roads delaying aid.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/8cdec4fe5834d8379893179f73d20d47",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "176+ fatalities and major unmet needs; IFRC emergency operation active; priorities include shelter, WASH, and medical assistance.",
+      "sources": [
+        {
+          "url": "https://www.ifrc.org/emergency/colombia-earthquake-2026",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Tens of thousands evacuated; 30+ homes destroyed; power cuts and school closures. Continued threat to populated areas warrants high-priority monitoring and support.",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/us-news/2026/aug/24/hawk-fire-reno-nevada-injuries-evacuations",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Mass relocations and evacuations in Guangxi and Hainan; homes submerged; elevated risk where returns are restricted due to ongoing heavy rain.",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/aug/26/typhoon-narra-floods-evacuations-china",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "South and East Asia Nepal-Tibet: Continued challenging SAR due to destroyed bridges and blocked roads; casualty figures may rise as access improves. View Article Southern China: Additional rainfall may sustain flood impacts and displacement; maintain evacuation readiness. View Article Indonesia & Colombia (Earthquakes) Indonesia: Aftershock risk and access constraints persist; prioritize WASH, shelter, and medical surge near isolated communities. Source Colombia: Expect continued relief scale-up with potential for secondary landslides in affected departments. Supporting Report North America & Pacific Nevada: Fire behavior remains weather-dependent; watch for wind shifts and new starts amid strained utilities and school operations. View Article Hawaii: Renewed heavy rain bands could trigger localized flooding and mudslides in Hurricane Lala-impacted areas. Security Advisory",
+  "regionalTrends": [
+    "Asia is experiencing concurrent high-impact hydro-meteorological and seismic events (Nepal-Tibet floods; Indonesia and Colombia quakes; China and Japan floods), stretching logistics and SAR capacity across mountainous and coastal terrain. View Article",
+    "Wildfire activity remains elevated across the western United States and Canada with rapid urban-interface escalation potential (Reno, Okanagan), and episodic European clusters causing cross-border disruptions. Supporting Report",
+    "Tropical systems continue to drive flood risk in East Asia and the Pacific, with authorities maintaining evacuation postures and restricting returns in saturated basins. View Article"
+  ]
+}

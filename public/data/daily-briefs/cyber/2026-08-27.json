@@ -1,0 +1,110 @@
+{
+  "type": "cyber",
+  "date": "2026-08-27",
+  "threatLevel": "",
+  "executiveSummary": "The OT/ICS threat environment remains elevated at HIGH due to multiple concurrent pressures: active targeting of Siemens S7 PLCs across sectors including Water/Wastewater, credible pre-positioning and covert access via SOHO/edge device botnets, exploitation of remote access gateways and conferencing platforms used in critical operations, and newly disclosed OT-adjacent vulnerabilities (EVSE, PLC stacks, OPC UA, HMI/SCADA). Immediate hardening, patching of KEV-listed items, and validation of segmentation/egress controls are recommended over the next 72 hours. CISA and partners warn of active attempts against Siemens S7-200/300/400/1200/1500 PLCs using AI-assisted tooling over S7comm (TCP/102); guidance includes disabling PUT/GET where possible, enforcing SignAndEncrypt, monitoring unauthorized writes, and removing any internet exposure. Security Advisory CERT Polska details a second December 2025 energy incident: an attacker abused a misconfigured private APN to reach an OT network at a CHP plant, shutting down a steam turbine and water treatment systems-an ingress vector likely common across organizations. Supporting Report A CISA ICS advisory reports unauthenticated RCE via Node-RED on Siemens SIMATIC IoT2050 Advanced OT gateways (update to V4.3.4.1+; harden/limit TCP/1880, adminAuth, reverse proxy, segmentation). ICS Advisory EV charging infrastructure risk: multiple unauthenticated and command-injection paths on EVbee DC-80 chargers enable remote code execution and charger manipulation; immediate isolation and strict OCPP controls advised. CISA Weekly Bulletin Perimeter/edge targeting persists: multi-agency advisories detail Russian FSB Center 16 abusing weak SNMP/SMI on routers and PRC-linked operations leveraging residential/IoT proxies and quartermaster infrastructure (QTFY) for covert ingress and DDoS. Security Advisory View Article Actively exploited enterprise services that can bridge to OT: Zimbra OS command-injection (KEV), TeamCity auth bypass RCE (KEV), Gitea code injection (KEV), MLflow SSRF (KEV). Patch and verify for pre-patch compromise per BOD 26-04. KEV: Zimbra KEV: TeamCity/Metabase",
+  "keyFindings": [
+    {
+      "title": "PLC and HMI exposure remains a top risk",
+      "summary": "confirmed operational impacts via exposed VNC HMIs and active targeting of Siemens S7 PLCs necessitate immediate removal of direct internet access, stronger access controls, and PLC program protection. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Edge-device campaigns continue",
+      "summary": "state actors abuse router misconfigurations (SNMP/SMI), VPN gateways, and load balancers to establish persistence and pivot; prioritize router hygiene, disable SMI, enforce SNMPv3, and patch KEVs on Ivanti/PAN-OS/Cisco IOS XE. Security Advisory"
+    },
+    {
+      "title": "OT gateways and EVSE present exploitable paths",
+      "summary": "unauth Node-RED on SIMATIC IoT2050 and critical EVbee charger flaws could enable remote manipulation and OT pivoting; virtual patch at edge plus strict segmentation required. ICS Advisory CISA Weekly Bulletin"
+    },
+    {
+      "title": "Supply-chain/identity vectors persist",
+      "summary": "exploited conferencing (TrueConf) and email (Zimbra) platforms deliver backdoors and harvest tokens; enforce MFA, restrict exposure, validate installers, and monitor cloud API use. Supporting Report Security Advisory"
+    },
+    {
+      "title": "Incident learning",
+      "summary": "recent GeoServer RCE exploitation at a U.S. FCEB agency underscores the need for prompt KEV patching, complete EDR coverage on public-facing hosts, and robust egress controls. Security Advisory"
+    }
+  ],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 (1200/1500/200/300/400), TIA Portal/STEP 7",
+      "Siemens SIMATIC IoT2050 (Node-RED)",
+      "Fortinet FortiGate / FortiOS",
+      "EVbee DC-80 (EVSE)",
+      "PcVue (HMI/SCADA)",
+      "Eclipse Milo (OPC UA), Eclipse Kura",
+      "Delta Electronics PLCs (Modbus/TCP)",
+      "EIPStackGroup OpENer (CIP)",
+      "Zimbra Collaboration Suite",
+      "TrueConf Server",
+      "Cisco ASA/FTD, IOS XE/XR/NX-OS",
+      "SonicWall SMA 1000",
+      "Citrix/NetScaler",
+      "TeamCity (On-Prem)",
+      "Gitea",
+      "MLflow",
+      "ZoneMinder (NVR)",
+      "Bendix EC80 ECU",
+      "Ebyte NE2-D11 (ICS device)"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems",
+      "Energy / Electric / Oil & Gas",
+      "Transportation Systems (road/rail, automotive)",
+      "Critical Manufacturing",
+      "Maritime",
+      "Communications",
+      "Government Services and Facilities",
+      "Commercial Facilities",
+      "Defense Industrial Base"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Russia-linked: Router exploitation and covert access (FSB Center 16) via weak SNMP/SMI and configuration theft; opportunistic hacktivist intrusions against exposed VNC HMIs with observed loss-of-view and setpoint changes. Security Advisory Security Advisory",
+        "China-nexus: QTFY \"digital quartermaster\" sustaining IoT/residential proxy-enabled ingress, targeting U.S. CI and government; allied advisory highlights covert networks of compromised SOHO/IoT devices as obfuscation layers for espionage. View Article Security Advisory",
+        "Iran-affiliated: Active exploitation of internet-exposed PLCs across U.S. infrastructure with logic manipulation, alarm suppression, and confirmed operational impacts. Security Advisory",
+        "Russian APT (Void/Laundry Bear): Zimbra zero-day phishing/exfiltration, persistent IMAP access with app passcodes; immediate patch and credential/token revocation required. Security Advisory",
+        "Head Mare APT: TrueConf exploitation to deliver PhantomCore/PhantomGraph, replacing installers and using Graph/OneDrive C2; patch servers, validate client signatures, hunt IOCs. Supporting Report"
+      ]
+    }
+  ],
+  "relevance": "This reporting period features multiple direct-to-OT threats (PLC manipulation, OT gateway RCE, EVSE control) alongside high-confidence IT edge and identity vectors that routinely bridge into operational networks. The combination of internet-exposed HMIs/PLCs, misconfigured cellular private APNs, and exploited enterprise collaboration/DevOps systems raises the likelihood of IT-to-OT pivots. Defensive urgency is warranted particularly in Water/Wastewater, Energy, Transportation, and Critical Manufacturing sectors.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Siemens SIMATIC IoT2050 Advanced: Node-RED unauthenticated RCE on OT gateway; update to V4.3.4.1+, harden adminAuth, restrict TCP/1880. ICS Advisory",
+        "EVbee DC-80 EVSE: Multiple unauth and command injection paths enabling charger RCE/manipulation; isolate EVSE networks and enforce strong OCPP security. CISA Bulletin",
+        "Delta PLCs (Modbus/TCP) and OpENer/CIP stack overflow: unauthorized manipulation/DoS; block TCP/502/44818 and apply vendor updates. CISA Bulletin",
+        "Eclipse Milo (OPC UA): method-authorization bypass, diagnostics exposure, padding-oracle credential recovery, and DoS vectors-patch and enforce SignAndEncrypt. CISA Bulletin",
+        "PcVue HMI (pre-17.0.0): insecure credential storage and weak account protection; migrate to 17.0.0 and harden role-based access. CISA Bulletin",
+        "Malcolm (ICS monitoring): upload-to-RCE and auth-bypass fixed in 26.06.1/26.07.0; upgrade promptly and restrict upload roles. CISA Bulletin"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial Access via edge devices and public apps: Router SNMP/SMI abuse; VPN/ADC/Load balancer exploits; GeoServer eval-injection RCE; Zimbra view-based XSS (CVE-2025-66376).",
+      "Execution/Persistence: Web shells on public webroots; DLL sideloading (ESET agent) and kernel rootkits; replaced client installers; SSH reverse tunnels; Node-RED flow execution.",
+      "Credential Access: LSASS dumping, token theft, router config exfiltration, padding-oracle recovery (OPC UA), FortiGate credential leaks.",
+      "Command and Control: HTTPS and DNS-based exfiltration; Graph/OneDrive C2; covert tunnels (GRE/IPsec/ERSPAN, reverse SSH); residential/IoT proxy botnets.",
+      "Lateral Movement: RDP/SMB/WMI/Impacket; abuse of management planes (TeamCity/TrueConf/Zimbra) and SQL xp_cmdshell.",
+      "Impact (ICS): PLC logic writes (PUT/GET), alarm suppression, setpoint changes, operator lockouts on VNC HMIs, EVSE manipulation, ECU safety functions affected."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Expect continued scanning for VNC services (5900-5910/TCP) and S7comm (TCP/102), exploitation attempts of KEV-listed enterprise apps (Zimbra/TeamCity/Gitea/MLflow), and reconnaissance against exposed routers/VPN appliances. Prioritize removing PLC/HMI exposure, applying KEV patches with compromise assessment, hardening router management planes (SNMPv3, SMI disabled), and isolating EVSE/OT gateways. Elevated risk remains for water/energy operators with legacy remote access or misconfigured private APNs.",
+  "relatedCves": [
+    "CVE-2025-66376",
+    "CVE-2024-36401",
+    "CVE-2026-8452",
+    "CVE-2026-18478"
+  ]
+}
