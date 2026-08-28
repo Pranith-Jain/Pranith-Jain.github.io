@@ -212,7 +212,7 @@ export default function SupplyChainFeed(): JSX.Element {
         </div>
         {checkError && <p className="mt-2 text-xs text-rose-600 dark:text-rose-400">{checkError}</p>}
         {checkResult && <VerdictCard result={checkResult.data} />}
-      </Card>
+      </div>
 
       {/* ── Stats + Filters row ─────────────────────────────────────── */}
       <div className="flex flex-wrap items-start gap-4 mb-6">
@@ -355,7 +355,7 @@ export default function SupplyChainFeed(): JSX.Element {
                 );
               })}
           </div>
-        </Card>
+        </div>
       )}
 
       {/* ── Source ──────────────────────────────────────────────────── */}
