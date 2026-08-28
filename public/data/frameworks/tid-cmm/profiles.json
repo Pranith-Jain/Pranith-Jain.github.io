@@ -1,0 +1,117 @@
+{
+  "profiles": {
+    "derivation": {
+      "mode": "Derived automatically from the declared environment archetype and organisation size, and overridable by the assessor.\n",
+      "challenge": "An override that is implausible against the declared environment raises a recorded notice — it does not block. An organisation declaring a multi-cloud estate, an in-house SOC and regulatory obligations but selecting Essential is told that the derived profile was Comprehensive, and that its score is not comparable with peers assessed at the derived profile. The notice appears in the report, not only on screen.\n",
+      "rationale_required": true
+    },
+    "levels": [
+      {
+        "id": "essential",
+        "name": "Essential",
+        "applies_to": "Any organisation with something worth defending, including those relying on a managed provider for monitoring. Achievable by a small team with no dedicated detection engineering.\n",
+        "includes": "Sub-capabilities tagged essential."
+      },
+      {
+        "id": "standard",
+        "name": "Standard",
+        "applies_to": "Organisations operating a security operations function, in-house or hybrid, with named detection ownership.\n",
+        "includes": "essential + standard"
+      },
+      {
+        "id": "comprehensive",
+        "name": "Comprehensive",
+        "applies_to": "Organisations with dedicated detection engineering, an adversarial validation capability, and regulatory or contractual assurance obligations.\n",
+        "includes": "All sub-capabilities."
+      }
+    ]
+  },
+  "detection_classes": {
+    "note": "Every detection declares a class. Coverage status 0 and 1 must additionally declare intent — \"by design\" (a deliberate Class H input, or an accepted blind spot) or \"gap\" (it should alert and does not). Those are entirely different findings and must never be reported as the same number.\n",
+    "classes": [
+      {
+        "id": "D",
+        "name": "Decisive",
+        "purpose": "A single event that justifies acting immediately, on its own.",
+        "examples": "Honeytoken accessed; DCSync from a non-domain-controller; break-glass account used; public exposure of a crown-jewel data store; known-ransomware execution blocked.\n",
+        "bar": "High precision, a response action pre-bound to the detection, tested end to end, and an owner accountable for the false-positive rate.\n",
+        "prevents": "Missing the one event that mattered while waiting for corroboration."
+      },
+      {
+        "id": "C",
+        "name": "Corroborative",
+        "purpose": "Individually meaningless, decisive in sequence.",
+        "examples": "A failed login; a service creation; an archive written to a temp directory. Any one is noise; together, along a path to a crown jewel, they are an intrusion.\n",
+        "bar": "Correlates into a single narrative with tactic progression, rather than producing one alert per event.\n",
+        "prevents": "Alert-per-event volume with no story an analyst can act on."
+      },
+      {
+        "id": "H",
+        "name": "Hunting and context",
+        "purpose": "Never alerts by design. Exists to enable hypotheses and reconstruction.",
+        "examples": "Authentication and process telemetry retained for baselining; DNS and proxy records; benign-but-necessary events that make a hunt or investigation possible.\n",
+        "bar": "Retained for a defined period, normalised, queryable at investigation speed, and documented as a named hunt or investigation input.\n",
+        "prevents": "Hunters with no ground truth and investigators unable to reconstruct."
+      }
+    ]
+  },
+  "environment_archetypes": {
+    "advisory": "From the declared archetype the tooling computes, using ATT&CK data components, which prioritised behaviours are structurally undetectable with current collection, and names the minimum telemetry that would change that. An organisation without commercial endpoint tooling is told which open-source instrumentation reaches the same data components — never which product to buy.\n",
+    "neutrality": "No descriptor in this model names a vendor or requires a specific technology. Levels 4 and 5 are reachable with open-source instrumentation and content. The model scores behaviours reached and evidence produced, never products owned.\n",
+    "dimensions": {
+      "estate": [
+        "on-premises",
+        "hybrid",
+        "cloud-native",
+        "saas-only",
+        "ot-ics",
+        "developer-platform"
+      ],
+      "cloud": [
+        "aws",
+        "azure",
+        "gcp",
+        "other",
+        "none"
+      ],
+      "productivity": [
+        "microsoft-365",
+        "google-workspace",
+        "other",
+        "none"
+      ],
+      "identity": [
+        "active-directory",
+        "entra-id",
+        "okta",
+        "other-idp",
+        "none"
+      ],
+      "endpoint_telemetry": [
+        "commercial-edr",
+        "open-source-instrumentation",
+        "native-os-logging-only",
+        "none"
+      ],
+      "network_telemetry": [
+        "inline-inspection",
+        "flow-only",
+        "passive-sensor",
+        "none"
+      ],
+      "workload": [
+        "servers",
+        "containers",
+        "serverless",
+        "mainframe",
+        "none"
+      ],
+      "operating_model": [
+        "in-house-soc",
+        "hybrid-mssp",
+        "fully-outsourced",
+        "no-soc"
+      ]
+    }
+  }
+}

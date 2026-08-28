@@ -1,0 +1,1 @@
+../../../worker/lib/frameworks-manifest.ts

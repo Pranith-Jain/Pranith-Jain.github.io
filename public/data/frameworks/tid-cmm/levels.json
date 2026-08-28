@@ -1,0 +1,44 @@
+[
+  {
+    "value": 0,
+    "key": "absent",
+    "name": "Absent",
+    "summary": "The capability does not exist in any recognisable form.",
+    "evidence_bar": "Nothing to show."
+  },
+  {
+    "value": 1,
+    "key": "ad_hoc",
+    "name": "Ad hoc",
+    "summary": "Happens occasionally, driven by individual initiative or an incident. Undocumented, unrepeatable, lost when the individual leaves.\n",
+    "evidence_bar": "Anecdote, a person who \"knows how\"."
+  },
+  {
+    "value": 2,
+    "key": "repeatable",
+    "name": "Repeatable",
+    "summary": "Documented and consistently performed, but driven by compliance, tooling defaults or vendor content rather than by adversary behaviour.\n",
+    "evidence_bar": "A written procedure and proof it was followed more than once."
+  },
+  {
+    "value": 3,
+    "key": "threat_informed",
+    "name": "Threat-Informed",
+    "summary": "Driven by a prioritised adversary profile. Work is explicitly mapped to ATT&CK techniques and traceable back to an intelligence requirement or a threat model.\n",
+    "evidence_bar": "ATT&CK-mapped artefacts with traceability to a threat driver."
+  },
+  {
+    "value": 4,
+    "key": "validated",
+    "name": "Measured & Validated",
+    "summary": "Quantitatively managed and independently proven. Claims are tested by emulation, results are measured over time, and gaps enter a managed backlog.\n",
+    "evidence_bar": "Test results, trended metrics, closed-loop backlog records."
+  },
+  {
+    "value": 5,
+    "key": "adaptive",
+    "name": "Adaptive",
+    "summary": "A self-correcting closed loop. Change in the threat landscape automatically produces changes in telemetry, detection and validation, with measured cycle time. The organisation contributes findings back to the community.\n",
+    "evidence_bar": "Automated pipeline metrics, cycle-time trends, external contributions."
+  }
+]

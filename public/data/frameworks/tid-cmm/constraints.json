@@ -1,0 +1,72 @@
+{
+  "constraints": [
+    {
+      "id": "C1",
+      "name": "Validation ceiling",
+      "rule": "No domain may be scored above the AV domain score + 1. You cannot claim measured, validated detection engineering if you have never emulated an adversary against it.\n"
+    },
+    {
+      "id": "C2",
+      "name": "Visibility ceiling",
+      "rule": "DE (Detection Engineering) may not exceed DC (Telemetry & Detection Coverage) + 1. Detection logic cannot be more mature than the telemetry it runs on.\n"
+    },
+    {
+      "id": "C3",
+      "name": "Evidence rule",
+      "rule": "Any score of 4 or 5 requires a named artefact recorded in the evidence field. Unevidenced 4s and 5s are downgraded to 3 by the scoring engine in strict mode.\n"
+    },
+    {
+      "id": "C4",
+      "name": "Intent ceiling",
+      "rule": "DC and DE may not exceed max(TI, TM) + 1. Telemetry and detection content cannot be more mature than the strategy directing them. Sensors without architectural intent produce noise, not defence.\n"
+    },
+    {
+      "id": "C5",
+      "name": "Inherited intent ceiling",
+      "applies_to": "TI.2",
+      "ceiling": 2,
+      "rule": "TI.2 may not exceed level 2 where the adversary set was accepted from the tool's suggested threat profile without modification. Accepting it unchanged means the question TI.2 asks — who are you defending against, and how do you know? — was answered by the tool, not by you. Reviewing the set lifts the ceiling: add an actor, remove one, or record why one was excluded.\n",
+      "why": "A suggested profile makes the hardest step in an assessment tractable, which is why it is offered. But a model that supplies its own answer and then scores you on it is grading its own homework, and every other constraint here exists to prevent exactly that. This ceiling lets the suggestion be useful without becoming a way to score threat intelligence maturity nobody has.\n",
+      "lifted_by": "Any modification to the suggested set, or a recorded rationale for accepting it unchanged.\n"
+    }
+  ],
+  "order_of_application": [
+    "C3",
+    "C4",
+    "C2",
+    "C1"
+  ],
+  "note": "A constraint is a ceiling and may only lower a score. C2 is measured against the adjusted telemetry score, not the raw one.",
+  "bands": [
+    {
+      "min": 0,
+      "max": 0.99,
+      "band": "Level 0 — Absent"
+    },
+    {
+      "min": 1,
+      "max": 1.99,
+      "band": "Level 1 — Ad hoc"
+    },
+    {
+      "min": 2,
+      "max": 2.99,
+      "band": "Level 2 — Repeatable"
+    },
+    {
+      "min": 3,
+      "max": 3.99,
+      "band": "Level 3 — Threat-Informed"
+    },
+    {
+      "min": 4,
+      "max": 4.99,
+      "band": "Level 4 — Measured & Validated"
+    },
+    {
+      "min": 5,
+      "max": 5,
+      "band": "Level 5 — Adaptive"
+    }
+  ]
+}

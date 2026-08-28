@@ -1,0 +1,52 @@
+{
+  "framework": "UTIOM",
+  "name": "Unified Threat-Informed Operations Model",
+  "version": "1.3",
+  "released": "2026-08",
+  "licence": "CC BY-SA 4.0",
+  "homepage": "https://utiom.de",
+  "author": "Reza Adineh",
+  "repo": null,
+  "book": "https://utiom.de/utiom-framework-v1.1.pdf",
+  "workbook": "https://utiom.de/utiom-assessment-workbook.xlsx",
+  "toolkit": "https://utiom.de/utiom-assessment-toolkit.zip",
+  "pillars": [
+    { "id": "leadership", "name": "Leadership and Governance", "phases": ["Vision", "Strategy", "Crown Jewels"] },
+    { "id": "engineering", "name": "Engineering and Enablement", "phases": ["Threat Visibility", "Threat Detection"] },
+    { "id": "operations", "name": "Operations and Analysis", "phases": ["Response", "Continuous Improvement"] }
+  ],
+  "phases": [
+    { "id": "vision", "name": "Vision", "pillar": "Leadership and Governance", "legend": "Why the SOC exists and how success is measured.", "mapsTo": ["GV.OC · Clause 5"] },
+    { "id": "strategy", "name": "Strategy", "pillar": "Leadership and Governance", "legend": "The security operations strategy: threat profiling, risk prioritisation, capability roadmap.", "mapsTo": ["GV.RM · Clauses 6–8"] },
+    { "id": "crown-jewels", "name": "Crown Jewels", "pillar": "Leadership and Governance", "legend": "Critical asset mapping, threat modelling, attack paths.", "mapsTo": ["ID.AM · A.5.9, A.5.12"] },
+    { "id": "visibility", "name": "Threat Visibility", "pillar": "Engineering and Enablement", "legend": "Telemetry engineered outward from crown jewels.", "mapsTo": ["DeTT&CT, TID-CMM", "DE.CM · A.8.15, A.8.16"] },
+    { "id": "detection", "name": "Threat Detection", "pillar": "Engineering and Enablement", "legend": "Detection-as-code, versioned, tested, traceable.", "mapsTo": ["ATT&CK, Sigma, TID-CMM", "DE.AE · A.8.16, A.5.7"] },
+    { "id": "response", "name": "Response", "pillar": "Operations and Analysis", "legend": "Pre-engineered playbooks, tiered containment, automation.", "mapsTo": ["RS.MA · A.5.24–A.5.28"] },
+    { "id": "improvement", "name": "Continuous Improvement", "pillar": "Operations and Analysis", "legend": "Kaizen, PDCA — updated strategy.", "mapsTo": ["ID.IM, RC.CO · Clause 10"] }
+  ],
+  "doctrine": [
+    { "n": 1, "title": "Business survival defines security", "blurb": "Every material capability must be justified by business consequence, relevant threat or operational resilience." },
+    { "n": 2, "title": "Strategy before sensors", "blurb": "Telemetry and tools must follow strategy. Architecture is driven by intent, not by vendor capability." },
+    { "n": 3, "title": "Crown jewels drive prioritisation", "blurb": "Resources are finite. Crown jewels determine where visibility, detection and response must be strongest." },
+    { "n": 4, "title": "Threats shape architecture", "blurb": "Detection engineering must be informed by real adversary behaviour, designed around realistic attack paths." },
+    { "n": 5, "title": "Visibility is a design decision", "blurb": "Blind spots are not accidents. They are architectural choices." },
+    { "n": 6, "title": "Operations is continuous response", "blurb": "Incident response is not a phase. It is the operating state of modern security operations." },
+    { "n": 7, "title": "Improvement is mandatory", "blurb": "Every incident must refine the system, through measurable feedback loops." }
+  ],
+  "assessmentTools": [
+    { "id": "maturity", "name": "Maturity assessment", "meta": "50 criteria · staged", "url": "https://utiom.de/maturity.html" },
+    { "id": "capability", "name": "Capability assessment", "meta": "105 indicators", "url": "https://utiom.de/capability.html" },
+    { "id": "metrics", "name": "Metrics calculator", "meta": "70 metrics", "url": "https://utiom.de/metrics.html" },
+    { "id": "roadmap", "name": "Improvement roadmap", "meta": "combines all three", "url": "https://utiom.de/roadmap.html" },
+    { "id": "dashboard", "name": "Capability dashboard", "meta": "derived view", "url": "https://utiom.de/dashboard.html" }
+  ],
+  "family": [
+    { "id": "utiom", "name": "UTIOM", "label": "The operating model — 7 phases, 3 pillars" },
+    { "id": "tid-cmm", "name": "TID-CMM", "label": "Detection module — 8 domains, 58 sub-capabilities" },
+    { "id": "tir-cmm", "name": "TIR-CMM", "label": "Response module — 58 sub-capabilities" },
+    { "id": "rsmm", "name": "RSMM", "label": "Platform module — Realistic SIEM Maturity Model" },
+    { "id": "kevmapp", "name": "KEVMAP", "label": "Exploitation & exposure enrichment" }
+  ],
+  "standardsAlignment": ["NIST CSF 2.0", "ISO 27001:2022", "NIS2", "DORA", "SOC-CMM", "MITRE ATT&CK"],
+  "notes": "Snapshot codified from https://utiom.de (v1.3, Aug 2026). For the authoritative text see the framework book and workbook."
+}

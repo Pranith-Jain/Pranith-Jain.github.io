@@ -1,0 +1,112 @@
+[
+  {
+    "value": 1,
+    "name": "Ad Hoc",
+    "summary": "Reactive, unstructured detection with minimal process or visibility. Default telemetry and vendor detection content are on; what happens next depends on who is on shift.\n",
+    "min_score": 1,
+    "gates": [
+      {
+        "ref": "DC.1",
+        "min": 1,
+        "why": "Some record exists of what telemetry is collected."
+      }
+    ]
+  },
+  {
+    "value": 2,
+    "name": "Defined",
+    "summary": "Documented processes, basic tooling, limited threat-intelligence use. The first attack trees exist for the top crown-jewel objectives and deployed detections are mapped to ATT&CK.\n",
+    "min_score": 2,
+    "gates": [
+      {
+        "ref": "DC.1",
+        "min": 2,
+        "why": "A maintained log source inventory."
+      },
+      {
+        "ref": "TM.3",
+        "min": 2,
+        "why": "Attack trees drawn for at least the top crown-jewel objectives."
+      },
+      {
+        "ref": "DE.3",
+        "min": 2,
+        "why": "Detections documented and ATT&CK-mapped."
+      }
+    ]
+  },
+  {
+    "value": 3,
+    "name": "Managed",
+    "summary": "Threat intelligence informs operations; SIEM/EDR (or cloud-native equivalents) well integrated. Attack trees and threat models exist for all crown-jewel objectives and every in-scope detection traces to one.\n",
+    "min_score": 3,
+    "gates": [
+      {
+        "ref": "TI.5",
+        "min": 3,
+        "why": "Intelligence reliably produces detection work with tracked disposition."
+      },
+      {
+        "ref": "TM.3",
+        "min": 3,
+        "why": "Attack trees cover the prioritised adversary objectives, ATT&CK-mapped."
+      },
+      {
+        "ref": "TM.5",
+        "min": 3,
+        "why": "Detections trace back to the model node that justified them."
+      },
+      {
+        "ref": "DE.2",
+        "min": 3,
+        "why": "Detection content is version-controlled and peer-reviewed."
+      }
+    ]
+  },
+  {
+    "value": 4,
+    "name": "Predictive",
+    "summary": "Proactive hunting and behavioural analytics proportionate to the behaviour being detected — the model mandates outcomes, never a specific technology. Detection claims are proven by emulation, and deception is placed at attack-tree choke points.\n",
+    "min_score": 4,
+    "gates": [
+      {
+        "ref": "AV.1",
+        "min": 3,
+        "why": "Technique-level testing runs on a cadence with recorded outcomes."
+      },
+      {
+        "ref": "AV.3",
+        "min": 3,
+        "why": "Prioritised actors are emulated as full chains, not isolated techniques."
+      },
+      {
+        "ref": "AA.5",
+        "min": 4,
+        "why": "Hunting is hypothesis-driven and measured."
+      },
+      {
+        "ref": "AA.7",
+        "min": 3,
+        "why": "Deception is deployed at modelled choke points."
+      }
+    ]
+  },
+  {
+    "value": 5,
+    "name": "Optimized",
+    "summary": "Fully integrated and continuously improved: threat change automatically produces telemetry, detection and validation change, with measured cycle time. Autonomy where it is safe, evidence everywhere.\n",
+    "min_score": 4.75,
+    "gates": [
+      {
+        "ref": "AV.7",
+        "min": 4,
+        "why": "Findings close through a measured, re-tested loop."
+      },
+      {
+        "ref": "GV.6",
+        "min": 4,
+        "why": "Improvement is a managed cadence with demonstrated progression."
+      }
+    ]
+  }
+]
