@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-tnmed-org-2026-08-27",
-  "title": "tnmed.org",
-  "group": "lockbit5",
-  "discovered": "2026-08-27T21:28:56.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "The Tennessee Medical Association is a nonprofit organization that advocates for physicians in Tenne...",
-  "source_url": "https://www.ransomlook.io/screenshots/lockbit5/tnmedorg.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"lockbit5-tnmed-org-2026-08-27","title":"tnmed.org","group":"lockbit5","discovered":"2026-08-27T21:28:56.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"The Tennessee Medical Association is a nonprofit organization that advocates for physicians in Tenne...","source_url":"https://www.ransomlook.io/screenshots/lockbit5/tnmedorg.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

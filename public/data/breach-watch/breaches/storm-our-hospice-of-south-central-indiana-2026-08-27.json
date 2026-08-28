@@ -1,15 +1,1 @@
-{
-  "slug": "storm-our-hospice-of-south-central-indiana-2026-08-27",
-  "title": "Our Hospice Of South Central Indiana",
-  "group": "Storm",
-  "discovered": "2026-08-27T18:24:57.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Our Hospice provides compassionate end-of-life care and dedicated support to patients and their families in South Central Indiana. Their services include hospice care, personal care, palliative care, bereavement care, and specialized programs for veterans and pediatric patients. The organization is committed to ensuring comfort, dignity, and quality of care tailored to individual needs. With a focus on community and compassion, they serve 22 counties, offering 24/7 support to those in need.  2626 E. 17th Street, Columbus, IN 47201 , 51-200 Employees",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"storm-our-hospice-of-south-central-indiana-2026-08-27","title":"Our Hospice Of South Central Indiana","group":"Storm","discovered":"2026-08-27T18:24:57.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Our Hospice provides compassionate end-of-life care and dedicated support to patients and their families in South Central Indiana. Their services include hospice care, personal care, palliative care, bereavement care, and specialized programs for veterans and pediatric patients. The organization is committed to ensuring comfort, dignity, and quality of care tailored to individual needs. With a focus on community and compassion, they serve 22 counties, offering 24/7 support to those in need.  2626 E. 17th Street, Columbus, IN 47201 , 51-200 Employees","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

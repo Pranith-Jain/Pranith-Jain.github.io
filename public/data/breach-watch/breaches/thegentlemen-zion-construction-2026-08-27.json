@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-zion-construction-2026-08-27",
-  "title": "Zion Construction",
-  "group": "thegentlemen",
-  "discovered": "2026-08-27T17:59:22.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "zionconstructioninc.com Zion Construction Inc is a reputable general contracting and home building company based in Ephrata, Washington.With over three decades of industry experience, they specialize in custom homes, remodeling, and general construction services.The company is recognized for delivering high-quality residential projects and is highly rated among contractors in the region.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-zion-construction-2026-08-27","title":"Zion Construction","group":"thegentlemen","discovered":"2026-08-27T17:59:22.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"zionconstructioninc.com Zion Construction Inc is a reputable general contracting and home building company based in Ephrata, Washington.With over three decades of industry experience, they specialize in custom homes, remodeling, and general construction services.The company is recognized for delivering high-quality residential projects and is highly rated among contractors in the region.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

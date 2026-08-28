@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-sca-logistik-fulfillment-gmbh-2026-08-27",
-  "title": "SCA Logistik & Fulfillment GmbH",
-  "group": "aurora",
-  "discovered": "2026-08-27T10:52:15.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "[logistics] SCA is a Bavarian logistics and e-commerce fulfillment provider.\nThe exposed materials includes:\nSpans customer orders\nShipments and returns\nEmployee and applicant files\nManagement, tax and banking records\nWarehouse automation\nSource code\nCustomer contracts.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Transportation",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-sca-logistik-fulfillment-gmbh-2026-08-27","title":"SCA Logistik & Fulfillment GmbH","group":"aurora","discovered":"2026-08-27T10:52:15.000Z","category":"data_breach","severity":"high","country":"DE","sizeBytes":0,"description":"[logistics] SCA is a Bavarian logistics and e-commerce fulfillment provider.\nThe exposed materials includes:\nSpans customer orders\nShipments and returns\nEmployee and applicant files\nManagement, tax and banking records\nWarehouse automation\nSource code\nCustomer contracts.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Transportation","references":["ransomware.live"]}
