@@ -1,12 +1,12 @@
 {
   "source": "github.com/SCStelz/security-investigator",
   "license": "MIT",
-  "replicatedAt": "2026-08-17",
+  "replicatedAt": "2026-08-24",
   "counts": {
     "skills": 28,
     "queries": 57,
     "automations": 3,
-    "docs": 10,
+    "docs": 11,
     "referenceData": 14,
     "routingPromptBytes": 92143,
     "scripts": 2
