@@ -4,21 +4,69 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-26T18:57:05.000Z",
-  "lastSeen": "2026-08-27T13:04:09.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 6 sectors and 5 countries.",
+  "mentionCount": 11,
+  "firstSeen": "2026-08-27T11:59:24.000Z",
+  "lastSeen": "2026-08-28T13:07:02.000Z",
+  "summary": "Ransomware group with 11 leak-site victims across 7 sectors and 8 countries.",
   "frequency": [
-    {
-      "date": "2026-08-26",
-      "count": 2
-    },
     {
       "date": "2026-08-27",
       "count": 6
+    },
+    {
+      "date": "2026-08-28",
+      "count": 5
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "digiground-3dfc",
+      "title": "DigiGround — claimed by qilin",
+      "pubDate": "2026-08-28T13:07:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tramigo-dee9",
+      "title": "Tramigo — claimed by qilin",
+      "pubDate": "2026-08-28T13:06:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cosmocolor-sa-de-cv-cb07",
+      "title": "Cosmocolor SA de CV — claimed by qilin",
+      "pubDate": "2026-08-28T13:05:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "infinnium-05b5",
+      "title": "Infinnium — claimed by qilin",
+      "pubDate": "2026-08-28T09:59:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "whitehouse-382d",
+      "title": "Whitehouse — claimed by qilin",
+      "pubDate": "2026-08-28T09:58:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "globalport-terminals-ff05",
+      "title": "Globalport Terminals — claimed by qilin",
+      "pubDate": "2026-08-27T18:31:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kling-automaten-4752",
+      "title": "Kling Automaten — claimed by qilin",
+      "pubDate": "2026-08-27T17:02:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dotlines-3d54",
+      "title": "Dotlines — claimed by qilin",
+      "pubDate": "2026-08-27T17:01:46.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "gps-grothkopp-und-partner-b212",
@@ -36,39 +84,21 @@
       "slug": "lgg-advisors-4397",
       "title": "LGG Advisors — claimed by qilin",
       "pubDate": "2026-08-27T11:59:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "open-sports-3216",
-      "title": "Open Sports — claimed by qilin",
-      "pubDate": "2026-08-27T11:59:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dab-investments-fd97",
-      "title": "DAB Investments — claimed by qilin",
-      "pubDate": "2026-08-27T11:27:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "displaydata-430c",
-      "title": "Displaydata — claimed by qilin",
-      "pubDate": "2026-08-27T11:27:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sanatorio-modelo-de-caseros-6820",
-      "title": "Sanatorio Modelo de Caseros — claimed by qilin",
-      "pubDate": "2026-08-26T18:57:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "kenep-resources-d8e6",
-      "title": "KenEp Resources — claimed by qilin",
-      "pubDate": "2026-08-26T18:57:05.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 2
+    },
     {
       "type": "sector",
       "slug": "professional-services",
@@ -77,9 +107,15 @@
     },
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 2
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
     },
     {
       "type": "sector",
@@ -89,25 +125,69 @@
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "digiground-3dfc",
+      "victim": "DigiGround — claimed by qilin",
+      "sector": "Technology",
+      "country": "AU",
+      "pubDate": "2026-08-28T13:07:02.000Z"
+    },
+    {
+      "id": "tramigo-dee9",
+      "victim": "Tramigo — claimed by qilin",
+      "sector": "Transportation",
+      "country": "FI",
+      "pubDate": "2026-08-28T13:06:25.000Z"
+    },
+    {
+      "id": "cosmocolor-sa-de-cv-cb07",
+      "victim": "Cosmocolor SA de CV — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "MX",
+      "pubDate": "2026-08-28T13:05:48.000Z"
+    },
+    {
+      "id": "infinnium-05b5",
+      "victim": "Infinnium — claimed by qilin",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-08-28T09:59:21.000Z"
+    },
+    {
+      "id": "whitehouse-382d",
+      "victim": "Whitehouse — claimed by qilin",
+      "sector": "Government & Defense",
+      "country": "GB",
+      "pubDate": "2026-08-28T09:58:41.000Z"
+    },
+    {
+      "id": "globalport-terminals-ff05",
+      "victim": "Globalport Terminals — claimed by qilin",
+      "sector": "Transportation",
+      "country": "PH",
+      "pubDate": "2026-08-27T18:31:56.000Z"
+    },
+    {
+      "id": "kling-automaten-4752",
+      "victim": "Kling Automaten — claimed by qilin",
+      "sector": "Retail & E-Commerce",
+      "country": "DE",
+      "pubDate": "2026-08-27T17:02:08.000Z"
+    },
+    {
+      "id": "dotlines-3d54",
+      "victim": "Dotlines — claimed by qilin",
+      "sector": "Technology",
+      "country": "SG",
+      "pubDate": "2026-08-27T17:01:46.000Z"
+    },
     {
       "id": "gps-grothkopp-und-partner-b212",
       "victim": "GPS Grothkopp und Partner — claimed by qilin",
@@ -128,41 +208,6 @@
       "sector": "Professional Services",
       "country": "GB",
       "pubDate": "2026-08-27T11:59:24.000Z"
-    },
-    {
-      "id": "open-sports-3216",
-      "victim": "Open Sports — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "AR",
-      "pubDate": "2026-08-27T11:59:03.000Z"
-    },
-    {
-      "id": "dab-investments-fd97",
-      "victim": "DAB Investments — claimed by qilin",
-      "sector": "Financial Services",
-      "country": "GB",
-      "pubDate": "2026-08-27T11:27:59.000Z"
-    },
-    {
-      "id": "displaydata-430c",
-      "victim": "Displaydata — claimed by qilin",
-      "sector": "Technology",
-      "country": "GB",
-      "pubDate": "2026-08-27T11:27:41.000Z"
-    },
-    {
-      "id": "sanatorio-modelo-de-caseros-6820",
-      "victim": "Sanatorio Modelo de Caseros — claimed by qilin",
-      "sector": "Healthcare",
-      "country": "AR",
-      "pubDate": "2026-08-26T18:57:41.000Z"
-    },
-    {
-      "id": "kenep-resources-d8e6",
-      "victim": "KenEp Resources — claimed by qilin",
-      "sector": "Energy & Utilities",
-      "country": "MY",
-      "pubDate": "2026-08-26T18:57:05.000Z"
     }
   ]
 }

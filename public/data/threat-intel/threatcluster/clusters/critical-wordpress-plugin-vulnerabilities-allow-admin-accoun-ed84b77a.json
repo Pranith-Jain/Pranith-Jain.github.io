@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/critical-wordpress-plugin-vulnerabilities-allow-admin-accoun-ed84b77a?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/critical-wordpress-plugin-vulnerabilities-allow-admin-accoun-ed84b77a",
   "pubDate": "2026-08-26T10:18:20.000Z",
-  "sourceCount": 3,
-  "categories": ["3 Sources"],
+  "sourceCount": 6,
+  "categories": ["6 Sources"],
   "description": "Two critical vulnerabilities have been identified in popular WordPress plugins, TranslatePress and Pods, allowing unauthenticated attackers to take control of administrator accounts.",
   "sizeBytes": 182
 }

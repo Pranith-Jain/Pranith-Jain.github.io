@@ -4,41 +4,51 @@
   "name": "Transportation",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-27T08:50:40.000Z",
-  "lastSeen": "2026-08-27T10:52:15.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-08-27T18:31:56.000Z",
+  "lastSeen": "2026-08-28T15:02:07.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-08-27",
+      "count": 1
+    },
+    {
+      "date": "2026-08-28",
       "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "sca-logistik-amp-fulfillment-gmbh-db35",
-      "title": "SCA Logistik &amp; Fulfillment GmbH — claimed by aurora",
-      "pubDate": "2026-08-27T10:52:15.000Z"
+      "slug": "shanghai-tunnel-engineering-co-ltd-f177",
+      "title": "Shanghai Tunnel Engineering Co Ltd — claimed by global",
+      "pubDate": "2026-08-28T15:02:07.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "capitol-mechanics-da52",
-      "title": "Capitol Mechanics — claimed by emperador",
-      "pubDate": "2026-08-27T08:50:40.000Z"
+      "slug": "tramigo-dee9",
+      "title": "Tramigo — claimed by qilin",
+      "pubDate": "2026-08-28T13:06:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "globalport-terminals-ff05",
+      "title": "Globalport Terminals — claimed by qilin",
+      "pubDate": "2026-08-27T18:31:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "aurora",
-      "name": "aurora",
-      "weight": 1
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "emperador",
-      "name": "emperador",
+      "slug": "global",
+      "name": "global",
       "weight": 1
     }
   ],

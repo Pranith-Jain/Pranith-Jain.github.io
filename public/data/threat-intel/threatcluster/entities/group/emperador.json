@@ -4,40 +4,63 @@
   "name": "emperador",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-08-27T08:50:40.000Z",
-  "lastSeen": "2026-08-27T08:50:40.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-27T15:55:47.000Z",
+  "lastSeen": "2026-08-28T12:20:44.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-08-27",
+      "count": 1
+    },
+    {
+      "date": "2026-08-28",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "capitol-mechanics-da52",
-      "title": "Capitol Mechanics — claimed by emperador",
-      "pubDate": "2026-08-27T08:50:40.000Z"
+      "slug": "hanwha-renewables-64f9",
+      "title": "Hanwha Renewables — claimed by emperador",
+      "pubDate": "2026-08-28T12:20:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ipro-com-revealdata-com-customer-db-full-database-backup-eb35",
+      "title": "Ipro.com(revealdata.com) customer DB + full database backup — claimed by emperador",
+      "pubDate": "2026-08-27T15:55:47.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "capitol-mechanics-da52",
-      "victim": "Capitol Mechanics — claimed by emperador",
-      "sector": "Transportation",
-      "country": "US",
-      "pubDate": "2026-08-27T08:50:40.000Z"
+      "id": "hanwha-renewables-64f9",
+      "victim": "Hanwha Renewables — claimed by emperador",
+      "sector": "Energy & Utilities",
+      "country": "KR",
+      "pubDate": "2026-08-28T12:20:44.000Z"
+    },
+    {
+      "id": "ipro-com-revealdata-com-customer-db-full-database-backup-eb35",
+      "victim": "Ipro.com(revealdata.com) customer DB + full database backup — claimed by emperador",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-08-27T15:55:47.000Z"
     }
   ]
 }

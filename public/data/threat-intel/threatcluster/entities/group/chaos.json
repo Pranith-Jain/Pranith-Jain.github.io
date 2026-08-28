@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "chaos",
+  "name": "chaos",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-27T20:26:06.000Z",
+  "lastSeen": "2026-08-27T20:26:06.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-27",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "singleton-com-f9de",
+      "title": "singleton.com — claimed by chaos",
+      "pubDate": "2026-08-27T20:26:06.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "singleton-com-f9de",
+      "victim": "singleton.com — claimed by chaos",
+      "sector": "Not Found",
+      "country": "AU",
+      "pubDate": "2026-08-27T20:26:06.000Z"
+    }
+  ]
+}

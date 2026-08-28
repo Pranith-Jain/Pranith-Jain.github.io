@@ -1,0 +1,132 @@
+{
+  "type": "group",
+  "slug": "storm",
+  "name": "Storm",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 6,
+  "firstSeen": "2026-08-27T18:24:34.000Z",
+  "lastSeen": "2026-08-27T18:26:29.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 5 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-27",
+      "count": 6
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "agrimac-090b",
+      "title": "Agrimac — claimed by Storm",
+      "pubDate": "2026-08-27T18:26:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sprachakademie-rhein-ruhr-ea78",
+      "title": "Sprachakademie Rhein-Ruhr — claimed by Storm",
+      "pubDate": "2026-08-27T18:26:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "otto-sieve-gmbh-3e70",
+      "title": "Otto Sieve GmbH — claimed by Storm",
+      "pubDate": "2026-08-27T18:25:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "itd-informations-technologie-f87a",
+      "title": "ITD Informations technologie — claimed by Storm",
+      "pubDate": "2026-08-27T18:25:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "our-hospice-of-south-central-indiana-ee13",
+      "title": "Our Hospice Of South Central Indiana — claimed by Storm",
+      "pubDate": "2026-08-27T18:24:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "national-salvage-04a7",
+      "title": "National Salvage — claimed by Storm",
+      "pubDate": "2026-08-27T18:24:34.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "agrimac-090b",
+      "victim": "Agrimac — claimed by Storm",
+      "sector": "Agriculture and Food Production",
+      "country": "AU",
+      "pubDate": "2026-08-27T18:26:29.000Z"
+    },
+    {
+      "id": "sprachakademie-rhein-ruhr-ea78",
+      "victim": "Sprachakademie Rhein-Ruhr — claimed by Storm",
+      "sector": "Education",
+      "country": "DE",
+      "pubDate": "2026-08-27T18:26:07.000Z"
+    },
+    {
+      "id": "otto-sieve-gmbh-3e70",
+      "victim": "Otto Sieve GmbH — claimed by Storm",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-08-27T18:25:44.000Z"
+    },
+    {
+      "id": "itd-informations-technologie-f87a",
+      "victim": "ITD Informations technologie — claimed by Storm",
+      "sector": "Technology",
+      "country": "DE",
+      "pubDate": "2026-08-27T18:25:20.000Z"
+    },
+    {
+      "id": "our-hospice-of-south-central-indiana-ee13",
+      "victim": "Our Hospice Of South Central Indiana — claimed by Storm",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-27T18:24:57.000Z"
+    },
+    {
+      "id": "national-salvage-04a7",
+      "victim": "National Salvage — claimed by Storm",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-27T18:24:34.000Z"
+    }
+  ]
+}

@@ -4,17 +4,33 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 5,
   "firstSeen": "2026-08-27T13:01:41.000Z",
-  "lastSeen": "2026-08-27T13:02:10.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 3 countries.",
+  "lastSeen": "2026-08-28T03:58:18.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 3 sectors and 5 countries.",
   "frequency": [
     {
       "date": "2026-08-27",
-      "count": 3
+      "count": 4
+    },
+    {
+      "date": "2026-08-28",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "tnmed-org-3cd9",
+      "title": "tnmed.org — claimed by lockbit5",
+      "pubDate": "2026-08-28T03:58:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "fpmanagement-nl-5c49",
+      "title": "fpmanagement.nl — claimed by lockbit5",
+      "pubDate": "2026-08-27T17:53:43.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "theheartcenterofmemphis-com-a558",
@@ -37,19 +53,39 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
       "slug": "technology",
       "name": "Technology",
       "weight": 2
     },
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "professional-services",
+      "name": "Professional Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "tnmed-org-3cd9",
+      "victim": "tnmed.org — claimed by lockbit5",
+      "sector": "Healthcare",
+      "country": "TN",
+      "pubDate": "2026-08-28T03:58:18.000Z"
+    },
+    {
+      "id": "fpmanagement-nl-5c49",
+      "victim": "fpmanagement.nl — claimed by lockbit5",
+      "sector": "Professional Services",
+      "country": "NL",
+      "pubDate": "2026-08-27T17:53:43.000Z"
+    },
     {
       "id": "theheartcenterofmemphis-com-a558",
       "victim": "theheartcenterofmemphis.com — claimed by lockbit5",

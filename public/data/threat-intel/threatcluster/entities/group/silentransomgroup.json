@@ -4,64 +4,28 @@
   "name": "SilentRansomGroup",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-26T21:52:28.000Z",
-  "lastSeen": "2026-08-26T22:58:27.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 1 sector and 0 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-27T17:22:29.000Z",
+  "lastSeen": "2026-08-27T20:23:32.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 0 countries.",
   "frequency": [
     {
-      "date": "2026-08-26",
-      "count": 8
+      "date": "2026-08-27",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "q-e-dbf4",
-      "title": "Q... E... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:58:27.000Z"
+      "slug": "ne-n-m-4388",
+      "title": "Ne...n M... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-27T20:23:32.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "n-m-7e83",
-      "title": "N... M... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:57:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "s-p-c4f3",
-      "title": "S... P... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:56:12.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "k-m-210e",
-      "title": "K... M... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:55:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "h-k-c397",
-      "title": "H... K... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:53:53.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "h-l-c398",
-      "title": "H... L... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:52:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "c-o-7d2b",
-      "title": "C... O... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:51:38.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "a-3383",
-      "title": "A... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T21:52:28.000Z"
+      "slug": "g-t-4f20",
+      "title": "G... T... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-27T17:22:29.000Z"
     }
   ],
   "relatedEntities": [
@@ -69,66 +33,24 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 8
+      "weight": 2
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "q-e-dbf4",
-      "victim": "Q... E... — claimed by SilentRansomGroup",
+      "id": "ne-n-m-4388",
+      "victim": "Ne...n M... — claimed by SilentRansomGroup",
       "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-08-26T22:58:27.000Z"
+      "pubDate": "2026-08-27T20:23:32.000Z"
     },
     {
-      "id": "n-m-7e83",
-      "victim": "N... M... — claimed by SilentRansomGroup",
+      "id": "g-t-4f20",
+      "victim": "G... T... — claimed by SilentRansomGroup",
       "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-08-26T22:57:19.000Z"
-    },
-    {
-      "id": "s-p-c4f3",
-      "victim": "S... P... — claimed by SilentRansomGroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-08-26T22:56:12.000Z"
-    },
-    {
-      "id": "k-m-210e",
-      "victim": "K... M... — claimed by SilentRansomGroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-08-26T22:55:02.000Z"
-    },
-    {
-      "id": "h-k-c397",
-      "victim": "H... K... — claimed by SilentRansomGroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-08-26T22:53:53.000Z"
-    },
-    {
-      "id": "h-l-c398",
-      "victim": "H... L... — claimed by SilentRansomGroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-08-26T22:52:46.000Z"
-    },
-    {
-      "id": "c-o-7d2b",
-      "victim": "C... O... — claimed by SilentRansomGroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-08-26T22:51:38.000Z"
-    },
-    {
-      "id": "a-3383",
-      "victim": "A... — claimed by SilentRansomGroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-08-26T21:52:28.000Z"
+      "pubDate": "2026-08-27T17:22:29.000Z"
     }
   ]
 }
