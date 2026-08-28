@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "payoutsking",
+  "name": "payoutsking",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-27T18:19:49.000Z",
+  "lastSeen": "2026-08-27T18:19:49.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-27",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "w-s-a3aa",
+      "title": "W****s — claimed by payoutsking",
+      "pubDate": "2026-08-27T18:19:49.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "w-s-a3aa",
+      "victim": "W****s — claimed by payoutsking",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-08-27T18:19:49.000Z"
+    }
+  ]
+}

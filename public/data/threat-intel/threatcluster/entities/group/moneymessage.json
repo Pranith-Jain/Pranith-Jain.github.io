@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "moneymessage",
+  "name": "moneymessage",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-28T13:28:58.000Z",
+  "lastSeen": "2026-08-28T13:28:58.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-28",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "procare-a0d7",
+      "title": "ProCare — claimed by moneymessage",
+      "pubDate": "2026-08-28T13:28:58.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "procare-a0d7",
+      "victim": "ProCare — claimed by moneymessage",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-28T13:28:58.000Z"
+    }
+  ]
+}

@@ -4,17 +4,23 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 3,
   "firstSeen": "2026-08-27T13:31:56.000Z",
-  "lastSeen": "2026-08-27T14:31:07.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "lastSeen": "2026-08-27T17:55:30.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-08-27",
-      "count": 2
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "bencivil-b268",
+      "title": "BENCIVIL — claimed by incransom",
+      "pubDate": "2026-08-27T17:55:30.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "rohloff-group-14b7",
@@ -31,6 +37,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
       "weight": 1
@@ -44,6 +56,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "bencivil-b268",
+      "victim": "BENCIVIL — claimed by incransom",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-27T17:55:30.000Z"
+    },
     {
       "id": "rohloff-group-14b7",
       "victim": "Rohloff Group — claimed by incransom",

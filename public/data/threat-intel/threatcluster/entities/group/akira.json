@@ -4,17 +4,39 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 6,
   "firstSeen": "2026-08-27T14:27:47.000Z",
-  "lastSeen": "2026-08-27T14:27:52.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "lastSeen": "2026-08-28T14:52:03.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-08-27",
       "count": 3
+    },
+    {
+      "date": "2026-08-28",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "alumax-8562",
+      "title": "Alumax — claimed by akira",
+      "pubDate": "2026-08-28T14:52:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bepeterson-bb3d",
+      "title": "BEPeterson — claimed by akira",
+      "pubDate": "2026-08-28T14:22:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "jrt-mechanical-fa90",
+      "title": "JRT Mechanical — claimed by akira",
+      "pubDate": "2026-08-28T14:21:51.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "cetylite-23d2",
@@ -39,6 +61,12 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     },
     {
@@ -56,6 +84,27 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "alumax-8562",
+      "victim": "Alumax — claimed by akira",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-28T14:52:03.000Z"
+    },
+    {
+      "id": "bepeterson-bb3d",
+      "victim": "BEPeterson — claimed by akira",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-08-28T14:22:11.000Z"
+    },
+    {
+      "id": "jrt-mechanical-fa90",
+      "victim": "JRT Mechanical — claimed by akira",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-08-28T14:21:51.000Z"
+    },
     {
       "id": "cetylite-23d2",
       "victim": "Cetylite — claimed by akira",

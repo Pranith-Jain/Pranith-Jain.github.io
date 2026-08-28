@@ -1,7 +1,7 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-27T16:40:04.516Z",
+  "syncedAt": "2026-08-28T17:34:27.251Z",
   "eventCount": 7,
   "events": [
     {
@@ -25,16 +25,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "fac2391d-fcbb-504d-8a7b-9741b7a14583",
-      "info": "Critical Account Takeover Vulnerability in Red Hat Keycloak",
-      "date": "2026-08-21",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787294866",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "245013a1-985e-596b-949e-0efa0b4c309f",
       "info": "Russia's Hybrid Warfare Threatens UK with Cyberattacks and Sabotage",
       "date": "2026-08-25",
@@ -50,23 +40,6 @@
         "misp-galaxy:threat-actor=\"Apt28\"",
         "misp-galaxy:threat-actor=\"Fancy Bear\"",
         "misp-galaxy:ransomware=\"BlackBasta\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "5fb0939f-fc73-5e7d-810d-425efb8b0aa1",
-      "info": "U.S. Disrupts Chinese Hacking Platforms Targeting Critical Infrastructure",
-      "date": "2026-08-27",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787798292",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "misp-galaxy:threat-actor=\"Volt Typhoon\""
       ],
       "orgc": "ThreatCluster"
     },
@@ -88,6 +61,26 @@
       "threat_level_id": "2",
       "timestamp": "1787776712",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "e88c2d4b-2106-5458-b09a-e3b7aee9eabe",
+      "info": "Tortoiseshell Expands Malware Arsenal with New Backdoor and SSH Tunneling Tool",
+      "date": "2026-08-26",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1787756005",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "23abe7d1-4112-510a-a35b-1110bd3a9a85",
+      "info": "Iranian Hackers Disable UK Power Plant for Four Days",
+      "date": "2026-08-22",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1787438807",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt"],
       "orgc": "ThreatCluster"
     }
   ]

@@ -4,86 +4,62 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 11,
-  "firstSeen": "2026-08-26T15:35:43.000Z",
-  "lastSeen": "2026-08-27T06:28:20.000Z",
-  "summary": "Sector hit by 11 leak-site victims across 4 ransomware groups and 3 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-27T17:22:29.000Z",
+  "lastSeen": "2026-08-28T14:29:34.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 6 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-26",
-      "count": 10
+      "date": "2026-08-27",
+      "count": 4
     },
     {
-      "date": "2026-08-27",
-      "count": 1
+      "date": "2026-08-28",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "jgsee-5b3f",
-      "title": "Jgsee — claimed by medusalocker",
-      "pubDate": "2026-08-27T06:28:20.000Z"
+      "slug": "berlin-germany-53e7",
+      "title": "Berlin, Germany — claimed by rhysida",
+      "pubDate": "2026-08-28T14:29:34.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "q-e-dbf4",
-      "title": "Q... E... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:58:27.000Z"
+      "slug": "bepeterson-bb3d",
+      "title": "BEPeterson — claimed by akira",
+      "pubDate": "2026-08-28T14:22:11.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "n-m-7e83",
-      "title": "N... M... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:57:19.000Z"
+      "slug": "amzur-com-1b04",
+      "title": "amzur.com — claimed by unsafe",
+      "pubDate": "2026-08-28T11:36:16.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "s-p-c4f3",
-      "title": "S... P... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:56:12.000Z"
+      "slug": "singleton-com-f9de",
+      "title": "singleton.com — claimed by chaos",
+      "pubDate": "2026-08-27T20:26:06.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "k-m-210e",
-      "title": "K... M... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:55:02.000Z"
+      "slug": "ne-n-m-4388",
+      "title": "Ne...n M... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-27T20:23:32.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "h-k-c397",
-      "title": "H... K... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:53:53.000Z"
+      "slug": "w-s-a3aa",
+      "title": "W****s — claimed by payoutsking",
+      "pubDate": "2026-08-27T18:19:49.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "h-l-c398",
-      "title": "H... L... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:52:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "c-o-7d2b",
-      "title": "C... O... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T22:51:38.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "a-3383",
-      "title": "A... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-26T21:52:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "www-sankovn-com-26b3",
-      "title": "www.sankovn.com — claimed by krybit",
-      "pubDate": "2026-08-26T15:54:26.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "verbux-c585",
-      "title": "Verbux — claimed by thegentlemen",
-      "pubDate": "2026-08-26T15:35:43.000Z"
+      "slug": "g-t-4f20",
+      "title": "G... T... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-27T17:22:29.000Z"
     }
   ],
   "relatedEntities": [
@@ -91,24 +67,36 @@
       "type": "group",
       "slug": "silentransomgroup",
       "name": "SilentRansomGroup",
-      "weight": 8
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "medusalocker",
-      "name": "medusalocker",
+      "slug": "rhysida",
+      "name": "rhysida",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "unsafe",
+      "name": "unsafe",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "chaos",
+      "name": "chaos",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "payoutsking",
+      "name": "payoutsking",
       "weight": 1
     }
   ],

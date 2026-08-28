@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "shadowbyt3",
+  "name": "ShadowByt3$",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-28T06:52:38.000Z",
+  "lastSeen": "2026-08-28T06:52:38.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-28",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "bayview-real-estate-warning-84ed",
+      "title": "Bayview Real Estate WARNING — claimed by ShadowByt3$",
+      "pubDate": "2026-08-28T06:52:38.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "bayview-real-estate-warning-84ed",
+      "victim": "Bayview Real Estate WARNING — claimed by ShadowByt3$",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-08-28T06:52:38.000Z"
+    }
+  ]
+}

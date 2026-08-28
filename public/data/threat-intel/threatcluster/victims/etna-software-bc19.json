@@ -1,0 +1,14 @@
+{
+  "id": "etna-software-bc19",
+  "victim": "ETNA Software",
+  "group": "Eclipse",
+  "sector": "Technology",
+  "country": "IT",
+  "title": "ETNA Software — claimed by Eclipse",
+  "link": "https://threatcluster.io/dark-web/victim/ETNA%20Software",
+  "guid": "darkweb-victim:eclipse:etna software",
+  "pubDate": "2026-08-27T20:51:43.000Z",
+  "categories": ["Group: Eclipse", "Sector: Technology", "Country: IT"],
+  "description": "IT · Technology · ETNA Software is a company that provides white-label online trading solutions for brokers and FinTech firms, including mobile and web trading platforms. Their products are designed to help retail broker-dealers launch trading capabilities efficiently and cost-effectively.",
+  "sizeBytes": 290
+}

@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/ubiquiti-faces-critical-vulnerabilities-in-unifi-ecosystem-f926c4e6?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/ubiquiti-faces-critical-vulnerabilities-in-unifi-ecosystem-f926c4e6",
   "pubDate": "2026-08-26T13:17:54.000Z",
-  "sourceCount": 12,
-  "categories": ["12 Sources"],
+  "sourceCount": 17,
+  "categories": ["17 Sources"],
   "description": "Ubiquiti has disclosed three critical vulnerabilities affecting its UniFi ecosystem, all published on 2026-08-26. These vulnerabilities, tracked as CVE-2026-77537, CVE-2026-77550, and CVE-2026-77554,…",
   "sizeBytes": 200
 }

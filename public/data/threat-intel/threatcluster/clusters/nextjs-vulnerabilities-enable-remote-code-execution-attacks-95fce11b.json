@@ -1,0 +1,11 @@
+{
+  "slug": "nextjs-vulnerabilities-enable-remote-code-execution-attacks-95fce11b",
+  "title": "Next.js Security Release Addresses Critical Remote Code Execution Vulnerabilities",
+  "link": "https://threatcluster.io/cluster/nextjs-vulnerabilities-enable-remote-code-execution-attacks-95fce11b?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/nextjs-vulnerabilities-enable-remote-code-execution-attacks-95fce11b",
+  "pubDate": "2026-08-27T15:16:18.000Z",
+  "sourceCount": 9,
+  "categories": ["9 Sources"],
+  "description": "Vercel disclosed two critical vulnerabilities in Next.js affecting applications using the AVIF image format and Windows servers.",
+  "sizeBytes": 128
+}

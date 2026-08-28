@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "rhysida",
+  "name": "rhysida",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-28T14:29:34.000Z",
+  "lastSeen": "2026-08-28T15:34:19.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-28",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "valley-health-team-1773",
+      "title": "Valley Health Team — claimed by rhysida",
+      "pubDate": "2026-08-28T15:34:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "berlin-germany-53e7",
+      "title": "Berlin, Germany — claimed by rhysida",
+      "pubDate": "2026-08-28T14:29:34.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "valley-health-team-1773",
+      "victim": "Valley Health Team — claimed by rhysida",
+      "sector": "Healthcare",
+      "country": null,
+      "pubDate": "2026-08-28T15:34:19.000Z"
+    },
+    {
+      "id": "berlin-germany-53e7",
+      "victim": "Berlin, Germany — claimed by rhysida",
+      "sector": "Not Found",
+      "country": "DE",
+      "pubDate": "2026-08-28T14:29:34.000Z"
+    }
+  ]
+}

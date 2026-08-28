@@ -1,0 +1,14 @@
+{
+  "id": "hanwha-renewables-64f9",
+  "victim": "Hanwha Renewables",
+  "group": "emperador",
+  "sector": "Energy & Utilities",
+  "country": "KR",
+  "title": "Hanwha Renewables — claimed by emperador",
+  "link": "https://threatcluster.io/dark-web/victim/Hanwha%20Renewables",
+  "guid": "darkweb-victim:emperador:hanwha renewables",
+  "pubDate": "2026-08-28T12:20:44.000Z",
+  "categories": ["Group: emperador", "Sector: Energy & Utilities", "Country: KR"],
+  "description": "KR · Energy &amp; Utilities · The data contains really sensitive information from 4 PV projects looking for investment/financing of Hanwha.\n\nWe extracted around 12GB of highly sensitive information relating to the following projects:\n\n-   Bonanza Peak (3GB)\n-   Boulder Solar III (0.7GB)\n-   Obreron Portfolio (4.8GB)\n-   Project Sprout (3.7GB)\n\nIn the data we found highly sensitive information including:\n\n-   PPAs\n-   Financial",
+  "sizeBytes": 430
+}
