@@ -1,1 +1,15 @@
-{"slug":"akira-cgp-mep-2026-08-27","title":"Cgp Mep","group":"Akira","discovered":"2026-08-27T00:00:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/cgp-mep-akira-2026-08","groupAliases":["Megazord"],"activity":null,"references":["RecentBreaches.com"]}
+{
+  "slug": "akira-cgp-mep-2026-08-27",
+  "title": "CGP MEP",
+  "group": "akira",
+  "discovered": "2026-08-27T14:27:49.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "CGP MEP is a Building Services Consultancy based in London and Leeds, specializing in mechanica\nl and electrical engineering. They offer a wide range of services across various sectors includ\ning leisure, education, residential, and industrial projects.\n\nWe will upload 260gb of corporate data soon. Detailed employee personal information (passports,\nDLs, SSNs, personal financials), client information, projects, financials, NDAs and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

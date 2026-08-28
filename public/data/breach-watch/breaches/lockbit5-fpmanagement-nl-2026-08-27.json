@@ -1,1 +1,15 @@
-{"slug":"lockbit5-fpmanagement-nl-2026-08-27","title":"fpmanagement.nl","group":"lockbit5","discovered":"2026-08-27T17:53:43.000Z","category":"ransomware","severity":"high","country":"NL","sizeBytes":0,"description":"FP Management BV is a licensed trust office based in Rotterdam, Netherlands, offering a range of ser...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "lockbit5-fpmanagement-nl-2026-08-27",
+  "title": "fpmanagement.nl",
+  "group": "Lockbit5",
+  "discovered": "2026-08-27T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/fpmanagement-nl-lockbit5-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

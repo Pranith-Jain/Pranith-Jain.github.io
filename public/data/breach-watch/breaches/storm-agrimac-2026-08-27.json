@@ -1,0 +1,15 @@
+{
+  "slug": "storm-agrimac-2026-08-27",
+  "title": "Agrimac",
+  "group": "Storm",
+  "discovered": "2026-08-27T18:26:29.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Agrimac achieves Australian first - Agrimac is the first agricultural dealership in Australia to be awarded the AFS Certification in up to the minute GPS technology by global leaders CaseIH technology company, Trimble. Advanced Farming Systems or AFS as it's referred to, is rapidly becoming a critical area if local farmers are to be and remain at the top of their class in the world of farming. \nThe company headquarters is located in 92 Caramut Road, Warrnambool, VIC 3280, Australia. 51-200 Employees",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

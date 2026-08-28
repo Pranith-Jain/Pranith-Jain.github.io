@@ -1,1 +1,15 @@
-{"slug":"inc-ransom-ruby-seven-studios-2026-08-27","title":"Ruby Seven Studios","group":"INC Ransom","discovered":"2026-08-27T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/ruby-seven-studios-inc-ransom-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}
+{
+  "slug": "inc-ransom-ruby-seven-studios-2026-08-27",
+  "title": "Ruby Seven Studios",
+  "group": "inc ransom",
+  "discovered": "2026-08-27T15:32:38.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/inc ransom/Ruby Seven Studios.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**346 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**350 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (232)
+### other (236)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -108,6 +108,7 @@
 - `extract_observables_fast` - Deterministic regex-based IOC extraction from raw text — no AI. Handles defanged indicators (hxxp, [.], [at], [dot]); extracts IPs, domains, URLs, emails, hashes, CVEs, mutexes, registry keys, file paths, and crypto addresses with positions.
 - `fbi_wanted_list` - List current FBI wanted persons with pagination. No API key required.
 - `fbi_wanted_search` - Search the FBI Wanted database for wanted persons by name. Returns titles, descriptions, reward amounts, and field offices. No API key required.
+- `frameworks_list` - List integrated security frameworks (TID-CMM and UTIOM): ids, versions, homepage, licence, and domain/phase counts. Data replicated from tid-cmm.com (CC BY 4.0) and utiom.de (CC BY-SA 4.0).
 - `fullhunt_domain` - Discover attack surface for a domain via FullHunt: open ports, technologies, subdomains, ASN, cloud provider, and WHOIS data. Requires FULLHUNT_API_KEY secret (free at fullhunt.io).
 - `fullhunt_subdomains` - Enumerate subdomains for a domain via FullHunt. Returns discovered subdomain names. Requires FULLHUNT_API_KEY secret.
 - `get_cert_in_advisories` - CERT-In (Indian Computer Emergency Response Team) advisories — vendor-reported vulnerabilities affecting Indian enterprises, with severity, CVEs, products affected, and the official CIAD-YYYY-NNNN ID. Filter by CVE, year, severity, or keyword.
@@ -201,6 +202,8 @@
 - `ti_threaticon_catalog` - List or search the extended Threaticon catalog (threaticon.com public preview): tools used by threat actors, MITRE mitigations (course-of-action), ATT&CK data components, detection strategies, coordinated attack campaigns, CAPEC-style attack patterns, and CVEs. Pick a section and optionally filter by keyword. Use ti_get_threaticon_catalog_item to fetch the full body for an id.
 - `ti_threaticon_coverage` - Return the Threaticon ATT&CK detection-coverage dataset: every technique the platform ships detection content for, its tactic, and the number of detection rules, plus per-tactic coverage percentages. Filter by tactic, minimum rule count, or keyword. Use for gap analysis when planning detection coverage.
 - `ti_threaticon_indicators` - Search the Threaticon IOC dictionary (480k+ indicators: IPv4/IPv6, domain, URL, MD5/SHA-1/SHA-256/SHA-512, filename, CIDR, email, mutex, registry key, user agent, certificate, CVE). Pass a type key (e.g. "ipv4-address", "domain", "url", "sha-256-hash") plus optional value substring, TLP, or confidence floor. Call without type to see the type catalog.
+- `tid_cmm_get_domain` - Get a TID-CMM domain by id (TI, TM, DC, DE, AV, AA, IR, GV) with its sub-capabilities, weights, and level descriptors. TID-CMM v1.5 · ATT&CK Enterprise v19.2 (697 techniques). Source: tid-cmm.com (CC BY 4.0).
+- `tid_cmm_search` - Search / filter TID-CMM domains and sub-capabilities by keyword. Returns the model plus matched domains (keyword matches id/name/intent). TID-CMM v1.5 · 8 domains · 58 sub-capabilities.
 - `tools_get` - Get the full profile for a specific security tool by slug.
 - `tools_list` - List security tools from the curated Tools Directory. Filter by category (recon, exploitation, post-exploitation, defense, detection, forensics, osint, c2, phishing, crypto, mobile, cloud, network, reverse-engineering, web, misc), keyword, or offensive/defensive scope.
 - `tor_exit_check` - Check if a specific IP address is a known Tor exit node. Returns boolean and the queried IP.
@@ -215,6 +218,7 @@
 - `truecaller_lookup` - Reverse phone number lookup via Truecaller — get caller name, carrier, spam score, and location data. Requires TRUECALLER_API_KEY secret (register at truecaller.com).
 - `username_generate_patterns` - Generate username variations for typosquatting detection and OSINT. Returns common patterns: leetspeak, double letters, prefix/suffix variations, dot/underscore/hyphen separators, number suffixes.
 - `username_scrape_profiles` - Scrape profile metadata (display name, bio, avatar, follower counts) from platforms where the username is found. Returns rich profile data, not just found/not-found.
+- `utiom_get` - Get the full UTIOM (Unified Threat-Informed Operations Model) manifest: 7 phases across 3 pillars, doctrine (7 laws), assessment tools, framework family (TID-CMM / TIR-CMM / RSMM / KEVMAP), and standards alignment (NIST CSF 2.0, ISO 27001, NIS2, DORA). Source: utiom.de v1.3 (CC BY-SA 4.0).
 - `validate_detection_rule` - Validate a detection rule before use: YARA (structure, string refs, hex tokens, dup names), Sigma (schema + logsource + detection + condition identifiers), Suricata/Snort (header grammar, msg/sid/rev, local sid range), osquery (read-only guard, paren balance, known tables).
 - `velo_collect_artifact` - Launch a Velociraptor artifact collection on a managed endpoint (evidence acquisition): e.g. Windows.KapeFiles.Collect. Returns flow id; poll with velo_get_flow_status then velo_get_flow_results.
 - `velo_create_hunt` - Launch a Velociraptor HUNT across all managed endpoints (or a label subset) — fleet-wide artifact sweep. Returns hunt id; poll with velo_get_hunt.

@@ -1,0 +1,15 @@
+{
+  "slug": "eclipse-etna-software-2026-08-27",
+  "title": "ETNA Software",
+  "group": "Eclipse",
+  "discovered": "2026-08-27T20:51:43.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "ETNA Software is a company that provides white-label online trading solutions for brokers and FinTech firms, including mobile and web trading platforms. Their products are designed to help retail broker-dealers launch trading capabilities efficiently and cost-effectively.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}
