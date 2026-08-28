@@ -84,7 +84,7 @@ function dimBar(score: number): string {
   if (score >= 60) return 'bg-orange-500';
   if (score >= 40) return 'bg-amber-500';
   if (score >= 20) return 'bg-sky-500';
-  return 'bg-slate-300 dark:bg-slate-600';
+  return 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]';
 }
 
 function dimBg(score: number): string {

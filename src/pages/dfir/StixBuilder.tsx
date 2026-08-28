@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2, Upload } from 'lucide-react';
 import { Badge } from '../../components/Badge';
+import { Card } from '../../components/ui/Card';
 import { IocChip } from '../../components/dfir/IocChip';
 import { IntelCard } from '../../components/intel/IntelCard';
 import { adminAuthHeaders } from '../../lib/admin-token';
@@ -422,7 +423,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
       {/* The same card every /threatintel page uses - single source of UI truth. */}
       <BuilderIntelCard view={result.view} bundle={result.bundle} />
 
-      <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+      <Card padding="md">
         <header className="flex flex-wrap items-baseline gap-2 mb-3">
           <h2 className="font-display text-base font-semibold">STIX 2.1 bundle</h2>
           <code className="font-mono text-mini text-slate-500">{result.bundle.id}</code>
@@ -476,7 +477,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
         <pre className="max-h-[480px] overflow-auto rounded-xl bg-slate-50 p-3 font-mono text-mini leading-relaxed text-slate-800 dark:bg-[rgb(var(--input-200))] dark:text-slate-200">
           {viewTab === 'pretty' ? pretty : raw}
         </pre>
-      </div>
+      </Card>
     </section>
   );
 }
@@ -496,7 +497,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
   // since we already have them - no roundtrip needed.
   void IntelCard; // referenced for code-search; intentional no-render of the hook variant here
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <article className="surface-card p-4 shadow-e1">
       <header className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-base font-semibold">{view.title}</h3>
         <Badge tone="mono" size="xs">

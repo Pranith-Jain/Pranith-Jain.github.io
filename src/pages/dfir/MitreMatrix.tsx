@@ -439,7 +439,7 @@ export default function MitreMatrix(): JSX.Element {
                           isDimmed ? 'opacity-30' : '',
                           isUsed
                             ? 'bg-brand-500/10 border-brand-500/40 hover:bg-brand-500/20 dark:bg-brand-400/10 dark:border-brand-400/40 dark:hover:bg-brand-400/20'
-                            : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-200 dark:hover:bg-slate-700',
+                            : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]',
                         ].join(' ')}
                         title={
                           coverageMode

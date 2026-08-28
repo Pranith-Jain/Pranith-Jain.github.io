@@ -355,7 +355,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                   >
                     <div className="flex items-center gap-3">
                       <div
-                        className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                        className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
                       />
                       <span className="text-sm font-mono">{formatDateTime(snap.snapshot_at)}</span>
                       <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">

@@ -321,6 +321,7 @@ const REDIRECT_CANONICALS: Record<string, string> = {
   '/threatintel/x-live': '/threatintel/social/x-hub',
   '/threatintel/x-watch': '/threatintel/social/x-hub',
   '/threatintel/yara': '/threatintel/detections/yara',
+  '/threatintel/detection-wiki': '/threatintel/detection-wiki',
   '/threatnexus': '/argus',
   '/traceix': '/dfir/traceix',
   '/whoxy': '/dfir/whoxy',

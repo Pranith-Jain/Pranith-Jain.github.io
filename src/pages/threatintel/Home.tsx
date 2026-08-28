@@ -14,6 +14,7 @@ import {
   Search,
   Shield,
   Users,
+  Database,
   X,
   type LucideIcon,
 } from 'lucide-react';
@@ -158,6 +159,16 @@ const CATEGORY_CARDS: CategoryCard[] = [
     href: '/threatintel/catalog?cat=tools',
     tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
     pages: catPageCount('tools'),
+  },
+  {
+    id: 'detections',
+    label: 'Detections & Rules',
+    description:
+      '15,957 detection rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK. Detection labs, YARA rules, and rule conversion.',
+    icon: Database,
+    href: '/threatintel/catalog?cat=detections',
+    tone: 'text-brand-600 dark:text-brand-400 hover:border-brand-500/40',
+    pages: catPageCount('detections'),
   },
 ];
 

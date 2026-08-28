@@ -367,7 +367,7 @@ export default function OnionWatch(): JSX.Element {
                       >
                         <span
                           className={`shrink-0 inline-block w-1.5 h-1.5 rounded-full ${
-                            m.available ? 'bg-emerald-500' : 'bg-slate-400 dark:bg-slate-600'
+                            m.available ? 'bg-emerald-500' : 'bg-slate-400 dark:bg-[rgb(var(--surface-300))]'
                           }`}
                           aria-label={m.available ? 'reachable' : 'offline'}
                         />

@@ -191,6 +191,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/detections/disarm': SwordIcon,
   '/threatintel/detections/yara': FileSearch,
   '/threatintel/detections/signal': Rss,
+  '/threatintel/detection-wiki': Database,
   // Research
   '/threatintel/research-hub/research': ScrollText,
   '/threatintel/research-hub/reports': FileText,
@@ -223,6 +224,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/osint/toolbox': Wrench,
   '/threatintel/osint/certs': Award,
   '/threatintel/osint/secops': Settings,
+  '/threatintel/osint/threat-actor-monitor': Shield,
   // Tools
   '/threatintel/tools/copilot': Sparkles,
   '/threatintel/tools/mcp': Zap,

@@ -840,6 +840,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Threat-signal RSS feed with auto-classified indicators.',
         compVar: 'ThreatSignalRss',
       },
+      {
+        path: '/threatintel/detection-wiki',
+        tabId: 'wiki',
+        label: 'Detection Wiki',
+        desc: '15,957 rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs.',
+        compVar: 'DetectionWiki',
+      },
     ],
   },
   {
@@ -1088,6 +1095,14 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'SecOps Tools',
         desc: 'SecOps tools catalog - SIEM, EDR, SOAR, log shippers.',
         compVar: 'SecopsCatalog',
+      },
+      {
+        path: '/threatintel/osint/threat-actor-monitor',
+        tabId: 'threat-actor-monitor',
+        label: 'Threat Actor Monitor',
+        desc: 'Real-time APT monitoring across 30 OSINT feeds with MITRE ATT&CK + Kill Chain mapping.',
+        compVar: 'ThreatActorMonitor',
+        badge: 'new',
       },
       {
         path: '/threatintel/osint/directory',

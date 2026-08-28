@@ -243,7 +243,7 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
     <li>
       <Link
         to={entry.path}
-        className="group tile-reveal block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-rose-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] hover-rose"
+        className="group tile-reveal block h-full surface-card p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-rose-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/30 hover-rose"
       >
         <div className="flex items-start justify-between gap-2">
           <Icon

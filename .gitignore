@@ -113,6 +113,9 @@ signature-base-replication/
 threat-intel-staging/*
 !/threat-intel-staging/threaticon-catalog/
 
+# detection.wiki sync staging output
+detection-wiki-staging/
+
 # Webamon DTB sync staging output
 webamon-dtb-staging/
 

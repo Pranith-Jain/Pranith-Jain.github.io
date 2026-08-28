@@ -4069,6 +4069,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/osint/threat-actor-monitor',
+    label: 'Threat Actor Monitor',
+    description: 'Real-time APT monitoring across 30 OSINT feeds with MITRE ATT&CK + Kill Chain mapping.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/osint/directory',
     label: 'Directory',
     description: 'OSINT directory - categorized tool listings and investigative resources.',

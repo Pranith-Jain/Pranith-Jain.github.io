@@ -201,7 +201,7 @@ export default function OpenDirectory(): JSX.Element {
                 className={`px-2.5 py-1 rounded text-xs font-mono capitalize transition-colors ${
                   filterRisk === r
                     ? 'bg-brand-600 text-white'
-                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-slate-700'
+                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
                 }`}
               >
                 {r} {r !== 'all' && `(${riskCounts[r]})`}

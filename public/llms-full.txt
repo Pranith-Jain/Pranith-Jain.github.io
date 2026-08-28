@@ -245,6 +245,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [DISARM Framework](https://pranithjain.qzz.io/threatintel/detections/disarm) (threatintel): DISARM red-team framework mapping.
 - [YARA Hub](https://pranithjain.qzz.io/threatintel/detections/yara) (threatintel): YARA rule hub - community and curated rules.
 - [Threat Signal RSS](https://pranithjain.qzz.io/threatintel/detections/signal) (threatintel): Threat-signal RSS feed with auto-classified indicators.
+- [Detection Wiki](https://pranithjain.qzz.io/threatintel/detection-wiki) (threatintel): 15,957 rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs.
 - [Threat Intel Reports](https://pranithjain.qzz.io/threatintel/research-hub/reports) (threatintel): Original research reports with IOCs, detections, severity scoring.
 - [AI Reports](https://pranithjain.qzz.io/threatintel/research-hub/ai) (threatintel): AI-generated research reports from LLM analysis.
 - [Write-ups](https://pranithjain.qzz.io/threatintel/research-hub/writeups) (threatintel): Security write-ups and post-mortems.
@@ -276,6 +277,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Curated Toolbox](https://pranithjain.qzz.io/threatintel/osint/toolbox) (threatintel): Curated security toolbox - hand-picked, vetted, well-maintained.
 - [Free Cert Courses](https://pranithjain.qzz.io/threatintel/osint/certs) (threatintel): Syberseeker’s start.me hub of free certification tracks - security, cloud, blue team, OSINT, GRC.
 - [SecOps Tools](https://pranithjain.qzz.io/threatintel/osint/secops) (threatintel): SecOps tools catalog - SIEM, EDR, SOAR, log shippers.
+- [Threat Actor Monitor](https://pranithjain.qzz.io/threatintel/osint/threat-actor-monitor) (threatintel): Real-time APT monitoring across 30 OSINT feeds with MITRE ATT&CK + Kill Chain mapping.
 - [OSINT Portal Directory](https://pranithjain.qzz.io/threatintel/osint/directory) (threatintel): Curated directory of 40 OSINT portals and resources filtered by category.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot - ask, pivot, summarize, draft.
 - [Entity Graph](https://pranithjain.qzz.io/threatintel/entity-graph) (threatintel): Interactive topology of CVEs, actors, IOCs, sectors, and techniques.

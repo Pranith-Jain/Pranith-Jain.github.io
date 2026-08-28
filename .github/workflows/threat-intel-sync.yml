@@ -118,6 +118,14 @@ jobs:
         continue-on-error: true
         run: node scripts/build-threaticon.mjs
 
+      - name: Sync detection.wiki (rules + labs via Playwright)
+        continue-on-error: true
+        run: node scripts/sync-detection-wiki.mjs
+
+      - name: Build detection.wiki manifest
+        continue-on-error: true
+        run: node scripts/build-detection-wiki.mjs
+
       - name: Show diff stat
         run: |
           echo "=== public/data/threat-intel/ changed files ==="
@@ -173,6 +181,8 @@ jobs:
               5000 of ~21k incidents mapped to MITRE ATT&CK chains)
             - malwareanalyzer.com (MalwareAnalyzer by Cyble — malicious +
               newly-observed URL feeds, keyless)
+            - detection.wiki (15,957 detection rules from Sigma, Elastic,
+              Splunk, Kusto mapped to MITRE ATT&CK + detection labs)
 
             Trigger: `${{ github.event_name }}`
             Run:     `${{ github.run_id }}`
@@ -180,7 +190,9 @@ jobs:
           delete-branch: true
           add-paths: |
             public/data/threat-intel/
+            public/data/detection-wiki/
             threat-intel-staging/
+            detection-wiki-staging/
 
       - name: Auto-merge sync PR
         # The sync output is data-only and main is unprotected, so the PR

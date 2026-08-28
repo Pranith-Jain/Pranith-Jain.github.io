@@ -1,6 +1,7 @@
 import { logCatch } from '../../lib/log';
 import { useState, useRef, useEffect } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { Textarea } from '../../components/ui/Input';
 import {
   Search,
   Loader2,
@@ -469,13 +470,14 @@ export default function EntityResolution(): JSX.Element {
             >
               Paste text to extract entities
             </label>
-            <textarea
+            <Textarea
               id="extract-text"
               value={text}
               onChange={(e) => setText(e.target.value)}
               rows={6}
               placeholder="Paste a threat report, blog post, or any text containing CVE IDs, threat actor names, ransomware group references, IPs, domains, or hashes..."
-              className="w-full rounded-xl border border-slate-200 bg-white p-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="w-full"
+              mono={false}
             />
             <div className="flex justify-end mt-2">
               <button

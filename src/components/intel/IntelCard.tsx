@@ -130,7 +130,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
     0;
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-e1 transition-colors dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <article className="surface-card p-4 shadow-e1 transition-colors">
       <header className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-base font-semibold text-heading">{view.title}</h3>
         <Badge tone="mono" size="xs">

@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BarChart3, ChevronDown, ChevronRight, Info, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { RETIRED_FEEDS } from '../../data/rssFeeds';
 
 interface PillarScore {
   score: number;
@@ -253,6 +255,18 @@ export default function FeedQuality(): JSX.Element {
               </div>
             )}
           </section>
+
+          <footer className="mt-6 text-mini font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2 flex-wrap">
+            <span>
+              {Object.keys(RETIRED_FEEDS).length} feeds retired from the catalog (dead, 403/402, or duplicates) —
+            </span>
+            <Link
+              to="/threatintel/feeds/sources"
+              className="underline decoration-dotted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            >
+              view registry
+            </Link>
+          </footer>
         </>
       )}
     </DataPageLayout>

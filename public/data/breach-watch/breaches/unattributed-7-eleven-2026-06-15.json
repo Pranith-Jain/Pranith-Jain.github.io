@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-7-eleven-2026-06-15",
+  "title": "7-Eleven",
+  "group": "Unattributed",
+  "discovered": "2026-06-15T05:23:45.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "7-Eleven, a convenience store chain, was targeted by the ShinyHunters group in April 2026, with data later published exposing 185k unique email addresses along with names, physical addresses, dates of birth, and phone numbers.",
+  "source_url": "https://xposedornot.com/breach/7-Eleven",
+  "groupAliases": [],
+  "activity": "Retail",
+  "references": ["XposedOrNot"]
+}

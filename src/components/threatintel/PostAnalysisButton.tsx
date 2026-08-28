@@ -190,6 +190,57 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
     };
   }, [open]);
 
+  const cardRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const [btnPos, setBtnPos] = useState<{ top: number; left: number; right: boolean } | null>(null);
+
+  // Compute button position for portal placement
+  useEffect(() => {
+    if (!open || !btnRef.current) {
+      setBtnPos(null);
+      return;
+    }
+    const btn = btnRef.current;
+    const rect = btn.getBoundingClientRect();
+    // Determine if card should open left or right of button
+    const openLeft = rect.right + 420 > window.innerWidth - 16;
+    setBtnPos({ top: rect.bottom + 8, left: openLeft ? rect.left - 420 : rect.left, right: !openLeft });
+  }, [open, analysis]);
+
+  // Reposition on scroll / resize
+  useEffect(() => {
+    if (!open) return;
+    const reposition = () => {
+      if (!btnRef.current) return;
+      const rect = btnRef.current.getBoundingClientRect();
+      const openLeft = rect.right + 420 > window.innerWidth - 16;
+      setBtnPos({ top: rect.bottom + 8, left: openLeft ? rect.left - 420 : rect.left, right: !openLeft });
+    };
+    window.addEventListener('scroll', reposition, { passive: true });
+    window.addEventListener('resize', reposition);
+    return () => {
+      window.removeEventListener('scroll', reposition);
+      window.removeEventListener('resize', reposition);
+    };
+  }, [open]);
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (
+        cardRef.current &&
+        !cardRef.current.contains(e.target as Node) &&
+        btnRef.current &&
+        !btnRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [open]);
+
   return (
     <>
       <button

@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-linkedinscrape-2021-2026-05-23",
+  "title": "LinkedInScrape-2021",
+  "group": "Unattributed",
+  "discovered": "2026-05-23T07:09:50.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "LinkedIn, a professional networking platform, had public profile data scraped and later sold online in 2021, exposing around 400M records including 125M unique email addresses, names, locations, genders, and job titles.",
+  "source_url": "https://xposedornot.com/breach/LinkedInScrape-2021",
+  "groupAliases": [],
+  "activity": "Information Technology",
+  "references": ["XposedOrNot"]
+}
