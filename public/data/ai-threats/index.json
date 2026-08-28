@@ -2,8 +2,8 @@
   "source": "Cybershujin Threat Actors' Use of Artificial Intelligence tracker",
   "sourceUrl": "https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/",
   "license": "MIT",
-  "replicatedAt": "2026-08-17",
-  "lastSyncedAt": "2026-08-17T06:29:48.247Z",
+  "replicatedAt": "2026-08-24",
+  "lastSyncedAt": "2026-08-24T06:33:26.107Z",
   "counts": { "total": 83, "main": 71, "deepfake": 12 },
   "stixAvailable": true,
   "threatIndex": [
