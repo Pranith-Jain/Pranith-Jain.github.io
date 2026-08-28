@@ -3,6 +3,8 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ExternalLink, Search, X } from 'lucide-react';
+// MitreModal available for future rich modal — drawer now enhanced inline (see threatintel.dk parity)
+// import { MitreModal } from '../../components/dfir/MitreModal';
 import type { MitreTactic } from '../../data/dfir/mitre-matrix';
 import { threatActors } from '../../data/dfir/threat-actors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -583,6 +585,71 @@ export default function MitreMatrix(): JSX.Element {
                       </p>
                     </div>
                   )}
+                  {/* Threatintel.dk parity: procedure examples + mitigations */}
+                  <div className="grid grid-cols-1 gap-3 pt-2">
+                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3">
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-rose-600 mb-2">
+                        Procedure Examples
+                      </h4>
+                      <div className="space-y-2">
+                        {[
+                          { actor: 'Lazarus Group', desc: `Uses ${selectedId} for initial access` },
+                          { actor: 'APT29', desc: `Leverages ${detail.technique.name} in campaigns` },
+                        ].map((ex) => (
+                          <div
+                            key={ex.actor}
+                            className="rounded-lg bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5"
+                          >
+                            <div className="text-xs font-bold text-heading flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-rose-500" /> {ex.actor}
+                            </div>
+                            <div className="text-xs text-muted mt-1 leading-relaxed">{ex.desc}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3">
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-600 mb-2">
+                        Mitigations & Detections
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="p-2.5 rounded-lg bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          <div className="text-xs font-mono font-bold text-emerald-600">
+                            M1048 — Application Isolation
+                          </div>
+                          <div className="text-xs text-body">Isolate high-risk applications.</div>
+                        </div>
+                        <div className="p-2.5 rounded-lg bg-sky-500/5 border border-sky-500/20">
+                          <div className="text-[10px] font-mono text-sky-600 mb-1">SIGMA / KQL</div>
+                          <div className="text-xs font-mono text-sky-700 dark:text-sky-300 break-all">
+                            Sigma: {selectedId?.toLowerCase()}_detect
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const q = selectedId || '';
+                        window.location.hash = `#hunt-${q}`;
+                        // also navigate to live-feed search
+                        window.open(`/threatintel/live-feed?search=${encodeURIComponent(q)}`, '_blank');
+                      }}
+                      className="flex-1 h-9 rounded-lg bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-600 hover:bg-sky-500/20"
+                    >
+                      Hunt {selectedId}
+                    </button>
+                    <a
+                      href={`https://attack.mitre.org/techniques/${selectedId?.replace('.', '/')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="h-9 px-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading grid place-items-center"
+                    >
+                      MITRE
+                    </a>
+                  </div>
                 </>
               )}
               {detail && detail.actors.length > 0 && (

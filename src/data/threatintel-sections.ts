@@ -95,6 +95,13 @@ export const SECTIONS: Section[] = [
     blurb: 'Real-time feeds, social monitoring, dark web tracking, and SOC dashboards.',
     tools: [
       {
+        to: '/threatintel/live-feed',
+        label: 'Live Threat Feed',
+        desc: 'Unified real-time feed — 30+ sources, CVE, IOC, ransomware, actor activity, MITRE mapping, STIX export. Inspired by threatintelligence.dk.',
+        icon: Radio,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/social',
         label: 'Social & Telegram Feeds',
         desc: 'Cybersec Telegram firehose, Reddit, X/Bluesky, Mastodon, prediction markets, and scam watch.',

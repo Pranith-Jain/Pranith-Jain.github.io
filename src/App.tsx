@@ -171,6 +171,8 @@ const Blocklists = lazy(() => import('./pages/dfir/Blocklists'));
 const MedusaScanner = lazy(() => import('./pages/dfir/MedusaScanner'));
 const CsrfPocGenerator = lazy(() => import('./pages/dfir/CsrfPocGenerator'));
 const XssPayloadSelector = lazy(() => import('./pages/dfir/XssPayloadSelector'));
+const TidCmm = lazy(() => import('./pages/dfir/TidCmm'));
+const Utiom = lazy(() => import('./pages/dfir/Utiom'));
 
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintMapper = lazy(() => import('./pages/dfir/OsintMapper'));
@@ -193,6 +195,8 @@ const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatIntelCatalog = lazy(() => import('./pages/threatintel/Catalog'));
 const LiveCenter = lazy(() => import('./pages/threatintel/LiveCenter'));
+const LiveFeed = lazy(() => import('./pages/threatintel/LiveFeed'));
+const CveDetail = lazy(() => import('./pages/threatintel/CveDetail'));
 const TelegramHub = lazy(() => import('./pages/threatintel/TelegramHub'));
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
 const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
@@ -604,6 +608,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/predators', Component: Predators },
 
   { path: '/threatintel/live-center', Component: LiveCenter },
+  { path: '/threatintel/live-feed', Component: LiveFeed },
+  { path: '/threatintel/cve/:id', Component: CveDetail },
+  { path: '/threatintel/cves/:cveId', Component: CveDetail },
   // ── Threat Intel: direct page URLs (auto-added by audit) ──
   { path: '/threatintel/actors/hub', Component: ActorHub },
   { path: '/threatintel/actors/attribution', Component: Attribution },
@@ -740,6 +747,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/one-time-secret', Component: OneTimeSecret },
   { path: '/dfir/blocklists', Component: Blocklists },
+  { path: '/dfir/frameworks/tid-cmm', Component: TidCmm },
+  { path: '/dfir/frameworks/utiom', Component: Utiom },
   // ── 24 Gap Features ──────────────────────────────────────────────
   { path: '/dfir/export-hub', Component: ExportHub },
   { path: '/dfir/report-hub', Component: ReportHub },

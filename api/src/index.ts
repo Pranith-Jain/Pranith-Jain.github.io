@@ -669,6 +669,7 @@ import {
 } from './routes/landscape';
 import { predictionsHandler } from './routes/predictions';
 import { radarScanHandler, radarGetScanHandler, radarRecentHandler } from './routes/radar';
+import { liveFeedExportHandler } from './routes/live-feed-export';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -774,6 +775,7 @@ app.use('/api/v1/*', async (c, next) => {
   if (
     path.includes('/si/') ||
     path.includes('/threat-intel/') ||
+    path.includes('/frameworks/') ||
     path.includes('/winreg/') ||
     path.includes('/dfir-ref/') ||
     path.includes('/grc/') ||
@@ -1386,6 +1388,7 @@ app.get('/api/v1/webamon/changes', webamonChangesHandler);
 app.get('/api/v1/webamon/clusters', webamonClustersHandler);
 app.get('/api/v1/webamon/campaign-intel', webamonCampaignIntelHandler);
 app.get('/api/v1/global-pulse', globalPulseHandler);
+app.get('/api/v1/live-feed/export', liveFeedExportHandler);
 app.post('/api/v1/threat-analysis', threatAnalysisHandler);
 app.post('/api/v1/ioc-extraction', iocExtractionHandler);
 app.post('/api/v1/mitre-mapping', mitreMappingHandler);
@@ -2351,6 +2354,11 @@ app.route('/api/v1', threatmonInfostealerRouter);
 // CVE Risk Matrix — CVSS × EPSS × KEV × recency quadrant scoring
 import { cveRiskMatrixHandler } from './routes/cve-risk-matrix';
 app.get('/api/v1/cve/risk-matrix', cveRiskMatrixHandler);
+
+// Frameworks — TID-CMM (8 domains, 58 sub-caps) + UTIOM (7 phases, 3 pillars)
+// CC-BY / CC BY-SA, replicated as static JSON in public/data/frameworks/
+import { frameworksRouter } from './routes/frameworks';
+app.route('/api/v1', frameworksRouter);
 
 // Toolkit verticals — DFIR reference, GRC, SIEM library, hunting hypotheses,
 // cloud reference, post-quantum crypto (all read-only, ASSETS-backed manifests)

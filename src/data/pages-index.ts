@@ -1718,6 +1718,22 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['cloak', 'anonymity', 'tor', 'privacy', 'obfuscation', 'concealment', 'adversary'],
   },
+  {
+    path: '/dfir/frameworks/tid-cmm',
+    label: 'TID-CMM',
+    description: 'Threat Intelligence Development Capability Maturity Model — assess and mature CTI capabilities.',
+    sectionLabel: 'DFIR · Frameworks',
+    group: 'dfir',
+    keywords: ['tid-cmm', 'maturity', 'cti', 'capability'],
+  },
+  {
+    path: '/dfir/frameworks/utiom',
+    label: 'UTIOM',
+    description: 'Unified Threat Intelligence Operations Model — operational framework for CTI programs.',
+    sectionLabel: 'DFIR · Frameworks',
+    group: 'dfir',
+    keywords: ['utiom', 'operations', 'cti', 'framework'],
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -2044,10 +2060,35 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
 
   // Live intel
   {
+    path: '/threatintel/live-feed',
+    label: 'Live Threat Feed',
+    description:
+      'Unified real-time feed — 30+ sources, CVE, IOC, ransomware, actor activity, MITRE mapping, STIX export. Inspired by threatintelligence.dk.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+    keywords: ['live feed', 'threatintel.dk', 'consolidated', 'real-time', 'unified', 'kpi', 'cve', 'ioc', 'stix'],
+  },
+  {
     path: '/threatintel/live-center',
     label: 'Live Center',
     description: 'Real-time intel center - live IOCs, breaking campaigns, and trending stories.',
     sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cve/:id',
+    label: 'CVE Detail',
+    description:
+      'CVE deep-dive — severity, risk assessment, exploitability, affected products, remediation, detection, attack timeline, IOCs, MITRE, STIX export.',
+    sectionLabel: 'Threat Intel · CVEs',
+    group: 'threatintel',
+    keywords: ['cve', 'detail', 'risk', 'exploitability', 'remediation', 'detection', 'timeline', 'kev'],
+  },
+  {
+    path: '/threatintel/cves/:cveId',
+    label: 'CVE Detail (alias)',
+    description: 'Alias for CVE detail — threatintel.dk style deep-dive.',
+    sectionLabel: 'Threat Intel · CVEs',
     group: 'threatintel',
   },
   {
@@ -3277,7 +3318,8 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/share/report/:token',
     label: 'Shared Investigation Report',
-    description: 'Capability-token shared report — branded investigation findings with IOCs, MITRE mapping and share controls.',
+    description:
+      'Capability-token shared report — branded investigation findings with IOCs, MITRE mapping and share controls.',
     sectionLabel: 'Share',
     group: 'portfolio',
     keywords: ['share', 'report', 'capability', 'token', 'investigation'],

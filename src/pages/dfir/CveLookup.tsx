@@ -231,6 +231,22 @@ export default function CveLookup(): JSX.Element {
           </p>
         )}
       </form>
+      {/* New: link to enhanced threatintel.dk-style CVE detail page */}
+      <div className="mb-6 rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3 flex items-center justify-between">
+        <span className="text-xs font-mono text-sky-700 dark:text-sky-300">
+          New: Enhanced CVE detail with Risk, Exploitability, Timeline & STIX export (threatintel.dk style)
+        </span>
+        <Link
+          to={
+            input && CVE_RE.test(input.trim())
+              ? `/threatintel/cve/${encodeURIComponent(input.trim().toUpperCase())}`
+              : '/threatintel/live-feed'
+          }
+          className="text-xs font-mono font-bold text-sky-700 dark:text-sky-300 hover:underline inline-flex items-center gap-1"
+        >
+          Open detail <ExternalLink size={12} />
+        </Link>
+      </div>
 
       {loading && (
         <div className="space-y-4" role="status" aria-label="Querying NVD">

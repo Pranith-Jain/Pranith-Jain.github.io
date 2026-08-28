@@ -379,17 +379,18 @@ export default function ThreatIntelHome(): JSX.Element {
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
+                  label: 'Live Threat Feed',
+                  desc: 'Unified 30+ sources — threatintel.dk style',
+                  href: '/threatintel/live-feed',
+                  icon: Radio,
+                  badge: 'live',
+                },
+                {
                   label: 'Global Pulse',
                   desc: 'Live 3D threat map',
                   href: '/threatintel/predictive/global-pulse',
                   icon: Globe,
                   badge: 'live',
-                },
-                {
-                  label: 'MCP Search',
-                  desc: '1,628+ reports via 25 MCP tools',
-                  href: '/threatintel/mcp-search',
-                  icon: Plug,
                 },
                 {
                   label: 'Ransomware Live',
