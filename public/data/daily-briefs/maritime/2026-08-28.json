@@ -1,0 +1,50 @@
+{
+  "type": "maritime",
+  "date": "2026-08-28",
+  "threatLevel": "Unknown",
+  "executiveSummary": "North Carolina Ports reported a cyberattack impacting Wilmington, Morehead City, and Charlotte Inland Port, prompting manual processing during containment and recovery. This confirms that port business systems and associated workflows remain attractive targets and that contingency procedures are essential for continuity. View Article A standing U.S. Maritime Administration advisory warns that foreign-manufactured port equipment and logistics platforms-particularly remotely serviced ship-to-shore cranes-pose elevated cyber risk through remote access, third-party connectivity, and supply-chain exposure, necessitating OT segmentation, vendor-access governance, and integrity controls. Government Advisory Available reporting indicates persistent GNSS jamming and spoofing affecting commercial shipping across multiple corridors, with both research and practitioner advisories emphasizing bridge-team vigilance and cross-checking navigation data. Supporting Report Maritime Advisory",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "ZPMC ship-to-shore cranes; related PRC-manufactured port systems (per MARAD advisory). Government Advisory",
+      "Nuctech logistics/security technologies (per advisory context). Government Advisory",
+      "Unspecified third-party camera components on Royal Navy USVs (supply-chain telemetry risk). View Article"
+    ],
+    "sectors": [
+      "Ports and Terminals",
+      "Commercial Shipping (MTSA-regulated vessels, inactive status)",
+      "Maritime Logistics and Warehousing",
+      "Maritime Technology and Autonomy (defense context)",
+      "Navigation and Bridge Operations"
+    ]
+  },
+  "keyFindings": [
+    "Confirmed cyberattack disrupted multiple North Carolina port facilities and required manual processing, demonstrating the importance of resilient port operations, contingency plans, and cross-functional incident coordination. View Article",
+    "MARAD Advisory 2026-007 highlights risks from foreign-manufactured cranes and logistics platforms with remote access paths; operators should harden third-party connections, segment OT, and validate PLC integrity. Government Advisory",
+    "GNSS jamming/spoofing continues to affect maritime corridors, requiring multi-sensor navigation validation and procedural guardrails at the bridge. Supporting Report",
+    "USCG clarified MTSA cybersecurity obligations for inactive vessels with valid certificates-controls remain applicable during lay-up and reactivation planning. Government Advisory",
+    "CEVA Logistics service disruption underscores that non-port logistics breaches can delay shipments and indirectly impact maritime schedules and customer commitments. View Article"
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Abuse of remote services and vendor access into port OT environments (crane remote maintenance and third-party links). Government Advisory",
+      "Supply-chain communication/telemetry exposure via embedded components in autonomous maritime platforms (heartbeat traffic to foreign infrastructure). Supporting Report",
+      "GNSS jamming/spoofing causing navigational loss of view and potential route manipulation; no formal ATT&CK mapping asserted due to limited technical detail in sources. Supporting Report",
+      "Logistics business system compromise causing operational disruption; specific intrusion vectors not reported-no precise ATT&CK technique assigned. View Article"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor U.S. port and terminal operators for follow-on or copycat intrusions after the North Carolina incident; additional disclosures from impacted stakeholders are possible. Confidence: medium. Source Expect continued attention to port OT/ICS supply-chain risk management activities as operators reassess vendor remote access and PLC integrity per MARAD guidance. Confidence: medium. Government Advisory GNSS interference is likely to persist; bridge teams should maintain heightened vigilance in known hot spots and document events for post-voyage review. Confidence: medium. Maritime Advisory Shipping companies with inactive vessels should anticipate internal compliance reviews and possible updates to VSP documentation and controls. Confidence: high. USCG MSIB 04-26",
+  "relatedCves": []
+}

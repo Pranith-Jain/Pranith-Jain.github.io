@@ -1,0 +1,104 @@
+{
+  "type": "disaster",
+  "date": "2026-08-28",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic flash floods along the Nepal-China border have caused mass casualties and left roughly 1,400-1,500+ people missing; authorities warn a newly formed upstream lake could trigger additional flooding. View Article Supporting Report In Reno, Nevada, a fast-moving wildfire forced tens of thousands to evacuate; more than 30 homes were destroyed and at least six people were injured. Schools closed to support emergency operations. View Article Source A landfill slope failure in Conakry, Guinea killed 30 people and destroyed homes in the Dar Es Salam settlement, highlighting acute shelter and relocation needs. View Article New wildfire activity along California's Big Sur coast prompted fresh evacuations and Highway 1 closures; access constraints complicate operations in rugged terrain. View Article Additional heavy rain in Hawaii threatens communities still recovering from Hurricane Lala; authorities urged residents to restock essentials. View Article Developing flood emergencies in the Philippines (Mindanao), Guatemala, and Sri Lanka caused fatalities and ongoing displacement risk amid further rainfall forecasts. Source Wildfire smoke in Central Kalimantan, Indonesia is straining clinics and affecting children's health. View Article",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Nepal-China border floods",
+      "summary": "Reporting varies, with 390-469+ fatalities and 1,400-1,500+ missing; search and rescue continues amid access constraints. View Article"
+    },
+    {
+      "title": "Secondary hazard risk",
+      "summary": "Authorities warn a new upstream lake could unleash further flooding downstream, threatening additional communities. Security Advisory"
+    },
+    {
+      "title": "Foreign nationals",
+      "summary": "Approximately 90 Americans remain unaccounted for in the border disaster zone. Source"
+    },
+    {
+      "title": "Reno wildfire",
+      "summary": "Tens of thousands evacuated; >30 homes destroyed; at least six injuries; schools closed to support operations. View Article"
+    },
+    {
+      "title": "Texas wildfire near Graford",
+      "summary": "Rapid spread destroyed 47 homes and damaged community facilities; evacuations and closures enacted. View Article"
+    },
+    {
+      "title": "Conakry landfill landslide",
+      "summary": "30 fatalities and severe shelter vulnerability at Dar Es Salam. View Article"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/ae9973b5fd2b1dc6d54c3e88b1b55bdc",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/8/27/more-than-1300-missing-in-nepal-and-china-after-deadly-himalayan-flood",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/aae2f4b77e2d4aa5678b365a2ee377e6",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/b572e2a15fe6a263231e04ea932cf6c8",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fbc5e54ca348ac71e7384caafcb87fdc",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/960be47428dde82bbc48544500ca13d5",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/ad389499cbf92fee022a3855ba08191d",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Nepal-China border High risk of secondary flooding downstream if the newly formed/overflowing lake breaches; maintain evacuation readiness in at-risk valleys. Source Expect continued SAR with intermittent access via air assets; debris and damaged bridges likely to slow relief delivery. Western United States Reno: watch for wind shifts and structure protection needs; support re-entry planning where safe. Big Sur: anticipate ongoing Highway 1 restrictions; potential for flare-ups in steep terrain with limited containment. Hawaii and South/Southeast Asia Hawaii: additional heavy rain bands possible; localized flooding and gusts could complicate recovery. Source PHL, LKA, GTM: further rainfall could trigger additional floods/landslides; maintain community-level alerts.",
+  "regionalTrends": []
+}

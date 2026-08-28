@@ -1,0 +1,104 @@
+{
+  "type": "cyber",
+  "date": "2026-08-28",
+  "threatLevel": "",
+  "executiveSummary": "The OT/ICS threat environment is elevated to CRITICAL driven by multiple, concurrent, and validated campaigns directly targeting control systems and critical infrastructure perimeters. Priority risks include: Active targeting of Siemens S7-200/300/400/1200/1500 PLCs using AI-assisted tooling (snap7-based) for read/write over S7comm, with specific detections and mitigations provided. Security Advisory Iranian-affiliated actors exploiting internet-exposed PLCs (Rockwell, Schneider, Siemens) to alter logic/AOIs and manipulate HMI/alarms, with confirmed operational impact in WWS and Energy. Security Advisory Pre-auth RCE in NetScaler ADC/Gateway (CVE-2026-8452) with public PoC and webshell activity; urgent patching and compromise assessment required. Security Advisory Large-scale EV charging infrastructure risk: multiple unauthenticated control/RCE paths in EV chargers and OCPP/WebSocket implementations enabling remote disruption. CISA Bulletin Fortinet \"FortiBleed\" credential leakage/exfiltration and domain credential interception via compromised FortiGate devices, enabling IT-to-OT pivot. Security Advisory Mitsubishi Electric FA network modules and PLC interface modules susceptible to remote UDP DoS requiring resets; patching and strict segmentation advised. ICS Advisory Fuel management system (Fuel-Boss) RCE via legacy PHP/IMAP flaws; partial fixes available; immediate exposure reduction recommended. ICS Advisory State-sponsored pre-positioning via SOHO/IoT router botnets (China-nexus) and exploitation of edge devices (PRC APT campaigns), heightening perimeter compromise risk. Security Advisory Security Advisory Pro-Russia hacktivist opportunistic access to exposed VNC on HMIs/SCADA causing loss of view and setpoint manipulation; immediate removal of Internet-exposed VNC required. Security Advisory",
+  "keyFindings": [
+    {
+      "title": "Multiple government-grade CSAs document ongoing exploitation against PLCs and OT",
+      "summary": "Multiple government-grade CSAs document ongoing exploitation against PLCs and OT perimeters, with concrete IOCs and ATT&CK mappings for rapid hunting. View Article"
+    },
+    {
+      "title": "NetScaler ADC/Gateway (CVE-2026-8452) is under rapid weaponization; organization",
+      "summary": "NetScaler ADC/Gateway (CVE-2026-8452) is under rapid weaponization; organizations should assume compromise if running unpatched versions and inspect for webshells in appliance paths. View Article"
+    },
+    {
+      "title": "EV charging ecosystems (OCPP, WebSockets, firmware update paths) present immedia",
+      "summary": "EV charging ecosystems (OCPP, WebSockets, firmware update paths) present immediate remote disruption risk to energy/transport operations absent mTLS, signing, and strict allowlists. View Article"
+    },
+    {
+      "title": "Mitsubishi Electric network/PLC modules and Fuel-Boss fuel systems include explo",
+      "summary": "Mitsubishi Electric network/PLC modules and Fuel-Boss fuel systems include exploitable paths for DoS or RCE; vendor updates/mitigations are available but require segmentation and exposure reduction. View Article View Article"
+    },
+    {
+      "title": "Credential and configuration theft from FortiGate, routers, and VPNs remains a p",
+      "summary": "Credential and configuration theft from FortiGate, routers, and VPNs remains a primary means to reach downstream ICS through weak segmentation or over-permissive jump hosts. View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "CRITICAL AA26-231a / AA26-097a",
+        "label": "Overall OT Cyber Threat Level"
+      },
+      {
+        "value": "14",
+        "label": "Actively Exploited (KEV/CSA) Items"
+      },
+      {
+        "value": "11",
+        "label": "OT/ICS-Focused Advisories"
+      },
+      {
+        "value": "ESCALATE: 16 MONITOR: 24 IGNORE: 20",
+        "label": "Decision Queue"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Vendors/Tech: Siemens S7 PLCs; Rockwell/Schneider PLCs; Citrix NetScaler ADC/Gateway; Fortinet FortiGate; Progress Kemp LoadMaster; EVSE/OCPP platforms (Autel, EVbee); Mitsubishi Electric MELSEC/CC-Link IE TSN/iQ-R/iQ-F; All-Line Fuel-Boss; SonicWall SMA; Cisco ASA/FTD; Zimbra; Gitea; Oracle HTTP/WebLogic. Sectors: Water and Wastewater Systems; Energy and Electric Power; Transportation (EV charging, automotive head-units); Manufacturing (FA/CNC); Government Services; Communications/Telecom."
+    ],
+    "sectors": [
+      "Vendors/Tech: Siemens S7 PLCs; Rockwell/Schneider PLCs; Citrix NetScaler ADC/Gateway; Fortinet FortiGate; Progress Kemp LoadMaster; EVSE/OCPP platforms (Autel, EVbee); Mitsubishi Electric MELSEC/CC-Link IE TSN/iQ-R/iQ-F; All-Line Fuel-Boss; SonicWall SMA; Cisco ASA/FTD; Zimbra; Gitea; Oracle HTTP/WebLogic. Sectors: Water and Wastewater Systems; Energy and Electric Power; Transportation (EV charging, automotive head-units); Manufacturing (FA/CNC); Government Services; Communications/Telecom."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "China-nexus campaigns leveraging SOHO/IoT botnets and edge-device CVEs to mask ingress and sustain espionage footholds near CI environments. Security Advisory Security Advisory",
+        "Iranian-affiliated activity modifying PLC logic and HMIs (US WWS/Energy), indicating capability and willingness to create operational impacts. Security Advisory",
+        "Pro-Russia hacktivists abusing exposed VNC to directly access HMIs/SCADA, with observed setpoint/alarm manipulation. Security Advisory",
+        "Ransomware (Gunra) exploiting edge devices (Fortinet) before lateral encryption and cloud exfiltration-enterprise compromises can cascade into OT if segmentation is weak. Security Advisory"
+      ]
+    }
+  ],
+  "relevance": "The current cycle includes multiple government-grade advisories explicitly focused on PLCs and HMI access, not just adjacent IT. These provide concrete IOCs, protocol indicators (S7comm, Modbus, CIP), and appliance paths (NetScaler/AAA theme directories) suitable for rapid hunting in industrial networks. Perimeter compromises (NetScaler, FortiGate, SonicWall, ASA/FTD) remain the most efficient route into ICS, especially when OT relies on shared identity, insufficient jump-host controls, or flat routing. EV charging system weaknesses highlight operational disruption potential in transportation/energy segments.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "NetScaler ADC/Gateway CVE-2026-8452 (pre-auth RCE) - patch and hunt for webshells; restrict AAA/SAML interfaces. Security Advisory",
+        "LoadMaster (Progress/Kemp) CVE-2026-8037 (KEV) - command injection; remove public admin exposure and verify persistence. Alert",
+        "Zimbra (KEV) - OS command injection and separate ZCS zero-day webmail chain; rotate app passcodes and hunt SOAP/GAL abuse. Alert Security Advisory",
+        "Gitea (KEV) - code injection; audit repos, rotate tokens, and verify release artifacts. Alert",
+        "Oracle WebLogic/HTTP Server (KEV) - improper access control; harden proxies and review logs for abuse. Alert",
+        "EVSE/EV charging (Autel, EVbee) - OCPP/DataTransfer injection, unsigned firmware, NFC/USB paths. CISA Bulletin",
+        "Mitsubishi Electric FA network/PLC modules - remote UDP DoS; apply fixed firmware and enforce ICS DMZ. ICS Advisory",
+        "All-Line Fuel-Boss (PHP/IMAP/PHP-FPM) - RCE; partial vendor fixes; remove exposure for unfixed variants. ICS Advisory"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "External Remote Services, Valid Accounts, and Exploit Public-Facing Applications (T1133, T1078, T1190)",
+      "Protocol Abuse: S7comm (TCP/102), Modbus, CIP/EtherNet/IP; VNC exposure; OCPP DataTransfer misuse",
+      "Webshells on appliances; reverse proxies and DNS/HTTPS dead-drop C2; credential interception via PCAP on routers",
+      "Lateral movement via RDP/SMB/VDI; cloud exfil (OneDrive/Mega) and mailbox/API abuse (Zimbra SOAP)"
+    ],
+    "mitreIds": [
+      "T1133",
+      "T1078",
+      "T1190"
+    ]
+  },
+  "outlook72h": "NetScaler exploitation likely to surge; complete patching and webshell sweeps within 48 hours and rotate SSO/SAML secrets where exposure is suspected. Prioritize removal of any exposed VNC on HMIs; deploy geofencing/IP allowlists on OT remote access gateways immediately. Conduct a targeted hunt for S7comm writes and unexpected online changes on Siemens PLCs; validate program backups and restrict engineering workstation access. EVSE: enforce mTLS profiles and disable unsigned/URL-based firmware update paths; audit OCPP endpoints and broker connectivity.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-8037",
+    "CVE-2025-63080",
+    "CVE-2026-18478"
+  ]
+}
