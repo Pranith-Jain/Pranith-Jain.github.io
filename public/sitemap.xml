@@ -796,7 +796,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (124) -->
+  <!-- Threat Intel — pages (125) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-08-28</lastmod>
@@ -949,7 +949,7 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/detection-wiki</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
