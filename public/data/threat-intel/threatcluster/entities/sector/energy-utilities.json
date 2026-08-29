@@ -4,17 +4,27 @@
   "name": "Energy & Utilities",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-08-28T12:20:44.000Z",
-  "lastSeen": "2026-08-28T12:20:44.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "lastSeen": "2026-08-29T00:25:36.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-08-28",
       "count": 1
+    },
+    {
+      "date": "2026-08-29",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "oilquip-inc-e1d5",
+      "title": "Oilquip Inc — claimed by incransom",
+      "pubDate": "2026-08-29T00:25:36.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "hanwha-renewables-64f9",
@@ -23,6 +33,12 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "emperador",

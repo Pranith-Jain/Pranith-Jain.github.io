@@ -4,14 +4,14 @@
   "name": "SilentRansomGroup",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-27T17:22:29.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-27T20:23:32.000Z",
   "lastSeen": "2026-08-27T20:23:32.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 0 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
       "date": "2026-08-27",
-      "count": 2
+      "count": 1
     }
   ],
   "recentActivity": [
@@ -20,12 +20,6 @@
       "slug": "ne-n-m-4388",
       "title": "Ne...n M... — claimed by SilentRansomGroup",
       "pubDate": "2026-08-27T20:23:32.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "g-t-4f20",
-      "title": "G... T... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-27T17:22:29.000Z"
     }
   ],
   "relatedEntities": [
@@ -33,7 +27,7 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 2
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
@@ -44,13 +38,6 @@
       "sector": "Not Found",
       "country": null,
       "pubDate": "2026-08-27T20:23:32.000Z"
-    },
-    {
-      "id": "g-t-4f20",
-      "victim": "G... T... — claimed by SilentRansomGroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-08-27T17:22:29.000Z"
     }
   ]
 }

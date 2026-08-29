@@ -19,23 +19,23 @@
       "onion": "7fa6xlti5joarlmkuhjaifa47ukgcwz6tfndgax45ocyn4rixm632jid.onion/anonbib/index.html",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "59kb",
+      "pageSize": "32kb",
       "fingerprint": "8C00CB6C"
     },
     {
       "slug": "dwd-9373-243",
       "name": "Kikuri",
       "dwdId": "DWD-9373-243",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
       "url": "http://kikurizsbpb7ar4ozrzogt6nre3j7s7mccqwxeg3jvppyik2aa475lqd.onion",
       "onion": "kikurizsbpb7ar4ozrzogt6nre3j7s7mccqwxeg3jvppyik2aa475lqd",
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "23kb",
+      "latencyMs": 601,
+      "httpCode": "200",
+      "pageSize": "146kb",
       "fingerprint": "4C5F041A"
     },
     {
@@ -51,7 +51,7 @@
       "onion": "i4pd4zpyhrojnyx5l3d2siauy4almteocqow4bp2lqxyocrfy6prycad.onion/",
       "latencyMs": 780,
       "httpCode": "200",
-      "pageSize": "141kb",
+      "pageSize": "159kb",
       "fingerprint": "2D521449"
     },
     {
@@ -67,7 +67,7 @@
       "onion": "oqampqzctgkbq2yizpqdxlywidwgplilk3ccbhcxqm7gf6erafpkpjad",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "14kb",
+      "pageSize": "191kb",
       "fingerprint": "C90A19E1"
     },
     {
@@ -83,7 +83,7 @@
       "onion": "x4ijfwy76n6jl7rs4qyhe6qi5rv6xyuos3kaczgjpjcajigjzk3k7wqd",
       "latencyMs": 857,
       "httpCode": "200",
-      "pageSize": "67kb",
+      "pageSize": "150kb",
       "fingerprint": "F9FCFD5F"
     },
     {
@@ -115,23 +115,23 @@
       "onion": "jqibjqqagao3peozxfs53tr6aecoyvctumfsc2xqniu4xgcrksal2iqd.onion/",
       "latencyMs": 526,
       "httpCode": "200",
-      "pageSize": "22kb",
+      "pageSize": "73kb",
       "fingerprint": "15093D7E"
     },
     {
       "slug": "dwd-ed25-941",
       "name": "The Tor Project",
       "dwdId": "DWD-ED25-941",
-      "status": "up",
-      "upMirrors": 1,
+      "status": "down",
+      "upMirrors": 0,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
       "url": "http://pzhdfe7jraknpj2qgu5cz2u3i4deuyfwmonvzu5i3nyw4t4bmg7o5pad.onion/index.html",
       "onion": "pzhdfe7jraknpj2qgu5cz2u3i4deuyfwmonvzu5i3nyw4t4bmg7o5pad.onion/index.html",
-      "latencyMs": 681,
-      "httpCode": "200",
-      "pageSize": "140kb",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "118kb",
       "fingerprint": "5249040F"
     }
   ]

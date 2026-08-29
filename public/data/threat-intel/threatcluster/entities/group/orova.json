@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "orova",
+  "name": "Orova",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-29T09:21:06.000Z",
+  "lastSeen": "2026-08-29T09:21:06.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-29",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "south-pacific-hotel-limited-3549",
+      "title": "South Pacific Hotel Limited — claimed by Orova",
+      "pubDate": "2026-08-29T09:21:06.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "south-pacific-hotel-limited-3549",
+      "victim": "South Pacific Hotel Limited — claimed by Orova",
+      "sector": "Hospitality",
+      "country": "HK",
+      "pubDate": "2026-08-29T09:21:06.000Z"
+    }
+  ]
+}

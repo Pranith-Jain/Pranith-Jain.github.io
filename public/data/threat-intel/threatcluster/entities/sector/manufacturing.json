@@ -4,21 +4,37 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-27T14:27:52.000Z",
-  "lastSeen": "2026-08-28T14:52:03.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 5 ransomware groups and 4 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-27T18:24:34.000Z",
+  "lastSeen": "2026-08-29T06:57:15.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 5 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-08-27",
-      "count": 5
+      "count": 2
     },
     {
       "date": "2026-08-28",
-      "count": 3
+      "count": 4
+    },
+    {
+      "date": "2026-08-29",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "swagelok-7f33",
+      "title": "swagelok — claimed by iah6477",
+      "pubDate": "2026-08-29T06:57:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "corematerials-com-f380",
+      "title": "corematerials.com — claimed by chaos",
+      "pubDate": "2026-08-28T17:54:47.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "alumax-8562",
@@ -48,24 +64,6 @@
       "slug": "national-salvage-04a7",
       "title": "National Salvage — claimed by Storm",
       "pubDate": "2026-08-27T18:24:34.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "zion-construction-8df4",
-      "title": "Zion Construction — claimed by thegentlemen",
-      "pubDate": "2026-08-27T17:59:22.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "rohloff-group-14b7",
-      "title": "Rohloff Group — claimed by incransom",
-      "pubDate": "2026-08-27T14:31:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cetylite-23d2",
-      "title": "Cetylite — claimed by akira",
-      "pubDate": "2026-08-27T14:27:52.000Z"
     }
   ],
   "relatedEntities": [
@@ -73,7 +71,7 @@
       "type": "group",
       "slug": "akira",
       "name": "akira",
-      "weight": 3
+      "weight": 2
     },
     {
       "type": "group",
@@ -83,20 +81,20 @@
     },
     {
       "type": "group",
+      "slug": "iah6477",
+      "name": "iah6477",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "chaos",
+      "name": "chaos",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "qilin",
       "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
       "weight": 1
     }
   ],

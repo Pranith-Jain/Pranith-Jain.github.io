@@ -5,31 +5,31 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-08-27T17:02:08.000Z",
-  "lastSeen": "2026-08-28T06:52:38.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "firstSeen": "2026-08-28T06:52:38.000Z",
+  "lastSeen": "2026-08-29T01:51:27.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-27",
+      "date": "2026-08-28",
       "count": 1
     },
     {
-      "date": "2026-08-28",
+      "date": "2026-08-29",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "bayview-real-estate-warning-84ed",
-      "title": "Bayview Real Estate WARNING — claimed by ShadowByt3$",
-      "pubDate": "2026-08-28T06:52:38.000Z"
+      "slug": "bayview-real-estate-0f47",
+      "title": "BayView Real Estate — claimed by ShadowByt3$",
+      "pubDate": "2026-08-29T01:51:27.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "kling-automaten-4752",
-      "title": "Kling Automaten — claimed by qilin",
-      "pubDate": "2026-08-27T17:02:08.000Z"
+      "slug": "bayview-real-estate-warning-84ed",
+      "title": "Bayview Real Estate WARNING — claimed by ShadowByt3$",
+      "pubDate": "2026-08-28T06:52:38.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,13 +37,7 @@
       "type": "group",
       "slug": "shadowbyt3",
       "name": "ShadowByt3$",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 1
+      "weight": 2
     }
   ],
   "mitreTechniques": []

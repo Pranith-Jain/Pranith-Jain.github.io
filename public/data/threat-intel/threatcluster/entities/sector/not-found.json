@@ -4,21 +4,49 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-27T17:22:29.000Z",
-  "lastSeen": "2026-08-28T14:29:34.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 6 ransomware groups and 4 countries.",
+  "mentionCount": 9,
+  "firstSeen": "2026-08-27T20:23:32.000Z",
+  "lastSeen": "2026-08-29T09:50:57.000Z",
+  "summary": "Sector hit by 9 leak-site victims across 7 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-08-27",
-      "count": 4
+      "count": 2
     },
     {
       "date": "2026-08-28",
+      "count": 4
+    },
+    {
+      "date": "2026-08-29",
       "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "terra-amp-mon-64be",
+      "title": "TERRA*** &amp; MON**** — claimed by majinahanashi",
+      "pubDate": "2026-08-29T09:50:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "montcau-307d",
+      "title": "MONTCAU — claimed by majinahanashi",
+      "pubDate": "2026-08-29T08:51:32.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "apatpa-com-0342",
+      "title": "apatpa.com — claimed by lockbit5",
+      "pubDate": "2026-08-29T00:27:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "macallister-com-ca4d",
+      "title": "macallister.com — claimed by chaos",
+      "pubDate": "2026-08-28T17:54:13.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "berlin-germany-53e7",
@@ -48,26 +76,26 @@
       "slug": "ne-n-m-4388",
       "title": "Ne...n M... — claimed by SilentRansomGroup",
       "pubDate": "2026-08-27T20:23:32.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "w-s-a3aa",
-      "title": "W****s — claimed by payoutsking",
-      "pubDate": "2026-08-27T18:19:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "g-t-4f20",
-      "title": "G... T... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-27T17:22:29.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "silentransomgroup",
-      "name": "SilentRansomGroup",
+      "slug": "majinahanashi",
+      "name": "majinahanashi",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "chaos",
+      "name": "chaos",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "lockbit5",
+      "name": "lockbit5",
+      "weight": 1
     },
     {
       "type": "group",
@@ -89,14 +117,8 @@
     },
     {
       "type": "group",
-      "slug": "chaos",
-      "name": "chaos",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "payoutsking",
-      "name": "payoutsking",
+      "slug": "silentransomgroup",
+      "name": "SilentRansomGroup",
       "weight": 1
     }
   ],
