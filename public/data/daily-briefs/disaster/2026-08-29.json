@@ -1,0 +1,269 @@
+{
+  "type": "disaster",
+  "date": "2026-08-29",
+  "overallThreat": "",
+  "executiveSummary": "The period is dominated by catastrophic flash flooding along the Nepal-Tibet border, concurrent large wildfires in the western United States, and typhoon-driven flooding in southern China. Secondary hazards and access constraints continue to elevate operational risk. Himalayan flood catastrophe: Reporting varies but indicates at least 390-633+ fatalities and 1,400-3,000 missing across Nepal and Tibet after a glacier-collapse flood swept through mountain corridors. View Article Supporting Report Upstream barrier lake instability is disrupting rescues and could trigger further flooding; authorities briefly halted operations amid renewed overflow risk. View Article Children and vulnerable groups: UNICEF/aid agencies warn at least 17,000 children urgently need assistance as communities remain cut off. View Article Access/infrastructure: Roads, bridges, and buildings were washed out or buried; more than 100 people were trapped at a hydropower tunnel during response. View Article Humanitarian financing: IFRC released emergency funds and launched an appeal to support lifesaving assistance in northern Nepal. Supporting Report United States - Reno, Nevada: A fast-moving wildfire destroyed 30+ homes; 42,000 were under evacuation orders (about 90,000 urged), with at least six injuries and large-scale sheltering. View Article United States - North Central Texas: A rapidly expanding wildfire (78+ square miles in View Article China - Guangxi and south: Typhoon Narra caused widespread flooding and mass evacuations, with heavier rain expected to worsen conditions. View Article Hawaii: Post-hurricane heavy rain risk persisted with two storm-related deaths and concerns for repeat flooding in vulnerable areas. View Article",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Catastrophic Himalayan flash flooding remains the dominant global emergency with",
+      "summary": "Catastrophic Himalayan flash flooding remains the dominant global emergency with casualty numbers still rising and access severely constrained. View Article"
+    },
+    {
+      "title": "Secondary hazard from a newly formed upstream lake is a material threat to respo",
+      "summary": "Secondary hazard from a newly formed upstream lake is a material threat to responders and downstream communities. View Article"
+    },
+    {
+      "title": "Children's assistance is a critical gap in the Nepal response, with at least 17,",
+      "summary": "Children's assistance is a critical gap in the Nepal response, with at least 17,000 at immediate risk. View Article"
+    },
+    {
+      "title": "Reno, Nevada faces sustained displacement and shelter needs after a rapidly movi",
+      "summary": "Reno, Nevada faces sustained displacement and shelter needs after a rapidly moving wildfire destroyed homes near dense neighborhoods. View Article"
+    },
+    {
+      "title": "North Central Texas is experiencing dangerous fire growth conditions with rapid ",
+      "summary": "North Central Texas is experiencing dangerous fire growth conditions with rapid spread and structural losses reported. View Article"
+    },
+    {
+      "title": "Southern China's typhoon flooding has driven mass evacuations and is likely to w",
+      "summary": "Southern China's typhoon flooding has driven mass evacuations and is likely to worsen with additional heavy rain. View Article"
+    },
+    {
+      "title": "Hawaii remains exposed to heavy rain and mudslide risk following earlier hurrica",
+      "summary": "Hawaii remains exposed to heavy rain and mudslide risk following earlier hurricane impacts, compounding community vulnerability. View Article"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fde34c839b648f93f6aa011f044deb00",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/5086eb25e29b23019632f7817739f807",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/b572e2a15fe6a263231e04ea932cf6c8",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fbc5e54ca348ac71e7384caafcb87fdc",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/aug/26/typhoon-narra-floods-evacuations-china",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/48d2a051c3265b09e70db5111f72b91d",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "Nepal-Tibet Himalayan Flood Catastrophe",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fde34c839b648f93f6aa011f044deb00",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/61b592d428e4631add31ce052d0daf1f",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/8/28/death-toll-from-nepal-tibet-flood-passes-470-as-barrier-lake-threatens",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/5086eb25e29b23019632f7817739f807",
+          "label": "Security Advisory"
+        },
+        {
+          "url": "https://apnews.com/article/88a9dc9aa7334773f10eb6cd11ec11f7",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.ifrc.org/press-release/ifrc-launches-chf-25-million-emergency-appeal-response-devastating-nepal-flash-floods",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/nepal-floods-survivors-aid-children-4501770e98a8d4974ae410430179b985",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Reno, Nevada, United States - Hawk Fire",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/aae2f4b77e2d4aa5678b365a2ee377e6",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/b572e2a15fe6a263231e04ea932cf6c8",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "North Central Texas, United States - Rapid Growth Wildfire",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fbc5e54ca348ac71e7384caafcb87fdc",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Guangxi and Southern China - Typhoon Narra Flooding",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/aug/26/typhoon-narra-floods-evacuations-china",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Hawaii, United States - Heavy Rain & Mudslide Risk",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/48d2a051c3265b09e70db5111f72b91d",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Okinawa, Amami & Kagoshima, Japan - Typhoon Impacts",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/japan-okinawa-china-typhoon-saudel-9ff22a716a0dc7743b9613ec4cf030d6",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Big Sur, California, United States - Remote Wildfire",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/ad389499cbf92fee022a3855ba08191d",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Cameroon - IFRC Flood Response",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.ifrc.org/appeals",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Yemen - IFRC Flood Response",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.ifrc.org/appeals",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Indonesia - IFRC DREF Earthquake",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.ifrc.org/appeals",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Central Pacific - Open-Water Disturbance",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/4bc5023dcb95d6371b2d9f8741950dca",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "outlook72h": "Himalayan Flood Zone (Nepal-Tibet) Expect fluctuating access windows due to barrier lake overflow potential; maintain no-regrets posture on evacuation triggers near unstable slopes and river corridors. Security Advisory Prioritize air bridges where feasible; pre-stage high-clearance assets for debris-blocked routes. View Article Other Priority Areas Reno, Nevada: Continued fire behavior possible; maintain shelter capacity and redundancy for power interruptions. View Article Southern China: Additional heavy rain forecast-anticipate extended evacuations and WASH needs in submerged communities. View Article Hawaii: Maintain flash flood/mudslide readiness in steep terrain and burn scars; monitor renewed rain bands. View Article Japan (Okinawa/Amami/Kagoshima): Residual outage and landslide risks amid storm passage; monitor for cascading transport impacts. View Article",
+  "regionalTrends": [
+    "Hydrometeorological dominance: Asia's mountain and coastal regions are experiencing compounding water hazards-glacier-collapse flooding in the Himalayas and typhoon-driven flooding in southern China. View Article Supporting Report",
+    "Western US wildfire volatility: Rapid growth and urban-interface exposure continue to drive evacuation surges and shelter operations. View Article",
+    "Access as a critical constraint: Mountainous terrain, washed-out bridges, and unstable barrier lakes significantly delay relief timelines in Nepal-Tibet. View Article"
+  ]
+}

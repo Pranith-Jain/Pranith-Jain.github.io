@@ -1,0 +1,71 @@
+{
+  "type": "maritime",
+  "date": "2026-08-29",
+  "threatLevel": "Unknown",
+  "executiveSummary": "The collected intelligence supports an assessment that the near-term maritime cyber risk environment is moderate, driven by recent port and logistics disruptions and reinforced by U.S. government guidance on navigation integrity and vessel cybersecurity during inactivity. Confidence: medium-high.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Overall Threat",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "Total Intelligence Records Analyzed",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "Unique Maritime Intelligence Events",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "Event Decisions",
+        "label": "Event Decisions"
+      },
+      {
+        "value": "Reported Operational Incidents",
+        "label": "Reported Operational Incidents"
+      },
+      {
+        "value": "Navigation-Related Threats",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "Vulnerabilities / CVEs",
+        "label": "Vulnerabilities / CVEs"
+      },
+      {
+        "value": "High-Confidence Assessments",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [],
+    "sectors": [
+      "Ports and Terminals (North Carolina Ports Authority)",
+      "Logistics and Warehousing (CEVA Logistics, CMA CGM group)",
+      "Vessel Owners/Operators (USCG MTSA applicability for inactive/laid-up vessels)",
+      "Bridge Teams / Navigation (GPS interference and AIS spoofing advisory)"
+    ]
+  },
+  "keyFindings": [
+    "Port operations disruption: North Carolina Ports experienced a confirmed cyberattack causing IT outages and slowed gate operations across multiple facilities; navigation impact not reported. View Article",
+    "Supply-chain continuity risk: CEVA Logistics reported Europe-based warehousing disruptions, indicating upstream/downstream effects on carrier schedules and cargo readiness. View Article",
+    "Compliance signal: USCG MSIB 04-26 clarifies MTSA cybersecurity applicability to laid-up/inactive vessels, highlighting the need to maintain controls, monitoring, and response readiness during nonoperational periods. Government Advisory",
+    "Navigation integrity remains at risk from GPS interference and AIS spoofing; bridge teams should cross-validate with independent sensors and visual/radar fixes. Maritime Advisory",
+    "No new CVE-driven maritime OT exploit reporting is present in this set; defensive focus should remain on access control, segmentation, and incident containment at the IT/OT boundary."
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Operational disruption of enterprise IT systems (ports, logistics) leading to service slowdowns.",
+      "Standing navigation-data integrity risks (GPS interference; AIS spoofability) per government advisory."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for continuing recovery and customer notifications regarding the North Carolina Ports and CEVA Logistics disruptions. Confidence: medium. Port Incident Logistics Incident Additional compliance and implementation questions may surface as operators interpret USCG MSIB 04-26 for fleet lay-up plans and audits. Confidence: high. Government Advisory Navigation integrity risk remains situationally elevated in regions experiencing GPS interference; crews should apply cross-check procedures. Confidence: medium. Maritime Advisory This outlook is an evidence-based assessment from the provided sources and is not a prediction of certainty.",
+  "relatedCves": []
+}
