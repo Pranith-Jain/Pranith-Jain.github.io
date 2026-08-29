@@ -4,17 +4,33 @@
   "name": "chaos",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 3,
   "firstSeen": "2026-08-27T20:26:06.000Z",
-  "lastSeen": "2026-08-27T20:26:06.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-08-28T17:54:47.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 3 countries.",
   "frequency": [
     {
       "date": "2026-08-27",
       "count": 1
+    },
+    {
+      "date": "2026-08-28",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "corematerials-com-f380",
+      "title": "corematerials.com — claimed by chaos",
+      "pubDate": "2026-08-28T17:54:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "macallister-com-ca4d",
+      "title": "macallister.com — claimed by chaos",
+      "pubDate": "2026-08-28T17:54:13.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "singleton-com-f9de",
@@ -27,11 +43,31 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "corematerials-com-f380",
+      "victim": "corematerials.com — claimed by chaos",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-28T17:54:47.000Z"
+    },
+    {
+      "id": "macallister-com-ca4d",
+      "victim": "macallister.com — claimed by chaos",
+      "sector": "Not Found",
+      "country": "GB",
+      "pubDate": "2026-08-28T17:54:13.000Z"
+    },
     {
       "id": "singleton-com-f9de",
       "victim": "singleton.com — claimed by chaos",

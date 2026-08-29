@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "doommageddon",
+  "name": "Doommageddon",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-28T23:21:03.000Z",
+  "lastSeen": "2026-08-28T23:21:25.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-28",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "sittnak-lojistik-a-6740",
+      "title": "SITTNAK Lojistik A.Ş. — claimed by Doommageddon",
+      "pubDate": "2026-08-28T23:21:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "akpera-gayrimenkul-yat-r-m-a-a7e1",
+      "title": "Akpera Gayrimenkul Yatırım A.Ş. — claimed by Doommageddon",
+      "pubDate": "2026-08-28T23:21:03.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "sittnak-lojistik-a-6740",
+      "victim": "SITTNAK Lojistik A.Ş. — claimed by Doommageddon",
+      "sector": "Transportation",
+      "country": "TR",
+      "pubDate": "2026-08-28T23:21:25.000Z"
+    },
+    {
+      "id": "akpera-gayrimenkul-yat-r-m-a-a7e1",
+      "victim": "Akpera Gayrimenkul Yatırım A.Ş. — claimed by Doommageddon",
+      "sector": "Other",
+      "country": "TR",
+      "pubDate": "2026-08-28T23:21:03.000Z"
+    }
+  ]
+}

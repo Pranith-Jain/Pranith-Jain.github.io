@@ -3,6 +3,1450 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary exploited a vulnerability in the Essential Addons for Elementor plugin to execute reflected XSS attacks.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential motivations include session hijacking, phishing, and malware distribution.",
+      "Sophistication": "Moderate, leveraging known XSS techniques.",
+      "Strategic_Objectives": "Compromise WordPress sites to gain unauthorized access or distribute malware.",
+      "TTPs_Employed": ["Reflected XSS"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Crafting of malicious URLs to exploit the XSS vulnerability.",
+        "Detection": "Monitor for unusual URL parameters in web requests.",
+        "Remediation": "Apply patches and updates to vulnerable plugins.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Delivery of malicious URLs to unsuspecting users.",
+        "Detection": "Monitor for phishing attempts and suspicious email activity.",
+        "Remediation": "Educate users on recognizing phishing attempts.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Tricking users into clicking malicious links.",
+            "tactic_id": "T1566",
+            "tactic_name": "Phishing"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Sending emails with malicious links.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Link"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Exploitation of the XSS vulnerability to execute scripts.",
+        "Detection": "Monitor for unusual script execution in web applications.",
+        "Remediation": "Implement strict input validation and sanitization.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for session hijacking, phishing redirects, or malware distribution.",
+        "Detection": "Monitor for unusual web traffic patterns.",
+        "Remediation": "Regularly update and audit web applications.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Using application layer protocols for communication.",
+            "tactic_id": "T1071",
+            "tactic_name": "Application Layer Protocol"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols for communication.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Crafting malicious URLs for XSS exploitation."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Input sanitization bypass"],
+      "Description": "The adversary demonstrated the capability to exploit XSS vulnerabilities in WordPress plugins.",
+      "Exploits": ["CVE-2025-24752"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual URL parameters and script execution."],
+    "Extracted_Entities": {
+      "Assets": ["WordPress websites"],
+      "Breach_Types": ["Reflected XSS"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["WPDeveloper"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["XSS", "CVE-2025-24752", "WordPress", "Patchstack", "Sucuri"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Version 6.0.15"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Essential Addons for Elementor"],
+      "Technologies": ["JavaScript"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-24752"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The attack infrastructure involved crafting malicious URLs to exploit the XSS vulnerability.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Enable auto-updates and conduct regular security audits."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Reflected XSS"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["ANY.RUN TI Lookup"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-26T07:59:39Z",
+    "Title": "Critical XSS Vulnerability in Essential Addons for Elementor Plugin",
+    "Tools": ["Essential Addons for Elementor"],
+    "Victim": {
+      "Access_Vectors": ["Web application"],
+      "Data_Types_At_Risk": ["User sessions", "Website integrity"],
+      "Description": "Victims are WordPress websites using the Essential Addons for Elementor plugin.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to outdated plugin versions",
+      "Targeted_Assets": ["WordPress websites"]
+    },
+    "diamond_model_summary": "The incident involves adversaries exploiting a vulnerability in the Essential Addons for Elementor plugin to execute reflected XSS attacks. The adversary's capability includes crafting malicious URLs to exploit insufficient input sanitization. The infrastructure involves delivering these URLs to unsuspecting users, targeting WordPress websites globally. The victim sector is primarily technology, with a high impact severity due to the potential for session hijacking and malware distribution.",
+    "doc_summary": "A critical security vulnerability in the Essential Addons for Elementor plugin, installed on over 2 million WordPress websites, has exposed sites to script injection attacks via malicious URL parameters. The flaw, tracked as CVE-2025-24752 and scoring 7.1 (High) on the CVSS scale, allowed attackers to execute reflected cross-site scripting (XSS) attacks by exploiting insufficient input sanitization in the plugin’s password reset functionality, as per a report by Patchstack. The vulnerability stemmed from improper handling of the popup-selector query parameter in the plugin’s JavaScript code. Attackers could craft URLs containing malicious scripts in this parameter, which were executed when unsuspecting users clicked the link. This type of reflected XSS attack enables session hijacking, phishing redirects, or malware distribution by exploiting the victim’s browser trust in the compromised website. The vulnerable code resided in the src/js/view/general.js file: Here, the popup-selector value was retrieved from the URL and injected into the page without validating or escaping its contents, allowing attackers to insert arbitrary JavaScript code. For example, a URL like https://victim-site.com/?popup-selector=<script>malicious-code</script> would execute the payload. The plugin’s developers, WPDeveloper, released version 6.0.15 to address the flaw by implementing strict input validation. The patched code restricts popup-selector values to alphanumeric characters and specific safe symbols, neutralizing XSS vectors: WordPress administrators are urged to immediately update to at least v6.0.15. Those unable to patch should consider disabling the plugin until updates are applied. This incident underscores persistent risks in WordPress ecosystems, where popular plugins become high-value targets. Essential Addons ranks among Elementor’s most installed extensions, amplifying the flaw’s blast radius. Sucuri researcher Ben Martin notes, “XSS flaws in plugins with millions of users can enable mass compromise campaigns. Rigorous input sanitization is non-negotiable for plugin developers”. WordPress users remain advised to enable auto-updates and conduct regular security audits. As of February 2025, no widespread exploits have been reported, but delayed patching could lead to cascading breaches.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191045+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "b6a1ec8755e05f91833015fafe6689f1ccdc8dd9",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain, starting with the weaponization of malicious URLs to exploit the XSS vulnerability. Delivery involves sending these URLs to users, leading to exploitation when clicked. The exploitation stage allows for script execution, potentially leading to session hijacking or malware distribution. Detection involves monitoring for unusual URL parameters and script execution, while remediation includes applying patches and educating users on phishing risks.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 87,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to reflected XSS attacks. No specific hash values, IP addresses, or domain names were identified. The primary focus is on the tools and techniques used to exploit the vulnerability, emphasizing the need for strict input validation and regular security audits. The scoring reflects the emphasis on TTPs and the absence of other indicators.",
+    "relevance_score": 45,
+    "sequence": 17321,
+    "source": "https://gbhackers.com/millions-of-wordpress-websites-vulnerable/",
+    "slug": "Critical_XSS_Vulnerability_in_Essential_Addons_for_Elementor_Plugin-017321",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Anonymous attackers exploiting Rsync vulnerabilities",
+      "Known_Campaigns": [],
+      "Motivation": "Potential server takeover and data exfiltration",
+      "Sophistication": "High, due to exploitation of multiple vulnerabilities",
+      "Strategic_Objectives": "Compromise servers, exfiltrate data, and escalate privileges",
+      "TTPs_Employed": ["Heap buffer overflow", "ASLR bypass", "Path traversal", "Symlink directory escape"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Crafting of malicious checksum data to exploit buffer overflow",
+        "Detection": "Monitor for unusual checksum data in Rsync logs",
+        "Remediation": "Upgrade to Rsync version 3.2.8 or apply patches",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of vulnerabilities in Rsync for remote code execution",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of vulnerabilities in Rsync for remote code execution",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of Rsync vulnerabilities for remote code execution and data exfiltration",
+        "Detection": "Monitor for unusual Rsync synchronization requests",
+        "Remediation": "Upgrade to Rsync version 3.2.8 or apply patches",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of vulnerabilities in Rsync for remote code execution",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of vulnerabilities in Rsync for remote code execution",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Data exfiltration and privilege escalation through Rsync vulnerabilities",
+        "Detection": "Monitor for unusual data transfer patterns",
+        "Remediation": "Restrict Rsync access to trusted servers only",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Exfiltration of sensitive data from compromised servers",
+            "tactic_id": "T1005",
+            "tactic_name": "Data from Local System"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltration of sensitive data from compromised servers",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of Rsync vulnerabilities"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of Rsync vulnerabilities for remote code execution and data exfiltration",
+      "Exploits": ["CVE-2024-12084", "CVE-2024-12085", "CVE-2024-12086", "CVE-2024-12087", "CVE-2024-12088"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Rsync"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data transfer patterns"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor Rsync logs for unusual activity"],
+    "Extracted_Entities": {
+      "Assets": ["Servers", "File systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Github"],
+      "Countries": ["United States of America", "United Kingdom", "Germany"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Rsync", "vulnerabilities", "remote code execution", "data exfiltration"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["DSA-5432-1", "USN-6670-1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["Rsync"],
+      "Technologies": ["Rsync protocol"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2024-12084", "CVE-2024-12085", "CVE-2024-12086", "CVE-2024-12087", "CVE-2024-12088"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Rsync protocol"],
+      "Description": "Servers running vulnerable versions of Rsync",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Upgrade Rsync to version 3.2.8", "Apply vendor patches"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Heap buffer overflow", "ASLR bypass", "Path traversal", "Symlink directory escape"],
+      "Tools": ["Rsync"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["ANY.RUN TI Lookup"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-26T08:21:42Z",
+    "Title": "Critical Vulnerabilities in Rsync Expose Servers to Remote Code Execution",
+    "Tools": ["Rsync"],
+    "Victim": {
+      "Access_Vectors": ["Rsync protocol"],
+      "Data_Types_At_Risk": ["SSH keys", "Configuration files", "Sensitive data"],
+      "Description": "Servers using Rsync version 3.2.7 and earlier",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Information Technology",
+      "Security_Posture": "Vulnerable due to outdated Rsync versions",
+      "Targeted_Assets": ["Servers", "File systems"]
+    },
+    "diamond_model_summary": "The incident involves anonymous attackers exploiting critical vulnerabilities in the Rsync file synchronization tool, affecting millions of servers globally. The adversaries demonstrate high sophistication by leveraging multiple vulnerabilities for remote code execution and data exfiltration. The infrastructure primarily consists of servers running vulnerable Rsync versions, with the victims being organizations in the Information Technology sector. The attackers' strategic objectives include server takeover, data theft, and privilege escalation.",
+    "doc_summary": "A series of critical security vulnerabilities in the widely-used Rsync file synchronization tool have been uncovered, exposing millions of servers to potential takeover by anonymous attackers. The flaws, discovered in Rsync version 3.2.7 and earlier, enable remote code execution, sensitive data leaks, and file system manipulation through five distinct attack vectors, as per a report by Github. CVE-2024-12084: Heap Buffer Overflow in Checksum Parsing (CVSS 9.8) The most critical vulnerability exists in how Rsync daemons handle file checksums during synchronization. Attackers can trigger a heap buffer overflow by sending malicious checksum data that exceeds the allocated 16-byte buffer (sum2 array). The overflow occurs because the protocol accepts s2length values up to 64 bytes (for SHA-512 digests) without proper validation: This allows overwriting 48 bytes of adjacent heap memory, corrupting critical data structures. Combined with CVE-2024-12085 (ASLR bypass), attackers gain reliable remote code execution on Debian 12 and Ubuntu systems running default Rsync configurations. Proof-of-concept exploits demonstrate complete server compromise through crafted synchronization requests. CVE-2024-12085: Uninitialized Stack Data Leak (CVSS 7.5) The checksum comparison logic leaks uninitialized stack memory through timing side channels. During file chunk verification: Attackers set s2length=9 to compare 1 unknown byte per request, gradually leaking stack canaries and code pointers. This enables precise ASLR bypass required for CVE-2024-12084 exploitation. CVE-2024-12086: Client File Exfiltration (CVSS 8.6) Malicious servers can exfiltrate arbitrary client files through path traversal in the xname parameter. The vulnerability stems from improper sanitization when servers send file comparison requests: Servers use checksum mismatches to brute-force file contents byte-by-byte, enabling theft of SSH keys, configuration files, and other sensitive data. CVE-2024-12087: Symlink Directory Escape (CVSS 8.1) Attackers exploit race conditions in directory caching to bypass symbolic link protections. By sending: Rsync clients follow the redefined symlink, writing target-file to /etc instead of the sync directory. This enables privilege escalation and system file corruption. CVE-2024-12088: –safe-links Bypass (CVSS 6.5) The security feature designed to prevent symlink attacks fails to account for nested links: The validation logic calculates path depth as 4 (a/a/a/..), while actual resolution escapes to /etc. This persists even with –safe-links enabled. All Rsync users must immediately upgrade to version 3.2.8 or apply vendor patches. Administrators should: Disable anonymous Rsync daemon access if possible Audit synchronization logs for unexpected checksum errors Restrict client Rsync to trusted servers only Debian and Ubuntu have released emergency updates (DSA-5432-1, USN-6670-1). The vulnerabilities underscore the risks inherent in legacy synchronization protocols and the importance of memory-safe implementations.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191021+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "8d95d9f2269bc94d3a19d90a2a90379b0684e7db",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack on Rsync involves multiple stages of the cyber kill chain. During weaponization, attackers craft malicious checksum data to exploit a heap buffer overflow. Exploitation occurs through remote code execution and data exfiltration, leveraging vulnerabilities like CVE-2024-12084 and CVE-2024-12086. Actions on objectives include data theft and privilege escalation. Detection involves monitoring Rsync logs for unusual activity, while remediation requires upgrading to Rsync version 3.2.8 and applying patches.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 94,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes several indicators of compromise. Tools like Rsync are exploited, and TTPs involve heap buffer overflow and ASLR bypass. While specific hash values, IP addresses, and domain names are not identified, the focus is on the exploitation of Rsync vulnerabilities. The scoring reflects the presence of tools and TTPs, highlighting the critical nature of the vulnerabilities and the need for immediate remediation.",
+    "relevance_score": 43,
+    "sequence": 17320,
+    "source": "https://gbhackers.com/rsync-vulnerabilities/",
+    "slug": "Critical_Vulnerabilities_in_Rsync_Expose_Servers_to_Remote_Code_Executio-017320",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary exploits a vulnerability in MITRE Caldera to execute arbitrary commands.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially to gain unauthorized access and control over systems.",
+      "Sophistication": "Moderate, leveraging known vulnerabilities and tools.",
+      "Strategic_Objectives": "Compromise systems running Caldera for unauthorized access.",
+      "TTPs_Employed": ["Exploitation of RCE vulnerabilities", "Use of reverse shell"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of dynamic compilation features in Caldera agents.",
+        "Detection": "Monitor for unusual HTTP requests to Caldera servers.",
+        "Remediation": "Apply patches and updates to Caldera.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities to gain initial access.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of RCE vulnerability in Caldera.",
+        "Detection": "Monitor for execution of unexpected scripts or commands.",
+        "Remediation": "Restrict linker flag modifications and validate compilation parameters.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Execution of malicious code on a target system.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Execution of commands via a scripting interpreter.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Establishing a reverse shell for control.",
+        "Detection": "Monitor for reverse shell connections from Caldera servers.",
+        "Remediation": "Isolate Caldera servers from sensitive environments.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing a command and control channel.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using application layer protocols for C2 communication.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Manipulation of linker flags for command execution."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Manipulation of linker flags"],
+      "Description": "Exploitation of dynamic compilation features in Caldera agents.",
+      "Exploits": ["CVE-2025-27364"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Caldera", "GCC", "Python"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual HTTP requests and reverse shell connections."],
+    "Extracted_Entities": {
+      "Assets": ["Caldera servers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": ["python3 -c"],
+      "Companies": ["MITRE"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["RCE", "CVE-2025-27364", "Caldera", "vulnerability"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Caldera v5.1.0"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Cybersecurity"],
+      "Software": ["MITRE Caldera"],
+      "Technologies": ["Go", "Python", "GCC"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-27364"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["HTTP"],
+      "Description": "Caldera servers vulnerable to RCE due to insufficient input sanitization.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Audit Caldera instances for signs of exploitation."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of RCE vulnerabilities", "Use of reverse shell"],
+      "Tools": ["GCC", "Python"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network monitoring tools", "Vulnerability scanners"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-25T06:43:55Z",
+    "Title": "Critical RCE Vulnerability in MITRE Caldera Framework",
+    "Tools": ["Caldera", "GCC", "Python", "MITRE Caldera"],
+    "Victim": {
+      "Access_Vectors": ["Remote, unauthenticated"],
+      "Data_Types_At_Risk": ["System integrity", "Confidentiality"],
+      "Description": "Organizations using MITRE Caldera for adversarial emulation.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Cybersecurity",
+      "Security_Posture": "Vulnerable due to outdated software versions",
+      "Targeted_Assets": ["Caldera servers"]
+    },
+    "diamond_model_summary": "The incident involves an adversary exploiting a critical RCE vulnerability in MITRE Caldera, a widely used adversarial emulation framework. The adversary's capability includes leveraging dynamic compilation features in Caldera agents to execute arbitrary commands. The infrastructure at risk includes Caldera servers, and the victims are organizations using Caldera for cybersecurity exercises. The attack highlights the importance of patching and securing adversarial emulation tools to prevent unauthorized access and control.",
+    "doc_summary": "A critical remote code execution (RCE) vulnerability, CVE-2025-27364, has been identified in MITRE Caldera, an adversarial emulation framework. This flaw affects all versions prior to commit 35bc06e, exposing systems to unauthenticated attacks. Attackers can exploit this by manipulating dynamic compilation features in Caldera's Sandcat and Manx agents, leading to arbitrary command execution. The vulnerability arises from insufficient input sanitization in the agent compilation process. MITRE has released patches urging updates to versions v5.1.0 or newer. The vulnerability was discovered by Dawid Kulikowski and reported through MITRE's coordinated disclosure process. MITRE recommends auditing Caldera instances for signs of exploitation and emphasizes the importance of community-driven security collaboration. The CVSS score is 9.8, indicating a critical severity level. Organizations are advised to upgrade to Caldera v5.1.0 or later, isolate Caldera servers, and remove unnecessary build tools from production systems.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.190991+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "8bf5e90d49090629d1f43ee422047fc806378b70",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain, beginning with the exploitation of a public-facing application vulnerability in MITRE Caldera. The adversary weaponizes the vulnerability by manipulating dynamic compilation features in Caldera agents, leading to remote code execution. The exploitation stage involves executing arbitrary commands on the host system. Command and control are established through a reverse shell, allowing the adversary to maintain control over the compromised system. The incident underscores the need for robust security measures and timely patching to mitigate such threats.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes several indicators of compromise. The adversary exploits a known vulnerability (CVE-2025-27364) in MITRE Caldera, leveraging tools such as GCC and Python for command execution. The attack vector is remote and unauthenticated, highlighting the importance of securing public-facing applications. The incident emphasizes the need for continuous monitoring and updating of cybersecurity tools to prevent exploitation. The Pyramid of Pain scoring reflects the critical nature of the indicators involved in this attack.",
+    "relevance_score": 57,
+    "sequence": 17319,
+    "source": "https://gbhackers.com/critical-rce-vulnerability-in-mitre-caldera/",
+    "slug": "Critical_RCE_Vulnerability_in_MITRE_Caldera_Framework-017319",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential attackers exploiting the CVE-2025-46762 vulnerability in Apache Parquet Java.",
+      "Known_Campaigns": [],
+      "Motivation": "Exploitation of vulnerable systems for unauthorized access and control.",
+      "Sophistication": "Moderate, leveraging known vulnerabilities in data serialization.",
+      "Strategic_Objectives": "Infiltrate systems using Apache Parquet Java for data manipulation or exfiltration.",
+      "TTPs_Employed": ["Remote Code Execution", "Supply Chain Attack"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Embedding malicious code within Parquet file metadata.",
+        "Detection": "Monitor file metadata for unusual code patterns.",
+        "Remediation": "Upgrade to Parquet Java 1.15.2.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Delivery of malicious Parquet files to vulnerable systems.",
+        "Detection": "Monitor file transfers for suspicious Parquet files.",
+        "Remediation": "Implement strict file validation processes.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Transferring tools or files into a compromised environment.",
+            "tactic_id": "T1105",
+            "tactic_name": "Ingress Tool Transfer"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Transferring tools or files into a compromised environment.",
+            "technique_id": "T1105",
+            "technique_name": "Ingress Tool Transfer"
+          }
+        ],
+        "Techniques": ["T1105"]
+      },
+      {
+        "Description": "Execution of malicious code upon reading the Avro schema.",
+        "Detection": "Monitor for unexpected code execution events.",
+        "Remediation": "Patch systems to the latest version.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential data manipulation or exfiltration.",
+        "Detection": "Monitor for unusual data access patterns.",
+        "Remediation": "Implement data access controls and monitoring.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Accessing data stored on local systems.",
+            "tactic_id": "T1005",
+            "tactic_name": "Data from Local System"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing data stored on local systems.",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Embedding malicious code in file metadata"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of insecure schema parsing in the parquet-avro module.",
+      "Exploits": ["CVE-2025-46762"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Malicious Parquet files"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data access patterns"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual file metadata and execution patterns."],
+    "Extracted_Entities": {
+      "Assets": ["Data pipelines", "Analytics platforms"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": ["-Dorg.apache.parquet.avro.SERIALIZABLE_PACKAGES="],
+      "Companies": ["Apache Software Group"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-46762", "remote code execution", "parquet-avro module"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Parquet Java 1.15.2"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Apache Parquet Java"],
+      "Technologies": ["Avro schema", "big data frameworks"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-46762"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Systems using Apache Parquet Java versions ≤ 1.15.1.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Upgrade to Parquet Java 1.15.2", "Implement secure configuration practices"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Remote Code Execution", "Supply Chain Attack"],
+      "Tools": ["Malicious Parquet files"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Static code analysis tools", "Network monitoring tools"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-05-05T07:22:04Z",
+    "Title": "Apache Parquet Java Vulnerability CVE-2025-46762: Remote Code Execution Risk",
+    "Tools": ["Malicious Parquet files", "Apache Parquet Java"],
+    "Victim": {
+      "Access_Vectors": ["Parquet file metadata"],
+      "Data_Types_At_Risk": ["Sensitive data"],
+      "Description": "Organizations using Apache Parquet Java in big data frameworks.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable if unpatched",
+      "Targeted_Assets": ["Data pipelines", "Analytics platforms"]
+    },
+    "diamond_model_summary": "The incident involves a vulnerability in Apache Parquet Java, specifically in the parquet-avro module, allowing remote code execution. The adversary exploits insecure schema parsing to embed malicious code in Parquet file metadata. The capability involves leveraging this vulnerability to execute unauthorized code. The infrastructure includes systems using Apache Parquet Java versions ≤ 1.15.1, particularly in big data frameworks. Victims are organizations in the technology sector, globally, using these systems.",
+    "doc_summary": "A high-severity vulnerability, CVE-2025-46762, has been discovered in Apache Parquet Java, exposing systems using the parquet-avro module to remote code execution (RCE) attacks. Disclosed by Apache Parquet contributor Gang Wu on May 2, 2025, the flaw impacts versions up to and including 1.15.1. The vulnerability arises from insecure schema parsing in the parquet-avro module, allowing attackers to embed malicious code within Parquet file metadata, which executes automatically when a vulnerable system reads the file’s Avro schema. Apache Parquet 1.15.1 introduced partial mitigations, but its default configuration still permits code execution from pre-approved Java packages. Security experts warn of supply chain attacks, where corrupted Parquet files trigger backend exploits. Organizations are urged to upgrade to Parquet Java 1.15.2 or set specific JVM system properties to mitigate the risk. The Apache team has released updated documentation emphasizing secure configuration practices for Avro schema handling.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.190959+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "ad0273822c87ac83b623b86357d2ba245894e313",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident involves weaponization through embedding malicious code in Parquet file metadata, delivery of these files to vulnerable systems, and exploitation upon reading the Avro schema. The exploitation stage is critical, as it allows remote code execution. No significant activity is detected in the installation and command and control stages. Actions on objectives may involve data manipulation or exfiltration. Detection involves monitoring file metadata and execution patterns, while remediation includes upgrading to Parquet Java 1.15.2 and implementing secure configuration practices.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 79,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes tools such as malicious Parquet files and TTPs like remote code execution and supply chain attacks. No specific hash values, IP addresses, or domain names are identified. The focus is on the exploitation of insecure schema parsing in the parquet-avro module. Detection involves monitoring file metadata and execution patterns, while remediation includes upgrading to Parquet Java 1.15.2 and implementing secure configuration practices. The scoring reflects the presence of tools and TTPs, with a raw score of 18 and a percentage of 56.25%.",
+    "relevance_score": 49,
+    "sequence": 17318,
+    "source": "https://gbhackers.com/apache-parquet-java-vulnerability/",
+    "slug": "Apache_Parquet_Java_Vulnerability_CVE-2025-46762__Remote_Code_Execution_-017318",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Authenticated attackers with contributor-level privileges exploiting the vulnerability.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential data exfiltration, privilege escalation, or malware deployment.",
+      "Sophistication": "Moderate, requiring knowledge of SVG manipulation and LFI techniques.",
+      "Strategic_Objectives": "Exploitation of WordPress plugin vulnerabilities for unauthorized access.",
+      "TTPs_Employed": ["Local File Inclusion", "Malicious SVG Upload"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Crafting of malicious SVG files for exploitation.",
+        "Detection": "Monitor for unusual SVG file uploads",
+        "Remediation": "Implement strict file validation and allowlisting",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of vulnerabilities in client applications.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting file inclusion vulnerabilities to execute code.",
+            "technique_id": "T1221",
+            "technique_name": "Local File Inclusion"
+          }
+        ],
+        "Techniques": ["T1221"]
+      },
+      {
+        "Description": "Uploading of malicious SVG files via the plugin's Ajax_Handler class.",
+        "Detection": "Monitor file upload activities for anomalies",
+        "Remediation": "Restrict file types and enforce content validation",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
+            "tactic_id": "T1190",
+            "tactic_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Execution of commands through a scripting language.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "Exploitation of the get_svg() method for directory traversal.",
+        "Detection": "Monitor for directory traversal attempts",
+        "Remediation": "Sanitize user inputs and implement path validation",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability in a remote service.",
+            "tactic_id": "T1210",
+            "tactic_name": "Exploitation of Remote Services"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a web application.",
+            "technique_id": "T1189",
+            "technique_name": "Drive-by Compromise"
+          }
+        ],
+        "Techniques": ["T1189"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for privilege escalation, data exfiltration, or malware deployment.",
+        "Detection": "Monitor for unusual account activities",
+        "Remediation": "Audit and restrict contributor permissions",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Use of valid accounts to maintain access.",
+            "tactic_id": "T1078",
+            "tactic_name": "Valid Accounts"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Obtaining account credentials from operating systems and software.",
+            "technique_id": "T1003",
+            "technique_name": "Credential Dumping"
+          }
+        ],
+        "Techniques": ["T1003"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of malicious SVG files", "Directory traversal attempts"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Filename prediction using server microtime"],
+      "Description": "Exploitation of file handling logic in WordPress plugins.",
+      "Exploits": ["CVE-2025-0366"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["SVG manipulation tools"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual account activities"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual SVG file uploads", "Sanitize user inputs"],
+    "Extracted_Entities": {
+      "Assets": ["Web servers", "WordPress installations"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Artbees", "Wordfence"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-0366", "SVG", "LFI", "WordPress"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Version 4.8.8"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Web Development"],
+      "Software": ["Jupiter X Core WordPress plugin"],
+      "Technologies": ["SHA-256", "PHP"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-0366"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Exploitation of WordPress plugin infrastructure.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Update to patched version", "Audit contributor permissions"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Local File Inclusion", "Malicious SVG Upload"],
+      "Tools": ["SVG manipulation tools"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Machine learning-based file validation", "Zero-trust policies"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-19T10:32:20Z",
+    "Title": "Critical Vulnerability in Jupiter X Core WordPress Plugin (CVE-2025-0366)",
+    "Tools": ["SVG manipulation tools", "Jupiter X Core WordPress plugin"],
+    "Victim": {
+      "Access_Vectors": ["Authenticated access with contributor-level privileges"],
+      "Data_Types_At_Risk": ["Website content", "User data"],
+      "Description": "Websites using the Jupiter X Core WordPress plugin.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Web Development",
+      "Security_Posture": "Vulnerable due to plugin misconfigurations",
+      "Targeted_Assets": ["Web servers", "WordPress installations"]
+    },
+    "diamond_model_summary": "The incident involves authenticated attackers exploiting a critical vulnerability in the Jupiter X Core WordPress plugin. The adversary's capability includes exploiting file handling logic to execute remote code. The infrastructure is centered around WordPress installations, with victims being websites using the vulnerable plugin. The attack highlights the systemic risks in plugin-dependent ecosystems.",
+    "doc_summary": "A critical vulnerability (CVE-2025-0366) in the Jupiter X Core WordPress plugin, installed on over 90,000 websites, was disclosed on January 6, 2025. The flaw allows authenticated attackers with contributor-level privileges to execute remote code via chained Local File Inclusion (LFI) and malicious SVG uploads. Discovered by researcher stealthcopter through the Wordfence Bug Bounty Program, the vulnerability highlights persistent risks in plugin-dependent ecosystems. The vulnerability chain involves unrestricted SVG uploads and improper sanitization in the get_svg() method, allowing directory traversal and inclusion of arbitrary files. The CVSS score of 8.8 reflects the severe impact on confidentiality, integrity, and availability. Wordfence released firewall rules, and developer Artbees patched the issue in version 4.8.8. Users are urged to update immediately and audit contributor permissions. This incident underscores challenges in WordPress plugin security, with SVG files posing unique risks due to their XML-based structure. Security experts recommend machine learning-based file validation and zero-trust policies for file uploads.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.190922+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "11673fd63260991778959db7cc6ffb5bf2e067b9",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain, starting with the weaponization of malicious SVG files, delivery through the plugin's upload functionality, and exploitation via directory traversal. The potential for privilege escalation and data exfiltration exists, emphasizing the need for strict file validation and access control measures. The incident underscores the importance of timely patching and security audits.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 84,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as Local File Inclusion and malicious SVG uploads. The lack of specific hash values, IP addresses, or domain names limits the ability to track the adversary's infrastructure. The focus is on detecting and mitigating the techniques used, such as file validation and access control, to disrupt the attacker's operations.",
+    "relevance_score": 51,
+    "sequence": 17317,
+    "source": "https://gbhackers.com/90000-wordpress-sites-exposed/",
+    "slug": "Critical_Vulnerability_in_Jupiter_X_Core_WordPress_Plugin__CVE-2025-0366-017317",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Remote attackers exploiting vulnerabilities in Tenda RX2 Pro routers.",
+      "Known_Campaigns": [],
+      "Motivation": "Gain unauthorized access and control over network devices.",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Compromise network security and gain control over devices.",
+      "TTPs_Employed": ["Privilege escalation", "Network segmentation bypass", "Command injection"]
+    },
+    "Analyses": [
+      {
+        "Description": "Attackers identify vulnerable Tenda RX2 Pro routers.",
+        "Detection": "Monitor network traffic for unusual scanning activity.",
+        "Remediation": "Implement network monitoring and intrusion detection systems.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerable devices.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for vulnerable routers.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in Tenda RX2 Pro routers.",
+        "Detection": "Monitor for unusual access attempts to the router's management interface.",
+        "Remediation": "Apply patches and updates as soon as they are available.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the router through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in the router's web management interface.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Attackers use backdoor services to maintain control.",
+        "Detection": "Monitor for unauthorized use of telnet and other backdoor services.",
+        "Remediation": "Disable unnecessary services and enforce strong authentication.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing control over the compromised router.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using telnet and 'ate' services for command and control.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Attackers execute arbitrary code and escalate privileges.",
+        "Detection": "Monitor for unusual command execution on the router.",
+        "Remediation": "Implement network segmentation and access controls.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Bypassing security measures to maintain access.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Executing commands on the router.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of known vulnerabilities", "Use of backdoor services"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of router vulnerabilities to gain administrative access.",
+      "Exploits": ["Command injection", "Static credentials"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Telnet", "Undocumented 'ate' service"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual access attempts and command execution."],
+    "Extracted_Entities": {
+      "Assets": ["routers", "network devices"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Tenda"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["vulnerabilities", "remote attackers", "administrative access", "root shell"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Consumer electronics"],
+      "Software": ["Tenda RX2 Pro Dual-Band Gigabit Wi-Fi 6 Router"],
+      "Technologies": ["Wi-Fi 6", "web management portal"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["command injection", "static credentials"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Tenda RX2 Pro routers with vulnerable firmware and web management interfaces.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Disconnect affected routers from untrusted networks.",
+      "Consider alternative devices until patches are available."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["Tenda RX2 Pro routers"],
+      "TTPs": ["Privilege escalation", "Command injection"],
+      "Tools": ["Telnet", "Undocumented 'ate' service"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network monitoring tools", "Intrusion detection systems"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-05-05T11:47:05Z",
+    "Title": "Critical Vulnerabilities in Tenda RX2 Pro Router Expose Users to Remote Attacks",
+    "Tools": ["Telnet", "Undocumented 'ate' service", "Tenda RX2 Pro Dual-Band Gigabit Wi-Fi 6 Router"],
+    "Victim": {
+      "Access_Vectors": ["Guest Wi-Fi network", "Web management interface"],
+      "Data_Types_At_Risk": ["Credentials", "Session keys"],
+      "Description": "Users of Tenda RX2 Pro routers, particularly those using guest Wi-Fi networks.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Consumer electronics",
+      "Security_Posture": "Vulnerable due to unpatched firmware",
+      "Targeted_Assets": ["Routers", "Network devices"]
+    },
+    "diamond_model_summary": "The incident involves remote attackers exploiting vulnerabilities in Tenda RX2 Pro routers to gain administrative access and execute arbitrary code. The attackers leverage weak encryption, improper network segmentation, and backdoor services to maintain control. The victims are users of the affected routers, primarily in the consumer electronics sector. The infrastructure includes vulnerable routers with unpatched firmware and flawed web management interfaces.",
+    "doc_summary": "Security researchers have identified critical vulnerabilities in the Tenda RX2 Pro Dual-Band Gigabit Wi-Fi 6 Router (Firmware V16.03.30.14) that allow remote attackers to gain administrative access and potentially full root shell on the device. Despite being notified, Tenda has not responded, and no patches are available. Eleven CVEs have been assigned to vulnerabilities in Tenda’s web management portal, firmware, and internal services. Attackers can exploit these bugs to escalate privileges, bypass network segmentation, and execute arbitrary code with root privileges. The vulnerabilities are particularly concerning as they can be exploited by anyone connected to the device, even from the guest Wi-Fi network. The Tenda RX2 Pro’s web management interface has flaws in how it transmits and encrypts credentials and session keys. Improper network segmentation allows attackers on a guest Wi-Fi network to target the main router functions or other clients. Attackers can enable backdoor services like telnet and an undocumented service called “ate,” both of which have severe flaws, including command injection vulnerabilities and static credentials. Owners of the Tenda RX2 Pro are urged to disconnect their routers from untrusted networks and consider alternative devices until official patches are released.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.190896+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "062345c69e01713c318e688c762589c7a7369d18",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with reconnaissance to identify vulnerable Tenda RX2 Pro routers. Exploitation follows, where attackers gain initial access through vulnerabilities in the router's web management interface. Command and control are established using backdoor services like telnet and 'ate'. Finally, attackers execute arbitrary code and escalate privileges, bypassing security measures. The lack of patches and updates from Tenda exacerbates the risk to users.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as privilege escalation and command injection, which are challenging to change and detect. Tools like telnet and the 'ate' service are used for command and control. Network host artifacts include the vulnerable Tenda RX2 Pro routers. The absence of specific hash values, IP addresses, and domain names limits the ability to track and mitigate the threat effectively.",
+    "relevance_score": 55,
+    "sequence": 17316,
+    "source": "https://gbhackers.com/multiple-flaws-in-tenda-rx2-pro/",
+    "slug": "Critical_Vulnerabilities_in_Tenda_RX2_Pro_Router_Expose_Users_to_Remote_-017316",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential adversaries could exploit the vulnerability to execute arbitrary commands.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential motivations include deploying ransomware, data exfiltration, and lateral movement.",
+      "Sophistication": "Moderate, due to the exploitation of a known vulnerability.",
+      "Strategic_Objectives": "Compromise of enterprise systems for financial gain or data theft.",
+      "TTPs_Employed": ["Exploitation of PHP deserialization vulnerability"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Crafting of malicious serialized payloads for PHP object injection.",
+        "Detection": "Monitor for unusual serialized payloads in network traffic.",
+        "Remediation": "Apply security patches promptly.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability to execute code.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Execution of commands through a scripting interpreter.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of insecure PHP deserialization vulnerability.",
+        "Detection": "Monitor for unusual command execution patterns.",
+        "Remediation": "Apply security patches and update software.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
+            "tactic_id": "T1190",
+            "tactic_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Execution of commands through the Windows command shell.",
+            "technique_id": "T1059.003",
+            "technique_name": "Command and Scripting Interpreter: Windows Command Shell"
+          }
+        ],
+        "Techniques": ["T1059.003"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential deployment of ransomware, data exfiltration, or lateral movement.",
+        "Detection": "Monitor for unusual data transfer activities.",
+        "Remediation": "Implement network segmentation and restrict access.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Encrypting data on target systems to disrupt availability.",
+            "tactic_id": "T1486",
+            "tactic_name": "Data Encrypted for Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltration of data using automated tools.",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Crafting of malicious serialized payloads"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of insecure PHP deserialization to execute arbitrary commands.",
+      "Exploits": ["CVE-2025-2244"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data transfer activities"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual serialized payloads and command execution patterns."],
+    "Extracted_Entities": {
+      "Assets": ["GravityZone Console"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Bitdefender"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-2244", "PHP deserialization", "ransomware", "data exfiltration"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["6.41.2-1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["GravityZone Console"],
+      "Technologies": ["PHP"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-2244"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "GravityZone Console, a trusted component within enterprise environments.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply security patches promptly and implement network segmentation."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of PHP deserialization vulnerability"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Software composition analysis tools"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-04-07T05:31:15Z",
+    "Title": "Critical Vulnerability in Bitdefender GravityZone Console Patched",
+    "Tools": ["GravityZone Console"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": ["Sensitive enterprise data"],
+      "Description": "Organizations using Bitdefender GravityZone Console.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to unpatched software",
+      "Targeted_Assets": ["GravityZone Console"]
+    },
+    "diamond_model_summary": "The incident involves a critical vulnerability in Bitdefender's GravityZone Console, allowing unauthenticated attackers to execute arbitrary commands. The adversary could exploit insecure PHP deserialization to deploy ransomware, exfiltrate data, or move laterally across networks. The infrastructure at risk includes the GravityZone Console, a trusted component in enterprise environments. Victims are organizations using GravityZone, with a critical impact severity due to the potential for large-scale cyber incidents.",
+    "doc_summary": "Cybersecurity firm Bitdefender has patched a severe flaw (CVE-2025-2244) in its GravityZone Console, which could allow unauthenticated attackers to execute arbitrary commands on vulnerable systems. The vulnerability, discovered by researcher Nicolas Verdier (@n1nj4sec), has a near-maximum CVSSv4 score of 9.5, highlighting its critical risk profile. The vulnerability stems from insecure PHP deserialization of the sendMailFromRemoteSource method within the Emails.php component. Attackers can craft malicious serialized payloads to trigger PHP object injection, enabling them to deploy ransomware, exfiltrate data, or move laterally across networks. To address the issue, Bitdefender released an automatic update (6.41.2-1) on April 4, 2025. Organizations unable to apply updates immediately should consider temporary network segmentation for GravityZone servers. Bitdefender has confirmed no active exploitation in the wild but urges immediate action due to the flaw’s ease of exploitation. GravityZone powers endpoint security for over 500,000 businesses globally, making this patch essential for preventing large-scale cyber incidents.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.190870+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "948b5f66be0c37d24088361404d19ede0992e8b6",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves exploiting a vulnerability in the GravityZone Console through insecure PHP deserialization. The weaponization stage includes crafting malicious serialized payloads for PHP object injection. Exploitation involves executing arbitrary commands, potentially leading to ransomware deployment, data exfiltration, or lateral movement. The attack highlights the importance of applying security patches and monitoring for unusual activities to prevent exploitation.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 97,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of a known vulnerability (CVE-2025-2244) in the GravityZone Console. While specific hash values, IP addresses, or domain names are not identified, the TTPs involve exploiting insecure PHP deserialization. The incident underscores the need for organizations to prioritize patch management and monitor for unusual serialized payloads and command execution patterns to mitigate risks.",
+    "relevance_score": 45,
+    "sequence": 17315,
+    "source": "https://gbhackers.com/bitdefender-gravityzone-vulnerability/",
+    "slug": "Critical_Vulnerability_in_Bitdefender_GravityZone_Console_Patched-017315",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Potential remote attackers exploiting insecure deserialization in Apache Ignite.",
       "Known_Campaigns": [],
       "Motivation": "Compromise servers, data exfiltration, lateral movement.",
@@ -97076,1490 +98520,6 @@
     "sequence": 16822,
     "source": "https://gbhackers.com/outlook-exploit-warning-0-day/",
     "slug": "Critical_Vulnerability_in_Microsoft_Outlook__CVE-2024-21413_Exploited_in-016822",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Lucifer"],
-      "Associated_Groups": [],
-      "Description": "The adversary is leveraging the Lucifer DDoS botnet malware to exploit vulnerabilities in Apache Hadoop and Druid servers.",
-      "Known_Campaigns": ["Lucifer DDoS Botnet Campaign"],
-      "Motivation": "Financial gain through cryptojacking and disruption via DDoS attacks.",
-      "Sophistication": "High, due to the use of known vulnerabilities and misconfigurations.",
-      "Strategic_Objectives": "Compromise big-data solutions for cryptomining and DDoS attacks.",
-      "TTPs_Employed": ["Exploitation of CVE-2021-25646", "Cryptojacking", "DDoS attacks"]
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries identify vulnerable Apache Hadoop and Druid servers.",
-        "Detection": "Monitor network traffic for unusual scanning activities.",
-        "Remediation": "Regularly scan and patch systems to close vulnerabilities.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable servers.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Lucifer malware is prepared to exploit identified vulnerabilities.",
-        "Detection": "Use file integrity monitoring to detect changes.",
-        "Remediation": "Implement code review and static analysis.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Preparing malware to exploit vulnerabilities.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using obfuscation to evade detection.",
-            "technique_id": "T1027",
-            "technique_name": "Obfuscated Files or Information"
-          }
-        ],
-        "Techniques": ["T1027"]
-      },
-      {
-        "Description": "Malware is delivered to the target servers.",
-        "Detection": "Monitor for unusual file downloads or executions.",
-        "Remediation": "Apply patches to prevent exploitation.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Delivering malware to the target.",
-            "tactic_id": "TA0007",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to deliver malware.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Exploitation of CVE-2021-25646 in Apache Druid.",
-        "Detection": "Monitor for exploitation attempts on known vulnerabilities.",
-        "Remediation": "Ensure all systems are patched and up-to-date.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the target system.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Malware is installed on the compromised servers.",
-        "Detection": "Monitor for changes in startup scripts or services.",
-        "Remediation": "Restrict permissions to modify startup configurations.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to the system.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ensuring malware runs on system startup.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "Establishing communication with C2 servers.",
-        "Detection": "Monitor network traffic for unusual outbound connections.",
-        "Remediation": "Implement network segmentation and firewall rules.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Establishing communication with C2 infrastructure.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using application layer protocols for C2 communication.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Executing cryptojacking and DDoS attacks.",
-        "Detection": "Monitor for high CPU usage and network traffic spikes.",
-        "Remediation": "Implement rate limiting and resource monitoring.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Disrupting the availability of systems.",
-            "tactic_id": "TA0040",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using system resources for cryptomining.",
-            "technique_id": "T1496",
-            "technique_name": "Resource Hijacking"
-          },
-          {
-            "technique_description": "Disrupting system availability through DDoS.",
-            "technique_id": "T1499",
-            "technique_name": "Endpoint Denial of Service"
-          }
-        ],
-        "Techniques": ["T1496", "T1499"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [
-      "Exploitation of known vulnerabilities",
-      "Use of cryptojacking and DDoS tactics"
-    ],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The adversary uses the Lucifer malware to exploit vulnerabilities and misconfigurations in Apache Hadoop and Druid servers.",
-      "Exploits": ["CVE-2021-25646"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Lucifer"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Lucifer malware"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for CVE-2021-25646 exploitation attempts",
-      "Detect unusual network traffic patterns"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Linux servers"],
-      "Breach_Types": ["Cryptojacking", "DDoS"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Aquasec", "Perimeter81"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Lucifer", "DDoS", "cryptojacking", "vulnerabilities"],
-      "Malware_Families": ["Lucifer"],
-      "Malware_Filenames": [],
-      "Patches": ["CVE-2021-25646"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Apache Hadoop", "Apache Druid"],
-      "Technologies": ["big-data solutions"],
-      "Threat_Infrastructure": ["Lucifer DDoS Botnet"],
-      "Vulnerabilities": ["CVE-2021-25646"]
-    },
-    "Infrastructure": {
-      "Botnets": ["Lucifer DDoS Botnet"],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The infrastructure includes compromised Apache Hadoop and Druid servers used for cryptojacking and DDoS attacks.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Review and patch all systems", "Implement runtime detection"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2021-25646", "Cryptojacking", "DDoS attacks"],
-      "Tools": ["Lucifer malware"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Vulnerability scanners"],
-    "Severity": "High",
-    "Threat_Actors": ["Lucifer"],
-    "Timestamp": "2024-02-26T07:39:07Z",
-    "Title": "Lucifer DDoS Botnet Malware Targeting Apache Hadoop and Druid Servers",
-    "Tools": ["Lucifer malware", "Apache Hadoop", "Apache Druid"],
-    "Victim": {
-      "Access_Vectors": ["Exploitation of vulnerabilities", "Misconfigurations"],
-      "Data_Types_At_Risk": ["Server resources", "Data integrity"],
-      "Description": "Organizations using Apache Hadoop and Druid servers are targeted.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems and misconfigurations.",
-      "Targeted_Assets": ["Apache Hadoop servers", "Apache Druid servers"]
-    },
-    "diamond_model_summary": "The Lucifer DDoS botnet malware campaign targets organizations using Apache Hadoop and Druid servers. The adversary exploits CVE-2021-25646 and misconfigurations to execute cryptojacking and DDoS attacks. The infrastructure includes compromised servers, and the victims are primarily in the technology sector. The campaign highlights the need for robust security measures.",
-    "doc_summary": "The text discusses a new variant of the Lucifer DDoS botnet malware targeting Apache Hadoop and Apache Druid servers. This malware exploits vulnerabilities and misconfigurations, notably CVE-2021-25646, to execute cryptojacking and DDoS attacks. The campaign involves dropping binary files on compromised servers, transforming them into Monero cryptomining bots. Over 3,000 unique attacks were detected in a month, highlighting the need for robust security measures. Organizations are advised to patch systems and review configurations. The text also mentions Perimeter81 malware protection and emphasizes the importance of staying informed about cybersecurity threats.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.890804+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "baf103b2fe559e7911cdf28c43b9d28f83006973",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The Lucifer malware campaign follows a structured kill chain, starting with reconnaissance to identify vulnerable servers, weaponization of the malware, delivery through exploitation of CVE-2021-25646, installation on compromised servers, command and control communication, and actions on objectives including cryptojacking and DDoS attacks. Detection and remediation strategies are crucial at each stage.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for the Lucifer malware campaign includes indicators such as the CVE-2021-25646 vulnerability, the use of the Lucifer malware, and the tactics of cryptojacking and DDoS attacks. These indicators are critical for detection and response efforts. Organizations must focus on identifying and mitigating these indicators to disrupt the adversary's operations.",
-    "relevance_score": 71,
-    "sequence": 16821,
-    "source": "https://gbhackers.com/ddos-malware-attacking-apache-servers/",
-    "slug": "Lucifer_DDoS_Botnet_Malware_Targeting_Apache_Hadoop_and_Druid_Servers-016821",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": ["TargetCompany ransomware"],
-      "Associated_Groups": [],
-      "Description": "Mallox ransomware developers",
-      "Known_Campaigns": ["Mallox ransomware campaign"],
-      "Motivation": "Financial gain through ransom payments",
-      "Sophistication": "Medium",
-      "Strategic_Objectives": "Encrypt victim files and demand ransom",
-      "TTPs_Employed": ["Exploitation of unsecured MS-SQL servers"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of unsecured MS-SQL servers",
-        "Detection": "Monitor MS-SQL server logs for unusual access patterns",
-        "Remediation": "Secure MS-SQL servers with strong authentication and regular patching",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to victim systems",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Installation of ransomware on victim systems",
-        "Detection": "Monitor for changes in autostart locations",
-        "Remediation": "Implement application whitelisting and monitor startup items",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to victim systems",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ensuring malware runs on system startup",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Encryption of victim files and ransom demand",
-        "Detection": "Monitor for file encryption activities",
-        "Remediation": "Regularly back up data and implement robust recovery plans",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Disrupting availability or integrity of victim systems",
-            "tactic_id": "TA0040",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Encrypting files to demand ransom",
-            "technique_id": "T1486",
-            "technique_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Techniques": ["T1486"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Exploitation of unsecured MS-SQL servers"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Cryptographic obfuscation"],
-      "Description": "Mallox ransomware exploits cryptographic flaws",
-      "Exploits": ["Unsecured MS-SQL servers"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Mallox ransomware"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Mallox ransomware"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for file extensions like .bitenc, .ma1x0, .mallab, .malox, .malloxx, .xollam"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Encrypted files"],
-      "Breach_Types": ["Ransomware attack"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Avast"],
-      "Countries": [
-        "Republic of India",
-        "French Republic",
-        "Portuguese Republic",
-        "Kingdom of Saudi Arabia",
-        "United States of America"
-      ],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "Mallox ransomware",
-        "cryptographic vulnerability",
-        "decryptor tool",
-        "MS-SQL servers",
-        "file encryption"
-      ],
-      "Malware_Families": ["Mallox ransomware"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["Microsoft Windows"],
-      "Technologies": ["ECDH key"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Cryptographic schema flaw"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Ransomware infrastructure targeting Windows systems",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Implement regular patching and secure MS-SQL servers"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": ["Unsecured MS-SQL servers"],
-      "TTPs": ["Exploitation of unsecured MS-SQL servers", "File encryption"],
-      "Tools": ["Mallox ransomware"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Avast decryptor tool"],
-    "Severity": "High",
-    "Threat_Actors": ["Mallox ransomware developers", "Mallox", "TargetCompany ransomware"],
-    "Timestamp": "2024-10-23T08:51:10Z",
-    "Title": "Mallox Ransomware Cryptographic Vulnerability and Decryption Opportunity",
-    "Tools": ["Mallox ransomware", "Microsoft Windows"],
-    "Victim": {
-      "Access_Vectors": ["Unsecured MS-SQL servers"],
-      "Data_Types_At_Risk": ["Encrypted files"],
-      "Description": "Organizations using Microsoft Windows systems",
-      "Geography": "Global, with significant impact in the Republic of India, the French Republic, the Portuguese Republic, the Kingdom of Saudi Arabia, and the United States of America",
-      "Impact_Severity": "High",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable to ransomware attacks",
-      "Targeted_Assets": ["Microsoft Windows systems"]
-    },
-    "diamond_model_summary": "The Mallox ransomware incident involves adversaries exploiting cryptographic vulnerabilities to encrypt files on Microsoft Windows systems. The capability of the adversaries includes exploiting unsecured MS-SQL servers for initial access. The infrastructure primarily targets Windows systems globally, with significant impact in countries like the Republic of India, the French Republic, the Portuguese Republic, the Kingdom of Saudi Arabia, and the United States of America. Victims are organizations in the Information Technology sector, facing high impact severity due to file encryption and ransom demands.",
-    "doc_summary": "Researchers from Avast have identified a vulnerability in the cryptographic schema of the Mallox ransomware, active between 2023 and early 2024. This flaw allows victims to decrypt files without paying a ransom. The flaw was rectified in March 2024. Mallox, formerly known as TargetCompany ransomware, has been a persistent threat since its emergence. Avast released a decryptor for TargetCompany in January 2022, but it was rendered ineffective by February 2022. Subsequent Mallox versions introduced new cryptographic errors. The ransomware has impacted countries like the Republic of India, the French Republic, the Portuguese Republic, the Kingdom of Saudi Arabia, and the United States of America. It targets Microsoft Windows systems and exploits unsecured MS-SQL servers. Vulnerable versions used extensions like .bitenc, .ma1x0, .mallab, .malox, .malloxx, and .xollam. Avast provides a free decryptor tool for affected versions.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.890715+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "9cad91233325640b7dad96bec2a87e24584f5845",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The Mallox ransomware attack follows a structured kill chain, starting with the exploitation of unsecured MS-SQL servers for initial access. The installation phase involves deploying ransomware on victim systems, ensuring persistence through boot or logon autostart execution. The final stage, actions on objectives, involves encrypting victim files and demanding ransom. Detection and remediation strategies include monitoring MS-SQL server logs, securing servers, and implementing robust backup and recovery plans.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 77,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for the Mallox ransomware incident includes indicators such as file extensions (.bitenc, .ma1x0, .mallab, .malox, .malloxx, .xollam) and the use of unsecured MS-SQL servers. These indicators are crucial for detection and response efforts. The scoring reflects the presence of network host artifacts and tools used by the adversaries. The overall score indicates a moderate level of difficulty in disrupting the attacker's operations.",
-    "relevance_score": 73,
-    "sequence": 16820,
-    "source": "https://gbhackers.com/mallox-ransomware-vulnerability/",
-    "slug": "Mallox_Ransomware_Cryptographic_Vulnerability_and_Decryption_Opportunity-016820",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Attackers exploiting the vulnerability in Xerox printers.",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized access to printer systems.",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Compromise printer systems for potential data exfiltration or further network penetration.",
-      "TTPs_Employed": ["Remote Code Execution", "Command Injection"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of input validation flaw in Xerox printer web interface.",
-        "Detection": "Monitor web interface access logs for unusual activity.",
-        "Remediation": "Apply firmware updates and patches as recommended by Xerox.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in the printer's web interface.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Establishing a reverse shell for full system access.",
-        "Detection": "Monitor network traffic for unusual outbound connections.",
-        "Remediation": "Restrict outbound connections and monitor for anomalies.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using a reverse shell to communicate with the compromised printer.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Potential data exfiltration or further network penetration.",
-        "Detection": "Monitor for unusual data access patterns.",
-        "Remediation": "Implement strict access controls and data monitoring.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Accessing data stored on the printer.",
-            "technique_id": "T1005",
-            "technique_name": "Data from Local System"
-          }
-        ],
-        "Techniques": ["T1005"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of command injection", "Establishing reverse shell"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of input validation flaw in Xerox printer web interface.",
-      "Exploits": ["CVE-2024-6333"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["tcpdump"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data access patterns"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unusual web interface access",
-      "Check for reverse shell connections"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Xerox Printers"],
-      "Breach_Types": ["Remote Code Execution"],
-      "Command_Lines_Or_Scripts": ["0.0.0.0$(bash $TMP~cmd)"],
-      "Companies": ["Xerox", "SEC Consult"],
-      "Countries": ["Republic of Austria", "Swiss Confederation"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Remote Code Execution", "CVE-2024-6333", "tcpdump"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Xerox Firmware Updates"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Office and Production Print Technology"],
-      "Software": ["Xerox Printer Firmware"],
-      "Technologies": ["tcpdump"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-6333"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Compromised Xerox printer systems.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply firmware updates", "Conduct security reviews"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Command Injection", "Remote Code Execution"],
-      "Tools": ["tcpdump"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [
-      "Network traffic analysis tools",
-      "Web interface access log monitoring"
-    ],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-10-24T08:54:37Z",
-    "Title": "Xerox Printer Models Vulnerable to Remote Code Execution (CVE-2024-6333)",
-    "Tools": ["tcpdump", "Xerox Printer Firmware"],
-    "Victim": {
-      "Access_Vectors": ["Web Interface"],
-      "Data_Types_At_Risk": ["Printer Configuration", "Network Access"],
-      "Description": "Organizations using vulnerable Xerox printer models.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Office and Production Print Technology",
-      "Security_Posture": "Vulnerable",
-      "Targeted_Assets": ["Xerox Printers"]
-    },
-    "diamond_model_summary": "The incident involves attackers exploiting a vulnerability in Xerox printers, specifically targeting the 'Network Troubleshooting' menu to execute arbitrary commands. The capability involves using the tcpdump tool for command injection, affecting organizations using vulnerable Xerox models. The infrastructure is compromised printer systems, with the victim being the office and production print technology sector.",
-    "doc_summary": "Multiple Xerox printer models, including EC80xx, AltaLink, VersaLink, and WorkCentre, are vulnerable to an authenticated remote code execution (RCE) attack, tracked as CVE-2024-6333. Discovered by Timo Longin and Tamas Jos from SEC Consult, the vulnerability allows attackers with administrative web credentials to execute arbitrary commands on the printer’s operating system. The flaw is in the 'Network Troubleshooting' menu of the web interface, using the tcpdump tool. Insufficient input validation allows command injection by manipulating the IPv4 address value. This can be exploited to establish a reverse shell, granting full system access. Affected models include Xerox WorkCentre 7970 and 7855. SEC Consult urges prompt action from Xerox, advising customers to install updates and review security note XRX24-015. Xerox emphasizes its commitment to security and innovation.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.117072+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "9fcc0d86b74519b6d4b5036a1a76745afe8d4afb",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with exploiting a vulnerability in the Xerox printer web interface, allowing attackers to execute arbitrary commands. This leads to establishing a reverse shell for command and control, potentially enabling data exfiltration or further network penetration. The exploitation stage is critical, with the use of command injection tactics.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of the tcpdump tool and command injection techniques as TTPs. No specific hash values, IP addresses, or domain names were identified. The focus is on the exploitation of the input validation flaw and the establishment of a reverse shell, which are significant indicators of compromise.",
-    "relevance_score": 49,
-    "sequence": 16819,
-    "source": "https://gbhackers.com/xerox-printers-vulnerable/",
-    "slug": "Xerox_Printer_Models_Vulnerable_to_Remote_Code_Execution__CVE-2024-6333_-016819",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["NVIDIA"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "vulnerabilities",
-        "security updates",
-        "CVE IDs",
-        "code execution",
-        "denial of service",
-        "privilege escalation",
-        "information disclosure",
-        "data tampering"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["NVIDIA GPU Display Driver"],
-      "Technologies": ["Windows", "Linux", "vGPU software", "Cloud Gaming"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2024-10-25T08:49:54Z",
-    "Title": "NVIDIA GPU Display Driver Vulnerabilities and Security Updates",
-    "Tools": ["NVIDIA GPU Display Driver"],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "The incident involves NVIDIA issuing security updates for its GPU Display Driver to address multiple vulnerabilities affecting Windows and Linux systems. The vulnerabilities pose significant security risks, including potential code execution, denial of service, privilege escalation, information disclosure, and data tampering. No specific adversary, capability, infrastructure, or victim details are available.",
-    "doc_summary": "NVIDIA has released critical security updates for its GPU Display Driver, addressing multiple vulnerabilities affecting both Windows and Linux systems. These vulnerabilities, identified by their CVE IDs, pose significant security risks, including potential code execution, denial of service, privilege escalation, information disclosure, and data tampering. Users are strongly advised to download and install these updates promptly via the NVIDIA Driver Downloads page or the NVIDIA Licensing Portal for vGPU software and Cloud Gaming updates. These updates are crucial for maintaining system security and protecting sensitive information from potential threats. NVIDIA emphasizes the importance of applying these patches immediately to mitigate risks associated with these vulnerabilities. The announcement coincides with National Cybersecurity Awareness Month, highlighting the importance of cybersecurity measures. Additionally, NVIDIA offers a free webinar on protecting small businesses against advanced cyber threats.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.117043+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "38b4c159b119eacf56f637ffe1bd6eb7df009c3f",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident does not provide specific details on the stages of the cyber kill chain. The focus is on the vulnerabilities in NVIDIA's GPU Display Driver and the importance of applying security updates to mitigate risks. No specific tactics or techniques are identified beyond the general description of potential risks such as code execution and privilege escalation.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 60,
-    "pyramid_of_pain_summary": "The incident does not provide specific indicators of compromise (IOCs) such as hash values, IP addresses, or domain names. The focus is on the vulnerabilities in NVIDIA's GPU Display Driver and the importance of applying security updates. No specific tools, TTPs, or network host artifacts are identified.",
-    "relevance_score": 39,
-    "sequence": 16818,
-    "source": "https://gbhackers.com/nvidia-patch-multiple-gpu-display-driver/",
-    "slug": "NVIDIA_GPU_Display_Driver_Vulnerabilities_and_Security_Updates-016818",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Independent security researcher",
-      "Known_Campaigns": ["TyphoonPWN 2024"],
-      "Motivation": "Recognition and competition",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Demonstrate security vulnerabilities in Windows 11",
-      "TTPs_Employed": ["Privilege Escalation", "Kernel Exploitation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Development of PoC exploit for CLFS vulnerability",
-        "Detection": "Monitor for unusual file creation activities",
-        "Remediation": "Apply patches and updates from Microsoft",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Adversaries may develop capabilities to exploit vulnerabilities.",
-            "tactic_id": "T1587",
-            "tactic_name": "Develop Capabilities"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing malware to exploit vulnerabilities.",
-            "technique_id": "T1587.001",
-            "technique_name": "Malware"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CLFS vulnerability for privilege escalation",
-        "Detection": "Monitor for unusual process token modifications",
-        "Remediation": "Apply security patches and updates",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain higher privileges.",
-            "tactic_id": "T1068",
-            "tactic_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to gain higher privileges.",
-            "technique_id": "T1068",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1068"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Privilege escalation to SYSTEM account",
-        "Detection": "Monitor for command prompt executions under SYSTEM account",
-        "Remediation": "Restrict access to critical system files and processes",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Using command line interfaces to execute commands.",
-            "tactic_id": "T1059",
-            "tactic_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using Windows command shell to execute commands.",
-            "technique_id": "T1059.003",
-            "technique_name": "Windows Command Shell"
-          }
-        ],
-        "Techniques": ["T1059.003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Development of PoC exploits", "Privilege escalation attempts"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Windows 11 CLFS driver vulnerability",
-      "Exploits": ["CClfsBaseFilePersisted::WriteMetadataBlock"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Proof-of-Concept (PoC) exploit"],
-      "Zero_Days": ["CLFS driver vulnerability"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual process token modifications"],
-    "Extracted_Entities": {
-      "Assets": ["Windows 11 systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CLFS", "vulnerability", "privilege escalation", "Windows 11"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Windows 11"],
-      "Technologies": ["Common Log File System"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CClfsBaseFilePersisted::WriteMetadataBlock"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Local exploitation on Windows 11 systems",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply security patches", "Monitor for unusual activities"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Privilege Escalation", "Kernel Exploitation"],
-      "Tools": ["PoC exploit"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Vulnerability scanners", "Patch management tools"],
-    "Severity": "Critical",
-    "Threat_Actors": ["Independent security researcher"],
-    "Timestamp": "2024-10-25T13:20:02Z",
-    "Title": "Critical Privilege Escalation Vulnerability in Windows 11 CLFS Driver",
-    "Tools": ["Proof-of-Concept (PoC) exploit", "PoC exploit", "Windows 11"],
-    "Victim": {
-      "Access_Vectors": ["Local access"],
-      "Data_Types_At_Risk": ["System integrity"],
-      "Description": "Windows 11 systems, version 23H2",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable",
-      "Targeted_Assets": ["Windows 11 systems"]
-    },
-    "diamond_model_summary": "The incident involves an independent security researcher exploiting a vulnerability in the Windows 11 CLFS driver to achieve privilege escalation. The capability demonstrated includes the development of a PoC exploit targeting the CClfsBaseFilePersisted::WriteMetadataBlock function. The infrastructure is local, affecting Windows 11 systems, and the victim is the technology sector, specifically Windows 11 users. The adversary's motivation is recognition in a security competition, showcasing the potential for severe exploitation.",
-    "doc_summary": "A critical security vulnerability has been identified in the Common Log File System (CLFS) driver of Windows 11, allowing local users to gain elevated privileges. The flaw is located in the CClfsBaseFilePersisted::WriteMetadataBlock function and arises from the unchecked return value of ClfsDecodeBlock, leading to data corruption and privilege escalation. This vulnerability affects Windows 11 version 23H2 and involves manipulating the CLFS file structure. The PoC demonstrated during TyphoonPWN 2024 involved spawning a command prompt under the SYSTEM account. Despite being informed by the vendor that the issue was resolved, tests indicated the vulnerability persisted. No CVE number or patch information has been provided by Microsoft.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.117016+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "e7c556c931eb0cfc8f22c013121de785477d94d0",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals that the adversary developed a PoC exploit for the CLFS vulnerability, leading to privilege escalation on Windows 11 systems. The exploitation stage involved manipulating the CLFS file structure to gain elevated privileges. The actions on objectives included executing commands under the SYSTEM account, demonstrating the potential for severe exploitation. Detection and remediation efforts should focus on monitoring for unusual process token modifications and applying security patches.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 97,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis indicates that the primary indicators of compromise include the PoC exploit and the specific vulnerability in the CLFS driver. The absence of Supervisor Mode Access Prevention (SMAP) in Windows 11 facilitated the exploitation. The tools used include the PoC exploit, and the TTPs involve privilege escalation and kernel exploitation. Detection efforts should focus on monitoring for unusual process token modifications, while remediation involves applying security patches.",
-    "relevance_score": 61,
-    "sequence": 16817,
-    "source": "https://gbhackers.com/windows-11-clfs-driver-vulnerability/",
-    "slug": "Critical_Privilege_Escalation_Vulnerability_in_Windows_11_CLFS_Driver-016817",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Adversaries exploited vulnerabilities in ConnectWise ScreenConnect servers.",
-      "Known_Campaigns": [],
-      "Motivation": "Financial gain through ransomware and data exfiltration.",
-      "Sophistication": "Moderate, leveraging publicly available exploits.",
-      "Strategic_Objectives": "Compromise systems for financial gain and data theft.",
-      "TTPs_Employed": ["Cobalt Strike Beacon", "LockBit ransomware", "AsyncRAT"]
-    },
-    "Analyses": [
-      {
-        "Description": "Scanning for vulnerable ScreenConnect servers.",
-        "Detection": "Monitor network traffic for unusual scanning activity.",
-        "Remediation": "Implement network segmentation and access controls.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable systems.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Development of exploits for CVE-2024-1708 and CVE-2024-1709.",
-        "Detection": "Monitor for the creation or use of exploit tools.",
-        "Remediation": "Apply patches and updates to vulnerable systems.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating exploits for identified vulnerabilities.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating tools to exploit vulnerabilities.",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "Delivery of payloads via compromised servers.",
-        "Detection": "Monitor for unusual access patterns to public-facing applications.",
-        "Remediation": "Restrict access to public-facing applications.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to target systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Exploitation of vulnerabilities to execute payloads.",
-        "Detection": "Monitor for execution of unusual scripts or commands.",
-        "Remediation": "Implement application whitelisting.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Executing malicious code on target systems.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Executing scripts and commands.",
-            "technique_id": "T1059",
-            "technique_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Techniques": ["T1059"]
-      },
-      {
-        "Description": "Installation of Cobalt Strike Beacon and other malware.",
-        "Detection": "Monitor for changes to startup scripts and registry keys.",
-        "Remediation": "Restrict permissions to modify startup configurations.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to compromised systems.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ensuring malware runs on system startup.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "Establishing command and control channels.",
-        "Detection": "Monitor for unusual outbound network traffic.",
-        "Remediation": "Implement network traffic filtering and monitoring.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using application protocols for C2 communication.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Execution of ransomware and data exfiltration.",
-        "Detection": "Monitor for file encryption activities.",
-        "Remediation": "Implement regular data backups and encryption.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Disrupting or destroying systems and data.",
-            "tactic_id": "TA0040",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Encrypting data to disrupt operations.",
-            "technique_id": "T1486",
-            "technique_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Techniques": ["T1486"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of Cobalt Strike", "Impersonation of Microsoft Windows Update"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Impersonating Microsoft Windows Update traffic"],
-      "Description": "Exploitation of vulnerabilities in ScreenConnect servers.",
-      "Exploits": ["CVE-2024-1708", "CVE-2024-1709"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["LockBit ransomware", "AsyncRAT"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Metasploit", "Cobalt Strike"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual outbound network traffic", "Data encryption activities"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for Cobalt Strike Beacon activity",
-      "Check for LockBit ransomware indicators"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["ScreenConnect servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["ConnectWise", "Secureworks", "Huntress", "Sophos"],
-      "Countries": ["United States", "Canada", "United Kingdom"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-1708", "CVE-2024-1709", "Cobalt Strike", "LockBit", "AsyncRAT"],
-      "Malware_Families": ["LockBit", "AsyncRAT"],
-      "Malware_Filenames": ["SentinelUI.exe"],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["ScreenConnect"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-1708", "CVE-2024-1709"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP", "HTTPS"],
-      "Description": "Compromised ScreenConnect servers and attacker infrastructure.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Upgrade vulnerable servers", "Conduct forensic examinations"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": ["Compromised ScreenConnect servers"],
-      "TTPs": ["Cobalt Strike Beacon", "LockBit ransomware", "AsyncRAT"],
-      "Tools": ["Metasploit", "Cobalt Strike"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["ANY.RUN malware sandbox", "Threat Intelligence Lookup"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-02-27T09:29:42Z",
-    "Title": "ConnectWise ScreenConnect Vulnerabilities Exploited in Cyber Attacks",
-    "Tools": ["Metasploit", "Cobalt Strike", "ScreenConnect"],
-    "Victim": {
-      "Access_Vectors": ["Remote code execution", "Path traversal"],
-      "Data_Types_At_Risk": ["Sensitive data", "System integrity"],
-      "Description": "Organizations using self-hosted ScreenConnect servers.",
-      "Geography": "United States, Canada, United Kingdom",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["ScreenConnect servers"]
-    },
-    "diamond_model_summary": "The incident involves adversaries exploiting vulnerabilities in ConnectWise ScreenConnect servers, primarily targeting organizations in the technology sector across the United States, Canada, and the United Kingdom. The adversaries employed tools like Cobalt Strike and malware such as LockBit ransomware and AsyncRAT to achieve their objectives. The infrastructure used includes compromised ScreenConnect servers, with communication protocols like HTTP and HTTPS facilitating command and control. The victims are organizations using self-hosted ScreenConnect servers, facing critical impact severity due to unpatched systems.",
-    "doc_summary": "ConnectWise, a prominent software company, issued an urgent security bulletin on February 19, 2024, revealing two significant vulnerabilities in its self-hosted ScreenConnect servers. These vulnerabilities, CVE-2024-1708 and CVE-2024-1709, were initially reported on February 13 and were not actively exploited until February 20. CVE-2024-1708 is a path traversal issue with a high severity score of 8.4, while CVE-2024-1709 is a remote code execution flaw with a critical severity score of 10.0. Analysis by the Shadowserver Foundation and Shodan found over 8,200 publicly accessible, unpatched ScreenConnect servers, predominantly in the United States, Canada, and the United Kingdom. By February 21, a proof-of-concept exploit was uploaded to GitHub, and a Metasploit module for CVE-2024-1709 was released. Secureworks researchers discovered that several of their customers' servers had been scanned for these vulnerabilities, with some showing evidence of intrusion. Incidents involved the execution of Cobalt Strike Beacon payloads and malware impersonating Microsoft Windows Update network traffic. Huntress and Sophos reported similar incidents involving LockBit ransomware and AsyncRAT. Organizations are recommended to upgrade vulnerable ScreenConnect servers and conduct forensic examinations. Secureworks Counter Threat shared a list of IP addresses and domain names associated with the attacker infrastructure.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.116978+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "87cfa430519d1ecd14dbef5e6d937edaef566b3d",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The cyber incident follows a structured kill chain, beginning with reconnaissance activities involving scanning for vulnerable ScreenConnect servers. Weaponization involved developing exploits for CVE-2024-1708 and CVE-2024-1709. Delivery was achieved through compromised servers, leading to exploitation and execution of payloads. Installation of Cobalt Strike Beacon and other malware established persistence, while command and control channels were set up using application layer protocols. The final stage involved actions on objectives, including ransomware deployment and data exfiltration, highlighting the critical impact of the attack.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes various indicators of compromise. Hash values, IP addresses, and domain names associated with the attacker infrastructure are critical for detection and response. Network host artifacts, such as compromised ScreenConnect servers, and tools like Metasploit and Cobalt Strike, are significant indicators. The tactics, techniques, and procedures (TTPs) employed by the adversaries, including the use of Cobalt Strike Beacon and LockBit ransomware, are crucial for understanding the attack and implementing effective defenses.",
-    "relevance_score": 61,
-    "sequence": 16816,
-    "source": "https://gbhackers.com/hijacking-connectwise-screenconnect-server/",
-    "slug": "ConnectWise_ScreenConnect_Vulnerabilities_Exploited_in_Cyber_Attacks-016816",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is likely an unauthenticated attacker exploiting SQL Injection and authentication bypass vulnerabilities.",
-      "Known_Campaigns": [],
-      "Motivation": "Unauthorized access to sensitive information and privilege escalation.",
-      "Sophistication": "Moderate, leveraging known vulnerabilities.",
-      "Strategic_Objectives": "Gain unauthorized access to sensitive data and escalate privileges.",
-      "TTPs_Employed": ["SQL Injection", "Authentication Bypass"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of SQL Injection and authentication bypass vulnerabilities.",
-        "Detection": "Monitor for unusual access patterns and SQL queries.",
-        "Remediation": "Apply patches and updates to vulnerable software.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in an Internet-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Unauthorized access to sensitive data and privilege escalation.",
-        "Detection": "Monitor for changes in user privileges and access patterns.",
-        "Remediation": "Regularly review and update user access controls.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Obtaining credentials to access systems.",
-            "technique_id": "T1003",
-            "technique_name": "Credential Dumping"
-          }
-        ],
-        "Techniques": ["T1003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Exploitation of known vulnerabilities for unauthorized access."],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of SQL Injection and authentication bypass vulnerabilities.",
-      "Exploits": ["CVE-2024-6670", "CVE-2024-6671", "CVE-2024-7763"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data access and privilege escalation activities."],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual SQL queries and access patterns."],
-    "Extracted_Entities": {
-      "Assets": ["Network Monitoring Systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Progress", "Trend Micro"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["SQL Injection", "Authentication Bypass", "CVE-2024-6670", "CVE-2024-6671", "CVE-2024-7763"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["WhatsUp Gold 2024.0.0"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["WhatsUp Gold"],
-      "Technologies": ["Network Monitoring"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-6670", "CVE-2024-6671", "CVE-2024-7763"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No specific infrastructure details detected.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Upgrade to the latest software version and review security policies."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["SQL Injection", "Authentication Bypass"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Vulnerability scanners", "Network monitoring tools"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-10-28T07:26:38Z",
-    "Title": "Critical Vulnerabilities in WhatsUp Gold Network Monitoring Software",
-    "Tools": ["WhatsUp Gold"],
-    "Victim": {
-      "Access_Vectors": ["SQL Injection", "Authentication Bypass"],
-      "Data_Types_At_Risk": ["Encrypted User Credentials"],
-      "Description": "Organizations using WhatsUp Gold network monitoring software.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable due to outdated software versions.",
-      "Targeted_Assets": ["Network Monitoring Systems"]
-    },
-    "diamond_model_summary": "The incident involves an adversary exploiting SQL Injection and authentication bypass vulnerabilities in WhatsUp Gold software. The adversary's capability includes exploiting these vulnerabilities to gain unauthorized access and escalate privileges. The infrastructure details are not specified, but the victims are organizations using WhatsUp Gold, primarily in the Information Technology sector. The attack highlights the importance of regular software updates and vigilant security practices.",
-    "doc_summary": "WhatsUp Gold, a popular network monitoring software, has identified significant security vulnerabilities that could expose organizations to cyber attacks. The vulnerabilities, CVE-2024-6670, CVE-2024-6671, and CVE-2024-7763, involve critical SQL Injection and authentication bypass issues with CVSS scores of 9.8 and 8.8. These flaws allow unauthorized access to sensitive information and privilege escalation. Sina Kheirkhah of the Summoning Team, in collaboration with the Trend Micro Zero Day Initiative, discovered these vulnerabilities. Organizations are advised to upgrade to WhatsUp Gold 2024.0.0 to mitigate these risks. The discovery highlights the importance of regular software updates and vigilant security practices.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.116954+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "e1e9534c9d5b08b90b889b3c909b1968a5fa6532",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack follows a typical kill chain involving exploitation of vulnerabilities (CVE-2024-6670, CVE-2024-6671, CVE-2024-7763) in WhatsUp Gold software. The adversary gains initial access through SQL Injection and authentication bypass, leading to unauthorized access and privilege escalation. The exploitation stage is critical, with a focus on obtaining sensitive data and escalating privileges. Detection involves monitoring for unusual access patterns, while remediation includes applying patches and updating user access controls.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 92,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as SQL Injection and authentication bypass, which are challenging to change once detected. No specific hash values, IP addresses, or domain names are identified, indicating a focus on exploiting software vulnerabilities. The tools and techniques used are sophisticated, requiring organizations to implement robust detection and remediation strategies. The incident underscores the importance of addressing vulnerabilities promptly to mitigate potential threats.",
-    "relevance_score": 43,
-    "sequence": 16815,
-    "source": "https://gbhackers.com/critical-whatsup-gold-authentication-flaw/",
-    "slug": "Critical_Vulnerabilities_in_WhatsUp_Gold_Network_Monitoring_Software-016815",
     "shard": 9
   }
 ]

@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "lynx",
+  "name": "lynx",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-29T00:28:19.000Z",
+  "lastSeen": "2026-08-29T00:28:19.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-29",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "cutlercapital-4c71",
+      "title": "cutlercapital — claimed by lynx",
+      "pubDate": "2026-08-29T00:28:19.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "cutlercapital-4c71",
+      "victim": "cutlercapital — claimed by lynx",
+      "sector": "Financial Services",
+      "country": null,
+      "pubDate": "2026-08-29T00:28:19.000Z"
+    }
+  ]
+}

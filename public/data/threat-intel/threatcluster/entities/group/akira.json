@@ -4,15 +4,11 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-08-27T14:27:47.000Z",
+  "mentionCount": 3,
+  "firstSeen": "2026-08-28T14:21:51.000Z",
   "lastSeen": "2026-08-28T14:52:03.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 1 country.",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
-    {
-      "date": "2026-08-27",
-      "count": 3
-    },
     {
       "date": "2026-08-28",
       "count": 3
@@ -36,24 +32,6 @@
       "slug": "jrt-mechanical-fa90",
       "title": "JRT Mechanical — claimed by akira",
       "pubDate": "2026-08-28T14:21:51.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cetylite-23d2",
-      "title": "Cetylite — claimed by akira",
-      "pubDate": "2026-08-27T14:27:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cgp-mep-bf75",
-      "title": "CGP MEP — claimed by akira",
-      "pubDate": "2026-08-27T14:27:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "seabrook-island-29e3",
-      "title": "Seabrook Island — claimed by akira",
-      "pubDate": "2026-08-27T14:27:47.000Z"
     }
   ],
   "relatedEntities": [
@@ -61,24 +39,12 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 3
+      "weight": 2
     },
     {
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
       "weight": 1
     }
   ],
@@ -104,27 +70,6 @@
       "sector": "Manufacturing",
       "country": null,
       "pubDate": "2026-08-28T14:21:51.000Z"
-    },
-    {
-      "id": "cetylite-23d2",
-      "victim": "Cetylite — claimed by akira",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-08-27T14:27:52.000Z"
-    },
-    {
-      "id": "cgp-mep-bf75",
-      "victim": "CGP MEP — claimed by akira",
-      "sector": "Other",
-      "country": null,
-      "pubDate": "2026-08-27T14:27:49.000Z"
-    },
-    {
-      "id": "seabrook-island-29e3",
-      "victim": "Seabrook Island — claimed by akira",
-      "sector": "Hospitality",
-      "country": "US",
-      "pubDate": "2026-08-27T14:27:47.000Z"
     }
   ]
 }

@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-27T14:27:49.000Z",
-  "lastSeen": "2026-08-27T14:27:49.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 0 countries.",
+  "firstSeen": "2026-08-28T23:21:03.000Z",
+  "lastSeen": "2026-08-28T23:21:03.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-27",
+      "date": "2026-08-28",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "cgp-mep-bf75",
-      "title": "CGP MEP — claimed by akira",
-      "pubDate": "2026-08-27T14:27:49.000Z"
+      "slug": "akpera-gayrimenkul-yat-r-m-a-a7e1",
+      "title": "Akpera Gayrimenkul Yatırım A.Ş. — claimed by Doommageddon",
+      "pubDate": "2026-08-28T23:21:03.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "akira",
-      "name": "akira",
+      "slug": "doommageddon",
+      "name": "Doommageddon",
       "weight": 1
     }
   ],
