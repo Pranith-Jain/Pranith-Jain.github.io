@@ -4,15 +4,11 @@
   "name": "chaos",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-27T20:26:06.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-28T17:54:13.000Z",
   "lastSeen": "2026-08-28T17:54:47.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 3 countries.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-08-27",
-      "count": 1
-    },
     {
       "date": "2026-08-28",
       "count": 2
@@ -30,25 +26,19 @@
       "slug": "macallister-com-ca4d",
       "title": "macallister.com — claimed by chaos",
       "pubDate": "2026-08-28T17:54:13.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "singleton-com-f9de",
-      "title": "singleton.com — claimed by chaos",
-      "pubDate": "2026-08-27T20:26:06.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 2
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
@@ -67,13 +57,6 @@
       "sector": "Not Found",
       "country": "GB",
       "pubDate": "2026-08-28T17:54:13.000Z"
-    },
-    {
-      "id": "singleton-com-f9de",
-      "victim": "singleton.com — claimed by chaos",
-      "sector": "Not Found",
-      "country": "AU",
-      "pubDate": "2026-08-27T20:26:06.000Z"
     }
   ]
 }

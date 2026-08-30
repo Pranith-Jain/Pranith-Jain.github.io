@@ -1,0 +1,11 @@
+{
+  "slug": "servicenow-patches-critical-vulnerabilities-in-ai-platform-bb8e0b6a",
+  "title": "ServiceNow Patches Critical Vulnerabilities in AI Platform",
+  "link": "https://threatcluster.io/cluster/servicenow-patches-critical-vulnerabilities-in-ai-platform-bb8e0b6a?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/servicenow-patches-critical-vulnerabilities-in-ai-platform-bb8e0b6a",
+  "pubDate": "2026-08-29T12:19:14.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "ServiceNow has addressed three maximum-severity vulnerabilities in its AI Platform, which could allow unauthenticated attackers to execute code, perform SQL injection, and escalate privileges.",
+  "sizeBytes": 192
+}

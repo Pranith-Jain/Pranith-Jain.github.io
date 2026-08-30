@@ -4,165 +4,178 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-27T18:31:56.000Z",
-  "lastSeen": "2026-08-28T20:58:46.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 6 sectors and 7 countries.",
+  "mentionCount": 9,
+  "firstSeen": "2026-08-28T20:58:46.000Z",
+  "lastSeen": "2026-08-29T19:28:32.000Z",
+  "summary": "Ransomware group with 9 leak-site victims across 6 sectors and 7 countries.",
   "frequency": [
     {
-      "date": "2026-08-27",
+      "date": "2026-08-28",
       "count": 1
     },
     {
-      "date": "2026-08-28",
-      "count": 7
+      "date": "2026-08-29",
+      "count": 8
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "bandit-industries-e88b",
+      "title": "Bandit Industries — claimed by qilin",
+      "pubDate": "2026-08-29T19:28:32.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lapoco-architects-6baf",
+      "title": "LAPoco Architects — claimed by qilin",
+      "pubDate": "2026-08-29T18:00:45.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "neumaticos-corral-s-a-36e6",
+      "title": "Neumaticos Corral S.A. — claimed by qilin",
+      "pubDate": "2026-08-29T15:01:16.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-frame-group-18d4",
+      "title": "The Frame Group — claimed by qilin",
+      "pubDate": "2026-08-29T12:04:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "la-maison-des-travaux-df68",
+      "title": "La Maison Des Travaux — claimed by qilin",
+      "pubDate": "2026-08-29T12:04:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bliss-1041-83b5",
+      "title": "BLISS 1041 — claimed by qilin",
+      "pubDate": "2026-08-29T12:03:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "careclinics-65cb",
+      "title": "CareClinics — claimed by qilin",
+      "pubDate": "2026-08-29T12:02:51.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "aum-construction-dc40",
+      "title": "AUM Construction — claimed by qilin",
+      "pubDate": "2026-08-29T11:31:03.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "alter-consultores-legales-4a4c",
       "title": "Alter Consultores Legales — claimed by qilin",
       "pubDate": "2026-08-28T20:58:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "newton-county-school-system-9e8d",
-      "title": "Newton County School System — claimed by qilin",
-      "pubDate": "2026-08-28T17:31:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "digiground-3dfc",
-      "title": "DigiGround — claimed by qilin",
-      "pubDate": "2026-08-28T13:07:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tramigo-dee9",
-      "title": "Tramigo — claimed by qilin",
-      "pubDate": "2026-08-28T13:06:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cosmocolor-sa-de-cv-cb07",
-      "title": "Cosmocolor SA de CV — claimed by qilin",
-      "pubDate": "2026-08-28T13:05:48.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "infinnium-05b5",
-      "title": "Infinnium — claimed by qilin",
-      "pubDate": "2026-08-28T09:59:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "whitehouse-382d",
-      "title": "Whitehouse — claimed by qilin",
-      "pubDate": "2026-08-28T09:58:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "globalport-terminals-ff05",
-      "title": "Globalport Terminals — claimed by qilin",
-      "pubDate": "2026-08-27T18:31:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 2
-    },
-    {
-      "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "education",
-      "name": "Education",
-      "weight": 1
+      "weight": 2
     },
     {
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "bandit-industries-e88b",
+      "victim": "Bandit Industries — claimed by qilin",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-08-29T19:28:32.000Z"
+    },
+    {
+      "id": "lapoco-architects-6baf",
+      "victim": "LAPoco Architects — claimed by qilin",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-29T18:00:45.000Z"
+    },
+    {
+      "id": "neumaticos-corral-s-a-36e6",
+      "victim": "Neumaticos Corral S.A. — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "AR",
+      "pubDate": "2026-08-29T15:01:16.000Z"
+    },
+    {
+      "id": "the-frame-group-18d4",
+      "victim": "The Frame Group — claimed by qilin",
+      "sector": "Retail & E-Commerce",
+      "country": "AU",
+      "pubDate": "2026-08-29T12:04:46.000Z"
+    },
+    {
+      "id": "la-maison-des-travaux-df68",
+      "victim": "La Maison Des Travaux — claimed by qilin",
+      "sector": "Retail & E-Commerce",
+      "country": "FR",
+      "pubDate": "2026-08-29T12:04:09.000Z"
+    },
+    {
+      "id": "bliss-1041-83b5",
+      "victim": "BLISS 1041 — claimed by qilin",
+      "sector": "Not Found",
+      "country": "MT",
+      "pubDate": "2026-08-29T12:03:33.000Z"
+    },
+    {
+      "id": "careclinics-65cb",
+      "victim": "CareClinics — claimed by qilin",
+      "sector": "Healthcare",
+      "country": "MY",
+      "pubDate": "2026-08-29T12:02:51.000Z"
+    },
+    {
+      "id": "aum-construction-dc40",
+      "victim": "AUM Construction — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-29T11:31:03.000Z"
+    },
+    {
       "id": "alter-consultores-legales-4a4c",
       "victim": "Alter Consultores Legales — claimed by qilin",
       "sector": "Professional Services",
       "country": "ES",
       "pubDate": "2026-08-28T20:58:46.000Z"
-    },
-    {
-      "id": "newton-county-school-system-9e8d",
-      "victim": "Newton County School System — claimed by qilin",
-      "sector": "Education",
-      "country": "US",
-      "pubDate": "2026-08-28T17:31:28.000Z"
-    },
-    {
-      "id": "digiground-3dfc",
-      "victim": "DigiGround — claimed by qilin",
-      "sector": "Technology",
-      "country": "AU",
-      "pubDate": "2026-08-28T13:07:02.000Z"
-    },
-    {
-      "id": "tramigo-dee9",
-      "victim": "Tramigo — claimed by qilin",
-      "sector": "Transportation",
-      "country": "FI",
-      "pubDate": "2026-08-28T13:06:25.000Z"
-    },
-    {
-      "id": "cosmocolor-sa-de-cv-cb07",
-      "victim": "Cosmocolor SA de CV — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "MX",
-      "pubDate": "2026-08-28T13:05:48.000Z"
-    },
-    {
-      "id": "infinnium-05b5",
-      "victim": "Infinnium — claimed by qilin",
-      "sector": "Technology",
-      "country": null,
-      "pubDate": "2026-08-28T09:59:21.000Z"
-    },
-    {
-      "id": "whitehouse-382d",
-      "victim": "Whitehouse — claimed by qilin",
-      "sector": "Government & Defense",
-      "country": "GB",
-      "pubDate": "2026-08-28T09:58:41.000Z"
-    },
-    {
-      "id": "globalport-terminals-ff05",
-      "victim": "Globalport Terminals — claimed by qilin",
-      "sector": "Transportation",
-      "country": "PH",
-      "pubDate": "2026-08-27T18:31:56.000Z"
     }
   ]
 }

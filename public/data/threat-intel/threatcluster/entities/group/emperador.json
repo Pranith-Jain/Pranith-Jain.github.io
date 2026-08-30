@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-28T12:20:44.000Z",
-  "lastSeen": "2026-08-28T12:20:44.000Z",
+  "firstSeen": "2026-08-29T15:21:02.000Z",
+  "lastSeen": "2026-08-29T15:21:02.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-28",
+      "date": "2026-08-29",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "hanwha-renewables-64f9",
-      "title": "Hanwha Renewables — claimed by emperador",
-      "pubDate": "2026-08-28T12:20:44.000Z"
+      "slug": "uniguacu-0afe",
+      "title": "Uniguacu — claimed by emperador",
+      "pubDate": "2026-08-29T15:21:02.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
+      "slug": "other",
+      "name": "Other",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "hanwha-renewables-64f9",
-      "victim": "Hanwha Renewables — claimed by emperador",
-      "sector": "Energy & Utilities",
-      "country": "KR",
-      "pubDate": "2026-08-28T12:20:44.000Z"
+      "id": "uniguacu-0afe",
+      "victim": "Uniguacu — claimed by emperador",
+      "sector": "Other",
+      "country": "BR",
+      "pubDate": "2026-08-29T15:21:02.000Z"
     }
   ]
 }

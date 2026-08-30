@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "m3rx",
+  "name": "m3rx",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-29T12:01:00.000Z",
+  "lastSeen": "2026-08-29T12:01:00.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-29",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "lindner-group-com-2bcc",
+      "title": "lindner-group.com — claimed by m3rx",
+      "pubDate": "2026-08-29T12:01:00.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "lindner-group-com-2bcc",
+      "victim": "lindner-group.com — claimed by m3rx",
+      "sector": "Manufacturing",
+      "country": "AT",
+      "pubDate": "2026-08-29T12:01:00.000Z"
+    }
+  ]
+}

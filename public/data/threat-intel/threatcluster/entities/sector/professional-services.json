@@ -4,10 +4,10 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 7,
   "firstSeen": "2026-08-28T20:58:46.000Z",
-  "lastSeen": "2026-08-29T06:27:48.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "lastSeen": "2026-08-30T09:29:41.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 4 ransomware groups and 4 countries.",
   "frequency": [
     {
       "date": "2026-08-28",
@@ -15,10 +15,38 @@
     },
     {
       "date": "2026-08-29",
-      "count": 1
+      "count": 2
+    },
+    {
+      "date": "2026-08-30",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "esopartnerscpa-1a73",
+      "title": "esopartnerscpa — claimed by zawoo",
+      "pubDate": "2026-08-30T09:29:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ng-engineering-de-4542",
+      "title": "ng-engineering.de — claimed by zawoo",
+      "pubDate": "2026-08-30T09:27:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "acqbuilt-com-80b1",
+      "title": "acqbuilt.com — claimed by zawoo",
+      "pubDate": "2026-08-30T09:24:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lapoco-architects-6baf",
+      "title": "LAPoco Architects — claimed by qilin",
+      "pubDate": "2026-08-29T18:00:45.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "trc-companies-96e7",
@@ -41,6 +69,18 @@
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "zawoo",
+      "name": "zawoo",
+      "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 2
+    },
+    {
+      "type": "group",
       "slug": "iah6477",
       "name": "iah6477",
       "weight": 1
@@ -49,12 +89,6 @@
       "type": "group",
       "slug": "payoutsking",
       "name": "payoutsking",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
       "weight": 1
     }
   ],

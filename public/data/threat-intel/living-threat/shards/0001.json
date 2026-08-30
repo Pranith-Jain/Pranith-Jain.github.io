@@ -1,6 +1,837 @@
 [
   {
     "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "An autonomous AI agent system executed the attack.",
+      "Known_Campaigns": [],
+      "Motivation": "Unknown",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise internal datasets and credentials",
+      "TTPs_Employed": ["Lateral Movement", "Privilege Escalation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Malicious dataset prepared to exploit code execution paths.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gains initial access to the victim's network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of code execution paths in the data processing pipeline.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to run malicious code.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may abuse command and script interpreters to execute commands.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Self-migrating command-and-control staged on public services.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Unauthorized access to internal datasets and credentials.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may search local systems to find files of interest.",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The adversary used a malicious dataset to exploit code execution paths.",
+      "Exploits": ["Code execution paths in dataset loader"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Autonomous AI agent framework"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["internal datasets", "credentials"],
+      "Breach_Types": ["Unauthorized access"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Hugging Face"],
+      "Countries": ["United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["AI", "autonomous agent", "data breach", "code execution"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Z.ai'sGLM 5.2"],
+      "Technologies": ["large language model", "AI platform"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The attack targeted Hugging Face's production infrastructure.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Lateral Movement", "Privilege Escalation"],
+      "Tools": ["Autonomous AI agent framework"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-07-19T18:30:00Z",
+    "Title": "Hugging Face Infrastructure Compromised by Autonomous AI Agent",
+    "Tools": ["Autonomous AI agent framework", "Z.ai'sGLM 5.2"],
+    "Victim": {
+      "Access_Vectors": ["Data processing pipeline"],
+      "Data_Types_At_Risk": ["Internal datasets", "Credentials"],
+      "Description": "Hugging Face, an open-source AI platform.",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Internal datasets", "Credentials"]
+    },
+    "diamond_model_summary": "The incident involved an autonomous AI agent system targeting Hugging Face's production infrastructure. The adversary exploited code execution paths in the data processing pipeline to gain unauthorized access to internal datasets and credentials. The attack demonstrated high sophistication with lateral movement and privilege escalation capabilities.",
+    "doc_summary": "Hugging Face, an open-source AI platform, experienced a cyber attack by an autonomous AI agent system. The attack targeted its production infrastructure, leading to unauthorized access to internal datasets and credentials. The intrusion began with a malicious dataset exploiting code execution paths in the data processing pipeline, allowing the attacker to escalate privileges and move laterally within internal clusters. The exact large language model used by the attacker is unknown, but the campaign involved a swarm of short-lived sandboxes with self-migrating command-and-control. Hugging Face has addressed the root cause and urged customers to rotate access tokens. The incident highlights the need for capable models for forensic analysis without guardrail restrictions.",
+    "enrichment": null,
+    "id": "e1150e91b4d3d344407f5982cfead8fcc433579345b2eab9a205085d9c46aa18",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack on Hugging Face followed a structured kill chain, starting with the weaponization of a malicious dataset to exploit code execution paths. The adversary gained initial access, executed commands, and established command and control using public services. The attack culminated in unauthorized access to internal datasets and credentials, highlighting the need for robust security measures.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 80,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of an autonomous AI agent framework and exploitation of code execution paths. While specific hashes, IPs, and domains were not identified, the attack's sophistication and use of public services for command and control present significant challenges for detection and response.",
+    "relevance_score": 51,
+    "sequence": 21292,
+    "source": "https://thehackernews.com/2026/07/worlds-largest-ai-model-repository.html",
+    "slug": "Hugging_Face_Infrastructure_Compromised_by_Autonomous_AI_Agent-021292",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of the heap buffer overflow vulnerability in NGINX.",
+        "Detection": "Monitor for unusual HTTP request patterns that may indicate exploitation attempts. • Use AddressSanitizer to detect buffer overflow conditions.",
+        "Remediation": "Upgrade to NGINX 1.30.4 or 1.31.3, or NGINX Plus 37.0.3.1. • Implement temporary mitigation by switching to named captures in regex maps.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2026-42533"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The vulnerability allows remote code execution and denial of service through a heap buffer overflow in NGINX.",
+      "Exploits": ["CVE-2026-42533"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for unusual HTTP request patterns that may indicate exploitation attempts."
+    ],
+    "Extracted_Entities": {
+      "Assets": ["NGINX servers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["F5"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["heap buffer overflow", "remote code execution", "ASLR"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["NGINX 1.30.4", "NGINX 1.31.3", "NGINX Plus 37.0.3.1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["NGINX"],
+      "Technologies": ["regex-based map"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-42533"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The vulnerability affects NGINX servers configured with specific regex-based maps.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Upgrade to the latest patched version of NGINX.",
+      "Review and update server configurations to avoid vulnerable patterns."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-42533"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["AddressSanitizer for detecting buffer overflow conditions."],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-07-18T18:30:00Z",
+    "Title": "Critical NGINX Heap Buffer Overflow Vulnerability CVE-2026-42533",
+    "Tools": ["NGINX"],
+    "Victim": {
+      "Access_Vectors": ["Remote"],
+      "Data_Types_At_Risk": [],
+      "Description": "NGINX servers with specific configurations are vulnerable.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": ["NGINX servers"]
+    },
+    "diamond_model_summary": "The incident involves a critical vulnerability in NGINX, CVE-2026-42533, which allows remote attackers to exploit a heap buffer overflow. The vulnerability is linked to specific configurations involving regex-based maps. F5 has released patches, and temporary mitigations are available. The adversary's capability includes exploiting public-facing applications, with potential for remote code execution if ASLR is bypassed.",
+    "doc_summary": "F5 has released patches for a critical vulnerability in NGINX, identified as CVE-2026-42533, which allows remote, unauthenticated attackers to trigger a heap buffer overflow in the worker process through crafted HTTP requests. This flaw, affecting versions from 0.9.6 to 1.31.2, can lead to denial of service or remote code execution if ASLR is disabled or bypassed. The vulnerability resides in the script engine's handling of regex-based maps, where a two-pass evaluation process can be exploited. The issue was reported by multiple researchers, with significant contributions from Mufeed VH and Maxim Dounin. Stan Shaw, known as cyberstan, provided a detailed analysis, highlighting potential ASLR bypass capabilities. F5's advisory suggests upgrading to NGINX 1.30.4 or 1.31.3, or NGINX Plus 37.0.3.1, as the only complete fix. Temporary mitigation involves switching to named captures, though Shaw notes this may not fully close the vulnerability. The flaw has not yet been listed in CISA's Known Exploited Vulnerabilities catalog, and no public exploit code is available.",
+    "enrichment": null,
+    "id": "89f3cdde9df9a892df0c8e7a735051d7a16b7f93e7e7830dc8941d0fbc2661fe",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident involves exploitation of a public-facing application vulnerability in NGINX, specifically CVE-2026-42533. The vulnerability allows for remote code execution and denial of service through a heap buffer overflow. Detection involves monitoring HTTP request patterns, and remediation includes upgrading to patched versions and applying temporary mitigations.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 93,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the vulnerability CVE-2026-42533 as a TTP. No specific hashes, IP addresses, or domains are identified. The primary focus is on the exploitation of a public-facing application vulnerability, with detection and remediation strategies centered around monitoring and patching.",
+    "relevance_score": 41,
+    "sequence": 21291,
+    "source": "https://thehackernews.com/2026/07/critical-nginx-vulnerability-can-crash.html",
+    "slug": "Critical_NGINX_Heap_Buffer_Overflow_Vulnerability_CVE-2026-42533-021291",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "An unidentified Chinese-speaking APT group is suspected of conducting the HelloNet campaign.",
+      "Known_Campaigns": ["HelloNet"],
+      "Motivation": "Espionage and data exfiltration",
+      "Sophistication": "Advanced",
+      "Strategic_Objectives": "Target high-value Russian organizations for intelligence gathering",
+      "TTPs_Employed": ["DLL sideloading", "C2 communication", "Privilege escalation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The malicious DLL is delivered via the ViPNet update mechanism.",
+        "Detection": "Monitor ViPNet update directories for unauthorized changes",
+        "Remediation": "Implement strict access controls on update directories",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gains initial access to the network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary uses spearphishing to deliver the malicious DLL.",
+            "technique_id": "T1193",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1193"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The malicious DLL is sideloaded and executed at system startup.",
+        "Detection": "Monitor for unusual DLLs in system directories",
+        "Remediation": "Regularly audit system directories for unauthorized files",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary maintains access to the system.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary uses DLL sideloading to maintain persistence.",
+            "technique_id": "T1546.001",
+            "technique_name": "DLL Sideloading"
+          }
+        ],
+        "Techniques": ["T1546.001"]
+      },
+      {
+        "Description": "The malware establishes a connection to a C2 server.",
+        "Detection": "Monitor network traffic for connections to known C2 domains",
+        "Remediation": "Block known C2 domains and IPs at the network perimeter",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary communicates with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary uses web protocols for C2 communication.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "The adversary conducts network reconnaissance and data exfiltration.",
+        "Detection": "Monitor for unusual file access patterns",
+        "Remediation": "Implement data loss prevention solutions",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gathers information about the network.",
+            "tactic_id": "TA0007",
+            "tactic_name": "Discovery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary searches for files and directories.",
+            "technique_id": "T1083",
+            "technique_name": "File and Directory Discovery"
+          }
+        ],
+        "Techniques": ["T1083"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of DLL sideloading for persistence", "In-memory execution of payloads"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Log data removal", "In-memory execution"],
+      "Description": "The adversary uses sophisticated malware to exploit the ViPNet update mechanism.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["HelloNet"],
+      "Persistence_Mechanisms": ["DLL sideloading", "Process injection"],
+      "Tools": ["HelloInjector", "HelloProxy", "HelloExecutor", "HelloCleaner", "HelloBackdoor"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual outbound traffic on ports 5003, 5060, and 443"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for unauthorized DLLs in ViPNet directories",
+      "Track network traffic to known C2 domains"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["ViPNet systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["InfoTeCS"],
+      "Countries": ["Russian Federation", "China"],
+      "Domains": ["sina.com"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["HelloNet", "HelloInjector", "HelloProxy", "HelloExecutor", "HelloCleaner", "HelloBackdoor"],
+      "Malware_Families": ["HelloNet"],
+      "Malware_Filenames": ["wtsapi32.dll"],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government", "Energy", "Transport", "Education", "Logistics"],
+      "Software": ["ViPNet"],
+      "Technologies": ["VPN", "Endpoint protection", "Network access protection"],
+      "Threat_Infrastructure": ["C2 server"],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": ["C2 server for HelloProxy"],
+      "Communication_Protocols": ["HTTP", "HTTPS"],
+      "Description": "The campaign uses a C2 server and potentially compromised infrastructure for malware distribution.",
+      "Domains": ["sina.com"],
+      "Hosting_Providers": ["University of Science and Technology of China"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Conduct a thorough audit of ViPNet systems",
+      "Enhance monitoring of network traffic"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["sina.com"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["Unauthorized DLLs in ViPNet directories"],
+      "TTPs": ["DLL sideloading", "C2 communication", "Privilege escalation"],
+      "Tools": ["HelloInjector", "HelloProxy", "HelloExecutor", "HelloCleaner", "HelloBackdoor"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [
+      "Network traffic analysis tools",
+      "Endpoint detection and response solutions"
+    ],
+    "Severity": "High",
+    "Threat_Actors": ["Unidentified Chinese-speaking APT group"],
+    "Timestamp": "2026-07-19T10:23:00Z",
+    "Title": "HelloNet Campaign Targets Russian Organizations via ViPNet Update Mechanism",
+    "Tools": ["HelloInjector", "HelloProxy", "HelloExecutor", "HelloCleaner", "HelloBackdoor", "ViPNet"],
+    "Victim": {
+      "Access_Vectors": ["ViPNet update mechanism"],
+      "Data_Types_At_Risk": ["Sensitive government data", "Corporate information"],
+      "Description": "Russian organizations across multiple sectors, including government and energy, are targeted.",
+      "Geography": "Russian Federation",
+      "Impact_Severity": "High",
+      "Industry": "Government, Energy, Transport, Education, Logistics",
+      "Security_Posture": "Targeted due to high-value nature",
+      "Targeted_Assets": ["ViPNet systems", "Network infrastructure"]
+    },
+    "diamond_model_summary": "The HelloNet campaign involves an unidentified Chinese-speaking APT group targeting Russian organizations using the ViPNet update mechanism. The adversary employs sophisticated malware, including HelloInjector and HelloProxy, to gain persistence and conduct espionage activities. The infrastructure includes C2 servers and potentially compromised domains. Victims are primarily in high-value sectors such as government and energy.",
+    "doc_summary": "An advanced threat actor, potentially a Chinese-speaking APT group, is exploiting the update mechanism of the ViPNet private networking product suite to target Russian organizations, including government agencies. The campaign, dubbed HelloNet, has been active since at least May and involves deploying a malicious payload that acts as a proxy and loader for additional malware. Kaspersky researchers have identified the impact on sectors such as government, energy, transport, education, and logistics. The attackers use a malicious file, wtsapi32.dll (HelloInjector), placed in the ViPNet Update System directory to be sideloaded at system startup. This DLL injects into the svchost.exe process, granting elevated privileges and persistence. The embedded payload, HelloProxy, contacts a C2 server for additional modules, including HelloExecutor and HelloCleaner. The campaign's attribution to a Chinese-speaking APT group is tentative, with low confidence due to weak evidence. Kaspersky recommends monitoring systems running ViPNet software, especially traffic on ports 5003, 5060, and 443.",
+    "enrichment": null,
+    "id": "7fb9cf3f93db8430c28abd37de5a6d80",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The HelloNet campaign follows a structured kill chain, beginning with the delivery of a malicious DLL via the ViPNet update mechanism. The DLL is sideloaded to maintain persistence and establish a connection to a C2 server. The adversary conducts network reconnaissance and data exfiltration using tools like HelloProxy and HelloExecutor. Defensive evasion is achieved through log data removal and in-memory execution.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 92,
+    "pyramid_of_pain_summary": "The HelloNet campaign presents several indicators across the Pyramid of Pain. Hash values of malicious DLLs, domain names like sina.com, and network host artifacts such as unauthorized DLLs in ViPNet directories are key indicators. Tools like HelloInjector and HelloProxy, along with TTPs such as DLL sideloading and C2 communication, provide additional detection opportunities.",
+    "relevance_score": 71,
+    "sequence": 21290,
+    "source": "https://www.bleepingcomputer.com/news/security/hackers-abuse-vipnet-software-to-target-russian-govt-agencies/",
+    "slug": "HelloNet_Campaign_Targets_Russian_Organizations_via_ViPNet_Update_Mechan-021290",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "UTA0533 is a previously undocumented threat actor exploiting SonicWall SMA 1000 series VPN appliances.",
+      "Known_Campaigns": [],
+      "Motivation": "Unknown",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise SonicWall appliances to gain root-level access and potentially intercept credentials.",
+      "TTPs_Employed": ["Zero-day exploitation", "Privilege escalation", "Command injection"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of zero-day vulnerabilities in SonicWall appliances.",
+        "Detection": "Monitor for unusual access patterns to SonicWall appliances. • Check for exploitation attempts targeting CVE-2026-15409 and CVE-2026-15410.",
+        "Remediation": "Apply patches for CVE-2026-15409 and CVE-2026-15410. • Implement network segmentation to limit access to critical systems.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in an internet-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Installation of malware and backdoors on compromised devices.",
+        "Detection": "Monitor for unusual file creation in the /tmp directory. • Check for unauthorized changes to system files and configurations.",
+        "Remediation": "Regularly audit system configurations and file integrity. • Restrict write permissions to critical directories.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may abuse PowerShell commands and scripts for execution.",
+            "technique_id": "T1059.001",
+            "technique_name": "Command and Scripting Interpreter: PowerShell"
+          }
+        ],
+        "Techniques": ["T1059.001"]
+      },
+      {
+        "Description": "Establishing control over compromised devices using WebSocket and Erlang protocol.",
+        "Detection": "Monitor network traffic for unusual WebSocket connections. • Check for unauthorized Erlang protocol communications.",
+        "Remediation": "Implement network monitoring to detect anomalous traffic. • Use intrusion detection systems to identify suspicious activity.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection.",
+            "technique_id": "T1071.001",
+            "technique_name": "Application Layer Protocol: Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "Accessing stored credentials and capturing network traffic.",
+        "Detection": "Monitor for unusual access to credential stores. • Check for unexpected network traffic patterns.",
+        "Remediation": "Implement strong access controls for sensitive data. • Regularly update and patch systems to prevent exploitation.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may attempt to dump credentials to obtain account login information.",
+            "technique_id": "T1003",
+            "technique_name": "Credential Dumping"
+          }
+        ],
+        "Techniques": ["T1003"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [
+      "Exploitation of zero-day vulnerabilities",
+      "Use of WebSocket and Erlang protocol for C2"
+    ],
+    "CVEs": ["CVE-2026-15409", "CVE-2026-15410"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Memory-resident artifacts removal"],
+      "Description": "UTA0533 demonstrated the ability to exploit zero-day vulnerabilities in SonicWall appliances.",
+      "Exploits": ["CVE-2026-15409", "CVE-2026-15410"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": ["CVE-2026-15409", "CVE-2026-15410"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for unusual access patterns to SonicWall appliances.",
+      "Check for exploitation attempts targeting CVE-2026-15409 and CVE-2026-15410."
+    ],
+    "Extracted_Entities": {
+      "Assets": ["SonicWall SMA 1000 series VPN appliances"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Volexity", "SonicWall"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["zero-day", "exploitation", "vulnerability", "incident response", "WebSocket", "Erlang protocol"],
+      "Malware_Families": [],
+      "Malware_Filenames": ["/tmp/hypdate.b64"],
+      "Patches": ["CVE-2026-15409", "CVE-2026-15410"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["SonicWall SMA 1000 series", "CouchDB"],
+      "Technologies": ["VPN appliances"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-15409", "CVE-2026-15410"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["WebSocket", "Erlang protocol"],
+      "Description": "The attack targeted SonicWall SMA 1000 series VPN appliances, exploiting internal services and CouchDB.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Apply patches for CVE-2026-15409 and CVE-2026-15410.",
+      "Implement network segmentation to limit access to critical systems."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["/tmp/hypdate.b64"],
+      "TTPs": ["Zero-day exploitation", "Privilege escalation", "Command injection"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Intrusion detection systems"],
+    "Severity": "High",
+    "Threat_Actors": ["UTA0533"],
+    "Timestamp": "2026-07-18T18:30:00Z",
+    "Title": "Exploitation of SonicWall SMA 1000 Series VPN Appliances by UTA0533",
+    "Tools": ["SonicWall SMA 1000 series", "CouchDB"],
+    "Victim": {
+      "Access_Vectors": ["Zero-day vulnerabilities"],
+      "Data_Types_At_Risk": ["Credentials", "Network traffic"],
+      "Description": "The specific organization impacted by the attack has not been identified.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": ["SonicWall SMA 1000 series VPN appliances"]
+    },
+    "diamond_model_summary": "UTA0533, a sophisticated threat actor, exploited zero-day vulnerabilities in SonicWall SMA 1000 series VPN appliances. The attack involved multiple zero-day exploits, privilege escalation, and command injection, allowing the adversary to gain root-level access. Despite significant capabilities, lateral movement was limited.",
+    "doc_summary": "A previously undocumented threat actor, UTA0533, exploited zero-day vulnerabilities in SonicWall Secure Mobile Access (SMA) 1000 series VPN appliances. The vulnerabilities, CVE-2026-15409 and CVE-2026-15410, allowed arbitrary command execution and device takeover. Volexity discovered the attack during an incident response investigation. The threat actor used multiple zero-day exploits and malware specifically designed for SonicWall SMA VPN appliances. The attack involved a pre-authentication bypass and privilege escalation, exploiting the appliance's internal database service and CouchDB. The attacker gained root-level access, potentially intercepting credentials and capturing network traffic. Despite significant capabilities, lateral movement was limited.",
+    "enrichment": null,
+    "id": "ef3919eea15f184f3b4eac9600430eb2b4b47d2bb2cac178eeac7ff139d7e771",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack by UTA0533 on SonicWall SMA 1000 series VPN appliances followed a structured kill chain. Initial access was gained through zero-day exploitation, followed by installation of malware and backdoors. Command and control was established using WebSocket and Erlang protocol, allowing the adversary to access stored credentials and capture network traffic.",
+    "operational_tags": ["High Priority", "C2", "CVE-linked"],
+    "priority_score": 98,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes zero-day vulnerabilities (CVE-2026-15409, CVE-2026-15410) and exploitation techniques. The adversary used sophisticated methods, including WebSocket and Erlang protocol for command and control, making detection and response challenging. The attack highlights the need for robust monitoring and patch management.",
+    "relevance_score": 59,
+    "sequence": 21289,
+    "source": "https://thehackernews.com/2026/07/sonicwall-sma-zero-days-exploited.html",
+    "slug": "Exploitation_of_SonicWall_SMA_1000_Series_VPN_Appliances_by_UTA0533-021289",
+    "shard": 1
+  },
+  {
+    "Adversary": {
       "Aliases": ["UAC-0145", "Sandworm"],
       "Associated_Groups": ["GRU"],
       "Description": "Russian state-sponsored threat actors targeting Ukraine using ClickFix strategy.",
@@ -103677,790 +104508,6 @@
     "sequence": 20793,
     "source": "https://thehackernews.com/2026/06/free-apps-are-quietly-turning-smart-tvs.html",
     "slug": "Bright_Data_iOS_SDK_Exploitation_for_Residential_Proxy_Network-020793",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": ["TeamPCP"],
-      "Associated_Groups": ["TeamPCP"],
-      "Description": "The adversary, identified as TeamPCP, utilized the Miasma variant of the Mini Shai-Hulud worm to compromise Microsoft GitHub repositories.",
-      "Known_Campaigns": ["Miasma"],
-      "Motivation": "The motivation appears to be the propagation of an information stealer and exploitation of the software supply chain.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Compromise software supply chains and propagate malware.",
-      "TTPs_Employed": ["Supply chain compromise", "Credential theft"]
-    },
-    "Analyses": [
-      {
-        "Description": "The adversary likely conducted reconnaissance to identify vulnerable repositories and packages.",
-        "Detection": "Monitor for unusual access patterns to repositories.",
-        "Remediation": "Implement strict access controls and monitoring.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victim systems.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "The adversary weaponized the Mini Shai-Hulud worm to create the Miasma variant.",
-        "Detection": "Analyze malware samples for new variants.",
-        "Remediation": "Update malware signatures and detection tools.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing malware and exploits.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "The Miasma worm was delivered through compromised GitHub repositories.",
-        "Detection": "Monitor for unauthorized changes to repositories.",
-        "Remediation": "Conduct regular audits of repository access.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to victim systems.",
-            "tactic_id": "TA0007",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Compromising software supply chains.",
-            "technique_id": "T1195.002",
-            "technique_name": "Supply Chain Compromise"
-          }
-        ],
-        "Techniques": ["T1195.002"]
-      },
-      {
-        "Description": "The adversary exploited the trust model of open-source ecosystems.",
-        "Detection": "Monitor for unusual repository activity.",
-        "Remediation": "Strengthen supply chain security measures.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to victim systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Compromising software supply chains.",
-            "technique_id": "T1195.002",
-            "technique_name": "Supply Chain Compromise"
-          }
-        ],
-        "Techniques": ["T1195.002"]
-      },
-      {
-        "Description": "The Miasma worm installed a payload runner in compromised repositories.",
-        "Detection": "Monitor for unauthorized script execution.",
-        "Remediation": "Implement code review processes.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to victim systems.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Executing code in response to events.",
-            "technique_id": "T1546.016",
-            "technique_name": "Event Triggered Execution"
-          }
-        ],
-        "Techniques": ["T1546.016"]
-      },
-      {
-        "Description": "The worm maintained control through GitHub repository persistence.",
-        "Detection": "Monitor for unusual network traffic.",
-        "Remediation": "Restrict outbound network connections.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols for C2 communication.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "The adversary aimed to propagate the worm and steal information.",
-        "Detection": "Monitor for data exfiltration attempts.",
-        "Remediation": "Implement data loss prevention measures.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information from victim systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting data from local systems.",
-            "technique_id": "T1005",
-            "technique_name": "Data from Local System"
-          }
-        ],
-        "Techniques": ["T1005"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [
-      "Exploitation of trust models",
-      "Use of legitimate channels for malicious activity"
-    ],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Exploiting trust model"],
-      "Description": "The adversary demonstrated the capability to exploit the trust model of open-source ecosystems and propagate malware through legitimate channels.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Miasma"],
-      "Persistence_Mechanisms": ["GitHub source-repo persistence"],
-      "Tools": ["Mini Shai-Hulud worm", "Bun loader"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data transfer patterns", "Unauthorized access to sensitive data"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unauthorized changes to repositories",
-      "Analyze network traffic for anomalies"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["GitHub repositories", "PyPI packages"],
-      "Breach_Types": ["Supply chain compromise"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft", "GitHub"],
-      "Countries": ["United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Miasma", "Mini Shai-Hulud", "TeamPCP", "supply chain attack"],
-      "Malware_Families": ["Miasma", "Mini Shai-Hulud"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Azure", "Azure-Samples", "MicrosoftDocs", "durabletask"],
-      "Technologies": ["PyPI", "npm"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The infrastructure involved GitHub repositories and the PyPI package ecosystem.",
-      "Domains": [],
-      "Hosting_Providers": ["GitHub"],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Strengthen supply chain security", "Conduct regular security audits"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Supply chain compromise", "Exploitation of trust models"],
-      "Tools": ["Bun loader"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [
-      "Static and dynamic malware analysis tools",
-      "Supply chain security assessment tools"
-    ],
-    "Severity": "High",
-    "Threat_Actors": ["TeamPCP"],
-    "Timestamp": "2026-06-05T18:30:00Z",
-    "Title": "Miasma Supply Chain Attack on Microsoft GitHub Repositories",
-    "Tools": ["Mini Shai-Hulud worm", "Bun loader", "Azure", "Azure-Samples", "MicrosoftDocs", "durabletask"],
-    "Victim": {
-      "Access_Vectors": ["Supply chain compromise"],
-      "Data_Types_At_Risk": ["Source code", "Credentials"],
-      "Description": "The victims were Microsoft GitHub repositories, specifically Azure, Azure-Samples, Microsoft, and MicrosoftDocs.",
-      "Geography": "United States",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["GitHub repositories", "PyPI packages"]
-    },
-    "diamond_model_summary": "The Miasma supply chain attack on Microsoft GitHub repositories involved the adversary TeamPCP, who utilized the Miasma variant of the Mini Shai-Hulud worm. The attack targeted Microsoft's Azure, Azure-Samples, Microsoft, and MicrosoftDocs repositories, exploiting the trust model of open-source ecosystems. The adversary's capability included the use of the Bun loader for persistence, and the infrastructure involved GitHub and PyPI. The victims were primarily in the technology sector, with a high impact severity due to the widespread use of affected repositories.",
-    "doc_summary": "Microsoft's GitHub repositories were targeted by the Miasma self-replicating supply chain attack, impacting 73 repositories across Azure, Azure-Samples, Microsoft, and MicrosoftDocs. The attack involved the re-compromise of the durabletask PyPI package by TeamPCP, delivering an information stealer on Linux systems. Miasma, a variant of the Mini Shai-Hulud worm, bypassed the npm registry, pushing malicious code directly to specific repositories. The attack exploited the trust model of open-source ecosystems, propagating across the ecosystem by compromising downstream users. The incident highlights the vulnerabilities in software delivery trust models, with Miasma operating within legitimate channels, making it difficult for conventional defenses to detect.",
-    "enrichment": null,
-    "id": "2b6030b62913c3c61fa7ca74438fd0ecd64f0b59c0ca8d88b635eecba2fb6b83",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The Miasma attack followed a structured kill chain, beginning with reconnaissance to identify vulnerable repositories. Weaponization involved the creation of the Miasma variant, followed by delivery through compromised GitHub repositories. Exploitation targeted the trust model of open-source ecosystems, leading to installation of a payload runner. Command and control was maintained through GitHub repository persistence, and actions on objectives focused on propagating the worm and stealing information. The attack highlighted the vulnerabilities in software supply chains and the challenges in detecting malicious activity within legitimate channels.",
-    "operational_tags": ["High Priority", "Supply Chain", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Miasma attack presents significant challenges across the Pyramid of Pain. Hash values and IP addresses are less impactful due to the worm's ability to mutate and bypass traditional detection methods. Domain names and network host artifacts are also difficult to track due to the use of legitimate channels. Tools like the Bun loader and TTPs such as supply chain compromise are critical indicators, but the attack's reliance on exploiting trust models makes it particularly challenging to defend against. The attack underscores the need for enhanced supply chain security measures and monitoring of legitimate channels for malicious activity.",
-    "relevance_score": 75,
-    "sequence": 20792,
-    "source": "https://thehackernews.com/2026/06/miasma-worm-hits-73-microsoft-github.html",
-    "slug": "Miasma_Supply_Chain_Attack_on_Microsoft_GitHub_Repositories-020792",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in FFmpeg",
-        "Detection": "Monitor for unusual activity in media processing applications",
-        "Remediation": "Apply patches for FFmpeg vulnerabilities as soon as available",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of vulnerabilities in client applications.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2026-39210", "CVE-2026-39218", "CVE-2026-10881"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Autonomous AI agent used to discover vulnerabilities",
-      "Exploits": ["Heap overflow", "Stack overflow"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Autonomous AI agent"],
-      "Zero_Days": ["21 zero-days in FFmpeg"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["media pipelines", "Python wheels", "container images"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Google", "depthfirst"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerabilities", "AI", "security", "patches"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Chrome 149"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["FFmpeg", "Chrome"],
-      "Technologies": ["media library", "video processing"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-39210", "CVE-2026-39218", "CVE-2026-10881"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Heap overflow", "Stack overflow"],
-      "Tools": ["Autonomous AI agent"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-05T18:30:00Z",
-    "Title": "FFmpeg Vulnerabilities Discovered by Autonomous AI Agent",
-    "Tools": ["Autonomous AI agent", "FFmpeg", "Chrome"],
-    "Victim": {
-      "Access_Vectors": ["Software vulnerabilities"],
-      "Data_Types_At_Risk": [],
-      "Description": "FFmpeg media library affected by vulnerabilities",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Media libraries", "Video processing software"]
-    },
-    "diamond_model_summary": "The incident involves the discovery of 21 vulnerabilities in the FFmpeg media library by an autonomous AI agent from the company depthfirst. These vulnerabilities, including heap and stack overflows, were latent for many years. The AI agent's capability to scan and identify these vulnerabilities highlights the increasing role of AI in cybersecurity. The vulnerabilities have been assigned CVE identifiers, and some have been fixed. The incident underscores the need for rapid patching and updating of affected systems.",
-    "doc_summary": "A security startup reported 21 previously unknown vulnerabilities in FFmpeg, discovered by an autonomous AI agent. These vulnerabilities include heap and stack overflows in parsers and demuxers, with some bugs dating back 15 to 20 years. The findings were made by depthfirst, whose AI agent scanned FFmpeg's codebase. Google also released Chrome 149, fixing 429 vulnerabilities, with over 100 being critical or high severity. The AI connection is more about volume than authorship, as Google overhauled its bounty program to handle AI-generated reports. The FFmpeg vulnerabilities have been assigned CVE identifiers, and the company published a proof-of-concept. The vulnerabilities in Chrome include an out-of-bounds read and write in the ANGLE graphics engine, allowing sandbox escape. The response to these findings emphasizes the need for shorter patch cycles and auto-updates.",
-    "enrichment": null,
-    "id": "2a80d7c27e5e2cb02b61d5244bfc2b30ad2c03d7b3cab325eb272975e9d6183e",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involves the exploitation stage of the MITRE ATT&CK framework, where vulnerabilities in the FFmpeg media library were discovered and could potentially be exploited. The use of an autonomous AI agent to identify these vulnerabilities represents a significant advancement in the reconnaissance and exploitation stages. The vulnerabilities, once identified, require immediate patching to prevent potential exploitation. The incident highlights the importance of maintaining updated software and implementing security patches promptly.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 71,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the identification of specific vulnerabilities (CVE identifiers) in the FFmpeg media library. These vulnerabilities represent a significant challenge for defenders, as they require immediate patching and updating of affected systems. The use of an autonomous AI agent to discover these vulnerabilities highlights the evolving nature of threat detection and the need for rapid response to identified threats. The incident underscores the importance of maintaining updated software and implementing security patches promptly.",
-    "relevance_score": 49,
-    "sequence": 20791,
-    "source": "https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html",
-    "slug": "FFmpeg_Vulnerabilities_Discovered_by_Autonomous_AI_Agent-020791",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": ["UAT-8616"],
-      "Description": "Unknown adversary exploiting Cisco Catalyst SD-WAN Manager vulnerability CVE-2026-20245.",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": ["Command Injection", "Privilege Escalation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2026-20245 to execute arbitrary commands as root.",
-        "Detection": "Monitor for unusual entries in /var/log/scripts.log indicating command injection attempts.",
-        "Remediation": "Upgrade SD-WAN software to apply fixes for related vulnerabilities. • Restrict netadmin privileges to trusted users only.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may abuse command and script interpreters to execute arbitrary commands.",
-            "technique_id": "T1059.001",
-            "technique_name": "Command and Scripting Interpreter: PowerShell"
-          }
-        ],
-        "Techniques": ["T1059.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2026-20245", "CVE-2026-20182", "CVE-2026-20127"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of CVE-2026-20245 allows command injection and privilege escalation.",
-      "Exploits": ["CVE-2026-20245", "CVE-2026-20182", "CVE-2026-20127"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor /var/log/scripts.log for command injection attempts."],
-    "Extracted_Entities": {
-      "Assets": ["edge devices"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": ["/var/log/scripts.log"],
-      "Companies": ["Cisco", "Google Mandiant"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2026-20245", "command injection", "privilege escalation"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Cisco Catalyst SD-WAN Manager"],
-      "Technologies": ["SD-WAN"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-20245", "CVE-2026-20182", "CVE-2026-20127"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Exploitation of Cisco Catalyst SD-WAN Manager systems.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Apply available patches for related vulnerabilities.",
-      "Review and restrict user privileges."
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Command Injection", "Privilege Escalation"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["UAT-8616"],
-    "Timestamp": "2026-06-05T18:30:00Z",
-    "Title": "Active Exploitation of Cisco Catalyst SD-WAN Manager Vulnerability CVE-2026-20245",
-    "Tools": ["Cisco Catalyst SD-WAN Manager"],
-    "Victim": {
-      "Access_Vectors": ["Local access with netadmin privileges"],
-      "Data_Types_At_Risk": [],
-      "Description": "Organizations using Cisco Catalyst SD-WAN Manager.",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Cisco Catalyst SD-WAN Manager"]
-    },
-    "diamond_model_summary": "The incident involves the exploitation of a high-severity vulnerability, CVE-2026-20245, in Cisco Catalyst SD-WAN Manager. The adversary, potentially linked to the UAT-8616 cluster, exploits this flaw to execute arbitrary commands as root. The capability involves command injection and privilege escalation, targeting organizations using the affected Cisco software. The infrastructure is centered around the compromised SD-WAN systems, with no specific C2 servers or domains identified. Victims are organizations with internet-exposed systems, facing high impact severity due to the lack of available patches.",
-    "doc_summary": "Cisco has issued a warning about a high-severity security flaw, CVE-2026-20245, affecting Catalyst SD-WAN Manager, which is actively being exploited. This vulnerability allows authenticated local attackers to execute arbitrary commands as root by supplying a crafted file due to insufficient validation of user-supplied input. Exploitation requires netadmin privileges, potentially obtained through CVE-2026-20182 or CVE-2026-20127, both authentication bypass vulnerabilities. The threat activity cluster UAT-8616 has been linked to the exploitation of these vulnerabilities. Google Mandiant researchers discovered CVE-2026-20245, and no patches are currently available. Cisco advises upgrading SD-WAN software to mitigate risks. The vulnerability has resulted in configuration changes on edge devices, and internet-exposed systems are at heightened risk. Indicators of compromise include specific log entries. This is the seventh actively exploited flaw in Cisco SD-WAN this year.",
-    "enrichment": null,
-    "id": "a2fd6173618d03e3e212f74934b2bb6f897bcc120e1075e93931781949618449",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with the exploitation of CVE-2026-20245, allowing adversaries to execute arbitrary commands as root on Cisco Catalyst SD-WAN Manager systems. This involves the Initial Access tactic, leveraging command and scripting interpreters for command injection. Detection focuses on monitoring specific log files for unusual entries, while remediation includes upgrading software and restricting user privileges. The lack of patches increases the exposure potential, particularly for internet-exposed systems. The attack does not progress to further stages like installation or command and control, as no significant activity is detected beyond exploitation.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 73,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on TTPs, as the exploitation of CVE-2026-20245 involves command injection and privilege escalation techniques. No specific hash values, IP addresses, or domain names are identified, limiting the ability to track the adversary through traditional indicators. The focus is on detecting behavioral patterns, such as unusual log entries, to identify exploitation attempts. The lack of specific network host artifacts or tools further emphasizes the reliance on TTPs for detection and response. This summary highlights the challenges in tracking and mitigating the threat due to the absence of concrete indicators.",
-    "relevance_score": 49,
-    "sequence": 20790,
-    "source": "https://thehackernews.com/2026/06/cisco-catalyst-sd-wan-manager-cve-2026.html",
-    "slug": "Active_Exploitation_of_Cisco_Catalyst_SD-WAN_Manager_Vulnerability_CVE-2-020790",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary exploited the polyfill.io domain to serve malicious scripts.",
-      "Known_Campaigns": [],
-      "Motivation": "Credential harvesting",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Harvest user credentials through unauthorized login prompts.",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Malicious scripts delivered via polyfill.io domain.",
-        "Detection": "Monitor for unexpected login prompts on websites. • Check for unauthorized script execution from third-party domains.",
-        "Remediation": "Remove polyfill.io scripts from affected websites. • Advise users to change passwords and avoid entering credentials on suspicious prompts.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Execution of malicious scripts on victim websites.",
-            "tactic_id": "TA0007",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scripts executed on client browsers to prompt for credentials.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The adversary used the polyfill.io domain to deliver malicious scripts.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Polyfill.io"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["User credentials"],
-      "Breach_Types": ["Credential Harvesting"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Toshiba", "Muji", "Zojirushi", "FiNC Technologies", "Ishiyaku Publishers"],
-      "Countries": ["Japan"],
-      "Domains": ["polyfill.io"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["credential harvesting", "malicious scripts", "login prompts"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology", "Retail"],
-      "Software": ["Polyfill"],
-      "Technologies": ["JavaScript CDN"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The infrastructure involved the polyfill.io domain serving malicious scripts.",
-      "Domains": ["polyfill.io"],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["polyfill.io"],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Moderate",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-05T17:54:00Z",
-    "Title": "Credential Harvesting via Malicious Polyfill Service",
-    "Tools": ["Polyfill.io", "Polyfill"],
-    "Victim": {
-      "Access_Vectors": ["Web"],
-      "Data_Types_At_Risk": ["Credentials"],
-      "Description": "Japanese companies including Toshiba and Muji were affected.",
-      "Geography": "Japan",
-      "Impact_Severity": "Medium",
-      "Industry": "Technology, Retail",
-      "Security_Posture": "Vulnerable due to third-party service dependency",
-      "Targeted_Assets": ["User credentials"]
-    },
-    "diamond_model_summary": "The incident involved the misuse of the polyfill.io domain to serve malicious scripts, affecting companies like Toshiba and Muji. The adversary's objective was to harvest credentials through unauthorized login prompts. The infrastructure included the polyfill.io domain, and the capability involved delivering malicious scripts. The victims were primarily Japanese companies in the technology and retail sectors.",
-    "doc_summary": "In 2026, a cybersecurity incident involved the misuse of the polyfill.io domain, which was taken over by a Chinese entity and used to serve malicious scripts. This affected websites of companies like Toshiba and Muji, causing unauthorized login prompts to appear. The incident did not confirm any credential theft but posed a significant risk. The polyfill.io service, originally a JavaScript CDN for legacy browsers, was exploited to generate rogue authentication requests. Companies advised users to change passwords and avoid entering credentials. The incident highlighted the risks of third-party service dependencies and the importance of domain ownership vigilance. Other affected entities included Zojirushi, FiNC Technologies, and Ishiyaku Publishers. The incident was resolved by suspending the service and advising users on security measures.",
-    "enrichment": null,
-    "id": "9a71da39598aa8195e4881ca2c4027c1",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involved the delivery stage of the MITRE ATT&CK kill chain, where malicious scripts were delivered via the polyfill.io domain. This led to unauthorized login prompts on affected websites. The exploitation, installation, command and control, and actions on objectives stages did not show significant activity. The incident highlighted the risks of third-party service dependencies and the importance of domain ownership vigilance.",
-    "operational_tags": [],
-    "priority_score": 45,
-    "pyramid_of_pain_summary": "The pyramid of pain for this incident includes the domain polyfill.io, which was used to deliver malicious scripts. No specific hash values, IP addresses, or tools were identified. The incident underscores the importance of monitoring third-party domains and scripts for unauthorized activity. The lack of specific indicators limits the ability to apply the pyramid of pain effectively.",
-    "relevance_score": 45,
-    "sequence": 20789,
-    "source": "https://www.bleepingcomputer.com/news/security/suspicious-polyfill-login-prompts-pop-up-on-toshiba-muji-websites/",
-    "slug": "Credential_Harvesting_via_Malicious_Polyfill_Service-020789",
     "shard": 1
   }
 ]
