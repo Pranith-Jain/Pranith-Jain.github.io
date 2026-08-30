@@ -1,19 +1,9 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-29T11:44:59.747Z",
-  "eventCount": 8,
+  "syncedAt": "2026-08-30T10:35:30.848Z",
+  "eventCount": 7,
   "events": [
-    {
-      "uuid": "842985af-c2f9-5a81-84d7-6a6c2ac8efd8",
-      "info": "Active Exploitation of GitLab CVE-2026-19478 and Microsoft Entra ID Flaw",
-      "date": "2026-08-22",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1787429976",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
     {
       "uuid": "ad642995-9cd6-5f76-9f46-fca13a4192fd",
       "info": "Critical Oracle WebLogic Flaw Under Active Exploitation",
@@ -74,16 +64,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "23abe7d1-4112-510a-a35b-1110bd3a9a85",
-      "info": "Iranian Hackers Disable UK Power Plant for Four Days",
-      "date": "2026-08-22",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787438807",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "b0d2a550-7287-53f7-b3d3-fff5948d3d9c",
       "info": "GRU Cyber Operations Targeting Ukraine and NATO Allies",
       "date": "2026-08-25",
@@ -91,6 +71,22 @@
       "threat_level_id": "2",
       "timestamp": "1787673036",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "d07b2a46-2db3-5216-847b-8829dfe8672e",
+      "info": "Chinese Hackers Leverage DeepSeek AI for Increased Cyberattacks",
+      "date": "2026-08-25",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1787637039",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "misp-galaxy:threat-actor=\"Mustang Panda\""
+      ],
       "orgc": "ThreatCluster"
     }
   ]

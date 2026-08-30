@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "black-x",
+  "name": "black x",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-30T09:05:22.000Z",
+  "lastSeen": "2026-08-30T09:05:57.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-30",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "fe-credit-4489",
+      "title": "FE CREDIT — claimed by black x",
+      "pubDate": "2026-08-30T09:05:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "i-one-4d87",
+      "title": "i-one — claimed by black x",
+      "pubDate": "2026-08-30T09:05:22.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "fe-credit-4489",
+      "victim": "FE CREDIT — claimed by black x",
+      "sector": "Financial Services",
+      "country": "VN",
+      "pubDate": "2026-08-30T09:05:57.000Z"
+    },
+    {
+      "id": "i-one-4d87",
+      "victim": "i-one — claimed by black x",
+      "sector": "Not Found",
+      "country": "KR",
+      "pubDate": "2026-08-30T09:05:22.000Z"
+    }
+  ]
+}

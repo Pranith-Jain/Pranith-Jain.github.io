@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "mustang-panda",
+  "name": "Mustang Panda",
+  "aliases": [],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-25T00:00:00.000Z",
+  "lastSeen": "2026-08-25T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-08-25",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "d07b2a46-2db3-5216-847b-8829dfe8672e",
+      "title": "Chinese Hackers Leverage DeepSeek AI for Increased Cyberattacks",
+      "pubDate": "2026-08-25T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

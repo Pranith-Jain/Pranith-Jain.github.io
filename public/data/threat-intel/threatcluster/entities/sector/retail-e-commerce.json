@@ -4,40 +4,70 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-28T06:52:38.000Z",
-  "lastSeen": "2026-08-29T01:51:27.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 1 ransomware group and 1 country.",
+  "mentionCount": 5,
+  "firstSeen": "2026-08-29T01:51:27.000Z",
+  "lastSeen": "2026-08-30T09:26:24.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 3 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-28",
-      "count": 1
+      "date": "2026-08-29",
+      "count": 3
     },
     {
-      "date": "2026-08-29",
-      "count": 1
+      "date": "2026-08-30",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "bayview-real-estate-0f47",
-      "title": "BayView Real Estate — claimed by ShadowByt3$",
-      "pubDate": "2026-08-29T01:51:27.000Z"
+      "slug": "rsk-immobilien-de-efd3",
+      "title": "rsk-immobilien.de — claimed by zawoo",
+      "pubDate": "2026-08-30T09:26:24.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "bayview-real-estate-warning-84ed",
-      "title": "Bayview Real Estate WARNING — claimed by ShadowByt3$",
-      "pubDate": "2026-08-28T06:52:38.000Z"
+      "slug": "hoerburger-c67a",
+      "title": "hoerburger — claimed by zawoo",
+      "pubDate": "2026-08-30T09:22:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-frame-group-18d4",
+      "title": "The Frame Group — claimed by qilin",
+      "pubDate": "2026-08-29T12:04:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "la-maison-des-travaux-df68",
+      "title": "La Maison Des Travaux — claimed by qilin",
+      "pubDate": "2026-08-29T12:04:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bayview-real-estate-0f47",
+      "title": "BayView Real Estate — claimed by shadowbyt3$",
+      "pubDate": "2026-08-29T01:51:27.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "shadowbyt3",
-      "name": "ShadowByt3$",
+      "slug": "zawoo",
+      "name": "zawoo",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "shadowbyt3",
+      "name": "shadowbyt3$",
+      "weight": 1
     }
   ],
   "mitreTechniques": []

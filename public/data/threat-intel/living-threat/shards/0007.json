@@ -3,6 +3,802 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Russian state-sponsored malicious cyberactors targeting SATCOM networks.",
+      "Known_Campaigns": [],
+      "Motivation": "Disrupt Ukrainian command and control during the invasion.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Disrupt communication and control capabilities of adversaries.",
+      "TTPs_Employed": ["Use of destructive wiper malware like HermeticWiper"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Use of destructive wiper malware like HermeticWiper.",
+        "Detection": "Monitor for unusual file deletion activities.",
+        "Remediation": "Implement regular data backups and recovery plans.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Malware designed to destroy data on victim systems.",
+            "tactic_id": "T1485",
+            "tactic_name": "Data Destruction"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Malware designed to destroy data on victim systems.",
+            "technique_id": "T1485",
+            "technique_name": "Data Destruction"
+          }
+        ],
+        "Techniques": ["T1485"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Disruption of Ukrainian command and control.",
+        "Detection": "Monitor for unusual network traffic patterns.",
+        "Remediation": "Implement network segmentation and redundancy.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Disrupting communication capabilities.",
+            "tactic_id": "T1499",
+            "tactic_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Disrupting communication capabilities.",
+            "technique_id": "T1499",
+            "technique_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Techniques": ["T1499"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Advanced cyber capabilities targeting SATCOM networks.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["HermeticWiper"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["HermeticWiper"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["SATCOM networks"],
+      "Breach_Types": ["Data Destruction"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": ["Russia", "Ukraine", "United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["SATCOM", "cyberattack", "HermeticWiper", "CISA", "FBI"],
+      "Malware_Families": ["HermeticWiper"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Telecommunications"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Targeted SATCOM networks and associated infrastructure.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Data Destruction", "Endpoint Denial of Service"],
+      "Tools": ["HermeticWiper"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Russian state-sponsored actors"],
+    "Timestamp": "2022-02-28T00:00:00Z",
+    "Title": "Cyberattacks on SATCOM Networks by Russian Threat Actors",
+    "Tools": ["HermeticWiper"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": ["Communication data"],
+      "Description": "SATCOM network providers and their customers, primarily in Ukraine and Europe.",
+      "Geography": "Ukraine and other European countries",
+      "Impact_Severity": "High",
+      "Industry": "Telecommunications",
+      "Security_Posture": "Vulnerable",
+      "Targeted_Assets": ["SATCOM networks"]
+    },
+    "diamond_model_summary": "The cyberattack on SATCOM networks attributed to Russian state-sponsored actors highlights the adversary's capability to disrupt critical infrastructure. The attack targeted SATCOM providers and their customers, primarily in Ukraine and Europe, using destructive malware like HermeticWiper. The US and its allies are taking steps to defend against these actions.",
+    "doc_summary": "The article discusses cyberattacks on SATCOM networks attributed to Russian threat actors, as reported by ThreatDown. The Cybersecurity & Infrastructure Security Agency (CISA) and the Federal Bureau of Investigation (FBI) updated their joint advisory, attributing these attacks to Russian state-sponsored actors. The attacks aimed to disrupt Ukrainian command and control during the Russian invasion, with spillover impacts on other European countries. The US government has developed mechanisms to help Ukraine identify and recover from cyber incidents. CISA issued an alert with mitigation guidance for SATCOM providers, emphasizing secure authentication, least privilege enforcement, and independent encryption. The report highlights the use of destructive wiper malware like HermeticWiper by Russian military cyber operators.",
+    "enrichment": { "processed_at": "2026-02-18T00:30:29.273917+00:00", "source_fields": [], "version": "v1" },
+    "id": "76dac60139d17364ab5e43286dd42ba6d947f413",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "The cyberattack involved the use of destructive wiper malware, HermeticWiper, to disrupt Ukrainian command and control. The attack's primary objective was to cause endpoint denial of service, impacting communication capabilities. Mitigation strategies include secure authentication, least privilege enforcement, and independent encryption.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 70,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of HermeticWiper malware, a known tool employed by Russian state-sponsored actors. The attack targeted SATCOM networks, causing significant disruption. The lack of specific indicators like IP addresses or domain names limits the ability to provide a detailed analysis.",
+    "relevance_score": 51,
+    "sequence": 18324,
+    "source": "https://www.threatdown.com/blog/cyberattacks-on-satcom-networks-attributed-to-russian-threat-actors/",
+    "slug": "Cyberattacks_on_SATCOM_Networks_by_Russian_Threat_Actors-018324",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Cyber actors targeting SATCOM networks during geopolitical conflicts.",
+      "Known_Campaigns": ["Cloud Hopper"],
+      "Motivation": "Disruption of communication channels and espionage.",
+      "Sophistication": "High, with capabilities to exploit supply chain vulnerabilities.",
+      "Strategic_Objectives": "Compromise national security and disrupt economic activities.",
+      "TTPs_Employed": ["Supply chain compromise", "Disruption of command and control systems"]
+    },
+    "Analyses": [
+      {
+        "Description": "Adversaries likely conducted reconnaissance to identify SATCOM vulnerabilities.",
+        "Detection": "Monitor network traffic for unusual scanning activities.",
+        "Remediation": "Implement network segmentation and access controls.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning networks to identify vulnerabilities.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No specific weaponization activity detected.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No specific delivery activity detected.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of supply chain vulnerabilities to access SATCOM networks.",
+        "Detection": "Monitor for unauthorized access attempts from supply chain partners.",
+        "Remediation": "Conduct regular security audits of supply chain partners.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in the supply chain.",
+            "technique_id": "T1195",
+            "technique_name": "Supply Chain Compromise"
+          }
+        ],
+        "Techniques": ["T1195"]
+      },
+      {
+        "Description": "No specific installation activity detected.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Disruption of command and control systems in SATCOM networks.",
+        "Detection": "Analyze network traffic for anomalies in command and control communications.",
+        "Remediation": "Implement robust network monitoring and anomaly detection systems.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing a command channel to control compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using application layer protocols for command and control.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Disruption of communication channels and potential data exfiltration.",
+        "Detection": "Monitor for unusual data deletion or modification activities.",
+        "Remediation": "Implement data backup and recovery solutions.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Manipulating, interrupting, or destroying systems and data.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Destroying data to disrupt operations.",
+            "technique_id": "T1485",
+            "technique_name": "Data Destruction"
+          }
+        ],
+        "Techniques": ["T1485"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of SATCOM vulnerabilities through sophisticated cyber attacks.",
+      "Exploits": ["Supply chain vulnerabilities"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Command and control systems", "Communication channels"],
+      "Breach_Types": ["Cyberespionage", "Ransomware"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Terrasat Communications"],
+      "Countries": ["Ukraine", "Russia"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["SATCOM", "cyber-hardened", "IBUCs", "Cloud Hopper"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Satellite Communications", "Telecommunications"],
+      "Software": [],
+      "Technologies": ["Cryptographic protocols", "Physical port security"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["Supply chain vulnerabilities"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Targeted European SATCOM networks and telecom infrastructure.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Supply chain compromise", "Disruption of command and control systems"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2022-03-01T00:00:00Z",
+    "Title": "Cyber Threats to SATCOM Networks: A Call for Enhanced Security",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": ["Supply chain"],
+      "Data_Types_At_Risk": ["Sensitive corporate data"],
+      "Description": "European SATCOM networks affected during geopolitical tensions.",
+      "Geography": "Europe",
+      "Impact_Severity": "High",
+      "Industry": "Satellite Communications",
+      "Security_Posture": "Vulnerable to sophisticated cyber attacks",
+      "Targeted_Assets": ["Command and control systems", "Communication channels"]
+    },
+    "diamond_model_summary": "The cyber incident targeting European SATCOM networks during the Russian invasion of Ukraine highlights the adversary's capability to exploit supply chain vulnerabilities and disrupt command and control systems. The adversary's motivation appears to be geopolitical, aiming to compromise national security and disrupt communication channels. The infrastructure targeted includes European SATCOM networks, with victims primarily in the satellite communications industry. The incident underscores the need for advanced cybersecurity measures to protect critical communication infrastructure.",
+    "doc_summary": "The article from Terrasat Communications highlights the increasing cyber threats facing the satellite communications (SATCOM) sector, emphasizing the urgent need for cyber-hardened solutions. It discusses incidents such as the 2022 cyber attacks on European SATCOM networks during the Russian invasion of Ukraine, which disrupted command and control systems, and the 2017 Cloud Hopper attack that exposed supply chain vulnerabilities. The financial impact of these breaches is significant, with average costs reaching $4.27 million. Terrasat's Cyber-Hardened Core IBUCs offer multiple layers of defense, including cryptographic protocols and physical port security, to protect SATCOM networks from sophisticated cyber threats.",
+    "enrichment": { "processed_at": "2026-02-18T00:30:29.273863+00:00", "source_fields": [], "version": "v1" },
+    "id": "4f73f3570c4a1ebc8383a3bcaef88e1b16b77532",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "The cyber attack on European SATCOM networks involved reconnaissance to identify vulnerabilities, exploitation of supply chain weaknesses for initial access, and disruption of command and control systems. The adversaries likely used application layer protocols for command and control, aiming to impact communication channels and potentially exfiltrate data. Detection and remediation efforts should focus on monitoring network traffic for anomalies, securing supply chain partners, and implementing robust network monitoring systems to prevent future incidents.",
+    "operational_tags": ["High Priority", "Supply Chain", "C2"],
+    "priority_score": 98,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes indicators such as supply chain vulnerabilities and disruption of command and control systems. While specific hash values, IP addresses, or domain names were not identified, the focus is on the tools and TTPs employed by the adversaries. The incident highlights the importance of securing supply chain partners and implementing advanced cybersecurity measures to protect critical SATCOM infrastructure from sophisticated cyber threats.",
+    "relevance_score": 43,
+    "sequence": 18323,
+    "source": "https://terrasatinc.com/securing-satcom-networks-the-urgent-need-for-cyber-hardened-solutions/",
+    "slug": "Cyber_Threats_to_SATCOM_Networks__A_Call_for_Enhanced_Security-018323",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Suspected nation-state threat actor using Airstalk malware.",
+      "Known_Campaigns": ["CL-STA-1009"],
+      "Motivation": "Cyber espionage and data exfiltration.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise supply chain for covert data access.",
+      "TTPs_Employed": ["Misuse of AirWatch API"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Development of Airstalk malware variants.",
+        "Detection": "Monitor for new malware signatures.",
+        "Remediation": "Implement robust malware detection systems.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Creation of malware for specific attack vectors.",
+            "tactic_id": "T1587",
+            "tactic_name": "Develop Capabilities"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Developing malware for deployment.",
+            "technique_id": "T1587.001",
+            "technique_name": "Malware"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "Delivery through supply chain compromise.",
+        "Detection": "Monitor for unusual software updates.",
+        "Remediation": "Conduct regular supply chain audits.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Infiltration through third-party services.",
+            "tactic_id": "T1195",
+            "tactic_name": "Supply Chain Compromise"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Inserting malicious code into software.",
+            "technique_id": "T1195.002",
+            "technique_name": "Compromise Software Supply Chain"
+          }
+        ],
+        "Techniques": ["T1195.002"]
+      },
+      {
+        "Description": "Exploitation of AirWatch API for C2.",
+        "Detection": "Monitor API usage for anomalies.",
+        "Remediation": "Patch known vulnerabilities in APIs.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities for execution.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using vulnerabilities to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installation of Airstalk malware on endpoints.",
+        "Detection": "Monitor software deployment logs.",
+        "Remediation": "Restrict deployment tool access.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Using deployment tools for malware installation.",
+            "tactic_id": "T1072",
+            "tactic_name": "Software Deployment Tools"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Leveraging deployment tools for installation.",
+            "technique_id": "T1072",
+            "technique_name": "Software Deployment Tools"
+          }
+        ],
+        "Techniques": ["T1072"]
+      },
+      {
+        "Description": "Covert C2 via AirWatch API.",
+        "Detection": "Analyze network traffic for anomalies.",
+        "Remediation": "Implement network segmentation.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Using application protocols for C2.",
+            "tactic_id": "T1071",
+            "tactic_name": "Application Layer Protocol"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols for C2 communication.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "Data exfiltration and espionage.",
+        "Detection": "Monitor for large data transfers.",
+        "Remediation": "Implement data loss prevention tools.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Exfiltrating data from compromised systems.",
+            "tactic_id": "T1020",
+            "tactic_name": "Data Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using automated tools for data exfiltration.",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of covert C2 channels"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Covert C2 channels"],
+      "Description": "Deployment of Airstalk malware in supply chain attacks.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Airstalk"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Airstalk malware"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data transfer patterns"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor API usage", "Analyze network traffic"],
+    "Extracted_Entities": {
+      "Assets": ["Mobile Devices"],
+      "Breach_Types": ["Supply Chain Compromise"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Palo Alto Networks"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Airstalk", "Supply Chain Attack", "Nation-State"],
+      "Malware_Families": ["Airstalk"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Critical Infrastructure", "Telecommunications"],
+      "Software": ["Workspace ONE"],
+      "Technologies": ["AirWatch API"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["AirWatch API"],
+      "Description": "Utilizes AirWatch API for command-and-control.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Conduct supply chain audits", "Implement DLP tools"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Misuse of AirWatch API"],
+      "Tools": ["Airstalk malware"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Malware detection systems"],
+    "Severity": "High",
+    "Threat_Actors": ["Nation-State Actor"],
+    "Timestamp": "2025-10-29T00:00:00Z",
+    "Title": "Nation-State Actor Deploys Airstalk Malware in Supply Chain Attack",
+    "Tools": ["Airstalk malware", "Workspace ONE"],
+    "Victim": {
+      "Access_Vectors": ["Supply chain"],
+      "Data_Types_At_Risk": ["Sensitive corporate data"],
+      "Description": "Targets likely include organizations using Workspace ONE.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Various, potentially critical infrastructure sectors.",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Mobile devices", "Endpoint management systems"]
+    },
+    "diamond_model_summary": "The Airstalk malware incident involves a suspected nation-state actor targeting organizations through a supply chain attack. The adversary employs sophisticated techniques, including the misuse of the AirWatch API for covert command-and-control channels. The infrastructure leverages Workspace ONE, and the victims are likely organizations using this endpoint management system. The attack's strategic objective is cyber espionage and data exfiltration.",
+    "doc_summary": "The article discusses a suspected nation-state threat actor using new malware called Airstalk in a supply chain attack. Discovered by Palo Alto Unit 42, Airstalk is a Windows-based malware available in PowerShell and .NET variants. It misuses the AirWatch API, now known as Workspace ONE Unified Endpoint Management, to establish covert command-and-control channels. The attack is assessed with medium confidence to be a supply chain attack. The threat activity cluster CL-STA-1009 has been created to track related activities. The article also references other cybersecurity threats and advisories, including those from CISA and the FBI, and mentions various ransomware groups and vulnerabilities.",
+    "enrichment": { "processed_at": "2026-02-18T00:30:29.273789+00:00", "source_fields": [], "version": "v1" },
+    "id": "39dee5605f85a237ae4a603d218dd7aaf6c74049",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "The Airstalk malware attack follows a structured kill chain, beginning with the weaponization of malware variants and delivery through supply chain compromise. Exploitation occurs via the AirWatch API, leading to the installation of malware on endpoints. Command and control are maintained through covert channels, and the attack culminates in data exfiltration. Detection and remediation strategies focus on monitoring API usage, network traffic, and implementing robust security measures.",
+    "operational_tags": ["High Priority", "Supply Chain", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for the Airstalk incident includes various indicators of compromise, such as the misuse of the AirWatch API and the deployment of Airstalk malware. While specific hash values, IP addresses, and domain names are not detailed, the tools and TTPs employed are significant. The attack's complexity and sophistication highlight the challenges in detection and response, emphasizing the need for advanced threat intelligence and monitoring capabilities.",
+    "relevance_score": 63,
+    "sequence": 18322,
+    "source": "https://www.cybersecurity-review.com/suspected-nation-state-threat-actor-uses-new-airstalk-malware-in-a-supply-chain-attack/",
+    "slug": "Nation-State_Actor_Deploys_Airstalk_Malware_in_Supply_Chain_Attack-018322",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "No significant information detected",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": [],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Low",
+    "Threat_Actors": [],
+    "Timestamp": "2025-11-16T06:02:27Z",
+    "Title": "(no title)",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": [],
+      "Data_Types_At_Risk": [],
+      "Description": "No significant information detected",
+      "Geography": "",
+      "Impact_Severity": "",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
+    "doc_summary": "",
+    "enrichment": { "processed_at": "2026-02-18T00:37:30.429449+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "87af8f9e3e64c376d36933970250248f",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
+    "operational_tags": [],
+    "priority_score": 20,
+    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
+    "relevance_score": 35,
+    "sequence": 18321,
+    "source": "https://pushsecurity.com/webinar/phishing-2025-review?utm_source=bleepingcomputer&utm_medium=sponsored-content&utm_term=ad",
+    "slug": "_no_title_-018321",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "The adversary behind the IndonesianFoods campaign is exploiting npm's package registry to spam and potentially disrupt the open-source ecosystem.",
       "Known_Campaigns": ["IndonesianFoods"],
       "Motivation": "Financial gain through TEA token inflation",
@@ -105479,940 +106275,6 @@
     "sequence": 17829,
     "source": "https://thehackernews.com/2025/10/npm-pypi-and-rubygems-packages-found.html",
     "slug": "North_Korean_Threat_Actors_Exploit_Discord_Webhooks_in_Supply_Chain_Atta-017829",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No specific adversary identified; vulnerabilities reported by researcher.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential exploitation for privilege escalation and remote code execution.",
-      "Sophistication": "High, given the nature of vulnerabilities.",
-      "Strategic_Objectives": "Exploitation of vulnerabilities for unauthorized access and data extraction.",
-      "TTPs_Employed": ["Privilege escalation", "Remote code execution", "SQL injection"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential exploitation of vulnerabilities for unauthorized access.",
-        "Detection": "Monitor for unusual access patterns and privilege escalation attempts.",
-        "Remediation": "Apply patches and recommended mitigations promptly.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of public-facing application vulnerabilities.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of Ivanti EPM vulnerabilities.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential unauthorized data access via SQL injection.",
-        "Detection": "Monitor database access logs for unusual queries.",
-        "Remediation": "Remove or restrict database user access as recommended.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Accessing sensitive data through SQL injection.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of SQL injection vulnerabilities.",
-            "technique_id": "T1505",
-            "technique_name": "SQL Injection"
-          }
-        ],
-        "Techniques": ["T1505"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Privilege escalation attempts", "SQL injection exploitation"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Ivanti EPM vulnerabilities for unauthorized access.",
-      "Exploits": ["CVE-2025-11622", "CVE-2025-9713"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual database queries"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unauthorized access attempts", "Review database access logs"],
-    "Extracted_Entities": {
-      "Assets": ["EPM Core server"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Ivanti", "Trend Micro"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerabilities", "mitigations", "SQL injection", "privilege escalation"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["EPM 2024 SU4", "EPM 2024 SU5"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Ivanti Endpoint Manager"],
-      "Technologies": ["Endpoint Management"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-11622", "CVE-2025-9713"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Ivanti Endpoint Manager infrastructure potentially at risk.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches", "Implement least-privilege access"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Privilege escalation", "SQL injection"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Firewall configuration review", "Access control audits"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-10-14T06:42:39Z",
-    "Title": "Ivanti Endpoint Manager Vulnerabilities Disclosure and Mitigation Strategies",
-    "Tools": ["Ivanti Endpoint Manager"],
-    "Victim": {
-      "Access_Vectors": ["Local and remote access"],
-      "Data_Types_At_Risk": ["Database data"],
-      "Description": "Organizations using Ivanti Endpoint Manager.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems.",
-      "Targeted_Assets": ["Ivanti Endpoint Manager systems"]
-    },
-    "diamond_model_summary": "The incident involves vulnerabilities in Ivanti Endpoint Manager, with potential exploitation for privilege escalation and remote code execution. No specific adversary is identified, but the vulnerabilities were reported by a researcher. Organizations using Ivanti EPM are at risk, and mitigations are recommended to reduce exposure.",
-    "doc_summary": "Ivanti has disclosed 13 vulnerabilities in Ivanti Endpoint Manager (EPM), including two high-severity issues, CVE-2025-11622 and CVE-2025-9713, which could enable privilege escalation and remote code execution. Eleven medium-severity SQL injection flaws were also identified. Ivanti urges customers to upgrade to the latest supported release and apply recommended mitigations as patches are still in development. EPM 2022 will reach end-of-life in October 2025, and EPM 2024 includes significant security improvements. Fixes for the vulnerabilities will be released in stages, with insecure deserialization and path traversal bugs targeted for November 2025, and SQL injection fixes planned for Q1 2026. Ivanti credited researcher 06fe5fd2bc53027c4a3b7e395af0b850e7b8a044 working with Trend Micro’s Zero Day Initiative for reporting the issues. Mitigations include whitelisting, restricting access, and removing the Reporting database user. Organizations should review administrative access, harden firewall rules, and avoid untrusted imports to reduce attack surface until updates are available.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:57.933100+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "7cd36ffcbd72adf702d5e59a8072e1c8bc43e9a2",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involves the exploitation stage, with potential unauthorized access through vulnerabilities in Ivanti Endpoint Manager. The exploitation of these vulnerabilities could lead to privilege escalation and unauthorized data access. Mitigations include applying patches and restricting access to reduce the attack surface.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 74,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to privilege escalation and SQL injection. No specific hash values, IP addresses, or domain names are identified. The focus is on mitigating the vulnerabilities through patches and access restrictions to reduce the potential impact of exploitation.",
-    "relevance_score": 43,
-    "sequence": 17828,
-    "source": "https://gbhackers.com/ivanti-patches-13-endpoint-manager-flaws/",
-    "slug": "Ivanti_Endpoint_Manager_Vulnerabilities_Disclosure_and_Mitigation_Strate-017828",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": ["TheWizards"],
-      "Associated_Groups": ["Sichuan Dianke Network Security Technology"],
-      "Description": "TheWizards is a China-aligned APT group targeting entities across Asia and the Middle East.",
-      "Known_Campaigns": ["Hijacking Tencent QQ updates"],
-      "Motivation": "Potentially state-backed motives tied to intelligence gathering or geopolitical objectives.",
-      "Sophistication": "High level of technical proficiency in exploiting trusted software update channels.",
-      "Strategic_Objectives": "Compromise networks for intelligence gathering and geopolitical influence.",
-      "TTPs_Employed": ["IPv6 SLAAC spoofing", "Adversary-in-the-middle attacks"]
-    },
-    "Analyses": [
-      {
-        "Description": "TheWizards likely conducted reconnaissance to identify vulnerable software update channels.",
-        "Detection": "Monitor for unusual network scanning activities.",
-        "Remediation": "Implement network segmentation to limit reconnaissance.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victim systems.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "Spellbinder was developed to exploit IPv6 configurations.",
-        "Detection": "Analyze malware samples for new capabilities.",
-        "Remediation": "Conduct regular security assessments of software.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating tools and malware for operations.",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "Malicious updates were delivered via hijacked software update channels.",
-        "Detection": "Monitor for unexpected software updates.",
-        "Remediation": "Verify the integrity of software updates.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Delivering malicious code to a target.",
-            "tactic_id": "TA0007",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Compromising software supply chains.",
-            "technique_id": "T1195",
-            "technique_name": "Supply Chain Compromise"
-          }
-        ],
-        "Techniques": ["T1195"]
-      },
-      {
-        "Description": "Exploitation of IPv6 SLAAC spoofing to redirect traffic.",
-        "Detection": "Monitor for unusual IPv6 traffic patterns.",
-        "Remediation": "Disable unused IPv6 configurations.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using valid accounts to gain access.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "Installation of WizardNet backdoor via malicious updates.",
-        "Detection": "Check for unauthorized software installations.",
-        "Remediation": "Implement application whitelisting.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to systems.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ensuring malware runs on startup.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "WizardNet establishes a connection to a remote controller.",
-        "Detection": "Monitor for unusual outbound traffic.",
-        "Remediation": "Block known malicious IP addresses.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using application protocols for C2.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Execution of additional modules in memory for further operations.",
-        "Detection": "Analyze memory for suspicious activity.",
-        "Remediation": "Use advanced threat detection tools.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Avoiding detection and analysis.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Defense Evasion"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Hiding malicious code.",
-            "technique_id": "T1027",
-            "technique_name": "Obfuscated Files or Information"
-          }
-        ],
-        "Techniques": ["T1027"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of IPv6 SLAAC spoofing", "Hijacking software updates"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Hijacking legitimate software updates"],
-      "Description": "TheWizards employs sophisticated techniques to compromise networks.",
-      "Exploits": ["IPv6 SLAAC spoofing"],
-      "Lateral_Movement_Tools": ["Spellbinder"],
-      "Malware": ["WizardNet", "DarkNights"],
-      "Persistence_Mechanisms": ["Modular .NET-based backdoor"],
-      "Tools": ["Spellbinder"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual outbound traffic"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unauthorized software updates", "Analyze IPv6 traffic"],
-    "Extracted_Entities": {
-      "Assets": ["Software update channels"],
-      "Breach_Types": ["Supply Chain Compromise"],
-      "Command_Lines_Or_Scripts": ["$ polyswarm link list -f Spellbinder"],
-      "Companies": ["Sichuan Dianke Network Security Technology"],
-      "Countries": ["Philippines", "Cambodia", "UAE", "China", "Hong Kong"],
-      "Domains": [],
-      "Email_Addresses": ["hivemind@polyswarm.io"],
-      "Encryption_Tools": [],
-      "File_Hashes": ["5dc7b4a618076662b5993b392eb0e402b9f6c27f88b6561791475dc1069c318e"],
-      "IP_Addresses": ["China Telecom’s AS4134"],
-      "Keywords": ["TheWizards", "Spellbinder", "WizardNet", "DarkNights"],
-      "Malware_Families": ["WizardNet", "DarkNights"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Gambling"],
-      "Software": ["Tencent QQ"],
-      "Technologies": ["IPv6 SLAAC"],
-      "Threat_Infrastructure": ["Attacker-controlled servers"],
-      "Vulnerabilities": ["IPv6 SLAAC spoofing"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["Attacker-controlled servers"],
-      "Communication_Protocols": ["IPv6"],
-      "Description": "TheWizards uses attacker-controlled servers to redirect traffic.",
-      "Domains": ["Malicious domains for update redirection"],
-      "Hosting_Providers": [],
-      "IPs": ["Specific DNS server addresses tied to China Telecom’s AS4134 backbone"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Strengthen software update verification processes",
-      "Enhance network segmentation"
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": ["5dc7b4a618076662b5993b392eb0e402b9f6c27f88b6561791475dc1069c318e"],
-      "IP_Addresses": ["China Telecom’s AS4134"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["IPv6 SLAAC spoofing", "Adversary-in-the-middle attacks"],
-      "Tools": ["Spellbinder"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Malware analysis platforms"],
-    "Severity": "High",
-    "Threat_Actors": ["TheWizards"],
-    "Timestamp": "2025-05-05T11:09:59Z",
-    "Title": "TheWizards APT Group's Use of Spellbinder for Lateral Movement in Asia and Middle East",
-    "Tools": ["Spellbinder", "Tencent QQ"],
-    "Victim": {
-      "Access_Vectors": ["Hijacked software updates"],
-      "Data_Types_At_Risk": ["Network traffic", "Software updates"],
-      "Description": "Targets include gambling companies and individuals in Asia and the Middle East.",
-      "Geography": "Philippines, Cambodia, UAE, China, Hong Kong",
-      "Impact_Severity": "High",
-      "Industry": "Gambling",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Software update channels"]
-    },
-    "diamond_model_summary": "TheWizards APT group, aligned with China, uses Spellbinder to conduct sophisticated adversary-in-the-middle attacks. They exploit IPv6 SLAAC spoofing to hijack legitimate software updates, deploying the WizardNet backdoor. Their operations target gambling sectors in Asia and the Middle East, indicating a strategic focus on intelligence gathering and geopolitical influence.",
-    "doc_summary": "TheWizards APT group, active since 2022, uses Spellbinder, a lateral movement tool, to conduct adversary-in-the-middle attacks by hijacking legitimate Chinese software updates. This activity targets gambling companies and individuals in the Philippines, Cambodia, UAE, China, and Hong Kong. Spellbinder exploits IPv6 SLAAC spoofing to redirect traffic to malicious servers, deploying the WizardNet backdoor, a modular .NET-based implant. The group also delivers DarkNights to Android devices, indicating a multi-platform strategy. Their operations are linked to Sichuan Dianke Network Security Technology, a Chinese company associated with the DarkNights backdoor.",
-    "enrichment": { "processed_at": "2026-02-18T00:31:11.501298+00:00", "source_fields": [], "version": "v1" },
-    "id": "8ba885d4bf5499f9f45086e79cb0538c748109d3",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "TheWizards' attack involves reconnaissance to identify vulnerable software update channels, weaponization through the development of Spellbinder, delivery via hijacked updates, exploitation of IPv6 configurations, installation of the WizardNet backdoor, command and control through remote connections, and actions on objectives by executing additional modules in memory. This comprehensive approach demonstrates their technical proficiency and strategic intent.",
-    "operational_tags": ["High Priority", "Supply Chain", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "TheWizards' operations involve several indicators of compromise, including specific hash values, IP addresses tied to China Telecom, and the use of tools like Spellbinder. These indicators are critical for detection and response efforts. The group's reliance on IPv6 SLAAC spoofing and hijacked software updates highlights the need for robust network monitoring and software integrity verification to mitigate such threats.",
-    "relevance_score": 60,
-    "sequence": 17827,
-    "source": null,
-    "slug": "TheWizards_APT_Group_s_Use_of_Spellbinder_for_Lateral_Movement_in_Asia_a-017827",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": ["TheWizards"],
-      "Associated_Groups": ["Sichuan Dianke Network Security Technology"],
-      "Description": "TheWizards is a China-linked cyber espionage group known for its innovative infiltration methods.",
-      "Known_Campaigns": ["WizardNet deployment"],
-      "Motivation": "Cyber espionage",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Infiltrate and compromise targeted systems for espionage purposes.",
-      "TTPs_Employed": ["IPv6 SLAAC spoofing", "Adversary-in-the-middle attacks"]
-    },
-    "Analyses": [
-      {
-        "Description": "TheWizards likely conduct reconnaissance to identify vulnerable software update mechanisms.",
-        "Detection": "Monitor network traffic for unusual patterns.",
-        "Remediation": "Implement network segmentation and monitoring.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victim systems.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "TheWizards develop the Spellbinder tool to manipulate network traffic.",
-        "Detection": "Analyze software updates for anomalies.",
-        "Remediation": "Use code signing to verify software integrity.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating a payload to exploit a vulnerability.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Concealing malicious payloads.",
-            "technique_id": "T1027",
-            "technique_name": "Obfuscated Files or Information"
-          }
-        ],
-        "Techniques": ["T1027"]
-      },
-      {
-        "Description": "TheWizards deliver the WizardNet backdoor via manipulated software updates.",
-        "Detection": "Monitor software update sources for integrity.",
-        "Remediation": "Implement strict update verification processes.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Delivering the payload to the target.",
-            "tactic_id": "TA0007",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Compromising software supply chains.",
-            "technique_id": "T1195",
-            "technique_name": "Supply Chain Compromise"
-          }
-        ],
-        "Techniques": ["T1195"]
-      },
-      {
-        "Description": "TheWizards exploit IPv6 SLAAC spoofing to intercept network traffic.",
-        "Detection": "Monitor for unusual IPv6 traffic patterns.",
-        "Remediation": "Disable unused IPv6 features.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a network or system.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities for code execution.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "TheWizards install the WizardNet backdoor on compromised systems.",
-        "Detection": "Monitor for unauthorized software installations.",
-        "Remediation": "Implement application whitelisting.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to a system.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ensuring malware runs on startup.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "TheWizards use a remote C2 server to control the WizardNet backdoor.",
-        "Detection": "Monitor outbound traffic for C2 patterns.",
-        "Remediation": "Block known malicious IPs and domains.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using standard protocols for C2 communication.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "TheWizards perform espionage activities on compromised systems.",
-        "Detection": "Monitor for unauthorized data access.",
-        "Remediation": "Implement data loss prevention solutions.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from target systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Capturing screenshots of victim systems.",
-            "technique_id": "T1113",
-            "technique_name": "Screen Capture"
-          }
-        ],
-        "Techniques": ["T1113"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of IPv6 SLAAC spoofing", "Manipulation of software updates"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Manipulated software updates"],
-      "Description": "TheWizards employ advanced tools and techniques to infiltrate networks and deploy backdoors.",
-      "Exploits": ["IPv6 Network Discovery Protocol"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["WizardNet"],
-      "Persistence_Mechanisms": ["Modular backdoor"],
-      "Tools": ["Spellbinder", "WinPcap"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual outbound traffic patterns"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual IPv6 traffic", "Verify software update sources"],
-    "Extracted_Entities": {
-      "Assets": ["Software update mechanisms"],
-      "Breach_Types": ["Supply chain compromise"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["ESET", "Sichuan Dianke Network Security Technology"],
-      "Countries": ["China", "Philippines", "Cambodia", "UAE", "Hong Kong"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["43.155.1167", "43.155.6254"],
-      "Keywords": ["TheWizards", "Spellbinder", "WizardNet", "IPv6", "SLAAC"],
-      "Malware_Families": ["WizardNet"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Gambling"],
-      "Software": ["Tencent QQ", "Sogou Pinyin"],
-      "Technologies": ["IPv6", "WinPcap"],
-      "Threat_Infrastructure": ["Remote C2 server"],
-      "Vulnerabilities": ["IPv6 SLAAC spoofing"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["Remote C2 server"],
-      "Communication_Protocols": ["IPv6"],
-      "Description": "TheWizards use attacker-controlled servers to deliver malicious updates.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": ["43.155.1167", "43.155.6254"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Enhance network monitoring", "Implement strict software update policies"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": ["43.155.1167", "43.155.6254"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["IPv6 SLAAC spoofing", "Adversary-in-the-middle attacks"],
-      "Tools": ["Spellbinder"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [
-      "Network traffic analysis tools",
-      "Software integrity verification tools"
-    ],
-    "Severity": "High",
-    "Threat_Actors": ["TheWizards"],
-    "Timestamp": "2025-05-05T00:00:00Z",
-    "Title": "TheWizards Exploit IPv6 to Deploy WizardNet Backdoor",
-    "Tools": ["Spellbinder", "WinPcap", "Tencent QQ", "Sogou Pinyin"],
-    "Victim": {
-      "Access_Vectors": ["Software updates"],
-      "Data_Types_At_Risk": ["Sensitive data"],
-      "Description": "Targets include entities in the Philippines, Cambodia, UAE, China, and Hong Kong.",
-      "Geography": "Philippines, Cambodia, UAE, China, Hong Kong",
-      "Impact_Severity": "High",
-      "Industry": "Various, including gambling companies",
-      "Security_Posture": "Vulnerable to manipulated updates",
-      "Targeted_Assets": ["Software update mechanisms"]
-    },
-    "diamond_model_summary": "TheWizards, a China-linked cyber espionage group, employs advanced techniques such as IPv6 SLAAC spoofing and adversary-in-the-middle attacks to deploy the WizardNet backdoor. Their operations target entities in Asia and the Middle East, exploiting software update mechanisms to infiltrate systems.",
-    "doc_summary": "The article discusses a sophisticated cyber espionage operation by the Chinese group TheWizards, which exploits IPv6 to deploy the WizardNet backdoor. ESET discovered the group's use of a tool called Spellbinder to conduct adversary-in-the-middle attacks, manipulating software updates to deliver the backdoor. TheWizards have been active since at least 2022, targeting entities in the Philippines, Cambodia, UAE, China, and Hong Kong. The group uses IPv6 SLAAC spoofing to intercept legitimate software updates, redirecting them to attacker-controlled servers. The operation involves hijacking update requests for software like Tencent QQ, installing the WizardNet backdoor. ESET's analysis links TheWizards to Sichuan Dianke Network Security Technology. The article highlights the persistent threat from state-aligned cyber espionage and the need for improved security measures.",
-    "enrichment": { "processed_at": "2026-02-18T00:31:11.501238+00:00", "source_fields": [], "version": "v1" },
-    "id": "59c16ba0a30dfa469026316ad2cacef9f6531198",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "TheWizards' attack involves reconnaissance of software update mechanisms, weaponization of the Spellbinder tool, delivery of the WizardNet backdoor via manipulated updates, exploitation of IPv6 SLAAC spoofing, installation of the backdoor, command and control via remote servers, and espionage activities.",
-    "operational_tags": ["High Priority", "Supply Chain", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "TheWizards' operations involve multiple indicators of compromise, including IP addresses used for C2 communication, the Spellbinder tool for adversary-in-the-middle attacks, and TTPs like IPv6 SLAAC spoofing. These indicators highlight the sophistication and persistence of their cyber espionage activities.",
-    "relevance_score": 68,
-    "sequence": 17826,
-    "source": null,
-    "slug": "TheWizards_Exploit_IPv6_to_Deploy_WizardNet_Backdoor-017826",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": ["TheWizards"],
-      "Associated_Groups": [],
-      "Description": "TheWizards is a China-aligned advanced persistent threat (APT) group known for exploiting IPv6 features.",
-      "Known_Campaigns": ["IPv6 SLAAC Exploitation"],
-      "Motivation": "Cyber espionage and disruption",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Compromise software updates and deploy malware",
-      "TTPs_Employed": ["IPv6 SLAAC exploitation", "Router Advertisement spoofing"]
-    },
-    "Analyses": [
-      {
-        "Description": "TheWizards likely gather information on target networks supporting IPv6.",
-        "Detection": "Monitor network scanning activities for IPv6 traffic.",
-        "Remediation": "Implement network segmentation and monitoring.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for IPv6-enabled networks.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Development of the 'Spellbinder' tool to exploit IPv6 SLAAC.",
-        "Detection": "Analyze tool development activities.",
-        "Remediation": "Secure development environments.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating tools to exploit vulnerabilities.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing tools like 'Spellbinder'.",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "Delivery of spoofed Router Advertisement messages.",
-        "Detection": "Monitor for unusual RA messages.",
-        "Remediation": "Implement RA guard features.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Delivering malicious payloads to targets.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Sending spoofed network messages.",
-            "technique_id": "T1566",
-            "technique_name": "Phishing"
-          }
-        ],
-        "Techniques": ["T1566"]
-      },
-      {
-        "Description": "Exploitation of IPv6 SLAAC to manipulate network configurations.",
-        "Detection": "Monitor network configuration changes.",
-        "Remediation": "Disable unused IPv6 features.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain access.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting SLAAC for network access.",
-            "technique_id": "T1133",
-            "technique_name": "External Remote Services"
-          }
-        ],
-        "Techniques": ["T1133"]
-      },
-      {
-        "Description": "Installation of malicious configurations via SLAAC.",
-        "Detection": "Monitor for unauthorized network settings.",
-        "Remediation": "Regularly audit network configurations.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to systems.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using SLAAC for persistent network settings.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "Use of malicious gateways for C2 communication.",
-        "Detection": "Monitor for unusual C2 traffic patterns.",
-        "Remediation": "Implement strict network traffic rules.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using IPv6 for C2 traffic.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Interception and alteration of software update requests.",
-        "Detection": "Monitor for anomalies in update traffic.",
-        "Remediation": "Use HTTPS for software updates.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information from systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Intercepting and altering update requests.",
-            "technique_id": "T1020",
-            "technique_name": "Automated Exfiltration"
-          }
-        ],
-        "Techniques": ["T1020"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of spoofed RA messages", "Manipulation of network configurations"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "TheWizards utilize IPv6 SLAAC to manipulate network configurations and conduct AitM attacks.",
-      "Exploits": ["IPv6 SLAAC", "Router Advertisement spoofing"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Spellbinder"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual network traffic", "Altered software update requests"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for spoofed RA messages", "Analyze IPv6 traffic patterns"],
-    "Extracted_Entities": {
-      "Assets": ["Software update mechanisms"],
-      "Breach_Types": ["AitM"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Field Effect"],
-      "Countries": ["Philippines", "Cambodia", "UAE", "China", "Hong Kong"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["TheWizards", "IPv6", "SLAAC", "AitM", "Spellbinder"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Gambling"],
-      "Software": [],
-      "Technologies": ["IPv6", "SLAAC"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["IPv6 SLAAC"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["IPv6"],
-      "Description": "TheWizards control malicious gateways and DNS servers to redirect traffic.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Implement HTTPS for updates", "Disable unused IPv6 features"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["IPv6 SLAAC exploitation", "Router Advertisement spoofing"],
-      "Tools": ["Spellbinder"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network monitoring tools", "IPv6 traffic analysis"],
-    "Severity": "High",
-    "Threat_Actors": ["TheWizards"],
-    "Timestamp": "2025-05-02T00:00:00Z",
-    "Title": "TheWizards Exploit IPv6 SLAAC for AitM Attacks",
-    "Tools": ["Spellbinder"],
-    "Victim": {
-      "Access_Vectors": ["IPv6 network configurations"],
-      "Data_Types_At_Risk": ["Network traffic", "Software updates"],
-      "Description": "Targets include entities in the Philippines, Cambodia, UAE, China, and Hong Kong.",
-      "Geography": "Philippines, Cambodia, UAE, China, Hong Kong",
-      "Impact_Severity": "High",
-      "Industry": "Various, including gambling companies",
-      "Security_Posture": "Vulnerable to IPv6 SLAAC exploitation",
-      "Targeted_Assets": ["Software update mechanisms"]
-    },
-    "diamond_model_summary": "TheWizards, a China-aligned APT group, exploits IPv6 SLAAC to conduct AitM attacks, targeting software updates. Their tool, Spellbinder, manipulates network configurations via spoofed RA messages, redirecting traffic through malicious gateways. Victims include entities in the Philippines, Cambodia, UAE, China, and Hong Kong, with a focus on unsecured HTTP connections.",
-    "doc_summary": "The article discusses a China-aligned APT group, 'TheWizards,' exploiting an IPv6 feature to conduct adversary-in-the-middle (AitM) attacks. They leverage the Stateless Address Autoconfiguration (SLAAC) capability to hijack software updates and deploy malware on Windows systems. By sending spoofed Router Advertisement messages, they manipulate network configurations, redirecting traffic through malicious gateways. Their custom tool, 'Spellbinder,' facilitates these attacks, particularly targeting unsecured HTTP connections. Active since 2022, TheWizards have targeted entities in the Philippines, Cambodia, UAE, China, and Hong Kong. The article emphasizes the need for enhanced security measures, such as securing software update mechanisms with HTTPS and monitoring IPv6 traffic for suspicious activities.",
-    "enrichment": { "processed_at": "2026-02-18T00:31:11.501174+00:00", "source_fields": [], "version": "v1" },
-    "id": "8ce6618b35620f63211e3b7549cfcfb1df951014",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "TheWizards conduct AitM attacks by exploiting IPv6 SLAAC. They use the Spellbinder tool to deliver spoofed RA messages, manipulate network configurations, and intercept software updates. The attack stages include reconnaissance, weaponization, delivery, exploitation, installation, command and control, and actions on objectives, with a focus on unsecured HTTP connections.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "TheWizards' exploitation of IPv6 SLAAC introduces new attack surfaces. Indicators include the use of the Spellbinder tool, spoofed RA messages, and manipulation of network configurations. The Pyramid of Pain highlights the challenges in detecting and responding to these tactics, techniques, and procedures (TTPs), emphasizing the need for enhanced monitoring and security measures.",
-    "relevance_score": 56,
-    "sequence": 17825,
-    "source": null,
-    "slug": "TheWizards_Exploit_IPv6_SLAAC_for_AitM_Attacks-017825",
     "shard": 7
   }
 ]

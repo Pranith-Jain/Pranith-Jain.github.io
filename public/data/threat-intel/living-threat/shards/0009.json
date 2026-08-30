@@ -3,6 +3,808 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Attackers exploiting vulnerabilities in Prometheus servers and exporters.",
+      "Known_Campaigns": [],
+      "Motivation": "Unauthorized access, data breaches, and system control.",
+      "Sophistication": "Moderate, leveraging known vulnerabilities and misconfigurations.",
+      "Strategic_Objectives": "Compromise systems, extract sensitive data, and disrupt services.",
+      "TTPs_Employed": ["RepoJacking", "Denial of Service", "Information Disclosure"]
+    },
+    "Analyses": [
+      {
+        "Description": "Attackers use Shodan to identify exposed Prometheus servers.",
+        "Detection": "Monitor for unusual scanning activity on network ports.",
+        "Remediation": "Limit exposure of Prometheus servers to the internet.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerabilities.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using tools like Shodan to find exposed systems.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Exploiting RepoJacking to introduce malicious exporters.",
+        "Detection": "Monitor for changes in GitHub repositories linked to Prometheus.",
+        "Remediation": "Verify the integrity of open-source links and repositories.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to systems through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in Prometheus exporters.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploiting unauthenticated access to extract sensitive data.",
+        "Detection": "Monitor for unauthorized access attempts to Prometheus endpoints.",
+        "Remediation": "Implement strong authentication and access controls.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Obtaining credentials through exposed endpoints.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing credentials from exposed Prometheus endpoints.",
+            "technique_id": "T1552",
+            "technique_name": "Unsecured Credentials"
+          }
+        ],
+        "Techniques": ["T1552"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Launching DoS attacks to disrupt services.",
+        "Detection": "Monitor for unusual traffic patterns targeting Prometheus endpoints.",
+        "Remediation": "Implement rate limiting and resource allocation controls.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Disrupting services through DoS attacks.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Overloading Prometheus endpoints to cause outages.",
+            "technique_id": "T1499",
+            "technique_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Techniques": ["T1499"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Scanning for exposed Prometheus servers using Shodan."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of Prometheus vulnerabilities for unauthorized access and DoS attacks.",
+      "Exploits": ["RepoJacking", "DoS via /debug/pprof"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Shodan", "GitHub"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data access patterns on Prometheus endpoints."],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unauthorized access and unusual traffic patterns."],
+    "Extracted_Entities": {
+      "Assets": ["Prometheus servers", "Node Exporters"],
+      "Breach_Types": ["Data Breach", "Service Outage"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["AquaSec"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Prometheus", "RepoJacking", "DoS", "GitHub", "Shodan"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Prometheus", "Node Exporter"],
+      "Technologies": ["HTTP", "Kubernetes"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["RepoJacking", "DoS via /debug/pprof"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["HTTP"],
+      "Description": "Internet-exposed Prometheus servers and GitHub repositories.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Implement strong authentication and limit server exposure."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["Exposed Prometheus endpoints"],
+      "TTPs": ["RepoJacking", "Denial of Service"],
+      "Tools": ["Shodan"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Shodan", "GitHub monitoring tools"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2024-12-14T13:30:16Z",
+    "Title": "Vulnerabilities in Prometheus Expose Critical Security Risks",
+    "Tools": ["Shodan", "GitHub", "Prometheus", "Node Exporter"],
+    "Victim": {
+      "Access_Vectors": ["Internet-exposed endpoints"],
+      "Data_Types_At_Risk": ["Credentials", "API keys", "Internal data"],
+      "Description": "Organizations using Prometheus for monitoring and metrics.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to misconfigurations and lack of authentication.",
+      "Targeted_Assets": ["Prometheus servers", "Node Exporters"]
+    },
+    "diamond_model_summary": "The incident involves attackers exploiting vulnerabilities in Prometheus servers, particularly through RepoJacking and DoS attacks. The adversaries leverage internet-exposed infrastructure to gain unauthorized access and disrupt services. Victims are primarily in the technology sector, using Prometheus for monitoring.",
+    "doc_summary": "The research highlights significant vulnerabilities in Prometheus, including information disclosure, DoS risks, and potential code execution threats. Over 336,000 internet-exposed Prometheus servers are at risk, with critical vulnerabilities like RepoJacking allowing malicious exporters in GitHub repositories. Unauthenticated access can expose sensitive data, including credentials and API keys, compromising organizational security. Misconfigured servers expose sensitive information through the /debug/pprof endpoint, vulnerable to DoS attacks. Mitigations include strong authentication, limiting exposure, securing endpoints, and verifying open-source links to prevent supply chain attacks.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191140+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "4ba7e2befe9720d5feea2abdc791de2dd28a1660",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with reconnaissance using Shodan to identify exposed Prometheus servers. Weaponization involves exploiting RepoJacking to introduce malicious exporters. Exploitation occurs through unauthenticated access to extract sensitive data. The attack culminates in DoS attacks, disrupting services and compromising security.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs like RepoJacking and DoS attacks, tools such as Shodan, and network host artifacts like exposed Prometheus endpoints. These indicators highlight the adversaries' methods and the challenges in detecting and mitigating such attacks, emphasizing the need for robust security measures.",
+    "relevance_score": 59,
+    "sequence": 17325,
+    "source": "https://gbhackers.com/prometheus-dos-risk/",
+    "slug": "Vulnerabilities_in_Prometheus_Expose_Critical_Security_Risks-017325",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Low-privileged malicious actor with local access",
+      "Known_Campaigns": [],
+      "Motivation": "Gain elevated privileges and execute arbitrary code",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Compromise confidentiality, integrity, and availability",
+      "TTPs_Employed": ["Improper access control exploitation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of improper access control vulnerability",
+        "Detection": "Monitor for unusual privilege escalation activities",
+        "Remediation": "Update to Dell Power Manager version 3.17 or later",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for arbitrary code execution and privilege escalation",
+        "Detection": "Monitor for unusual account activities",
+        "Remediation": "Implement strict access controls and monitoring",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to avoid being detected.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of valid accounts to maintain access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of improper access control vulnerability",
+      "Exploits": ["CVE-2024-49600"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Dell Power Manager software"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Dell Technologies"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2024-49600", "DSA-2024-439"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Version 3.17"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Dell Power Manager"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2024-49600"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Local access required for exploitation",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Update to the latest software version", "Implement strict access controls"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of improper access control"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2024-12-10T10:43:08Z",
+    "Title": "Critical Vulnerability in Dell Power Manager Software (CVE-2024-49600)",
+    "Tools": ["Dell Power Manager"],
+    "Victim": {
+      "Access_Vectors": ["Local access"],
+      "Data_Types_At_Risk": ["Confidentiality", "Integrity", "Availability"],
+      "Description": "Users of Dell Power Manager software versions before 3.17",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable",
+      "Targeted_Assets": ["Dell Power Manager software"]
+    },
+    "diamond_model_summary": "The incident involves a low-privileged malicious actor exploiting a critical vulnerability (CVE-2024-49600) in Dell Power Manager software. The adversary's capability is centered around exploiting improper access control to execute arbitrary code and escalate privileges. The infrastructure requires local access, and the victims are users of Dell Power Manager versions before 3.17. The impact severity is high, affecting the confidentiality, integrity, and availability of the systems.",
+    "doc_summary": "Dell Technologies has issued a security advisory, DSA-2024-439, to alert users of a critical vulnerability in its Dell Power Manager software. The vulnerability, identified as CVE-2024-49600, could allow malicious attackers to execute arbitrary code and gain elevated privileges on affected systems. Users are urged to update immediately to mitigate potential risks. The vulnerability has been rated as High Impact, with a CVSS Base Score of 7.8. It stems from improper access control within the software, enabling a low-privileged malicious actor with local access to exploit the system. If exploited, it could lead to significant consequences, including code execution and escalation of privileges. Dell strongly recommends all users update to version 3.17 or later to mitigate this serious vulnerability. Dell advises users to evaluate both the base CVSS score and related temporal or environmental conditions that may increase the severity of this vulnerability. Dell Technologies extends its gratitude to TsungShu Chiu (CHT Security) for identifying and responsibly reporting CVE-2024-49600.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191116+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "75d237089384f6e3006923872fd510cf23b06832",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the exploitation stage is critical, with the adversary leveraging improper access control to gain initial access and execute arbitrary code. The potential for privilege escalation poses a significant risk. Detection focuses on monitoring unusual privilege escalation and account activities, while remediation involves updating to the latest software version and implementing strict access controls. The absence of significant activity in other stages suggests a focused exploitation strategy.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 70,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis indicates a focus on TTPs, specifically the exploitation of improper access control (CVE-2024-49600). No specific hash values, IP addresses, or domain names were identified, highlighting the challenge in detecting and responding to this type of threat. The emphasis is on understanding and mitigating the TTPs employed by the adversary, with a focus on updating vulnerable software and enhancing access controls to prevent exploitation.",
+    "relevance_score": 43,
+    "sequence": 17324,
+    "source": "https://gbhackers.com/dell-warns-critical-code-execution-vulnerability/",
+    "slug": "Critical_Vulnerability_in_Dell_Power_Manager_Software__CVE-2024-49600_-017324",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential adversaries targeting GRUB2 vulnerabilities to bypass secure boot and execute remote code.",
+      "Known_Campaigns": [],
+      "Motivation": "Compromise device integrity and execute unauthorized code.",
+      "Sophistication": "High, due to targeting low-level bootloader components.",
+      "Strategic_Objectives": "Gain control over devices before OS protections activate.",
+      "TTPs_Employed": ["Exploitation of bootloader vulnerabilities", "Remote code execution"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Crafting of malicious symlinks and oversized configuration paths.",
+        "Detection": "Monitor for unusual symlink and configuration path activities.",
+        "Remediation": "Apply patches to GRUB2 and related components.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in GRUB2 to execute code.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in GRUB2 to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of GRUB2 vulnerabilities to bypass secure boot.",
+        "Detection": "Monitor for unusual bootloader activities and integrity checks.",
+        "Remediation": "Ensure all systems are updated with the latest patches.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting GRUB2 vulnerabilities to gain elevated privileges.",
+            "tactic_id": "T1068",
+            "tactic_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting GRUB2 vulnerabilities to gain elevated privileges.",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Execution of rogue payloads with bootloader privileges.",
+        "Detection": "Monitor for unauthorized payloads in the boot environment.",
+        "Remediation": "Implement strict bootloader integrity checks and updates.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Transferring tools or payloads into the boot environment.",
+            "tactic_id": "T1105",
+            "tactic_name": "Ingress Tool Transfer"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Transferring tools or payloads into the boot environment.",
+            "technique_id": "T1105",
+            "technique_name": "Ingress Tool Transfer"
+          }
+        ],
+        "Techniques": ["T1105"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Bypassing traditional file integrity checks"],
+      "Description": "Exploitation of GRUB2 vulnerabilities to bypass secure boot and execute arbitrary code.",
+      "Exploits": ["CVE-2025-0677", "CVE-2024-45782", "CVE-2025-0624"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": ["Modification of boot measurements"],
+      "Tools": ["Fuzz testing frameworks"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual bootloader activities and integrity checks."],
+    "Extracted_Entities": {
+      "Assets": ["Bootloader", "UEFI Secure Boot"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Red Hat", "SUSE", "Oracle Linux"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["GRUB2", "vulnerabilities", "secure boot", "remote code execution"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["February 18, 2025"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["GRUB2", "Linux"],
+      "Technologies": ["UEFI Secure Boot"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-0677", "CVE-2024-45782", "CVE-2025-0624"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Network stack manipulation"],
+      "Description": "Exploitation of network boot configurations and filesystem drivers.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply patches to GRUB2 and related components."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["Network stack manipulation"],
+      "TTPs": ["Exploitation of bootloader vulnerabilities", "Remote code execution"],
+      "Tools": ["Fuzz testing frameworks"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["mokutil for SBAT status verification"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-26T10:34:36Z",
+    "Title": "Critical Vulnerabilities in GRUB2 Expose Millions to Secure Boot Bypass",
+    "Tools": ["Fuzz testing frameworks", "GRUB2", "Linux"],
+    "Victim": {
+      "Access_Vectors": ["Network", "Filesystem"],
+      "Data_Types_At_Risk": ["Cryptographic secrets"],
+      "Description": "Linux systems using GRUB2 bootloader, including major distributions.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to unpatched systems",
+      "Targeted_Assets": ["Bootloader", "UEFI Secure Boot"]
+    },
+    "diamond_model_summary": "The GRUB2 vulnerabilities highlight a sophisticated adversary targeting low-level bootloader components to bypass secure boot and execute unauthorized code. The adversary's capability includes exploiting filesystem parsing and network configuration flaws, with a focus on compromising device integrity before OS protections activate. The infrastructure involves network boot configurations and filesystem drivers, while the victims are Linux systems using GRUB2 bootloader, particularly in the technology sector. The incident underscores the importance of cross-industry collaboration in firmware security.",
+    "doc_summary": "A critical set of 20 security vulnerabilities in GRUB2, the widely used bootloader for Linux systems, has been revealed, exposing millions of devices to potential secure boot bypass and remote code execution attacks. Discovered during a proactive hardening initiative, these flaws—assigned CVSS scores as high as 7.5—affect core components handling filesystem parsing, memory management, and network configurations. Patches released on February 18, 2025, aim to address risks ranging from heap overflows during JPEG processing to memory corruption in UEFI Secure Boot environments. The GRUB2 bootloader’s role in initializing operating systems makes it a high-value target for attackers seeking to compromise device integrity before OS protections activate. Researchers identified multiple attack vectors across filesystem drivers, including integer overflow-to-heap corruption chains in UFS, HFS+, and ReiserFS implementations. For instance, CVE-2025-0677 allows crafted symlinks in UFS partitions to trigger buffer overflows during inode processing, while CVE-2024-45782 exploits unvalidated volume name lengths in HFS mounts to overwrite heap metadata. Network boot configurations face critical risks through CVE-2025-0624, where malicious DHCP servers could inject oversized configuration paths into GRUB2’s network stack, enabling arbitrary code execution within the pre-boot environment. “This vulnerability effectively bridges network-based attackers into the secure enclave of the boot process,” noted Red Hat security engineer Marco A Benatto in the patch notes. Seven vulnerabilities stem from insufficient bounds checking in filesystem drivers. The Squash4 (CVE-2025-0678) and JFS (CVE-2025-0685) modules exhibit similar flaws where attacker-controlled size values cause undersized buffer allocations, leading to out-of-bounds writes during file reads. Similarly, the ROMFS driver (CVE-2025-0686) allows integer overflow during symlink resolution, corrupting adjacent heap structures. Oracle’s Jan Setje-Eilers emphasized that “these vulnerabilities bypass traditional file integrity checks by exploiting legitimate filesystem operations”. Even GRUB2’s handling of common formats like JPEG images poses risks. CVE-2024-45774 enables specially crafted JPEG files—potentially embedded in boot themes or EFI system partitions—to overwrite critical memory regions through duplicate SOF0 markers. This could enable persistence across reboots or modification of verified boot measurements. The most severe vulnerabilities, including CVE-2025-0622’s use-after-free in GPG module unloading, directly threaten UEFI Secure Boot’s integrity. By hijacking hook functions after module ejection, attackers could execute rogue payloads with bootloader privileges. Meanwhile, CVE-2025-1118’s unsecured memory dump capability risks exposing cryptographic secrets when Secure Boot is active. Mitigation requires coordinated updates to GRUB2, shim, and SBAT metadata, as traditional UEFI revocation lists (dbx) won’t be used. “Vendors must rebuild boot artifacts with SBAT generation 5 or higher to enforce component-level revocation,” explained Daniel Kiper, GRUB2 maintainer. Major distros including Red Hat, SUSE, and Oracle Linux began rolling out patched packages starting February 25, 2025. Despite patches, residual risks persist for legacy systems and embedded devices with infrequent update cycles. Jonathan Bar Or, who reported six vulnerabilities, warned: “GRUB2’s deep integration with hardware trust chains means a single unpatched system could undermine network-wide secure boot assurances.” The discovery team, including Nils Langius and B Horn, credited improved fuzz testing frameworks for uncovering these flaws but cautioned that “manual code review remains essential given GRUB2’s complexity”. As attackers increasingly target low-level components, this coordinated disclosure highlights the critical role of cross-industry collaboration in firmware security. System administrators are urged to prioritize bootloader updates and verify SBAT status using tools like mokutil, while developers must adopt modern memory-safe paradigms in legacy codebases. The GRUB2 vulnerabilities serve as a stark reminder that in secure computing, the chain is only as strong as its first link.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191093+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "77371c741fe9609608f2f6400fd325efe592050e",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The GRUB2 vulnerabilities follow a kill chain involving weaponization through crafting malicious symlinks and oversized configuration paths, exploitation of bootloader vulnerabilities to bypass secure boot, and actions on objectives by executing rogue payloads with bootloader privileges. Detection involves monitoring for unusual bootloader activities and integrity checks, while remediation requires applying patches to GRUB2 and related components. The incident highlights the critical need for coordinated updates and strict bootloader integrity checks to mitigate risks.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 97,
+    "pyramid_of_pain_summary": "The GRUB2 vulnerabilities present a significant challenge in the pyramid of pain, with TTPs such as exploitation of bootloader vulnerabilities and remote code execution posing the highest difficulty for defenders. The incident involves network host artifacts like network stack manipulation and tools such as fuzz testing frameworks. The lack of specific hash values, IP addresses, and domain names in the incident limits the ability to apply traditional detection methods, emphasizing the need for proactive security measures and cross-industry collaboration in firmware security.",
+    "relevance_score": 53,
+    "sequence": 17323,
+    "source": "https://gbhackers.com/grub2-flaws-expose-millions-of-linux-devices/",
+    "slug": "Critical_Vulnerabilities_in_GRUB2_Expose_Millions_to_Secure_Boot_Bypass-017323",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary in this context is a security researcher participating in the Red Bull bug bounty program.",
+      "Known_Campaigns": [],
+      "Motivation": "To identify and responsibly disclose vulnerabilities for rewards and recognition.",
+      "Sophistication": "High, due to the use of advanced tools and automation.",
+      "Strategic_Objectives": "To improve security posture by identifying and reporting vulnerabilities.",
+      "TTPs_Employed": ["Automation", "Domain Monitoring", "S3 Bucket Enumeration"]
+    },
+    "Analyses": [
+      {
+        "Description": "The researcher monitored domain changes in the bug bounty scope.",
+        "Detection": "Monitor domain changes and access logs.",
+        "Remediation": "Regularly update and review bug bounty scopes.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerabilities.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for vulnerabilities in domains.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The researcher exploited the misconfigured S3 bucket.",
+        "Detection": "Monitor S3 bucket access and permission changes.",
+        "Remediation": "Ensure proper configuration and access controls on S3 buckets.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a system or resource.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting a misconfigured S3 bucket.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The researcher demonstrated the ability to upload files to the S3 bucket.",
+        "Detection": "Monitor file uploads and changes in S3 buckets.",
+        "Remediation": "Implement strict access controls and regular audits of cloud storage.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from a compromised system.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing data from a misconfigured S3 bucket.",
+            "technique_id": "T1530",
+            "technique_name": "Data from Cloud Storage Object"
+          }
+        ],
+        "Techniques": ["T1530"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [
+      "Use of automation for domain monitoring",
+      "Exploitation of misconfigured cloud resources"
+    ],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The capability involved the use of a Python script for domain monitoring and vulnerability detection.",
+      "Exploits": ["Amazon S3 Bucket Misconfiguration"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["ChatGPT", "Python", "Telegram API", "awscli"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Public write permissions on S3 bucket"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor S3 bucket access logs", "Track domain changes in bug bounty scopes"],
+    "Extracted_Entities": {
+      "Assets": ["S3 Bucket"],
+      "Breach_Types": ["Misconfiguration"],
+      "Command_Lines_Or_Scripts": ["Python script for domain monitoring"],
+      "Companies": ["Red Bull"],
+      "Countries": [],
+      "Domains": ["Newly added domain in Red Bull bug bounty scope"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Bug Bounty", "Amazon S3", "Vulnerability", "Misconfiguration"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Beverage"],
+      "Software": ["ChatGPT", "Python", "Telegram API", "awscli"],
+      "Technologies": ["Amazon Web Services"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["S3 Bucket Misconfiguration"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Telegram API"],
+      "Description": "The infrastructure involved the use of Amazon S3 buckets and public repositories for monitoring.",
+      "Domains": ["Newly added domain in Red Bull bug bounty scope"],
+      "Hosting_Providers": ["Amazon Web Services"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Regular audits of cloud storage configurations",
+      "Implement strict access controls"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["Newly added domain in Red Bull bug bounty scope"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Automation", "Domain Monitoring", "S3 Bucket Enumeration"],
+      "Tools": ["ChatGPT", "Python", "Telegram API", "awscli"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["awscli for S3 bucket enumeration", "Python for scripting"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-01-20T13:04:06Z",
+    "Title": "Red Bull Bug Bounty: Amazon S3 Bucket Takeover Vulnerability Discovery",
+    "Tools": ["ChatGPT", "Python", "Telegram API", "awscli"],
+    "Victim": {
+      "Access_Vectors": ["Public write permissions on S3 bucket"],
+      "Data_Types_At_Risk": ["Potentially sensitive data stored in the S3 bucket"],
+      "Description": "The victim is the Red Bull digital platform, specifically the misconfigured Amazon S3 bucket.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Beverage",
+      "Security_Posture": "Medium",
+      "Targeted_Assets": ["Amazon S3 Bucket"]
+    },
+    "diamond_model_summary": "The incident involved a security researcher leveraging automation and scripting to identify a misconfigured Amazon S3 bucket within the Red Bull bug bounty program. The adversary demonstrated high capability by using tools like ChatGPT and awscli to monitor domain changes and exploit the vulnerability. The victim was the Red Bull digital platform, specifically the misconfigured S3 bucket, highlighting the importance of proper cloud configuration and monitoring.",
+    "doc_summary": "Bug bounty programs have become essential for identifying vulnerabilities in digital platforms. A recent success in the Red Bull bug bounty program involved a security researcher using ChatGPT to create a domain monitoring script, leading to the discovery of a significant Amazon S3 bucket takeover vulnerability. The script, written in Python, used the Telegram API to send notifications about changes in the bug bounty scope. Upon detecting a new domain, the researcher found a misconfigured Amazon S3 bucket with public write permissions, allowing for potential takeover. The vulnerability was responsibly disclosed to Red Bull, resulting in a positive response and a unique reward. This incident highlights the importance of automation and vigilance in cybersecurity research.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191071+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "f44ca54480cb3f0bad7d326eb7acb124f368ec0f",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the researcher engaged in reconnaissance by monitoring domain changes, exploited a misconfigured S3 bucket for initial access, and demonstrated the ability to upload files, indicating potential data collection. The incident underscores the need for vigilant monitoring and proper configuration of cloud resources to prevent unauthorized access and data breaches.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 79,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies domain names and tools as key indicators of compromise in this incident. The use of a Python script and Telegram API for domain monitoring, along with the exploitation of a misconfigured S3 bucket, highlights the importance of addressing these indicators to disrupt adversary operations. Proper configuration and monitoring of cloud resources are critical to mitigating such threats.",
+    "relevance_score": 57,
+    "sequence": 17322,
+    "source": "https://gbhackers.com/s3-bucket-takeover-vulnerability-in-red-bull/",
+    "slug": "Red_Bull_Bug_Bounty__Amazon_S3_Bucket_Takeover_Vulnerability_Discovery-017322",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "The adversary exploited a vulnerability in the Essential Addons for Elementor plugin to execute reflected XSS attacks.",
       "Known_Campaigns": [],
       "Motivation": "Potential motivations include session hijacking, phishing, and malware distribution.",
@@ -97821,705 +98623,6 @@
     "sequence": 16826,
     "source": "https://gbhackers.com/azure-api-management-vulnerabilities-let-attackers-escalate-privileges/",
     "slug": "Critical_Vulnerabilities_in_Azure_API_Management_Exploited_for_Privilege-016826",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Remote attackers exploiting the vulnerability",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially to gain unauthorized access and control over affected systems",
-      "Sophistication": "Moderate, as the attack requires crafting specific HTTP requests",
-      "Strategic_Objectives": "Compromise systems for unauthorized access or control",
-      "TTPs_Employed": ["Command Injection"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Crafting of malicious HTTP requests",
-        "Detection": "Monitor for unusual HTTP requests",
-        "Remediation": "Apply Cisco's software patches",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of a vulnerability in a public-facing application",
-            "tactic_id": "T1190",
-            "tactic_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Delivery of crafted HTTP requests to the target",
-        "Detection": "Monitor network traffic for suspicious HTTP requests",
-        "Remediation": "Implement network monitoring and intrusion detection systems",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Use of application layer protocols for communication",
-            "tactic_id": "T1071",
-            "tactic_name": "Application Layer Protocol"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of application layer protocols for communication",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Exploitation of the vulnerability to gain root access",
-        "Detection": "Monitor for unauthorized root access",
-        "Remediation": "Apply security patches and updates",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of a vulnerability to escalate privileges",
-            "tactic_id": "T1068",
-            "tactic_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability to escalate privileges",
-            "technique_id": "T1068",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1068"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential full system compromise",
-        "Detection": "Monitor for unusual system behavior",
-        "Remediation": "Regularly back up data and apply patches",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Encrypting data to disrupt availability",
-            "tactic_id": "T1486",
-            "tactic_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Encrypting data to disrupt availability",
-            "technique_id": "T1486",
-            "technique_name": "Data Encrypted for Impact"
-          }
-        ],
-        "Techniques": ["T1486"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Crafting specific HTTP requests for exploitation"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of improper input validation in Cisco software",
-      "Exploits": ["CVE-2024-20418"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["HTTP request crafting tools"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual HTTP requests", "Check for unauthorized root access"],
-    "Extracted_Entities": {
-      "Assets": ["Cisco Catalyst IW9165D", "IW9165E", "IW9167E"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Cisco"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-20418", "command injection", "root access"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Cisco software patches"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Industrial Wireless Networks"],
-      "Software": ["Cisco Unified Industrial Wireless Software"],
-      "Technologies": ["URWB Access Points"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-20418"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP"],
-      "Description": "Cisco URWB Access Points with vulnerable software versions",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply Cisco's software patches", "Regularly update systems"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Command Injection"],
-      "Tools": ["HTTP request crafting tools"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network monitoring tools", "Intrusion detection systems"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-11-07T06:03:54Z",
-    "Title": "Critical Vulnerability in Cisco Unified Industrial Wireless Software",
-    "Tools": ["HTTP request crafting tools", "Cisco Unified Industrial Wireless Software"],
-    "Victim": {
-      "Access_Vectors": ["Web-based management interface"],
-      "Data_Types_At_Risk": ["System control and configuration data"],
-      "Description": "Organizations using Cisco URWB Access Points",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Industrial Wireless Networks",
-      "Security_Posture": "Vulnerable if not patched",
-      "Targeted_Assets": ["Cisco URWB Access Points"]
-    },
-    "diamond_model_summary": "The incident involves remote attackers exploiting a critical vulnerability in Cisco Unified Industrial Wireless Software, specifically targeting Cisco URWB Access Points. The adversary's capability includes crafting malicious HTTP requests to exploit improper input validation, leading to potential full system compromise. The infrastructure at risk includes Cisco URWB Access Points with vulnerable software versions, and the victims are organizations using these devices globally. The impact severity is critical, necessitating immediate patching and monitoring.",
-    "doc_summary": "A critical vulnerability, CVE-2024-20418, has been identified in Cisco Unified Industrial Wireless Software, affecting Cisco Ultra-Reliable Wireless Backhaul (URWB) Access Points. This flaw allows unauthenticated remote attackers to execute arbitrary commands as the root user due to improper input validation in the web-based management interface. The vulnerability has a CVSS score of 10.0, indicating its critical nature. Affected products include Cisco Catalyst IW9165D, IW9165E, and IW9167E Access Points. Cisco has released patches, but no workarounds are available. Users are urged to update their systems immediately to mitigate the risk. The vulnerability could lead to full system compromise, emphasizing the need for prompt action.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.890962+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "f30e92ec9b3eca49aee9ce2e74792bf44ed4d86a",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack follows a structured kill chain, beginning with the weaponization of crafted HTTP requests to exploit a vulnerability in Cisco URWB Access Points. The delivery stage involves sending these requests to the target's web-based management interface. Exploitation occurs when the vulnerability is successfully leveraged to gain root access. The potential actions on objectives include full system compromise, emphasizing the need for prompt patching and monitoring. Detection involves monitoring for unusual HTTP requests and unauthorized root access, while remediation focuses on applying Cisco's software patches.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis reveals that the primary indicators of compromise include the specific vulnerability CVE-2024-20418 and the associated TTPs, such as command injection. No specific hash values, IP addresses, or domain names were identified, indicating a focus on the exploitation technique itself. The tools used involve crafting HTTP requests to exploit the vulnerability. The lack of specific network host artifacts or domain names suggests a targeted approach relying on the vulnerability's exploitation rather than broader infrastructure manipulation.",
-    "relevance_score": 51,
-    "sequence": 16825,
-    "source": "https://gbhackers.com/cisco-flaw-attackers-run-command-root-user/",
-    "slug": "Critical_Vulnerability_in_Cisco_Unified_Industrial_Wireless_Software-016825",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Hackers targeting Salesforce Apex code vulnerabilities",
-      "Known_Campaigns": [],
-      "Motivation": "Unauthorized access to sensitive data",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Data theft and system manipulation",
-      "TTPs_Employed": ["SOQL injection", "IDOR exploitation"]
-    },
-    "Analyses": [
-      {
-        "Description": "Attackers identify vulnerable Apex code",
-        "Detection": "Monitor for unusual access patterns",
-        "Remediation": "Regularly review and update Apex code",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Identify vulnerable Apex code",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "Exploitation of Apex vulnerabilities",
-        "Detection": "Monitor for unusual Apex class executions",
-        "Remediation": "Implement safe coding practices",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain access",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting Apex vulnerabilities",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Data extraction and manipulation",
-        "Detection": "Monitor data access patterns",
-        "Remediation": "Restrict access to sensitive data",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          { "tactic_description": "Gathering sensitive data", "tactic_id": "TA0009", "tactic_name": "Collection" }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Staging data for exfiltration",
-            "technique_id": "T1074",
-            "technique_name": "Data Staged"
-          }
-        ],
-        "Techniques": ["T1074"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Exploitation of Apex vulnerabilities"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Apex code vulnerabilities",
-      "Exploits": ["SOQL injection", "IDOR"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Custom Apex classes", "Aura methods"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data access patterns"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual Apex class executions"],
-    "Extracted_Entities": {
-      "Assets": ["Salesforce environments"],
-      "Breach_Types": ["Data breach"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Varonis Threat Labs"],
-      "Countries": ["United States of America"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Apex", "SOQL injection", "IDOR"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Salesforce"],
-      "Technologies": ["Aura methods"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Apex code vulnerabilities"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Salesforce environments with vulnerable Apex code",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Review and update Apex code", "Implement safe coding practices"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["SOQL injection", "IDOR exploitation"],
-      "Tools": ["Custom Apex classes", "Aura methods"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Event Monitoring", "Code review tools"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-02-22T13:39:49Z",
-    "Title": "Exploitation of Apex Code Vulnerabilities in Salesforce by Hackers",
-    "Tools": ["Custom Apex classes", "Aura methods", "Salesforce"],
-    "Victim": {
-      "Access_Vectors": ["Apex code vulnerabilities"],
-      "Data_Types_At_Risk": ["Phone numbers", "Social security numbers"],
-      "Description": "Fortune 500 companies and government agencies",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable",
-      "Targeted_Assets": ["Salesforce environments", "Sensitive data"]
-    },
-    "diamond_model_summary": "The incident involves hackers exploiting Apex code vulnerabilities in Salesforce environments, targeting Fortune 500 companies and government agencies. The adversaries aim to gain unauthorized access to sensitive data, leveraging capabilities such as SOQL injection and IDOR exploitation. The infrastructure includes vulnerable Salesforce environments, with victims primarily in the technology sector. The impact severity is critical, with high exposure potential.",
-    "doc_summary": "Hackers are targeting Apex code vulnerabilities in Salesforce to exploit security weaknesses, gain unauthorized access to sensitive data, or manipulate the system. Apex, a powerful language with Java-like syntax, is used for business logic and is triggered by web services and object events. Cybersecurity researchers at Varonis Threat Labs discovered serious Apex vulnerabilities in multiple Fortune 500 companies and government agencies, marked with high and critical severity tags. The vulnerabilities allow account takeover and insecure data access, such as IDOR and SOQL injection. Researchers demonstrated exploiting these vulnerabilities to access user data without permission, using a Salesforce environment with real code issues. The misuse by external users or guests poses data integrity threats. To mitigate these risks, reviewing Apex classes, especially 'without sharing,' and examining Profiles and Permission Sets are recommended. Safe coding practices, such as using ':queryName' syntax in SOQL, are advised to prevent injection.",
-    "enrichment": { "processed_at": "2026-02-18T00:36:48.917772+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "c4d0ba4cb33f2b3b3b16301937366784052401ca",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack follows a structured kill chain, starting with reconnaissance to identify vulnerable Apex code, followed by exploitation of these vulnerabilities to gain initial access. The attackers then perform actions on objectives, such as data extraction and manipulation. Detection involves monitoring for unusual access patterns, while remediation includes reviewing and updating Apex code and implementing safe coding practices.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 97,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as SOQL injection and IDOR exploitation, which are challenging for defenders to address. Tools like custom Apex classes and Aura methods are used by attackers. No specific hash values, IP addresses, or domain names are identified, indicating a focus on exploiting code vulnerabilities rather than using traditional malware or infrastructure.",
-    "relevance_score": 53,
-    "sequence": 16824,
-    "source": "https://gbhackers.com/apex-code-vulnerabilities/",
-    "slug": "Exploitation_of_Apex_Code_Vulnerabilities_in_Salesforce_by_Hackers-016824",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Remote, unauthenticated attackers exploiting SIP-based phone software vulnerabilities.",
-      "Known_Campaigns": [],
-      "Motivation": "Access to sensitive information such as call records.",
-      "Sophistication": "Moderate, requires knowledge of IP addresses and vulnerable devices.",
-      "Strategic_Objectives": "Unauthorized access to sensitive data.",
-      "TTPs_Employed": ["Exploitation of web UI vulnerabilities"]
-    },
-    "Analyses": [
-      {
-        "Description": "Attackers identify vulnerable devices by scanning for IP addresses with enabled Web Access.",
-        "Detection": "Monitor network traffic for unusual scanning activities.",
-        "Remediation": "Disable Web Access on devices if not needed.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerable targets.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for IP addresses with enabled Web Access.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Exploitation of the vulnerability by accessing the web UI of affected devices.",
-        "Detection": "Monitor access logs for unauthorized access attempts.",
-        "Remediation": "Apply Cisco's software patches to fix the vulnerability.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to devices through vulnerable web UI.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting the web UI vulnerability to access sensitive data.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Scanning for IP addresses", "Accessing web UI without authentication"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of improper storage of sensitive information in Cisco SIP-based phone software.",
-      "Exploits": ["CVE-2024-20445"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual access to call records"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unauthorized access attempts", "Scan for enabled Web Access"],
-    "Extracted_Entities": {
-      "Assets": ["Cisco Desk Phone 9800 Series", "IP Phone 7800 Series", "IP Phone 8800 Series", "Video Phone 8875"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Cisco"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-20445", "CWE-200", "Web Access", "SIP"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Cisco software updates"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Telecommunications"],
-      "Software": ["Cisco SIP IP Phone Software"],
-      "Technologies": ["Session Initiation Protocol (SIP)"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-20445"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["Session Initiation Protocol (SIP)"],
-      "Description": "Exploitation occurs through browsing IP addresses of affected devices with enabled Web Access.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Regularly update software", "Disable unnecessary features"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of web UI vulnerabilities"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Vulnerability scanners"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2024-11-07T12:28:08Z",
-    "Title": "CVE-2024-20445: Vulnerability in Cisco SIP-Based Phones Exposes Sensitive Information",
-    "Tools": ["Cisco SIP IP Phone Software"],
-    "Victim": {
-      "Access_Vectors": ["Web Access feature"],
-      "Data_Types_At_Risk": ["Call records"],
-      "Description": "Organizations using vulnerable Cisco Desk Phone 9800 Series, IP Phone 7800 and 8800 Series, and Video Phone 8875.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Telecommunications",
-      "Security_Posture": "Vulnerable if Web Access is enabled",
-      "Targeted_Assets": ["Cisco SIP-based phones"]
-    },
-    "diamond_model_summary": "The incident involves remote, unauthenticated attackers exploiting a vulnerability in Cisco SIP-based phone software. The adversary's capability includes exploiting improper storage of sensitive information, with the infrastructure involving IP addresses of affected devices. Victims are organizations using vulnerable Cisco phones, primarily in the telecommunications sector.",
-    "doc_summary": "A significant vulnerability, CVE-2024-20445, has been identified in Cisco Desk Phone 9800 Series, IP Phone 7800 and 8800 Series, and Video Phone 8875. This flaw, classified under CWE-200, allows remote, unauthenticated attackers to access sensitive information due to improper storage within the web UI of SIP-based phone software. The vulnerability is exploitable when the Web Access feature is enabled, allowing attackers to access call records by browsing the IP address of affected devices. Cisco has released software updates to address this issue, urging users to disable Web Access or apply patches. The vulnerability affects specific Cisco products, and users are advised to regularly check the Cisco Security Advisories page for updates.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.890888+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "1932ff361ad28034ceb2c5d6d0d42661091e9cdd",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with reconnaissance, where attackers scan for IP addresses with enabled Web Access. Exploitation follows, as attackers access the web UI of vulnerable devices to retrieve sensitive call records. The lack of workarounds necessitates applying Cisco's software patches to mitigate the vulnerability.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 74,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to exploiting web UI vulnerabilities in Cisco SIP-based phones. No specific hash values, IP addresses, or domain names are identified, but the focus is on the tools and techniques used to exploit the vulnerability. The primary challenge is detecting unauthorized access attempts and applying necessary patches.",
-    "relevance_score": 43,
-    "sequence": 16823,
-    "source": "https://gbhackers.com/cisco-desk-phone-series-vulnerability/",
-    "slug": "CVE-2024-20445__Vulnerability_in_Cisco_SIP-Based_Phones_Exposes_Sensitiv-016823",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Malware actors exploiting CVE-2024-21413 in Microsoft Outlook.",
-      "Known_Campaigns": [],
-      "Motivation": "Access to sensitive information and potential remote code execution.",
-      "Sophistication": "High, due to the exploitation of a critical vulnerability.",
-      "Strategic_Objectives": "Compromise systems by exploiting vulnerabilities in widely used software.",
-      "TTPs_Employed": ["Exploitation of CVE-2024-21413", "NTLM credential theft"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2024-21413 to bypass Office Protected View.",
-        "Detection": "Monitor for unusual hyperlink activity in Outlook.",
-        "Remediation": "Apply the February 2024 Patch Tuesday update.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a system through a vulnerability.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability to execute code on a client.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Access to NTLM credentials and potential remote code execution.",
-        "Detection": "Monitor for unauthorized access to NTLM credentials.",
-        "Remediation": "Restrict SMB protocol usage and monitor credential access.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information from a target system.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Obtaining credentials from a system.",
-            "technique_id": "T1003",
-            "technique_name": "Credential Dumping"
-          }
-        ],
-        "Techniques": ["T1003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Bypassing Office Protected View"],
-      "Description": "Exploitation of hyperlink handling vulnerability in Outlook.",
-      "Exploits": ["CVE-2024-21413"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["NTLM credentials"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-21413", "NTLM", "SMB", "remote code execution"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["February 2024 Patch Tuesday"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Microsoft Outlook", "Office applications"],
-      "Technologies": ["SMB protocol"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-21413"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["SMB"],
-      "Description": "Exploitation involves using SMB protocol to expose NTLM credentials.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2024-21413", "NTLM credential theft"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-02-24T07:21:48Z",
-    "Title": "Critical Vulnerability in Microsoft Outlook: CVE-2024-21413 Exploited in the Wild",
-    "Tools": ["Microsoft Outlook", "Office applications"],
-    "Victim": {
-      "Access_Vectors": ["Hyperlink handling in Outlook"],
-      "Data_Types_At_Risk": ["NTLM credentials"],
-      "Description": "Users of Microsoft Outlook affected by CVE-2024-21413.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable until patched",
-      "Targeted_Assets": ["Microsoft Outlook", "Office applications"]
-    },
-    "diamond_model_summary": "The incident involves malware actors exploiting a critical vulnerability in Microsoft Outlook, CVE-2024-21413, to access NTLM credentials and potentially execute remote code. The adversary's capability includes exploiting hyperlink handling flaws, with the infrastructure leveraging the SMB protocol. Victims are primarily users of Microsoft Outlook, with a critical impact severity.",
-    "doc_summary": "Outlook has identified a security flaw affecting hyperlink handling, actively exploited by malware actors. The vulnerability, CVE-2024-21413, has a critical severity rating of 9.8. Microsoft resolved it in the February 2024 Patch Tuesday release. Exploitation allows bypassing Office's protected view, opening files in editing mode. The Checkpoint report highlights that hyperlinks starting with http:// or https:// open in the default browser, while 'file://' protocol links bypass security warnings, revealing NTLM credentials via SMB protocol. Hacking forums discuss exploits for CVE-2024-21413, enabling NTLM information access and remote code execution. The vulnerability can target other Office applications, posing risks from Trojans, ransomware, spyware, rootkits, worms, and zero-day exploits. Stay updated on cybersecurity news via LinkedIn and Twitter.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.890833+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "f6b63ba472ce86bf9ea326a7bc81aa80450fcaa2",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals exploitation of CVE-2024-21413 in Microsoft Outlook, allowing adversaries to bypass Office Protected View and access NTLM credentials. The exploitation stage is critical, with potential actions on objectives including credential dumping and remote code execution. Detection involves monitoring hyperlink activity and NTLM access, with remediation through patch application.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 90,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies TTPs related to CVE-2024-21413 exploitation, including NTLM credential exposure and remote code execution. No specific hash values, IP addresses, or domain names are identified, but the use of the SMB protocol is noted. The focus is on understanding the adversary's tactics and techniques to enhance detection and response capabilities.",
-    "relevance_score": 47,
-    "sequence": 16822,
-    "source": "https://gbhackers.com/outlook-exploit-warning-0-day/",
-    "slug": "Critical_Vulnerability_in_Microsoft_Outlook__CVE-2024-21413_Exploited_in-016822",
     "shard": 9
   }
 ]

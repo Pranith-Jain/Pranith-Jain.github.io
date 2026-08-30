@@ -3,6 +3,802 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Criminal group involved in bank account takeover fraud using fraudulent advertisements and fake bank websites.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Harvest bank login credentials to take over accounts and steal funds.",
+      "TTPs_Employed": ["Use of fraudulent advertisements", "Credential harvesting through fake websites"]
+    },
+    "Analyses": [
+      {
+        "Description": "The adversary likely conducted reconnaissance to identify potential targets for fraudulent advertisements.",
+        "Detection": "Monitor for unusual search engine advertisement activity.",
+        "Remediation": "Educate users on identifying fraudulent advertisements.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gathers information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary gathers information about the victim's identity.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "The adversary created fake bank websites to harvest login credentials.",
+        "Detection": "Identify and block access to known fake bank websites.",
+        "Remediation": "Implement web filtering solutions to block malicious domains.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary develops resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary develops capabilities to support operations.",
+            "technique_id": "T1588.003",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1588.003"]
+      },
+      {
+        "Description": "Fraudulent advertisements were used to redirect users to fake bank websites.",
+        "Detection": "Monitor for unusual click-through rates on advertisements.",
+        "Remediation": "Educate users on identifying phishing links.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary attempts to gain an initial foothold within the network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary sends a link to a malicious website.",
+            "technique_id": "T1566.002",
+            "technique_name": "Spearphishing Link"
+          }
+        ],
+        "Techniques": ["T1566.002"]
+      },
+      {
+        "Description": "Users were exploited by entering credentials into fake bank websites.",
+        "Detection": "Monitor for unusual login attempts from new devices or locations.",
+        "Remediation": "Implement multi-factor authentication for sensitive accounts.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary attempts to steal account credentials.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary captures credentials entered into a web portal.",
+            "technique_id": "T1056.003",
+            "technique_name": "Web Portal Capture"
+          }
+        ],
+        "Techniques": ["T1056.003"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary used stolen credentials to access legitimate bank accounts and steal funds.",
+        "Detection": "Monitor for unusual account activity or fund transfers.",
+        "Remediation": "Implement transaction monitoring and anomaly detection.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary collects data of interest to their goals.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary uses valid accounts to access systems.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The adversary used a backend web panel to host and manipulate stolen bank login credentials.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["bank login credentials"],
+      "Breach_Types": ["Credential theft"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Google", "Bing"],
+      "Countries": ["United States", "Estonia"],
+      "Domains": ["web3adspanels.org"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["bank account takeover", "fraudulent advertisements", "fake bank websites", "credential harvesting"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Financial"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The domain web3adspanels[.]org was used as a backend web panel for the fraud scheme.",
+      "Domains": ["web3adspanels.org"],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["web3adspanels.org"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Fraudulent advertisements", "Fake bank websites"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-12-22T18:30:00Z",
+    "Title": "Seizure of Domain Used in Bank Account Takeover Fraud",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": ["Phishing", "Fraudulent advertisements"],
+      "Data_Types_At_Risk": ["Financial data"],
+      "Description": "19 victims in the United States, including two companies in Georgia, were affected by the fraud scheme.",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Financial",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Bank login credentials"]
+    },
+    "diamond_model_summary": "The incident involves a criminal group using the domain web3adspanels[.]org to facilitate bank account takeover fraud. The adversary employed fraudulent advertisements to redirect users to fake bank websites, harvesting login credentials. The infrastructure included a backend web panel for managing stolen data. Victims were primarily in the United States, with significant financial losses reported.",
+    "doc_summary": "The U.S. Justice Department announced the seizure of the domain web3adspanels[.]org, used in a criminal scheme targeting Americans through bank account takeover fraud. The domain hosted illegally harvested bank login credentials and was part of an international law enforcement operation led by the United States and Estonia. The criminal group used fraudulent advertisements on search engines like Google and Bing to redirect users to fake bank websites, where login credentials were stolen. The scheme affected 19 victims in the United States, including two companies in Georgia, with attempted losses of $28 million and actual losses of $14.6 million. The FBI's Internet Crime Complaint Center reported over 5,100 complaints related to such fraud since January 2025, with losses exceeding $262 million. Users are advised to monitor accounts, use complex passwords, verify banking URLs, and be cautious of phishing attacks.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:24.769479+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "65c7fc9cb5da77b69b63ec0c22ff1a5a4f19cbdcdd7061f6e3043ed6eea5d4e7",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The adversary conducted reconnaissance to identify targets for fraudulent advertisements, weaponized fake bank websites to harvest credentials, and delivered these through search engine ads. Exploitation occurred when users entered credentials into fake sites. Actions on objectives involved using stolen credentials to access legitimate bank accounts and steal funds. The operation was disrupted by law enforcement.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 85,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the domain web3adspanels[.]org, which was central to the adversary's operations. The use of fraudulent advertisements and fake bank websites represents the TTPs employed. No specific hash values, IP addresses, or tools were identified, limiting the ability to disrupt the adversary's operations through traditional indicators.",
+    "relevance_score": 45,
+    "sequence": 18808,
+    "source": "https://thehackernews.com/2025/12/us-doj-seizes-fraud-domain-behind-146.html",
+    "slug": "Seizure_of_Domain_Used_in_Bank_Account_Takeover_Fraud-018808",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Foreign manufacturers of drones and components, primarily from China.",
+      "Known_Campaigns": [],
+      "Motivation": "Economic and strategic advantage, potential for espionage.",
+      "Sophistication": "High, given the advanced technology involved in drone manufacturing.",
+      "Strategic_Objectives": "To gain access to U.S. airspace and potentially conduct surveillance or data exfiltration.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "Foreign entities may conduct reconnaissance to understand U.S. airspace vulnerabilities.",
+        "Detection": "Monitor for unusual drone activity in sensitive areas.",
+        "Remediation": "Implement stricter airspace monitoring and control measures.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Actively scanning for vulnerabilities in U.S. airspace.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Manufacturing of drones and critical components capable of surveillance and data exfiltration.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Airspace", "Critical infrastructure"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["DJI", "Autel Robotics"],
+      "Countries": ["United States", "China"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["FCC", "UAS", "drones", "national security", "NDAA"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government"],
+      "Software": [],
+      "Technologies": ["Uncrewed aircraft systems", "data transmission devices"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Foreign-made drones and components, including data transmission devices and navigation systems.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-12-22T18:30:00Z",
+    "Title": "FCC Bans Foreign-Made Drones and Components Citing National Security Concerns",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": ["Drones", "UAS components"],
+      "Data_Types_At_Risk": ["Sensitive data", "Surveillance data"],
+      "Description": "Potential targets include U.S. airspace and critical infrastructure.",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Government",
+      "Security_Posture": "Proactive measures being implemented",
+      "Targeted_Assets": ["Airspace", "Critical infrastructure"]
+    },
+    "diamond_model_summary": "The incident involves foreign manufacturers, primarily from China, producing drones and components that pose national security risks to the United States. The FCC's ban aims to mitigate these risks by restricting foreign-made UAS and components. The adversary's capability includes advanced drone technology, while the victim is the U.S. airspace and critical infrastructure.",
+    "doc_summary": "The U.S. Federal Communications Commission (FCC) announced a ban on drones and critical components made in foreign countries, citing national security concerns. The ban targets uncrewed aircraft systems (UAS) and components from countries like China, affecting companies such as DJI and Autel Robotics. The decision follows a review by an Executive Branch interagency body and aims to protect U.S. airspace ahead of major events like the 2026 FIFA World Cup and 2028 Summer Olympics. The ban is part of the 2025 National Defense Authorization Act and does not affect existing consumer drones or approved models. The FCC highlights risks such as unauthorized surveillance and data exfiltration.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:24.769576+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "95464444094d7ed337e05512c27a40f3ca1db36e1068de6ecc5937d2660b6d90",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis primarily identifies reconnaissance activities by foreign entities to exploit U.S. airspace vulnerabilities. The FCC's ban is a preventive measure to disrupt potential threats at the reconnaissance stage. No significant activities were detected in other stages of the kill chain, indicating a focus on preemptive security measures.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 65,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis reveals no specific indicators such as hashes, IPs, or domains. The focus is on the strategic level, addressing the threat of foreign-made drones and components. The FCC's ban targets the tools and TTPs level, aiming to prevent unauthorized surveillance and data exfiltration by restricting foreign UAS components.",
+    "relevance_score": 37,
+    "sequence": 18807,
+    "source": "https://thehackernews.com/2025/12/fcc-bans-foreign-made-drones-and-key.html",
+    "slug": "FCC_Bans_Foreign-Made_Drones_and_Components_Citing_National_Security_Con-018807",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The Crimson Collective threat actor is associated with the Red Hat breach impacting Nissan.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through extortion",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Data theft and extortion",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Unauthorized access to Red Hat's data servers.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Data exfiltration and extortion by the Crimson Collective.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to steal data.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltration of data over an existing command and control channel.",
+            "technique_id": "T1041",
+            "technique_name": "Exfiltration Over C2 Channel"
+          }
+        ],
+        "Techniques": ["T1041"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Unauthorized access to data servers leading to data leakage.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["data servers"],
+      "Breach_Types": ["Data breach"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Nissan Motor Co. Ltd.", "Red Hat"],
+      "Countries": ["Japan", "United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["data breach", "customer information", "unauthorized access"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Automotive"],
+      "Software": ["Red Hat"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Red Hat's data servers were compromised, leading to the data breach.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploit Public-Facing Application", "Exfiltration Over C2 Channel"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Moderate",
+    "Threat_Actors": ["Crimson Collective"],
+    "Timestamp": "2025-12-22T16:32:00Z",
+    "Title": "Nissan Customer Data Compromised in Red Hat Breach",
+    "Tools": ["Red Hat"],
+    "Victim": {
+      "Access_Vectors": ["Third-party vendor compromise"],
+      "Data_Types_At_Risk": ["Customer information"],
+      "Description": "Nissan Motor Co. Ltd. was indirectly impacted by the Red Hat breach.",
+      "Geography": "Japan",
+      "Impact_Severity": "Medium",
+      "Industry": "Automotive",
+      "Security_Posture": "Reactive",
+      "Targeted_Assets": ["Customer data"]
+    },
+    "diamond_model_summary": "The incident involves the Crimson Collective threat actor exploiting a vulnerability in Red Hat's data servers, leading to the compromise of Nissan's customer data. The adversary's motivation appears to be financial gain through extortion. The infrastructure involved includes Red Hat's compromised servers, and the victim is Nissan, specifically impacting their customer data in Japan.",
+    "doc_summary": "Nissan Motor Co. Ltd. confirmed a data breach affecting thousands of customers due to a security incident at Red Hat in September 2023. The breach involved unauthorized access to Red Hat's data servers, leading to the leak of customer information from Nissan Fukuoka Sales Co., Ltd. Approximately 21,000 customers were affected, though financial information was not exposed. The breach was initially claimed by the Crimson Collective threat actor, who hosted samples of the stolen data on their extortion platform. Nissan emphasized that no other data beyond what was confirmed was impacted and stated there is no evidence of misuse. This incident follows a previous cybersecurity event at Nissan Japan in August 2023 and a data breach at Nissan North America last year.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:24.769550+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "1ab11051d088c631130d0c18fcd37add",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack began with the exploitation of Red Hat's data servers, leading to unauthorized access and data exfiltration. The Crimson Collective used this access to steal customer data from Nissan, specifically targeting information from Nissan Fukuoka Sales Co., Ltd. The adversary's actions on objectives included data theft and extortion, with no evidence of further misuse reported.",
+    "operational_tags": [],
+    "priority_score": 46,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is limited due to the lack of specific indicators such as hashes, IP addresses, or domains. The primary focus is on the TTPs employed by the Crimson Collective, including exploiting public-facing applications and exfiltrating data over command and control channels. The lack of detailed indicators makes it challenging to apply the Pyramid of Pain effectively.",
+    "relevance_score": 51,
+    "sequence": 18806,
+    "source": "https://www.bleepingcomputer.com/news/security/nissan-says-thousands-of-customers-exposed-in-red-hat-breach/",
+    "slug": "Nissan_Customer_Data_Compromised_in_Red_Hat_Breach-018806",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The threat actor 'Mentalpositive' developed the MacSync information stealer targeting macOS systems.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through data theft",
+      "Sophistication": "High, due to the use of notarized applications and evasion techniques",
+      "Strategic_Objectives": "Steal sensitive information from macOS users",
+      "TTPs_Employed": ["Use of notarized applications", "Evasion techniques"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The malware is weaponized as a notarized Swift application.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Development of malware for operations.",
+            "technique_id": "T1588.002",
+            "technique_name": "Malware"
+          }
+        ],
+        "Techniques": ["T1588.002"]
+      },
+      {
+        "Description": "Delivered via a disk image from zkcall.net.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a system.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Delivering malware via attachments.",
+            "technique_id": "T1193",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1193"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The malware is installed after bypassing Gatekeeper.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to a system.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using application shims for persistence.",
+            "technique_id": "T1546.001",
+            "technique_name": "Application Shimming"
+          }
+        ],
+        "Techniques": ["T1546.001"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Stealing credentials and sensitive data.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information from a target.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Extracting credentials from a system.",
+            "technique_id": "T1003",
+            "technique_name": "Credential Dumping"
+          }
+        ],
+        "Techniques": ["T1003"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Inflating DMG files", "Wiping execution scripts", "Internet connectivity checks"],
+      "Description": "MacSync is capable of stealing iCloud keychain credentials, browser passwords, system metadata, cryptocurrency wallet data, and files from the filesystem.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["MacSync"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Notarized Swift application"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["iCloud keychain", "cryptocurrency wallets"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Apple"],
+      "Countries": [],
+      "Domains": ["zkcall.net"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["MacSync", "information stealer", "notarized application"],
+      "Malware_Families": ["MacSync"],
+      "Malware_Filenames": ["zk-call-messenger-installer-3.9.2-lts.dmg"],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["General"],
+      "Software": ["macOS"],
+      "Technologies": ["Swift", "Gatekeeper"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The malware is distributed via a disk image from the domain zkcall.net.",
+      "Domains": ["zkcall.net"],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["zkcall.net"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Evasion techniques", "Credential theft"],
+      "Tools": ["Notarized Swift application"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Mentalpositive"],
+    "Timestamp": "2025-12-22T15:43:00Z",
+    "Title": "MacSync Information Stealer Targeting macOS via Notarized Swift Application",
+    "Tools": ["Notarized Swift application", "macOS"],
+    "Victim": {
+      "Access_Vectors": ["Notarized application delivery"],
+      "Data_Types_At_Risk": ["Credentials", "System metadata", "Cryptocurrency data"],
+      "Description": "macOS users targeted by the MacSync information stealer.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "General",
+      "Security_Posture": "Vulnerable to notarized application bypass",
+      "Targeted_Assets": ["iCloud keychain", "Web browser passwords", "Cryptocurrency wallets"]
+    },
+    "diamond_model_summary": "The MacSync information stealer incident involves the threat actor 'Mentalpositive' targeting macOS systems. The adversary uses a notarized Swift application to deliver the malware, bypassing macOS Gatekeeper. The infrastructure includes the domain zkcall.net for distribution. Victims are macOS users, with data types at risk including iCloud keychain credentials and cryptocurrency wallet data.",
+    "doc_summary": "The MacSync information stealer targets macOS systems, delivered through a digitally signed, notarized Swift application. Distributed via a disk image named zk-call-messenger-installer-3.9.2-lts.dmg, it bypasses macOS Gatekeeper. The malware, associated with Developer Team ID GNJLS3UYZ4, was reported to Apple, leading to certificate revocation. MacSync features evasion mechanisms like inflating DMG files and wiping execution scripts. Emerging in April 2025 by threat actor Mentalpositive, it steals iCloud keychain credentials, browser passwords, system metadata, cryptocurrency wallet data, and filesystem files. The actor's development was influenced by macOS's tighter app notarization policy.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:24.769528+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "8c66ef7d83da38822d9e8785d12a304b",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The MacSync attack follows a structured kill chain. Weaponization involves creating a notarized Swift application. Delivery is executed via a disk image from zkcall.net. Installation occurs after bypassing Gatekeeper, with the malware stealing credentials and sensitive data. The attack leverages evasion techniques to avoid detection.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 72,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for the MacSync incident includes domain names like zkcall.net and the use of notarized Swift applications as tools. The malware's evasion techniques and ability to bypass macOS security features present significant challenges for detection and response. The incident highlights the need for robust security measures against notarized applications.",
+    "relevance_score": 59,
+    "sequence": 18805,
+    "source": "https://www.bleepingcomputer.com/news/security/new-macsync-malware-dropper-evades-macos-gatekeeper-checks/",
+    "slug": "MacSync_Information_Stealer_Targeting_macOS_via_Notarized_Swift_Applicat-018805",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "No significant information detected",
       "Known_Campaigns": [],
       "Motivation": "",
@@ -101785,802 +102581,6 @@
     "sequence": 18325,
     "source": "https://www.ioactive.com/update-satcom-terminal-attacks-war-in-ukraine/",
     "slug": "Analysis_of_SATCOM_Terminal_Attacks_During_Ukraine_Conflict-018325",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Russian state-sponsored malicious cyberactors targeting SATCOM networks.",
-      "Known_Campaigns": [],
-      "Motivation": "Disrupt Ukrainian command and control during the invasion.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Disrupt communication and control capabilities of adversaries.",
-      "TTPs_Employed": ["Use of destructive wiper malware like HermeticWiper"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Use of destructive wiper malware like HermeticWiper.",
-        "Detection": "Monitor for unusual file deletion activities.",
-        "Remediation": "Implement regular data backups and recovery plans.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Malware designed to destroy data on victim systems.",
-            "tactic_id": "T1485",
-            "tactic_name": "Data Destruction"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Malware designed to destroy data on victim systems.",
-            "technique_id": "T1485",
-            "technique_name": "Data Destruction"
-          }
-        ],
-        "Techniques": ["T1485"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Disruption of Ukrainian command and control.",
-        "Detection": "Monitor for unusual network traffic patterns.",
-        "Remediation": "Implement network segmentation and redundancy.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Disrupting communication capabilities.",
-            "tactic_id": "T1499",
-            "tactic_name": "Endpoint Denial of Service"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Disrupting communication capabilities.",
-            "technique_id": "T1499",
-            "technique_name": "Endpoint Denial of Service"
-          }
-        ],
-        "Techniques": ["T1499"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Advanced cyber capabilities targeting SATCOM networks.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["HermeticWiper"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["HermeticWiper"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["SATCOM networks"],
-      "Breach_Types": ["Data Destruction"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": ["Russia", "Ukraine", "United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["SATCOM", "cyberattack", "HermeticWiper", "CISA", "FBI"],
-      "Malware_Families": ["HermeticWiper"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Telecommunications"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Targeted SATCOM networks and associated infrastructure.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Data Destruction", "Endpoint Denial of Service"],
-      "Tools": ["HermeticWiper"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Russian state-sponsored actors"],
-    "Timestamp": "2022-02-28T00:00:00Z",
-    "Title": "Cyberattacks on SATCOM Networks by Russian Threat Actors",
-    "Tools": ["HermeticWiper"],
-    "Victim": {
-      "Access_Vectors": ["Network"],
-      "Data_Types_At_Risk": ["Communication data"],
-      "Description": "SATCOM network providers and their customers, primarily in Ukraine and Europe.",
-      "Geography": "Ukraine and other European countries",
-      "Impact_Severity": "High",
-      "Industry": "Telecommunications",
-      "Security_Posture": "Vulnerable",
-      "Targeted_Assets": ["SATCOM networks"]
-    },
-    "diamond_model_summary": "The cyberattack on SATCOM networks attributed to Russian state-sponsored actors highlights the adversary's capability to disrupt critical infrastructure. The attack targeted SATCOM providers and their customers, primarily in Ukraine and Europe, using destructive malware like HermeticWiper. The US and its allies are taking steps to defend against these actions.",
-    "doc_summary": "The article discusses cyberattacks on SATCOM networks attributed to Russian threat actors, as reported by ThreatDown. The Cybersecurity & Infrastructure Security Agency (CISA) and the Federal Bureau of Investigation (FBI) updated their joint advisory, attributing these attacks to Russian state-sponsored actors. The attacks aimed to disrupt Ukrainian command and control during the Russian invasion, with spillover impacts on other European countries. The US government has developed mechanisms to help Ukraine identify and recover from cyber incidents. CISA issued an alert with mitigation guidance for SATCOM providers, emphasizing secure authentication, least privilege enforcement, and independent encryption. The report highlights the use of destructive wiper malware like HermeticWiper by Russian military cyber operators.",
-    "enrichment": { "processed_at": "2026-02-18T00:30:29.273917+00:00", "source_fields": [], "version": "v1" },
-    "id": "76dac60139d17364ab5e43286dd42ba6d947f413",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "The cyberattack involved the use of destructive wiper malware, HermeticWiper, to disrupt Ukrainian command and control. The attack's primary objective was to cause endpoint denial of service, impacting communication capabilities. Mitigation strategies include secure authentication, least privilege enforcement, and independent encryption.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 70,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of HermeticWiper malware, a known tool employed by Russian state-sponsored actors. The attack targeted SATCOM networks, causing significant disruption. The lack of specific indicators like IP addresses or domain names limits the ability to provide a detailed analysis.",
-    "relevance_score": 51,
-    "sequence": 18324,
-    "source": "https://www.threatdown.com/blog/cyberattacks-on-satcom-networks-attributed-to-russian-threat-actors/",
-    "slug": "Cyberattacks_on_SATCOM_Networks_by_Russian_Threat_Actors-018324",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Cyber actors targeting SATCOM networks during geopolitical conflicts.",
-      "Known_Campaigns": ["Cloud Hopper"],
-      "Motivation": "Disruption of communication channels and espionage.",
-      "Sophistication": "High, with capabilities to exploit supply chain vulnerabilities.",
-      "Strategic_Objectives": "Compromise national security and disrupt economic activities.",
-      "TTPs_Employed": ["Supply chain compromise", "Disruption of command and control systems"]
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries likely conducted reconnaissance to identify SATCOM vulnerabilities.",
-        "Detection": "Monitor network traffic for unusual scanning activities.",
-        "Remediation": "Implement network segmentation and access controls.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning networks to identify vulnerabilities.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "No specific weaponization activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No specific delivery activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of supply chain vulnerabilities to access SATCOM networks.",
-        "Detection": "Monitor for unauthorized access attempts from supply chain partners.",
-        "Remediation": "Conduct regular security audits of supply chain partners.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in the supply chain.",
-            "technique_id": "T1195",
-            "technique_name": "Supply Chain Compromise"
-          }
-        ],
-        "Techniques": ["T1195"]
-      },
-      {
-        "Description": "No specific installation activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Disruption of command and control systems in SATCOM networks.",
-        "Detection": "Analyze network traffic for anomalies in command and control communications.",
-        "Remediation": "Implement robust network monitoring and anomaly detection systems.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Establishing a command channel to control compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using application layer protocols for command and control.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Disruption of communication channels and potential data exfiltration.",
-        "Detection": "Monitor for unusual data deletion or modification activities.",
-        "Remediation": "Implement data backup and recovery solutions.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Manipulating, interrupting, or destroying systems and data.",
-            "tactic_id": "TA0040",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Destroying data to disrupt operations.",
-            "technique_id": "T1485",
-            "technique_name": "Data Destruction"
-          }
-        ],
-        "Techniques": ["T1485"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of SATCOM vulnerabilities through sophisticated cyber attacks.",
-      "Exploits": ["Supply chain vulnerabilities"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Command and control systems", "Communication channels"],
-      "Breach_Types": ["Cyberespionage", "Ransomware"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Terrasat Communications"],
-      "Countries": ["Ukraine", "Russia"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["SATCOM", "cyber-hardened", "IBUCs", "Cloud Hopper"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Satellite Communications", "Telecommunications"],
-      "Software": [],
-      "Technologies": ["Cryptographic protocols", "Physical port security"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Supply chain vulnerabilities"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Targeted European SATCOM networks and telecom infrastructure.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Supply chain compromise", "Disruption of command and control systems"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2022-03-01T00:00:00Z",
-    "Title": "Cyber Threats to SATCOM Networks: A Call for Enhanced Security",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": ["Supply chain"],
-      "Data_Types_At_Risk": ["Sensitive corporate data"],
-      "Description": "European SATCOM networks affected during geopolitical tensions.",
-      "Geography": "Europe",
-      "Impact_Severity": "High",
-      "Industry": "Satellite Communications",
-      "Security_Posture": "Vulnerable to sophisticated cyber attacks",
-      "Targeted_Assets": ["Command and control systems", "Communication channels"]
-    },
-    "diamond_model_summary": "The cyber incident targeting European SATCOM networks during the Russian invasion of Ukraine highlights the adversary's capability to exploit supply chain vulnerabilities and disrupt command and control systems. The adversary's motivation appears to be geopolitical, aiming to compromise national security and disrupt communication channels. The infrastructure targeted includes European SATCOM networks, with victims primarily in the satellite communications industry. The incident underscores the need for advanced cybersecurity measures to protect critical communication infrastructure.",
-    "doc_summary": "The article from Terrasat Communications highlights the increasing cyber threats facing the satellite communications (SATCOM) sector, emphasizing the urgent need for cyber-hardened solutions. It discusses incidents such as the 2022 cyber attacks on European SATCOM networks during the Russian invasion of Ukraine, which disrupted command and control systems, and the 2017 Cloud Hopper attack that exposed supply chain vulnerabilities. The financial impact of these breaches is significant, with average costs reaching $4.27 million. Terrasat's Cyber-Hardened Core IBUCs offer multiple layers of defense, including cryptographic protocols and physical port security, to protect SATCOM networks from sophisticated cyber threats.",
-    "enrichment": { "processed_at": "2026-02-18T00:30:29.273863+00:00", "source_fields": [], "version": "v1" },
-    "id": "4f73f3570c4a1ebc8383a3bcaef88e1b16b77532",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "The cyber attack on European SATCOM networks involved reconnaissance to identify vulnerabilities, exploitation of supply chain weaknesses for initial access, and disruption of command and control systems. The adversaries likely used application layer protocols for command and control, aiming to impact communication channels and potentially exfiltrate data. Detection and remediation efforts should focus on monitoring network traffic for anomalies, securing supply chain partners, and implementing robust network monitoring systems to prevent future incidents.",
-    "operational_tags": ["High Priority", "Supply Chain", "C2"],
-    "priority_score": 98,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes indicators such as supply chain vulnerabilities and disruption of command and control systems. While specific hash values, IP addresses, or domain names were not identified, the focus is on the tools and TTPs employed by the adversaries. The incident highlights the importance of securing supply chain partners and implementing advanced cybersecurity measures to protect critical SATCOM infrastructure from sophisticated cyber threats.",
-    "relevance_score": 43,
-    "sequence": 18323,
-    "source": "https://terrasatinc.com/securing-satcom-networks-the-urgent-need-for-cyber-hardened-solutions/",
-    "slug": "Cyber_Threats_to_SATCOM_Networks__A_Call_for_Enhanced_Security-018323",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Suspected nation-state threat actor using Airstalk malware.",
-      "Known_Campaigns": ["CL-STA-1009"],
-      "Motivation": "Cyber espionage and data exfiltration.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Compromise supply chain for covert data access.",
-      "TTPs_Employed": ["Misuse of AirWatch API"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Development of Airstalk malware variants.",
-        "Detection": "Monitor for new malware signatures.",
-        "Remediation": "Implement robust malware detection systems.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creation of malware for specific attack vectors.",
-            "tactic_id": "T1587",
-            "tactic_name": "Develop Capabilities"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing malware for deployment.",
-            "technique_id": "T1587.001",
-            "technique_name": "Malware"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Delivery through supply chain compromise.",
-        "Detection": "Monitor for unusual software updates.",
-        "Remediation": "Conduct regular supply chain audits.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Infiltration through third-party services.",
-            "tactic_id": "T1195",
-            "tactic_name": "Supply Chain Compromise"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Inserting malicious code into software.",
-            "technique_id": "T1195.002",
-            "technique_name": "Compromise Software Supply Chain"
-          }
-        ],
-        "Techniques": ["T1195.002"]
-      },
-      {
-        "Description": "Exploitation of AirWatch API for C2.",
-        "Detection": "Monitor API usage for anomalies.",
-        "Remediation": "Patch known vulnerabilities in APIs.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities for execution.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Installation of Airstalk malware on endpoints.",
-        "Detection": "Monitor software deployment logs.",
-        "Remediation": "Restrict deployment tool access.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Using deployment tools for malware installation.",
-            "tactic_id": "T1072",
-            "tactic_name": "Software Deployment Tools"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Leveraging deployment tools for installation.",
-            "technique_id": "T1072",
-            "technique_name": "Software Deployment Tools"
-          }
-        ],
-        "Techniques": ["T1072"]
-      },
-      {
-        "Description": "Covert C2 via AirWatch API.",
-        "Detection": "Analyze network traffic for anomalies.",
-        "Remediation": "Implement network segmentation.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Using application protocols for C2.",
-            "tactic_id": "T1071",
-            "tactic_name": "Application Layer Protocol"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols for C2 communication.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Data exfiltration and espionage.",
-        "Detection": "Monitor for large data transfers.",
-        "Remediation": "Implement data loss prevention tools.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Exfiltrating data from compromised systems.",
-            "tactic_id": "T1020",
-            "tactic_name": "Data Exfiltration"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using automated tools for data exfiltration.",
-            "technique_id": "T1020",
-            "technique_name": "Automated Exfiltration"
-          }
-        ],
-        "Techniques": ["T1020"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of covert C2 channels"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Covert C2 channels"],
-      "Description": "Deployment of Airstalk malware in supply chain attacks.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Airstalk"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Airstalk malware"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data transfer patterns"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor API usage", "Analyze network traffic"],
-    "Extracted_Entities": {
-      "Assets": ["Mobile Devices"],
-      "Breach_Types": ["Supply Chain Compromise"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Palo Alto Networks"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Airstalk", "Supply Chain Attack", "Nation-State"],
-      "Malware_Families": ["Airstalk"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Critical Infrastructure", "Telecommunications"],
-      "Software": ["Workspace ONE"],
-      "Technologies": ["AirWatch API"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["AirWatch API"],
-      "Description": "Utilizes AirWatch API for command-and-control.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Conduct supply chain audits", "Implement DLP tools"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Misuse of AirWatch API"],
-      "Tools": ["Airstalk malware"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Malware detection systems"],
-    "Severity": "High",
-    "Threat_Actors": ["Nation-State Actor"],
-    "Timestamp": "2025-10-29T00:00:00Z",
-    "Title": "Nation-State Actor Deploys Airstalk Malware in Supply Chain Attack",
-    "Tools": ["Airstalk malware", "Workspace ONE"],
-    "Victim": {
-      "Access_Vectors": ["Supply chain"],
-      "Data_Types_At_Risk": ["Sensitive corporate data"],
-      "Description": "Targets likely include organizations using Workspace ONE.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Various, potentially critical infrastructure sectors.",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Mobile devices", "Endpoint management systems"]
-    },
-    "diamond_model_summary": "The Airstalk malware incident involves a suspected nation-state actor targeting organizations through a supply chain attack. The adversary employs sophisticated techniques, including the misuse of the AirWatch API for covert command-and-control channels. The infrastructure leverages Workspace ONE, and the victims are likely organizations using this endpoint management system. The attack's strategic objective is cyber espionage and data exfiltration.",
-    "doc_summary": "The article discusses a suspected nation-state threat actor using new malware called Airstalk in a supply chain attack. Discovered by Palo Alto Unit 42, Airstalk is a Windows-based malware available in PowerShell and .NET variants. It misuses the AirWatch API, now known as Workspace ONE Unified Endpoint Management, to establish covert command-and-control channels. The attack is assessed with medium confidence to be a supply chain attack. The threat activity cluster CL-STA-1009 has been created to track related activities. The article also references other cybersecurity threats and advisories, including those from CISA and the FBI, and mentions various ransomware groups and vulnerabilities.",
-    "enrichment": { "processed_at": "2026-02-18T00:30:29.273789+00:00", "source_fields": [], "version": "v1" },
-    "id": "39dee5605f85a237ae4a603d218dd7aaf6c74049",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "The Airstalk malware attack follows a structured kill chain, beginning with the weaponization of malware variants and delivery through supply chain compromise. Exploitation occurs via the AirWatch API, leading to the installation of malware on endpoints. Command and control are maintained through covert channels, and the attack culminates in data exfiltration. Detection and remediation strategies focus on monitoring API usage, network traffic, and implementing robust security measures.",
-    "operational_tags": ["High Priority", "Supply Chain", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for the Airstalk incident includes various indicators of compromise, such as the misuse of the AirWatch API and the deployment of Airstalk malware. While specific hash values, IP addresses, and domain names are not detailed, the tools and TTPs employed are significant. The attack's complexity and sophistication highlight the challenges in detection and response, emphasizing the need for advanced threat intelligence and monitoring capabilities.",
-    "relevance_score": 63,
-    "sequence": 18322,
-    "source": "https://www.cybersecurity-review.com/suspected-nation-state-threat-actor-uses-new-airstalk-malware-in-a-supply-chain-attack/",
-    "slug": "Nation-State_Actor_Deploys_Airstalk_Malware_in_Supply_Chain_Attack-018322",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2025-11-16T06:02:27Z",
-    "Title": "(no title)",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
-    "doc_summary": "",
-    "enrichment": { "processed_at": "2026-02-18T00:37:30.429449+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "87af8f9e3e64c376d36933970250248f",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
-    "relevance_score": 35,
-    "sequence": 18321,
-    "source": "https://pushsecurity.com/webinar/phishing-2025-review?utm_source=bleepingcomputer&utm_medium=sponsored-content&utm_term=ad",
-    "slug": "_no_title_-018321",
     "shard": 6
   }
 ]

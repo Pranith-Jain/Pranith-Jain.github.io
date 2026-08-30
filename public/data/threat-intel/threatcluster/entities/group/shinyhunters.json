@@ -4,17 +4,27 @@
   "name": "shinyhunters",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 4,
   "firstSeen": "2026-08-28T22:57:21.000Z",
-  "lastSeen": "2026-08-28T23:57:50.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
+  "lastSeen": "2026-08-29T21:01:56.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-08-28",
       "count": 3
+    },
+    {
+      "date": "2026-08-29",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "neogen-corporation-8137",
+      "title": "Neogen Corporation — claimed by shinyhunters",
+      "pubDate": "2026-08-29T21:01:56.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mckesson-corporation-f471",
@@ -43,6 +53,12 @@
     },
     {
       "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
       "weight": 1
@@ -50,6 +66,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "neogen-corporation-8137",
+      "victim": "Neogen Corporation — claimed by shinyhunters",
+      "sector": "Agriculture and Food Production",
+      "country": "US",
+      "pubDate": "2026-08-29T21:01:56.000Z"
+    },
     {
       "id": "mckesson-corporation-f471",
       "victim": "McKesson Corporation — claimed by shinyhunters",

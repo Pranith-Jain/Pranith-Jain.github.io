@@ -4,82 +4,48 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-08-27T18:25:20.000Z",
-  "lastSeen": "2026-08-28T15:02:48.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 4 ransomware groups and 5 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-30T09:22:56.000Z",
+  "lastSeen": "2026-08-30T09:30:47.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 1 ransomware group and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-27",
-      "count": 2
-    },
-    {
-      "date": "2026-08-28",
+      "date": "2026-08-30",
       "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "vigilia-920c",
-      "title": "Vigilia — claimed by global",
-      "pubDate": "2026-08-28T15:02:48.000Z"
+      "slug": "zenithtechnology-a14b",
+      "title": "zenithtechnology — claimed by zawoo",
+      "pubDate": "2026-08-30T09:30:47.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "atcomm-6f5c",
-      "title": "Atcomm — claimed by global",
-      "pubDate": "2026-08-28T15:01:47.000Z"
+      "slug": "vectorsoft-de-1fc3",
+      "title": "vectorsoft.de — claimed by zawoo",
+      "pubDate": "2026-08-30T09:29:10.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "digiground-3dfc",
-      "title": "DigiGround — claimed by qilin",
-      "pubDate": "2026-08-28T13:07:02.000Z"
+      "slug": "kdynium-cz-22cd",
+      "title": "kdynium.cz — claimed by zawoo",
+      "pubDate": "2026-08-30T09:25:14.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "infinnium-05b5",
-      "title": "Infinnium — claimed by qilin",
-      "pubDate": "2026-08-28T09:59:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "etna-software-bc19",
-      "title": "ETNA Software — claimed by Eclipse",
-      "pubDate": "2026-08-27T20:51:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "itd-informations-technologie-f87a",
-      "title": "ITD Informations technologie — claimed by Storm",
-      "pubDate": "2026-08-27T18:25:20.000Z"
+      "slug": "n-tree-com-b438",
+      "title": "n-tree.com — claimed by zawoo",
+      "pubDate": "2026-08-30T09:22:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "global",
-      "name": "global",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "eclipse",
-      "name": "Eclipse",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "Storm",
-      "weight": 1
+      "slug": "zawoo",
+      "name": "zawoo",
+      "weight": 4
     }
   ],
   "mitreTechniques": []

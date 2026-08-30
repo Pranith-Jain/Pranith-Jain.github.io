@@ -4,15 +4,11 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-28T03:58:18.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-29T00:27:17.000Z",
   "lastSeen": "2026-08-29T00:27:17.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-08-28",
-      "count": 1
-    },
     {
       "date": "2026-08-29",
       "count": 1
@@ -24,12 +20,6 @@
       "slug": "apatpa-com-0342",
       "title": "apatpa.com — claimed by lockbit5",
       "pubDate": "2026-08-29T00:27:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tnmed-org-3cd9",
-      "title": "tnmed.org — claimed by lockbit5",
-      "pubDate": "2026-08-28T03:58:18.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,12 +27,6 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
       "weight": 1
     }
   ],
@@ -54,13 +38,6 @@
       "sector": "Not Found",
       "country": "MX",
       "pubDate": "2026-08-29T00:27:17.000Z"
-    },
-    {
-      "id": "tnmed-org-3cd9",
-      "victim": "tnmed.org — claimed by lockbit5",
-      "sector": "Healthcare",
-      "country": "TN",
-      "pubDate": "2026-08-28T03:58:18.000Z"
     }
   ]
 }

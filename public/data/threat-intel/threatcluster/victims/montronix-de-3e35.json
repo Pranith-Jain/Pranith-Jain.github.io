@@ -1,0 +1,14 @@
+{
+  "id": "montronix-de-3e35",
+  "victim": "montronix.de",
+  "group": "zawoo",
+  "sector": "Manufacturing",
+  "country": "DE",
+  "title": "montronix.de — claimed by zawoo",
+  "link": "https://threatcluster.io/dark-web/victim/montronix.de",
+  "guid": "darkweb-victim:zawoo:montronix.de",
+  "pubDate": "2026-08-30T09:25:51.000Z",
+  "categories": ["Group: zawoo", "Sector: Manufacturing", "Country: DE"],
+  "description": "DE · Manufacturing · MONTRONIX GmbH is a German industrial technology company specializing in machine-tool monitoring, process monitoring, machine protection, and condition monitoring. The company was founded in 1990 as a spin-off of Kennametal, Inc. and focuses primarily on monitoring solutions for metal-cutting and machining operations.",
+  "sizeBytes": 340
+}
