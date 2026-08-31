@@ -3,6 +3,1279 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Potential threat actors targeting ICS vulnerabilities for unauthorized access and control.",
+      "Known_Campaigns": [],
+      "Motivation": "Disruption of critical infrastructure and potential data theft.",
+      "Sophistication": "High, given the ability to exploit complex ICS vulnerabilities.",
+      "Strategic_Objectives": "Compromise of industrial control systems to disrupt operations.",
+      "TTPs_Employed": ["Remote code execution", "Authentication bypass", "Credential extraction"]
+    },
+    "Analyses": [
+      {
+        "Description": "Potential scanning for vulnerable ICS systems.",
+        "Detection": "Monitor network traffic for unusual scanning activity.",
+        "Remediation": "Implement network segmentation to limit exposure.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerabilities in ICS systems.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for open ports and services on ICS devices.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Crafting exploits for identified vulnerabilities.",
+        "Detection": "Analyze malware samples for exploit code.",
+        "Remediation": "Apply patches to eliminate vulnerabilities.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing exploits for ICS vulnerabilities.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Weaponization"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating custom exploits for ICS vulnerabilities.",
+            "technique_id": "T1587",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587"]
+      },
+      {
+        "Description": "Delivering exploits to target systems.",
+        "Detection": "Monitor for unusual network traffic patterns.",
+        "Remediation": "Restrict network access to critical systems.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Transmitting exploit payloads to ICS devices.",
+            "tactic_id": "TA0007",
+            "tactic_name": "Delivery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code on ICS devices.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Exploiting vulnerabilities to gain control.",
+        "Detection": "Monitor for signs of unauthorized access.",
+        "Remediation": "Apply security patches and updates.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to ICS systems through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in ICS applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Installing malicious code on compromised systems.",
+        "Detection": "Monitor for changes to system startup configurations.",
+        "Remediation": "Use application allowlists to prevent unauthorized software execution.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to compromised ICS systems.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Ensuring malware runs on system startup.",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "Establishing communication with compromised systems.",
+        "Detection": "Monitor for unusual outbound network traffic.",
+        "Remediation": "Enforce strict network egress filtering.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised ICS systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using standard protocols for C2 communication.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Executing final objectives such as data theft or system disruption.",
+        "Detection": "Monitor for signs of data encryption or exfiltration.",
+        "Remediation": "Regularly back up critical data and systems.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Disrupting ICS operations or stealing data.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Encrypting data to disrupt operations.",
+            "technique_id": "T1486",
+            "technique_name": "Data Encrypted for Impact"
+          }
+        ],
+        "Techniques": ["T1486"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of ICS vulnerabilities", "Unauthorized access attempts"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of cleartext credentials", "Exploitation of insecure configurations"],
+      "Description": "Exploitation of vulnerabilities in ICS products to gain unauthorized access and control.",
+      "Exploits": ["CVE-2025-3101", "CVE-2025-3204", "CVE-2024-39883"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Exploitation scripts", "Network sniffers"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual outbound data transfers"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual network traffic", "Analyze exploit attempts"],
+    "Extracted_Entities": {
+      "Assets": ["Critical infrastructure", "Operational technology"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["ABB", "Siemens", "Mitsubishi Electric"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CISA", "ICS", "vulnerabilities", "remote code execution"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Firmware updates for ABB, Siemens, Mitsubishi Electric"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Manufacturing", "Energy"],
+      "Software": ["ASPECT-Enterprise", "SiPass Integrated", "CNC Series"],
+      "Technologies": ["Safety controllers", "HMIs", "Protocol analyzers"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-3101", "CVE-2025-3204", "CVE-2024-39883"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Modbus", "TLS 1.3"],
+      "Description": "Targeted ICS environments in manufacturing and energy sectors.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply patches", "Implement network segmentation"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Remote code execution", "Authentication bypass"],
+      "Tools": ["Exploitation scripts", "Network sniffers"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Vulnerability scanners"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-21T07:23:26Z",
+    "Title": "CISA Advisories on Critical ICS Vulnerabilities in ABB, Siemens, and Mitsubishi Electric",
+    "Tools": ["Exploitation scripts", "Network sniffers", "ASPECT-Enterprise", "SiPass Integrated", "CNC Series"],
+    "Victim": {
+      "Access_Vectors": ["Network access", "Malicious G-code files"],
+      "Data_Types_At_Risk": ["Operational data", "Credential information"],
+      "Description": "Organizations using vulnerable ICS products from ABB, Siemens, and Mitsubishi Electric.",
+      "Geography": "United States of America",
+      "Impact_Severity": "Critical",
+      "Industry": "Manufacturing and Energy",
+      "Security_Posture": "Vulnerable due to unpatched systems and insecure configurations.",
+      "Targeted_Assets": ["Safety controllers", "HMIs", "Protocol analyzers"]
+    },
+    "diamond_model_summary": "The incident involves adversaries exploiting vulnerabilities in ICS products from ABB, Siemens, and Mitsubishi Electric. The adversaries possess capabilities to execute remote code and bypass authentication, targeting critical infrastructure in the manufacturing and energy sectors. The infrastructure includes vulnerable ICS systems, and the victims are organizations using these products. The adversaries' strategic objective is to disrupt operations and potentially steal sensitive data.",
+    "doc_summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) released seven Industrial Control Systems (ICS) advisories on February 20, 2025, addressing critical vulnerabilities in products from ABB, Siemens, Mitsubishi Electric, and other industrial technology providers. These advisories highlight escalating risks to operational technology (OT) environments, where flaws in safety controllers, human-machine interfaces (HMIs), and protocol analyzers could enable remote code execution, denial-of-service (DoS) attacks, and unauthorized access to critical infrastructure. Notable vulnerabilities include CVE-2025-3101 in ABB’s ASPECT-Enterprise, CVE-2025-3204 in Siemens’ SiPass Integrated system, and CVE-2024-39883 in Mitsubishi Electric’s CNC Series. CISA urges organizations to apply vendor-provided patches immediately to mitigate these risks.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191238+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "0a1ff59981b12c30453abe3b0258861153ca70b7",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain, starting with reconnaissance to identify vulnerable ICS systems, followed by weaponization and delivery of exploits. Exploitation of vulnerabilities allows adversaries to gain initial access, leading to installation of malicious code. Command and control is established to maintain communication, and actions on objectives include disrupting operations and data theft. Detection and remediation efforts focus on monitoring network traffic, applying patches, and enforcing security best practices.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as remote code execution and authentication bypass, which are challenging to change. Tools and techniques used by adversaries are identified, but specific hash values, IP addresses, and domain names are not available. The focus is on mitigating vulnerabilities through patching and network segmentation to reduce the impact of these TTPs.",
+    "relevance_score": 69,
+    "sequence": 17331,
+    "source": "https://gbhackers.com/cisa-ics-vulnerabilities/",
+    "slug": "CISA_Advisories_on_Critical_ICS_Vulnerabilities_in_ABB__Siemens__and_Mit-017331",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Authenticated attackers with low privileges exploiting F5 BIG-IP TMSH vulnerability.",
+      "Known_Campaigns": [],
+      "Motivation": "Gain root-level access to vulnerable systems.",
+      "Sophistication": "Moderate, requires valid credentials.",
+      "Strategic_Objectives": "Data theft, network traffic interception, lateral movement.",
+      "TTPs_Employed": ["Command injection", "Privilege escalation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Development of PoC exploit for CVE-2025-20029.",
+        "Detection": "Monitor for unusual TMSH commands",
+        "Remediation": "Apply patches immediately",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
+            "tactic_id": "T1190",
+            "tactic_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of TMSH parser vulnerability to execute arbitrary commands.",
+        "Detection": "Monitor for unusual command execution",
+        "Remediation": "Upgrade to patched versions",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability to execute code.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for data theft, network traffic interception, or lateral movement.",
+        "Detection": "Monitor for unauthorized access",
+        "Remediation": "Implement multi-factor authentication",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Use of valid accounts to maintain access.",
+            "tactic_id": "T1078",
+            "tactic_name": "Valid Accounts"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of valid accounts to maintain access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of valid credentials for exploitation"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of TMSH parser vulnerability to execute arbitrary commands.",
+      "Exploits": ["CVE-2025-20029"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["PoC exploit"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual TMSH commands"],
+    "Extracted_Entities": {
+      "Assets": ["BIG-IP systems"],
+      "Breach_Types": ["Command Injection"],
+      "Command_Lines_Or_Scripts": ["bash -c id"],
+      "Companies": ["F5 Networks"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-20029", "TMSH", "command injection"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["BIG-IP v16.1.4.2"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["F5 BIG-IP"],
+      "Technologies": ["Traffic Management Shell"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-20029"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "F5 BIG-IP systems vulnerable to command injection.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Upgrade to patched versions", "Restrict TMSH access"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Command injection", "Privilege escalation"],
+      "Tools": ["PoC exploit"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network segmentation", "Multi-factor authentication"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-24T05:30:21Z",
+    "Title": "Critical Command Injection Vulnerability in F5 BIG-IP TMSH",
+    "Tools": ["PoC exploit", "F5 BIG-IP"],
+    "Victim": {
+      "Access_Vectors": ["TMSH interface via SSH or iControl REST API"],
+      "Data_Types_At_Risk": ["Network configurations", "Sensitive data"],
+      "Description": "Organizations using F5 BIG-IP for load balancing, firewall, or application delivery services.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Information Technology",
+      "Security_Posture": "Vulnerable if unpatched",
+      "Targeted_Assets": ["F5 BIG-IP systems"]
+    },
+    "diamond_model_summary": "The incident involves authenticated attackers exploiting a command injection vulnerability in F5 BIG-IP TMSH. The adversary's capability includes executing arbitrary commands to gain root access. The infrastructure targeted is F5 BIG-IP systems, with victims being organizations using these systems for load balancing and application delivery. The attack allows for data theft and network traffic interception.",
+    "doc_summary": "Security researchers have disclosed critical details about CVE-2025-20029, a command injection vulnerability in F5’s BIG-IP Traffic Management Shell (TMSH) command-line interface. The flaw enables authenticated attackers with low privileges to bypass security restrictions, execute arbitrary commands, and gain root-level access to vulnerable systems. A proof-of-concept (PoC) exploit demonstrating remote code execution was released on February 24, 2025, raising the urgency for organizations to patch affected devices. The vulnerability resides in the TMSH parser’s handling of user-supplied inputs. Attackers with valid credentials—even for accounts assigned non-administrative roles like auditor—can craft malicious commands that escape the CLI’s security sandbox. This allows the injection of operating system commands directly into the underlying Linux environment. Affected versions include F5 BIG-IP v16.1.4.1 and earlier. Successful exploitation grants full control over the device, enabling data theft, network traffic interception, or lateral movement into connected systems. Github published PoC exploits that the save sys config TMSH command, which runs with root privileges by default. Attackers inject a payload using shell metacharacters to split the original command into two parts. F5 released patches in Q1 2025. Administrators should immediately upgrade to BIG-IP v16.1.4.2 or later. Unpatched systems remain vulnerable to attackers leveraging compromised credentials. F5 advises implementing network segmentation and multi-factor authentication for BIG-IP management interfaces.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191215+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "e53f6dd40a4bfa11682889df9ef10c8e82e7a21a",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the weaponization of a PoC exploit for CVE-2025-20029, targeting F5 BIG-IP systems. Exploitation occurs through the TMSH parser vulnerability, allowing attackers to execute arbitrary commands. The attack's objectives include data theft and lateral movement within networks. Detection involves monitoring for unusual TMSH commands, while remediation requires immediate patching and access restrictions.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 97,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes tools like the PoC exploit for CVE-2025-20029 and TTPs such as command injection and privilege escalation. No specific hash values, IP addresses, or domain names are identified. The focus is on exploiting the TMSH parser vulnerability to gain unauthorized access to F5 BIG-IP systems, highlighting the critical need for patching and access control measures.",
+    "relevance_score": 49,
+    "sequence": 17330,
+    "source": "https://gbhackers.com/f5-big-ip-command-injection-vulnerability/",
+    "slug": "Critical_Command_Injection_Vulnerability_in_F5_BIG-IP_TMSH-017330",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Attackers exploiting the Exim vulnerability to compromise email systems.",
+      "Known_Campaigns": [],
+      "Motivation": "Unauthorized access to sensitive data and potential system takeover.",
+      "Sophistication": "Moderate, leveraging SQL injection techniques.",
+      "Strategic_Objectives": "Compromise email systems and manipulate underlying databases.",
+      "TTPs_Employed": ["SQL Injection", "Exploitation of ETRN command"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of SQL injection vulnerability in Exim.",
+        "Detection": "Monitor for unusual SQL queries • Check for unauthorized access attempts",
+        "Remediation": "Apply patches • Disable unnecessary SQLite integration",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to systems through SQL injection.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting SQL injection vulnerability in Exim.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential data exfiltration and system manipulation.",
+        "Detection": "Monitor for unusual data transfers • Check for unauthorized database access",
+        "Remediation": "Implement strict access controls • Enhance network monitoring",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Exfiltrating data from compromised systems.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltrating data through compromised email systems.",
+            "technique_id": "T1041",
+            "technique_name": "Exfiltration Over C2 Channel"
+          }
+        ],
+        "Techniques": ["T1041"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Injection of malicious SQL payloads", "Exploitation of ETRN command"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of SQL injection vulnerability in Exim mail transfer agent.",
+      "Exploits": ["CVE-2025-26794"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["SQL Injection Tools"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data transfers", "Unauthorized database access"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual SQL queries", "Check for unauthorized access attempts"],
+    "Extracted_Entities": {
+      "Assets": ["Email systems", "Databases"],
+      "Breach_Types": ["SQL Injection"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["SQL injection", "CVE-2025-26794", "Exim", "SQLite", "ETRN"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Exim 4.98.1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["Exim"],
+      "Technologies": ["SQLite", "SMTP"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-26794"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["SMTP"],
+      "Description": "Exim mail servers configured with vulnerable settings.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Apply patches",
+      "Disable unnecessary SQLite integration",
+      "Enhance network monitoring"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["Vulnerable Exim configurations"],
+      "TTPs": ["SQL Injection", "Exploitation of ETRN command"],
+      "Tools": ["SQL Injection Tools"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["SQL query monitoring tools", "Network monitoring solutions"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-24T06:07:50Z",
+    "Title": "Critical SQL Injection Vulnerability in Exim Mail Transfer Agent (CVE-2025-26794)",
+    "Tools": ["SQL Injection Tools", "Exim"],
+    "Victim": {
+      "Access_Vectors": ["Email transactions"],
+      "Data_Types_At_Risk": ["Email routing information", "System metadata"],
+      "Description": "Organizations using Exim mail transfer agent with vulnerable configurations.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Information Technology",
+      "Security_Posture": "Vulnerable due to specific configurations",
+      "Targeted_Assets": ["Email systems", "Databases"]
+    },
+    "diamond_model_summary": "The incident involves attackers exploiting a critical SQL injection vulnerability in the Exim mail transfer agent (CVE-2025-26794). The adversary's capability includes leveraging SQL injection techniques to compromise email systems and manipulate databases. The infrastructure consists of Exim mail servers with vulnerable configurations, and the victims are organizations using Exim with specific settings. The incident highlights the importance of maintaining updated software and implementing strict access controls.",
+    "doc_summary": "A newly disclosed vulnerability in the Exim mail transfer agent (CVE-2025-26794) has revealed a critical SQL injection flaw, allowing attackers to compromise email systems and manipulate databases. This vulnerability affects Exim Version 4.98 installations using SQLite for hints databases, posing severe threats such as data exfiltration and system takeover. The flaw is linked to Exim's handling of SQL queries with specific build parameters and runtime settings, particularly when compiled with the _USE_SQLITE_ option and ETRN commands enabled without serialization safeguards. Attackers can inject malicious SQL payloads through crafted email transactions, gaining unauthorized access to sensitive database records. The Exim development team released patched versions within 72 hours, emphasizing the importance of maintaining updated software inventories. Oscar Bataille's responsible disclosure minimized potential damage. Organizations using Exim must verify installation versions, disable unnecessary SQLite integration, and apply the official patch. This incident highlights persistent challenges in email infrastructure security, especially in widely deployed open-source solutions.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191191+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "65526fdfda870e6f591afd22c32ffb0a763b1dd4",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the exploitation of a SQL injection vulnerability in Exim, allowing attackers to gain initial access to email systems. The exploitation stage involves injecting malicious SQL payloads through crafted email transactions. The actions on objectives stage includes potential data exfiltration and system manipulation. Detection involves monitoring for unusual SQL queries and unauthorized access attempts, while remediation includes applying patches and disabling unnecessary SQLite integration.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 94,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as SQL injection and exploitation of the ETRN command. The tools used involve SQL injection techniques, and the network host artifacts include vulnerable Exim configurations. No specific hash values, IP addresses, or domain names were identified. The incident underscores the challenges in detecting and mitigating SQL injection attacks, emphasizing the need for robust monitoring and patch management.",
+    "relevance_score": 47,
+    "sequence": 17329,
+    "source": "https://gbhackers.com/exim-mail-transfer-vulnerability/",
+    "slug": "Critical_SQL_Injection_Vulnerability_in_Exim_Mail_Transfer_Agent__CVE-20-017329",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential threat actors exploiting IoT vulnerabilities",
+      "Known_Campaigns": [],
+      "Motivation": "Access to sensitive data and potential financial gain",
+      "Sophistication": "Moderate, leveraging exposed credentials and backdoors",
+      "Strategic_Objectives": "Compromise user networks and data",
+      "TTPs_Employed": ["Credential Access", "Remote Access"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of exposed AWS credentials and SSH backdoors",
+        "Detection": "Monitor for unusual access patterns to AWS services",
+        "Remediation": "Revoke exposed credentials and implement MFA",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the system through exposed credentials",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of exposed AWS credentials to access cloud services",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Use of SSH backdoor for remote access",
+        "Detection": "Monitor for unauthorized SSH connections",
+        "Remediation": "Disable unnecessary SSH access and enforce strict access controls",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing a remote connection to control the device",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using SSH for remote command execution",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Potential manipulation of sleep data and network traversal",
+        "Detection": "Monitor for anomalies in data access patterns",
+        "Remediation": "Implement data integrity checks and logging",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering sensitive data from the device",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing and manipulating sleep data",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of exposed AWS credentials and SSH backdoors",
+      "Exploits": ["Exposed AWS credentials", "Remote SSH backdoor"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["SSH", "AWS SDK"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Smart beds", "Home networks"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Eight Sleep"],
+      "Countries": [],
+      "Domains": ["remote-connectivity-api.8slp.net"],
+      "Email_Addresses": ["eng@eightsleep.com"],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["AWS credentials", "SSH backdoor", "IoT security"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Consumer Electronics"],
+      "Software": [],
+      "Technologies": ["Amazon Web Services", "SSH", "Linux"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["Exposed AWS credentials", "Remote SSH backdoor"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["SSH", "HTTP"],
+      "Description": "IoT devices with internet connectivity and cloud integration",
+      "Domains": ["remote-connectivity-api.8slp.net"],
+      "Hosting_Providers": ["Amazon Web Services"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["remote-connectivity-api.8slp.net"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exposed AWS credentials", "Remote SSH backdoor"],
+      "Tools": ["SSH", "AWS SDK"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-24T13:17:37Z",
+    "Title": "Critical Vulnerabilities in Eight Sleep Smart Beds Expose User Networks",
+    "Tools": ["SSH", "AWS SDK"],
+    "Victim": {
+      "Access_Vectors": ["Firmware vulnerabilities", "Cloud credentials"],
+      "Data_Types_At_Risk": ["Sleep data", "Network access"],
+      "Description": "Users of Eight Sleep smart beds",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Consumer Electronics",
+      "Security_Posture": "Vulnerable due to exposed credentials and backdoors",
+      "Targeted_Assets": ["Home networks", "Smart devices"]
+    },
+    "diamond_model_summary": "The incident involves potential adversaries exploiting vulnerabilities in Eight Sleep's smart beds, specifically through exposed AWS credentials and SSH backdoors. The adversaries' capabilities include accessing and manipulating data streams and executing remote commands. The infrastructure comprises IoT devices connected to AWS, with victims being users of these smart beds. The incident highlights the critical need for improved security measures in IoT ecosystems.",
+    "doc_summary": "A security researcher discovered critical vulnerabilities in Eight Sleep's smart beds, including exposed AWS credentials and remote SSH backdoors, potentially allowing access to users' home networks. The incident highlights IoT security concerns as connected devices become more common. The researcher found live AWS credentials in the device's firmware, granting write access to Amazon Kinesis data streams, which could be exploited to manipulate sleep data or cause financial damage. Eight Sleep revoked the keys but did not address the SSH backdoor issue, which allows engineers to execute arbitrary commands on users' beds. The researcher compared the risk to Uber's 2014 'God Mode' scandal and suggested a low-tech workaround using an aquarium chiller to maintain temperature control without internet dependency. The incident underscores the need for zero-trust architectures and encrypted local controls in IoT devices.",
+    "enrichment": { "processed_at": "2026-02-18T00:36:49.452447+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "f731eecc0c7ffc0b0bfc496b04c5681757644cf2",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the adversaries exploited exposed AWS credentials and SSH backdoors to gain initial access and establish command and control over Eight Sleep's smart beds. The exploitation stage involved using valid accounts to access cloud services, while the command and control stage utilized SSH for remote access. Actions on objectives included potential manipulation of sleep data and network traversal. The incident underscores the importance of securing IoT devices against such vulnerabilities.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies several indicators of compromise, including domain names and tools used in the attack. The exposed AWS credentials and SSH backdoors represent significant challenges for defenders, as they provide adversaries with direct access to sensitive systems. The incident highlights the need for robust detection and remediation strategies to address these vulnerabilities and protect against future attacks.",
+    "relevance_score": 49,
+    "sequence": 17328,
+    "source": "https://gbhackers.com/smart-bed-security-flaw/",
+    "slug": "Critical_Vulnerabilities_in_Eight_Sleep_Smart_Beds_Expose_User_Networks-017328",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary exploits a zero-day vulnerability in Parallels Desktop to gain root privileges on macOS.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially financial gain or espionage through unauthorized access.",
+      "Sophistication": "High, due to the use of zero-day exploits and advanced bypass techniques.",
+      "Strategic_Objectives": "Gain unauthorized root access to macOS systems for further exploitation.",
+      "TTPs_Employed": ["TOCTOU Race Condition", "Weak Signature Verification"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary develops exploit scripts to bypass security patches.",
+        "Detection": "Monitor for unusual script execution",
+        "Remediation": "Apply security patches promptly",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in public-facing applications.",
+            "tactic_id": "T1190",
+            "tactic_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of CVE-2024-34331 to gain root privileges.",
+        "Detection": "Monitor for privilege escalation attempts",
+        "Remediation": "Implement robust signature verification",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities to escalate privileges.",
+            "tactic_id": "T1068",
+            "tactic_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to escalate privileges.",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for full root access and silent code execution.",
+        "Detection": "Monitor for unauthorized root access",
+        "Remediation": "Restrict privileges and monitor file system activity",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Using valid accounts to maintain access.",
+            "tactic_id": "T1078",
+            "tactic_name": "Valid Accounts"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to maintain access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of known vulnerabilities"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Dynamic Library Hijacking"],
+      "Description": "The adversary demonstrates the capability to exploit zero-day vulnerabilities and bypass security patches.",
+      "Exploits": ["CVE-2024-34331"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Exploit scripts for CVE-2024-34331"],
+      "Zero_Days": ["CVE-2024-34331"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unexpected writes to /Library/"],
+    "Extracted_Entities": {
+      "Assets": ["macOS systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Parallels"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["zero-day", "vulnerability", "macOS", "privilege escalation"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["CVE-2024-34331"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Parallels Desktop"],
+      "Technologies": ["virtualization"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2024-34331"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No specific infrastructure details detected.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply patches and monitor for further exploits"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["TOCTOU Race Condition", "Weak Signature Verification"],
+      "Tools": ["Exploit scripts for CVE-2024-34331"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Endpoint detection and response tools"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-24T06:42:11Z",
+    "Title": "Zero-Day Vulnerability in Parallels Desktop Enables Privilege Escalation on macOS",
+    "Tools": ["Exploit scripts for CVE-2024-34331", "Parallels Desktop"],
+    "Victim": {
+      "Access_Vectors": ["Software vulnerability"],
+      "Data_Types_At_Risk": ["System integrity", "User data"],
+      "Description": "Users and enterprises using Parallels Desktop for macOS virtualization.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to unpatched software",
+      "Targeted_Assets": ["macOS systems"]
+    },
+    "diamond_model_summary": "The incident involves a sophisticated adversary exploiting a zero-day vulnerability in Parallels Desktop to gain root privileges on macOS systems. The adversary employs advanced techniques such as TOCTOU race conditions and weak signature verification exploits. The victims are users and enterprises relying on Parallels Desktop for virtualization, primarily in the technology sector. The infrastructure details remain unclear, but the potential impact is critical due to the risk of full root access and silent code execution.",
+    "doc_summary": "A critical zero-day vulnerability in Parallels Desktop virtualization software has been publicly disclosed after seven months of unresolved reporting, enabling attackers to escalate privileges to the root level on macOS systems. The proof-of-concept (PoC) exploit code demonstrates two distinct bypass methods that circumvent existing patches for CVE-2024-34331, a previously addressed privilege escalation flaw. The patched CVE-2024-34331 vulnerability involved improper signature verification of the createinstallmedia tool used during macOS installer repackaging. Parallels' initial fix required Apple-signed binaries for privilege escalation. However, the newly disclosed bypasses exploit weaknesses in this verification logic. The researcher reported the bypass to Zero Day Initiative (ZDI) on May 31, 2024, but received delayed confirmation due to version discrepancy issues. Despite Parallels releasing incremental updates, the core privilege escalation risk remains unaddressed. Users and enterprises relying on Parallels Desktop for macOS virtualization should treat this as an active threat until vendors release comprehensive fixes.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:38.191167+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "9d82508e77a36daab8e1afcb0a97f617cca9b037",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The adversary exploits a zero-day vulnerability in Parallels Desktop, bypassing existing patches to gain root privileges on macOS systems. The attack involves weaponization through exploit scripts, exploitation of CVE-2024-34331, and potential actions on objectives such as full root access and silent code execution. Detection and remediation efforts should focus on monitoring for privilege escalation attempts and applying robust signature verification.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 97,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as TOCTOU race conditions and weak signature verification exploits. No specific hash values, IP addresses, or domain names were identified. The tools used include exploit scripts for CVE-2024-34331. The scoring reflects the presence of advanced TTPs, indicating a high level of adversary sophistication and the need for robust detection and remediation strategies.",
+    "relevance_score": 49,
+    "sequence": 17327,
+    "source": "https://gbhackers.com/parallels-desktop-0-day-exploit/",
+    "slug": "Zero-Day_Vulnerability_in_Parallels_Desktop_Enables_Privilege_Escalation-017327",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Threat actors exploiting CVE-2024-20953 for intellectual property theft and production sabotage.",
+      "Known_Campaigns": [],
+      "Motivation": "Intellectual property theft, production sabotage",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Compromise of manufacturing supply chains and data theft",
+      "TTPs_Employed": ["Exploitation of deserialization vulnerability", "Lateral movement", "Data exfiltration"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Crafting of malicious .JSON files to exploit deserialization vulnerability",
+        "Detection": "Monitor for unusual .JSON file activity",
+        "Remediation": "Apply Oracle's Security Alert 26547894 patch",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of deserialization vulnerability to execute arbitrary code",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of deserialization vulnerability to execute arbitrary code",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Delivery of crafted .JSON files via HTTP requests",
+        "Detection": "Monitor HTTP traffic for anomalies",
+        "Remediation": "Implement web application firewalls with updated rules",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Use of HTTP for delivery of malicious payloads",
+            "tactic_id": "T1071",
+            "tactic_name": "Application Layer Protocol"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of HTTP for delivery of malicious payloads",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Exploitation of CVE-2024-20953 to execute arbitrary code",
+        "Detection": "Monitor for execution of unauthorized code",
+        "Remediation": "Apply Oracle's Security Alert 26547894 patch",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of deserialization vulnerability to execute arbitrary code",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of deserialization vulnerability to execute arbitrary code",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installation of cryptocurrency miners and Cobalt Strike beacons",
+        "Detection": "Monitor for unusual script execution",
+        "Remediation": "Restrict script execution policies",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Use of scripting for installation of malicious payloads",
+            "tactic_id": "T1059",
+            "tactic_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of scripting for installation of malicious payloads",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "Use of Cobalt Strike for command and control",
+        "Detection": "Monitor network traffic for Cobalt Strike indicators",
+        "Remediation": "Block known Cobalt Strike C2 domains and IPs",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Use of HTTP for command and control",
+            "tactic_id": "T1071",
+            "tactic_name": "Application Layer Protocol"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of HTTP for command and control",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Data exfiltration and lateral movement within networks",
+        "Detection": "Monitor for large data transfers",
+        "Remediation": "Implement data loss prevention solutions",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Automated exfiltration of data",
+            "tactic_id": "T1020",
+            "tactic_name": "Automated Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Automated exfiltration of data",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of crafted .JSON files", "Execution of unauthorized code"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of crafted .JSON files"],
+      "Description": "Exploitation of deserialization vulnerability in Oracle Agile PLM",
+      "Exploits": ["CVE-2024-20953"],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Cryptocurrency miners"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Cobalt Strike", "Custom malware"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Monitor for large data transfers"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual .JSON file activity", "Monitor HTTP traffic for anomalies"],
+    "Extracted_Entities": {
+      "Assets": ["Technical data packages", "Oracle WebLogic server"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Oracle", "Horizon3.ai", "Claroty"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2024-20953", "CWE-502", "deserialization vulnerability"],
+      "Malware_Families": ["Cryptocurrency miners", "Cobalt Strike"],
+      "Malware_Filenames": [],
+      "Patches": ["Security Alert 26547894"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Manufacturing"],
+      "Software": ["Oracle Agile PLM"],
+      "Technologies": ["Java", "FileNet connector"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2024-20953"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["HTTP"],
+      "Description": "Compromised Oracle Agile PLM systems and associated network infrastructure",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Apply Oracle's Security Alert 26547894 patch",
+      "Implement data loss prevention solutions"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of CVE-2024-20953", "Use of crafted .JSON files"],
+      "Tools": ["Cobalt Strike"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network segmentation solutions", "Web application firewalls"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-02-25T06:18:30Z",
+    "Title": "Exploitation of CVE-2024-20953 in Oracle Agile PLM",
+    "Tools": ["Cobalt Strike", "Custom malware", "Oracle Agile PLM"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": ["Intellectual property", "Technical data"],
+      "Description": "Organizations using Oracle Agile PLM, including aerospace, automotive, and electronics sectors",
+      "Geography": "United States of America",
+      "Impact_Severity": "Critical",
+      "Industry": "Manufacturing",
+      "Security_Posture": "Vulnerable due to delayed patching",
+      "Targeted_Assets": ["Oracle Agile PLM systems", "Technical data packages"]
+    },
+    "diamond_model_summary": "The incident involves threat actors exploiting a deserialization vulnerability (CVE-2024-20953) in Oracle Agile PLM software. The adversaries are motivated by intellectual property theft and production sabotage, targeting the manufacturing sector. The capability involves exploiting the vulnerability to execute arbitrary code, with infrastructure comprising compromised Oracle Agile PLM systems. Victims include organizations in the aerospace, automotive, and electronics sectors, with a critical impact severity due to potential data theft and network compromise.",
+    "doc_summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has issued an urgent alert regarding the active exploitation of a severe deserialization vulnerability (CVE-2024-20953) in Oracle Agile Product Lifecycle Management (PLM) software. This vulnerability, added to CISA’s Known Exploited Vulnerabilities (KEV) catalog on February 24, 2025, allows attackers with low-privileged access to execute arbitrary code on unpatched systems, potentially leading to full network compromise. The flaw, identified as CWE-502, enables attackers to manipulate serialized objects in the Java-based Oracle Agile PLM platform. Security analysts at Horizon3.ai explain that successful exploitation bypasses standard authentication checks, granting attackers the ability to execute commands under the identity of the Oracle WebLogic server. This access level could enable data theft, lateral movement across corporate networks, and disruption of manufacturing supply chains dependent on PLM systems. Oracle’s out-of-cycle patch, released in January 2025, modifies how the Agile PLM platform processes serialized data through its FileNet connector. However, many organizations have delayed updates due to the platform’s integration with critical ERP and CAD systems. The U.S. Defense Industrial Base (DIB) has reported multiple incidents where attackers accessed technical data packages for advanced weapon systems. Oracle recommends the immediate application of Security Alert 26547894 and the disabling of unnecessary FileNet services. CISA emphasizes that virtual patching through web application firewalls (WAFs) with updated rules from Trend Micro and Fortinet provides temporary protection.",
+    "enrichment": { "processed_at": "2026-02-18T00:36:48.282380+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "e68db162e7cc55b302d38eaceb4740aeea547eac",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The cyber kill chain for this incident involves the weaponization of crafted .JSON files to exploit a deserialization vulnerability in Oracle Agile PLM. Delivery occurs via HTTP requests, leading to exploitation and execution of arbitrary code. Installation involves cryptocurrency miners and Cobalt Strike beacons, with command and control facilitated through HTTP. Actions on objectives include data exfiltration and lateral movement within networks. Detection and remediation strategies focus on monitoring network traffic, applying patches, and implementing data loss prevention solutions.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes indicators such as crafted .JSON files, Cobalt Strike beacons, and the exploitation of CVE-2024-20953. These indicators represent varying levels of difficulty for adversaries to change, with TTPs being the most challenging. Detection and remediation efforts should focus on identifying and mitigating these indicators to disrupt the adversaries' operations effectively.",
+    "relevance_score": 55,
+    "sequence": 17326,
+    "source": "https://gbhackers.com/cisa-alerts-oracle-agile-vulnerability-actively-exploited/",
+    "slug": "Exploitation_of_CVE-2024-20953_in_Oracle_Agile_PLM-017326",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Attackers exploiting vulnerabilities in Prometheus servers and exporters.",
       "Known_Campaigns": [],
       "Motivation": "Unauthorized access, data breaches, and system control.",
@@ -97429,1200 +98702,6 @@
     "sequence": 16832,
     "source": "https://gbhackers.com/malicious-nuget-campaign-code-injection/",
     "slug": "NuGet_Supply_Chain_Attack__Advanced_Techniques_and_Persistent_Threats-016832",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": ["SPIKEDWINE"],
-      "Associated_Groups": [],
-      "Description": "The adversary is likely a nation-state actor targeting Indian-European diplomatic relations.",
-      "Known_Campaigns": ["SPIKEDWINE"],
-      "Motivation": "Espionage and disruption of diplomatic relations",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Exploiting diplomatic ties between India and European countries",
-      "TTPs_Employed": ["Weaponized PDFs", "DLL Hollowing", "Obfuscation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "PDF files are weaponized with malicious code.",
-        "Detection": "Monitor PDF file creation and modification",
-        "Remediation": "Implement PDF scanning and filtering",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Obfuscating malicious code within PDF files.",
-            "tactic_id": "T1027",
-            "tactic_name": "Obfuscation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using obfuscation tools like obfuscator.io.",
-            "technique_id": "T1027.002",
-            "technique_name": "Software Packing"
-          }
-        ],
-        "Techniques": ["T1027.002"]
-      },
-      {
-        "Description": "Weaponized PDFs are delivered via email.",
-        "Detection": "Monitor email attachments for suspicious PDFs",
-        "Remediation": "Educate users on phishing and suspicious emails",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Tricking users into opening malicious PDFs.",
-            "tactic_id": "T1204",
-            "tactic_name": "User Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Delivering malicious PDFs as email attachments.",
-            "technique_id": "T1204.002",
-            "technique_name": "Malicious File"
-          }
-        ],
-        "Techniques": ["T1204.002"]
-      },
-      {
-        "Description": "Exploiting vulnerabilities in PDF readers.",
-        "Detection": "Monitor for unusual PDF reader behavior",
-        "Remediation": "Apply patches and updates to PDF readers",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting PDF reader vulnerabilities.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in PDF readers.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "WINELOADER is installed via DLL side-loading.",
-        "Detection": "Monitor DLL loading activities",
-        "Remediation": "Restrict DLL loading paths",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Loading rogue DLLs to install malware.",
-            "tactic_id": "T1073",
-            "tactic_name": "DLL Side-Loading"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using DLL side-loading to install WINELOADER.",
-            "technique_id": "T1073",
-            "technique_name": "DLL Side-Loading"
-          }
-        ],
-        "Techniques": ["T1073"]
-      },
-      {
-        "Description": "C2 communication via HTTP GET requests.",
-        "Detection": "Monitor network traffic for unusual HTTP requests",
-        "Remediation": "Block known malicious domains",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Using HTTP for C2 communication.",
-            "tactic_id": "T1071",
-            "tactic_name": "Application Layer Protocol"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using HTTP GET requests for C2.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Exfiltration of sensitive diplomatic information.",
-        "Detection": "Monitor for data exfiltration activities",
-        "Remediation": "Implement data loss prevention measures",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Exfiltrating data via C2 channels.",
-            "tactic_id": "T1041",
-            "tactic_name": "Exfiltration Over C2 Channel"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exfiltrating data via C2 channels.",
-            "technique_id": "T1041",
-            "technique_name": "Exfiltration Over C2 Channel"
-          }
-        ],
-        "Techniques": ["T1041"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of obfuscation", "Selective C2 response"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Obfuscation", "Selective C2 response"],
-      "Description": "The adversary employs advanced tactics such as DLL hollowing and obfuscation.",
-      "Exploits": ["PDF reader vulnerabilities"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["WINELOADER"],
-      "Persistence_Mechanisms": ["Registry keys", "Scheduled tasks"],
-      "Tools": ["LibreOffice 6.4", "obfuscator.io"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual outbound traffic"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual HTTP GET requests", "Scan for malicious PDFs"],
-    "Extracted_Entities": {
-      "Assets": ["Diplomatic communications"],
-      "Breach_Types": ["Data exfiltration"],
-      "Command_Lines_Or_Scripts": ["certutil -decode"],
-      "Companies": ["Zscaler"],
-      "Countries": ["Republic of India", "European Union"],
-      "Domains": ["seeceafcleaners[.]co[.]uk"],
-      "Email_Addresses": [],
-      "Encryption_Tools": ["RC4"],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["WINELOADER", "SPIKEDWINE", "PDF", "DLL Hollowing"],
-      "Malware_Families": ["WINELOADER"],
-      "Malware_Filenames": ["sqlwriter.exe"],
-      "Patches": [],
-      "Phishing_Infrastructure": ["Fake PDF invites"],
-      "Sectors": ["Diplomatic"],
-      "Software": ["LibreOffice 6.4"],
-      "Technologies": ["RC4 encryption", "obfuscator.io"],
-      "Threat_Infrastructure": ["C2 server"],
-      "Vulnerabilities": ["PDF reader vulnerabilities"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["hxxps://seeceafcleaners[.]co[.]uk"],
-      "Communication_Protocols": ["HTTP GET requests"],
-      "Description": "The infrastructure includes compromised sites and C2 servers.",
-      "Domains": ["seeceafcleaners[.]co[.]uk"],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Strengthen email security", "Educate users on phishing"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["seeceafcleaners[.]co[.]uk"],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["DLL Hollowing", "RC4 Encryption"],
-      "Tools": ["obfuscator.io"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis", "PDF scanning tools"],
-    "Severity": "High",
-    "Threat_Actors": ["SPIKEDWINE"],
-    "Timestamp": "2024-02-28T14:21:10Z",
-    "Title": "SPIKEDWINE: Weaponized PDF Attack Targeting Indo-European Diplomatic Relations",
-    "Tools": ["LibreOffice 6.4", "obfuscator.io"],
-    "Victim": {
-      "Access_Vectors": ["Email attachments", "Compromised websites"],
-      "Data_Types_At_Risk": ["Confidential diplomatic information"],
-      "Description": "The attack targets diplomatic entities involved in Indian-European relations.",
-      "Geography": "India and European countries",
-      "Impact_Severity": "High",
-      "Industry": "Diplomatic",
-      "Security_Posture": "Medium",
-      "Targeted_Assets": ["Diplomatic communications", "Sensitive documents"]
-    },
-    "diamond_model_summary": "The SPIKEDWINE attack involves a nation-state actor targeting Indian-European diplomatic relations using weaponized PDFs. The adversary employs advanced tactics such as DLL hollowing and obfuscation, with infrastructure including compromised sites and C2 servers. The attack aims to exfiltrate sensitive diplomatic information.",
-    "doc_summary": "Threat actors are using weaponized PDF files to initiate cyber attacks, exploiting vulnerabilities in PDF readers. Zscaler's ThreatLabz discovered a new backdoor, WINELOADER, likely used by a nation-state actor targeting Indian-European diplomatic ties. The attack, dubbed SPIKEDWINE, involves a fake PDF invite to a wine event, leading to a compromised site. The PDF was created using LibreOffice 6.4 and contains obfuscated JavaScript. The attack uses DLL side-loading and RC4 encryption, with WINELOADER injecting into Windows DLLs. The C2 server selectively responds to evade detection. The attack highlights the need for robust cybersecurity measures against such sophisticated threats.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:15.168067+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "7d237611f3ac625c41b9ef5d95e7685221ec95b1",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with weaponized PDFs delivered via email, exploiting PDF reader vulnerabilities. WINELOADER is installed using DLL side-loading, with C2 communication via HTTP GET requests. The attack aims to exfiltrate sensitive diplomatic information, highlighting the need for robust cybersecurity measures.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names like seeceafcleaners[.]co[.]uk, tools such as obfuscator.io, and TTPs like DLL hollowing and RC4 encryption. These indicators are crucial for detecting and mitigating the SPIKEDWINE attack, emphasizing the importance of monitoring network traffic and scanning for malicious PDFs.",
-    "relevance_score": 63,
-    "sequence": 16831,
-    "source": "https://gbhackers.com/weaponized-pdf-infection-chain/",
-    "slug": "SPIKEDWINE__Weaponized_PDF_Attack_Targeting_Indo-European_Diplomatic_Rel-016831",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary exploited HTTP Request Smuggling vulnerabilities in Google Cloud's Load Balancer.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential unauthorized access and control over cloud-hosted services.",
-      "Sophistication": "High, due to the exploitation of complex web server inconsistencies.",
-      "Strategic_Objectives": "Compromise cloud-hosted services and bypass security controls.",
-      "TTPs_Employed": ["HTTP Request Smuggling", "TE.0 variant"]
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries likely identified vulnerable HTTP request handling in Google Cloud.",
-        "Detection": "Monitor for unusual scanning activity on HTTP endpoints.",
-        "Remediation": "Implement rate limiting and anomaly detection for HTTP requests.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable HTTP request handling.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Crafting of malicious HTTP requests to exploit identified vulnerabilities.",
-        "Detection": "Analyze HTTP request patterns for anomalies.",
-        "Remediation": "Regularly update and patch web server configurations.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating malicious payloads to exploit vulnerabilities.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Preparing HTTP requests for smuggling attacks.",
-            "technique_id": "T1608",
-            "technique_name": "Stage Capabilities"
-          }
-        ],
-        "Techniques": ["T1608"]
-      },
-      {
-        "Description": "Delivery of malicious HTTP requests to Google Cloud's Load Balancer.",
-        "Detection": "Monitor for unusual HTTP request patterns.",
-        "Remediation": "Implement web application firewalls to filter malicious requests.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to target systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting HTTP request handling vulnerabilities.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Exploitation of HTTP Request Smuggling to bypass security controls.",
-        "Detection": "Monitor for unauthorized access attempts.",
-        "Remediation": "Regularly update and patch web server configurations.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Executing malicious payloads on target systems.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Executing smuggled HTTP requests.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential unauthorized access and control over cloud-hosted services.",
-        "Detection": "Monitor for service disruptions and unauthorized access.",
-        "Remediation": "Implement strict access controls and monitoring.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Manipulating, interrupting, or destroying systems and data.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Disrupting services through HTTP request manipulation.",
-            "technique_id": "T1489",
-            "technique_name": "Service Stop"
-          }
-        ],
-        "Techniques": ["T1489"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Bypassing Google Identity-Aware Proxy"],
-      "Description": "Exploitation of HTTP Request Smuggling vulnerabilities to bypass security controls.",
-      "Exploits": ["TE.0 variant"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["http-garden", "bbscope"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual HTTP request patterns."],
-    "Extracted_Entities": {
-      "Assets": ["Load Balancer", "Identity-Aware Proxy"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Google"],
-      "Countries": ["United States of America"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["HTTP Request Smuggling", "TE.0 variant", "Google Cloud"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Cloud Computing"],
-      "Software": ["Google Cloud Load Balancer", "Identity-Aware Proxy"],
-      "Technologies": ["HTTP/1.1", "HTTP/2"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["HTTP Request Smuggling"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP/1.1"],
-      "Description": "Google Cloud's Load Balancer and Identity-Aware Proxy were targeted.",
-      "Domains": [],
-      "Hosting_Providers": ["Google Cloud"],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Implement web application firewalls and regular patching."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["HTTP Request Smuggling", "TE.0 variant"],
-      "Tools": ["http-garden", "bbscope"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["http-garden", "bbscope"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-07-18T09:32:11Z",
-    "Title": "HTTP Request Smuggling Vulnerability in Google Cloud's Load Balancer",
-    "Tools": ["http-garden", "bbscope", "Google Cloud Load Balancer", "Identity-Aware Proxy"],
-    "Victim": {
-      "Access_Vectors": ["HTTP Request Smuggling"],
-      "Data_Types_At_Risk": ["User credentials", "Session data"],
-      "Description": "Google Cloud-hosted websites and services were affected.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Cloud Computing",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Load Balancer", "Identity-Aware Proxy"]
-    },
-    "diamond_model_summary": "The incident involved adversaries exploiting HTTP Request Smuggling vulnerabilities in Google Cloud's Load Balancer. The capability involved crafting malicious HTTP requests to bypass security controls, affecting cloud-hosted services. The infrastructure targeted included Google Cloud's Load Balancer and Identity-Aware Proxy, with victims being global users of these services.",
-    "doc_summary": "HTTP Request Smuggling is a web security flaw that arises from variations in how web servers or intermediaries handle HTTP request sequences. This vulnerability can lead to unauthorized access, session hijacking, or injection of malicious content. Researchers at BugCrowd, including Paolo Arnolfo, Guillermo Gregorio, and others, discovered a new variant, TE.0, affecting Google Cloud's Load Balancer. This variant enabled mass account takeovers and compromised Google Identity-Aware Proxy, a key feature of Google Cloud's Zero Trust security. The flaw allowed bypassing strict authentication measures, leading to potential severe security breaches. Google acknowledged the vulnerability after initial reporting challenges, highlighting the complexity of fixing cloud infrastructure loopholes. The incident underscores the importance of continuous security research in cloud environments.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:05.174303+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "4f8524a1ab1481b7a97d20bf3d3444f1fd3006be",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack began with reconnaissance to identify vulnerable HTTP request handling, followed by weaponization through crafting malicious requests. Delivery involved sending these requests to Google Cloud's Load Balancer, leading to exploitation by bypassing security controls. The attack's objective was unauthorized access and control over cloud-hosted services, highlighting the need for robust security measures.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes tools like http-garden and bbscope, and TTPs such as HTTP Request Smuggling and the TE.0 variant. No specific hash values, IP addresses, or domain names were identified. The focus is on detecting and mitigating HTTP request anomalies to prevent similar attacks.",
-    "relevance_score": 61,
-    "sequence": 16830,
-    "source": "https://gbhackers.com/te-0-http-request-smuggling-flaw/",
-    "slug": "HTTP_Request_Smuggling_Vulnerability_in_Google_Cloud_s_Load_Balancer-016830",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary exploits vulnerabilities in VMware's Enhanced Authentication Plugin.",
-      "Known_Campaigns": [],
-      "Motivation": "Unauthorized access and control over virtualized environments.",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Compromise privileged sessions and gain unauthorized access.",
-      "TTPs_Employed": ["Authentication relay", "Session hijacking"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities CVE-2024-22245 and CVE-2024-22250.",
-        "Detection": "Monitor for unusual Kerberos ticket requests.",
-        "Remediation": "Remove the deprecated EAP plugin.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain access.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting software vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential unauthorized access and control over virtualized environments.",
-        "Detection": "Monitor for unusual access patterns.",
-        "Remediation": "Switch to supported authentication methods.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using compromised credentials to access systems.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of unpatched vulnerabilities in deprecated software.",
-      "Exploits": ["CVE-2024-22245", "CVE-2024-22250"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Windows domain environments", "vSphere management interfaces"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": ["PowerShell commands"],
-      "Companies": ["VMware"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-22245", "CVE-2024-22250", "Kerberos", "vSphere"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["VMware Enhanced Authentication Plugin"],
-      "Technologies": ["Active Directory", "LDAPS", "ADFS", "Okta", "Microsoft Entra ID24"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-22245", "CVE-2024-22250"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["Kerberos"],
-      "Description": "Potentially compromised Windows domain environments.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Remove deprecated EAP plugin", "Switch to supported authentication methods"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2024-22245", "CVE-2024-22250"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-02-21T07:04:42Z",
-    "Title": "Critical Vulnerabilities in VMware Enhanced Authentication Plugin",
-    "Tools": ["VMware Enhanced Authentication Plugin"],
-    "Victim": {
-      "Access_Vectors": ["Local access", "Web browser"],
-      "Data_Types_At_Risk": ["Service tickets", "Privileged session data"],
-      "Description": "Organizations using VMware's Enhanced Authentication Plugin.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable due to deprecated software",
-      "Targeted_Assets": ["Windows domain environments", "vSphere management interfaces"]
-    },
-    "diamond_model_summary": "The incident involves exploitation of vulnerabilities in VMware's Enhanced Authentication Plugin (EAP), specifically CVE-2024-22245 and CVE-2024-22250. The adversary's capability includes exploiting these vulnerabilities to gain unauthorized access and control over virtualized environments. The infrastructure at risk includes Windows domain environments where the EAP is installed. Victims are organizations using the deprecated EAP, primarily in the Information Technology sector.",
-    "doc_summary": "VMware has issued an urgent advisory to administrators to remove a deprecated authentication plugin vulnerable to severe security threats. The Enhanced Authentication Plugin (EAP), which provided seamless login capabilities to vSphere’s management interfaces, is susceptible to authentication relay and session hijack attacks due to two unpatched security vulnerabilities. The two vulnerabilities, CVE-2024-22245 and CVE-2024-22250, pose significant risks to Windows domain environments. CVE-2024-22245, with a CVSS score of 9.6, allows a malicious actor to relay Kerberos service tickets, potentially leading to the takeover of privileged EAP sessions. CVE-2024-22250, scored at 7.8, enables an attacker with local access to hijack an EAP session initiated by a privileged domain user. These vulnerabilities were discovered by Ceri Coburn from Pen Test Partners and reported to VMware, which has acknowledged the critical nature of these flaws. VMware recommends completely removing the EAP to secure systems against potential attacks and suggests using other authentication methods such as Active Directory over LDAPS, Microsoft Active Directory Federation Services (ADFS), Okta, and Microsoft Entra ID24 as alternatives.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.891099+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "83cda686df72e87788590892f730f4918257791d",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals exploitation of vulnerabilities in the VMware Enhanced Authentication Plugin, leading to potential unauthorized access and control over virtualized environments. The adversary exploits CVE-2024-22245 and CVE-2024-22250 to gain initial access and execute actions on objectives. Detection involves monitoring unusual Kerberos ticket requests and access patterns, while remediation includes removing the deprecated EAP plugin and switching to supported authentication methods.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 90,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies the exploitation of specific vulnerabilities (CVE-2024-22245 and CVE-2024-22250) as the primary TTPs. No specific hash values, IP addresses, or domain names are identified, indicating a focus on exploiting software vulnerabilities rather than using traditional indicators of compromise. The emphasis is on understanding and mitigating the vulnerabilities to disrupt the adversary's operations.",
-    "relevance_score": 43,
-    "sequence": 16829,
-    "source": "https://gbhackers.com/vmware-urges-remove-eap-plugin/",
-    "slug": "Critical_Vulnerabilities_in_VMware_Enhanced_Authentication_Plugin-016829",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in Access Rights Manager",
-        "Detection": "Monitor for unusual access patterns • Check for known exploit signatures",
-        "Remediation": "Apply patches • Update to version 2023.2.3",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system through vulnerabilities",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Deserialization and Directory Traversal vulnerabilities",
-      "Exploits": ["CVE-2023-40057", "CVE-2023-23476", "CVE-2023-23477", "CVE-2023-23478", "CVE-2023-23479"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Access Rights Manager"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["SolarWinds", "Trend Micro"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerabilities", "remote code execution", "CVE"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["2023.2.3"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["SolarWinds Access Rights Manager"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2023-40057", "CVE-2023-23476", "CVE-2023-23477", "CVE-2023-23478", "CVE-2023-23479"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Upgrade to the latest software version", "Monitor for unusual activity"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of Deserialization and Directory Traversal vulnerabilities"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-02-19T14:05:59Z",
-    "Title": "SolarWinds Access Rights Manager Vulnerabilities and Mitigation",
-    "Tools": ["SolarWinds Access Rights Manager"],
-    "Victim": {
-      "Access_Vectors": ["Remote code execution"],
-      "Data_Types_At_Risk": ["Access data"],
-      "Description": "Organizations using SolarWinds Access Rights Manager",
-      "Geography": "No specific geography detected",
-      "Impact_Severity": "Critical",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable prior to patching",
-      "Targeted_Assets": ["Access Rights Manager"]
-    },
-    "diamond_model_summary": "The incident involves vulnerabilities in SolarWinds Access Rights Manager, with no specific adversary identified. The capabilities include exploiting Deserialization and Directory Traversal vulnerabilities. The infrastructure and victim details are limited, focusing on organizations using the affected software.",
-    "doc_summary": "SolarWinds has released Access Rights Manager version 2023.2.3, addressing several critical vulnerabilities related to Deserialization and Directory Traversal, which could lead to remote code execution. The vulnerabilities, identified as CVE-2023-40057, CVE-2023-23476, CVE-2023-23477, CVE-2023-23478, and CVE-2023-23479, have severity ratings ranging from high to critical. These vulnerabilities were reported by multiple security researchers and the Trend Micro Zero Day Initiative. SolarWinds urges users to upgrade to the latest version to prevent exploitation. The vulnerabilities could allow both authenticated and unauthenticated users to execute remote code on vulnerable instances. No evidence of exploitation in the wild has been reported. The vulnerabilities were present in version 2023.2.2 of the Access Rights Manager. SolarWinds has credited security researchers for their responsible disclosure.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.891069+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "ff8e81ea6cf21df3d0e071a18e7567633a16fada",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involves the exploitation stage, where vulnerabilities in SolarWinds Access Rights Manager are targeted. The tactics and techniques focus on exploiting public-facing applications. Detection and remediation efforts are centered on patching and monitoring for unusual access patterns.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes vulnerabilities as the primary indicators. No specific hash values, IP addresses, or domain names are identified. The focus is on the tools and techniques used to exploit the vulnerabilities, with a high impact on organizations using the affected software.",
-    "relevance_score": 41,
-    "sequence": 16828,
-    "source": "https://gbhackers.com/solarwinds-arm-flaw/",
-    "slug": "SolarWinds_Access_Rights_Manager_Vulnerabilities_and_Mitigation-016828",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of 'use after free' vulnerabilities in Chrome.",
-        "Detection": "Monitor for unusual browser behavior or crashes.",
-        "Remediation": "Update Chrome to the latest version.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in an application to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The vulnerabilities involve a 'use after free' flaw, potentially allowing attackers to exploit memory management issues.",
-      "Exploits": ["Use after free"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Chrome browser"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Google"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerabilities", "use after free", "security update"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["130.0.6723.116/.117"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Google Chrome"],
-      "Technologies": ["Web browser"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["use after free"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Ensure all systems are updated to the latest Chrome version."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Use after free"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2024-11-06T08:55:15Z",
-    "Title": "Google Chrome Update Addresses High-Severity Vulnerabilities",
-    "Tools": ["Google Chrome"],
-    "Victim": {
-      "Access_Vectors": ["Web browser"],
-      "Data_Types_At_Risk": ["User data"],
-      "Description": "Users of Google Chrome browser across Windows, Mac, and Linux platforms.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "High",
-      "Targeted_Assets": ["Web browsers"]
-    },
-    "diamond_model_summary": "The incident involves high-severity vulnerabilities in Google Chrome, specifically a 'use after free' flaw. No specific adversary is identified, but the vulnerabilities were reported by anonymous researchers. The potential impact is high due to the widespread use of Chrome across various platforms. Users are advised to update their browsers to mitigate risks.",
-    "doc_summary": "Google has released a new update for its Chrome browser, addressing two high-severity vulnerabilities. The Stable channel has been updated to version 130.0.6723.116/.117 for Windows and Mac, and version 130.0.6723.116 for Linux. The update includes significant security fixes for a 'use after free' flaw, potentially allowing attackers to exploit memory management issues. Google has restricted access to bug details until most users have updated their browsers. The update also affects the Extended Stable channel, aiming to enhance security and performance. Google acknowledges the contributions of anonymous external researchers in identifying these vulnerabilities. Users are advised to update their Chrome browser to protect against these vulnerabilities.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:05.172591+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "0b0a01ce9346ca8325c962f715e5b44fb1681c3e",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involves the exploitation stage of the kill chain, where a 'use after free' vulnerability in Chrome could be exploited. No significant activities were detected in other stages such as reconnaissance, weaponization, delivery, installation, command and control, or actions on objectives. The primary remediation is updating the Chrome browser to the latest version.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The incident does not provide specific indicators such as hash values, IP addresses, or domain names. The primary focus is on the 'use after free' vulnerability, which falls under TTPs. The lack of specific IOCs limits the ability to apply the Pyramid of Pain effectively. The primary remediation is updating the Chrome browser to address the vulnerabilities.",
-    "relevance_score": 41,
-    "sequence": 16827,
-    "source": "https://gbhackers.com/google-patches-high-severity-vulnerabilities/",
-    "slug": "Google_Chrome_Update_Addresses_High-Severity_Vulnerabilities-016827",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Attackers exploiting Azure API Management vulnerabilities",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized administrative access",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Compromise Azure API Management services",
-      "TTPs_Employed": ["Privilege Escalation", "Exploitation of Legacy APIs"]
-    },
-    "Analyses": [
-      {
-        "Description": "Attackers identify vulnerable legacy API versions",
-        "Detection": "Monitor for unusual API access patterns",
-        "Remediation": "Disable legacy API versions",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerable systems",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable API endpoints",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of legacy API versions for privilege escalation",
-        "Detection": "Monitor for API calls to legacy endpoints",
-        "Remediation": "Apply patches and disable legacy APIs",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing APIs",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Privilege escalation to gain administrative access",
-        "Detection": "Monitor for unusual administrative actions",
-        "Remediation": "Restrict access and review permissions",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining higher-level permissions",
-            "tactic_id": "TA0004",
-            "tactic_name": "Privilege Escalation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using valid credentials to escalate privileges",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Accessing legacy API endpoints", "Dumping subscription keys"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Azure API Management vulnerabilities",
-      "Exploits": ["Legacy API version exploitation"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["API manipulation tools"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor API access logs for unusual patterns"],
-    "Extracted_Entities": {
-      "Assets": ["APIM services"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft", "Binary Security"],
-      "Countries": ["United States of America"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Azure API Management", "vulnerabilities", "privilege escalation"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Cloud Services"],
-      "Software": ["Azure API Management"],
-      "Technologies": ["API", "Azure Resource Manager"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Legacy API versions"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP", "HTTPS"],
-      "Description": "Azure API Management services",
-      "Domains": [],
-      "Hosting_Providers": ["Microsoft Azure"],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Disable legacy APIs", "Apply security patches"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Privilege Escalation", "Exploitation of Legacy APIs"],
-      "Tools": ["API manipulation tools"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["API monitoring tools", "Vulnerability scanners"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2024-11-06T09:53:27Z",
-    "Title": "Critical Vulnerabilities in Azure API Management Exploited for Privilege Escalation",
-    "Tools": ["API manipulation tools", "Azure API Management"],
-    "Victim": {
-      "Access_Vectors": ["Legacy API versions"],
-      "Data_Types_At_Risk": ["Subscription keys", "API access"],
-      "Description": "Organizations using Azure API Management",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Cloud Services",
-      "Security_Posture": "Vulnerable due to legacy API usage",
-      "Targeted_Assets": ["Azure API Management services"]
-    },
-    "diamond_model_summary": "The incident involves attackers exploiting vulnerabilities in Azure API Management to escalate privileges. The adversary is motivated by gaining unauthorized administrative access. The capability involves exploiting legacy API versions, and the infrastructure is centered around Azure API Management services. Victims are organizations using these services, primarily in the cloud services sector. The attack highlights the importance of disabling legacy APIs and applying security patches to mitigate risks.",
-    "doc_summary": "Recent discoveries by Binary Security have revealed critical vulnerabilities in Azure API Management (APIM) that could allow attackers with minimal privileges to escalate their access and take full control over the APIM service. These vulnerabilities were reported to Microsoft, leading to some fixes. However, certain issues remain unresolved, exposing many users unless they manually disable legacy API versions. Azure API Management is Microsoft’s cloud-based offering for managing APIs at scale. It provides features like API definition, security policies, and rate limiting essential for enterprise-grade API management. Vulnerabilities in the older versions of its Azure Resource Manager (ARM) API have exposed a significant attack vector for privilege escalation. The primary issue revolves around the use of older API versions. Despite Microsoft’s updates, old versions of the ARM API are still accessible and can be exploited by attackers. These APIs allow users with Reader permissions—only meant to have read-only access—to perform actions reserved for administrators. A notable vulnerability involves subscription keys, secrets used to grant access to APIs in APIM. Attackers with Reader privileges can dump all subscription keys by manipulating API calls to older ARM API versions, bypassing restrictions Microsoft introduced in newer versions. The most severe vulnerability allows attackers to escalate privileges from a Reader to a full Administrator role. By exploiting legacy API endpoints, attackers can retrieve a Shared Access Signature (SAS) token, granting them administrative access to the APIM service. Microsoft has introduced a toggle called “Disable old API versions” to reduce this risk. However, the toggle is not enabled by default, leaving many APIM services vulnerable. Binary Security criticized Microsoft’s handling of the issue, pointing out that while some fixes were implemented, key vulnerabilities remain exploitable. The company also noted that Microsoft’s communication regarding these vulnerabilities was lacking. While Microsoft has addressed some vulnerabilities in Azure API Management, the remaining issues highlight the importance of staying vigilant and applying best practices for cloud security. Enterprises using APIM should ensure legacy APIs are disabled and take proactive steps to secure their API environments against privilege escalation attacks.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:05.891020+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "345a72e9be86dc66f097cf334c016305f4885096",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with reconnaissance, where attackers identify vulnerable legacy API versions. Exploitation occurs as attackers manipulate these APIs to escalate privileges. The primary objective is to gain administrative access, achieved by exploiting subscription keys and Shared Access Signature tokens. Detection involves monitoring API access patterns, while remediation focuses on disabling legacy APIs and applying patches. The incident underscores the need for vigilance in managing cloud-based services and ensuring security best practices are followed.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 77,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as privilege escalation and exploitation of legacy APIs. Tools used may involve API manipulation utilities. No specific hash values, IP addresses, or domain names are identified. The focus is on understanding the tactics and techniques employed by attackers to exploit Azure API Management vulnerabilities. Organizations must prioritize disabling legacy APIs and monitoring for unusual access patterns to mitigate these threats.",
-    "relevance_score": 49,
-    "sequence": 16826,
-    "source": "https://gbhackers.com/azure-api-management-vulnerabilities-let-attackers-escalate-privileges/",
-    "slug": "Critical_Vulnerabilities_in_Azure_API_Management_Exploited_for_Privilege-016826",
     "shard": 9
   }
 ]
