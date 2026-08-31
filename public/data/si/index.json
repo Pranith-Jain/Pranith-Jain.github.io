@@ -1,10 +1,10 @@
 {
   "source": "github.com/SCStelz/security-investigator",
   "license": "MIT",
-  "replicatedAt": "2026-08-24",
+  "replicatedAt": "2026-08-31",
   "counts": {
     "skills": 28,
-    "queries": 57,
+    "queries": 58,
     "automations": 3,
     "docs": 11,
     "referenceData": 14,
@@ -65,22 +65,8 @@
       "slug": "ai-agent-activity",
       "name": "ai-agent-activity",
       "category": "Other",
-      "description": "Use this skill when asked to report on, summarize, or investigate the RUNTIME ACTIVITY of AI agents (Agent 365 / Copilot Studio / Microsoft 365 Copilot / Work IQ) — who used which agents, what tools/connectors ran, which channels, token usage, prompt/reply content, and what the safety layer (Prompt Shield jailbreak / XPIA) caught. Triggers on keywords like \"agent activity\", \"AI agent usage\", \"who is using agents\", \"agent runtime\", \"agent telemetry\", \"agent tool usage\", \"agent session\", \"jailbreak activity\", \"prompt injection activity\", \"Agent 365 activity\", \"UnifiedAgentObservability\", \"CloudAppEvents agents\", \"CopilotActivity\". Auto-detects whichever data planes the tenant has — UnifiedAgentObservability (Sentinel Data Lake), CloudAppEvents (Defender), CopilotActivity (governance + fail-close posture) — and proceeds with what is available. Supports tenant-wide, single-agent, and single-user scopes. Runtime/behavioral companion to the config-focused ai-agent-posture skill.",
-      "triggerKeywords": [
-        "keywords like \"agent activity",
-        "AI agent usage",
-        "who is using agents",
-        "agent runtime",
-        "agent telemetry",
-        "agent tool usage",
-        "agent session",
-        "jailbreak activity",
-        "prompt injection activity",
-        "Agent 365 activity",
-        "UnifiedAgentObservability",
-        "CloudAppEvents agents",
-        "CopilotActivity"
-      ],
+      "description": "Report/investigate RUNTIME ACTIVITY of AI agents (Agent 365 / Copilot Studio / M365 Copilot / Work IQ) — agents used, tools/connectors, channels, tokens, prompt/reply content, and Prompt Shield jailbreak/XPIA verdicts. Triggers: \"agent activity\", \"AI agent usage\", \"who is using agents\", \"agent runtime\", \"agent telemetry\", \"agent tool usage\", \"agent session\", \"jailbreak activity\", \"prompt injection activity\", \"Agent 365 activity\", \"UnifiedAgentObservability\", \"CloudAppEvents agents\", \"CopilotActivity\". Auto-detects available data planes — UnifiedAgentObservability (Data Lake), CloudAppEvents (Defender), CopilotActivity (governance/fail-close) — and uses what is present. Supports tenant-wide, single-agent, and single-user scopes. Runtime companion to the config-focused ai-agent-posture skill.",
+      "triggerKeywords": [],
       "hasAssets": false,
       "hasSvgWidgets": false,
       "sizeBytes": 66432
@@ -89,27 +75,22 @@
       "slug": "ai-agent-posture",
       "name": "ai-agent-posture",
       "category": "Posture & Exposure",
-      "description": "Use this skill when asked to audit, assess, or report on AI agent security posture across Copilot Studio, Microsoft 365 Copilot, Microsoft Foundry, and third-party agents. Triggers on keywords like \"AI agent posture\", \"agent security audit\", \"Copilot Studio agents\", \"agent inventory\", \"agent access\", \"broadly accessible agents\", \"agent tools\", \"MCP tools on agents\", \"agent knowledge sources\", \"XPIA risk\", \"agent sprawl\", \"AI agent risk\", \"agent governance\", \"agent identity\", \"agentic user\", \"agent blueprint\", \"dormant agents\", \"ownerless agents\", or when investigating AI agent configurations, access posture, tool permissions, credential exposure, or Entra agent identities. This skill queries the AgentsInfo table in Advanced Hunting (the always-available baseline) to produce a comprehensive security posture assessment covering agent inventory, access posture, broadly-accessible agent exposure, MCP tool proliferation, knowledge source exposure, XPIA email exfiltration risk, hard-coded credential detection, external endpoint risks, creator governance, and agent sprawl analysis. When Microsoft Sentinel Data Lake is present, it additionally enriches the assessment with the Entra agent identity model (EntraAgentIdentities, EntraAgentIdentityBlueprints, EntraAgentUsers) for lifecycle state, blueprint governance, agentic-user accounts, and dormant-agent detection. Performs data-plane detection so Defender-only tenants still receive a full assessment. Supports inline chat and markdown file output.",
+      "description": "Audit or report on AI agent security posture across Copilot Studio, Microsoft 365 Copilot, Microsoft Foundry, and third-party agents. Triggers on \"AI agent posture\", \"agent security audit\", \"Copilot Studio agents\", \"agent inventory\", \"broadly accessible agents\", \"agent tools\", \"MCP tools on agents\", \"XPIA risk\", \"agent sprawl\", \"agent governance\", \"agent identity\", \"dormant agents\", \"ownerless agents\", or investigating agent configs, access posture, tool permissions, credential exposure, or Entra agent identities. Queries the AgentsInfo table in Advanced Hunting to assess agent inventory, access posture, broadly-accessible exposure, MCP tool proliferation, knowledge source exposure, XPIA email exfiltration risk, hard-coded credentials, external endpoints, creator governance, and sprawl. When Sentinel Data Lake is present, enriches with the Entra agent identity model (EntraAgentIdentities, blueprints, agentic-user accounts) for lifecycle, governance, and dormant-agent detection. Inline or markdown output.",
       "triggerKeywords": [
-        "keywords like \"AI agent posture",
+        "AI agent posture",
         "agent security audit",
         "Copilot Studio agents",
         "agent inventory",
-        "agent access",
         "broadly accessible agents",
         "agent tools",
         "MCP tools on agents",
-        "agent knowledge sources",
         "XPIA risk",
         "agent sprawl",
-        "AI agent risk",
         "agent governance",
         "agent identity",
-        "agentic user",
-        "agent blueprint",
         "dormant agents",
         "ownerless agents",
-        "or when investigating AI agent configurations",
+        "or investigating agent configs",
         "access posture",
         "tool permissions",
         "credential exposure",
@@ -199,16 +180,17 @@
       "slug": "context-memory-review",
       "name": "context-memory-review",
       "category": "Quick Scan",
-      "description": "Weekly review of an investigation tenant-context memory file against the most recent SOC scan reports (e.g. Threat Pulse). Surfaces candidate ADD / MODIFY / FLAG changes to the context file as a propose-only review document for human approval — it NEVER edits the context file, commits, or opens a PR. Trigger on 'review my context file', 'review tenant context', 'propose context updates', 'what should I add to my context memory'.",
+      "description": "Weekly review of an investigation tenant-context memory file against the most recent SOC scan reports (e.g. Threat Pulse) and the Mission Control findings log. Surfaces candidate ADD / MODIFY / FLAG changes to the context file as a propose-only review document for human approval — it NEVER edits the context file, commits, or opens a PR. Trigger on 'review my context file', 'review tenant context', 'propose context updates', 'compact findings to memory', 'what should I add to my context memory'.",
       "triggerKeywords": [
         "review my context file",
         "review tenant context",
         "propose context updates",
+        "compact findings to memory",
         "what should I add to my context memory"
       ],
       "hasAssets": false,
       "hasSvgWidgets": false,
-      "sizeBytes": 12600
+      "sizeBytes": 14289
     },
     {
       "slug": "data-security-analysis",
@@ -669,12 +651,20 @@
       "sizeBytes": 49193
     },
     {
+      "slug": "endpoint/local_ai_agent_discovery",
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "Local AI Agent Discovery — Hunting & Posture Queries",
+      "filename": "local_ai_agent_discovery.md",
+      "sizeBytes": 26499
+    },
+    {
       "slug": "endpoint/openclaw_shadow_ai_hunting",
       "domain": "endpoint",
       "subdomain": null,
       "title": "OpenClaw Shadow AI Agent — Threat Hunting Queries",
       "filename": "openclaw_shadow_ai_hunting.md",
-      "sizeBytes": 24308
+      "sizeBytes": 24906
     },
     {
       "slug": "endpoint/rare_process_chains",
@@ -778,7 +768,7 @@
       "subdomain": null,
       "title": "Global Secure Access — Generative AI Insights (Client GenAI + Agent MCP)",
       "filename": "gsa_generative_ai_insights.md",
-      "sizeBytes": 30771
+      "sizeBytes": 31301
     },
     {
       "slug": "network/internet_exposure_analysis",
