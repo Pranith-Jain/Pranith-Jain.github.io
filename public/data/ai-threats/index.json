@@ -2,9 +2,9 @@
   "source": "Cybershujin Threat Actors' Use of Artificial Intelligence tracker",
   "sourceUrl": "https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/",
   "license": "MIT",
-  "replicatedAt": "2026-08-24",
-  "lastSyncedAt": "2026-08-24T06:33:26.107Z",
-  "counts": { "total": 83, "main": 71, "deepfake": 12 },
+  "replicatedAt": "2026-08-31",
+  "lastSyncedAt": "2026-08-31T12:00:28.023Z",
+  "counts": { "total": 92, "main": 80, "deepfake": 12 },
   "stixAvailable": true,
   "threatIndex": [
     {
@@ -228,6 +228,47 @@
       "activity": "May 2023",
       "table": "deepfake",
       "sizeBytes": 313
+    },
+    {
+      "slug": "dragonforce",
+      "name": "DragonForce",
+      "akas": "Unknown",
+      "brief": "In a DragonForce ransomware case investigated by the Sophos Incident Response team, \"the threat actor produced what we strongly suspect to be an AI-generated report during negotiations with the targeted organization, containing a detaile…",
+      "ttps": ["T1213", "T1657"],
+      "categories": ["LLM-enhanced extortion/negotiation", "LLM-directed Automated Collection"],
+      "reported": "Jul 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 849
+    },
+    {
+      "slug": "earth-krahang",
+      "name": "Earth Krahang",
+      "akas": "Unknown",
+      "brief": "China-aligned actor. Trend Micro's 2026 H1 APT report records: \"It used generative AI to enhance a publicly available proof-of-concept exploit for CVE-2026-0740, a vulnerability in the Ninja Forms – File Uploads plugin for WordPress. The…",
+      "ttps": ["T1587", "T1588", "T1588.006", "T1595"],
+      "categories": [
+        "LLM-assisted vulnerability research",
+        "LLM-aided development",
+        "LLM-optimized payload crafting",
+        "LLM-informed reconnaissance"
+      ],
+      "reported": "Jul 2026",
+      "activity": "Jan 2026 – Jun 2026",
+      "table": "main",
+      "sizeBytes": 1363
+    },
+    {
+      "slug": "earth-naga",
+      "name": "Earth Naga",
+      "akas": "Associated with Flax Typhoon (per Trend Micro)",
+      "brief": "China-aligned actor. Trend Micro's 2026 H1 APT report records: \"It has been observed to use an iterative AI prompting workflow ('vibe coding') to develop a malicious PowerShell script. The script compiles and executes C# code at runtime …",
+      "ttps": ["T1055.012", "T1059.001", "T1587.001", "T1620"],
+      "categories": ["LLM-aided development", "LLM-enhanced scripting techniques"],
+      "reported": "Jul 2026",
+      "activity": "Jan 2026 – Jun 2026",
+      "table": "main",
+      "sizeBytes": 1035
     },
     {
       "slug": "fancy-bear",
@@ -674,6 +715,24 @@
       "sizeBytes": 917
     },
     {
+      "slug": "stac6994",
+      "name": "STAC6994",
+      "akas": "Unknown (Sophos-designated cluster)",
+      "brief": "Sophos analysts discovered a rogue device running continuous payload generation inside a customer environment, and identified a threat actor using AI to test EDR evasion tactics in a 'red team' post-exploitation framework. The operator p…",
+      "ttps": ["T1027", "T1562.001", "T1587", "T1587.001", "T1588.006"],
+      "categories": [
+        "LLM-agent-driven capability development and evasion testing",
+        "LLM-enhanced anomaly detection evasion",
+        "LLM-aided development",
+        "LLM-assisted vulnerability research",
+        "LLM-optimized payload crafting"
+      ],
+      "reported": "Jul 2026",
+      "activity": "May 2026",
+      "table": "main",
+      "sizeBytes": 2052
+    },
+    {
       "slug": "star23-baller13",
       "name": "star23/baller13",
       "akas": "potentially baller423/goober2 or just ties between them",
@@ -732,6 +791,18 @@
       "activity": "Unknown",
       "table": "main",
       "sizeBytes": 285
+    },
+    {
+      "slug": "the-gentlemen",
+      "name": "The Gentlemen",
+      "akas": "Unknown",
+      "brief": "Sophos, describing the lightest-touch tier of its AI autonomy gradient (a human using generative AI to produce an artifact and deploying it manually, noted alongside a threat actor targeting Mexican government organizations that used Cla…",
+      "ttps": ["T1587", "T1588"],
+      "categories": ["LLM-aided development", "LLM-enhanced scripting techniques"],
+      "reported": "Jul 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 716
     },
     {
       "slug": "unc1069",
@@ -955,6 +1026,18 @@
       "sizeBytes": 275
     },
     {
+      "slug": "unsub-daiq-wealth-sha-zhu-pan-sophos-ctu",
+      "name": "UnSub (DAIQ Wealth sha zhu pan) — Sophos CTU",
+      "akas": "UnSub",
+      "brief": "\"Sophos CTU investigated a sha zhu pan scheme involving AI-themed social engineering. A UK-based victim was drawn into a fake AI-powered investment platform called DAIQ Wealth through months of AI-themed 'lessons' on the LINE messaging a…",
+      "ttps": ["T1566", "T1583", "T1657"],
+      "categories": ["Lookalike LLM", "LLM-supported social engineering"],
+      "reported": "Jul 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 1016
+    },
+    {
       "slug": "unsub-fakeagent-huntress",
       "name": "UnSub (FakeAgent) — Huntress",
       "akas": "UnSub",
@@ -979,6 +1062,23 @@
       "sizeBytes": 855
     },
     {
+      "slug": "unsub-fortigate-campaign-amazon-threat-intelligence",
+      "name": "UnSub (FortiGate campaign) — Amazon Threat Intelligence",
+      "akas": "UnSub (no designation assigned)",
+      "brief": "Amazon Threat Intelligence documented a financially motivated, Russian-speaking operator (individual or small group, assessed at \"low-to-medium baseline technical capability\" and explicitly not linked to any state-sponsored group) who co…",
+      "ttps": ["T1110", "T1587", "T1588.006", "T1595"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-assisted vulnerability research",
+        "LLM-advised resource development",
+        "LLM-informed reconnaissance"
+      ],
+      "reported": "Feb 2026",
+      "activity": "Jan 2026 – Feb 2026",
+      "table": "main",
+      "sizeBytes": 1989
+    },
+    {
       "slug": "unsub-iranian-nexus-developer-unit-42",
       "name": "UnSub (Iranian-nexus developer) — Unit 42",
       "akas": "TuxBot v3; Keksec-ecosystem-adjacent IoT botnet",
@@ -989,6 +1089,36 @@
       "activity": "Jan 2025 – Apr 2026",
       "table": "main",
       "sizeBytes": 803
+    },
+    {
+      "slug": "unsub-mexican-government-campaign-gambit-security",
+      "name": "UnSub (Mexican government campaign) — Gambit Security",
+      "akas": "UnSub (no designation assigned by the reporting vendor)",
+      "brief": "Gambit Security documented a single operator who compromised nine Mexican government organizations using two commercial AI platforms as core operational tools. Victims included SAT (Servicio de Administración Tributaria, the federal tax …",
+      "ttps": ["T1059", "T1213", "T1567", "T1588.006", "T1592"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-informed reconnaissance",
+        "LLM-assisted vulnerability research",
+        "LLM-enhanced scripting techniques",
+        "LLM-directed Automated Collection"
+      ],
+      "reported": "Apr 2026",
+      "activity": "Nov 2025 – Feb 2026",
+      "table": "main",
+      "sizeBytes": 2638
+    },
+    {
+      "slug": "unsub-possibly-earth-lamia-trend-micro",
+      "name": "UnSub (possibly Earth Lamia) — Trend Micro",
+      "akas": "UnSub",
+      "brief": "Trend Micro's 2026 H1 APT report records: \"The use of an autonomous AI agent for lateral movement by an unknown actor (possibly Earth Lamia). The group deployed the Claude Code command-line interface (CLI) as an autonomous AI agent again…",
+      "ttps": ["T1003", "T1110.003", "T1210", "T1595"],
+      "categories": ["LLM-orchestrated operations (Agentic AI attack orchestration)"],
+      "reported": "Jul 2026",
+      "activity": "Jan 2026 – Jun 2026",
+      "table": "main",
+      "sizeBytes": 1190
     },
     {
       "slug": "unsub-russia-nexus-gtig",

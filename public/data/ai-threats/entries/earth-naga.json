@@ -1,0 +1,13 @@
+{
+  "slug": "earth-naga",
+  "name": "Earth Naga",
+  "akas": "Associated with Flax Typhoon (per Trend Micro)",
+  "brief": "China-aligned actor. Trend Micro's 2026 H1 APT report records: \"It has been observed to use an iterative AI prompting workflow ('vibe coding') to develop a malicious PowerShell script. The script compiles and executes C# code at runtime to perform process hollowing and reflective loading of backdoor payloads. Multiple evolving versions of the script were found on the hosting server, with the AI's responses to prompts left inside the code as comments; these comments inadvertently revealed the development methodology.\" Group profile: critical infrastructure, government and technology sectors. Trend Micro *Analyst note: Trend names no loader or malware family for this script, and names no AI vendor or model. The evidence basis is the strongest of the three Trend AI cases — multiple evolving script versions recovered from the actor's hosting server with the AI's own prompt responses left in as code comments. No per-campaign dates are given; the Activity Span reflects the report's Jan–Jun 2026 scope, not an observed window.*",
+  "ttps": ["T1055.012", "T1059.001", "T1587.001", "T1620"],
+  "categories": ["LLM-aided development", "LLM-enhanced scripting techniques"],
+  "reported": "Jul 2026",
+  "activity": "Jan 2026 – Jun 2026",
+  "table": "main",
+  "sizeBytes": 1035,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>**LLM-enhanced scripting techniques** T1059.001 - Command and Scripting Interpreter: PowerShell<br><br>T1055.012 - Process Injection: Process Hollowing<br><br>T1620 - Reflective Code Loading"
+}

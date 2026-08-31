@@ -1,0 +1,18 @@
+{
+  "slug": "unsub-fortigate-campaign-amazon-threat-intelligence",
+  "name": "UnSub (FortiGate campaign) — Amazon Threat Intelligence",
+  "akas": "UnSub (no designation assigned)",
+  "brief": "Amazon Threat Intelligence documented a financially motivated, Russian-speaking operator (individual or small group, assessed at \"low-to-medium baseline technical capability\" and explicitly not linked to any state-sponsored group) who compromised 600+ FortiGate devices across 55+ countries between 11 January and 18 February 2026. Initial access was credential abuse against internet-exposed management interfaces (ports 443, 8443, 10443, 4443) protected by single-factor authentication — not CVE exploitation; CVEs appear in the actor's target catalogue rather than the entry path. AI use here was directly observed in recovered artifacts rather than inferred from tempo, which makes this one of the better-evidenced cases in the corpus: the actor's misconfigured server (1,400+ files across 139 subdirectories) held `claude` and `claude-0` directories containing 200+ files of Claude Code task outputs, session diffs and cached prompt states; a `.claude/settings.json` pre-approving Claude Code to autonomously run Impacket, Metasploit and hashcat, with hardcoded domain credentials; a vulnerability assessment report dated 1 Feb 2026 attributed to Claude Code in its footer, with a 400ms round-trip time confirming live remote execution; and a `deepseek_attack_plan.py` script generating attack plans from reconnaissance data. Custom tooling included ARXON (a Python MCP server) and CHECKER2 (a Go/Docker parallel VPN-scanning orchestrator), the actor having migrated from the public HexStrike framework. Amazon Threat Intelligence, with artifact analysis by Cyber and Ramen *Analyst note: Amazon deliberately withheld vendor names, saying only that the actor \"uses at least two distinct commercial LLM providers\"; the DeepSeek and Claude attribution comes from Cyber and Ramen's independent analysis of the exposed server. Beware secondary coverage naming \"CyberStrikeAI\" as the actor or platform — that string appears in neither primary and appears to be a content-farm fabrication.*",
+  "ttps": ["T1110", "T1587", "T1588.006", "T1595"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-assisted vulnerability research",
+    "LLM-advised resource development",
+    "LLM-informed reconnaissance"
+  ],
+  "reported": "Feb 2026",
+  "activity": "Jan 2026 – Feb 2026",
+  "table": "main",
+  "sizeBytes": 1989,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution (Claude Code pre-approved to run offensive tooling autonomously)<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-advised resource development** T1587 - Develop Capabilities (ARXON MCP server, CHECKER2 orchestrator)<br><br>**LLM-informed reconnaissance** T1595 - Active Scanning<br><br>T1110 - Brute Force / Credential abuse against exposed management interfaces"
+}
