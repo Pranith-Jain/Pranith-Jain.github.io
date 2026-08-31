@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-30T10:35:30.848Z",
-  "eventCount": 7,
+  "syncedAt": "2026-08-31T11:44:35.851Z",
+  "eventCount": 8,
   "events": [
     {
       "uuid": "ad642995-9cd6-5f76-9f46-fca13a4192fd",
@@ -71,6 +71,23 @@
       "threat_level_id": "2",
       "timestamp": "1787673036",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "c7ff111d-e168-5457-9889-c9e69e631f1a",
+      "info": "China-Nexus Threat Actor Fire Ant Targets Critical Infrastructure",
+      "date": "2026-08-30",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788115727",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:ransomware",
+        "type:malware",
+        "misp-galaxy:ransomware=\"Medusa\""
+      ],
       "orgc": "ThreatCluster"
     },
     {

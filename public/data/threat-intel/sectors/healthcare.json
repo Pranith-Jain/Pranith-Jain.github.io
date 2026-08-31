@@ -1,7 +1,7 @@
 {
   "sector": "healthcare",
   "title": "Healthcare sector brief",
-  "generatedAt": "2026-08-30",
+  "generatedAt": "2026-08-31",
   "topCount": 8,
   "preview": "CVE-2026-48282 (critical) leads with priority 98.",
   "sizeBytes": 2817,
@@ -19,13 +19,6 @@
       "title": "Memory overflow vulnerability NetScaler ADC and NetScaler Gateway leading to unpredictable or erroneous behavior and Den",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-21962",
-      "title": "Vulnerability in the Oracle HTTP Server, Oracle Weblogic Server Proxy Plug-in product of Oracle Fusion Middleware (compo",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 10; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
@@ -61,6 +54,13 @@
       "title": "Acrobat Reader versions 24.001.30356, 26.001.21367 and earlier are affected by an Improperly Controlled Modification of ",
       "relevance": "broadly-critical",
       "risk": "CVSS 8.6; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-21962",
+      "title": "Vulnerability in the Oracle HTTP Server, Oracle Weblogic Server Proxy Plug-in product of Oracle Fusion Middleware (compo",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 10; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     }
   ]

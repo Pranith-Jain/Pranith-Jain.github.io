@@ -5,24 +5,56 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 9,
-  "firstSeen": "2026-08-28T17:54:47.000Z",
-  "lastSeen": "2026-08-30T09:28:04.000Z",
-  "summary": "Sector hit by 9 leak-site victims across 6 ransomware groups and 5 countries.",
+  "firstSeen": "2026-08-30T09:23:28.000Z",
+  "lastSeen": "2026-08-31T09:31:41.000Z",
+  "summary": "Sector hit by 9 leak-site victims across 5 ransomware groups and 6 countries.",
   "frequency": [
     {
-      "date": "2026-08-28",
-      "count": 1
-    },
-    {
-      "date": "2026-08-29",
-      "count": 5
-    },
-    {
       "date": "2026-08-30",
-      "count": 3
+      "count": 7
+    },
+    {
+      "date": "2026-08-31",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "bartelsbv-nl-4cfd",
+      "title": "bartelsbv.nl — claimed by lockbit5",
+      "pubDate": "2026-08-31T09:31:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "allsteelproducts-nl-57ab",
+      "title": "allsteelproducts.nl — claimed by lockbit5",
+      "pubDate": "2026-08-31T09:30:36.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "distributionnow-dnow-inc-d3f3",
+      "title": "DistributionNOW (DNOW Inc.) — claimed by falcon",
+      "pubDate": "2026-08-30T14:29:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "black-cat-engineering-construction-wll-78d2",
+      "title": "Black Cat Engineering Construction Wll — claimed by qilin",
+      "pubDate": "2026-08-30T13:31:32.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "g-r-infraprojects-360c",
+      "title": "G R Infraprojects — claimed by thegentlemen",
+      "pubDate": "2026-08-30T09:54:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "general-gruppo-97bc",
+      "title": "General Gruppo — claimed by thegentlemen",
+      "pubDate": "2026-08-30T09:53:39.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "hd-werkstaetten-de-3426",
@@ -40,42 +72,6 @@
       "slug": "botec-cz-3d43",
       "title": "BOTEC-CZ — claimed by zawoo",
       "pubDate": "2026-08-30T09:23:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "neumaticos-corral-s-a-36e6",
-      "title": "Neumaticos Corral S.A. — claimed by qilin",
-      "pubDate": "2026-08-29T15:01:16.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "lindner-group-com-2bcc",
-      "title": "lindner-group.com — claimed by m3rx",
-      "pubDate": "2026-08-29T12:01:00.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "wittmann-56eb",
-      "title": "wittmann — claimed by incransom",
-      "pubDate": "2026-08-29T11:57:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "aum-construction-dc40",
-      "title": "AUM Construction — claimed by qilin",
-      "pubDate": "2026-08-29T11:31:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "swagelok-7f33",
-      "title": "swagelok — claimed by iah6477",
-      "pubDate": "2026-08-29T06:57:15.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "corematerials-com-f380",
-      "title": "corematerials.com — claimed by chaos",
-      "pubDate": "2026-08-28T17:54:47.000Z"
     }
   ],
   "relatedEntities": [
@@ -87,32 +83,26 @@
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 2
     },
     {
       "type": "group",
-      "slug": "m3rx",
-      "name": "m3rx",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "falcon",
+      "name": "falcon",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "iah6477",
-      "name": "iah6477",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "chaos",
-      "name": "chaos",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 1
     }
   ],

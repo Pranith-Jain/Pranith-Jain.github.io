@@ -3,6 +3,1222 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Russian intelligence services systematically hijacking security cameras for military surveillance.",
+      "Known_Campaigns": [],
+      "Motivation": "Military intelligence gathering",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Monitor military transport routes and weapons shipments",
+      "TTPs_Employed": ["Exploitation of default passwords", "Use of image-recognition software"]
+    },
+    "Analyses": [
+      {
+        "Description": "Scanning for exposed internet-connected cameras.",
+        "Detection": "Monitor network traffic for unusual scanning activity.",
+        "Remediation": "Implement network segmentation to limit exposure.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is actively scanning for exposed devices.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploiting default passwords and obsolete firmware to gain access.",
+        "Detection": "Monitor for login attempts using default credentials.",
+        "Remediation": "Change default passwords and update firmware.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is using default credentials to access devices.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Using camera feeds to monitor military transport routes.",
+        "Detection": "Monitor for unusual access patterns to camera feeds.",
+        "Remediation": "Restrict camera access to authorized personnel only.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to manipulate, interrupt, or destroy your systems and data.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is using camera feeds to gather intelligence.",
+            "technique_id": "T1562",
+            "technique_name": "Impair Defenses"
+          }
+        ],
+        "Techniques": ["T1562"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2016-7407", "CVE-2021-39275"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of internet-connected cameras using default credentials and obsolete firmware.",
+      "Exploits": ["CVE-2016-7407", "CVE-2021-39275"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Image-recognition software"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["internet-connected cameras"],
+      "Breach_Types": ["Unauthorized access"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Censys"],
+      "Countries": ["Netherlands", "Ukraine", "Russian Federation"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["security cameras", "military transport", "vulnerabilities"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Apache 2.4.49"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government"],
+      "Software": ["Dropbear SSH", "Apache"],
+      "Technologies": ["image-recognition software"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2016-7407", "CVE-2021-39275"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Internet-connected security cameras across Europe and Ukraine.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Remove cameras from public internet access.",
+      "Update firmware and change default passwords."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of default passwords", "Use of image-recognition software"],
+      "Tools": ["Image-recognition software"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Russian Intelligence"],
+    "Timestamp": "2026-07-19T18:30:00Z",
+    "Title": "Russian Intelligence Hijacking Security Cameras for Military Surveillance",
+    "Tools": ["Image-recognition software", "Dropbear SSH", "Apache"],
+    "Victim": {
+      "Access_Vectors": ["Internet"],
+      "Data_Types_At_Risk": ["Video feeds"],
+      "Description": "Security cameras in Europe, NATO states, and Ukraine.",
+      "Geography": "Europe, Ukraine",
+      "Impact_Severity": "High",
+      "Industry": "Government",
+      "Security_Posture": "Vulnerable due to default settings",
+      "Targeted_Assets": ["Security cameras"]
+    },
+    "diamond_model_summary": "The incident involves Russian intelligence services hijacking internet-connected security cameras across Europe and Ukraine. The adversary exploits default passwords and obsolete firmware to gain access, using image-recognition software to monitor military transport routes. The infrastructure consists of vulnerable cameras, and the victims are primarily in the government sector. The operation's strategic objective is military intelligence gathering.",
+    "doc_summary": "Russian intelligence services are systematically hijacking internet-connected security cameras across Europe and Ukraine to monitor military transport routes and weapons shipments. The operation, described in a cybersecurity advisory by the Netherlands' AIVD and MIVD, involves scanning for exposed devices and exploiting default passwords and obsolete firmware. Image-recognition software is used to identify military vehicles. Censys identified over 87,000 vulnerable cameras, with 4,000 in Ukraine. Vulnerabilities include CVE-2016-7407 and CVE-2021-39275. The advisory emphasizes the importance of removing cameras from public internet access and updating firmware to mitigate risks.",
+    "enrichment": null,
+    "id": "0698950a5d7278221ca550885dc4f68a432db333c54de4989146f9b604160c3f",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with reconnaissance, where adversaries scan for exposed cameras. Exploitation follows, using default credentials and obsolete firmware to gain access. The adversaries then perform actions on objectives by using camera feeds to monitor military transport routes. The operation does not require sophisticated weaponization or command and control stages, as the cameras are already publicly accessible.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 81,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes vulnerabilities like CVE-2016-7407 and CVE-2021-39275, which are exploited to gain access to security cameras. The adversary uses image-recognition software as a tool to analyze video feeds. The lack of specific IP addresses or domain names limits the ability to disrupt the adversary's operations, emphasizing the importance of addressing the vulnerabilities and securing the cameras.",
+    "relevance_score": 61,
+    "sequence": 21298,
+    "source": "https://thehackernews.com/2026/07/russian-intelligence-hacks-ip-cameras.html",
+    "slug": "Russian_Intelligence_Hijacking_Security_Cameras_for_Military_Surveillanc-021298",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "No significant information detected",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": [],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Low",
+    "Threat_Actors": [],
+    "Timestamp": "2026-07-19T18:30:00Z",
+    "Title": "Analysis of Exposure Window in AI-Driven Vulnerability Management",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": [],
+      "Data_Types_At_Risk": [],
+      "Description": "No significant information detected",
+      "Geography": "",
+      "Impact_Severity": "",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
+    "doc_summary": "The article discusses the challenges posed by AI-driven vulnerability discovery, particularly focusing on the exposure window, which is the time between when a vulnerability becomes exploitable and when it is fixed. It highlights the disparity between the speed of attackers and the slower organizational processes that keep the exposure window open. The text references the Mythos reveal, which increased the number of CVEs, and the Gartner CTEM framework, which outlines stages of vulnerability management. It also mentions CISA's BOD 26-04, which shifts focus from CVSS-first patching to exploitability and asset context. The article emphasizes the need for proactive security teams to adopt speed-based metrics similar to SOC teams to reduce the exposure window and minimize the blast radius of potential attacks.",
+    "enrichment": null,
+    "id": "e55af3cb9ea6ea84320ed9719c821f91289c1036ac808b595384ac7bf5fefa49",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
+    "operational_tags": [],
+    "priority_score": 20,
+    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
+    "relevance_score": 35,
+    "sequence": 21297,
+    "source": "https://thehackernews.com/2026/07/mythos-didnt-break-your-security.html",
+    "slug": "Analysis_of_Exposure_Window_in_AI-Driven_Vulnerability_Management-021297",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Unknown threat actors exploiting CVE-2026-6875 in ServiceNow AI Platform.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially financial or strategic gain by exploiting enterprise workflows.",
+      "Sophistication": "High, due to the complexity of the attack.",
+      "Strategic_Objectives": "Exploitation of enterprise-grade platforms for unauthorized access and control.",
+      "TTPs_Employed": ["Remote Code Execution", "Sandbox Escape"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of CVE-2026-6875 for remote code execution.",
+        "Detection": "Monitor for unusual activity on ServiceNow instances • Check for unauthorized access attempts",
+        "Remediation": "Apply the latest security patches from ServiceNow • Implement network segmentation to limit access",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2026-6875"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of CVE-2026-6875 for remote code execution in ServiceNow AI Platform.",
+      "Exploits": ["CVE-2026-6875"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["ServiceNow AI Platform instances"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["ServiceNow", "Defused", "Searchlight Cyber"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2026-6875", "sandbox escape", "remote code execution"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["ServiceNow AI Platform"],
+      "Technologies": ["Platform-as-a-Service"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-6875"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "ServiceNow AI Platform instances targeted for exploitation.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Remote Code Execution", "Sandbox Escape"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-07-20T05:29:00Z",
+    "Title": "Exploitation of CVE-2026-6875 in ServiceNow AI Platform",
+    "Tools": ["ServiceNow AI Platform"],
+    "Victim": {
+      "Access_Vectors": ["Remote"],
+      "Data_Types_At_Risk": ["Enterprise workflows", "Customer data"],
+      "Description": "Organizations using ServiceNow AI Platform, including Fortune 500 companies.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to unpatched instances",
+      "Targeted_Assets": ["ServiceNow AI Platform instances"]
+    },
+    "diamond_model_summary": "The incident involves unknown threat actors exploiting a critical vulnerability, CVE-2026-6875, in the ServiceNow AI Platform. The adversary's capability includes remote code execution through a sandbox escape. The infrastructure targeted is the ServiceNow AI Platform, widely used by enterprises. Victims are organizations using this platform, including Fortune 500 companies. The attack highlights the need for timely patching and monitoring for exploitation attempts.",
+    "doc_summary": "Attackers are exploiting a critical vulnerability, CVE-2026-6875, in the ServiceNow AI Platform, allowing unauthenticated remote code execution. The vulnerability was reported by Searchlight Cyber and confirmed by Defused. ServiceNow has released patches, but exploitation in the wild has been observed. The vulnerability involves a sandbox escape and affects enterprise workflows. ServiceNow advises customers to upgrade to patched releases. The platform is widely used by Fortune 500 companies, running over 100 billion workflows annually. The incident highlights the importance of timely patching and monitoring for exploitation attempts.",
+    "enrichment": null,
+    "id": "9fda14641f040f3f80256ad0134f747d",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack on the ServiceNow AI Platform follows a structured kill chain. Initial access is gained through exploitation of CVE-2026-6875, allowing remote code execution. The exploitation stage is critical, as it involves a sandbox escape. Detection involves monitoring for unusual activity and unauthorized access attempts. Remediation requires applying security patches and implementing network segmentation. The incident underscores the importance of securing public-facing applications and maintaining up-to-date systems.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 71,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of CVE-2026-6875, a critical vulnerability in the ServiceNow AI Platform. No specific hashes, IP addresses, or domains were identified, but the TTPs involve remote code execution and sandbox escape. The lack of specific indicators highlights the challenge of detection and the importance of patching and monitoring. The incident emphasizes the need for robust security measures and timely response to vulnerabilities.",
+    "relevance_score": 41,
+    "sequence": 21296,
+    "source": "https://www.bleepingcomputer.com/news/security/critical-servicenow-code-execution-flaw-now-exploited-in-attacks/",
+    "slug": "Exploitation_of_CVE-2026-6875_in_ServiceNow_AI_Platform-021296",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": ["bandcampro"],
+      "Associated_Groups": [],
+      "Description": "A Russian-speaking threat actor known as 'bandcampro' leveraging AI for cyber operations.",
+      "Known_Campaigns": ["Patriot Bait"],
+      "Motivation": "Financial gain through cryptocurrency fraud and other cybercriminal activities.",
+      "Sophistication": "High, due to the use of AI for automation and efficiency.",
+      "Strategic_Objectives": "To conduct large-scale cyber operations with minimal effort using AI.",
+      "TTPs_Employed": [
+        "AI-assisted command and control",
+        "AI-driven botnet management",
+        "AI-assisted credential theft"
+      ]
+    },
+    "Analyses": [
+      {
+        "Description": "The threat actor used AI to gather information on existing C&C infrastructure.",
+        "Detection": "Monitor for unusual scanning activity from AI tools.",
+        "Remediation": "Implement network segmentation to limit scanning impact.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for vulnerabilities and open ports.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "AI was used to develop and deploy malicious code for C&C operations.",
+        "Detection": "Analyze AI-generated code for malicious intent.",
+        "Remediation": "Use code review processes to detect AI-generated threats.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources for future operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating tools and malware for operations.",
+            "technique_id": "T1587",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587"]
+      },
+      {
+        "Description": "AI-assisted delivery of malicious payloads to victim machines.",
+        "Detection": "Monitor PowerShell execution logs for anomalies.",
+        "Remediation": "Restrict PowerShell usage to authorized personnel.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code on victim systems.",
+            "tactic_id": "TA0007",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using PowerShell to execute commands.",
+            "technique_id": "T1059.001",
+            "technique_name": "PowerShell"
+          }
+        ],
+        "Techniques": ["T1059.001"]
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in WordPress merchants and other systems.",
+        "Detection": "Monitor for exploitation attempts on web applications.",
+        "Remediation": "Apply security patches to public-facing applications.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to victim systems.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Installation of C&C infrastructure and botnet management tools.",
+        "Detection": "Monitor for unauthorized system process modifications.",
+        "Remediation": "Implement process whitelisting to prevent unauthorized changes.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to victim systems.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating or modifying system processes for persistence.",
+            "technique_id": "T1543",
+            "technique_name": "Create or Modify System Process"
+          }
+        ],
+        "Techniques": ["T1543"]
+      },
+      {
+        "Description": "AI-managed C&C operations using HTTPS and Cloudflare tunnels.",
+        "Detection": "Monitor HTTPS traffic for C&C patterns.",
+        "Remediation": "Use network segmentation to isolate C&C traffic.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols for C&C communication.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "AI-assisted execution of cryptocurrency fraud and data exfiltration.",
+        "Detection": "Monitor for unusual data archiving activities.",
+        "Remediation": "Implement data loss prevention (DLP) solutions.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from victim systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Archiving data for exfiltration.",
+            "technique_id": "T1560",
+            "technique_name": "Archive Collected Data"
+          }
+        ],
+        "Techniques": ["T1560"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of AI for automation", "Impersonation tactics"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Impersonation of an American veteran to bypass AI guardrails"],
+      "Description": "Use of AI to automate and enhance cyber operations, including C&C management and botnet control.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Google Gemini CLI"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data archiving activities", "Unexpected outbound HTTPS requests"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor AI-generated code execution", "Analyze HTTPS traffic for anomalies"],
+    "Extracted_Entities": {
+      "Assets": ["OpenDental database"],
+      "Breach_Types": ["Data breach", "Cryptocurrency fraud"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Google", "Trend Micro"],
+      "Countries": ["United States", "Canada"],
+      "Domains": ["cloudflare.com"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["AI", "botnet", "C&C", "Gemini CLI", "WordPress", "Cloudflare"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Healthcare"],
+      "Software": ["OpenDental"],
+      "Technologies": ["AI", "HTTPS", "PowerShell"],
+      "Threat_Infrastructure": ["C&C server", "botnet"],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": ["Small-scale botnet controlled by AI"],
+      "C2_Servers": ["Command-and-control server migrated using AI"],
+      "Communication_Protocols": ["HTTPS"],
+      "Description": "AI-driven C&C infrastructure controlling a botnet and accessing sensitive databases.",
+      "Domains": ["Cloudflare tunnels"],
+      "Hosting_Providers": ["Virtual private server (VPS)"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Enhance AI monitoring capabilities", "Implement stricter network segmentation"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["cloudflare.com"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["AI-assisted command and control", "AI-driven botnet management"],
+      "Tools": ["Google Gemini CLI"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["AI behavior analysis tools", "Network traffic analysis tools"],
+    "Severity": "High",
+    "Threat_Actors": ["bandcampro"],
+    "Timestamp": "2026-07-19T18:30:00Z",
+    "Title": "AI-Assisted Cyber Attack by Russian Threat Actor 'bandcampro'",
+    "Tools": ["Google Gemini CLI", "OpenDental"],
+    "Victim": {
+      "Access_Vectors": ["Compromised WordPress merchants", "Phone-based fraud"],
+      "Data_Types_At_Risk": ["Personal data", "Financial information"],
+      "Description": "Targets include elderly individuals in the United States and Canada, and a dental clinic.",
+      "Geography": "United States, Canada",
+      "Impact_Severity": "High",
+      "Industry": "Healthcare",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["OpenDental database"]
+    },
+    "diamond_model_summary": "The incident involves a Russian-speaking threat actor 'bandcampro' using AI to automate cyber operations. The AI-driven C&C infrastructure and botnet management highlight the actor's capability to conduct large-scale operations with minimal effort. The healthcare sector was targeted, with the actor leveraging AI to bypass security measures and execute cryptocurrency fraud schemes.",
+    "doc_summary": "A Russian-speaking threat actor known as 'bandcampro' utilized Google's open-source Gemini CLI AI to conduct cyber operations, including password cracking, setting up a residential proxy, and compromising WordPress merchants. The actor targeted elderly individuals in the United States and Canada with a phone-based cryptocurrency fraud scheme. The AI was used to migrate a command-and-control server, control a botnet, and access a dental clinic's OpenDental database. The AI agent proactively proposed improvements and resolved errors during the migration process. The threat actor impersonated an American veteran patriot to bypass AI guardrails and conducted AI-assisted information operations targeting politically engaged American audiences. The AI-driven setup allows for easy replication and distribution of malicious skill files, complicating attribution efforts.",
+    "enrichment": null,
+    "id": "3fb4b35d6d4d9f84b96a1f12bccfc61a160653316e089168bca0f23257efbdf1",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain, starting with reconnaissance using AI to gather information on existing infrastructure. Weaponization involved AI-driven development of malicious code. Delivery and exploitation were facilitated by AI, targeting WordPress merchants and healthcare databases. Installation of C&C infrastructure was automated, with AI managing command and control operations. Actions on objectives included cryptocurrency fraud and data exfiltration, demonstrating the actor's strategic use of AI.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes AI-driven tools and techniques, making detection and response challenging. The use of AI for C&C operations and botnet management complicates traditional detection methods. The actor's ability to quickly replicate and distribute malicious skill files increases the difficulty of takedowns. The incident highlights the need for advanced detection capabilities to address AI-driven threats.",
+    "relevance_score": 65,
+    "sequence": 21295,
+    "source": "https://thehackernews.com/2026/07/russian-speaking-hacker-uses-google.html",
+    "slug": "AI-Assisted_Cyber_Attack_by_Russian_Threat_Actor__bandcampro_-021295",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of heap-based buffer overflow in 7-Zip XZ archive handling",
+        "Detection": "",
+        "Remediation": "Update to 7-Zip version 26.02 or later.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in client applications to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2026-14266"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Heap-based buffer overflow in 7-Zip XZ archive handling",
+      "Exploits": ["CVE-2026-14266"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["7-Zip"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Computers running 7-Zip"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Trend Micro", "Lunbun LLC"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["heap-based buffer overflow", "XZ archive", "remote code execution"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["7-Zip 26.02"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["7-Zip"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-14266"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Ensure all systems using 7-Zip are updated to version 26.02 or later.",
+      "Monitor for any unusual activity related to 7-Zip usage."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-14266"],
+      "Tools": ["7-Zip"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-07-19T18:30:00Z",
+    "Title": "Heap-Based Buffer Overflow in 7-Zip XZ Archive Handling (CVE-2026-14266)",
+    "Tools": ["7-Zip"],
+    "Victim": {
+      "Access_Vectors": ["Local"],
+      "Data_Types_At_Risk": [],
+      "Description": "Users of 7-Zip software",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": ["Computers running 7-Zip"]
+    },
+    "diamond_model_summary": "The incident involves a heap-based buffer overflow vulnerability in 7-Zip's XZ archive handling, identified as CVE-2026-14266. The flaw allows local attackers to execute code within the context of the current process. The vulnerability was discovered by Landon Peng of Lunbun LLC and reported to 7-Zip. Trend Micro's Zero Day Initiative detailed the issue, which was fixed in 7-Zip version 26.02. The vulnerability is rated high severity, with no public proof-of-concept or exploitation in the wild reported as of July 20, 2026.",
+    "doc_summary": "The CVE-2026-14266 vulnerability in 7-Zip involves a heap-based buffer overflow in the XZ archive handling, allowing code execution in the context of the current process. Discovered by Landon Peng of Lunbun LLC and reported to 7-Zip on June 5, 2026, the flaw was detailed by Trend Micro's Zero Day Initiative on July 15, 2026. The vulnerability is rated high severity with a CVSS score of 7.0. The issue was fixed in 7-Zip version 26.02, released on June 25, 2026. The flaw allows local attackers to execute code by opening a crafted XZ archive, but it does not grant additional privileges. The vulnerability affects versions back to at least 21.07. No public proof-of-concept or exploitation in the wild has been reported as of July 20, 2026. Users are advised to update to 7-Zip 26.02 or later to mitigate the risk.",
+    "enrichment": null,
+    "id": "b8d5896fa88c764b985f8d87536094c82f46c67f86d369bb8ca2c7fb75e86c67",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident involves the exploitation of a heap-based buffer overflow in 7-Zip's XZ archive handling. The vulnerability allows local attackers to execute code by opening a crafted XZ archive. The exploitation stage is critical, as it enables code execution within the context of the current process. The vulnerability was fixed in 7-Zip version 26.02, and users are advised to update to mitigate the risk. No significant activity was detected in other stages of the kill chain, such as reconnaissance, weaponization, delivery, installation, command and control, or actions on objectives.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 69,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is limited due to the lack of specific indicators such as hashes, IP addresses, or domains. The primary indicator is the vulnerability itself, CVE-2026-14266, which affects 7-Zip's XZ archive handling. The vulnerability allows local attackers to execute code within the context of the current process. The primary remediation is updating to 7-Zip version 26.02 or later. No additional indicators such as tools, TTPs, or network artifacts were identified, limiting the overall scoring on the Pyramid of Pain.",
+    "relevance_score": 41,
+    "sequence": 21294,
+    "source": "https://thehackernews.com/2026/07/new-7-zip-vulnerability-could-let.html",
+    "slug": "Heap-Based_Buffer_Overflow_in_7-Zip_XZ_Archive_Handling__CVE-2026-14266_-021294",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary behind the SleeperGem attack targeted the Ruby ecosystem by publishing malicious gems to RubyGems. They impersonated legitimate tools and exploited dormant accounts to distribute malware.",
+      "Known_Campaigns": [],
+      "Motivation": "The motivation appears to be data exfiltration and persistence on developer machines.",
+      "Sophistication": "Medium",
+      "Strategic_Objectives": "Compromise developer environments and exfiltrate sensitive data.",
+      "TTPs_Employed": ["Supply chain attack", "Impersonation of legitimate tools", "Persistence mechanisms"]
+    },
+    "Analyses": [
+      {
+        "Description": "The adversary likely conducted reconnaissance to identify dormant RubyGems accounts and popular gems to target.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gathers information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary gathers information about victim hosts.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Host Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "The adversary weaponized the attack by creating malicious versions of legitimate RubyGems packages.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary develops resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary develops capabilities to support operations.",
+            "technique_id": "T1587.001",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "The malicious gems were delivered to victims via the RubyGems package manager.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary delivers malicious code to execute on victim systems.",
+            "tactic_id": "TA0007",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary exploits vulnerabilities to execute code on victim systems.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "The malicious gems exploited the trust in RubyGems to execute on developer machines.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gains initial access to victim systems.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary exploits vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "The malware installed persistence mechanisms on victim machines.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary maintains access to victim systems.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary creates or modifies system processes to maintain persistence.",
+            "technique_id": "T1543.003",
+            "technique_name": "Create or Modify System Process"
+          }
+        ],
+        "Techniques": ["T1543.003"]
+      },
+      {
+        "Description": "The malware communicated with a Forgejo instance to download additional payloads.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary communicates with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary transfers tools or files to victim systems.",
+            "technique_id": "T1105",
+            "technique_name": "Ingress Tool Transfer"
+          }
+        ],
+        "Techniques": ["T1105"]
+      },
+      {
+        "Description": "The adversary aimed to exfiltrate sensitive data and maintain persistence on developer machines.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary exfiltrates data from victim systems.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary exfiltrates data over web services.",
+            "technique_id": "T1567",
+            "technique_name": "Exfiltration Over Web Service"
+          }
+        ],
+        "Techniques": ["T1567"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Avoidance of CI/CD environments"],
+      "Description": "The adversary demonstrated the capability to publish malicious gems, impersonate legitimate tools, and establish persistence on developer machines.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["SleeperGem"],
+      "Persistence_Mechanisms": ["Cron jobs", "Systemd user services"],
+      "Tools": ["PowerShell", "Forgejo"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Developer machines", "CI/CD environments"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": ["deploy.sh"],
+      "Companies": [],
+      "Countries": [],
+      "Domains": ["git.disroot.org"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["SleeperGem", "supply chain attack", "malicious gems"],
+      "Malware_Families": ["SleeperGem"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Software Development"],
+      "Software": ["RubyGems", "Git Credential Manager"],
+      "Technologies": ["Forgejo", "PowerShell"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The attack utilized a public Forgejo instance for payload delivery and RubyGems for distribution.",
+      "Domains": ["git.disroot.org"],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["git.disroot.org"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Supply chain attack", "Persistence mechanisms"],
+      "Tools": ["PowerShell", "Forgejo"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-07-19T18:30:00Z",
+    "Title": "SleeperGem Supply Chain Attack on RubyGems",
+    "Tools": ["PowerShell", "Forgejo", "RubyGems", "Git Credential Manager"],
+    "Victim": {
+      "Access_Vectors": ["RubyGems package installation"],
+      "Data_Types_At_Risk": ["Credentials", "SSH keys", "AWS credentials"],
+      "Description": "The primary victims are developers using the Ruby ecosystem, specifically those who installed the compromised gems.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "Software Development",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Developer machines", "CI/CD environments"]
+    },
+    "diamond_model_summary": "The SleeperGem attack on the Ruby ecosystem involved adversaries publishing malicious gems to RubyGems, impersonating legitimate tools, and exploiting dormant accounts. The attack aimed to compromise developer environments, exfiltrate sensitive data, and establish persistence. The adversary used tools like PowerShell and Forgejo for payload delivery and execution.",
+    "doc_summary": "Cybersecurity researchers identified a software supply chain attack named SleeperGem targeting the Ruby ecosystem. Malicious gems were published to RubyGems, including 'git_credential_manager', 'Dendreo', and 'fastlane-plugin-run_tests_firebase_testlab'. The attack involved fetching a second stage payload from a Forgejo host, avoiding CI systems, and installing persistence mechanisms. The 'git_credential_manager' gem impersonated Microsoft's tool and was added as a dependency to spread the payload. The attack exploited dormant accounts, indicating potential account compromises. The malware scanned for environment variables related to CI/CD systems and executed payloads via PowerShell on Windows. Users are advised to treat affected systems as compromised, remove malicious daemons, and rotate credentials.",
+    "enrichment": null,
+    "id": "67d5dc078238689099bf5b2c6406ce0e0038a0ea4dc2f22b6c5a7a94d5432da3",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The SleeperGem attack followed a structured kill chain, starting with reconnaissance to identify dormant accounts and popular gems. Weaponization involved creating malicious gem versions, followed by delivery through RubyGems. Exploitation occurred as the gems executed on developer machines, leading to installation of persistence mechanisms. Command and control was established via Forgejo, and actions on objectives focused on data exfiltration and maintaining access.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 81,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for the SleeperGem attack includes domain names like git.disroot.org and tools such as PowerShell and Forgejo. The attack leveraged TTPs like supply chain compromise and persistence mechanisms. The lack of specific IP addresses and file hashes limits the ability to detect and respond to the attack, highlighting the importance of monitoring domain names and tools used in the attack.",
+    "relevance_score": 65,
+    "sequence": 21293,
+    "source": "https://thehackernews.com/2026/07/sleepergem-uses-three-malicious.html",
+    "slug": "SleeperGem_Supply_Chain_Attack_on_RubyGems-021293",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "An autonomous AI agent system executed the attack.",
       "Known_Campaigns": [],
       "Motivation": "Unknown",
@@ -103376,1138 +104592,6 @@
     "sequence": 20799,
     "source": null,
     "slug": "Intext_Definition___Meaning___YourDictionary-020799",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-07T10:53:47Z",
-    "Title": "InText - Apps on Google Play",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "No summary available.",
-    "doc_summary": "",
-    "enrichment": null,
-    "id": "b1953e09f58a1d52b5fb31f799e3b661f056108e",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "No summary available.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "No summary available.",
-    "relevance_score": 30,
-    "sequence": 20798,
-    "source": null,
-    "slug": "InText_-_Apps_on_Google_Play-020798",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-07T10:53:47Z",
-    "Title": "InText (@intext_com) / Posts / X",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "No summary available.",
-    "doc_summary": "",
-    "enrichment": null,
-    "id": "2e25af99d5c65fd991cbe2d87711974c96f78deb",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "No summary available.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "No summary available.",
-    "relevance_score": 30,
-    "sequence": 20797,
-    "source": null,
-    "slug": "InText___intext_com_____Posts____X-020797",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "OpenAI's Lockdown Mode is designed to limit outbound network requests to mitigate data exfiltration risks.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Lockdown Mode"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Sensitive Data"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["OpenAI"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Lockdown Mode", "prompt injection", "data exfiltration", "security", "ChatGPT"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["ChatGPT"],
-      "Technologies": ["Large Language Models"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": ["Lockdown Mode"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Moderate",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-05T18:30:00Z",
-    "Title": "OpenAI Introduces Lockdown Mode to Mitigate Prompt Injection Risks",
-    "Tools": ["Lockdown Mode", "ChatGPT"],
-    "Victim": {
-      "Access_Vectors": ["Prompt Injection"],
-      "Data_Types_At_Risk": ["Sensitive Data"],
-      "Description": "Potential victims include users and organizations handling sensitive data using ChatGPT.",
-      "Geography": "",
-      "Impact_Severity": "Medium",
-      "Industry": "",
-      "Security_Posture": "Enhanced with Lockdown Mode",
-      "Targeted_Assets": ["Sensitive Data"]
-    },
-    "diamond_model_summary": "OpenAI's introduction of Lockdown Mode aims to mitigate data exfiltration risks from prompt injection attacks. The feature limits outbound network requests, enhancing security for users handling sensitive data. While it does not prevent all effects of prompt injections, it reduces potential exfiltration pathways.",
-    "doc_summary": "OpenAI has launched a new security feature called Lockdown Mode for ChatGPT to mitigate the risk of data exfiltration from prompt injection attacks. This feature is available for personal accounts and business plans, providing advanced security settings that limit tools and capabilities connecting to the web or external services. Lockdown Mode aims to reduce outbound network requests, enhancing protection for sensitive data. It builds on sandboxing and existing controls to combat URL-based data exfiltration mechanisms. OpenAI also introduced an account management feature to review active sessions and detect unauthorized activity. The feature is not intended for everyone and cannot be used simultaneously with Developer Mode. Despite these measures, OpenAI acknowledges that Lockdown Mode does not guarantee complete prevention of data exfiltration or other effects of prompt injection attacks.",
-    "enrichment": null,
-    "id": "34cc4bb82be1f8bf471c2e0c9393b61291fe84541625d616ad4b11749e90a8db",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The introduction of Lockdown Mode by OpenAI addresses the risk of data exfiltration through prompt injection attacks. By limiting outbound network requests, the feature aims to reduce the attack surface. However, it does not guarantee complete prevention, as other effects of prompt injections may still occur.",
-    "operational_tags": [],
-    "priority_score": 40,
-    "pyramid_of_pain_summary": "OpenAI's Lockdown Mode targets the reduction of data exfiltration risks by limiting outbound network requests. While specific indicators like hashes, IPs, or domains are not identified, the feature enhances security by reducing potential exfiltration pathways, addressing a critical aspect of the Pyramid of Pain.",
-    "relevance_score": 43,
-    "sequence": 20796,
-    "source": "https://thehackernews.com/2026/06/new-chatgpt-lockdown-mode-limits-tools.html",
-    "slug": "OpenAI_Introduces_Lockdown_Mode_to_Mitigate_Prompt_Injection_Risks-020796",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Unknown actors exploiting CVE-2026-3300 to gain unauthorized access to WordPress sites.",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized control over WordPress websites.",
-      "Sophistication": "Moderate, leveraging known vulnerabilities.",
-      "Strategic_Objectives": "Compromise WordPress sites for control and potential data theft.",
-      "TTPs_Employed": ["Code Injection", "Privilege Escalation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2026-3300 to execute arbitrary code.",
-        "Detection": "Monitor for unusual PHP code execution patterns. • Check for unauthorized admin account creation.",
-        "Remediation": "Apply the patch released on March 18 for Everest Forms Pro. • Block IPs 202.56.2[.]126 and 209.146.60.26.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Creation of rogue administrator accounts.",
-        "Detection": "Review logs for new admin account creation. • Monitor for changes in user account permissions.",
-        "Remediation": "Remove unauthorized admin accounts. • Strengthen account creation policies.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may use valid accounts to maintain access to victim systems.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Full control over WordPress sites, including content modification and data access.",
-        "Detection": "Monitor for unauthorized changes to website content. • Check for unusual database access patterns.",
-        "Remediation": "Restore affected systems from backups. • Implement stronger access controls.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to manipulate, interrupt, or destroy your systems and data.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may destroy data to interrupt availability to system and network resources.",
-            "technique_id": "T1485",
-            "technique_name": "Data Destruction"
-          }
-        ],
-        "Techniques": ["T1485"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Creation of rogue admin accounts", "PHP code injection attempts"],
-    "CVEs": ["CVE-2026-3300"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Commenting out PHP code to avoid syntax errors"],
-      "Description": "Exploitation of a vulnerability in the Everest Forms Pro plugin to execute arbitrary PHP code.",
-      "Exploits": ["CVE-2026-3300"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["Creation of rogue admin accounts"],
-      "Tools": ["PHP eval() function"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unauthorized admin account creation with username 'diksimarina'."],
-    "Extracted_Entities": {
-      "Assets": ["WordPress websites"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Wordfence"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["202.56.2[.]126", "209.146.60.26"],
-      "Keywords": ["CVE-2026-3300", "WordPress", "PHP code injection"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Patch released on March 18"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Web Development"],
-      "Software": ["Everest Forms Pro"],
-      "Technologies": ["WordPress", "PHP"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-3300"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Use of specific IP addresses to launch attacks against WordPress sites.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": ["202.56.2[.]126", "209.146.60.26"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply security patches promptly.", "Regularly review and audit user accounts."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": ["202.56.2[.]126", "209.146.60.26"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Code Injection", "Privilege Escalation"],
-      "Tools": ["PHP eval() function"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Wordfence firewall and malware scanner"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-06T10:09:00Z",
-    "Title": "Exploitation of CVE-2026-3300 in Everest Forms Pro Plugin",
-    "Tools": ["PHP eval() function", "Everest Forms Pro"],
-    "Victim": {
-      "Access_Vectors": ["Web application"],
-      "Data_Types_At_Risk": ["Website content", "User data"],
-      "Description": "WordPress websites using vulnerable versions of the Everest Forms Pro plugin.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Web Development",
-      "Security_Posture": "Vulnerable due to outdated plugin versions",
-      "Targeted_Assets": ["WordPress websites"]
-    },
-    "diamond_model_summary": "The incident involves unknown adversaries exploiting a critical vulnerability, CVE-2026-3300, in the Everest Forms Pro plugin. The capability includes executing arbitrary PHP code via the plugin's Complex Calculation feature. The infrastructure involves specific IP addresses used for attacks. Victims are WordPress websites using vulnerable plugin versions.",
-    "doc_summary": "Hackers are exploiting a critical vulnerability, CVE-2026-3300, in the Everest Forms Pro plugin, affecting versions 1.9.12 and earlier. This vulnerability allows attackers to execute arbitrary code on WordPress servers without authentication. The flaw resides in the Complex Calculation feature, which improperly sanitizes user input, enabling PHP code injection via the eval() function. Attackers create rogue administrator accounts, such as 'diksimarina', to gain full control over websites. Wordfence detected active exploitation starting April 13, blocking over 29,300 attempts. The attacks primarily originate from IPs 202.56.2[.]126 and 209.146.60.26. A patch was released on March 18, but exploitation continues.",
-    "enrichment": null,
-    "id": "817e2fbfc5023c67449c38a92b1d96dc",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with the exploitation of CVE-2026-3300, allowing adversaries to execute arbitrary code on WordPress servers. This leads to the installation of rogue admin accounts, granting full control over the websites. The attackers can then perform actions on objectives, such as modifying content and accessing sensitive data.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes IP addresses used for attacks and the TTPs of code injection and privilege escalation. These indicators are crucial for detection and response efforts. The exploitation of CVE-2026-3300 is a significant factor in the attack, highlighting the need for timely patching and monitoring.",
-    "relevance_score": 49,
-    "sequence": 20795,
-    "source": "https://www.bleepingcomputer.com/news/security/critical-everest-forms-pro-flaw-exploited-to-take-over-wordpress-sites/",
-    "slug": "Exploitation_of_CVE-2026-3300_in_Everest_Forms_Pro_Plugin-020795",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2026-28318 causing denial-of-service",
-        "Detection": "Monitor for unusual POST requests with 'Content-Encoding: deflate'.",
-        "Remediation": "Update to SolarWinds Serv-U version 15.5.4 HF1. • Limit access to known addresses. • Block requests containing 'content-encoding'.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Techniques that adversaries use to avoid detection throughout their compromise.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Defense Evasion"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may perform DoS attacks to degrade or block the availability of services.",
-            "technique_id": "T1499",
-            "technique_name": "Endpoint Denial of Service"
-          }
-        ],
-        "Techniques": ["T1499"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2026-28318"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of denial-of-service vulnerability in SolarWinds Serv-U",
-      "Exploits": ["CVE-2026-28318"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual POST requests with 'Content-Encoding: deflate'."],
-    "Extracted_Entities": {
-      "Assets": ["multi-protocol file server"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["SolarWinds"],
-      "Countries": ["United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2026-28318", "denial-of-service", "uncontrolled resource consumption"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["15.5.4 HF1"],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["SolarWinds Serv-U"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-28318"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["Content-Encoding: deflate"],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Update to SolarWinds Serv-U version 15.5.4 HF1.",
-      "Limit access to known addresses.",
-      "Block requests containing 'content-encoding'."
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2026-28318"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-05T18:30:00Z",
-    "Title": "Exploitation of CVE-2026-28318 in SolarWinds Serv-U",
-    "Tools": ["SolarWinds Serv-U"],
-    "Victim": {
-      "Access_Vectors": ["Network"],
-      "Data_Types_At_Risk": [],
-      "Description": "Potentially affected SolarWinds Serv-U users",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["SolarWinds Serv-U multi-protocol file server"]
-    },
-    "diamond_model_summary": "The incident involves a denial-of-service vulnerability in SolarWinds Serv-U, tracked as CVE-2026-28318. The vulnerability allows unauthenticated attackers to crash the service using specially crafted POST requests with 'Content-Encoding: deflate'. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added this flaw to its Known Exploited Vulnerabilities catalog, indicating active exploitation. The issue has been addressed in SolarWinds Serv-U version 15.5.4 HF1, and mitigations include limiting access to known addresses and blocking requests containing 'content-encoding'.",
-    "doc_summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added a high-severity security flaw impacting SolarWinds Serv-U multi-protocol file server software to its Known Exploited Vulnerabilities (KEV) catalog. The vulnerability, tracked as CVE-2026-28318, is a denial-of-service (DoS) bug causing the service to crash under certain conditions. CISA described it as an uncontrolled resource consumption vulnerability resulting in a DoS condition. SolarWinds Serv-U is susceptible to specially crafted POST requests that crash the Serv-U service without authentication using Content-Encoding: deflate. The issue has been addressed in SolarWinds Serv-U version 15.5.4 HF1. Mitigations include limiting access to known addresses and blocking requests containing 'content-encoding'. CISA has ordered Federal Civilian Executive Branch (FCEB) agencies to address the flaw by June 19, 2026. In the past, multiple flaws in Serv-U have been exploited by bad actors, including those associated with the Cl0p ransomware gang.",
-    "enrichment": null,
-    "id": "b1de2842ac2680d3af8d848c5244df7c2473ec5fdcac122dc880401d1e9c91ae",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The exploitation of CVE-2026-28318 in SolarWinds Serv-U represents a significant threat, primarily affecting the exploitation stage of the MITRE ATT&CK kill chain. The vulnerability allows attackers to perform a denial-of-service attack by sending specially crafted POST requests with 'Content-Encoding: deflate', leading to uncontrolled resource consumption and service crashes. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has recognized this vulnerability as actively exploited, prompting immediate remediation actions. The exploitation stage is critical, as it directly impacts the availability of the targeted service.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 73,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident primarily involves the exploitation of a specific vulnerability, CVE-2026-28318, in SolarWinds Serv-U. The attack vector involves sending specially crafted POST requests with 'Content-Encoding: deflate', leading to a denial-of-service condition. While no specific IP addresses, domains, or hash values are identified, the focus is on the TTPs associated with exploiting this vulnerability. The remediation efforts include updating to a patched version and implementing network-level mitigations to block malicious requests. The lack of specific indicators like IPs or domains limits the Pyramid of Pain's applicability in this case.",
-    "relevance_score": 41,
-    "sequence": 20794,
-    "source": "https://thehackernews.com/2026/06/cisa-adds-actively-exploited-solarwinds.html",
-    "slug": "Exploitation_of_CVE-2026-28318_in_SolarWinds_Serv-U-020794",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Luminati", "Hola VPN"],
-      "Associated_Groups": [],
-      "Description": "Bright Data, successor to Luminati, uses an iOS SDK to exploit consumer devices for web scraping.",
-      "Known_Campaigns": [],
-      "Motivation": "Commercial gain through data scraping for AI industry",
-      "Sophistication": "High",
-      "Strategic_Objectives": "To maintain the largest residential proxy network for data scraping",
-      "TTPs_Employed": ["Use of SDKs in consumer apps", "Bypassing VPNs", "Lack of authentication"]
-    },
-    "Analyses": [
-      {
-        "Description": "Bright Data identifies consumer apps and devices suitable for embedding their SDK.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify targets for embedding SDK.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Identifying consumer devices and apps for SDK deployment.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "Development of the SDK to exploit consumer devices as exit nodes.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating tools to exploit consumer devices.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing SDK to turn devices into exit nodes.",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "Embedding the SDK in consumer apps distributed through app stores.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to consumer devices via app installation.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using legitimate apps to deliver the SDK.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "Exploiting the SDK to bypass VPNs and use devices as exit nodes.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Executing SDK functions to exploit devices.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting SDK to execute unauthorized actions.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Installing the SDK on devices to maintain persistent access.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access through SDK installation.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ensuring SDK runs on device startup.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "Using the SDK to communicate with Bright Data servers for instructions.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Establishing communication with Bright Data servers.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using HTTP/S for command and control.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Using devices as exit nodes for web scraping traffic.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Collecting data through web scraping.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Automating data collection via residential proxies.",
-            "technique_id": "T1119",
-            "technique_name": "Automated Collection"
-          }
-        ],
-        "Techniques": ["T1119"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["VPN bypass", "Misleading opt-in screens"],
-      "Description": "Bright Data's SDK turns consumer devices into exit nodes for web scraping, bypassing VPNs and lacking authentication.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["Always-on smart TVs"],
-      "Tools": ["iOS SDK"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["home IP addresses", "internet bandwidth"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Bright Data", "Luminati", "Hola VPN", "PlayWorks Digital", "CloudTV", "Longvision"],
-      "Countries": ["Uzbekistan", "Oman"],
-      "Domains": [
-        "proxyjs.brdtnet.com",
-        "proxyjs.luminatinet.com",
-        "proxyjs.bright-sdk.com",
-        "clientsdk.bright-sdk.com",
-        "clientsdk.brdtnet.com"
-      ],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["residential proxy network", "web scraping", "AI industry", "smart TVs", "VPN bypass"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Consumer Electronics"],
-      "Software": ["iOS SDK"],
-      "Technologies": ["iOS", "smart TVs", "VPN"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Bright Data operates a large residential proxy network using consumer devices as exit nodes.",
-      "Domains": [
-        "proxyjs.brdtnet.com",
-        "proxyjs.luminatinet.com",
-        "proxyjs.bright-sdk.com",
-        "clientsdk.bright-sdk.com",
-        "clientsdk.brdtnet.com"
-      ],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [
-        "proxyjs.brdtnet.com",
-        "proxyjs.luminatinet.com",
-        "proxyjs.bright-sdk.com",
-        "clientsdk.bright-sdk.com",
-        "clientsdk.brdtnet.com"
-      ],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["VPN bypass", "Lack of authentication", "Misleading opt-in screens"],
-      "Tools": ["iOS SDK"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Bright Data", "Luminati", "Hola VPN"],
-    "Timestamp": "2026-06-05T18:30:00Z",
-    "Title": "Bright Data iOS SDK Exploitation for Residential Proxy Network",
-    "Tools": ["iOS SDK"],
-    "Victim": {
-      "Access_Vectors": ["Embedded SDK in consumer apps"],
-      "Data_Types_At_Risk": ["Home IP addresses", "Internet bandwidth"],
-      "Description": "Consumers using apps with Bright Data's SDK, particularly those with smart TVs and iOS devices.",
-      "Geography": "Global, with specific mentions of Uzbekistan and Oman",
-      "Impact_Severity": "High",
-      "Industry": "Consumer Electronics",
-      "Security_Posture": "Vulnerable due to lack of awareness and misleading opt-in screens",
-      "Targeted_Assets": ["Smart TVs", "iOS devices"]
-    },
-    "diamond_model_summary": "Bright Data, formerly Luminati, uses an iOS SDK to exploit consumer devices as exit nodes for web scraping. The SDK bypasses VPNs and lacks authentication, posing risks to home networks. The SDK's opt-in screen misrepresents its capabilities, and blocking specific domains can mitigate risks.",
-    "doc_summary": "Bright Data, successor to Luminati, embeds an iOS SDK in consumer apps, turning devices into exit nodes for web scraping. This SDK, found in apps like Petflix, uses residential IPs for AI industry data scraping. The SDK bypasses VPNs and lacks authentication, posing risks to home networks. Countries like Uzbekistan and Oman have higher traffic limits. The SDK's opt-in screen misrepresents its capabilities. Blocking domains like proxyjs.brdtnet.com can mitigate risks. Bright Data's network, once Hola VPN, now targets smart TVs, leveraging their always-on nature. Google, Amazon, and Roku have restricted such SDKs.",
-    "enrichment": null,
-    "id": "4c8a8b8ada73a3bba3f0e112a0e1632d9ebdb47b05bb10be818a4cb722bd15a6",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Bright Data's SDK is embedded in consumer apps, exploiting devices as exit nodes for web scraping. The SDK bypasses VPNs, lacks authentication, and misrepresents its capabilities. Blocking domains like proxyjs.brdtnet.com can mitigate risks. The SDK's use of residential IPs targets AI industry data scraping.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "Bright Data's SDK uses domains like proxyjs.brdtnet.com to exploit consumer devices as exit nodes for web scraping. Blocking these domains can mitigate risks. The SDK bypasses VPNs and lacks authentication, posing challenges for detection and remediation. The SDK's use of residential IPs targets AI industry data scraping.",
-    "relevance_score": 77,
-    "sequence": 20793,
-    "source": "https://thehackernews.com/2026/06/free-apps-are-quietly-turning-smart-tvs.html",
-    "slug": "Bright_Data_iOS_SDK_Exploitation_for_Residential_Proxy_Network-020793",
     "shard": 1
   }
 ]

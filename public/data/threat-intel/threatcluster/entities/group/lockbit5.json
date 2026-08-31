@@ -4,40 +4,91 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-08-29T00:27:17.000Z",
-  "lastSeen": "2026-08-29T00:27:17.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-31T09:30:04.000Z",
+  "lastSeen": "2026-08-31T09:31:41.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-29",
-      "count": 1
+      "date": "2026-08-31",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "apatpa-com-0342",
-      "title": "apatpa.com — claimed by lockbit5",
-      "pubDate": "2026-08-29T00:27:17.000Z"
+      "slug": "bartelsbv-nl-4cfd",
+      "title": "bartelsbv.nl — claimed by lockbit5",
+      "pubDate": "2026-08-31T09:31:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vkj-nl-97c0",
+      "title": "vkj.nl — claimed by lockbit5",
+      "pubDate": "2026-08-31T09:31:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "allsteelproducts-nl-57ab",
+      "title": "allsteelproducts.nl — claimed by lockbit5",
+      "pubDate": "2026-08-31T09:30:36.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bkc-org-8bd1",
+      "title": "bkc.org — claimed by lockbit5",
+      "pubDate": "2026-08-31T09:30:04.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "apatpa-com-0342",
-      "victim": "apatpa.com — claimed by lockbit5",
-      "sector": "Not Found",
-      "country": "MX",
-      "pubDate": "2026-08-29T00:27:17.000Z"
+      "id": "bartelsbv-nl-4cfd",
+      "victim": "bartelsbv.nl — claimed by lockbit5",
+      "sector": "Manufacturing",
+      "country": "NL",
+      "pubDate": "2026-08-31T09:31:41.000Z"
+    },
+    {
+      "id": "vkj-nl-97c0",
+      "victim": "vkj.nl — claimed by lockbit5",
+      "sector": "Other",
+      "country": "NL",
+      "pubDate": "2026-08-31T09:31:08.000Z"
+    },
+    {
+      "id": "allsteelproducts-nl-57ab",
+      "victim": "allsteelproducts.nl — claimed by lockbit5",
+      "sector": "Manufacturing",
+      "country": "NL",
+      "pubDate": "2026-08-31T09:30:36.000Z"
+    },
+    {
+      "id": "bkc-org-8bd1",
+      "victim": "bkc.org — claimed by lockbit5",
+      "sector": "Professional Services",
+      "country": "JP",
+      "pubDate": "2026-08-31T09:30:04.000Z"
     }
   ]
 }

@@ -4,101 +4,43 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-08-28T20:58:46.000Z",
-  "lastSeen": "2026-08-29T19:28:32.000Z",
-  "summary": "Ransomware group with 9 leak-site victims across 6 sectors and 7 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-30T13:31:32.000Z",
+  "lastSeen": "2026-08-30T16:07:30.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-28",
-      "count": 1
-    },
-    {
-      "date": "2026-08-29",
-      "count": 8
+      "date": "2026-08-30",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "bandit-industries-e88b",
-      "title": "Bandit Industries — claimed by qilin",
-      "pubDate": "2026-08-29T19:28:32.000Z"
+      "slug": "afsard-7c88",
+      "title": "AFSARD — claimed by qilin",
+      "pubDate": "2026-08-30T16:07:30.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "lapoco-architects-6baf",
-      "title": "LAPoco Architects — claimed by qilin",
-      "pubDate": "2026-08-29T18:00:45.000Z"
+      "slug": "crystalpharmatech-cca2",
+      "title": "Crystalpharmatech — claimed by qilin",
+      "pubDate": "2026-08-30T13:32:55.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "neumaticos-corral-s-a-36e6",
-      "title": "Neumaticos Corral S.A. — claimed by qilin",
-      "pubDate": "2026-08-29T15:01:16.000Z"
+      "slug": "absolute-consultancy-services-77b6",
+      "title": "Absolute Consultancy Services — claimed by qilin",
+      "pubDate": "2026-08-30T13:32:11.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "the-frame-group-18d4",
-      "title": "The Frame Group — claimed by qilin",
-      "pubDate": "2026-08-29T12:04:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "la-maison-des-travaux-df68",
-      "title": "La Maison Des Travaux — claimed by qilin",
-      "pubDate": "2026-08-29T12:04:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bliss-1041-83b5",
-      "title": "BLISS 1041 — claimed by qilin",
-      "pubDate": "2026-08-29T12:03:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "careclinics-65cb",
-      "title": "CareClinics — claimed by qilin",
-      "pubDate": "2026-08-29T12:02:51.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "aum-construction-dc40",
-      "title": "AUM Construction — claimed by qilin",
-      "pubDate": "2026-08-29T11:31:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "alter-consultores-legales-4a4c",
-      "title": "Alter Consultores Legales — claimed by qilin",
-      "pubDate": "2026-08-28T20:58:46.000Z"
+      "slug": "black-cat-engineering-construction-wll-78d2",
+      "title": "Black Cat Engineering Construction Wll — claimed by qilin",
+      "pubDate": "2026-08-30T13:31:32.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
     {
       "type": "sector",
       "slug": "not-found",
@@ -110,72 +52,49 @@
       "slug": "healthcare",
       "name": "Healthcare",
       "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "bandit-industries-e88b",
-      "victim": "Bandit Industries — claimed by qilin",
-      "sector": "Other",
-      "country": "US",
-      "pubDate": "2026-08-29T19:28:32.000Z"
-    },
-    {
-      "id": "lapoco-architects-6baf",
-      "victim": "LAPoco Architects — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-08-29T18:00:45.000Z"
-    },
-    {
-      "id": "neumaticos-corral-s-a-36e6",
-      "victim": "Neumaticos Corral S.A. — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "AR",
-      "pubDate": "2026-08-29T15:01:16.000Z"
-    },
-    {
-      "id": "the-frame-group-18d4",
-      "victim": "The Frame Group — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "AU",
-      "pubDate": "2026-08-29T12:04:46.000Z"
-    },
-    {
-      "id": "la-maison-des-travaux-df68",
-      "victim": "La Maison Des Travaux — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "FR",
-      "pubDate": "2026-08-29T12:04:09.000Z"
-    },
-    {
-      "id": "bliss-1041-83b5",
-      "victim": "BLISS 1041 — claimed by qilin",
+      "id": "afsard-7c88",
+      "victim": "AFSARD — claimed by qilin",
       "sector": "Not Found",
-      "country": "MT",
-      "pubDate": "2026-08-29T12:03:33.000Z"
+      "country": "MK",
+      "pubDate": "2026-08-30T16:07:30.000Z"
     },
     {
-      "id": "careclinics-65cb",
-      "victim": "CareClinics — claimed by qilin",
+      "id": "crystalpharmatech-cca2",
+      "victim": "Crystalpharmatech — claimed by qilin",
       "sector": "Healthcare",
-      "country": "MY",
-      "pubDate": "2026-08-29T12:02:51.000Z"
+      "country": null,
+      "pubDate": "2026-08-30T13:32:55.000Z"
     },
     {
-      "id": "aum-construction-dc40",
-      "victim": "AUM Construction — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-08-29T11:31:03.000Z"
-    },
-    {
-      "id": "alter-consultores-legales-4a4c",
-      "victim": "Alter Consultores Legales — claimed by qilin",
+      "id": "absolute-consultancy-services-77b6",
+      "victim": "Absolute Consultancy Services — claimed by qilin",
       "sector": "Professional Services",
-      "country": "ES",
-      "pubDate": "2026-08-28T20:58:46.000Z"
+      "country": "GB",
+      "pubDate": "2026-08-30T13:32:11.000Z"
+    },
+    {
+      "id": "black-cat-engineering-construction-wll-78d2",
+      "victim": "Black Cat Engineering Construction Wll — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "QA",
+      "pubDate": "2026-08-30T13:31:32.000Z"
     }
   ]
 }
