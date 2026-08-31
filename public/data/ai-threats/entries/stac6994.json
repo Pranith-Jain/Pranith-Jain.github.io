@@ -1,0 +1,19 @@
+{
+  "slug": "stac6994",
+  "name": "STAC6994",
+  "akas": "Unknown (Sophos-designated cluster)",
+  "brief": "Sophos analysts discovered a rogue device running continuous payload generation inside a customer environment, and identified a threat actor using AI to test EDR evasion tactics in a 'red team' post-exploitation framework. The operator provisioned virtual machines from Ludus and drove the Cursor IDE with approximately 12 AI agents in defined roles: one agent running Claude Opus 4.5 handled core operations and rule-setting, while others managed OPSEC hardening, documentation, proxy stress testing, VM deployment, and testing tools against the EDR agents. Code commits flowed to Git through Model Context Protocol (MCP). The framework ran parallel testing across three environments — one VM with Sophos endpoint protection, one with CrowdStrike, and one with no EDR as a control — while a fourth VM operated as a Sliver C2 server. According to recovered artifacts, the agents read research articles scraped from the SpecterOps blog, extracted offensive techniques, mapped them to the MITRE ATT&CK framework, identified the steps and tools needed to reproduce each technique, prepared the lab environment, executed it, and reported findings. At the core was a Python-based modular payload generator that wrapped raw payloads in layers of encryption and evasion techniques, producing custom executables in Rust and Go — nearly 80 modules testing over 70 different techniques. Sophos notes the crucial operational signal was tempo: the full cycle compressed weeks into days. Sophos CTU confirmed the STAC6994 operator subsequently engaged in ransomware deployment and data theft; the framework was a production tool for real intrusions. Sophos X-Ops *Analyst note: Sophos records two caveats worth preserving — agent documentation claimed near-universal success against the EDR agents, but Sophos analysts noted \"the evidence did not fully support that conclusion\"; and \"the evidence did not show AI embedded inside deployed malware\" (AI was developer-side only). Vendor report, and Sophos's own product is one of the EDRs tested in the lab described.*",
+  "ttps": ["T1027", "T1562.001", "T1587", "T1587.001", "T1588.006"],
+  "categories": [
+    "LLM-agent-driven capability development and evasion testing",
+    "LLM-enhanced anomaly detection evasion",
+    "LLM-aided development",
+    "LLM-assisted vulnerability research",
+    "LLM-optimized payload crafting"
+  ],
+  "reported": "Jul 2026",
+  "activity": "May 2026",
+  "table": "main",
+  "sizeBytes": 2052,
+  "ttpMd": "**LLM-agent-driven capability development and evasion testing** T1587.001 - Develop Capabilities: Malware<br><br>**LLM-enhanced anomaly detection evasion** T1562.001 - Impair Defenses: Disable or Modify Tools<br><br>**LLM-aided development** T1587 - Develop Capabilities<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-optimized payload crafting** T1027 - Obfuscated Files or Information"
+}

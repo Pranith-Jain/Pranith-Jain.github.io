@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-daiq-wealth-sha-zhu-pan-sophos-ctu",
+  "name": "UnSub (DAIQ Wealth sha zhu pan) — Sophos CTU",
+  "akas": "UnSub",
+  "brief": "\"Sophos CTU investigated a sha zhu pan scheme involving AI-themed social engineering. A UK-based victim was drawn into a fake AI-powered investment platform called DAIQ Wealth through months of AI-themed 'lessons' on the LINE messaging app. A network of personas built rapport through group chats, each operated by a different individual, suggesting an organized workforce following predefined scripts. The victim lost hundreds of thousands of pounds. When the victim expressed concern about holding almost £20,000 GBP in cash at home, the scammers arranged a physical cash courier to the UK address within 24 hours, complete with a branded receipt from a legitimate financial firm used without its knowledge.\" Sophos X-Ops *Analyst note: this is AI-themed lure infrastructure rather than AI-enabled attack — included on the same basis as the existing Unsub1/Unsub2 – Kaspersky entries. The personas were human-operated and Sophos reports no evidence of an LLM generating the conversation. No campaign window given.*",
+  "ttps": ["T1566", "T1583", "T1657"],
+  "categories": ["Lookalike LLM", "LLM-supported social engineering"],
+  "reported": "Jul 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 1016,
+  "ttpMd": "**Lookalike LLM** T1583 - Acquire Infrastructure<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>T1657 - Financial Theft"
+}
