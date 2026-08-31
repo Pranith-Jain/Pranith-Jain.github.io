@@ -1,0 +1,15 @@
+{
+  "type": "disaster",
+  "date": "2026-08-31",
+  "overallThreat": "",
+  "executiveSummary": "",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "",
+  "regionalTrends": []
+}

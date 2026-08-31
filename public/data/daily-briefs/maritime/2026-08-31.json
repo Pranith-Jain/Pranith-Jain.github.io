@@ -1,0 +1,52 @@
+{
+  "type": "maritime",
+  "date": "2026-08-31",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting highlights three developments relevant to maritime cyber risk this cycle. A new disclosure states that the FURUNO FA-50 Class B AIS transponder is susceptible to authenticated changes from the ship's internal network, creating potential for configuration tampering and misreporting of vessel identity data if administrative access is mismanaged. No exploitation is reported. View Advisory The U.S. Coast Guard issued Marine Safety Information Bulletin (MSIB) 04-26 clarifying that vessels designated \"inactive\" but holding a valid COI/COC remain subject to MTSA cybersecurity requirements. The bulletin notes elevated risk during lay-up, drydock, and reduced-manning periods due to remote access, vendor maintenance, and portable media exposure. Source Maritime Advisory NSA announced, with FBI and CNMF, actions against QTFY-a PRC-linked group that leveraged malicious distributed platforms to target U.S. and foreign critical infrastructure. While no maritime victim is identified, the behaviors (use of proxy platforms and edge-device access) are applicable to maritime networks with exposed services. Government Advisory The collected intelligence supports an assessment that vessel operators should prioritize access control and segmentation around navigation and bridge-adjacent networks, ensure inactive vessels maintain cybersecurity controls per approved security plans, and review edge-device exposure that could be abused by state-linked actors. Confidence in this assessment is medium-high. Operational implications: The AIS device issue is most salient for small commercial and recreational vessels using Class B AIS; improper administration could lead to inaccurate AIS broadcasts or loss of trust in onboard data. USCG guidance underscores that lay-up periods can increase the odds of compromise through remote support channels and removable media. The QTFY advisory reinforces the need to secure externally reachable services commonly found on maritime corporate and shoreside networks.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "FURUNO: FA-50 Class B AIS Transponder (navigation/identification).",
+      "Edge networking/remote access platforms (vendor-agnostic) implicated by state-linked tradecraft observations in U.S. advisory."
+    ],
+    "sectors": [
+      "MTSA-regulated vessels designated inactive but holding valid COI/COC (compliance and security plan application). Maritime Advisory",
+      "Small commercial and recreational vessels using Class B AIS equipment (operational awareness).",
+      "Maritime enterprises with exposed edge services (potential targeting exposure). Government Advisory"
+    ]
+  },
+  "keyFindings": [
+    "Authenticated configuration changes on FURUNO FA-50 AIS could be abused if shipboard credentials or network segmentation are weak, risking tampered AIS data. View Advisory",
+    "USCG MSIB 04-26: MTSA cybersecurity controls continue to apply to \"inactive\" vessels with a valid COI/COC; lay-up conditions can heighten cyber exposure. Source Maritime Advisory",
+    "U.S. government warns on QTFY activity targeting critical infrastructure via malicious distributed platforms; maritime operators should harden exposed edge services even absent sector-specific victim reporting. Government Advisory",
+    "No confirmed active maritime cyber incidents were identified in the reviewed window; vigilance remains warranted given newly disclosed vulnerabilities and regulatory emphasis."
+  ],
+  "topThreats": [],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "FURUNO FA-50 Class B AIS Transponder: Advisory notes risk of authenticated setting changes from in-vessel network; no CVE identifiers provided in the supplied record. View Advisory"
+      ]
+    }
+  ],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Authenticated configuration manipulation on navigation/AIS devices (no specific ATT&CK ID confirmed in sources).",
+      "Remote access exposure during maintenance/lay-up; increased third-party/vendor access; removable media introduction (USCG MSIB guidance context).",
+      "Use of distributed proxy platforms and external remote services to obfuscate origin and gain access to edge devices (from QTFY advisory; no technique IDs confirmed in supplied record)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for vendor updates or additional mitigation details regarding the FA-50 AIS advisory and assess exposure across fleets using Class B AIS. Confidence: medium. View Advisory Continued discussion and compliance clarification around USCG MSIB 04-26 is likely, particularly for vessels transitioning to or from inactive status. Confidence: high. Source Further public details or technical indicators related to QTFY activity may emerge as organizations implement the advisory. Immediate risk to maritime remains situational based on edge exposure. Confidence: medium. Government Advisory",
+  "relatedCves": []
+}
