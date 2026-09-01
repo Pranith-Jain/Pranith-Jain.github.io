@@ -4,37 +4,25 @@
   "name": "falcon",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-30T14:29:18.000Z",
-  "lastSeen": "2026-08-30T14:29:39.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-31T15:22:09.000Z",
+  "lastSeen": "2026-08-31T15:22:09.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-30",
-      "count": 2
+      "date": "2026-08-31",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "globus-medical-e29b",
-      "title": "Globus Medical — claimed by falcon",
-      "pubDate": "2026-08-30T14:29:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "distributionnow-dnow-inc-d3f3",
-      "title": "DistributionNOW (DNOW Inc.) — claimed by falcon",
-      "pubDate": "2026-08-30T14:29:18.000Z"
+      "slug": "hayward-holdings-9ebb",
+      "title": "Hayward Holdings — claimed by falcon",
+      "pubDate": "2026-08-31T15:22:09.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
     {
       "type": "sector",
       "slug": "manufacturing",
@@ -45,18 +33,11 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "globus-medical-e29b",
-      "victim": "Globus Medical — claimed by falcon",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-08-30T14:29:39.000Z"
-    },
-    {
-      "id": "distributionnow-dnow-inc-d3f3",
-      "victim": "DistributionNOW (DNOW Inc.) — claimed by falcon",
+      "id": "hayward-holdings-9ebb",
+      "victim": "Hayward Holdings — claimed by falcon",
       "sector": "Manufacturing",
       "country": "US",
-      "pubDate": "2026-08-30T14:29:18.000Z"
+      "pubDate": "2026-08-31T15:22:09.000Z"
     }
   ]
 }

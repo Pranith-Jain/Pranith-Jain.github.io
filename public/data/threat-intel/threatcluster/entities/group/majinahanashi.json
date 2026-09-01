@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "majinahanashi",
+  "name": "majinahanashi",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-01T08:50:54.000Z",
+  "lastSeen": "2026-09-01T08:50:54.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "terracom-amp-montcau-29ed",
+      "title": "TERRACOM &amp; MONTCAU — claimed by majinahanashi",
+      "pubDate": "2026-09-01T08:50:54.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "terracom-amp-montcau-29ed",
+      "victim": "TERRACOM &amp; MONTCAU — claimed by majinahanashi",
+      "sector": "Other",
+      "country": null,
+      "pubDate": "2026-09-01T08:50:54.000Z"
+    }
+  ]
+}

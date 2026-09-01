@@ -1,0 +1,113 @@
+{
+  "type": "group",
+  "slug": "settra",
+  "name": "settra",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 5,
+  "firstSeen": "2026-08-31T14:08:17.000Z",
+  "lastSeen": "2026-08-31T16:01:46.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-31",
+      "count": 5
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "manhattanloft-co-uk-d798",
+      "title": "manhattanloft.co.uk — claimed by settra",
+      "pubDate": "2026-08-31T16:01:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "zonarsystems-com-059e",
+      "title": "zonarsystems.com — claimed by settra",
+      "pubDate": "2026-08-31T15:40:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "diversifiedbodyandpaint-com-2b2c",
+      "title": "diversifiedbodyandpaint.com — claimed by settra",
+      "pubDate": "2026-08-31T14:09:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "howardlumber-com-b3ad",
+      "title": "howardlumber.com — claimed by settra",
+      "pubDate": "2026-08-31T14:08:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hatch-group-b950",
+      "title": "hatch.group — claimed by settra",
+      "pubDate": "2026-08-31T14:08:17.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "manhattanloft-co-uk-d798",
+      "victim": "manhattanloft.co.uk — claimed by settra",
+      "sector": "Hospitality",
+      "country": "GB",
+      "pubDate": "2026-08-31T16:01:46.000Z"
+    },
+    {
+      "id": "zonarsystems-com-059e",
+      "victim": "zonarsystems.com — claimed by settra",
+      "sector": "Transportation",
+      "country": "US",
+      "pubDate": "2026-08-31T15:40:08.000Z"
+    },
+    {
+      "id": "diversifiedbodyandpaint-com-2b2c",
+      "victim": "diversifiedbodyandpaint.com — claimed by settra",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-31T14:09:28.000Z"
+    },
+    {
+      "id": "howardlumber-com-b3ad",
+      "victim": "howardlumber.com — claimed by settra",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-31T14:08:53.000Z"
+    },
+    {
+      "id": "hatch-group-b950",
+      "victim": "hatch.group — claimed by settra",
+      "sector": "Professional Services",
+      "country": "GB",
+      "pubDate": "2026-08-31T14:08:17.000Z"
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 {
   "slug": "china-nexus-threat-actor-fire-ant-targets-critical-infrastru-98a55c29",
-  "title": "China-Nexus Threat Actor Fire Ant Targets Critical Infrastructure",
+  "title": "Fire Ant Threat Actor Targets Trusted Infrastructure in 2026",
   "link": "https://threatcluster.io/cluster/china-nexus-threat-actor-fire-ant-targets-critical-infrastru-98a55c29?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/china-nexus-threat-actor-fire-ant-targets-critical-infrastru-98a55c29",
   "pubDate": "2026-08-30T18:03:55.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
-  "description": "Sygnia has reported ongoing espionage activities by a China-nexus threat actor known as Fire Ant, which exploits routers, authentication systems, and Linux management hosts to gather intelligence and…",
+  "sourceCount": 11,
+  "categories": ["11 Sources"],
+  "description": "The China-nexus threat actor known as Fire Ant has evolved its tactics in 2026, transitioning from targeting VMware hypervisors to compromising trusted infrastructure, including Cisco routers, TACACS…",
   "sizeBytes": 200
 }

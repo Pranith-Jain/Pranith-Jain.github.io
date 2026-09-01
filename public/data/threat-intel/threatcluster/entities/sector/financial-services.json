@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-30T09:05:57.000Z",
-  "lastSeen": "2026-08-30T09:05:57.000Z",
+  "firstSeen": "2026-08-31T23:02:07.000Z",
+  "lastSeen": "2026-08-31T23:02:07.000Z",
   "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-30",
+      "date": "2026-08-31",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "fe-credit-4489",
-      "title": "FE CREDIT — claimed by black x",
-      "pubDate": "2026-08-30T09:05:57.000Z"
+      "slug": "svfcu-org-0c1d",
+      "title": "svfcu.org — claimed by lockbit5",
+      "pubDate": "2026-08-31T23:02:07.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "black-x",
-      "name": "black x",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 1
     }
   ],

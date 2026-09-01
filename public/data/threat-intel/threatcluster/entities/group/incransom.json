@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "incransom",
+  "name": "incransom",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-31T14:55:58.000Z",
+  "lastSeen": "2026-08-31T14:55:58.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-31",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "new-century-ophthalmology-group-b013",
+      "title": "New Century Ophthalmology Group — claimed by incransom",
+      "pubDate": "2026-08-31T14:55:58.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "new-century-ophthalmology-group-b013",
+      "victim": "New Century Ophthalmology Group — claimed by incransom",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-31T14:55:58.000Z"
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 {
   "sector": "financial",
   "title": "Financial sector brief",
-  "generatedAt": "2026-08-31",
+  "generatedAt": "2026-09-01",
   "topCount": 8,
   "preview": "CVE-2026-48282 (critical) leads with priority 98.",
-  "sizeBytes": 2815,
+  "sizeBytes": 2816,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
     {
@@ -57,10 +57,10 @@
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2026-21962",
-      "title": "Vulnerability in the Oracle HTTP Server, Oracle Weblogic Server Proxy Plug-in product of Oracle Fusion Middleware (compo",
+      "cveId": "CVE-2023-49105",
+      "title": "An issue was discovered in ownCloud owncloud/core before 10.13.1. An attacker can access, modify, or delete any file wit",
       "relevance": "broadly-critical",
-      "risk": "CVSS 10; actively exploited.",
+      "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     }
   ]

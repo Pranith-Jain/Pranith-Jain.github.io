@@ -5,93 +5,105 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 9,
-  "firstSeen": "2026-08-30T09:23:28.000Z",
-  "lastSeen": "2026-08-31T09:31:41.000Z",
-  "summary": "Sector hit by 9 leak-site victims across 5 ransomware groups and 6 countries.",
+  "firstSeen": "2026-08-31T14:08:53.000Z",
+  "lastSeen": "2026-09-01T08:54:50.000Z",
+  "summary": "Sector hit by 9 leak-site victims across 8 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-30",
+      "date": "2026-08-31",
       "count": 7
     },
     {
-      "date": "2026-08-31",
+      "date": "2026-09-01",
       "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "bartelsbv-nl-4cfd",
-      "title": "bartelsbv.nl — claimed by lockbit5",
-      "pubDate": "2026-08-31T09:31:41.000Z"
+      "slug": "hccd-construction-com-e1ae",
+      "title": "hccd-construction.com — claimed by krybit",
+      "pubDate": "2026-09-01T08:54:50.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "allsteelproducts-nl-57ab",
-      "title": "allsteelproducts.nl — claimed by lockbit5",
-      "pubDate": "2026-08-31T09:30:36.000Z"
+      "slug": "lawter-c77f",
+      "title": "Lawter — claimed by medusalocker",
+      "pubDate": "2026-09-01T04:27:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "distributionnow-dnow-inc-d3f3",
-      "title": "DistributionNOW (DNOW Inc.) — claimed by falcon",
-      "pubDate": "2026-08-30T14:29:18.000Z"
+      "slug": "r-l-fine-chem-pvt-ltd-bbe9",
+      "title": "R L Fine Chem Pvt. Ltd. — claimed by global secret group",
+      "pubDate": "2026-08-31T17:51:51.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "black-cat-engineering-construction-wll-78d2",
-      "title": "Black Cat Engineering Construction Wll — claimed by qilin",
-      "pubDate": "2026-08-30T13:31:32.000Z"
+      "slug": "fu-sheng-industrial-co-ltd-b391",
+      "title": "Fu Sheng Industrial Co., Ltd — claimed by orova",
+      "pubDate": "2026-08-31T16:51:54.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "g-r-infraprojects-360c",
-      "title": "G R Infraprojects — claimed by thegentlemen",
-      "pubDate": "2026-08-30T09:54:19.000Z"
+      "slug": "hayward-holdings-9ebb",
+      "title": "Hayward Holdings — claimed by falcon",
+      "pubDate": "2026-08-31T15:22:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "general-gruppo-97bc",
-      "title": "General Gruppo — claimed by thegentlemen",
-      "pubDate": "2026-08-30T09:53:39.000Z"
+      "slug": "allied-recycling-2b98",
+      "title": "Allied Recycling — claimed by qilin",
+      "pubDate": "2026-08-31T14:59:53.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "hd-werkstaetten-de-3426",
-      "title": "hd-werkstaetten.de — claimed by zawoo",
-      "pubDate": "2026-08-30T09:28:04.000Z"
+      "slug": "krc-machine-tool-solutions-8c56",
+      "title": "KRC Machine Tool Solutions — claimed by play",
+      "pubDate": "2026-08-31T14:27:53.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "montronix-de-3e35",
-      "title": "montronix.de — claimed by zawoo",
-      "pubDate": "2026-08-30T09:25:51.000Z"
+      "slug": "diversifiedbodyandpaint-com-2b2c",
+      "title": "diversifiedbodyandpaint.com — claimed by settra",
+      "pubDate": "2026-08-31T14:09:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "botec-cz-3d43",
-      "title": "BOTEC-CZ — claimed by zawoo",
-      "pubDate": "2026-08-30T09:23:28.000Z"
+      "slug": "howardlumber-com-b3ad",
+      "title": "howardlumber.com — claimed by settra",
+      "pubDate": "2026-08-31T14:08:53.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "zawoo",
-      "name": "zawoo",
-      "weight": 3
-    },
-    {
-      "type": "group",
-      "slug": "lockbit5",
-      "name": "lockbit5",
+      "slug": "settra",
+      "name": "settra",
       "weight": 2
     },
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 2
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "medusalocker",
+      "name": "medusalocker",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "global-secret-group",
+      "name": "global secret group",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "orova",
+      "name": "orova",
+      "weight": 1
     },
     {
       "type": "group",
@@ -103,6 +115,12 @@
       "type": "group",
       "slug": "qilin",
       "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "play",
+      "name": "play",
       "weight": 1
     }
   ],

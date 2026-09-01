@@ -4,71 +4,69 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-08-30T09:49:55.000Z",
-  "lastSeen": "2026-08-30T14:54:22.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 4 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-31T14:24:52.000Z",
+  "lastSeen": "2026-09-01T09:02:54.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-30",
-      "count": 5
+      "date": "2026-08-31",
+      "count": 3
+    },
+    {
+      "date": "2026-09-01",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "erdem-hospital-224b",
-      "title": "Erdem Hospital — claimed by direwolf",
-      "pubDate": "2026-08-30T14:54:22.000Z"
+      "slug": "seashellhospital-com-dcae",
+      "title": "seashellhospital.com — claimed by krybit",
+      "pubDate": "2026-09-01T09:02:54.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "hospital-clnico-universidad-de-chile-53ed",
-      "title": "Hospital Clnico Universidad de Chile — claimed by direwolf",
-      "pubDate": "2026-08-30T14:53:50.000Z"
+      "slug": "ccsperfusion-com-7dcc",
+      "title": "ccsperfusion.com — claimed by braincipher",
+      "pubDate": "2026-08-31T19:50:55.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "globus-medical-e29b",
-      "title": "Globus Medical — claimed by falcon",
-      "pubDate": "2026-08-30T14:29:39.000Z"
+      "slug": "new-century-ophthalmology-group-b013",
+      "title": "New Century Ophthalmology Group — claimed by incransom",
+      "pubDate": "2026-08-31T14:55:58.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "crystalpharmatech-cca2",
-      "title": "Crystalpharmatech — claimed by qilin",
-      "pubDate": "2026-08-30T13:32:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "exacta-optech-labcenter-8c3c",
-      "title": "Exacta Optech Labcenter — claimed by thegentlemen",
-      "pubDate": "2026-08-30T09:49:55.000Z"
+      "slug": "metro-tulsa-foot-567c",
+      "title": "Metro Tulsa Foot — claimed by insomnia",
+      "pubDate": "2026-08-31T14:24:52.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "falcon",
-      "name": "falcon",
+      "slug": "krybit",
+      "name": "krybit",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "braincipher",
+      "name": "braincipher",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "insomnia",
+      "name": "insomnia",
       "weight": 1
     }
   ],

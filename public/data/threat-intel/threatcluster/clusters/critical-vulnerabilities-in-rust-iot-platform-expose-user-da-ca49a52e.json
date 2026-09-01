@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-in-rust-iot-platform-expose-user-da-ca49a52e",
+  "title": "Critical Vulnerabilities in rust-iot-platform Expose User Data and Credentials",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-rust-iot-platform-expose-user-da-ca49a52e?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-rust-iot-platform-expose-user-da-ca49a52e",
+  "pubDate": "2026-08-31T04:31:31.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "rust-iot-platform has two critical vulnerabilities, CVE-2026-82452 and CVE-2026-82453, published on 2026-08-29. CVE-2026-82452 allows attackers to manage user accounts without authentication, while CV…",
+  "sizeBytes": 201
+}

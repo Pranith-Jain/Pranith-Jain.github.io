@@ -1,0 +1,69 @@
+{
+  "type": "group",
+  "slug": "everest",
+  "name": "everest",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-01T02:24:48.000Z",
+  "lastSeen": "2026-09-01T02:26:01.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 1 sector and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "rise-up-c3b5",
+      "title": "Rise UP — claimed by everest",
+      "pubDate": "2026-09-01T02:26:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vivotek-f7db",
+      "title": "VIVOTEK — claimed by everest",
+      "pubDate": "2026-09-01T02:25:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "italtel-peru-1023",
+      "title": "Italtel Peru — claimed by everest",
+      "pubDate": "2026-09-01T02:24:48.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 3
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "rise-up-c3b5",
+      "victim": "Rise UP — claimed by everest",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-09-01T02:26:01.000Z"
+    },
+    {
+      "id": "vivotek-f7db",
+      "victim": "VIVOTEK — claimed by everest",
+      "sector": "Technology",
+      "country": "TW",
+      "pubDate": "2026-09-01T02:25:26.000Z"
+    },
+    {
+      "id": "italtel-peru-1023",
+      "victim": "Italtel Peru — claimed by everest",
+      "sector": "Technology",
+      "country": "PE",
+      "pubDate": "2026-09-01T02:24:48.000Z"
+    }
+  ]
+}
