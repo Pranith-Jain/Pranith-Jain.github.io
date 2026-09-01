@@ -4,7 +4,7 @@
   "type": "c2",
   "source": "github.com/Neo23x0/signature-base",
   "license": "Detection Rule License 1.1",
-  "entryCount": 1861,
+  "entryCount": 1863,
   "entries": [
     { "value": "suroot.com", "comment": "", "type": "domain" },
     { "value": "58.64.143.244", "comment": "", "type": "ip" },
@@ -1870,6 +1870,8 @@
     { "value": "join-exam-now-ebix.azurewebsites.net", "comment": "", "type": "domain" },
     { "value": "ebix.portal-career.com", "comment": "", "type": "domain" },
     { "value": "ebix-exam.com", "comment": "", "type": "domain" },
-    { "value": "ebix.recruitment-flow.com", "comment": "", "type": "domain" }
+    { "value": "ebix.recruitment-flow.com", "comment": "", "type": "domain" },
+    { "value": "cdn.nerat.cc", "comment": "90", "type": "domain" },
+    { "value": "connect.ne-rat.xyz", "comment": "90", "type": "domain" }
   ]
 }

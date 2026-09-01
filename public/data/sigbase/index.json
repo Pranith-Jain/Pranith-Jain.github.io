@@ -1,8 +1,8 @@
 {
   "source": "github.com/Neo23x0/signature-base",
   "license": "Detection Rule License 1.1",
-  "replicatedAt": "2026-08-25",
-  "counts": { "yaraFiles": 746, "yaraRules": 5784, "iocFiles": 4, "iocEntries": 8962, "externalVarFiles": 13 },
+  "replicatedAt": "2026-09-01",
+  "counts": { "yaraFiles": 747, "yaraRules": 5786, "iocFiles": 4, "iocEntries": 8968, "externalVarFiles": 13 },
   "yaraIndex": [
     {
       "slug": "apt_aa19_024a",
@@ -3555,6 +3555,18 @@
       "score": null,
       "externalVars": false,
       "sizeBytes": 1181
+    },
+    {
+      "slug": "apt_virtualizor_compromise_aug26",
+      "filename": "apt_virtualizor_compromise_aug26.yar",
+      "identifier": null,
+      "ruleCount": 2,
+      "tags": ["apt"],
+      "author": "Florian Roth",
+      "date": "2026-08-31",
+      "score": 75,
+      "externalVars": false,
+      "sizeBytes": 1498
     },
     {
       "slug": "apt_volatile_cedar",
@@ -8986,16 +8998,16 @@
       "slug": "hash-iocs",
       "title": "Evil Hashes (MD5/SHA1/SHA256)",
       "type": "hash",
-      "entryCount": 3244,
-      "sizeBytes": 594604
+      "entryCount": 3245,
+      "sizeBytes": 594821
     },
-    { "slug": "c2-iocs", "title": "C2 Servers and Domains", "type": "c2", "entryCount": 1861, "sizeBytes": 116948 },
+    { "slug": "c2-iocs", "title": "C2 Servers and Domains", "type": "c2", "entryCount": 1863, "sizeBytes": 117066 },
     {
       "slug": "filename-iocs",
       "title": "Suspicious Filenames (regex)",
       "type": "filename",
-      "entryCount": 3843,
-      "sizeBytes": 258640
+      "entryCount": 3846,
+      "sizeBytes": 258842
     },
     { "slug": "keywords", "title": "Malicious Keywords", "type": "keyword", "entryCount": 14, "sizeBytes": 829 }
   ]
