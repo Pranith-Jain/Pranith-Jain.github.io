@@ -2,7 +2,7 @@
   "source": "threaticon.com",
   "url": "https://threaticon.com/",
   "description": "Extended threaticon.com public-preview catalog: tools, mitigations, data components, detection strategies, campaigns and attack patterns (vulnerabilities + IOC dictionary excluded — 20k static-asset free-plan cap).",
-  "builtAt": "2026-08-25T06:32:39.216Z",
+  "builtAt": "2026-09-01T10:52:51.315Z",
   "counts": {
     "tools": 95,
     "mitigations": 44,
@@ -13,7 +13,7 @@
   },
   "sections": {
     "tools": {
-      "syncedAt": "2026-08-25T06:32:38.671Z",
+      "syncedAt": "2026-09-01T10:52:50.808Z",
       "detailCount": 95,
       "items": [
         {
@@ -604,7 +604,7 @@
       ]
     },
     "mitigations": {
-      "syncedAt": "2026-08-25T06:32:38.678Z",
+      "syncedAt": "2026-09-01T10:52:50.814Z",
       "detailCount": 44,
       "items": [
         { "id": 43, "name": "Account Use Policies", "mitreId": "M1036", "tlp": null },
@@ -654,7 +654,7 @@
       ]
     },
     "data-sources": {
-      "syncedAt": "2026-08-25T06:32:38.680Z",
+      "syncedAt": "2026-09-01T10:52:50.816Z",
       "detailCount": 106,
       "items": [
         { "id": 1, "name": "Active Directory Credential Request", "dcId": "DC0084", "analyticCount": 516, "tlp": null },
@@ -772,7 +772,7 @@
       ]
     },
     "detection-strategies": {
-      "syncedAt": "2026-08-25T06:32:38.684Z",
+      "syncedAt": "2026-09-01T10:52:50.819Z",
       "detailCount": 697,
       "items": [
         { "id": 557, "name": "Abuse of Domain Accounts", "detId": "DET0210", "analyticCount": 4, "tlp": null },
@@ -5219,7 +5219,7 @@
       ]
     },
     "campaigns": {
-      "syncedAt": "2026-08-25T06:32:38.738Z",
+      "syncedAt": "2026-09-01T10:52:50.866Z",
       "detailCount": 7473,
       "items": [
         {
@@ -75164,7 +75164,7 @@
       ]
     },
     "attack-patterns": {
-      "syncedAt": "2026-08-25T06:32:38.798Z",
+      "syncedAt": "2026-09-01T10:52:50.920Z",
       "detailCount": 3087,
       "items": [
         { "id": 566, "name": "/etc/passwd and /etc/shadow", "techniqueId": "DET0446", "tlp": "white" },
