@@ -1,17 +1,17 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-31T11:44:35.851Z",
+  "syncedAt": "2026-09-01T10:19:24.178Z",
   "eventCount": 8,
   "events": [
     {
-      "uuid": "ad642995-9cd6-5f76-9f46-fca13a4192fd",
-      "info": "Critical Oracle WebLogic Flaw Under Active Exploitation",
-      "date": "2026-08-25",
+      "uuid": "00161c56-786d-5f3a-b70d-6f0c9dab5d57",
+      "info": "Chinese Operator Breaches Philippine Nuclear and Naval Entities",
+      "date": "2026-08-31",
       "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787642437",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "threat_level_id": "1",
+      "timestamp": "1788180783",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -44,6 +44,24 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "c7ff111d-e168-5457-9889-c9e69e631f1a",
+      "info": "Fire Ant Threat Actor Targets Trusted Infrastructure in 2026",
+      "date": "2026-08-30",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788115727",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "misp-galaxy:ransomware=\"Medusa\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "cfaaa080-ab7b-5f78-a4e3-1dd0b01567c6",
       "info": "National Emergency Declared to Protect U.S. Bulk-Power System from Foreign Threats",
       "date": "2026-08-26",
@@ -64,6 +82,16 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "6b18d42b-25ba-5709-959a-e5c81ac7f414",
+      "info": "China-Linked Cyber Espionage Targets India's Tax Ecosystem",
+      "date": "2026-08-31",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788180784",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "b0d2a550-7287-53f7-b3d3-fff5948d3d9c",
       "info": "GRU Cyber Operations Targeting Ukraine and NATO Allies",
       "date": "2026-08-25",
@@ -71,39 +99,6 @@
       "threat_level_id": "2",
       "timestamp": "1787673036",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "c7ff111d-e168-5457-9889-c9e69e631f1a",
-      "info": "China-Nexus Threat Actor Fire Ant Targets Critical Infrastructure",
-      "date": "2026-08-30",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1788115727",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:ransomware",
-        "type:malware",
-        "misp-galaxy:ransomware=\"Medusa\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "d07b2a46-2db3-5216-847b-8829dfe8672e",
-      "info": "Chinese Hackers Leverage DeepSeek AI for Increased Cyberattacks",
-      "date": "2026-08-25",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787637039",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "misp-galaxy:threat-actor=\"Mustang Panda\""
-      ],
       "orgc": "ThreatCluster"
     }
   ]

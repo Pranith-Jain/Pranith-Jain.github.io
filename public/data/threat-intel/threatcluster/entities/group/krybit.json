@@ -1,0 +1,248 @@
+{
+  "type": "group",
+  "slug": "krybit",
+  "name": "krybit",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 14,
+  "firstSeen": "2026-09-01T08:54:50.000Z",
+  "lastSeen": "2026-09-01T09:02:54.000Z",
+  "summary": "Ransomware group with 14 leak-site victims across 9 sectors and 10 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 14
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "seashellhospital-com-dcae",
+      "title": "seashellhospital.com — claimed by krybit",
+      "pubDate": "2026-09-01T09:02:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "uicc-org-3306",
+      "title": "uicc.org — claimed by krybit",
+      "pubDate": "2026-09-01T09:02:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tum-com-mx-44c7",
+      "title": "tum.com.mx — claimed by krybit",
+      "pubDate": "2026-09-01T09:01:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "www-alphaplantes-com-1514",
+      "title": "www.alphaplantes.com — claimed by krybit",
+      "pubDate": "2026-09-01T09:01:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "reignwoodpark-com-920c",
+      "title": "reignwoodpark.com — claimed by krybit",
+      "pubDate": "2026-09-01T09:00:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "orex-co-th-34ea",
+      "title": "orex.co.th — claimed by krybit",
+      "pubDate": "2026-09-01T08:59:45.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "amptc-net-3f0d",
+      "title": "amptc.net — claimed by krybit",
+      "pubDate": "2026-09-01T08:59:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dmt-group-com-dde6",
+      "title": "dmt-group.com — claimed by krybit",
+      "pubDate": "2026-09-01T08:58:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "jswlaw-bt-e929",
+      "title": "jswlaw.bt — claimed by krybit",
+      "pubDate": "2026-09-01T08:57:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vedantaainstitute-in-4a88",
+      "title": "vedantaainstitute.in — claimed by krybit",
+      "pubDate": "2026-09-01T08:57:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "meccahighfeed-blogspot-com-d586",
+      "title": "meccahighfeed.blogspot.com — claimed by krybit",
+      "pubDate": "2026-09-01T08:56:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "transportesmontejo-com-d45b",
+      "title": "transportesmontejo.com — claimed by krybit",
+      "pubDate": "2026-09-01T08:56:02.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "seashellhospital-com-dcae",
+      "victim": "seashellhospital.com — claimed by krybit",
+      "sector": "Healthcare",
+      "country": "IN",
+      "pubDate": "2026-09-01T09:02:54.000Z"
+    },
+    {
+      "id": "uicc-org-3306",
+      "victim": "uicc.org — claimed by krybit",
+      "sector": "Professional Services",
+      "country": "CH",
+      "pubDate": "2026-09-01T09:02:18.000Z"
+    },
+    {
+      "id": "tum-com-mx-44c7",
+      "victim": "tum.com.mx — claimed by krybit",
+      "sector": "Education",
+      "country": "MX",
+      "pubDate": "2026-09-01T09:01:41.000Z"
+    },
+    {
+      "id": "www-alphaplantes-com-1514",
+      "victim": "www.alphaplantes.com — claimed by krybit",
+      "sector": "Agriculture and Food Production",
+      "country": "FR",
+      "pubDate": "2026-09-01T09:01:03.000Z"
+    },
+    {
+      "id": "reignwoodpark-com-920c",
+      "victim": "reignwoodpark.com — claimed by krybit",
+      "sector": "Hospitality",
+      "country": "CN",
+      "pubDate": "2026-09-01T09:00:26.000Z"
+    },
+    {
+      "id": "orex-co-th-34ea",
+      "victim": "orex.co.th — claimed by krybit",
+      "sector": "Other",
+      "country": "TH",
+      "pubDate": "2026-09-01T08:59:45.000Z"
+    },
+    {
+      "id": "amptc-net-3f0d",
+      "victim": "amptc.net — claimed by krybit",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-01T08:59:09.000Z"
+    },
+    {
+      "id": "dmt-group-com-dde6",
+      "victim": "dmt-group.com — claimed by krybit",
+      "sector": "Technology",
+      "country": "DE",
+      "pubDate": "2026-09-01T08:58:33.000Z"
+    },
+    {
+      "id": "jswlaw-bt-e929",
+      "victim": "jswlaw.bt — claimed by krybit",
+      "sector": "Professional Services",
+      "country": "BT",
+      "pubDate": "2026-09-01T08:57:56.000Z"
+    },
+    {
+      "id": "vedantaainstitute-in-4a88",
+      "victim": "vedantaainstitute.in — claimed by krybit",
+      "sector": "Education",
+      "country": "IN",
+      "pubDate": "2026-09-01T08:57:18.000Z"
+    },
+    {
+      "id": "meccahighfeed-blogspot-com-d586",
+      "victim": "meccahighfeed.blogspot.com — claimed by krybit",
+      "sector": "Agriculture and Food Production",
+      "country": "SA",
+      "pubDate": "2026-09-01T08:56:41.000Z"
+    },
+    {
+      "id": "transportesmontejo-com-d45b",
+      "victim": "transportesmontejo.com — claimed by krybit",
+      "sector": "Transportation",
+      "country": "MX",
+      "pubDate": "2026-09-01T08:56:02.000Z"
+    },
+    {
+      "id": "southsign-in-07a8",
+      "victim": "southsign.in — claimed by krybit",
+      "sector": "Professional Services",
+      "country": "IN",
+      "pubDate": "2026-09-01T08:55:26.000Z"
+    },
+    {
+      "id": "hccd-construction-com-e1ae",
+      "victim": "hccd-construction.com — claimed by krybit",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-01T08:54:50.000Z"
+    }
+  ]
+}

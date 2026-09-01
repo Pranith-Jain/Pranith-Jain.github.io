@@ -4,53 +4,35 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-31T09:30:04.000Z",
-  "lastSeen": "2026-08-31T09:31:41.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 2 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-31T22:59:59.000Z",
+  "lastSeen": "2026-08-31T23:02:07.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-08-31",
-      "count": 4
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "bartelsbv-nl-4cfd",
-      "title": "bartelsbv.nl — claimed by lockbit5",
-      "pubDate": "2026-08-31T09:31:41.000Z"
+      "slug": "svfcu-org-0c1d",
+      "title": "svfcu.org — claimed by lockbit5",
+      "pubDate": "2026-08-31T23:02:07.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "vkj-nl-97c0",
-      "title": "vkj.nl — claimed by lockbit5",
-      "pubDate": "2026-08-31T09:31:08.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "allsteelproducts-nl-57ab",
-      "title": "allsteelproducts.nl — claimed by lockbit5",
-      "pubDate": "2026-08-31T09:30:36.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bkc-org-8bd1",
-      "title": "bkc.org — claimed by lockbit5",
-      "pubDate": "2026-08-31T09:30:04.000Z"
+      "slug": "hoaattorneys-com-afa4",
+      "title": "hoaattorneys.com — claimed by lockbit5",
+      "pubDate": "2026-08-31T22:59:59.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     },
     {
@@ -63,32 +45,18 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "bartelsbv-nl-4cfd",
-      "victim": "bartelsbv.nl — claimed by lockbit5",
-      "sector": "Manufacturing",
-      "country": "NL",
-      "pubDate": "2026-08-31T09:31:41.000Z"
+      "id": "svfcu-org-0c1d",
+      "victim": "svfcu.org — claimed by lockbit5",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-08-31T23:02:07.000Z"
     },
     {
-      "id": "vkj-nl-97c0",
-      "victim": "vkj.nl — claimed by lockbit5",
-      "sector": "Other",
-      "country": "NL",
-      "pubDate": "2026-08-31T09:31:08.000Z"
-    },
-    {
-      "id": "allsteelproducts-nl-57ab",
-      "victim": "allsteelproducts.nl — claimed by lockbit5",
-      "sector": "Manufacturing",
-      "country": "NL",
-      "pubDate": "2026-08-31T09:30:36.000Z"
-    },
-    {
-      "id": "bkc-org-8bd1",
-      "victim": "bkc.org — claimed by lockbit5",
+      "id": "hoaattorneys-com-afa4",
+      "victim": "hoaattorneys.com — claimed by lockbit5",
       "sector": "Professional Services",
-      "country": "JP",
-      "pubDate": "2026-08-31T09:30:04.000Z"
+      "country": "US",
+      "pubDate": "2026-08-31T22:59:59.000Z"
     }
   ]
 }

@@ -4,59 +4,51 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-30T13:31:32.000Z",
-  "lastSeen": "2026-08-30T16:07:30.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 3 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-08-31T14:59:53.000Z",
+  "lastSeen": "2026-09-01T03:57:10.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-30",
-      "count": 4
+      "date": "2026-08-31",
+      "count": 2
+    },
+    {
+      "date": "2026-09-01",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "afsard-7c88",
-      "title": "AFSARD — claimed by qilin",
-      "pubDate": "2026-08-30T16:07:30.000Z"
+      "slug": "commission-de-la-construction-du-quebec-966f",
+      "title": "Commission de la construction du Quebec — claimed by qilin",
+      "pubDate": "2026-09-01T03:57:10.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "crystalpharmatech-cca2",
-      "title": "Crystalpharmatech — claimed by qilin",
-      "pubDate": "2026-08-30T13:32:55.000Z"
+      "slug": "inmac-59b0",
+      "title": "Inmac — claimed by qilin",
+      "pubDate": "2026-08-31T19:02:21.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "absolute-consultancy-services-77b6",
-      "title": "Absolute Consultancy Services — claimed by qilin",
-      "pubDate": "2026-08-30T13:32:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "black-cat-engineering-construction-wll-78d2",
-      "title": "Black Cat Engineering Construction Wll — claimed by qilin",
-      "pubDate": "2026-08-30T13:31:32.000Z"
+      "slug": "allied-recycling-2b98",
+      "title": "Allied Recycling — claimed by qilin",
+      "pubDate": "2026-08-31T14:59:53.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "government-defense",
+      "name": "Government & Defense",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
       "weight": 1
     },
     {
@@ -69,32 +61,25 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "afsard-7c88",
-      "victim": "AFSARD — claimed by qilin",
-      "sector": "Not Found",
-      "country": "MK",
-      "pubDate": "2026-08-30T16:07:30.000Z"
+      "id": "commission-de-la-construction-du-quebec-966f",
+      "victim": "Commission de la construction du Quebec — claimed by qilin",
+      "sector": "Government & Defense",
+      "country": "CA",
+      "pubDate": "2026-09-01T03:57:10.000Z"
     },
     {
-      "id": "crystalpharmatech-cca2",
-      "victim": "Crystalpharmatech — claimed by qilin",
-      "sector": "Healthcare",
-      "country": null,
-      "pubDate": "2026-08-30T13:32:55.000Z"
+      "id": "inmac-59b0",
+      "victim": "Inmac — claimed by qilin",
+      "sector": "Retail & E-Commerce",
+      "country": "AR",
+      "pubDate": "2026-08-31T19:02:21.000Z"
     },
     {
-      "id": "absolute-consultancy-services-77b6",
-      "victim": "Absolute Consultancy Services — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "GB",
-      "pubDate": "2026-08-30T13:32:11.000Z"
-    },
-    {
-      "id": "black-cat-engineering-construction-wll-78d2",
-      "victim": "Black Cat Engineering Construction Wll — claimed by qilin",
+      "id": "allied-recycling-2b98",
+      "victim": "Allied Recycling — claimed by qilin",
       "sector": "Manufacturing",
-      "country": "QA",
-      "pubDate": "2026-08-30T13:31:32.000Z"
+      "country": "IE",
+      "pubDate": "2026-08-31T14:59:53.000Z"
     }
   ]
 }

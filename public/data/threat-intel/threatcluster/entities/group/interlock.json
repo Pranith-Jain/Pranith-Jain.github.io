@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "interlock",
+  "name": "interlock",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-31T15:57:55.000Z",
+  "lastSeen": "2026-08-31T15:57:55.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-31",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "super-systems-inc-ca82",
+      "title": "Super Systems Inc — claimed by interlock",
+      "pubDate": "2026-08-31T15:57:55.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "super-systems-inc-ca82",
+      "victim": "Super Systems Inc — claimed by interlock",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-31T15:57:55.000Z"
+    }
+  ]
+}

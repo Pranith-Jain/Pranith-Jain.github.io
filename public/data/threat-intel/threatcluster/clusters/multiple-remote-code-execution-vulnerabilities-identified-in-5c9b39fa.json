@@ -1,0 +1,11 @@
+{
+  "slug": "multiple-remote-code-execution-vulnerabilities-identified-in-5c9b39fa",
+  "title": "Multiple Remote Code Execution Vulnerabilities Identified in Check Point Software",
+  "link": "https://threatcluster.io/cluster/multiple-remote-code-execution-vulnerabilities-identified-in-5c9b39fa?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/multiple-remote-code-execution-vulnerabilities-identified-in-5c9b39fa",
+  "pubDate": "2026-08-31T18:52:57.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "Check Point Software has issued advisories for two critical remote code execution vulnerabilities. The first, CVE-2026-53576, was published on June 26, 2026, and a proof-of-concept was released on Aug…",
+  "sizeBytes": 201
+}
