@@ -4,7 +4,7 @@
   "type": "filename",
   "source": "github.com/Neo23x0/signature-base",
   "license": "Detection Rule License 1.1",
-  "entryCount": 3843,
+  "entryCount": 3846,
   "entries": [
     { "value": "\\\\usbclass\\.sys", "score": 80, "exclude": null },
     { "value": "\\\\adpu160\\.sys", "score": 80, "exclude": null },
@@ -4616,6 +4616,9 @@
     { "value": "\\\\AppData\\\\Local\\\\VirtualStore\\\\result\\.con", "score": 85, "exclude": null },
     { "value": "\\\\CKAConsent\\.dll", "score": 85, "exclude": null },
     { "value": "\\\\2FAGuard\\\\main\\.dll", "score": 85, "exclude": null },
-    { "value": "\\\\2FAGuard\\\\setup\\.exe\\.config", "score": 85, "exclude": null }
+    { "value": "\\\\2FAGuard\\\\setup\\.exe\\.config", "score": 85, "exclude": null },
+    { "value": "/tmp/widdow\\.jar", "score": 75, "exclude": null },
+    { "value": "/tmp/\\.vz_svc_done", "score": 75, "exclude": null },
+    { "value": "/etc/systemd/system/java\\-jre\\-update\\.service", "score": 75, "exclude": null }
   ]
 }
