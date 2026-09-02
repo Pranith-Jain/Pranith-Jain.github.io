@@ -1,10 +1,10 @@
 {
   "sector": "government",
   "title": "Government sector brief",
-  "generatedAt": "2026-09-01",
+  "generatedAt": "2026-09-02",
   "topCount": 8,
   "preview": "CVE-2026-48282 (critical) leads with priority 98.",
-  "sizeBytes": 2818,
+  "sizeBytes": 2822,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
     {
@@ -22,34 +22,6 @@
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2020-1938",
-      "title": "When using the Apache JServ Protocol (AJP), care must be taken when trusting incoming connections to Apache Tomcat. Tomc",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2019-2725",
-      "title": "Vulnerability in the Oracle WebLogic Server component of Oracle Fusion Middleware (subcomponent: Web Services). Supporte",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2018-1273",
-      "title": "Spring Data Commons, versions prior to 1.13 to 1.13.10, 2.0 to 2.0.5, and older unsupported versions, contain a property",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2016-8735",
-      "title": "Remote code execution is possible with Apache Tomcat before 6.0.48, 7.x before 7.0.73, 8.x before 8.0.39, 8.5.x before 8",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
       "cveId": "CVE-2026-34621",
       "title": "Acrobat Reader versions 24.001.30356, 26.001.21367 and earlier are affected by an Improperly Controlled Modification of ",
       "relevance": "broadly-critical",
@@ -61,6 +33,34 @@
       "title": "An issue was discovered in ownCloud owncloud/core before 10.13.1. An attacker can access, modify, or delete any file wit",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-53362",
+      "title": "In the Linux kernel, the following vulnerability has been resolved:\n\nipv6: account for fraggap on the paged allocation p",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 7.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2019-1068",
+      "title": "A remote code execution vulnerability exists in Microsoft SQL Server when it incorrectly handles processing of internal ",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2021-23758",
+      "title": "All versions of package ajaxpro.2 are vulnerable to Deserialization of Untrusted Data due to the possibility of deserial",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.1; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2022-0995",
+      "title": "An out-of-bounds (OOB) memory write flaw was found in the Linux kernel’s watch_queue event notification subsystem. This ",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 7.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     }
   ]

@@ -4,21 +4,35 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-08-31T14:08:53.000Z",
-  "lastSeen": "2026-09-01T08:54:50.000Z",
-  "summary": "Sector hit by 9 leak-site victims across 8 ransomware groups and 4 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-01T04:27:28.000Z",
+  "lastSeen": "2026-09-01T15:53:54.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-31",
-      "count": 7
-    },
-    {
       "date": "2026-09-01",
-      "count": 2
+      "count": 5
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pt-intraco-penta-tbk-e54e",
+      "title": "PT Intraco Penta Tbk — claimed by direwolf",
+      "pubDate": "2026-09-01T15:53:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "congressional-iron-works-5488",
+      "title": "Congressional Iron Works — claimed by akira",
+      "pubDate": "2026-09-01T15:21:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "byk-construction-3280",
+      "title": "BYK Construction — claimed by akira",
+      "pubDate": "2026-09-01T14:23:34.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "hccd-construction-com-e1ae",
@@ -30,56 +44,20 @@
       "slug": "lawter-c77f",
       "title": "Lawter — claimed by medusalocker",
       "pubDate": "2026-09-01T04:27:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "r-l-fine-chem-pvt-ltd-bbe9",
-      "title": "R L Fine Chem Pvt. Ltd. — claimed by global secret group",
-      "pubDate": "2026-08-31T17:51:51.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "fu-sheng-industrial-co-ltd-b391",
-      "title": "Fu Sheng Industrial Co., Ltd — claimed by orova",
-      "pubDate": "2026-08-31T16:51:54.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hayward-holdings-9ebb",
-      "title": "Hayward Holdings — claimed by falcon",
-      "pubDate": "2026-08-31T15:22:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "allied-recycling-2b98",
-      "title": "Allied Recycling — claimed by qilin",
-      "pubDate": "2026-08-31T14:59:53.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "krc-machine-tool-solutions-8c56",
-      "title": "KRC Machine Tool Solutions — claimed by play",
-      "pubDate": "2026-08-31T14:27:53.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "diversifiedbodyandpaint-com-2b2c",
-      "title": "diversifiedbodyandpaint.com — claimed by settra",
-      "pubDate": "2026-08-31T14:09:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "howardlumber-com-b3ad",
-      "title": "howardlumber.com — claimed by settra",
-      "pubDate": "2026-08-31T14:08:53.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "settra",
-      "name": "settra",
+      "slug": "akira",
+      "name": "akira",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "direwolf",
+      "name": "direwolf",
+      "weight": 1
     },
     {
       "type": "group",
@@ -91,36 +69,6 @@
       "type": "group",
       "slug": "medusalocker",
       "name": "medusalocker",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "global-secret-group",
-      "name": "global secret group",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "orova",
-      "name": "orova",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "falcon",
-      "name": "falcon",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "play",
-      "name": "play",
       "weight": 1
     }
   ],

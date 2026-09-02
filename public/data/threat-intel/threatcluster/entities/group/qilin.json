@@ -4,82 +4,63 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-31T14:59:53.000Z",
-  "lastSeen": "2026-09-01T03:57:10.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-01T03:57:10.000Z",
+  "lastSeen": "2026-09-02T05:01:37.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-31",
-      "count": 2
+      "date": "2026-09-01",
+      "count": 1
     },
     {
-      "date": "2026-09-01",
+      "date": "2026-09-02",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "grayson-rural-electric-cooperative-f155",
+      "title": "Grayson Rural Electric Cooperative — claimed by qilin",
+      "pubDate": "2026-09-02T05:01:37.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "commission-de-la-construction-du-quebec-966f",
       "title": "Commission de la construction du Quebec — claimed by qilin",
       "pubDate": "2026-09-01T03:57:10.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "inmac-59b0",
-      "title": "Inmac — claimed by qilin",
-      "pubDate": "2026-08-31T19:02:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "allied-recycling-2b98",
-      "title": "Allied Recycling — claimed by qilin",
-      "pubDate": "2026-08-31T14:59:53.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "government-defense",
       "name": "Government & Defense",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "grayson-rural-electric-cooperative-f155",
+      "victim": "Grayson Rural Electric Cooperative — claimed by qilin",
+      "sector": "Energy & Utilities",
+      "country": "US",
+      "pubDate": "2026-09-02T05:01:37.000Z"
+    },
+    {
       "id": "commission-de-la-construction-du-quebec-966f",
       "victim": "Commission de la construction du Quebec — claimed by qilin",
       "sector": "Government & Defense",
       "country": "CA",
       "pubDate": "2026-09-01T03:57:10.000Z"
-    },
-    {
-      "id": "inmac-59b0",
-      "victim": "Inmac — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "AR",
-      "pubDate": "2026-08-31T19:02:21.000Z"
-    },
-    {
-      "id": "allied-recycling-2b98",
-      "victim": "Allied Recycling — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "IE",
-      "pubDate": "2026-08-31T14:59:53.000Z"
     }
   ]
 }

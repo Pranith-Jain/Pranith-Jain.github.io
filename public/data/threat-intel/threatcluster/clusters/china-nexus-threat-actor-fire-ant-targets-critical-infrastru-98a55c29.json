@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/china-nexus-threat-actor-fire-ant-targets-critical-infrastru-98a55c29?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/china-nexus-threat-actor-fire-ant-targets-critical-infrastru-98a55c29",
   "pubDate": "2026-08-30T18:03:55.000Z",
-  "sourceCount": 11,
-  "categories": ["11 Sources"],
+  "sourceCount": 18,
+  "categories": ["18 Sources"],
   "description": "The China-nexus threat actor known as Fire Ant has evolved its tactics in 2026, transitioning from targeting VMware hypervisors to compromising trusted infrastructure, including Cisco routers, TACACS…",
   "sizeBytes": 200
 }

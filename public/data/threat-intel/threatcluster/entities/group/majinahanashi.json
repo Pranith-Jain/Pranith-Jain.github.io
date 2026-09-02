@@ -7,7 +7,7 @@
   "mentionCount": 1,
   "firstSeen": "2026-09-01T08:50:54.000Z",
   "lastSeen": "2026-09-01T08:50:54.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
       "date": "2026-09-01",
@@ -25,8 +25,8 @@
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
@@ -35,8 +35,8 @@
     {
       "id": "terracom-amp-montcau-29ed",
       "victim": "TERRACOM &amp; MONTCAU — claimed by majinahanashi",
-      "sector": "Other",
-      "country": null,
+      "sector": "Technology",
+      "country": "ES",
       "pubDate": "2026-09-01T08:50:54.000Z"
     }
   ]

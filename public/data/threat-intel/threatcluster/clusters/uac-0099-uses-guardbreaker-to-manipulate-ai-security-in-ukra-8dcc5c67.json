@@ -1,11 +1,11 @@
 {
   "slug": "uac-0099-uses-guardbreaker-to-manipulate-ai-security-in-ukra-8dcc5c67",
-  "title": "UAC-0099 Uses GuardBreaker to Manipulate AI Security in Ukraine",
+  "title": "UAC-0099 Uses GuardBreaker to Evade AI Malware Detection",
   "link": "https://threatcluster.io/cluster/uac-0099-uses-guardbreaker-to-manipulate-ai-security-in-ukra-8dcc5c67?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/uac-0099-uses-guardbreaker-to-manipulate-ai-security-in-ukra-8dcc5c67",
   "pubDate": "2026-09-01T08:26:24.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
-  "description": "Cybersecurity researchers have identified a new technique called GuardBreaker employed by the Russia-aligned group UAC-0099 to manipulate AI-assisted malware analysis.",
-  "sizeBytes": 167
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
+  "description": "Russian-linked hackers from the group UAC-0099 have developed a new technique called GuardBreaker to evade AI-assisted malware analysis.",
+  "sizeBytes": 136
 }

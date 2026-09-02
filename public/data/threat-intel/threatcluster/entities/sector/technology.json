@@ -4,21 +4,37 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 10,
-  "firstSeen": "2026-08-31T15:57:55.000Z",
-  "lastSeen": "2026-09-01T08:59:09.000Z",
-  "summary": "Sector hit by 10 leak-site victims across 5 ransomware groups and 5 countries.",
+  "mentionCount": 11,
+  "firstSeen": "2026-08-31T19:52:07.000Z",
+  "lastSeen": "2026-09-02T06:52:31.000Z",
+  "summary": "Sector hit by 11 leak-site victims across 6 ransomware groups and 7 countries.",
   "frequency": [
     {
       "date": "2026-08-31",
-      "count": 5
+      "count": 3
     },
     {
       "date": "2026-09-01",
-      "count": 5
+      "count": 7
+    },
+    {
+      "date": "2026-09-02",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "chip-1-exchange-0c9d",
+      "title": "Chip 1 Exchange — claimed by aurora",
+      "pubDate": "2026-09-02T06:52:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "iwin-e352",
+      "title": "iwin — claimed by black x",
+      "pubDate": "2026-09-01T12:10:28.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "amptc-net-3f0d",
@@ -30,6 +46,12 @@
       "slug": "dmt-group-com-dde6",
       "title": "dmt-group.com — claimed by krybit",
       "pubDate": "2026-09-01T08:58:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "terracom-amp-montcau-29ed",
+      "title": "TERRACOM &amp; MONTCAU — claimed by majinahanashi",
+      "pubDate": "2026-09-01T08:50:54.000Z"
     },
     {
       "recordType": "victim",
@@ -66,18 +88,6 @@
       "slug": "sago-com-ce94",
       "title": "sago.com — claimed by braincipher",
       "pubDate": "2026-08-31T19:52:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "asys-corporation-3578",
-      "title": "ASYS Corporation — claimed by orova",
-      "pubDate": "2026-08-31T16:52:53.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "super-systems-inc-ca82",
-      "title": "Super Systems Inc — claimed by interlock",
-      "pubDate": "2026-08-31T15:57:55.000Z"
     }
   ],
   "relatedEntities": [
@@ -101,14 +111,20 @@
     },
     {
       "type": "group",
-      "slug": "orova",
-      "name": "orova",
+      "slug": "aurora",
+      "name": "aurora",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "interlock",
-      "name": "interlock",
+      "slug": "black-x",
+      "name": "black x",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "majinahanashi",
+      "name": "majinahanashi",
       "weight": 1
     }
   ],
