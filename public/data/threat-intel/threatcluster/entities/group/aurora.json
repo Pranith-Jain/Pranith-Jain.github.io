@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "aurora",
+  "name": "aurora",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-02T06:52:31.000Z",
+  "lastSeen": "2026-09-02T06:52:31.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-02",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "chip-1-exchange-0c9d",
+      "title": "Chip 1 Exchange — claimed by aurora",
+      "pubDate": "2026-09-02T06:52:31.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "chip-1-exchange-0c9d",
+      "victim": "Chip 1 Exchange — claimed by aurora",
+      "sector": "Technology",
+      "country": "SG",
+      "pubDate": "2026-09-02T06:52:31.000Z"
+    }
+  ]
+}

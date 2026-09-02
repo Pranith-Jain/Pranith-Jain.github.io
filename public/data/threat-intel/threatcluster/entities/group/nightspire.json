@@ -4,37 +4,25 @@
   "name": "nightspire",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-31T19:01:12.000Z",
-  "lastSeen": "2026-08-31T19:01:31.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-01T13:01:29.000Z",
+  "lastSeen": "2026-09-01T13:01:29.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-31",
-      "count": 2
+      "date": "2026-09-01",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "easyoga-27e2",
-      "title": "Easyoga — claimed by nightspire",
-      "pubDate": "2026-08-31T19:01:31.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "truckworx-947f",
-      "title": "Truckworx — claimed by nightspire",
-      "pubDate": "2026-08-31T19:01:12.000Z"
+      "slug": "transportes-montejo-s-a-s-3569",
+      "title": "Transportes Montejo S.A.S. — claimed by nightspire",
+      "pubDate": "2026-09-01T13:01:29.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
-    },
     {
       "type": "sector",
       "slug": "transportation",
@@ -45,18 +33,11 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "easyoga-27e2",
-      "victim": "Easyoga — claimed by nightspire",
-      "sector": "Retail & E-Commerce",
-      "country": "TW",
-      "pubDate": "2026-08-31T19:01:31.000Z"
-    },
-    {
-      "id": "truckworx-947f",
-      "victim": "Truckworx — claimed by nightspire",
+      "id": "transportes-montejo-s-a-s-3569",
+      "victim": "Transportes Montejo S.A.S. — claimed by nightspire",
       "sector": "Transportation",
-      "country": "US",
-      "pubDate": "2026-08-31T19:01:12.000Z"
+      "country": "CO",
+      "pubDate": "2026-09-01T13:01:29.000Z"
     }
   ]
 }

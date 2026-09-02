@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "wallstreet",
+  "name": "wallstreet",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-01T09:51:23.000Z",
+  "lastSeen": "2026-09-01T09:51:23.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "total-education-solutions-0640",
+      "title": "Total Education Solutions — claimed by wallstreet",
+      "pubDate": "2026-09-01T09:51:23.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "total-education-solutions-0640",
+      "victim": "Total Education Solutions — claimed by wallstreet",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-01T09:51:23.000Z"
+    }
+  ]
+}

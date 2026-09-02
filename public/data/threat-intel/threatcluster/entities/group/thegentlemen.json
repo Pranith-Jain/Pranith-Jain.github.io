@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "thegentlemen",
+  "name": "thegentlemen",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-01T12:13:48.000Z",
+  "lastSeen": "2026-09-01T12:14:30.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "careersource-palm-beach-county-a900",
+      "title": "CareerSource Palm Beach County — claimed by thegentlemen",
+      "pubDate": "2026-09-01T12:14:30.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "nutex-health-922e",
+      "title": "Nutex Health — claimed by thegentlemen",
+      "pubDate": "2026-09-01T12:14:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-sole-2935",
+      "title": "The Sole — claimed by thegentlemen",
+      "pubDate": "2026-09-01T12:13:48.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "careersource-palm-beach-county-a900",
+      "victim": "CareerSource Palm Beach County — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-01T12:14:30.000Z"
+    },
+    {
+      "id": "nutex-health-922e",
+      "victim": "Nutex Health — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-01T12:14:08.000Z"
+    },
+    {
+      "id": "the-sole-2935",
+      "victim": "The Sole — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "GB",
+      "pubDate": "2026-09-01T12:13:48.000Z"
+    }
+  ]
+}

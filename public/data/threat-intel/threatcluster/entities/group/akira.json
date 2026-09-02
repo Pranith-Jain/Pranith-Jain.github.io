@@ -1,0 +1,75 @@
+{
+  "type": "group",
+  "slug": "akira",
+  "name": "akira",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-01T14:23:34.000Z",
+  "lastSeen": "2026-09-01T15:21:40.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "congressional-iron-works-5488",
+      "title": "Congressional Iron Works — claimed by akira",
+      "pubDate": "2026-09-01T15:21:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "flex1-13e8",
+      "title": "Flex1 — claimed by akira",
+      "pubDate": "2026-09-01T14:23:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "byk-construction-3280",
+      "title": "BYK Construction — claimed by akira",
+      "pubDate": "2026-09-01T14:23:34.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "congressional-iron-works-5488",
+      "victim": "Congressional Iron Works — claimed by akira",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-01T15:21:40.000Z"
+    },
+    {
+      "id": "flex1-13e8",
+      "victim": "Flex1 — claimed by akira",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-01T14:23:54.000Z"
+    },
+    {
+      "id": "byk-construction-3280",
+      "victim": "BYK Construction — claimed by akira",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-01T14:23:34.000Z"
+    }
+  ]
+}

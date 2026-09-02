@@ -4,14 +4,14 @@
   "name": "braincipher",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-31T19:50:55.000Z",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-31T19:51:32.000Z",
   "lastSeen": "2026-08-31T19:55:00.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 4 sectors and 5 countries.",
+  "summary": "Ransomware group with 7 leak-site victims across 3 sectors and 5 countries.",
   "frequency": [
     {
       "date": "2026-08-31",
-      "count": 8
+      "count": 7
     }
   ],
   "recentActivity": [
@@ -56,12 +56,6 @@
       "slug": "crmeyer-com-47ab",
       "title": "crmeyer.com — claimed by braincipher",
       "pubDate": "2026-08-31T19:51:32.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ccsperfusion-com-7dcc",
-      "title": "ccsperfusion.com — claimed by braincipher",
-      "pubDate": "2026-08-31T19:50:55.000Z"
     }
   ],
   "relatedEntities": [
@@ -81,12 +75,6 @@
       "type": "sector",
       "slug": "other",
       "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
       "weight": 1
     }
   ],
@@ -140,13 +128,6 @@
       "sector": "Professional Services",
       "country": "DE",
       "pubDate": "2026-08-31T19:51:32.000Z"
-    },
-    {
-      "id": "ccsperfusion-com-7dcc",
-      "victim": "ccsperfusion.com — claimed by braincipher",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-08-31T19:50:55.000Z"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "volt-typhoon",
+  "name": "Volt Typhoon",
+  "aliases": [],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-01T00:00:00.000Z",
+  "lastSeen": "2026-09-01T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "ae106e21-54bd-5134-83d4-1b439af152da",
+      "title": "China-Linked QTFY Group Targets Critical Infrastructure with Advanced Exploits",
+      "pubDate": "2026-09-01T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "lazarus-group",
+  "name": "Lazarus Group",
+  "aliases": [],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-01T00:00:00.000Z",
+  "lastSeen": "2026-09-01T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "97d064d0-4ef8-5775-8dde-c1b5e1a39d17",
+      "title": "Mirage Kitten Targets Aviation and FinTech with New Cross-Platform Malware",
+      "pubDate": "2026-09-01T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

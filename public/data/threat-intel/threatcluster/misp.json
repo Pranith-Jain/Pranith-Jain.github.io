@@ -1,9 +1,33 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-01T10:19:24.178Z",
-  "eventCount": 8,
+  "syncedAt": "2026-09-02T09:49:32.066Z",
+  "eventCount": 9,
   "events": [
+    {
+      "uuid": "ae106e21-54bd-5134-83d4-1b439af152da",
+      "info": "China-Linked QTFY Group Targets Critical Infrastructure with Advanced Exploits",
+      "date": "2026-09-01",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1788287548",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:high",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"APT41\"",
+        "misp-galaxy:threat-actor=\"Mustang Panda\"",
+        "misp-galaxy:threat-actor=\"Volt Typhoon\"",
+        "misp-galaxy:threat-actor=\"Salt Typhoon\"",
+        "misp-galaxy:ransomware=\"Clop\"",
+        "misp-galaxy:ransomware=\"Lockbit\""
+      ],
+      "orgc": "ThreatCluster"
+    },
     {
       "uuid": "00161c56-786d-5f3a-b70d-6f0c9dab5d57",
       "info": "Chinese Operator Breaches Philippine Nuclear and Naval Entities",
@@ -15,22 +39,30 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "245013a1-985e-596b-949e-0efa0b4c309f",
-      "info": "Russia's Hybrid Warfare Threatens UK with Cyberattacks and Sabotage",
-      "date": "2026-08-25",
+      "uuid": "97d064d0-4ef8-5775-8dde-c1b5e1a39d17",
+      "info": "Mirage Kitten Targets Aviation and FinTech with New Cross-Platform Malware",
+      "date": "2026-09-01",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1787673036",
+      "timestamp": "1788269649",
       "tags": [
         "source:ThreatCluster",
         "tlp:clear",
         "threat-level:medium",
         "type:apt",
-        "type:ransomware",
-        "misp-galaxy:threat-actor=\"Apt28\"",
-        "misp-galaxy:threat-actor=\"Fancy Bear\"",
-        "misp-galaxy:ransomware=\"BlackBasta\""
+        "type:malware",
+        "misp-galaxy:threat-actor=\"Lazarus Group\""
       ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "32cfebe9-4fc9-5faf-9488-0de50449adb2",
+      "info": "Critical Vulnerabilities in Sangoma Switchvox Exploited for Remote Code Execution",
+      "date": "2026-09-02",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788336947",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -62,6 +94,23 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "af9dab66-fc7a-5675-b8ff-976eb66ea0e3",
+      "info": "UAC-0099 Uses GuardBreaker to Evade AI Malware Detection",
+      "date": "2026-09-01",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788253133",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:malware",
+        "misp-galaxy:threat-actor=\"Sandworm\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "cfaaa080-ab7b-5f78-a4e3-1dd0b01567c6",
       "info": "National Emergency Declared to Protect U.S. Bulk-Power System from Foreign Threats",
       "date": "2026-08-26",
@@ -78,26 +127,6 @@
       "analysis": "2",
       "threat_level_id": "2",
       "timestamp": "1787756005",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "6b18d42b-25ba-5709-959a-e5c81ac7f414",
-      "info": "China-Linked Cyber Espionage Targets India's Tax Ecosystem",
-      "date": "2026-08-31",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1788180784",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "b0d2a550-7287-53f7-b3d3-fff5948d3d9c",
-      "info": "GRU Cyber Operations Targeting Ukraine and NATO Allies",
-      "date": "2026-08-25",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787673036",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
       "orgc": "ThreatCluster"
     }

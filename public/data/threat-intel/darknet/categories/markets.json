@@ -4,7 +4,7 @@
   "description": "active market venues and their mirrors",
   "siteCount": 25,
   "mirrorCount": 62,
-  "upCount": 42,
+  "upCount": 41,
   "sites": [
     {
       "slug": "dwd-3c9c-715",
@@ -19,7 +19,7 @@
       "onion": "c5lpbpiufttwjm4daqb6kiyaspwbyedgnshhayhomksf65ebp2ckaeqd",
       "latencyMs": 2158,
       "httpCode": "200",
-      "pageSize": "12kb",
+      "pageSize": "80kb",
       "fingerprint": "4BAFDC5B"
     },
     {
@@ -35,7 +35,7 @@
       "onion": "argo4y7i55eafmunecspkroynos76c7px7l6or3cdbpekltxqlxqjmqd",
       "latencyMs": 2080,
       "httpCode": "200",
-      "pageSize": "133kb",
+      "pageSize": "180kb",
       "fingerprint": "77DD14C9"
     },
     {
@@ -51,7 +51,7 @@
       "onion": "awazonhndi7e5yfaobpk7j2tsnp4kfd2xa63tdtzcg7plc5fka4il4ad",
       "latencyMs": 1917,
       "httpCode": "200",
-      "pageSize": "126kb",
+      "pageSize": "25kb",
       "fingerprint": "37878848"
     },
     {
@@ -67,7 +67,7 @@
       "onion": "blackops3zlgfuq4dg4yrtxoe57u3sxfa34kqzbooqbovutleqhf3zqd",
       "latencyMs": 882,
       "httpCode": "200",
-      "pageSize": "33kb",
+      "pageSize": "166kb",
       "fingerprint": "95C5A688"
     },
     {
@@ -83,7 +83,7 @@
       "onion": "cannaex7sxdz3fy3bhyoaagwr5hhb64oabqllb7fpqvl3qwafmxxdhqd",
       "latencyMs": 778,
       "httpCode": "200",
-      "pageSize": "136kb",
+      "pageSize": "177kb",
       "fingerprint": "847C1C5D"
     },
     {
@@ -99,7 +99,7 @@
       "onion": "catharibrmbuat2is36fef24gqf3rzcmkdy6llybjyxzrqthzx7o3oyd",
       "latencyMs": 1342,
       "httpCode": "200",
-      "pageSize": "53kb",
+      "pageSize": "15kb",
       "fingerprint": "A799C570"
     },
     {
@@ -115,7 +115,7 @@
       "onion": "eg5pj3r4xhybxgfkjnkhbhwgkuonp5wtla3mbpuzphzk6lxkhftnvuyd",
       "latencyMs": 898,
       "httpCode": "200",
-      "pageSize": "13kb",
+      "pageSize": "155kb",
       "fingerprint": "DFE83C72"
     },
     {
@@ -131,7 +131,7 @@
       "onion": "darkmat3kdxestusl437urshpsravq7oqb7t3m36u2l62vnmmldzdmid",
       "latencyMs": 1217,
       "httpCode": "200",
-      "pageSize": "187kb",
+      "pageSize": "92kb",
       "fingerprint": "737F2F32"
     },
     {
@@ -147,7 +147,7 @@
       "onion": "dreav274kne7kisdblemfliplkp3x7mxghd4p7nspcuwcehizr4ia5ad",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "39kb",
+      "pageSize": "75kb",
       "fingerprint": "ACCFA8EC"
     },
     {
@@ -163,7 +163,7 @@
       "onion": "drughub666py6fgnml5kmxa7fva5noppkf6wkai4fwwvzwt4rz645aqd",
       "latencyMs": 1269,
       "httpCode": "200",
-      "pageSize": "59kb",
+      "pageSize": "122kb",
       "fingerprint": "D12029EB"
     },
     {
@@ -179,7 +179,7 @@
       "onion": "drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id",
       "latencyMs": 2312,
       "httpCode": "200",
-      "pageSize": "24kb",
+      "pageSize": "75kb",
       "fingerprint": "7C446355"
     },
     {
@@ -187,15 +187,15 @@
       "name": "Euphoria",
       "dwdId": "DWD-4A38-257",
       "status": "up",
-      "upMirrors": 2,
+      "upMirrors": 1,
       "totalMirrors": 2,
       "recommended": false,
       "isOnion": true,
       "url": "http://euphor2ivtwosiz6zspq7rdzzmyyo5nvr76qtgc473e2hnhffsred6qd.onion",
       "onion": "euphor2ivtwosiz6zspq7rdzzmyyo5nvr76qtgc473e2hnhffsred6qd",
-      "latencyMs": 2326,
+      "latencyMs": null,
       "httpCode": "200",
-      "pageSize": "16kb",
+      "pageSize": "167kb",
       "fingerprint": "C4E10BEE"
     },
     {
@@ -211,7 +211,7 @@
       "onion": "fawkesgrixgdi6mepgocuntt34o73okuasaxmuqyu4miskuhhzp2dgad",
       "latencyMs": 1898,
       "httpCode": "200",
-      "pageSize": "168kb",
+      "pageSize": "106kb",
       "fingerprint": "04D855DD"
     },
     {
@@ -227,23 +227,23 @@
       "onion": "idcre2nx5m2gcgcnbzh6hjjezvlgywc6wu5gkconbr3wmgt22yst5ayd",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "51kb",
+      "pageSize": "102kb",
       "fingerprint": "41569E21"
     },
     {
       "slug": "dwd-89f8-977",
       "name": "Market of Eden",
       "dwdId": "DWD-89F8-977",
-      "status": "up",
-      "upMirrors": 1,
+      "status": "down",
+      "upMirrors": 0,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
       "url": "http://eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad.onion",
       "onion": "eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad",
-      "latencyMs": 688,
-      "httpCode": "200",
-      "pageSize": "155kb",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "22kb",
       "fingerprint": "29BE5716"
     },
     {
@@ -259,23 +259,23 @@
       "onion": "mars24pazjige72veied4awxfb6gtkjauij7qkofveula7gc6fljy4qd",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "135kb",
+      "pageSize": "107kb",
       "fingerprint": "EC99C178"
     },
     {
       "slug": "dwd-c899-370",
       "name": "Mist",
       "dwdId": "DWD-C899-370",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
       "url": "http://mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd.onion",
       "onion": "mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd",
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "182kb",
+      "latencyMs": 2367,
+      "httpCode": "200",
+      "pageSize": "156kb",
       "fingerprint": "36899B6E"
     },
     {
@@ -283,7 +283,7 @@
       "name": "Nexus",
       "dwdId": "DWD-BD18-493",
       "status": "up",
-      "upMirrors": 2,
+      "upMirrors": 1,
       "totalMirrors": 2,
       "recommended": false,
       "isOnion": true,
@@ -291,7 +291,7 @@
       "onion": "nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd",
       "latencyMs": 1578,
       "httpCode": "200",
-      "pageSize": "35kb",
+      "pageSize": "108kb",
       "fingerprint": "1C76CC39"
     },
     {
@@ -307,7 +307,7 @@
       "onion": "omega7eye5ar3rkrhfr5odhzmlft7mrygp76fuqkh4kian73nd3b7hyd",
       "latencyMs": 1279,
       "httpCode": "200",
-      "pageSize": "63kb",
+      "pageSize": "148kb",
       "fingerprint": "FFA95D89"
     },
     {
@@ -315,7 +315,7 @@
       "name": "Prime",
       "dwdId": "DWD-E0AA-249",
       "status": "up",
-      "upMirrors": 4,
+      "upMirrors": 6,
       "totalMirrors": 7,
       "recommended": false,
       "isOnion": true,
@@ -323,7 +323,7 @@
       "onion": "primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd",
       "latencyMs": null,
       "httpCode": "200",
-      "pageSize": "109kb",
+      "pageSize": "82kb",
       "fingerprint": "56250578"
     },
     {
@@ -339,7 +339,7 @@
       "onion": "shadowxn3o3kvvkbjyaoe33emqxrtadijp7xybizbht2thb6x5dvfhad",
       "latencyMs": 905,
       "httpCode": "200",
-      "pageSize": "136kb",
+      "pageSize": "106kb",
       "fingerprint": "16BD6996"
     },
     {
@@ -355,7 +355,7 @@
       "onion": "vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd",
       "latencyMs": 1777,
       "httpCode": "200",
-      "pageSize": "67kb",
+      "pageSize": "153kb",
       "fingerprint": "39F75B6F"
     },
     {
@@ -371,7 +371,7 @@
       "onion": "trzm.cc",
       "latencyMs": null,
       "httpCode": "200",
-      "pageSize": "45kb",
+      "pageSize": "13kb",
       "fingerprint": "F8B083B6"
     },
     {
@@ -379,15 +379,15 @@
       "name": "Vortex",
       "dwdId": "DWD-E9A8-114",
       "status": "up",
-      "upMirrors": 2,
+      "upMirrors": 1,
       "totalMirrors": 3,
       "recommended": false,
       "isOnion": true,
       "url": "http://bar47oupp7kn2idtplbngebrtlhurfp5p4irvwngdkj2ynkc46jqihad.onion",
       "onion": "bar47oupp7kn2idtplbngebrtlhurfp5p4irvwngdkj2ynkc46jqihad",
-      "latencyMs": null,
+      "latencyMs": 1280,
       "httpCode": "200",
-      "pageSize": "26kb",
+      "pageSize": "49kb",
       "fingerprint": "9CD92901"
     },
     {
@@ -403,7 +403,7 @@
       "onion": "hn2paw7zaahbikbejiv6h22zwtijlam65y2c77xj2ypbilm2xs4bnbid",
       "latencyMs": 1714,
       "httpCode": "200",
-      "pageSize": "147kb",
+      "pageSize": "56kb",
       "fingerprint": "6AA284FB"
     }
   ]

@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "rhysida",
+  "name": "rhysida",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-01T17:27:14.000Z",
+  "lastSeen": "2026-09-01T17:27:14.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "szechenyi-programiroda-nonprofit-kf-408b",
+      "title": "Szechenyi Programiroda Nonprofit Kf — claimed by rhysida",
+      "pubDate": "2026-09-01T17:27:14.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "szechenyi-programiroda-nonprofit-kf-408b",
+      "victim": "Szechenyi Programiroda Nonprofit Kf — claimed by rhysida",
+      "sector": "Other",
+      "country": "HU",
+      "pubDate": "2026-09-01T17:27:14.000Z"
+    }
+  ]
+}

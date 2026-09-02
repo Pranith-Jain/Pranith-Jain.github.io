@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "black-x",
+  "name": "black x",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-01T12:10:28.000Z",
+  "lastSeen": "2026-09-01T12:10:28.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "iwin-e352",
+      "title": "iwin — claimed by black x",
+      "pubDate": "2026-09-01T12:10:28.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "iwin-e352",
+      "victim": "iwin — claimed by black x",
+      "sector": "Technology",
+      "country": "KR",
+      "pubDate": "2026-09-01T12:10:28.000Z"
+    }
+  ]
+}

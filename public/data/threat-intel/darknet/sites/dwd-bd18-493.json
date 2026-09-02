@@ -6,11 +6,11 @@
   "url": "http://nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd.onion",
   "onion": "nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd",
   "status": "up",
-  "upMirrors": 2,
+  "upMirrors": 1,
   "totalMirrors": 2,
   "latencyMs": 1578,
   "httpCode": "200",
-  "pageSize": "35kb",
+  "pageSize": "108kb",
   "fingerprint": "1C76CC39",
   "recommended": false,
   "isOnion": true

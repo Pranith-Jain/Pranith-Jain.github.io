@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "direwolf",
+  "name": "direwolf",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-01T15:53:54.000Z",
+  "lastSeen": "2026-09-01T16:25:03.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-01",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "oportunidados-17ec",
+      "title": "Oportunidados — claimed by direwolf",
+      "pubDate": "2026-09-01T16:25:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "honeycomb-programs-inc-25e1",
+      "title": "Honeycomb Programs Inc — claimed by direwolf",
+      "pubDate": "2026-09-01T15:54:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pt-intraco-penta-tbk-e54e",
+      "title": "PT Intraco Penta Tbk — claimed by direwolf",
+      "pubDate": "2026-09-01T15:53:54.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "oportunidados-17ec",
+      "victim": "Oportunidados — claimed by direwolf",
+      "sector": "Not Found",
+      "country": "BR",
+      "pubDate": "2026-09-01T16:25:03.000Z"
+    },
+    {
+      "id": "honeycomb-programs-inc-25e1",
+      "victim": "Honeycomb Programs Inc — claimed by direwolf",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-09-01T15:54:31.000Z"
+    },
+    {
+      "id": "pt-intraco-penta-tbk-e54e",
+      "victim": "PT Intraco Penta Tbk — claimed by direwolf",
+      "sector": "Manufacturing",
+      "country": "ID",
+      "pubDate": "2026-09-01T15:53:54.000Z"
+    }
+  ]
+}
