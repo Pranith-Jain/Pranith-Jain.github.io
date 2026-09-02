@@ -1,0 +1,76 @@
+{
+  "type": "maritime",
+  "date": "2026-09-01",
+  "threatLevel": "Unknown",
+  "executiveSummary": "A Philippine national maritime authority reported a recent cybersecurity incident that forced an affected seafarer service platform offline. The authority found no data loss but highlighted the absence of a dedicated disaster recovery capability, indicating immediate continuity and resilience gaps for seafarer-facing digital services View Article . Separately, the Qilin ransomware group allegedly listed \"Globalport Terminals\" on its leak site, claiming data theft. This remains unverified with no independent confirmation or victim admission at publication time, but the target category (terminal operator) is strategically significant to port logistics Source . The U.S. Coast Guard established the Office of Maritime Cybersecurity Policy, signaling increased policy coordination and potential future updates to compliance expectations for ports, vessels, and facilities Government Advisory . Current reporting suggests no confirmed interference with GPS/GNSS, AIS, ECDIS, or shipboard OT during this period. Confidence: Medium. The collected intelligence supports an assessment that administrative and enterprise IT services across maritime authorities and terminal operators face continued exposure to extortion and service-disruption risk. Confidence: Medium. Outlook judgment: Over the next 72 hours, analysts should monitor for MARINA service restoration updates and any corroboration or data releases tied to the Qilin claim. Confidence: Medium.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "MODERATE",
+        "label": "Overall Maritime Cyber Threat Level"
+      },
+      {
+        "value": "3",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "3",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "1",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "2",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "0",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "1",
+        "label": "Active Incidents"
+      },
+      {
+        "value": "1",
+        "label": "Port/Terminal Threats"
+      },
+      {
+        "value": "0",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "0",
+        "label": "Vulnerabilities or CVEs"
+      },
+      {
+        "value": "2",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [],
+    "sectors": [
+      "Maritime administration and seafarer services (Philippines) View Article",
+      "Ports and terminals (unverified extortion claim) Source",
+      "Regulatory/policy stakeholders (U.S.) Government Advisory"
+    ]
+  },
+  "keyFindings": [],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Extortion via public leak-site listing (data theft claim). Formal ATT&CK mapping not confirmed in-source.",
+      "Repeated suspicious activity against an administrative platform was observed by a maritime authority; insufficient detail for ATT&CK technique identification. (Analytical) View Article"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for MARINA service restoration and any further details on the incident scope; continuity impacts to seafarer services could persist in the near term. Confidence: Medium. View Article Continued reporting is likely around the Qilin claim; watch for corroboration or release of data that could escalate partner and customer response requirements. Immediate risk to terminal OT remains unsubstantiated. Confidence: Medium. Source USCG policy communications may spur stakeholder engagement and planning; no immediate operational changes expected within 72 hours, but early alignment work can begin. Confidence: High. Government Advisory",
+  "relatedCves": []
+}

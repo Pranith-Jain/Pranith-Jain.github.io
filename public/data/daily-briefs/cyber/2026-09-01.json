@@ -1,0 +1,127 @@
+{
+  "type": "cyber",
+  "date": "2026-09-01",
+  "threatLevel": "",
+  "executiveSummary": "The OT/ICS threat landscape this period is characterized by active, government-confirmed campaigns targeting programmable logic controllers (PLCs) and industrial edge gateways, combined with high-impact perimeter vulnerabilities that enable rapid IT-to-OT pivoting. U.S. multi-agency advisories detail Iranian-affiliated intrusions modifying PLC logic and HMI/SCADA displays across U.S. water and energy operations, with observed operational disruption and financial losses Security Advisory . A second joint alert warns of ongoing targeting of Siemens S7-series PLCs over S7comm/TCP 102 using readily-available or AI-scripted tooling, underscoring continued risks to core industrial control assets Security Advisory . Critical perimeter risks remain elevated: JPCERT/CC reports mass leakage and offline cracking of Fortinet FortiGate administrative credentials (\"FortiBleed\"), enabling VPN compromise and AD credential theft-highly relevant to OT perimeters where FortiGate protects conduits to ICS Alert . Separately, a pre-auth RCE in Citrix NetScaler ADC/Gateway (CVE-2026-8452) with public PoC enables swift enterprise compromise and potential OT pivoting via remote access gateways used for vendor/jump-host access Alert . Field and remote-site equipment risks are rising: research uncovered OEM backdoors in widely resold ZBT LTE/5G routers that provide unauthenticated command execution and cloud-controlled C2, a serious concern for remote stations and substations using cellular failover View Article . CISA summaries also highlight critical flaws in EV charging infrastructure (EVbee DC-80) enabling unauthenticated control and command injection that could disrupt energy/transport operations Bulletin . Multiple KEV additions and exploited app stacks (Zimbra OS command injection; MLflow SSRF; PaperCut NG/MF issues) continue to supply initial access paths that regularly appear in intrusions impacting critical infrastructure enterprises; urgent patching and compromise assessment are advised CISA KEV CISA KEV . Priority: Harden PLC access and engineering pathways Urgent: Patch/assess NetScaler & FortiGate estates Reduce: Internet exposure of EVSE/routers/BI stacks",
+  "keyFindings": [
+    {
+      "title": "Active Iranian-affiliated operations modified PLC logic and HMI/SCADA at U.S. ut",
+      "summary": "Active Iranian-affiliated operations modified PLC logic and HMI/SCADA at U.S. utilities; observed operational impacts and costs Security Advisory"
+    },
+    {
+      "title": "Ongoing threat to Siemens S7 PLCs over S7comm/TCP 102 using commodity/AI-generat",
+      "summary": "Ongoing threat to Siemens S7 PLCs over S7comm/TCP 102 using commodity/AI-generated tools; immediate network hardening and monitoring required Security Advisory"
+    },
+    {
+      "title": "FortiBleed",
+      "summary": "mass FortiGate admin credential leak and cracking-high risk of VPN-based pivots to OT; PBKDF2 + full credential rotation recommended Alert"
+    },
+    {
+      "title": "NetScaler ADC/Gateway CVE-2026-8452 pre-auth RCE + public PoC enables rapid edge",
+      "summary": "NetScaler ADC/Gateway CVE-2026-8452 pre-auth RCE + public PoC enables rapid edge compromise; patch and hunt for web shells now Alert"
+    },
+    {
+      "title": "Backdoored ZBT OEM LTE/5G routers are reachable/beaconing globally; remove/repla",
+      "summary": "Backdoored ZBT OEM LTE/5G routers are reachable/beaconing globally; remove/replace or isolate immediately View Article"
+    },
+    {
+      "title": "EVbee EVSE critical flaws (unauthenticated control, command injection, unsigned ",
+      "summary": "EVbee EVSE critical flaws (unauthenticated control, command injection, unsigned firmware) threaten charging operations Bulletin"
+    },
+    {
+      "title": "Enterprise app exploits (Zimbra, MLflow, PaperCut, Metabase) remain common ingre",
+      "summary": "Enterprise app exploits (Zimbra, MLflow, PaperCut, Metabase) remain common ingress; prioritize KEV remediation and compromise checks CISA KEV JPCERT Advisory"
+    },
+    {
+      "title": "TrueConf exploitation (Head Mare APT) delivers backdoors via tampered installers",
+      "summary": "TrueConf exploitation (Head Mare APT) delivers backdoors via tampered installers and web shells; isolate conferencing servers from OT Vendor Analysis"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "Overall OT Cyber Threat Level",
+        "trend": "Multiple active, OT-directed intrusion advisories (PLCs, EVSE) and edge RCEs"
+      },
+      {
+        "value": "56",
+        "label": "Events This Cycle",
+        "trend": "ESCALATE: 16 | MONITOR: 30 | IGNORE: 10"
+      },
+      {
+        "value": "14+",
+        "label": "Actively Exploited/KEV Items Referenced",
+        "trend": "Zimbra, MLflow, PaperCut, Metabase, Ray, Oracle OHS/WebLogic, Cisco/ASA/FTD, TrueConf"
+      },
+      {
+        "value": "8",
+        "label": "New/Updated ICS Advisories",
+        "trend": "CISA ICS: Mitsubishi, ASE2000, Fuel-Boss, Rockwell OTTO, Xiiaozet, Ebyte"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 Rockwell Automation Fortinet FortiGate Citrix NetScaler ADC/Gateway EVbee DC-80 EVSE PcVue Mitsubishi Electric (FA/CNC) ASE ASE2000 V2 All-Line Fuel-Boss Rockwell OTTO Fleet Manager Zimbra MLflow Metabase PaperCut NG/MF Oracle OHS/WebLogic ZBT LTE/5G Routers Cisco IOS XR TACACS+"
+    ],
+    "sectors": [
+      "Water & Wastewater Energy / Electric Power Transportation (EV Charging, Rail) Critical Manufacturing Government Services Defense Industrial Base Healthcare (perimeters/IT)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated operators tampering with PLC logic and HMI/SCADA displays at U.S. utilities Security Advisory",
+        "China-nexus covert networks (QTFY/ORB) and Fire Ant/UNC3886 targeting routers/TACACS for stealthy persistence and pivot Advisory View Article",
+        "Pro-Russia hacktivists opportunistically abusing internet-exposed VNC on HMIs/SCADA, changing setpoints and disabling alarms Advisory",
+        "Head Mare APT exploiting TrueConf servers; implanting PhantomCore/PhantomGraph, replacing installers, and using OneDrive/Graph for C2 Vendor Analysis"
+      ]
+    }
+  ],
+  "relevance": "The most consequential items directly affect control-system components and perimeters: (1) PLC-focused intrusions (Iran-affiliated and Siemens S7-specific) represent immediate risk to process integrity and safety; (2) NetScaler and FortiGate issues threaten remote access boundaries commonly bridging IT and OT; (3) EVSE flaws introduce operational risks in transportation/energy ecosystems; and (4) backdoored LTE/5G routers amplify remote-site compromise likelihood. Multiple KEV-listed enterprise apps (Zimbra, MLflow, PaperCut, Metabase) continue to provide initial access and credential theft for subsequent lateral movement toward OT enclaves.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Citrix NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) - patch now; no reliable workaround JPCERT/CC",
+        "Fortinet FortiBleed - leaked admin credentials and PBKDF2 requirements; rotate secrets, enable MFA JPCERT/CC",
+        "EVbee DC-80 EVSE - unauth control & code exec (OCPP/Web/Bluetooth); isolate and update CISA Bulletin",
+        "PcVue ( CISA Bulletin",
+        "Mitsubishi Electric (multiple FA & CNC series) ICS DoS/oob-read; apply fixed firmware; block TCP/683 ICS Advisory ICS Advisory",
+        "ASE ASE2000 V2 - log4net XXE & TLS client cert validation weaknesses; upgrade 2.38 ICS Advisory",
+        "All-Line Fuel-Boss - PHP-FPM RCE and IMAP injection; remove internet exposure; vendor fixes partial ICS Advisory",
+        "Rockwell OTTO Fleet Manager - bcrypt work factor; update 2.36.3 and encrypt backups ICS Advisory",
+        "KEV: Zimbra OS command injection; MLflow SSRF; PaperCut NG/MF; Ray code injection; Oracle OHS/WebLogic improper access CISA KEV CISA KEV"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial Access: Exploitation of public-facing apps/gateways (NetScaler ADC RCE; TrueConf pre-auth RCE; KEVs in Zimbra/MLflow/Metabase) - ATT&CK T1190",
+      "Persistence: Web shells on appliances/servers; router implants (Cisco IOS XR); application passcodes & IMAP persistence (Zimbra) - T1505, T1053",
+      "Credential Access: VPN credential theft/cracking (FortiBleed); TACACS+ interception; LSASS dumps - T1003, T1557",
+      "Lateral Movement: Reverse tunnels (SSH, Python/WebSockets); AD CS abuse; SMB/RDP - T1021, T1550, T1557",
+      "Collection/Exfiltration: DNS/HTTPS covert channels; cloud storage (OneDrive/Graph); EVSE/OCPP data paths - T1041, T1071",
+      "Impact on OT: PLC program/logic writes; HMI alarm suppression/setpoint changes; EVSE command injection - ICS ATT&CK: Impact/Modify Control Logic"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1505",
+      "T1053",
+      "T1003",
+      "T1557",
+      "T1021",
+      "T1550",
+      "T1041",
+      "T1071"
+    ]
+  },
+  "outlook72h": "High likelihood of opportunistic exploitation against unpatched NetScaler ADC and KEV-listed Zimbra/MLflow/Metabase. Validate patch coverage and scan logs for webshell/abnormal admin actions now. Expect continued probing of S7comm/CIP/Modbus from internet/VPN paths. Proactively block TCP/102/44818/2222 at perimeters and tighten PLC access lists; baseline S7comm writes for anomaly alerts. Rapid triage EVSE/remote routers: identify EVbee/ZBT devices; isolate from corporate/OT networks pending patch/firmware verification. Task SOC to threat-hunt TacACS+/router implants (Fire Ant/UNC3886 TTPs) and TrueConf web shell/installer tampering across management planes.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-72898"
+  ]
+}

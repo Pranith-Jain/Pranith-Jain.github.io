@@ -1,0 +1,78 @@
+{
+  "type": "disaster",
+  "date": "2026-09-01",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic cross-border flooding and landslides along the Nepal-China (Tibet) frontier have caused mass casualties, isolated mountain communities, and widespread infrastructure destruction, with the death toll surpassing 1,000 and more than 4,400 missing. View Article Rescue and access operations remain severely constrained by destroyed bridges and roads, with satellite imagery confirming extensive damage across multiple districts in Nepal and into Tibet/China. View Article A barrier lake upstream presents an additional outburst flood risk, compounding dangers for downstream communities and responders. Supporting Report UNICEF reports at least 17,000 children urgently need assistance and dozens of schools were destroyed or damaged in the Nepal-Tibet flood zone, signaling acute education and protection needs. View Article In the United States, a deadly flash flood in Grand Canyon National Park killed at least two people, left others missing, and destroyed the park's sole water pipeline, triggering broad closures and restrictions. Source Wildfires in Nevada prompted mass evacuations around Reno, destroying homes and stretching response capacity under a state of emergency. View Article Tropical Storm Edouard approaches the Texas-Louisiana Gulf Coast with forecast heavy rain and flooding; preparedness measures and potential evacuations are underway. Security Advisory Note: Figures vary across sources; casualty and missing counts may change as assessments are updated.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "5",
+        "label": "Active ESCALATE Events"
+      },
+      {
+        "value": "4",
+        "label": "Countries Affected"
+      },
+      {
+        "value": "≥ 1,000",
+        "label": "Reported Fatalities (min.)"
+      },
+      {
+        "value": "≥ 4,400",
+        "label": "Reported Missing (min.)"
+      },
+      {
+        "value": "Thousands+",
+        "label": "Evacuations / Displacement"
+      },
+      {
+        "value": "Critical",
+        "label": "Key Infrastructure Impacts"
+      },
+      {
+        "value": "≥ 17,000",
+        "label": "Children in Urgent Need"
+      },
+      {
+        "value": "High Risk",
+        "label": "Outlook (72h)"
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "title": "Cross-border Himalayan floods have escalated into a mass-casualty disaster with ",
+      "summary": "Cross-border Himalayan floods have escalated into a mass-casualty disaster with ≥1,000 deaths and ≥4,400 missing; access to remote communities remains severely constrained. View Article"
+    },
+    {
+      "title": "Secondary hazard",
+      "summary": "a barrier lake poses outburst risks that could trigger additional downstream flooding and landslides. Supporting Report"
+    },
+    {
+      "title": "Education and child protection impacts are severe",
+      "summary": "at least 17,000 children need urgent assistance; 18 schools destroyed and 20 damaged. View Article"
+    },
+    {
+      "title": "Grand Canyon flash floods killed at least two, left others missing, and destroye",
+      "summary": "Grand Canyon flash floods killed at least two, left others missing, and destroyed the only water pipeline, forcing closures and water restrictions. Source"
+    },
+    {
+      "title": "Reno, Nevada wildfire triggered mass evacuations and home losses; emergency shel",
+      "summary": "Reno, Nevada wildfire triggered mass evacuations and home losses; emergency sheltering and state support were activated. View Article"
+    },
+    {
+      "title": "Severe storms in Indiana caused flooding, road closures, and widespread outages,",
+      "summary": "Severe storms in Indiana caused flooding, road closures, and widespread outages, with fatalities reported by state authorities. View Advisory"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Nepal-China/Tibet: Continued high-risk SAR with access impediments; monitor barrier lake stability and downstream inundation potential. Supporting Report Grand Canyon: Ongoing search operations and infrastructure repairs; additional rain could complicate recovery and safety restrictions. View Article Reno & Big Sur: Fire behavior and weather shifts may drive new evacuations and access closures; maintain evacuation readiness. Source TX-LA Gulf Coast: Expect periods of heavy rain and localized flooding around Edouard; activate flood safety and evacuation protocols where advised. Advisory Indonesia (Sinabung): Respect exclusion zones; monitor for ash hazards and rapid alert changes. View Article",
+  "regionalTrends": [
+    "South Asia High Himalaya: Repeated, high-impact flood and landslide events with cascading risks (barrier lakes, infrastructure failure) affecting cross-border districts. Supporting Report",
+    "US Southwest & Intermountain West: Late-season wildfire surges threatening populated corridors (Reno) and remote coastal communities (Big Sur). Source",
+    "US Gulf Coast: Tropical cyclone flood risk escalation as Edouard nears landfall zones. Advisory",
+    "Indonesia (Sumatra): Elevated volcanic activity with expanded exclusion zones; vigilance required though impacts remain limited to date. View Article"
+  ]
+}
