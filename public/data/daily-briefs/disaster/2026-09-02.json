@@ -1,0 +1,130 @@
+{
+  "type": "disaster",
+  "date": "2026-09-02",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic flash floods along the Nepal-China border remain the dominant global crisis, with at least 1,118 deaths and more than 3,900 people reported missing as roads, bridges and hydropower infrastructure were destroyed. View Article UNICEF estimates over 17,000 children require urgent assistance in affected Nepali districts, citing needs for shelter, hygiene and psychosocial support. Supporting Report In the United States, a deadly flash flood in Grand Canyon National Park killed 1-2 people, left about 15 missing or unaccounted for, and knocked out the park's only water pipeline; more than 60-80 people were evacuated/airlifted. View Article Tropical Storm Edouard made landfall near the Texas-Louisiana border, bringing heavy rain, localized flooding, power outages and continued inland threats through midweek. View Article IFRC activated anticipatory action for drought in El Salvador to protect at-risk communities facing agricultural and water stress. Supporting Report An El Niño alert underscores elevated drought, heat, and flooding risks for more than two-thirds of children across Eastern and Southern Africa. Source 4 Active ESCALATE events ESCALATE 4 Active MONITOR events MONITOR 1,119+ Reported fatalities (min) Reporting varies 3,900-4,400+ Reported missing Nepal-China floods Notes: Fatalities and missing persons are primarily from the Nepal floods; figures vary by source and remain fluid as rescue operations continue.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "8",
+        "label": "Active events tracked"
+      },
+      {
+        "value": "3",
+        "label": "Countries with life-threatening floods"
+      },
+      {
+        "value": "60-80+",
+        "label": "Evacuated/airlifted (Grand Canyon)"
+      },
+      {
+        "value": "Hydro, roads, bridges",
+        "label": "Key infrastructure damaged (Nepal)"
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "title": "Nepal-China border floods caused extreme loss of life (≥1,118 deaths) and widesp",
+      "summary": "Nepal-China border floods caused extreme loss of life (≥1,118 deaths) and widespread isolation of mountain communities due to destroyed roads and bridges. View Article"
+    },
+    {
+      "title": "Thousands remain missing (about 3,900-4,400+) with mass burials reported; hydrop",
+      "summary": "Thousands remain missing (about 3,900-4,400+) with mass burials reported; hydropower tunnels are filled with mud, complicating rescues. View Article Supporting Report"
+    },
+    {
+      "title": "Children's needs in Nepal are acute, with >17,000 requiring urgent assistance; s",
+      "summary": "Children's needs in Nepal are acute, with >17,000 requiring urgent assistance; schools are serving as shelters and psychosocial support is needed. Source"
+    },
+    {
+      "title": "Grand Canyon flash flooding killed 1-2 people, left about 15 missing or unaccoun",
+      "summary": "Grand Canyon flash flooding killed 1-2 people, left about 15 missing or unaccounted for, destroyed footbridges and disabled the park's sole water pipeline; over 60-80 people were evacuated/airlifted. View Article"
+    },
+    {
+      "title": "Tropical Storm Edouard brought flooding rain, toppled trees and outages to thous",
+      "summary": "Tropical Storm Edouard brought flooding rain, toppled trees and outages to thousands near the Texas-Louisiana border; flood and tornado threats persisted inland. View Article"
+    },
+    {
+      "title": "IFRC launched a major emergency appeal for Nepal and released rapid-response fun",
+      "summary": "IFRC launched a major emergency appeal for Nepal and released rapid-response funds as communities were cut off. Supporting Report"
+    },
+    {
+      "title": "Anticipatory action for drought in El Salvador indicates elevated livelihood and",
+      "summary": "Anticipatory action for drought in El Salvador indicates elevated livelihood and water-stress risks for vulnerable households. Source"
+    },
+    {
+      "title": "UNICEF warns El Niño threatens more than two-thirds of children across Eastern a",
+      "summary": "UNICEF warns El Niño threatens more than two-thirds of children across Eastern and Southern Africa with intensifying drought, heat, and flooding risks. Source"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/4dadbf49cf21d37af218e0df3c2b2622",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.unicef.org/press-releases/flash-floods-nepal-leave-more-17000-children-need-urgent-humanitarian-assistance",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/8e2211e04f30b637e35ab95ecb1a1626",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/947df7d220e9793e353631f51e40a06c",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.ifrc.org/fr/appeals?ac=MDR00005&appeal_code=&at=0&c=&co=SP566XK&date_from=&date_to=&dt=1&f=2012&order=create_date&page=0&re=&sort=desc&t=&text=&ti=&zo=",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.unicef.org/press-releases/el-ni%C3%B1o-threatens-more-two-thirds-children-eastern-and-southern-africa",
+          "label": "Source"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Nepal-China border: Continued recovery hindered by blocked access; upstream flow variability poses renewed flood/landslide risks in some corridors-exercise caution in riverine valleys. View Article Texas-Louisiana (Edouard): Repeated downpours through midweek with localized flash flooding and travel disruption possible; monitor tornado watches where issued. View Article Grand Canyon: Water restrictions and service disruptions likely to persist while damage assessments and repairs to the Bright Angel pipeline and trail infrastructure continue. Source El Salvador: Drought conditions and livelihood stress to continue; anticipate updates to anticipatory actions and localized support plans. Source",
+  "regionalTrends": [
+    "South Asia: Monsoon-driven flash floods across the Nepal-China border continue to produce extreme humanitarian impact and access constraints. Source",
+    "US Gulf Coast: Active tropical season with Edouard marking the third US landfall this year; repeated downpours pose flash-flood and tornado risks. Source",
+    "US Southwest: Canyon flash flooding highlights vulnerability of single-point water infrastructure to cloudburst events. Source",
+    "Eastern & Southern Africa: El Niño likely to amplify drought, flooding and heat risks for children, increasing humanitarian caseloads. Source"
+  ]
+}

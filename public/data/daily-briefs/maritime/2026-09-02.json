@@ -1,0 +1,443 @@
+{
+  "type": "maritime",
+  "date": "2026-09-02",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Priority analytical judgment: Unpatched, end-of-life AIS transponders combined with active GNSS interference increase the likelihood of navigation-picture distortion and misidentification in congested waters. Bridge teams and shoreside VTS should emphasize cross-sensor validation and anomaly reporting while operators accelerate removal of FA-50 units where still installed. Confidence: high based on government advisories and industry reporting.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "4"
+      },
+      {
+        "value": "",
+        "label": "3"
+      },
+      {
+        "value": "",
+        "label": "0"
+      }
+    ],
+    "vendors": [
+      "FURUNO FA-50 Class B AIS (shipboard AIS transponder) - EOL, vulnerable configuration controls. CISA",
+      "Port technologies referenced by advisory: LOGINK logistics platform; Nuctech screening systems; PRC-manufactured ship-to-shore cranes. MARAD"
+    ],
+    "sectors": [
+      "Vessel operators transiting GNSS-contested regions",
+      "Vessels operating legacy FA-50 AIS units",
+      "Port and terminal operators using foreign-manufactured OT/logistics systems",
+      "Maritime regulators and seafarer administration services (Philippines MARINA)"
+    ]
+  },
+  "keyFindings": [
+    "GNSS interference, spoofing, and jamming remain active risks in the Persian Gulf, Strait of Hormuz, and Gulf of Oman, requiring heightened situational awareness and reporting procedures. Maritime Advisory",
+    "FURUNO FA-50 Class B AIS transponders contain hard-coded credentials and missing authentication, enabling unauthorized configuration changes from the ship network; device is EOL with no software fix. Government Advisory Supporting Report",
+    "A cybersecurity incident at the Philippine Maritime Industry Authority disrupted seafarer services; recovery and infrastructure modernization initiatives are underway. Source",
+    "U.S. MARAD warns that foreign-manufactured port equipment and logistics platforms may create exploitable IT/OT pathways; operators should implement segmentation, monitoring, secure remote access, and validated backups. Government Advisory",
+    "Regional reporting indicates increased detection of deceptive AIS transmissions; bridge teams are advised to compare radar and ECDIS and maintain dead-reckoning proficiency. Supporting Report View Article"
+  ],
+  "topThreats": [
+    {
+      "title": "1) Ongoing GNSS interference and spoofing in key Middle East corridors",
+      "action": "Active GNSS degradation can cause loss of position confidence, create route deviations, and increase collision or grounding risk in congested sea lanes.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "Maritime Advisory"
+        }
+      ]
+    },
+    {
+      "title": "2) Unpatched FURUNO FA-50 AIS transponders enable unauthorized configuration changes",
+      "action": "Attackers with vessel-network access could alter AIS parameters, degrading traffic-picture trust and compliance; no vendor software fix is planned.",
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-237-07",
+          "label": "Government Advisory"
+        },
+        {
+          "url": "https://jvndb.jvn.jp/en/contents/2026/JVNDB-2026-030097.html",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "3) Cyber disruption of Philippine MARINA SID/SRB services",
+      "action": "Disruption to seafarer identity/record processing can cascade to crewing, certification timelines, and port-clearance workflows.",
+      "sources": [
+        {
+          "url": "https://marina.gov.ph/2026/09/01/to-counter-cyber-threats-amid-sid-srb-disruption-marina-seeks-funding-for-disaster-recovery-system-nationwide-tech-refresh/",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "4) Port-OT and logistics supply-chain cyber risks from foreign-manufactured systems",
+      "action": "Potential exposure of sensitive logistics data and exploitable pathways within port IT/OT, including ship-to-shore cranes and screening systems.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "5) Increased detection of deceptive AIS transmissions",
+      "action": "False identity/location data can degrade VTS awareness and vessel encounter assessments, complicating compliance checks and routing.",
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-major-maritime-security-trends-for-h1-2026/",
+          "label": "Supporting Report"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "FURUNO FA-50 Class B AIS: hard-coded credentials; missing authentication for configuration; exploitation requires in-vessel network access; no known public exploitation; product EOL; vendor indicates no software updates will be provided. CISA Advisory JVN iPedia"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Vessel navigation Navigation impact: Confirmed interference and spoofing risk Safety impact: Possible increase in collision/grounding likelihood Operational impact: Route deviations, delays, bridge workload increase",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Vessel navigation",
+        "Navigation impact: Confirmed interference and spoofing risk",
+        "Safety impact: Possible increase in collision/grounding likelihood",
+        "Operational impact: Route deviations, delays, bridge workload increase"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Affected systems: FURUNO FA-50 Class B AIS transponder Navigation impact: Possible AIS identity and settings manipulation Operational impact: Traffic-picture integrity and compliance risk Supply-chain impact: None reported Mitigations: Device replacement; network isolation; monitor configuration access",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-237-07",
+          "label": "CISA Advisory"
+        },
+        {
+          "url": "https://jvndb.jvn.jp/en/contents/2026/JVNDB-2026-030097.html",
+          "label": "JVN iPedia"
+        }
+      ],
+      "items": [
+        "Affected systems: FURUNO FA-50 Class B AIS transponder",
+        "Navigation impact: Possible AIS identity and settings manipulation",
+        "Operational impact: Traffic-picture integrity and compliance risk",
+        "Supply-chain impact: None reported",
+        "Mitigations: Device replacement; network isolation; monitor configuration access"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Maritime administration services Operational impact: Service disruption; recovery operations; funding sought for DR and tech refresh Safety impact: Possible indirect impacts due to documentation delays Supply-chain impact: Possible delays to crewing and port-clearance workflows",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://marina.gov.ph/2026/09/01/to-counter-cyber-threats-amid-sid-srb-disruption-marina-seeks-funding-for-disaster-recovery-system-nationwide-tech-refresh/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Maritime administration services",
+        "Operational impact: Service disruption; recovery operations; funding sought for DR and tech refresh",
+        "Safety impact: Possible indirect impacts due to documentation delays",
+        "Supply-chain impact: Possible delays to crewing and port-clearance workflows"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Ports/terminals, logistics Operational impact: Potential exposure of sensitive data and control pathways Mitigations: Segmentation, monitoring, secure remote access, backup readiness, compliance with crane cyber directives",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Ports/terminals, logistics",
+        "Operational impact: Potential exposure of sensitive data and control pathways",
+        "Mitigations: Segmentation, monitoring, secure remote access, backup readiness, compliance with crane cyber directives"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Operational relevance: Signals increased regulatory/compliance activity; prepare for policy and standards updates.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4586266/us-coast-guard-established-the-office-of-maritime-cybersecurity-policy/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Operational relevance: Signals increased regulatory/compliance activity; prepare for policy and standards updates."
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Navigation impact: Possible degradation of AIS trust and VTS situational awareness Supply-chain impact: Possible inspection delays and compliance checks",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-major-maritime-security-trends-for-h1-2026/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Possible degradation of AIS trust and VTS situational awareness",
+        "Supply-chain impact: Possible inspection delays and compliance checks"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Navigation impact: Possible, depending on operating area Safety impact: Possible if cross-checks are not maintained",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/lessons-learned-compare-the-radar-position-and-ecdis-position/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Possible, depending on operating area",
+        "Safety impact: Possible if cross-checks are not maintained"
+      ]
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Vessel navigation Navigation impact: Confirmed interference and spoofing risk Safety impact: Possible increase in collision/grounding likelihood Operational impact: Route deviations, delays, bridge workload increase",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Vessel navigation",
+        "Navigation impact: Confirmed interference and spoofing risk",
+        "Safety impact: Possible increase in collision/grounding likelihood",
+        "Operational impact: Route deviations, delays, bridge workload increase"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Affected systems: FURUNO FA-50 Class B AIS transponder Navigation impact: Possible AIS identity and settings manipulation Operational impact: Traffic-picture integrity and compliance risk Supply-chain impact: None reported Mitigations: Device replacement; network isolation; monitor configuration access",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-237-07",
+          "label": "CISA Advisory"
+        },
+        {
+          "url": "https://jvndb.jvn.jp/en/contents/2026/JVNDB-2026-030097.html",
+          "label": "JVN iPedia"
+        }
+      ],
+      "items": [
+        "Affected systems: FURUNO FA-50 Class B AIS transponder",
+        "Navigation impact: Possible AIS identity and settings manipulation",
+        "Operational impact: Traffic-picture integrity and compliance risk",
+        "Supply-chain impact: None reported",
+        "Mitigations: Device replacement; network isolation; monitor configuration access"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Maritime administration services Operational impact: Service disruption; recovery operations; funding sought for DR and tech refresh Safety impact: Possible indirect impacts due to documentation delays Supply-chain impact: Possible delays to crewing and port-clearance workflows",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://marina.gov.ph/2026/09/01/to-counter-cyber-threats-amid-sid-srb-disruption-marina-seeks-funding-for-disaster-recovery-system-nationwide-tech-refresh/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Maritime administration services",
+        "Operational impact: Service disruption; recovery operations; funding sought for DR and tech refresh",
+        "Safety impact: Possible indirect impacts due to documentation delays",
+        "Supply-chain impact: Possible delays to crewing and port-clearance workflows"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Ports/terminals, logistics Operational impact: Potential exposure of sensitive data and control pathways Mitigations: Segmentation, monitoring, secure remote access, backup readiness, compliance with crane cyber directives",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Ports/terminals, logistics",
+        "Operational impact: Potential exposure of sensitive data and control pathways",
+        "Mitigations: Segmentation, monitoring, secure remote access, backup readiness, compliance with crane cyber directives"
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Vessel navigation Navigation impact: Confirmed interference and spoofing risk Safety impact: Possible increase in collision/grounding likelihood Operational impact: Route deviations, delays, bridge workload increase",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Vessel navigation",
+        "Navigation impact: Confirmed interference and spoofing risk",
+        "Safety impact: Possible increase in collision/grounding likelihood",
+        "Operational impact: Route deviations, delays, bridge workload increase"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Affected systems: FURUNO FA-50 Class B AIS transponder Navigation impact: Possible AIS identity and settings manipulation Operational impact: Traffic-picture integrity and compliance risk Supply-chain impact: None reported Mitigations: Device replacement; network isolation; monitor configuration access",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-237-07",
+          "label": "CISA Advisory"
+        },
+        {
+          "url": "https://jvndb.jvn.jp/en/contents/2026/JVNDB-2026-030097.html",
+          "label": "JVN iPedia"
+        }
+      ],
+      "items": [
+        "Affected systems: FURUNO FA-50 Class B AIS transponder",
+        "Navigation impact: Possible AIS identity and settings manipulation",
+        "Operational impact: Traffic-picture integrity and compliance risk",
+        "Supply-chain impact: None reported",
+        "Mitigations: Device replacement; network isolation; monitor configuration access"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Maritime administration services Operational impact: Service disruption; recovery operations; funding sought for DR and tech refresh Safety impact: Possible indirect impacts due to documentation delays Supply-chain impact: Possible delays to crewing and port-clearance workflows",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://marina.gov.ph/2026/09/01/to-counter-cyber-threats-amid-sid-srb-disruption-marina-seeks-funding-for-disaster-recovery-system-nationwide-tech-refresh/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Maritime administration services",
+        "Operational impact: Service disruption; recovery operations; funding sought for DR and tech refresh",
+        "Safety impact: Possible indirect impacts due to documentation delays",
+        "Supply-chain impact: Possible delays to crewing and port-clearance workflows"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Ports/terminals, logistics Operational impact: Potential exposure of sensitive data and control pathways Mitigations: Segmentation, monitoring, secure remote access, backup readiness, compliance with crane cyber directives",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Ports/terminals, logistics",
+        "Operational impact: Potential exposure of sensitive data and control pathways",
+        "Mitigations: Segmentation, monitoring, secure remote access, backup readiness, compliance with crane cyber directives"
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Operational relevance: Signals increased regulatory/compliance activity; prepare for policy and standards updates.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4586266/us-coast-guard-established-the-office-of-maritime-cybersecurity-policy/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Operational relevance: Signals increased regulatory/compliance activity; prepare for policy and standards updates."
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Navigation impact: Possible degradation of AIS trust and VTS situational awareness Supply-chain impact: Possible inspection delays and compliance checks",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-major-maritime-security-trends-for-h1-2026/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Possible degradation of AIS trust and VTS situational awareness",
+        "Supply-chain impact: Possible inspection delays and compliance checks"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Navigation impact: Possible, depending on operating area Safety impact: Possible if cross-checks are not maintained",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/lessons-learned-compare-the-radar-position-and-ecdis-position/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Possible, depending on operating area",
+        "Safety impact: Possible if cross-checks are not maintained"
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "GNSS interference/spoofing: signal jamming and deceptive positioning affecting vessel navigation (no formal ATT&CK mapping confirmed in sources).",
+      "AIS integrity manipulation risk via device configuration changes where authentication is absent or weak (no formal ATT&CK mapping confirmed).",
+      "Supply-chain exposure via third-party/vendor technology embedded in port IT/OT (no formal ATT&CK mapping confirmed)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for continued GNSS interference reporting in the Persian Gulf/Strait of Hormuz/Gulf of Oman and any navigation-safety notices from flag states or coastal authorities. Confidence: medium. Maritime Advisory Additional operator notices on legacy AIS hardware may emerge as fleets assess FA-50 exposure; immediate risk from remote exploitation remains bounded by onboard network access requirements. Confidence: medium. CISA MARINA recovery actions may continue; downstream effects on crew processing timelines could persist; operators should maintain communications with local agents. Confidence: medium. Source No specific indicators of imminent port-OT compromise were identified; however, the advisory-driven posture suggests increased inspections and compliance checks at U.S.-linked facilities. Confidence: low to medium. MARAD",
+  "relatedCves": []
+}

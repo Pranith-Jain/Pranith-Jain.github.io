@@ -1,0 +1,106 @@
+{
+  "type": "cyber",
+  "date": "2026-09-02",
+  "threatLevel": "",
+  "executiveSummary": "Active campaigns are targeting Siemens S7 PLCs using AI-generated scripts over S7comm (TCP/102), creating immediate risk of process manipulation in Water/Wastewater, Energy, and Manufacturing environments Security Advisory . U.S. agencies report Iranian-affiliated actors exploiting internet-exposed PLCs (Rockwell, Schneider, Siemens), modifying logic, disabling alarms, and falsifying HMI data-confirmed operational disruptions are noted Security Advisory . Credential data for tens of thousands of Fortinet FortiGate devices (\"FortiBleed\") is circulating among threat actors; cracked admin hashes and reused VPN creds enable rapid perimeter compromise and AD pivoting Security Advisory . Researchers demonstrated AI-assisted porting of a pre-auth RCE to additional WAGO PLC models (Nucleus FTP server), achieving ARM shellcode and even bricking a controller-underscoring low-cost exploit transfer across PLC lines View Article . State actors continue to abuse edge infrastructure: FSB Center 16 campaigns exploit misconfigured routers; China-nexus operations leverage covert botnets of SOHO/IoT devices to mask activity and pre-position in CI CISA Advisory CISA Advisory . Critical perimeter vulnerabilities demand immediate action: NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) and SonicWall SMA 1000 (actively exploited SSRF+RCE) threaten remote-access paths into OT Security Advisory CERT-FR Alert . Supply-chain exposure escalates: actively exploited auth-bypass in JFrog Artifactory enables admin token minting and artifact tampering-risking poisoned OT firmware/builds down the chain View Article . Multiple high-impact OT/ICS CVE clusters in weekly bulletins: OPC UA (Eclipse Milo) auth bypass/diagnostics exposure/DoS, EVSE (OCPP) RCEs, PLC stacks (Modbus, EtherNet/IP) manipulation/DoS, and industrial drives unsigned-code risks CISA Weekly CISA Weekly .",
+  "keyFindings": [
+    {
+      "title": "OT-targeting is active and multinational",
+      "summary": "concurrent campaigns from Iran-, Russia-, and China-linked actors are exploiting PLCs and edge devices supporting critical services Security Advisory ."
+    },
+    {
+      "title": "Rapid exploit transfer to OT",
+      "summary": "AI-assisted tooling enabled cross-model PLC RCE porting in days, lowering barriers to exploit diversity View Article ."
+    },
+    {
+      "title": "Perimeter gateways remain prime ingress",
+      "summary": "NetScaler ADC/Gateway and SonicWall SMA 1000 are under active or practical exploitation-patch and exposure reduction are urgent Security Advisory CERT-FR Alert ."
+    },
+    {
+      "title": "Supply-chain compromise risk is elevated",
+      "summary": "Artifactory auth-bypass is exploited in the wild, threatening build integrity for OT firmware and engineering tools View Article ."
+    },
+    {
+      "title": "Multiple ICS protocol/stack weaknesses (OPC UA, Modbus, EtherNet/IP) and sector ",
+      "summary": "Multiple ICS protocol/stack weaknesses (OPC UA, Modbus, EtherNet/IP) and sector devices (EV chargers, drives, rail) are surfacing weekly-prioritize segmentation and DPI allowlisting CISA Weekly ."
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "CRITICAL",
+        "label": "Overall OT Threat Level"
+      },
+      {
+        "value": "&ge; 18",
+        "label": "Priority (ESCALATE) items"
+      },
+      {
+        "value": "High",
+        "label": "Actively Exploited/KEV"
+      },
+      {
+        "value": "Water, Energy, Manufacturing",
+        "label": "Sectors At Risk (OT)"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens (S7-200/300/400/1200/1500, TIA/STEP 7), Rockwell Automation (Logix/MicroLogix), Schneider Electric (Modicon), WAGO (750 series), Fortinet (FortiGate/FortiOS), Citrix/Cloud Software Group (NetScaler ADC/Gateway), SonicWall (SMA 1000), JFrog Artifactory, Eclipse Milo (OPC UA), EVSE ecosystems (Autel, EVbee, OCPP), Cisco (routers/Smart Install), TrueConf Server, OPC UA/Modbus/CIP protocol stacks."
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy; Critical Manufacturing; Transportation (rail signaling and aviation-adjacent); Communications/Telecom; EV charging infrastructure; Government services."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "FSB Center 16: router hygiene advisory-SNMP misconfig, TFTP/FTP config theft, SMI abuse for CI reconnaissance and pivoting CISA Advisory .",
+        "China-nexus covert networks: SOHO/IoT botnets used to mask operations and pre-position in CI environments CISA Advisory .",
+        "Iran-affiliated exploitation of internet-exposed PLCs with logic tampering and alarm suppression Security Advisory .",
+        "LAUNDRY BEAR (Russia) Zimbra webmail theft/persistence via app passwords-OT impact via enterprise email compromise CISA Advisory .",
+        "Gunra ransomware: Fortinet edge exploitation, VDI hijack; Linux variant PRNG flaw can enable decryption #StopRansomware ."
+      ]
+    }
+  ],
+  "relevance": "Threat activity this cycle directly targets core industrial control assets (PLCs) and the perimeter infrastructure that frequently brokers access to OT networks. Concurrent campaigns (Iran-, Russia-, and China-linked) and exploited supply-chain platforms (artifacts/repos) increase the probability of process disruption and unauthorized command execution. Multiple ICS protocol/stack weaknesses (S7comm, EtherNet/IP/CIP, OPC UA, Modbus/TCP) elevate the value of zone-based segmentation and protocol-aware allowlisting. Transportation and energy-adjacent risks extend to EV charging infrastructure and railway signaling, underscoring the need for strict OT network isolation and rigorous change control on controllers and HMIs.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "OPC UA (Eclipse Milo): authorization bypass, diagnostics exposure, and multiple DoS vectors-patch libraries and embedded products immediately CISA Weekly .",
+        "EVSE/Charging: Autel MaxiCharger OCPP/WebSocket RCE; EVbee OCPP/USB/NFC issues-segment charge points and enforce mTLS CISA Weekly .",
+        "Industrial drives/PLCs and protocol stacks: Danfoss iC7 unsigned code risk; EtherNet/IP OpENer buffer overflow; Modbus/PLC DoS/manipulation CISA Weekly .",
+        "Perimeter access: NetScaler ADC/Gateway (CVE-2026-8452) pre-auth RCE-fixed versions required; remove public exposure JPCERT/CC .",
+        "Supply-chain: JFrog Artifactory Access auth-bypass actively exploited-upgrade to 7.161.20; audit tokens/users View Article ."
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial Access: exploitation of edge devices (VPN/ADC/SMA) (T1190), use of compromised SOHO routers as covert relays (TA0001).",
+      "Discovery/Pivot: SNMP misconfig harvest and config copy via TFTP/FTP (T1046/T1005), scanning for exposed PLC/HMIs (T1595.002).",
+      "Execution: AI-generated scripts using snap7 over S7comm (TCP/102) to read/write memory (T1059), EtherNet/IP/CIP malformed packets for faults/DoS.",
+      "Persistence: Web shells on gateways/servers (T1505), app passwords and IMAP in Zimbra (T1098), router config backdoors (T1547).",
+      "Defense Evasion: Use of residential/SOHO proxies; traffic mirroring on routers; encrypted C2 via DNS/HTTPS with rapid cert churn.",
+      "Impact: controller mode changes, alarm suppression, logic tampering, and EVSE remote manipulation (ICS: Impair Process Control)."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1046",
+      "T1005",
+      "T1595.002",
+      "T1059",
+      "T1505",
+      "T1098",
+      "T1547"
+    ]
+  },
+  "outlook72h": "Expect continued scanning and exploitation for Siemens S7 PLCs and exposed HMIs; watch for opportunistic weaponization of NetScaler ADC pre-auth RCE. FortiGate credential reuse will likely drive VPN spray and device-admin attempts-monitor for anomalous logins and config exports. Supply-chain targeting (Artifactory) may expand, prompting artifact poisoning risks; validate CI/CD integrity and restrict build servers' egress. EVSE/OCPP probing is expected to increase-tighten charger segmentation and enforce OCPP security profiles.",
+  "relatedCves": [
+    "CVE-2026-8452"
+  ]
+}
