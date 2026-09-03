@@ -4,7 +4,7 @@
   "description": "blockchain explorers and privacy coin infrastructure",
   "siteCount": 10,
   "mirrorCount": 10,
-  "upCount": 8,
+  "upCount": 9,
   "sites": [
     {
       "slug": "dwd-82d0-740",
@@ -19,7 +19,7 @@
       "onion": "asknbidvuhhb363ctvpollagayitchrka4fyupqdtut55i3wq2kfn5qd",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "157kb",
+      "pageSize": "108kb",
       "fingerprint": "80634F09"
     },
     {
@@ -35,7 +35,7 @@
       "onion": "blckexcrpdmau6y7teqxmf6yiyg7xn7qlphjeaxgyimxokz623w4tmqd",
       "latencyMs": 981,
       "httpCode": "200",
-      "pageSize": "130kb",
+      "pageSize": "24kb",
       "fingerprint": "20E3559D"
     },
     {
@@ -67,7 +67,7 @@
       "onion": "fairfffoxrgxgi6tkcaxhxre2hpwiuf6autt75ianjkvmcn65dxxydad",
       "latencyMs": 1205,
       "httpCode": "200",
-      "pageSize": "185kb",
+      "pageSize": "152kb",
       "fingerprint": "48A674E3"
     },
     {
@@ -83,7 +83,7 @@
       "onion": "featherdvtpi7ckdbkb2yxjfwx3oyvr3xjz3oo4rszylfzjdg6pbm3id.onion/",
       "latencyMs": 2121,
       "httpCode": "200",
-      "pageSize": "29kb",
+      "pageSize": "159kb",
       "fingerprint": "E5C7A121"
     },
     {
@@ -99,23 +99,23 @@
       "onion": "monerotoruzizulg5ttgat2emf4d6fbmiea25detrmmy7erypseyteyd.onion/",
       "latencyMs": 1113,
       "httpCode": "200",
-      "pageSize": "12kb",
+      "pageSize": "191kb",
       "fingerprint": "1565E8E3"
     },
     {
       "slug": "dwd-455f-788",
       "name": "Monero.fail",
       "dwdId": "DWD-455F-788",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
       "url": "http://livk2fpdv4xjnjrbxfz2tw3ptogqacn2dwfzxbxr3srinryxrcewemid.onion/#",
       "onion": "livk2fpdv4xjnjrbxfz2tw3ptogqacn2dwfzxbxr3srinryxrcewemid.onion/#",
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "27kb",
+      "latencyMs": 2198,
+      "httpCode": "200",
+      "pageSize": "38kb",
       "fingerprint": "F13D61B2"
     },
     {
@@ -131,7 +131,7 @@
       "onion": "sageswap4ygi7k5e5gbnvhz2ldbprrelkkuourlp5vx6flfeypk4hvqd",
       "latencyMs": 2324,
       "httpCode": "200",
-      "pageSize": "136kb",
+      "pageSize": "17kb",
       "fingerprint": "024C5BB1"
     },
     {
@@ -147,7 +147,7 @@
       "onion": "65bsisadnxvw4kfz7h7a3jwcyenrhluuj3kd5toslfzxbk5q4m3wy6qd",
       "latencyMs": 904,
       "httpCode": "200",
-      "pageSize": "178kb",
+      "pageSize": "96kb",
       "fingerprint": "4640565C"
     },
     {
@@ -163,7 +163,7 @@
       "onion": "wasabiukrxmkdgve5kynjztuovbg43uxcbcxn6y2okcrsg7gb6jdmbad.onion/",
       "latencyMs": 1071,
       "httpCode": "200",
-      "pageSize": "109kb",
+      "pageSize": "17kb",
       "fingerprint": "FDA11FC9"
     }
   ]

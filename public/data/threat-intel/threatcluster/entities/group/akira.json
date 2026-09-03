@@ -4,17 +4,39 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 6,
   "firstSeen": "2026-09-01T14:23:34.000Z",
-  "lastSeen": "2026-09-01T15:21:40.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 1 country.",
+  "lastSeen": "2026-09-02T14:22:30.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-01",
       "count": 3
+    },
+    {
+      "date": "2026-09-02",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pennfab-a386",
+      "title": "PennFab — claimed by akira",
+      "pubDate": "2026-09-02T14:22:30.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "scrubadub-auto-wash-centers-aace",
+      "title": "ScrubaDub Auto Wash Centers — claimed by akira",
+      "pubDate": "2026-09-02T13:52:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "algra-group-488b",
+      "title": "Algra Group — claimed by akira",
+      "pubDate": "2026-09-02T13:52:47.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "congressional-iron-works-5488",
@@ -39,7 +61,19 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 2
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
     },
     {
       "type": "sector",
@@ -50,6 +84,27 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "pennfab-a386",
+      "victim": "PennFab — claimed by akira",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-02T14:22:30.000Z"
+    },
+    {
+      "id": "scrubadub-auto-wash-centers-aace",
+      "victim": "ScrubaDub Auto Wash Centers — claimed by akira",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-02T13:52:50.000Z"
+    },
+    {
+      "id": "algra-group-488b",
+      "victim": "Algra Group — claimed by akira",
+      "sector": "Other",
+      "country": "NL",
+      "pubDate": "2026-09-02T13:52:47.000Z"
+    },
     {
       "id": "congressional-iron-works-5488",
       "victim": "Congressional Iron Works — claimed by akira",

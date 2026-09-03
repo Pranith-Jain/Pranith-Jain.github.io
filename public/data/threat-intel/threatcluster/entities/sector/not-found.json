@@ -4,17 +4,61 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 9,
   "firstSeen": "2026-09-01T12:53:29.000Z",
-  "lastSeen": "2026-09-01T16:25:03.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "lastSeen": "2026-09-03T08:28:17.000Z",
+  "summary": "Sector hit by 9 leak-site victims across 8 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-01",
       "count": 3
+    },
+    {
+      "date": "2026-09-02",
+      "count": 5
+    },
+    {
+      "date": "2026-09-03",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "gsac-e078",
+      "title": "GSAC — claimed by storm",
+      "pubDate": "2026-09-03T08:28:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "g-g-4efa",
+      "title": "G... ...g — claimed by silentransomgroup",
+      "pubDate": "2026-09-02T19:53:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "s-m-c4f1",
+      "title": "S... M... — claimed by silentransomgroup",
+      "pubDate": "2026-09-02T19:52:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ormond-beach-florida-3087",
+      "title": "Ormond Beach Florida — claimed by wallstreet",
+      "pubDate": "2026-09-02T16:51:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "multiver-lt-e-59ce",
+      "title": "Multiver Ltée — claimed by incransom",
+      "pubDate": "2026-09-02T14:55:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "n-aa67",
+      "title": "N*************** — claimed by insomnia",
+      "pubDate": "2026-09-02T14:25:34.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "oportunidados-17ec",
@@ -35,6 +79,36 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "silentransomgroup",
+      "name": "silentransomgroup",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "storm",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "wallstreet",
+      "name": "wallstreet",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "insomnia",
+      "name": "insomnia",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "direwolf",

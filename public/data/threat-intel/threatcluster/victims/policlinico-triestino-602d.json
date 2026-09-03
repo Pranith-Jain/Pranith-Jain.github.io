@@ -1,0 +1,14 @@
+{
+  "id": "policlinico-triestino-602d",
+  "victim": "Policlinico Triestino",
+  "group": "incransom",
+  "sector": "Healthcare",
+  "country": "IT",
+  "title": "Policlinico Triestino — claimed by incransom",
+  "link": "https://threatcluster.io/dark-web/victim/Policlinico%20Triestino",
+  "guid": "darkweb-victim:incransom:policlinico triestino",
+  "pubDate": "2026-09-02T14:56:11.000Z",
+  "categories": ["Group: incransom", "Sector: Healthcare", "Country: IT"],
+  "description": "IT · Healthcare · Policlinico Triestino S.p.A. is a private healthcare network based in Trieste, Italy, that operates hospitals, nursing homes, and outpatient clinics.",
+  "sizeBytes": 167
+}

@@ -4,17 +4,39 @@
   "name": "silentransomgroup",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 4,
   "firstSeen": "2026-09-01T21:22:04.000Z",
-  "lastSeen": "2026-09-01T21:22:04.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-02T23:21:12.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-09-01",
       "count": 1
+    },
+    {
+      "date": "2026-09-02",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "greenberg-traurig-0da6",
+      "title": "Greenberg Traurig — claimed by silentransomgroup",
+      "pubDate": "2026-09-02T23:21:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "g-g-4efa",
+      "title": "G... ...g — claimed by silentransomgroup",
+      "pubDate": "2026-09-02T19:53:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "s-m-c4f1",
+      "title": "S... M... — claimed by silentransomgroup",
+      "pubDate": "2026-09-02T19:52:07.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "holland-amp-knight-894f",
@@ -27,11 +49,38 @@
       "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
-      "weight": 1
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 2
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "greenberg-traurig-0da6",
+      "victim": "Greenberg Traurig — claimed by silentransomgroup",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-02T23:21:12.000Z"
+    },
+    {
+      "id": "g-g-4efa",
+      "victim": "G... ...g — claimed by silentransomgroup",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-02T19:53:13.000Z"
+    },
+    {
+      "id": "s-m-c4f1",
+      "victim": "S... M... — claimed by silentransomgroup",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-02T19:52:07.000Z"
+    },
     {
       "id": "holland-amp-knight-894f",
       "victim": "Holland &amp; Knight — claimed by silentransomgroup",

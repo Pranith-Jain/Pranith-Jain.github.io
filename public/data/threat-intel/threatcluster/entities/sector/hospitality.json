@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-01T09:00:26.000Z",
-  "lastSeen": "2026-09-01T09:00:26.000Z",
+  "firstSeen": "2026-09-02T12:22:01.000Z",
+  "lastSeen": "2026-09-02T12:22:01.000Z",
   "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-01",
+      "date": "2026-09-02",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "reignwoodpark-com-920c",
-      "title": "reignwoodpark.com — claimed by krybit",
-      "pubDate": "2026-09-01T09:00:26.000Z"
+      "slug": "royal-plaza-on-scotts-b008",
+      "title": "Royal Plaza On Scotts — claimed by eclipse",
+      "pubDate": "2026-09-02T12:22:01.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
+      "slug": "eclipse",
+      "name": "eclipse",
       "weight": 1
     }
   ],

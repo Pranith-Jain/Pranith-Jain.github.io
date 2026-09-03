@@ -4,25 +4,33 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 11,
-  "firstSeen": "2026-08-31T19:52:07.000Z",
-  "lastSeen": "2026-09-02T06:52:31.000Z",
-  "summary": "Sector hit by 11 leak-site victims across 6 ransomware groups and 7 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-01T12:10:28.000Z",
+  "lastSeen": "2026-09-02T13:21:21.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-31",
-      "count": 3
-    },
-    {
       "date": "2026-09-01",
-      "count": 7
+      "count": 1
     },
     {
       "date": "2026-09-02",
-      "count": 1
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "part1-simplexengg-in-6132",
+      "title": "part1.simplexengg.in — claimed by eclipse",
+      "pubDate": "2026-09-02T13:21:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "seasia-infotech-f420",
+      "title": "Seasia Infotech — claimed by thegentlemen",
+      "pubDate": "2026-09-02T10:30:50.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "chip-1-exchange-0c9d",
@@ -34,80 +42,20 @@
       "slug": "iwin-e352",
       "title": "iwin — claimed by black x",
       "pubDate": "2026-09-01T12:10:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "amptc-net-3f0d",
-      "title": "amptc.net — claimed by krybit",
-      "pubDate": "2026-09-01T08:59:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dmt-group-com-dde6",
-      "title": "dmt-group.com — claimed by krybit",
-      "pubDate": "2026-09-01T08:58:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "terracom-amp-montcau-29ed",
-      "title": "TERRACOM &amp; MONTCAU — claimed by majinahanashi",
-      "pubDate": "2026-09-01T08:50:54.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "rise-up-c3b5",
-      "title": "Rise UP — claimed by everest",
-      "pubDate": "2026-09-01T02:26:01.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "vivotek-f7db",
-      "title": "VIVOTEK — claimed by everest",
-      "pubDate": "2026-09-01T02:25:26.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "italtel-peru-1023",
-      "title": "Italtel Peru — claimed by everest",
-      "pubDate": "2026-09-01T02:24:48.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "icot-es-4f8b",
-      "title": "icot.es — claimed by braincipher",
-      "pubDate": "2026-08-31T19:55:00.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "syc-es-3a4a",
-      "title": "syc.es — claimed by braincipher",
-      "pubDate": "2026-08-31T19:53:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sago-com-ce94",
-      "title": "sago.com — claimed by braincipher",
-      "pubDate": "2026-08-31T19:52:07.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "everest",
-      "name": "everest",
-      "weight": 3
+      "slug": "eclipse",
+      "name": "eclipse",
+      "weight": 1
     },
     {
       "type": "group",
-      "slug": "braincipher",
-      "name": "braincipher",
-      "weight": 3
-    },
-    {
-      "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 2
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 1
     },
     {
       "type": "group",
@@ -119,12 +67,6 @@
       "type": "group",
       "slug": "black-x",
       "name": "black x",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "majinahanashi",
-      "name": "majinahanashi",
       "weight": 1
     }
   ],

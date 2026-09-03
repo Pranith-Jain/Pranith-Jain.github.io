@@ -1,0 +1,11 @@
+{
+  "slug": "sonicwall-sma1000-zero-day-vulnerabilities-under-active-expl-72cbcfdd",
+  "title": "SonicWall SMA1000 Faces Third Zero-Day Exploitation in 2026",
+  "link": "https://threatcluster.io/cluster/sonicwall-sma1000-zero-day-vulnerabilities-under-active-expl-72cbcfdd?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/sonicwall-sma1000-zero-day-vulnerabilities-under-active-expl-72cbcfdd",
+  "pubDate": "2026-09-02T14:22:40.000Z",
+  "sourceCount": 23,
+  "categories": ["23 Sources"],
+  "description": "SonicWall's SMA1000 VPN appliances are under active exploitation due to two newly discovered zero-day vulnerabilities, CVE-2026-83548 and CVE-2026-83549, which were confirmed on September 1, 2026.",
+  "sizeBytes": 196
+}

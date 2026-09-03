@@ -4,17 +4,27 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-01T12:13:48.000Z",
-  "lastSeen": "2026-09-01T12:13:48.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "lastSeen": "2026-09-02T13:52:50.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-01",
       "count": 1
+    },
+    {
+      "date": "2026-09-02",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "scrubadub-auto-wash-centers-aace",
+      "title": "ScrubaDub Auto Wash Centers — claimed by akira",
+      "pubDate": "2026-09-02T13:52:50.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "the-sole-2935",
@@ -23,6 +33,12 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "akira",
+      "name": "akira",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "thegentlemen",

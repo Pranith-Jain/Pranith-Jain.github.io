@@ -4,17 +4,33 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 5,
   "firstSeen": "2026-09-01T15:53:54.000Z",
-  "lastSeen": "2026-09-01T16:25:03.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "lastSeen": "2026-09-02T17:53:21.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 5 sectors and 5 countries.",
   "frequency": [
     {
       "date": "2026-09-01",
       "count": 3
+    },
+    {
+      "date": "2026-09-02",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "cartrack-holdings-a76f",
+      "title": "Cartrack Holdings — claimed by direwolf",
+      "pubDate": "2026-09-02T17:53:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ptt-oil-and-retail-business-b599",
+      "title": "PTT Oil and Retail Business — claimed by direwolf",
+      "pubDate": "2026-09-02T16:54:26.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "oportunidados-17ec",
@@ -37,6 +53,18 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
       "weight": 1
@@ -56,6 +84,20 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "cartrack-holdings-a76f",
+      "victim": "Cartrack Holdings — claimed by direwolf",
+      "sector": "Transportation",
+      "country": "ZA",
+      "pubDate": "2026-09-02T17:53:21.000Z"
+    },
+    {
+      "id": "ptt-oil-and-retail-business-b599",
+      "victim": "PTT Oil and Retail Business — claimed by direwolf",
+      "sector": "Energy & Utilities",
+      "country": "TH",
+      "pubDate": "2026-09-02T16:54:26.000Z"
+    },
     {
       "id": "oportunidados-17ec",
       "victim": "Oportunidados — claimed by direwolf",

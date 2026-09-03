@@ -1,0 +1,11 @@
+{
+  "slug": "geonetwork-vulnerabilities-enable-unauthenticated-rce-attack-3e24a560",
+  "title": "GeoNetwork Vulnerabilities Enable Unauthenticated RCE in Government Systems",
+  "link": "https://threatcluster.io/cluster/geonetwork-vulnerabilities-enable-unauthenticated-rce-attack-3e24a560?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/geonetwork-vulnerabilities-enable-unauthenticated-rce-attack-3e24a560",
+  "pubDate": "2026-09-02T09:31:40.000Z",
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
+  "description": "GeoNetwork, an open-source geospatial metadata catalog, has critical vulnerabilities allowing unauthenticated remote code execution RCE.",
+  "sizeBytes": 136
+}

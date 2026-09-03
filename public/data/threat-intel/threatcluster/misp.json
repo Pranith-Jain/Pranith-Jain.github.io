@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-02T09:49:32.066Z",
-  "eventCount": 9,
+  "syncedAt": "2026-09-03T10:03:12.021Z",
+  "eventCount": 7,
   "events": [
     {
       "uuid": "ae106e21-54bd-5134-83d4-1b439af152da",
@@ -29,6 +29,23 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "1969ca65-8e08-5371-b569-a2f7a627b668",
+      "info": "SonicWall SMA1000 Faces Third Zero-Day Exploitation in 2026",
+      "date": "2026-09-02",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1788363875",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:high",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability"
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "00161c56-786d-5f3a-b70d-6f0c9dab5d57",
       "info": "Chinese Operator Breaches Philippine Nuclear and Naval Entities",
       "date": "2026-08-31",
@@ -36,6 +53,16 @@
       "threat_level_id": "1",
       "timestamp": "1788180783",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "32cfebe9-4fc9-5faf-9488-0de50449adb2",
+      "info": "Critical Exploitation of Sangoma Switchvox Vulnerabilities Underway",
+      "date": "2026-09-02",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788336947",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -56,23 +83,13 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "32cfebe9-4fc9-5faf-9488-0de50449adb2",
-      "info": "Critical Vulnerabilities in Sangoma Switchvox Exploited for Remote Code Execution",
+      "uuid": "23924c75-0f73-53fb-87a8-3768a07e44d3",
+      "info": "GeoNetwork Vulnerabilities Enable Unauthenticated RCE in Government Systems",
       "date": "2026-09-02",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1788336947",
+      "timestamp": "1788342299",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "01a419a6-7e80-59dd-86d7-f8cfd0314f68",
-      "info": "EU Officials Targeted by State-Sponsored Cyberattacks on Messaging Apps",
-      "date": "2026-08-26",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787761604",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
       "orgc": "ThreatCluster"
     },
     {
@@ -91,43 +108,6 @@
         "type:malware",
         "misp-galaxy:ransomware=\"Medusa\""
       ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "af9dab66-fc7a-5675-b8ff-976eb66ea0e3",
-      "info": "UAC-0099 Uses GuardBreaker to Evade AI Malware Detection",
-      "date": "2026-09-01",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1788253133",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "misp-galaxy:threat-actor=\"Sandworm\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "cfaaa080-ab7b-5f78-a4e3-1dd0b01567c6",
-      "info": "National Emergency Declared to Protect U.S. Bulk-Power System from Foreign Threats",
-      "date": "2026-08-26",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787776712",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "e88c2d4b-2106-5458-b09a-e3b7aee9eabe",
-      "info": "Tortoiseshell Expands Malware Arsenal with New Backdoor and SSH Tunneling Tool",
-      "date": "2026-08-26",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787756005",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
       "orgc": "ThreatCluster"
     }
   ]

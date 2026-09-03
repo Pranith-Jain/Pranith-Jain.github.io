@@ -4,17 +4,33 @@
   "name": "Energy & Utilities",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 3,
   "firstSeen": "2026-09-02T05:01:37.000Z",
-  "lastSeen": "2026-09-02T05:01:37.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "lastSeen": "2026-09-03T08:30:21.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-02",
+      "count": 2
+    },
+    {
+      "date": "2026-09-03",
       "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "petrocare-construction-626d",
+      "title": "Petrocare Construction — claimed by storm",
+      "pubDate": "2026-09-03T08:30:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ptt-oil-and-retail-business-b599",
+      "title": "PTT Oil and Retail Business — claimed by direwolf",
+      "pubDate": "2026-09-02T16:54:26.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "grayson-rural-electric-cooperative-f155",
@@ -23,6 +39,18 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "storm",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "direwolf",
+      "name": "direwolf",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "qilin",

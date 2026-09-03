@@ -5,62 +5,58 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-01T03:57:10.000Z",
-  "lastSeen": "2026-09-02T05:01:37.000Z",
+  "firstSeen": "2026-09-02T05:01:37.000Z",
+  "lastSeen": "2026-09-02T13:05:54.000Z",
   "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-01",
-      "count": 1
-    },
-    {
       "date": "2026-09-02",
-      "count": 1
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "grayson-rural-electric-cooperative-f155",
-      "title": "Grayson Rural Electric Cooperative — claimed by qilin",
-      "pubDate": "2026-09-02T05:01:37.000Z"
+      "slug": "uak-university-2a10",
+      "title": "Uak University — claimed by qilin",
+      "pubDate": "2026-09-02T13:05:54.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "commission-de-la-construction-du-quebec-966f",
-      "title": "Commission de la construction du Quebec — claimed by qilin",
-      "pubDate": "2026-09-01T03:57:10.000Z"
+      "slug": "grayson-rural-electric-cooperative-f155",
+      "title": "Grayson Rural Electric Cooperative — claimed by qilin",
+      "pubDate": "2026-09-02T05:01:37.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
+      "slug": "education",
+      "name": "Education",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "uak-university-2a10",
+      "victim": "Uak University — claimed by qilin",
+      "sector": "Education",
+      "country": "TR",
+      "pubDate": "2026-09-02T13:05:54.000Z"
+    },
+    {
       "id": "grayson-rural-electric-cooperative-f155",
       "victim": "Grayson Rural Electric Cooperative — claimed by qilin",
       "sector": "Energy & Utilities",
       "country": "US",
       "pubDate": "2026-09-02T05:01:37.000Z"
-    },
-    {
-      "id": "commission-de-la-construction-du-quebec-966f",
-      "victim": "Commission de la construction du Quebec — claimed by qilin",
-      "sector": "Government & Defense",
-      "country": "CA",
-      "pubDate": "2026-09-01T03:57:10.000Z"
     }
   ]
 }
