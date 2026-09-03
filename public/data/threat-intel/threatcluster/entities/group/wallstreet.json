@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-01T09:51:23.000Z",
-  "lastSeen": "2026-09-01T09:51:23.000Z",
+  "firstSeen": "2026-09-02T16:51:15.000Z",
+  "lastSeen": "2026-09-02T16:51:15.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-01",
+      "date": "2026-09-02",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "total-education-solutions-0640",
-      "title": "Total Education Solutions — claimed by wallstreet",
-      "pubDate": "2026-09-01T09:51:23.000Z"
+      "slug": "ormond-beach-florida-3087",
+      "title": "Ormond Beach Florida — claimed by wallstreet",
+      "pubDate": "2026-09-02T16:51:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "education",
-      "name": "Education",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "total-education-solutions-0640",
-      "victim": "Total Education Solutions — claimed by wallstreet",
-      "sector": "Education",
+      "id": "ormond-beach-florida-3087",
+      "victim": "Ormond Beach Florida — claimed by wallstreet",
+      "sector": "Not Found",
       "country": "US",
-      "pubDate": "2026-09-01T09:51:23.000Z"
+      "pubDate": "2026-09-02T16:51:15.000Z"
     }
   ]
 }

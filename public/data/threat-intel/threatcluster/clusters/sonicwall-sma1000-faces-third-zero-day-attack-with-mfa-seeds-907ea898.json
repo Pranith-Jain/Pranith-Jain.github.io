@@ -1,0 +1,11 @@
+{
+  "slug": "sonicwall-sma1000-faces-third-zero-day-attack-with-mfa-seeds-907ea898",
+  "title": "SonicWall SMA1000 Faces Third Zero-Day Attack with MFA Seeds Compromised",
+  "link": "https://threatcluster.io/cluster/sonicwall-sma1000-faces-third-zero-day-attack-with-mfa-seeds-907ea898?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/sonicwall-sma1000-faces-third-zero-day-attack-with-mfa-seeds-907ea898",
+  "pubDate": "2026-09-02T14:31:05.000Z",
+  "sourceCount": null,
+  "categories": [],
+  "description": "SonicWall SMA1000 VPN appliances have been targeted in a third zero-day attack, with two new vulnerabilities, CVE-2026-83548 and CVE-2026-83549, confirmed as actively exploited.",
+  "sizeBytes": 177
+}

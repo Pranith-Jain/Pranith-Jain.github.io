@@ -4,45 +4,57 @@
   "name": "Financial Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-31T23:02:07.000Z",
-  "lastSeen": "2026-09-02T03:52:25.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-02T03:52:25.000Z",
+  "lastSeen": "2026-09-03T08:29:17.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 2 ransomware groups and 3 countries.",
   "frequency": [
-    {
-      "date": "2026-08-31",
-      "count": 1
-    },
     {
       "date": "2026-09-02",
       "count": 1
+    },
+    {
+      "date": "2026-09-03",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "marlborough-partners-8867",
-      "title": "Marlborough Partners — claimed by anubis",
-      "pubDate": "2026-09-02T03:52:25.000Z"
+      "slug": "gsac-auto-financing-24a5",
+      "title": "GSAC Auto Financing — claimed by storm",
+      "pubDate": "2026-09-03T08:29:17.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "svfcu-org-0c1d",
-      "title": "svfcu.org — claimed by lockbit5",
-      "pubDate": "2026-08-31T23:02:07.000Z"
+      "slug": "chicago-partners-wealth-advisors-7877",
+      "title": "Chicago Partners Wealth Advisors — claimed by storm",
+      "pubDate": "2026-09-03T08:27:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "macquarrie-fc59",
+      "title": "Macquarrie — claimed by storm",
+      "pubDate": "2026-09-03T08:26:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "marlborough-partners-8867",
+      "title": "Marlborough Partners — claimed by anubis",
+      "pubDate": "2026-09-02T03:52:25.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "anubis",
-      "name": "anubis",
-      "weight": 1
+      "slug": "storm",
+      "name": "storm",
+      "weight": 3
     },
     {
       "type": "group",
-      "slug": "lockbit5",
-      "name": "lockbit5",
+      "slug": "anubis",
+      "name": "anubis",
       "weight": 1
     }
   ],

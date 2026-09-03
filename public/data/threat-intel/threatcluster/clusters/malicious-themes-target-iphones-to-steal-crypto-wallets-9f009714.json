@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/malicious-themes-target-iphones-to-steal-crypto-wallets-9f009714?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/malicious-themes-target-iphones-to-steal-crypto-wallets-9f009714",
   "pubDate": "2026-09-01T07:58:11.000Z",
-  "sourceCount": 4,
-  "categories": ["4 Sources"],
+  "sourceCount": 5,
+  "categories": ["5 Sources"],
   "description": "Thirteen malicious Composer theme packages on Packagist have been identified, targeting unpatched iPhones by injecting JavaScript into Vietnamese movie and comic streaming sites.",
   "sizeBytes": 178
 }

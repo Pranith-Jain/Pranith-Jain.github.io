@@ -4,21 +4,33 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-08-31T19:52:41.000Z",
-  "lastSeen": "2026-09-01T22:21:43.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 6 ransomware groups and 5 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-01T15:54:31.000Z",
+  "lastSeen": "2026-09-02T13:52:47.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-31",
-      "count": 1
+      "date": "2026-09-01",
+      "count": 3
     },
     {
-      "date": "2026-09-01",
-      "count": 5
+      "date": "2026-09-02",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "algra-group-488b",
+      "title": "Algra Group — claimed by akira",
+      "pubDate": "2026-09-02T13:52:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "licindia-dd69",
+      "title": "Licindia — claimed by medusalocker",
+      "pubDate": "2026-09-02T09:29:09.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "quality-resource-pvt-02d3",
@@ -36,27 +48,21 @@
       "slug": "honeycomb-programs-inc-25e1",
       "title": "Honeycomb Programs Inc — claimed by direwolf",
       "pubDate": "2026-09-01T15:54:31.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "rext-holdings-co-ltd-f9c3",
-      "title": "REXT Holdings Co., Ltd. — claimed by ransomhouse",
-      "pubDate": "2026-09-01T09:57:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "orex-co-th-34ea",
-      "title": "orex.co.th — claimed by krybit",
-      "pubDate": "2026-09-01T08:59:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ahadandco-com-be10",
-      "title": "ahadandco.com — claimed by braincipher",
-      "pubDate": "2026-08-31T19:52:41.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "akira",
+      "name": "akira",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "medusalocker",
+      "name": "medusalocker",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "global-secret-group",
@@ -73,24 +79,6 @@
       "type": "group",
       "slug": "direwolf",
       "name": "direwolf",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "ransomhouse",
-      "name": "ransomhouse",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "braincipher",
-      "name": "braincipher",
       "weight": 1
     }
   ],

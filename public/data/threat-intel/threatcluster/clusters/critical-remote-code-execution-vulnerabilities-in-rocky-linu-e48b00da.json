@@ -1,0 +1,11 @@
+{
+  "slug": "critical-remote-code-execution-vulnerabilities-in-rocky-linu-e48b00da",
+  "title": "Critical Remote Code Execution Vulnerabilities in Rocky Linux GIMP and Kernel",
+  "link": "https://threatcluster.io/cluster/critical-remote-code-execution-vulnerabilities-in-rocky-linu-e48b00da?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-remote-code-execution-vulnerabilities-in-rocky-linu-e48b00da",
+  "pubDate": "2026-09-02T22:08:30.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Rocky Linux has released advisories for critical vulnerabilities affecting GIMP and the kernel. The GIMP vulnerabilities, identified in module.gimp and related packages, affect Rocky Linux 8, while th…",
+  "sizeBytes": 201
+}

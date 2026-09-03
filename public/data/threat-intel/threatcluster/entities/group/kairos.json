@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "kairos",
+  "name": "kairos",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-02T14:25:42.000Z",
+  "lastSeen": "2026-09-02T14:25:42.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-02",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ville-de-libercourt-3fbf",
+      "title": "Ville de Libercourt — claimed by kairos",
+      "pubDate": "2026-09-02T14:25:42.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ville-de-libercourt-3fbf",
+      "victim": "Ville de Libercourt — claimed by kairos",
+      "sector": "Government & Defense",
+      "country": "FR",
+      "pubDate": "2026-09-02T14:25:42.000Z"
+    }
+  ]
+}
