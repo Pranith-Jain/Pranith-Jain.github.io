@@ -1,0 +1,121 @@
+{
+  "type": "cyber",
+  "date": "2026-09-03",
+  "threatLevel": "",
+  "executiveSummary": "CISA/NSA/FBI/DOE/EPA warn of active campaigns targeting Siemens S7 PLCs using AI-generated scripts and S7comm tooling; immediate network isolation and S7 hardening are required. Security Advisory Joint U.S. advisory attributes ongoing exploitation of PLCs (Rockwell/Schneider/Siemens) in Water/Wastewater, Energy, and Government sectors to Iranian-affiliated actors, with logic tampering and alarm suppression observed. Security Advisory SonicWall SMA 1000 remote access gateways are under active exploitation via a pre-auth SSRF (CVSS 10) chained to post-auth command injection; patch to platform-hotfix 12.4.3-03526 / 12.5.0-02952 and hunt for IoCs before trusting the device. View Article CISA added seven new Known Exploited Vulnerabilities affecting Starlette, Kestra OSS, JFrog Artifactory, BerriAI LiteLLM, Sangoma Switchvox, and SonicWall SMA1000; rapid remediation and compromise assessment are directed under BOD 26-04. CISA KEV NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) has a public PoC; appliances are widely used for remote access and SSO bridges-immediate patching and exposure reduction are advised. Advisory OPC UA server stack (Eclipse Milo) multiple flaws enable remote info disclosure/DoS and authorization bypass against ICS endpoints; operators should enforce Sign&Encrypt, disable anonymous access, and upgrade promptly. CISA Bulletin Rockwell advisories this cycle include PLC Major Nonrecoverable Fault (MNRF) DoS conditions and workstation-tool privilege escalations affecting engineering hosts; patch firmware/tools and enforce CIP-aware filtering. Logix Platform RSLinx Classic State-sponsored exploitation of backbone/edge routers continues (PRC and Russian nexus), leveraging SNMP/TFTP misconfigurations and Smart Install/IOS XE flaws to stage access and harvest credentials; tighten router hygiene and management isolation. Supporting Report Supporting Report #StopRansomware: Gunra RaaS actively abuses Fortinet edge CVEs and common post-compromise tooling (Impacket/Sliver), underscoring the need to harden VPN/VDI and maintain offline, immutable backups. Security Advisory",
+  "keyFindings": [
+    {
+      "title": "Active Siemens S7 PLC targeting via AI-assisted S7comm scripts requires immediat",
+      "summary": "Active Siemens S7 PLC targeting via AI-assisted S7comm scripts requires immediate blocking of TCP/102 at perimeters and secure programming protections. Security Advisory"
+    },
+    {
+      "title": "Iranian-affiliated actors modified PLC logic and disabled alarms in U.S. critica",
+      "summary": "Iranian-affiliated actors modified PLC logic and disabled alarms in U.S. critical infrastructure environments; verify controller integrity and remove direct internet exposure. Security Advisory"
+    },
+    {
+      "title": "SonicWall SMA1000 zero-days (CVE-2026-83548/83549) are exploited in the wild; pa",
+      "summary": "SonicWall SMA1000 zero-days (CVE-2026-83548/83549) are exploited in the wild; patch, rotate credentials/TOTP, and consider re-imaging if IoCs are present. View Article"
+    },
+    {
+      "title": "CISA added seven KEV CVEs across Starlette, Kestra OSS, Artifactory, LiteLLM, Sa",
+      "summary": "CISA added seven KEV CVEs across Starlette, Kestra OSS, Artifactory, LiteLLM, Sangoma Switchvox, and SonicWall-indicating broad exploitation of edge/dev platforms. CISA KEV"
+    },
+    {
+      "title": "NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) public PoC increases risk of ",
+      "summary": "NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) public PoC increases risk of enterprise compromise and OT pivot paths; upgrade and restrict SAML exposure. Advisory"
+    },
+    {
+      "title": "OPC UA (Eclipse Milo) vulnerabilities can degrade or subvert ICS comms; enforce ",
+      "summary": "OPC UA (Eclipse Milo) vulnerabilities can degrade or subvert ICS comms; enforce encryption/authN and apply updates. CISA Bulletin"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "2",
+        "label": "Edge/VPN Zero-Days This Week",
+        "trend": "SonicWall SMA1000 (SSRF + RCE)"
+      },
+      {
+        "value": "Multiple",
+        "label": "New OT Vendor Advisories Highlighted",
+        "trend": "Rockwell, Mitsubishi Electric, Ebyte, NetScaler, OPC UA"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7-1200/1500/200/300/400",
+      "Rockwell Logix / RSLinx / Historian ME",
+      "Schneider Electric (Modicon/M340)",
+      "SonicWall SMA1000",
+      "Citrix NetScaler ADC/Gateway",
+      "Eclipse Milo (OPC UA)",
+      "Mitsubishi Electric CNC",
+      "Zimbra Collaboration Suite",
+      "Oracle HTTP Server/WebLogic Plug-in",
+      "Fortinet FortiGate/FortiOS"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy; Critical Manufacturing; Transportation (rail/industrial); Government Facilities; Healthcare and Public Health."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "PRC state-sponsored operations compromising telecom/edge routers at scale for credential collection, SPAN/ERSPAN mirroring, and covert tunnels; requires router hygiene, SNMPv3, AAA, and management isolation. Security Advisory",
+        "Russian Center 16 (Energetic Bear/Dragonfly) scanning and exploiting poorly configured routers (SNMP/TFTP/Smart Install/IOS XE) to stage access against CI; enforce ACLs, patch, and disable legacy services. Security Advisory",
+        "Pro-Russia hacktivist opportunistic attacks on exposed VNC/HMI across multiple sectors; remove public exposure and require VPN+MFA for OT access. Security Advisory",
+        "IR-affiliated campaigns altering PLC logic and suppressing alarms in U.S. CI environments; enforce strict segmentation and controller integrity checks. Security Advisory"
+      ]
+    }
+  ],
+  "relevance": "Multiple, independently sourced government advisories confirm active adversary interest in programmable logic controllers and their support ecosystems. The most material risks this cycle are (1) direct PLC targeting and logic manipulation (Siemens S7 family; multi-vendor logic tampering), (2) perimeter gateway zero-days actively exploited (SonicWall SMA1000; NetScaler ADC/GW PoC), and (3) exploited enterprise and AI/dev platforms in the KEV catalog that can offer initial access and identity abuse paths into OT/DMZs. Several OT vendor advisories (Rockwell, Mitsubishi Electric) additionally indicate process disruption potential via controller DoS or workstation-tool privilege escalation. Combined, these trends elevate near-term operational risk-especially for Water/Wastewater, Energy, Critical Manufacturing, and Transportation operators.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) with public PoC; upgrade and restrict SAML endpoints. Advisory",
+        "SonicWall SMA1000 zero-days: CVE-2026-83548 (SSRF, CVSS 10) + CVE-2026-83549 (command injection), actively exploited. View Article",
+        "OPC UA (Eclipse Milo) multiple flaws impacting ICS server behavior and availability. CISA Bulletin",
+        "Oracle HTTP Server/WebLogic Proxy Plug-in improper access control (CVE-2026-21962) listed in KEV. CISA KEV",
+        "Rockwell Logix MNRF DoS (halt on malformed CIP); patch to 34.015/35.014/36.013/37.011 and enforce CIP-aware filtering. Security Advisory",
+        "Rockwell RSLinx Classic DoS conditions (≤ 4.50); segment, restrict DCOM/OPC, and apply updates. Security Advisory",
+        "Mitsubishi Electric CNC DoS via TCP/683 crafted packets; block untrusted access and upgrade to fixed firmware. Security Advisory",
+        "Rockwell Historian ME RCE/DoS (CVE-2025-12768 / CVE-2026-12661); isolate historian services and monitor web interface. Security Advisory"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Edge exploitation/Zero-days: SSRF→RCE chains against VPN/remote access gateways (SonicWall SMA1000) [ATT&CK T1190, T1210].",
+      "Router compromise and credential harvesting (SNMP/TFTP/Smart Install/IOS XE; PRC/RU ops) [T1046, T1552, T1041].",
+      "ICS protocol abuse: S7comm PUT/GET reads/writes; CIP malformed frames causing PLC MNRF DoS [ICS: T0865, T0814].",
+      "Living-off-the-land post-compromise: Impacket/Sliver, WMI/SMB/RDP for lateral movement [T1021, T1047].",
+      "Supply-chain/Server-side components: OPC UA server stack (Eclipse Milo) auth/DoS conditions affecting OT data flows [T0819]."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1210",
+      "T1046",
+      "T1552",
+      "T1041",
+      "T0865",
+      "T0814",
+      "T1021",
+      "T1047",
+      "T0819"
+    ]
+  },
+  "outlook72h": "Immediate: Isolate/patch SonicWall SMA1000 fleet; block public access to WorkPlace/AMC; rotate credentials/TOTP; assess for SSRF-originated internal abuse. Immediate: Remove any PLC/HMI internet exposure; enable emergency monitoring for S7comm/CIP anomalies; verify logic and alarm states. Within 48h: Apply KEV-listed fixes (Starlette, Kestra, Artifactory, LiteLLM, Sangoma, SonicWall); check for pre-patch compromise; tighten reverse proxy normalization. Within 72h: Audit routers/firewalls for SNMP/Smart Install/TFTP exposure; implement SNMPv3 and ACLs; centralize and retain config/change logs.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-83548",
+    "CVE-2026-83549",
+    "CVE-2026-21962",
+    "CVE-2025-12768",
+    "CVE-2026-12661"
+  ]
+}

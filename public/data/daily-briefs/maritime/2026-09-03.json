@@ -1,0 +1,364 @@
+{
+  "type": "maritime",
+  "date": "2026-09-03",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates a heightened maritime cyber risk environment driven by three primary factors: a current U.S. maritime advisory confirming persistent GNSS interference and spoofing in key Middle East waterways; a recent cyberattack that disrupted operations across multiple North Carolina Ports facilities; and newly highlighted vulnerabilities in an end-of-life AIS transponder that could enable onboard identity manipulation. Together, these issues increase operational and safety risk for vessels and port logistics while challenging maritime situational awareness and trust in navigation-data streams. GNSS interference and spoofing are currently confirmed in the Persian Gulf, Strait of Hormuz, and Gulf of Oman, with the advisory also warning of deceptive communications tactics. Fact per U.S. government advisory. Government Advisory North Carolina Ports experienced a cyberattack that forced manual processing and delays, demonstrating continued operational exposure of port IT systems with direct supply-chain impact. Fact per incident reporting. View Article Vulnerabilities in the Furuno FA-50 Class B AIS transponder (reported as end-of-life) could allow an attacker with vessel-network access to alter device identity and settings; patching is not expected, making isolation and migration immediate priorities. Fact per reporting summarizing a recent advisory and vendor posture. Supporting Report Current reporting suggests deceptive AIS transmissions are being detected more frequently across a major maritime region, with no corresponding increase in confirmed traditional network intrusions. Trend-level reporting; cyber-physical navigation trust remains a concern. View Article Governance and compliance posture in the U.S. is evolving, with the Coast Guard establishing a dedicated Office of Maritime Cybersecurity Policy to centralize oversight-an institutional change likely to influence port-facility and vessel cyber expectations. Fact per news reporting. Source The collected intelligence supports an assessment that near-term navigation integrity and port logistics continuity are the principal issues requiring immediate attention. Confidence in this assessment is high for the GNSS advisory and port incident, and medium for the AIS device vulnerability and regional deceptive-AIS trend due to secondary-source reporting.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Overall Threat",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "Total Intelligence Records Analyzed",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "Unique Intelligence Events",
+        "label": "Unique Intelligence Events"
+      },
+      {
+        "value": "ESCALATE Events",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "MONITOR Events",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "IGNORE Events",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "Navigation-Related Threats",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "Port/Terminal Threats",
+        "label": "Port/Terminal Threats"
+      },
+      {
+        "value": "Vessel/Shipboard Threats",
+        "label": "Vessel/Shipboard Threats"
+      },
+      {
+        "value": "Vulnerabilities Highlighted",
+        "label": "Vulnerabilities Highlighted"
+      },
+      {
+        "value": "High-Confidence Assessments",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [
+      "Furuno FA-50 AIS transponder (end-of-life) - identity/settings manipulation risk from onboard network access. Supporting Report",
+      "GNSS receivers and ECDIS across vessels operating in Persian Gulf/Strait of Hormuz/Gulf of Oman - susceptible to interference/spoofing impacts. Maritime Advisory"
+    ],
+    "sectors": [
+      "Commercial Shipping and Maritime Logistics - regional GNSS interference; deceptive AIS reporting trend.",
+      "U.S. Ports and Terminals - operational disruption demonstrated at North Carolina Ports."
+    ]
+  },
+  "keyFindings": [
+    "Confirmed GNSS interference, spoofing, and jamming in the Persian Gulf region present immediate navigation and safety-of-voyage risks; vessels should cross-check ECDIS and employ traditional navigation. Maritime Advisory",
+    "Cyberattack on North Carolina Ports disrupted operations and forced manual processing, evidencing material supply-chain impact from port IT compromise. View Article",
+    "Furuno FA-50 AIS transponder vulnerabilities (EOL) could enable onboard identity manipulation; isolation and migration off the product are indicated by reporting. Supporting Report",
+    "Regional trend reporting cites a surge in deceptive-AIS-related \"cyber incidents,\" reflecting improved reporting and persistent manipulation of electronic systems rather than confirmed network intrusions. View Article",
+    "USCG's new Office of Maritime Cybersecurity Policy signals tightening governance and coordination for maritime cyber risk across ports, facilities, and vessels. Source"
+  ],
+  "topThreats": [
+    {
+      "title": "MARAD Advisory: GNSS interference/spoofing and threats to commercial shipping (Persian Gulf, Strait of Hormuz, Gulf of Oman)",
+      "action": "Confirmed degradation of positioning integrity in congested waterways increases collision/grounding risk and complicates security responses. Operational impact: Bridge teams must cross-check ECDIS/GNSS with radar/visual methods; voyage planning and reporting burdens rise. Affected systems: GNSS receivers, GPS, ECDIS, bridge navigation systems; possible deceptive VHF. Recommended attention: Implement advisory measures; pre-transit risk assessment; report anomalies to NAVCENT/UKMTO/USCG as directed. Confidence: High",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "Maritime Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Cyberattack on North Carolina Ports disrupts operations and logistics",
+      "action": "Manual fallback and processing delays at multiple facilities translate to immediate throughput and supply-chain impact. Operational impact: Gate, yard, and documentation slowdowns; contingency procedures and recovery operations engaged. Affected organizations: North Carolina Ports (Wilmington, Morehead City, Charlotte Inland Port) Recommended attention: Review port cyber contingencies, coordinate with carriers/terminals for schedule impacts; validate ICS/OT segmentation. Confidence: High",
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Furuno FA-50 AIS transponder vulnerabilities (EOL) enable identity manipulation from vessel network",
+      "action": "Altered AIS identity/settings degrade VTS and bridge situational awareness; no vendor patch expected. Operational impact: Potential false identity/position elements transmitted; trust in AIS picture reduced. Affected systems: Furuno FA-50 Class B AIS (end-of-life; hard-coded creds/missing authentication per reporting) Recommended attention: Identify/segment/remove FA-50 units; migrate to supported devices; restrict remote access; monitor AIS anomalies. Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://newsletter.maritime-ogmios.tech/p/maritime-cyber-weekly-26",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "IFC trend: Sharp rise in deceptive-AIS \"cyber incidents\" reporting in H1 2026",
+      "action": "Elevated deception reports challenge trust in AIS streams used for traffic management, compliance, and analytics. Operational impact: Increased need for cross-validation against radar/visual and port-derived tracks. Recommended attention: Enhance AIS anomaly detection; correlate with radar/VTS; treat AIS as advisory, not authoritative. Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-major-maritime-security-trends-for-h1-2026/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "USCG establishes Office of Maritime Cybersecurity Policy",
+      "action": "Centralized policy authority likely to drive updated expectations for ports, facilities, and vessels. Operational impact: Anticipate policy guidance, reporting alignment, and audits shaping cyber risk management. Recommended attention: Track forthcoming USCG directives/port-state expectations; align SMS/ISPS cyber controls. Confidence: High",
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/coast-guard-establishes-office-of-maritime-cybersecurity-policy/",
+          "label": "Source"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Furuno FA-50 AIS (EOL): Reported hard-coded credentials and missing authentication could allow AIS identity/settings manipulation from the vessel network. No patch expected; vendor reportedly recommends isolation/migration. CVEs not provided in the reporting. Supporting Report"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Ongoing GNSS interference and spoofing create immediate navigation and safety risk; deceptive communications may be used to misdirect vessels. Maritime domains: Commercial Shipping; Navigation; Maritime Communications Affected systems: GNSS receivers, GPS, ECDIS, bridge navigation systems, VHF communications, Ship Security Alert System Affected sectors/countries: Commercial shipping and logistics; regional waters near Iran/Oman; U.S.-flagged vessels transiting the area TTPs observed: GNSS interference, spoofing, jamming; deceptive VHF/over-the-horizon comms Operational impact: Loss of reliable position; increased bridge workload; potential misnavigation Safety impact: Confirmed elevation of collision/grounding risk in congested waters Regulatory refs: 33 CFR 101.305; USCG Maritime Security Directive 104-6 (Rev 9) Mitigations (per advisory): Use traditional navigation methods; cross-check ECDIS; conduct pre-voyage risk assessments; report anomalies to NAVCENT NCAGS/UKMTO/USCG.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "Maritime Advisory"
+        }
+      ],
+      "items": [
+        "Assessment: Ongoing GNSS interference and spoofing create immediate navigation and safety risk; deceptive communications may be used to misdirect vessels.",
+        "Maritime domains: Commercial Shipping; Navigation; Maritime Communications",
+        "Affected systems: GNSS receivers, GPS, ECDIS, bridge navigation systems, VHF communications, Ship Security Alert System",
+        "Affected sectors/countries: Commercial shipping and logistics; regional waters near Iran/Oman; U.S.-flagged vessels transiting the area",
+        "TTPs observed: GNSS interference, spoofing, jamming; deceptive VHF/over-the-horizon comms",
+        "Operational impact: Loss of reliable position; increased bridge workload; potential misnavigation",
+        "Safety impact: Confirmed elevation of collision/grounding risk in congested waters",
+        "Regulatory refs: 33 CFR 101.305; USCG Maritime Security Directive 104-6 (Rev 9)",
+        "Mitigations (per advisory): Use traditional navigation methods; cross-check ECDIS; conduct pre-voyage risk assessments; report anomalies to NAVCENT NCAGS/UKMTO/USCG."
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Port IT compromise triggered contingency operations and manual processing, yielding immediate delays and supply-chain impact. Maritime domains: Ports and Terminals; Logistics Operational impact: Throughput reductions; manual documentation; incident response and forensics ongoing Supply-chain impact: Confirmed",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Assessment: Port IT compromise triggered contingency operations and manual processing, yielding immediate delays and supply-chain impact.",
+        "Maritime domains: Ports and Terminals; Logistics",
+        "Operational impact: Throughput reductions; manual documentation; incident response and forensics ongoing",
+        "Supply-chain impact: Confirmed"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Hard-coded credentials and missing authentication could allow changes to AIS identity/settings if attackers reach the vessel network; product is EOL and vendor reportedly recommends isolation/migration over patching. Maritime domains: Vessel/Shipboard Systems; Navigation Data Affected systems: Furuno FA-50 Class B AIS Navigation impact: Possible degradation of AIS trust and traffic picture integrity Mitigation priorities: Identify and segment; restrict access; plan replacement; enhance AIS anomaly monitoring",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://newsletter.maritime-ogmios.tech/p/maritime-cyber-weekly-26",
+          "label": "Supporting Report"
+        }
+      ],
+      "items": [
+        "Assessment: Hard-coded credentials and missing authentication could allow changes to AIS identity/settings if attackers reach the vessel network; product is EOL and vendor reportedly recommends isolation/migration over patching.",
+        "Maritime domains: Vessel/Shipboard Systems; Navigation Data",
+        "Affected systems: Furuno FA-50 Class B AIS",
+        "Navigation impact: Possible degradation of AIS trust and traffic picture integrity",
+        "Mitigation priorities: Identify and segment; restrict access; plan replacement; enhance AIS anomaly monitoring"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Centralized policy/compliance authority for maritime cybersecurity likely to influence port/vessel cyber programs and reporting requirements. Maritime domains: Governance; Marine Transportation System Safety/Supply chain impact: Possible over time via improved risk controls and compliance alignment",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/coast-guard-establishes-office-of-maritime-cybersecurity-policy/",
+          "label": "Source"
+        }
+      ],
+      "items": [
+        "Assessment: Centralized policy/compliance authority for maritime cybersecurity likely to influence port/vessel cyber programs and reporting requirements.",
+        "Maritime domains: Governance; Marine Transportation System",
+        "Safety/Supply chain impact: Possible over time via improved risk controls and compliance alignment"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: 122 \"cyber security incidents\" recorded in H1 2026 vs 6 in H1 2025, largely due to deceptive AIS reporting; traditional intrusions not confirmed. Navigation impact: Possible; necessitates cross-validation against radar/visual sources and VTS",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-major-maritime-security-trends-for-h1-2026/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Assessment: 122 \"cyber security incidents\" recorded in H1 2026 vs 6 in H1 2025, largely due to deceptive AIS reporting; traditional intrusions not confirmed.",
+        "Navigation impact: Possible; necessitates cross-validation against radar/visual sources and VTS"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Seamanship/awareness case study; no cyberattack, malicious AIS manipulation, or new vulnerability disclosed. Navigation and safety lessons are valid but outside cyber incident context.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/lessons-learned-ais-is-an-important-tool-but-not-foolprool/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Assessment: Seamanship/awareness case study; no cyberattack, malicious AIS manipulation, or new vulnerability disclosed.",
+        "Navigation and safety lessons are valid but outside cyber incident context."
+      ]
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Ongoing GNSS interference and spoofing create immediate navigation and safety risk; deceptive communications may be used to misdirect vessels. Maritime domains: Commercial Shipping; Navigation; Maritime Communications Affected systems: GNSS receivers, GPS, ECDIS, bridge navigation systems, VHF communications, Ship Security Alert System Affected sectors/countries: Commercial shipping and logistics; regional waters near Iran/Oman; U.S.-flagged vessels transiting the area TTPs observed: GNSS interference, spoofing, jamming; deceptive VHF/over-the-horizon comms Operational impact: Loss of reliable position; increased bridge workload; potential misnavigation Safety impact: Confirmed elevation of collision/grounding risk in congested waters Regulatory refs: 33 CFR 101.305; USCG Maritime Security Directive 104-6 (Rev 9) Mitigations (per advisory): Use traditional navigation methods; cross-check ECDIS; conduct pre-voyage risk assessments; report anomalies to NAVCENT NCAGS/UKMTO/USCG.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "Maritime Advisory"
+        }
+      ],
+      "items": [
+        "Assessment: Ongoing GNSS interference and spoofing create immediate navigation and safety risk; deceptive communications may be used to misdirect vessels.",
+        "Maritime domains: Commercial Shipping; Navigation; Maritime Communications",
+        "Affected systems: GNSS receivers, GPS, ECDIS, bridge navigation systems, VHF communications, Ship Security Alert System",
+        "Affected sectors/countries: Commercial shipping and logistics; regional waters near Iran/Oman; U.S.-flagged vessels transiting the area",
+        "TTPs observed: GNSS interference, spoofing, jamming; deceptive VHF/over-the-horizon comms",
+        "Operational impact: Loss of reliable position; increased bridge workload; potential misnavigation",
+        "Safety impact: Confirmed elevation of collision/grounding risk in congested waters",
+        "Regulatory refs: 33 CFR 101.305; USCG Maritime Security Directive 104-6 (Rev 9)",
+        "Mitigations (per advisory): Use traditional navigation methods; cross-check ECDIS; conduct pre-voyage risk assessments; report anomalies to NAVCENT NCAGS/UKMTO/USCG."
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Port IT compromise triggered contingency operations and manual processing, yielding immediate delays and supply-chain impact. Maritime domains: Ports and Terminals; Logistics Operational impact: Throughput reductions; manual documentation; incident response and forensics ongoing Supply-chain impact: Confirmed",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Assessment: Port IT compromise triggered contingency operations and manual processing, yielding immediate delays and supply-chain impact.",
+        "Maritime domains: Ports and Terminals; Logistics",
+        "Operational impact: Throughput reductions; manual documentation; incident response and forensics ongoing",
+        "Supply-chain impact: Confirmed"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Hard-coded credentials and missing authentication could allow changes to AIS identity/settings if attackers reach the vessel network; product is EOL and vendor reportedly recommends isolation/migration over patching. Maritime domains: Vessel/Shipboard Systems; Navigation Data Affected systems: Furuno FA-50 Class B AIS Navigation impact: Possible degradation of AIS trust and traffic picture integrity Mitigation priorities: Identify and segment; restrict access; plan replacement; enhance AIS anomaly monitoring",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://newsletter.maritime-ogmios.tech/p/maritime-cyber-weekly-26",
+          "label": "Supporting Report"
+        }
+      ],
+      "items": [
+        "Assessment: Hard-coded credentials and missing authentication could allow changes to AIS identity/settings if attackers reach the vessel network; product is EOL and vendor reportedly recommends isolation/migration over patching.",
+        "Maritime domains: Vessel/Shipboard Systems; Navigation Data",
+        "Affected systems: Furuno FA-50 Class B AIS",
+        "Navigation impact: Possible degradation of AIS trust and traffic picture integrity",
+        "Mitigation priorities: Identify and segment; restrict access; plan replacement; enhance AIS anomaly monitoring"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Centralized policy/compliance authority for maritime cybersecurity likely to influence port/vessel cyber programs and reporting requirements. Maritime domains: Governance; Marine Transportation System Safety/Supply chain impact: Possible over time via improved risk controls and compliance alignment",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/coast-guard-establishes-office-of-maritime-cybersecurity-policy/",
+          "label": "Source"
+        }
+      ],
+      "items": [
+        "Assessment: Centralized policy/compliance authority for maritime cybersecurity likely to influence port/vessel cyber programs and reporting requirements.",
+        "Maritime domains: Governance; Marine Transportation System",
+        "Safety/Supply chain impact: Possible over time via improved risk controls and compliance alignment"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: 122 \"cyber security incidents\" recorded in H1 2026 vs 6 in H1 2025, largely due to deceptive AIS reporting; traditional intrusions not confirmed. Navigation impact: Possible; necessitates cross-validation against radar/visual sources and VTS",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-major-maritime-security-trends-for-h1-2026/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Assessment: 122 \"cyber security incidents\" recorded in H1 2026 vs 6 in H1 2025, largely due to deceptive AIS reporting; traditional intrusions not confirmed.",
+        "Navigation impact: Possible; necessitates cross-validation against radar/visual sources and VTS"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Assessment: Seamanship/awareness case study; no cyberattack, malicious AIS manipulation, or new vulnerability disclosed. Navigation and safety lessons are valid but outside cyber incident context.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/lessons-learned-ais-is-an-important-tool-but-not-foolprool/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Assessment: Seamanship/awareness case study; no cyberattack, malicious AIS manipulation, or new vulnerability disclosed.",
+        "Navigation and safety lessons are valid but outside cyber incident context."
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "GNSS interference/spoofing/jamming degrading positioning integrity and situational awareness (loss of view/manipulation of control outcomes at the bridge level). Advisory",
+      "Deceptive maritime communications (e.g., VHF) to misdirect vessels in contested waters. Advisory",
+      "AIS identity/settings manipulation on vulnerable, unsupported shipboard devices (requires onboard network access; supports deception of maritime traffic picture). Supporting Report",
+      "No confirmed malware families or formal ATT&CK technique IDs were provided in the sources."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor transits through the Persian Gulf/Strait of Hormuz/Gulf of Oman for continued GNSS anomalies and deceptive communications; immediate risk remains elevated. Confidence: High. Advisory Additional technical details or operator advisories may emerge regarding vulnerable AIS equipment as operators inventory and mitigate end-of-life units. Confidence: Medium. Supporting Report Follow-on disclosures from the North Carolina Ports incident may clarify intrusion vectors and drive similar U.S. port reviews; schedule disruptions could persist during recovery cycles. Confidence: Medium. Incident Reporting Current evidence does not establish a broader surge in confirmed maritime OT intrusions; however, deceptive AIS and positioning anomalies are likely to sustain elevated monitoring demand. Confidence: Medium. Trend Report",
+  "relatedCves": []
+}

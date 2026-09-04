@@ -1,0 +1,136 @@
+{
+  "type": "disaster",
+  "date": "2026-09-03",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic flash floods along the Nepal-China border have killed more than 1,000 people and left thousands missing; remote Himalayan communities remain cut off and reliant on air access. View Article Rescue operations are complicated by destroyed roads, landslides, and debris-filled hydropower tunnels where hundreds of workers are feared trapped. View Article Displacement and access to essentials are acute in Nepal relief camps, with reported shortages of medicines and cash access constraints despite basic aid delivery. View Article Grand Canyon National Park experienced deadly flash flooding; fatalities are reported and the sole water pipeline was destroyed, triggering evacuations and water restrictions across visitor areas. View Article Supporting Report Former Tropical Storm-driven flooding in East Texas led to dozens of water rescues, power outages, and flooded homes across multiple counties. View Article June earthquakes in Venezuela caused mass fatalities and severe damage, with prolonged closure of the country's main airport and homelessness persisting. View Article A powerful storm in Toronto flooded roads, damaged buildings, and cut power to tens of thousands, disrupting transport and services. View Article",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "High",
+        "label": ""
+      },
+      {
+        "value": "6",
+        "label": ""
+      },
+      {
+        "value": "5",
+        "label": ""
+      },
+      {
+        "value": "7,500+*",
+        "label": ""
+      },
+      {
+        "value": "4,000+*",
+        "label": ""
+      },
+      {
+        "value": "Severe",
+        "label": ""
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "title": "Access constraints in Nepal remain severe",
+      "summary": "destroyed roads and bridges have left multiple districts isolated, requiring air assets for evacuations and relief. Source"
+    },
+    {
+      "title": "Search operations continue a week after the floods, with debris removal and body",
+      "summary": "Search operations continue a week after the floods, with debris removal and body identification support underway; reporting on missing persons varies. Source"
+    },
+    {
+      "title": "Grand Canyon's South Rim is facing prolonged disruptions due to the destroyed wa",
+      "summary": "Grand Canyon's South Rim is facing prolonged disruptions due to the destroyed water pipeline, driving conservation measures and lodging impacts. Source"
+    },
+    {
+      "title": "Texas flooding required rescues from stranded vehicles, homes, and an assisted l",
+      "summary": "Texas flooding required rescues from stranded vehicles, homes, and an assisted living facility, amid widespread power outages and hazardous conditions. Source"
+    },
+    {
+      "title": "Venezuela's main airport sustained severe damage from June earthquakes, with ong",
+      "summary": "Venezuela's main airport sustained severe damage from June earthquakes, with ongoing travel disruptions compounding humanitarian needs. Source"
+    },
+    {
+      "title": "Nearly 12,000 people were rescued in Nepal while thousands remain stranded as ai",
+      "summary": "Nearly 12,000 people were rescued in Nepal while thousands remain stranded as air operations continue where roads are destroyed. Source"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/835459b2978adcd2b3bcf6e0595aee6c",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/9/2/nepal-search-operations-continue-a-week-after-catastrophic-floods",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/b50ddf9b2f058cb23ad12087f0d938e4",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/555174f4e12f4d7db925c469db45593a",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/aa5eb54efac7113246603f1c40c1a037",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/74144da8c39b41ba7f3559ff3bd264d7",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/amp/news/2026/9/3/powerful-storm-hits-canadas-toronto-cutting-power-to-tens-of-thousands",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Nepal-China border: Continued search and rescue in isolated areas; monitor secondary flood risk tied to a newly formed lake and unstable debris fields. Supporting Report Source Grand Canyon, USA: Expect ongoing water restrictions and phased reopening impacts while pipeline repairs and damage assessments proceed. Source East Texas, USA: Localized flood risk persists where soils remain saturated; continued outages and road hazards likely in worst-hit counties. Source Toronto, Canada: Power restoration and debris clearance operations expected to continue; transport disruptions may persist short-term. Source Venezuela: Continued recovery constraints in air transport; monitor for humanitarian access and logistics bottlenecks at the main airport. Source",
+  "regionalTrends": [
+    "High-impact flash floods with landslides and debris flows continue to drive mass casualties and isolation in Nepal-Tibet border districts. Source",
+    "Secondary hazard risk flagged due to a newly formed lake in the flood-ravaged zone, raising concern for additional downstream impacts. Source",
+    "Emergency WASH and health support needs remain elevated, with tens of thousands flagged for urgent assistance in affected communities. Source",
+    "Grand Canyon flash flood highlights exposure of critical lifelines (single-point water system) to extreme precipitation. Source",
+    "Texas flooding events underscore rapid-onset urban and peri-urban rescue demand following tropical rainfall remnants. Source",
+    "Severe convective storms can rapidly degrade metro services, as seen in Toronto's widespread outages and transport impacts. Source"
+  ]
+}
