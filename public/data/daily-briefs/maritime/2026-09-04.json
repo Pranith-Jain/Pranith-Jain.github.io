@@ -1,0 +1,84 @@
+{
+  "type": "maritime",
+  "date": "2026-09-04",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates the immediate navigation risk environment remains elevated in the Persian Gulf, Strait of Hormuz, and Gulf of Oman due to confirmed GNSS interference, spoofing, and jamming targeting merchant traffic. Government Advisory Current reporting also identifies unpatched vulnerabilities in the discontinued FURUNO FA-50 Class B AIS transponder (including hard-coded credentials and missing authentication) that could enable unauthorized configuration changes from the in-vessel network, affecting AIS broadcast data integrity if units remain in service. Supporting Report",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [
+    "Confirmed GNSS interference, spoofing, and jamming continue across the Persian Gulf, Strait of Hormuz, and Gulf of Oman, elevating navigation risk to merchant vessels. Government Advisory",
+    "Unpatched AIS vulnerabilities affect FURUNO FA-50 Class B units (CVE-2026-59769, CVE-2026-67578), enabling unauthorized configuration from in-vessel networks; the product is discontinued and requires compensating controls or replacement. Supporting Report",
+    "Philippine MARINA reported cyber disruption to SID/SRB-related services and seeks funding for disaster recovery and modernization, highlighting resilience gaps in maritime administrative systems. View Article"
+  ],
+  "topThreats": [
+    {
+      "title": "",
+      "action": "Degrades bridge situational awareness, can induce course deviations and traffic-separation violations. Operational impact: Navigation data reliability; voyage planning and COLREGs compliance; potential delays or diversions. Recommended defensive attention: Cross-validate GNSS with radar, visual bearings, terrestrial nav aids, gyro/INS; maintain enhanced BRM and anomaly logs.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Unauthorized AIS configuration changes can corrupt broadcast identity/position data integrity with safety implications. Operational impact: Potential misidentification or incorrect voyage-related data; bridge workload increase for verification; compliance risks. Recommended defensive attention: Inventory FA-50 units; isolate management interfaces; restrict access; plan migration to FA-70.",
+      "sources": [
+        {
+          "url": "https://jvn.jp/en/vu/JVNVU95422936/index.html",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-237-07",
+          "label": "Vendor Advisory"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Disruption of seafarer IDs and service record book processes can delay crewing, certification, and port documentation. Operational impact: Possible crewing and compliance delays; administrative backlogs affecting voyage readiness. Recommended defensive attention: Monitor for issuance delays; adjust crew change timelines; validate document authenticity through alternate channels as advised by authority.",
+      "sources": [
+        {
+          "url": "https://marina.gov.ph/2026/09/01/to-counter-cyber-threats-amid-sid-srb-disruption-marina-seeks-funding-for-disaster-recovery-system-nationwide-tech-refresh/",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "FURUNO FA-50 Class B AIS transponder: CVE-2026-59769 (Hard-coded credentials)",
+        "CVE-2026-67578 (Missing authentication for critical function)"
+      ]
+    }
+  ],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Use of hard-coded credentials to access device management (FA-50).",
+      "Abuse of unauthenticated configuration functions on AIS device management interfaces.",
+      "Unauthorized modification of AIS configuration from a shipboard/internal network.",
+      "GNSS interference, spoofing, and jamming causing loss of reliable positioning data (behavioral observation; no formal ATT&CK mapping assigned)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for continued GNSS anomaly reports in the Persian Gulf, Strait of Hormuz, and Gulf of Oman; the immediate risk to navigation remains elevated. Confidence: High. Government Advisory Additional advisories or owner/operator circulars may emerge urging replacement or isolation of FA-50 AIS units; exploitation remains unconfirmed in public reporting. Confidence: Medium. Supporting Report Administrative system recovery steps by MARINA could adjust timelines for SID/SRB service restoration; monitor for official updates before altering crewing plans. Confidence: Medium. Source",
+  "relatedCves": [
+    "CVE-2026-59769",
+    "CVE-2026-67578"
+  ]
+}

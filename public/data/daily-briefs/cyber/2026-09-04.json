@@ -1,0 +1,117 @@
+{
+  "type": "cyber",
+  "date": "2026-09-04",
+  "threatLevel": "",
+  "executiveSummary": "Overall OT Threat Level: HIGH Active campaigns are targeting Siemens S7-200/300/400/1200/1500 PLCs using AI-assisted scripts (snap7) over TCP/102. Immediate actions: remove internet exposure, harden protection levels, and monitor for unauthorized PUT/GET. Security Advisory Iranian-affiliated actors are modifying PLC logic and HMI/SCADA displays at U.S. water and energy sites (CompactLogix, Micro850, Modicon M340, S7-1200). Expect logic tampering, alarm suppression, and loss of view if boundaries are weak. Security Advisory Pro-Russia hacktivists are opportunistically accessing exposed VNC services on OT HMIs (ports 5900-5910) causing setpoint changes and downtime. Disable public VNC immediately and broker remote access through MFA-protected jump hosts. Security Advisory Widely deployed perimeter devices remain prime targets: a pre-auth RCE with public PoC affects NetScaler ADC/Gateway, and multiple CISA KEV additions confirm active exploitation of SonicWall SMA1000, JFrog Artifactory and others-prioritize patching and compromise assessment. Security Advisory KEV Update Multiple OT-native vulnerabilities demand near-term maintenance windows: Danfoss iC7 drives (unsigned apps/firmware risk), OPC UA Eclipse Milo server flaws (auth bypass and DoS), and NetStaX EtherNet/IP stack Class 3 overflow-apply patches and enforce ICS-aware DPI at cell/zone boundaries. CISA Bulletin CISA Bulletin ICS Advisory Strategic activity continues: China-nexus covert networks of compromised SOHO/IoT are used for CNI pre-positioning; PRC APTs persist on backbone/edge devices to siphon credentials and traffic. Harden router/SNMP/AAA, disable legacy services, and coordinate full eviction plans. Joint Advisory Joint Advisory Cisco Nexus 9000 (Silicon One) exposes a 9.8 unauthenticated root RCE; urgently block TCP 43210/43211 and upgrade to fixed NX-OS. View Article Zimbra zero-day (now patched) used by Russian APT exfiltrated enterprise mail and credentials; if impacted, revoke app passwords/2FA scratch codes, reset credentials, and purge malicious messages. Security Advisory Priority: remove public exposure of PLCs and VNC; patch/evict on NetScaler/SonicWall/Artifactory; deploy ICS-aware monitoring for ENIP/S7comm; lock identity and router/SNMP hygiene per joint advisories.",
+  "keyFindings": [
+    {
+      "title": "Multiple OT-native vulnerabilities (Danfoss iC7, NetStaX EtherNet/IP, OPC UA Ecl",
+      "summary": "Multiple OT-native vulnerabilities (Danfoss iC7, NetStaX EtherNet/IP, OPC UA Eclipse Milo) enable parameter manipulation or service disruption; prioritize firmware updates and enforce ICS-aware DPI. CISA SB26-243 ICSA-26-246-07 CISA SB26-222"
+    },
+    {
+      "title": "Edge/VPN appliances and CI/CD platforms are under active exploitation (SMA1000, ",
+      "summary": "Edge/VPN appliances and CI/CD platforms are under active exploitation (SMA1000, Artifactory, LiteLLM, Switchvox, Starlette, Kestra) with confirmed reverse shells/miners; patch and rotate secrets immediately. CISA KEV (Sept 2) View Article"
+    },
+    {
+      "title": "State operators continue to leverage compromised routers/IoT and backbone device",
+      "summary": "State operators continue to leverage compromised routers/IoT and backbone devices for stealth access and credential theft; enforce SNMPv3 authPriv and AAA hardening, disable legacy services, and monitor TFTP/SNMP anomalies. AA26-113a AA26-194a"
+    },
+    {
+      "title": "Enterprise mail compromise via Zimbra XSS zero-day (patched) led to mass exfiltr",
+      "summary": "Enterprise mail compromise via Zimbra XSS zero-day (patched) led to mass exfiltration and persistent access via app passwords; revoke tokens and scratch codes where impacted. AA26-204a"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "19",
+        "label": "Escalate events in this brief"
+      },
+      {
+        "value": "12",
+        "label": "Actively exploited / KEV items highlighted"
+      },
+      {
+        "value": "10+",
+        "label": "New/Notable OT CVEs & Issues"
+      },
+      {
+        "value": "Water, Energy, Mfg, Transport",
+        "label": "Sectors primarily affected"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 (S7comm/TCP102)",
+      "Rockwell CompactLogix/Micro850",
+      "Schneider Modicon M340 / EcoStruxure",
+      "NetScaler ADC/Gateway",
+      "Cisco Nexus 9000 / IOS XR / IOS XE",
+      "SonicWall SMA1000",
+      "JFrog Artifactory",
+      "Danfoss iC7 Drives",
+      "Pyramid NetStaX EtherNet/IP",
+      "Eclipse Milo (OPC UA)",
+      "Inductive Automation Ignition",
+      "Fortinet FortiGate (FortiOS)",
+      "EV Chargers (EVbee)",
+      "ActiveMQ",
+      "Zimbra Collaboration Suite",
+      "TrueConf Server"
+    ],
+    "sectors": [
+      "Siemens S7 (S7comm/TCP102)",
+      "Rockwell CompactLogix/Micro850",
+      "Schneider Modicon M340 / EcoStruxure",
+      "NetScaler ADC/Gateway",
+      "Cisco Nexus 9000 / IOS XR / IOS XE",
+      "SonicWall SMA1000",
+      "JFrog Artifactory",
+      "Danfoss iC7 Drives",
+      "Pyramid NetStaX EtherNet/IP",
+      "Eclipse Milo (OPC UA)",
+      "Inductive Automation Ignition",
+      "Fortinet FortiGate (FortiOS)",
+      "EV Chargers (EVbee)",
+      "ActiveMQ",
+      "Zimbra Collaboration Suite",
+      "TrueConf Server"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iranian-affiliated actors: PLC logic alteration, alarm suppression, HMI deception at U.S. utilities. Advisory",
+        "Pro-Russia hacktivists (CARR, NoName057(16), Sector16): brute-force/exposed VNC on OT HMIs to cause disruption. Advisory",
+        "China-nexus groups (Volt Typhoon et al.): covert SOHO/IoT proxies for CNI pre-positioning; long-term access on backbone/edge devices. Advisory Advisory",
+        "LAUNDRY BEAR (Void Blizzard): Zimbra webmail XSS for stealth mass exfil/data staging and persistence. Advisory",
+        "Gunra (Conti-lineage RaaS): VPN/firewall CVEs for initial access, double extortion across sectors. Advisory"
+      ]
+    }
+  ],
+  "relevance": "Most impacted OT domains Water and Wastewater Systems: PLC logic manipulation, exposed VNC on HMIs, remote access abuse Energy and Power: Controller communication stack flaws (ENIP/OPC UA), router/edge device compromises Critical Manufacturing: Drive and relay/hardware update tool exposures, NetStaX-based device overflow Transportation/Aviation: Data theft and supply-chain exposure (airports), EVSE charger RCE risks Key MITRE ATT&CK (Enterprise/ICS) observations T1190 Exploit Public-Facing Application; T1133 External Remote Services T1552/T1555 Credential Access; ICS: T0814 Exploit Public-Facing Application, T0829 Loss of View ICS protocol abuse: ENIP/CIP Class 3 overflow attempt; S7comm writes (TCP/102); OPC UA auth bypass Lateral movement: Valid accounts, VPN reuse, router AAA/SNMP tampering, SPAN/PCAP for traffic mirroring",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Danfoss iC7 drives (GR3): unsigned applications/firmware upload & parameter manipulation-enforce signing, segment service interfaces. CISA SB26-243",
+        "Eclipse Milo (OPC UA): auth bypass, diagnostics exposure, resource exhaustion-patch; disable old policies; enforce SignAndEncrypt. CISA SB26-222",
+        "Pyramid NetStaX EtherNet/IP stack: Class 3 explicit message overflow-upgrade to v5.6.1; detect oversized payloads with ICS DPI. ICSA-26-246-07",
+        "EVSE/DC chargers & brokers (EVbee, ActiveMQ paths): unauth RCE/command injection; lock down OCPP, mutual TLS, signed updates. CISA SB26-215",
+        "Industry 4.0 AAS (Eclipse BaSyx Go Components): ABAC bypass enabling unauthorized read/write/upload-upgrade immediately. CISA SB26-208"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "Expect continued scanning/exploitation attempts against NetScaler ADC and SonicWall SMA1000; treat any anomalies as potential compromise until proven otherwise. NetScaler Alert CISA KEV Sustained interest in S7comm/TCP/102 and VNC ports against exposed hosts; increase perimeter alerting and blocklists; run quick exposure inventories and takedowns. S7 Advisory VNC Advisory Plan emergency windows for OPC UA Milo, NetStaX, and Danfoss iC7 upgrades; stage DPI rules and regression testing in lab before production rollout. OPC UA (Milo) NetStaX Danfoss",
+  "relatedCves": [
+    "CVE-2025-63080",
+    "CVE-2026-64960"
+  ]
+}

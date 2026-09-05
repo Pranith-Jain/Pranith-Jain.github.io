@@ -1,0 +1,109 @@
+{
+  "type": "disaster",
+  "date": "2026-09-04",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic flash floods across northern Nepal and adjacent Tibet have resulted in mass casualties (reporting varies but exceeds 1,000 deaths) and thousands missing; remote communities remain cut off as access slowly improves. View Article Supporting Report Grand Canyon National Park suffered a deadly flash flood that destroyed the park's sole water pipeline, forced evacuations, and triggered emergency water restrictions; rescues and search operations continued. Source View Article Former Tropical Storm Edouard unleashed significant flooding across east Texas, prompting dozens of water rescues (including at an assisted living facility), widespread road closures, school impacts, and power outages. View Article Algeria is battling lethal wildfires, with at least 12 fatalities reported as responders confront multiple fast-moving blazes. Source Red Cross continues sheltering and assistance following Hurricane Lala in Hawaii as preparations accelerate for the approach of Hurricane Lowell. View Article Supporting Report Extreme heat continues to pose significant health risks in Europe, with authorities in England attributing thousands of deaths to recent heat waves and France reporting unprecedented heat-day totals. View Article Supporting Report",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Nepal-Tibet floods remain the most severe global event this period, with mass fa",
+      "summary": "Nepal-Tibet floods remain the most severe global event this period, with mass fatalities, thousands missing, and widespread destruction of homes, bridges, roads, and hydropower assets; reporting on totals varies as access improves. View Article"
+    },
+    {
+      "title": "Hundreds of hydropower workers are believed trapped or missing, and rescue teams",
+      "summary": "Hundreds of hydropower workers are believed trapped or missing, and rescue teams are using drones to reach isolated sites, underscoring prolonged SAR operations. Source"
+    },
+    {
+      "title": "Grand Canyon flood impacts include the loss of the only potable water pipeline s",
+      "summary": "Grand Canyon flood impacts include the loss of the only potable water pipeline serving park operations and residents, forcing evacuations and emergency restrictions. View Article"
+    },
+    {
+      "title": "East Texas experienced multiple high-risk rescues, including at an assisted livi",
+      "summary": "East Texas experienced multiple high-risk rescues, including at an assisted living facility, highlighting vulnerabilities among elderly and mobility-limited populations during flood events. View Article"
+    },
+    {
+      "title": "IFRC launched a major emergency appeal for Nepal, estimating tens of thousands a",
+      "summary": "IFRC launched a major emergency appeal for Nepal, estimating tens of thousands affected and prioritizing WASH, shelter, and cash assistance to cut-off communities. Supporting Report"
+    },
+    {
+      "title": "Algeria's wildfire wave has turned deadly, with responders stretched and communi",
+      "summary": "Algeria's wildfire wave has turned deadly, with responders stretched and communities at risk from fast-moving fire behavior. Source"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/9/2/nepal-search-operations-continue-a-week-after-catastrophic-floods",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.ifrc.org/press-release/ifrc-launches-chf-25-million-emergency-appeal-response-devastating-nepal-flash-floods",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/8e2211e04f30b637e35ab95ecb1a1626",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/aa5eb54efac7113246603f1c40c1a037",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/93becdb9d2da981480e7f4a4113879ec",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.redcross.org/local/oregon/about-us/news-and-events/news/red-cross-volunteers-responding-to-hurricane-in-hawaii.html",
+          "label": "Source"
+        },
+        {
+          "url": "https://www.redcross.org/about-us/news-and-events/news/2026/hurricane-lowell-headed-toward-hawaii.html",
+          "label": "Supporting Report"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Nepal-Tibet: Continued SAR and retrieval operations amid difficult terrain; anticipate evolving casualty figures and gradual opening of access corridors as temporary bridges are installed. Source Grand Canyon: Water restrictions and operational disruptions likely to persist while pipeline repairs and access restoration are planned. View Article East Texas: Localized flooding hazards and power restoration operations continue; monitor for residual heavy downpours and impassable routes. Source Hawaii: Maintain heightened readiness for Hurricane Lowell; ensure contingency shelter capacity and commodity staging as track forecasts update. View Article Algeria: Expect continued wildfire response and potential evacuations where winds and fuel conditions sustain fire spread. Source",
+  "regionalTrends": [
+    "Compounding hydrometeorological risks: back-to-back monsoon surges and terrain-driven flash flood dynamics are amplifying impacts across the Himalaya.",
+    "Storm-linked inundation in the U.S. Gulf region continues to emphasize risks to elderly and medically fragile populations during power and access disruptions. Source",
+    "Heat-mortality signals in Europe point to sustained public-health strain during prolonged heat episodes. View Article",
+    "Global outlook: agencies warn that El Niño-linked extremes may heighten drought, flood, and heat hazards across vulnerable regions in coming months. View Article"
+  ]
+}
