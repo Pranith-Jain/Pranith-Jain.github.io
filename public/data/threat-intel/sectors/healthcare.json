@@ -1,12 +1,19 @@
 {
   "sector": "healthcare",
   "title": "Healthcare sector brief",
-  "generatedAt": "2026-09-04",
-  "topCount": 8,
-  "preview": "CVE-2026-9586 (critical) leads with priority 92.",
-  "sizeBytes": 2823,
+  "generatedAt": "2026-09-05",
+  "topCount": 6,
+  "preview": "CVE-2025-67038 (critical) leads with priority 94.",
+  "sizeBytes": 2190,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
+    {
+      "cveId": "CVE-2025-67038",
+      "title": "An issue was discovered in Lantronix EDS5000 2.1.0.0R3. The HTTP RPC module executes a shell command to write logs when ",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
     {
       "cveId": "CVE-2026-9586",
       "title": "An unauthenticated SQL injection vulnerability exists in Sangoma Switchvox SMB Edition 8.3 (104997). The /pa endpoint pr",
@@ -29,31 +36,10 @@
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2023-49105",
-      "title": "An issue was discovered in ownCloud owncloud/core before 10.13.1. An attacker can access, modify, or delete any file wit",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-53362",
-      "title": "In the Linux kernel, the following vulnerability has been resolved:\n\nipv6: account for fraggap on the paged allocation p",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 7.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
       "cveId": "CVE-2026-48710",
       "title": "Starlette is a lightweight ASGI framework/toolkit. Prior to version 1.0.1, the HTTP `Host` request header was not valida",
       "relevance": "broadly-critical",
       "risk": "CVSS 6.5; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-66384",
-      "title": "An authenticated user may write data outside the intended Docker cache path under specific remote-repository conditions.",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 5.3; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {

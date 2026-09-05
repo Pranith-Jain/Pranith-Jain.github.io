@@ -4,56 +4,28 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-01T14:23:34.000Z",
-  "lastSeen": "2026-09-02T14:22:30.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 2 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-04T13:51:54.000Z",
+  "lastSeen": "2026-09-04T14:53:27.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-01",
-      "count": 3
-    },
-    {
-      "date": "2026-09-02",
-      "count": 3
+      "date": "2026-09-04",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "pennfab-a386",
-      "title": "PennFab — claimed by akira",
-      "pubDate": "2026-09-02T14:22:30.000Z"
+      "slug": "stransky-heiz-mess-regeltechnik-gmbh-4e38",
+      "title": "Stransky Heiz-Mess-Regeltechnik GmbH — claimed by akira",
+      "pubDate": "2026-09-04T14:53:27.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "scrubadub-auto-wash-centers-aace",
-      "title": "ScrubaDub Auto Wash Centers — claimed by akira",
-      "pubDate": "2026-09-02T13:52:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "algra-group-488b",
-      "title": "Algra Group — claimed by akira",
-      "pubDate": "2026-09-02T13:52:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "congressional-iron-works-5488",
-      "title": "Congressional Iron Works — claimed by akira",
-      "pubDate": "2026-09-01T15:21:40.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "flex1-13e8",
-      "title": "Flex1 — claimed by akira",
-      "pubDate": "2026-09-01T14:23:54.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "byk-construction-3280",
-      "title": "BYK Construction — claimed by akira",
-      "pubDate": "2026-09-01T14:23:34.000Z"
+      "slug": "worrell-d5fc",
+      "title": "Worrell — claimed by akira",
+      "pubDate": "2026-09-04T13:51:54.000Z"
     }
   ],
   "relatedEntities": [
@@ -61,18 +33,6 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
       "weight": 1
     },
     {
@@ -85,46 +45,18 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "pennfab-a386",
-      "victim": "PennFab — claimed by akira",
+      "id": "stransky-heiz-mess-regeltechnik-gmbh-4e38",
+      "victim": "Stransky Heiz-Mess-Regeltechnik GmbH — claimed by akira",
       "sector": "Manufacturing",
-      "country": null,
-      "pubDate": "2026-09-02T14:22:30.000Z"
+      "country": "DE",
+      "pubDate": "2026-09-04T14:53:27.000Z"
     },
     {
-      "id": "scrubadub-auto-wash-centers-aace",
-      "victim": "ScrubaDub Auto Wash Centers — claimed by akira",
-      "sector": "Retail & E-Commerce",
-      "country": "US",
-      "pubDate": "2026-09-02T13:52:50.000Z"
-    },
-    {
-      "id": "algra-group-488b",
-      "victim": "Algra Group — claimed by akira",
-      "sector": "Other",
-      "country": "NL",
-      "pubDate": "2026-09-02T13:52:47.000Z"
-    },
-    {
-      "id": "congressional-iron-works-5488",
-      "victim": "Congressional Iron Works — claimed by akira",
-      "sector": "Manufacturing",
-      "country": null,
-      "pubDate": "2026-09-01T15:21:40.000Z"
-    },
-    {
-      "id": "flex1-13e8",
-      "victim": "Flex1 — claimed by akira",
+      "id": "worrell-d5fc",
+      "victim": "Worrell — claimed by akira",
       "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-09-01T14:23:54.000Z"
-    },
-    {
-      "id": "byk-construction-3280",
-      "victim": "BYK Construction — claimed by akira",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-01T14:23:34.000Z"
+      "pubDate": "2026-09-04T13:51:54.000Z"
     }
   ]
 }

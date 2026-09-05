@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "dysphor1a",
+  "name": "dysphor1a",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-04T16:50:33.000Z",
+  "lastSeen": "2026-09-04T16:50:33.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-04",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "mbt-telecom-0438",
+      "title": "MBT Telecom — claimed by dysphor1a",
+      "pubDate": "2026-09-04T16:50:33.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "mbt-telecom-0438",
+      "victim": "MBT Telecom — claimed by dysphor1a",
+      "sector": "Technology",
+      "country": "MM",
+      "pubDate": "2026-09-04T16:50:33.000Z"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-03T10:03:12.021Z",
-  "eventCount": 7,
+  "syncedAt": "2026-09-05T09:12:53.867Z",
+  "eventCount": 8,
   "events": [
     {
       "uuid": "ae106e21-54bd-5134-83d4-1b439af152da",
@@ -29,8 +29,18 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "ae85ef96-f416-53d8-982b-5b0d64a8d237",
+      "info": "Critical Chrome Zero-Day CVE-2026-85046 Exploited in the Wild",
+      "date": "2026-09-04",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1788511544",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "1969ca65-8e08-5371-b569-a2f7a627b668",
-      "info": "SonicWall SMA1000 Faces Third Zero-Day Exploitation in 2026",
+      "info": "SonicWall SMA1000 Faces Critical Zero-Day Exploitation",
       "date": "2026-09-02",
       "analysis": "2",
       "threat_level_id": "1",

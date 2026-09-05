@@ -1,0 +1,171 @@
+{
+  "type": "group",
+  "slug": "settra",
+  "name": "settra",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 9,
+  "firstSeen": "2026-09-03T11:59:36.000Z",
+  "lastSeen": "2026-09-03T16:59:44.000Z",
+  "summary": "Ransomware group with 9 leak-site victims across 5 sectors and 6 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-03",
+      "count": 9
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ialegre-com-c4a8",
+      "title": "ialegre.com — claimed by settra",
+      "pubDate": "2026-09-03T16:59:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "verveportraits-com-au-36c4",
+      "title": "verveportraits.com.au — claimed by settra",
+      "pubDate": "2026-09-03T12:03:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "int-diasorin-com-2432",
+      "title": "int.diasorin.com — claimed by settra",
+      "pubDate": "2026-09-03T12:02:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hansler-com-7759",
+      "title": "hansler.com — claimed by settra",
+      "pubDate": "2026-09-03T12:02:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hvlawfirm-com-3d65",
+      "title": "hvlawfirm.com — claimed by settra",
+      "pubDate": "2026-09-03T12:01:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "teletekstructures-com-057d",
+      "title": "teletekstructures.com — claimed by settra",
+      "pubDate": "2026-09-03T12:01:16.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "medevolve-com-38e2",
+      "title": "medevolve.com — claimed by settra",
+      "pubDate": "2026-09-03T12:00:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "neolife-com-c0db",
+      "title": "neolife.com — claimed by settra",
+      "pubDate": "2026-09-03T12:00:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "buroboot-nl-de67",
+      "title": "buroboot.nl — claimed by settra",
+      "pubDate": "2026-09-03T11:59:36.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ialegre-com-c4a8",
+      "victim": "ialegre.com — claimed by settra",
+      "sector": "Other",
+      "country": "BR",
+      "pubDate": "2026-09-03T16:59:44.000Z"
+    },
+    {
+      "id": "verveportraits-com-au-36c4",
+      "victim": "verveportraits.com.au — claimed by settra",
+      "sector": "Retail & E-Commerce",
+      "country": "AU",
+      "pubDate": "2026-09-03T12:03:29.000Z"
+    },
+    {
+      "id": "int-diasorin-com-2432",
+      "victim": "int.diasorin.com — claimed by settra",
+      "sector": "Healthcare",
+      "country": "IT",
+      "pubDate": "2026-09-03T12:02:56.000Z"
+    },
+    {
+      "id": "hansler-com-7759",
+      "victim": "hansler.com — claimed by settra",
+      "sector": "Retail & E-Commerce",
+      "country": "DE",
+      "pubDate": "2026-09-03T12:02:23.000Z"
+    },
+    {
+      "id": "hvlawfirm-com-3d65",
+      "victim": "hvlawfirm.com — claimed by settra",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-03T12:01:49.000Z"
+    },
+    {
+      "id": "teletekstructures-com-057d",
+      "victim": "teletekstructures.com — claimed by settra",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-09-03T12:01:16.000Z"
+    },
+    {
+      "id": "medevolve-com-38e2",
+      "victim": "medevolve.com — claimed by settra",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-03T12:00:42.000Z"
+    },
+    {
+      "id": "neolife-com-c0db",
+      "victim": "neolife.com — claimed by settra",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-03T12:00:08.000Z"
+    },
+    {
+      "id": "buroboot-nl-de67",
+      "victim": "buroboot.nl — claimed by settra",
+      "sector": "Retail & E-Commerce",
+      "country": "NL",
+      "pubDate": "2026-09-03T11:59:36.000Z"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "emperador",
+  "name": "emperador",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-05T02:50:45.000Z",
+  "lastSeen": "2026-09-05T02:50:45.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-05",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "judicial-branch-of-the-province-of-jujuy-8da8",
+      "title": "Judicial Branch of the Province of Jujuy — claimed by emperador",
+      "pubDate": "2026-09-05T02:50:45.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "judicial-branch-of-the-province-of-jujuy-8da8",
+      "victim": "Judicial Branch of the Province of Jujuy — claimed by emperador",
+      "sector": "Government & Defense",
+      "country": "AR",
+      "pubDate": "2026-09-05T02:50:45.000Z"
+    }
+  ]
+}

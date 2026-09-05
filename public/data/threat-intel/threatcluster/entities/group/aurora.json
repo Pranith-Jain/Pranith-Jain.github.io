@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-02T06:52:31.000Z",
-  "lastSeen": "2026-09-02T06:52:31.000Z",
+  "firstSeen": "2026-09-04T06:53:59.000Z",
+  "lastSeen": "2026-09-04T06:53:59.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-02",
+      "date": "2026-09-04",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "chip-1-exchange-0c9d",
-      "title": "Chip 1 Exchange — claimed by aurora",
-      "pubDate": "2026-09-02T06:52:31.000Z"
+      "slug": "edif-s-p-a-1690",
+      "title": "EDIF S.p.A. — claimed by aurora",
+      "pubDate": "2026-09-04T06:53:59.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "chip-1-exchange-0c9d",
-      "victim": "Chip 1 Exchange — claimed by aurora",
-      "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-09-02T06:52:31.000Z"
+      "id": "edif-s-p-a-1690",
+      "victim": "EDIF S.p.A. — claimed by aurora",
+      "sector": "Manufacturing",
+      "country": "IT",
+      "pubDate": "2026-09-04T06:53:59.000Z"
     }
   ]
 }

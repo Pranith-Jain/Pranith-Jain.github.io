@@ -4,41 +4,29 @@
   "name": "Education",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-02T13:05:54.000Z",
-  "lastSeen": "2026-09-02T14:57:04.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-04T00:51:09.000Z",
+  "lastSeen": "2026-09-04T00:51:09.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-02",
-      "count": 2
+      "date": "2026-09-04",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "westfield-public-school-district-46a9",
-      "title": "Westfield Public School District — claimed by incransom",
-      "pubDate": "2026-09-02T14:57:04.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "uak-university-2a10",
-      "title": "Uak University — claimed by qilin",
-      "pubDate": "2026-09-02T13:05:54.000Z"
+      "slug": "hochschule-heilbronn-bildungscampus-c57d",
+      "title": "Hochschule Heilbronn Bildungscampus — claimed by panzer",
+      "pubDate": "2026-09-04T00:51:09.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "panzer",
+      "name": "panzer",
       "weight": 1
     }
   ],

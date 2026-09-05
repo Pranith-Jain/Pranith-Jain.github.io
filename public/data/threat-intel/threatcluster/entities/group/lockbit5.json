@@ -1,0 +1,75 @@
+{
+  "type": "group",
+  "slug": "lockbit5",
+  "name": "lockbit5",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-04T20:56:55.000Z",
+  "lastSeen": "2026-09-04T20:58:40.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-04",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pscindustries-com-93dd",
+      "title": "pscindustries.com — claimed by lockbit5",
+      "pubDate": "2026-09-04T20:58:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kalahealth-eu-df74",
+      "title": "kalahealth.eu — claimed by lockbit5",
+      "pubDate": "2026-09-04T20:57:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "huisartsencentrumkleiniterson-nl-8080",
+      "title": "huisartsencentrumkleiniterson.nl — claimed by lockbit5",
+      "pubDate": "2026-09-04T20:56:55.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "pscindustries-com-93dd",
+      "victim": "pscindustries.com — claimed by lockbit5",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-04T20:58:40.000Z"
+    },
+    {
+      "id": "kalahealth-eu-df74",
+      "victim": "kalahealth.eu — claimed by lockbit5",
+      "sector": "Healthcare",
+      "country": "DE",
+      "pubDate": "2026-09-04T20:57:31.000Z"
+    },
+    {
+      "id": "huisartsencentrumkleiniterson-nl-8080",
+      "victim": "huisartsencentrumkleiniterson.nl — claimed by lockbit5",
+      "sector": "Healthcare",
+      "country": "NL",
+      "pubDate": "2026-09-04T20:56:55.000Z"
+    }
+  ]
+}

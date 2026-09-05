@@ -1,0 +1,11 @@
+{
+  "slug": "coders-registry-compromised-to-distribute-malicious-terrafor-3b65b96d",
+  "title": "Coder's Registry Compromised to Distribute Malicious Terraform Modules",
+  "link": "https://threatcluster.io/cluster/coders-registry-compromised-to-distribute-malicious-terrafor-3b65b96d?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/coders-registry-compromised-to-distribute-malicious-terrafor-3b65b96d",
+  "pubDate": "2026-09-04T00:48:18.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "On August 31, 2026, Coder's Cloudflare infrastructure was compromised by an unidentified actor who added unauthorized IP addresses to the module registry.",
+  "sizeBytes": 154
+}

@@ -5,88 +5,88 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 4,
-  "firstSeen": "2026-09-01T21:22:04.000Z",
-  "lastSeen": "2026-09-02T23:21:12.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 1 country.",
+  "firstSeen": "2026-09-03T20:22:13.000Z",
+  "lastSeen": "2026-09-04T19:57:57.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-01",
-      "count": 1
+      "date": "2026-09-03",
+      "count": 3
     },
     {
-      "date": "2026-09-02",
-      "count": 3
+      "date": "2026-09-04",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "greenberg-traurig-0da6",
-      "title": "Greenberg Traurig — claimed by silentransomgroup",
-      "pubDate": "2026-09-02T23:21:12.000Z"
+      "slug": "h-c-c393",
+      "title": "H... C... — claimed by silentransomgroup",
+      "pubDate": "2026-09-04T19:57:57.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "g-g-4efa",
-      "title": "G... ...g — claimed by silentransomgroup",
-      "pubDate": "2026-09-02T19:53:13.000Z"
+      "slug": "katten-muchin-rosenman-269b",
+      "title": "Katten Muchin Rosenman — claimed by silentransomgroup",
+      "pubDate": "2026-09-03T20:23:46.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "s-m-c4f1",
-      "title": "S... M... — claimed by silentransomgroup",
-      "pubDate": "2026-09-02T19:52:07.000Z"
+      "slug": "p-s-677f",
+      "title": "P... S... — claimed by silentransomgroup",
+      "pubDate": "2026-09-03T20:23:20.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "holland-amp-knight-894f",
-      "title": "Holland &amp; Knight — claimed by silentransomgroup",
-      "pubDate": "2026-09-01T21:22:04.000Z"
+      "slug": "a-en-2157",
+      "title": "A...en — claimed by silentransomgroup",
+      "pubDate": "2026-09-03T20:22:13.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 2
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 3
     },
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 2
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "greenberg-traurig-0da6",
-      "victim": "Greenberg Traurig — claimed by silentransomgroup",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-02T23:21:12.000Z"
-    },
-    {
-      "id": "g-g-4efa",
-      "victim": "G... ...g — claimed by silentransomgroup",
+      "id": "h-c-c393",
+      "victim": "H... C... — claimed by silentransomgroup",
       "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-09-02T19:53:13.000Z"
+      "pubDate": "2026-09-04T19:57:57.000Z"
     },
     {
-      "id": "s-m-c4f1",
-      "victim": "S... M... — claimed by silentransomgroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-09-02T19:52:07.000Z"
-    },
-    {
-      "id": "holland-amp-knight-894f",
-      "victim": "Holland &amp; Knight — claimed by silentransomgroup",
+      "id": "katten-muchin-rosenman-269b",
+      "victim": "Katten Muchin Rosenman — claimed by silentransomgroup",
       "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-09-01T21:22:04.000Z"
+      "pubDate": "2026-09-03T20:23:46.000Z"
+    },
+    {
+      "id": "p-s-677f",
+      "victim": "P... S... — claimed by silentransomgroup",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-03T20:23:20.000Z"
+    },
+    {
+      "id": "a-en-2157",
+      "victim": "A...en — claimed by silentransomgroup",
+      "sector": "Not Found",
+      "country": "DE",
+      "pubDate": "2026-09-03T20:22:13.000Z"
     }
   ]
 }

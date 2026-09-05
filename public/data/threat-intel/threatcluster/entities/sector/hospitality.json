@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-02T12:22:01.000Z",
-  "lastSeen": "2026-09-02T12:22:01.000Z",
+  "firstSeen": "2026-09-03T12:51:32.000Z",
+  "lastSeen": "2026-09-03T12:51:32.000Z",
   "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-02",
+      "date": "2026-09-03",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "royal-plaza-on-scotts-b008",
-      "title": "Royal Plaza On Scotts — claimed by eclipse",
-      "pubDate": "2026-09-02T12:22:01.000Z"
+      "slug": "mcdonald-s-ecuador-f5f1",
+      "title": "McDonald's Ecuador — claimed by vexy ransomware",
+      "pubDate": "2026-09-03T12:51:32.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "eclipse",
-      "name": "eclipse",
+      "slug": "vexy-ransomware",
+      "name": "vexy ransomware",
       "weight": 1
     }
   ],

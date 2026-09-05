@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "auditteam",
+  "name": "auditteam",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-04T03:20:27.000Z",
+  "lastSeen": "2026-09-04T03:21:04.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-04",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "mansurovogroup-9c05",
+      "title": "mansurovogroup — claimed by auditteam",
+      "pubDate": "2026-09-04T03:21:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pit-local-ffc0",
+      "title": "PIT.local — claimed by auditteam",
+      "pubDate": "2026-09-04T03:20:27.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "mansurovogroup-9c05",
+      "victim": "mansurovogroup — claimed by auditteam",
+      "sector": "Other",
+      "country": "RU",
+      "pubDate": "2026-09-04T03:21:04.000Z"
+    },
+    {
+      "id": "pit-local-ffc0",
+      "victim": "PIT.local — claimed by auditteam",
+      "sector": "Not Found",
+      "country": "CO",
+      "pubDate": "2026-09-04T03:20:27.000Z"
+    }
+  ]
+}

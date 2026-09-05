@@ -4,29 +4,61 @@
   "name": "Government & Defense",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-02T14:25:42.000Z",
-  "lastSeen": "2026-09-02T14:25:42.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-03T11:51:28.000Z",
+  "lastSeen": "2026-09-05T02:50:45.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-02",
+      "date": "2026-09-03",
+      "count": 1
+    },
+    {
+      "date": "2026-09-04",
+      "count": 1
+    },
+    {
+      "date": "2026-09-05",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ville-de-libercourt-3fbf",
-      "title": "Ville de Libercourt — claimed by kairos",
-      "pubDate": "2026-09-02T14:25:42.000Z"
+      "slug": "judicial-branch-of-the-province-of-jujuy-8da8",
+      "title": "Judicial Branch of the Province of Jujuy — claimed by emperador",
+      "pubDate": "2026-09-05T02:50:45.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "commission-de-la-construction-du-quebec-ccq-3655",
+      "title": "Commission de la construction du Quebec (CCQ) — claimed by qilin",
+      "pubDate": "2026-09-04T11:30:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dinas-komunikasi-dan-informatika-1c4a",
+      "title": "Dinas Komunikasi dan Informatika — claimed by panzer",
+      "pubDate": "2026-09-03T11:51:28.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "kairos",
-      "name": "kairos",
+      "slug": "emperador",
+      "name": "emperador",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "panzer",
+      "name": "panzer",
       "weight": 1
     }
   ],

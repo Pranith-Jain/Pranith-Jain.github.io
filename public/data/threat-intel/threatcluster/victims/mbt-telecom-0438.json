@@ -1,0 +1,14 @@
+{
+  "id": "mbt-telecom-0438",
+  "victim": "MBT Telecom",
+  "group": "dysphor1a",
+  "sector": "Technology",
+  "country": "MM",
+  "title": "MBT Telecom — claimed by dysphor1a",
+  "link": "https://threatcluster.io/dark-web/victim/MBT%20Telecom",
+  "guid": "darkweb-victim:dysphor1a:mbt telecom",
+  "pubDate": "2026-09-04T16:50:33.000Z",
+  "categories": ["Group: dysphor1a", "Sector: Technology", "Country: MM"],
+  "description": "MM · Technology · Myanmar Broadband Telecom Co., Ltd. (MBT) is a leading fiber internet service provider and telecommunications network solutions company established in Myanmar in 2013. Full database compromise exposing 209,970 user records including PII, passwords, and device information.",
+  "sizeBytes": 290
+}

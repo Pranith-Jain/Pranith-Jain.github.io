@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-in-postgresql-affect-multiple-versi-dd4dfca7",
+  "title": "Critical Vulnerabilities in PostgreSQL Affect Multiple Versions",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-postgresql-affect-multiple-versi-dd4dfca7?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-postgresql-affect-multiple-versi-dd4dfca7",
+  "pubDate": "2026-09-03T16:45:53.000Z",
+  "sourceCount": 7,
+  "categories": ["7 Sources"],
+  "description": "On September 3, 2026, multiple security updates were released for PostgreSQL versions 14, 15, 16, and 18, addressing a total of 24 vulnerabilities.",
+  "sizeBytes": 147
+}

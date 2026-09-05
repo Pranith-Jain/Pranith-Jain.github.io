@@ -4,51 +4,81 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-01T12:14:30.000Z",
-  "lastSeen": "2026-09-02T23:21:12.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 1 country.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-03T12:01:49.000Z",
+  "lastSeen": "2026-09-04T06:59:19.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-01",
-      "count": 2
+      "date": "2026-09-03",
+      "count": 3
     },
     {
-      "date": "2026-09-02",
-      "count": 1
+      "date": "2026-09-04",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "greenberg-traurig-0da6",
-      "title": "Greenberg Traurig — claimed by silentransomgroup",
-      "pubDate": "2026-09-02T23:21:12.000Z"
+      "slug": "blanco-amp-etcheverry-920d",
+      "title": "Blanco &amp; Etcheverry — claimed by gunra",
+      "pubDate": "2026-09-04T06:59:19.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "holland-amp-knight-894f",
-      "title": "Holland &amp; Knight — claimed by silentransomgroup",
-      "pubDate": "2026-09-01T21:22:04.000Z"
+      "slug": "schwartz-giannini-lantsberger-amp-adamson-sgla-8cae",
+      "title": "Schwartz, Giannini, Lantsberger &amp; Adamson (SGLA) — claimed by spacebears",
+      "pubDate": "2026-09-04T00:03:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "careersource-palm-beach-county-a900",
-      "title": "CareerSource Palm Beach County — claimed by thegentlemen",
-      "pubDate": "2026-09-01T12:14:30.000Z"
+      "slug": "katten-muchin-rosenman-269b",
+      "title": "Katten Muchin Rosenman — claimed by silentransomgroup",
+      "pubDate": "2026-09-03T20:23:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "maglin-miskiv-amp-associates-6b0a",
+      "title": "Maglin, Miskiv &amp; Associates — claimed by insomnia",
+      "pubDate": "2026-09-03T14:27:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hvlawfirm-com-3d65",
+      "title": "hvlawfirm.com — claimed by settra",
+      "pubDate": "2026-09-03T12:01:49.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "silentransomgroup",
-      "name": "silentransomgroup",
-      "weight": 2
+      "slug": "gunra",
+      "name": "gunra",
+      "weight": 1
     },
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "spacebears",
+      "name": "spacebears",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "silentransomgroup",
+      "name": "silentransomgroup",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "insomnia",
+      "name": "insomnia",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "settra",
+      "name": "settra",
       "weight": 1
     }
   ],

@@ -1,0 +1,14 @@
+{
+  "id": "palsana-enviro-pepl-6278",
+  "victim": "Palsana Enviro (PEPL)",
+  "group": "vexy ransomware",
+  "sector": "Manufacturing",
+  "country": "IN",
+  "title": "Palsana Enviro (PEPL) — claimed by vexy ransomware",
+  "link": "https://threatcluster.io/dark-web/victim/Palsana%20Enviro%20%28PEPL%29",
+  "guid": "darkweb-victim:vexy ransomware:palsana enviro (pepl)",
+  "pubDate": "2026-09-04T16:23:53.000Z",
+  "categories": ["Group: vexy ransomware", "Sector: Manufacturing", "Country: IN"],
+  "description": "IN · Manufacturing · Environmental services company operating a Common Effluent Treatment Plant (CETP) for textile-processing industries. PEPL collects, treats and disposes of industrial wastewater and also recycles treated water for member industries. Its current stated treatment capacity is 150 MLD, with 50 MLD recycling capacity.",
+  "sizeBytes": 334
+}

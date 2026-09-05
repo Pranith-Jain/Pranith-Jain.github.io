@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "krybit",
+  "name": "krybit",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-03T12:54:58.000Z",
+  "lastSeen": "2026-09-03T12:54:58.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-03",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ligacancerguate-org-6403",
+      "title": "ligacancerguate.org — claimed by krybit",
+      "pubDate": "2026-09-03T12:54:58.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ligacancerguate-org-6403",
+      "victim": "ligacancerguate.org — claimed by krybit",
+      "sector": "Healthcare",
+      "country": "GT",
+      "pubDate": "2026-09-03T12:54:58.000Z"
+    }
+  ]
+}

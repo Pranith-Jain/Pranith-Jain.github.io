@@ -4,120 +4,40 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-01T15:53:54.000Z",
-  "lastSeen": "2026-09-02T17:53:21.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 5 sectors and 5 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-04T17:55:01.000Z",
+  "lastSeen": "2026-09-04T17:55:01.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-01",
-      "count": 3
-    },
-    {
-      "date": "2026-09-02",
-      "count": 2
+      "date": "2026-09-04",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "cartrack-holdings-a76f",
-      "title": "Cartrack Holdings — claimed by direwolf",
-      "pubDate": "2026-09-02T17:53:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ptt-oil-and-retail-business-b599",
-      "title": "PTT Oil and Retail Business — claimed by direwolf",
-      "pubDate": "2026-09-02T16:54:26.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "oportunidados-17ec",
-      "title": "Oportunidados — claimed by direwolf",
-      "pubDate": "2026-09-01T16:25:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "honeycomb-programs-inc-25e1",
-      "title": "Honeycomb Programs Inc — claimed by direwolf",
-      "pubDate": "2026-09-01T15:54:31.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "pt-intraco-penta-tbk-e54e",
-      "title": "PT Intraco Penta Tbk — claimed by direwolf",
-      "pubDate": "2026-09-01T15:53:54.000Z"
+      "slug": "wolfram-research-cd10",
+      "title": "Wolfram Research — claimed by direwolf",
+      "pubDate": "2026-09-04T17:55:01.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "cartrack-holdings-a76f",
-      "victim": "Cartrack Holdings — claimed by direwolf",
-      "sector": "Transportation",
-      "country": "ZA",
-      "pubDate": "2026-09-02T17:53:21.000Z"
-    },
-    {
-      "id": "ptt-oil-and-retail-business-b599",
-      "victim": "PTT Oil and Retail Business — claimed by direwolf",
-      "sector": "Energy & Utilities",
-      "country": "TH",
-      "pubDate": "2026-09-02T16:54:26.000Z"
-    },
-    {
-      "id": "oportunidados-17ec",
-      "victim": "Oportunidados — claimed by direwolf",
-      "sector": "Not Found",
-      "country": "BR",
-      "pubDate": "2026-09-01T16:25:03.000Z"
-    },
-    {
-      "id": "honeycomb-programs-inc-25e1",
-      "victim": "Honeycomb Programs Inc — claimed by direwolf",
-      "sector": "Other",
+      "id": "wolfram-research-cd10",
+      "victim": "Wolfram Research — claimed by direwolf",
+      "sector": "Technology",
       "country": "US",
-      "pubDate": "2026-09-01T15:54:31.000Z"
-    },
-    {
-      "id": "pt-intraco-penta-tbk-e54e",
-      "victim": "PT Intraco Penta Tbk — claimed by direwolf",
-      "sector": "Manufacturing",
-      "country": "ID",
-      "pubDate": "2026-09-01T15:53:54.000Z"
+      "pubDate": "2026-09-04T17:55:01.000Z"
     }
   ]
 }

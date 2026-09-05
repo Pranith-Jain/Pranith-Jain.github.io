@@ -1,0 +1,11 @@
+{
+  "slug": "north-korean-operators-target-developers-with-ottercookie-ma-94941d3a",
+  "title": "North Korean Operators Target Developers with OtterCookie Malware on macOS",
+  "link": "https://threatcluster.io/cluster/north-korean-operators-target-developers-with-ottercookie-ma-94941d3a?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/north-korean-operators-target-developers-with-ottercookie-ma-94941d3a",
+  "pubDate": "2026-09-04T18:57:07.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "A malware campaign identified by Jamf Threat Labs targets macOS developers using trojanized disk images and installer packages to deliver OtterCookie malware.",
+  "sizeBytes": 158
+}

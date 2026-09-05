@@ -1,0 +1,14 @@
+{
+  "id": "engefitas-80a3",
+  "victim": "Engefitas",
+  "group": "vexy ransomware",
+  "sector": "Manufacturing",
+  "country": "BR",
+  "title": "Engefitas — claimed by vexy ransomware",
+  "link": "https://threatcluster.io/dark-web/victim/Engefitas",
+  "guid": "darkweb-victim:vexy ransomware:engefitas",
+  "pubDate": "2026-09-03T09:54:12.000Z",
+  "categories": ["Group: vexy ransomware", "Sector: Manufacturing", "Country: BR"],
+  "description": "BR · Manufacturing · Engefitas is a Brazilian company that produces various adhesive tapes and adhesives for industries like packaging, automotive, construction, electronic, and manufacturing sectors.",
+  "sizeBytes": 200
+}

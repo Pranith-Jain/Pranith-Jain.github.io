@@ -1,0 +1,14 @@
+{
+  "id": "pit-local-ffc0",
+  "victim": "PIT.local",
+  "group": "auditteam",
+  "sector": "Not Found",
+  "country": "CO",
+  "title": "PIT.local — claimed by auditteam",
+  "link": "https://threatcluster.io/dark-web/victim/PIT.local",
+  "guid": "darkweb-victim:auditteam:pit.local",
+  "pubDate": "2026-09-04T03:20:27.000Z",
+  "categories": ["Group: auditteam", "Sector: Not Found", "Country: CO"],
+  "description": "CO · Not Found · unknown",
+  "sizeBytes": 24
+}
