@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-02T16:51:15.000Z",
-  "lastSeen": "2026-09-02T16:51:15.000Z",
+  "firstSeen": "2026-09-03T11:22:06.000Z",
+  "lastSeen": "2026-09-03T11:22:06.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-02",
+      "date": "2026-09-03",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ormond-beach-florida-3087",
-      "title": "Ormond Beach Florida — claimed by wallstreet",
-      "pubDate": "2026-09-02T16:51:15.000Z"
+      "slug": "america-s-food-basket-7bd0",
+      "title": "America’s Food Basket — claimed by wallstreet",
+      "pubDate": "2026-09-03T11:22:06.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "ormond-beach-florida-3087",
-      "victim": "Ormond Beach Florida — claimed by wallstreet",
-      "sector": "Not Found",
+      "id": "america-s-food-basket-7bd0",
+      "victim": "America’s Food Basket — claimed by wallstreet",
+      "sector": "Retail & E-Commerce",
       "country": "US",
-      "pubDate": "2026-09-02T16:51:15.000Z"
+      "pubDate": "2026-09-03T11:22:06.000Z"
     }
   ]
 }

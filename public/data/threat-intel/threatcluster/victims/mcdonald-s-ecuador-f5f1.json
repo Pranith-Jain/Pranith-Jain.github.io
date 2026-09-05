@@ -1,0 +1,14 @@
+{
+  "id": "mcdonald-s-ecuador-f5f1",
+  "victim": "McDonald's Ecuador",
+  "group": "vexy ransomware",
+  "sector": "Hospitality",
+  "country": "EC",
+  "title": "McDonald's Ecuador — claimed by vexy ransomware",
+  "link": "https://threatcluster.io/dark-web/victim/McDonald%27s%20Ecuador",
+  "guid": "darkweb-victim:vexy ransomware:mcdonald's ecuador",
+  "pubDate": "2026-09-03T12:51:32.000Z",
+  "categories": ["Group: vexy ransomware", "Sector: Hospitality", "Country: EC"],
+  "description": "EC · Hospitality · McDonald's Ecuador is the local franchise operation of the global McDonald's brand. The company operates fast-food restaurants across Ecuador, offering products such as burgers, fries, beverages, breakfast items, and children's meals. It operates under the McDonald's franchise model through Arcos Dorados, the largest McDonald's franchise operator in Latin America and the Caribbean.",
+  "sizeBytes": 403
+}

@@ -1,0 +1,14 @@
+{
+  "id": "edif-s-p-a-1690",
+  "victim": "EDIF S.p.A.",
+  "group": "aurora",
+  "sector": "Manufacturing",
+  "country": "IT",
+  "title": "EDIF S.p.A. — claimed by aurora",
+  "link": "https://threatcluster.io/dark-web/victim/EDIF%20S.p.A.",
+  "guid": "darkweb-victim:aurora:edif s.p.a.",
+  "pubDate": "2026-09-04T06:53:59.000Z",
+  "categories": ["Group: aurora", "Sector: Manufacturing", "Country: IT"],
+  "description": "IT · Manufacturing · [wholesale] EDIF S.p.A. is an Italian wholesale distributor of electrical equipment, plumbing, and lighting systems.\n\nThe exposed files include passwords for company systems, customer file transfers, certified email and warehouse devices. Copies appear in source code, setup packages and old folders.\n\nCustomer and employee information is also exposed: invoices, tax numbers, addresses, phone lists,",
+  "sizeBytes": 420
+}

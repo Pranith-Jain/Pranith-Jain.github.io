@@ -1,0 +1,11 @@
+{
+  "slug": "critical-dos-vulnerabilities-in-opensuse-nodejs20-b3f33268",
+  "title": "Critical DoS Vulnerabilities in openSUSE Node.js 20 Require Immediate Action",
+  "link": "https://threatcluster.io/cluster/critical-dos-vulnerabilities-in-opensuse-nodejs20-b3f33268?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-dos-vulnerabilities-in-opensuse-nodejs20-b3f33268",
+  "pubDate": "2026-09-03T16:56:54.000Z",
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
+  "description": "A significant security update for Node.js 20 in openSUSE addresses multiple denial of service DoS vulnerabilities. The update includes fixes for CVE-2025-22150, CVE-2026-6733, CVE-2026-9496, CVE-2026-…",
+  "sizeBytes": 201
+}

@@ -4,142 +4,40 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-02T09:58:49.000Z",
-  "lastSeen": "2026-09-02T14:57:43.000Z",
-  "summary": "Ransomware group with 7 leak-site victims across 5 sectors and 6 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-03T18:25:31.000Z",
+  "lastSeen": "2026-09-03T18:25:31.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-02",
-      "count": 7
+      "date": "2026-09-03",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "asfaltos-y-pavimentos-s-a-asfalpasa-8e4c",
-      "title": "Asfaltos y Pavimentos S.A. (Asfalpasa) — claimed by incransom",
-      "pubDate": "2026-09-02T14:57:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "westfield-public-school-district-46a9",
-      "title": "Westfield Public School District — claimed by incransom",
-      "pubDate": "2026-09-02T14:57:04.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "trucka-d9bf",
-      "title": "Trucka — claimed by incransom",
-      "pubDate": "2026-09-02T14:56:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "policlinico-triestino-602d",
-      "title": "Policlinico Triestino — claimed by incransom",
-      "pubDate": "2026-09-02T14:56:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "multiver-lt-e-59ce",
-      "title": "Multiver Ltée — claimed by incransom",
-      "pubDate": "2026-09-02T14:55:53.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "metales-panamericanos-8a48",
-      "title": "Metales Panamericanos — claimed by incransom",
-      "pubDate": "2026-09-02T14:55:35.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "specialtytextile-com-2db9",
-      "title": "specialtytextile.com — claimed by incransom",
-      "pubDate": "2026-09-02T09:58:49.000Z"
+      "slug": "myglobal-com-f39d",
+      "title": "myglobal.com — claimed by incransom",
+      "pubDate": "2026-09-03T18:25:31.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "education",
-      "name": "Education",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "other",
+      "name": "Other",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "asfaltos-y-pavimentos-s-a-asfalpasa-8e4c",
-      "victim": "Asfaltos y Pavimentos S.A. (Asfalpasa) — claimed by incransom",
-      "sector": "Manufacturing",
-      "country": "ES",
-      "pubDate": "2026-09-02T14:57:43.000Z"
-    },
-    {
-      "id": "westfield-public-school-district-46a9",
-      "victim": "Westfield Public School District — claimed by incransom",
-      "sector": "Education",
-      "country": "US",
-      "pubDate": "2026-09-02T14:57:04.000Z"
-    },
-    {
-      "id": "trucka-d9bf",
-      "victim": "Trucka — claimed by incransom",
-      "sector": "Transportation",
-      "country": "MX",
-      "pubDate": "2026-09-02T14:56:29.000Z"
-    },
-    {
-      "id": "policlinico-triestino-602d",
-      "victim": "Policlinico Triestino — claimed by incransom",
-      "sector": "Healthcare",
-      "country": "IT",
-      "pubDate": "2026-09-02T14:56:11.000Z"
-    },
-    {
-      "id": "multiver-lt-e-59ce",
-      "victim": "Multiver Ltée — claimed by incransom",
-      "sector": "Not Found",
-      "country": "CA",
-      "pubDate": "2026-09-02T14:55:53.000Z"
-    },
-    {
-      "id": "metales-panamericanos-8a48",
-      "victim": "Metales Panamericanos — claimed by incransom",
-      "sector": "Manufacturing",
-      "country": "PA",
-      "pubDate": "2026-09-02T14:55:35.000Z"
-    },
-    {
-      "id": "specialtytextile-com-2db9",
-      "victim": "specialtytextile.com — claimed by incransom",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-02T09:58:49.000Z"
+      "id": "myglobal-com-f39d",
+      "victim": "myglobal.com — claimed by incransom",
+      "sector": "Other",
+      "country": "MY",
+      "pubDate": "2026-09-03T18:25:31.000Z"
     }
   ]
 }

@@ -4,81 +4,127 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-01T14:23:34.000Z",
-  "lastSeen": "2026-09-02T14:57:43.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 3 ransomware groups and 4 countries.",
+  "mentionCount": 9,
+  "firstSeen": "2026-09-03T09:54:12.000Z",
+  "lastSeen": "2026-09-05T06:33:13.000Z",
+  "summary": "Sector hit by 9 leak-site victims across 8 ransomware groups and 7 countries.",
   "frequency": [
     {
-      "date": "2026-09-01",
-      "count": 3
+      "date": "2026-09-03",
+      "count": 1
     },
     {
-      "date": "2026-09-02",
-      "count": 4
+      "date": "2026-09-04",
+      "count": 5
+    },
+    {
+      "date": "2026-09-05",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "asfaltos-y-pavimentos-s-a-asfalpasa-8e4c",
-      "title": "Asfaltos y Pavimentos S.A. (Asfalpasa) — claimed by incransom",
-      "pubDate": "2026-09-02T14:57:43.000Z"
+      "slug": "-fdb6",
+      "title": "광명산업(주) — claimed by blacklocks",
+      "pubDate": "2026-09-05T06:33:13.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "metales-panamericanos-8a48",
-      "title": "Metales Panamericanos — claimed by incransom",
-      "pubDate": "2026-09-02T14:55:35.000Z"
+      "slug": "edgechem-jamaica-limited-8d8e",
+      "title": "EdgeChem Jamaica Limited — claimed by pear",
+      "pubDate": "2026-09-05T04:58:23.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "pennfab-a386",
-      "title": "PennFab — claimed by akira",
-      "pubDate": "2026-09-02T14:22:30.000Z"
+      "slug": "d-max-engineering-inc-db37",
+      "title": "D-MAX Engineering, Inc — claimed by spacebears",
+      "pubDate": "2026-09-05T04:29:03.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "specialtytextile-com-2db9",
-      "title": "specialtytextile.com — claimed by incransom",
-      "pubDate": "2026-09-02T09:58:49.000Z"
+      "slug": "pscindustries-com-93dd",
+      "title": "pscindustries.com — claimed by lockbit5",
+      "pubDate": "2026-09-04T20:58:40.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "pt-intraco-penta-tbk-e54e",
-      "title": "PT Intraco Penta Tbk — claimed by direwolf",
-      "pubDate": "2026-09-01T15:53:54.000Z"
+      "slug": "palsana-enviro-pepl-6278",
+      "title": "Palsana Enviro (PEPL) — claimed by vexy ransomware",
+      "pubDate": "2026-09-04T16:23:53.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "congressional-iron-works-5488",
-      "title": "Congressional Iron Works — claimed by akira",
-      "pubDate": "2026-09-01T15:21:40.000Z"
+      "slug": "stransky-heiz-mess-regeltechnik-gmbh-4e38",
+      "title": "Stransky Heiz-Mess-Regeltechnik GmbH — claimed by akira",
+      "pubDate": "2026-09-04T14:53:27.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "byk-construction-3280",
-      "title": "BYK Construction — claimed by akira",
-      "pubDate": "2026-09-01T14:23:34.000Z"
+      "slug": "edif-s-p-a-1690",
+      "title": "EDIF S.p.A. — claimed by aurora",
+      "pubDate": "2026-09-04T06:53:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "complete-packaging-solutions-1d30",
+      "title": "Complete Packaging Solutions — claimed by qilin",
+      "pubDate": "2026-09-04T01:31:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "engefitas-80a3",
+      "title": "Engefitas — claimed by vexy ransomware",
+      "pubDate": "2026-09-03T09:54:12.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 3
+      "slug": "vexy-ransomware",
+      "name": "vexy ransomware",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "blacklocks",
+      "name": "blacklocks",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "pear",
+      "name": "pear",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "spacebears",
+      "name": "spacebears",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "lockbit5",
+      "name": "lockbit5",
+      "weight": 1
     },
     {
       "type": "group",
       "slug": "akira",
       "name": "akira",
-      "weight": 3
+      "weight": 1
     },
     {
       "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
+      "slug": "aurora",
+      "name": "aurora",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 1
     }
   ],

@@ -1,0 +1,108 @@
+{
+  "type": "group",
+  "slug": "spacebears",
+  "name": "spacebears",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-09-03T22:59:43.000Z",
+  "lastSeen": "2026-09-05T04:29:03.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-03",
+      "count": 1
+    },
+    {
+      "date": "2026-09-04",
+      "count": 2
+    },
+    {
+      "date": "2026-09-05",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "d-max-engineering-inc-db37",
+      "title": "D-MAX Engineering, Inc — claimed by spacebears",
+      "pubDate": "2026-09-05T04:29:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sports-endeavors-dd33",
+      "title": "Sports Endeavors — claimed by spacebears",
+      "pubDate": "2026-09-04T17:33:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "schwartz-giannini-lantsberger-amp-adamson-sgla-8cae",
+      "title": "Schwartz, Giannini, Lantsberger &amp; Adamson (SGLA) — claimed by spacebears",
+      "pubDate": "2026-09-04T00:03:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "studio-oculistico-ciraci-1065",
+      "title": "Studio Oculistico Ciraci — claimed by spacebears",
+      "pubDate": "2026-09-03T22:59:43.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "d-max-engineering-inc-db37",
+      "victim": "D-MAX Engineering, Inc — claimed by spacebears",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-05T04:29:03.000Z"
+    },
+    {
+      "id": "sports-endeavors-dd33",
+      "victim": "Sports Endeavors — claimed by spacebears",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-04T17:33:43.000Z"
+    },
+    {
+      "id": "schwartz-giannini-lantsberger-amp-adamson-sgla-8cae",
+      "victim": "Schwartz, Giannini, Lantsberger &amp; Adamson (SGLA) — claimed by spacebears",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-04T00:03:09.000Z"
+    },
+    {
+      "id": "studio-oculistico-ciraci-1065",
+      "victim": "Studio Oculistico Ciraci — claimed by spacebears",
+      "sector": "Healthcare",
+      "country": "IT",
+      "pubDate": "2026-09-03T22:59:43.000Z"
+    }
+  ]
+}

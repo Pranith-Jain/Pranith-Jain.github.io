@@ -1,0 +1,66 @@
+{
+  "type": "group",
+  "slug": "panzer",
+  "name": "panzer",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-03T11:51:28.000Z",
+  "lastSeen": "2026-09-04T00:51:09.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-03",
+      "count": 1
+    },
+    {
+      "date": "2026-09-04",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "hochschule-heilbronn-bildungscampus-c57d",
+      "title": "Hochschule Heilbronn Bildungscampus — claimed by panzer",
+      "pubDate": "2026-09-04T00:51:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dinas-komunikasi-dan-informatika-1c4a",
+      "title": "Dinas Komunikasi dan Informatika — claimed by panzer",
+      "pubDate": "2026-09-03T11:51:28.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "hochschule-heilbronn-bildungscampus-c57d",
+      "victim": "Hochschule Heilbronn Bildungscampus — claimed by panzer",
+      "sector": "Education",
+      "country": "DE",
+      "pubDate": "2026-09-04T00:51:09.000Z"
+    },
+    {
+      "id": "dinas-komunikasi-dan-informatika-1c4a",
+      "victim": "Dinas Komunikasi dan Informatika — claimed by panzer",
+      "sector": "Government & Defense",
+      "country": "ID",
+      "pubDate": "2026-09-03T11:51:28.000Z"
+    }
+  ]
+}

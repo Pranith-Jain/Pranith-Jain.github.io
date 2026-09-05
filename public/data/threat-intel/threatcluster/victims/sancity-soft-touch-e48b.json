@@ -1,0 +1,14 @@
+{
+  "id": "sancity-soft-touch-e48b",
+  "victim": "Sancity Soft Touch",
+  "group": "vexy ransomware",
+  "sector": "Other",
+  "country": null,
+  "title": "Sancity Soft Touch — claimed by vexy ransomware",
+  "link": "https://threatcluster.io/dark-web/victim/Sancity%20Soft%20Touch",
+  "guid": "darkweb-victim:vexy ransomware:sancity soft touch",
+  "pubDate": "2026-09-04T16:23:12.000Z",
+  "categories": ["Group: vexy ransomware", "Sector: Other"],
+  "description": "Other · IT services company providing web design &amp; development, software/application development, payment gateway services, digital marketing, mobile applications, software testing and cloud-related services.",
+  "sizeBytes": 212
+}

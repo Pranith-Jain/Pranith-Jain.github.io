@@ -1,0 +1,11 @@
+{
+  "slug": "debian-firefox-esr-vulnerabilities-prompt-urgent-patching-fc204090",
+  "title": "Debian Firefox-ESR Vulnerabilities Prompt Urgent Patching",
+  "link": "https://threatcluster.io/cluster/debian-firefox-esr-vulnerabilities-prompt-urgent-patching-fc204090?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/debian-firefox-esr-vulnerabilities-prompt-urgent-patching-fc204090",
+  "pubDate": "2026-09-04T08:03:10.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Debian has released critical security updates for Firefox-ESR due to vulnerabilities including CVE-2026-16365, which was published on July 21, 2026.",
+  "sizeBytes": 148
+}

@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "blacklocks",
+  "name": "blacklocks",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-05T06:33:13.000Z",
+  "lastSeen": "2026-09-05T06:33:13.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-05",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "-fdb6",
+      "title": "광명산업(주) — claimed by blacklocks",
+      "pubDate": "2026-09-05T06:33:13.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "-fdb6",
+      "victim": "광명산업(주) — claimed by blacklocks",
+      "sector": "Manufacturing",
+      "country": "KR",
+      "pubDate": "2026-09-05T06:33:13.000Z"
+    }
+  ]
+}

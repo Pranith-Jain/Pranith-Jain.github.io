@@ -4,69 +4,57 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-01T12:10:28.000Z",
-  "lastSeen": "2026-09-02T13:21:21.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-03T12:01:16.000Z",
+  "lastSeen": "2026-09-04T17:55:01.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-01",
+      "date": "2026-09-03",
       "count": 1
     },
     {
-      "date": "2026-09-02",
-      "count": 3
+      "date": "2026-09-04",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "part1-simplexengg-in-6132",
-      "title": "part1.simplexengg.in — claimed by eclipse",
-      "pubDate": "2026-09-02T13:21:21.000Z"
+      "slug": "wolfram-research-cd10",
+      "title": "Wolfram Research — claimed by direwolf",
+      "pubDate": "2026-09-04T17:55:01.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "seasia-infotech-f420",
-      "title": "Seasia Infotech — claimed by thegentlemen",
-      "pubDate": "2026-09-02T10:30:50.000Z"
+      "slug": "mbt-telecom-0438",
+      "title": "MBT Telecom — claimed by dysphor1a",
+      "pubDate": "2026-09-04T16:50:33.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "chip-1-exchange-0c9d",
-      "title": "Chip 1 Exchange — claimed by aurora",
-      "pubDate": "2026-09-02T06:52:31.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "iwin-e352",
-      "title": "iwin — claimed by black x",
-      "pubDate": "2026-09-01T12:10:28.000Z"
+      "slug": "teletekstructures-com-057d",
+      "title": "teletekstructures.com — claimed by settra",
+      "pubDate": "2026-09-03T12:01:16.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "eclipse",
-      "name": "eclipse",
+      "slug": "direwolf",
+      "name": "direwolf",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "dysphor1a",
+      "name": "dysphor1a",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "aurora",
-      "name": "aurora",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "black-x",
-      "name": "black x",
+      "slug": "settra",
+      "name": "settra",
       "weight": 1
     }
   ],

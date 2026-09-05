@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "gunra",
+  "name": "gunra",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-04T06:58:59.000Z",
+  "lastSeen": "2026-09-04T06:59:19.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-04",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "blanco-amp-etcheverry-920d",
+      "title": "Blanco &amp; Etcheverry — claimed by gunra",
+      "pubDate": "2026-09-04T06:59:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "occidental-e854",
+      "title": "Occidental — claimed by gunra",
+      "pubDate": "2026-09-04T06:58:59.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "blanco-amp-etcheverry-920d",
+      "victim": "Blanco &amp; Etcheverry — claimed by gunra",
+      "sector": "Professional Services",
+      "country": "UY",
+      "pubDate": "2026-09-04T06:59:19.000Z"
+    },
+    {
+      "id": "occidental-e854",
+      "victim": "Occidental — claimed by gunra",
+      "sector": "Energy & Utilities",
+      "country": "VE",
+      "pubDate": "2026-09-04T06:58:59.000Z"
+    }
+  ]
+}

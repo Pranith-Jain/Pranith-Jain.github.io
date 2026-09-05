@@ -4,59 +4,97 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-02T05:01:37.000Z",
-  "lastSeen": "2026-09-02T13:05:54.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-04T01:30:43.000Z",
+  "lastSeen": "2026-09-04T14:32:00.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-02",
-      "count": 2
+      "date": "2026-09-04",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "uak-university-2a10",
-      "title": "Uak University — claimed by qilin",
-      "pubDate": "2026-09-02T13:05:54.000Z"
+      "slug": "ap-capital-partners-limited-1423",
+      "title": "AP CAPITAL PARTNERS LIMITED — claimed by qilin",
+      "pubDate": "2026-09-04T14:32:00.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "grayson-rural-electric-cooperative-f155",
-      "title": "Grayson Rural Electric Cooperative — claimed by qilin",
-      "pubDate": "2026-09-02T05:01:37.000Z"
+      "slug": "commission-de-la-construction-du-quebec-ccq-3655",
+      "title": "Commission de la construction du Quebec (CCQ) — claimed by qilin",
+      "pubDate": "2026-09-04T11:30:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "complete-packaging-solutions-1d30",
+      "title": "Complete Packaging Solutions — claimed by qilin",
+      "pubDate": "2026-09-04T01:31:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tanner-a87d",
+      "title": "Tanner — claimed by qilin",
+      "pubDate": "2026-09-04T01:30:43.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "education",
-      "name": "Education",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "uak-university-2a10",
-      "victim": "Uak University — claimed by qilin",
-      "sector": "Education",
-      "country": "TR",
-      "pubDate": "2026-09-02T13:05:54.000Z"
+      "id": "ap-capital-partners-limited-1423",
+      "victim": "AP CAPITAL PARTNERS LIMITED — claimed by qilin",
+      "sector": "Financial Services",
+      "country": null,
+      "pubDate": "2026-09-04T14:32:00.000Z"
     },
     {
-      "id": "grayson-rural-electric-cooperative-f155",
-      "victim": "Grayson Rural Electric Cooperative — claimed by qilin",
-      "sector": "Energy & Utilities",
-      "country": "US",
-      "pubDate": "2026-09-02T05:01:37.000Z"
+      "id": "commission-de-la-construction-du-quebec-ccq-3655",
+      "victim": "Commission de la construction du Quebec (CCQ) — claimed by qilin",
+      "sector": "Government & Defense",
+      "country": "CA",
+      "pubDate": "2026-09-04T11:30:59.000Z"
+    },
+    {
+      "id": "complete-packaging-solutions-1d30",
+      "victim": "Complete Packaging Solutions — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-04T01:31:29.000Z"
+    },
+    {
+      "id": "tanner-a87d",
+      "victim": "Tanner — claimed by qilin",
+      "sector": "Other",
+      "country": "CL",
+      "pubDate": "2026-09-04T01:30:43.000Z"
     }
   ]
 }

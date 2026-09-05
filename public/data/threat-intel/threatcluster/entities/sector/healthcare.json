@@ -4,73 +4,103 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-01T12:14:08.000Z",
-  "lastSeen": "2026-09-03T08:26:10.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-09-03T12:00:08.000Z",
+  "lastSeen": "2026-09-05T04:57:55.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 5 ransomware groups and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-01",
-      "count": 1
+      "date": "2026-09-03",
+      "count": 5
     },
     {
-      "date": "2026-09-02",
+      "date": "2026-09-04",
       "count": 2
     },
     {
-      "date": "2026-09-03",
+      "date": "2026-09-05",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "sites-medical-f06b",
-      "title": "SITES Medical — claimed by storm",
-      "pubDate": "2026-09-03T08:26:10.000Z"
+      "slug": "kovo-healthtech-corp-6870",
+      "title": "Kovo Healthtech Corp — claimed by pear",
+      "pubDate": "2026-09-05T04:57:55.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "policlinico-triestino-602d",
-      "title": "Policlinico Triestino — claimed by incransom",
-      "pubDate": "2026-09-02T14:56:11.000Z"
+      "slug": "kalahealth-eu-df74",
+      "title": "kalahealth.eu — claimed by lockbit5",
+      "pubDate": "2026-09-04T20:57:31.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "proliance-surgeons-2d89",
-      "title": "Proliance Surgeons — claimed by payoutsking",
-      "pubDate": "2026-09-02T10:27:51.000Z"
+      "slug": "huisartsencentrumkleiniterson-nl-8080",
+      "title": "huisartsencentrumkleiniterson.nl — claimed by lockbit5",
+      "pubDate": "2026-09-04T20:56:55.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "nutex-health-922e",
-      "title": "Nutex Health — claimed by thegentlemen",
-      "pubDate": "2026-09-01T12:14:08.000Z"
+      "slug": "studio-oculistico-ciraci-1065",
+      "title": "Studio Oculistico Ciraci — claimed by spacebears",
+      "pubDate": "2026-09-03T22:59:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ligacancerguate-org-6403",
+      "title": "ligacancerguate.org — claimed by krybit",
+      "pubDate": "2026-09-03T12:54:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "int-diasorin-com-2432",
+      "title": "int.diasorin.com — claimed by settra",
+      "pubDate": "2026-09-03T12:02:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "medevolve-com-38e2",
+      "title": "medevolve.com — claimed by settra",
+      "pubDate": "2026-09-03T12:00:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "neolife-com-c0db",
+      "title": "neolife.com — claimed by settra",
+      "pubDate": "2026-09-03T12:00:08.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "storm",
-      "name": "storm",
+      "slug": "settra",
+      "name": "settra",
+      "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "lockbit5",
+      "name": "lockbit5",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "pear",
+      "name": "pear",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
+      "slug": "spacebears",
+      "name": "spacebears",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "payoutsking",
-      "name": "payoutsking",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "krybit",
+      "name": "krybit",
       "weight": 1
     }
   ],

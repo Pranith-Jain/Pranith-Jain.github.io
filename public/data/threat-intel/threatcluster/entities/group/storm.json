@@ -4,14 +4,14 @@
   "name": "storm",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-09-03T08:26:10.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-03T08:30:21.000Z",
   "lastSeen": "2026-09-03T08:30:21.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 6 sectors and 3 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
       "date": "2026-09-03",
-      "count": 8
+      "count": 1
     }
   ],
   "recentActivity": [
@@ -20,85 +20,13 @@
       "slug": "petrocare-construction-626d",
       "title": "Petrocare Construction — claimed by storm",
       "pubDate": "2026-09-03T08:30:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "star-aviation-inc-fdcb",
-      "title": "Star Aviation, Inc — claimed by storm",
-      "pubDate": "2026-09-03T08:29:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gsac-auto-financing-24a5",
-      "title": "GSAC Auto Financing — claimed by storm",
-      "pubDate": "2026-09-03T08:29:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gsac-e078",
-      "title": "GSAC — claimed by storm",
-      "pubDate": "2026-09-03T08:28:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "superior-ag-fb3e",
-      "title": "Superior Ag — claimed by storm",
-      "pubDate": "2026-09-03T08:27:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "chicago-partners-wealth-advisors-7877",
-      "title": "Chicago Partners Wealth Advisors — claimed by storm",
-      "pubDate": "2026-09-03T08:27:12.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "macquarrie-fc59",
-      "title": "Macquarrie — claimed by storm",
-      "pubDate": "2026-09-03T08:26:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sites-medical-f06b",
-      "title": "SITES Medical — claimed by storm",
-      "pubDate": "2026-09-03T08:26:10.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 3
-    },
-    {
-      "type": "sector",
       "slug": "energy-utilities",
       "name": "Energy & Utilities",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
       "weight": 1
     }
   ],
@@ -110,55 +38,6 @@
       "sector": "Energy & Utilities",
       "country": "CA",
       "pubDate": "2026-09-03T08:30:21.000Z"
-    },
-    {
-      "id": "star-aviation-inc-fdcb",
-      "victim": "Star Aviation, Inc — claimed by storm",
-      "sector": "Transportation",
-      "country": "US",
-      "pubDate": "2026-09-03T08:29:49.000Z"
-    },
-    {
-      "id": "gsac-auto-financing-24a5",
-      "victim": "GSAC Auto Financing — claimed by storm",
-      "sector": "Financial Services",
-      "country": "US",
-      "pubDate": "2026-09-03T08:29:17.000Z"
-    },
-    {
-      "id": "gsac-e078",
-      "victim": "GSAC — claimed by storm",
-      "sector": "Not Found",
-      "country": "US",
-      "pubDate": "2026-09-03T08:28:17.000Z"
-    },
-    {
-      "id": "superior-ag-fb3e",
-      "victim": "Superior Ag — claimed by storm",
-      "sector": "Agriculture and Food Production",
-      "country": "US",
-      "pubDate": "2026-09-03T08:27:45.000Z"
-    },
-    {
-      "id": "chicago-partners-wealth-advisors-7877",
-      "victim": "Chicago Partners Wealth Advisors — claimed by storm",
-      "sector": "Financial Services",
-      "country": "US",
-      "pubDate": "2026-09-03T08:27:12.000Z"
-    },
-    {
-      "id": "macquarrie-fc59",
-      "victim": "Macquarrie — claimed by storm",
-      "sector": "Financial Services",
-      "country": "AU",
-      "pubDate": "2026-09-03T08:26:41.000Z"
-    },
-    {
-      "id": "sites-medical-f06b",
-      "victim": "SITES Medical — claimed by storm",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-09-03T08:26:10.000Z"
     }
   ]
 }
