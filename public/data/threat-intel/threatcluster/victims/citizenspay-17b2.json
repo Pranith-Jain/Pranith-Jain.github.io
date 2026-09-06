@@ -1,0 +1,14 @@
+{
+  "id": "citizenspay-17b2",
+  "victim": "CitizensPay",
+  "group": "dysphor1a",
+  "sector": "Financial Services",
+  "country": "MM",
+  "title": "CitizensPay — claimed by dysphor1a",
+  "link": "https://threatcluster.io/dark-web/victim/CitizensPay",
+  "guid": "darkweb-victim:dysphor1a:citizenspay",
+  "pubDate": "2026-09-05T15:50:36.000Z",
+  "categories": ["Group: dysphor1a", "Sector: Financial Services", "Country: MM"],
+  "description": "MM · Financial Services · Citizens Pay (also known as CTZPay) is a mobile digital wallet and payment platform in Myanmar powered by Myanmar Citizens Bank (MCB) and Capital Connect Limited. Compromised agent user information — total data size 30 GB. Price range $7,000 to $25,000. Victim domain https://ctzpay.com.",
+  "sizeBytes": 313
+}

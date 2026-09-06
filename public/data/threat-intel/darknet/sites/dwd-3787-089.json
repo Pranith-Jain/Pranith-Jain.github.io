@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-3787-089",
+  "name": "Dump.li",
+  "dwdId": "DWD-3787-089",
+  "category": "tools",
+  "url": "http://dumpliwoard5qsrrsroni7bdiishealhky4snigbzfmzcquwo3kml4id.onion",
+  "onion": "dumpliwoard5qsrrsroni7bdiishealhky4snigbzfmzcquwo3kml4id",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "148kb",
+  "fingerprint": "C53A2C9E",
+  "recommended": true,
+  "isOnion": true
+}

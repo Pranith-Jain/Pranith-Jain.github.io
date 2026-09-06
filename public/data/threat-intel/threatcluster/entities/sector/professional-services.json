@@ -5,20 +5,36 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 5,
-  "firstSeen": "2026-09-03T12:01:49.000Z",
-  "lastSeen": "2026-09-04T06:59:19.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 2 countries.",
+  "firstSeen": "2026-09-03T20:23:46.000Z",
+  "lastSeen": "2026-09-05T13:45:42.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-03",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2026-09-04",
       "count": 2
+    },
+    {
+      "date": "2026-09-05",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "bauman-law-group-c097",
+      "title": "Bauman Law Group — claimed by qilin",
+      "pubDate": "2026-09-05T13:45:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "nolan-consulting-group-51bf",
+      "title": "Nolan Consulting Group — claimed by qilin",
+      "pubDate": "2026-09-05T11:29:38.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "blanco-amp-etcheverry-920d",
@@ -36,21 +52,15 @@
       "slug": "katten-muchin-rosenman-269b",
       "title": "Katten Muchin Rosenman — claimed by silentransomgroup",
       "pubDate": "2026-09-03T20:23:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "maglin-miskiv-amp-associates-6b0a",
-      "title": "Maglin, Miskiv &amp; Associates — claimed by insomnia",
-      "pubDate": "2026-09-03T14:27:12.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hvlawfirm-com-3d65",
-      "title": "hvlawfirm.com — claimed by settra",
-      "pubDate": "2026-09-03T12:01:49.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 2
+    },
     {
       "type": "group",
       "slug": "gunra",
@@ -67,18 +77,6 @@
       "type": "group",
       "slug": "silentransomgroup",
       "name": "silentransomgroup",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "insomnia",
-      "name": "insomnia",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "settra",
-      "name": "settra",
       "weight": 1
     }
   ],

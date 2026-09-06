@@ -1,0 +1,11 @@
+{
+  "slug": "critical-buffer-overflows-in-vmware-and-freeipmi-expose-syst-d1a7e7b5",
+  "title": "Critical Buffer Overflows in VMware and FreeIPMI Expose Systems to Remote Code Execution",
+  "link": "https://threatcluster.io/cluster/critical-buffer-overflows-in-vmware-and-freeipmi-expose-syst-d1a7e7b5?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-buffer-overflows-in-vmware-and-freeipmi-expose-syst-d1a7e7b5",
+  "pubDate": "2026-09-06T03:40:02.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Broadcom has patched a critical vulnerability, CVE-2026-59346, in VMware Workstation and Fusion, allowing local attackers with elevated privileges to execute arbitrary code.",
+  "sizeBytes": 173
+}

@@ -4,17 +4,27 @@
   "name": "dysphor1a",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-04T16:50:33.000Z",
-  "lastSeen": "2026-09-04T16:50:33.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-05T15:50:36.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-09-04",
       "count": 1
+    },
+    {
+      "date": "2026-09-05",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "citizenspay-17b2",
+      "title": "CitizensPay — claimed by dysphor1a",
+      "pubDate": "2026-09-05T15:50:36.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mbt-telecom-0438",
@@ -25,6 +35,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "technology",
       "name": "Technology",
       "weight": 1
@@ -32,6 +48,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "citizenspay-17b2",
+      "victim": "CitizensPay — claimed by dysphor1a",
+      "sector": "Financial Services",
+      "country": "MM",
+      "pubDate": "2026-09-05T15:50:36.000Z"
+    },
     {
       "id": "mbt-telecom-0438",
       "victim": "MBT Telecom — claimed by dysphor1a",
