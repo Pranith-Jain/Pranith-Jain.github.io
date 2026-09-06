@@ -4,17 +4,27 @@
   "name": "aurora",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-04T06:53:59.000Z",
-  "lastSeen": "2026-09-04T06:53:59.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-05T09:53:15.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-04",
       "count": 1
+    },
+    {
+      "date": "2026-09-05",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "metrea-llc-commuter-air-technology-inc-1ca8",
+      "title": "Metrea LLC/Commuter Air Technology, Inc. — claimed by aurora",
+      "pubDate": "2026-09-05T09:53:15.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "edif-s-p-a-1690",
@@ -25,6 +35,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
       "weight": 1
@@ -32,6 +48,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "metrea-llc-commuter-air-technology-inc-1ca8",
+      "victim": "Metrea LLC/Commuter Air Technology, Inc. — claimed by aurora",
+      "sector": "Transportation",
+      "country": "US",
+      "pubDate": "2026-09-05T09:53:15.000Z"
+    },
     {
       "id": "edif-s-p-a-1690",
       "victim": "EDIF S.p.A. — claimed by aurora",

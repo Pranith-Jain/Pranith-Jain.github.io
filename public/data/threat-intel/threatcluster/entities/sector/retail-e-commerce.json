@@ -4,21 +4,33 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-03T11:22:06.000Z",
-  "lastSeen": "2026-09-04T17:33:43.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 4 ransomware groups and 5 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-04T16:23:32.000Z",
+  "lastSeen": "2026-09-05T18:30:24.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-03",
-      "count": 4
+      "date": "2026-09-04",
+      "count": 2
     },
     {
-      "date": "2026-09-04",
+      "date": "2026-09-05",
       "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "leo-schachter-diamonds-e12c",
+      "title": "Leo Schachter Diamonds — claimed by thegentlemen",
+      "pubDate": "2026-09-05T18:30:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "colonial-hyundai-7da1",
+      "title": "Colonial Hyundai — claimed by qilin",
+      "pubDate": "2026-09-05T11:29:05.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "sports-endeavors-dd33",
@@ -30,38 +42,20 @@
       "slug": "annapurna-fashion-6f76",
       "title": "Annapurna Fashion — claimed by vexy ransomware",
       "pubDate": "2026-09-04T16:23:32.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "verveportraits-com-au-36c4",
-      "title": "verveportraits.com.au — claimed by settra",
-      "pubDate": "2026-09-03T12:03:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hansler-com-7759",
-      "title": "hansler.com — claimed by settra",
-      "pubDate": "2026-09-03T12:02:23.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "buroboot-nl-de67",
-      "title": "buroboot.nl — claimed by settra",
-      "pubDate": "2026-09-03T11:59:36.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "america-s-food-basket-7bd0",
-      "title": "America’s Food Basket — claimed by wallstreet",
-      "pubDate": "2026-09-03T11:22:06.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "settra",
-      "name": "settra",
-      "weight": 3
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
     },
     {
       "type": "group",
@@ -73,12 +67,6 @@
       "type": "group",
       "slug": "vexy-ransomware",
       "name": "vexy ransomware",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "wallstreet",
-      "name": "wallstreet",
       "weight": 1
     }
   ],

@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-73d1-621",
+  "name": "Darknet Radio: CaptainBlackbeard",
+  "dwdId": "DWD-73D1-621",
+  "category": "news",
+  "url": "http://redcircle.com/shows/CaptainBlackbeard",
+  "onion": "redcircle.com/shows/CaptainBlackbeard",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "158kb",
+  "fingerprint": "B480C48C",
+  "recommended": true,
+  "isOnion": false
+}

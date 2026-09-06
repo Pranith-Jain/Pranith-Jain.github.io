@@ -1,0 +1,14 @@
+{
+  "id": "mega-velocity-d74d",
+  "victim": "Mega Velocity",
+  "group": "vexy ransomware",
+  "sector": "Transportation",
+  "country": "MX",
+  "title": "Mega Velocity — claimed by vexy ransomware",
+  "link": "https://threatcluster.io/dark-web/victim/Mega%20Velocity",
+  "guid": "darkweb-victim:vexy ransomware:mega velocity",
+  "pubDate": "2026-09-05T17:22:03.000Z",
+  "categories": ["Group: vexy ransomware", "Sector: Transportation", "Country: MX"],
+  "description": "MX · Transportation · New Delhi–based private technology company incorporated in 2013. Its registered business classification is software publishing, consultancy and supply, including software development, maintenance and web-page design. Its network records also identify MEGA VELOCITY PVT LTD as an Internet/hosting network operator.",
+  "sizeBytes": 335
+}
