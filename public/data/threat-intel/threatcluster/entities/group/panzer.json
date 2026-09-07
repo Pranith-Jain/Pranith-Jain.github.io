@@ -4,40 +4,59 @@
   "name": "panzer",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-04T00:51:09.000Z",
-  "lastSeen": "2026-09-04T00:51:09.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-06T10:51:32.000Z",
+  "lastSeen": "2026-09-06T12:22:23.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-04",
-      "count": 1
+      "date": "2026-09-06",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "hochschule-heilbronn-bildungscampus-c57d",
-      "title": "Hochschule Heilbronn Bildungscampus — claimed by panzer",
-      "pubDate": "2026-09-04T00:51:09.000Z"
+      "slug": "khaled-alfagih-engineering-consultancy-1b61",
+      "title": "KHALED ALFAGIH ENGINEERING CONSULTANCY — claimed by panzer",
+      "pubDate": "2026-09-06T12:22:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "edacentrum-2685",
+      "title": "Edacentrum — claimed by panzer",
+      "pubDate": "2026-09-06T10:51:32.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "education",
-      "name": "Education",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "hochschule-heilbronn-bildungscampus-c57d",
-      "victim": "Hochschule Heilbronn Bildungscampus — claimed by panzer",
-      "sector": "Education",
+      "id": "khaled-alfagih-engineering-consultancy-1b61",
+      "victim": "KHALED ALFAGIH ENGINEERING CONSULTANCY — claimed by panzer",
+      "sector": "Professional Services",
+      "country": "SA",
+      "pubDate": "2026-09-06T12:22:23.000Z"
+    },
+    {
+      "id": "edacentrum-2685",
+      "victim": "Edacentrum — claimed by panzer",
+      "sector": "Not Found",
       "country": "DE",
-      "pubDate": "2026-09-04T00:51:09.000Z"
+      "pubDate": "2026-09-06T10:51:32.000Z"
     }
   ]
 }

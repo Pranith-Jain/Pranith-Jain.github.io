@@ -1,11 +1,69 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-06T09:34:55Z",
-  "syncedAt": "2026-09-06T09:34:55.518Z",
+  "generatedAt": "2026-09-07T10:35:52Z",
+  "syncedAt": "2026-09-07T10:35:52.278Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
   "count": 126,
   "iocs": [
+    {
+      "type": "ipv4",
+      "value": "159.198.75.180",
+      "confidence": "high",
+      "reason": "Alert on connections to this IP suggests it is used for Mythic C2 operations.",
+      "first_seen": "2026-09-07T05:02:05+00:00",
+      "last_seen": "2026-09-07T05:02:05+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Redpacketsecurity",
+          "url": "https://www.redpacketsecurity.com/mythic-c2-detected-159-198-75-180-port-7443/",
+          "pub_date": "2026-09-07T05:02:05+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "img.monderhouse.space",
+      "confidence": "high",
+      "reason": "Described as a C2 host in the context",
+      "first_seen": "2026-09-04T14:51:13+00:00",
+      "last_seen": "2026-09-06T14:03:08.318415+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.rapid7.com",
+          "url": "https://www.rapid7.com/blog/post/tr-dprk-apts-ted-backdoor-curlrat-target-south-korean-media-automotive-sectors/",
+          "pub_date": "2026-09-06T14:03:08.318415+00:00"
+        },
+        {
+          "source": "Thehackernews",
+          "url": "https://thehackernews.com/2026/09/new-ted-backdoor-hides-inside-victims.html",
+          "pub_date": "2026-09-04T14:51:13+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "103.102.31.18",
+      "confidence": "high",
+      "reason": "Used in attempts to exploit vulnerabilities; identified as attacker infrastructure",
+      "first_seen": "2026-09-06T06:20:44+00:00",
+      "last_seen": "2026-09-06T13:46:02+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "Securityaffairs.Co",
+          "url": "https://securityaffairs.com/198538/security/your-mikrotik-router-may-already-be-compromised-look-for-ssh-user-2.html",
+          "pub_date": "2026-09-06T13:46:02+00:00"
+        },
+        {
+          "source": "Cert.Pl",
+          "url": "https://cert.pl/en/posts/2026/09/vulnerabilities-in-mikrotik-routeros-actively-exploited/",
+          "pub_date": "2026-09-06T06:20:44+00:00"
+        }
+      ]
+    },
     {
       "type": "ipv4",
       "value": "210.247.242.190",
@@ -103,27 +161,6 @@
           "source": "Bleepingcomputer",
           "url": "https://www.bleepingcomputer.com/news/security/coders-registry-infrastructure-compromised-to-push-malicious-modules/",
           "pub_date": "2026-09-03T20:42:31+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "img.monderhouse.space",
-      "confidence": "high",
-      "reason": "Described as a C2 host in the context",
-      "first_seen": "2026-09-04T14:51:13+00:00",
-      "last_seen": "2026-09-04T15:31:57.223581+00:00",
-      "source_count": 2,
-      "sources": [
-        {
-          "source": "www.rapid7.com",
-          "url": "https://www.rapid7.com/blog/post/tr-dprk-apts-ted-backdoor-curlrat-target-south-korean-media-automotive-sectors/",
-          "pub_date": "2026-09-04T15:31:57.223581+00:00"
-        },
-        {
-          "source": "Thehackernews",
-          "url": "https://thehackernews.com/2026/09/new-ted-backdoor-hides-inside-victims.html",
-          "pub_date": "2026-09-04T14:51:13+00:00"
         }
       ]
     },
@@ -2082,38 +2119,6 @@
           "source": "Securelist",
           "url": "https://securelist.com/project-cav3rn-continues/120991/",
           "pub_date": "2026-08-11T10:00:19+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "login.microsoft-secure-portal.com",
-      "confidence": "high",
-      "reason": "Clearly identified as an attacker-controlled domain.",
-      "first_seen": "2026-08-08T03:49:43.525813+00:00",
-      "last_seen": "2026-08-08T03:49:43.525813+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "hivesecurity.gitlab.io",
-          "url": "https://hivesecurity.gitlab.io/blog/aitm-phishing-mfa-bypass-evilginx/",
-          "pub_date": "2026-08-08T03:49:43.525813+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "185.242.3.238",
-      "confidence": "high",
-      "reason": "[article sweep] Observed sending SQL injection payloads to vulnerable endpoints",
-      "first_seen": "2026-08-08T00:42:00+00:00",
-      "last_seen": "2026-08-08T00:42:00+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "F5",
-          "url": "https://www.f5.com/labs/articles/cve-2026-63030-and-cve-2026-60137-wp2shell-captured-exploit-payload",
-          "pub_date": "2026-08-08T00:42:00+00:00"
         }
       ]
     }

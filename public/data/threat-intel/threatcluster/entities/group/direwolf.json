@@ -4,10 +4,10 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 4,
   "firstSeen": "2026-09-04T17:55:01.000Z",
-  "lastSeen": "2026-09-05T21:54:20.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "lastSeen": "2026-09-06T16:55:00.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-09-04",
@@ -16,9 +16,25 @@
     {
       "date": "2026-09-05",
       "count": 1
+    },
+    {
+      "date": "2026-09-06",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "eassist-dental-solutions-d00c",
+      "title": "eAssist Dental Solutions — claimed by direwolf",
+      "pubDate": "2026-09-06T16:55:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mylaurel-0c61",
+      "title": "myLaurel — claimed by direwolf",
+      "pubDate": "2026-09-06T11:53:36.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mission-pet-health-de03",
@@ -37,7 +53,7 @@
       "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
-      "weight": 1
+      "weight": 3
     },
     {
       "type": "sector",
@@ -48,6 +64,20 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "eassist-dental-solutions-d00c",
+      "victim": "eAssist Dental Solutions — claimed by direwolf",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-06T16:55:00.000Z"
+    },
+    {
+      "id": "mylaurel-0c61",
+      "victim": "myLaurel — claimed by direwolf",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-06T11:53:36.000Z"
+    },
     {
       "id": "mission-pet-health-de03",
       "victim": "Mission Pet Health — claimed by direwolf",

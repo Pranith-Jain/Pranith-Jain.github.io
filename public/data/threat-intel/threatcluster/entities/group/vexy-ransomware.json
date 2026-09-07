@@ -4,10 +4,10 @@
   "name": "vexy ransomware",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
+  "mentionCount": 7,
   "firstSeen": "2026-09-04T16:23:12.000Z",
-  "lastSeen": "2026-09-06T08:21:33.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 5 sectors and 3 countries.",
+  "lastSeen": "2026-09-07T08:22:00.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 6 sectors and 5 countries.",
   "frequency": [
     {
       "date": "2026-09-04",
@@ -19,10 +19,26 @@
     },
     {
       "date": "2026-09-06",
+      "count": 2
+    },
+    {
+      "date": "2026-09-07",
       "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "libreria-santa-fe-a-p-s-srl-29f3",
+      "title": "LIBRERIA SANTA FE A P S SRL — claimed by vexy ransomware",
+      "pubDate": "2026-09-07T08:22:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sancity-c1ee",
+      "title": "Sancity — claimed by vexy ransomware",
+      "pubDate": "2026-09-06T15:00:28.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mcdonalds-ecuador-d656",
@@ -57,6 +73,18 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "hospitality",
       "name": "Hospitality",
       "weight": 1
@@ -75,19 +103,27 @@
     },
     {
       "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "libreria-santa-fe-a-p-s-srl-29f3",
+      "victim": "LIBRERIA SANTA FE A P S SRL — claimed by vexy ransomware",
+      "sector": "Retail & E-Commerce",
+      "country": "AR",
+      "pubDate": "2026-09-07T08:22:00.000Z"
+    },
+    {
+      "id": "sancity-c1ee",
+      "victim": "Sancity — claimed by vexy ransomware",
+      "sector": "Other",
+      "country": "IN",
+      "pubDate": "2026-09-06T15:00:28.000Z"
+    },
     {
       "id": "mcdonalds-ecuador-d656",
       "victim": "McDonalds Ecuador — claimed by vexy ransomware",
@@ -119,8 +155,8 @@
     {
       "id": "sancity-soft-touch-e48b",
       "victim": "Sancity Soft Touch — claimed by vexy ransomware",
-      "sector": "Other",
-      "country": null,
+      "sector": "Technology",
+      "country": "US",
       "pubDate": "2026-09-04T16:23:12.000Z"
     }
   ]

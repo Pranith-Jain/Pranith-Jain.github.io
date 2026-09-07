@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "chaos",
+  "name": "chaos",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-06T13:25:44.000Z",
+  "lastSeen": "2026-09-06T13:25:44.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-06",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "evergenbio-com-74ca",
+      "title": "evergenbio.com — claimed by chaos",
+      "pubDate": "2026-09-06T13:25:44.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "evergenbio-com-74ca",
+      "victim": "evergenbio.com — claimed by chaos",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-06T13:25:44.000Z"
+    }
+  ]
+}

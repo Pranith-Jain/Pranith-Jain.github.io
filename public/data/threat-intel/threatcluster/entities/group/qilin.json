@@ -4,14 +4,14 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 11,
-  "firstSeen": "2026-09-04T01:30:43.000Z",
+  "mentionCount": 8,
+  "firstSeen": "2026-09-04T14:32:00.000Z",
   "lastSeen": "2026-09-05T13:46:22.000Z",
-  "summary": "Ransomware group with 11 leak-site victims across 9 sectors and 6 countries.",
+  "summary": "Ransomware group with 8 leak-site victims across 7 sectors and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-04",
-      "count": 4
+      "count": 1
     },
     {
       "date": "2026-09-05",
@@ -66,24 +66,6 @@
       "slug": "ap-capital-partners-limited-1423",
       "title": "AP CAPITAL PARTNERS LIMITED — claimed by qilin",
       "pubDate": "2026-09-04T14:32:00.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "commission-de-la-construction-du-quebec-ccq-3655",
-      "title": "Commission de la construction du Quebec (CCQ) — claimed by qilin",
-      "pubDate": "2026-09-04T11:30:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "complete-packaging-solutions-1d30",
-      "title": "Complete Packaging Solutions — claimed by qilin",
-      "pubDate": "2026-09-04T01:31:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tanner-a87d",
-      "title": "Tanner — claimed by qilin",
-      "pubDate": "2026-09-04T01:30:43.000Z"
     }
   ],
   "relatedEntities": [
@@ -95,14 +77,14 @@
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     },
     {
@@ -127,18 +109,6 @@
       "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
       "weight": 1
     }
   ],
@@ -199,27 +169,6 @@
       "sector": "Financial Services",
       "country": null,
       "pubDate": "2026-09-04T14:32:00.000Z"
-    },
-    {
-      "id": "commission-de-la-construction-du-quebec-ccq-3655",
-      "victim": "Commission de la construction du Quebec (CCQ) — claimed by qilin",
-      "sector": "Government & Defense",
-      "country": "CA",
-      "pubDate": "2026-09-04T11:30:59.000Z"
-    },
-    {
-      "id": "complete-packaging-solutions-1d30",
-      "victim": "Complete Packaging Solutions — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": null,
-      "pubDate": "2026-09-04T01:31:29.000Z"
-    },
-    {
-      "id": "tanner-a87d",
-      "victim": "Tanner — claimed by qilin",
-      "sector": "Other",
-      "country": "CL",
-      "pubDate": "2026-09-04T01:30:43.000Z"
     }
   ]
 }

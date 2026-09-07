@@ -1,0 +1,28 @@
+{
+  "slug": "vexy-ransomware",
+  "family": "Vexy Ransomware",
+  "category": "ransomware",
+  "aliases": [],
+  "firstSeen": null,
+  "mitreTechniques": [],
+  "indicatorCount": 2,
+  "description": "💡INTEL",
+  "sizeBytes": 443,
+  "indicators": [
+    {
+      "type": "onion",
+      "value": "vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    }
+  ],
+  "context": "💡INTEL\n========\n📌Initially spotted in September 2026\n📌$200 is the Joining Fees to view the Leaks, which is suspecious\n📌As per victimology, India is listed with 2 counts, totalling 6 Victims in September 2026\n\nDLS: vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion\nServer: Apache/2.4.68 (Debian)\n\nBTC: bc1qqvgke5qyuqu852587gxtz5pwthpn4tmzwckgvf\nTOX: C32355C829A3CC4B320D4E78634FB4113B4B2918B383BB7AEAA48BDAAA4A0146E99B45A2A4C9\n",
+  "references": [],
+  "llmSummary": null
+}
