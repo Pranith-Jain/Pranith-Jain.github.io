@@ -1,14 +1,24 @@
 {
   "source": "agentic-ai-daily-reports.netlify.app",
   "license": "MIT",
-  "generatedAt": "2026-09-06",
+  "generatedAt": "2026-09-07",
   "counts": {
-    "cyber": 25,
-    "deepfake": 29,
+    "cyber": 26,
+    "deepfake": 30,
     "disaster": 27,
     "maritime": 24
   },
   "briefs": [
+    {
+      "type": "cyber",
+      "date": "2026-09-06",
+      "sizeBytes": 7761
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-09-06",
+      "sizeBytes": 5271
+    },
     {
       "type": "cyber",
       "date": "2026-09-05",
