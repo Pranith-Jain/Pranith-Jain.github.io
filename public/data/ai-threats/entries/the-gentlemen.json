@@ -1,0 +1,13 @@
+{
+  "slug": "the-gentlemen",
+  "name": "The Gentlemen",
+  "akas": "Unknown",
+  "brief": "Sophos, describing the lightest-touch tier of its AI autonomy gradient (a human using generative AI to produce an artifact and deploying it manually, noted alongside a threat actor targeting Mexican government organizations that used Claude Code and GPT to generate scripts): \"Leaked chats from The Gentlemen ransomware group confirmed similar applications.\" Sophos X-Ops *Analyst note: this single sentence is the full extent of Sophos's reporting on this group's AI use — no detail, no model, no dates, and no campaign window is stated, so Activity Span is recorded as Unknown rather than inferred. Included on the strength of the named actor plus leaked-chat evidence; expand if better primary reporting emerges.*",
+  "ttps": ["T1587", "T1588"],
+  "categories": ["LLM-aided development", "LLM-enhanced scripting techniques"],
+  "reported": "Jul 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 716,
+  "ttpMd": "**LLM-aided development** T1587 - Develop Capabilities<br><br>**LLM-enhanced scripting techniques** T1588 - Develop Capabilities: Tool"
+}
