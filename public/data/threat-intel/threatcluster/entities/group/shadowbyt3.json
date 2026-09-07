@@ -1,0 +1,56 @@
+{
+  "type": "group",
+  "slug": "shadowbyt3",
+  "name": "shadowbyt3$",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-07T03:52:12.000Z",
+  "lastSeen": "2026-09-07T03:52:12.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-07",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ben-leeds-properties-warning-c6f4",
+      "title": "Ben Leeds Properties WARNING — claimed by shadowbyt3$",
+      "pubDate": "2026-09-07T03:52:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ben-leeds-properties-87a6",
+      "title": "Ben Leeds Properties — claimed by shadowbyt3$",
+      "pubDate": "2026-09-07T03:52:12.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 2
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ben-leeds-properties-warning-c6f4",
+      "victim": "Ben Leeds Properties WARNING — claimed by shadowbyt3$",
+      "sector": "Other",
+      "country": "GB",
+      "pubDate": "2026-09-07T03:52:12.000Z"
+    },
+    {
+      "id": "ben-leeds-properties-87a6",
+      "victim": "Ben Leeds Properties — claimed by shadowbyt3$",
+      "sector": "Other",
+      "country": "GB",
+      "pubDate": "2026-09-07T03:52:12.000Z"
+    }
+  ]
+}

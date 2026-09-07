@@ -5,52 +5,50 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 3,
-  "firstSeen": "2026-09-04T01:30:43.000Z",
-  "lastSeen": "2026-09-04T16:23:12.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "firstSeen": "2026-09-06T15:00:28.000Z",
+  "lastSeen": "2026-09-07T03:52:12.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-04",
-      "count": 3
+      "date": "2026-09-06",
+      "count": 1
+    },
+    {
+      "date": "2026-09-07",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "sancity-soft-touch-e48b",
-      "title": "Sancity Soft Touch — claimed by vexy ransomware",
-      "pubDate": "2026-09-04T16:23:12.000Z"
+      "slug": "ben-leeds-properties-warning-c6f4",
+      "title": "Ben Leeds Properties WARNING — claimed by shadowbyt3$",
+      "pubDate": "2026-09-07T03:52:12.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mansurovogroup-9c05",
-      "title": "mansurovogroup — claimed by auditteam",
-      "pubDate": "2026-09-04T03:21:04.000Z"
+      "slug": "ben-leeds-properties-87a6",
+      "title": "Ben Leeds Properties — claimed by shadowbyt3$",
+      "pubDate": "2026-09-07T03:52:12.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "tanner-a87d",
-      "title": "Tanner — claimed by qilin",
-      "pubDate": "2026-09-04T01:30:43.000Z"
+      "slug": "sancity-c1ee",
+      "title": "Sancity — claimed by vexy ransomware",
+      "pubDate": "2026-09-06T15:00:28.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "shadowbyt3",
+      "name": "shadowbyt3$",
+      "weight": 2
+    },
+    {
+      "type": "group",
       "slug": "vexy-ransomware",
       "name": "vexy ransomware",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "auditteam",
-      "name": "auditteam",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
       "weight": 1
     }
   ],

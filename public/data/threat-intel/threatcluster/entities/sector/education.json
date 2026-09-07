@@ -5,31 +5,31 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-04T00:51:09.000Z",
-  "lastSeen": "2026-09-05T21:29:42.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "firstSeen": "2026-09-05T21:29:42.000Z",
+  "lastSeen": "2026-09-07T04:54:10.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 1 ransomware group and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-04",
+      "date": "2026-09-05",
       "count": 1
     },
     {
-      "date": "2026-09-05",
+      "date": "2026-09-07",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "spirit-cultural-exchange-us-d713",
-      "title": "Spirit Cultural Exchange - US — claimed by kazu",
-      "pubDate": "2026-09-05T21:29:42.000Z"
+      "slug": "msm-unify-global-education-platform-ca-7822",
+      "title": "MSM Unify: Global Education Platform - CA — claimed by kazu",
+      "pubDate": "2026-09-07T04:54:10.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "hochschule-heilbronn-bildungscampus-c57d",
-      "title": "Hochschule Heilbronn Bildungscampus — claimed by panzer",
-      "pubDate": "2026-09-04T00:51:09.000Z"
+      "slug": "spirit-cultural-exchange-us-d713",
+      "title": "Spirit Cultural Exchange - US — claimed by kazu",
+      "pubDate": "2026-09-05T21:29:42.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,13 +37,7 @@
       "type": "group",
       "slug": "kazu",
       "name": "kazu",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "panzer",
-      "name": "panzer",
-      "weight": 1
+      "weight": 2
     }
   ],
   "mitreTechniques": []

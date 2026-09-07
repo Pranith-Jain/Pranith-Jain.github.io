@@ -4,15 +4,11 @@
   "name": "silentransomgroup",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-03T20:22:13.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-04T19:57:57.000Z",
   "lastSeen": "2026-09-04T19:57:57.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 2 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
-    {
-      "date": "2026-09-03",
-      "count": 3
-    },
     {
       "date": "2026-09-04",
       "count": 1
@@ -24,24 +20,6 @@
       "slug": "h-c-c393",
       "title": "H... C... — claimed by silentransomgroup",
       "pubDate": "2026-09-04T19:57:57.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "katten-muchin-rosenman-269b",
-      "title": "Katten Muchin Rosenman — claimed by silentransomgroup",
-      "pubDate": "2026-09-03T20:23:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "p-s-677f",
-      "title": "P... S... — claimed by silentransomgroup",
-      "pubDate": "2026-09-03T20:23:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "a-en-2157",
-      "title": "A...en — claimed by silentransomgroup",
-      "pubDate": "2026-09-03T20:22:13.000Z"
     }
   ],
   "relatedEntities": [
@@ -49,12 +27,6 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
       "weight": 1
     }
   ],
@@ -66,27 +38,6 @@
       "sector": "Not Found",
       "country": null,
       "pubDate": "2026-09-04T19:57:57.000Z"
-    },
-    {
-      "id": "katten-muchin-rosenman-269b",
-      "victim": "Katten Muchin Rosenman — claimed by silentransomgroup",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-03T20:23:46.000Z"
-    },
-    {
-      "id": "p-s-677f",
-      "victim": "P... S... — claimed by silentransomgroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-09-03T20:23:20.000Z"
-    },
-    {
-      "id": "a-en-2157",
-      "victim": "A...en — claimed by silentransomgroup",
-      "sector": "Not Found",
-      "country": "DE",
-      "pubDate": "2026-09-03T20:22:13.000Z"
     }
   ]
 }
