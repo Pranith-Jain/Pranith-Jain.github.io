@@ -1,0 +1,119 @@
+{
+  "type": "cyber",
+  "date": "2026-09-07",
+  "threatLevel": "",
+  "executiveSummary": "Active OT targeting: Multiple U.S. government advisories confirm ongoing exploitation of internet-exposed PLCs in Water/Wastewater, Energy, and other sectors-actors modified logic/alarms and probed Siemens S7 controllers with AI-generated scripts over S7comm/TCP 102. View Advisory View Advisory Hacktivist disruption risk: Pro-Russia groups opportunistically access VNC-exposed HMIs/SCADA, manipulating setpoints and disabling alarms; U.S. and allied agencies urge immediate removal of internet-facing VNC and hardening of HMIs. View Advisory High-risk edge devices: Public PoC RCE on NetScaler ADC/Gateway (CVE-2026-8452), widespread FortiGate credential/config leakage (\"FortiBleed\"), and active MikroTik SSH takeover chains (\"MikroTrick\") elevate initial-access risk to OT perimeters. View Advisory View Advisory View Advisory Priority OT vendor advisories: Schneider Electric session-hijack across Easergy/PowerLogic; Inductive Automation Ignition default-permission issue enabling unauthorized project creation; Pyramid NetStaX EtherNet/IP stack overflow affecting many embedded devices. CISA ICS Advisory CISA ICS Advisory CISA ICS Advisory Router tradecraft & nation-state activity: Joint CSAs highlight Chinese and Russian state-supported operations abusing backbone/edge routers, Smart Install/SNMP weaknesses, and covert SOHO/IoT networks to pre-position and pivot toward CI. CSA CSA CSA CISA weekly bulletins flag multiple OT-impacting CVEs (Delta PLCs, OPC UA stacks, smart meters, EV charging, railway signaling) requiring rapid, risk-based remediation. Week of Jun 29 Week of Aug 3 Week of Aug 24",
+  "keyFindings": [
+    {
+      "title": "Iranian-affiliated APTs accessed PLCs and modified logic/alarms across U.S. CI; ",
+      "summary": "Iranian-affiliated APTs accessed PLCs and modified logic/alarms across U.S. CI; immediate removal of internet exposure and logic integrity checks are mandated. View Advisory"
+    },
+    {
+      "title": "AI-generated scripts targeting Siemens S7 PLCs over snap7/S7comm are observed in",
+      "summary": "AI-generated scripts targeting Siemens S7 PLCs over snap7/S7comm are observed in the wild-patch S7 devices, block TCP/102 at perimeters, and enforce protection levels. View Advisory"
+    },
+    {
+      "title": "NetScaler ADC/Gateway CVE-2026-8452 pre-auth RCE (public PoC) enables web-shell ",
+      "summary": "NetScaler ADC/Gateway CVE-2026-8452 pre-auth RCE (public PoC) enables web-shell drops; patch now and hunt SAML abuse and theme PHP artifacts. View Advisory"
+    },
+    {
+      "title": "Active MikroTik RouterOS compromise chains (\"MikroTrick\") grant unauth SSH contr",
+      "summary": "Active MikroTik RouterOS compromise chains (\"MikroTrick\") grant unauth SSH control; update to fixed releases, restrict management plane, and rebuild if flagged/compromised. View Advisory"
+    },
+    {
+      "title": "Schneider Electric relay/automation products vulnerable to session hijacking (CV",
+      "summary": "Schneider Electric relay/automation products vulnerable to session hijacking (CVE-2026-4827)-patch and shorten inactivity timeouts in substations and water networks. CISA ICS Advisory"
+    },
+    {
+      "title": "Ignition ≤8.1.53 allows unauthorized project creation if default role is unset-u",
+      "summary": "Ignition ≤8.1.53 allows unauthorized project creation if default role is unset-upgrade to 8.1.54+/8.3 and align Gateway security settings. CISA ICS Advisory"
+    },
+    {
+      "title": "EtherNet/IP NetStaX stack overflow affects multiple embedded OT devices; update ",
+      "summary": "EtherNet/IP NetStaX stack overflow affects multiple embedded OT devices; update to v5.6.1 and filter abnormal Class-3 explicit messages. CISA ICS Advisory"
+    },
+    {
+      "title": "Pro-Russia hacktivists weaponize exposed VNC on HMIs-remove public VNC, enforce ",
+      "summary": "Pro-Russia hacktivists weaponize exposed VNC on HMIs-remove public VNC, enforce MFA via jump hosts, and monitor setpoint/alarm changes. View Advisory"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall OT Cyber Threat Level"
+      },
+      {
+        "value": "Late Aug - Early Sep 2026",
+        "label": "Latest Reporting Window"
+      },
+      {
+        "value": "ESCALATE: 15+ | MONITOR: 35+ | IGNORE: 25+",
+        "label": "Event Triage (approx.)"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Schneider Electric (Easergy, PowerLogic, Saitel, EPAS/EPO) Inductive Automation (Ignition) Pyramid Solutions (NetStaX EtherNet/IP) Siemens (S7-series PLCs, TIA Portal/STEP7) Rockwell Automation (CompactLogix/Micro800; ControlFLASH; ArmorStart LT) Delta Electronics (DVP PLCs, DTMSoft) NetScaler/Citrix (ADC/Gateway SAML) Fortinet (FortiGate credential/config leakage) MikroTik RouterOS (SSH/WebFig/btest) OPC UA stacks (Eclipse Milo, LDS) EV Charging (EVbee, Autel), Railway signaling (Frauscher), Smart metering (Baylan)"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy (transmission/distribution; generation) Critical Manufacturing; Transportation (rail); Telecom Government/Local administration; Food & Agriculture"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iranian-affiliated APT targeting PLCs (logic/alarms changes; AOI tampering in Rockwell; Modbus/CIP/S7 paths). View Advisory",
+        "Pro-Russia hacktivists (CARR, Z-Pentest, NoName057(16), Sector16) abusing VNC on HMIs causing loss-of-view and unsafe changes. View Advisory",
+        "Chinese state-sponsored operations abusing backbone/edge routers to pre-position in CI. CSA",
+        "FSB Center 16 exploiting SMI/SNMP/router hygiene weaknesses at CI perimeters. CSA",
+        "Head Mare APT exploiting TrueConf servers to deploy backdoors and pivot-risk to enterprise gateways near OT. View Report",
+        "Gunra ransomware RaaS abusing Fortinet edge and exfil via M365 (OneDrive/SharePoint); backup destruction for impact. #StopRansomware"
+      ]
+    }
+  ],
+  "relevance": "Current reporting substantiates active, multi-actor interest in industrial control environments. Nation-state and hacktivist groups are leveraging weak external surfaces (ADC/VPN/routers, VNC, exposed PLCs) and AI-assisted tooling to accelerate reconnaissance and exploitation. Multiple vendor advisories (Schneider Electric, Inductive Automation, Pyramid NetStaX) directly affect protection relays, RTUs, HMIs/SCADA gateways, and embedded EtherNet/IP stacks widely deployed in substations, water treatment, and manufacturing. Weekly CISA bulletins further add exploitable conditions across OPC UA, PLCs, EVSE, railway signaling, and smart metering. The most credible near-term disruption paths are (1) logic/manipulation of exposed PLCs; (2) VNC-enabled HMI interaction; and (3) identity/edge compromise cascading into OT DMZs.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Schneider Electric Easergy/PowerLogic session hijack (CVE-2026-4827): patch per product line. CISA ICS",
+        "Inductive Automation Ignition ≤8.1.53 default-perm → unauthorized project creation. CISA ICS",
+        "Pyramid NetStaX EtherNet/IP overflow-embedded devices crash/compromise; update to v5.6.1. CISA ICS",
+        "Delta PLCs/OPC UA stacks/Smart meters/EVSE/Railway signaling multi-CVE sets. SB26-187 SB26-222 SB26-243",
+        "NetScaler ADC/Gateway CVE-2026-8452 RCE-no workaround; patch and hunt. JPCERT/CC",
+        "MikroTik RouterOS (multi-CVE) actively exploited; fix and rebuild if compromised. CERT Polska"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Public-facing app & edge exploitation (T1190, T1133); Valid accounts (T1078)",
+      "Router/Switch abuse (config exfil via SNMP/TFTP); Smart Install misuse",
+      "Service creation & web shells on ADC/TrueConf (T1505, T1053)",
+      "Protocol abuse: S7comm/ENIP/Modbus (manipulate logic/setpoints; T0891 ICS matrix)",
+      "Exposed VNC for HMI manipulation (T1021.004)",
+      "Data exfil via cloud apps (OneDrive/SharePoint; T1567.002)"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1133",
+      "T1078",
+      "T1505",
+      "T1053",
+      "T0891",
+      "T1021.004",
+      "T1567.002"
+    ]
+  },
+  "outlook72h": "Accelerate patching and exposure removal on NetScaler, MikroTik, FortiGate, and internet-facing HMIs/VNC servers. Inventory Siemens S7 assets; implement TCP/102 controls and S7 protection levels; begin continuous S7comm anomaly detection. Roll out Schneider, Ignition, and NetStaX updates in controlled maintenance windows; validate functionality in staging before cutover. Enable targeted hunts for web-shells (ADC), unauthorized router config exports, and PLC logic diffs vs. golden images. Increase operator vigilance: alert engineering/operations teams to stop unplanned logic downloads and investigate unexpected setpoint/alarm changes.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-4827",
+    "CVE-2026-18478",
+    "CVE-2026-64960"
+  ]
+}
