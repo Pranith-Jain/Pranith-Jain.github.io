@@ -278,6 +278,28 @@
     "indexed_at": "2026-08-25T05:13:50.484Z"
   },
   {
+    "id": "CIAD-2026-0008",
+    "published_at": "2026-02-17",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [
+      "Intel® Atom® Server SoCs (P5000",
+      "C5000",
+      "P6000 families) Intel® Xeon® Processors",
+      "including: 4th and 5th Gen Xeon® Scalable processors Intel® Xeon® 6 processors (P-core and E-core variants",
+      "including SoCs) Intel® Server Boards and Firmware Packages",
+      "including affected BIOS and System Firmware Update Packages (SFUP) Intel® Server Firmware Update Utility (SysFwUpdt)",
+      "Core¿ Ultra",
+      "Pentium® Gold",
+      "and Celeron® processors running impacted firmware versions Note: For a complete list",
+      "refer to the OEM advisory given in the references section."
+    ],
+    "description": "Multiple vulnerabilities have been identified in certain Intel® products. These vulnerabilities could allow an attacker to gain elevated privileges, access sensitive information, or cause denial-of-service conditions on the affected systems.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0008",
+    "summary": "HIGH severity · affects 10 products",
+    "indexed_at": "2026-09-08T09:36:45.464Z"
+  },
+  {
     "id": "CIAD-2026-0007",
     "published_at": "2026-02-13",
     "severity": "high",
@@ -291,6 +313,17 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0007",
     "summary": "HIGH severity · 1 CVE · affects 1 product",
     "indexed_at": "2026-08-25T05:13:38.114Z"
+  },
+  {
+    "id": "CIAD-2026-0006",
+    "published_at": "2026-02-12",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; Details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0006",
+    "summary": "HIGH severity",
+    "indexed_at": "2026-09-08T09:36:43.247Z"
   },
   {
     "id": "CIAD-2026-0003",
@@ -585,6 +618,23 @@
     "indexed_at": "2026-08-25T05:11:30.383Z"
   },
   {
+    "id": "CIAD-2025-0037",
+    "published_at": "2025-10-16",
+    "severity": "high",
+    "cves": [
+      "CVE-2025-24990",
+      "CVE-2025-47827",
+      "CVE-2025-59230"
+    ],
+    "products_affected": [
+      "Open Source Software Apps Windows ESU Developer Tools Microsoft Office SQL Server Server Software System Center Azure"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products which could allow an attacker to gain elevated privileges, obtain Information Disclosure, Bypass Security restriction, and conduct remote code execution attacks, perform spoofing attacks, cause denial of service condition or tamper with system settings.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0037",
+    "summary": "HIGH severity · 3 CVEs · affects 1 product",
+    "indexed_at": "2026-09-08T09:34:44.909Z"
+  },
+  {
     "id": "CIAD-2025-0034",
     "published_at": "2025-09-25",
     "severity": "high",
@@ -617,6 +667,19 @@
     "indexed_at": "2026-08-25T05:10:34.529Z"
   },
   {
+    "id": "CIAD-2025-0031",
+    "published_at": "2025-09-16",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [
+      "Apple iOS and iPadOS"
+    ],
+    "description": "Apple https://support.apple.com/en-us/125108 https://support.apple.com/en-us/125109 https://support.apple.com/en-us/125141 https://support.apple.com/en-us/125142 https://support.apple.com/en-us/125110 https://support.apple.com/en-us/125111 https://support.apple.com/en-us/125112 https://support.apple.com/en-us/125114 https://support.apple.com/en-us/125116 https://support.apple.com/en-us/125115 https://support.apple.com/en-us/125113 https://support.apple.com/en-us/125117",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0031",
+    "summary": "HIGH severity · affects 1 product",
+    "indexed_at": "2026-09-08T09:34:11.745Z"
+  },
+  {
     "id": "CIAD-2025-0030",
     "published_at": "2025-09-10",
     "severity": "high",
@@ -626,6 +689,45 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0030",
     "summary": "HIGH severity",
     "indexed_at": "2026-06-22T11:45:05.851Z"
+  },
+  {
+    "id": "CIAD-2025-0029",
+    "published_at": "2025-09-09",
+    "severity": "critical",
+    "cves": [
+      "CVE-2023-27500",
+      "CVE-2023-5072",
+      "CVE-2024-13009",
+      "CVE-2025-22228",
+      "CVE-2025-27428",
+      "CVE-2025-42911",
+      "CVE-2025-42912",
+      "CVE-2025-42913",
+      "CVE-2025-42914",
+      "CVE-2025-42915",
+      "CVE-2025-42916",
+      "CVE-2025-42917",
+      "CVE-2025-42918",
+      "CVE-2025-42920",
+      "CVE-2025-42922",
+      "CVE-2025-42923",
+      "CVE-2025-42925",
+      "CVE-2025-42926",
+      "CVE-2025-42927",
+      "CVE-2025-42929",
+      "CVE-2025-42930",
+      "CVE-2025-42933",
+      "CVE-2025-42938",
+      "CVE-2025-42941",
+      "CVE-2025-42944",
+      "CVE-2025-42958",
+      "CVE-2025-42961"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0029",
+    "summary": "CRITICAL severity · 27 CVEs",
+    "indexed_at": "2026-09-08T09:34:09.592Z"
   },
   {
     "id": "CIAD-2025-0026",
@@ -770,6 +872,24 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0017",
     "summary": "CRITICAL severity · 23 CVEs",
     "indexed_at": "2026-08-25T05:09:12.475Z"
+  },
+  {
+    "id": "CIAD-2025-0016",
+    "published_at": "2025-04-25",
+    "severity": "high",
+    "cves": [
+      "CVE-2019-10172",
+      "CVE-2021-33813",
+      "CVE-2024-57699",
+      "CVE-2025-24970"
+    ],
+    "products_affected": [
+      "Bamboo Data Center and Server Confluence Data Center and Server Jira Data Center and Server Jira Service Management Data Center and Server"
+    ],
+    "description": "Atlassian products are used by software development teams, IT operations, project management professionals and business teams. Some of the products in the Atlassian suite include Jira, Confluence, Trello and Bamboo.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0016",
+    "summary": "HIGH severity · 4 CVEs · affects 1 product",
+    "indexed_at": "2026-09-08T09:33:04.108Z"
   },
   {
     "id": "CIAD-2025-0015",
