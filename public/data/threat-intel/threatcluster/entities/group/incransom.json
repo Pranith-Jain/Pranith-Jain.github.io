@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "incransom",
+  "name": "incransom",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-07T18:59:19.000Z",
+  "lastSeen": "2026-09-07T18:59:19.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-07",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "wellness-partners-network-combined-revenue-8b55",
+      "title": "Wellness Partners network(combined revenue) — claimed by incransom",
+      "pubDate": "2026-09-07T18:59:19.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "wellness-partners-network-combined-revenue-8b55",
+      "victim": "Wellness Partners network(combined revenue) — claimed by incransom",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-07T18:59:19.000Z"
+    }
+  ]
+}

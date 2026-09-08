@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "interlock",
+  "name": "interlock",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-07T15:31:55.000Z",
+  "lastSeen": "2026-09-07T15:31:55.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-07",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "nfm-lending-a271",
+      "title": "NFM Lending — claimed by interlock",
+      "pubDate": "2026-09-07T15:31:55.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "nfm-lending-a271",
+      "victim": "NFM Lending — claimed by interlock",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-09-07T15:31:55.000Z"
+    }
+  ]
+}

@@ -1,11 +1,80 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-07T10:35:52Z",
-  "syncedAt": "2026-09-07T10:35:52.278Z",
+  "generatedAt": "2026-09-08T09:58:45Z",
+  "syncedAt": "2026-09-08T09:58:45.429Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 126,
+  "count": 129,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "img.monderhouse.space",
+      "confidence": "high",
+      "reason": "Described as a C2 host in the context",
+      "first_seen": "2026-09-04T14:51:13+00:00",
+      "last_seen": "2026-09-08T09:47:09.066877+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.rapid7.com",
+          "url": "https://www.rapid7.com/blog/post/tr-dprk-apts-ted-backdoor-curlrat-target-south-korean-media-automotive-sectors/",
+          "pub_date": "2026-09-08T09:47:09.066877+00:00"
+        },
+        {
+          "source": "Thehackernews",
+          "url": "https://thehackernews.com/2026/09/new-ted-backdoor-hides-inside-victims.html",
+          "pub_date": "2026-09-04T14:51:13+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "login.evil-domain.com",
+      "confidence": "high",
+      "reason": "Phishing domain used in Evilginx2 attack to proxy traffic and capture session cookies.",
+      "first_seen": "2026-09-07T16:39:25+00:00",
+      "last_seen": "2026-09-07T16:39:25+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Cloudsek",
+          "url": "https://www.cloudsek.com/blog/tracking-bigbear-2-0-evilginx2-phishing-campaign",
+          "pub_date": "2026-09-07T16:39:25+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "2.147.68.96",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as a command-and-control IP address for DragonForce campaign",
+      "first_seen": "2026-09-07T11:47:55+00:00",
+      "last_seen": "2026-09-07T11:47:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Dexpose",
+          "url": "https://www.dexpose.io/dragonforce-ransomware/",
+          "pub_date": "2026-09-07T11:47:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "69.4.234.20",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as a command-and-control IP address for DragonForce campaign",
+      "first_seen": "2026-09-07T11:47:55+00:00",
+      "last_seen": "2026-09-07T11:47:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Dexpose",
+          "url": "https://www.dexpose.io/dragonforce-ransomware/",
+          "pub_date": "2026-09-07T11:47:55+00:00"
+        }
+      ]
+    },
     {
       "type": "ipv4",
       "value": "159.198.75.180",
@@ -19,27 +88,6 @@
           "source": "Redpacketsecurity",
           "url": "https://www.redpacketsecurity.com/mythic-c2-detected-159-198-75-180-port-7443/",
           "pub_date": "2026-09-07T05:02:05+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "img.monderhouse.space",
-      "confidence": "high",
-      "reason": "Described as a C2 host in the context",
-      "first_seen": "2026-09-04T14:51:13+00:00",
-      "last_seen": "2026-09-06T14:03:08.318415+00:00",
-      "source_count": 2,
-      "sources": [
-        {
-          "source": "www.rapid7.com",
-          "url": "https://www.rapid7.com/blog/post/tr-dprk-apts-ted-backdoor-curlrat-target-south-korean-media-automotive-sectors/",
-          "pub_date": "2026-09-06T14:03:08.318415+00:00"
-        },
-        {
-          "source": "Thehackernews",
-          "url": "https://thehackernews.com/2026/09/new-ted-backdoor-hides-inside-victims.html",
-          "pub_date": "2026-09-04T14:51:13+00:00"
         }
       ]
     },
