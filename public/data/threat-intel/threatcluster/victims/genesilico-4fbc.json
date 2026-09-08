@@ -1,0 +1,14 @@
+{
+  "id": "genesilico-4fbc",
+  "victim": "GENESILICO",
+  "group": "everest",
+  "sector": "Technology",
+  "country": "IT",
+  "title": "GENESILICO — claimed by everest",
+  "link": "https://threatcluster.io/dark-web/victim/GENESILICO",
+  "guid": "darkweb-victim:everest:genesilico",
+  "pubDate": "2026-09-07T15:28:22.000Z",
+  "categories": ["Group: everest", "Sector: Technology", "Country: IT"],
+  "description": "IT · Technology · [AI generated] GeneSilico is a Polish bioinformatics company based in Warsaw, operating within the life sciences and computational biology sector. It specializes in RNA and protein structure prediction, molecular modeling, and bioinformatics software development. The company provides research services and tools to academic and pharmaceutical clients, supporting drug discovery and genomic research.",
+  "sizeBytes": 418
+}

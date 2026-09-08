@@ -1,0 +1,14 @@
+{
+  "id": "jinny-beauty-supply-0407",
+  "victim": "Jinny Beauty Supply",
+  "group": "aurora",
+  "sector": "Retail & E-Commerce",
+  "country": "US",
+  "title": "Jinny Beauty Supply — claimed by aurora",
+  "link": "https://threatcluster.io/dark-web/victim/Jinny%20Beauty%20Supply",
+  "guid": "darkweb-victim:aurora:jinny beauty supply",
+  "pubDate": "2026-09-07T14:25:08.000Z",
+  "categories": ["Group: aurora", "Sector: Retail & E-Commerce", "Country: US"],
+  "description": "US · Retail &amp; E-Commerce · [distributors] Jinny Beauty Supply is one of the largest Korean-American wholesale beauty distributors in the US, operating 9 distribution centers from Doraville, Georgia to Commerce, California. They serve 7,400+ beauty supply stores and 2,800+ international distributors.\n\nThe exposed material includes:\n\nA complete password vault export — 50+ plaintext credentials for PayPal, Braintree, Amazon Se",
+  "sizeBytes": 431
+}

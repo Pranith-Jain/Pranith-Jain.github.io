@@ -4,15 +4,11 @@
   "name": "kazu",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-05T21:29:42.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-07T04:54:10.000Z",
   "lastSeen": "2026-09-07T04:54:10.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 2 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-05",
-      "count": 1
-    },
     {
       "date": "2026-09-07",
       "count": 1
@@ -24,12 +20,6 @@
       "slug": "msm-unify-global-education-platform-ca-7822",
       "title": "MSM Unify: Global Education Platform - CA — claimed by kazu",
       "pubDate": "2026-09-07T04:54:10.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "spirit-cultural-exchange-us-d713",
-      "title": "Spirit Cultural Exchange - US — claimed by kazu",
-      "pubDate": "2026-09-05T21:29:42.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,7 +27,7 @@
       "type": "sector",
       "slug": "education",
       "name": "Education",
-      "weight": 2
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
@@ -48,13 +38,6 @@
       "sector": "Education",
       "country": "CA",
       "pubDate": "2026-09-07T04:54:10.000Z"
-    },
-    {
-      "id": "spirit-cultural-exchange-us-d713",
-      "victim": "Spirit Cultural Exchange - US — claimed by kazu",
-      "sector": "Education",
-      "country": "US",
-      "pubDate": "2026-09-05T21:29:42.000Z"
     }
   ]
 }

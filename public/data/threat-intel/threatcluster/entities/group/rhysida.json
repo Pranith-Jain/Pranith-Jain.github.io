@@ -1,0 +1,66 @@
+{
+  "type": "group",
+  "slug": "rhysida",
+  "name": "rhysida",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-07T17:01:07.000Z",
+  "lastSeen": "2026-09-08T06:02:10.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-07",
+      "count": 1
+    },
+    {
+      "date": "2026-09-08",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "sad-s-interim-db2c",
+      "title": "SAD'S Interim — claimed by rhysida",
+      "pubDate": "2026-09-08T06:02:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "rug-amp-home-20f3",
+      "title": "Rug &amp; Home — claimed by rhysida",
+      "pubDate": "2026-09-07T17:01:07.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "sad-s-interim-db2c",
+      "victim": "SAD'S Interim — claimed by rhysida",
+      "sector": "Professional Services",
+      "country": "FR",
+      "pubDate": "2026-09-08T06:02:10.000Z"
+    },
+    {
+      "id": "rug-amp-home-20f3",
+      "victim": "Rug &amp; Home — claimed by rhysida",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-07T17:01:07.000Z"
+    }
+  ]
+}

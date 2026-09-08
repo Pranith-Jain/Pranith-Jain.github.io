@@ -4,171 +4,59 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-09-04T14:32:00.000Z",
-  "lastSeen": "2026-09-05T13:46:22.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 7 sectors and 4 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-07T12:04:38.000Z",
+  "lastSeen": "2026-09-07T21:36:28.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-04",
-      "count": 1
-    },
-    {
-      "date": "2026-09-05",
-      "count": 7
+      "date": "2026-09-07",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "philippine-ports-authority-c3ab",
-      "title": "Philippine Ports Authority — claimed by qilin",
-      "pubDate": "2026-09-05T13:46:22.000Z"
+      "slug": "partners-group-sk-16f2",
+      "title": "Partners Group SK — claimed by qilin",
+      "pubDate": "2026-09-07T21:36:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "bauman-law-group-c097",
-      "title": "Bauman Law Group — claimed by qilin",
-      "pubDate": "2026-09-05T13:45:42.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "jouvet-sas-e0c3",
-      "title": "Jouvet SAS — claimed by qilin",
-      "pubDate": "2026-09-05T11:30:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "g-amp-s-technologies-7e0d",
-      "title": "G&amp;S Technologies — claimed by qilin",
-      "pubDate": "2026-09-05T11:30:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "nolan-consulting-group-51bf",
-      "title": "Nolan Consulting Group — claimed by qilin",
-      "pubDate": "2026-09-05T11:29:38.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "colonial-hyundai-7da1",
-      "title": "Colonial Hyundai — claimed by qilin",
-      "pubDate": "2026-09-05T11:29:05.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "the-big-table-3c90",
-      "title": "The Big Table — claimed by qilin",
-      "pubDate": "2026-09-05T11:28:34.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ap-capital-partners-limited-1423",
-      "title": "AP CAPITAL PARTNERS LIMITED — claimed by qilin",
-      "pubDate": "2026-09-04T14:32:00.000Z"
+      "slug": "jbc-a5cf",
+      "title": "Jbc — claimed by qilin",
+      "pubDate": "2026-09-07T12:04:38.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
-      "weight": 1
-    },
-    {
-      "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "philippine-ports-authority-c3ab",
-      "victim": "Philippine Ports Authority — claimed by qilin",
-      "sector": "Transportation",
-      "country": "PH",
-      "pubDate": "2026-09-05T13:46:22.000Z"
-    },
-    {
-      "id": "bauman-law-group-c097",
-      "victim": "Bauman Law Group — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-05T13:45:42.000Z"
-    },
-    {
-      "id": "jouvet-sas-e0c3",
-      "victim": "Jouvet SAS — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "FR",
-      "pubDate": "2026-09-05T11:30:41.000Z"
-    },
-    {
-      "id": "g-amp-s-technologies-7e0d",
-      "victim": "G&amp;S Technologies — claimed by qilin",
-      "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-09-05T11:30:09.000Z"
-    },
-    {
-      "id": "nolan-consulting-group-51bf",
-      "victim": "Nolan Consulting Group — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-05T11:29:38.000Z"
-    },
-    {
-      "id": "colonial-hyundai-7da1",
-      "victim": "Colonial Hyundai — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "US",
-      "pubDate": "2026-09-05T11:29:05.000Z"
-    },
-    {
-      "id": "the-big-table-3c90",
-      "victim": "The Big Table — claimed by qilin",
-      "sector": "Hospitality",
-      "country": "GB",
-      "pubDate": "2026-09-05T11:28:34.000Z"
-    },
-    {
-      "id": "ap-capital-partners-limited-1423",
-      "victim": "AP CAPITAL PARTNERS LIMITED — claimed by qilin",
+      "id": "partners-group-sk-16f2",
+      "victim": "Partners Group SK — claimed by qilin",
       "sector": "Financial Services",
-      "country": null,
-      "pubDate": "2026-09-04T14:32:00.000Z"
+      "country": "SK",
+      "pubDate": "2026-09-07T21:36:28.000Z"
+    },
+    {
+      "id": "jbc-a5cf",
+      "victim": "Jbc — claimed by qilin",
+      "sector": "Not Found",
+      "country": "ES",
+      "pubDate": "2026-09-07T12:04:38.000Z"
     }
   ]
 }

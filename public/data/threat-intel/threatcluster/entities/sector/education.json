@@ -4,40 +4,54 @@
   "name": "Education",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-05T21:29:42.000Z",
-  "lastSeen": "2026-09-07T04:54:10.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 1 ransomware group and 2 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-07T04:54:10.000Z",
+  "lastSeen": "2026-09-07T21:55:37.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-05",
-      "count": 1
-    },
-    {
       "date": "2026-09-07",
-      "count": 1
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "msm-unify-global-education-platform-ca-7822",
-      "title": "MSM Unify: Global Education Platform - CA — claimed by kazu",
-      "pubDate": "2026-09-07T04:54:10.000Z"
+      "slug": "university-of-san-francisco-01df",
+      "title": "University of San Francisco — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:55:37.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "spirit-cultural-exchange-us-d713",
-      "title": "Spirit Cultural Exchange - US — claimed by kazu",
-      "pubDate": "2026-09-05T21:29:42.000Z"
+      "slug": "trainme-bc8d",
+      "title": "TrainMe — claimed by direwolf",
+      "pubDate": "2026-09-07T16:56:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "msm-unify-global-education-platform-ca-7822",
+      "title": "MSM Unify: Global Education Platform - CA — claimed by kazu",
+      "pubDate": "2026-09-07T04:54:10.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "direwolf",
+      "name": "direwolf",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "kazu",
       "name": "kazu",
-      "weight": 2
+      "weight": 1
     }
   ],
   "mitreTechniques": []

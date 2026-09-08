@@ -5,92 +5,96 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 4,
-  "firstSeen": "2026-09-04T17:55:01.000Z",
-  "lastSeen": "2026-09-06T16:55:00.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 1 country.",
+  "firstSeen": "2026-09-07T13:26:15.000Z",
+  "lastSeen": "2026-09-07T17:27:23.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-04",
-      "count": 1
-    },
-    {
-      "date": "2026-09-05",
-      "count": 1
-    },
-    {
-      "date": "2026-09-06",
-      "count": 2
+      "date": "2026-09-07",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "eassist-dental-solutions-d00c",
-      "title": "eAssist Dental Solutions — claimed by direwolf",
-      "pubDate": "2026-09-06T16:55:00.000Z"
+      "slug": "precision-vehicle-logistics-ae2d",
+      "title": "Precision Vehicle Logistics — claimed by direwolf",
+      "pubDate": "2026-09-07T17:27:23.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mylaurel-0c61",
-      "title": "myLaurel — claimed by direwolf",
-      "pubDate": "2026-09-06T11:53:36.000Z"
+      "slug": "trainme-bc8d",
+      "title": "TrainMe — claimed by direwolf",
+      "pubDate": "2026-09-07T16:56:02.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mission-pet-health-de03",
-      "title": "Mission Pet Health — claimed by direwolf",
-      "pubDate": "2026-09-05T21:54:20.000Z"
+      "slug": "lightcast-ef54",
+      "title": "Lightcast — claimed by direwolf",
+      "pubDate": "2026-09-07T14:27:42.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "wolfram-research-cd10",
-      "title": "Wolfram Research — claimed by direwolf",
-      "pubDate": "2026-09-04T17:55:01.000Z"
+      "slug": "semper-laser-d281",
+      "title": "Semper Laser — claimed by direwolf",
+      "pubDate": "2026-09-07T13:26:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 3
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "eassist-dental-solutions-d00c",
-      "victim": "eAssist Dental Solutions — claimed by direwolf",
-      "sector": "Healthcare",
+      "id": "precision-vehicle-logistics-ae2d",
+      "victim": "Precision Vehicle Logistics — claimed by direwolf",
+      "sector": "Transportation",
       "country": "US",
-      "pubDate": "2026-09-06T16:55:00.000Z"
+      "pubDate": "2026-09-07T17:27:23.000Z"
     },
     {
-      "id": "mylaurel-0c61",
-      "victim": "myLaurel — claimed by direwolf",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-09-06T11:53:36.000Z"
+      "id": "trainme-bc8d",
+      "victim": "TrainMe — claimed by direwolf",
+      "sector": "Education",
+      "country": "CO",
+      "pubDate": "2026-09-07T16:56:02.000Z"
     },
     {
-      "id": "mission-pet-health-de03",
-      "victim": "Mission Pet Health — claimed by direwolf",
-      "sector": "Healthcare",
+      "id": "lightcast-ef54",
+      "victim": "Lightcast — claimed by direwolf",
+      "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-09-05T21:54:20.000Z"
+      "pubDate": "2026-09-07T14:27:42.000Z"
     },
     {
-      "id": "wolfram-research-cd10",
-      "victim": "Wolfram Research — claimed by direwolf",
-      "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-09-04T17:55:01.000Z"
+      "id": "semper-laser-d281",
+      "victim": "Semper Laser — claimed by direwolf",
+      "sector": "Manufacturing",
+      "country": "SE",
+      "pubDate": "2026-09-07T13:26:15.000Z"
     }
   ]
 }

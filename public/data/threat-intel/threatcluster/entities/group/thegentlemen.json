@@ -4,91 +4,292 @@
   "name": "thegentlemen",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-05T18:29:44.000Z",
-  "lastSeen": "2026-09-05T18:30:24.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 3 countries.",
+  "mentionCount": 19,
+  "firstSeen": "2026-09-07T21:50:43.000Z",
+  "lastSeen": "2026-09-07T21:56:38.000Z",
+  "summary": "Ransomware group with 19 leak-site victims across 11 sectors and 16 countries.",
   "frequency": [
     {
-      "date": "2026-09-05",
-      "count": 4
+      "date": "2026-09-07",
+      "count": 19
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "leo-schachter-diamonds-e12c",
-      "title": "Leo Schachter Diamonds — claimed by thegentlemen",
-      "pubDate": "2026-09-05T18:30:24.000Z"
+      "slug": "hollard-insurance-group-a8ea",
+      "title": "Hollard Insurance Group — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:56:38.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "zdrowit-a7d7",
-      "title": "Zdrowit — claimed by thegentlemen",
-      "pubDate": "2026-09-05T18:30:11.000Z"
+      "slug": "drogueria-saporiti-sacifia-261c",
+      "title": "Drogueria Saporiti Sacifia — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:56:17.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "veradigm-3dad",
-      "title": "Veradigm — claimed by thegentlemen",
-      "pubDate": "2026-09-05T18:29:58.000Z"
+      "slug": "mutant-b1a9",
+      "title": "Mutant — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:55:57.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "lider-aviacao-ea74",
-      "title": "Lider Aviacao — claimed by thegentlemen",
-      "pubDate": "2026-09-05T18:29:44.000Z"
+      "slug": "university-of-san-francisco-01df",
+      "title": "University of San Francisco — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:55:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "nile-projects-trading-9909",
+      "title": "Nile Projects Trading — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:55:16.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "chip7-3331",
+      "title": "Chip7 — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:54:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sharp-office-0d1d",
+      "title": "Sharp Office — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:54:35.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "s-a-chile-33ce",
+      "title": "S A Chile — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:54:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "yap-merkezi-eef9",
+      "title": "Yapı Merkezi — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:54:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "soni-dwarkadas-virchand-3637",
+      "title": "Soni Dwarkadas Virchand — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:53:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "zanini-ce8f",
+      "title": "Zanini — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:53:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "domis-3347",
+      "title": "Domis — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:53:04.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 2
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 5
     },
     {
       "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
+      "slug": "other",
+      "name": "Other",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "leo-schachter-diamonds-e12c",
-      "victim": "Leo Schachter Diamonds — claimed by thegentlemen",
+      "id": "hollard-insurance-group-a8ea",
+      "victim": "Hollard Insurance Group — claimed by thegentlemen",
+      "sector": "Financial Services",
+      "country": "ZA",
+      "pubDate": "2026-09-07T21:56:38.000Z"
+    },
+    {
+      "id": "drogueria-saporiti-sacifia-261c",
+      "victim": "Drogueria Saporiti Sacifia — claimed by thegentlemen",
       "sector": "Retail & E-Commerce",
-      "country": "US",
-      "pubDate": "2026-09-05T18:30:24.000Z"
+      "country": "AR",
+      "pubDate": "2026-09-07T21:56:17.000Z"
     },
     {
-      "id": "zdrowit-a7d7",
-      "victim": "Zdrowit — claimed by thegentlemen",
-      "sector": "Healthcare",
-      "country": "PL",
-      "pubDate": "2026-09-05T18:30:11.000Z"
-    },
-    {
-      "id": "veradigm-3dad",
-      "victim": "Veradigm — claimed by thegentlemen",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-09-05T18:29:58.000Z"
-    },
-    {
-      "id": "lider-aviacao-ea74",
-      "victim": "Lider Aviacao — claimed by thegentlemen",
-      "sector": "Transportation",
+      "id": "mutant-b1a9",
+      "victim": "Mutant — claimed by thegentlemen",
+      "sector": "Other",
       "country": "BR",
-      "pubDate": "2026-09-05T18:29:44.000Z"
+      "pubDate": "2026-09-07T21:55:57.000Z"
+    },
+    {
+      "id": "university-of-san-francisco-01df",
+      "victim": "University of San Francisco — claimed by thegentlemen",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-07T21:55:37.000Z"
+    },
+    {
+      "id": "nile-projects-trading-9909",
+      "victim": "Nile Projects Trading — claimed by thegentlemen",
+      "sector": "Other",
+      "country": "EG",
+      "pubDate": "2026-09-07T21:55:16.000Z"
+    },
+    {
+      "id": "chip7-3331",
+      "victim": "Chip7 — claimed by thegentlemen",
+      "sector": "Technology",
+      "country": "PT",
+      "pubDate": "2026-09-07T21:54:56.000Z"
+    },
+    {
+      "id": "sharp-office-0d1d",
+      "victim": "Sharp Office — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "AU",
+      "pubDate": "2026-09-07T21:54:35.000Z"
+    },
+    {
+      "id": "s-a-chile-33ce",
+      "victim": "S A Chile — claimed by thegentlemen",
+      "sector": "Energy & Utilities",
+      "country": "CL",
+      "pubDate": "2026-09-07T21:54:15.000Z"
+    },
+    {
+      "id": "yap-merkezi-eef9",
+      "victim": "Yapı Merkezi — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "TR",
+      "pubDate": "2026-09-07T21:54:05.000Z"
+    },
+    {
+      "id": "soni-dwarkadas-virchand-3637",
+      "victim": "Soni Dwarkadas Virchand — claimed by thegentlemen",
+      "sector": "Other",
+      "country": "IN",
+      "pubDate": "2026-09-07T21:53:44.000Z"
+    },
+    {
+      "id": "zanini-ce8f",
+      "victim": "Zanini — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "BR",
+      "pubDate": "2026-09-07T21:53:24.000Z"
+    },
+    {
+      "id": "domis-3347",
+      "victim": "Domis — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "DK",
+      "pubDate": "2026-09-07T21:53:04.000Z"
+    },
+    {
+      "id": "metro-33e5",
+      "victim": "Metro — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "DE",
+      "pubDate": "2026-09-07T21:52:44.000Z"
+    },
+    {
+      "id": "biotipo-jeans-f1b3",
+      "victim": "Biotipo Jeans — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "BR",
+      "pubDate": "2026-09-07T21:52:24.000Z"
+    },
+    {
+      "id": "ritz-safety-ad27",
+      "victim": "Ritz Safety — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-07T21:52:05.000Z"
+    },
+    {
+      "id": "comin-sac-1afb",
+      "victim": "Comin Sac — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "PE",
+      "pubDate": "2026-09-07T21:51:44.000Z"
+    },
+    {
+      "id": "abacoviaggi-9f55",
+      "victim": "AbacoViaggi — claimed by thegentlemen",
+      "sector": "Hospitality",
+      "country": "IT",
+      "pubDate": "2026-09-07T21:51:24.000Z"
+    },
+    {
+      "id": "el-carriel-2ee2",
+      "victim": "El Carriel — claimed by thegentlemen",
+      "sector": "Agriculture and Food Production",
+      "country": "CO",
+      "pubDate": "2026-09-07T21:51:03.000Z"
+    },
+    {
+      "id": "superstore-1618",
+      "victim": "Superstore — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "GE",
+      "pubDate": "2026-09-07T21:50:43.000Z"
     }
   ]
 }
