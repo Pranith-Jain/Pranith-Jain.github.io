@@ -19,7 +19,7 @@
       "onion": "7fa6xlti5joarlmkuhjaifa47ukgcwz6tfndgax45ocyn4rixm632jid.onion/anonbib/index.html",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "18kb",
+      "pageSize": "68kb",
       "fingerprint": "8C00CB6C"
     },
     {
@@ -35,7 +35,7 @@
       "onion": "kikurizsbpb7ar4ozrzogt6nre3j7s7mccqwxeg3jvppyik2aa475lqd",
       "latencyMs": 601,
       "httpCode": "200",
-      "pageSize": "41kb",
+      "pageSize": "107kb",
       "fingerprint": "4C5F041A"
     },
     {
@@ -51,7 +51,7 @@
       "onion": "i4pd4zpyhrojnyx5l3d2siauy4almteocqow4bp2lqxyocrfy6prycad.onion/",
       "latencyMs": 780,
       "httpCode": "200",
-      "pageSize": "36kb",
+      "pageSize": "155kb",
       "fingerprint": "2D521449"
     },
     {
@@ -67,39 +67,39 @@
       "onion": "oqampqzctgkbq2yizpqdxlywidwgplilk3ccbhcxqm7gf6erafpkpjad",
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "68kb",
+      "pageSize": "175kb",
       "fingerprint": "C90A19E1"
     },
     {
       "slug": "dwd-d91b-118",
       "name": "OnionArchive",
       "dwdId": "DWD-D91B-118",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": true,
       "isOnion": true,
       "url": "http://x4ijfwy76n6jl7rs4qyhe6qi5rv6xyuos3kaczgjpjcajigjzk3k7wqd.onion",
       "onion": "x4ijfwy76n6jl7rs4qyhe6qi5rv6xyuos3kaczgjpjcajigjzk3k7wqd",
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "49kb",
+      "latencyMs": 857,
+      "httpCode": "200",
+      "pageSize": "93kb",
       "fingerprint": "F9FCFD5F"
     },
     {
       "slug": "dwd-9663-467",
       "name": "The Nihilism OpSec Blog",
       "dwdId": "DWD-9663-467",
-      "status": "up",
-      "upMirrors": 1,
+      "status": "down",
+      "upMirrors": 0,
       "totalMirrors": 1,
       "recommended": true,
       "isOnion": true,
       "url": "http://blog.nowherejezfoltodf4jiyl6r56jnzintap5vyjlia7fkirfsnfizflqd.onion/index.html",
       "onion": "blog.nowherejezfoltodf4jiyl6r56jnzintap5vyjlia7fkirfsnfizflqd.onion/index.html",
-      "latencyMs": 1323,
-      "httpCode": "200",
-      "pageSize": "151kb",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "180kb",
       "fingerprint": "738D58AF"
     },
     {
@@ -115,7 +115,7 @@
       "onion": "jqibjqqagao3peozxfs53tr6aecoyvctumfsc2xqniu4xgcrksal2iqd.onion/",
       "latencyMs": 526,
       "httpCode": "200",
-      "pageSize": "25kb",
+      "pageSize": "105kb",
       "fingerprint": "15093D7E"
     },
     {
@@ -131,7 +131,7 @@
       "onion": "pzhdfe7jraknpj2qgu5cz2u3i4deuyfwmonvzu5i3nyw4t4bmg7o5pad.onion/index.html",
       "latencyMs": 681,
       "httpCode": "200",
-      "pageSize": "191kb",
+      "pageSize": "41kb",
       "fingerprint": "5249040F"
     }
   ]

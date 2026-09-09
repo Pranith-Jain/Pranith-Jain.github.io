@@ -1,0 +1,11 @@
+{
+  "slug": "cisco-ios-xr-vulnerabilities-require-immediate-patching-122a05bb",
+  "title": "Cisco IOS XR Vulnerabilities Require Immediate Patching",
+  "link": "https://threatcluster.io/cluster/cisco-ios-xr-vulnerabilities-require-immediate-patching-122a05bb?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/cisco-ios-xr-vulnerabilities-require-immediate-patching-122a05bb",
+  "pubDate": "2026-09-09T02:33:03.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Cisco has released a patch addressing multiple vulnerabilities in its IOS XR network operating system, affecting all IOS XR releases, including IOS XR7.",
+  "sizeBytes": 152
+}

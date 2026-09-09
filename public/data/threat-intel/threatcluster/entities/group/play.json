@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "play",
+  "name": "play",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-08T20:46:11.000Z",
+  "lastSeen": "2026-09-08T20:46:45.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-08",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "red-star-oil-f375",
+      "title": "Red Star Oil — claimed by play",
+      "pubDate": "2026-09-08T20:46:45.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gt-distributors-fbf4",
+      "title": "GT Distributors — claimed by play",
+      "pubDate": "2026-09-08T20:46:11.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "red-star-oil-f375",
+      "victim": "Red Star Oil — claimed by play",
+      "sector": "Energy & Utilities",
+      "country": "RS",
+      "pubDate": "2026-09-08T20:46:45.000Z"
+    },
+    {
+      "id": "gt-distributors-fbf4",
+      "victim": "GT Distributors — claimed by play",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-08T20:46:11.000Z"
+    }
+  ]
+}

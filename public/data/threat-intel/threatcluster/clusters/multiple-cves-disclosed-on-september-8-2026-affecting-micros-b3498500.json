@@ -1,0 +1,11 @@
+{
+  "slug": "multiple-cves-disclosed-on-september-8-2026-affecting-micros-b3498500",
+  "title": "Multiple CVEs Disclosed on September 8, 2026, Affecting Microsoft Products",
+  "link": "https://threatcluster.io/cluster/multiple-cves-disclosed-on-september-8-2026-affecting-micros-b3498500?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/multiple-cves-disclosed-on-september-8-2026-affecting-micros-b3498500",
+  "pubDate": "2026-09-08T14:00:00.000Z",
+  "sourceCount": 927,
+  "categories": ["927 Sources"],
+  "description": "On September 8, 2026, multiple CVEs were disclosed affecting various Microsoft products, including SharePoint and Office. Key vulnerabilities include improper access controls, buffer overflows, and co…",
+  "sizeBytes": 201
+}

@@ -4,55 +4,31 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-07T13:26:15.000Z",
-  "lastSeen": "2026-09-07T17:27:23.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 3 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-08T15:32:19.000Z",
+  "lastSeen": "2026-09-08T17:27:16.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-07",
-      "count": 4
+      "date": "2026-09-08",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "precision-vehicle-logistics-ae2d",
-      "title": "Precision Vehicle Logistics — claimed by direwolf",
-      "pubDate": "2026-09-07T17:27:23.000Z"
+      "slug": "sales-boomerang-0f69",
+      "title": "Sales Boomerang — claimed by direwolf",
+      "pubDate": "2026-09-08T17:27:16.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "trainme-bc8d",
-      "title": "TrainMe — claimed by direwolf",
-      "pubDate": "2026-09-07T16:56:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "lightcast-ef54",
-      "title": "Lightcast — claimed by direwolf",
-      "pubDate": "2026-09-07T14:27:42.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "semper-laser-d281",
-      "title": "Semper Laser — claimed by direwolf",
-      "pubDate": "2026-09-07T13:26:15.000Z"
+      "slug": "ems1r-b2f0",
+      "title": "EMS1R — claimed by direwolf",
+      "pubDate": "2026-09-08T15:32:19.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "education",
-      "name": "Education",
-      "weight": 1
-    },
     {
       "type": "sector",
       "slug": "professional-services",
@@ -61,40 +37,26 @@
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "precision-vehicle-logistics-ae2d",
-      "victim": "Precision Vehicle Logistics — claimed by direwolf",
-      "sector": "Transportation",
-      "country": "US",
-      "pubDate": "2026-09-07T17:27:23.000Z"
-    },
-    {
-      "id": "trainme-bc8d",
-      "victim": "TrainMe — claimed by direwolf",
-      "sector": "Education",
-      "country": "CO",
-      "pubDate": "2026-09-07T16:56:02.000Z"
-    },
-    {
-      "id": "lightcast-ef54",
-      "victim": "Lightcast — claimed by direwolf",
+      "id": "sales-boomerang-0f69",
+      "victim": "Sales Boomerang — claimed by direwolf",
       "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-09-07T14:27:42.000Z"
+      "pubDate": "2026-09-08T17:27:16.000Z"
     },
     {
-      "id": "semper-laser-d281",
-      "victim": "Semper Laser — claimed by direwolf",
-      "sector": "Manufacturing",
-      "country": "SE",
-      "pubDate": "2026-09-07T13:26:15.000Z"
+      "id": "ems1r-b2f0",
+      "victim": "EMS1R — claimed by direwolf",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-08T15:32:19.000Z"
     }
   ]
 }

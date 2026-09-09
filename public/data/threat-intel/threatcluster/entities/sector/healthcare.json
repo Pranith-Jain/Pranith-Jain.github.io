@@ -4,54 +4,36 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-07T12:01:46.000Z",
-  "lastSeen": "2026-09-07T19:32:32.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-08T18:46:15.000Z",
+  "lastSeen": "2026-09-08T19:50:00.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-07",
-      "count": 3
+      "date": "2026-09-08",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "northshore-health-centers-2c90",
-      "title": "NorthShore Health Centers — claimed by insomnia",
-      "pubDate": "2026-09-07T19:32:32.000Z"
+      "slug": "palmettoeyeinstitute-com-c0eb",
+      "title": "palmettoeyeinstitute.com — claimed by safepay",
+      "pubDate": "2026-09-08T19:50:00.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "wellness-partners-network-combined-revenue-8b55",
-      "title": "Wellness Partners network(combined revenue) — claimed by incransom",
-      "pubDate": "2026-09-07T18:59:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hologic-inc-f952",
-      "title": "Hologic, Inc. — claimed by metaencryptor",
-      "pubDate": "2026-09-07T12:01:46.000Z"
+      "slug": "recoverycafe-org-a6bf",
+      "title": "recoverycafe.org — claimed by safepay",
+      "pubDate": "2026-09-08T18:46:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "insomnia",
-      "name": "insomnia",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "metaencryptor",
-      "name": "metaencryptor",
-      "weight": 1
+      "slug": "safepay",
+      "name": "safepay",
+      "weight": 2
     }
   ],
   "mitreTechniques": []

@@ -4,21 +4,39 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 10,
-  "firstSeen": "2026-09-07T12:03:26.000Z",
-  "lastSeen": "2026-09-08T07:23:58.000Z",
-  "summary": "Sector hit by 10 leak-site victims across 7 ransomware groups and 5 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-09-07T21:52:05.000Z",
+  "lastSeen": "2026-09-08T19:47:12.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 4 ransomware groups and 6 countries.",
   "frequency": [
     {
       "date": "2026-09-07",
-      "count": 9
+      "count": 3
     },
     {
       "date": "2026-09-08",
-      "count": 1
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "cenmar-manila-com-59ab",
+      "title": "cenmar-manila.com — claimed by safepay",
+      "pubDate": "2026-09-08T19:47:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mcnishsteel-com-afa4",
+      "title": "mcnishsteel.com — claimed by safepay",
+      "pubDate": "2026-09-08T18:45:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "copeplastics-com-80b0",
+      "title": "copeplastics.com — claimed by chaos",
+      "pubDate": "2026-09-08T16:25:38.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mefa-group-www-mefagroup-com-tr-mefa-end-stri-www-mefaendustri-com-and-e-f27a",
@@ -42,42 +60,6 @@
       "slug": "ritz-safety-ad27",
       "title": "Ritz Safety — claimed by thegentlemen",
       "pubDate": "2026-09-07T21:52:05.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "master-manufacturing-co-inc-4112",
-      "title": "Master Manufacturing Co., Inc. — claimed by dark project",
-      "pubDate": "2026-09-07T17:51:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "alurwalls-e0d2",
-      "title": "Alurwalls — claimed by dark project",
-      "pubDate": "2026-09-07T17:51:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "k-rber-6c2c",
-      "title": "KÖRBER — claimed by everest",
-      "pubDate": "2026-09-07T15:29:01.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "benshaw-inc-8972",
-      "title": "Benshaw, Inc. — claimed by aurora",
-      "pubDate": "2026-09-07T13:52:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "semper-laser-d281",
-      "title": "Semper Laser — claimed by direwolf",
-      "pubDate": "2026-09-07T13:26:15.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sifco-industries-inc-b9f4",
-      "title": "SIFCO Industries INC. — claimed by metaencryptor",
-      "pubDate": "2026-09-07T12:03:26.000Z"
     }
   ],
   "relatedEntities": [
@@ -89,38 +71,20 @@
     },
     {
       "type": "group",
-      "slug": "dark-project",
-      "name": "dark project",
+      "slug": "safepay",
+      "name": "safepay",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "chaos",
+      "name": "chaos",
+      "weight": 1
     },
     {
       "type": "group",
       "slug": "blacknevas",
       "name": "blacknevas",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "everest",
-      "name": "everest",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "aurora",
-      "name": "aurora",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "metaencryptor",
-      "name": "metaencryptor",
       "weight": 1
     }
   ],

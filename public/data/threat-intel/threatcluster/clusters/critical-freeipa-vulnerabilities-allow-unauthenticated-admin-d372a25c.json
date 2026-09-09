@@ -1,0 +1,11 @@
+{
+  "slug": "critical-freeipa-vulnerabilities-allow-unauthenticated-admin-d372a25c",
+  "title": "Critical FreeIPA Vulnerabilities Allow Unauthenticated Admin Access",
+  "link": "https://threatcluster.io/cluster/critical-freeipa-vulnerabilities-allow-unauthenticated-admin-d372a25c?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-freeipa-vulnerabilities-allow-unauthenticated-admin-d372a25c",
+  "pubDate": "2026-09-08T11:46:32.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "A critical flaw in FreeIPA, tracked as CVE-2026-76578, allows unauthenticated clients to create Kerberos identities and gain administrative privileges.",
+  "sizeBytes": 151
+}
