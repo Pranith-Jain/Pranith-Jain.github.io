@@ -4,17 +4,29 @@
   "name": "auditteam",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 3,
   "firstSeen": "2026-09-08T04:50:22.000Z",
-  "lastSeen": "2026-09-08T04:50:22.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-08T16:50:21.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-08",
-      "count": 1
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "bu-en-7c73",
+      "title": "bu***en — claimed by auditteam",
+      "pubDate": "2026-09-08T16:50:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "wi-it-b0fc",
+      "title": "Wi***IT — claimed by auditteam",
+      "pubDate": "2026-09-08T11:20:28.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "pa-op-837b",
@@ -27,11 +39,31 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "bu-en-7c73",
+      "victim": "bu***en — claimed by auditteam",
+      "sector": "Not Found",
+      "country": "RU",
+      "pubDate": "2026-09-08T16:50:21.000Z"
+    },
+    {
+      "id": "wi-it-b0fc",
+      "victim": "Wi***IT — claimed by auditteam",
+      "sector": "Technology",
+      "country": "UA",
+      "pubDate": "2026-09-08T11:20:28.000Z"
+    },
     {
       "id": "pa-op-837b",
       "victim": "pa***op — claimed by auditteam",

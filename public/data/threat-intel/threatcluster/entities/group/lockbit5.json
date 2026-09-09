@@ -4,40 +4,59 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-07T21:34:30.000Z",
-  "lastSeen": "2026-09-07T21:34:30.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-08T15:36:03.000Z",
+  "lastSeen": "2026-09-08T15:36:47.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-07",
-      "count": 1
+      "date": "2026-09-08",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "vsbattorneys-co-za-860d",
-      "title": "vsbattorneys.co.za — claimed by lockbit5",
-      "pubDate": "2026-09-07T21:34:30.000Z"
+      "slug": "fdcputman-nl-b02a",
+      "title": "fdcputman.nl — claimed by lockbit5",
+      "pubDate": "2026-09-08T15:36:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "contreras-com-ar-567f",
+      "title": "contreras.com.ar — claimed by lockbit5",
+      "pubDate": "2026-09-08T15:36:03.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "vsbattorneys-co-za-860d",
-      "victim": "vsbattorneys.co.za — claimed by lockbit5",
-      "sector": "Professional Services",
-      "country": "ZA",
-      "pubDate": "2026-09-07T21:34:30.000Z"
+      "id": "fdcputman-nl-b02a",
+      "victim": "fdcputman.nl — claimed by lockbit5",
+      "sector": "Other",
+      "country": "NL",
+      "pubDate": "2026-09-08T15:36:47.000Z"
+    },
+    {
+      "id": "contreras-com-ar-567f",
+      "victim": "contreras.com.ar — claimed by lockbit5",
+      "sector": "Not Found",
+      "country": "AR",
+      "pubDate": "2026-09-08T15:36:03.000Z"
     }
   ]
 }

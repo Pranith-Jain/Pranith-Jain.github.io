@@ -1,0 +1,190 @@
+{
+  "type": "group",
+  "slug": "safepay",
+  "name": "safepay",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 10,
+  "firstSeen": "2026-09-08T18:45:28.000Z",
+  "lastSeen": "2026-09-08T19:50:00.000Z",
+  "summary": "Ransomware group with 10 leak-site victims across 6 sectors and 8 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-08",
+      "count": 10
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "palmettoeyeinstitute-com-c0eb",
+      "title": "palmettoeyeinstitute.com — claimed by safepay",
+      "pubDate": "2026-09-08T19:50:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "reichenau-at-4b29",
+      "title": "reichenau.at — claimed by safepay",
+      "pubDate": "2026-09-08T19:49:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cannonpuntana-com-0fc9",
+      "title": "cannonpuntana.com — claimed by safepay",
+      "pubDate": "2026-09-08T19:48:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "assiprime-it-7951",
+      "title": "assiprime.it — claimed by safepay",
+      "pubDate": "2026-09-08T19:48:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gayafores-es-a5d0",
+      "title": "gayafores.es — claimed by safepay",
+      "pubDate": "2026-09-08T19:47:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cenmar-manila-com-59ab",
+      "title": "cenmar-manila.com — claimed by safepay",
+      "pubDate": "2026-09-08T19:47:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gsngestion-es-0df8",
+      "title": "gsngestion.es — claimed by safepay",
+      "pubDate": "2026-09-08T19:46:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hbpro-pt-26a0",
+      "title": "hbpro.pt — claimed by safepay",
+      "pubDate": "2026-09-08T19:46:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "recoverycafe-org-a6bf",
+      "title": "recoverycafe.org — claimed by safepay",
+      "pubDate": "2026-09-08T18:46:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mcnishsteel-com-afa4",
+      "title": "mcnishsteel.com — claimed by safepay",
+      "pubDate": "2026-09-08T18:45:28.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "palmettoeyeinstitute-com-c0eb",
+      "victim": "palmettoeyeinstitute.com — claimed by safepay",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-08T19:50:00.000Z"
+    },
+    {
+      "id": "reichenau-at-4b29",
+      "victim": "reichenau.at — claimed by safepay",
+      "sector": "Other",
+      "country": "AT",
+      "pubDate": "2026-09-08T19:49:27.000Z"
+    },
+    {
+      "id": "cannonpuntana-com-0fc9",
+      "victim": "cannonpuntana.com — claimed by safepay",
+      "sector": "Not Found",
+      "country": "AR",
+      "pubDate": "2026-09-08T19:48:52.000Z"
+    },
+    {
+      "id": "assiprime-it-7951",
+      "victim": "assiprime.it — claimed by safepay",
+      "sector": "Professional Services",
+      "country": "IT",
+      "pubDate": "2026-09-08T19:48:19.000Z"
+    },
+    {
+      "id": "gayafores-es-a5d0",
+      "victim": "gayafores.es — claimed by safepay",
+      "sector": "Agriculture and Food Production",
+      "country": "ES",
+      "pubDate": "2026-09-08T19:47:46.000Z"
+    },
+    {
+      "id": "cenmar-manila-com-59ab",
+      "victim": "cenmar-manila.com — claimed by safepay",
+      "sector": "Manufacturing",
+      "country": "PH",
+      "pubDate": "2026-09-08T19:47:12.000Z"
+    },
+    {
+      "id": "gsngestion-es-0df8",
+      "victim": "gsngestion.es — claimed by safepay",
+      "sector": "Professional Services",
+      "country": "ES",
+      "pubDate": "2026-09-08T19:46:37.000Z"
+    },
+    {
+      "id": "hbpro-pt-26a0",
+      "victim": "hbpro.pt — claimed by safepay",
+      "sector": "Professional Services",
+      "country": "PT",
+      "pubDate": "2026-09-08T19:46:02.000Z"
+    },
+    {
+      "id": "recoverycafe-org-a6bf",
+      "victim": "recoverycafe.org — claimed by safepay",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-08T18:46:15.000Z"
+    },
+    {
+      "id": "mcnishsteel-com-afa4",
+      "victim": "mcnishsteel.com — claimed by safepay",
+      "sector": "Manufacturing",
+      "country": "CA",
+      "pubDate": "2026-09-08T18:45:28.000Z"
+    }
+  ]
+}

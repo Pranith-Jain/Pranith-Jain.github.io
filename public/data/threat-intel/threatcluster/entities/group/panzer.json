@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "panzer",
+  "name": "panzer",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-08T16:52:39.000Z",
+  "lastSeen": "2026-09-08T16:52:39.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-08",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "financi-re-d-uz-s-02fd",
+      "title": "Financière d'Uzès — claimed by panzer",
+      "pubDate": "2026-09-08T16:52:39.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "financi-re-d-uz-s-02fd",
+      "victim": "Financière d'Uzès — claimed by panzer",
+      "sector": "Financial Services",
+      "country": "FR",
+      "pubDate": "2026-09-08T16:52:39.000Z"
+    }
+  ]
+}

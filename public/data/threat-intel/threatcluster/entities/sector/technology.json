@@ -4,41 +4,57 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-07T15:28:22.000Z",
-  "lastSeen": "2026-09-07T21:54:56.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-07T21:54:56.000Z",
+  "lastSeen": "2026-09-08T13:54:25.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-07",
+      "count": 1
+    },
+    {
+      "date": "2026-09-08",
       "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "chip7-3331",
-      "title": "Chip7 — claimed by thegentlemen",
-      "pubDate": "2026-09-07T21:54:56.000Z"
+      "slug": "createasoft-2946",
+      "title": "CreateASoft — claimed by akira",
+      "pubDate": "2026-09-08T13:54:25.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "genesilico-4fbc",
-      "title": "GENESILICO — claimed by everest",
-      "pubDate": "2026-09-07T15:28:22.000Z"
+      "slug": "wi-it-b0fc",
+      "title": "Wi***IT — claimed by auditteam",
+      "pubDate": "2026-09-08T11:20:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "chip7-3331",
+      "title": "Chip7 — claimed by thegentlemen",
+      "pubDate": "2026-09-07T21:54:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "everest",
-      "name": "everest",
+      "slug": "auditteam",
+      "name": "auditteam",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

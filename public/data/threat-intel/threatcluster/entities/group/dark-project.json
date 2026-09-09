@@ -4,14 +4,14 @@
   "name": "dark project",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-07T17:51:07.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-07T22:20:59.000Z",
   "lastSeen": "2026-09-07T22:20:59.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
       "date": "2026-09-07",
-      "count": 3
+      "count": 1
     }
   ],
   "recentActivity": [
@@ -20,27 +20,9 @@
       "slug": "mei-architects-38a2",
       "title": "MEI Architects — claimed by dark project",
       "pubDate": "2026-09-07T22:20:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "master-manufacturing-co-inc-4112",
-      "title": "Master Manufacturing Co., Inc. — claimed by dark project",
-      "pubDate": "2026-09-07T17:51:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "alurwalls-e0d2",
-      "title": "Alurwalls — claimed by dark project",
-      "pubDate": "2026-09-07T17:51:07.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
-    },
     {
       "type": "sector",
       "slug": "professional-services",
@@ -56,20 +38,6 @@
       "sector": "Professional Services",
       "country": "US",
       "pubDate": "2026-09-07T22:20:59.000Z"
-    },
-    {
-      "id": "master-manufacturing-co-inc-4112",
-      "victim": "Master Manufacturing Co., Inc. — claimed by dark project",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-07T17:51:49.000Z"
-    },
-    {
-      "id": "alurwalls-e0d2",
-      "victim": "Alurwalls — claimed by dark project",
-      "sector": "Manufacturing",
-      "country": "BR",
-      "pubDate": "2026-09-07T17:51:07.000Z"
     }
   ]
 }

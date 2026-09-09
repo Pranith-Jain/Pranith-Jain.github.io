@@ -4,59 +4,40 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-07T12:04:38.000Z",
-  "lastSeen": "2026-09-07T21:36:28.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-08T13:27:02.000Z",
+  "lastSeen": "2026-09-08T13:27:02.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-07",
-      "count": 2
+      "date": "2026-09-08",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "partners-group-sk-16f2",
-      "title": "Partners Group SK — claimed by qilin",
-      "pubDate": "2026-09-07T21:36:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "jbc-a5cf",
-      "title": "Jbc — claimed by qilin",
-      "pubDate": "2026-09-07T12:04:38.000Z"
+      "slug": "alaska-electrical-apprenticeship-dba2",
+      "title": "Alaska Electrical Apprenticeship — claimed by qilin",
+      "pubDate": "2026-09-08T13:27:02.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "education",
+      "name": "Education",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "partners-group-sk-16f2",
-      "victim": "Partners Group SK — claimed by qilin",
-      "sector": "Financial Services",
-      "country": "SK",
-      "pubDate": "2026-09-07T21:36:28.000Z"
-    },
-    {
-      "id": "jbc-a5cf",
-      "victim": "Jbc — claimed by qilin",
-      "sector": "Not Found",
-      "country": "ES",
-      "pubDate": "2026-09-07T12:04:38.000Z"
+      "id": "alaska-electrical-apprenticeship-dba2",
+      "victim": "Alaska Electrical Apprenticeship — claimed by qilin",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-08T13:27:02.000Z"
     }
   ]
 }
