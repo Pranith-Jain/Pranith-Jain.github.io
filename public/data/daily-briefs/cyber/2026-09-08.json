@@ -1,0 +1,120 @@
+{
+  "type": "cyber",
+  "date": "2026-09-08",
+  "threatLevel": "Elevated, multiple active PLC and perimeter device threats",
+  "executiveSummary": "CISA warns that threat actors are actively probing and writing to Siemens S7 PLCs across U.S. critical infrastructure using S7comm tooling, with potential process safety impact. View Article Separate multi-agency guidance details Iranian-affiliated exploitation of internet-exposed PLCs (Rockwell, Schneider, Siemens), including logic tampering and alarm suppression. Immediate removal from internet, MFA-protected remote access, and logic integrity checks are urged. View Article Edge infrastructure risk remains acute: MikroTik RouterOS zero-days are under active exploitation for unauthenticated SSH takeover; patch immediately and assume compromise where SSH was exposed. View Article JPCERT/CC flags widespread availability of leaked Fortinet FortiGate credentials (\"FortiBleed\"), enabling perimeter breach and AD pivoting via site-to-site VPN trust; rotate creds, enforce PBKDF2, enable MFA, and audit for lateral movement. View Article Schneider Electric advisory (via CISA) confirms a session-hijacking flaw across Easergy/PowerLogic/Saitel and EcoStruxure Power components used in substations; patches available for many models-prioritize segmentation and session hardening. Security Advisory Multiple CISA weekly bulletins enumerate high-impact OT/ICS issues (OPC UA/Milo, smart meters, EVSE, DAQ/HMI platforms). Rapid patching, DPI controls on industrial protocols, and strong access control at OT perimeters are recommended. Supporting Report Supporting Report Berlin ransomware leak (Rhysida) published 5.7 TB including sensitive water/power substation and emergency plans-no ongoing cyber intrusion indicated, but physical and cyber-physical risks are elevated by exposed blueprints. View Article",
+  "keyFindings": [
+    {
+      "title": "Active PLC targeting",
+      "summary": "verified S7 read/write attempts and broader PLC exploitation campaigns increase immediate operational risk to Water/Wastewater and Energy. View Article View Article"
+    },
+    {
+      "title": "Perimeter device exploitation surge",
+      "summary": "MikroTik RouterOS zero-days exploited in the wild, with \"ops\" admin user creation observed; Fortinet credential leaks (\"FortiBleed\") facilitate rapid domain compromise. View Article View Article"
+    },
+    {
+      "title": "Substation and distribution risk",
+      "summary": "Schneider session-hijacking vulnerability spans Easergy/PowerLogic/Saitel; apply vendor fixes and shorten OT session timeouts. Security Advisory"
+    },
+    {
+      "title": "Core OT protocol/stack exposure",
+      "summary": "OPC UA Milo server flaws enable authorization bypass and DoS; OPC UA LDS installer exposes privileged console locally-apply updates and enforce SignAndEncrypt. View Article Security Advisory"
+    },
+    {
+      "title": "EV charging and metering",
+      "summary": "EVbee and Autel charger flaws plus Baylan Smart Meter auth bypass can disrupt energy operations; segment OCPP and meter management networks. View Article View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH Elevated, multiple active PLC and perimeter device threats",
+        "label": "Overall OT/ICS Threat Level"
+      },
+      {
+        "value": "Escalate 12 • Monitor 18 • Ignore 6",
+        "label": "Events by Decision"
+      },
+      {
+        "value": "10+ items",
+        "label": "Actively Exploited / KEV Items Referenced"
+      },
+      {
+        "value": "Water/Wastewater • Energy • Manufacturing • Transportation",
+        "label": "Sectors Most Affected"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens (S7-200/300/400/1200/1500; TIA Portal/STEP7), Schneider Electric (Easergy, PowerLogic P5/P7, Saitel, EcoStruxure Power Operation/Automation), Rockwell Automation (ControlFLASH, Logix platforms), Pyramid Solutions (NetStaX EtherNet/IP), Inductive Automation (Ignition 8.1.x), OPC Foundation (OPC UA LDS), Eclipse (Milo OPC UA), IXON (VPN Client), Tycon (TPDIN-Monitor-WEB2), MikroTik (RouterOS), Fortinet (FortiGate), Arc Informatique (PcVue), EVbee/Autel (EVSE), Delta Electronics (DTMSoft/PLCs), Apache ecosystem (NiFi, IoTDB, ActiveMQ, Tomcat), Telerik UI for ASP.NET AJAX, N-able N-central."
+    ],
+    "sectors": [
+      "Water and Wastewater Systems (WWS) Energy (generation, transmission/substations, distribution, EV charging) Critical Manufacturing Transportation (automotive head units, rail detection) Telecommunications and ISP edge networks Public administration and municipal services (policy/blueprint exposure)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "State-linked operations: Active targeting of Siemens S7 PLCs across U.S. CI (unattributed) View Article",
+        "Iranian-affiliated PLC exploitation with logic changes and alarm suppression View Article",
+        "PRC covert device networks and global router compromises for espionage/obfuscation View Article View Article",
+        "FSB Center 16 router targeting via SNMP/TFTP/SMI pathways View Article",
+        "Other notable clusters (enterprise-to-OT pivot risk): HoneyMyte (Mustang Panda) with signed Windows kernel driver rootkit View Article",
+        "DPRK \"Lazarus umbrella\" cluster updates with ransomware-enabled operations View Article",
+        "Head Mare APT exploiting TrueConf Server to trojanize installers View Article",
+        "PREY-0058 (UNC6671/Cinder overlap) M365 token-theft and extortion targeting executives View Article"
+      ]
+    }
+  ],
+  "relevance": "Multiple, concurrent threat streams materially elevate near-term OT risk. Two joint U.S. government advisories document active PLC targeting and logic manipulation, spanning Siemens, Rockwell, and Schneider controllers. Simultaneously, widely deployed perimeter devices (MikroTik, Fortinet) are vulnerable or actively exploited, enabling rapid ingress and pivoting to OT jump hosts. ICS protocol/stack issues (OPC UA server/client; OPC UA LDS installers) and OT vendor flaws (Schneider Easergy/PowerLogic, PcVue, Ignition) increase the likelihood of unauthorized method execution, session hijacking, and operational disruption. The Berlin data leak adds non-cyber dimensions by exposing sensitive site blueprints, increasing the risk of blended threats.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Schneider Electric Easergy/PowerLogic/Saitel session hijacking (Update A). Security Advisory",
+        "OPC UA: Eclipse Milo server authorization bypass/DoS and diagnostics exposure. View Article",
+        "OPC UA LDS installer local privileged console exposure (1.04.420+ fixed). Security Advisory",
+        "Pyramid Solutions NetStaX EtherNet/IP stack buffer overflow (v5.6.1 fixed). Security Advisory",
+        "Inductive Automation Ignition misconfiguration allowing unauthorized project creation (8.1.54+ fixes). Security Advisory",
+        "Rockwell ControlFLASH installer permissions flaw (≤15.07). Security Advisory",
+        "IXON VPN Client RCE as SYSTEM/root on engineer PCs (update to 1.4.7+). Security Advisory",
+        "Tycon TPDIN-Monitor-WEB2 unauth control and cleartext creds (2.4.5). Security Advisory",
+        "MikroTik RouterOS (\"MikroTrick\") pre-auth SSH takeover-active exploitation. View Article",
+        "Fortinet FortiBleed credential leak and router hygiene advisories (FSB/PRC ops). View Article Security Advisory",
+        "PcVue ( View Article",
+        "EV charging/metering (EVbee, Autel, Baylan) remote manipulation via OCPP/web and auth bypass. View Article",
+        "Delta PLC/OpENer stack/Modbus unauth access and DoS (water/wastewater impact). View Article"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "T1190 Exploit Public-Facing Application: N-central RCE, Telerik chain, Zimbra XSS, Metabase SQLi.",
+      "T1078 Valid Accounts & Account Manipulation: MikroTik \"ops\" user creation; Fortinet leaked creds; TrueConf replaced installers.",
+      "T1021 Remote Services / T1021.004 SSH: RouterOS unauth SSH; lateral movement via VPN/VDI.",
+      "T1040/T1041 Protocol and Exfil over C2 Channels: DNS/HTTPS relay (Project CAV3RN), OneDrive/Graph abuse (Head Mare).",
+      "ICS domain: S7comm (TCP/102), Modbus/TCP (502), EtherNet/IP (TCP/44818, UDP/2222) abused for read/write, method calls, and DoS.",
+      "Access Token & Credential Manipulation (T1134, T1555): Windows LSASS dumping; TrueConf SYSTEM-level RCE."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1021",
+      "T1021.004",
+      "T1040",
+      "T1041",
+      "T1134",
+      "T1555"
+    ]
+  },
+  "outlook72h": "Expedite MikroTik RouterOS upgrades and disable WAN SSH/WebFig; hunt for \"ops\" user and related SSH event patterns; isolate and rebuild if flagged. View Article Audit Fortinet estates for leaked credentials; rotate and enforce MFA; review site-to-site VPN access into OT; scrutinize AD for suspect authentications. View Article Block TCP/102/502/44818/2222 from the internet; verify PLCs are not exposed; review recent logic changes and alarm configurations; enable enhanced OT network monitoring. View Article Apply Schneider, OPC UA Milo/LDS, Ignition, Rockwell ControlFLASH, IXON, and Tycon patches during maintenance windows; validate function post-update. Security Advisory For N-able N-central and Telerik-exposed web apps, patch/harden immediately and hunt for web shells and suspicious child processes from app pools. View Article View Article",
+  "relatedCves": [
+    "CVE-2026-4827",
+    "CVE-2026-86218",
+    "CVE-2026-8452",
+    "CVE-2026-72898"
+  ]
+}
