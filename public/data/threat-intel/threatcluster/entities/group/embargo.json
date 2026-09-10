@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "embargo",
+  "name": "embargo",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-09T19:58:11.000Z",
+  "lastSeen": "2026-09-09T19:58:11.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-09",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "gardensalive-com-bitsandpieces-com-iselinursery-local-weeksroses-org-esm-9355",
+      "title": "gardensalive.com, bitsandpieces.com, iselinursery.local, weeksroses.org, esm.local — claimed by embargo",
+      "pubDate": "2026-09-09T19:58:11.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "gardensalive-com-bitsandpieces-com-iselinursery-local-weeksroses-org-esm-9355",
+      "victim": "gardensalive.com, bitsandpieces.com, iselinursery.local, weeksroses.org, esm.local — claimed by embargo",
+      "sector": "Agriculture and Food Production",
+      "country": "US",
+      "pubDate": "2026-09-09T19:58:11.000Z"
+    }
+  ]
+}

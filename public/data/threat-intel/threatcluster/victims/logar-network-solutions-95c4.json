@@ -1,0 +1,14 @@
+{
+  "id": "logar-network-solutions-95c4",
+  "victim": "Logar Network Solutions",
+  "group": "vexy ransomware",
+  "sector": "Technology",
+  "country": "BR",
+  "title": "Logar Network Solutions — claimed by vexy ransomware",
+  "link": "https://threatcluster.io/dark-web/victim/Logar%20Network%20Solutions",
+  "guid": "darkweb-victim:vexy ransomware:logar network solutions",
+  "pubDate": "2026-09-09T14:52:38.000Z",
+  "categories": ["Group: vexy ransomware", "Sector: Technology", "Country: BR"],
+  "description": "BR · Technology · Logar Network Solutions is a Brazilian managed IT services provider (MSP) that delivers outsourced IT management, cybersecurity, cloud infrastructure, backup and disaster recovery, software licensing, hardware lifecycle management, and custom software development. The company primarily serves medium-sized businesses across multiple industries, offering 24/7 IT monitoring and support. It has served",
+  "sizeBytes": 418
+}

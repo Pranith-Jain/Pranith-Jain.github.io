@@ -4,15 +4,11 @@
   "name": "Energy & Utilities",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-07T21:54:15.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-08T14:22:52.000Z",
   "lastSeen": "2026-09-08T20:46:45.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-09-07",
-      "count": 1
-    },
     {
       "date": "2026-09-08",
       "count": 2
@@ -30,12 +26,6 @@
       "slug": "brent-electric-b04b",
       "title": "Brent Electric — claimed by akira",
       "pubDate": "2026-09-08T14:22:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "s-a-chile-33ce",
-      "title": "S A Chile — claimed by thegentlemen",
-      "pubDate": "2026-09-07T21:54:15.000Z"
     }
   ],
   "relatedEntities": [
@@ -49,12 +39,6 @@
       "type": "group",
       "slug": "akira",
       "name": "akira",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
       "weight": 1
     }
   ],

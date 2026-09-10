@@ -1,30 +1,23 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-09T10:00:51.976Z",
-  "eventCount": 7,
+  "syncedAt": "2026-09-10T09:57:34.364Z",
+  "eventCount": 8,
   "events": [
     {
-      "uuid": "ae106e21-54bd-5134-83d4-1b439af152da",
-      "info": "China-Linked QTFY Group Targets Critical Infrastructure with Advanced Exploits",
-      "date": "2026-09-01",
+      "uuid": "5549ea9a-721e-5146-8e25-57f009a94270",
+      "info": "BlueMoon Exploit Kit Targeting Chrome and Windows Vulnerabilities",
+      "date": "2026-09-09",
       "analysis": "2",
       "threat_level_id": "1",
-      "timestamp": "1788287548",
+      "timestamp": "1788974094",
       "tags": [
         "source:ThreatCluster",
         "tlp:clear",
         "threat-level:high",
         "type:apt",
-        "type:ransomware",
         "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"APT41\"",
-        "misp-galaxy:threat-actor=\"Mustang Panda\"",
-        "misp-galaxy:threat-actor=\"Volt Typhoon\"",
-        "misp-galaxy:threat-actor=\"Salt Typhoon\"",
-        "misp-galaxy:ransomware=\"Clop\"",
-        "misp-galaxy:ransomware=\"Lockbit\""
+        "type:vulnerability"
       ],
       "orgc": "ThreatCluster"
     },
@@ -39,23 +32,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "1969ca65-8e08-5371-b569-a2f7a627b668",
-      "info": "SonicWall SMA1000 Faces Critical Zero-Day Exploitation",
-      "date": "2026-09-02",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1788363875",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:ransomware",
-        "type:malware",
-        "type:vulnerability"
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "0b2a6038-31cc-5bd2-af21-c0b50cd07acb",
       "info": "Critical RCE Vulnerability in N-able N-central Requires Immediate Patching",
       "date": "2026-09-07",
@@ -63,6 +39,35 @@
       "threat_level_id": "1",
       "timestamp": "1788776469",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "004fd653-a3cc-5f31-9228-fc427045f51c",
+      "info": "Critical Cisco FMC Authentication Bypass Vulnerability Under Active Exploitation",
+      "date": "2026-09-09",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788986654",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"Sandworm\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "d8f5ae3a-024e-53fd-ae65-653a36d20392",
+      "info": "AI-Driven Exploitation of PaperCut Vulnerabilities Compromises 440 Servers Globally",
+      "date": "2026-09-09",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1788977620",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -87,7 +92,7 @@
     },
     {
       "uuid": "8f46d70a-8941-513f-9423-b534999073c2",
-      "info": "U.S. Accuses Chinese AI Firms of Systematic Model Theft",
+      "info": "U.S. Accuses Chinese AI Firms of Systematic Distillation of Proprietary Models",
       "date": "2026-09-09",
       "analysis": "2",
       "threat_level_id": "2",

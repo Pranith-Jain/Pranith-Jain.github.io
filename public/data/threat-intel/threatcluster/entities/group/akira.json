@@ -4,17 +4,27 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 4,
   "firstSeen": "2026-09-08T13:54:25.000Z",
-  "lastSeen": "2026-09-08T14:22:52.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "lastSeen": "2026-09-09T13:25:41.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-08",
       "count": 3
+    },
+    {
+      "date": "2026-09-09",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "kyodo-usa-0551",
+      "title": "Kyodo USA — claimed by akira",
+      "pubDate": "2026-09-09T13:25:41.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "brent-electric-b04b",
@@ -37,6 +47,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "energy-utilities",
       "name": "Energy & Utilities",
       "weight": 1
@@ -56,6 +72,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "kyodo-usa-0551",
+      "victim": "Kyodo USA — claimed by akira",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-09T13:25:41.000Z"
+    },
     {
       "id": "brent-electric-b04b",
       "victim": "Brent Electric — claimed by akira",

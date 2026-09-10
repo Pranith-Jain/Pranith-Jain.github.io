@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-07T22:20:59.000Z",
-  "lastSeen": "2026-09-07T22:20:59.000Z",
+  "firstSeen": "2026-09-09T12:52:48.000Z",
+  "lastSeen": "2026-09-09T12:52:48.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-07",
+      "date": "2026-09-09",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "mei-architects-38a2",
-      "title": "MEI Architects — claimed by dark project",
-      "pubDate": "2026-09-07T22:20:59.000Z"
+      "slug": "specchem-llc-525a",
+      "title": "Specchem LLC — claimed by dark project",
+      "pubDate": "2026-09-09T12:52:48.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "mei-architects-38a2",
-      "victim": "MEI Architects — claimed by dark project",
-      "sector": "Professional Services",
+      "id": "specchem-llc-525a",
+      "victim": "Specchem LLC — claimed by dark project",
+      "sector": "Manufacturing",
       "country": "US",
-      "pubDate": "2026-09-07T22:20:59.000Z"
+      "pubDate": "2026-09-09T12:52:48.000Z"
     }
   ]
 }

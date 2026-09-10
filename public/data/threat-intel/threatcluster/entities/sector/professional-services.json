@@ -4,25 +4,37 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-09-07T21:54:35.000Z",
-  "lastSeen": "2026-09-09T04:54:18.000Z",
-  "summary": "Sector hit by 9 leak-site victims across 7 ransomware groups and 6 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-09-08T13:51:47.000Z",
+  "lastSeen": "2026-09-10T05:25:30.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 6 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-07",
-      "count": 2
-    },
-    {
       "date": "2026-09-08",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2026-09-09",
+      "count": 2
+    },
+    {
+      "date": "2026-09-10",
       "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "john-engel-team-e55f",
+      "title": "John Engel Team — claimed by shadowbyt3$",
+      "pubDate": "2026-09-10T05:25:30.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cullottalaw-com-1c33",
+      "title": "cullottalaw.com — claimed by incransom",
+      "pubDate": "2026-09-09T20:01:15.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "gellibrand-support-services-4f8a",
@@ -58,24 +70,6 @@
       "slug": "the-zhou-law-group-ede8",
       "title": "The Zhou Law Group — claimed by eclipse",
       "pubDate": "2026-09-08T13:51:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sad-s-interim-db2c",
-      "title": "SAD'S Interim — claimed by rhysida",
-      "pubDate": "2026-09-08T06:02:10.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "mei-architects-38a2",
-      "title": "MEI Architects — claimed by dark project",
-      "pubDate": "2026-09-07T22:20:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sharp-office-0d1d",
-      "title": "Sharp Office — claimed by thegentlemen",
-      "pubDate": "2026-09-07T21:54:35.000Z"
     }
   ],
   "relatedEntities": [
@@ -84,6 +78,18 @@
       "slug": "safepay",
       "name": "safepay",
       "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "shadowbyt3",
+      "name": "shadowbyt3$",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
     },
     {
       "type": "group",
@@ -101,24 +107,6 @@
       "type": "group",
       "slug": "eclipse",
       "name": "eclipse",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "rhysida",
-      "name": "rhysida",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "dark-project",
-      "name": "dark project",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
       "weight": 1
     }
   ],
