@@ -1,11 +1,11 @@
 {
   "slug": "critical-android-vulnerabilities-affecting-galaxy-devices-cac53e43",
-  "title": "Critical Android Vulnerabilities Affecting Galaxy Devices",
+  "title": "Critical Android Vulnerabilities Patched in September 2026 Update",
   "link": "https://threatcluster.io/cluster/critical-android-vulnerabilities-affecting-galaxy-devices-cac53e43?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/critical-android-vulnerabilities-affecting-galaxy-devices-cac53e43",
   "pubDate": "2026-09-09T06:33:17.000Z",
-  "sourceCount": 3,
-  "categories": ["3 Sources"],
-  "description": "In September 2026, multiple critical vulnerabilities were identified in Android, affecting devices with a security patch level prior to 2026-09-05.",
-  "sizeBytes": 147
+  "sourceCount": 7,
+  "categories": ["7 Sources"],
+  "description": "Google's September 2026 Android Security Bulletin addresses 180 vulnerabilities, including 95 bugs from the 2026-09-01 patch level and 85 from the 2026-09-05 patch level.",
+  "sizeBytes": 170
 }

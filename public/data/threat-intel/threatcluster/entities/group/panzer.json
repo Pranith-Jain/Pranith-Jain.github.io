@@ -4,17 +4,27 @@
   "name": "panzer",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-08T16:52:39.000Z",
-  "lastSeen": "2026-09-08T16:52:39.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-09T20:53:25.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-09-08",
       "count": 1
+    },
+    {
+      "date": "2026-09-09",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "aqualogus-c157",
+      "title": "Aqualogus — claimed by panzer",
+      "pubDate": "2026-09-09T20:53:25.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "financi-re-d-uz-s-02fd",
@@ -25,6 +35,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
       "weight": 1
@@ -32,6 +48,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "aqualogus-c157",
+      "victim": "Aqualogus — claimed by panzer",
+      "sector": "Agriculture and Food Production",
+      "country": null,
+      "pubDate": "2026-09-09T20:53:25.000Z"
+    },
     {
       "id": "financi-re-d-uz-s-02fd",
       "victim": "Financière d'Uzès — claimed by panzer",

@@ -4,34 +4,50 @@
   "name": "auditteam",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-08T04:50:22.000Z",
-  "lastSeen": "2026-09-08T16:50:21.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-08T16:50:21.000Z",
+  "lastSeen": "2026-09-09T21:50:22.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 2 sectors and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-08",
-      "count": 3
+      "count": 1
+    },
+    {
+      "date": "2026-09-09",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "mo-al-bd34",
+      "title": "mo***al — claimed by auditteam",
+      "pubDate": "2026-09-09T21:50:22.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dg-kr-f5bf",
+      "title": "dg***kr — claimed by auditteam",
+      "pubDate": "2026-09-09T16:51:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "go-et-ef57",
+      "title": "go***et — claimed by auditteam",
+      "pubDate": "2026-09-09T16:50:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kr-rg-2a3f",
+      "title": "kr***rg — claimed by auditteam",
+      "pubDate": "2026-09-09T16:50:21.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "bu-en-7c73",
       "title": "bu***en — claimed by auditteam",
       "pubDate": "2026-09-08T16:50:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "wi-it-b0fc",
-      "title": "Wi***IT — claimed by auditteam",
-      "pubDate": "2026-09-08T11:20:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "pa-op-837b",
-      "title": "pa***op — claimed by auditteam",
-      "pubDate": "2026-09-08T04:50:22.000Z"
     }
   ],
   "relatedEntities": [
@@ -39,7 +55,7 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 2
+      "weight": 4
     },
     {
       "type": "sector",
@@ -51,25 +67,39 @@
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "mo-al-bd34",
+      "victim": "mo***al — claimed by auditteam",
+      "sector": "Not Found",
+      "country": "DE",
+      "pubDate": "2026-09-09T21:50:22.000Z"
+    },
+    {
+      "id": "dg-kr-f5bf",
+      "victim": "dg***kr — claimed by auditteam",
+      "sector": "Not Found",
+      "country": "KR",
+      "pubDate": "2026-09-09T16:51:24.000Z"
+    },
+    {
+      "id": "go-et-ef57",
+      "victim": "go***et — claimed by auditteam",
+      "sector": "Technology",
+      "country": "KR",
+      "pubDate": "2026-09-09T16:50:52.000Z"
+    },
+    {
+      "id": "kr-rg-2a3f",
+      "victim": "kr***rg — claimed by auditteam",
+      "sector": "Not Found",
+      "country": "AR",
+      "pubDate": "2026-09-09T16:50:21.000Z"
+    },
+    {
       "id": "bu-en-7c73",
       "victim": "bu***en — claimed by auditteam",
       "sector": "Not Found",
       "country": "RU",
       "pubDate": "2026-09-08T16:50:21.000Z"
-    },
-    {
-      "id": "wi-it-b0fc",
-      "victim": "Wi***IT — claimed by auditteam",
-      "sector": "Technology",
-      "country": "UA",
-      "pubDate": "2026-09-08T11:20:28.000Z"
-    },
-    {
-      "id": "pa-op-837b",
-      "victim": "pa***op — claimed by auditteam",
-      "sector": "Not Found",
-      "country": "RU",
-      "pubDate": "2026-09-08T04:50:22.000Z"
     }
   ]
 }

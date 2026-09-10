@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "vexy-ransomware",
+  "name": "vexy ransomware",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-09T14:52:38.000Z",
+  "lastSeen": "2026-09-09T14:52:38.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-09",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "logar-network-solutions-95c4",
+      "title": "Logar Network Solutions — claimed by vexy ransomware",
+      "pubDate": "2026-09-09T14:52:38.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "logar-network-solutions-95c4",
+      "victim": "Logar Network Solutions — claimed by vexy ransomware",
+      "sector": "Technology",
+      "country": "BR",
+      "pubDate": "2026-09-09T14:52:38.000Z"
+    }
+  ]
+}

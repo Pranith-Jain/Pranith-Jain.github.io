@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "sandworm",
+  "name": "Sandworm",
+  "aliases": [],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-09T00:00:00.000Z",
+  "lastSeen": "2026-09-09T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-09-09",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "004fd653-a3cc-5f31-9228-fc427045f51c",
+      "title": "Critical Cisco FMC Authentication Bypass Vulnerability Under Active Exploitation",
+      "pubDate": "2026-09-09T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}
