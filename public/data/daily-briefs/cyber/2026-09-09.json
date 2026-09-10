@@ -1,0 +1,96 @@
+{
+  "type": "cyber",
+  "date": "2026-09-09",
+  "threatLevel": "",
+  "executiveSummary": "Overall OT Cyber Threat Level: HIGH Multiple authoritative advisories confirm active, high-impact targeting of industrial control systems and perimeters with realistic potential for service disruption, especially in Water/Wastewater, Energy, and Critical Manufacturing. The most acute risks over the next 1-2 weeks stem from: (1) active targeting and manipulation of PLCs and HMIs; (2) exploited remote-access and management infrastructure (RMM, VPN, BIG-IP APM, MikroTik); and (3) critical OT protocol and platform weaknesses (EtherNet/IP stack, OPC UA/IIoT frameworks) that enable unauthorized control or denial of service. Iranian-affiliated actors have exploited exposed PLCs across U.S. critical infrastructure, modifying ladder logic and disabling alarms/shutdowns-confirmed operational impact in the Water/Wastewater sector. Security Advisory Separate U.S. multi-agency guidance warns of an active, AI-assisted threat to Siemens S7 PLCs using S7comm (TCP/102) with mass scanning and weak-credential abuse. Security Advisory Supply-chain risk: N-able N-central (RMM) pre-auth RCE is exploited in the wild and added to CISA KEV, enabling mass downstream compromise of managed endpoints-including OT-adjacent engineering workstations. Patch and perform compromise assessments immediately. View Article MikroTik RouterOS vulnerability chain is being actively exploited for full device takeover via exposed SSH-affecting perimeter devices frequently used at remote plants and vendor access edges. Supporting Report Supporting Report F5 BIG-IP APM RCE activity with in-memory PHP web shells observed on perimeter access appliances-credible OT pivot risk from enterprise DMZs. View Article Critical OT stack vulnerabilities: Pyramid Solutions NetStaX EtherNet/IP (silent buffer overflow on Class 3 explicit messages) and multiple Eclipse Arrowhead/Ditto and OPC UA (Milo) flaws enable unauthorized commands and DoS across IIoT/industrial networks. Security Advisory CISA Bulletin Priority focus should be on removing PLCs and HMIs from any direct internet exposure, hardening remote-access infrastructure, patching high-impact KEV and ICS advisories, and validating integrity of PLC logic and configurations with offline, known-good backups.",
+  "keyFindings": [
+    {
+      "title": "Confirmed PLC manipulation in U.S. Water/Wastewater with disabled alarms and alt",
+      "summary": "Confirmed PLC manipulation in U.S. Water/Wastewater with disabled alarms and altered logic-remove internet exposure, verify PLC project integrity, and enforce engineering access controls. Security Advisory"
+    },
+    {
+      "title": "Active threat to Siemens S7 family via S7comm; threat actors leverage AI-generat",
+      "summary": "Active threat to Siemens S7 family via S7comm; threat actors leverage AI-generated scripts and public libraries-segment TCP/102, enable Siemens protection levels, and baseline S7 traffic. Security Advisory"
+    },
+    {
+      "title": "RMM supply chain",
+      "summary": "N-able N-central pre-auth RCE is exploited (CISA KEV); compromise can blast malicious tasks to all managed clients. Patch to 2026.3 Hotfix 4 and hunt for rogue admin accounts, malicious scripts, and persistence. View Article"
+    },
+    {
+      "title": "MikroTik RouterOS exploited in the wild; restrict management, patch to 7.24.2+/6",
+      "summary": "MikroTik RouterOS exploited in the wild; restrict management, patch to 7.24.2+/6.49.21+, investigate IOCs (\"ops\" admin, flagged devices), and rebuild if compromised. Supporting Report"
+    },
+    {
+      "title": "Critical EtherNet/IP stack flaw (NetStaX) risks silent device crashes or memory ",
+      "summary": "Critical EtherNet/IP stack flaw (NetStaX) risks silent device crashes or memory corruption-upgrade embedded stacks to v5.6.1; deploy ICS DPI/IDS to detect anomalous explicit messaging. Security Advisory"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "18",
+        "label": "Escalate Events (current brief)"
+      },
+      {
+        "value": "10+",
+        "label": "Actively Exploited Items"
+      },
+      {
+        "value": "12+",
+        "label": "New/Notable OT CVEs & Issues"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "PLC/ICS: Siemens S7 (S7-1200/1500 legacy families), Rockwell/Allen-Bradley, Schneider Electric controllers; Protocol stacks: Pyramid Solutions NetStaX (EtherNet/IP), Eclipse Milo (OPC UA); IIoT frameworks: Eclipse Arrowhead/Ditto; Perimeter/remote access: MikroTik RouterOS, F5 BIG-IP APM, IXON VPN Client, N-able N-central; Network/infra: HPE Aruba; EVSE/OCPP: EVbee DC-80; HMIs and VNC-exposed operator stations across sectors."
+    ],
+    "sectors": [
+      "Water and Wastewater Systems (confirmed PLC manipulation; VNC-exposed HMI incidents) Energy and Electric Utilities (controller and substation device exposure; Aruba switching; EVSE OCPP risks) Critical Manufacturing (controller stacks, engineering tool vulnerabilities) Transportation and Telecom (EVSE infrastructure; telecom management platforms)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated activity against PLCs with verified operational impact in U.S. CI; TTPs map to ladder logic alterations, alarm suppression, and AOI manipulation. Security Advisory",
+        "Pro-Russia hacktivists opportunistically target exposed VNC to HMIs, causing loss of view and parameter changes in Water, Energy, and Food/Agriculture environments. Security Advisory",
+        "Ransomware: Gunra RaaS leverages edge device and VPN vulnerabilities with double-extortion playbooks; Linux locker PRNG weakness may allow partial recovery in some cases. Security Advisory"
+      ]
+    }
+  ],
+  "relevance": "Current reporting demonstrates direct exploitation and manipulation of industrial controllers (PLC logic edits, HMI parameter changes) and multiple high-severity weaknesses in OT communications stacks (EtherNet/IP, OPC UA, IIoT frameworks). Concurrent exploitation of enterprise perimeters (RMM, VPN, BIG-IP APM, MikroTik) increases the likelihood of IT-to-OT pivots. Sectors with the most elevated near-term risk include Water/Wastewater Systems, Energy, and Critical Manufacturing. Transportation and telecom infrastructure face heightened availability and integrity risks due to EVSE/OCPP exposures and controller/network management flaws highlighted in CISA weekly bulletins.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Pyramid Solutions NetStaX EtherNet/IP Stack prior to v5.6.1: stack-based buffer overflow on Class 3 explicit messages-upgrade and monitor CIP payload sizes. Security Advisory",
+        "Eclipse Arrowhead/Ditto (management/MQTT auth and template/SSRF issues): risk of unauthorized twin/policy actions and internal pivots. CISA Bulletin",
+        "OPC UA (Eclipse Milo): authorization bypass, diagnostics leakage, Basic128Rsa15 padding oracle, monitored-item quota DoS-harden policies and patch. CISA Bulletin",
+        "EVbee DC-80 EVSE: unauth APIs/Bluetooth, unsigned firmware, and OCPP injection-grid/transport disruption risk. CISA Bulletin",
+        "IXON VPN Client Security Advisory",
+        "HPE Aruba AOS-CX/Fabric Composer: multiple high-severity issues on network devices common to OT perimeters. CERT-FR Advisory",
+        "Metabase CVE-2026-72898 SQLi zero-day actively exploited-admin takeover and DB creds theft; remove internet exposure and patch. JPCERT/CC Alert"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "TA0103/ICS-Manipulation of Control Logic; TA0106-Modify Alarm/Indicator; anomalous S7comm PUT/GET and CIP Class 3 explicit messaging",
+      "Perimeter intrusion via exploited VPN/RMM/routers; in-memory web shells on appliances; AiTM phishing for session hijack (M365)",
+      "Lateral movement using SMB/RDP/WinRM; credential dumping (LSASS); cloud exfiltration (MEGA/OneDrive)"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Execute emergency exposure reduction: block inbound access to PLCs/HMIs (TCP/102/44818/2222/502) and remove any public VNC/SSH/HTTP(S) to OT assets. Patch priority stack: N-able N-central (HF4), MikroTik RouterOS (7.24.2+/6.49.21+), BIG-IP APM fixed trains, EtherNet/IP NetStaX v5.6.1, Metabase fixed versions; schedule OT change windows and validate rollbacks. Hunt for compromise on RMM, VPN, routers, and APM appliances; review logs for known IOCs and anomalous lateral movement from DMZ into OT. Validate PLC logic integrity from offline, known-good backups; place physical mode switches/read-only protections where supported.",
+  "relatedCves": [
+    "CVE-2026-72898",
+    "CVE-2024-36401",
+    "CVE-2026-8452"
+  ]
+}

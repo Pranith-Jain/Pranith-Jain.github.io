@@ -1,0 +1,49 @@
+{
+  "type": "maritime",
+  "date": "2026-09-08",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates a critical remotely exploitable flaw (command injection) in Cobham SATCOM VSAT7090 maritime satellite routers, with public exploit code, elevating risk to shipboard and offshore communications and potential IT/OT pivot paths. Confidence in this specific vulnerability report is high. Government Advisory Current reporting suggests maritime authorities continue to face cyber activity pressures: the Philippine Maritime Industry Authority (MARINA) took a system offline after suspicious activity; no data loss confirmed, but the event exposed disaster recovery gaps for critical seafaring services. Supporting Report The collected intelligence supports an assessment that AIS manipulation and false-flag tactics remain active in deceptive maritime trade, with recent analysis of a sanctioned tanker's spoofed positions in the Middle East Gulf. This activity may increase risk to compliance screening and maritime domain awareness rather than ship control systems. View Article Navigation risk drivers persist: a major vehicle carrier operator (Höegh Autoliners) plans fleet-wide navigation resilience technology deployments in response to GNSS jamming/spoofing on major routes-signaling industry adaptation rather than a discrete new incident. Source Regulatory posture is strengthening: U.S. MARAD reiterates risks from foreign adversarial technological, physical, and cyber influence with concrete mitigations for port OT and cranes; the U.S. Coast Guard established an Office of Maritime Cybersecurity Policy to coordinate policy across the Marine Transportation System. MARAD Advisory View Article Operational and safety implications: near-term focus should be on SATCOM hardening and patch pathways, improved segmentation at the IT/OT boundary, validated GNSS resilience and cross-check procedures, and continuity planning for maritime digital services. Confidence in this outlook is medium.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "Cobham SATCOM - VSAT7090 Maritime Satellite Router (CVE-2026-83772). Advisory"
+    ],
+    "sectors": [
+      "Cobham SATCOM - VSAT7090 Maritime Satellite Router (CVE-2026-83772). Advisory"
+    ]
+  },
+  "keyFindings": [],
+  "topThreats": [],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Type: Command Injection via JSON parsing; remote arbitrary command execution possible.",
+        "Affected versions: up to 20260704.",
+        "Status: Public exploit code available (per advisory). Confidence: High.",
+        "Action: Patch/upgrade when available; restrict management access; segment from OT; monitor for anomalous commands. Government Advisory"
+      ]
+    }
+  ],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Exploitation of internet-exposed SATCOM management interfaces leading to remote command execution (observed behavior per advisory; no specific ATT&CK ID asserted).",
+      "AIS position falsification and false-flag identity manipulation to obfuscate vessel movements (behavioral tactic; not mapped to a specific ATT&CK technique here).",
+      "Precautionary shutdown following repeated suspicious activity on a government maritime system (general incident response containment; insufficient detail for ATT&CK mapping)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for vendor patches, exploitation reports, and detection guidance related to CVE-2026-83772; immediate risk remains elevated for unsegmented VSAT7090 deployments. Confidence: High. Government Advisory Continued reporting is likely on AIS manipulation cases in high-scrutiny trade lanes; expect additional compliance advisories or insurer notices. Confidence: Medium. View Article Additional organizational policy and guidance may emerge as the U.S. Coast Guard's new cybersecurity policy office initiates outreach and coordination. Confidence: Medium. View Article There is insufficient information to determine further operational impact from the MARINA incident in the next 72 hours; risk to dependent stakeholders is limited but warrants contingency checks. Confidence: Medium-Low. Supporting Report",
+  "relatedCves": [
+    "CVE-2026-83772"
+  ]
+}
