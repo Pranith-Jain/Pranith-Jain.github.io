@@ -1,0 +1,84 @@
+{
+  "type": "cyber",
+  "date": "2026-09-10",
+  "threatLevel": "",
+  "executiveSummary": "Overall OT/ICS cyber threat level: HIGH Multiple active, government-validated campaigns are targeting Internet-exposed PLCs and engineering tooling in Water/Wastewater, Energy, and municipal operations. Agencies report logic/HMI manipulation and unsafe setpoint changes; immediate removal of PLCs from the public Internet and ACL/MFA enforcement are required. Security Advisory Security Advisory Edge devices and remote-access gateways face urgent risk: pre-auth RCE in NetScaler ADC/Gateway with public PoC and active exploitation of MikroTik RouterOS enable perimeter takeover and OT pivot if segmentation is weak. Alert Security Advisory A memory-resident web shell campaign on F5 BIG-IP APM (KEV-listed RCE) persists across upgrades and can broker enterprise and OT remote access. Treat any unpatched/compromised appliance as a full-environment incident. View Article CISA weekly bulletins highlight multiple OT-relevant flaws in SCADA/HMI stacks, industrial protocol libraries, EV charging infrastructure, variable frequency drives, and embedded RTOS-prioritize patching and DPI controls at IT/OT boundaries. Bulletin Bulletin Developer and collaboration platforms continue to be abused for supply-chain and lateral movement (TrueConf RCE, Zimbra webmail zero-day, Gunra ransomware). Tighten identity, harden CI/CD, and isolate conferencing/email from OT networks. Supporting Report Security Advisory",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall OT/ICS Threat Level"
+      },
+      {
+        "value": "PLCs, MikroTik, F5 BIG-IP, Zimbra",
+        "label": "Actively Exploited Focus"
+      },
+      {
+        "value": "NetScaler ADC, MikroTik, Cisco/Fortinet, F5",
+        "label": "Perimeter/Remote-Access Risk"
+      },
+      {
+        "value": "0-72 hours",
+        "label": "Priority Patching Window"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens (S7), Rockwell/Allen-Bradley, Schneider Electric, Unitronics; Citrix NetScaler ADC/Gateway; F5 BIG-IP APM; MikroTik RouterOS; Cisco/Fortinet edge platforms; EVSE (Autel); SCADA/HMI frameworks and protocol stacks (FUXA, OpENer, FreeRTOS-Kernel, Mongoose); Danfoss iC7 drives; Zimbra; TrueConf."
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Electric Power; Manufacturing and Critical Manufacturing; Transportation (incl. EV charging and rail signaling); Telecom; Government Facilities and Municipal Services."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated operations against PLCs across US critical infrastructure; logic/HMI manipulation and AOI tampering observed. Security Advisory",
+        "Pro-Russia hacktivists opportunistically attacking VNC-exposed HMIs-setpoint changes, alarm suppression, operator lockouts. Security Advisory",
+        "Gunra ransomware RaaS exploiting edge VPN/firewalls (Fortinet) and moving laterally with Impacket; double extortion with exfil to Mega. Security Advisory",
+        "TrueConf server exploitation by \"Head Mare\" APT to implant web shells and trojanize installers (PhantomCore/PhantomGraph). Kaspersky Report",
+        "FSB Center 16 activity against poorly configured routers (SNMP/SMI/TFTP) for credential theft and traffic manipulation at CI perimeters. Security Advisory"
+      ]
+    }
+  ],
+  "relevance": "What's most at risk now Water/Wastewater and municipal utilities operating Internet-reachable PLCs/HMIs face immediate operational risk from logic or setpoint tampering. Security Advisory OT gateways and DMZ appliances (NetScaler, F5, MikroTik) remain prime pivot points into OT networks if boundary controls are weak. Alert Security Advisory Industrial components with fresh CVEs (SCADA/HMI frameworks, protocol stacks, EVSE, drives, embedded RTOS) require accelerated patch cycles and DPI enforcement. CISA Bulletin Why it matters Confirmed adversary tradecraft includes living-off-the-land via vendor tools and protocol abuse (CIP, Modbus/TCP, S7), evading IT-centric detections. Compromised remote-access platforms (APM/ADC/VPN) can silently broker access to operator workstations and engineering stations. Supply-chain vectors (TrueConf server, Zimbra) widen enterprise exposure and can cascade into OT if identities and paths are shared.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "OT components and stacks: FUXA SCADA SSRF, Frauscher FDS 102 RCE chain, FreeRTOS-Kernel privilege issues, Mongoose HTTP smuggling. CISA Bulletin",
+        "Danfoss iC7 variable frequency drives-unsigned code/firmware and parameter tampering via service/update paths. CISA Bulletin",
+        "EV charging-Autel MaxiCharger WebSockets/OCPP RCE + physical-path RCEs (USB/NFC); risk of unsafe charger behavior and outages. CISA Bulletin",
+        "NetStaX EtherNet/IP stack prior to 5.6.1-oversized Class 3 explicit messaging → crash/memory corruption (embedded across OEMs). ICS Advisory",
+        "Tycon TPDIN-Monitor-WEB3-hard-coded creds/CSRF/missing auth affecting Energy/Manufacturing remote monitors. ICS Advisory",
+        "Rockwell ControlFLASH ≤15.07-weak ACLs on engineering workstations (local code execution during PLC firmware ops). ICS Advisory"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial access: exploitation of public-facing apps/edge devices (T1190), credential abuse on exposed VNC/SSL-VPN (T1078/T1110).",
+      "Discovery and lateral movement: protocol abuse (EtherNet/IP, Modbus/TCP, S7comm), Impacket toolset (T1021), WinRM/RDP (T1021.006/.001).",
+      "Command & control: covert egress via memory-resident web shells (Apache/PHP), cloud relays (OneDrive, Google Apps Script).",
+      "Impact: logic tampering/setpoint changes (ICS: T0831/T0836), service disruption of EVSE/drives/embedded stacks (DoS), double extortion (exfil to Mega)."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1110",
+      "T1021",
+      "T1021.006",
+      "T0831",
+      "T0836"
+    ]
+  },
+  "outlook72h": "Expect automated exploitation against unpatched NetScaler, F5 BIG-IP APM, and MikroTik devices; prioritize external attack-surface scans and emergency patch windows. Increase monitoring for anomalous ICS protocol traffic (CIP/Modbus/S7) and unauthorized configuration writes during off-hours. Run rapid compromise assessments on Zimbra/TrueConf and edge appliances; isolate and reimage devices with uncertain integrity.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2025-63080"
+  ]
+}

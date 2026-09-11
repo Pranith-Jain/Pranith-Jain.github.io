@@ -1,0 +1,129 @@
+{
+  "type": "disaster",
+  "date": "2026-09-11",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic floods along the Nepal-Tibet border have caused mass casualties (reports indicate more than 1,300 deaths) and thousands missing, while access constraints continue to hinder rescue and relief. Source Supporting Report Urgent WASH, health, protection and education needs are escalating in Nepal, with at least 22,000 children lacking safe water and families sheltering in temporary sites. Source Hawaii has closed schools and government offices on Oahu, Kauai and Niihau ahead of Hurricane Lowell impacts; threats include flash flooding, mudslides and tornadoes. View Article Severe flooding in eastern Texas triggered dozens of water rescues, damaged infrastructure and widespread power outages after torrential rain. Source A deadly flash flood in the Grand Canyon killed two, left at least one missing, forced 80+ air evacuations and damaged the park's primary water pipeline, prompting restrictions. Source Supporting Report China's Jiangxi/Fujian provinces reported fatalities, missing people and mass relocations as mudslides and typhoon-driven rains collapsed houses and breached a dike. View Article Indonesia's volcanic ash disrupted aviation, stranding an estimated 170,000 passengers; schools shifted to remote learning. Source Beyond immediate crises, El Niño is heightening drought, flood and heat risk across Eastern and Southern Africa, with 162 million children in exposed areas. Source",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Floods, Cyclone, Landslides, Ash",
+        "label": ""
+      },
+      {
+        "value": "Floods, Cyclone, Landslides, Ash",
+        "label": ""
+      },
+      {
+        "value": "Nepal: >1,300 deaths",
+        "label": ""
+      },
+      {
+        "value": "Rescues + Utility Disruption",
+        "label": ""
+      },
+      {
+        "value": "Schools closed/damaged",
+        "label": ""
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "title": "Nepal's flood event is a mass-casualty, multi-district disaster with access cuto",
+      "summary": "Nepal's flood event is a mass-casualty, multi-district disaster with access cutoffs, damaged roads/bridges/hydropower and large-scale displacement. View Article"
+    },
+    {
+      "title": "At least 22,000 children in Nepal require urgent safe water, sanitation and hygi",
+      "summary": "At least 22,000 children in Nepal require urgent safe water, sanitation and hygiene support, with elevated disease and protection risks. Source"
+    },
+    {
+      "title": "Critical health infrastructure damage documented in Rasuwa (health posts and hos",
+      "summary": "Critical health infrastructure damage documented in Rasuwa (health posts and hospital access affected) raises morbidity risk for displaced populations. Supporting Report"
+    },
+    {
+      "title": "Education disruption is significant",
+      "summary": "at least 20 schools were damaged in Nuwakot alone, affecting roughly 7,000 children and necessitating temporary learning and psychosocial support. Source"
+    },
+    {
+      "title": "Texas floods required assisted-living evacuations and numerous swift-water rescu",
+      "summary": "Texas floods required assisted-living evacuations and numerous swift-water rescues, with power outages and road closures across multiple counties. View Article"
+    },
+    {
+      "title": "Grand Canyon's damaged water pipeline has forced restrictions for residents and ",
+      "summary": "Grand Canyon's damaged water pipeline has forced restrictions for residents and visitors; access remains disrupted after fatal flash flooding. Source"
+    },
+    {
+      "title": "Hawaii preemptively closed schools and government services as Hurricane Lowell a",
+      "summary": "Hawaii preemptively closed schools and government services as Hurricane Lowell approaches, indicating high potential for rapid-onset flash flooding and landslides. Source"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Catastrophic multi-district floods with mass casualties and thousands missing",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/f5477d09ca1c56541450828302818d73",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/9/6/china-nepal-race-to-find-thousands-still-missing-12-days-after-floods",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Hurricane Lowell: closures in effect; high risk of flash floods, mudslides, tornadoes",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/hurricane-lowell-hawaii-schools-516235ba1cedaa7256de8d893c36a752",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Dozens rescued; assisted-living evacuation; widespread outages and road closures",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/edouard-texas-storm-marie-lowell-karina-hurricane-aa5eb54efac7113246603f1c40c1a037",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Fatal flash flood; 80+ air evacuations; primary water pipeline damaged",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/855be07c0bfea7e01770d44171ad6692",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/sep/01/border-patrol-missing-person-grand-canyon-flood",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Deaths and missing reported; house collapses and a breached dike amid flooding",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/f129132156a3bf65d493c7af356b41bf",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Hawaii: Expect continued hazardous conditions as Hurricane Lowell passes; anticipate flash flooding, landslides and service closures through the peak impact window. Source Nepal: Search and rescue likely to remain hampered by debris and damaged access; disease prevention and safe water provision are critical immediate priorities. Source Supporting Report Texas: Receding waters may reveal new infrastructure damage; continued utility restoration and debris clearance expected. Source Grand Canyon: Ongoing water restrictions and limited access likely as repairs and searches continue. Source China (Jiangxi/Fujian): Mudslide and flood residual risks persist; communities near compromised slopes and waterways should remain on alert. Source",
+  "regionalTrends": []
+}
