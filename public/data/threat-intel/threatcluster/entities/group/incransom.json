@@ -4,17 +4,27 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 3,
   "firstSeen": "2026-09-09T13:31:40.000Z",
-  "lastSeen": "2026-09-09T20:01:15.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "lastSeen": "2026-09-10T13:00:16.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-09",
       "count": 2
+    },
+    {
+      "date": "2026-09-10",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "jms-building-corporation-4619",
+      "title": "jms building corporation — claimed by incransom",
+      "pubDate": "2026-09-10T13:00:16.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "cullottalaw-com-1c33",
@@ -31,6 +41,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
       "weight": 1
@@ -44,6 +60,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "jms-building-corporation-4619",
+      "victim": "jms building corporation — claimed by incransom",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-10T13:00:16.000Z"
+    },
     {
       "id": "cullottalaw-com-1c33",
       "victim": "cullottalaw.com — claimed by incransom",

@@ -4,21 +4,27 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-08T15:36:47.000Z",
-  "lastSeen": "2026-09-09T23:52:49.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 4 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-09T13:31:40.000Z",
+  "lastSeen": "2026-09-10T13:56:38.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-09-08",
-      "count": 2
-    },
     {
       "date": "2026-09-09",
       "count": 2
+    },
+    {
+      "date": "2026-09-10",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ncbchurch-077c",
+      "title": "NcbChurch — claimed by wallstreet",
+      "pubDate": "2026-09-10T13:56:38.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mesan-usa-5867",
@@ -30,21 +36,15 @@
       "slug": "https-mediengruppethiel-de-6c9f",
       "title": "https://mediengruppethiel.de/ — claimed by incransom",
       "pubDate": "2026-09-09T13:31:40.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "reichenau-at-4b29",
-      "title": "reichenau.at — claimed by safepay",
-      "pubDate": "2026-09-08T19:49:27.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "fdcputman-nl-b02a",
-      "title": "fdcputman.nl — claimed by lockbit5",
-      "pubDate": "2026-09-08T15:36:47.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "wallstreet",
+      "name": "wallstreet",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "global-secret-group",
@@ -55,18 +55,6 @@
       "type": "group",
       "slug": "incransom",
       "name": "incransom",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "lockbit5",
-      "name": "lockbit5",
       "weight": 1
     }
   ],

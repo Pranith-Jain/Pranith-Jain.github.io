@@ -1,0 +1,56 @@
+{
+  "type": "group",
+  "slug": "clop",
+  "name": "clop",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-10T10:22:04.000Z",
+  "lastSeen": "2026-09-10T10:22:39.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-10",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "henrypratt-com-3386",
+      "title": "HENRYPRATT.COM — claimed by clop",
+      "pubDate": "2026-09-10T10:22:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "harley-davidson-com-6e73",
+      "title": "HARLEY-DAVIDSON.COM — claimed by clop",
+      "pubDate": "2026-09-10T10:22:04.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "henrypratt-com-3386",
+      "victim": "HENRYPRATT.COM — claimed by clop",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-10T10:22:39.000Z"
+    },
+    {
+      "id": "harley-davidson-com-6e73",
+      "victim": "HARLEY-DAVIDSON.COM — claimed by clop",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-10T10:22:04.000Z"
+    }
+  ]
+}

@@ -4,82 +4,63 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-08T15:36:03.000Z",
-  "lastSeen": "2026-09-09T21:29:45.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-09T21:29:45.000Z",
+  "lastSeen": "2026-09-10T19:00:19.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-08",
-      "count": 2
+      "date": "2026-09-09",
+      "count": 1
     },
     {
-      "date": "2026-09-09",
+      "date": "2026-09-10",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "alphaomega-eng-com-4fe1",
+      "title": "alphaomega-eng.com — claimed by lockbit5",
+      "pubDate": "2026-09-10T19:00:19.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "amorsaude-com-br-2d84",
       "title": "amorsaude.com.br — claimed by lockbit5",
       "pubDate": "2026-09-09T21:29:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "fdcputman-nl-b02a",
-      "title": "fdcputman.nl — claimed by lockbit5",
-      "pubDate": "2026-09-08T15:36:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "contreras-com-ar-567f",
-      "title": "contreras.com.ar — claimed by lockbit5",
-      "pubDate": "2026-09-08T15:36:03.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "alphaomega-eng-com-4fe1",
+      "victim": "alphaomega-eng.com — claimed by lockbit5",
+      "sector": "Professional Services",
+      "country": "DE",
+      "pubDate": "2026-09-10T19:00:19.000Z"
+    },
+    {
       "id": "amorsaude-com-br-2d84",
       "victim": "amorsaude.com.br — claimed by lockbit5",
       "sector": "Healthcare",
       "country": "BR",
       "pubDate": "2026-09-09T21:29:45.000Z"
-    },
-    {
-      "id": "fdcputman-nl-b02a",
-      "victim": "fdcputman.nl — claimed by lockbit5",
-      "sector": "Other",
-      "country": "NL",
-      "pubDate": "2026-09-08T15:36:47.000Z"
-    },
-    {
-      "id": "contreras-com-ar-567f",
-      "victim": "contreras.com.ar — claimed by lockbit5",
-      "sector": "Not Found",
-      "country": "AR",
-      "pubDate": "2026-09-08T15:36:03.000Z"
     }
   ]
 }

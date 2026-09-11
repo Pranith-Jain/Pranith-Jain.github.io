@@ -8,9 +8,9 @@
   "status": "up",
   "upMirrors": 2,
   "totalMirrors": 3,
-  "latencyMs": null,
+  "latencyMs": 1280,
   "httpCode": "200",
-  "pageSize": "55kb",
+  "pageSize": "49kb",
   "fingerprint": "9CD92901",
   "recommended": false,
   "isOnion": true

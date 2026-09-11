@@ -4,41 +4,29 @@
   "name": "Energy & Utilities",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-08T14:22:52.000Z",
-  "lastSeen": "2026-09-08T20:46:45.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-10T13:56:00.000Z",
+  "lastSeen": "2026-09-10T13:56:00.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-08",
-      "count": 2
+      "date": "2026-09-10",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "red-star-oil-f375",
-      "title": "Red Star Oil — claimed by play",
-      "pubDate": "2026-09-08T20:46:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "brent-electric-b04b",
-      "title": "Brent Electric — claimed by akira",
-      "pubDate": "2026-09-08T14:22:52.000Z"
+      "slug": "goldston-oil-corporation-0f76",
+      "title": "Goldston Oil Corporation — claimed by wallstreet",
+      "pubDate": "2026-09-10T13:56:00.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "play",
-      "name": "play",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "akira",
-      "name": "akira",
+      "slug": "wallstreet",
+      "name": "wallstreet",
       "weight": 1
     }
   ],

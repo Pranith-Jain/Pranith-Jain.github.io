@@ -4,21 +4,39 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-08T18:46:15.000Z",
-  "lastSeen": "2026-09-09T22:09:03.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-09T21:29:45.000Z",
+  "lastSeen": "2026-09-10T18:30:09.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 4 countries.",
   "frequency": [
-    {
-      "date": "2026-09-08",
-      "count": 2
-    },
     {
       "date": "2026-09-09",
       "count": 2
+    },
+    {
+      "date": "2026-09-10",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "general-santos-doctors-hospital-a94a",
+      "title": "General Santos Doctors Hospital — claimed by rhysida",
+      "pubDate": "2026-09-10T18:30:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mankatoclinic-com-47df",
+      "title": "mankatoclinic.com — claimed by chaos",
+      "pubDate": "2026-09-10T16:27:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "on-demand-occupational-medicine-6f42",
+      "title": "On Demand Occupational Medicine — claimed by wallstreet",
+      "pubDate": "2026-09-10T13:56:19.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "pharmaessentia-corporation-d91d",
@@ -30,26 +48,26 @@
       "slug": "amorsaude-com-br-2d84",
       "title": "amorsaude.com.br — claimed by lockbit5",
       "pubDate": "2026-09-09T21:29:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "palmettoeyeinstitute-com-c0eb",
-      "title": "palmettoeyeinstitute.com — claimed by safepay",
-      "pubDate": "2026-09-08T19:50:00.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "recoverycafe-org-a6bf",
-      "title": "recoverycafe.org — claimed by safepay",
-      "pubDate": "2026-09-08T18:46:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
-      "weight": 2
+      "slug": "rhysida",
+      "name": "rhysida",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "chaos",
+      "name": "chaos",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "wallstreet",
+      "name": "wallstreet",
+      "weight": 1
     },
     {
       "type": "group",

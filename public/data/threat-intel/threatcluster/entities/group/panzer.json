@@ -5,62 +5,62 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-08T16:52:39.000Z",
-  "lastSeen": "2026-09-09T20:53:25.000Z",
+  "firstSeen": "2026-09-09T20:53:25.000Z",
+  "lastSeen": "2026-09-11T00:52:07.000Z",
   "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-08",
+      "date": "2026-09-09",
       "count": 1
     },
     {
-      "date": "2026-09-09",
+      "date": "2026-09-11",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "aqualogus-c157",
-      "title": "Aqualogus — claimed by panzer",
-      "pubDate": "2026-09-09T20:53:25.000Z"
+      "slug": "agencia-estatal-de-meteorolog-a-e435",
+      "title": "Agencia Estatal de Meteorología — claimed by panzer",
+      "pubDate": "2026-09-11T00:52:07.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "financi-re-d-uz-s-02fd",
-      "title": "Financière d'Uzès — claimed by panzer",
-      "pubDate": "2026-09-08T16:52:39.000Z"
+      "slug": "aqualogus-c157",
+      "title": "Aqualogus — claimed by panzer",
+      "pubDate": "2026-09-09T20:53:25.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
+      "slug": "government-defense",
+      "name": "Government & Defense",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "agencia-estatal-de-meteorolog-a-e435",
+      "victim": "Agencia Estatal de Meteorología — claimed by panzer",
+      "sector": "Government & Defense",
+      "country": "ES",
+      "pubDate": "2026-09-11T00:52:07.000Z"
+    },
+    {
       "id": "aqualogus-c157",
       "victim": "Aqualogus — claimed by panzer",
       "sector": "Agriculture and Food Production",
       "country": null,
       "pubDate": "2026-09-09T20:53:25.000Z"
-    },
-    {
-      "id": "financi-re-d-uz-s-02fd",
-      "victim": "Financière d'Uzès — claimed by panzer",
-      "sector": "Financial Services",
-      "country": "FR",
-      "pubDate": "2026-09-08T16:52:39.000Z"
     }
   ]
 }

@@ -4,15 +4,11 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-08T15:32:19.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-09T13:28:59.000Z",
   "lastSeen": "2026-09-09T13:28:59.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-08",
-      "count": 2
-    },
     {
       "date": "2026-09-09",
       "count": 1
@@ -24,18 +20,6 @@
       "slug": "relycomply-aml-platform-8c3f",
       "title": "RelyComply AML Platform — claimed by direwolf",
       "pubDate": "2026-09-09T13:28:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sales-boomerang-0f69",
-      "title": "Sales Boomerang — claimed by direwolf",
-      "pubDate": "2026-09-08T17:27:16.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ems1r-b2f0",
-      "title": "EMS1R — claimed by direwolf",
-      "pubDate": "2026-09-08T15:32:19.000Z"
     }
   ],
   "relatedEntities": [
@@ -43,18 +27,6 @@
       "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
       "weight": 1
     }
   ],
@@ -66,20 +38,6 @@
       "sector": "Financial Services",
       "country": "GB",
       "pubDate": "2026-09-09T13:28:59.000Z"
-    },
-    {
-      "id": "sales-boomerang-0f69",
-      "victim": "Sales Boomerang — claimed by direwolf",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-08T17:27:16.000Z"
-    },
-    {
-      "id": "ems1r-b2f0",
-      "victim": "EMS1R — claimed by direwolf",
-      "sector": "Not Found",
-      "country": "US",
-      "pubDate": "2026-09-08T15:32:19.000Z"
     }
   ]
 }

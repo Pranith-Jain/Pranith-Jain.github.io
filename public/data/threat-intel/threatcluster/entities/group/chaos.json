@@ -4,25 +4,37 @@
   "name": "chaos",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-08T16:25:38.000Z",
-  "lastSeen": "2026-09-08T16:25:38.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-10T16:26:34.000Z",
+  "lastSeen": "2026-09-10T16:27:08.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-08",
-      "count": 1
+      "date": "2026-09-10",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "copeplastics-com-80b0",
-      "title": "copeplastics.com — claimed by chaos",
-      "pubDate": "2026-09-08T16:25:38.000Z"
+      "slug": "mankatoclinic-com-47df",
+      "title": "mankatoclinic.com — claimed by chaos",
+      "pubDate": "2026-09-10T16:27:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "artiflexmfg-com-7104",
+      "title": "artiflexmfg.com — claimed by chaos",
+      "pubDate": "2026-09-10T16:26:34.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
     {
       "type": "sector",
       "slug": "manufacturing",
@@ -33,11 +45,18 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "copeplastics-com-80b0",
-      "victim": "copeplastics.com — claimed by chaos",
+      "id": "mankatoclinic-com-47df",
+      "victim": "mankatoclinic.com — claimed by chaos",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-10T16:27:08.000Z"
+    },
+    {
+      "id": "artiflexmfg-com-7104",
+      "victim": "artiflexmfg.com — claimed by chaos",
       "sector": "Manufacturing",
-      "country": "GB",
-      "pubDate": "2026-09-08T16:25:38.000Z"
+      "country": "US",
+      "pubDate": "2026-09-10T16:26:34.000Z"
     }
   ]
 }

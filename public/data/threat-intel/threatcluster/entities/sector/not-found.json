@@ -4,21 +4,33 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-08T15:32:19.000Z",
-  "lastSeen": "2026-09-09T21:50:22.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 4 ransomware groups and 5 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-09T16:50:21.000Z",
+  "lastSeen": "2026-09-10T19:20:56.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 2 ransomware groups and 4 countries.",
   "frequency": [
-    {
-      "date": "2026-09-08",
-      "count": 4
-    },
     {
       "date": "2026-09-09",
       "count": 3
+    },
+    {
+      "date": "2026-09-10",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ki-jp-1541",
+      "title": "ki***jp — claimed by auditteam",
+      "pubDate": "2026-09-10T19:20:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "george-cameron-nash-c787",
+      "title": "George Cameron Nash — claimed by akira",
+      "pubDate": "2026-09-10T12:53:58.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mo-al-bd34",
@@ -36,30 +48,6 @@
       "slug": "kr-rg-2a3f",
       "title": "kr***rg — claimed by auditteam",
       "pubDate": "2026-09-09T16:50:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cannonpuntana-com-0fc9",
-      "title": "cannonpuntana.com — claimed by safepay",
-      "pubDate": "2026-09-08T19:48:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bu-en-7c73",
-      "title": "bu***en — claimed by auditteam",
-      "pubDate": "2026-09-08T16:50:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "contreras-com-ar-567f",
-      "title": "contreras.com.ar — claimed by lockbit5",
-      "pubDate": "2026-09-08T15:36:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ems1r-b2f0",
-      "title": "EMS1R — claimed by direwolf",
-      "pubDate": "2026-09-08T15:32:19.000Z"
     }
   ],
   "relatedEntities": [
@@ -71,20 +59,8 @@
     },
     {
       "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "lockbit5",
-      "name": "lockbit5",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     }
   ],
