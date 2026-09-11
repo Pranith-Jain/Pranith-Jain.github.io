@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "wallstreet",
+  "name": "wallstreet",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-10T13:56:00.000Z",
+  "lastSeen": "2026-09-10T13:56:38.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-10",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ncbchurch-077c",
+      "title": "NcbChurch — claimed by wallstreet",
+      "pubDate": "2026-09-10T13:56:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "on-demand-occupational-medicine-6f42",
+      "title": "On Demand Occupational Medicine — claimed by wallstreet",
+      "pubDate": "2026-09-10T13:56:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "goldston-oil-corporation-0f76",
+      "title": "Goldston Oil Corporation — claimed by wallstreet",
+      "pubDate": "2026-09-10T13:56:00.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ncbchurch-077c",
+      "victim": "NcbChurch — claimed by wallstreet",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-09-10T13:56:38.000Z"
+    },
+    {
+      "id": "on-demand-occupational-medicine-6f42",
+      "victim": "On Demand Occupational Medicine — claimed by wallstreet",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-10T13:56:19.000Z"
+    },
+    {
+      "id": "goldston-oil-corporation-0f76",
+      "victim": "Goldston Oil Corporation — claimed by wallstreet",
+      "sector": "Energy & Utilities",
+      "country": "US",
+      "pubDate": "2026-09-10T13:56:00.000Z"
+    }
+  ]
+}

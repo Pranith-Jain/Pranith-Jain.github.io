@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/multiple-critical-cves-target-adobe-and-microsoft-products-a5acf548?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/multiple-critical-cves-target-adobe-and-microsoft-products-a5acf548",
   "pubDate": "2026-09-08T20:00:57.000Z",
-  "sourceCount": 14,
-  "categories": ["14 Sources"],
+  "sourceCount": 18,
+  "categories": ["18 Sources"],
   "description": "In September 2026, several critical vulnerabilities were disclosed, notably CVE-2026-81963 and CVE-2026-85880, both of which are actively exploited.",
   "sizeBytes": 148
 }

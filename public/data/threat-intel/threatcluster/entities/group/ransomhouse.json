@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "ransomhouse",
+  "name": "ransomhouse",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-10T17:31:50.000Z",
+  "lastSeen": "2026-09-10T17:31:50.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-10",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "california-school-employees-association-004e",
+      "title": "California School Employees Association — claimed by ransomhouse",
+      "pubDate": "2026-09-10T17:31:50.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "california-school-employees-association-004e",
+      "victim": "California School Employees Association — claimed by ransomhouse",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-10T17:31:50.000Z"
+    }
+  ]
+}

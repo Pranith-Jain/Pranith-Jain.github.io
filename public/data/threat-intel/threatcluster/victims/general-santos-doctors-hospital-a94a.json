@@ -1,0 +1,14 @@
+{
+  "id": "general-santos-doctors-hospital-a94a",
+  "victim": "General Santos Doctors Hospital",
+  "group": "rhysida",
+  "sector": "Healthcare",
+  "country": "PH",
+  "title": "General Santos Doctors Hospital — claimed by rhysida",
+  "link": "https://threatcluster.io/dark-web/victim/General%20Santos%20Doctors%20Hospital",
+  "guid": "darkweb-victim:rhysida:general santos doctors hospital",
+  "pubDate": "2026-09-10T18:30:09.000Z",
+  "categories": ["Group: rhysida", "Sector: Healthcare", "Country: PH"],
+  "description": "PH · Healthcare · General Santos Doctors Hospital 3.502.636 files, total volume ~2.44 TBPatient data (PHI) � name-tagged scans across department shares (surgical pathology, hemodialysis charts, admission records), cancer-center dossiers with PhilHealth IDs, lab quotations incl. cancer-marker tests with birth dates, PhilHealth claims monitoring, neonatal (NICU) dataStaff and professionals � accredited physicians reg",
+  "sizeBytes": 418
+}

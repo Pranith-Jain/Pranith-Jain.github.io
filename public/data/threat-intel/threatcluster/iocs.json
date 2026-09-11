@@ -1,11 +1,251 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-10T09:57:32Z",
-  "syncedAt": "2026-09-10T09:57:32.337Z",
+  "generatedAt": "2026-09-11T09:57:05Z",
+  "syncedAt": "2026-09-11T09:57:05.577Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 189,
+  "count": 204,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "leappoach.info",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as part of a suspicious domain chain in a security audit.",
+      "first_seen": "2026-09-10T20:36:21.084658+00:00",
+      "last_seen": "2026-09-10T20:36:21.084658+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "npratley.net",
+          "url": "https://npratley.net/reversing-mikrotiks-silent-patch-the-routeros-7-23-4-fix-they-wouldnt-explain/",
+          "pub_date": "2026-09-10T20:36:21.084658+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "y4bxj.adozeuds.com",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as a payment gateway host for TeslaCrypt ransomware.",
+      "first_seen": "2026-09-10T18:33:12.876366+00:00",
+      "last_seen": "2026-09-10T18:33:12.876366+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.bleepingcomputer.com",
+          "url": "https://www.bleepingcomputer.com/news/security/teslacrypt-4-1b-released-with-few-modifications/",
+          "pub_date": "2026-09-10T18:33:12.876366+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "113.141.67.163",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "185.221.135.138",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "185.53.88.49",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.143.220.214",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.143.220.220",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.143.220.240",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.143.220.25",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.143.221.59",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.234.152.38",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "91.212.38.210",
+      "confidence": "high",
+      "reason": "[article sweep] IP address detected as source of attack and blacklisted",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "92.246.85.154",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as an IP address detected in an attack and added to a blacklist.",
+      "first_seen": "2026-09-10T16:49:06+00:00",
+      "last_seen": "2026-09-10T16:49:06+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SINOLOGICNET-SIPCHECK&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-10T16:49:06+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "finger.linked4x.com",
+      "confidence": "high",
+      "reason": "Listed as a ClickFix script domain, indicating attacker control",
+      "first_seen": "2026-09-10T16:08:43+00:00",
+      "last_seen": "2026-09-10T16:08:43+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Zscaler",
+          "url": "https://www.zscaler.com/blogs/security-research/sloppyrat-new-tool-ransomware-attacks",
+          "pub_date": "2026-09-10T16:08:43+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "skipraid.com",
+      "confidence": "high",
+      "reason": "Listed as a domain used in the attack, indicating attacker control",
+      "first_seen": "2026-09-10T16:08:43+00:00",
+      "last_seen": "2026-09-10T16:08:43+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Zscaler",
+          "url": "https://www.zscaler.com/blogs/security-research/sloppyrat-new-tool-ransomware-attacks",
+          "pub_date": "2026-09-10T16:08:43+00:00"
+        }
+      ]
+    },
     {
       "type": "ipv4",
       "value": "62.60.130.193",
@@ -211,6 +451,54 @@
           "source": "www.malwarebytes.com",
           "url": "https://www.malwarebytes.com/blog/threat-intel/2026/08/fake-gta-6-extended-look-and-demo-sites-deliver-an-infostealer",
           "pub_date": "2026-09-09T14:31:09.124499+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "aa.amazingshield.xyz",
+      "confidence": "high",
+      "reason": "Described as a Python agent host for malicious activity",
+      "first_seen": "2026-09-09T10:00:55+00:00",
+      "last_seen": "2026-09-09T10:00:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Unit42.Paloaltonetworks",
+          "url": "https://unit42.paloaltonetworks.com/ppi-network-malware-campaign-analysis/",
+          "pub_date": "2026-09-09T10:00:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "reg.pcsdkflyer.ca",
+      "confidence": "high",
+      "reason": "Described as a WebSocket RAT C2 server",
+      "first_seen": "2026-09-09T10:00:55+00:00",
+      "last_seen": "2026-09-09T10:00:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Unit42.Paloaltonetworks",
+          "url": "https://unit42.paloaltonetworks.com/ppi-network-malware-campaign-analysis/",
+          "pub_date": "2026-09-09T10:00:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "stryper.info",
+      "confidence": "high",
+      "reason": "Described as a host for second-stage PowerShell and Node.js agents",
+      "first_seen": "2026-09-09T10:00:55+00:00",
+      "last_seen": "2026-09-09T10:00:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Unit42.Paloaltonetworks",
+          "url": "https://unit42.paloaltonetworks.com/ppi-network-malware-campaign-analysis/",
+          "pub_date": "2026-09-09T10:00:55+00:00"
         }
       ]
     },
@@ -3094,54 +3382,6 @@
           "source": "Csoonline",
           "url": "https://www.csoonline.com/article/4208565/fake-ccleaner-downloads-turn-chrome-into-a-credential-stealing-surveillance-tool.html",
           "pub_date": "2026-08-12T11:26:50+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "166.88.134.62",
-      "confidence": "high",
-      "reason": "[article sweep] Decoded C2 IP address from a transaction",
-      "first_seen": "2026-08-11T13:21:16.792531+00:00",
-      "last_seen": "2026-08-11T13:21:16.792531+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "opensourcemalware.com",
-          "url": "https://opensourcemalware.com/blog/nullreceiver-dprk-c2-technique",
-          "pub_date": "2026-08-11T13:21:16.792531+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "m.studiotikva.com",
-      "confidence": "high",
-      "reason": "[article sweep] Used for DNS A-record queries in C2 communication",
-      "first_seen": "2026-08-11T10:00:19+00:00",
-      "last_seen": "2026-08-11T10:00:19+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/project-cav3rn-continues/120991/",
-          "pub_date": "2026-08-11T10:00:19+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "74.65.75.102",
-      "confidence": "high",
-      "reason": "Explicitly mentioned in response context.",
-      "first_seen": "2026-08-11T10:00:19+00:00",
-      "last_seen": "2026-08-11T10:00:19+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/project-cav3rn-continues/120991/",
-          "pub_date": "2026-08-11T10:00:19+00:00"
         }
       ]
     }

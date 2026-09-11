@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "dragonforce",
+  "name": "dragonforce",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-11T05:53:47.000Z",
+  "lastSeen": "2026-09-11T05:53:47.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-11",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "medical-department-store-e5de",
+      "title": "Medical Department Store — claimed by dragonforce",
+      "pubDate": "2026-09-11T05:53:47.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "medical-department-store-e5de",
+      "victim": "Medical Department Store — claimed by dragonforce",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-11T05:53:47.000Z"
+    }
+  ]
+}

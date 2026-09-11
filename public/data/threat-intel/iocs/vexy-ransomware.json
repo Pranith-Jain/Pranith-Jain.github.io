@@ -7,7 +7,7 @@
   "mitreTechniques": [],
   "indicatorCount": 2,
   "description": "💡INTEL",
-  "sizeBytes": 486,
+  "sizeBytes": 573,
   "indicators": [
     {
       "type": "onion",
@@ -22,7 +22,7 @@
       "confidence": "medium"
     }
   ],
-  "context": "💡INTEL\n========\n📌Initially spotted in September 2026\n📌$200 is the Joining Fees to view the Leaks, which is suspecious\n📌As per victimology, India is listed with 2 counts, totalling 6 Victims in September 2026\n\nDLS: vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion\nServer: Apache/2.4.68 (Debian)\n\nBTC\nbc1qqvgke5qyuqu852587gxtz5pwthpn4tmzwckgvf\nbc1qumh8a923mgna8h3dwd04rj9yax78vua7pv0lg6\n\nTOX: C32355C829A3CC4B320D4E78634FB4113B4B2918B383BB7AEAA48BDAAA4A0146E99B45A2A4C9\n",
+  "context": "💡INTEL\n========\n📌Initially spotted in September 2026\n📌$200 is the Joining Fees to view the Leaks, which is suspecious\n📌As per victimology, India is listed with 2 counts, totalling 6 Victims in September 2026\n📌The group publishes data leak on an Anonymous File Sharing Service named \"ByteBlob\".\n\nDLS: vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion\nServer: Apache/2.4.68 (Debian)\n\nBTC\nbc1qqvgke5qyuqu852587gxtz5pwthpn4tmzwckgvf\nbc1qumh8a923mgna8h3dwd04rj9yax78vua7pv0lg6\n\nTOX: C32355C829A3CC4B320D4E78634FB4113B4B2918B383BB7AEAA48BDAAA4A0146E99B45A2A4C9\n",
   "references": [],
   "llmSummary": null
 }

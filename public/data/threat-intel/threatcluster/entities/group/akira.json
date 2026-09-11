@@ -5,43 +5,43 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 4,
-  "firstSeen": "2026-09-08T13:54:25.000Z",
-  "lastSeen": "2026-09-09T13:25:41.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 2 countries.",
+  "firstSeen": "2026-09-09T13:25:41.000Z",
+  "lastSeen": "2026-09-10T12:54:37.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-08",
-      "count": 3
-    },
     {
       "date": "2026-09-09",
       "count": 1
+    },
+    {
+      "date": "2026-09-10",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "ak-stamping-30dc",
+      "title": "AK Stamping — claimed by akira",
+      "pubDate": "2026-09-10T12:54:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "eagle-construction-e14f",
+      "title": "Eagle Construction — claimed by akira",
+      "pubDate": "2026-09-10T12:54:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "george-cameron-nash-c787",
+      "title": "George Cameron Nash — claimed by akira",
+      "pubDate": "2026-09-10T12:53:58.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "kyodo-usa-0551",
       "title": "Kyodo USA — claimed by akira",
       "pubDate": "2026-09-09T13:25:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "brent-electric-b04b",
-      "title": "Brent Electric — claimed by akira",
-      "pubDate": "2026-09-08T14:22:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "brentwood-country-club-54a9",
-      "title": "Brentwood Country Club — claimed by akira",
-      "pubDate": "2026-09-08T13:54:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "createasoft-2946",
-      "title": "CreateASoft — claimed by akira",
-      "pubDate": "2026-09-08T13:54:25.000Z"
     }
   ],
   "relatedEntities": [
@@ -49,56 +49,44 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 1
+      "weight": 3
     },
     {
       "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "ak-stamping-30dc",
+      "victim": "AK Stamping — claimed by akira",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-10T12:54:37.000Z"
+    },
+    {
+      "id": "eagle-construction-e14f",
+      "victim": "Eagle Construction — claimed by akira",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-10T12:54:17.000Z"
+    },
+    {
+      "id": "george-cameron-nash-c787",
+      "victim": "George Cameron Nash — claimed by akira",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-10T12:53:58.000Z"
+    },
+    {
       "id": "kyodo-usa-0551",
       "victim": "Kyodo USA — claimed by akira",
       "sector": "Manufacturing",
       "country": "US",
       "pubDate": "2026-09-09T13:25:41.000Z"
-    },
-    {
-      "id": "brent-electric-b04b",
-      "victim": "Brent Electric — claimed by akira",
-      "sector": "Energy & Utilities",
-      "country": "GB",
-      "pubDate": "2026-09-08T14:22:52.000Z"
-    },
-    {
-      "id": "brentwood-country-club-54a9",
-      "victim": "Brentwood Country Club — claimed by akira",
-      "sector": "Hospitality",
-      "country": "US",
-      "pubDate": "2026-09-08T13:54:45.000Z"
-    },
-    {
-      "id": "createasoft-2946",
-      "victim": "CreateASoft — claimed by akira",
-      "sector": "Technology",
-      "country": null,
-      "pubDate": "2026-09-08T13:54:25.000Z"
     }
   ]
 }

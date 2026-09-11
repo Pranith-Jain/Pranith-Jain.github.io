@@ -4,21 +4,37 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-08T20:46:11.000Z",
-  "lastSeen": "2026-09-09T20:08:41.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-09T10:11:17.000Z",
+  "lastSeen": "2026-09-11T05:53:47.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
   "frequency": [
-    {
-      "date": "2026-09-08",
-      "count": 1
-    },
     {
       "date": "2026-09-09",
       "count": 2
+    },
+    {
+      "date": "2026-09-10",
+      "count": 1
+    },
+    {
+      "date": "2026-09-11",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "medical-department-store-e5de",
+      "title": "Medical Department Store — claimed by dragonforce",
+      "pubDate": "2026-09-11T05:53:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "professional-retail-services-a48d",
+      "title": "Professional Retail Services — claimed by rhysida",
+      "pubDate": "2026-09-10T18:29:19.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mitsuwa-trading-co-ltd-41dc",
@@ -30,15 +46,21 @@
       "slug": "lowerys-6ace",
       "title": "Lowerys — claimed by storm",
       "pubDate": "2026-09-09T10:11:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gt-distributors-fbf4",
-      "title": "GT Distributors — claimed by play",
-      "pubDate": "2026-09-08T20:46:11.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "dragonforce",
+      "name": "dragonforce",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "rhysida",
+      "name": "rhysida",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "qilin",
@@ -49,12 +71,6 @@
       "type": "group",
       "slug": "storm",
       "name": "storm",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "play",
-      "name": "play",
       "weight": 1
     }
   ],

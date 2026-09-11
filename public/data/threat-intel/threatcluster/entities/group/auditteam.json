@@ -4,21 +4,33 @@
   "name": "auditteam",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-08T16:50:21.000Z",
-  "lastSeen": "2026-09-09T21:50:22.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 2 sectors and 4 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-09-09T16:50:21.000Z",
+  "lastSeen": "2026-09-10T19:20:56.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 2 sectors and 5 countries.",
   "frequency": [
-    {
-      "date": "2026-09-08",
-      "count": 1
-    },
     {
       "date": "2026-09-09",
       "count": 4
+    },
+    {
+      "date": "2026-09-10",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ki-jp-1541",
+      "title": "ki***jp — claimed by auditteam",
+      "pubDate": "2026-09-10T19:20:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "my-ru-d488",
+      "title": "my***ru — claimed by auditteam",
+      "pubDate": "2026-09-10T19:20:25.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mo-al-bd34",
@@ -42,12 +54,6 @@
       "slug": "kr-rg-2a3f",
       "title": "kr***rg — claimed by auditteam",
       "pubDate": "2026-09-09T16:50:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bu-en-7c73",
-      "title": "bu***en — claimed by auditteam",
-      "pubDate": "2026-09-08T16:50:21.000Z"
     }
   ],
   "relatedEntities": [
@@ -61,11 +67,25 @@
       "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 1
+      "weight": 2
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "ki-jp-1541",
+      "victim": "ki***jp — claimed by auditteam",
+      "sector": "Not Found",
+      "country": "JP",
+      "pubDate": "2026-09-10T19:20:56.000Z"
+    },
+    {
+      "id": "my-ru-d488",
+      "victim": "my***ru — claimed by auditteam",
+      "sector": "Technology",
+      "country": "RU",
+      "pubDate": "2026-09-10T19:20:25.000Z"
+    },
     {
       "id": "mo-al-bd34",
       "victim": "mo***al — claimed by auditteam",
@@ -93,13 +113,6 @@
       "sector": "Not Found",
       "country": "AR",
       "pubDate": "2026-09-09T16:50:21.000Z"
-    },
-    {
-      "id": "bu-en-7c73",
-      "victim": "bu***en — claimed by auditteam",
-      "sector": "Not Found",
-      "country": "RU",
-      "pubDate": "2026-09-08T16:50:21.000Z"
     }
   ]
 }
