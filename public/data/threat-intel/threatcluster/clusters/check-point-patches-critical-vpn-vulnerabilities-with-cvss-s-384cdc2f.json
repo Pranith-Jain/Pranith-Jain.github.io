@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/check-point-patches-critical-vpn-vulnerabilities-with-cvss-s-384cdc2f?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/check-point-patches-critical-vpn-vulnerabilities-with-cvss-s-384cdc2f",
   "pubDate": "2026-09-10T13:31:08.000Z",
-  "sourceCount": 12,
-  "categories": ["12 Sources"],
+  "sourceCount": 20,
+  "categories": ["20 Sources"],
   "description": "On September 9, 2026, Check Point disclosed two critical vulnerabilities, CVE-2026-85102 and CVE-2026-85103, both with a CVSS score of 9.8, affecting its Quantum product line.",
   "sizeBytes": 175
 }

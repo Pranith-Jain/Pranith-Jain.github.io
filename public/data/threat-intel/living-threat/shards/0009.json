@@ -3,6 +3,211 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary is likely targeting AI-powered environments using vulnerabilities in the Filesystem MCP Server.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential data breaches and privilege escalation.",
+      "Sophistication": "Moderate, leveraging known vulnerabilities.",
+      "Strategic_Objectives": "Compromise AI environments for unauthorized access and control.",
+      "TTPs_Employed": ["Directory containment bypass", "Symlink bypass"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of vulnerabilities CVE-2025-53110 and CVE-2025-53109.",
+        "Detection": "Monitor for unusual file access patterns • Check for unauthorized symlink creation",
+        "Remediation": "Apply patches immediately • Restrict file permissions",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities to gain initial access.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Potential installation of malicious code via symlink bypass.",
+        "Detection": "Monitor for new or modified scheduled tasks • Check for unauthorized plist files",
+        "Remediation": "Review and restrict scheduled tasks • Validate plist file integrity",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing persistence through malicious code installation.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using scheduled tasks to maintain persistence.",
+            "technique_id": "T1053",
+            "technique_name": "Scheduled Task/Job"
+          }
+        ],
+        "Techniques": ["T1053"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential data breaches and privilege escalation.",
+        "Detection": "Monitor for unusual data access patterns • Check for unauthorized file transfers",
+        "Remediation": "Implement data access controls • Conduct regular security audits",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Collecting sensitive data from compromised systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing and collecting data from local systems.",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [
+      "Crafting paths to bypass directory containment",
+      "Creating symlinks for code execution"
+    ],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Improper error handling"],
+      "Description": "Exploitation of vulnerabilities in the Filesystem MCP Server to escape sandboxes and execute arbitrary code.",
+      "Exploits": ["CVE-2025-53110", "CVE-2025-53109"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Node.js"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data access patterns", "Unauthorized file transfers"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for unusual file access patterns",
+      "Check for unauthorized symlink creation"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["AI environments", "Claude Desktop"],
+      "Breach_Types": ["data breaches", "privilege escalation"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Anthropic", "Cymulate Research Labs"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["vulnerabilities", "sandbox escapes", "unauthorized file access", "arbitrary code execution"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Filesystem MCP Server version 0.6.3", "Filesystem MCP Server version 2025.7.1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Filesystem MCP Server", "Node.js"],
+      "Technologies": ["Model Context Protocol", "large language model"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-53110", "CVE-2025-53109"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The infrastructure involves AI environments using the Filesystem MCP Server.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply patches immediately", "Conduct regular security audits"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Directory containment bypass", "Symlink bypass"],
+      "Tools": ["Node.js"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Exposure validation platforms", "Security audits"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-07-03T10:26:19Z",
+    "Title": "Critical Vulnerabilities in Anthropic's Filesystem MCP Server",
+    "Tools": ["Node.js", "Filesystem MCP Server"],
+    "Victim": {
+      "Access_Vectors": ["Filesystem MCP Server vulnerabilities"],
+      "Data_Types_At_Risk": ["Sensitive files", "System files"],
+      "Description": "AI-powered environments using Anthropic's Filesystem MCP Server.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to unpatched server versions.",
+      "Targeted_Assets": ["AI environments", "Filesystem MCP Server"]
+    },
+    "diamond_model_summary": "The incident involves adversaries exploiting vulnerabilities in Anthropic's Filesystem MCP Server, specifically CVE-2025-53110 and CVE-2025-53109, to target AI-powered environments. The adversary's capability includes exploiting directory containment and symlink bypass vulnerabilities, potentially leading to data breaches and privilege escalation. The infrastructure is centered around AI environments using the Filesystem MCP Server, with victims primarily in the technology sector. The incident underscores the critical need for patching and robust security measures to protect sensitive environments.",
+    "doc_summary": "Two newly disclosed vulnerabilities in Anthropic’s Filesystem Model Context Protocol (MCP) Server—CVE-2025-53110 and CVE-2025-53109—have exposed AI-powered environments to severe risks, including sandbox escapes, unauthorized file access, and arbitrary code execution. These flaws, discovered by Cymulate Research Labs, highlight urgent security challenges as MCP adoption accelerates in enterprise and developer ecosystems. Anthropic’s Model Context Protocol (MCP) is rapidly becoming the standard for enabling large language model (LLM) clients, such as Claude Desktop, to interact with external data and tools. The Filesystem MCP Server, a Node.js-based implementation, is designed to restrict file operations to a set of “allowed directories,” theoretically keeping the AI’s access safely sandboxed. CVE-2025-53110: Directory Containment Bypass The Filesystem MCP Server checks if a requested path starts with an allowed directory prefix. Attackers can exploit this by crafting paths like /private/tmp/allow_dir_sensitive, which pass the check but lie outside the intended sandbox. This enables unrestricted listing, reading, and writing of files beyond the designated boundary—potentially leading to data breaches and privilege escalation. CVE-2025-53109: Symlink Bypass to Code Execution A more severe flaw lies in the server’s symlink resolution logic. Attackers can create symlinks within the allowed directory (or a prefix-bypassed directory) that point anywhere on the filesystem, such as /etc/sudoers. Due to improper error handling, the server validates the symlink’s parent directory rather than its real target, allowing attackers to read or overwrite critical system files. This can be chained to achieve arbitrary code execution, for example by writing malicious macOS Launch Agent plists, leading to full system compromise if the server runs with elevated privileges. Recommended Actions With MCP’s ecosystem rapidly expanding, these vulnerabilities underscore the need for robust security reviews and swift patch adoption to protect sensitive environments from emerging AI-driven threats.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:43.648978+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "301c83290ef4db23e6621323cc65e7b970e4b0c8",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the adversary exploits vulnerabilities in the Filesystem MCP Server to gain initial access and execute arbitrary code. The exploitation stage involves directory containment and symlink bypass techniques, leading to potential data breaches and privilege escalation. The installation stage may involve the use of scheduled tasks for persistence. The actions on objectives stage focuses on collecting sensitive data from compromised systems. Detection and remediation strategies include monitoring for unusual file access patterns, applying patches, and conducting regular security audits.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 99,
+    "pyramid_of_pain_summary": "The pyramid of pain analysis identifies several indicators of compromise, including vulnerabilities (CVE-2025-53110 and CVE-2025-53109) and techniques such as directory containment bypass and symlink bypass. These indicators highlight the adversary's capability to exploit known vulnerabilities in the Filesystem MCP Server. The analysis emphasizes the importance of patching and monitoring for unusual file access patterns to detect and mitigate potential threats. The scoring reflects the presence of TTPs and tools used in the attack, underscoring the critical need for robust security measures.",
+    "relevance_score": 49,
+    "sequence": 17465,
+    "source": "https://gbhackers.com/anthropic-mcp-server-flaw/",
+    "slug": "Critical_Vulnerabilities_in_Anthropic_s_Filesystem_MCP_Server-017465",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Potential remote attackers exploiting deserialization flaws in Apache Seata.",
       "Known_Campaigns": [],
       "Motivation": "Unauthorized access and control over vulnerable servers.",
@@ -97717,193 +97922,6 @@
     "sequence": 16967,
     "source": "https://gbhackers.com/qnap-high-severity-vulnerabilities/",
     "slug": "QNAP_Systems_Vulnerabilities__High-Severity_Threats_and_Mitigation-016967",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential exploitation of vulnerabilities in Qlik Sense Enterprise",
-        "Detection": "Monitor for unusual network activity • Check for unauthorized access attempts",
-        "Remediation": "Apply security patches • Implement network segmentation",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Potential for remote code execution and broken access control",
-      "Exploits": ["Remote Code Execution via Connectors", "Broken Access Control"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Qlik"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Remote Code Execution", "Broken Access Control", "Security Patches"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [
-        "November 2024 Initial Release",
-        "May 2024 Patch 10",
-        "February 2024 Patch 14",
-        "November 2023 Patch 16",
-        "August 2023 Patch 16",
-        "May 2023 Patch 18",
-        "February 2023 Patch 15"
-      ],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Software"],
-      "Software": ["Qlik Sense Enterprise for Windows"],
-      "Technologies": ["Qlik Sense Enterprise"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["QB-29918", "QB-29750", "QB-29586", "QB-29864", "QB-29482", "QB-29802"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Qlik Sense Enterprise for Windows systems",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Apply all recommended patches immediately",
-      "Monitor network for unusual activity",
-      "Review access controls and permissions"
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote Code Execution", "Broken Access Control"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2024-12-09T09:20:45Z",
-    "Title": "Critical Vulnerabilities in Qlik Sense Enterprise for Windows",
-    "Tools": ["Qlik Sense Enterprise for Windows"],
-    "Victim": {
-      "Access_Vectors": ["Network"],
-      "Data_Types_At_Risk": ["Confidentiality", "Integrity"],
-      "Description": "Organizations using Qlik Sense Enterprise for Windows",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Software",
-      "Security_Posture": "Vulnerable",
-      "Targeted_Assets": ["Qlik Sense Enterprise servers"]
-    },
-    "diamond_model_summary": "The incident involves critical vulnerabilities in Qlik Sense Enterprise for Windows, potentially allowing remote code execution and broken access control. No specific adversary has been identified, but the vulnerabilities pose a significant risk to organizations using this software. Immediate patching is recommended to mitigate risks.",
-    "doc_summary": "Qlik has identified critical vulnerabilities in its Qlik Sense Enterprise for Windows software that could lead to remote code execution (RCE) if exploited. Security patches have been released to mitigate these risks and ensure system integrity. The vulnerabilities, discovered during Qlik’s internal security testing, pose a significant threat to systems running Qlik Sense Enterprise for Windows. If an attacker successfully exploits these flaws, they could gain control of the server, execute unauthorized commands, and compromise data confidentiality and integrity. Fortunately, there have been no reports of these vulnerabilities being exploited maliciously. However, immediate action is required to mitigate the risks. Users are advised to upgrade to fixed versions of Qlik Sense Enterprise for Windows immediately. The recommended updates include November 2024 Initial Release, May 2024 Patch 10, February 2024 Patch 14, November 2023 Patch 16, August 2023 Patch 16, May 2023 Patch 18, and February 2023 Patch 15. Additionally, a workaround has been provided for extension and visualization errors by modifying the Repository configuration file. Remote Code Execution (RCE) via Connectors CVE-pending (QB-29918, QB-29750) Severity: High (CVSS Score: 8.8). Broken Access Control (BAC) CVE-pending (QB-29586, QB-29864, QB-29482, QB-29802) Severity: High (CVSS Score: 7.5).",
-    "enrichment": { "processed_at": "2026-02-18T00:35:25.310629+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "b3cf83c3efbc3ace9f4ade1b3e100766567a5f72",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involves the exploitation stage of the kill chain, with potential for remote code execution and broken access control in Qlik Sense Enterprise for Windows. No specific adversary actions have been detected beyond the vulnerabilities themselves. Immediate patching and monitoring are crucial to prevent exploitation.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the vulnerabilities identified in Qlik Sense Enterprise for Windows. No specific indicators such as hashes, IPs, or domains have been identified. The focus is on patching and monitoring to prevent exploitation of these vulnerabilities.",
-    "relevance_score": 41,
-    "sequence": 16966,
-    "source": "https://gbhackers.com/qlik-sense-for-windows-vulnerability/",
-    "slug": "Critical_Vulnerabilities_in_Qlik_Sense_Enterprise_for_Windows-016966",
     "shard": 9
   }
 ]

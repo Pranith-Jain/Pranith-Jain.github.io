@@ -95,6 +95,169 @@
       "Breach_Types": [],
       "Command_Lines_Or_Scripts": [],
       "Companies": [],
+      "Countries": ["Ghana"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Wa livestock market", "Attorney General", "GNAD", "GNAT", "NAGRAT"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Public Health", "Education", "Media", "Agriculture"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Low",
+    "Threat_Actors": [],
+    "Timestamp": "2013-03-18T00:00:00Z",
+    "Title": "Analysis of Ghana News Agency Report on March 18, 2013",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": [],
+      "Data_Types_At_Risk": [],
+      "Description": "No significant information detected",
+      "Geography": "",
+      "Impact_Severity": "",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "The analysis of the Ghana News Agency report from March 18, 2013, does not reveal any specific cyber incidents or adversaries. The report primarily covers local news topics such as public health risks, legal motions, and educational strikes. No adversary, capability, infrastructure, or victim details related to a cyber incident are identified in the text.",
+    "doc_summary": "The Ghana News Agency report from March 18, 2013, covers a range of topics including public health risks at the Wa livestock market, a motion by the Attorney General to set aside a judgment debt, and challenges faced by the Ghana National Association of the Deaf due to inadequate sign language interpretation in healthcare. It also highlights the need for more veterinary officers, teacher strikes in Kumasi and Sunyani, and the media's shifting role in agenda setting. Additionally, the report discusses improvements in land management systems, the expansion of Alternative Dispute Resolution, and various other local and international news items.",
+    "enrichment": { "processed_at": "2026-02-18T00:31:36.260721+00:00", "source_fields": [], "version": "v1" },
+    "id": "4570b0443bef0131a9ba9f800f56a82f3f633f2e",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "The Ghana News Agency report from March 18, 2013, does not provide information on any cyber incidents or related activities. As such, no stages of the cyber kill chain, including reconnaissance, weaponization, delivery, exploitation, installation, command and control, or actions on objectives, are applicable to the content of the report.",
+    "operational_tags": [],
+    "priority_score": 20,
+    "pyramid_of_pain_summary": "The report from the Ghana News Agency on March 18, 2013, does not contain any indicators of compromise or specific details that would populate the Pyramid of Pain. No hash values, IP addresses, domain names, network host artifacts, tools, or TTPs are identified within the text, resulting in a lack of data for this analysis.",
+    "relevance_score": 35,
+    "sequence": 17971,
+    "source": "http://www.ghheadlines.com/agency/ghana-news-agency/20130318?page=2",
+    "slug": "Analysis_of_Ghana_News_Agency_Report_on_March_18__2013-017971",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "No significant information detected",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
       "Countries": [],
       "Domains": [],
       "Email_Addresses": [],
@@ -102231,211 +102394,6 @@
     "sequence": 17466,
     "source": "https://gbhackers.com/wing-ftp-server-vulnerability/",
     "slug": "Critical_Vulnerability_in_Wing_FTP_Server_Enables_Full_Server_Takeover-017466",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is likely targeting AI-powered environments using vulnerabilities in the Filesystem MCP Server.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential data breaches and privilege escalation.",
-      "Sophistication": "Moderate, leveraging known vulnerabilities.",
-      "Strategic_Objectives": "Compromise AI environments for unauthorized access and control.",
-      "TTPs_Employed": ["Directory containment bypass", "Symlink bypass"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities CVE-2025-53110 and CVE-2025-53109.",
-        "Detection": "Monitor for unusual file access patterns • Check for unauthorized symlink creation",
-        "Remediation": "Apply patches immediately • Restrict file permissions",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain initial access.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Potential installation of malicious code via symlink bypass.",
-        "Detection": "Monitor for new or modified scheduled tasks • Check for unauthorized plist files",
-        "Remediation": "Review and restrict scheduled tasks • Validate plist file integrity",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Establishing persistence through malicious code installation.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using scheduled tasks to maintain persistence.",
-            "technique_id": "T1053",
-            "technique_name": "Scheduled Task/Job"
-          }
-        ],
-        "Techniques": ["T1053"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential data breaches and privilege escalation.",
-        "Detection": "Monitor for unusual data access patterns • Check for unauthorized file transfers",
-        "Remediation": "Implement data access controls • Conduct regular security audits",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Collecting sensitive data from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Accessing and collecting data from local systems.",
-            "technique_id": "T1005",
-            "technique_name": "Data from Local System"
-          }
-        ],
-        "Techniques": ["T1005"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [
-      "Crafting paths to bypass directory containment",
-      "Creating symlinks for code execution"
-    ],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Improper error handling"],
-      "Description": "Exploitation of vulnerabilities in the Filesystem MCP Server to escape sandboxes and execute arbitrary code.",
-      "Exploits": ["CVE-2025-53110", "CVE-2025-53109"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Node.js"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data access patterns", "Unauthorized file transfers"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unusual file access patterns",
-      "Check for unauthorized symlink creation"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["AI environments", "Claude Desktop"],
-      "Breach_Types": ["data breaches", "privilege escalation"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Anthropic", "Cymulate Research Labs"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerabilities", "sandbox escapes", "unauthorized file access", "arbitrary code execution"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Filesystem MCP Server version 0.6.3", "Filesystem MCP Server version 2025.7.1"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Filesystem MCP Server", "Node.js"],
-      "Technologies": ["Model Context Protocol", "large language model"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-53110", "CVE-2025-53109"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The infrastructure involves AI environments using the Filesystem MCP Server.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches immediately", "Conduct regular security audits"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Directory containment bypass", "Symlink bypass"],
-      "Tools": ["Node.js"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Exposure validation platforms", "Security audits"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-07-03T10:26:19Z",
-    "Title": "Critical Vulnerabilities in Anthropic's Filesystem MCP Server",
-    "Tools": ["Node.js", "Filesystem MCP Server"],
-    "Victim": {
-      "Access_Vectors": ["Filesystem MCP Server vulnerabilities"],
-      "Data_Types_At_Risk": ["Sensitive files", "System files"],
-      "Description": "AI-powered environments using Anthropic's Filesystem MCP Server.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched server versions.",
-      "Targeted_Assets": ["AI environments", "Filesystem MCP Server"]
-    },
-    "diamond_model_summary": "The incident involves adversaries exploiting vulnerabilities in Anthropic's Filesystem MCP Server, specifically CVE-2025-53110 and CVE-2025-53109, to target AI-powered environments. The adversary's capability includes exploiting directory containment and symlink bypass vulnerabilities, potentially leading to data breaches and privilege escalation. The infrastructure is centered around AI environments using the Filesystem MCP Server, with victims primarily in the technology sector. The incident underscores the critical need for patching and robust security measures to protect sensitive environments.",
-    "doc_summary": "Two newly disclosed vulnerabilities in Anthropic’s Filesystem Model Context Protocol (MCP) Server—CVE-2025-53110 and CVE-2025-53109—have exposed AI-powered environments to severe risks, including sandbox escapes, unauthorized file access, and arbitrary code execution. These flaws, discovered by Cymulate Research Labs, highlight urgent security challenges as MCP adoption accelerates in enterprise and developer ecosystems. Anthropic’s Model Context Protocol (MCP) is rapidly becoming the standard for enabling large language model (LLM) clients, such as Claude Desktop, to interact with external data and tools. The Filesystem MCP Server, a Node.js-based implementation, is designed to restrict file operations to a set of “allowed directories,” theoretically keeping the AI’s access safely sandboxed. CVE-2025-53110: Directory Containment Bypass The Filesystem MCP Server checks if a requested path starts with an allowed directory prefix. Attackers can exploit this by crafting paths like /private/tmp/allow_dir_sensitive, which pass the check but lie outside the intended sandbox. This enables unrestricted listing, reading, and writing of files beyond the designated boundary—potentially leading to data breaches and privilege escalation. CVE-2025-53109: Symlink Bypass to Code Execution A more severe flaw lies in the server’s symlink resolution logic. Attackers can create symlinks within the allowed directory (or a prefix-bypassed directory) that point anywhere on the filesystem, such as /etc/sudoers. Due to improper error handling, the server validates the symlink’s parent directory rather than its real target, allowing attackers to read or overwrite critical system files. This can be chained to achieve arbitrary code execution, for example by writing malicious macOS Launch Agent plists, leading to full system compromise if the server runs with elevated privileges. Recommended Actions With MCP’s ecosystem rapidly expanding, these vulnerabilities underscore the need for robust security reviews and swift patch adoption to protect sensitive environments from emerging AI-driven threats.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:43.648978+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "301c83290ef4db23e6621323cc65e7b970e4b0c8",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals that the adversary exploits vulnerabilities in the Filesystem MCP Server to gain initial access and execute arbitrary code. The exploitation stage involves directory containment and symlink bypass techniques, leading to potential data breaches and privilege escalation. The installation stage may involve the use of scheduled tasks for persistence. The actions on objectives stage focuses on collecting sensitive data from compromised systems. Detection and remediation strategies include monitoring for unusual file access patterns, applying patches, and conducting regular security audits.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 99,
-    "pyramid_of_pain_summary": "The pyramid of pain analysis identifies several indicators of compromise, including vulnerabilities (CVE-2025-53110 and CVE-2025-53109) and techniques such as directory containment bypass and symlink bypass. These indicators highlight the adversary's capability to exploit known vulnerabilities in the Filesystem MCP Server. The analysis emphasizes the importance of patching and monitoring for unusual file access patterns to detect and mitigate potential threats. The scoring reflects the presence of TTPs and tools used in the attack, underscoring the critical need for robust security measures.",
-    "relevance_score": 49,
-    "sequence": 17465,
-    "source": "https://gbhackers.com/anthropic-mcp-server-flaw/",
-    "slug": "Critical_Vulnerabilities_in_Anthropic_s_Filesystem_MCP_Server-017465",
     "shard": 8
   }
 ]

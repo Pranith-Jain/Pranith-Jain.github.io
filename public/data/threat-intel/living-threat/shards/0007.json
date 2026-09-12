@@ -3,6 +3,181 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary conducted a sophisticated phishing campaign targeting C-suite executives.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially financial gain or corporate espionage.",
+      "Sophistication": "High, as the attack bypassed multiple detection tools.",
+      "Strategic_Objectives": "Compromise high-level executives for sensitive information.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Phishing emails were delivered to executive inboxes.",
+        "Detection": "Employee reports of suspicious emails",
+        "Remediation": "Training employees to recognize phishing attempts",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary delivered phishing emails to the targets.",
+            "tactic_id": "TA0004",
+            "tactic_name": "Delivery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary used phishing emails to target executives.",
+            "technique_id": "T1566",
+            "technique_name": "Phishing"
+          }
+        ],
+        "Techniques": ["T1566"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The adversary used phishing techniques to bypass detection tools.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Email accounts"],
+      "Breach_Types": ["Phishing"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Phishing", "SOC", "Detection Tools", "AI SOC", "Radiant Security"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Various"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-11-25T18:30:00Z",
+    "Title": "Phishing Attack Bypasses Detection Tools but Detected by SOC",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": ["Email"],
+      "Data_Types_At_Risk": ["Sensitive corporate information"],
+      "Description": "C-suite executives at multiple enterprises were targeted.",
+      "Geography": "Not specified",
+      "Impact_Severity": "High",
+      "Industry": "Various",
+      "Security_Posture": "Under-resourced SOCs",
+      "Targeted_Assets": ["Email accounts of executives"]
+    },
+    "diamond_model_summary": "The phishing attack targeted C-suite executives across multiple enterprises, bypassing detection tools but was identified by SOC teams. The adversary demonstrated high sophistication by evading multiple security measures. The incident underscores the importance of balanced investment in SOCs to complement detection tools.",
+    "doc_summary": "A sophisticated phishing attack targeted C-suite executives across multiple enterprises, bypassing eight different email security tools. The attack was detected by the SOC teams after employees reported suspicious emails. The case study highlights the importance of balanced investment in SOCs alongside detection tools. Detection tools operate quickly but lack context, while SOCs provide a broader view. The asymmetry in investment leads to overwhelmed SOCs and missed nuanced threats. AI SOC platforms like Radiant Security offer a solution by automating alert triage and reducing false positives, enabling lean SOC teams to operate efficiently without additional staffing.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:31.815784+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "6d657eebab1bbe8d073c6dddff2ca9d3b7b5bc0211d8018f471b11332d06ffb3",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The phishing attack involved delivering emails to executives, bypassing detection tools. SOC teams detected the attack after employee reports. The incident highlights the need for SOCs to provide context and time for analysis, which detection tools lack. AI SOC platforms can enhance SOC efficiency by automating alert triage.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 65,
+    "pyramid_of_pain_summary": "The incident did not provide specific indicators like hashes, IPs, or domains. The focus was on the failure of detection tools and the success of SOCs in identifying the phishing attack. AI SOC platforms can reduce false positives and improve detection capabilities, addressing the challenges faced by under-resourced SOCs.",
+    "relevance_score": 37,
+    "sequence": 18458,
+    "source": "https://thehackernews.com/2025/11/when-your-2m-security-detection-fails.html",
+    "slug": "Phishing_Attack_Bypasses_Detection_Tools_but_Detected_by_SOC-018458",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "The adversary is believed to be involved in a global campaign exploiting ASUS router vulnerabilities.",
       "Known_Campaigns": ["Global ASUS Router Hijacking"],
       "Motivation": "Potentially espionage or infrastructure control",
@@ -104720,169 +104895,6 @@
     "sequence": 17972,
     "source": "https://github.com/huddaannaa",
     "slug": "Analysis_of_Huddaannaa_s_GitHub_Profile_for_Cybersecurity_Insights-017972",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": ["Ghana"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Wa livestock market", "Attorney General", "GNAD", "GNAT", "NAGRAT"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Public Health", "Education", "Media", "Agriculture"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2013-03-18T00:00:00Z",
-    "Title": "Analysis of Ghana News Agency Report on March 18, 2013",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "The analysis of the Ghana News Agency report from March 18, 2013, does not reveal any specific cyber incidents or adversaries. The report primarily covers local news topics such as public health risks, legal motions, and educational strikes. No adversary, capability, infrastructure, or victim details related to a cyber incident are identified in the text.",
-    "doc_summary": "The Ghana News Agency report from March 18, 2013, covers a range of topics including public health risks at the Wa livestock market, a motion by the Attorney General to set aside a judgment debt, and challenges faced by the Ghana National Association of the Deaf due to inadequate sign language interpretation in healthcare. It also highlights the need for more veterinary officers, teacher strikes in Kumasi and Sunyani, and the media's shifting role in agenda setting. Additionally, the report discusses improvements in land management systems, the expansion of Alternative Dispute Resolution, and various other local and international news items.",
-    "enrichment": { "processed_at": "2026-02-18T00:31:36.260721+00:00", "source_fields": [], "version": "v1" },
-    "id": "4570b0443bef0131a9ba9f800f56a82f3f633f2e",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "The Ghana News Agency report from March 18, 2013, does not provide information on any cyber incidents or related activities. As such, no stages of the cyber kill chain, including reconnaissance, weaponization, delivery, exploitation, installation, command and control, or actions on objectives, are applicable to the content of the report.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "The report from the Ghana News Agency on March 18, 2013, does not contain any indicators of compromise or specific details that would populate the Pyramid of Pain. No hash values, IP addresses, domain names, network host artifacts, tools, or TTPs are identified within the text, resulting in a lack of data for this analysis.",
-    "relevance_score": 35,
-    "sequence": 17971,
-    "source": "http://www.ghheadlines.com/agency/ghana-news-agency/20130318?page=2",
-    "slug": "Analysis_of_Ghana_News_Agency_Report_on_March_18__2013-017971",
     "shard": 7
   }
 ]

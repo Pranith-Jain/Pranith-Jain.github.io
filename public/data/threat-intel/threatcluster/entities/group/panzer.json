@@ -4,10 +4,10 @@
   "name": "panzer",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 3,
   "firstSeen": "2026-09-09T20:53:25.000Z",
-  "lastSeen": "2026-09-11T00:52:07.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "lastSeen": "2026-09-11T10:53:16.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-09",
@@ -15,10 +15,16 @@
     },
     {
       "date": "2026-09-11",
-      "count": 1
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "konica-minolta-bulgaria-d0d7",
+      "title": "Konica Minolta Bulgaria — claimed by panzer",
+      "pubDate": "2026-09-11T10:53:16.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "agencia-estatal-de-meteorolog-a-e435",
@@ -35,6 +41,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "government-defense",
       "name": "Government & Defense",
       "weight": 1
@@ -48,6 +60,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "konica-minolta-bulgaria-d0d7",
+      "victim": "Konica Minolta Bulgaria — claimed by panzer",
+      "sector": "Manufacturing",
+      "country": "BG",
+      "pubDate": "2026-09-11T10:53:16.000Z"
+    },
     {
       "id": "agencia-estatal-de-meteorolog-a-e435",
       "victim": "Agencia Estatal de Meteorología — claimed by panzer",

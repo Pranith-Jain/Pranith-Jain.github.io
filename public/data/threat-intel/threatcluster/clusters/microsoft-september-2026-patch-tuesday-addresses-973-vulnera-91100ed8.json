@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/microsoft-september-2026-patch-tuesday-addresses-973-vulnera-91100ed8?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/microsoft-september-2026-patch-tuesday-addresses-973-vulnera-91100ed8",
   "pubDate": "2026-09-08T19:20:30.000Z",
-  "sourceCount": 76,
-  "categories": ["76 Sources"],
+  "sourceCount": 82,
+  "categories": ["82 Sources"],
   "description": "On September 8, 2026, Microsoft released a record-breaking 974 patches for vulnerabilities across its products, including two actively exploited zero-day vulnerabilities: CVE-2026-81963 and CVE-2026-8…",
   "sizeBytes": 201
 }

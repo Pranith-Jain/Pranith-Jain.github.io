@@ -1,6 +1,253 @@
 [
   {
     "Adversary": {
+      "Aliases": ["Tadashi"],
+      "Associated_Groups": [],
+      "Description": "The threat actor behind the xlabs_v1 botnet, known as Tadashi, targets Android devices with exposed ADB services.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through DDoS-for-hire services",
+      "Sophistication": "Mid-tier, more sophisticated than typical script-kiddie Mirai forks",
+      "Strategic_Objectives": "To monetize compromised devices by offering DDoS services",
+      "TTPs_Employed": ["DDoS attacks", "Exploitation of ADB"]
+    },
+    "Analyses": [
+      {
+        "Description": "The botnet identifies devices with exposed ADB services.",
+        "Detection": "Monitor network traffic for unusual scanning activity.",
+        "Remediation": "Disable ADB on devices not in use.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for exposed services.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "The botnet prepares payloads for different architectures.",
+        "Detection": "Analyze malware samples for architecture-specific payloads.",
+        "Remediation": "Implement security patches for known vulnerabilities.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating malware for multiple architectures.",
+            "technique_id": "T1587.001",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "The botnet delivers the malware via ADB-shell pastes.",
+        "Detection": "Monitor for unauthorized ADB connections.",
+        "Remediation": "Restrict ADB access to trusted IPs.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a target network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to access systems.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "The botnet exploits devices with ADB enabled by default.",
+        "Detection": "Monitor for exploitation attempts on ADB services.",
+        "Remediation": "Disable ADB on devices not in use.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a target network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "The botnet installs the malware on compromised devices.",
+        "Detection": "Check for unauthorized installations in /data/local/tmp.",
+        "Remediation": "Regularly audit installed applications and services.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to a target network.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Executing malware at boot or logon.",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "The botnet communicates with the C2 server for instructions.",
+        "Detection": "Monitor for traffic to known C2 domains and IPs.",
+        "Remediation": "Block known C2 domains and IPs at the network perimeter.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols for C2 communication.",
+            "technique_id": "T1071.001",
+            "technique_name": "Application Layer Protocol: Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "The botnet executes DDoS attacks on game servers.",
+        "Detection": "Monitor for unusual traffic patterns indicative of DDoS attacks.",
+        "Remediation": "Implement DDoS protection measures.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Disrupting availability or integrity of systems.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Flooding a target with traffic to disrupt services.",
+            "technique_id": "T1499",
+            "technique_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Techniques": ["T1499"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Lack of persistence mechanisms"],
+      "Description": "The xlabs_v1 botnet is capable of executing 21 flood variants across TCP, UDP, and raw protocols.",
+      "Exploits": ["ADB exploitation"],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["xlabs_v1"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["xlabs_v1 botnet"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Android TV boxes", "Set-top boxes", "Smart TVs"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Hunt.io"],
+      "Countries": ["Netherlands"],
+      "Domains": ["xlabslover.lol"],
+      "Email_Addresses": [],
+      "Encryption_Tools": ["ChaCha20"],
+      "File_Hashes": [],
+      "IP_Addresses": ["176.65.139.44"],
+      "Keywords": ["DDoS", "botnet", "Mirai", "Android", "IoT"],
+      "Malware_Families": ["xlabs_v1"],
+      "Malware_Filenames": ["boot.apk"],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Gaming"],
+      "Software": ["Android Debug Bridge"],
+      "Technologies": ["TCP", "UDP", "RakNet", "OpenVPN"],
+      "Threat_Infrastructure": ["Netherlands-hosted server"],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": ["xlabs_v1"],
+      "C2_Servers": ["xlabslover.lol"],
+      "Communication_Protocols": ["TCP", "UDP", "RakNet", "OpenVPN-shaped UDP"],
+      "Description": "The botnet operates from a server in the Netherlands and uses a domain for command and control.",
+      "Domains": ["xlabslover.lol"],
+      "Hosting_Providers": [],
+      "IPs": ["176.65.139.44"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["xlabslover.lol"],
+      "Hash_Values": [],
+      "IP_Addresses": ["176.65.139.44"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["DDoS attacks", "Exploitation of ADB"],
+      "Tools": ["xlabs_v1 botnet"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Tadashi"],
+    "Timestamp": "2026-05-05T18:30:00Z",
+    "Title": "Discovery of xlabs_v1 Botnet Targeting Android Devices via ADB",
+    "Tools": ["xlabs_v1 botnet", "Android Debug Bridge"],
+    "Victim": {
+      "Access_Vectors": ["Exposed ADB service"],
+      "Data_Types_At_Risk": [],
+      "Description": "Targets include Android devices with exposed ADB services, IoT devices, and game servers.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "Gaming",
+      "Security_Posture": "Vulnerable due to default ADB settings",
+      "Targeted_Assets": ["Android TV boxes", "Set-top boxes", "Smart TVs", "IoT devices"]
+    },
+    "diamond_model_summary": "The xlabs_v1 botnet, attributed to the threat actor Tadashi, targets Android devices with exposed ADB services to conduct DDoS attacks. The botnet operates from a server in the Netherlands and uses a domain for command and control. It lacks persistence mechanisms, requiring re-infection for each attack. The botnet is offered as a DDoS-for-hire service, primarily targeting the gaming industry.",
+    "doc_summary": "Cybersecurity researchers have identified a new Mirai-derived botnet named xlabs_v1, which targets internet-exposed devices running Android Debug Bridge (ADB) to conduct distributed denial-of-service (DDoS) attacks. The botnet, discovered by Hunt.io, operates from a Netherlands-hosted server at IP address 176.65.139.44 and is offered as a DDoS-for-hire service targeting game servers and Minecraft hosts. It exploits devices with ADB enabled by default, such as Android TV boxes and IoT hardware, and uses a bandwidth-tiered pricing model. The botnet lacks persistence mechanisms, requiring re-infection for each attack. The threat actor, known as Tadashi, employs a killer subsystem to eliminate competitors and maximize bandwidth usage. The infrastructure also includes a Monero-mining toolkit, suggesting potential links to other malicious activities.",
+    "enrichment": null,
+    "id": "3a5aed8fa86c47fcee264e8377adb9e086225097a6c23ac418e0e4b19e0b3a17",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The xlabs_v1 botnet follows a structured attack chain, starting with reconnaissance to identify devices with exposed ADB services. It then weaponizes payloads for multiple architectures and delivers them via ADB-shell pastes. The botnet exploits devices with ADB enabled by default, installs malware, and communicates with a C2 server for instructions. Finally, it executes DDoS attacks on game servers.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The xlabs_v1 botnet's indicators include IP addresses, domains, and malware tools. The botnet operates from a Netherlands-hosted server and uses the domain xlabslover.lol for command and control. The malware, identified as xlabs_v1, targets Android devices with exposed ADB services. These indicators are crucial for detecting and mitigating the botnet's activities.",
+    "relevance_score": 65,
+    "sequence": 20437,
+    "source": "https://thehackernews.com/2026/05/mirai-based-xlabsv1-botnet-exploits-adb.html",
+    "slug": "Discovery_of_xlabs_v1_Botnet_Targeting_Android_Devices_via_ADB-020437",
+    "shard": 3
+  },
+  {
+    "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
       "Description": "Unknown threat actor responsible for trojanizing DAEMON Tools Lite.",
@@ -104875,228 +105122,6 @@
     "sequence": 19940,
     "source": "https://www.bleepingcomputer.com/news/security/citrix-urges-admins-to-patch-netscaler-flaws-as-soon-as-possible/",
     "slug": "Citrix_Patches_Critical_Vulnerabilities_in_NetScaler_ADC_and_Gateway-019940",
-    "shard": 3
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Cybercriminals exploiting AI platform access for fraud and phishing.",
-      "Known_Campaigns": [],
-      "Motivation": "Financial gain through fraud and phishing.",
-      "Sophistication": "Medium",
-      "Strategic_Objectives": "Exploit AI tools for large-scale fraud operations.",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "Cybercriminals gather information on AI platform access.",
-        "Detection": "Monitor for unusual account access patterns.",
-        "Remediation": "Implement stronger authentication measures.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victim identities.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Identity Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "AI tools are used to create phishing and scam content.",
-        "Detection": "Analyze content for AI-generated patterns.",
-        "Remediation": "Educate users on recognizing AI-generated scams.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing tools and capabilities for operations.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Phishing messages and scam scripts are distributed.",
-        "Detection": "Use email filtering to detect phishing attempts.",
-        "Remediation": "Implement anti-phishing technologies.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Delivering malicious content to victims.",
-            "tactic_id": "TA0004",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Sending fraudulent messages to obtain information.",
-            "technique_id": "T1566",
-            "technique_name": "Phishing"
-          }
-        ],
-        "Techniques": ["T1566"]
-      },
-      {
-        "Description": "Victims interact with phishing content.",
-        "Detection": "Monitor for unusual user behavior.",
-        "Remediation": "Patch vulnerabilities promptly.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining initial access to victim systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "AI tools are used to automate fraud operations.",
-        "Detection": "Monitor for automated fraud patterns.",
-        "Remediation": "Enhance monitoring of AI tool usage.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Executing malicious code on victim systems.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using interpreters to execute commands.",
-            "technique_id": "T1059",
-            "technique_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Techniques": ["T1059"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Access to AI platforms for generating phishing and scam content.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Generative AI tools"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["AI platform accounts"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Flare"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["AI tools", "underground market", "phishing", "fraud"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["ChatGPT", "Claude", "Microsoft Copilot", "Perplexity"],
-      "Technologies": ["Generative AI"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Underground market infrastructure for AI platform access resale.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": ["Generative AI tools"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Cybercriminals"],
-    "Timestamp": "2026-03-25T10:02:00Z",
-    "Title": "Underground Market for AI Platform Access",
-    "Tools": ["Generative AI tools", "ChatGPT", "Claude", "Microsoft Copilot", "Perplexity"],
-    "Victim": {
-      "Access_Vectors": ["Compromised accounts"],
-      "Data_Types_At_Risk": ["Sensitive information"],
-      "Description": "Organizations and individuals using AI platforms.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable to account misuse",
-      "Targeted_Assets": ["AI platform accounts"]
-    },
-    "diamond_model_summary": "The incident involves cybercriminals exploiting AI platform access for fraudulent activities. The adversary is financially motivated, using generative AI tools to create phishing and scam content. The infrastructure includes underground markets for AI platform access resale. Victims are organizations and individuals using AI platforms, with a high impact severity due to the potential misuse of sensitive information.",
-    "doc_summary": "AI tools like ChatGPT, Claude, Microsoft Copilot, and Perplexity are increasingly integrated into daily workflows, raising their value not only for legitimate users but also within the cybercrime ecosystem. Analysts have identified a growing underground market for premium AI platform access, with recurring patterns of resale-style listings offering discounted subscriptions and bundled access. These listings suggest a trend where digital services are repackaged and resold. The misuse of AI platforms enables activities such as phishing, scam scripts, and social engineering, with generative AI improving the realism and effectiveness of fraudulent communications. Criminal groups are automating phishing and fraud operations using AI, crafting personalized social engineering campaigns. Flare researchers found AI accounts are perceived as valuable commodities in black markets, integrated with existing ecosystems trading access and digital services. Offers often include claims of unrestricted access, appealing to buyers seeking fewer restrictions. Addressing this shift requires stronger account protections and monitoring for suspicious activity.",
-    "enrichment": null,
-    "id": "89806cab2424b1d9d754a76abae66d3b",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain involves reconnaissance to gather information on AI platform access, weaponization using AI tools to create phishing content, delivery of phishing messages, and exploitation when victims interact with the content. Actions on objectives include using AI tools to automate fraud operations. Detection and remediation strategies focus on monitoring account access patterns and educating users on recognizing AI-generated scams.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The pyramid of pain for this incident includes tools like generative AI, which are used to create phishing and scam content. No specific hashes, IP addresses, or domains were identified. The focus is on detecting patterns of AI-generated content and monitoring for unusual account access. The lack of specific indicators limits the ability to provide a detailed pyramid of pain analysis.",
-    "relevance_score": 73,
-    "sequence": 19939,
-    "source": "https://www.bleepingcomputer.com/news/security/paid-ai-accounts-are-now-a-hot-underground-commodity/",
-    "slug": "Underground_Market_for_AI_Platform_Access-019939",
     "shard": 3
   }
 ]

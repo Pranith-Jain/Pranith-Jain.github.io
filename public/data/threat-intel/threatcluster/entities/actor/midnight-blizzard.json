@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "midnight-blizzard",
+  "name": "Midnight Blizzard",
+  "aliases": [],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-12T00:00:00.000Z",
+  "lastSeen": "2026-09-12T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-09-12",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "2c8ef828-93c0-5e20-87fe-97f19e4d81f7",
+      "title": "Russian Hackers Use AI to Target Ukraine's Drone Manufacturing and Government",
+      "pubDate": "2026-09-12T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

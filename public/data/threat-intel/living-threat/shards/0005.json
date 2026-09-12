@@ -1,6 +1,181 @@
 [
   {
     "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in Microsoft software, including privilege escalation and security feature bypass.",
+        "Detection": "Monitor for unusual file execution and privilege escalation activities.",
+        "Remediation": "Apply the latest security patches from Microsoft.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of vulnerabilities in client applications.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of vulnerabilities in Microsoft software, including privilege escalation and security feature bypass.",
+      "Exploits": ["CVE-2026-21513", "CVE-2026-21514", "CVE-2026-21525"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": ["CVE-2026-21525"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Windows systems", "Edge browser"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft", "Google"],
+      "Countries": ["United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["vulnerabilities", "exploited", "security updates"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["January 2026 Patch Tuesday"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Microsoft Windows", "Microsoft Edge"],
+      "Technologies": ["MSHTML Framework", "Secure Boot"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-21513", "CVE-2026-21514", "CVE-2026-21525"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-21513", "CVE-2026-21514", "CVE-2026-21525"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-02-10T18:30:00Z",
+    "Title": "Microsoft January 2026 Security Update: Exploited Vulnerabilities",
+    "Tools": ["Microsoft Windows", "Microsoft Edge"],
+    "Victim": {
+      "Access_Vectors": ["Malicious files", "Network spoofing"],
+      "Data_Types_At_Risk": [],
+      "Description": "Users of Microsoft software, including Windows and Edge browser.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "",
+      "Targeted_Assets": ["Windows systems", "Edge browser"]
+    },
+    "diamond_model_summary": "The incident involves the exploitation of multiple vulnerabilities in Microsoft software, including privilege escalation and security feature bypass. The vulnerabilities were actively exploited in the wild, prompting Microsoft to release security updates. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added these vulnerabilities to its Known Exploited Vulnerabilities catalog, highlighting the critical nature of the threat. The incident underscores the importance of timely patching and the need for robust security measures to protect against exploitation.",
+    "doc_summary": "Microsoft released security updates addressing 59 flaws, including six actively exploited vulnerabilities. The updates cover critical vulnerabilities in the MSHTML Framework and privilege escalation issues. CVE-2026-21513 and CVE-2026-21514 are notable for their similarities to CVE-2026-21510. CVE-2026-21525 is linked to a zero-day discovered by ACROS Security. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added these vulnerabilities to its Known Exploited Vulnerabilities catalog. Microsoft also updated Secure Boot certificates and introduced Windows Baseline Security Mode and User Transparency initiatives.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:07.396775+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "624d781c9be23fe99350133debcd69b759eacfab15f85639596013e584f7d2ff",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident involves the exploitation of vulnerabilities in Microsoft software, specifically targeting the MSHTML Framework and privilege escalation mechanisms. The adversary gains initial access through malicious files or network spoofing, exploiting vulnerabilities such as CVE-2026-21513 and CVE-2026-21525. The exploitation stage is critical, as it allows the adversary to bypass security features and potentially escalate privileges. The incident highlights the need for vigilant monitoring and timely application of security patches to mitigate the risk of exploitation.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 65,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the exploitation of specific vulnerabilities in Microsoft software, such as CVE-2026-21513 and CVE-2026-21525. These vulnerabilities represent TTPs (Tactics, Techniques, and Procedures) that are challenging to detect and mitigate. The incident underscores the importance of understanding and addressing these TTPs to enhance security posture. While specific hash values, IP addresses, and domain names are not identified, the focus on TTPs highlights the need for comprehensive threat intelligence and proactive defense strategies.",
+    "relevance_score": 45,
+    "sequence": 19442,
+    "source": "https://thehackernews.com/2026/02/microsoft-patches-59-vulnerabilities.html",
+    "slug": "Microsoft_January_2026_Security_Update__Exploited_Vulnerabilities-019442",
+    "shard": 5
+  },
+  {
+    "Adversary": {
       "Aliases": ["Lazarus Group"],
       "Associated_Groups": ["North Korean cyber units"],
       "Description": "The Lazarus Group, a North Korean state-sponsored hacking group, known for targeting financial institutions and cryptocurrency exchanges.",
@@ -101771,205 +101946,6 @@
     "sequence": 18948,
     "source": "https://thehackernews.com/2025/01/fbi-deletes-plugx-malware-from-4250.html",
     "slug": "FBI_Deletes_PlugX_Malware_from_4_250_Hacked_Computers_in_Multi-Month_Ope-018948",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "KorPlug malware developers employing advanced obfuscation techniques.",
-      "Known_Campaigns": [],
-      "Motivation": "Evasion of detection and analysis.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Compromise systems while evading detection.",
-      "TTPs_Employed": ["O-LLVM obfuscation", "DLL side-loading"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "KorPlug malware employs O-LLVM obfuscation.",
-        "Detection": "Monitor for unusual software packing activities.",
-        "Remediation": "Implement advanced unpacking techniques.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "KorPlug uses O-LLVM obfuscation to evade detection.",
-            "tactic_id": "T1027",
-            "tactic_name": "Obfuscation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "KorPlug uses software packing to obfuscate its payload.",
-            "technique_id": "T1027.002",
-            "technique_name": "Software Packing"
-          }
-        ],
-        "Techniques": ["T1027.002"]
-      },
-      {
-        "Description": "KorPlug uses DLL side-loading for delivery.",
-        "Detection": "Monitor for unexpected DLL loading activities.",
-        "Remediation": "Restrict DLL search paths and validate DLL signatures.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "KorPlug uses DLL side-loading to execute its payload.",
-            "tactic_id": "T1073",
-            "tactic_name": "DLL Side-Loading"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "KorPlug hijacks DLL search order to load malicious DLLs.",
-            "technique_id": "T1073.001",
-            "technique_name": "DLL Search Order Hijacking"
-          }
-        ],
-        "Techniques": ["T1073.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "KorPlug installs its payload using shellcode execution.",
-        "Detection": "Monitor for unusual process injection activities.",
-        "Remediation": "Implement process integrity checks.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "KorPlug uses shellcode execution for process injection.",
-            "tactic_id": "T1055",
-            "tactic_name": "Process Injection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "KorPlug injects DLLs into processes using shellcode.",
-            "technique_id": "T1055.001",
-            "technique_name": "Dynamic-link Library Injection"
-          }
-        ],
-        "Techniques": ["T1055.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Control flow flattening", "Bogus control flow injection"],
-      "Description": "KorPlug malware with advanced obfuscation and evasion capabilities.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["KorPlug"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["O-LLVM obfuscation", "DLL side-loading"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual DLL loading and process injection activities."],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": ["b6b239fe0974cf09fe8ee9bc5d0502174836a79c53adccdbb1adeb1f15c6845c"],
-      "IP_Addresses": [],
-      "Keywords": ["KorPlug", "O-LLVM", "DLL side-loading", "obfuscation"],
-      "Malware_Families": ["KorPlug"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Infrastructure supporting KorPlug malware operations.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Implement advanced unpacking techniques and process integrity checks."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": ["b6b239fe0974cf09fe8ee9bc5d0502174836a79c53adccdbb1adeb1f15c6845c"],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Control flow flattening", "Bogus control flow injection"],
-      "Tools": ["O-LLVM obfuscation", "DLL side-loading"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Advanced unpacking tools", "Process integrity checks"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-08-25T00:00:00Z",
-    "Title": "KorPlug Malware Unmasked: Advanced Obfuscation and Evasion Techniques",
-    "Tools": ["O-LLVM obfuscation", "DLL side-loading"],
-    "Victim": {
-      "Access_Vectors": ["DLL side-loading"],
-      "Data_Types_At_Risk": ["Sensitive data"],
-      "Description": "Potential targets of KorPlug malware.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Various",
-      "Security_Posture": "Vulnerable to advanced obfuscation techniques",
-      "Targeted_Assets": ["Windows systems"]
-    },
-    "diamond_model_summary": "The KorPlug malware incident involves a sophisticated adversary employing advanced obfuscation techniques such as O-LLVM to evade detection. The adversary uses DLL side-loading to deliver the malware, which targets Windows systems globally. The malware's capability includes control flow flattening and bogus control flow injection, complicating reverse engineering efforts. The infrastructure supporting KorPlug operations remains largely unidentified, but the malware's impact is significant due to its ability to evade traditional detection mechanisms.",
-    "doc_summary": "KorPlug is a sophisticated malware strain posing a significant threat in the cybersecurity landscape. It employs advanced obfuscation techniques, including O-LLVM obfuscation mechanisms, to evade detection and complicate analysis. The malware uses DLL side-loading techniques for initial code execution and operates as a 624 KB x86 PE file. Its payload circumvents standard Windows DLL loading procedures through shellcode-style execution via the EnumSystemGeoID API function call. RevEng.AI researchers identified that KorPlug's second-stage payload exhibits an anomalous Control Flow Graph structure, leveraging O-LLVM compiler infrastructure modifications to implement control flow flattening, bogus control flow injection, and instruction substitution. These techniques obscure the malware's operational logic, defeating signature-based detection mechanisms and increasing reverse-engineering difficulty. Effective deobfuscation requires systematic mapping of state variable values across relevant blocks, followed by correlation with backbone block comparison operations to reconstruct the original execution sequence.",
-    "enrichment": { "processed_at": "2026-02-18T00:30:47.486290+00:00", "source_fields": [], "version": "v1" },
-    "id": "bc55a077254c60f4ff04ffe59b93c3060e8ff90b",
-    "index": "data_cached_compute",
-    "kill_chain_summary": "The KorPlug malware follows a complex kill chain involving advanced obfuscation and evasion techniques. During the weaponization stage, it employs O-LLVM obfuscation to evade detection. Delivery is achieved through DLL side-loading, while installation involves shellcode execution for process injection. The malware's sophisticated control flow obfuscation techniques complicate analysis and detection, making it a formidable threat. Effective detection and remediation require advanced unpacking techniques and process integrity checks.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 77,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for the KorPlug malware incident highlights the challenges in detecting and mitigating this threat. The malware employs advanced obfuscation techniques, including O-LLVM, which complicates detection based on hash values and network artifacts. The use of DLL side-loading and shellcode execution further obscures its activities. Effective detection requires monitoring for unusual DLL loading and process injection activities, while remediation involves implementing advanced unpacking techniques and process integrity checks.",
-    "relevance_score": 49,
-    "sequence": 18947,
-    "source": "https://www.cryptika.com/korplug-malware-unmasked-ttps-control-flow-iocs-exposed/",
-    "slug": "KorPlug_Malware_Unmasked__Advanced_Obfuscation_and_Evasion_Techniques-018947",
     "shard": 5
   }
 ]

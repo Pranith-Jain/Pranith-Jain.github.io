@@ -4,13 +4,13 @@
   "repoUrl": "https://github.com/HudKSD/Living-Threat",
   "description": "Living Threat Repository — real-world incidents continuously mapped to MITRE ATT&CK tactics and techniques, with per-kill-chain-stage detection + remediation notes (AI-enriched), CVEs, threat actors, tools, priority scoring, and hunt-pack guidance.",
   "license": "MIT (github.com/HudKSD/Living-Threat); ATT&CK is a MITRE trademark — platform not affiliated with MITRE",
-  "syncedAt": "2026-09-11T09:57:38.876Z",
+  "syncedAt": "2026-09-12T09:32:35.061Z",
   "meta": {
     "apiIndex": null,
-    "latestTs": "2026-09-09T17:02:00Z",
-    "latestSeq": 21929,
-    "anchorTs": "2026-09-09T17:02:00Z",
-    "fetchedAt": "2026-09-11T09:57:32Z",
+    "latestTs": "2026-09-09T18:30:00Z",
+    "latestSeq": 21930,
+    "anchorTs": "2026-09-09T18:30:00Z",
+    "fetchedAt": "2026-09-12T09:32:31Z",
     "cap": "Upstream /api/bootstrap caps at 5000 docs; index holds ~21k. Newest 5000 shipped."
   },
   "counts": {
@@ -26,11 +26,11 @@
       "Potentially significant": 1
     },
     "byTactic": {
-      "Reconnaissance": 1982,
-      "Resource Development": 1373,
+      "Reconnaissance": 1983,
+      "Resource Development": 1374,
       "Initial Access": 3553,
       "Execution": 851,
-      "Persistence": 1554,
+      "Persistence": 1555,
       "Privilege Escalation": 114,
       "Defense Evasion": 376,
       "Credential Access": 472,
@@ -39,26 +39,26 @@
       "Collection": 1632,
       "Command and Control": 1615,
       "Exfiltration": 559,
-      "Impact": 636
+      "Impact": 637
     },
     "uniqueCves": 927,
     "uniqueTechniques": 284
   },
   "topTechniques": [
-    { "id": "T1190", "count": 1766 },
-    { "id": "T1203", "count": 1269 },
-    { "id": "T1592", "count": 951 },
+    { "id": "T1190", "count": 1765 },
+    { "id": "T1203", "count": 1270 },
+    { "id": "T1592", "count": 952 },
     { "id": "T1595", "count": 905 },
     { "id": "T1078", "count": 825 },
-    { "id": "T1587.001", "count": 776 },
-    { "id": "T1071.001", "count": 770 },
+    { "id": "T1587.001", "count": 777 },
+    { "id": "T1071.001", "count": 771 },
     { "id": "T1071", "count": 622 },
-    { "id": "T1547", "count": 539 },
+    { "id": "T1547", "count": 540 },
     { "id": "T1005", "count": 426 },
     { "id": "T1566", "count": 354 },
     { "id": "T1041", "count": 345 },
     { "id": "T1566.001", "count": 343 },
-    { "id": "T1486", "count": 276 },
+    { "id": "T1486", "count": 277 },
     { "id": "T1587", "count": 263 },
     { "id": "T1059.001", "count": 256 },
     { "id": "T1059", "count": 253 },
@@ -217,6 +217,25 @@
     }
   ],
   "incidents": [
+    {
+      "slug": "Abuse_of_Google_Play_s_Early_Access_Program_for_Deceptive_Apps-021930",
+      "shard": 0,
+      "sequence": 21930,
+      "id": "ec21f606522832baf56df399e025d3a32b9fe827c8ed7ad8288f9385dcfa2ebd",
+      "title": "Abuse of Google Play's Early Access Program for Deceptive Apps",
+      "timestamp": "2026-09-09T18:30:00Z",
+      "source": "https://thehackernews.com/2026/09/google-play-early-access-abused-to-push.html",
+      "severity": "High",
+      "priorityScore": 86,
+      "relevanceScore": 59,
+      "tactics": ["Reconnaissance", "Resource Development", "Delivery", "Initial Access", "Persistence", "Impact"],
+      "techniques": ["T1592", "T1587.001", "T1071.001", "T1203", "T1547", "T1486"],
+      "actors": ["GoldFactory"],
+      "techniqueCount": 6,
+      "cves": 0,
+      "tools": 1,
+      "sizeBytes": 7363
+    },
     {
       "slug": "Skullcandy_Dime_3_Bluetooth_Vulnerability_CVE-2025-20701-021929",
       "shard": 0,
@@ -10660,7 +10679,7 @@
     },
     {
       "slug": "Critical_Remote_Code_Execution_Vulnerability_in_Ruflo-021433",
-      "shard": 0,
+      "shard": 1,
       "sequence": 21433,
       "id": "19447019942cf67fe9b4bce83bb03668d5925f964053df399a585a3d69541a55",
       "title": "Critical Remote Code Execution Vulnerability in Ruflo",
@@ -21137,7 +21156,7 @@
     },
     {
       "slug": "Intrusion_into_French_Automotive_Business_by_Attacker__Poisson_-020933",
-      "shard": 1,
+      "shard": 2,
       "sequence": 20933,
       "id": "538b5a7de057dcb5e312c57d63215a0ea3c6ffcd73d38277f792f99caa2079e1",
       "title": "Intrusion into French Automotive Business by Attacker 'Poisson'",
@@ -31526,7 +31545,7 @@
     },
     {
       "slug": "Discovery_of_xlabs_v1_Botnet_Targeting_Android_Devices_via_ADB-020437",
-      "shard": 2,
+      "shard": 3,
       "sequence": 20437,
       "id": "3a5aed8fa86c47fcee264e8377adb9e086225097a6c23ac418e0e4b19e0b3a17",
       "title": "Discovery of xlabs_v1 Botnet Targeting Android Devices via ADB",
@@ -41872,7 +41891,7 @@
     },
     {
       "slug": "Underground_Market_for_AI_Platform_Access-019939",
-      "shard": 3,
+      "shard": 4,
       "sequence": 19939,
       "id": "89806cab2424b1d9d754a76abae66d3b",
       "title": "Underground Market for AI Platform Access",
@@ -52333,7 +52352,7 @@
     },
     {
       "slug": "Microsoft_January_2026_Security_Update__Exploited_Vulnerabilities-019442",
-      "shard": 4,
+      "shard": 5,
       "sequence": 19442,
       "id": "624d781c9be23fe99350133debcd69b759eacfab15f85639596013e584f7d2ff",
       "title": "Microsoft January 2026 Security Update: Exploited Vulnerabilities",
@@ -62765,7 +62784,7 @@
     },
     {
       "slug": "KorPlug_Malware_Unmasked__Advanced_Obfuscation_and_Evasion_Techniques-018947",
-      "shard": 5,
+      "shard": 6,
       "sequence": 18947,
       "id": "bc55a077254c60f4ff04ffe59b93c3060e8ff90b",
       "title": "KorPlug Malware Unmasked: Advanced Obfuscation and Evasion Techniques",
@@ -73037,7 +73056,7 @@
     },
     {
       "slug": "Phishing_Attack_Bypasses_Detection_Tools_but_Detected_by_SOC-018458",
-      "shard": 6,
+      "shard": 7,
       "sequence": 18458,
       "id": "6d657eebab1bbe8d073c6dddff2ca9d3b7b5bc0211d8018f471b11332d06ffb3",
       "title": "Phishing Attack Bypasses Detection Tools but Detected by SOC",
@@ -83615,7 +83634,7 @@
     },
     {
       "slug": "Analysis_of_Ghana_News_Agency_Report_on_March_18__2013-017971",
-      "shard": 7,
+      "shard": 8,
       "sequence": 17971,
       "id": "4570b0443bef0131a9ba9f800f56a82f3f633f2e",
       "title": "Analysis of Ghana News Agency Report on March 18, 2013",
@@ -94176,7 +94195,7 @@
     },
     {
       "slug": "Critical_Vulnerabilities_in_Anthropic_s_Filesystem_MCP_Server-017465",
-      "shard": 8,
+      "shard": 9,
       "sequence": 17465,
       "id": "301c83290ef4db23e6621323cc65e7b970e4b0c8",
       "title": "Critical Vulnerabilities in Anthropic's Filesystem MCP Server",
@@ -104119,25 +104138,6 @@
       "cves": 0,
       "tools": 2,
       "sizeBytes": 6993
-    },
-    {
-      "slug": "Critical_Vulnerabilities_in_Qlik_Sense_Enterprise_for_Windows-016966",
-      "shard": 9,
-      "sequence": 16966,
-      "id": "b3cf83c3efbc3ace9f4ade1b3e100766567a5f72",
-      "title": "Critical Vulnerabilities in Qlik Sense Enterprise for Windows",
-      "timestamp": "2024-12-09T09:20:45Z",
-      "source": "https://gbhackers.com/qlik-sense-for-windows-vulnerability/",
-      "severity": "High",
-      "priorityScore": 65,
-      "relevanceScore": 41,
-      "tactics": ["Initial Access"],
-      "techniques": ["T1190"],
-      "actors": [],
-      "techniqueCount": 1,
-      "cves": 0,
-      "tools": 1,
-      "sizeBytes": 6913
     }
   ]
 }

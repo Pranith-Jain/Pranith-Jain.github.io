@@ -3,6 +3,198 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of the MCP bridge allows remote code execution.",
+        "Detection": "Monitor network traffic for unusual activity on port 3001. • Check for unauthorized access attempts to the MCP bridge.",
+        "Remediation": "Update to Ruflo version 3.16.3 or later. • Restrict network access to the MCP bridge.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Attackers can steal API keys and manipulate AI memory.",
+        "Detection": "Audit API key usage for anomalies. • Monitor AI memory for unauthorized changes.",
+        "Remediation": "Rotate all API keys. • Audit and clean AI memory for tampering.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is trying to steal account credentials.",
+            "technique_id": "T1003",
+            "technique_name": "Credential Dumping"
+          }
+        ],
+        "Techniques": ["T1003"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2026-59726"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The vulnerability allows attackers to execute remote code, steal API keys, and manipulate AI memory.",
+      "Exploits": ["CVE-2026-59726"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Ruflo"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["API keys", "AI systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Noma Security"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": ["0.0.0.0"],
+      "Keywords": ["remote code execution", "MCP bridge", "AI memory poisoning"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["3.16.3"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["Ruflo"],
+      "Technologies": ["Anthropic Claude Code", "OpenAI Codex"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-59726"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["HTTP"],
+      "Description": "Ruflo's MCP bridge exposed on all network interfaces by default, allowing unauthenticated access.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": ["0.0.0.0"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Close firewall ports 3001 and 27017.",
+      "Rotate all LLM API keys.",
+      "Audit the AgentDB pattern store for injected entries.",
+      "Check MongoDB for signs of tampering."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": ["0.0.0.0"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-59726"],
+      "Tools": ["Ruflo"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-07-28T18:30:00Z",
+    "Title": "Critical Remote Code Execution Vulnerability in Ruflo",
+    "Tools": ["Ruflo"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": ["API keys", "User conversations"],
+      "Description": "Organizations using Ruflo versions before 3.16.3 are at risk.",
+      "Geography": "",
+      "Impact_Severity": "Critical",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": ["AI systems", "API keys", "User conversations"]
+    },
+    "diamond_model_summary": "The incident involves a critical vulnerability in Ruflo, allowing unauthenticated remote code execution. The adversary can exploit the MCP bridge to execute commands, steal API keys, and manipulate AI memory. The infrastructure is compromised due to default network exposure, affecting organizations using vulnerable Ruflo versions.",
+    "doc_summary": "Cybersecurity researchers identified a critical vulnerability in Ruflo, an open-source agent meta-harness for Anthropic Claude Code and OpenAI Codex, tracked as CVE-2026-59726 with a CVSS score of 10.0. The flaw, named RufRoot by Noma Security, allows unauthenticated remote code execution via an exposed Model Context Protocol (MCP) bridge. The vulnerability affects all Ruflo versions before 3.16.3, enabling attackers to execute shell commands, steal API keys, and manipulate AI memory. The issue was disclosed on June 30, 2026, and a patch was released by Reuven Cohen within 24 hours. Organizations are advised to close firewall ports, rotate API keys, and audit AI memory for tampering.",
+    "enrichment": null,
+    "id": "19447019942cf67fe9b4bce83bb03668d5925f964053df399a585a3d69541a55",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with exploiting a vulnerability in Ruflo's MCP bridge, leading to remote code execution. The adversary can then perform actions on objectives, such as stealing API keys and manipulating AI memory. The exploitation stage is critical, with significant potential for data theft and system manipulation.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 96,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes IP addresses and tools as key indicators. The MCP bridge's default exposure on all network interfaces is a significant weakness. The use of Ruflo as a tool for exploitation highlights the need for robust network security and configuration management to mitigate such vulnerabilities.",
+    "relevance_score": 43,
+    "sequence": 21433,
+    "source": "https://thehackernews.com/2026/07/ruflo-mcp-flaw-lets-unauthenticated.html",
+    "slug": "Critical_Remote_Code_Execution_Vulnerability_in_Ruflo-021433",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Unknown actors targeted Minnesota water systems in a coordinated cyberattack.",
       "Known_Campaigns": [],
       "Motivation": "Potential espionage or preparation for disruptive activities.",
@@ -105171,229 +105363,6 @@
     "sequence": 20934,
     "source": "https://thehackernews.com/2026/06/crypto-clipper-campaign-abuses-fake.html",
     "slug": "Threat_Actor_Uses_Fake_Reputation_Economy_to_Distribute_Cryptocurrency_C-020934",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Poisson"],
-      "Associated_Groups": [],
-      "Description": "French-speaking attacker targeting small businesses with poor operational security.",
-      "Known_Campaigns": [],
-      "Motivation": "Financial gain through credential theft.",
-      "Sophistication": "Low",
-      "Strategic_Objectives": "Steal banking and email credentials.",
-      "TTPs_Employed": ["Use of legitimate tools for persistence", "Credential theft"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Development of a keylogger and memory-resident malware.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Develop capabilities to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of PowerShell for executing scripts.",
-            "technique_id": "T1059.001",
-            "technique_name": "Command and Scripting Interpreter: PowerShell"
-          }
-        ],
-        "Techniques": ["T1059.001"]
-      },
-      {
-        "Description": "Deployment of VBScript stager and PowerShell loader.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Execute malicious code on a victim system.",
-            "tactic_id": "TA0007",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of VBScript for executing scripts.",
-            "technique_id": "T1059.005",
-            "technique_name": "Command and Scripting Interpreter: Visual Basic"
-          }
-        ],
-        "Techniques": ["T1059.005"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Installation of OpenSSH and Tailscale for persistence.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintain access to systems across restarts.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Manipulate accounts to maintain access.",
-            "technique_id": "T1098",
-            "technique_name": "Account Manipulation"
-          }
-        ],
-        "Techniques": ["T1098"]
-      },
-      {
-        "Description": "Use of Tailscale and OpenSSH for encrypted communication.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Establish a command and control channel.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of encryption to conceal C2 traffic.",
-            "technique_id": "T1573",
-            "technique_name": "Encrypted Channel"
-          }
-        ],
-        "Techniques": ["T1573"]
-      },
-      {
-        "Description": "Credential theft using a keylogger.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Steal credentials to gain access to systems.",
-            "tactic_id": "TA0006",
-            "tactic_name": "Credential Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Capture keystrokes to steal credentials.",
-            "technique_id": "T1056.001",
-            "technique_name": "Input Capture: Keylogging"
-          }
-        ],
-        "Techniques": ["T1056.001"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Memory-resident malware", "Sandbox evasion"],
-      "Description": "Use of keyloggers, OpenSSH, Tailscale, and memory-resident malware.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Keylogger"],
-      "Persistence_Mechanisms": ["Scheduled tasks", "Shellcode injection"],
-      "Tools": ["OpenSSH", "Tailscale", "RustDesk", "Havoc's Demon agent"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Banking credentials", "Email credentials"],
-      "Breach_Types": ["Credential theft"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Cato Networks", "IONOS", "Backblaze"],
-      "Countries": ["France", "Germany"],
-      "Domains": ["duckdns.org"],
-      "Email_Addresses": [],
-      "Encryption_Tools": ["Tailscale"],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["keylogger", "credential theft", "C2 server"],
-      "Malware_Families": ["Havoc's Demon agent"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Automotive"],
-      "Software": ["OpenSSH", "Tailscale", "RustDesk"],
-      "Technologies": ["DuckDNS", "PowerShell", "VBScript"],
-      "Threat_Infrastructure": ["Havoc server"],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["Havoc server"],
-      "Communication_Protocols": ["SSH", "Tailscale mesh network"],
-      "Description": "Use of free-tier services and legitimate tools for attack infrastructure.",
-      "Domains": ["duckdns.org"],
-      "Hosting_Providers": ["IONOS", "Backblaze B2"],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["duckdns.org"],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Keylogging", "Encrypted Channel"],
-      "Tools": ["OpenSSH", "Tailscale", "RustDesk"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Moderate",
-    "Threat_Actors": ["Poisson"],
-    "Timestamp": "2026-06-16T18:30:00Z",
-    "Title": "Intrusion into French Automotive Business by Attacker 'Poisson'",
-    "Tools": ["OpenSSH", "Tailscale", "RustDesk", "Havoc's Demon agent"],
-    "Victim": {
-      "Access_Vectors": ["Keylogger", "SSH"],
-      "Data_Types_At_Risk": ["Credentials"],
-      "Description": "Small French automotive business targeted for credential theft.",
-      "Geography": "France",
-      "Impact_Severity": "Medium",
-      "Industry": "Automotive",
-      "Security_Posture": "Vulnerable to basic attacks",
-      "Targeted_Assets": ["Banking credentials", "Email credentials"]
-    },
-    "diamond_model_summary": "The attack on a small French automotive business by 'Poisson' demonstrates a low-sophistication adversary using legitimate tools like OpenSSH and Tailscale for persistence. The attack focused on credential theft, with poor operational security evidenced by leaked SSH keys and exposed directories. The infrastructure relied on free-tier services, and the victim was targeted for financial gain.",
-    "doc_summary": "A French-speaking attacker, known as 'Poisson', targeted a small French automotive business, deploying a keylogger to steal banking and email credentials. The attacker used OpenSSH and Tailscale to maintain access without relying on the command-and-control (C2) server, which went offline. Cato Networks documented the attack, revealing Poisson's use of tools like DuckDNS, Backblaze B2, and IONOS VPS. The malware operated in memory, using a VBScript stager and PowerShell loader to execute Havoc's Demon agent. Poisson's tradecraft was poor, leaking his home directory and leaving SSH keys exposed. The attack focused on credential theft, with no lateral movement or ransomware. The incident highlights the importance of detecting persistence mechanisms beyond C2 servers.",
-    "enrichment": null,
-    "id": "538b5a7de057dcb5e312c57d63215a0ea3c6ffcd73d38277f792f99caa2079e1",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack followed a structured kill chain, starting with the weaponization of a keylogger and memory-resident malware. Delivery was achieved through VBScript and PowerShell loaders. Installation involved OpenSSH and Tailscale for persistence. Command and control were maintained via encrypted channels, and actions on objectives focused on credential theft. The attack highlights the need for detecting persistence mechanisms beyond C2 servers.",
-    "operational_tags": [],
-    "priority_score": 55,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names like duckdns.org and tools such as OpenSSH and Tailscale. The attacker's use of legitimate tools complicates detection efforts, emphasizing the need for behavior-based detection. The TTPs employed, including keylogging and encrypted channels, present significant challenges for defenders. The incident underscores the importance of comprehensive threat hunting and detection strategies.",
-    "relevance_score": 69,
-    "sequence": 20933,
-    "source": "https://thehackernews.com/2026/06/junior-hacker-used-tailscale-and.html",
-    "slug": "Intrusion_into_French_Automotive_Business_by_Attacker__Poisson_-020933",
     "shard": 1
   }
 ]

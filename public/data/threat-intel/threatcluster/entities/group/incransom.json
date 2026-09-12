@@ -4,14 +4,14 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-09T13:31:40.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-09T20:01:15.000Z",
   "lastSeen": "2026-09-10T13:00:16.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-09-09",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2026-09-10",
@@ -30,12 +30,6 @@
       "slug": "cullottalaw-com-1c33",
       "title": "cullottalaw.com — claimed by incransom",
       "pubDate": "2026-09-09T20:01:15.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "https-mediengruppethiel-de-6c9f",
-      "title": "https://mediengruppethiel.de/ — claimed by incransom",
-      "pubDate": "2026-09-09T13:31:40.000Z"
     }
   ],
   "relatedEntities": [
@@ -49,12 +43,6 @@
       "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
       "weight": 1
     }
   ],
@@ -73,13 +61,6 @@
       "sector": "Professional Services",
       "country": "US",
       "pubDate": "2026-09-09T20:01:15.000Z"
-    },
-    {
-      "id": "https-mediengruppethiel-de-6c9f",
-      "victim": "https://mediengruppethiel.de/ — claimed by incransom",
-      "sector": "Other",
-      "country": "DE",
-      "pubDate": "2026-09-09T13:31:40.000Z"
     }
   ]
 }

@@ -3,6 +3,205 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "KorPlug malware developers employing advanced obfuscation techniques.",
+      "Known_Campaigns": [],
+      "Motivation": "Evasion of detection and analysis.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise systems while evading detection.",
+      "TTPs_Employed": ["O-LLVM obfuscation", "DLL side-loading"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "KorPlug malware employs O-LLVM obfuscation.",
+        "Detection": "Monitor for unusual software packing activities.",
+        "Remediation": "Implement advanced unpacking techniques.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "KorPlug uses O-LLVM obfuscation to evade detection.",
+            "tactic_id": "T1027",
+            "tactic_name": "Obfuscation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "KorPlug uses software packing to obfuscate its payload.",
+            "technique_id": "T1027.002",
+            "technique_name": "Software Packing"
+          }
+        ],
+        "Techniques": ["T1027.002"]
+      },
+      {
+        "Description": "KorPlug uses DLL side-loading for delivery.",
+        "Detection": "Monitor for unexpected DLL loading activities.",
+        "Remediation": "Restrict DLL search paths and validate DLL signatures.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "KorPlug uses DLL side-loading to execute its payload.",
+            "tactic_id": "T1073",
+            "tactic_name": "DLL Side-Loading"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "KorPlug hijacks DLL search order to load malicious DLLs.",
+            "technique_id": "T1073.001",
+            "technique_name": "DLL Search Order Hijacking"
+          }
+        ],
+        "Techniques": ["T1073.001"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "KorPlug installs its payload using shellcode execution.",
+        "Detection": "Monitor for unusual process injection activities.",
+        "Remediation": "Implement process integrity checks.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "KorPlug uses shellcode execution for process injection.",
+            "tactic_id": "T1055",
+            "tactic_name": "Process Injection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "KorPlug injects DLLs into processes using shellcode.",
+            "technique_id": "T1055.001",
+            "technique_name": "Dynamic-link Library Injection"
+          }
+        ],
+        "Techniques": ["T1055.001"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Control flow flattening", "Bogus control flow injection"],
+      "Description": "KorPlug malware with advanced obfuscation and evasion capabilities.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["KorPlug"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["O-LLVM obfuscation", "DLL side-loading"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual DLL loading and process injection activities."],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": ["b6b239fe0974cf09fe8ee9bc5d0502174836a79c53adccdbb1adeb1f15c6845c"],
+      "IP_Addresses": [],
+      "Keywords": ["KorPlug", "O-LLVM", "DLL side-loading", "obfuscation"],
+      "Malware_Families": ["KorPlug"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Infrastructure supporting KorPlug malware operations.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Implement advanced unpacking techniques and process integrity checks."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": ["b6b239fe0974cf09fe8ee9bc5d0502174836a79c53adccdbb1adeb1f15c6845c"],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Control flow flattening", "Bogus control flow injection"],
+      "Tools": ["O-LLVM obfuscation", "DLL side-loading"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Advanced unpacking tools", "Process integrity checks"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-08-25T00:00:00Z",
+    "Title": "KorPlug Malware Unmasked: Advanced Obfuscation and Evasion Techniques",
+    "Tools": ["O-LLVM obfuscation", "DLL side-loading"],
+    "Victim": {
+      "Access_Vectors": ["DLL side-loading"],
+      "Data_Types_At_Risk": ["Sensitive data"],
+      "Description": "Potential targets of KorPlug malware.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Various",
+      "Security_Posture": "Vulnerable to advanced obfuscation techniques",
+      "Targeted_Assets": ["Windows systems"]
+    },
+    "diamond_model_summary": "The KorPlug malware incident involves a sophisticated adversary employing advanced obfuscation techniques such as O-LLVM to evade detection. The adversary uses DLL side-loading to deliver the malware, which targets Windows systems globally. The malware's capability includes control flow flattening and bogus control flow injection, complicating reverse engineering efforts. The infrastructure supporting KorPlug operations remains largely unidentified, but the malware's impact is significant due to its ability to evade traditional detection mechanisms.",
+    "doc_summary": "KorPlug is a sophisticated malware strain posing a significant threat in the cybersecurity landscape. It employs advanced obfuscation techniques, including O-LLVM obfuscation mechanisms, to evade detection and complicate analysis. The malware uses DLL side-loading techniques for initial code execution and operates as a 624 KB x86 PE file. Its payload circumvents standard Windows DLL loading procedures through shellcode-style execution via the EnumSystemGeoID API function call. RevEng.AI researchers identified that KorPlug's second-stage payload exhibits an anomalous Control Flow Graph structure, leveraging O-LLVM compiler infrastructure modifications to implement control flow flattening, bogus control flow injection, and instruction substitution. These techniques obscure the malware's operational logic, defeating signature-based detection mechanisms and increasing reverse-engineering difficulty. Effective deobfuscation requires systematic mapping of state variable values across relevant blocks, followed by correlation with backbone block comparison operations to reconstruct the original execution sequence.",
+    "enrichment": { "processed_at": "2026-02-18T00:30:47.486290+00:00", "source_fields": [], "version": "v1" },
+    "id": "bc55a077254c60f4ff04ffe59b93c3060e8ff90b",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "The KorPlug malware follows a complex kill chain involving advanced obfuscation and evasion techniques. During the weaponization stage, it employs O-LLVM obfuscation to evade detection. Delivery is achieved through DLL side-loading, while installation involves shellcode execution for process injection. The malware's sophisticated control flow obfuscation techniques complicate analysis and detection, making it a formidable threat. Effective detection and remediation require advanced unpacking techniques and process integrity checks.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 77,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for the KorPlug malware incident highlights the challenges in detecting and mitigating this threat. The malware employs advanced obfuscation techniques, including O-LLVM, which complicates detection based on hash values and network artifacts. The use of DLL side-loading and shellcode execution further obscures its activities. Effective detection requires monitoring for unusual DLL loading and process injection activities, while remediation involves implementing advanced unpacking techniques and process integrity checks.",
+    "relevance_score": 49,
+    "sequence": 18947,
+    "source": "https://www.cryptika.com/korplug-malware-unmasked-ttps-control-flow-iocs-exposed/",
+    "slug": "KorPlug_Malware_Unmasked__Advanced_Obfuscation_and_Evasion_Techniques-018947",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "No significant information detected",
       "Known_Campaigns": [],
       "Motivation": "",
@@ -102054,181 +102253,6 @@
     "sequence": 18459,
     "source": "https://thehackernews.com/2025/11/qilin-ransomware-turns-south-korean-msp.html",
     "slug": "Qilin_Ransomware_Supply_Chain_Attack_on_South_Korea_s_Financial_Sector-018459",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary conducted a sophisticated phishing campaign targeting C-suite executives.",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially financial gain or corporate espionage.",
-      "Sophistication": "High, as the attack bypassed multiple detection tools.",
-      "Strategic_Objectives": "Compromise high-level executives for sensitive information.",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Phishing emails were delivered to executive inboxes.",
-        "Detection": "Employee reports of suspicious emails",
-        "Remediation": "Training employees to recognize phishing attempts",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary delivered phishing emails to the targets.",
-            "tactic_id": "TA0004",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary used phishing emails to target executives.",
-            "technique_id": "T1566",
-            "technique_name": "Phishing"
-          }
-        ],
-        "Techniques": ["T1566"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The adversary used phishing techniques to bypass detection tools.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Email accounts"],
-      "Breach_Types": ["Phishing"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Phishing", "SOC", "Detection Tools", "AI SOC", "Radiant Security"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Various"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-11-25T18:30:00Z",
-    "Title": "Phishing Attack Bypasses Detection Tools but Detected by SOC",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": ["Email"],
-      "Data_Types_At_Risk": ["Sensitive corporate information"],
-      "Description": "C-suite executives at multiple enterprises were targeted.",
-      "Geography": "Not specified",
-      "Impact_Severity": "High",
-      "Industry": "Various",
-      "Security_Posture": "Under-resourced SOCs",
-      "Targeted_Assets": ["Email accounts of executives"]
-    },
-    "diamond_model_summary": "The phishing attack targeted C-suite executives across multiple enterprises, bypassing detection tools but was identified by SOC teams. The adversary demonstrated high sophistication by evading multiple security measures. The incident underscores the importance of balanced investment in SOCs to complement detection tools.",
-    "doc_summary": "A sophisticated phishing attack targeted C-suite executives across multiple enterprises, bypassing eight different email security tools. The attack was detected by the SOC teams after employees reported suspicious emails. The case study highlights the importance of balanced investment in SOCs alongside detection tools. Detection tools operate quickly but lack context, while SOCs provide a broader view. The asymmetry in investment leads to overwhelmed SOCs and missed nuanced threats. AI SOC platforms like Radiant Security offer a solution by automating alert triage and reducing false positives, enabling lean SOC teams to operate efficiently without additional staffing.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:31.815784+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "6d657eebab1bbe8d073c6dddff2ca9d3b7b5bc0211d8018f471b11332d06ffb3",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The phishing attack involved delivering emails to executives, bypassing detection tools. SOC teams detected the attack after employee reports. The incident highlights the need for SOCs to provide context and time for analysis, which detection tools lack. AI SOC platforms can enhance SOC efficiency by automating alert triage.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The incident did not provide specific indicators like hashes, IPs, or domains. The focus was on the failure of detection tools and the success of SOCs in identifying the phishing attack. AI SOC platforms can reduce false positives and improve detection capabilities, addressing the challenges faced by under-resourced SOCs.",
-    "relevance_score": 37,
-    "sequence": 18458,
-    "source": "https://thehackernews.com/2025/11/when-your-2m-security-detection-fails.html",
-    "slug": "Phishing_Attack_Bypasses_Detection_Tools_but_Detected_by_SOC-018458",
     "shard": 6
   }
 ]
