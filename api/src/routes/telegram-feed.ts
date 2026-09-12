@@ -103,6 +103,12 @@ interface ChannelSpec {
  * cybernewslive, infostealer_leaks, stealer_logs (May'24), darkfeed_io,
  * leakedsource, breachednews, dataleak_alert, leaks_news, databreachtoday.
  *
+ * 2026-09-12 probe round: `breachdetect` unreachable (repeated egress 000,
+ * no preview served — private or removed, do not add), `ransomwarelive`
+ * 302-redirects to a join page with 0 preview messages (private or
+ * preview-disabled, do not add to the preview-based firehose; ransomware.live
+ * coverage already comes via the PRO API + posts.json dump).
+ *
  * Carding-specific channels were INTENTIONALLY skipped. Public carding
  * channels on Telegram are almost exclusively vendor channels promoting
  * stolen-card sales, not defensive research. Surfacing them on a security
@@ -162,6 +168,22 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'CVE / vulnerability RSS aggregator',
     topic: 'osint',
   },
+  // CVE / breach community channels (verified 2026-09-12, t.me/s/ preview
+  // message counts in parentheses). Classed as 'osint' — disclosure
+  // intelligence rather than breaking news.
+  { handle: 'CVEDetector', name: 'CVE Monitor', blurb: 'CVE disclosure alerts (7 recent posts)', topic: 'osint' },
+  {
+    handle: 'CyberMonitum',
+    name: 'Cyber Monitum',
+    blurb: 'Threat-intel + cyber-sec digest (20 recent posts, sub-day cadence)',
+    topic: 'osint',
+  },
+  {
+    handle: 'DWI_CVE_Alerts',
+    name: 'DWI CVE Alerts',
+    blurb: 'Dark Web Informer CVE alerts (20 recent posts, sub-day cadence)',
+    topic: 'osint',
+  },
   // Vendor-backed CTI news (Telefónica Tech). Daily volume, English-language.
   {
     handle: 'CyberSecurityPulse',
@@ -205,6 +227,27 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'Ransomware operator tracker — group claims, victims, leak-site activity',
     topic: 'leaks',
   },
+  // Breach / FBI-watch feeds (verified 2026-09-12, t.me/s/ preview counts
+  // in parentheses). Dark Web Informer family + DARKFEED victim-news +
+  // Brut Security (FR breach/vuln news).
+  {
+    handle: 'FBI_Watchdog',
+    name: 'FBI Watchdog',
+    blurb: 'FBI Watchdog alerts by Dark Web Informer (20 recent posts)',
+    topic: 'leaks',
+  },
+  {
+    handle: 'DarkfeedNews',
+    name: 'DARKFEED',
+    blurb: 'DARKFEED ransomware-victim + breach news (20 recent posts)',
+    topic: 'leaks',
+  },
+  {
+    handle: 'brutsecurity',
+    name: 'Brut Security',
+    blurb: 'Brut Security breach/vuln news, French-language (19 recent posts)',
+    topic: 'news',
+  },
   // News mirrors
   { handle: 'BleepingComputer', name: 'BleepingComputer', blurb: 'Breaking incident news', topic: 'news' },
   { handle: 'TheHackerNews', name: 'The Hacker News', blurb: 'Security news headlines', topic: 'news' },
@@ -227,6 +270,14 @@ const CHANNELS: ChannelSpec[] = [
     handle: 'threatinteltrends',
     name: 'CTT CTI Trends',
     blurb: 'Community-driven CTI trends — threat actor tracking, campaign intel, and curated security news',
+    topic: 'osint',
+  },
+  // International Cyber Digest (verified 2026-09-12: 11 recent posts,
+  // daily cadence) — cross-source cyber-incident digest.
+  {
+    handle: 'IntCyberDigest',
+    name: 'International Cyber Digest',
+    blurb: 'International cyber-incident digest (11 recent posts, daily cadence)',
     topic: 'osint',
   },
   // Malware analysis — partner channel of CVE Notify, verified 20+ recent msgs
@@ -1033,6 +1084,166 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
     })()
   );
   return clientResponse;
+}
+
+// ─── Stateless live keyword search (no DB writes) ───────────────────────────
+// GET /api/v1/tg-live-search?q=<keywords>&channels=<csv>&fresh=1
+//
+// Directly fetches t.me/s/<handle> previews for up to MAX_LIVE_CHANNELS
+// channels, matches keyword tokens in memory, and returns hits WITHOUT
+// writing to KV or D1 — unlike /tg-search and /telegram-leaks/search,
+// which query the cron-populated D1 tables. The only persistence is a
+// 5-minute Cache-API read-through (edge cache, not a database);
+// `fresh=1` bypasses even that.
+//
+// Budget: 1 subrequest per channel (no GitHub/RSS/Bot fallbacks here —
+// a channel that doesn't answer counts as a diagnostic, not a retry
+// storm), hard-capped so a single search stays far inside the free-plan
+// 50-subrequest budget.
+
+const LIVE_SEARCH_CACHE_TTL = 300; // 5 min — fresh enough for triage, polite to t.me
+const MAX_LIVE_CHANNELS = 8;
+const MAX_LIVE_RESULTS = 100;
+const HANDLE_RE = /^[A-Za-z0-9_]{3,64}$/;
+
+/** Default scope: the CVE/breach batch (all preview-verified 2026-09-12). */
+const LIVE_SEARCH_DEFAULTS = [
+  'CVEDetector',
+  'CyberMonitum',
+  'DWI_CVE_Alerts',
+  'FBI_Watchdog',
+  'DarkfeedNews',
+  'brutsecurity',
+  'IntCyberDigest',
+  'ctiwatch',
+];
+
+export interface TgLiveSearchHit {
+  channel_handle: string;
+  channel_name: string;
+  permalink: string;
+  datetime: string;
+  views?: string;
+  snippet: string;
+  matched: string[];
+}
+
+export async function tgLiveSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const rawQ = (c.req.query('q') ?? '').trim();
+  const tokens = rawQ
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((t) => t.length >= 2);
+  if (tokens.length === 0) {
+    return badRequest(c, 'Provide ?q=<keywords> (at least one token ≥ 2 chars)');
+  }
+  if (rawQ.length > 200) {
+    return badRequest(c, 'Query too long (max 200 chars)');
+  }
+
+  const rawChannels = (c.req.query('channels') ?? '').trim();
+  const requested = rawChannels
+    ? rawChannels
+        .split(',')
+        .map((h) => h.trim())
+        .filter(Boolean)
+    : [...LIVE_SEARCH_DEFAULTS];
+  const seen = new Set<string>();
+  const channels: string[] = [];
+  for (const h of requested) {
+    const clean = h.replace(/^@/, '');
+    if (!HANDLE_RE.test(clean)) {
+      return badRequest(c, `Invalid channel handle: ${h}`);
+    }
+    const key = clean.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      channels.push(clean);
+    }
+    if (channels.length >= MAX_LIVE_CHANNELS) break;
+  }
+  if (channels.length === 0) {
+    return badRequest(c, 'Provide ?channels=<handle1,handle2> (max 8)');
+  }
+
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request(
+    `https://tg-live-search.internal/v1?q=${encodeURIComponent(tokens.join(' '))}&c=${encodeURIComponent(channels.join(',').toLowerCase())}`
+  );
+  const fresh = c.req.query('fresh') === '1';
+  if (!fresh) {
+    const cached = await safeNullLog('cache-match-tg-live-search', cache.match(cacheKey));
+    if (cached) return new Response(cached.body, cached);
+  }
+
+  const nameOf = (handle: string): string => {
+    const known = CHANNELS.find((ch) => ch.handle.toLowerCase() === handle.toLowerCase());
+    return known ? known.name : handle;
+  };
+
+  const diagnostics: Array<{ handle: string; ok: boolean; messages: number; note?: string }> = [];
+  const hits: TgLiveSearchHit[] = [];
+
+  // Sequential, not parallel: Telegram's edge throttles bursty fan-out from
+  // a single egress IP (the lesson encoded in fetchWithRetry). ≤8 channels
+  // × ~1–2 subrequests each stays inside the free-plan 50-subrequest budget
+  // and under the throttle. No KV/D1 writes anywhere on this path.
+  for (const handle of channels) {
+    if (hits.length >= MAX_LIVE_RESULTS) break;
+    let messages: ParsedMessage[] = [];
+    try {
+      const html = await fetchHtml(`https://t.me/s/${encodeURIComponent(handle)}`);
+      if (html) messages = parseChannelHtml(html);
+    } catch (_catchErr) {
+      logError('tgLiveSearchHandler failed', _catchErr);
+    }
+    if (messages.length === 0) {
+      diagnostics.push({ handle, ok: false, messages: 0, note: 'no preview (private/removed/rate-limited)' });
+      continue;
+    }
+    diagnostics.push({ handle, ok: true, messages: messages.length });
+    for (const m of messages) {
+      const hay = m.text.toLowerCase();
+      const matched = tokens.filter((t) => hay.includes(t));
+      if (matched.length !== tokens.length) continue; // AND semantics
+      const firstIdx = Math.min(...matched.map((t) => hay.indexOf(t)));
+      const start = Math.max(0, firstIdx - 120);
+      hits.push({
+        channel_handle: handle,
+        channel_name: nameOf(handle),
+        permalink: m.permalink,
+        datetime: m.datetime,
+        views: m.views,
+        snippet: (start > 0 ? '…' : '') + m.text.slice(start, start + 320) + (start + 320 < m.text.length ? '…' : ''),
+        matched,
+      });
+      if (hits.length >= MAX_LIVE_RESULTS) break;
+    }
+  }
+
+  hits.sort((a, b) => b.datetime.localeCompare(a.datetime));
+  const body = {
+    generated_at: new Date().toISOString(),
+    query: tokens,
+    channels: diagnostics.sort((a, b) => a.handle.localeCompare(b.handle)),
+    count: hits.length,
+    hits,
+    storage: 'none — live t.me/s previews matched in memory (5-min edge-cache read-through unless fresh=1)',
+  };
+  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${LIVE_SEARCH_CACHE_TTL}` });
+  if (!fresh) {
+    c.executionCtx.waitUntil(
+      (async () => {
+        try {
+          await cache.put(cacheKey, response.clone());
+        } catch (_catchErr) {
+          logError('tgLiveSearchHandler failed', _catchErr);
+          /* swallow */
+        }
+      })()
+    );
+  }
+  return response;
 }
 
 // ─── Custom channels (user-added) ────────────────────────────────────────────

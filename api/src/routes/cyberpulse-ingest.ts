@@ -1138,6 +1138,11 @@ const TELEGRAM_BREACH_CHANNELS = new Set([
   'mythreatintel',
   'vxunderground',
   'IntCyberDigest',
+  // 2026-09-12 batch: Dark Web Informer FBI watch, DARKFEED victim-news,
+  // Brut Security (FR) breach news — all verified with live previews.
+  'FBI_Watchdog',
+  'DarkfeedNews',
+  'brutsecurity',
 ]);
 
 /** Convert a Telegram feed item to a RawPost for classification. */

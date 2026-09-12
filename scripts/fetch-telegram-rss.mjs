@@ -14,32 +14,124 @@ const OUT_FILE = 'telegram-rss-cache.json';
 
 // Keep in sync with the CHANNELS list in api/src/routes/telegram-feed.ts.
 const CHANNELS = [
-  { handle: 'vxunderground', name: 'vx-underground', blurb: 'Malware-source archive + threat-actor commentary', topic: 'malware' },
-  { handle: 'androidmalware', name: 'Android Malware', blurb: 'Daily Android-malware sample drops + analysis', topic: 'malware' },
+  {
+    handle: 'vxunderground',
+    name: 'vx-underground',
+    blurb: 'Malware-source archive + threat-actor commentary',
+    topic: 'malware',
+  },
+  {
+    handle: 'androidmalware',
+    name: 'Android Malware',
+    blurb: 'Daily Android-malware sample drops + analysis',
+    topic: 'malware',
+  },
   { handle: 'secharvester', name: 'SecHarvester', blurb: 'High-volume threat-intel firehose', topic: 'leaks' },
   { handle: 'group_ib', name: 'Group-IB', blurb: 'Official Group-IB threat-intel channel', topic: 'osint' },
   { handle: 'ctinow', name: 'CTI Now', blurb: 'Real-time CTI aggregator — IOCs, advisories, leaks', topic: 'osint' },
-  { handle: 'Cyber_Ti_Reports_VN', name: 'Cyber TI Reports', blurb: 'Curated CTI report digest (multi-language)', topic: 'osint' },
-  { handle: 'defendor_eng', name: 'Defendor (EN)', blurb: 'Defensive-CTI / IR write-ups + threat-actor tracking', topic: 'osint' },
+  {
+    handle: 'Cyber_Ti_Reports_VN',
+    name: 'Cyber TI Reports',
+    blurb: 'Curated CTI report digest (multi-language)',
+    topic: 'osint',
+  },
+  {
+    handle: 'defendor_eng',
+    name: 'Defendor (EN)',
+    blurb: 'Defensive-CTI / IR write-ups + threat-actor tracking',
+    topic: 'osint',
+  },
   { handle: 'cyberosintosint', name: 'Cyber OSINT', blurb: 'OSINT-style cyber-news firehose', topic: 'osint' },
-  { handle: 'CTIUpdates', name: 'CTI Updates', blurb: 'Real-time CTI feed — IOCs, threat reports, advisories', topic: 'osint' },
+  {
+    handle: 'CTIUpdates',
+    name: 'CTI Updates',
+    blurb: 'Real-time CTI feed — IOCs, threat reports, advisories',
+    topic: 'osint',
+  },
   { handle: 'cve0day', name: 'CVE 0day', blurb: 'CVE / 0day disclosure firehose', topic: 'osint' },
   { handle: 'cvenotify', name: 'CVE Notify', blurb: 'High-cadence CVE alerts (NVD-style)', topic: 'osint' },
   { handle: 'cvefeed', name: 'CVE & Vulnerability RSS', blurb: 'CVE / vulnerability RSS aggregator', topic: 'osint' },
-  { handle: 'CyberSecurityPulse', name: 'CyberSecurityPulse', blurb: 'Telefónica Tech daily CTI pulse — incidents, advisories, research', topic: 'news' },
-  { handle: 'phishingradar', name: 'Phishing Radar', blurb: 'Phishing + scam warnings (DE) — brand-impersonation alerts', topic: 'news' },
-  { handle: 'mythreatintel', name: 'My Threat Intel', blurb: 'Spanish CTI firehose — CVE + ransomware-victim alerts', topic: 'osint' },
-  { handle: 'falconfeedsio', name: 'FalconFeeds.io', blurb: 'Official FalconFeeds — ransomware victim tracker + breach announcements', topic: 'leaks' },
-  { handle: 'RansomLook', name: 'RansomLook', blurb: 'Ransomware operator tracker — group claims, victims, leak-site activity', topic: 'leaks' },
+  { handle: 'CVEDetector', name: 'CVE Monitor', blurb: 'CVE disclosure alerts', topic: 'osint' },
+  { handle: 'CyberMonitum', name: 'Cyber Monitum', blurb: 'Threat-intel + cyber-sec digest', topic: 'osint' },
+  { handle: 'DWI_CVE_Alerts', name: 'DWI CVE Alerts', blurb: 'Dark Web Informer CVE alerts', topic: 'osint' },
+  {
+    handle: 'CyberSecurityPulse',
+    name: 'CyberSecurityPulse',
+    blurb: 'Telefónica Tech daily CTI pulse — incidents, advisories, research',
+    topic: 'news',
+  },
+  {
+    handle: 'phishingradar',
+    name: 'Phishing Radar',
+    blurb: 'Phishing + scam warnings (DE) — brand-impersonation alerts',
+    topic: 'news',
+  },
+  {
+    handle: 'mythreatintel',
+    name: 'My Threat Intel',
+    blurb: 'Spanish CTI firehose — CVE + ransomware-victim alerts',
+    topic: 'osint',
+  },
+  {
+    handle: 'falconfeedsio',
+    name: 'FalconFeeds.io',
+    blurb: 'Official FalconFeeds — ransomware victim tracker + breach announcements',
+    topic: 'leaks',
+  },
+  {
+    handle: 'RansomLook',
+    name: 'RansomLook',
+    blurb: 'Ransomware operator tracker — group claims, victims, leak-site activity',
+    topic: 'leaks',
+  },
+  { handle: 'FBI_Watchdog', name: 'FBI Watchdog', blurb: 'FBI Watchdog alerts by Dark Web Informer', topic: 'leaks' },
+  { handle: 'DarkfeedNews', name: 'DARKFEED', blurb: 'DARKFEED ransomware-victim + breach news', topic: 'leaks' },
+  { handle: 'brutsecurity', name: 'Brut Security', blurb: 'Brut Security breach/vuln news (FR)', topic: 'news' },
   { handle: 'BleepingComputer', name: 'BleepingComputer', blurb: 'Breaking incident news', topic: 'news' },
   { handle: 'TheHackerNews', name: 'The Hacker News', blurb: 'Security news headlines', topic: 'news' },
-  { handle: 'cyber_security_channel', name: 'Cyber Security Channel', blurb: 'High-volume security-news aggregator', topic: 'news' },
+  {
+    handle: 'cyber_security_channel',
+    name: 'Cyber Security Channel',
+    blurb: 'High-volume security-news aggregator',
+    topic: 'news',
+  },
   { handle: 'cyberscoop', name: 'CyberScoop', blurb: 'CyberScoop news + government-cyber coverage', topic: 'news' },
-  { handle: 'dailybountywriteup', name: 'Daily Bounty Writeup', blurb: 'Curated bug-bounty write-ups + disclosed vuln reports', topic: 'osint' },
-  { handle: 'threatinteltrends', name: 'CTT CTI Trends', blurb: 'Community-driven CTI trends — threat actor tracking, campaign intel, and curated security news', topic: 'osint' },
-  { handle: 'malwr', name: 'Malware Analysis', blurb: 'Malware analysis reports, sample drops, and reverse-engineering write-ups', topic: 'malware' },
-  { handle: 'ctiwatch', name: 'CTI Watch', blurb: 'Curated threat intelligence watch — IOCs, TTPs, and incident tracking', topic: 'osint' },
-  { handle: 'FSECINTELES2', name: 'FSEC Intel', blurb: 'FSEC threat-intelligence firehose — IOCs, breach alerts, and actor tracking', topic: 'osint' },
+  {
+    handle: 'dailybountywriteup',
+    name: 'Daily Bounty Writeup',
+    blurb: 'Curated bug-bounty write-ups + disclosed vuln reports',
+    topic: 'osint',
+  },
+  {
+    handle: 'threatinteltrends',
+    name: 'CTT CTI Trends',
+    blurb: 'Community-driven CTI trends — threat actor tracking, campaign intel, and curated security news',
+    topic: 'osint',
+  },
+  {
+    handle: 'IntCyberDigest',
+    name: 'International Cyber Digest',
+    blurb: 'International cyber-incident digest',
+    topic: 'osint',
+  },
+  {
+    handle: 'malwr',
+    name: 'Malware Analysis',
+    blurb: 'Malware analysis reports, sample drops, and reverse-engineering write-ups',
+    topic: 'malware',
+  },
+  {
+    handle: 'ctiwatch',
+    name: 'CTI Watch',
+    blurb: 'Curated threat intelligence watch — IOCs, TTPs, and incident tracking',
+    topic: 'osint',
+  },
+  {
+    handle: 'FSECINTELES2',
+    name: 'FSEC Intel',
+    blurb: 'FSEC threat-intelligence firehose — IOCs, breach alerts, and actor tracking',
+    topic: 'osint',
+  },
 ];
 
 const RSS_BRIDGES = [
@@ -80,7 +172,10 @@ function stripHtml(s) {
 // parseChannelHtml in api/src/routes/telegram-feed.ts).
 function parseChannelHtml(html) {
   const SENTINEL = '\x01TGMSG\x01';
-  const marked = html.replace(/<div class="tgme_widget_message_wrap/g, SENTINEL + '<div class="tgme_widget_message_wrap');
+  const marked = html.replace(
+    /<div class="tgme_widget_message_wrap/g,
+    SENTINEL + '<div class="tgme_widget_message_wrap'
+  );
   const blocks = marked.split(SENTINEL).slice(1);
 
   const out = [];
@@ -121,18 +216,24 @@ async function fetchHtml(url) {
       });
       clearTimeout(timer);
       if (!r.ok) {
-        if (attempt < MAX_RETRIES) { await sleep(2000); }
+        if (attempt < MAX_RETRIES) {
+          await sleep(2000);
+        }
         continue;
       }
       const html = await r.text();
       if (!html.includes('tgme_widget_message_wrap')) {
-        if (attempt < MAX_RETRIES) { await sleep(2000); }
+        if (attempt < MAX_RETRIES) {
+          await sleep(2000);
+        }
         continue;
       }
       return html;
     } catch {
       clearTimeout(timer);
-      if (attempt < MAX_RETRIES) { await sleep(2000); }
+      if (attempt < MAX_RETRIES) {
+        await sleep(2000);
+      }
     }
   }
   return null;
@@ -155,8 +256,11 @@ function parseRssToMessages(xml) {
 
     let text = (description || title || '').replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, '');
     text = text
-      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
       .trim();
     if (text.length > MAX_TEXT_LEN) text = text.slice(0, MAX_TEXT_LEN - 1) + '\u2026';
 
@@ -183,18 +287,26 @@ async function fetchRssFeed(handle) {
         });
         clearTimeout(timer);
         if (!r.ok) {
-          if (attempt < MAX_RETRIES) { await sleep(2000); continue; }
+          if (attempt < MAX_RETRIES) {
+            await sleep(2000);
+            continue;
+          }
           continue;
         }
         const xml = await r.text();
         if (!xml.includes('<item>')) {
-          if (attempt < MAX_RETRIES) { await sleep(2000); continue; }
+          if (attempt < MAX_RETRIES) {
+            await sleep(2000);
+            continue;
+          }
           continue;
         }
         const msgs = parseRssToMessages(xml);
         if (msgs.length > 0) return msgs;
       } catch {
-        if (attempt < MAX_RETRIES) { await sleep(2000); }
+        if (attempt < MAX_RETRIES) {
+          await sleep(2000);
+        }
       }
     }
   }
@@ -320,7 +432,9 @@ async function main() {
   const cache = await buildCache();
   const liveCount = cache.items.filter((i) => i.datetime > new Date(Date.now() - 86400000).toISOString()).length;
   const channelsOk = cache.channels.filter((c) => c.ok).length;
-  console.log(`  channels ok: ${channelsOk}/${cache.channels.length}, items: ${cache.items.length} (${liveCount} from last 24h), warnings: ${cache.warnings.length}`);
+  console.log(
+    `  channels ok: ${channelsOk}/${cache.channels.length}, items: ${cache.items.length} (${liveCount} from last 24h), warnings: ${cache.warnings.length}`
+  );
 
   if (cache.items.length === 0 && cache.channels.every((c) => !c.ok)) {
     console.error('Refusing to publish an empty cache (all channels failed)');

@@ -94,6 +94,7 @@ import { webScanHandler } from './routes/web-scan';
 import { onionWatchHandler } from './routes/onion-watch';
 import {
   telegramFeedHandler,
+  tgLiveSearchHandler,
   telegramCustomChannelsGetHandler,
   telegramCustomChannelsPostHandler,
   telegramCustomChannelsDeleteHandler,
@@ -1312,6 +1313,7 @@ app.get('/api/v1/builtwith', builtwithHandler);
 app.get('/api/v1/ct-log', ctLogHandler);
 app.get('/api/v1/wayback/advanced', validate('query', waybackAdvancedSchema), waybackAdvancedHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
+app.get('/api/v1/tg-live-search', tgLiveSearchHandler);
 app.get('/api/v1/telegram-search', telegramSearchHandler);
 app.get('/api/v1/telegram-channel-meta', telegramChannelMetaHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
