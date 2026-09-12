@@ -8,7 +8,14 @@
 import { SELF, env } from 'cloudflare:test';
 import { describe, it, expect, beforeEach } from 'vitest';
 import type { Env } from '../../src/env';
-import { saveWatch, checkWatches, listWatches, getAlertLog, type Watch } from '../../src/lib/watch-engine';
+import {
+  saveWatch,
+  checkWatches,
+  listWatches,
+  getAlertLog,
+  victimMatchesDomain,
+  type Watch,
+} from '../../src/lib/watch-engine';
 import { RANSOMWARE_RECENT_CACHE_KEY } from '../../src/routes/ransomware-recent';
 import { LIVE_IOCS_CACHE_KEY } from '../../src/routes/live-iocs';
 
@@ -81,6 +88,21 @@ async function clearWatches(): Promise<void> {
     .run()
     .catch(() => {});
 }
+
+describe('victimMatchesDomain', () => {
+  it('matches registrable labels against company names', () => {
+    expect(victimMatchesDomain('kelmarsh.co', 'Kelmarsh Logistics')).toBe(true);
+    expect(victimMatchesDomain('mail.example.com', 'Example Corp')).toBe(true);
+    expect(victimMatchesDomain('evil.example', 'evil.example')).toBe(true);
+  });
+
+  it('rejects partial-word and too-short matches', () => {
+    expect(victimMatchesDomain('kelmarsh-logistics.example', 'Kelmarsh Logistics')).toBe(false);
+    expect(victimMatchesDomain('mail.com', 'Mailchimp Inc')).toBe(false);
+    expect(victimMatchesDomain('co', 'Colorado Corp')).toBe(false);
+    expect(victimMatchesDomain('', 'Anything')).toBe(false);
+  });
+});
 
 describe('exposure-monitor watch types', () => {
   beforeEach(async () => {
