@@ -33,6 +33,7 @@ export interface IocFeedSummary {
     | 'viriback-c2'
     | 'certpl-warnings'
     | 'phishunt'
+    | 'swiftioc'
     | 'threatbase';
   source_name: string;
   fetched_at: string;
@@ -330,6 +331,44 @@ export function parseThreatbaseTopIps(body: string, cap: number = CAP): IocEntry
   return entries;
 }
 
+// ─── SwiftIOC high-confidence feed (PKHarsimran) ─────────────────────────
+// CSV: indicator,type,source,first_seen,last_seen,confidence,score,
+// sightings,tlp,tags,reference,context. Indicators arrive DEFANGED
+// (77[.]239[.]124[.]108) — refanged here (live-iocs refangs again
+// downstream, idempotent). Feed is score-desc; the file is ~3MB so the
+// standard per-feed cap takes the most-corroborated head.
+
+const SWIFTIOC_TYPES = new Set(['ipv4', 'domain', 'url', 'hash']);
+
+function refangIndicator(v: string): string {
+  return v.replace(/\[\.\]/g, '.').replace(/\(\.\)/g, '.').replace(/^hxxps?/i, (m) => (m.length === 5 ? 'https' : 'http'));
+}
+
+export function parseSwiftioc(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const cols of csvLines(body)) {
+    if (cols.length < 7) continue;
+    const rawType = unquote(cols[1] ?? '').toLowerCase();
+    if (!SWIFTIOC_TYPES.has(rawType)) continue;
+    const value = refangIndicator(unquote(cols[0] ?? ''));
+    if (!value || value.length < 3) continue;
+    const score = Number(unquote(cols[6] ?? ''));
+    const sightings = unquote(cols[7] ?? '');
+    const tags = unquote(cols[9] ?? '');
+    const context = [`score ${Number.isFinite(score) ? score : '?'}`, sightings ? `${sightings} sightings` : '', tags]
+      .filter(Boolean)
+      .join(' · ');
+    entries.push({
+      type: rawType as IocEntry['type'],
+      value,
+      context: context || undefined,
+      timestamp: unquote(cols[4] ?? '') || undefined,
+    });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
 // ─── TweetFeed (0xDanielLopez) ──────────────────────────────────────────────
 // Plain CSV without quotes: date,source,type,ioc,tags,info_url
 // `type` is one of: domain, url, ip, sha256, md5, sha1
@@ -609,6 +648,11 @@ export const FEED_SOURCES: Record<SourceId, FeedSource> = {
     name: 'Threatbase Top IPs',
     url: 'https://raw.githubusercontent.com/kalidada18/threatbase/main/ioc/ip/top_ips.json',
   },
+  swiftioc: {
+    id: 'swiftioc',
+    name: 'SwiftIOC High-Confidence',
+    url: 'https://raw.githubusercontent.com/PKHarsimran/SwiftIOC-Automated-Threat-Intelligence-Collector/main/public/iocs/high_confidence.csv',
+  },
 };
 
 // ─── Plain URL list (one URL per line, http-prefixed) ────────────────────────
@@ -735,6 +779,9 @@ export function buildSummary(sourceId: SourceId, rawBody: string, cap: number = 
       break;
     case 'threatbase':
       entries = parseThreatbaseTopIps(rawBody, cap);
+      break;
+    case 'swiftioc':
+      entries = parseSwiftioc(rawBody, cap);
       break;
   }
 

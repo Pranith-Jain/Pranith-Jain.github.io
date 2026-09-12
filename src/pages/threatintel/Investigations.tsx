@@ -342,6 +342,19 @@ function InvestigationsPage(): JSX.Element {
     URL.revokeObjectURL(url);
   };
 
+  const [exportingPdf, setExportingPdf] = useState(false);
+
+  const exportPdf = async () => {
+    if (!activeInv || exportingPdf) return;
+    setExportingPdf(true);
+    try {
+      const { exportInvestigationPdf } = await import('../../lib/threatintel/investigation-pdf');
+      await exportInvestigationPdf(activeInv);
+    } finally {
+      setExportingPdf(false);
+    }
+  };
+
   if (activeInv) {
     const inv = activeInv;
     return (
@@ -383,6 +396,14 @@ function InvestigationsPage(): JSX.Element {
               className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
             >
               <FileDown size={11} /> JSON
+            </button>
+            <button
+              type="button"
+              onClick={exportPdf}
+              disabled={exportingPdf}
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors disabled:opacity-50"
+            >
+              <FileDown size={11} /> {exportingPdf ? 'PDF…' : 'PDF'}
             </button>
             <button
               type="button"

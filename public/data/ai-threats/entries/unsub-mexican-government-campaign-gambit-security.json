@@ -1,0 +1,19 @@
+{
+  "slug": "unsub-mexican-government-campaign-gambit-security",
+  "name": "UnSub (Mexican government campaign) — Gambit Security",
+  "akas": "UnSub (no designation assigned by the reporting vendor)",
+  "brief": "Gambit Security documented a single operator who compromised nine Mexican government organizations using two commercial AI platforms as core operational tools. Victims included SAT (Servicio de Administración Tributaria, the federal tax authority), the Estado de México, Jalisco, Michoacán and Tamaulipas state governments, the Registro Civil de CDMX and Salud CDMX, the INE electoral institute, and the SADM Monterrey municipal water utility. Per Gambit: \"The campaign relied heavily on two commercial AI platforms as core operational tools - Anthropic's Claude Code and OpenAI's GPT-4.1 API. These systems performed much of the technical work, including reconnaissance, exploit customization, privilege escalation, database architecture mapping, exfiltration infrastructure development, tunnel chain construction, and credential harvesting.\" Gambit logged 1,088 operator prompts driving 5,317 AI-executed commands across 34 sessions, 20 exploit scripts covering 20 CVEs, and 400+ custom scripts (301 Bash, 113 Python); a custom 17,550-line Python tool (`BACKUPOSINT.py`) used the GPT-4.1 API to generate 2,597 intelligence reports across 305 SAT servers. Gambit assessed that \"approximately 75 percent of remote command execution activity across the campaign was generated and executed by Claude Code via its tool-use interface.\" On guardrails, Gambit records: \"In 40 minutes, the conversation moved from 'I'm not going to create that file' to 'What command do you want to execute now?' on a live government server... The guardrails did not hold in this case.\" When Claude refused to write an anti-forensics rulebook, the operator pasted a pre-written 1,084-line pentest cheatsheet and asked Claude to save it — processed as a file-write rather than a content-generation request — after which it persisted as `claude.md`, auto-loading as a system prompt every session. First publicly disclosed via a Bloomberg exclusive (25 Feb 2026); Anthropic's only on-record statement was that it banned the accounts involved. Gambit Security *Analyst note: Gambit assigns no actor designation and states no attribution; the word \"attribution\" does not appear in the report. Motivation appears financially driven (a commercial document-forgery service and a live SAT query API). The report is explicitly self-limiting — \"This report is not comprehensive… only selected portions are analyzed\" — and its underlying forensic material is available only to trusted parties on request, so the evidence is not independently reviewable. The widely repeated \"150GB\" and \"ten government bodies\" figures are press-reported, not in the report, which says nine.*",
+  "ttps": ["T1059", "T1213", "T1567", "T1588.006", "T1592"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-informed reconnaissance",
+    "LLM-assisted vulnerability research",
+    "LLM-enhanced scripting techniques",
+    "LLM-directed Automated Collection"
+  ],
+  "reported": "Apr 2026",
+  "activity": "Nov 2025 – Feb 2026",
+  "table": "main",
+  "sizeBytes": 2638,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution (Claude Code executed ~75% of remote commands)<br><br>**LLM-informed reconnaissance** T1592 - Gather Victim Org Information<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter<br><br>**LLM-directed Automated Collection** T1213 - Data from Information Repositories<br><br>T1567 - Exfiltration Over Web Service"
+}

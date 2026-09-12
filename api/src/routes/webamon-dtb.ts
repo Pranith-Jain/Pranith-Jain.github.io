@@ -14,6 +14,15 @@ import { Hono } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound } from '../lib/api-error';
+import { trackEvent } from '../lib/analytics';
+import {
+  summarizeWdtbBrief,
+  buildWdtbPrompt,
+  aiChat,
+  readCachedAnalysis,
+  writeCachedAnalysis,
+  type DigestAnalysis,
+} from '../lib/digest-ai';
 
 async function loadWdtbMod() {
   return await import('../lib/webamon-dtb-manifest');
@@ -98,5 +107,51 @@ webamonDtbRouter.get('/webamon-dtb/stats', async (c) => {
   } catch (e) {
     logError('handler failed', e);
     return internalError(c, `wdtb_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+/**
+ * GET /webamon-dtb/briefs/:date/analysis — deterministic brief read plus a
+ * best-effort LLM analyst note. Briefs are immutable per date, so the full
+ * payload (including any generated narrative) is cached indefinitely
+ * (Cache API + KV). Zero D1; generation tracked via Analytics Engine.
+ */
+webamonDtbRouter.get('/webamon-dtb/briefs/:date/analysis', async (c) => {
+  try {
+    const date = c.req.param('date');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return badRequest(c, 'date must be YYYY-MM-DD');
+    const cached = await readCachedAnalysis('wdtb', date, c.env.KV_CACHE);
+    if (cached) {
+      return c.json({ ...cached, cached: true }, 200, { 'cache-control': 'public, max-age=86400' });
+    }
+    const mod = await loadWdtbMod();
+    const brief = await mod.getWdtbBrief(c.env.ASSETS, date);
+    if (!brief) return notFound(c, `no brief for ${date}`);
+    const { bullets, stats } = summarizeWdtbBrief(brief);
+    const analysis: DigestAnalysis = {
+      kind: 'wdtb',
+      date,
+      generated_at: new Date().toISOString(),
+      bullets,
+      stats,
+      ai: null,
+    };
+    try {
+      const { system, user } = buildWdtbPrompt(brief, bullets);
+      const { text, model } = await aiChat(c.env, system, user);
+      analysis.ai = { text, model };
+    } catch (e) {
+      analysis.ai_error = e instanceof Error ? e.message : String(e);
+    }
+    try {
+      trackEvent(c.env, 'digest_analysis', { blobs: ['wdtb', analysis.ai ? 'ai' : 'deterministic'], doubles: [bullets.length] });
+    } catch {
+      /* analytics best-effort */
+    }
+    await writeCachedAnalysis(analysis, c.env.KV_CACHE);
+    return c.json({ ...analysis, cached: false }, 200, { 'cache-control': 'public, max-age=86400' });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `wdtb_analysis_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

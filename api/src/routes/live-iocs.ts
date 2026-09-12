@@ -20,6 +20,7 @@ import {
   parseViriback,
   parseThreatviewDomains,
   parseThreatbaseTopIps,
+  parseSwiftioc,
 } from '../lib/ioc-feed-parsers';
 import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
@@ -46,6 +47,7 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
  *   - OpenPhish (phishing URLs)
  *   - PhishTank (verified phishing URLs + brand attribution)
  *   - Threatbase top-IPs (community-corroborated hostile IPs, feeds-ranked)
+ *   - SwiftIOC high-confidence (multi-type, score-ranked, defanged)
  *
  * Cached 30 min — these feeds churn faster than the correlation endpoint.
  */
@@ -412,6 +414,11 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   // blows the worker budget. top_ips.json is the curated 22KB slice.
   threatbase: {
     url: 'https://raw.githubusercontent.com/kalidada18/threatbase/main/ioc/ip/top_ips.json',
+  },
+  // SwiftIOC high-confidence multi-type feed (~3MB, score-desc). Correct
+  // path is under public/ (site root); the bare iocs/ path 404s.
+  swiftioc: {
+    url: 'https://raw.githubusercontent.com/PKHarsimran/SwiftIOC-Automated-Threat-Intelligence-Collector/main/public/iocs/high_confidence.csv',
   },
   // mythreatintel + openphish are handled by named sources with internal
   // fetch helpers; their URLs are in the helpers themselves.
@@ -958,6 +965,16 @@ const FEED_SOURCES: FeedSource[] = [
     parse: parseThreatbaseTopIps,
     kind: 'ip',
     reporter: 'Threatbase community',
+    context: entryContext,
+    withTimestamp: true,
+    okRequiresItems: true,
+  }),
+  textFeedSource({
+    id: 'swiftioc',
+    url: 'https://raw.githubusercontent.com/PKHarsimran/SwiftIOC-Automated-Threat-Intelligence-Collector/main/public/iocs/high_confidence.csv',
+    parse: parseSwiftioc,
+    kind: 'per-entry',
+    reporter: 'SwiftIOC collector',
     context: entryContext,
     withTimestamp: true,
     okRequiresItems: true,

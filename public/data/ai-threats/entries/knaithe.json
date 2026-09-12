@@ -1,0 +1,17 @@
+{
+  "slug": "knaithe",
+  "name": "knaithe",
+  "akas": "KnYuan",
+  "brief": "Unit 42 documented a Chinese-speaking \"opportunistic exploit operator and self-described binary security researcher,\" based in Zhuhai, China, who ran DeepSeek autonomously via the \"Hermes Agent\" framework (C2'd over Telegram) to enumerate 460+ internet-exposed targets across 7 CVEs — including a Langflow RCE — using FOFA, source and adapt public PoC exploit code, launch autonomous exploitation attempts, and adaptively re-target on failure, largely without human intervention. Confirmed real-world impact included data exfiltration from three organizations and code execution on 11 Marimo notebook instances; a recovered Hermes Agent session log is dated May 7, 2026. The actor also configured/evaluated Claude Code (limited to connectivity/proxy testing), Codex, Qwen Code, GLM, Kimi and MiniMax. *Bias note: Palo Alto Networks Unit 42 (vendor); this is a first-party technical writeup of a specific observed incident, not aggregate marketing statistics.* Unit 42",
+  "ttps": ["T1190", "T1588.006", "T1595"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-informed reconnaissance",
+    "LLM-assisted vulnerability research"
+  ],
+  "reported": "Jul 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 967,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution (full kill-chain, autonomous DeepSeek via Hermes Agent)<br><br>**LLM-informed reconnaissance** T1595 - Active Scanning (FOFA-based exposed-target enumeration)<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities (autonomous PoC sourcing/adaptation)<br><br>T1190 - Exploit Public-Facing Application (autonomous exploitation across 7 CVEs)"
+}

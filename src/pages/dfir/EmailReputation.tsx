@@ -216,7 +216,7 @@ export default function EmailReputation(): JSX.Element {
             tags: string[];
             related: Array<{ domain: string; classification: string; score: number }>;
           };
-          heatwaveResult = { domain: clean, ok: true, ...hj };
+          heatwaveResult = { ...hj, ok: true };
           if (hj.listed && hj.status === 'active') scoreValue = Math.max(scoreValue, 60);
           else if (hj.listed && hj.status === 'warming') scoreValue = Math.max(scoreValue, 40);
         } else {

@@ -4,7 +4,7 @@
   "type": "hash",
   "source": "github.com/Neo23x0/signature-base",
   "license": "Detection Rule License 1.1",
-  "entryCount": 3244,
+  "entryCount": 3245,
   "entries": [
     {
       "value": "ce583821191345274cd954b2db7da9742c239fe413fc17dcb97ffdd7b51cb072",
@@ -14437,6 +14437,11 @@
       "value": "295ce86226b933e7262c2ce4b36bdd6c389aaaef",
       "comment": "DAEMON Tools Lite supplychain compromise IOCs  https://securelist.com/tr/daemon-tools-backdoor/119654/",
       "type": "sha1"
+    },
+    {
+      "value": "b81a4e1fab9fc4e404d57224fe71e2c143aa93942bd46998789bdc944a7870c7",
+      "comment": "Virtualizor Compromise IOCs https://lowendtalk.com/discussion/220625/urgent-virtualizor-compromised-31st-aug/p1",
+      "type": "sha256"
     }
   ]
 }
