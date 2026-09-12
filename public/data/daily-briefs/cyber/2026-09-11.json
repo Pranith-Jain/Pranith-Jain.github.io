@@ -1,0 +1,116 @@
+{
+  "type": "cyber",
+  "date": "2026-09-11",
+  "threatLevel": "",
+  "executiveSummary": "Multiple government advisories warn of active targeting of PLCs and HMIs in critical sectors. Iranian-affiliated actors have manipulated PLC logic across Water/Wastewater and Energy; immediate removal of direct internet exposure and logic validation is advised Security Advisory . Separate U.S. advisories highlight active reconnaissance and capability development against Siemens S7 PLCs (AI-assisted scripting, S7comm over TCP/102). Prioritize segmentation, access protection levels, and S7 traffic monitoring Security Advisory . Pro-Russia hacktivists continue opportunistic attacks via exposed VNC on internet-facing HMIs, causing loss of view and nuisance changes in WWS and other sectors. Eliminate public VNC and enforce MFA on remote access immediately Security Advisory . Actively exploited MikroTik RouterOS vulnerabilities enable unauthenticated SSH access and device takeover; exploitation observed with rogue admin accounts. Patch to current fixed releases and restrict management planes to VPN/jump hosts only View Advisory . Critical NetScaler ADC/Gateway SAML RCE (public PoC) and Cisco FMC root compromise are being exploited to tamper firewall/VPN policies. Patch/hotfix immediately, restrict exposure, and hunt for webshells and unauthorized policy changes Security Advisory View Article . OT-relevant product flaws demand urgent attention: Danfoss iC7 drives (unsigned firmware/code paths), Eclipse Milo (OPC UA server issues), and SATCOM iDirect iQ terminals (auth/CSRF/info exposure). Segment, apply vendor updates, and enforce signed firmware where supported CISA Bulletin CISA Bulletin ICS Advisory . Browser/Windows exploit kit reuse (Chrome V8 + ALPC LPE) by multiple China-nexus clusters underscores the need to accelerate KEV-aligned patch cycles and enforce enterprise browser extension controls View Article .",
+  "keyFindings": [
+    {
+      "title": "Active PLC targeting with confirmed logic manipulation in WWS/Energy; remove int",
+      "summary": "Active PLC targeting with confirmed logic manipulation in WWS/Energy; remove internet exposure, broker remote access, and validate project files Security Advisory ."
+    },
+    {
+      "title": "Siemens S7 PLC reconnaissance via S7comm (TCP/102) with AI-generated tooling; en",
+      "summary": "Siemens S7 PLC reconnaissance via S7comm (TCP/102) with AI-generated tooling; enforce protection levels and monitor for unauthorized PUT/GET Security Advisory ."
+    },
+    {
+      "title": "Exposed VNC on HMIs remains a leading entry for hacktivists; enforce MFA, remove",
+      "summary": "Exposed VNC on HMIs remains a leading entry for hacktivists; enforce MFA, remove default credentials, and segment IT/OT Security Advisory ."
+    },
+    {
+      "title": "MikroTik RouterOS exploitation is widespread; devices may be flagged post-patch-",
+      "summary": "MikroTik RouterOS exploitation is widespread; devices may be flagged post-patch-assume compromise and rebuild if indicators present View Advisory ."
+    },
+    {
+      "title": "Critical perimeter appliance exploitation (NetScaler, Cisco FMC) enables policy ",
+      "summary": "Critical perimeter appliance exploitation (NetScaler, Cisco FMC) enables policy tampering and lateral movement-patch/hunt now Security Advisory View Article ."
+    },
+    {
+      "title": "OT product risks",
+      "summary": "Danfoss iC7 (unsigned uploads), Eclipse Milo OPC UA (auth/DoS/info disclosure), iDirect iQ (auth/CSRF) demand segmentation and rapid patching CISA Bulletin CISA Bulletin ICS Advisory ."
+    },
+    {
+      "title": "BlueMoon exploit kit reuse (Chrome V8 + Windows ALPC) shows rapid actor adoption",
+      "summary": "BlueMoon exploit kit reuse (Chrome V8 + Windows ALPC) shows rapid actor adoption across sectors adjacent to CI; enforce enterprise browser controls View Article ."
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "Overall OT/ICS Threat Level"
+      },
+      {
+        "value": "Multiple ongoing",
+        "label": "Active OT Impact Campaigns"
+      },
+      {
+        "value": "Yes (KEV-listed)",
+        "label": "Edge/Perimeter Device Exploitation"
+      },
+      {
+        "value": "Heightened scanning & exploit reuse",
+        "label": "Next 72h Outlook"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens (S7-200/300/400/1200/1500 PLCs); Rockwell, Schneider PLC families (targeted methods). - Danfoss iC7-Automation/Marine/Hybrid drives; Eclipse Milo OPC UA; iDirect iQ SATCOM terminals. - NetScaler ADC/Gateway; Cisco Secure Firewall Management Center; MikroTik RouterOS edge routers. - Enterprise ingress: Zimbra Collaboration Suite; Chrome/Windows exploit chains; PaperCut NG/MF (KEV context)."
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy; Critical Manufacturing; Transportation; Communications/SATCOM; Food & Agriculture; Government Facilities; Defense Industrial Base (adjacent)."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated operations against PLCs in WWS/Energy Security Advisory",
+        "China-nexus multi-actor reuse of browser/Windows exploit kit View Article",
+        "AI-assisted reconnaissance against Siemens S7 PLCs Security Advisory",
+        "Pro-Russia hacktivists abusing exposed VNC on HMIs Security Advisory",
+        "Gunra ransomware exploits edge devices, moves laterally to AD/VDI/DB Security Advisory"
+      ]
+    }
+  ],
+  "relevance": "- Direct OT impact: PLC logic manipulation (Rockwell/Schneider/Siemens), HMI loss of view via exposed VNC, VFD unsigned firmware paths, OPC UA server weaknesses (Eclipse Milo). - OT-adjacent risk: SATCOM terminal flaws (iDirect iQ), perimeter device compromises (NetScaler, Cisco FMC, MikroTik) enabling enterprise-to-OT pivot. - Enterprise ingress vectors likely to cascade into OT: Zimbra mail exploitation, PaperCut KEVs, Chrome/Windows exploit chains.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Danfoss iC7 VFDs: unsigned app/EEPROM/firmware upload paths (operational disruption risk) CISA Bulletin",
+        "Eclipse Milo (OPC UA): auth bypass, diagnostics exposure, DoS vectors CISA Bulletin",
+        "iDirect iQ-Series SATCOM terminals: auth/CSRF/info exposure (OT backhaul) ICS Advisory",
+        "NetScaler ADC/Gateway SAML RCE (CVE-2026-8452; PoC) & Cisco FMC root compromise (exploited) Security Advisory View Article",
+        "MikroTik RouterOS (actively exploited) - multiple pre-auth takeover paths View Advisory",
+        "Zimbra zero-day (recent ops): webmail XSS exfil & IMAP persistence Security Advisory"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploitation of public-facing apps (T1190): NetScaler SAML RCE; Cisco FMC root",
+      "Valid accounts / default creds (T1078): VNC/HMI, SNMPv1/2 community strings",
+      "Living off the land (T1059/T1047): PowerShell/WMI; PLC project edits via native tools",
+      "Protocol abuse: S7comm (TCP/102), CIP/EtherNet-IP (44818/2222), Modbus/TCP (502), OPC UA",
+      "Web shells and persistence on appliances (T1505)",
+      "Data exfil via DNS/HTTPS and cloud storage (Zimbra ops; T1041/T1567)",
+      "Ransomware movement (Gunra): Impacket lateral movement, AD credential access",
+      "Unsigned firmware/code on OT devices enabling sabotage paths"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1059",
+      "T1047",
+      "T1505",
+      "T1041",
+      "T1567"
+    ]
+  },
+  "outlook72h": "Expect continued scanning and exploitation attempts against MikroTik routers and NetScaler ADC/Gateway, opportunistic brute-force on exposed VNC/HMI services, and reuse of browser/Windows exploit chains. Heightened risk of lateral movement from compromised edge devices into enterprise AD, then to OT jump hosts. Validate segmentation, block unneeded east-west traffic, and increase monitoring on OT protocol gateways and engineering workstations.",
+  "relatedCves": [
+    "CVE-2026-8452"
+  ]
+}
