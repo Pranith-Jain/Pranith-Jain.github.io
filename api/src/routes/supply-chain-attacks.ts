@@ -9,31 +9,37 @@ import { shouldWriteLastGood } from '../lib/lastgood-debounce';
  * GET /api/v1/supply-chain-attacks
  *
  * Software supply-chain compromises across npm / PyPI / container registries.
- * Primary source is the GitHub Security Advisories `malware` set (reviewed
- * malicious-package advisories — the closest maintained equivalent of an
- * incident catalog), normalized to snake_case and dual-cached (Cache-API L1
- * + KV last-good with debounced writes) exactly like malicious-packages.ts.
- * Public, key-gated read (NOT admin-gated).
+ * PRIMARY source is the supplychainattack.org incident catalog; FALLBACK is
+ * the GitHub Security Advisories `malware` set (reviewed malicious-package
+ * advisories). Both normalize to the same snake_case ScResponse and share the
+ * dual-cache (Cache-API L1 + KV last-good with debounced writes) exactly like
+ * malicious-packages.ts. Public, key-gated read (NOT admin-gated).
  *
- * History: this mirrored supplychainattack.org/incidents.json until 2026-09,
- * when the whole site (including its homepage) went 402 Payment Required.
- * The dead upstream was cut over to GHSA malware rather than retried — the
- * old code burned 3×15s attempts on every cold miss for a URL that can never
- * succeed. Attribution: every response echoes `source` + `source_url` linking
- * back to the advisory set. Neutral framing only (no endorsement).
+ * History: supplychainattack.org went 402 Payment Required (whole site,
+ * including its homepage) in 2026-09, so GHSA malware carried the endpoint
+ * solo for a while. Primary-first order is kept deliberately: if the paywall
+ * ever lifts, the richer catalog (blast radius, remediation, multi-source
+ * advisories per incident) resumes automatically with zero code changes.
+ * Attribution: every response echoes `source` + `source_url` (+ `license`)
+ * naming whichever upstream actually served it. Neutral framing only.
  *
- * Footguns honored: ONE upstream subrequest (never fan out per-incident); KV
- * read only on miss; KV write debounced via shouldWriteLastGood in waitUntil;
- * NOT added to the /api/v1/snapshot composer (already near the 50-subrequest
- * cap). Enum value sets (status/severity/ecosystem/attackVector) are derived at
- * ingest, never hardcoded. `iocs` is treated as an open map.
+ * Footguns honored: at most TWO upstream subrequests per cold miss (primary
+ * then fallback, never fan out per-incident); KV read only on miss; KV write
+ * debounced via shouldWriteLastGood in waitUntil; NOT added to the
+ * /api/v1/snapshot composer (already near the 50-subrequest cap). Enum value
+ * sets (status/severity/ecosystem/attackVector) are derived at ingest, never
+ * hardcoded. `iocs` is treated as an open map.
  */
 
+const SCA_UPSTREAM = 'https://supplychainattack.org/incidents.json';
+const SCA_SOURCE = 'supplychainattack.org';
+const SCA_URL = 'https://supplychainattack.org';
+const SCA_LICENSE = 'Catalog data is free to cite with attribution to supplychainattack.org.';
 const GHSA_MALWARE_URL =
   'https://api.github.com/advisories?type=malware&per_page=100&sort=published&direction=desc';
-const SOURCE = 'GitHub Security Advisories (malware)';
-const SOURCE_URL = 'https://github.com/advisories?type=malware';
-const DEFAULT_LICENSE = 'Data: GitHub Security Advisories — see https://github.com/advisories for terms.';
+const GHSA_SOURCE = 'GitHub Security Advisories (malware)';
+const GHSA_URL = 'https://github.com/advisories?type=malware';
+const GHSA_LICENSE = 'Data: GitHub Security Advisories — see https://github.com/advisories for terms.';
 
 const CACHE_TTL_SECONDS = 900; // 15 min — upstream `revised`/lastBuildDate is GMT-midnight granularity
 const KV_LAST_GOOD_KEY = 'supplychain:lastgood:v1';
@@ -93,6 +99,67 @@ interface ScResponse {
 
 function asString(v: unknown, max = 4000): string {
   return typeof v === 'string' ? v.slice(0, max) : '';
+}
+function asStringArray(v: unknown, maxItems = 100, itemMax = 300): string[] {
+  if (!Array.isArray(v)) return [];
+  const out: string[] = [];
+  for (const x of v) {
+    if (typeof x === 'string' && x) out.push(x.slice(0, itemMax));
+    if (out.length >= maxItems) break;
+  }
+  return out;
+}
+
+/** Normalize one supplychainattack.org catalog record to snake_case. */
+function normalizeIncident(raw: Record<string, unknown>): ScIncident {
+  const entitiesRaw = Array.isArray(raw.affectedEntities) ? raw.affectedEntities : [];
+  const affected_entities: AffectedEntity[] = entitiesRaw
+    .slice(0, 200)
+    .map((e) => {
+      const o = (e ?? {}) as Record<string, unknown>;
+      const name = asString(o.name, 300);
+      const note = asString(o.note, 300);
+      return note ? { name, note } : { name };
+    })
+    .filter((e) => e.name);
+
+  const sourcesRaw = Array.isArray(raw.sources) ? raw.sources : [];
+  const sources: IncidentSource[] = sourcesRaw
+    .slice(0, 50)
+    .map((s) => {
+      const o = (s ?? {}) as Record<string, unknown>;
+      return { url: asString(o.url, 600), title: asString(o.title, 300), publisher: asString(o.publisher, 200) };
+    })
+    .filter((s) => s.url || s.title);
+
+  // iocs is an OPEN map keyed by IOC type (packages observed; urls/hashes/cves
+  // may appear in other records). Coerce every value to a string[].
+  const iocs: Record<string, string[]> = {};
+  const iocsRaw = (raw.iocs ?? {}) as Record<string, unknown>;
+  if (iocsRaw && typeof iocsRaw === 'object') {
+    for (const [k, v] of Object.entries(iocsRaw)) {
+      const arr = asStringArray(v, 500, 400);
+      if (arr.length) iocs[k.slice(0, 40)] = arr;
+    }
+  }
+
+  return {
+    id: asString(raw.id, 200),
+    url: asString(raw.url, 600),
+    title: asString(raw.title, 400),
+    status: asString(raw.status, 40),
+    severity: asString(raw.severity, 40),
+    ecosystems: asStringArray(raw.ecosystems, 20, 60),
+    attack_vectors: asStringArray(raw.attackVectors, 20, 60),
+    disclosed_date: asString(raw.disclosedDate, 40),
+    last_updated: asString(raw.lastUpdated, 40),
+    blast_radius: asString(raw.blastRadius, 600),
+    affected_entities,
+    summary: asString(raw.summary, 4000),
+    iocs,
+    remediation: asStringArray(raw.remediation, 50, 600),
+    sources,
+  };
 }
 interface GhsaVuln {
   package?: { ecosystem?: string; name?: string };
@@ -208,33 +275,29 @@ export async function supplyChainAttacksHandler(c: Context<{ Bindings: Env }>): 
   let full: ScResponse | null = null;
   let upstreamError = '';
 
+  // PRIMARY: supplychainattack.org catalog. 2 attempts × 10s — it 402s fast
+  // while paywalled, so the fallback engages with seconds of added latency;
+  // if the paywall ever lifts, the richer catalog resumes automatically.
   try {
-    // GITHUB_TOKEN (authed, 5k/hr) when configured; anonymous (60/hr shared
-    // egress) otherwise — the 15min edge cache + 7d KV last-good keep us far
-    // under either budget on the hourly-or-rarer refresh cadence.
-    const headers: Record<string, string> = {
-      'User-Agent': 'pranithjain-dfir/1.0',
-      accept: 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-    };
-    if (c.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${c.env.GITHUB_TOKEN}`;
     const res = await fetchResilient(
-      GHSA_MALWARE_URL,
-      { headers } as RequestInit,
-      { attempts: 2, timeoutMs: 15_000 }
+      SCA_UPSTREAM,
+      {
+        headers: { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
+      } as RequestInit,
+      { attempts: 2, timeoutMs: 10_000 }
     );
     if (res.ok) {
-      const data = (await res.json()) as unknown;
-      const rawIncidents = Array.isArray(data) ? data.slice(0, MAX_INCIDENTS) : [];
+      const data = (await res.json()) as { license?: string; revised?: string; incidents?: unknown };
+      const rawIncidents = Array.isArray(data.incidents) ? data.incidents.slice(0, MAX_INCIDENTS) : [];
       const incidents = rawIncidents
-        .map((r) => advisoryToIncident((r ?? {}) as GhsaAdvisory))
+        .map((r) => normalizeIncident((r ?? {}) as Record<string, unknown>))
         .filter((i) => i.id && i.title);
       if (incidents.length > 0) {
         full = {
-          source: SOURCE,
-          source_url: SOURCE_URL,
-          license: DEFAULT_LICENSE,
-          revised: new Date().toISOString().slice(0, 10),
+          source: SCA_SOURCE,
+          source_url: SCA_URL,
+          license: asString(data.license, 400) || SCA_LICENSE,
+          revised: asString(data.revised, 40),
           generated_at: new Date().toISOString(),
           count: incidents.length,
           total: incidents.length,
@@ -242,14 +305,61 @@ export async function supplyChainAttacksHandler(c: Context<{ Bindings: Env }>): 
           incidents,
         };
       } else {
-        upstreamError = 'upstream returned zero usable advisories';
+        upstreamError = 'primary returned zero usable incidents';
       }
     } else {
-      upstreamError = `upstream ${res.status}`;
+      upstreamError = `primary ${res.status}`;
     }
   } catch (err) {
-    logError('handler failed', err);
-    upstreamError = err instanceof Error ? err.message : 'fetch failed';
+    logError('primary supplychainattack.org failed', err);
+    upstreamError = err instanceof Error ? err.message : 'primary fetch failed';
+  }
+
+  // FALLBACK: GitHub malware advisories, only when the primary yielded nothing.
+  if (!full) {
+    try {
+      // GITHUB_TOKEN (authed, 5k/hr) when configured; anonymous (60/hr shared
+      // egress) otherwise — the 15min edge cache + 7d KV last-good keep us far
+      // under either budget on the hourly-or-rarer refresh cadence.
+      const headers: Record<string, string> = {
+        'User-Agent': 'pranithjain-dfir/1.0',
+        accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      };
+      if (c.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${c.env.GITHUB_TOKEN}`;
+      const res = await fetchResilient(
+        GHSA_MALWARE_URL,
+        { headers } as RequestInit,
+        { attempts: 2, timeoutMs: 15_000 }
+      );
+      if (res.ok) {
+        const data = (await res.json()) as unknown;
+        const rawIncidents = Array.isArray(data) ? data.slice(0, MAX_INCIDENTS) : [];
+        const incidents = rawIncidents
+          .map((r) => advisoryToIncident((r ?? {}) as GhsaAdvisory))
+          .filter((i) => i.id && i.title);
+        if (incidents.length > 0) {
+          full = {
+            source: GHSA_SOURCE,
+            source_url: GHSA_URL,
+            license: GHSA_LICENSE,
+            revised: new Date().toISOString().slice(0, 10),
+            generated_at: new Date().toISOString(),
+            count: incidents.length,
+            total: incidents.length,
+            facets: buildFacets(incidents),
+            incidents,
+          };
+        } else {
+          upstreamError += '; fallback returned zero usable advisories';
+        }
+      } else {
+        upstreamError += `; fallback ${res.status}`;
+      }
+    } catch (err) {
+      logError('fallback GHSA malware failed', err);
+      upstreamError += `; ${err instanceof Error ? err.message : 'fallback fetch failed'}`;
+    }
   }
 
   // Upstream failed → serve KV last-good (full catalog), filtered, marked stale.
@@ -271,10 +381,10 @@ export async function supplyChainAttacksHandler(c: Context<{ Bindings: Env }>): 
     }
     return c.json(
       {
-        error: 'supplychainattack.org unavailable',
+        error: 'supply-chain upstreams unavailable',
         message: upstreamError || 'no data',
-        source: SOURCE,
-        source_url: SOURCE_URL,
+        source: `${SCA_SOURCE} (primary) + ${GHSA_SOURCE} (fallback)`,
+        source_url: SCA_URL,
       },
       502,
       { 'Cache-Control': 'no-store' }

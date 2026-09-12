@@ -130,14 +130,23 @@ export default function SupplyChainAttacks(): JSX.Element {
       Confirmed software supply-chain compromise incidents (npm · PyPI · container registries · AI agents) - status,
       severity, blast radius, remediation, and advisory sources. Data:{' '}
       <a
+        href="https://supplychainattack.org"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
+      >
+        supplychainattack.org
+      </a>{' '}
+      - a neutral public reference (free to cite with attribution), with{' '}
+      <a
         href="https://github.com/advisories?type=malware"
         target="_blank"
         rel="noopener noreferrer"
         className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
-        GitHub Security Advisories (malware)
+        GitHub malware advisories
       </a>{' '}
-      - reviewed malicious-package advisories. Each incident links back to its source.
+      as fallback. Each incident links back to its source.
     </>
   );
 

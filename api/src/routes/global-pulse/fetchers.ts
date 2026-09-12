@@ -564,14 +564,67 @@ export async function fetchUrlhaus(): Promise<PulseEvent[]> {
   }
 }
 
-/* ─── Supply Chain Attacks (GitHub malware advisories) ─────────────────── */
+/* ─── Supply Chain Attacks (supplychainattack.org primary, GHSA fallback) ─ */
 
 export async function fetchSupplyChain(): Promise<PulseEvent[]> {
-  // GitHub Security Advisories `malware` set (reviewed malicious-package
-  // advisories across npm/PyPI/etc). Previously supplychainattack.org, whose
-  // whole site (including its homepage) went 402 Payment Required in 2026-09.
-  // Non-geo (lat/lng 0) — surfaces in the feed/ticker, not the globe. One
-  // direct fetch, same subrequest budget as before.
+  // PRIMARY: supplychainattack.org incident catalog (npm/PyPI/container/
+  // AI-agents). Currently 402-gated; on any failure fall back to the GitHub
+  // malware advisory set below. Non-geo (lat/lng 0) — surfaces in the
+  // feed/ticker, not the globe. At most two direct fetches.
+  try {
+    const res = await fetch('https://supplychainattack.org/incidents.json', {
+      signal: AbortSignal.timeout(8000),
+      headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
+    });
+    if (res.ok) {
+      const data = (await res.json()) as {
+        incidents?: Array<{
+          id?: string;
+          title?: string;
+          summary?: string;
+          status?: string;
+          severity?: string;
+          ecosystems?: string[];
+          disclosedDate?: string;
+          url?: string;
+          iocs?: { packages?: string[] };
+        }>;
+      };
+      const incidents = Array.isArray(data.incidents) ? data.incidents : [];
+      if (incidents.length > 0) {
+        const SEV = new Set(['critical', 'high', 'medium', 'low']);
+        return incidents.slice(0, 30).map((i, idx) => {
+          const sevRaw = typeof i.severity === 'string' ? i.severity.toLowerCase() : '';
+          const severity = (SEV.has(sevRaw) ? sevRaw : 'high') as PulseEvent['severity'];
+          const eco = Array.isArray(i.ecosystems) ? i.ecosystems.join(', ') : '';
+          const pkgs = i.iocs?.packages?.length ?? 0;
+          const desc =
+            `${eco}${eco && pkgs ? ' · ' : ''}${pkgs ? `${pkgs} package${pkgs === 1 ? '' : 's'}` : ''}${i.status ? ` · ${i.status}` : ''}`.trim() ||
+            (typeof i.summary === 'string' ? i.summary.slice(0, 200) : '');
+          return {
+            id: `sca-${i.id ?? idx}`,
+            kind: 'supply_chain_attacks' as const,
+            title: (i.title ?? 'Supply-chain incident').slice(0, 140),
+            description: desc,
+            lat: 0,
+            lng: 0,
+            timestamp: i.disclosedDate || new Date().toISOString(),
+            severity,
+            source: 'supplychainattack.org',
+            url: typeof i.url === 'string' && /^https?:\/\//.test(i.url) ? i.url : undefined,
+            cti: 'other' as const,
+          };
+        });
+      }
+    }
+  } catch (_catchErr) {
+    logError('primary supplychainattack.org failed', _catchErr);
+  }
+  return fetchSupplyChainGhsaFallback();
+}
+
+/** FALLBACK: GitHub malware advisories when the primary catalog is down. */
+async function fetchSupplyChainGhsaFallback(): Promise<PulseEvent[]> {
   try {
     const res = await fetch(
       'https://api.github.com/advisories?type=malware&per_page=30&sort=published&direction=desc',
