@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 350 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 360 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 350,
-  "generatedAt": "2026-08-28T07:47:51+05:30",
+  "toolCount": 360,
+  "generatedAt": "2026-09-12T12:17:21+05:30",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -187,6 +187,11 @@
     {
       "name": "detect_dns_tunneling",
       "description": "Heuristic DNS-tunneling detection over query names targeting one zone: label length distribution, Shannon entropy, uniqueness ratio → 0-100 tunnel score with verdict and indicators.",
+      "category": "other"
+    },
+    {
+      "name": "digest_analyze",
+      "description": "Get the analyst note for a Webamon daily threat brief or PCMedicalist digest: deterministic key signals plus a cached LLM assessment. Nothing generates on read — briefs are immutable per date.",
       "category": "other"
     },
     {
@@ -500,6 +505,21 @@
       "category": "actor"
     },
     {
+      "name": "escape_get",
+      "description": "Return one incident docket: assigned task, summary, 7-stage containment chain, absent guardrails, disputed figures, sources. Use escape_list first to discover ids.",
+      "category": "other"
+    },
+    {
+      "name": "escape_list",
+      "description": "List AI agent containment-failure incidents (15-entry seed registry, CBS-scored). Filter by class (containment-breach/agent-hijack/supply-chain/tool-misuse/injection), severity, evidence tier, absent guardrail, autonomy, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "escape_stats",
+      "description": "Registry stats (entries, Tier A, eval-env breaches, autonomous count, median dwell, most-absent guardrail, days-since clock inputs), per-guardrail absent counts, month timeline buckets, and the 10 guardrail definitions + provenance trackers.",
+      "category": "other"
+    },
+    {
       "name": "etda_get_actor",
       "description": "Return the full actor body for a single APT threat actor from the ETDA Threat Group Cards vertical. Includes names (with vendor sources), aliases, country, sponsor, motivation, description, sectors, tools, operations, counter operations, MITRE ATT&CK link, and information references. Use etda_list_actors first to discover slugs.",
       "category": "other"
@@ -668,6 +688,11 @@
       "name": "google_dorks",
       "description": "Generate and execute Google dork queries for a domain. Useful for finding exposed files, login pages, and sensitive information.",
       "category": "osint"
+    },
+    {
+      "name": "heatwave_lookup",
+      "description": "Check a SENDING domain against the Validity Heatwave cold-email blocklist (keyless). Returns listed status (warming/active/pre-warming), stage, relative score band, observation ages, DNS answer, and related listed domains. Warming ≠ phishing; not-listed ≠ clean. Never apply to URL/content/DKIM verdicts.",
+      "category": "other"
     },
     {
       "name": "hr_account",
@@ -940,6 +965,16 @@
       "category": "other"
     },
     {
+      "name": "pi_get_entry",
+      "description": "Retrieve a single IoPC taxonomy entry (e.g. IOPC-T1.001 or IOPC-R012) with framework mappings and relationships. Requires server-side PROMPTINTEL_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "pi_search_prompts",
+      "description": "Search the PromptIntel Indicators-of-Prompt-Compromise feed: adversarial AI prompts with severity and category filters. Requires server-side PROMPTINTEL_API_KEY.",
+      "category": "other"
+    },
+    {
       "name": "pivot_domain",
       "description": "Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.",
       "category": "domain"
@@ -947,6 +982,16 @@
     {
       "name": "poc_scan",
       "description": "Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.",
+      "category": "other"
+    },
+    {
+      "name": "ransom_group_get",
+      "description": "Return one ransomware group: victim counts, last seen, leak-site mirrors (.onion needs Tor), victim sample, abridged profile meta. Use ransom_groups_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "ransom_groups_list",
+      "description": "List ransomware leak-site groups from the directory (620 groups, Ransomlook + ransomware.live). Filter by keyword, leak-site status (online/offline/unknown), active-this-week, or profile presence. Sort by recent activity, victim count, or name.",
       "category": "other"
     },
     {
@@ -1307,6 +1352,11 @@
     {
       "name": "tg_boolean_search",
       "description": "Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix*) and exact phrases (\"quoted\").",
+      "category": "other"
+    },
+    {
+      "name": "tg_live_search",
+      "description": "Keyword-search public Telegram channels LIVE (t.me/s previews matched in memory, nothing stored). AND-semantics across tokens. Returns snippets + permalinks + per-channel diagnostics. Sequential fetches; keep to ≤8 channels.",
       "category": "other"
     },
     {

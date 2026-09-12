@@ -64,6 +64,27 @@ vi.mock('../../src/lib/whoxy', () => ({
   whoxyReverseWhois: vi.fn(async () => ({ domains: [], total_results: 0, success: false, diagnostics: [] })),
 }));
 
+vi.mock('../../src/lib/ransomware-groups-manifest', () => ({
+  loadRansomwareGroupsIndex: vi.fn(async () => ({
+    counts: { groups: 1, sites_up: 1, active_week: 1, profiled: 0, with_activity: 1 },
+    groups: [],
+    recent: [],
+  })),
+  getRansomwareGroup: vi.fn(async () => null),
+  filterRansomwareGroups: vi.fn(() => []),
+  ransomwareGroupsCacheStats: vi.fn(() => ({})),
+}));
+
+vi.mock('../../src/lib/ai-escape-manifest', () => ({
+  loadEscapeIndex: vi.fn(async () => ({ stats: { entries: 0 }, guardrailCounts: {}, incidents: [] })),
+  getEscapeIncident: vi.fn(async () => null),
+  filterEscapes: vi.fn(() => []),
+  escapeTimelineBuckets: vi.fn(() => []),
+  loadEscapeGuardrails: vi.fn(async () => []),
+  loadEscapeTrackers: vi.fn(async () => []),
+  escapeCacheStats: vi.fn(() => ({})),
+}));
+
 const mockEnv: EnvWithAssets = {
   ASSETS: { fetch: vi.fn() } as unknown as Fetcher,
   TRACEIX_API_KEY: 'test-key',
@@ -126,6 +147,27 @@ describe('bridgeMcpTools', () => {
     expect(names).toContain('depx_check');
     expect(names).toContain('depx_stats');
     expect(names).toContain('breach_vip_search');
+  });
+
+  it('generates tools for ransom groups, AI escape, heatwave and live TG search', async () => {
+    const tools = bridgeMcpTools(mockEnv.ASSETS, mockEnv, new Set(), mockSelf, {});
+    const names = tools.map((t) => t.name);
+    for (const n of [
+      'ransom_groups_list',
+      'ransom_group_get',
+      'escape_list',
+      'escape_get',
+      'escape_stats',
+      'heatwave_lookup',
+      'tg_live_search',
+    ]) {
+      expect(names).toContain(n);
+    }
+    const byName = new Map(tools.map((t) => [t.name, t]));
+    const listed = (await byName.get('ransom_groups_list')!.execute({ limit: 5 })) as { total: number };
+    expect(listed.total).toBe(1);
+    const escaped = (await byName.get('escape_list')!.execute({ klass: 'injection' })) as { total: number };
+    expect(escaped.total).toBe(0);
   });
 
   it('generates tools for the NHI scanner', () => {

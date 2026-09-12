@@ -137,6 +137,15 @@ import { loadReportsIndex, listReports, getReport } from '../reports-manifest';
 import { loadDbIndex, getDbBrief, filterBriefs } from '../daily-briefs-manifest';
 // AI threats
 import { loadAiThreatsIndex, getAiThreat, filterThreats } from '../ai-threats-manifest';
+import { loadRansomwareGroupsIndex, getRansomwareGroup, filterRansomwareGroups } from '../ransomware-groups-manifest';
+import {
+  loadEscapeIndex,
+  getEscapeIncident,
+  filterEscapes,
+  escapeTimelineBuckets,
+  loadEscapeGuardrails,
+  loadEscapeTrackers,
+} from '../ai-escape-manifest';
 // Webamon DTB
 import { loadWdtbIndex, getWdtbBrief, getWdtbLatest, filterWdtbBriefs } from '../webamon-dtb-manifest';
 // PCMedicalist
@@ -2211,6 +2220,119 @@ export function bridgeMcpTools(
     },
   });
 
+  // ── Ransomware Groups directory (620 leak sites) ──
+  add({
+    name: 'ransom_groups_list',
+    description:
+      'List ransomware leak-site groups: status, 7d victims, profiles. Filter by keyword, status, active-week, profile; sort by recent/victims/name.',
+    params: [
+      { name: 'q', type: 'string', description: 'Keyword across slug, name, blurb', required: false },
+      { name: 'status', type: 'string', description: 'online | offline | unknown', required: false },
+      { name: 'activeWeek', type: 'boolean', description: 'Victims in last 7 days', required: false },
+      { name: 'hasProfile', type: 'boolean', description: 'Enriched profile only', required: false },
+      { name: 'sort', type: 'string', description: 'recent | victims | name', required: false },
+      { name: 'limit', type: 'number', description: 'Max groups (default 100)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadRansomwareGroupsIndex(assets);
+      const status = args.status as string | undefined;
+      const sort = args.sort as string | undefined;
+      return {
+        total: idx.counts.groups,
+        counts: idx.counts,
+        groups: filterRansomwareGroups(idx, {
+          q: args.q as string | undefined,
+          status: status === 'online' || status === 'offline' || status === 'unknown' ? status : undefined,
+          activeWeek: args.activeWeek as boolean | undefined,
+          hasProfile: args.hasProfile as boolean | undefined,
+          sort: sort === 'name' || sort === 'victims' ? sort : 'recent',
+          limit: (args.limit as number) ?? 100,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'ransom_group_get',
+    description: 'Full ransomware group body: mirrors, victim sample, abridged profile meta.',
+    params: [{ name: 'slug', type: 'string', description: 'Group slug, e.g. akira', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getRansomwareGroup(assets, String(args.slug).toLowerCase());
+    },
+  });
+
+  // ── AI Escape Watch (containment-failure registry) ──
+  add({
+    name: 'escape_list',
+    description:
+      'List AI agent containment-failure incidents with CBS scores. Filter by klass, sev, tier, guardrail, autonomy, keyword.',
+    params: [
+      { name: 'klass', type: 'string', description: 'Failure class', required: false },
+      { name: 'sev', type: 'string', description: 'critical | severe | notable | contained', required: false },
+      { name: 'tier', type: 'string', description: 'Evidence tier A|B|C|D|X', required: false },
+      { name: 'guardrail', type: 'string', description: 'Absent guardrail, e.g. EGRESS', required: false },
+      { name: 'autonomous', type: 'boolean', description: 'Autonomous crossings only', required: false },
+      { name: 'q', type: 'string', description: 'Keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max incidents (default 100)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadEscapeIndex(assets);
+      const klass = args.klass as string | undefined;
+      const sev = args.sev as string | undefined;
+      const tier = args.tier as string | undefined;
+      return {
+        total: idx.stats.entries,
+        incidents: filterEscapes(idx, {
+          klass:
+            klass === 'containment-breach' ||
+            klass === 'agent-hijack' ||
+            klass === 'supply-chain' ||
+            klass === 'tool-misuse' ||
+            klass === 'injection'
+              ? klass
+              : undefined,
+          sev: sev === 'critical' || sev === 'severe' || sev === 'notable' || sev === 'contained' ? sev : undefined,
+          tier: tier === 'A' || tier === 'B' || tier === 'C' || tier === 'D' || tier === 'X' ? tier : undefined,
+          guardrail: args.guardrail as string | undefined,
+          autonomous: args.autonomous as boolean | undefined,
+          q: args.q as string | undefined,
+          limit: (args.limit as number) ?? 100,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'escape_get',
+    description: 'Full incident docket: assigned task, containment chain, guardrails, sources.',
+    params: [{ name: 'id', type: 'string', description: 'Incident id, e.g. CB-2026-0010', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getEscapeIncident(assets, String(args.id).toUpperCase());
+    },
+  });
+
+  add({
+    name: 'escape_stats',
+    description: 'Registry stats, guardrail counts, timeline buckets, guardrail definitions, trackers.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadEscapeIndex(assets);
+      const [guardrails, trackers] = await Promise.all([loadEscapeGuardrails(assets), loadEscapeTrackers(assets)]);
+      return {
+        stats: idx.stats,
+        guardrailCounts: idx.guardrailCounts,
+        timeline: escapeTimelineBuckets(idx),
+        guardrails,
+        trackers,
+      };
+    },
+  });
+
   // ══════════════════════════════════════════════════════════════════════
   //  REST-BACKED TOOLS (33 remaining MCP tools via self.fetch)
   // ══════════════════════════════════════════════════════════════════════
@@ -3325,6 +3447,22 @@ export function bridgeMcpTools(
     'Search ThreatMon for infostealer logs by email, domain, or username. Returns compromised credentials and stealer family.',
     (a) => `/api/v1/threatmon/search?q=${encodeURIComponent(String(a.q))}`,
     [{ name: 'q', description: 'Search query (email, domain, username)', required: true }]
+  );
+  dnGet(
+    'heatwave_lookup',
+    'Check a SENDING domain against the Validity Heatwave cold-email blocklist: warming/active/pre-warming status, stage, score band, related domains. Warming is not phishing; not-listed is not clean.',
+    (a) => `/api/v1/heatwave/lookup?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Bare sending domain, e.g. example.com', required: true }]
+  );
+  dnGet(
+    'tg_live_search',
+    'Keyword-search public Telegram channels live (stateless, nothing stored). AND-semantics; returns snippets, permalinks, per-channel diagnostics.',
+    (a) =>
+      `/api/v1/tg-live-search?q=${encodeURIComponent(String(a.q))}${a.channels ? `&channels=${encodeURIComponent(String(a.channels))}` : ''}`,
+    [
+      { name: 'q', description: 'Keywords, e.g. CVE-2026-1234 rce', required: true },
+      { name: 'channels', description: 'Comma-separated handles, max 8 (default: CVE/breach batch)', required: false },
+    ]
   );
   dnGet(
     'dehash_lookup',

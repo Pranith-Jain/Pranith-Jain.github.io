@@ -147,6 +147,23 @@ import {
   type AiThreatListOptions,
 } from './lib/ai-threats-manifest';
 import {
+  loadRansomwareGroupsIndex,
+  getRansomwareGroup,
+  filterRansomwareGroups,
+  ransomwareGroupsCacheStats,
+} from './lib/ransomware-groups-manifest';
+import {
+  loadEscapeIndex,
+  getEscapeIncident,
+  loadEscapeGuardrails,
+  loadEscapeTrackers,
+  filterEscapes,
+  escapeTimelineBuckets,
+  escapeCacheStats,
+} from './lib/ai-escape-manifest';
+import { heatwaveLookup, heatwaveVerdict, normalizeHeatwaveDomain } from './lib/heatwave';
+import { tgLiveSearch, isValidChannelHandle } from './lib/tg-live-search';
+import {
   loadOssFeedsIndex,
   getOssFeedsByCategory,
   filterFeeds,
@@ -5504,6 +5521,185 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── Ransomware Groups directory (620 leak sites) ──────────────────
+      this.tools(
+        'ransom_groups_list',
+        'List ransomware leak-site groups from the directory (620 groups, Ransomlook + ransomware.live). Filter by keyword, leak-site status (online/offline/unknown), active-this-week, or profile presence. Sort by recent activity, victim count, or name.',
+        {
+          q: z.string().optional().describe('Keyword across slug, name, blurb'),
+          status: z
+            .enum(['online', 'offline', 'unknown'])
+            .optional()
+            .describe('Leak-site reachability at last probe (unknown = never enriched)'),
+          activeWeek: z.boolean().optional().describe('Only groups with victims in the last 7 days'),
+          hasProfile: z.boolean().optional().describe('Only groups with an enriched profile'),
+          sort: z.enum(['recent', 'victims', 'name']).optional().describe('Sort order (default recent)'),
+          limit: z.number().int().min(1).max(620).optional().describe('Max groups (default 100)'),
+        },
+        async ({ q, status, activeWeek, hasProfile, sort, limit }) => {
+          const idx = await loadRansomwareGroupsIndex(ASSETS);
+          const groups = filterRansomwareGroups(idx, { q, status, activeWeek, hasProfile, sort, limit: limit ?? 100 });
+          return untrustedToolResult({ total: idx.counts.groups, counts: idx.counts, returned: groups.length, groups });
+        }
+      );
+
+      this.tools(
+        'ransom_group_get',
+        'Return one ransomware group: victim counts, last seen, leak-site mirrors (.onion needs Tor), victim sample, abridged profile meta. Use ransom_groups_list first to discover slugs.',
+        {
+          slug: z.string().describe('Group slug, e.g. "akira", "clop", "qilin". Get these from ransom_groups_list.'),
+        },
+        async ({ slug }) => {
+          const body = await getRansomwareGroup(ASSETS, slug.toLowerCase());
+          if (!body) {
+            return untrustedToolResult({
+              error: 'group_not_found',
+              slug,
+              hint: 'Call ransom_groups_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      // ── AI Escape Watch (agent containment-failure registry) ──────────
+      this.tools(
+        'escape_list',
+        'List AI agent containment-failure incidents (15-entry seed registry, CBS-scored). Filter by class (containment-breach/agent-hijack/supply-chain/tool-misuse/injection), severity, evidence tier, absent guardrail, autonomy, or keyword.',
+        {
+          klass: z
+            .enum(['containment-breach', 'agent-hijack', 'supply-chain', 'tool-misuse', 'injection'])
+            .optional()
+            .describe('Failure class'),
+          sev: z.enum(['critical', 'severe', 'notable', 'contained']).optional().describe('Severity'),
+          tier: z.enum(['A', 'B', 'C', 'D', 'X']).optional().describe('Evidence tier'),
+          guardrail: z
+            .string()
+            .optional()
+            .describe('Absent guardrail, e.g. EGRESS, TELEMETRY, OBJECTIVE (see escape_stats)'),
+          autonomous: z.boolean().optional().describe('Only autonomous boundary crossings'),
+          q: z.string().optional().describe('Keyword across id, title, developer, assigned task'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max incidents (default 100)'),
+        },
+        async ({ klass, sev, tier, guardrail, autonomous, q, limit }) => {
+          const idx = await loadEscapeIndex(ASSETS);
+          const incidents = filterEscapes(idx, { klass, sev, tier, guardrail, autonomous, q, limit: limit ?? 100 });
+          return untrustedToolResult({
+            total: idx.stats.entries,
+            stats: idx.stats,
+            returned: incidents.length,
+            incidents,
+          });
+        }
+      );
+
+      this.tools(
+        'escape_get',
+        'Return one incident docket: assigned task, summary, 7-stage containment chain, absent guardrails, disputed figures, sources. Use escape_list first to discover ids.',
+        {
+          id: z.string().describe('Incident id, e.g. "CB-2026-0010". Get these from escape_list.'),
+        },
+        async ({ id }) => {
+          const body = await getEscapeIncident(ASSETS, id.toUpperCase());
+          if (!body) {
+            return untrustedToolResult({
+              error: 'incident_not_found',
+              id,
+              hint: 'Call escape_list to see available ids.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'escape_stats',
+        'Registry stats (entries, Tier A, eval-env breaches, autonomous count, median dwell, most-absent guardrail, days-since clock inputs), per-guardrail absent counts, month timeline buckets, and the 10 guardrail definitions + provenance trackers.',
+        {},
+        async () => {
+          const idx = await loadEscapeIndex(ASSETS);
+          const [guardrails, trackers] = await Promise.all([loadEscapeGuardrails(ASSETS), loadEscapeTrackers(ASSETS)]);
+          return untrustedToolResult({
+            stats: idx.stats,
+            guardrailCounts: idx.guardrailCounts,
+            timeline: escapeTimelineBuckets(idx),
+            guardrails,
+            trackers,
+            cache: escapeCacheStats(),
+          });
+        }
+      );
+
+      // ── Heatwave sender-domain blocklist + live TG search ─────────────
+      this.tools(
+        'heatwave_lookup',
+        'Check a SENDING domain against the Validity Heatwave cold-email blocklist (keyless). Returns listed status (warming/active/pre-warming), stage, relative score band, observation ages, DNS answer, and related listed domains. Warming ≠ phishing; not-listed ≠ clean. Never apply to URL/content/DKIM verdicts.',
+        {
+          domain: z.string().describe('Bare sending domain, e.g. "example.com" (no URLs, emails, or IPs)'),
+        },
+        async ({ domain }) => {
+          const clean = normalizeHeatwaveDomain(domain);
+          if (!clean) {
+            return untrustedToolResult({ error: 'invalid_domain', domain, hint: 'Bare sending domain only.' });
+          }
+          const result = await heatwaveLookup(clean);
+          if (!result) {
+            return untrustedToolResult({ error: 'lookup_unavailable', domain: clean });
+          }
+          const v = heatwaveVerdict(result);
+          return untrustedToolResult({
+            ...result,
+            verdict: v.verdict,
+            score: v.score,
+            tags: v.tags,
+            source_url: `https://lookup.validity.tools/?domain=${encodeURIComponent(clean)}`,
+          });
+        }
+      );
+
+      this.tools(
+        'tg_live_search',
+        'Keyword-search public Telegram channels LIVE (t.me/s previews matched in memory, nothing stored). AND-semantics across tokens. Returns snippets + permalinks + per-channel diagnostics. Sequential fetches; keep to ≤8 channels.',
+        {
+          q: z.string().describe('Keywords, e.g. "CVE-2026-1234 rce" or "LockBit victim"'),
+          channels: z
+            .string()
+            .optional()
+            .describe(
+              'Comma-separated handles (default: CVE/breach batch: CVEDetector, CyberMonitum, DWI_CVE_Alerts, FBI_Watchdog, DarkfeedNews, brutsecurity, IntCyberDigest, ctiwatch). Max 8.'
+            ),
+          maxResults: z.number().int().min(1).max(50).optional().describe('Max hits (default 50)'),
+        },
+        async ({ q, channels, maxResults }) => {
+          const list = (
+            channels
+              ? channels.split(',')
+              : [
+                  'CVEDetector',
+                  'CyberMonitum',
+                  'DWI_CVE_Alerts',
+                  'FBI_Watchdog',
+                  'DarkfeedNews',
+                  'brutsecurity',
+                  'IntCyberDigest',
+                  'ctiwatch',
+                ]
+          )
+            .map((h) => h.trim())
+            .filter(Boolean)
+            .slice(0, 8);
+          if (!q || !q.trim() || list.length === 0) {
+            return untrustedToolResult({ error: 'invalid_query', hint: 'Provide q and 1-8 channel handles.' });
+          }
+          for (const h of list) {
+            if (!isValidChannelHandle(h)) {
+              return untrustedToolResult({ error: 'invalid_handle', handle: h });
+            }
+          }
+          return untrustedToolResult(await tgLiveSearch(q, list, { maxResults: maxResults ?? 50 }));
+        }
+      );
+
       // ── OSS Feed Registry: Bert-JanP feed catalog ──────────────────
       this.tools(
         'oss_feeds_list',
@@ -8164,7 +8360,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { q: z.string().optional().describe('Keyword, e.g. "telemetry", "hunting", "ATT&CK", or domain id "DE"') },
       async ({ q }) => {
         const qs = q ? `?q=${encodeURIComponent(q)}` : '';
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/frameworks/tid-cmm${qs}`, this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/frameworks/tid-cmm${qs}`,
+          this.apiKey
+        );
         return untrustedToolResult(data);
       }
     );
