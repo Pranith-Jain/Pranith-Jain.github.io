@@ -43,7 +43,9 @@ export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
     const res = await fetch(url, { headers, signal: AbortSignal.timeout(10000) });
 
     if (res.status === 401 || res.status === 403) {
-      return c.json({ results: [], total: 0, error: 'URLScan API key required or invalid' }, 200, {
+      // 503, not 200: a missing/invalid key is a backend gap, not an empty
+      // result set — 200 would read as "no threats found".
+      return c.json({ results: [], total: 0, error: 'URLScan API key required or invalid' }, 503, {
         'Cache-Control': 'no-store',
       });
     }

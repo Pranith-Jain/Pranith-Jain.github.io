@@ -14,6 +14,7 @@
 import { Hono } from 'hono';
 import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
+import { safeJsonBody } from '../lib/safe-body';
 import type { D1Database, KVNamespace, Ai } from '@cloudflare/workers-types';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 import { runCompletion } from '../case-study/generation/ai-client';
@@ -96,22 +97,30 @@ async function runAiPrompt(
 ai.post('/analyze', async (c) => {
   const db = c.env.BRIEFINGS_DB;
 
-  const body = await c.req.json<{ indicator: string; type?: string }>();
+  const parsed = await safeJsonBody<{ indicator: string; type?: string }>(c, {
+    maxBytes: 4 * 1024,
+    maxDepth: 4,
+  });
+  if ('error' in parsed) return parsed.error;
+  const { indicator, type } = parsed.value;
 
-  if (!body.indicator) {
-    return badRequest(c, 'indicator required');
+  if (typeof indicator !== 'string' || indicator.length < 3 || indicator.length > 256) {
+    return badRequest(c, 'indicator must be a 3–256 char string');
+  }
+  if (type !== undefined && (typeof type !== 'string' || type.length > 32)) {
+    return badRequest(c, 'type must be a short string');
   }
 
-  const cacheKey = `ti:ai:analyze:${body.indicator}`;
+  const cacheKey = `ti:ai:analyze:${indicator}`;
   const cached = await routeCacheGet<object>(cacheKey);
   if (cached) return c.json(cached);
 
-  const context = await gatherIndicatorContext(db, body.indicator);
+  const context = await gatherIndicatorContext(db, indicator);
 
   const prompt = `Analyze this threat indicator and provide a structured assessment.
 
-Indicator: ${body.indicator}
-Type: ${body.type || context.type || 'unknown'}
+Indicator: ${indicator}
+Type: ${type || context.type || 'unknown'}
 
 Known context:
 - First seen: ${context.first_seen || 'unknown'}
@@ -145,8 +154,8 @@ Respond in JSON format:
   // If AI is unavailable, return fallback analysis
   if (aiResponse.startsWith('AI analysis unavailable')) {
     const fallbackAnalysis: ThreatAnalysis = {
-      indicator: body.indicator,
-      type: body.type || context.type || 'unknown',
+      indicator,
+      type: type || context.type || 'unknown',
       risk_score: 50,
       risk_level: 'medium',
       confidence: 0.2,
@@ -165,8 +174,8 @@ Respond in JSON format:
   try {
     const parsed = JSON.parse(aiResponse);
     analysis = {
-      indicator: body.indicator,
-      type: body.type || context.type || 'unknown',
+      indicator,
+      type: type || context.type || 'unknown',
       risk_score: parsed.risk_score || 50,
       risk_level: parsed.risk_level || 'medium',
       confidence: parsed.confidence || 0.5,
@@ -181,8 +190,8 @@ Respond in JSON format:
   } catch (_catchErr) {
     logError('handler failed', _catchErr);
     analysis = {
-      indicator: body.indicator,
-      type: body.type || 'unknown',
+      indicator,
+      type: type || 'unknown',
       risk_score: 50,
       risk_level: 'medium',
       confidence: 0.3,
@@ -248,10 +257,18 @@ Provide a structured summary in JSON:
 ai.post('/risk-score', async (c) => {
   const db = c.env.BRIEFINGS_DB;
   const _kv = c.env.KV_CACHE;
-  const body = await c.req.json<{ indicators: string[]; context?: string }>();
+  const parsedRisk = await safeJsonBody<{ indicators: string[]; context?: string }>(c, {
+    maxBytes: 16 * 1024,
+    maxDepth: 4,
+  });
+  if ('error' in parsedRisk) return parsedRisk.error;
+  const body = parsedRisk.value;
 
-  if (!body.indicators || body.indicators.length === 0) {
-    return badRequest(c, 'indicators array required');
+  if (!Array.isArray(body.indicators) || body.indicators.length === 0 || body.indicators.length > 10) {
+    return badRequest(c, 'indicators must be an array of 1–10 strings');
+  }
+  if (body.indicators.some((i) => typeof i !== 'string' || i.length < 2 || i.length > 256)) {
+    return badRequest(c, 'each indicator must be a 2–256 char string');
   }
 
   const indicatorData = await Promise.all(
