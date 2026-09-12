@@ -555,6 +555,10 @@ async function runGroqStream(key: string, input: CompletionInput, onToken: (toke
   const decoder = new TextDecoder();
   let full = '';
   let buffer = '';
+  // Hard cap: an unbounded `full += delta` lets a runaway stream OOM the
+  // isolate. Fail loudly past the cap instead of truncating silently —
+  // callers already surface thrown errors as unavailable.
+  const MAX_STREAM_CHARS = 500_000;
   for (;;) {
     const { done, value } = await reader.read();
     if (done) break;
@@ -565,6 +569,10 @@ async function runGroqStream(key: string, input: CompletionInput, onToken: (toke
       const delta = parseSseDelta(line);
       if (delta) {
         full += delta;
+        if (full.length > MAX_STREAM_CHARS) {
+          try { await reader.cancel(); } catch { /* already closed */ }
+          throw new Error(`groq stream exceeded ${MAX_STREAM_CHARS} chars`);
+        }
         onToken(delta);
       }
     }

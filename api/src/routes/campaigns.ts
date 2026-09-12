@@ -158,7 +158,11 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
     // Cap at 200 so the index stays small and a single bad import can't
     // grow it unbounded. Older entries remain readable by direct ID lookup.
     await writeIndex(kv, index.slice(0, 200));
-  } catch {}
+  } catch (err) {
+    // Index write failed but the campaign body persisted above — log so the
+    // listing doesn't silently diverge from stored campaigns.
+    logError('campaigns index write failed', err);
+  }
   await invalidateCampaignCaches(validated.id);
 
   return c.json({ id: validated.id, saved_at: validated.saved_at }, 201, { 'cache-control': 'no-store' });
@@ -214,7 +218,11 @@ export async function deleteCampaignHandler(c: Context<{ Bindings: Env }>): Prom
       kv,
       index.filter((e) => e.id !== id)
     );
-  } catch {}
+  } catch (err) {
+    // Delete succeeded but the index still lists the id — log so the ghost
+    // entry is visible instead of silently haunting the listing.
+    logError('campaigns index delete failed', err);
+  }
   await invalidateCampaignCaches(id);
   return c.json({ ok: true, id }, 200);
 }
