@@ -564,50 +564,63 @@ export async function fetchUrlhaus(): Promise<PulseEvent[]> {
   }
 }
 
-/* ─── Supply Chain Attacks (supplychainattack.org) ───────────────────────── */
+/* ─── Supply Chain Attacks (GitHub malware advisories) ─────────────────── */
 
 export async function fetchSupplyChain(): Promise<PulseEvent[]> {
-  // supplychainattack.org incident catalog (npm/PyPI/container/AI-agents). Non-geo
-  // (lat/lng 0) — surfaces in the feed/ticker, not the globe. One direct fetch.
+  // GitHub Security Advisories `malware` set (reviewed malicious-package
+  // advisories across npm/PyPI/etc). Previously supplychainattack.org, whose
+  // whole site (including its homepage) went 402 Payment Required in 2026-09.
+  // Non-geo (lat/lng 0) — surfaces in the feed/ticker, not the globe. One
+  // direct fetch, same subrequest budget as before.
   try {
-    const res = await fetch('https://supplychainattack.org/incidents.json', {
-      signal: AbortSignal.timeout(8000),
-      headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
-    });
+    const res = await fetch(
+      'https://api.github.com/advisories?type=malware&per_page=30&sort=published&direction=desc',
+      {
+        signal: AbortSignal.timeout(8000),
+        headers: {
+          'user-agent': 'pranithjain-dfir/1.0',
+          accept: 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
     if (!res.ok) return [];
-    const data = (await res.json()) as {
-      incidents?: Array<{
-        id?: string;
-        title?: string;
-        summary?: string;
-        status?: string;
-        severity?: string;
-        ecosystems?: string[];
-        disclosedDate?: string;
-        url?: string;
-        iocs?: { packages?: string[] };
-      }>;
-    };
+    const data = (await res.json()) as Array<{
+      ghsa_id?: string;
+      summary?: string;
+      severity?: string;
+      html_url?: string;
+      published_at?: string;
+      vulnerabilities?: Array<{ package?: { ecosystem?: string; name?: string } }>;
+    }>;
     const SEV = new Set(['critical', 'high', 'medium', 'low']);
-    return (data.incidents ?? []).slice(0, 30).map((i, idx) => {
-      const sevRaw = typeof i.severity === 'string' ? i.severity.toLowerCase() : '';
+    return (Array.isArray(data) ? data : []).slice(0, 30).map((a, idx) => {
+      const sevRaw = typeof a.severity === 'string' ? a.severity.toLowerCase() : '';
       const severity = (SEV.has(sevRaw) ? sevRaw : 'high') as PulseEvent['severity'];
-      const eco = Array.isArray(i.ecosystems) ? i.ecosystems.join(', ') : '';
-      const pkgs = i.iocs?.packages?.length ?? 0;
+      const vulns = Array.isArray(a.vulnerabilities) ? a.vulnerabilities : [];
+      const ecos = [...new Set(vulns.map((v) => v.package?.ecosystem).filter(Boolean))].join(', ');
+      const pkgs = [...new Set(vulns.map((v) => v.package?.name).filter(Boolean))];
       const desc =
-        `${eco}${eco && pkgs ? ' · ' : ''}${pkgs ? `${pkgs} package${pkgs === 1 ? '' : 's'}` : ''}${i.status ? ` · ${i.status}` : ''}`.trim() ||
-        (typeof i.summary === 'string' ? i.summary.slice(0, 200) : '');
+        `${ecos}${ecos && pkgs.length ? ' · ' : ''}${pkgs.length ? `${pkgs.length} package${pkgs.length === 1 ? '' : 's'}: ${pkgs.slice(0, 3).join(', ')}` : ''}`.trim() ||
+        (typeof a.summary === 'string' ? a.summary.slice(0, 200) : '');
+      const ghsaId = typeof a.ghsa_id === 'string' ? a.ghsa_id : '';
+      const url =
+        typeof a.html_url === 'string' && /^https?:\/\//.test(a.html_url)
+          ? a.html_url
+          : ghsaId
+            ? `https://github.com/advisories/${ghsaId}`
+            : undefined;
       return {
-        id: `sca-${i.id ?? idx}`,
+        id: `sca-${ghsaId || idx}`,
         kind: 'supply_chain_attacks' as const,
-        title: (i.title ?? 'Supply-chain incident').slice(0, 140),
+        title: (a.summary ?? 'Supply-chain incident').slice(0, 140),
         description: desc,
         lat: 0,
         lng: 0,
-        timestamp: i.disclosedDate || new Date().toISOString(),
+        timestamp: a.published_at || new Date().toISOString(),
         severity,
-        source: 'supplychainattack.org',
-        url: typeof i.url === 'string' && /^https?:\/\//.test(i.url) ? i.url : undefined,
+        source: 'GitHub Security Advisories',
+        url,
         cti: 'other' as const,
       };
     });
