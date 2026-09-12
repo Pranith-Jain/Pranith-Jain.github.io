@@ -731,7 +731,13 @@ export async function executeCronJob(
             admitted.push('intel-bundle-warm');
           } else deferred.push('intel-bundle-warm');
 
-          const runCti = !!env.BRIEFINGS_DB && !dailyHealRan && !runPhishing && canSpend(8);
+          // CTI ingestion runs 4x/day (01, 07, 13, 19 UTC) instead of hourly:
+          // IOC value doesn't need hourly re-ingestion (upstreams are feeds,
+          // half-lives are 5-30d; SwiftIOC itself collects 4-hourly), and each
+          // run costs ~1k D1 writes. Hour%6==1 is free of the other 6h tenants
+          // (phishing %6==0, rag %6==2, releaks %6==3, ghsa %6==4).
+          const runCti =
+            !!env.BRIEFINGS_DB && !dailyHealRan && !runPhishing && csNow.getUTCHours() % 6 === 1 && canSpend(8);
           if (runCti) {
             spend(8);
             admitted.push('cti-collector');
@@ -852,20 +858,21 @@ export async function executeCronJob(
           }
           await Promise.allSettled(fireAndForget);
 
-          // ── CTI Collector: automated IOC + news ingestion (every hour) ────
+          // ── CTI Collector: automated IOC + news ingestion (4x daily) ──────
           // Skipped this tick when the daily briefing heal just ran its live
           // fan-out in this same invocation — runFullCollection makes 7-10
           // upstream fetches (threatfox, urlhaus, malwarebazaar, feodo, sslbl,
           // openphish, cisa_kev, news feeds) and would push the combined
           // subrequest count past the free-plan 50 cap. It catches up next
-          // hour; no data is lost.
-          // D1: decay/sweep/job-log maintenance runs once daily (03 UTC) —
-          // hourly maintenance was ~4k wasted writes + full-table scans/day
-          // for slow-moving (5-30d half-life) data.
+          // run; no data is lost.
+          // D1: decay/sweep/job-log maintenance runs once daily (01 UTC, on
+          // the first ingestion tick) — hourly maintenance was ~4k wasted
+          // writes + full-table scans/day for slow-moving (5-30d half-life)
+          // data.
           try {
             if (env.BRIEFINGS_DB && runCti) {
               const ctiResult = await runFullCollection(env.BRIEFINGS_DB, env.ABUSECH_AUTH_KEY, {
-                maintenance: csNow.getUTCHours() === 3,
+                maintenance: csNow.getUTCHours() === 1,
               });
               console.log(
                 JSON.stringify({
