@@ -28,7 +28,7 @@ export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise
     return badRequest(c, 'label, type, value, and webhook are required');
   }
 
-  if (!['ransomware-group', 'cve-keyword', 'actor', 'ioc'].includes(body.type)) {
+  if (!['ransomware-group', 'cve-keyword', 'actor', 'ioc', 'domain', 'brand', 'email', 'keyword'].includes(body.type)) {
     return badRequest(c, 'Invalid type');
   }
 
@@ -92,7 +92,9 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
     watch.webhook = body.webhook;
   }
   if (body.type !== undefined) {
-    if (!['ransomware-group', 'cve-keyword', 'actor', 'ioc'].includes(body.type)) {
+    if (
+      !['ransomware-group', 'cve-keyword', 'actor', 'ioc', 'domain', 'brand', 'email', 'keyword'].includes(body.type)
+    ) {
       return badRequest(c, 'Invalid type');
     }
     watch.type = body.type;
