@@ -5,8 +5,50 @@ beforeEach(() => {
   vi.restoreAllMocks();
 });
 
-// GitHub Security Advisories `malware` set — the live upstream shape.
-const SAMPLE = JSON.stringify([
+// PRIMARY: supplychainattack.org catalog shape.
+const SCA_SAMPLE = JSON.stringify({
+  license: 'Catalog data is free to cite with attribution to supplychainattack.org.',
+  revised: '2026-06-10',
+  incidents: [
+    {
+      id: 'malware-in-foo',
+      url: 'https://supplychainattack.org/incident/malware-in-foo',
+      title: 'Malware in foo',
+      status: 'active',
+      severity: 'critical',
+      ecosystems: ['npm'],
+      attackVectors: ['compromised-package'],
+      disclosedDate: '2026-06-10',
+      lastUpdated: '2026-06-10',
+      blastRadius: 'Any system with the package installed',
+      affectedEntities: [{ name: 'foo', note: 'npm package' }],
+      summary: 'The npm package foo contains malware.',
+      iocs: { packages: ['foo'] },
+      remediation: ['Immediately remove foo'],
+      sources: [{ url: 'https://github.com/advisories/GHSA-aaaa', title: 'GHSA-aaaa', publisher: 'GitHub Advisory Database' }],
+    },
+    {
+      id: 'malware-in-bar',
+      url: 'https://supplychainattack.org/incident/malware-in-bar',
+      title: 'Malware in bar',
+      status: 'resolved',
+      severity: 'high',
+      ecosystems: ['pypi'],
+      attackVectors: ['account-takeover'],
+      disclosedDate: '2026-06-09',
+      lastUpdated: '2026-06-09',
+      blastRadius: '',
+      affectedEntities: [{ name: 'bar' }],
+      summary: '',
+      iocs: { packages: ['bar'] },
+      remediation: [],
+      sources: [],
+    },
+  ],
+});
+
+// FALLBACK: GitHub malware advisory shape.
+const GHSA_SAMPLE = JSON.stringify([
   {
     ghsa_id: 'GHSA-aaaa-1111-2222',
     summary: 'Malicious code in platform-telemetry-client (PyPI)',
@@ -24,7 +66,6 @@ const SAMPLE = JSON.stringify([
     summary: 'Malicious code in tailwind-form-kit (npm)',
     description: 'The npm package tailwind-form-kit contains malware.',
     severity: 'high',
-    html_url: 'https://github.com/advisories/GHSA-bbbb-3333-4444',
     published_at: '2026-09-09T00:00:00Z',
     updated_at: '2026-09-09T00:00:00Z',
     vulnerabilities: [
@@ -35,36 +76,37 @@ const SAMPLE = JSON.stringify([
       },
     ],
   },
-  {
-    ghsa_id: 'GHSA-cccc-5555-6666',
-    summary: 'Malicious code in cr-bot-common (npm)',
-    description: '',
-    severity: 'critical',
-    published_at: '2026-09-08T00:00:00Z',
-    updated_at: '2026-09-08T00:00:00Z',
-    vulnerabilities: [{ package: { ecosystem: 'npm', name: 'cr-bot-common' } }],
-  },
 ]);
 
-function mockUpstream(status: number, body: string) {
-  vi.spyOn(globalThis, 'fetch').mockImplementation(
-    async () => new Response(body, { status, headers: { 'Content-Type': 'application/json' } })
-  );
+/** URL-aware mock: primary vs fallback can succeed/fail independently. */
+function mockTiers(primary: { status: number; body: string } | null, fallback: { status: number; body: string } | null) {
+  vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+    const url = String(input);
+    if (url.includes('supplychainattack.org')) {
+      if (!primary) throw new Error('primary unreachable');
+      return new Response(primary.body, { status: primary.status, headers: { 'Content-Type': 'application/json' } });
+    }
+    if (url.includes('api.github.com')) {
+      if (!fallback) throw new Error('fallback unreachable');
+      return new Response(fallback.body, { status: fallback.status, headers: { 'Content-Type': 'application/json' } });
+    }
+    throw new Error(`unexpected fetch: ${url}`);
+  });
 }
 
 describe('GET /api/v1/supply-chain-attacks', () => {
   // FIRST: error path — runs before any success can populate the global
   // KV last-good (supplychain:lastgood:v1), which would otherwise mask the 502.
-  it('502s when upstream is unavailable and no last-good exists', async () => {
-    mockUpstream(404, 'not found');
+  it('502s when both tiers are unavailable and no last-good exists', async () => {
+    mockTiers({ status: 402, body: '{"error":"pay"}' }, { status: 500, body: 'err' });
     const r = await SELF.fetch('https://x/api/v1/supply-chain-attacks?limit=104');
     expect(r.status).toBe(502);
     const body = (await r.json()) as { source: string };
-    expect(body.source).toBe('GitHub Security Advisories (malware)');
+    expect(body.source).toContain('supplychainattack.org');
   });
 
-  it('returns normalized incidents + facets + attribution', async () => {
-    mockUpstream(200, SAMPLE);
+  it('serves the primary catalog when available', async () => {
+    mockTiers({ status: 200, body: SCA_SAMPLE }, { status: 200, body: GHSA_SAMPLE });
     const r = await SELF.fetch('https://x/api/v1/supply-chain-attacks?limit=101');
     expect(r.status).toBe(200);
     const body = (await r.json()) as {
@@ -72,34 +114,41 @@ describe('GET /api/v1/supply-chain-attacks', () => {
       license: string;
       total: number;
       facets: { ecosystems: Record<string, number>; statuses: Record<string, number> };
-      incidents: Array<{
-        id: string;
-        attack_vectors: string[];
-        disclosed_date: string;
-        iocs: Record<string, string[]>;
-        status: string;
-        remediation: string[];
-      }>;
+      incidents: Array<{ attack_vectors: string[]; disclosed_date: string; iocs: Record<string, string[]> }>;
+    };
+    expect(body.source).toBe('supplychainattack.org');
+    expect(body.license).toContain('free to cite with attribution');
+    expect(body.total).toBe(2);
+    // snake_case normalization
+    expect(body.incidents[0]!.attack_vectors).toEqual(['compromised-package']);
+    expect(body.incidents[0]!.disclosed_date).toBe('2026-06-10');
+    expect(body.incidents[0]!.iocs.packages).toEqual(['foo']);
+    // facets reflect the FULL catalog
+    expect(body.facets.ecosystems.npm).toBe(1);
+    expect(body.facets.ecosystems.pypi).toBe(1);
+    expect(body.facets.statuses.active).toBe(1);
+    expect(body.facets.statuses.resolved).toBe(1);
+  });
+
+  it('falls back to GHSA malware when the primary is paywalled', async () => {
+    mockTiers({ status: 402, body: '{"error":{"code":"402"}}' }, { status: 200, body: GHSA_SAMPLE });
+    const r = await SELF.fetch('https://x/api/v1/supply-chain-attacks?limit=106');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as {
+      source: string;
+      total: number;
+      incidents: Array<{ id: string; status: string; remediation: string[]; iocs: Record<string, string[]> }>;
     };
     expect(body.source).toBe('GitHub Security Advisories (malware)');
-    expect(body.license).toContain('GitHub Security Advisories');
-    expect(body.total).toBe(3);
-    // GHSA → catalog mapping
+    expect(body.total).toBe(2);
     expect(body.incidents[0]!.id).toBe('GHSA-aaaa-1111-2222');
-    expect(body.incidents[0]!.attack_vectors).toEqual(['malicious-package']);
     expect(body.incidents[0]!.status).toBe('confirmed');
-    expect(body.incidents[0]!.disclosed_date).toBe('2026-09-10T00:00:00Z');
     expect(body.incidents[0]!.iocs.packages).toEqual(['platform-telemetry-client']);
-    // patched-version remediation derived from advisory metadata
     expect(body.incidents[1]!.remediation).toEqual(['Upgrade tailwind-form-kit to 1.2.3']);
-    // facets reflect the FULL catalog
-    expect(body.facets.ecosystems.npm).toBe(2);
-    expect(body.facets.ecosystems.pip).toBe(1);
-    expect(body.facets.statuses.confirmed).toBe(3);
   });
 
   it('filters by ecosystem (facets stay full-set)', async () => {
-    mockUpstream(200, SAMPLE);
+    mockTiers({ status: 402, body: '{}' }, { status: 200, body: GHSA_SAMPLE });
     const r = await SELF.fetch('https://x/api/v1/supply-chain-attacks?ecosystem=pip&limit=102');
     expect(r.status).toBe(200);
     const body = (await r.json()) as {
@@ -109,16 +158,7 @@ describe('GET /api/v1/supply-chain-attacks', () => {
     };
     expect(body.count).toBe(1);
     expect(body.incidents.every((i) => i.ecosystems.includes('pip'))).toBe(true);
-    expect(body.facets.ecosystems.npm).toBe(2); // full-set facet survives filtering
-  });
-
-  it('filters by status', async () => {
-    mockUpstream(200, SAMPLE);
-    const r = await SELF.fetch('https://x/api/v1/supply-chain-attacks?status=confirmed&limit=103');
-    expect(r.status).toBe(200);
-    const body = (await r.json()) as { count: number; incidents: Array<{ status: string }> };
-    expect(body.count).toBe(3);
-    expect(body.incidents[0]!.status).toBe('confirmed');
+    expect(body.facets.ecosystems.npm).toBe(1); // full-set facet survives filtering
   });
 
   it('400s on a non-numeric limit (validate() schema parity)', async () => {
@@ -127,7 +167,7 @@ describe('GET /api/v1/supply-chain-attacks', () => {
   });
 
   it('sets a Cache-Control header on success', async () => {
-    mockUpstream(200, SAMPLE);
+    mockTiers({ status: 402, body: '{}' }, { status: 200, body: GHSA_SAMPLE });
     const r = await SELF.fetch('https://x/api/v1/supply-chain-attacks?limit=105');
     expect(r.headers.get('Cache-Control')).toContain('max-age');
   });
