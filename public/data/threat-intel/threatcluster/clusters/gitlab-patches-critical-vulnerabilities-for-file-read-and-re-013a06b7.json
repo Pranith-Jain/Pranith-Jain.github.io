@@ -1,0 +1,11 @@
+{
+  "slug": "gitlab-patches-critical-vulnerabilities-for-file-read-and-re-013a06b7",
+  "title": "Critical GitLab Vulnerabilities Exploited Within Hours of Disclosure",
+  "link": "https://threatcluster.io/cluster/gitlab-patches-critical-vulnerabilities-for-file-read-and-re-013a06b7?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/gitlab-patches-critical-vulnerabilities-for-file-read-and-re-013a06b7",
+  "pubDate": "2026-09-11T10:13:55.000Z",
+  "sourceCount": 21,
+  "categories": ["21 Sources"],
+  "description": "On September 10, 2026, GitLab released patches for critical vulnerabilities CVE-2026-85706 and CVE-2026-87719. CVE-2026-85706, a path traversal flaw, allows unauthenticated users to read arbitrary fil…",
+  "sizeBytes": 201
+}

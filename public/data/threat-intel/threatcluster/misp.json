@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-11T09:57:09.165Z",
-  "eventCount": 8,
+  "syncedAt": "2026-09-12T09:30:00.344Z",
+  "eventCount": 10,
   "events": [
     {
       "uuid": "004fd653-a3cc-5f31-9228-fc427045f51c",
@@ -21,6 +21,16 @@
         "type:vulnerability",
         "misp-galaxy:threat-actor=\"Sandworm\""
       ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "7476efe4-a25d-520c-8939-818754b16c3b",
+      "info": "Critical GitLab Vulnerabilities Exploited Within Hours of Disclosure",
+      "date": "2026-09-11",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1789130780",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -91,21 +101,36 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "8139a5e0-b776-55ff-8564-56e840b65167",
-      "info": "Trellix Reports on Five Evasive Cyber Campaigns in 2026",
-      "date": "2026-09-10",
+      "uuid": "2c8ef828-93c0-5e20-87fe-97f19e4d81f7",
+      "info": "Russian Hackers Use AI to Target Ukraine's Drone Manufacturing and Government",
+      "date": "2026-09-12",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1789066062",
+      "timestamp": "1789186317",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "misp-galaxy:threat-actor=\"Midnight Blizzard\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "09b6fd54-3a7a-585d-9eba-152a6c9ad934",
+      "info": "Cyclops Blink Malware Targets Cisco Firewall Devices",
+      "date": "2026-09-12",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789171875",
       "tags": [
         "source:ThreatCluster",
         "tlp:clear",
         "threat-level:medium",
         "type:apt",
         "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"Apt28\"",
-        "misp-galaxy:threat-actor=\"Fancy Bear\""
+        "misp-galaxy:threat-actor=\"Sandworm\"",
+        "misp-galaxy:threat-actor=\"Voodoo Bear\""
       ],
       "orgc": "ThreatCluster"
     }

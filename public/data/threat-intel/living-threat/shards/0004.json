@@ -3,6 +3,228 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Cybercriminals exploiting AI platform access for fraud and phishing.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through fraud and phishing.",
+      "Sophistication": "Medium",
+      "Strategic_Objectives": "Exploit AI tools for large-scale fraud operations.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "Cybercriminals gather information on AI platform access.",
+        "Detection": "Monitor for unusual account access patterns.",
+        "Remediation": "Implement stronger authentication measures.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about victim identities.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "AI tools are used to create phishing and scam content.",
+        "Detection": "Analyze content for AI-generated patterns.",
+        "Remediation": "Educate users on recognizing AI-generated scams.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Developing tools and capabilities for operations.",
+            "technique_id": "T1587.001",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "Phishing messages and scam scripts are distributed.",
+        "Detection": "Use email filtering to detect phishing attempts.",
+        "Remediation": "Implement anti-phishing technologies.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Delivering malicious content to victims.",
+            "tactic_id": "TA0004",
+            "tactic_name": "Delivery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Sending fraudulent messages to obtain information.",
+            "technique_id": "T1566",
+            "technique_name": "Phishing"
+          }
+        ],
+        "Techniques": ["T1566"]
+      },
+      {
+        "Description": "Victims interact with phishing content.",
+        "Detection": "Monitor for unusual user behavior.",
+        "Remediation": "Patch vulnerabilities promptly.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining initial access to victim systems.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "AI tools are used to automate fraud operations.",
+        "Detection": "Monitor for automated fraud patterns.",
+        "Remediation": "Enhance monitoring of AI tool usage.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code on victim systems.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using interpreters to execute commands.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Access to AI platforms for generating phishing and scam content.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Generative AI tools"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["AI platform accounts"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Flare"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["AI tools", "underground market", "phishing", "fraud"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["ChatGPT", "Claude", "Microsoft Copilot", "Perplexity"],
+      "Technologies": ["Generative AI"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Underground market infrastructure for AI platform access resale.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": ["Generative AI tools"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Cybercriminals"],
+    "Timestamp": "2026-03-25T10:02:00Z",
+    "Title": "Underground Market for AI Platform Access",
+    "Tools": ["Generative AI tools", "ChatGPT", "Claude", "Microsoft Copilot", "Perplexity"],
+    "Victim": {
+      "Access_Vectors": ["Compromised accounts"],
+      "Data_Types_At_Risk": ["Sensitive information"],
+      "Description": "Organizations and individuals using AI platforms.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable to account misuse",
+      "Targeted_Assets": ["AI platform accounts"]
+    },
+    "diamond_model_summary": "The incident involves cybercriminals exploiting AI platform access for fraudulent activities. The adversary is financially motivated, using generative AI tools to create phishing and scam content. The infrastructure includes underground markets for AI platform access resale. Victims are organizations and individuals using AI platforms, with a high impact severity due to the potential misuse of sensitive information.",
+    "doc_summary": "AI tools like ChatGPT, Claude, Microsoft Copilot, and Perplexity are increasingly integrated into daily workflows, raising their value not only for legitimate users but also within the cybercrime ecosystem. Analysts have identified a growing underground market for premium AI platform access, with recurring patterns of resale-style listings offering discounted subscriptions and bundled access. These listings suggest a trend where digital services are repackaged and resold. The misuse of AI platforms enables activities such as phishing, scam scripts, and social engineering, with generative AI improving the realism and effectiveness of fraudulent communications. Criminal groups are automating phishing and fraud operations using AI, crafting personalized social engineering campaigns. Flare researchers found AI accounts are perceived as valuable commodities in black markets, integrated with existing ecosystems trading access and digital services. Offers often include claims of unrestricted access, appealing to buyers seeking fewer restrictions. Addressing this shift requires stronger account protections and monitoring for suspicious activity.",
+    "enrichment": null,
+    "id": "89806cab2424b1d9d754a76abae66d3b",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain involves reconnaissance to gather information on AI platform access, weaponization using AI tools to create phishing content, delivery of phishing messages, and exploitation when victims interact with the content. Actions on objectives include using AI tools to automate fraud operations. Detection and remediation strategies focus on monitoring account access patterns and educating users on recognizing AI-generated scams.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 85,
+    "pyramid_of_pain_summary": "The pyramid of pain for this incident includes tools like generative AI, which are used to create phishing and scam content. No specific hashes, IP addresses, or domains were identified. The focus is on detecting patterns of AI-generated content and monitoring for unusual account access. The lack of specific indicators limits the ability to provide a detailed pyramid of pain analysis.",
+    "relevance_score": 73,
+    "sequence": 19939,
+    "source": "https://www.bleepingcomputer.com/news/security/paid-ai-accounts-are-now-a-hot-underground-commodity/",
+    "slug": "Underground_Market_for_AI_Platform_Access-019939",
+    "shard": 4
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Potential third-party group with credible evidence of imminent threat to exploit CVE-2026-4681.",
       "Known_Campaigns": [],
       "Motivation": "Industrial espionage and national security risks.",
@@ -104671,181 +104893,6 @@
     "sequence": 19443,
     "source": "https://gbhackers.com/microsoft-office-word-0-day-vulnerability/",
     "slug": "Zero-Day_Vulnerability_CVE-2026-21514_in_Microsoft_Word-019443",
-    "shard": 4
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in Microsoft software, including privilege escalation and security feature bypass.",
-        "Detection": "Monitor for unusual file execution and privilege escalation activities.",
-        "Remediation": "Apply the latest security patches from Microsoft.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of vulnerabilities in client applications.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of vulnerabilities in Microsoft software, including privilege escalation and security feature bypass.",
-      "Exploits": ["CVE-2026-21513", "CVE-2026-21514", "CVE-2026-21525"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": ["CVE-2026-21525"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Windows systems", "Edge browser"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft", "Google"],
-      "Countries": ["United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerabilities", "exploited", "security updates"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["January 2026 Patch Tuesday"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Microsoft Windows", "Microsoft Edge"],
-      "Technologies": ["MSHTML Framework", "Secure Boot"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-21513", "CVE-2026-21514", "CVE-2026-21525"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2026-21513", "CVE-2026-21514", "CVE-2026-21525"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-02-10T18:30:00Z",
-    "Title": "Microsoft January 2026 Security Update: Exploited Vulnerabilities",
-    "Tools": ["Microsoft Windows", "Microsoft Edge"],
-    "Victim": {
-      "Access_Vectors": ["Malicious files", "Network spoofing"],
-      "Data_Types_At_Risk": [],
-      "Description": "Users of Microsoft software, including Windows and Edge browser.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Windows systems", "Edge browser"]
-    },
-    "diamond_model_summary": "The incident involves the exploitation of multiple vulnerabilities in Microsoft software, including privilege escalation and security feature bypass. The vulnerabilities were actively exploited in the wild, prompting Microsoft to release security updates. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added these vulnerabilities to its Known Exploited Vulnerabilities catalog, highlighting the critical nature of the threat. The incident underscores the importance of timely patching and the need for robust security measures to protect against exploitation.",
-    "doc_summary": "Microsoft released security updates addressing 59 flaws, including six actively exploited vulnerabilities. The updates cover critical vulnerabilities in the MSHTML Framework and privilege escalation issues. CVE-2026-21513 and CVE-2026-21514 are notable for their similarities to CVE-2026-21510. CVE-2026-21525 is linked to a zero-day discovered by ACROS Security. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added these vulnerabilities to its Known Exploited Vulnerabilities catalog. Microsoft also updated Secure Boot certificates and introduced Windows Baseline Security Mode and User Transparency initiatives.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:07.396775+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "624d781c9be23fe99350133debcd69b759eacfab15f85639596013e584f7d2ff",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for this incident involves the exploitation of vulnerabilities in Microsoft software, specifically targeting the MSHTML Framework and privilege escalation mechanisms. The adversary gains initial access through malicious files or network spoofing, exploiting vulnerabilities such as CVE-2026-21513 and CVE-2026-21525. The exploitation stage is critical, as it allows the adversary to bypass security features and potentially escalate privileges. The incident highlights the need for vigilant monitoring and timely application of security patches to mitigate the risk of exploitation.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the exploitation of specific vulnerabilities in Microsoft software, such as CVE-2026-21513 and CVE-2026-21525. These vulnerabilities represent TTPs (Tactics, Techniques, and Procedures) that are challenging to detect and mitigate. The incident underscores the importance of understanding and addressing these TTPs to enhance security posture. While specific hash values, IP addresses, and domain names are not identified, the focus on TTPs highlights the need for comprehensive threat intelligence and proactive defense strategies.",
-    "relevance_score": 45,
-    "sequence": 19442,
-    "source": "https://thehackernews.com/2026/02/microsoft-patches-59-vulnerabilities.html",
-    "slug": "Microsoft_January_2026_Security_Update__Exploited_Vulnerabilities-019442",
     "shard": 4
   }
 ]

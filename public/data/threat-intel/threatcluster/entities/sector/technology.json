@@ -5,20 +5,36 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 7,
-  "firstSeen": "2026-09-09T10:11:43.000Z",
-  "lastSeen": "2026-09-10T21:27:11.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 5 ransomware groups and 6 countries.",
+  "firstSeen": "2026-09-09T16:50:52.000Z",
+  "lastSeen": "2026-09-11T22:04:42.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 6 ransomware groups and 6 countries.",
   "frequency": [
     {
       "date": "2026-09-09",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2026-09-10",
       "count": 4
+    },
+    {
+      "date": "2026-09-11",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "compunnel-com-7ea4",
+      "title": "compunnel.com — claimed by safepay",
+      "pubDate": "2026-09-11T22:04:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dustin-group-039d",
+      "title": "Dustin Group — claimed by fulcrumsec",
+      "pubDate": "2026-09-11T12:29:31.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "i2k2-networks-e20a",
@@ -48,32 +64,32 @@
       "slug": "go-et-ef57",
       "title": "go***et — claimed by auditteam",
       "pubDate": "2026-09-09T16:50:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "logar-network-solutions-95c4",
-      "title": "Logar Network Solutions — claimed by vexy ransomware",
-      "pubDate": "2026-09-09T14:52:38.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "technology-dynamics-ed17",
-      "title": "Technology Dynamics — claimed by storm",
-      "pubDate": "2026-09-09T10:11:43.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "vexy-ransomware",
-      "name": "vexy ransomware",
+      "slug": "auditteam",
+      "name": "auditteam",
       "weight": 2
     },
     {
       "type": "group",
-      "slug": "auditteam",
-      "name": "auditteam",
-      "weight": 2
+      "slug": "safepay",
+      "name": "safepay",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "fulcrumsec",
+      "name": "fulcrumsec",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "vexy-ransomware",
+      "name": "vexy ransomware",
+      "weight": 1
     },
     {
       "type": "group",
@@ -85,12 +101,6 @@
       "type": "group",
       "slug": "play",
       "name": "play",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "storm",
       "weight": 1
     }
   ],

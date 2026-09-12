@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "voodoo-bear",
+  "name": "Voodoo Bear",
+  "aliases": ["Sandworm"],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-12T00:00:00.000Z",
+  "lastSeen": "2026-09-12T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-09-12",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "09b6fd54-3a7a-585d-9eba-152a6c9ad934",
+      "title": "Cyclops Blink Malware Targets Cisco Firewall Devices",
+      "pubDate": "2026-09-12T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

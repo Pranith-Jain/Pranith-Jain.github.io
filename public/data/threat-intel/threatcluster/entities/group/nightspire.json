@@ -1,0 +1,100 @@
+{
+  "type": "group",
+  "slug": "nightspire",
+  "name": "nightspire",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-09-11T16:01:18.000Z",
+  "lastSeen": "2026-09-11T17:00:08.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-11",
+      "count": 4
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "diamondlease-41dd",
+      "title": "DiamondLease — claimed by nightspire",
+      "pubDate": "2026-09-11T17:00:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "perimetral-oriental-de-bogot-s-a-s-f1d2",
+      "title": "Perimetral Oriental de Bogotá S.A.S. — claimed by nightspire",
+      "pubDate": "2026-09-11T16:59:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ozel-amp-ozel-laws-office-b3c5",
+      "title": "Ozel &amp; Ozel Laws Office — claimed by nightspire",
+      "pubDate": "2026-09-11T16:59:35.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tuboa-os-da-amaz-nia-ltda-2775",
+      "title": "Tuboaços da Amazônia Ltda. — claimed by nightspire",
+      "pubDate": "2026-09-11T16:01:18.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "diamondlease-41dd",
+      "victim": "DiamondLease — claimed by nightspire",
+      "sector": "Other",
+      "country": "AE",
+      "pubDate": "2026-09-11T17:00:08.000Z"
+    },
+    {
+      "id": "perimetral-oriental-de-bogot-s-a-s-f1d2",
+      "victim": "Perimetral Oriental de Bogotá S.A.S. — claimed by nightspire",
+      "sector": "Transportation",
+      "country": "CO",
+      "pubDate": "2026-09-11T16:59:44.000Z"
+    },
+    {
+      "id": "ozel-amp-ozel-laws-office-b3c5",
+      "victim": "Ozel &amp; Ozel Laws Office — claimed by nightspire",
+      "sector": "Professional Services",
+      "country": "TR",
+      "pubDate": "2026-09-11T16:59:35.000Z"
+    },
+    {
+      "id": "tuboa-os-da-amaz-nia-ltda-2775",
+      "victim": "Tuboaços da Amazônia Ltda. — claimed by nightspire",
+      "sector": "Manufacturing",
+      "country": "BR",
+      "pubDate": "2026-09-11T16:01:18.000Z"
+    }
+  ]
+}

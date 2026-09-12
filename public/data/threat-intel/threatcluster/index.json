@@ -2,15 +2,15 @@
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/feeds",
   "description": "Aggregated threat clusters, CVEs, exploits, dark-web victims, and high-confidence IOCs from ThreatCluster. Feeds refresh hourly upstream and are replicated here on the threat-intel sync cadence.",
-  "syncedAt": "2026-09-11T09:57:03.596Z",
+  "syncedAt": "2026-09-12T09:29:57.601Z",
   "lastBuildDates": {
-    "clusters": "Fri, 11 Sep 2026 09:37:25 GMT",
-    "vulnerabilities": "Fri, 11 Sep 2026 09:04:12 GMT",
-    "exploits": "Fri, 11 Sep 2026 09:12:12 GMT",
-    "victims": "Fri, 11 Sep 2026 09:06:19 GMT",
-    "iocs": "2026-09-11T09:57:05Z"
+    "clusters": "Sat, 12 Sep 2026 08:40:45 GMT",
+    "vulnerabilities": "Sat, 12 Sep 2026 09:10:17 GMT",
+    "exploits": "Sat, 12 Sep 2026 09:11:04 GMT",
+    "victims": "Sat, 12 Sep 2026 08:50:44 GMT",
+    "iocs": "2026-09-12T09:29:58Z"
   },
-  "counts": { "clusters": 50, "vulnerabilities": 50, "exploits": 50, "victims": 50, "iocs": 204, "mispEvents": 8 },
+  "counts": { "clusters": 50, "vulnerabilities": 50, "exploits": 50, "victims": 50, "iocs": 201, "mispEvents": 10 },
   "feeds": [
     { "id": "clusters", "title": "Threat Feed", "url": "https://threatcluster.io/feed.xml", "window": "7 days" },
     {
@@ -34,11 +34,46 @@
   ],
   "clusters": [
     {
-      "slug": "omniroute-acp-vulnerability-enables-remote-code-execution-89dcce05",
-      "title": "OmniRoute ACP Vulnerability Enables Remote Code Execution",
-      "pubDate": "2026-09-11T07:04:14.000Z",
+      "slug": "russian-hackers-use-ai-to-target-ukraines-drone-manufacturin-7679c566",
+      "title": "Russian Hackers Use AI to Target Ukraine's Drone Manufacturing and Government",
+      "pubDate": "2026-09-12T02:37:02.000Z",
       "sourceCount": 2,
-      "sizeBytes": 134
+      "sizeBytes": 201
+    },
+    {
+      "slug": "critical-windows-dns-rce-vulnerability-cve-2026-69730-disclo-7354f264",
+      "title": "Critical Windows DNS RCE Vulnerability CVE-2026-69730 Disclosed",
+      "pubDate": "2026-09-11T23:53:45.000Z",
+      "sourceCount": 2,
+      "sizeBytes": 201
+    },
+    {
+      "slug": "cyclops-blink-malware-targets-cisco-firewall-devices-72602ba1",
+      "title": "Cyclops Blink Malware Targets Cisco Firewall Devices",
+      "pubDate": "2026-09-11T23:51:46.000Z",
+      "sourceCount": 3,
+      "sizeBytes": 189
+    },
+    {
+      "slug": "iran-linked-actor-uses-ai-to-target-us-navy-e9ccc6bf",
+      "title": "Iran-Linked Actor Uses AI to Target U.S. Navy",
+      "pubDate": "2026-09-11T14:24:09.000Z",
+      "sourceCount": 3,
+      "sizeBytes": 161
+    },
+    {
+      "slug": "kataru-iot-malware-targets-devices-for-ddos-attacks-81cac413",
+      "title": "KATARU IoT Malware Exploits Linux Vulnerabilities for DDoS Attacks",
+      "pubDate": "2026-09-11T14:17:53.000Z",
+      "sourceCount": 7,
+      "sizeBytes": 201
+    },
+    {
+      "slug": "gitlab-patches-critical-vulnerabilities-for-file-read-and-re-013a06b7",
+      "title": "Critical GitLab Vulnerabilities Exploited Within Hours of Disclosure",
+      "pubDate": "2026-09-11T10:13:55.000Z",
+      "sourceCount": 21,
+      "sizeBytes": 201
     },
     {
       "slug": "cisa-adds-critical-vulnerabilities-to-kev-catalog-amid-activ-f5c0060c",
@@ -58,7 +93,7 @@
       "slug": "check-point-patches-critical-vpn-vulnerabilities-with-cvss-s-384cdc2f",
       "title": "Critical Check Point VPN Vulnerabilities Disclosed and Patched",
       "pubDate": "2026-09-10T13:31:08.000Z",
-      "sourceCount": 12,
+      "sourceCount": 20,
       "sizeBytes": 175
     },
     {
@@ -79,28 +114,28 @@
       "slug": "critical-cisco-fmc-authentication-bypass-vulnerability-under-b6324c2b",
       "title": "Critical Cisco FMC Vulnerabilities Under Active Exploitation",
       "pubDate": "2026-09-09T20:03:42.000Z",
-      "sourceCount": 23,
+      "sourceCount": 26,
       "sizeBytes": 201
     },
     {
       "slug": "chinese-threat-actors-exploit-chrome-zero-day-with-bluemoon--a08886b8",
       "title": "BlueMoon Exploit Kit Targeting Chrome and Windows by Multiple State Actors",
       "pubDate": "2026-09-09T16:49:25.000Z",
-      "sourceCount": 18,
+      "sourceCount": 28,
       "sizeBytes": 186
     },
     {
       "slug": "fbi-unveils-first-public-cybersecurity-strategy-22ed82e2",
       "title": "FBI Unveils New Cyber Strategy Amid Rising Threats from State-Sponsored Actors",
       "pubDate": "2026-09-09T15:37:00.000Z",
-      "sourceCount": 11,
+      "sourceCount": 14,
       "sizeBytes": 200
     },
     {
       "slug": "ai-driven-exploitation-of-papercut-vulnerabilities-compromis-bb1f58c1",
       "title": "AI-Driven Exploitation of PaperCut Vulnerabilities Compromises 440 Servers Globally",
       "pubDate": "2026-09-09T14:40:47.000Z",
-      "sourceCount": 12,
+      "sourceCount": 20,
       "sizeBytes": 201
     },
     {
@@ -118,17 +153,10 @@
       "sizeBytes": 161
     },
     {
-      "slug": "critical-cpanel-sql-injection-vulnerability-allows-root-code-8bafe54b",
-      "title": "Critical cPanel SQL Injection Vulnerability Allows Root Access",
-      "pubDate": "2026-09-09T09:30:56.000Z",
-      "sourceCount": 5,
-      "sizeBytes": 123
-    },
-    {
       "slug": "critical-android-vulnerabilities-affecting-galaxy-devices-cac53e43",
       "title": "Critical Android Vulnerabilities Patched in September 2026 Update",
       "pubDate": "2026-09-09T06:33:17.000Z",
-      "sourceCount": 10,
+      "sourceCount": 12,
       "sizeBytes": 170
     },
     {
@@ -142,7 +170,7 @@
       "slug": "us-accuses-chinese-ai-firms-of-systematic-model-theft-0f404841",
       "title": "U.S. Accuses Chinese AI Firms of Systematic Distillation of Proprietary Models",
       "pubDate": "2026-09-09T06:01:01.000Z",
-      "sourceCount": 8,
+      "sourceCount": 9,
       "sizeBytes": 146
     },
     {
@@ -163,14 +191,14 @@
       "slug": "ai-driven-cybercrime-escalates-with-autonomous-attacks-91ceb7b3",
       "title": "AI-Driven Cybercrime Escalates with Autonomous Attacks",
       "pubDate": "2026-09-09T00:09:30.000Z",
-      "sourceCount": 2,
+      "sourceCount": 10,
       "sizeBytes": 198
     },
     {
       "slug": "september-2026-security-update-major-cves-from-adobe-and-mic-1203ad96",
       "title": "September 2026 Security Update: Major CVEs from Adobe and Microsoft",
       "pubDate": "2026-09-08T20:32:04.000Z",
-      "sourceCount": 3,
+      "sourceCount": 4,
       "sizeBytes": 123
     },
     {
@@ -184,14 +212,14 @@
       "slug": "multiple-critical-cves-target-adobe-and-microsoft-products-a5acf548",
       "title": "Multiple CVEs Exploited in Cybersecurity Threats: September 2026",
       "pubDate": "2026-09-08T20:00:57.000Z",
-      "sourceCount": 18,
+      "sourceCount": 32,
       "sizeBytes": 148
     },
     {
       "slug": "microsoft-september-2026-patch-tuesday-addresses-973-vulnera-91100ed8",
       "title": "Microsoft September 2026 Patch Tuesday: Record 974 Vulnerabilities Addressed",
       "pubDate": "2026-09-08T19:20:30.000Z",
-      "sourceCount": 76,
+      "sourceCount": 82,
       "sizeBytes": 201
     },
     {
@@ -205,7 +233,7 @@
       "slug": "critical-overpass-vulnerability-in-sap-kernel-exposed-713c2e1c",
       "title": "Critical OVERPASS Vulnerability in SAP Kernel Requires Immediate Action",
       "pubDate": "2026-09-08T16:33:48.000Z",
-      "sourceCount": 16,
+      "sourceCount": 17,
       "sizeBytes": 169
     },
     {
@@ -233,7 +261,7 @@
       "slug": "critical-buffer-flaws-in-fedora-chromium-affecting-multiple--166d5362",
       "title": "Critical Vulnerabilities in Fedora Chromium Browser Affecting Multiple Versions",
       "pubDate": "2026-09-08T00:58:26.000Z",
-      "sourceCount": 5,
+      "sourceCount": 6,
       "sizeBytes": 201
     },
     {
@@ -247,14 +275,14 @@
       "slug": "screenconnect-flaw-enables-malware-spread-via-rogue-clients-b472beec",
       "title": "New ScreenConnect Flaw Enables Malware Spread via Rogue Clients",
       "pubDate": "2026-09-07T17:03:12.000Z",
-      "sourceCount": 13,
+      "sourceCount": 16,
       "sizeBytes": 132
     },
     {
       "slug": "critical-linux-kernel-vulnerability-cve-2026-31431-exploited-8436847f",
       "title": "Multiple Critical CVEs Exploited in Cybersecurity Attacks",
       "pubDate": "2026-09-07T16:47:07.000Z",
-      "sourceCount": 30,
+      "sourceCount": 34,
       "sizeBytes": 167
     },
     {
@@ -268,7 +296,7 @@
       "slug": "critical-n-able-n-central-vulnerability-enables-remote-code--c43bd15b",
       "title": "Critical RCE Vulnerability in N-able N-central Requires Immediate Patching",
       "pubDate": "2026-09-07T10:01:56.000Z",
-      "sourceCount": 44,
+      "sourceCount": 47,
       "sizeBytes": 150
     },
     {
@@ -289,21 +317,21 @@
       "slug": "critical-ssrf-and-uaf-vulnerabilities-discovered-in-sonicwal-7bb15580",
       "title": "Critical SSRF and UAF Vulnerabilities Discovered in SonicWall and Linux Kernel",
       "pubDate": "2026-09-07T03:16:51.000Z",
-      "sourceCount": 2,
+      "sourceCount": 3,
       "sizeBytes": 201
     },
     {
       "slug": "critical-sql-injection-and-vm-exploitation-threats-identifie-08b4a915",
       "title": "Multiple CVEs Expose Vulnerabilities in Cybersecurity Tools and Applications",
       "pubDate": "2026-09-07T02:51:19.000Z",
-      "sourceCount": 26,
+      "sourceCount": 30,
       "sizeBytes": 201
     },
     {
       "slug": "critical-rce-vulnerabilities-under-active-exploitation-6f7e49b8",
       "title": "Critical RCE Vulnerabilities Under Active Exploitation",
       "pubDate": "2026-09-06T18:03:41.000Z",
-      "sourceCount": 2,
+      "sourceCount": 3,
       "sizeBytes": 201
     },
     {
@@ -317,7 +345,7 @@
       "slug": "mikrotik-routeros-vulnerabilities-under-active-exploitation-971184ec",
       "title": "MikroTik RouterOS Vulnerabilities Under Active Exploitation",
       "pubDate": "2026-09-06T08:48:40.000Z",
-      "sourceCount": 17,
+      "sourceCount": 19,
       "sizeBytes": 136
     },
     {
@@ -354,89 +382,74 @@
       "pubDate": "2026-09-05T10:37:23.000Z",
       "sourceCount": 5,
       "sizeBytes": 201
-    },
-    {
-      "slug": "exploitation-of-citrix-netscaler-authentication-bypass-vulne-2a59bd62",
-      "title": "Exploitation of Citrix NetScaler Authentication Bypass Vulnerability CVE-2026-19490",
-      "pubDate": "2026-09-04T21:03:14.000Z",
-      "sourceCount": 14,
-      "sizeBytes": 174
-    },
-    {
-      "slug": "north-korean-operators-target-developers-with-ottercookie-ma-94941d3a",
-      "title": "North Korean Operators Target Developers with OtterCookie Malware on macOS",
-      "pubDate": "2026-09-04T18:57:07.000Z",
-      "sourceCount": 2,
-      "sizeBytes": 158
-    },
-    {
-      "slug": "us-offers-10-million-reward-for-iranian-cyber-operations-chi-07655cdf",
-      "title": "US Offers $10 Million Reward for Iranian Cyber Operations Chief",
-      "pubDate": "2026-09-04T18:40:07.000Z",
-      "sourceCount": 5,
-      "sizeBytes": 189
-    },
-    {
-      "slug": "decade-old-postgresql-vulnerability-allows-database-takeover-3b6813cd",
-      "title": "Critical PostgreSQL Vulnerability Exposes Databases to Remote Code Execution",
-      "pubDate": "2026-09-04T12:17:18.000Z",
-      "sourceCount": 12,
-      "sizeBytes": 141
     }
   ],
   "vulnerabilities": [
-    { "cveId": "CVE-2026-89179", "title": "CVE-2026-89179", "pubDate": "2026-09-11T08:16:49.000Z", "sizeBytes": 317 },
-    { "cveId": "CVE-2026-89178", "title": "CVE-2026-89178", "pubDate": "2026-09-11T08:16:48.000Z", "sizeBytes": 322 },
-    { "cveId": "CVE-2026-89177", "title": "CVE-2026-89177", "pubDate": "2026-09-11T08:16:48.000Z", "sizeBytes": 343 },
-    { "cveId": "CVE-2026-89176", "title": "CVE-2026-89176", "pubDate": "2026-09-11T08:16:48.000Z", "sizeBytes": 443 },
-    { "cveId": "CVE-2026-89175", "title": "CVE-2026-89175", "pubDate": "2026-09-11T08:16:48.000Z", "sizeBytes": 272 },
-    { "cveId": "CVE-2026-89174", "title": "CVE-2026-89174", "pubDate": "2026-09-11T08:16:48.000Z", "sizeBytes": 251 },
-    { "cveId": "CVE-2026-89173", "title": "CVE-2026-89173", "pubDate": "2026-09-11T08:16:48.000Z", "sizeBytes": 251 },
-    { "cveId": "CVE-2026-6642", "title": "CVE-2026-6642", "pubDate": "2026-09-11T08:16:48.000Z", "sizeBytes": 518 },
-    { "cveId": "CVE-2026-6641", "title": "CVE-2026-6641", "pubDate": "2026-09-11T08:16:47.000Z", "sizeBytes": 519 },
-    { "cveId": "CVE-2026-6640", "title": "CVE-2026-6640", "pubDate": "2026-09-11T08:16:46.000Z", "sizeBytes": 450 },
-    { "cveId": "CVE-2026-87908", "title": "CVE-2026-87908", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 517 },
-    { "cveId": "CVE-2026-86815", "title": "CVE-2026-86815", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 390 },
-    { "cveId": "CVE-2026-86812", "title": "CVE-2026-86812", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 310 },
-    { "cveId": "CVE-2026-86782", "title": "CVE-2026-86782", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 283 },
-    { "cveId": "CVE-2026-86781", "title": "CVE-2026-86781", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 364 },
-    { "cveId": "CVE-2026-86780", "title": "CVE-2026-86780", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 381 },
-    { "cveId": "CVE-2026-86779", "title": "CVE-2026-86779", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 346 },
-    { "cveId": "CVE-2026-85678", "title": "CVE-2026-85678", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 360 },
-    { "cveId": "CVE-2026-85677", "title": "CVE-2026-85677", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 443 },
-    { "cveId": "CVE-2026-83546", "title": "CVE-2026-83546", "pubDate": "2026-09-11T07:16:47.000Z", "sizeBytes": 258 },
-    { "cveId": "CVE-2026-83545", "title": "CVE-2026-83545", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 264 },
-    { "cveId": "CVE-2026-82305", "title": "CVE-2026-82305", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 197 },
-    { "cveId": "CVE-2026-74925", "title": "CVE-2026-74925", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 230 },
-    { "cveId": "CVE-2026-73785", "title": "CVE-2026-73785", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 175 },
-    { "cveId": "CVE-2026-73784", "title": "CVE-2026-73784", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 169 },
-    { "cveId": "CVE-2026-14566", "title": "CVE-2026-14566", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 319 },
-    { "cveId": "CVE-2026-14565", "title": "CVE-2026-14565", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 353 },
-    { "cveId": "CVE-2026-14563", "title": "CVE-2026-14563", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 322 },
-    { "cveId": "CVE-2026-14562", "title": "CVE-2026-14562", "pubDate": "2026-09-11T07:16:46.000Z", "sizeBytes": 298 },
-    { "cveId": "CVE-2026-14560", "title": "CVE-2026-14560", "pubDate": "2026-09-11T07:16:45.000Z", "sizeBytes": 281 },
-    { "cveId": "CVE-2026-14559", "title": "CVE-2026-14559", "pubDate": "2026-09-11T07:16:45.000Z", "sizeBytes": 263 },
-    { "cveId": "CVE-2026-13326", "title": "CVE-2026-13326", "pubDate": "2026-09-11T07:16:45.000Z", "sizeBytes": 182 },
-    { "cveId": "CVE-2025-15695", "title": "CVE-2025-15695", "pubDate": "2026-09-11T07:16:44.000Z", "sizeBytes": 292 },
-    { "cveId": "CVE-2026-89169", "title": "CVE-2026-89169", "pubDate": "2026-09-11T05:16:38.000Z", "sizeBytes": 140 },
-    { "cveId": "CVE-2026-89162", "title": "CVE-2026-89162", "pubDate": "2026-09-11T05:16:38.000Z", "sizeBytes": 191 },
-    { "cveId": "CVE-2026-89060", "title": "CVE-2026-89060", "pubDate": "2026-09-11T05:16:38.000Z", "sizeBytes": 294 },
-    { "cveId": "CVE-2026-8778", "title": "CVE-2026-8778", "pubDate": "2026-09-11T04:18:04.000Z", "sizeBytes": 449 },
-    { "cveId": "CVE-2026-89161", "title": "CVE-2026-89161", "pubDate": "2026-09-11T04:18:04.000Z", "sizeBytes": 163 },
-    { "cveId": "CVE-2026-89160", "title": "CVE-2026-89160", "pubDate": "2026-09-11T04:18:04.000Z", "sizeBytes": 142 },
-    { "cveId": "CVE-2026-89158", "title": "CVE-2026-89158", "pubDate": "2026-09-11T04:18:03.000Z", "sizeBytes": 134 },
-    { "cveId": "CVE-2026-89157", "title": "CVE-2026-89157", "pubDate": "2026-09-11T04:18:03.000Z", "sizeBytes": 153 },
-    { "cveId": "CVE-2026-89156", "title": "CVE-2026-89156", "pubDate": "2026-09-11T04:18:03.000Z", "sizeBytes": 139 },
-    { "cveId": "CVE-2026-84960", "title": "CVE-2026-84960", "pubDate": "2026-09-11T04:18:02.000Z", "sizeBytes": 519 },
-    { "cveId": "CVE-2026-81825", "title": "CVE-2026-81825", "pubDate": "2026-09-11T04:17:58.000Z", "sizeBytes": 517 },
-    { "cveId": "CVE-2026-81754", "title": "CVE-2026-81754", "pubDate": "2026-09-11T04:17:58.000Z", "sizeBytes": 517 },
-    { "cveId": "CVE-2026-7438", "title": "CVE-2026-7438", "pubDate": "2026-09-11T04:17:55.000Z", "sizeBytes": 519 },
-    { "cveId": "CVE-2026-78172", "title": "CVE-2026-78172", "pubDate": "2026-09-11T04:17:51.000Z", "sizeBytes": 456 },
-    { "cveId": "CVE-2026-77150", "title": "CVE-2026-77150", "pubDate": "2026-09-11T04:17:49.000Z", "sizeBytes": 518 },
-    { "cveId": "CVE-2026-19991", "title": "CVE-2026-19991", "pubDate": "2026-09-11T04:17:34.000Z", "sizeBytes": 517 },
-    { "cveId": "CVE-2026-19985", "title": "CVE-2026-19985", "pubDate": "2026-09-11T04:17:34.000Z", "sizeBytes": 519 }
+    { "cveId": "CVE-2026-85200", "title": "CVE-2026-85200", "pubDate": "2026-09-12T08:16:24.000Z", "sizeBytes": 516 },
+    { "cveId": "CVE-2026-85198", "title": "CVE-2026-85198", "pubDate": "2026-09-12T08:16:24.000Z", "sizeBytes": 523 },
+    { "cveId": "CVE-2026-78175", "title": "CVE-2026-78175", "pubDate": "2026-09-12T08:16:24.000Z", "sizeBytes": 517 },
+    { "cveId": "CVE-2026-78159", "title": "CVE-2026-78159", "pubDate": "2026-09-12T08:16:24.000Z", "sizeBytes": 520 },
+    { "cveId": "CVE-2026-78006", "title": "CVE-2026-78006", "pubDate": "2026-09-12T08:16:24.000Z", "sizeBytes": 521 },
+    { "cveId": "CVE-2026-77161", "title": "CVE-2026-77161", "pubDate": "2026-09-12T08:16:24.000Z", "sizeBytes": 519 },
+    { "cveId": "CVE-2026-17585", "title": "CVE-2026-17585", "pubDate": "2026-09-12T08:16:23.000Z", "sizeBytes": 519 },
+    { "cveId": "CVE-2026-16482", "title": "CVE-2026-16482", "pubDate": "2026-09-12T08:16:23.000Z", "sizeBytes": 517 },
+    { "cveId": "CVE-2026-11355", "title": "CVE-2026-11355", "pubDate": "2026-09-12T08:16:22.000Z", "sizeBytes": 519 },
+    { "cveId": "CVE-2026-87919", "title": "CVE-2026-87919", "pubDate": "2026-09-12T06:16:28.000Z", "sizeBytes": 340 },
+    { "cveId": "CVE-2026-87918", "title": "CVE-2026-87918", "pubDate": "2026-09-12T06:16:28.000Z", "sizeBytes": 312 },
+    { "cveId": "CVE-2026-87916", "title": "CVE-2026-87916", "pubDate": "2026-09-12T06:16:28.000Z", "sizeBytes": 282 },
+    { "cveId": "CVE-2026-87894", "title": "CVE-2026-87894", "pubDate": "2026-09-12T06:16:28.000Z", "sizeBytes": 373 },
+    { "cveId": "CVE-2026-87892", "title": "CVE-2026-87892", "pubDate": "2026-09-12T06:16:28.000Z", "sizeBytes": 333 },
+    { "cveId": "CVE-2026-87891", "title": "CVE-2026-87891", "pubDate": "2026-09-12T06:16:28.000Z", "sizeBytes": 337 },
+    { "cveId": "CVE-2026-87888", "title": "CVE-2026-87888", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 323 },
+    { "cveId": "CVE-2026-87842", "title": "CVE-2026-87842", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 264 },
+    { "cveId": "CVE-2026-87797", "title": "CVE-2026-87797", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 300 },
+    { "cveId": "CVE-2026-87759", "title": "CVE-2026-87759", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 313 },
+    { "cveId": "CVE-2026-86790", "title": "CVE-2026-86790", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 265 },
+    { "cveId": "CVE-2026-85681", "title": "CVE-2026-85681", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 437 },
+    { "cveId": "CVE-2026-84171", "title": "CVE-2026-84171", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 272 },
+    { "cveId": "CVE-2026-84099", "title": "CVE-2026-84099", "pubDate": "2026-09-12T06:16:27.000Z", "sizeBytes": 347 },
+    { "cveId": "CVE-2026-84047", "title": "CVE-2026-84047", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 200 },
+    { "cveId": "CVE-2026-84025", "title": "CVE-2026-84025", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 321 },
+    { "cveId": "CVE-2026-84024", "title": "CVE-2026-84024", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 233 },
+    { "cveId": "CVE-2026-84023", "title": "CVE-2026-84023", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 244 },
+    { "cveId": "CVE-2026-83532", "title": "CVE-2026-83532", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 288 },
+    { "cveId": "CVE-2026-82851", "title": "CVE-2026-82851", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 303 },
+    { "cveId": "CVE-2026-82847", "title": "CVE-2026-82847", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 293 },
+    { "cveId": "CVE-2026-82845", "title": "CVE-2026-82845", "pubDate": "2026-09-12T06:16:26.000Z", "sizeBytes": 500 },
+    { "cveId": "CVE-2026-81742", "title": "CVE-2026-81742", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 339 },
+    { "cveId": "CVE-2026-81429", "title": "CVE-2026-81429", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 403 },
+    { "cveId": "CVE-2026-81402", "title": "CVE-2026-81402", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 307 },
+    { "cveId": "CVE-2026-81090", "title": "CVE-2026-81090", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 288 },
+    { "cveId": "CVE-2026-80494", "title": "CVE-2026-80494", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 321 },
+    { "cveId": "CVE-2026-80491", "title": "CVE-2026-80491", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 230 },
+    { "cveId": "CVE-2026-78152", "title": "CVE-2026-78152", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 272 },
+    { "cveId": "CVE-2026-77753", "title": "CVE-2026-77753", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 500 },
+    { "cveId": "CVE-2026-77752", "title": "CVE-2026-77752", "pubDate": "2026-09-12T06:16:25.000Z", "sizeBytes": 404 },
+    { "cveId": "CVE-2026-77705", "title": "CVE-2026-77705", "pubDate": "2026-09-12T06:16:24.000Z", "sizeBytes": 375 },
+    { "cveId": "CVE-2026-77689", "title": "CVE-2026-77689", "pubDate": "2026-09-12T06:16:24.000Z", "sizeBytes": 427 },
+    { "cveId": "CVE-2026-77006", "title": "CVE-2026-77006", "pubDate": "2026-09-12T06:16:24.000Z", "sizeBytes": 336 },
+    { "cveId": "CVE-2026-77005", "title": "CVE-2026-77005", "pubDate": "2026-09-12T06:16:24.000Z", "sizeBytes": 323 },
+    { "cveId": "CVE-2026-75800", "title": "CVE-2026-75800", "pubDate": "2026-09-12T06:16:23.000Z", "sizeBytes": 281 },
+    { "cveId": "CVE-2026-87719", "title": "CVE-2026-87719", "pubDate": "2026-09-12T03:16:31.000Z", "sizeBytes": 430 },
+    {
+      "cveId": "CVE-2026-85706",
+      "title": "CVE-2026-85706 [KEV] [Exploit]",
+      "pubDate": "2026-09-12T03:16:30.000Z",
+      "sizeBytes": 416
+    },
+    { "cveId": "CVE-2026-90467", "title": "CVE-2026-90467", "pubDate": "2026-09-12T02:16:24.000Z", "sizeBytes": 427 },
+    { "cveId": "CVE-2026-89268", "title": "CVE-2026-89268", "pubDate": "2026-09-12T02:16:24.000Z", "sizeBytes": 394 },
+    { "cveId": "CVE-2026-89267", "title": "CVE-2026-89267", "pubDate": "2026-09-12T02:16:23.000Z", "sizeBytes": 361 }
   ],
   "exploits": [
+    {
+      "cveId": "CVE-2026-85706",
+      "title": "CVE-2026-85706 [KEV] [Exploit]",
+      "pubDate": "2026-09-12T03:16:30.000Z",
+      "severity": "CRITICAL",
+      "inKev": true,
+      "sizeBytes": 416
+    },
     {
       "cveId": "CVE-2026-67401",
       "title": "CVE-2026-67401 [Exploit]",
@@ -452,14 +465,6 @@
       "severity": "CRITICAL",
       "inKev": true,
       "sizeBytes": 174
-    },
-    {
-      "cveId": "CVE-2026-44402",
-      "title": "CVE-2026-44402 [Exploit]",
-      "pubDate": "2026-09-04T16:17:25.000Z",
-      "severity": "CRITICAL",
-      "inKev": false,
-      "sizeBytes": 499
     },
     {
       "cveId": "CVE-2026-11613",
@@ -526,14 +531,6 @@
       "sizeBytes": 116
     },
     {
-      "cveId": "CVE-2026-38577",
-      "title": "CVE-2026-38577 [Exploit]",
-      "pubDate": "2026-08-31T21:17:07.000Z",
-      "severity": "CRITICAL",
-      "inKev": false,
-      "sizeBytes": 164
-    },
-    {
       "cveId": "CVE-2026-82592",
       "title": "CVE-2026-82592 [Exploit]",
       "pubDate": "2026-08-30T23:17:08.000Z",
@@ -598,14 +595,6 @@
       "sizeBytes": 253
     },
     {
-      "cveId": "CVE-2026-47884",
-      "title": "CVE-2026-47884 [Exploit]",
-      "pubDate": "2026-08-27T06:17:18.000Z",
-      "severity": "CRITICAL",
-      "inKev": false,
-      "sizeBytes": 452
-    },
-    {
       "cveId": "CVE-2026-60004",
       "title": "CVE-2026-60004 [KEV] [Exploit]",
       "pubDate": "2026-08-26T20:17:56.000Z",
@@ -662,6 +651,14 @@
       "sizeBytes": 371
     },
     {
+      "cveId": "CVE-2026-78329",
+      "title": "CVE-2026-78329 [Exploit]",
+      "pubDate": "2026-08-24T17:18:20.000Z",
+      "severity": "CRITICAL",
+      "inKev": false,
+      "sizeBytes": 547
+    },
+    {
       "cveId": "CVE-2026-71300",
       "title": "CVE-2026-71300 [Exploit]",
       "pubDate": "2026-08-24T17:18:16.000Z",
@@ -670,12 +667,36 @@
       "sizeBytes": 547
     },
     {
+      "cveId": "CVE-2026-76071",
+      "title": "CVE-2026-76071 [Exploit]",
+      "pubDate": "2026-08-24T16:17:23.000Z",
+      "severity": "CRITICAL",
+      "inKev": false,
+      "sizeBytes": 547
+    },
+    {
+      "cveId": "CVE-2026-76070",
+      "title": "CVE-2026-76070 [Exploit]",
+      "pubDate": "2026-08-24T16:17:22.000Z",
+      "severity": "CRITICAL",
+      "inKev": false,
+      "sizeBytes": 540
+    },
+    {
       "cveId": "CVE-2026-76904",
       "title": "CVE-2026-76904 [Exploit]",
       "pubDate": "2026-08-21T21:17:06.000Z",
       "severity": "CRITICAL",
       "inKev": false,
       "sizeBytes": 546
+    },
+    {
+      "cveId": "CVE-2026-77806",
+      "title": "CVE-2026-77806 [Exploit]",
+      "pubDate": "2026-08-21T14:16:53.000Z",
+      "severity": "CRITICAL",
+      "inKev": false,
+      "sizeBytes": 293
     },
     {
       "cveId": "CVE-2026-69836",
@@ -774,14 +795,6 @@
       "sizeBytes": 227
     },
     {
-      "cveId": "CVE-2026-38165",
-      "title": "CVE-2026-38165 [Exploit]",
-      "pubDate": "2026-08-17T23:16:51.000Z",
-      "severity": "CRITICAL",
-      "inKev": false,
-      "sizeBytes": 246
-    },
-    {
       "cveId": "CVE-2026-64849",
       "title": "CVE-2026-64849 [KEV] [Exploit]",
       "pubDate": "2026-08-17T22:17:23.000Z",
@@ -828,17 +841,117 @@
       "severity": "HIGH",
       "inKev": true,
       "sizeBytes": 479
-    },
-    {
-      "cveId": "CVE-2026-73519",
-      "title": "CVE-2026-73519 [Exploit]",
-      "pubDate": "2026-08-12T22:17:17.000Z",
-      "severity": "CRITICAL",
-      "inKev": false,
-      "sizeBytes": 547
     }
   ],
   "victims": [
+    {
+      "id": "town-of-sutton-massachusetts-1dfb",
+      "victim": "TOWN OF SUTTON | MASSACHUSETTS",
+      "group": "global",
+      "sector": "Government & Defense",
+      "country": "US",
+      "pubDate": "2026-09-12T08:26:30.000Z",
+      "sizeBytes": 178
+    },
+    {
+      "id": "shelco-filters-4428",
+      "victim": "Shelco Filters",
+      "group": "securotrop",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-12T00:37:05.000Z",
+      "sizeBytes": 50
+    },
+    {
+      "id": "compunnel-com-7ea4",
+      "victim": "compunnel.com",
+      "group": "safepay",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-11T22:04:42.000Z",
+      "sizeBytes": 190
+    },
+    {
+      "id": "imperial-healthcare-solutions-5c4e",
+      "victim": "Imperial Healthcare Solutions",
+      "group": "qilin",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-11T22:03:56.000Z",
+      "sizeBytes": 21
+    },
+    {
+      "id": "diamondlease-41dd",
+      "victim": "DiamondLease",
+      "group": "nightspire",
+      "sector": "Other",
+      "country": "AE",
+      "pubDate": "2026-09-11T17:00:08.000Z",
+      "sizeBytes": 31
+    },
+    {
+      "id": "perimetral-oriental-de-bogot-s-a-s-f1d2",
+      "victim": "Perimetral Oriental de Bogotá S.A.S.",
+      "group": "nightspire",
+      "sector": "Transportation",
+      "country": "CO",
+      "pubDate": "2026-09-11T16:59:44.000Z",
+      "sizeBytes": 88
+    },
+    {
+      "id": "ozel-amp-ozel-laws-office-b3c5",
+      "victim": "Ozel &amp; Ozel Laws Office",
+      "group": "nightspire",
+      "sector": "Professional Services",
+      "country": "TR",
+      "pubDate": "2026-09-11T16:59:35.000Z",
+      "sizeBytes": 55
+    },
+    {
+      "id": "tuboa-os-da-amaz-nia-ltda-2775",
+      "victim": "Tuboaços da Amazônia Ltda.",
+      "group": "nightspire",
+      "sector": "Manufacturing",
+      "country": "BR",
+      "pubDate": "2026-09-11T16:01:18.000Z",
+      "sizeBytes": 61
+    },
+    {
+      "id": "port-of-tanjung-pelepas-9fb0",
+      "victim": "Port of Tanjung Pelepas",
+      "group": "direwolf",
+      "sector": "Transportation",
+      "country": "MY",
+      "pubDate": "2026-09-11T15:54:58.000Z",
+      "sizeBytes": 62
+    },
+    {
+      "id": "foss-inc-e0ab",
+      "victim": "Foss Inc.",
+      "group": "pear",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-11T14:19:06.000Z",
+      "sizeBytes": 94
+    },
+    {
+      "id": "dustin-group-039d",
+      "victim": "Dustin Group",
+      "group": "fulcrumsec",
+      "sector": "Technology",
+      "country": "SE",
+      "pubDate": "2026-09-11T12:29:31.000Z",
+      "sizeBytes": 417
+    },
+    {
+      "id": "konica-minolta-bulgaria-d0d7",
+      "victim": "Konica Minolta Bulgaria",
+      "group": "panzer",
+      "sector": "Manufacturing",
+      "country": "BG",
+      "pubDate": "2026-09-11T10:53:16.000Z",
+      "sizeBytes": 306
+    },
     {
       "id": "medical-department-store-e5de",
       "victim": "Medical Department Store",
@@ -1180,114 +1293,6 @@
       "country": "AR",
       "pubDate": "2026-09-09T16:50:21.000Z",
       "sizeBytes": 14
-    },
-    {
-      "id": "logar-network-solutions-95c4",
-      "victim": "Logar Network Solutions",
-      "group": "vexy ransomware",
-      "sector": "Technology",
-      "country": "BR",
-      "pubDate": "2026-09-09T14:52:38.000Z",
-      "sizeBytes": 418
-    },
-    {
-      "id": "https-mediengruppethiel-de-6c9f",
-      "victim": "https://mediengruppethiel.de/",
-      "group": "incransom",
-      "sector": "Other",
-      "country": "DE",
-      "pubDate": "2026-09-09T13:31:40.000Z",
-      "sizeBytes": 413
-    },
-    {
-      "id": "relycomply-aml-platform-8c3f",
-      "victim": "RelyComply AML Platform",
-      "group": "direwolf",
-      "sector": "Financial Services",
-      "country": "GB",
-      "pubDate": "2026-09-09T13:28:59.000Z",
-      "sizeBytes": 44
-    },
-    {
-      "id": "kyodo-usa-0551",
-      "victim": "Kyodo USA",
-      "group": "akira",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-09T13:25:41.000Z",
-      "sizeBytes": 421
-    },
-    {
-      "id": "bosnia-and-herzegovina-mine-action-center-2fdb",
-      "victim": "Bosnia and Herzegovina Mine Action Center",
-      "group": "emperador",
-      "sector": "Government & Defense",
-      "country": "BA",
-      "pubDate": "2026-09-09T12:53:31.000Z",
-      "sizeBytes": 82
-    },
-    {
-      "id": "specchem-llc-525a",
-      "victim": "Specchem LLC",
-      "group": "dark project",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-09T12:52:48.000Z",
-      "sizeBytes": 421
-    },
-    {
-      "id": "jet-specialty-940d",
-      "victim": "Jet Specialty",
-      "group": "qilin",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-09T12:09:25.000Z",
-      "sizeBytes": 24
-    },
-    {
-      "id": "universal-starch-chem-allied-ltd-5d73",
-      "victim": "Universal Starch-Chem Allied Ltd",
-      "group": "emperador",
-      "sector": "Manufacturing",
-      "country": "IN",
-      "pubDate": "2026-09-09T11:52:14.000Z",
-      "sizeBytes": 71
-    },
-    {
-      "id": "baymer-b003",
-      "victim": "BAYMER",
-      "group": "emperador",
-      "sector": "Manufacturing",
-      "country": null,
-      "pubDate": "2026-09-09T11:51:53.000Z",
-      "sizeBytes": 66
-    },
-    {
-      "id": "technology-dynamics-ed17",
-      "victim": "Technology Dynamics",
-      "group": "storm",
-      "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-09-09T10:11:43.000Z",
-      "sizeBytes": 418
-    },
-    {
-      "id": "flexmaster-c21a",
-      "victim": "Flexmaster",
-      "group": "storm",
-      "sector": "Manufacturing",
-      "country": "CA",
-      "pubDate": "2026-09-09T10:11:30.000Z",
-      "sizeBytes": 421
-    },
-    {
-      "id": "lowerys-6ace",
-      "victim": "Lowerys",
-      "group": "storm",
-      "sector": "Retail & E-Commerce",
-      "country": "CA",
-      "pubDate": "2026-09-09T10:11:17.000Z",
-      "sizeBytes": 431
     }
   ]
 }

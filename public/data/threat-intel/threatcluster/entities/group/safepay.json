@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "safepay",
+  "name": "safepay",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-11T22:04:42.000Z",
+  "lastSeen": "2026-09-11T22:04:42.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-11",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "compunnel-com-7ea4",
+      "title": "compunnel.com — claimed by safepay",
+      "pubDate": "2026-09-11T22:04:42.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "compunnel-com-7ea4",
+      "victim": "compunnel.com — claimed by safepay",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-11T22:04:42.000Z"
+    }
+  ]
+}

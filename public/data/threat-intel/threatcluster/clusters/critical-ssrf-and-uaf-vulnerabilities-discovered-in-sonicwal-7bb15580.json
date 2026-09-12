@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/critical-ssrf-and-uaf-vulnerabilities-discovered-in-sonicwal-7bb15580?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/critical-ssrf-and-uaf-vulnerabilities-discovered-in-sonicwal-7bb15580",
   "pubDate": "2026-09-07T03:16:51.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
   "description": "Two critical vulnerabilities have been reported on September 7, 2026. CVE-2026-15409 is a critical Server-Side Request Forgery SSRF vulnerability in SonicWall SMA1000 series devices, allowing remote a…",
   "sizeBytes": 201
 }

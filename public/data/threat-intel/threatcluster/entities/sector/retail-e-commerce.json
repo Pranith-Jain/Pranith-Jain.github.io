@@ -4,14 +4,14 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-09T10:11:17.000Z",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-09T20:08:41.000Z",
   "lastSeen": "2026-09-11T05:53:47.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-09",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2026-09-10",
@@ -40,12 +40,6 @@
       "slug": "mitsuwa-trading-co-ltd-41dc",
       "title": "Mitsuwa Trading Co., Ltd — claimed by qilin",
       "pubDate": "2026-09-09T20:08:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "lowerys-6ace",
-      "title": "Lowerys — claimed by storm",
-      "pubDate": "2026-09-09T10:11:17.000Z"
     }
   ],
   "relatedEntities": [
@@ -65,12 +59,6 @@
       "type": "group",
       "slug": "qilin",
       "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "storm",
       "weight": 1
     }
   ],

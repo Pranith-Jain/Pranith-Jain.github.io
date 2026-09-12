@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-09T13:28:59.000Z",
-  "lastSeen": "2026-09-09T13:28:59.000Z",
+  "firstSeen": "2026-09-11T15:54:58.000Z",
+  "lastSeen": "2026-09-11T15:54:58.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-09",
+      "date": "2026-09-11",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "relycomply-aml-platform-8c3f",
-      "title": "RelyComply AML Platform — claimed by direwolf",
-      "pubDate": "2026-09-09T13:28:59.000Z"
+      "slug": "port-of-tanjung-pelepas-9fb0",
+      "title": "Port of Tanjung Pelepas — claimed by direwolf",
+      "pubDate": "2026-09-11T15:54:58.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
+      "slug": "transportation",
+      "name": "Transportation",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "relycomply-aml-platform-8c3f",
-      "victim": "RelyComply AML Platform — claimed by direwolf",
-      "sector": "Financial Services",
-      "country": "GB",
-      "pubDate": "2026-09-09T13:28:59.000Z"
+      "id": "port-of-tanjung-pelepas-9fb0",
+      "victim": "Port of Tanjung Pelepas — claimed by direwolf",
+      "sector": "Transportation",
+      "country": "MY",
+      "pubDate": "2026-09-11T15:54:58.000Z"
     }
   ]
 }

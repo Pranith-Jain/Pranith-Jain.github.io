@@ -2,9 +2,9 @@
   "source": "darknetlist.is",
   "url": "https://darknetlist.is/",
   "description": "A free directory of Tor-accessible sites. A scanner walks the list through a fresh SOCKS circuit every 30 minutes and rewrites the page with whatever responded.",
-  "rebuiltAt": "2026-09-11T09:43:09Z",
-  "syncedAt": "2026-09-11T09:57:03.074Z",
-  "counts": { "categories": 9, "sites": 108, "up": 79, "down": 29, "recommended": 11, "onion": 106 },
+  "rebuiltAt": "2026-09-12T09:29:00Z",
+  "syncedAt": "2026-09-12T09:29:57.148Z",
+  "counts": { "categories": 9, "sites": 108, "up": 82, "down": 26, "recommended": 11, "onion": 106 },
   "categories": [
     {
       "id": "markets",
@@ -12,7 +12,7 @@
       "description": "active market venues and their mirrors",
       "siteCount": 25,
       "mirrorCount": 62,
-      "upCount": 44
+      "upCount": 41
     },
     {
       "id": "search",
@@ -20,7 +20,7 @@
       "description": "darknet search engines and indexers",
       "siteCount": 11,
       "mirrorCount": 11,
-      "upCount": 8
+      "upCount": 9
     },
     {
       "id": "forums",
@@ -60,7 +60,7 @@
       "description": "blockchain explorers and privacy coin infrastructure",
       "siteCount": 10,
       "mirrorCount": 10,
-      "upCount": 7
+      "upCount": 9
     },
     {
       "id": "tools",
@@ -68,7 +68,7 @@
       "description": "directories and utility services",
       "siteCount": 14,
       "mirrorCount": 14,
-      "upCount": 9
+      "upCount": 11
     },
     {
       "id": "ai",
@@ -185,6 +185,19 @@
       "onion": "pitchzzzoot5i4cpsblu2d5poifsyixo5r4litxkukstre5lrbjakxid"
     },
     {
+      "slug": "dwd-c11d-830",
+      "name": "Qubes OS",
+      "dwdId": "DWD-C11D-830",
+      "category": "tools",
+      "status": "up",
+      "upMirrors": 1,
+      "totalMirrors": 1,
+      "recommended": true,
+      "isOnion": true,
+      "url": "http://qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/",
+      "onion": "qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/"
+    },
+    {
       "slug": "dwd-9663-467",
       "name": "The Nihilism OpSec Blog",
       "dwdId": "DWD-9663-467",
@@ -209,19 +222,6 @@
       "isOnion": true,
       "url": "http://dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion",
       "onion": "dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd"
-    },
-    {
-      "slug": "dwd-c11d-830",
-      "name": "Qubes OS",
-      "dwdId": "DWD-C11D-830",
-      "category": "tools",
-      "status": "down",
-      "upMirrors": 0,
-      "totalMirrors": 1,
-      "recommended": true,
-      "isOnion": true,
-      "url": "http://qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/",
-      "onion": "qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/"
     },
     {
       "slug": "dwd-d95a-492",
@@ -523,19 +523,6 @@
       "onion": "drughub666py6fgnml5kmxa7fva5noppkf6wkai4fwwvzwt4rz645aqd"
     },
     {
-      "slug": "dwd-5b13-332",
-      "name": "Drugtown",
-      "dwdId": "DWD-5B13-332",
-      "category": "markets",
-      "status": "up",
-      "upMirrors": 1,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id.onion",
-      "onion": "drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id"
-    },
-    {
       "slug": "dwd-84e3-631",
       "name": "DuckDuckGo",
       "dwdId": "DWD-84E3-631",
@@ -718,17 +705,30 @@
       "onion": "eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad"
     },
     {
-      "slug": "dwd-c899-370",
-      "name": "Mist",
-      "dwdId": "DWD-C899-370",
-      "category": "markets",
+      "slug": "dwd-2bf4-894",
+      "name": "MixTum",
+      "dwdId": "DWD-2BF4-894",
+      "category": "tools",
       "status": "up",
       "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
-      "url": "http://mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd.onion",
-      "onion": "mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd"
+      "url": "http://mixtumjzn2tsiusfkdhutntamspsg43kgt764qbdaxjebce4h6fcfiad.onion",
+      "onion": "mixtumjzn2tsiusfkdhutntamspsg43kgt764qbdaxjebce4h6fcfiad"
+    },
+    {
+      "slug": "dwd-455f-788",
+      "name": "Monero.fail",
+      "dwdId": "DWD-455F-788",
+      "category": "crypto",
+      "status": "up",
+      "upMirrors": 1,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://livk2fpdv4xjnjrbxfz2tw3ptogqacn2dwfzxbxr3srinryxrcewemid.onion/#",
+      "onion": "livk2fpdv4xjnjrbxfz2tw3ptogqacn2dwfzxbxr3srinryxrcewemid.onion/#"
     },
     {
       "slug": "dwd-b3ad-489",
@@ -900,6 +900,19 @@
       "onion": "xjfbpuj56rdazx4iolylxplbvyft2onuerjeimlcqwaihp3s6r4xebqd.onion/"
     },
     {
+      "slug": "dwd-2d99-339",
+      "name": "SageSwap",
+      "dwdId": "DWD-2D99-339",
+      "category": "crypto",
+      "status": "up",
+      "upMirrors": 1,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://sageswap4ygi7k5e5gbnvhz2ldbprrelkkuourlp5vx6flfeypk4hvqd.onion",
+      "onion": "sageswap4ygi7k5e5gbnvhz2ldbprrelkkuourlp5vx6flfeypk4hvqd"
+    },
+    {
       "slug": "dwd-7207-133",
       "name": "Secret Garden",
       "dwdId": "DWD-7207-133",
@@ -937,6 +950,19 @@
       "isOnion": true,
       "url": "http://xxtbwyb5z5bdvy2f6l2yquu5qilgkjeewno4qfknvb3lkg3nmoklitid.onion/",
       "onion": "xxtbwyb5z5bdvy2f6l2yquu5qilgkjeewno4qfknvb3lkg3nmoklitid.onion/"
+    },
+    {
+      "slug": "dwd-db3f-377",
+      "name": "StartPage",
+      "dwdId": "DWD-DB3F-377",
+      "category": "search",
+      "status": "up",
+      "upMirrors": 1,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://startpagel6srwcjlue4zgq3zevrujfaow726kjytqbbjyrswwmjzcqd.onion/",
+      "onion": "startpagel6srwcjlue4zgq3zevrujfaow726kjytqbbjyrswwmjzcqd.onion/"
     },
     {
       "slug": "dwd-f0ba-554",
@@ -1087,7 +1113,7 @@
       "dwdId": "DWD-E9A8-114",
       "category": "markets",
       "status": "up",
-      "upMirrors": 2,
+      "upMirrors": 1,
       "totalMirrors": 3,
       "recommended": false,
       "isOnion": true,
@@ -1238,6 +1264,19 @@
       "onion": "dreav274kne7kisdblemfliplkp3x7mxghd4p7nspcuwcehizr4ia5ad"
     },
     {
+      "slug": "dwd-5b13-332",
+      "name": "Drugtown",
+      "dwdId": "DWD-5B13-332",
+      "category": "markets",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id.onion",
+      "onion": "drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id"
+    },
+    {
       "slug": "dwd-8d46-402",
       "name": "IDC Reborn",
       "dwdId": "DWD-8D46-402",
@@ -1290,30 +1329,17 @@
       "onion": "mars24pazjige72veied4awxfb6gtkjauij7qkofveula7gc6fljy4qd"
     },
     {
-      "slug": "dwd-2bf4-894",
-      "name": "MixTum",
-      "dwdId": "DWD-2BF4-894",
-      "category": "tools",
+      "slug": "dwd-c899-370",
+      "name": "Mist",
+      "dwdId": "DWD-C899-370",
+      "category": "markets",
       "status": "down",
       "upMirrors": 0,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
-      "url": "http://mixtumjzn2tsiusfkdhutntamspsg43kgt764qbdaxjebce4h6fcfiad.onion",
-      "onion": "mixtumjzn2tsiusfkdhutntamspsg43kgt764qbdaxjebce4h6fcfiad"
-    },
-    {
-      "slug": "dwd-455f-788",
-      "name": "Monero.fail",
-      "dwdId": "DWD-455F-788",
-      "category": "crypto",
-      "status": "down",
-      "upMirrors": 0,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://livk2fpdv4xjnjrbxfz2tw3ptogqacn2dwfzxbxr3srinryxrcewemid.onion/#",
-      "onion": "livk2fpdv4xjnjrbxfz2tw3ptogqacn2dwfzxbxr3srinryxrcewemid.onion/#"
+      "url": "http://mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd.onion",
+      "onion": "mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd"
     },
     {
       "slug": "dwd-b20c-867",
@@ -1394,19 +1420,6 @@
       "onion": "ruc4i7xn5qu5uc7fu2sc34r6xl55xhgvxbcs56t4ayvbqo2fmp4pehqd.onion/"
     },
     {
-      "slug": "dwd-2d99-339",
-      "name": "SageSwap",
-      "dwdId": "DWD-2D99-339",
-      "category": "crypto",
-      "status": "down",
-      "upMirrors": 0,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://sageswap4ygi7k5e5gbnvhz2ldbprrelkkuourlp5vx6flfeypk4hvqd.onion",
-      "onion": "sageswap4ygi7k5e5gbnvhz2ldbprrelkkuourlp5vx6flfeypk4hvqd"
-    },
-    {
       "slug": "dwd-3c2a-888",
       "name": "Shoot",
       "dwdId": "DWD-3C2A-888",
@@ -1431,19 +1444,6 @@
       "isOnion": true,
       "url": "http://sonarmsng5vzwqezlvtu2iiwwdn3dxkhotftikhowpfjuzg7p3ca5eid.onion/",
       "onion": "sonarmsng5vzwqezlvtu2iiwwdn3dxkhotftikhowpfjuzg7p3ca5eid.onion/"
-    },
-    {
-      "slug": "dwd-db3f-377",
-      "name": "StartPage",
-      "dwdId": "DWD-DB3F-377",
-      "category": "search",
-      "status": "down",
-      "upMirrors": 0,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://startpagel6srwcjlue4zgq3zevrujfaow726kjytqbbjyrswwmjzcqd.onion/",
-      "onion": "startpagel6srwcjlue4zgq3zevrujfaow726kjytqbbjyrswwmjzcqd.onion/"
     },
     {
       "slug": "dwd-4732-377",

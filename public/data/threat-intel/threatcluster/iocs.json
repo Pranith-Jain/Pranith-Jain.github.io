@@ -1,11 +1,75 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-11T09:57:05Z",
-  "syncedAt": "2026-09-11T09:57:05.577Z",
+  "generatedAt": "2026-09-12T09:29:58Z",
+  "syncedAt": "2026-09-12T09:29:58.661Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 204,
+  "count": 201,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "evil-vps.domainreg.net",
+      "confidence": "high",
+      "reason": "[article sweep] Described as a registered domain used for reverse shell actions",
+      "first_seen": "2026-09-11T18:07:49+00:00",
+      "last_seen": "2026-09-11T18:07:49+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-RAI2EN-CVE-2023-4220-CHAMILO-LMS&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-11T18:07:49+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "186.227.4.31",
+      "confidence": "high",
+      "reason": "[article sweep] Used in a reverse shell attack",
+      "first_seen": "2026-09-11T18:07:49+00:00",
+      "last_seen": "2026-09-11T18:07:49+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-RAI2EN-CVE-2023-4220-CHAMILO-LMS&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-11T18:07:49+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "1.2.3.5",
+      "confidence": "high",
+      "reason": "[article sweep] Used in a privilege escalation attack",
+      "first_seen": "2026-09-11T16:02:45+00:00",
+      "last_seen": "2026-09-11T16:02:45+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=C760232B-F434-564F-BE87-CE2C03764A6B&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-11T16:02:45+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.158.196.75",
+      "confidence": "high",
+      "reason": "[article sweep] Used in a global attack campaign",
+      "first_seen": "2026-09-11T10:05:52+00:00",
+      "last_seen": "2026-09-11T10:05:52+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Bloglab.360",
+          "url": "https://blog.netlab.360.com/aian-quan-zhuan-ti-zhou-bao-5/",
+          "pub_date": "2026-09-11T10:05:52+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "leappoach.info",
@@ -3265,123 +3329,6 @@
           "source": "Acronis",
           "url": "https://www.acronis.com/tru/posts/patchcord-new-malware-cluster-targets-afghan-telecom-and-south-asian-critical-infrastructure/",
           "pub_date": "2026-08-13T12:20:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "bookcheckarrival-gueststayhotel.com",
-      "confidence": "high",
-      "reason": "Indicates attacker-controlled phishing domain targeting hotel reservations.",
-      "first_seen": "2026-08-13T06:24:31+00:00",
-      "last_seen": "2026-08-13T06:24:31+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Heise.De",
-          "url": "https://www.heise.de/en/news/Phishing-waves-Cyberattacks-on-IT-service-providers-for-hotels-11412196.html",
-          "pub_date": "2026-08-13T06:24:31+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "ramimac.me",
-      "confidence": "high",
-      "reason": "[article sweep] Used in a campaign tracked by Wiz Threat Center.",
-      "first_seen": "2026-08-12T22:06:24.425523+00:00",
-      "last_seen": "2026-08-12T22:06:24.425523+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "snyk.io",
-          "url": "https://snyk.io/blog/poisoned-security-scanner-backdooring-litellm/",
-          "pub_date": "2026-08-12T22:06:24.425523+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "msupdate.updatemicfosoft.com",
-      "confidence": "high",
-      "reason": "[article sweep] Custom C2 domain used in an attack, indicating attacker control",
-      "first_seen": "2026-08-12T14:35:21+00:00",
-      "last_seen": "2026-08-12T14:35:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rescana",
-          "url": "https://www.rescana.com/post/active-exploitation-alert-critical-microsoft-sharepoint-cve-2026-50522-vulnerability-targeted-in-global-attacks",
-          "pub_date": "2026-08-12T14:35:21+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "131.226.2.6",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as a known malicious IP in a threat report",
-      "first_seen": "2026-08-12T14:35:21+00:00",
-      "last_seen": "2026-08-12T14:35:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rescana",
-          "url": "https://www.rescana.com/post/active-exploitation-alert-critical-microsoft-sharepoint-cve-2026-50522-vulnerability-targeted-in-global-attacks",
-          "pub_date": "2026-08-12T14:35:21+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "188.130.206.168",
-      "confidence": "high",
-      "reason": "[article sweep] Known malicious IP used in SharePoint exploitation",
-      "first_seen": "2026-08-12T14:35:21+00:00",
-      "last_seen": "2026-08-12T14:35:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rescana",
-          "url": "https://www.rescana.com/post/active-exploitation-alert-critical-microsoft-sharepoint-cve-2026-50522-vulnerability-targeted-in-global-attacks",
-          "pub_date": "2026-08-12T14:35:21+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "65.38.121.198",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as a known malicious IP in SharePoint exploitation",
-      "first_seen": "2026-08-12T14:35:21+00:00",
-      "last_seen": "2026-08-12T14:35:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rescana",
-          "url": "https://www.rescana.com/post/active-exploitation-alert-critical-microsoft-sharepoint-cve-2026-50522-vulnerability-targeted-in-global-attacks",
-          "pub_date": "2026-08-12T14:35:21+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "ccleanerwind.top",
-      "confidence": "high",
-      "reason": "Identified as attacker-controlled domain for malware distribution",
-      "first_seen": "2026-08-12T10:20:02+00:00",
-      "last_seen": "2026-08-12T11:31:38+00:00",
-      "source_count": 2,
-      "sources": [
-        {
-          "source": "Gbhackers",
-          "url": "https://gbhackers.com/malicious-ccleaner-installer/amp/",
-          "pub_date": "2026-08-12T11:31:38+00:00"
-        },
-        {
-          "source": "Csoonline",
-          "url": "https://www.csoonline.com/article/4208565/fake-ccleaner-downloads-turn-chrome-into-a-credential-stealing-surveillance-tool.html",
-          "pub_date": "2026-08-12T11:26:50+00:00"
         }
       ]
     }

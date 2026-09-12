@@ -4,10 +4,10 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
+  "mentionCount": 6,
   "firstSeen": "2026-09-09T16:50:21.000Z",
-  "lastSeen": "2026-09-10T19:20:56.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 2 ransomware groups and 4 countries.",
+  "lastSeen": "2026-09-11T14:19:06.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 3 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-09-09",
@@ -16,9 +16,19 @@
     {
       "date": "2026-09-10",
       "count": 2
+    },
+    {
+      "date": "2026-09-11",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "foss-inc-e0ab",
+      "title": "Foss Inc. — claimed by pear",
+      "pubDate": "2026-09-11T14:19:06.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "ki-jp-1541",
@@ -56,6 +66,12 @@
       "slug": "auditteam",
       "name": "auditteam",
       "weight": 4
+    },
+    {
+      "type": "group",
+      "slug": "pear",
+      "name": "pear",
+      "weight": 1
     },
     {
       "type": "group",

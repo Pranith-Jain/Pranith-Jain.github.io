@@ -5,58 +5,62 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-09T12:09:25.000Z",
-  "lastSeen": "2026-09-09T20:08:41.000Z",
+  "firstSeen": "2026-09-09T20:08:41.000Z",
+  "lastSeen": "2026-09-11T22:03:56.000Z",
   "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-09",
-      "count": 2
+      "count": 1
+    },
+    {
+      "date": "2026-09-11",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "mitsuwa-trading-co-ltd-41dc",
-      "title": "Mitsuwa Trading Co., Ltd — claimed by qilin",
-      "pubDate": "2026-09-09T20:08:41.000Z"
+      "slug": "imperial-healthcare-solutions-5c4e",
+      "title": "Imperial Healthcare Solutions — claimed by qilin",
+      "pubDate": "2026-09-11T22:03:56.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "jet-specialty-940d",
-      "title": "Jet Specialty — claimed by qilin",
-      "pubDate": "2026-09-09T12:09:25.000Z"
+      "slug": "mitsuwa-trading-co-ltd-41dc",
+      "title": "Mitsuwa Trading Co., Ltd — claimed by qilin",
+      "pubDate": "2026-09-09T20:08:41.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
+      "slug": "healthcare",
+      "name": "Healthcare",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "imperial-healthcare-solutions-5c4e",
+      "victim": "Imperial Healthcare Solutions — claimed by qilin",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-11T22:03:56.000Z"
+    },
+    {
       "id": "mitsuwa-trading-co-ltd-41dc",
       "victim": "Mitsuwa Trading Co., Ltd — claimed by qilin",
       "sector": "Retail & E-Commerce",
       "country": "JP",
       "pubDate": "2026-09-09T20:08:41.000Z"
-    },
-    {
-      "id": "jet-specialty-940d",
-      "victim": "Jet Specialty — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-09T12:09:25.000Z"
     }
   ]
 }
