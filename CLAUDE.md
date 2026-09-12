@@ -550,8 +550,13 @@ not computed.
 - `worker/lib/ai-escape-manifest.ts` (+ `api/` symlink) — loader + `filterEscapes` + timeline buckets
 - `api/src/routes/ai-escape.ts` — 6 REST routes under `/api/v1/ai-escape/`
 - `src/pages/threatintel/AiEscape.tsx` — SPA at `/threatintel/ai-escape`
-- Report box links a prefilled GitHub issue (no D1 migration yet — server-side
-  review queue is the follow-up)
+- Community report queue: `migrations/0045_ai_escape_reports.sql` (D1
+  `ai_escape_reports`: pending → approved/rejected, review note kept) +
+  `POST /api/v1/ai-escape/reports` (strict validation, honeypot,
+  best-effort 5/day/IP Cache-API throttle — review gate is the defense) +
+  `GET /reports` (public queue) + admin `POST /reports/:id/review`
+  (`ADMIN_TOKEN` via `requireAdmin`). Form + queue live on the SPA;
+  approved entries are promoted into `seed.json` via PR (no auto-publish).
 
 ## Destroylist — Phishing & Scam Domain Blacklist
 
