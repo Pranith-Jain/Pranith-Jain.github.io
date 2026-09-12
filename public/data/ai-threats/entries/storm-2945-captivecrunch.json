@@ -1,0 +1,13 @@
+{
+  "slug": "storm-2945-captivecrunch",
+  "name": "Storm-2945 (CaptiveCrunch)",
+  "akas": "Midnight Blizzard / APT29 / Cozy Bear / NOBELIUM / The Dukes (sub-cluster)",
+  "brief": "Microsoft Threat Intelligence disclosed \"CaptiveCrunch,\" a Midnight Blizzard sub-cluster campaign manipulating hotel/conference-venue Wi-Fi captive-portal DNS/HTTP traffic to redirect corporate travelers to phishing pages since early May 2026, and running AI-augmented device-code and OAuth-code phishing against Microsoft Entra ID since February 2026. Microsoft states it \"observed Storm-2945 leveraging AI to support a significant portion of these operations.\" Deployed malware includes CornFlake (Golang Windows RAT), ChocoShell (a PowerShell infostealer whose \"consistent coding standard and descriptive commentary suggest the author might have leveraged AI-assisted code generation\"), and the FruitStone web C2 panel; the actor also abused a Chrome App-Bound Encryption bypass for session-token theft. Microsoft",
+  "ttps": ["T1528", "T1566", "T1587.001"],
+  "categories": ["LLM-supported social engineering", "LLM-aided development"],
+  "reported": "Jul 2026",
+  "activity": "Feb 2026 – Jul 2026",
+  "table": "main",
+  "sizeBytes": 816,
+  "ttpMd": "**LLM-supported social engineering** T1566 - Phishing (AI-augmented device-code & OAuth phishing campaigns)<br><br>**LLM-aided development** T1587.001 - Develop Capabilities: Malware (ChocoShell infostealer; AI-assisted code generation inferred from code style)<br><br>T1528 - Steal Application Access Token (device-code/OAuth phishing against Entra ID)"
+}
