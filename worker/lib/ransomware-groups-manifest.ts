@@ -6,9 +6,11 @@
  * ransomware.live clearnet aggregation). The Worker fetches them through
  * the env.ASSETS binding — no Tor egress, no per-request upstream calls.
  *
- * Shape:
- *   /data/ransomware-groups/index.json          (slim row per group)
- *   /data/ransomware-groups/groups/<slug>.json (bodies for active/profiled groups)
+ * Shape (sharded — the Workers free plan caps static assets at 20,000
+ * files, so 43 per-slug bodies ship as 3 shard maps instead):
+ *   /data/ransomware-groups/index.json          (slim row per group; rows
+ *                                                with bodies carry `shard`)
+ *   /data/ransomware-groups/groups/shard-0000.json … (maps slug → body)
  */
 
 export interface RansomwareGroupRow {
@@ -24,6 +26,8 @@ export interface RansomwareGroupRow {
   up_mirrors: number;
   has_profile: boolean;
   blurb: string;
+  /** Shard file index when a body ships (see build script); absent otherwise. */
+  shard?: number;
 }
 
 export interface RansomwareGroupsIndex {
@@ -69,6 +73,11 @@ export interface RansomwareGroupBody extends RansomwareGroupRow {
 
 const DATA_PREFIX = '/data/ransomware-groups';
 const MAX_BODY_CACHE = 200;
+const MAX_SHARD_CACHE = 8;
+
+function shardName(idx: number): string {
+  return `${DATA_PREFIX}/groups/shard-${String(idx).padStart(4, '0')}.json`;
+}
 
 interface BodyCache<T> {
   map: Map<string, T>;
@@ -77,6 +86,7 @@ interface BodyCache<T> {
 }
 
 const bodyCache: BodyCache<RansomwareGroupBody> = { map: new Map(), hits: 0, misses: 0 };
+const shardCache: BodyCache<Record<string, RansomwareGroupBody>> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: RansomwareGroupsIndex | null = null;
 let cachedIndexAt: number | null = null;
 
@@ -127,31 +137,51 @@ export async function loadRansomwareGroupsIndex(
 }
 
 /**
- * Body files exist only for active/profiled groups. Synthesises a body from
- * the slim index row otherwise, so every /groups/:slug lookup resolves.
+ * Bodies ship in shard maps ({slug: body}); rows without a `shard` pointer
+ * synthesize a body from the slim row, so every /groups/:slug lookup
+ * resolves. Shards are LRU-cached whole (few files, small bodies).
  */
 export async function getRansomwareGroup(assets: Fetcher, slug: string): Promise<RansomwareGroupBody | null> {
   const hit = trackHit(bodyCache, slug);
   if (hit) return hit;
-  const raw = await fetchJson<Omit<RansomwareGroupBody, 'mirrors_detail'> & { mirrors?: RansomwareGroupMirror[] }>(
-    assets,
-    `${DATA_PREFIX}/groups/${slug}.json`
-  );
-  if (raw) {
-    const body: RansomwareGroupBody = {
-      ...raw,
-      mirrors_detail: Array.isArray((raw as { mirrors_detail?: unknown }).mirrors_detail)
-        ? (raw as unknown as RansomwareGroupBody).mirrors_detail
-        : Array.isArray(raw.mirrors)
-          ? (raw.mirrors as RansomwareGroupMirror[])
-          : [],
-    };
-    return recordHit(bodyCache, slug, body);
-  }
   const idx = await loadRansomwareGroupsIndex(assets);
   const row = idx.groups.find((g) => g.slug === slug);
   if (!row) return null;
-  return recordHit(bodyCache, slug, {
+  if (row.shard !== undefined) {
+    const key = shardName(row.shard);
+    let shard = trackHit(shardCache, key);
+    if (!shard) {
+      const raw = await fetchJson<Record<string, RansomwareGroupBody>>(assets, key);
+      if (raw) {
+        shard = raw;
+        recordHit(shardCache, key, shard);
+        while (shardCache.map.size > MAX_SHARD_CACHE) {
+          const oldest = shardCache.map.keys().next().value;
+          if (oldest === undefined) break;
+          shardCache.map.delete(oldest);
+        }
+      }
+    }
+    const found = shard?.[slug];
+    if (found) return recordHit(bodyCache, slug, withMirrorsDetail(found));
+  }
+  return recordHit(bodyCache, slug, synthesizeBody(row));
+}
+
+/** Normalize the legacy per-slug shape (`mirrors` array) to mirrors_detail. */
+function withMirrorsDetail(raw: RansomwareGroupBody & { mirrors?: unknown }): RansomwareGroupBody {
+  return {
+    ...raw,
+    mirrors_detail: Array.isArray(raw.mirrors_detail)
+      ? raw.mirrors_detail
+      : Array.isArray(raw.mirrors)
+        ? (raw.mirrors as RansomwareGroupMirror[])
+        : [],
+  };
+}
+
+function synthesizeBody(row: RansomwareGroupRow): RansomwareGroupBody {
+  return {
     ...row,
     meta: null,
     meta_source: null,
@@ -161,7 +191,7 @@ export async function getRansomwareGroup(assets: Fetcher, slug: string): Promise
       ransomlook: `https://www.ransomlook.io/api/group/${encodeURIComponent(row.name)}`,
       ransomware_live: 'https://www.ransomware.live/',
     },
-  });
+  };
 }
 
 export type RansomwareGroupStatus = 'online' | 'offline' | 'unknown';

@@ -38,6 +38,7 @@ function makeAssets() {
         up_mirrors: 0,
         has_profile: true,
         blurb: 'Double extortion.',
+        shard: 0,
       },
       {
         slug: 'clop',
@@ -56,7 +57,7 @@ function makeAssets() {
     recent: ['clop', 'akira'],
   });
 
-  data.set('/data/ransomware-groups/groups/akira.json', {
+  const akiraBody = {
     slug: 'akira',
     name: 'akira',
     victims_7d: 5,
@@ -80,7 +81,8 @@ function makeAssets() {
       },
     ],
     source_urls: { ransomlook: 'https://example.invalid/akira', ransomware_live: 'https://example.invalid/' },
-  });
+  };
+  data.set('/data/ransomware-groups/groups/shard-0000.json', { akira: akiraBody });
 
   return {
     fetch: vi.fn(async (req: Request) => {

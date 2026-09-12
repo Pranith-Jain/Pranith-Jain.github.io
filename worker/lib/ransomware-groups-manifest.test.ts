@@ -37,6 +37,7 @@ const INDEX: RansomwareGroupsIndex = {
       up_mirrors: 0,
       has_profile: true,
       blurb: 'Double extortion since 2023.',
+      shard: 0,
     },
     {
       slug: 'clop',
@@ -92,7 +93,7 @@ const AKIRA_BODY = {
 function stubAssets(extra: Record<string, unknown> = {}): Fetcher {
   const files: Record<string, unknown> = {
     '/data/ransomware-groups/index.json': INDEX,
-    '/data/ransomware-groups/groups/akira.json': AKIRA_BODY,
+    '/data/ransomware-groups/groups/shard-0000.json': { akira: AKIRA_BODY },
     ...extra,
   };
   return {

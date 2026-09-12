@@ -95,6 +95,7 @@ const AgentSuite = lazy(() => import('./pages/dfir/AgentSuite'));
 const XHub = lazy(() => import('./pages/threatintel/XHub'));
 const StixHub = lazy(() => import('./pages/threatintel/StixHub'));
 const RansomwareHub = lazy(() => import('./pages/threatintel/RansomwareHub'));
+const ExposureCheck = lazy(() => import('./pages/threatintel/Exposure'));
 const RansomwareGroups = lazy(() => import('./pages/threatintel/RansomwareGroups'));
 const AiEscape = lazy(() => import('./pages/threatintel/AiEscape'));
 const InvestigationSuite = lazy(() => import('./pages/threatintel/InvestigationSuite'));
@@ -633,6 +634,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/darkweb/leaks', Component: SecretLeaks },
 
   { path: '/threatintel/ransomware-hub', Component: RansomwareHub },
+  { path: '/threatintel/exposure', Component: ExposureCheck },
   { path: '/threatintel/ransomware-groups', Component: RansomwareGroups },
   { path: '/threatintel/ai-escape', Component: AiEscape },
   { path: '/threatintel/darkweb/recon', Component: DarkWebRecon },

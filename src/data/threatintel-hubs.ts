@@ -643,6 +643,15 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['ransomware', 'activity', 'map', 'ransomwhere', 'report'],
       },
       {
+        path: '/threatintel/exposure',
+        tabId: 'exposure',
+        label: 'Exposure Check',
+        desc: 'One search across ransomware victims, sender blocklist, and phishing blacklists.',
+        compVar: 'ExposureCheck',
+        badge: 'new',
+        keywords: ['exposure', 'domain', 'ransomware', 'blocklist', 'search'],
+      },
+      {
         path: '/threatintel/ransomware-groups',
         tabId: 'ransomware-groups',
         label: 'Ransomware Groups',

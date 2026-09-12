@@ -108,7 +108,7 @@ describe('ai-escape report queue', () => {
     const denied = await app.request(
       `/api/v1/ai-escape/reports/${id}/review`,
       { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ status: 'approved' }) },
-      { ...(testEnv as object), ADMIN_TOKEN: undefined } as Env,
+      { ...(testEnv as object), ADMIN_TOKEN: undefined } as unknown as Env,
       mockCtx()
     );
     expect([401, 403]).toContain(denied.status);

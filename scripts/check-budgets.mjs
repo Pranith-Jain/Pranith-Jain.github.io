@@ -99,6 +99,45 @@ function globMatch(pattern, name) {
   return new RegExp(reStr).test(name);
 }
 
+// Workers free plan caps static assets at 20,000 files — exceeding it fails
+// the deploy (Workers Builds) with no local signal, which is exactly what
+// happened on 2026-09-12 when 43 ransomware-group bodies + 15 AI-escape
+// dockets pushed dist/ to 20,006 files. Tripwire at 19,980: when it fires,
+// shard per-slice bodies (see scripts/build-ransomware-groups.mjs, the
+// living-threat shards) instead of bumping blindly — and look first at
+// public/data/threat-intel/threaticon-catalog/ (11.5k files and growing
+// weekly), the structural driver of cap pressure.
+const MAX_DIST_FILES = 19980;
+const WORKERS_ASSET_CAP = 20000;
+
+function countFiles(dir) {
+  let n = 0;
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, e.name);
+    if (e.isDirectory()) n += countFiles(full);
+    else if (e.isFile()) n += 1;
+  }
+  return n;
+}
+
+function checkAssetCount() {
+  let total;
+  try {
+    total = countFiles(distDir);
+  } catch {
+    console.log('No dist/ found — skipping asset-count check.');
+    return 0;
+  }
+  if (total > MAX_DIST_FILES) {
+    console.log(
+      `  ✗  dist/ holds ${total} files (tripwire ${MAX_DIST_FILES}, hard cap ${WORKERS_ASSET_CAP}). Shard per-slice bodies; see check-budgets.mjs header.`
+    );
+    return 1;
+  }
+  console.log(`  ✓  dist/ file count: ${total} (tripwire ${MAX_DIST_FILES}, cap ${WORKERS_ASSET_CAP})`);
+  return 0;
+}
+
 function main() {
   const assetsDir = join(distDir, 'assets');
   let files;
@@ -110,6 +149,8 @@ function main() {
   }
 
   let failed = 0;
+
+  failed += checkAssetCount();
   for (const [pattern, limits] of Object.entries(BUDGETS)) {
     const matches = files.filter((f) => globMatch(pattern, f));
     if (matches.length === 0) {

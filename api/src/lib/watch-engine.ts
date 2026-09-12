@@ -210,7 +210,7 @@ export async function checkWatches(db: D1Database, now: string): Promise<AlertEv
           const victim =
             watch.type === 'brand'
               ? (ransom.victims ?? []).find((v) => new RegExp(`\\b${escapeRegex(victimNeedle)}\\b`, 'i').test(v.victim))
-              : (ransom.victims ?? []).find((v) => v.victim.toLowerCase().includes(victimNeedle));
+              : (ransom.victims ?? []).find((v) => victimMatchesDomain(victimNeedle, v.victim));
           if (victim) {
             matched = true;
             matchText = `Named as ransomware victim: ${victim.victim}`;
@@ -335,6 +335,24 @@ export async function checkWatches(db: D1Database, now: string): Promise<AlertEv
 
 function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Does a ransomware victim name plausibly belong to a domain? Exact
+ * substring first (host-like victim names), then the registrable label as
+ * a word match (`kelmarsh.co` → `kelmarsh` hits `Kelmarsh Logistics`;
+ * `mail.example.com` → `example`). Shared by domain/email watches and the
+ * exposure-check endpoint so both agree.
+ */
+export function victimMatchesDomain(domain: string, victim: string): boolean {
+  const d = domain.toLowerCase().trim();
+  const v = victim.toLowerCase();
+  if (!d || d.length < 3) return false;
+  if (v.includes(d)) return true;
+  const labels = d.split('.').filter(Boolean);
+  const token = labels.length > 1 ? (labels[labels.length - 2] ?? '') : (labels[0] ?? '');
+  if (!token || token.length < 3) return false;
+  return new RegExp(`\\b${escapeRegex(token)}\\b`).test(v);
 }
 
 /**

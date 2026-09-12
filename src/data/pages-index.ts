@@ -3496,6 +3496,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['ransomware', 'activity', 'map', 'ransomwhere', 'report'],
   },
   {
+    path: '/threatintel/exposure',
+    label: 'Exposure Check',
+    description: 'One search across ransomware victims, sender blocklist, and phishing blacklists.',
+    sectionLabel: 'Threat Intel · Dark Web',
+    group: 'threatintel',
+    keywords: ['exposure', 'domain', 'ransomware', 'blocklist'],
+  },
+  {
     path: '/threatintel/ransomware-groups',
     label: 'Ransomware Groups',
     description: 'Directory of every tracked ransomware leak site - status, recent victims, and profiles.',
