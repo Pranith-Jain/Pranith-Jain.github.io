@@ -54,6 +54,8 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
           </div>
           <button
             onClick={onClose}
+            type="button"
+            aria-label="Close dialog"
             className="h-8 w-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] grid place-items-center hover:bg-white dark:hover:bg-[rgb(var(--surface-300))] shrink-0"
           >
             ✕

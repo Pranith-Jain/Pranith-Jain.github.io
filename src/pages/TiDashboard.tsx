@@ -374,18 +374,21 @@ export default function TiDashboard() {
           {/* Severity filter bar */}
           {showFilter && (
             <div className="flex items-center gap-3 mb-4 flex-wrap">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
+              <div className="relative flex-1 min-w-[200px] sm:max-w-xs">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" aria-hidden="true" />
                 <input
                   type="text"
                   placeholder="Search keywords…"
+                  aria-label="Search threat intelligence"
                   value={keywordSearch}
                   onChange={(e) => setKeywordSearch(e.target.value)}
-                  className="pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500 w-48"
+                  className="pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-brand-500 w-full"
                 />
                 {keywordSearch && (
                   <button
                     onClick={() => setKeywordSearch('')}
+                    type="button"
+                    aria-label="Clear search"
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600"
                   >
                     ×

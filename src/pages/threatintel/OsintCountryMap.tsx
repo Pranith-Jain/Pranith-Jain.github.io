@@ -276,10 +276,11 @@ export default function OsintCountryMap(): JSX.Element {
       <div className="flex flex-col gap-4">
         {/* Search row */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden="true" />
           <input
             type="text"
             value={query}
+            aria-label="Search countries or resources"
             onChange={(e) => setQuery(e.target.value)}
             placeholder={
               selectedCountry ? `Search within ${selectedCountry.name}...` : 'Search countries or resources...'
@@ -290,6 +291,7 @@ export default function OsintCountryMap(): JSX.Element {
             <button
               type="button"
               onClick={() => setQuery('')}
+              aria-label="Clear search"
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
             >
               <X className="w-4 h-4" />

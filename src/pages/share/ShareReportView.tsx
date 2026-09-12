@@ -168,7 +168,16 @@ export default function ShareReportView(): JSX.Element {
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             {b.logoUrl && /^https:\/\//.test(b.logoUrl) && (
-              <img src={b.logoUrl} alt="" className="h-9 w-9 rounded object-contain" referrerPolicy="no-referrer" />
+              <img
+                src={b.logoUrl}
+                alt={b.orgName ? `${b.orgName} logo` : 'Organization logo'}
+                width={36}
+                height={36}
+                loading="lazy"
+                decoding="async"
+                className="h-9 w-9 rounded object-contain"
+                referrerPolicy="no-referrer"
+              />
             )}
             <div>
               {b.orgName && (

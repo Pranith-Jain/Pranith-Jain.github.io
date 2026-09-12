@@ -86,14 +86,16 @@ export default function ETDAActorsPage() {
     data: indexData,
     loading: indexLoading,
     error: indexError,
-  } = useDataFetch<ActorIndexResponse>({ url: '/api/v1/apt-actors/' });
+  } = useDataFetch<ActorIndexResponse>({ url: '/api/v1/apt-actors/', ttl: 300_000 });
 
   const { data: listData, loading: listLoading } = useDataFetch<ActorListResponse>({
     url: categoryFilter ? `/api/v1/apt-actors/actors?category=${categoryFilter}` : '/api/v1/apt-actors/actors',
+    ttl: 300_000,
   });
 
   const { data: detailData } = useDataFetch<ActorBody>({
     url: selectedSlug ? `/api/v1/apt-actors/actors/${selectedSlug}` : null,
+    ttl: 300_000,
   });
 
   const filteredActors = useMemo(() => {
