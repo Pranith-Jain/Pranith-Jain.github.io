@@ -5795,6 +5795,60 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       content: [{ type: 'text' as const, text: JSON.stringify({ categories: promptVaultCategories() }) }],
     }));
 
+    // ── PromptIntel IoPC registry (NovaHunting) ────────────────────────
+    this.tools(
+      'pi_search_prompts',
+      'Search the PromptIntel Indicators-of-Prompt-Compromise feed: adversarial AI prompts with severity and category filters. Requires server-side PROMPTINTEL_API_KEY.',
+      {
+        search: z.string().optional().describe('Search in prompt titles and content'),
+        severity: z.string().optional().describe('Filter by severity level'),
+        category: z.string().optional().describe('One of manipulation, abuse, patterns, outputs'),
+        limit: z.number().int().min(1).max(100).optional().describe('Items to return (default 20, max 100)'),
+      },
+      async ({ search, severity, category, limit }) => {
+        const p = new URLSearchParams();
+        if (search) p.set('search', search);
+        if (severity) p.set('severity', severity);
+        if (category) p.set('category', category);
+        p.set('limit', String(limit ?? 20));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/promptintel/prompts?${p}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'pi_get_entry',
+      'Retrieve a single IoPC taxonomy entry (e.g. IOPC-T1.001 or IOPC-R012) with framework mappings and relationships. Requires server-side PROMPTINTEL_API_KEY.',
+      { id: z.string().describe('IoPC entry id, e.g. IOPC-T1.001') },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/promptintel/taxonomy/entries/${encodeURIComponent(id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'digest_analyze',
+      'Get the analyst note for a Webamon daily threat brief or PCMedicalist digest: deterministic key signals plus a cached LLM assessment. Nothing generates on read — briefs are immutable per date.',
+      {
+        kind: z.enum(['wdtb', 'pcm']).describe('wdtb = Webamon brief, pcm = PCMedicalist digest'),
+        date: z.string().describe('Date YYYY-MM-DD'),
+      },
+      async ({ kind, date }) => {
+        const path =
+          kind === 'wdtb'
+            ? `/api/v1/webamon-dtb/briefs/${encodeURIComponent(date)}/analysis`
+            : `/api/v1/pcmedicalist/digests/${encodeURIComponent(date)}/analysis`;
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, path, this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── HudsonRock Cavalier (infostealer intelligence) ───────────────────
     this.tools(
       'hr_search_email',

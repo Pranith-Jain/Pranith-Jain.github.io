@@ -32,7 +32,9 @@ export interface IocFeedSummary {
     | 'threatview-domains'
     | 'viriback-c2'
     | 'certpl-warnings'
-    | 'phishunt';
+    | 'phishunt'
+    | 'swiftioc'
+    | 'threatbase';
   source_name: string;
   fetched_at: string;
   count: number;
@@ -286,6 +288,82 @@ export function parsePhishingArmy(body: string, cap: number = CAP): IocEntry[] {
     const candidate = trimmed.replace(/^(?:0\.0\.0\.0|127\.0\.0\.1)\s+/, '').trim();
     if (!DOMAIN_LINE_RE.test(candidate)) continue;
     entries.push({ type: 'domain', value: candidate });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
+// ─── Threatbase top IPs (kalidada18/threatbase) ───────────────────────────
+// JSON: `{ generated_at, ips: [{ ip, feeds, score, tags[], country,
+// first_seen, last_seen }] }` — pre-ranked by independent-feed
+// corroboration (feeds desc), 22KB. This is the ingestible slice of the
+// 61MB full feed (which is IP-sorted, so head/tail sampling is meaningless
+// and full ingestion would blow the worker CPU budget).
+// `feeds` mirrors the ipsum consensus signal: higher = stronger agreement.
+
+interface ThreatbaseTopIp {
+  ip?: string;
+  feeds?: number;
+  score?: string;
+  tags?: string[];
+  country?: string;
+  first_seen?: string;
+  last_seen?: string;
+}
+
+export function parseThreatbaseTopIps(body: string, cap: number = CAP): IocEntry[] {
+  let parsed: { ips?: ThreatbaseTopIp[] };
+  try {
+    parsed = JSON.parse(body) as { ips?: ThreatbaseTopIp[] };
+  } catch {
+    return [];
+  }
+  if (!parsed || !Array.isArray(parsed.ips)) return [];
+  const entries: IocEntry[] = [];
+  for (const e of parsed.ips) {
+    const ip = e.ip?.trim();
+    if (!ip || !IPV4_LINE_RE.test(ip)) continue;
+    const tags = Array.isArray(e.tags) ? e.tags.filter(Boolean).join('|') : '';
+    const context = [`${e.feeds ?? 1} feeds`, tags, e.country ? `(${e.country})` : ''].filter(Boolean).join(' ');
+    entries.push({ type: 'ipv4', value: ip, context: context || undefined, timestamp: e.last_seen });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
+// ─── SwiftIOC high-confidence feed (PKHarsimran) ─────────────────────────
+// CSV: indicator,type,source,first_seen,last_seen,confidence,score,
+// sightings,tlp,tags,reference,context. Indicators arrive DEFANGED
+// (77[.]239[.]124[.]108) — refanged here (live-iocs refangs again
+// downstream, idempotent). Feed is score-desc; the file is ~3MB so the
+// standard per-feed cap takes the most-corroborated head.
+
+const SWIFTIOC_TYPES = new Set(['ipv4', 'domain', 'url', 'hash']);
+
+function refangIndicator(v: string): string {
+  return v.replace(/\[\.\]/g, '.').replace(/\(\.\)/g, '.').replace(/^hxxps?/i, (m) => (m.length === 5 ? 'https' : 'http'));
+}
+
+export function parseSwiftioc(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const cols of csvLines(body)) {
+    if (cols.length < 7) continue;
+    const rawType = unquote(cols[1] ?? '').toLowerCase();
+    if (!SWIFTIOC_TYPES.has(rawType)) continue;
+    const value = refangIndicator(unquote(cols[0] ?? ''));
+    if (!value || value.length < 3) continue;
+    const score = Number(unquote(cols[6] ?? ''));
+    const sightings = unquote(cols[7] ?? '');
+    const tags = unquote(cols[9] ?? '');
+    const context = [`score ${Number.isFinite(score) ? score : '?'}`, sightings ? `${sightings} sightings` : '', tags]
+      .filter(Boolean)
+      .join(' · ');
+    entries.push({
+      type: rawType as IocEntry['type'],
+      value,
+      context: context || undefined,
+      timestamp: unquote(cols[4] ?? '') || undefined,
+    });
     if (entries.length >= cap) break;
   }
   return entries;
@@ -565,6 +643,16 @@ export const FEED_SOURCES: Record<SourceId, FeedSource> = {
     name: 'phishunt',
     url: 'https://phishunt.io/feed.txt',
   },
+  threatbase: {
+    id: 'threatbase',
+    name: 'Threatbase Top IPs',
+    url: 'https://raw.githubusercontent.com/kalidada18/threatbase/main/ioc/ip/top_ips.json',
+  },
+  swiftioc: {
+    id: 'swiftioc',
+    name: 'SwiftIOC High-Confidence',
+    url: 'https://raw.githubusercontent.com/PKHarsimran/SwiftIOC-Automated-Threat-Intelligence-Collector/main/public/iocs/high_confidence.csv',
+  },
 };
 
 // ─── Plain URL list (one URL per line, http-prefixed) ────────────────────────
@@ -688,6 +776,12 @@ export function buildSummary(sourceId: SourceId, rawBody: string, cap: number = 
       break;
     case 'phishunt':
       entries = parseUrlList(rawBody, cap);
+      break;
+    case 'threatbase':
+      entries = parseThreatbaseTopIps(rawBody, cap);
+      break;
+    case 'swiftioc':
+      entries = parseSwiftioc(rawBody, cap);
       break;
   }
 

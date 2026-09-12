@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
+import { DigestAnalysisPanel } from '../components/DigestAnalysisPanel';
 import {
   Radar,
   TrendingUp,
@@ -156,19 +157,27 @@ export default function WebamonDtb() {
 
           {brief.kpis.length > 0 && (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-              {brief.kpis.map((kpi, i) => (
-                <div
-                  key={i}
-                  className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-                >
-                  <div className="text-lg font-bold text-slate-900 dark:text-white">
-                    {Number(kpi.value).toLocaleString()}
+              {brief.kpis.map((kpi, i) => {
+                // KPI values are upstream strings — some are non-numeric
+                // ("12%", "n/a"). Number("12%") is NaN, which used to render
+                // literally as "NaN" in the card.
+                const n = Number(String(kpi.value).replace(/,/g, ''));
+                return (
+                  <div
+                    key={i}
+                    className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+                  >
+                    <div className="text-lg font-bold text-slate-900 dark:text-white">
+                      {Number.isFinite(n) ? n.toLocaleString() : kpi.value}
+                    </div>
+                    <div className="text-mini leading-tight text-muted">{kpi.label}</div>
                   </div>
-                  <div className="text-mini leading-tight text-muted">{kpi.label}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
+
+          {currentDate && <DigestAnalysisPanel endpoint={`/api/v1/webamon-dtb/briefs/${currentDate}/analysis`} />}
 
           {brief.movements.length > 0 && (
             <CollapsibleCard title={`What Moved Today (${brief.movements.length})`} defaultOpen>
@@ -240,11 +249,24 @@ export default function WebamonDtb() {
                 {brief.clusters.entries.map((cl, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300))/0.5]"
+                    className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300))/0.5]"
                   >
                     <span className="text-xs font-medium text-body">{cl.type}</span>
-                    <span className="text-xs text-muted">
-                      {cl.domains.toLocaleString()} domains, +{cl.growth.toLocaleString()} ({cl.sample})
+                    <span className="flex shrink-0 items-center gap-2 text-xs text-muted">
+                      <span
+                        className={`rounded-full px-2 py-0.5 font-semibold ${
+                          cl.growth >= 1000
+                            ? 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300'
+                            : cl.growth >= 100
+                              ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+                              : 'bg-slate-200/70 text-slate-600 dark:bg-slate-700/50 dark:text-slate-300'
+                        }`}
+                      >
+                        +{cl.growth.toLocaleString()}
+                      </span>
+                      <span>
+                        {cl.domains.toLocaleString()} domains ({cl.sample})
+                      </span>
                     </span>
                   </div>
                 ))}

@@ -5,6 +5,15 @@ import { logError } from '../lib/logger';
 import { internalError, notFound, badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { trackEvent } from '../lib/analytics';
+import {
+  summarizePcmDigest,
+  buildPcmPrompt,
+  aiChat,
+  readCachedAnalysis,
+  writeCachedAnalysis,
+  type DigestAnalysis,
+} from '../lib/digest-ai';
 import {
   loadPcmIndex,
   getPcmDigest,
@@ -189,6 +198,53 @@ pcmedicalistRouter.get('/pcmedicalist/stats', async (c) => {
     });
   } catch (e) {
     return internalError(c, `pcm_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+/**
+ * GET /pcmedicalist/digests/:date/analysis — deterministic digest read plus
+ * a best-effort LLM analyst note. Same caching contract as the webamon-dtb
+ * analysis endpoint: immutable per date, cached indefinitely, zero D1.
+ */
+pcmedicalistRouter.get('/pcmedicalist/digests/:date/analysis', async (c) => {
+  try {
+    const date = c.req.param('date');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return c.json({ error: 'bad_request', message: 'date must be YYYY-MM-DD' }, 400);
+    }
+    const cached = await readCachedAnalysis('pcm', date, c.env.KV_CACHE);
+    if (cached) {
+      return c.json({ ...cached, cached: true }, 200, { 'cache-control': 'public, max-age=86400' });
+    }
+    const digest = await getPcmDigest(c.env.ASSETS, date);
+    if (!digest) {
+      return notFound(c, 'digest not found — check the date is YYYY-MM-DD and present in the index');
+    }
+    const { bullets, stats } = summarizePcmDigest(digest);
+    const analysis: DigestAnalysis = {
+      kind: 'pcm',
+      date,
+      generated_at: new Date().toISOString(),
+      bullets,
+      stats,
+      ai: null,
+    };
+    try {
+      const { system, user } = buildPcmPrompt(digest, bullets);
+      const { text, model } = await aiChat(c.env, system, user);
+      analysis.ai = { text, model };
+    } catch (e) {
+      analysis.ai_error = e instanceof Error ? e.message : String(e);
+    }
+    try {
+      trackEvent(c.env, 'digest_analysis', { blobs: ['pcm', analysis.ai ? 'ai' : 'deterministic'], doubles: [bullets.length] });
+    } catch {
+      /* analytics best-effort */
+    }
+    await writeCachedAnalysis(analysis, c.env.KV_CACHE);
+    return c.json({ ...analysis, cached: false }, 200, { 'cache-control': 'public, max-age=86400' });
+  } catch (e) {
+    return internalError(c, `pcm_analysis_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
 

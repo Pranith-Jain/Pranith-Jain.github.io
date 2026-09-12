@@ -6,6 +6,8 @@ import {
   parseOpenPhish,
   parseCisaKev,
   parseSslblC2,
+  parseThreatbaseTopIps,
+  parseSwiftioc,
   buildSummary,
 } from '../../src/lib/ioc-feed-parsers';
 
@@ -328,5 +330,87 @@ describe('buildSummary', () => {
     expect(s.count).toBe(2);
     expect(s.entries[0]!.type).toBe('url');
     expect(s.entries[0]!.value).toBe('http://phish1.example.com');
+  });
+});
+
+// ─── Threatbase top IPs ─────────────────────────────────────────────────
+const THREATBASE_FIXTURE = JSON.stringify({
+  generated_at: 'Sat, 12 Sep 2026 02:18:10 +0000',
+  ips: [
+    {
+      ip: '85.239.149.72',
+      feeds: 14,
+      score: 'HIGH',
+      tags: ['Brute-Force', 'Compromised'],
+      country: 'GB',
+      first_seen: '2026-09-02',
+      last_seen: '2026-09-12',
+    },
+    { ip: 'not-an-ip', feeds: 9, score: 'HIGH', tags: [], country: 'US', last_seen: '2026-09-12' },
+    { ip: '1.0.164.165', feeds: 6, score: 'HIGH', tags: ['Malicious'], country: 'US', last_seen: '2026-09-12' },
+  ],
+});
+
+describe('parseThreatbaseTopIps', () => {
+  it('maps ranked entries with corroboration context and timestamps', () => {
+    const entries = parseThreatbaseTopIps(THREATBASE_FIXTURE);
+    expect(entries).toHaveLength(2);
+    expect(entries[0]).toMatchObject({
+      type: 'ipv4',
+      value: '85.239.149.72',
+      context: '14 feeds Brute-Force|Compromised (GB)',
+      timestamp: '2026-09-12',
+    });
+  });
+
+  it('returns [] on malformed bodies', () => {
+    expect(parseThreatbaseTopIps('not json')).toEqual([]);
+    expect(parseThreatbaseTopIps('{"ips":"nope"}')).toEqual([]);
+    expect(parseThreatbaseTopIps('{"ips":[]}')).toEqual([]);
+  });
+
+  it('respects the cap', () => {
+    expect(parseThreatbaseTopIps(THREATBASE_FIXTURE, 1)).toHaveLength(1);
+  });
+
+  it('buildSummary routes threatbase correctly', () => {
+    const s = buildSummary('threatbase', THREATBASE_FIXTURE);
+    expect(s.source).toBe('threatbase');
+    expect(s.source_name).toBe('Threatbase Top IPs');
+    expect(s.count).toBe(2);
+  });
+});
+
+// ─── SwiftIOC high-confidence ───────────────────────────────────────────
+const SWIFTIOC_FIXTURE = [
+  'indicator,type,source,first_seen,last_seen,confidence,score,sightings,tlp,tags,reference,context',
+  '77[.]239[.]124[.]108,ipv4,"et_compromised,ipsum_level5",2026-08-21T04:32:04Z,2026-09-12T04:45:02Z,high,96,118,CLEAR,"Mirai,ssh",https://example.com/,Blocklist entry',
+  'evil[.]example[.]com,domain,"phish",2026-09-01T00:00:00Z,2026-09-12T00:00:00Z,high,90,12,CLEAR,"phishing",https://example.com/,x',
+  'nonsense-row-without-enough-columns',
+  '10.0.0.1,cve,"x",2026-09-01T00:00:00Z,2026-09-12T00:00:00Z,high,50,1,CLEAR,"t",https://example.com/,x',
+].join('\n');
+
+describe('parseSwiftioc', () => {
+  it('refangs indicators and keeps score context', () => {
+    const entries = parseSwiftioc(SWIFTIOC_FIXTURE);
+    expect(entries).toHaveLength(2);
+    expect(entries[0]).toMatchObject({
+      type: 'ipv4',
+      value: '77.239.124.108',
+      timestamp: '2026-09-12T04:45:02Z',
+    });
+    expect(entries[0]!.context).toContain('score 96');
+    expect(entries[1]).toMatchObject({ type: 'domain', value: 'evil.example.com' });
+  });
+
+  it('returns [] on malformed bodies', () => {
+    expect(parseSwiftioc('not a csv at all')).toEqual([]);
+  });
+
+  it('buildSummary routes swiftioc correctly', () => {
+    const s = buildSummary('swiftioc', SWIFTIOC_FIXTURE);
+    expect(s.source).toBe('swiftioc');
+    expect(s.source_name).toBe('SwiftIOC High-Confidence');
+    expect(s.count).toBe(2);
   });
 });
