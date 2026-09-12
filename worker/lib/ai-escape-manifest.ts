@@ -8,7 +8,7 @@
  *
  * Shape:
  *   /data/ai-escape/index.json              (slim rows + stats + guardrail counts)
- *   /data/ai-escape/incidents/<id>.json     (full dockets)
+ *   /data/ai-escape/incidents.json           (all dockets as {id: body}; bundled — see build script)
  *   /data/ai-escape/guardrails.json         (10 control definitions)
  *   /data/ai-escape/trackers.json           (provenance table)
  */
@@ -156,10 +156,17 @@ export async function loadEscapeIndex(assets: Fetcher, opts: { forceRefresh?: bo
   return idx;
 }
 
+let cachedDockets: Record<string, EscapeIncident> | null = null;
+
 export async function getEscapeIncident(assets: Fetcher, id: string): Promise<EscapeIncident | null> {
   const hit = trackHit(bodyCache, id);
   if (hit) return hit;
-  const body = await fetchJson<EscapeIncident>(assets, `${DATA_PREFIX}/incidents/${id}.json`);
+  if (!cachedDockets) {
+    const all = await fetchJson<Record<string, EscapeIncident>>(assets, `${DATA_PREFIX}/incidents.json`);
+    if (!all) return null;
+    cachedDockets = all;
+  }
+  const body = cachedDockets[id];
   if (!body) return null;
   return recordHit(bodyCache, id, body);
 }
@@ -235,5 +242,6 @@ export function _resetEscapeCacheForTests(): void {
   cachedIndexAt = null;
   cachedGuardrails = null;
   cachedTrackers = null;
+  cachedDockets = null;
   bodyCache.hits = bodyCache.misses = 0;
 }

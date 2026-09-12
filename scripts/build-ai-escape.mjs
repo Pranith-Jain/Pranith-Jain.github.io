@@ -34,9 +34,6 @@ function fail(msg) {
   console.error(`✘ ${msg}`);
   process.exit(1);
 }
-function safeId(id) {
-  return String(id).replace(/[^A-Za-z0-9._-]/g, '_');
-}
 
 if (!existsSync(SEED)) fail(`Seed missing: ${SEED}`);
 
@@ -51,7 +48,21 @@ const seenIds = new Set();
 const slim = [];
 
 for (const inc of incidents) {
-  for (const f of ['id', 'title', 'klass', 'sev', 'tier', 'occurred', 'disclosed', 'developer', 'actor', 'systems', 'targets', 'purpose', 'summary']) {
+  for (const f of [
+    'id',
+    'title',
+    'klass',
+    'sev',
+    'tier',
+    'occurred',
+    'disclosed',
+    'developer',
+    'actor',
+    'systems',
+    'targets',
+    'purpose',
+    'summary',
+  ]) {
     if (inc[f] === undefined || inc[f] === null || inc[f] === '') fail(`${inc.id ?? '?'}: missing required field ${f}`);
   }
   if (seenIds.has(inc.id)) fail(`duplicate incident id ${inc.id}`);
@@ -66,7 +77,8 @@ for (const inc of incidents) {
   if (!inc.chain || typeof inc.chain !== 'object') fail(`${inc.id}: missing chain`);
   for (const stage of CHAIN) {
     if (!(stage in inc.chain)) fail(`${inc.id}: chain missing stage ${stage}`);
-    if (inc.chain[stage] !== null && typeof inc.chain[stage] !== 'string') fail(`${inc.id}: chain.${stage} must be string|null`);
+    if (inc.chain[stage] !== null && typeof inc.chain[stage] !== 'string')
+      fail(`${inc.id}: chain.${stage} must be string|null`);
   }
   if (!Array.isArray(inc.failed)) fail(`${inc.id}: failed must be an array`);
   for (const g of inc.failed) {
@@ -83,9 +95,19 @@ for (const inc of incidents) {
     }
   }
   slim.push({
-    id: inc.id, title: inc.title, klass: inc.klass, sev: inc.sev, tier: inc.tier, cbs: inc.cbs,
-    occurred: inc.occurred, disclosed: inc.disclosed, dwell: inc.dwell ?? null,
-    autonomous: inc.autonomous, developer: inc.developer, purpose: inc.purpose, failed: inc.failed,
+    id: inc.id,
+    title: inc.title,
+    klass: inc.klass,
+    sev: inc.sev,
+    tier: inc.tier,
+    cbs: inc.cbs,
+    occurred: inc.occurred,
+    disclosed: inc.disclosed,
+    dwell: inc.dwell ?? null,
+    autonomous: inc.autonomous,
+    developer: inc.developer,
+    purpose: inc.purpose,
+    failed: inc.failed,
   });
 }
 
@@ -94,12 +116,19 @@ slim.sort((a, b) => a.occurred.localeCompare(b.occurred));
 // ── stats ──────────────────────────────────────────────────────────────────
 const n = slim.length;
 const tierA = slim.filter((i) => i.tier === 'A').length;
-const evalEnv = slim.filter((i) => ['CB-2026-0015', 'CB-2026-0014', 'CB-2026-0012', 'CB-2026-0009'].includes(i.id)).length;
+const evalEnv = slim.filter((i) =>
+  ['CB-2026-0015', 'CB-2026-0014', 'CB-2026-0012', 'CB-2026-0009'].includes(i.id)
+).length;
 const auto = slim.filter((i) => i.autonomous).length;
-const jobExact = slim.filter((i) => /doing exactly|as designed|as set|ordinary .*request|ordinary .*task/i.test(
-  (incidents.find((x) => x.id === i.id)?.purpose ?? '') + ' ' + (incidents.find((x) => x.id === i.id)?.summary ?? '')
-)).length;
-const dwells = slim.map((i) => i.dwell).filter((d) => typeof d === 'number').sort((a, b) => a - b);
+const jobExact = slim.filter((i) =>
+  /doing exactly|as designed|as set|ordinary .*request|ordinary .*task/i.test(
+    (incidents.find((x) => x.id === i.id)?.purpose ?? '') + ' ' + (incidents.find((x) => x.id === i.id)?.summary ?? '')
+  )
+).length;
+const dwells = slim
+  .map((i) => i.dwell)
+  .filter((d) => typeof d === 'number')
+  .sort((a, b) => a - b);
 const medianDwell = dwells.length ? dwells[Math.floor(dwells.length / 2)] : null;
 const guardCounts = {};
 for (const g of guardrails) guardCounts[g.id] = 0;
@@ -108,7 +137,7 @@ const topGuard = Object.entries(guardCounts).sort((a, b) => b[1] - a[1])[0];
 const lastDisclosed = [...slim].sort((a, b) => b.disclosed.localeCompare(a.disclosed))[0];
 
 if (existsSync(OUT)) rmSync(OUT, { recursive: true });
-mkdirSync(join(OUT, 'incidents'), { recursive: true });
+mkdirSync(OUT, { recursive: true });
 
 const index = {
   registry: seed.registry,
@@ -119,7 +148,10 @@ const index = {
   cbsWeights: CBS_WEIGHTS,
   chainStages: CHAIN,
   stats: {
-    entries: n, tierA, evalEnvBreaches: evalEnv, autonomous: auto,
+    entries: n,
+    tierA,
+    evalEnvBreaches: evalEnv,
+    autonomous: auto,
     medianDwellDays: medianDwell,
     dwellRange: dwells.length ? [dwells[0], dwells[dwells.length - 1]] : null,
     mostAbsentGuardrail: topGuard ? { id: topGuard[0], entries: topGuard[1] } : null,
@@ -131,12 +163,16 @@ const index = {
   incidents: slim,
 };
 writeFileSync(join(OUT, 'index.json'), JSON.stringify(index));
-for (const inc of incidents) {
-  writeFileSync(join(OUT, 'incidents', `${safeId(inc.id)}.json`), JSON.stringify(inc));
-}
+// Dockets ship as ONE map file, not per-id bodies: the Workers free plan
+// caps static assets at 20,000 files (per-id bodies pushed deploys over).
+const dockets = {};
+for (const inc of incidents) dockets[inc.id] = inc;
+writeFileSync(join(OUT, 'incidents.json'), JSON.stringify(dockets));
 writeFileSync(join(OUT, 'guardrails.json'), JSON.stringify({ updatedAt: new Date().toISOString(), guardrails }));
 writeFileSync(join(OUT, 'trackers.json'), JSON.stringify({ updatedAt: new Date().toISOString(), trackers }));
 
 console.log('✔ Built:');
-console.log(`    ${n} incidents (tiers A:${tierA}) · median dwell ${medianDwell ?? 'n/a'}d · most-absent ${topGuard?.[0]} (${topGuard?.[1]})`);
-console.log(`    public/data/ai-escape/ (index + ${n} dockets + guardrails + trackers)`);
+console.log(
+  `    ${n} incidents (tiers A:${tierA}) · median dwell ${medianDwell ?? 'n/a'}d · most-absent ${topGuard?.[0]} (${topGuard?.[1]})`
+);
+console.log(`    public/data/ai-escape/ (index + dockets bundle + guardrails + trackers)`);

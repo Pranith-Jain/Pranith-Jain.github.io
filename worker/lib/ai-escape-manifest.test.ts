@@ -99,7 +99,7 @@ const BODY_0010 = {
 function stubAssets(): Fetcher {
   const files: Record<string, unknown> = {
     '/data/ai-escape/index.json': INDEX,
-    '/data/ai-escape/incidents/CB-2026-0010.json': BODY_0010,
+    '/data/ai-escape/incidents.json': { 'CB-2026-0010': BODY_0010 },
     '/data/ai-escape/guardrails.json': { guardrails: [{ id: 'EGRESS', title: 'Egress', def: 'Allowlist only.' }] },
     '/data/ai-escape/trackers.json': {
       trackers: [{ name: 'T', url: 'https://example.invalid/', kind: 'lab', holds: 'logs', checked: '2026-09-06' }],

@@ -31,11 +31,10 @@ const MAX_BODIES = 200;
 function ensureDir(p) {
   mkdirSync(p, { recursive: true });
 }
-function safeFilename(slug) {
-  return String(slug).replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
-}
 function short(s, n = 200) {
-  const t = String(s ?? '').replace(/\s+/g, ' ').trim();
+  const t = String(s ?? '')
+    .replace(/\s+/g, ' ')
+    .trim();
   if (!t) return null;
   return t.length > n ? t.slice(0, n - 1) + '…' : t;
 }
@@ -59,7 +58,9 @@ for (const f of profileFiles) {
   try {
     const p = JSON.parse(readFileSync(join(STAGING, 'profiles', f), 'utf8'));
     if (p?.slug) profiles.set(p.slug, p);
-  } catch { /* skip corrupt */ }
+  } catch {
+    /* skip corrupt */
+  }
 }
 
 const nowMs = Date.now();
@@ -93,17 +94,62 @@ for (const g of groups) {
     mirrors: locs.length,
     up_mirrors: upMirrors,
     has_profile: Boolean(p),
-    blurb: short(meta) ?? (a
-      ? `${a.victims_7d} victim${a.victims_7d === 1 ? '' : 's'} in the last 7d across ${a.origins.length} tracker${a.origins.length === 1 ? '' : 's'}.`
-      : 'No victim claims in the current activity window.'),
+    blurb:
+      short(meta) ??
+      (a
+        ? `${a.victims_7d} victim${a.victims_7d === 1 ? '' : 's'} in the last 7d across ${a.origins.length} tracker${a.origins.length === 1 ? '' : 's'}.`
+        : 'No victim claims in the current activity window.'),
   });
 }
 
 // Most-recently-changed first for the "moved most recently" rail; keep A–Z available client-side.
+const shardOf = {};
 const byRecent = [...rows].sort((a, b) => String(b.last_seen ?? '').localeCompare(String(a.last_seen ?? '')));
 
 if (existsSync(OUT)) rmSync(OUT, { recursive: true });
 ensureDir(GROUPS_OUT);
+
+// Bodies: enriched profiles + any group with 7d activity (cap MAX_BODIES, activity first).
+// SHARDED (not per-slug files): the Workers free plan caps static assets at
+// 20,000 files and dist/ already runs ~19.9k. 43 body files pushed deploys
+// over the cap (Workers Builds failure, 2026-09-12), so bodies ship as
+// shard maps {slug: body} — same pattern as the living-threat shards.
+const SHARD_SIZE = 16;
+const bodySlugs = [...rows]
+  .sort((a, b) => b.victims_7d - a.victims_7d || (b.has_profile ? 1 : 0) - (a.has_profile ? 1 : 0))
+  .filter((r) => r.has_profile || r.victims_7d > 0)
+  .slice(0, MAX_BODIES);
+
+let shardCount = 0;
+for (const r of bodySlugs) {
+  const p = profiles.get(r.slug);
+  const locs = (p?.profiles ?? []).flatMap((pr) => pr.locations ?? []).filter((l) => l.fqdn);
+  const body = {
+    ...r,
+    meta: (p?.profiles ?? []).map((pr) => pr.meta).find(Boolean) ?? null,
+    meta_source: p ? 'Ransomlook group profile (abridged, screen bytes omitted)' : null,
+    mirrors_detail: locs.map((l) => ({
+      fqdn: l.fqdn,
+      title: l.title,
+      available: l.available,
+      updated: l.updated,
+      version: l.version,
+    })),
+    victims_sample: (samples[r.slug] ?? []).slice(0, 20),
+    source_urls: {
+      ransomlook: `https://www.ransomlook.io/api/group/${encodeURIComponent(r.name)}`,
+      ransomware_live: 'https://www.ransomware.live/',
+    },
+  };
+  const idx = Math.floor(shardCount / SHARD_SIZE);
+  const file = join(GROUPS_OUT, `shard-${String(idx).padStart(4, '0')}.json`);
+  let shard = {};
+  if (existsSync(file)) shard = JSON.parse(readFileSync(file, 'utf8'));
+  shard[r.slug] = body;
+  writeFileSync(file, JSON.stringify(shard));
+  shardOf[r.slug] = idx;
+  shardCount++;
+}
 
 const index = {
   source: 'Ransomlook.io + ransomware.live (merged, clearnet aggregation — no Tor egress)',
@@ -118,35 +164,25 @@ const index = {
     profiled,
     with_activity: Object.keys(perGroup).length,
   },
-  // Slim rows only — bodies ship separately.
+  // Slim rows only — bodies ship in shard files (see build script).
   groups: rows,
-  recent: byRecent.filter((r) => r.last_seen).slice(0, 12).map((r) => r.slug),
+  recent: byRecent
+    .filter((r) => r.last_seen)
+    .slice(0, 12)
+    .map((r) => r.slug),
 };
+// Rows whose bodies shipped carry their shard index so the loader fetches
+// exactly one shard file; rows without bodies synthesize from the row.
+// (Assigned BEFORE the index write so shard pointers ship in index.json.)
+for (const r of rows) {
+  if (r.slug in shardOf) r.shard = shardOf[r.slug];
+}
 writeFileSync(join(OUT, 'index.json'), JSON.stringify(index));
 
-// Bodies: enriched profiles + any group with 7d activity (cap MAX_BODIES, activity first).
-const bodySlugs = [...rows]
-  .sort((a, b) => (b.victims_7d - a.victims_7d) || (b.has_profile ? 1 : 0) - (a.has_profile ? 1 : 0))
-  .filter((r) => r.has_profile || r.victims_7d > 0)
-  .slice(0, MAX_BODIES);
-
-for (const r of bodySlugs) {
-  const p = profiles.get(r.slug);
-  const locs = (p?.profiles ?? []).flatMap((pr) => pr.locations ?? []).filter((l) => l.fqdn);
-  const body = {
-    ...r,
-    meta: (p?.profiles ?? []).map((pr) => pr.meta).find(Boolean) ?? null,
-    meta_source: p ? 'Ransomlook group profile (abridged, screen bytes omitted)' : null,
-    mirrors_detail: locs.map((l) => ({ fqdn: l.fqdn, title: l.title, available: l.available, updated: l.updated, version: l.version })),
-    victims_sample: (samples[r.slug] ?? []).slice(0, 20),
-    source_urls: {
-      ransomlook: `https://www.ransomlook.io/api/group/${encodeURIComponent(r.name)}`,
-      ransomware_live: 'https://www.ransomware.live/',
-    },
-  };
-  writeFileSync(join(GROUPS_OUT, `${safeFilename(r.slug)}.json`), JSON.stringify(body));
-}
-
 console.log('✔ Built:');
-console.log(`    ${rows.length} groups (index) · ${upCount} sites up · ${activeWeek} active this week · ${profiled} profiled`);
-console.log(`    ${bodySlugs.length} bodies (public/data/ransomware-groups/groups/)`);
+console.log(
+  `    ${rows.length} groups (index) · ${upCount} sites up · ${activeWeek} active this week · ${profiled} profiled`
+);
+console.log(
+  `    ${bodySlugs.length} bodies in ${new Set(bodySlugs.map((_, i) => Math.floor(i / SHARD_SIZE))).size} shards (public/data/ransomware-groups/groups/)`
+);
