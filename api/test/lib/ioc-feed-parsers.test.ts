@@ -6,6 +6,7 @@ import {
   parseOpenPhish,
   parseCisaKev,
   parseSslblC2,
+  parseThreatbaseTopIps,
   buildSummary,
 } from '../../src/lib/ioc-feed-parsers';
 
@@ -328,5 +329,53 @@ describe('buildSummary', () => {
     expect(s.count).toBe(2);
     expect(s.entries[0]!.type).toBe('url');
     expect(s.entries[0]!.value).toBe('http://phish1.example.com');
+  });
+});
+
+// ─── Threatbase top IPs ─────────────────────────────────────────────────
+const THREATBASE_FIXTURE = JSON.stringify({
+  generated_at: 'Sat, 12 Sep 2026 02:18:10 +0000',
+  ips: [
+    {
+      ip: '85.239.149.72',
+      feeds: 14,
+      score: 'HIGH',
+      tags: ['Brute-Force', 'Compromised'],
+      country: 'GB',
+      first_seen: '2026-09-02',
+      last_seen: '2026-09-12',
+    },
+    { ip: 'not-an-ip', feeds: 9, score: 'HIGH', tags: [], country: 'US', last_seen: '2026-09-12' },
+    { ip: '1.0.164.165', feeds: 6, score: 'HIGH', tags: ['Malicious'], country: 'US', last_seen: '2026-09-12' },
+  ],
+});
+
+describe('parseThreatbaseTopIps', () => {
+  it('maps ranked entries with corroboration context and timestamps', () => {
+    const entries = parseThreatbaseTopIps(THREATBASE_FIXTURE);
+    expect(entries).toHaveLength(2);
+    expect(entries[0]).toMatchObject({
+      type: 'ipv4',
+      value: '85.239.149.72',
+      context: '14 feeds Brute-Force|Compromised (GB)',
+      timestamp: '2026-09-12',
+    });
+  });
+
+  it('returns [] on malformed bodies', () => {
+    expect(parseThreatbaseTopIps('not json')).toEqual([]);
+    expect(parseThreatbaseTopIps('{"ips":"nope"}')).toEqual([]);
+    expect(parseThreatbaseTopIps('{"ips":[]}')).toEqual([]);
+  });
+
+  it('respects the cap', () => {
+    expect(parseThreatbaseTopIps(THREATBASE_FIXTURE, 1)).toHaveLength(1);
+  });
+
+  it('buildSummary routes threatbase correctly', () => {
+    const s = buildSummary('threatbase', THREATBASE_FIXTURE);
+    expect(s.source).toBe('threatbase');
+    expect(s.source_name).toBe('Threatbase Top IPs');
+    expect(s.count).toBe(2);
   });
 });

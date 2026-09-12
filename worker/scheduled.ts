@@ -33,6 +33,7 @@ import { fetchXFeed } from '../api/src/routes/x-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmCveRecentCache } from '../api/src/routes/cve-recent';
 import { warmRansomwareRecentCache } from '../api/src/routes/ransomware-recent';
+import { warmPromptintelCache } from '../api/src/routes/promptintel';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
 import { checkAddressWatches } from '../api/src/lib/address-watch';
@@ -285,6 +286,15 @@ export async function executeCronJob(
             console.log(JSON.stringify({ job: 'ransomware-recent-warm', count: warm.count, ok: warm.ok }));
           } catch (e) {
             logCronFail('ransomware-recent-warm')(e);
+          }
+          // PromptIntel IoPC taxonomy + health — 2 small upstream fetches,
+          // same top-of-hour reasoning as the warms above (cheap, keeps the
+          // /api/v1/promptintel/* handlers on cache hits).
+          try {
+            const warm = await warmPromptintelCache(env as unknown as ApiEnv);
+            console.log(JSON.stringify({ job: 'promptintel-warm', ok: warm.ok, taxonomy: warm.taxonomy }));
+          } catch (e) {
+            logCronFail('promptintel-warm')(e);
           }
 
           // === Daily Briefs sync (every 6 hours) ==============================
