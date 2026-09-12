@@ -1,0 +1,86 @@
+{
+  "slug": "nightspire",
+  "name": "nightspire",
+  "fetchedAt": "2026-09-12T06:12:55.265Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "nspireyzmvapgiwgtuoznlafqvlyz7ey6himtgn5bdvdcowfyto3yryd.onion",
+          "title": "NightSpire",
+          "version": 3,
+          "available": false,
+          "updated": "2025-04-27 12:14:03.562",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "nspireyzmvapgiwgtuoznlafqvlyz7ey6himtgn5bdvdcowfyto3yryd.onion",
+          "title": "NightSpire",
+          "version": 3,
+          "available": false,
+          "updated": "2025-04-27 16:15:17.741",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "a2lyiiaq4n74tlgz4fk3ft4akolapfrzk772dk24iq32cznjsmzpanqd.onion",
+          "title": "NightSpire",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-03 09:04:25.698",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "nspiremkiq44zcxjbgvab4mdedyh2pzj5kzbmvftcugq3mczx3dqogid.onion",
+          "title": "RaaS Service Started | NightSpire",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-29 15:10:16.401",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "nspirebcv4sy3yydtaercuut34hwc4fsxqqv4b4ye4xmo6qp3vxhulqd.onion",
+          "title": "RaaS Service Started | NightSpire",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-29 15:03:21.708",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "nspirebcv4sy3yydtaercuut34hwc4fsxqqv4b4ye4xmo6qp3vxhulqd.onion",
+          "title": "Database | NightSpire",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-29 15:19:31.332",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "nspirep7orjq73k2x2fwh2mxgh74vm2now6cdbnnxjk2f5wn34bmdxad.onion",
+          "title": "RaaS Service Started",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 00:01:54.093",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "p3reixfwlpjtein4yta3kiwyijxdktypcipz6jjq4wgbyi73e3fsmeyd.onion",
+          "title": "Login - File Browser",
+          "version": 3,
+          "available": false,
+          "updated": "2026-07-09 12:37:41.590",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

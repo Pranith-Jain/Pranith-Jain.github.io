@@ -1,0 +1,97 @@
+{
+  "slug": "thegentlemen",
+  "name": "the gentlemen",
+  "victims_7d": 47,
+  "victims_total": 884,
+  "last_seen": "2026-09-09T22:09:03.354Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": false,
+  "mirrors": 2,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "47 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "tezwsse5czllksjb7cwp65rvnk4oobmzti2znn42i43bjdfd2prqqkad.onion",
+      "title": "Gentlecloud Protection",
+      "available": false,
+      "updated": "2026-08-05 18:08:03.194",
+      "version": 3
+    },
+    {
+      "fqdn": "i2ohjeeqe37jre4f2u7pyq73cbm6lecumdxapkvrlryna6rc3it4zsid.onion",
+      "title": "",
+      "available": false,
+      "updated": "2025-12-17 17:47:25.851881",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "Air Canada",
+      "discovered": "2026-09-09T18:20:49.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "PharmaEssentia Corporation",
+      "discovered": "2026-09-09T17:13:49.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Superstore",
+      "discovered": "2026-09-07T19:00:35.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "AbacoViaggi",
+      "discovered": "2026-09-07T18:13:18.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "El Carriel",
+      "discovered": "2026-09-07T18:13:17.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Ritz Safety",
+      "discovered": "2026-09-07T18:00:38.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Comin Sac",
+      "discovered": "2026-09-07T18:00:37.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Biotipo Jeans",
+      "discovered": "2026-09-07T17:37:38.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Domis",
+      "discovered": "2026-09-07T17:25:21.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Metro",
+      "discovered": "2026-09-07T17:25:20.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/the%20gentlemen",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

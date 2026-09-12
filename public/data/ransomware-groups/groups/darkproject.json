@@ -1,0 +1,110 @@
+{
+  "slug": "darkproject",
+  "name": "dark project",
+  "victims_7d": 8,
+  "victims_total": 33,
+  "last_seen": "2026-09-09T16:35:12.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": true,
+  "mirrors": 9,
+  "up_mirrors": 2,
+  "has_profile": true,
+  "blurb": "8 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion",
+      "title": "Dark Project",
+      "available": false,
+      "updated": "2026-09-11 23:00:17.296",
+      "version": 3
+    },
+    {
+      "fqdn": "wjcml4mxpcvsmjxm33zhjb46nzutxk6g3f5w23fopgpwj6pqjcidiyqd.onion",
+      "title": "Home · File index",
+      "available": false,
+      "updated": "2026-09-12 03:01:52.084",
+      "version": 3
+    },
+    {
+      "fqdn": "7iphetz64a7iihcpwr3nirjioghyt6lrku62gu4z7f3zo7rcz5qrgvad.onion",
+      "title": "",
+      "available": false,
+      "updated": "2026-08-05 16:01:27.369820",
+      "version": 3
+    },
+    {
+      "fqdn": "3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion",
+      "title": "",
+      "available": false,
+      "updated": "2026-09-11 23:37:34.196",
+      "version": 3
+    },
+    {
+      "fqdn": "tjaaioz32salcoj63ttxra6nfqggwbcezkzpwnhyoiwq5tuimzmsb3qd.onion",
+      "title": "Home · File index",
+      "available": true,
+      "updated": "2026-09-12 06:03:03.331",
+      "version": 3
+    },
+    {
+      "fqdn": "x2jz63qemhcbhyskzt3pie757oicdkctk2rh5dpykmxsw2yoayeqs5yd.onion",
+      "title": "Home · File index",
+      "available": false,
+      "updated": "2026-09-11 19:02:34.505",
+      "version": 3
+    },
+    {
+      "fqdn": "pokttabd2hod47ladeeoin22wmq4remyo3wshwvxfuhgqygcbezq2qqd.onion",
+      "title": "Home · File index",
+      "available": true,
+      "updated": "2026-09-12 06:01:34.308",
+      "version": 3
+    },
+    {
+      "fqdn": "2zl5qc3mqap7vziqfis65oyjcgdiedigoequxbqsn6uwian7ieozvoqd.onion",
+      "title": "Home · File index",
+      "available": false,
+      "updated": "2026-09-12 00:09:20.743",
+      "version": 3
+    },
+    {
+      "fqdn": "t2ru74fbgut26xnagtrl4ajeh5vqytrl6cpr6cubmr6sqdxk5guh5mqd.onion",
+      "title": "Home · File index",
+      "available": false,
+      "updated": "2026-09-11 21:01:50.655",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "Specchem LLC",
+      "discovered": "2026-09-09T16:35:12.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=specchem-llc"
+    },
+    {
+      "victim": "MEI Architects",
+      "discovered": "2026-09-08T00:41:00.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=mei-architects"
+    },
+    {
+      "victim": "Alurwalls",
+      "discovered": "2026-09-07T20:42:56.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=alurwalls"
+    },
+    {
+      "victim": "Master Manufacturing Co., Inc.",
+      "discovered": "2026-09-07T20:42:55.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=master-manufacturing-co-inc"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/dark%20project",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

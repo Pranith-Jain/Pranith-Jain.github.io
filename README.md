@@ -27,6 +27,8 @@ A live CTI surface that updates itself: ransomware leak-site + negotiation track
 | Surface                                 | What it does                                                                                                       |
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | Live Ransomware Activity                | Leak-site claims merged across Ransomlook, ransomware.live, MyThreatIntel & Andrea Fortuna; per-victim screenshots |
+| Ransomware Groups Directory             | 620-group leak-site directory — status, 7d victims, profiles, recent moves (Sinon-style reference)                 |
+| AI Escape Watch                         | 15-incident agent containment-failure registry — CBS scores, 7-stage chains, absent-guardrail analysis             |
 | Ransomware Negotiations                 | ransomware.live PRO negotiation chats — demand vs. settled, discount %, full transcripts                           |
 | Actor Activity Timeline                 | Per-actor leak-site cadence heatmap + MITRE ATT&CK group/TTP pivot                                                 |
 | Victim Re-leak Trends                   | Sector + operation-type breakdowns, group re-claim pairs, re-leak timeline                                         |

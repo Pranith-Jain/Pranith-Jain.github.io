@@ -1,0 +1,90 @@
+{
+  "slug": "vexy",
+  "name": "vexy",
+  "victims_7d": 7,
+  "victims_total": 12,
+  "last_seen": "2026-09-10T23:43:42.000Z",
+  "origins": ["ransomlook"],
+  "online": false,
+  "mirrors": 1,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "7 victims in the last 7d across 1 tracker.",
+  "meta": null,
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion",
+      "title": "Vexy Ransomware | Blog",
+      "available": false,
+      "updated": "2026-09-12 03:00:05.480",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "i2k2 Networks",
+      "discovered": "2026-09-10T23:43:42.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Logar Network Solutions",
+      "discovered": "2026-09-09T18:40:32.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "United Group",
+      "discovered": "2026-09-07T19:36:13.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "LIBRERIA SANTA FE A P S SRL",
+      "discovered": "2026-09-07T11:39:12.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Sancity",
+      "discovered": "2026-09-06T17:36:08.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "McDonalds Ecuador",
+      "discovered": "2026-09-06T14:40:59.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Mega Velocity",
+      "discovered": "2026-09-06T02:38:05.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Sancity Soft Touch",
+      "discovered": "2026-09-04T18:33:05.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Palsana Enviro (PEPL)",
+      "discovered": "2026-09-04T17:34:53.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Annapurna Fashion",
+      "discovered": "2026-09-04T17:34:52.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/vexy",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

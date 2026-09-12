@@ -1,0 +1,143 @@
+{
+  "slug": "chaos",
+  "name": "chaos",
+  "victims_7d": 8,
+  "victims_total": 95,
+  "last_seen": "2026-09-10T19:42:38.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": true,
+  "mirrors": 12,
+  "up_mirrors": 1,
+  "has_profile": true,
+  "blurb": "Chaos is a rapidly evolving Ransomware-as-a-Service (RaaS) group first observed in early 2025. It is considered distinct and unaffiliated with the Chaos Ransomware Builder that originated around 2021…",
+  "meta": "Chaos is a rapidly evolving Ransomware-as-a-Service (RaaS) group first observed in early 2025. It is considered distinct and unaffiliated with the Chaos Ransomware Builder that originated around 2021. Known for highly aggressive double-extortion operations, Chaos targets organizations across multiple platforms—Windows, ESXi, Linux, and NAS—with fast, configurable encryption mechanisms and optional partial-file targeting for stealth. Attackers gain access through vulnerabilities, phishing, or brokered credentials, then encrypt files while threatening to leak or destroy stolen data. Notable incidents include the breach of Optima Tax Relief, in which the group exfiltrated 69 GB of sensitive data before encrypting systems.",
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "hptqq2o2qjva7lcaaq67w36jihzivkaitkexorauw7b2yul2z6zozpqd.onion",
+      "title": "CHAOS",
+      "available": false,
+      "updated": "2026-09-12 02:01:57.090",
+      "version": 3
+    },
+    {
+      "fqdn": "httj32vkww42kq3kjbsbuuv2izalkvswuyf5hepdodakrjq42ploe6ad.onion",
+      "title": "Index of /",
+      "available": false,
+      "updated": "2025-07-02 04:14:00.086",
+      "version": 3
+    },
+    {
+      "fqdn": "2yxf2ald2c67twt4663piypum2fu6yt4su453naxsdiilpd4m7pgu6qd.onion",
+      "title": "Index of /",
+      "available": false,
+      "updated": "2025-07-02 04:14:05.087",
+      "version": 3
+    },
+    {
+      "fqdn": "k6wtpxwq72gpeil5hqofae7yhbtxphbkyoe2g7rwmpx5sadc4sgsfvid.onion",
+      "title": "Index of /",
+      "available": false,
+      "updated": "2025-06-09 16:02:46.452",
+      "version": 3
+    },
+    {
+      "fqdn": "qf4p6ul3g7wyvynkxawlu7ganvgbk44myl35jqfa3aroass33dbvmdyd.onion",
+      "title": "Index of /goosehead/",
+      "available": false,
+      "updated": "2026-09-11 23:07:29.208",
+      "version": 3
+    },
+    {
+      "fqdn": "cdgi6zjox6zr5epk7k5rg673qduxy7dlkk7ws3n4vusspr5bmhx24aqd.onion",
+      "title": "CHAOS",
+      "available": false,
+      "updated": "2026-06-16 08:11:19.414",
+      "version": 3
+    },
+    {
+      "fqdn": "bna6mhximutqknymisjbp277swmhf7gocambh6y62qmdtup34unjs7yd.onion",
+      "title": "Index of /",
+      "available": false,
+      "updated": "2025-07-02 04:01:20.460",
+      "version": 3
+    },
+    {
+      "fqdn": "een55qvybeygshxbblvfevk6uzcs6lhpj6num7ymbpw7z6cehozszlad.onion",
+      "title": "Index of /",
+      "available": false,
+      "updated": "2025-07-02 05:02:50.179",
+      "version": 3
+    },
+    {
+      "fqdn": "s2godak5cr4bflmcmiqjgow2b7clgs7szgf4h3ofqn7lyh6mdpvei5yd.onion",
+      "title": null,
+      "available": false,
+      "updated": "2025-09-30 22:33:16.305870",
+      "version": 3
+    },
+    {
+      "fqdn": "hptqq2o2qjva7lcaaq67w36jihzivkaitkexorauw7b2yul2z6zozpqd.onion",
+      "title": "",
+      "available": true,
+      "updated": "2026-09-12 05:01:55.136",
+      "version": 3
+    },
+    {
+      "fqdn": "qf4p6ul3g7wyvynkxawlu7ganvgbk44myl35jqfa3aroass33dbvmdyd.onion",
+      "title": "403 Forbidden",
+      "available": false,
+      "updated": "2026-09-12 02:25:12.298",
+      "version": 3
+    },
+    {
+      "fqdn": "myz2p6mzvbawxggfmakgwshq3ohfk37zmgwjbft7ssggbf2tokonecad.onion",
+      "title": "403 Forbidden",
+      "available": false,
+      "updated": "2026-09-11 14:06:28.260",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "mankatoclinic.com",
+      "discovered": "2026-09-10T19:42:38.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/Rct2l4z0PDB9rUIwh31yc0cSk5utsqfl/mankatoclinic-com"
+    },
+    {
+      "victim": "artiflexmfg.com",
+      "discovered": "2026-09-10T19:42:37.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/PzfXqKW5FK3vzC3lKchrNzIU8vn32VKA/artiflexmfg-com"
+    },
+    {
+      "victim": "copeplastics.com",
+      "discovered": "2026-09-09T00:39:52.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/8q2RrLiN6uJyo3CWGnW7QE1SXOQCfPCb/copeplastics-com"
+    },
+    {
+      "victim": "evergenbio.com",
+      "discovered": "2026-09-06T16:39:48.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/MU7nZVTkyUp3ngugKlwOnyVtxCATQdyB/evergenbio-com"
+    },
+    {
+      "victim": "corematerials.com",
+      "discovered": "2026-08-28T20:33:11.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/Y1fpWBmDHkS9UVcAr34ryui3hKyJrn7R/corematerials-com"
+    },
+    {
+      "victim": "macallister.com",
+      "discovered": "2026-08-28T20:33:10.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/HWYpccK3tQd2VIazsCSTQ72a2gcLaAhr/macallister-com"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/chaos",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

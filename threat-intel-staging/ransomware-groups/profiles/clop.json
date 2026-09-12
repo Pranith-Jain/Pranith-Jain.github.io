@@ -1,0 +1,113 @@
+{
+  "slug": "clop",
+  "name": "clop",
+  "fetchedAt": "2026-09-12T06:12:59.480Z",
+  "profiles": [
+    {
+      "captcha": true,
+      "meta": "Clop is a ransomware which uses the .clop extension after having encrypted the victim's files. Another unique characteristic belonging with Clop is in the string: \"Dont Worry C|0P\" included into the ransom notes. It is a variant of CryptoMix ransomware, but it additionally attempts to disable Windows Defender and to remove the Microsoft Security Essentials in order to avoid user space detection.",
+      "locations": [
+        {
+          "fqdn": "ekbgzchl6x2ias37.onion",
+          "title": "HOME | CL0P^_- LEAKS",
+          "version": 2,
+          "available": false,
+          "updated": "2022-08-19 02:13:02.704101",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "santat7kpllt6iyvqbr7q4amdv6dzrh6paatvyrzl7ry3zm72zigf4ad.onion",
+          "title": "HOME | CL0P^_- LEAKS",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 23:02:04.234",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "3ws3t4uo7fehnn4qpmadk3zjrxta5xlt3gsc5mx4sztrsy7ficuz5ayd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-15 13:29:35.540",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "amnwxasjtjc6e42siac6t45mhbkgtycrx5krv7sf5festvqxmnchuayd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-15 13:00:28.652",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "qahjimrublt35jlv4teesicrw6zhpwhkb6nhtonwxuqafmjhr7hax2id.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-15 13:15:44.613",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "npkoxkuygikbkpuf5yxte66um727wmdo2jtpg2djhb2e224i4r25v7ad.onion",
+          "title": "404 Not Found",
+          "version": 3,
+          "available": false,
+          "updated": "2025-01-22 11:15:51.281",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "6v4q5w7di74grj2vtmikzgx2tnq5eagyg2cubpcnqrvvee2ijpmprzqd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2025-01-22 12:03:03.388",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "l4rdimrqyonulqjttebry4t6wuzgjv5m62rnpjho3q22a6maf6d5evyd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2025-11-09 04:03:00.563",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "frgp3f3u2ddafv4ny7tqn6tc674m6fyymyywoaxot7xskbjmiyhhsyqd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-02-20 12:24:32.088",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "htmxyptur5wfjrd7uvg23snupub2pbtlfelk45n37b3augl2w4eearid.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 06:00:20.400",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "2vi357dgf4246nvrcsavrt5jsrm7pfqim4t2n3ykzedjim5bzqezmlyd.onion",
+          "title": "403 Forbidden",
+          "version": 0,
+          "available": false,
+          "updated": "2025-10-09 10:02:35.837",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

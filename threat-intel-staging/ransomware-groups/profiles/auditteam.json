@@ -1,0 +1,32 @@
+{
+  "slug": "auditteam",
+  "name": "audit team",
+  "fetchedAt": "2026-09-12T06:12:52.541Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": null,
+      "locations": [
+        {
+          "fqdn": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
+          "title": "/// DATA EXPOSURE TERMINAL ///",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 03:02:16.969",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "cjg2avmzoly7k6mw7xobnyre354jxro4qegkoazhsmigdk2j3aziexyd.onion",
+          "title": "[ SYSTEM ERROR ]",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 01:00:04.299",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

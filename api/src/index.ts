@@ -103,6 +103,12 @@ import {
 } from './routes/telegram-feed';
 import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
+import {
+  promptintelHealthHandler,
+  promptintelTaxonomyHandler,
+  promptintelPromptsHandler,
+  promptintelEntryHandler,
+} from './routes/promptintel';
 import { cveThreatMapHandler } from './routes/cve-threat-map';
 import { cvePocScanHandler } from './routes/cve-poc-scan';
 import { cvePocMapHandler } from './routes/cve-poc-map';
@@ -1055,6 +1061,8 @@ import { threatIntelRouter } from './routes/threat-intel-edge-tools';
 import { dailyBriefsRouter } from './routes/daily-briefs-edge-tools';
 import { webamonDtbRouter } from './routes/webamon-dtb';
 import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
+import { aiEscapeRouter } from './routes/ai-escape';
+import { ransomwareGroupsRouter } from './routes/ransomware-groups';
 import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
 import { pcmedicalistRouter } from './routes/pcmedicalist';
@@ -1402,6 +1410,12 @@ app.post('/api/v1/research-digest', researchDigestHandler);
 app.post('/api/v1/darkweb-intel', darkwebIntelHandler);
 app.post('/api/v1/knowledge-graph', knowledgeGraphHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
+// PromptIntel IoPC registry (NovaHunting) — cached taxonomy/health + live
+// keyed prompt search. Keyed handlers degrade to 501 without the secret.
+app.get('/api/v1/promptintel/health', promptintelHealthHandler);
+app.get('/api/v1/promptintel/taxonomy', promptintelTaxonomyHandler);
+app.get('/api/v1/promptintel/taxonomy/entries/:id', promptintelEntryHandler);
+app.get('/api/v1/promptintel/prompts', promptintelPromptsHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/cve-poc-scan', cvePocScanHandler);
 app.get('/api/v1/cve-poc-map', cvePocMapHandler);
@@ -2061,6 +2075,14 @@ app.get('/api/v1/si/scripts/:name', siScriptHandler);
 // Data from github.com/cybershujin/Threat-Actors-use-of-Artifical-Intelligence (MIT).
 // Source: https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/
 app.route('/api/v1', aiThreatsRouter);
+
+// Ransomware Groups directory — Sinon-style leak-site group reference.
+// Static manifest in public/data/ransomware-groups/ (Ransomlook + ransomware.live).
+app.route('/api/v1', ransomwareGroupsRouter);
+
+// AI Escape Watch — agent containment-failure registry.
+// Static manifest in public/data/ai-escape/ (curatorial seed, reviewed via PR).
+app.route('/api/v1', aiEscapeRouter);
 
 // OSS Feed Registry — curated catalog of 145+ free open-source threat intel feeds.
 // Data from github.com/Bert-JanP/Open-Source-Threat-Intel-Feeds (BSD-3-Clause).

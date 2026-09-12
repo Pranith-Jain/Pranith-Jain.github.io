@@ -1,0 +1,41 @@
+{
+  "slug": "aurora",
+  "name": "aurora",
+  "fetchedAt": "2026-09-12T06:12:57.452Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": null,
+      "locations": [
+        {
+          "fqdn": "ijexszhscln27nl263lmcd7tx3jttkhm4wjhd4e3y6r4csdbfyeprvid.onion",
+          "title": "Negotiation Chat",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 06:00:38.374",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "pavregldzg2ypbd3gxbil2suxfok7ykmcknwhkli24anpks6lndymyyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 15:33:11.090",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "exposedrecords.io",
+          "title": null,
+          "version": 0,
+          "available": false,
+          "updated": "2026-06-22 16:23:23.022801",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

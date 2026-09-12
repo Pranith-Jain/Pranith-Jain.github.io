@@ -1,0 +1,104 @@
+{
+  "slug": "akira",
+  "name": "akira",
+  "victims_7d": 14,
+  "victims_total": 1623,
+  "last_seen": "2026-09-10T16:36:00.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": false,
+  "mirrors": 3,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "Akira is a ransomware group first observed in March 2023, targeting both Windows and Linux environments, with a particular focus on corporate networks and VMware ESXi servers. The group employs a dou…",
+  "meta": "Akira is a ransomware group first observed in March 2023, targeting both Windows and Linux environments, with a particular focus on corporate networks and VMware ESXi servers. The group employs a double extortion model, stealing sensitive data before encrypting systems and threatening to leak it on a Tor-based leak site if ransom demands are not met. Akira typically gains initial access through exploitation of unpatched VPN services, compromised RDP credentials, phishing, or abuse of legitimate remote administration tools. Its Windows variant uses the Windows CryptoAPI to encrypt files, appending the “.akira” extension while skipping critical system folders to maintain system stability. Ransom demands have ranged from $200,000 to over $4 million, typically requested in Bitcoin, and the group has been linked to high-profile incidents affecting education, manufacturing, and healthcare sectors. Akira appears to operate independently rather than as a Ransomware-as-a-Service, and continues to evolve, with recent variants improving encryption speed and evasion techniques.",
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion",
+      "title": "",
+      "available": false,
+      "updated": "2026-09-11 14:27:55.497",
+      "version": 3
+    },
+    {
+      "fqdn": "akiralkzxzq2dsrzsrvbr2xgbbu2wgsmxryd4csgfameg52n7efvr2id.onion",
+      "title": "/",
+      "available": false,
+      "updated": "2026-09-12 04:03:14.089",
+      "version": 3
+    },
+    {
+      "fqdn": "akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion",
+      "title": "",
+      "available": false,
+      "updated": "2026-09-12 01:00:53.538",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "AK Stamping",
+      "discovered": "2026-09-10T16:36:00.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Eagle Construction",
+      "discovered": "2026-09-10T16:35:59.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "George Cameron Nash",
+      "discovered": "2026-09-10T16:35:58.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Kyodo USA",
+      "discovered": "2026-09-09T16:35:04.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Brentwood Country Club",
+      "discovered": "2026-09-08T17:43:35.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "CreateASoft",
+      "discovered": "2026-09-08T17:43:34.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Brent Electric",
+      "discovered": "2026-09-08T17:43:33.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Stransky Heiz-Mess-Regeltechnik GmbH",
+      "discovered": "2026-09-04T17:34:08.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Worrell",
+      "discovered": "2026-09-04T16:47:41.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "ScrubaDub Auto Wash Centers",
+      "discovered": "2026-09-02T16:41:53.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/akira",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

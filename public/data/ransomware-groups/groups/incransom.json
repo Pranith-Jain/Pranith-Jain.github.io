@@ -1,0 +1,147 @@
+{
+  "slug": "incransom",
+  "name": "inc ransom",
+  "victims_7d": 8,
+  "victims_total": 956,
+  "last_seen": "2026-09-10T17:41:23.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": false,
+  "mirrors": 10,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "8 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "incblog7vmuq7rktic73r4ha4j757m3ptym37tyvifzp2roedyyzzxid.onion",
+      "title": "INC Ransom",
+      "available": false,
+      "updated": "2024-07-10 02:01:40.411830",
+      "version": 3
+    },
+    {
+      "fqdn": "incapt.blog",
+      "title": "Access Blocked",
+      "available": false,
+      "updated": "2024-04-03 06:07:29.777653",
+      "version": 0
+    },
+    {
+      "fqdn": "incapt.su",
+      "title": "Error Response Page",
+      "available": false,
+      "updated": "2024-07-22 11:02:34.872415",
+      "version": 0
+    },
+    {
+      "fqdn": "incblog6qu4y4mm4zvw5nrmue6qbwtgjsxpw6b7ixzssu36tsajldoad.onion",
+      "title": "Disclosures",
+      "available": false,
+      "updated": "2026-09-11 21:00:04.717",
+      "version": 3
+    },
+    {
+      "fqdn": "incpaysp74dphcbjyvg2eepxnl3tkgt5mq5vd4tnjusoissz342bdnad.onion",
+      "title": null,
+      "available": false,
+      "updated": "2024-12-10 04:25:47.416491",
+      "version": 3
+    },
+    {
+      "fqdn": "incpaykabjqc2mtdxq6c23nqh4x6m5dkps5fr6vgdkgzp5njssx6qkid.onion",
+      "title": "NULL",
+      "available": false,
+      "updated": "2026-09-12 01:00:04.235",
+      "version": 3
+    },
+    {
+      "fqdn": "incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion",
+      "title": "",
+      "available": false,
+      "updated": "2026-09-12 03:00:07.311",
+      "version": 3
+    },
+    { "fqdn": "incbackend.top", "title": "", "available": false, "updated": "2025-01-02 00:03:05.354", "version": 0 },
+    {
+      "fqdn": "incbackfgm7qa7sioq7r4tdunoaqsvzjg5i7w46bhqlfonwjgiemr7qd.onion",
+      "title": null,
+      "available": false,
+      "updated": "2024-12-11 09:59:38.461360",
+      "version": 3
+    },
+    {
+      "fqdn": "incbackrlasjesgpfu5brktfjknbqoahe2hhmqfhasc5fb56mtukn4yd.onion",
+      "title": null,
+      "available": false,
+      "updated": "2024-12-11 09:59:47.665742",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "jms building corporation",
+      "discovered": "2026-09-10T17:41:23.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a9e419a9cd108bf268b82e3"
+    },
+    {
+      "victim": "cullottalaw.com",
+      "discovered": "2026-09-10T09:41:56.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6aa1b4799cd108bf26fb4634"
+    },
+    {
+      "victim": "https://mediengruppethiel.de/",
+      "discovered": "2026-09-09T17:39:19.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6aa15b3d9cd108bf26f1a91f"
+    },
+    {
+      "victim": "Wellness Partners network(combined revenue)",
+      "discovered": "2026-09-07T21:44:02.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a9f08409cd108bf26a4f9bf"
+    },
+    {
+      "victim": "myglobal.com",
+      "discovered": "2026-09-03T20:31:59.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a99ad6a9cd108bf26e7ee52"
+    },
+    {
+      "victim": "Asfaltos y Pavimentos S.A. (Asfalpasa)",
+      "discovered": "2026-09-02T17:27:55.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a98332a9cd108bf26b37c4c"
+    },
+    {
+      "victim": "Westfield Public School District",
+      "discovered": "2026-09-02T17:27:54.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a98339f9cd108bf26b38e4f"
+    },
+    {
+      "victim": "Trucka",
+      "discovered": "2026-09-02T17:27:53.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a9834289cd108bf26b3a6ba"
+    },
+    {
+      "victim": "Policlinico Triestino",
+      "discovered": "2026-09-02T17:27:53.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a9835249cd108bf26b3d268"
+    },
+    {
+      "victim": "Multiver Ltée",
+      "discovered": "2026-09-02T17:27:52.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/blog/disclosures/6a98358f9cd108bf26b3e38b"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/inc%20ransom",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "slug": "akira",
+  "name": "akira",
+  "fetchedAt": "2026-09-12T06:12:53.543Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "Akira is a ransomware group first observed in March 2023, targeting both Windows and Linux environments, with a particular focus on corporate networks and VMware ESXi servers. The group employs a double extortion model, stealing sensitive data before encrypting systems and threatening to leak it on a Tor-based leak site if ransom demands are not met. Akira typically gains initial access through exploitation of unpatched VPN services, compromised RDP credentials, phishing, or abuse of legitimate remote administration tools. Its Windows variant uses the Windows CryptoAPI to encrypt files, appending the “.akira” extension while skipping critical system folders to maintain system stability. Ransom demands have ranged from $200,000 to over $4 million, typically requested in Bitcoin, and the group has been linked to high-profile incidents affecting education, manufacturing, and healthcare sectors. Akira appears to operate independently rather than as a Ransomware-as-a-Service, and continues to evolve, with recent variants improving encryption speed and evasion techniques.",
+      "locations": [
+        {
+          "fqdn": "akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 14:27:55.497",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "akiralkzxzq2dsrzsrvbr2xgbbu2wgsmxryd4csgfameg52n7efvr2id.onion",
+          "title": "/",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 04:03:14.089",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 01:00:53.538",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

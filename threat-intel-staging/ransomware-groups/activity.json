@@ -1,0 +1,4981 @@
+{
+  "builtAt": "2026-09-12T06:12:49.260Z",
+  "perGroup": {
+    "nightspire": {
+      "name": "nightspire",
+      "victims_7d": 8,
+      "victims_total": 333,
+      "last_seen": "2026-09-12T07:42:53.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "safepay": {
+      "name": "safepay",
+      "victims_7d": 22,
+      "victims_total": 571,
+      "last_seen": "2026-09-12T06:40:21.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "qilin": {
+      "name": "qilin",
+      "victims_7d": 26,
+      "victims_total": 2309,
+      "last_seen": "2026-09-12T02:50:04.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "direwolf": {
+      "name": "direwolf",
+      "victims_7d": 22,
+      "victims_total": 155,
+      "last_seen": "2026-09-11T23:43:50.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "dragonforce": {
+      "name": "dragonforce",
+      "victims_7d": 5,
+      "victims_total": 653,
+      "last_seen": "2026-09-11T16:41:04.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "pear": {
+      "name": "pear",
+      "victims_7d": 2,
+      "victims_total": 123,
+      "last_seen": "2026-09-11T15:43:42.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "fulcrumsec": {
+      "name": "fulcrumsec",
+      "victims_7d": 2,
+      "victims_total": 29,
+      "last_seen": "2026-09-11T12:40:23.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "globalsecretgroup": {
+      "name": "global secret group",
+      "victims_7d": 4,
+      "victims_total": 50,
+      "last_seen": "2026-09-11T00:43:25.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "vexy": {
+      "name": "vexy",
+      "victims_7d": 7,
+      "victims_total": 12,
+      "last_seen": "2026-09-10T23:43:42.000Z",
+      "origins": ["ransomlook"]
+    },
+    "beast": {
+      "name": "beast",
+      "victims_7d": 2,
+      "victims_total": 74,
+      "last_seen": "2026-09-10T22:46:51.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "play": {
+      "name": "play",
+      "victims_7d": 8,
+      "victims_total": 1320,
+      "last_seen": "2026-09-10T21:44:13.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "auditteam": {
+      "name": "audit team",
+      "victims_7d": 18,
+      "victims_total": 41,
+      "last_seen": "2026-09-10T21:43:34.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "rhysida": {
+      "name": "rhysida",
+      "victims_7d": 8,
+      "victims_total": 293,
+      "last_seen": "2026-09-10T20:39:33.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "ransomhouse": {
+      "name": "ransomhouse",
+      "victims_7d": 2,
+      "victims_total": 210,
+      "last_seen": "2026-09-10T19:43:18.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "chaos": {
+      "name": "chaos",
+      "victims_7d": 8,
+      "victims_total": 95,
+      "last_seen": "2026-09-10T19:42:38.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "incransom": {
+      "name": "inc ransom",
+      "victims_7d": 8,
+      "victims_total": 956,
+      "last_seen": "2026-09-10T17:41:23.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "wallstreet": {
+      "name": "wallstreet",
+      "victims_7d": 6,
+      "victims_total": 23,
+      "last_seen": "2026-09-10T16:36:45.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "lockbit5": {
+      "name": "lockbit5",
+      "victims_7d": 10,
+      "victims_total": 374,
+      "last_seen": "2026-09-10T19:00:19.201Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "akira": {
+      "name": "akira",
+      "victims_7d": 14,
+      "victims_total": 1623,
+      "last_seen": "2026-09-10T16:36:00.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "emperador": {
+      "name": "emperador",
+      "victims_7d": 8,
+      "victims_total": 23,
+      "last_seen": "2026-09-10T10:51:39.174Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "embargo": {
+      "name": "embargo",
+      "victims_7d": 2,
+      "victims_total": 42,
+      "last_seen": "2026-09-10T03:38:33.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "clop": {
+      "name": "clop",
+      "victims_7d": 4,
+      "victims_total": 1344,
+      "last_seen": "2026-09-10T10:22:39.757Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "thegentlemen": {
+      "name": "the gentlemen",
+      "victims_7d": 47,
+      "victims_total": 884,
+      "last_seen": "2026-09-09T22:09:03.354Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "darkproject": {
+      "name": "dark project",
+      "victims_7d": 8,
+      "victims_total": 33,
+      "last_seen": "2026-09-09T16:35:12.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "blacknevas": {
+      "name": "black nevas",
+      "victims_7d": 15,
+      "victims_total": 60,
+      "last_seen": "2026-09-09T12:34:41.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "storm": {
+      "name": "storm",
+      "victims_7d": 44,
+      "victims_total": 93,
+      "last_seen": "2026-09-09T10:39:29.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "anubis": {
+      "name": "anubis",
+      "victims_7d": 2,
+      "victims_total": 110,
+      "last_seen": "2026-09-09T07:21:40.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "eclipse": {
+      "name": "eclipse",
+      "victims_7d": 4,
+      "victims_total": 11,
+      "last_seen": "2026-09-08T17:43:45.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "shinyhunters": {
+      "name": "shinyhunters",
+      "victims_7d": 4,
+      "victims_total": 165,
+      "last_seen": "2026-09-07T21:44:37.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "insomnia": {
+      "name": "insomnia",
+      "victims_7d": 2,
+      "victims_total": 53,
+      "last_seen": "2026-09-07T21:44:04.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "interlock": {
+      "name": "interlock",
+      "victims_7d": 2,
+      "victims_total": 126,
+      "last_seen": "2026-09-07T17:26:38.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "everest": {
+      "name": "everest",
+      "victims_7d": 6,
+      "victims_total": 406,
+      "last_seen": "2026-09-07T17:26:34.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "aurora": {
+      "name": "aurora",
+      "victims_7d": 6,
+      "victims_total": 44,
+      "last_seen": "2026-09-07T16:33:17.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "kazu": {
+      "name": "kazu",
+      "victims_7d": 19,
+      "victims_total": 38,
+      "last_seen": "2026-09-07T08:43:38.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "panzer": {
+      "name": "panzer",
+      "victims_7d": 8,
+      "victims_total": 29,
+      "last_seen": "2026-09-11T10:53:16.691Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "blacklocks": {
+      "name": "blacklocks",
+      "victims_7d": 2,
+      "victims_total": 2,
+      "last_seen": "2026-09-06T23:43:20.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "dysphor1a": {
+      "name": "dysphor1a",
+      "victims_7d": 4,
+      "victims_total": 21,
+      "last_seen": "2026-09-06T20:42:48.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "leaknet": {
+      "name": "leaknet",
+      "victims_7d": 1,
+      "victims_total": 1,
+      "last_seen": "2026-09-06T01:41:57.000Z",
+      "origins": ["ransomlook"]
+    },
+    "spacebears": {
+      "name": "space bears",
+      "victims_7d": 1,
+      "victims_total": 160,
+      "last_seen": "2026-09-05T12:37:01.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "tridentlocker": {
+      "name": "tridentlocker",
+      "victims_7d": 0,
+      "victims_total": 18,
+      "last_seen": "2026-09-04T16:48:25.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "leakeddata": {
+      "name": "leakeddata",
+      "victims_7d": 0,
+      "victims_total": 9,
+      "last_seen": "2026-09-03T22:33:33.000Z",
+      "origins": ["ransomlook"]
+    },
+    "krybit": {
+      "name": "krybit",
+      "victims_7d": 0,
+      "victims_total": 150,
+      "last_seen": "2026-09-03T15:25:07.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "meowciety403": {
+      "name": "meowciety403",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2026-09-02T16:42:30.000Z",
+      "origins": ["ransomlook"]
+    },
+    "kairos": {
+      "name": "kairos",
+      "victims_7d": 0,
+      "victims_total": 96,
+      "last_seen": "2026-09-02T16:42:05.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "payoutsking": {
+      "name": "payoutsking",
+      "victims_7d": 0,
+      "victims_total": 112,
+      "last_seen": "2026-09-02T10:27:51.839Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "deadlock": {
+      "name": "deadlock",
+      "victims_7d": 0,
+      "victims_total": 102,
+      "last_seen": "2026-09-01T21:35:09.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "bravox": {
+      "name": "bravox",
+      "victims_7d": 0,
+      "victims_total": 29,
+      "last_seen": "2026-09-01T16:29:54.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "majinahanashi": {
+      "name": "majinahanashi",
+      "victims_7d": 0,
+      "victims_total": 24,
+      "last_seen": "2026-09-01T10:44:44.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "blackx": {
+      "name": "black x",
+      "victims_7d": 0,
+      "victims_total": 14,
+      "last_seen": "2026-09-01T12:10:28.233Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "braincipher": {
+      "name": "brain cipher",
+      "victims_7d": 0,
+      "victims_total": 85,
+      "last_seen": "2026-08-31T22:28:45.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "orova": {
+      "name": "orova",
+      "victims_7d": 0,
+      "victims_total": 64,
+      "last_seen": "2026-08-31T19:30:42.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "falcon": {
+      "name": "falcon",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2026-08-31T17:24:56.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "zawoo": {
+      "name": "zawoo",
+      "victims_7d": 0,
+      "victims_total": 38,
+      "last_seen": "2026-08-31T16:32:15.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "crypto24": {
+      "name": "crypto24",
+      "victims_7d": 0,
+      "victims_total": 48,
+      "last_seen": "2026-08-31T13:38:32.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "coinbasecartel": {
+      "name": "coinbase cartel",
+      "victims_7d": 0,
+      "victims_total": 220,
+      "last_seen": "2026-08-31T00:30:08.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "iah647": {
+      "name": "iah647",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2026-08-29T17:42:48.000Z",
+      "origins": ["ransomlook"]
+    },
+    "m3rx": {
+      "name": "m3rx",
+      "victims_7d": 0,
+      "victims_total": 38,
+      "last_seen": "2026-08-29T15:46:03.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "lynx": {
+      "name": "lynx",
+      "victims_7d": 0,
+      "victims_total": 418,
+      "last_seen": "2026-08-29T02:30:43.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "3am": {
+      "name": "3am",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2026-08-29T01:35:13.000Z",
+      "origins": ["ransomlook"]
+    },
+    "doommageddon": {
+      "name": "doommageddon",
+      "victims_7d": 0,
+      "victims_total": 12,
+      "last_seen": "2026-08-29T01:29:58.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "moneymessage": {
+      "name": "money message",
+      "victims_7d": 0,
+      "victims_total": 36,
+      "last_seen": "2026-08-28T16:33:08.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "unsafe": {
+      "name": "unsafe",
+      "victims_7d": 0,
+      "victims_total": 23,
+      "last_seen": "2026-08-28T13:43:31.000Z",
+      "origins": ["ransomlook", "ransomwarelive"]
+    },
+    "securotrop": {
+      "name": "securotrop",
+      "victims_7d": 1,
+      "victims_total": 43,
+      "last_seen": "2026-09-12T00:37:05.716Z",
+      "origins": ["ransomwarelive"]
+    },
+    "vexyransomware": {
+      "name": "Vexy Ransomware",
+      "victims_7d": 7,
+      "victims_total": 12,
+      "last_seen": "2026-09-10T21:27:11.565Z",
+      "origins": ["ransomwarelive"]
+    },
+    "shadowbyt3": {
+      "name": "ShadowByt3$",
+      "victims_7d": 2,
+      "victims_total": 20,
+      "last_seen": "2026-09-10T05:25:30.437Z",
+      "origins": ["ransomwarelive"]
+    },
+    "global": {
+      "name": "global",
+      "victims_7d": 2,
+      "victims_total": 38,
+      "last_seen": "2026-09-08T15:34:00.257Z",
+      "origins": ["ransomwarelive"]
+    },
+    "metaencryptor": {
+      "name": "metaencryptor",
+      "victims_7d": 4,
+      "victims_total": 42,
+      "last_seen": "2026-09-07T13:01:37.828Z",
+      "origins": ["ransomwarelive"]
+    },
+    "silentransomgroup": {
+      "name": "SilentRansomGroup",
+      "victims_7d": 0,
+      "victims_total": 145,
+      "last_seen": "2026-09-04T19:57:57.547Z",
+      "origins": ["ransomwarelive"]
+    },
+    "gunra": {
+      "name": "gunra",
+      "victims_7d": 0,
+      "victims_total": 54,
+      "last_seen": "2026-09-04T06:59:19.092Z",
+      "origins": ["ransomwarelive"]
+    },
+    "settra": {
+      "name": "settra",
+      "victims_7d": 0,
+      "victims_total": 64,
+      "last_seen": "2026-09-03T16:59:44.086Z",
+      "origins": ["ransomwarelive"]
+    },
+    "medusalocker": {
+      "name": "medusalocker",
+      "victims_7d": 0,
+      "victims_total": 90,
+      "last_seen": "2026-09-02T09:29:09.492Z",
+      "origins": ["ransomwarelive"]
+    },
+    "threeam": {
+      "name": "threeam",
+      "victims_7d": 0,
+      "victims_total": 91,
+      "last_seen": "2026-08-30T09:10:43.889Z",
+      "origins": ["ransomwarelive"]
+    },
+    "iah6477": {
+      "name": "iah6477",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2026-08-29T06:57:15.700Z",
+      "origins": ["ransomwarelive"]
+    },
+    "abyss": {
+      "name": "abyss",
+      "victims_7d": 0,
+      "victims_total": 91,
+      "last_seen": "2026-08-26T09:52:34.994Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ailock": {
+      "name": "AiLock",
+      "victims_7d": 0,
+      "victims_total": 51,
+      "last_seen": "2026-08-26T09:50:28.341Z",
+      "origins": ["ransomwarelive"]
+    },
+    "genesis": {
+      "name": "genesis",
+      "victims_7d": 0,
+      "victims_total": 115,
+      "last_seen": "2026-08-25T13:57:53.027Z",
+      "origins": ["ransomwarelive"]
+    },
+    "boobaproject": {
+      "name": "Booba Project",
+      "victims_7d": 0,
+      "victims_total": 16,
+      "last_seen": "2026-08-24T14:50:43.116Z",
+      "origins": ["ransomwarelive"]
+    },
+    "arcusmedia": {
+      "name": "arcusmedia",
+      "victims_7d": 0,
+      "victims_total": 109,
+      "last_seen": "2026-08-24T14:24:08.989Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackwater": {
+      "name": "blackwater",
+      "victims_7d": 0,
+      "victims_total": 11,
+      "last_seen": "2026-08-24T13:53:35.396Z",
+      "origins": ["ransomwarelive"]
+    },
+    "killsec": {
+      "name": "killsec",
+      "victims_7d": 0,
+      "victims_total": 285,
+      "last_seen": "2026-08-23T16:20:54.578Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lgroup": {
+      "name": "L Group",
+      "victims_7d": 0,
+      "victims_total": 28,
+      "last_seen": "2026-08-23T13:51:04.128Z",
+      "origins": ["ransomwarelive"]
+    },
+    "barracuda": {
+      "name": "Barracuda",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2026-08-23T07:07:51.041Z",
+      "origins": ["ransomwarelive"]
+    },
+    "helix": {
+      "name": "Helix",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2026-08-22T19:21:33.550Z",
+      "origins": ["ransomwarelive"]
+    },
+    "termite": {
+      "name": "termite",
+      "victims_7d": 0,
+      "victims_total": 49,
+      "last_seen": "2026-08-22T05:45:30.571Z",
+      "origins": ["ransomwarelive"]
+    },
+    "xpl0itrs": {
+      "name": "xpl0itrs",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2026-08-20T19:31:43.321Z",
+      "origins": ["ransomwarelive"]
+    },
+    "payload": {
+      "name": "payload",
+      "victims_7d": 0,
+      "victims_total": 74,
+      "last_seen": "2026-08-20T17:26:46.782Z",
+      "origins": ["ransomwarelive"]
+    },
+    "titan": {
+      "name": "titan",
+      "victims_7d": 0,
+      "victims_total": 24,
+      "last_seen": "2026-08-20T16:58:09.992Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ms13089": {
+      "name": "ms13089",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2026-08-15T19:00:56.324Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bluewhale": {
+      "name": "BlueWhale",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2026-08-14T11:21:21.911Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ethics": {
+      "name": "Ethics",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2026-08-12T07:50:19.023Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sovcali": {
+      "name": "Sovcali",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2026-08-09T09:21:19.829Z",
+      "origins": ["ransomwarelive"]
+    },
+    "gammax": {
+      "name": "Gammax",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2026-08-06T16:51:04.697Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cry0": {
+      "name": "cry0",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2026-08-06T10:23:53.002Z",
+      "origins": ["ransomwarelive"]
+    },
+    "orion": {
+      "name": "orion",
+      "victims_7d": 0,
+      "victims_total": 14,
+      "last_seen": "2026-08-05T20:05:09.929Z",
+      "origins": ["ransomwarelive"]
+    },
+    "triplex": {
+      "name": "Triple X",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2026-08-05T14:50:38.139Z",
+      "origins": ["ransomwarelive"]
+    },
+    "crpxo": {
+      "name": "CRPxO",
+      "victims_7d": 0,
+      "victims_total": 37,
+      "last_seen": "2026-08-02T03:50:43.130Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cmdorganization": {
+      "name": "cmdorganization",
+      "victims_7d": 0,
+      "victims_total": 43,
+      "last_seen": "2026-07-31T10:20:16.077Z",
+      "origins": ["ransomwarelive"]
+    },
+    "kyber": {
+      "name": "kyber",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2026-07-30T20:32:02.157Z",
+      "origins": ["ransomwarelive"]
+    },
+    "morpheus": {
+      "name": "morpheus",
+      "victims_7d": 0,
+      "victims_total": 23,
+      "last_seen": "2026-07-30T06:28:05.951Z",
+      "origins": ["ransomwarelive"]
+    },
+    "exfilsquad": {
+      "name": "ExfilSquad",
+      "victims_7d": 0,
+      "victims_total": 15,
+      "last_seen": "2026-07-26T23:50:39.165Z",
+      "origins": ["ransomwarelive"]
+    },
+    "nova": {
+      "name": "nova",
+      "victims_7d": 0,
+      "victims_total": 178,
+      "last_seen": "2026-07-25T09:27:23.806Z",
+      "origins": ["ransomwarelive"]
+    },
+    "apt73": {
+      "name": "apt73",
+      "victims_7d": 0,
+      "victims_total": 157,
+      "last_seen": "2026-07-24T09:52:11.192Z",
+      "origins": ["ransomwarelive"]
+    },
+    "worldleaks": {
+      "name": "worldleaks",
+      "victims_7d": 0,
+      "victims_total": 175,
+      "last_seen": "2026-07-21T09:11:00.349Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackout": {
+      "name": "blackout",
+      "victims_7d": 0,
+      "victims_total": 12,
+      "last_seen": "2026-07-19T12:22:39.950Z",
+      "origins": ["ransomwarelive"]
+    },
+    "d1r": {
+      "name": "D1R",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2026-07-13T11:33:36.109Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackfield": {
+      "name": "Blackfield",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2026-07-03T14:20:33.846Z",
+      "origins": ["ransomwarelive"]
+    },
+    "stormous": {
+      "name": "stormous",
+      "victims_7d": 0,
+      "victims_total": 188,
+      "last_seen": "2026-06-28T21:30:38.576Z",
+      "origins": ["ransomwarelive"]
+    },
+    "prinzeugen": {
+      "name": "PrinzEugen",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2026-06-28T21:21:00.078Z",
+      "origins": ["ransomwarelive"]
+    },
+    "redact": {
+      "name": "Redact",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2026-06-28T08:38:15.410Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lapsus": {
+      "name": "lapsus$",
+      "victims_7d": 0,
+      "victims_total": 25,
+      "last_seen": "2026-06-23T19:52:36.310Z",
+      "origins": ["ransomwarelive"]
+    },
+    "icarus": {
+      "name": "Icarus",
+      "victims_7d": 0,
+      "victims_total": 12,
+      "last_seen": "2026-06-23T11:21:11.952Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ransomexx": {
+      "name": "ransomexx",
+      "victims_7d": 0,
+      "victims_total": 86,
+      "last_seen": "2026-06-20T14:35:35.791Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cloak": {
+      "name": "cloak",
+      "victims_7d": 0,
+      "victims_total": 166,
+      "last_seen": "2026-06-18T20:52:54.951Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lamashtu": {
+      "name": "lamashtu",
+      "victims_7d": 0,
+      "victims_total": 34,
+      "last_seen": "2026-06-17T18:24:19.153Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ulose": {
+      "name": "ULose",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2026-06-09T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "nitrogen": {
+      "name": "nitrogen",
+      "victims_7d": 0,
+      "victims_total": 48,
+      "last_seen": "2026-06-03T16:16:24.292Z",
+      "origins": ["ransomwarelive"]
+    },
+    "0daysyndicate": {
+      "name": "0day Syndicate",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2026-05-29T13:50:35.539Z",
+      "origins": ["ransomwarelive"]
+    },
+    "leakbazaar": {
+      "name": "LeakBazaar",
+      "victims_7d": 0,
+      "victims_total": 9,
+      "last_seen": "2026-05-10T08:58:30.487Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sinobi": {
+      "name": "sinobi",
+      "victims_7d": 0,
+      "victims_total": 274,
+      "last_seen": "2026-05-08T20:26:03.367Z",
+      "origins": ["ransomwarelive"]
+    },
+    "mnt6": {
+      "name": "mnt6",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2026-05-02T19:54:41.902Z",
+      "origins": ["ransomwarelive"]
+    },
+    "secp0": {
+      "name": "secp0",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2026-04-29T23:51:34.438Z",
+      "origins": ["ransomwarelive"]
+    },
+    "radar": {
+      "name": "radar",
+      "victims_7d": 0,
+      "victims_total": 24,
+      "last_seen": "2026-04-29T21:59:49.809Z",
+      "origins": ["ransomwarelive"]
+    },
+    "orca": {
+      "name": "orca",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2026-04-27T15:44:53.400Z",
+      "origins": ["ransomwarelive"]
+    },
+    "vect": {
+      "name": "vect",
+      "victims_7d": 0,
+      "victims_total": 25,
+      "last_seen": "2026-04-15T19:08:36.473Z",
+      "origins": ["ransomwarelive"]
+    },
+    "exitium": {
+      "name": "exitium",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2026-04-14T20:06:20.603Z",
+      "origins": ["ransomwarelive"]
+    },
+    "timc": {
+      "name": "TiMc",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2026-04-09T15:17:28.249Z",
+      "origins": ["ransomwarelive"]
+    },
+    "alp001": {
+      "name": "ALP-001",
+      "victims_7d": 0,
+      "victims_total": 17,
+      "last_seen": "2026-04-08T18:47:25.854Z",
+      "origins": ["ransomwarelive"]
+    },
+    "linkc": {
+      "name": "linkc",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2026-04-08T17:35:39.734Z",
+      "origins": ["ransomwarelive"]
+    },
+    "handala": {
+      "name": "handala",
+      "victims_7d": 0,
+      "victims_total": 175,
+      "last_seen": "2026-04-08T01:08:59.964Z",
+      "origins": ["ransomwarelive"]
+    },
+    "netrunner": {
+      "name": "netrunner",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2026-04-03T20:22:16.538Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sarcoma": {
+      "name": "sarcoma",
+      "victims_7d": 0,
+      "victims_total": 141,
+      "last_seen": "2026-03-30T09:25:36.197Z",
+      "origins": ["ransomwarelive"]
+    },
+    "loki": {
+      "name": "Loki",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2026-03-12T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "tengu": {
+      "name": "tengu",
+      "victims_7d": 0,
+      "victims_total": 49,
+      "last_seen": "2026-03-07T12:36:43.406Z",
+      "origins": ["ransomwarelive"]
+    },
+    "alphalocker": {
+      "name": "alphalocker",
+      "victims_7d": 0,
+      "victims_total": 31,
+      "last_seen": "2026-02-28T17:28:14.514Z",
+      "origins": ["ransomwarelive"]
+    },
+    "kittykatkrew": {
+      "name": "kittykatkrew",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2026-02-25T05:44:00.326Z",
+      "origins": ["ransomwarelive"]
+    },
+    "atomsilo": {
+      "name": "atomsilo",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2026-02-24T22:49:25.240Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cipherforce": {
+      "name": "cipherforce",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2026-02-23T19:01:37.294Z",
+      "origins": ["ransomwarelive"]
+    },
+    "medusa": {
+      "name": "medusa",
+      "victims_7d": 0,
+      "victims_total": 517,
+      "last_seen": "2026-02-14T11:27:50.168Z",
+      "origins": ["ransomwarelive"]
+    },
+    "reynolds": {
+      "name": "reynolds",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2026-02-11T08:29:44.406Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ciphbit": {
+      "name": "ciphbit",
+      "victims_7d": 0,
+      "victims_total": 36,
+      "last_seen": "2026-02-10T18:18:26.387Z",
+      "origins": ["ransomwarelive"]
+    },
+    "devman": {
+      "name": "devman",
+      "victims_7d": 0,
+      "victims_total": 184,
+      "last_seen": "2026-02-04T01:24:21.009Z",
+      "origins": ["ransomwarelive"]
+    },
+    "thegreenbloodgroup": {
+      "name": "The Green Blood Group",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2026-02-04T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "benzona": {
+      "name": "benzona",
+      "victims_7d": 0,
+      "victims_total": 14,
+      "last_seen": "2026-01-30T17:29:04.506Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackshrantac": {
+      "name": "blackshrantac",
+      "victims_7d": 0,
+      "victims_total": 43,
+      "last_seen": "2026-01-20T14:40:04.284Z",
+      "origins": ["ransomwarelive"]
+    },
+    "obscura": {
+      "name": "obscura",
+      "victims_7d": 0,
+      "victims_total": 33,
+      "last_seen": "2026-01-11T19:46:29.859Z",
+      "origins": ["ransomwarelive"]
+    },
+    "osiris": {
+      "name": "osiris",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2026-01-09T23:59:38.468Z",
+      "origins": ["ransomwarelive"]
+    },
+    "brotherhood": {
+      "name": "brotherhood",
+      "victims_7d": 0,
+      "victims_total": 18,
+      "last_seen": "2026-01-06T10:13:42.500Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sicarii": {
+      "name": "sicarii",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2026-01-05T09:38:40.545Z",
+      "origins": ["ransomwarelive"]
+    },
+    "minteye": {
+      "name": "minteye",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2025-12-12T22:49:04.247Z",
+      "origins": ["ransomwarelive"]
+    },
+    "datacarry": {
+      "name": "datacarry",
+      "victims_7d": 0,
+      "victims_total": 16,
+      "last_seen": "2025-12-06T03:18:52.651Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lockbit3": {
+      "name": "lockbit3",
+      "victims_7d": 0,
+      "victims_total": 2016,
+      "last_seen": "2025-12-05T11:08:54.370Z",
+      "origins": ["ransomwarelive"]
+    },
+    "skira": {
+      "name": "skira",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2025-11-18T08:25:03.221Z",
+      "origins": ["ransomwarelive"]
+    },
+    "kraken": {
+      "name": "kraken",
+      "victims_7d": 0,
+      "victims_total": 25,
+      "last_seen": "2025-11-13T09:22:52.196Z",
+      "origins": ["ransomwarelive"]
+    },
+    "j": {
+      "name": "J",
+      "victims_7d": 0,
+      "victims_total": 41,
+      "last_seen": "2025-11-09T22:08:43.204Z",
+      "origins": ["ransomwarelive"]
+    },
+    "kryptos": {
+      "name": "kryptos",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2025-11-06T19:21:47.788Z",
+      "origins": ["ransomwarelive"]
+    },
+    "warlock": {
+      "name": "warlock",
+      "victims_7d": 0,
+      "victims_total": 78,
+      "last_seen": "2025-11-06T07:49:34.261Z",
+      "origins": ["ransomwarelive"]
+    },
+    "radiant": {
+      "name": "radiant",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2025-10-29T01:11:49.963Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bqtlock": {
+      "name": "bqtlock",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2025-10-11T20:28:01.448Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lunalock": {
+      "name": "lunalock",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2025-09-16T15:48:42.353Z",
+      "origins": ["ransomwarelive"]
+    },
+    "imncrew": {
+      "name": "IMNCrew",
+      "victims_7d": 0,
+      "victims_total": 12,
+      "last_seen": "2025-09-16T06:37:52.012Z",
+      "origins": ["ransomwarelive"]
+    },
+    "daixin": {
+      "name": "daixin",
+      "victims_7d": 0,
+      "victims_total": 21,
+      "last_seen": "2025-09-11T09:55:19.365Z",
+      "origins": ["ransomwarelive"]
+    },
+    "yurei": {
+      "name": "yurei",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2025-09-09T11:23:14.819Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cicada3301": {
+      "name": "cicada3301",
+      "victims_7d": 0,
+      "victims_total": 75,
+      "last_seen": "2025-09-04T18:21:18.473Z",
+      "origins": ["ransomwarelive"]
+    },
+    "desolator": {
+      "name": "desolator",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2025-09-01T11:16:12.499Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cephalus": {
+      "name": "cephalus",
+      "victims_7d": 0,
+      "victims_total": 19,
+      "last_seen": "2025-08-29T03:21:19.126Z",
+      "origins": ["ransomwarelive"]
+    },
+    "d4rk4rmy": {
+      "name": "d4rk4rmy",
+      "victims_7d": 0,
+      "victims_total": 18,
+      "last_seen": "2025-08-16T08:20:00.870Z",
+      "origins": ["ransomwarelive"]
+    },
+    "apos": {
+      "name": "apos",
+      "victims_7d": 0,
+      "victims_total": 16,
+      "last_seen": "2025-08-15T14:14:48.552Z",
+      "origins": ["ransomwarelive"]
+    },
+    "underground": {
+      "name": "underground",
+      "victims_7d": 0,
+      "victims_total": 26,
+      "last_seen": "2025-08-15T14:03:57.684Z",
+      "origins": ["ransomwarelive"]
+    },
+    "runsomewares": {
+      "name": "RunSomeWares",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2025-08-13T12:46:45.198Z",
+      "origins": ["ransomwarelive"]
+    },
+    "weyhro": {
+      "name": "weyhro",
+      "victims_7d": 0,
+      "victims_total": 14,
+      "last_seen": "2025-08-11T00:31:27.776Z",
+      "origins": ["ransomwarelive"]
+    },
+    "teamxxx": {
+      "name": "teamxxx",
+      "victims_7d": 0,
+      "victims_total": 12,
+      "last_seen": "2025-08-04T21:25:46.125Z",
+      "origins": ["ransomwarelive"]
+    },
+    "flocker": {
+      "name": "flocker",
+      "victims_7d": 0,
+      "victims_total": 59,
+      "last_seen": "2025-07-31T22:19:45.187Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackbyte": {
+      "name": "blackbyte",
+      "victims_7d": 0,
+      "victims_total": 147,
+      "last_seen": "2025-07-30T10:43:58.138Z",
+      "origins": ["ransomwarelive"]
+    },
+    "kawa4096": {
+      "name": "kawa4096",
+      "victims_7d": 0,
+      "victims_total": 17,
+      "last_seen": "2025-07-29T07:17:47.848Z",
+      "origins": ["ransomwarelive"]
+    },
+    "rebornvc": {
+      "name": "rebornvc",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2025-07-09T23:46:08.732Z",
+      "origins": ["ransomwarelive"]
+    },
+    "satanlockv2": {
+      "name": "satanlockv2",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2025-07-07T11:16:25.579Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blacklock": {
+      "name": "blacklock",
+      "victims_7d": 0,
+      "victims_total": 64,
+      "last_seen": "2025-07-02T17:13:46.462Z",
+      "origins": ["ransomwarelive"]
+    },
+    "dunghill": {
+      "name": "dunghill",
+      "victims_7d": 0,
+      "victims_total": 16,
+      "last_seen": "2025-07-01T07:23:25.805Z",
+      "origins": ["ransomwarelive"]
+    },
+    "silent": {
+      "name": "silent",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2025-06-21T20:43:29.777Z",
+      "origins": ["ransomwarelive"]
+    },
+    "frag": {
+      "name": "frag",
+      "victims_7d": 0,
+      "victims_total": 30,
+      "last_seen": "2025-06-12T11:45:14.697Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bert": {
+      "name": "bert",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2025-06-10T05:44:36.366Z",
+      "origins": ["ransomwarelive"]
+    },
+    "walocker": {
+      "name": "walocker",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2025-06-10T03:53:39.455Z",
+      "origins": ["ransomwarelive"]
+    },
+    "arkana": {
+      "name": "arkana",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2025-06-06T23:12:43.795Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blacksuit": {
+      "name": "blacksuit",
+      "victims_7d": 0,
+      "victims_total": 184,
+      "last_seen": "2025-06-02T13:09:17.824Z",
+      "origins": ["ransomwarelive"]
+    },
+    "hunters": {
+      "name": "hunters",
+      "victims_7d": 0,
+      "victims_total": 307,
+      "last_seen": "2025-05-27T11:56:26.856Z",
+      "origins": ["ransomwarelive"]
+    },
+    "monti": {
+      "name": "monti",
+      "victims_7d": 0,
+      "victims_total": 110,
+      "last_seen": "2025-05-08T07:02:26.195Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ralord": {
+      "name": "ralord",
+      "victims_7d": 0,
+      "victims_total": 19,
+      "last_seen": "2025-04-27T03:46:22.679Z",
+      "origins": ["ransomwarelive"]
+    },
+    "babuk2": {
+      "name": "babuk2",
+      "victims_7d": 0,
+      "victims_total": 180,
+      "last_seen": "2025-04-23T19:48:55.140Z",
+      "origins": ["ransomwarelive"]
+    },
+    "hellcat": {
+      "name": "hellcat",
+      "victims_7d": 0,
+      "victims_total": 20,
+      "last_seen": "2025-04-10T02:52:09.358Z",
+      "origins": ["ransomwarelive"]
+    },
+    "vanhelsing": {
+      "name": "VanHelsing",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2025-04-05T23:41:37.860Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ransomhub": {
+      "name": "ransomhub",
+      "victims_7d": 0,
+      "victims_total": 842,
+      "last_seen": "2025-03-31T23:21:00.788Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bianlian": {
+      "name": "bianlian",
+      "victims_7d": 0,
+      "victims_total": 552,
+      "last_seen": "2025-03-31T15:58:38.760Z",
+      "origins": ["ransomwarelive"]
+    },
+    "crazyhunter": {
+      "name": "crazyhunter",
+      "victims_7d": 0,
+      "victims_total": 10,
+      "last_seen": "2025-03-30T22:26:08.744Z",
+      "origins": ["ransomwarelive"]
+    },
+    "zerolockersec": {
+      "name": "Zerolockersec",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2025-03-25T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cactus": {
+      "name": "cactus",
+      "victims_7d": 0,
+      "victims_total": 248,
+      "last_seen": "2025-03-21T15:22:52.137Z",
+      "origins": ["ransomwarelive"]
+    },
+    "fog": {
+      "name": "fog",
+      "victims_7d": 0,
+      "victims_total": 189,
+      "last_seen": "2025-03-20T14:02:12.582Z",
+      "origins": ["ransomwarelive"]
+    },
+    "funksec": {
+      "name": "funksec",
+      "victims_7d": 0,
+      "victims_total": 172,
+      "last_seen": "2025-03-18T16:58:21.742Z",
+      "origins": ["ransomwarelive"]
+    },
+    "trinity": {
+      "name": "trinity",
+      "victims_7d": 0,
+      "victims_total": 18,
+      "last_seen": "2025-03-16T21:31:10.611Z",
+      "origins": ["ransomwarelive"]
+    },
+    "8base": {
+      "name": "8base",
+      "victims_7d": 0,
+      "victims_total": 455,
+      "last_seen": "2025-02-01T12:50:33.964Z",
+      "origins": ["ransomwarelive"]
+    },
+    "gdlockersec": {
+      "name": "GDLockerSec",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2025-01-26T19:29:25.544Z",
+      "origins": ["ransomwarelive"]
+    },
+    "eldorado": {
+      "name": "ElDorado",
+      "victims_7d": 0,
+      "victims_total": 112,
+      "last_seen": "2025-01-22T22:48:37.149Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackbasta": {
+      "name": "blackbasta",
+      "victims_7d": 0,
+      "victims_total": 523,
+      "last_seen": "2025-01-11T11:35:01.458Z",
+      "origins": ["ransomwarelive"]
+    },
+    "darkvault": {
+      "name": "darkvault",
+      "victims_7d": 0,
+      "victims_total": 55,
+      "last_seen": "2025-01-06T14:00:22.402Z",
+      "origins": ["ransomwarelive"]
+    },
+    "raworld": {
+      "name": "raworld",
+      "victims_7d": 0,
+      "victims_total": 126,
+      "last_seen": "2024-12-28T11:49:06.944Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bluebox": {
+      "name": "bluebox",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2024-12-17T23:44:58.505Z",
+      "origins": ["ransomwarelive"]
+    },
+    "dragonransomware": {
+      "name": "dragonransomware",
+      "victims_7d": 0,
+      "victims_total": 39,
+      "last_seen": "2024-12-17T00:50:44.248Z",
+      "origins": ["ransomwarelive"]
+    },
+    "argonauts": {
+      "name": "argonauts",
+      "victims_7d": 0,
+      "victims_total": 13,
+      "last_seen": "2024-12-16T15:42:13.682Z",
+      "origins": ["ransomwarelive"]
+    },
+    "chort": {
+      "name": "chort",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2024-11-22T14:36:23.984Z",
+      "origins": ["ransomwarelive"]
+    },
+    "meow": {
+      "name": "meow",
+      "victims_7d": 0,
+      "victims_total": 145,
+      "last_seen": "2024-11-19T12:20:23.933Z",
+      "origins": ["ransomwarelive"]
+    },
+    "helldown": {
+      "name": "helldown",
+      "victims_7d": 0,
+      "victims_total": 36,
+      "last_seen": "2024-11-06T23:40:11.858Z",
+      "origins": ["ransomwarelive"]
+    },
+    "playboy": {
+      "name": "playboy",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2024-10-28T14:49:53.227Z",
+      "origins": ["ransomwarelive"]
+    },
+    "madliberator": {
+      "name": "madliberator",
+      "victims_7d": 0,
+      "victims_total": 16,
+      "last_seen": "2024-10-01T16:12:05.863Z",
+      "origins": ["ransomwarelive"]
+    },
+    "valencialeaks": {
+      "name": "ValenciaLeaks",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2024-09-18T09:47:16.136Z",
+      "origins": ["ransomwarelive"]
+    },
+    "dan0n": {
+      "name": "dAn0n",
+      "victims_7d": 0,
+      "victims_total": 33,
+      "last_seen": "2024-08-23T08:44:30.811Z",
+      "origins": ["ransomwarelive"]
+    },
+    "dispossessor": {
+      "name": "dispossessor",
+      "victims_7d": 0,
+      "victims_total": 344,
+      "last_seen": "2024-08-11T21:55:50.282Z",
+      "origins": ["ransomwarelive"]
+    },
+    "donutleaks": {
+      "name": "donutleaks",
+      "victims_7d": 0,
+      "victims_total": 42,
+      "last_seen": "2024-07-24T14:38:56.765Z",
+      "origins": ["ransomwarelive"]
+    },
+    "mallox": {
+      "name": "mallox",
+      "victims_7d": 0,
+      "victims_total": 49,
+      "last_seen": "2024-07-15T17:40:33.142Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ransomcortex": {
+      "name": "ransomcortex",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2024-07-12T17:37:07.641Z",
+      "origins": ["ransomwarelive"]
+    },
+    "vanirgroup": {
+      "name": "vanirgroup",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2024-07-10T13:54:52.476Z",
+      "origins": ["ransomwarelive"]
+    },
+    "qiulong": {
+      "name": "qiulong",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2024-06-24T22:23:31.002Z",
+      "origins": ["ransomwarelive"]
+    },
+    "redransomware": {
+      "name": "redransomware",
+      "victims_7d": 0,
+      "victims_total": 16,
+      "last_seen": "2024-06-12T07:10:17.299Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sensayq": {
+      "name": "sensayq",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2024-06-04T22:31:01.592Z",
+      "origins": ["ransomwarelive"]
+    },
+    "snatch": {
+      "name": "snatch",
+      "victims_7d": 0,
+      "victims_total": 142,
+      "last_seen": "2024-05-16T14:16:40.764Z",
+      "origins": ["ransomwarelive"]
+    },
+    "zerotolerance": {
+      "name": "zerotolerance",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2024-05-09T19:12:58.125Z",
+      "origins": ["ransomwarelive"]
+    },
+    "hellogookie": {
+      "name": "hellogookie",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2024-04-19T08:15:03.442Z",
+      "origins": ["ransomwarelive"]
+    },
+    "malekteam": {
+      "name": "malekteam",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2024-04-05T13:28:30.168Z",
+      "origins": ["ransomwarelive"]
+    },
+    "trigona": {
+      "name": "trigona",
+      "victims_7d": 0,
+      "victims_total": 49,
+      "last_seen": "2024-03-30T17:55:35.466Z",
+      "origins": ["ransomwarelive"]
+    },
+    "werewolves": {
+      "name": "werewolves",
+      "victims_7d": 0,
+      "victims_total": 26,
+      "last_seen": "2024-03-13T01:20:14.630Z",
+      "origins": ["ransomwarelive"]
+    },
+    "donex": {
+      "name": "donex",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2024-03-08T06:49:44.007Z",
+      "origins": ["ransomwarelive"]
+    },
+    "alphv": {
+      "name": "alphv",
+      "victims_7d": 0,
+      "victims_total": 731,
+      "last_seen": "2024-03-03T16:14:30.091Z",
+      "origins": ["ransomwarelive"]
+    },
+    "mogilevich": {
+      "name": "mogilevich",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2024-03-01T14:41:45.361Z",
+      "origins": ["ransomwarelive"]
+    },
+    "trisec": {
+      "name": "trisec",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2024-02-19T06:11:47.754Z",
+      "origins": ["ransomwarelive"]
+    },
+    "knight": {
+      "name": "knight",
+      "victims_7d": 0,
+      "victims_total": 48,
+      "last_seen": "2024-02-12T19:38:42.717Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cuba": {
+      "name": "cuba",
+      "victims_7d": 0,
+      "victims_total": 103,
+      "last_seen": "2024-02-01T16:34:09.685Z",
+      "origins": ["ransomwarelive"]
+    },
+    "0mega": {
+      "name": "0mega",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2024-01-25T17:30:38.223Z",
+      "origins": ["ransomwarelive"]
+    },
+    "slug": {
+      "name": "slug",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2024-01-18T11:01:53.512Z",
+      "origins": ["ransomwarelive"]
+    },
+    "insane": {
+      "name": "insane",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2024-01-17T05:45:04.181Z",
+      "origins": ["ransomwarelive"]
+    },
+    "noname": {
+      "name": "noname",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2024-01-16T20:58:52.036Z",
+      "origins": ["ransomwarelive"]
+    },
+    "raznatovic": {
+      "name": "raznatovic",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2024-01-07T13:15:39.549Z",
+      "origins": ["ransomwarelive"]
+    },
+    "toufan": {
+      "name": "toufan",
+      "victims_7d": 0,
+      "victims_total": 117,
+      "last_seen": "2023-12-27T03:17:16.475Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ranstreet": {
+      "name": "ranstreet",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2023-12-21T00:08:22.617Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lorenz": {
+      "name": "lorenz",
+      "victims_7d": 0,
+      "victims_total": 78,
+      "last_seen": "2023-12-11T17:39:57.571Z",
+      "origins": ["ransomwarelive"]
+    },
+    "siegedsec": {
+      "name": "siegedsec",
+      "victims_7d": 0,
+      "victims_total": 19,
+      "last_seen": "2023-12-09T01:15:09.503Z",
+      "origins": ["ransomwarelive"]
+    },
+    "noescape": {
+      "name": "noescape",
+      "victims_7d": 0,
+      "victims_total": 126,
+      "last_seen": "2023-12-04T08:56:33.596Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ransomed": {
+      "name": "ransomed",
+      "victims_7d": 0,
+      "victims_total": 68,
+      "last_seen": "2023-10-30T11:25:30.602Z",
+      "origins": ["ransomwarelive"]
+    },
+    "arvinclub": {
+      "name": "arvinclub",
+      "victims_7d": 0,
+      "victims_total": 35,
+      "last_seen": "2023-10-15T22:03:19.232Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ragnarlocker": {
+      "name": "ragnarlocker",
+      "victims_7d": 0,
+      "victims_total": 128,
+      "last_seen": "2023-10-11T22:11:03.350Z",
+      "origins": ["ransomwarelive"]
+    },
+    "losttrust": {
+      "name": "losttrust",
+      "victims_7d": 0,
+      "victims_total": 53,
+      "last_seen": "2023-09-26T11:10:43.854Z",
+      "origins": ["ransomwarelive"]
+    },
+    "karakurt": {
+      "name": "karakurt",
+      "victims_7d": 0,
+      "victims_total": 74,
+      "last_seen": "2023-09-22T14:30:43.020Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cryptbb": {
+      "name": "cryptbb",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2023-09-15T22:33:41.705Z",
+      "origins": ["ransomwarelive"]
+    },
+    "rancoz": {
+      "name": "rancoz",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2023-09-03T19:11:12.464Z",
+      "origins": ["ransomwarelive"]
+    },
+    "nokoyawa": {
+      "name": "nokoyawa",
+      "victims_7d": 0,
+      "victims_total": 36,
+      "last_seen": "2023-08-04T11:02:13.553Z",
+      "origins": ["ransomwarelive"]
+    },
+    "babuk": {
+      "name": "babuk",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2023-07-31T14:37:09.822Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cyclops": {
+      "name": "cyclops",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2023-07-26T21:01:35.861Z",
+      "origins": ["ransomwarelive"]
+    },
+    "royal": {
+      "name": "royal",
+      "victims_7d": 0,
+      "victims_total": 211,
+      "last_seen": "2023-07-19T14:46:59.790Z",
+      "origins": ["ransomwarelive"]
+    },
+    "vicesociety": {
+      "name": "vicesociety",
+      "victims_7d": 0,
+      "victims_total": 188,
+      "last_seen": "2023-06-20T21:06:18.878Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lapiovra": {
+      "name": "la_piovra",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2023-06-10T16:58:28.721Z",
+      "origins": ["ransomwarelive"]
+    },
+    "darkrace": {
+      "name": "darkrace",
+      "victims_7d": 0,
+      "victims_total": 10,
+      "last_seen": "2023-06-09T10:53:33.531Z",
+      "origins": ["ransomwarelive"]
+    },
+    "malas": {
+      "name": "malas",
+      "victims_7d": 0,
+      "victims_total": 170,
+      "last_seen": "2023-05-18T11:29:55.649Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cryptnet": {
+      "name": "cryptnet",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2023-04-19T20:00:01.214Z",
+      "origins": ["ransomwarelive"]
+    },
+    "crosslock": {
+      "name": "crosslock",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2023-04-17T17:00:38.913Z",
+      "origins": ["ransomwarelive"]
+    },
+    "darkpower": {
+      "name": "darkpower",
+      "victims_7d": 0,
+      "victims_total": 10,
+      "last_seen": "2023-03-11T14:03:02.165Z",
+      "origins": ["ransomwarelive"]
+    },
+    "vendetta": {
+      "name": "vendetta",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2023-02-27T11:35:59.876Z",
+      "origins": ["ransomwarelive"]
+    },
+    "avoslocker": {
+      "name": "avoslocker",
+      "victims_7d": 0,
+      "victims_total": 70,
+      "last_seen": "2023-02-11T15:54:59.279Z",
+      "origins": ["ransomwarelive"]
+    },
+    "hive": {
+      "name": "hive",
+      "victims_7d": 0,
+      "victims_total": 208,
+      "last_seen": "2023-01-16T23:15:55.695Z",
+      "origins": ["ransomwarelive"]
+    },
+    "freecivilian": {
+      "name": "freecivilian",
+      "victims_7d": 0,
+      "victims_total": 14,
+      "last_seen": "2022-12-31T16:06:42.927Z",
+      "origins": ["ransomwarelive"]
+    },
+    "projectrelic": {
+      "name": "projectrelic",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2022-12-18T16:54:36.306Z",
+      "origins": ["ransomwarelive"]
+    },
+    "quantum": {
+      "name": "quantum",
+      "victims_7d": 0,
+      "victims_total": 68,
+      "last_seen": "2022-12-09T04:22:35.604Z",
+      "origins": ["ransomwarelive"]
+    },
+    "dataleak": {
+      "name": "dataleak",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2022-12-02T09:45:25.796Z",
+      "origins": ["ransomwarelive"]
+    },
+    "revil": {
+      "name": "revil",
+      "victims_7d": 0,
+      "victims_total": 96,
+      "last_seen": "2022-11-28T20:34:41.644Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lv": {
+      "name": "lv",
+      "victims_7d": 0,
+      "victims_total": 63,
+      "last_seen": "2022-11-27T14:03:27.280Z",
+      "origins": ["ransomwarelive"]
+    },
+    "onyx": {
+      "name": "onyx",
+      "victims_7d": 0,
+      "victims_total": 28,
+      "last_seen": "2022-11-21T14:16:29.181Z",
+      "origins": ["ransomwarelive"]
+    },
+    "memedusalockerdusa": {
+      "name": "memedusalockerdusa",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2022-11-15T07:39:16.366Z",
+      "origins": ["ransomwarelive"]
+    },
+    "shaoleaks": {
+      "name": "shaoleaks",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2022-11-01T17:07:34.876Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blogxx": {
+      "name": "blogxx",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2022-10-12T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sparta": {
+      "name": "sparta",
+      "victims_7d": 0,
+      "victims_total": 14,
+      "last_seen": "2022-09-22T17:47:19.862Z",
+      "origins": ["ransomwarelive"]
+    },
+    "redalert": {
+      "name": "redalert",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2022-09-22T11:21:46.892Z",
+      "origins": ["ransomwarelive"]
+    },
+    "pysa": {
+      "name": "pysa",
+      "victims_7d": 0,
+      "victims_total": 309,
+      "last_seen": "2022-09-20T01:44:05.209Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cheers": {
+      "name": "cheers",
+      "victims_7d": 0,
+      "victims_total": 15,
+      "last_seen": "2022-09-14T11:00:11.961Z",
+      "origins": ["ransomwarelive"]
+    },
+    "icefire": {
+      "name": "icefire",
+      "victims_7d": 0,
+      "victims_total": 11,
+      "last_seen": "2022-08-20T09:50:02.102Z",
+      "origins": ["ransomwarelive"]
+    },
+    "yanluowang": {
+      "name": "yanluowang",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2022-08-10T16:48:46.051Z",
+      "origins": ["ransomwarelive"]
+    },
+    "roadsweep": {
+      "name": "roadsweep",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2022-07-18T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lockbit2": {
+      "name": "lockbit2",
+      "victims_7d": 0,
+      "victims_total": 1002,
+      "last_seen": "2022-06-28T14:02:38.510Z",
+      "origins": ["ransomwarelive"]
+    },
+    "suncrypt": {
+      "name": "suncrypt",
+      "victims_7d": 0,
+      "victims_total": 32,
+      "last_seen": "2022-06-18T02:21:01.442Z",
+      "origins": ["ransomwarelive"]
+    },
+    "conti": {
+      "name": "conti",
+      "victims_7d": 0,
+      "victims_total": 351,
+      "last_seen": "2022-06-07T18:40:06.936Z",
+      "origins": ["ransomwarelive"]
+    },
+    "darkleakmarket": {
+      "name": "darkleakmarket",
+      "victims_7d": 0,
+      "victims_total": 39,
+      "last_seen": "2022-05-25T18:38:22.481Z",
+      "origins": ["ransomwarelive"]
+    },
+    "kelvinsecurity": {
+      "name": "kelvinsecurity",
+      "victims_7d": 0,
+      "victims_total": 26,
+      "last_seen": "2022-05-24T20:35:19.562Z",
+      "origins": ["ransomwarelive"]
+    },
+    "mindware": {
+      "name": "mindware",
+      "victims_7d": 0,
+      "victims_total": 13,
+      "last_seen": "2022-05-05T13:42:39.179Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bitlocker": {
+      "name": "bitlocker",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2022-05-02T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "midas": {
+      "name": "midas",
+      "victims_7d": 0,
+      "victims_total": 44,
+      "last_seen": "2022-04-14T23:25:05.809Z",
+      "origins": ["ransomwarelive"]
+    },
+    "pandora": {
+      "name": "pandora",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2022-03-30T19:26:24.820Z",
+      "origins": ["ransomwarelive"]
+    },
+    "leaktheanalyst": {
+      "name": "leaktheanalyst",
+      "victims_7d": 0,
+      "victims_total": 20,
+      "last_seen": "2022-03-29T16:52:32.802Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sabbath": {
+      "name": "sabbath",
+      "victims_7d": 0,
+      "victims_total": 17,
+      "last_seen": "2022-02-28T18:25:03.577Z",
+      "origins": ["ransomwarelive"]
+    },
+    "marketo": {
+      "name": "marketo",
+      "victims_7d": 0,
+      "victims_total": 32,
+      "last_seen": "2022-02-14T20:32:48.096Z",
+      "origins": ["ransomwarelive"]
+    },
+    "mountlocker": {
+      "name": "mountlocker",
+      "victims_7d": 0,
+      "victims_total": 18,
+      "last_seen": "2022-02-08T14:26:33.620Z",
+      "origins": ["ransomwarelive"]
+    },
+    "rook": {
+      "name": "rook",
+      "victims_7d": 0,
+      "victims_total": 9,
+      "last_seen": "2022-01-08T10:19:00.640Z",
+      "origins": ["ransomwarelive"]
+    },
+    "payloadbin": {
+      "name": "payloadbin",
+      "victims_7d": 0,
+      "victims_total": 29,
+      "last_seen": "2022-01-06T13:27:28.356Z",
+      "origins": ["ransomwarelive"]
+    },
+    "nightsky": {
+      "name": "nightsky",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2022-01-04T19:14:52.100Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blacktor": {
+      "name": "blacktor",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2021-12-30T10:10:48.121Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ragnarok": {
+      "name": "ragnarok",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2021-12-30T10:10:45.033Z",
+      "origins": ["ransomwarelive"]
+    },
+    "mosesstaff": {
+      "name": "mosesstaff",
+      "victims_7d": 0,
+      "victims_total": 16,
+      "last_seen": "2021-12-18T16:06:45.338Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackshadow": {
+      "name": "blackshadow",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2021-12-18T16:06:44.948Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cryp70n1c0d3": {
+      "name": "cryp70n1c0d3",
+      "victims_7d": 0,
+      "victims_total": 11,
+      "last_seen": "2021-12-18T16:06:44.345Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bonacigroup": {
+      "name": "bonacigroup",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2021-12-06T23:55:58.986Z",
+      "origins": ["ransomwarelive"]
+    },
+    "robinhood": {
+      "name": "robinhood",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-12-06T19:59:27.781Z",
+      "origins": ["ransomwarelive"]
+    },
+    "blackmatter": {
+      "name": "blackmatter",
+      "victims_7d": 0,
+      "victims_total": 32,
+      "last_seen": "2021-11-04T16:05:45.602Z",
+      "origins": ["ransomwarelive"]
+    },
+    "groove": {
+      "name": "groove",
+      "victims_7d": 0,
+      "victims_total": 13,
+      "last_seen": "2021-10-30T10:25:18.268Z",
+      "origins": ["ransomwarelive"]
+    },
+    "xinglocker": {
+      "name": "xinglocker",
+      "victims_7d": 0,
+      "victims_total": 21,
+      "last_seen": "2021-10-26T13:56:17.766Z",
+      "origins": ["ransomwarelive"]
+    },
+    "spook": {
+      "name": "spook",
+      "victims_7d": 0,
+      "victims_total": 35,
+      "last_seen": "2021-10-19T18:49:19.466Z",
+      "origins": ["ransomwarelive"]
+    },
+    "macaw": {
+      "name": "macaw",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-10-16T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "karma": {
+      "name": "karma",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2021-10-04T09:45:12.384Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lockdata": {
+      "name": "lockdata",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2021-09-09T23:46:57.869Z",
+      "origins": ["ransomwarelive"]
+    },
+    "azroteam": {
+      "name": "azroteam",
+      "victims_7d": 0,
+      "victims_total": 15,
+      "last_seen": "2021-09-09T23:46:57.808Z",
+      "origins": ["ransomwarelive"]
+    },
+    "pay2key": {
+      "name": "pay2key",
+      "victims_7d": 0,
+      "victims_total": 7,
+      "last_seen": "2021-09-09T23:46:57.658Z",
+      "origins": ["ransomwarelive"]
+    },
+    "nefilim": {
+      "name": "nefilim",
+      "victims_7d": 0,
+      "victims_total": 15,
+      "last_seen": "2021-09-09T23:46:57.082Z",
+      "origins": ["ransomwarelive"]
+    },
+    "avaddon": {
+      "name": "avaddon",
+      "victims_7d": 0,
+      "victims_total": 146,
+      "last_seen": "2021-09-09T23:46:54.365Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lockbit": {
+      "name": "lockbit",
+      "victims_7d": 0,
+      "victims_total": 5,
+      "last_seen": "2021-08-23T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "deathkitty": {
+      "name": "deathkitty",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-07-22T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "grief": {
+      "name": "grief",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2021-06-30T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "zeppelin": {
+      "name": "zeppelin",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-05-19T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ryuk": {
+      "name": "ryuk",
+      "victims_7d": 0,
+      "victims_total": 48,
+      "last_seen": "2021-05-18T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "darkside": {
+      "name": "darkside",
+      "victims_7d": 0,
+      "victims_total": 10,
+      "last_seen": "2021-05-13T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "networm": {
+      "name": "networm",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-05-02T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "maui": {
+      "name": "maui",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-05-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "doppelpaymer": {
+      "name": "doppelpaymer",
+      "victims_7d": 0,
+      "victims_total": 25,
+      "last_seen": "2021-04-10T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "astroteam": {
+      "name": "astroteam",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-04-05T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "synack": {
+      "name": "synack",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-03-21T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "phoenixcryptolocker": {
+      "name": "phoenixcryptolocker",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-03-21T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "egregor": {
+      "name": "egregor",
+      "victims_7d": 0,
+      "victims_total": 6,
+      "last_seen": "2021-02-08T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "ronggolawe": {
+      "name": "ronggolawe",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-02-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cring": {
+      "name": "cring",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2021-01-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "hades": {
+      "name": "hades",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2020-12-15T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "netwalker": {
+      "name": "netwalker",
+      "victims_7d": 0,
+      "victims_total": 26,
+      "last_seen": "2020-12-12T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "netflim": {
+      "name": "netflim",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2020-11-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "wastedlocker": {
+      "name": "wastedlocker",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2020-10-16T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "maze": {
+      "name": "maze",
+      "victims_7d": 0,
+      "victims_total": 59,
+      "last_seen": "2020-09-11T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "agelocker": {
+      "name": "agelocker",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2020-08-30T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "thanos": {
+      "name": "thanos",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2020-07-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "sekhmet": {
+      "name": "sekhmet",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2020-06-20T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "snake": {
+      "name": "snake",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2020-06-07T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "dharma": {
+      "name": "dharma",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2020-06-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "mamba": {
+      "name": "mamba",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2020-05-07T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "coldlock": {
+      "name": "coldlock",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2020-05-05T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "prolock": {
+      "name": "prolock",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2020-04-25T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "bitpaymer": {
+      "name": "bitpaymer",
+      "victims_7d": 0,
+      "victims_total": 9,
+      "last_seen": "2019-11-10T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "robbinhood": {
+      "name": "robbinhood",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2019-05-07T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cryptolocker": {
+      "name": "cryptolocker",
+      "victims_7d": 0,
+      "victims_total": 8,
+      "last_seen": "2019-04-28T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lockergoga": {
+      "name": "lockergoga",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2019-03-22T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "nozelesn": {
+      "name": "nozelesn",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2018-12-17T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "pewcrypt": {
+      "name": "pewcrypt",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2018-11-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "samsam": {
+      "name": "samsam",
+      "victims_7d": 0,
+      "victims_total": 12,
+      "last_seen": "2018-09-28T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "gandcrab": {
+      "name": "gandcrab",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2018-09-09T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "hermes": {
+      "name": "hermes",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2018-07-27T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "scarab": {
+      "name": "scarab",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2018-06-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "triplem": {
+      "name": "triplem",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2018-03-30T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "wannacry": {
+      "name": "wannacry",
+      "victims_7d": 0,
+      "victims_total": 33,
+      "last_seen": "2018-02-23T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "samas": {
+      "name": "samas",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2018-02-16T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "global3": {
+      "name": "global3",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2017-09-09T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "erebus": {
+      "name": "erebus",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2017-06-10T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cryptomix": {
+      "name": "cryptomix",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2017-01-15T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cerber": {
+      "name": "cerber",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2017-01-09T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "notpetya": {
+      "name": "NotPetya",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2017-01-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "locky": {
+      "name": "locky",
+      "victims_7d": 0,
+      "victims_total": 3,
+      "last_seen": "2016-12-12T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "hddcryptor": {
+      "name": "hddcryptor",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2016-11-25T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "teslacrypt": {
+      "name": "teslacrypt",
+      "victims_7d": 0,
+      "victims_total": 2,
+      "last_seen": "2016-03-09T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "lechiffre": {
+      "name": "lechiffre",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2016-03-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cryptowall": {
+      "name": "cryptowall",
+      "victims_7d": 0,
+      "victims_total": 4,
+      "last_seen": "2016-02-26T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "keyholder": {
+      "name": "keyholder",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2015-04-04T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "megacode": {
+      "name": "megacode",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2015-03-20T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "goznym": {
+      "name": "goznym",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2015-01-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    },
+    "cryptoware": {
+      "name": "cryptoware",
+      "victims_7d": 0,
+      "victims_total": 1,
+      "last_seen": "2015-01-01T00:00:00.000Z",
+      "origins": ["ransomwarelive"]
+    }
+  },
+  "samples": {
+    "nightspire": [
+      {
+        "victim": "DiamondLease",
+        "discovered": "2026-09-12T07:42:53.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Perimetral Oriental de Bogotá S.A.S.",
+        "discovered": "2026-09-12T07:42:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Ozel & Ozel Laws Office",
+        "discovered": "2026-09-12T07:42:51.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Tuboaços da Amazônia Ltda.",
+        "discovered": "2026-09-11T17:46:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Transportes Montejo S.A.S.",
+        "discovered": "2026-09-01T16:30:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Easyoga",
+        "discovered": "2026-08-31T20:30:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Truckworx",
+        "discovered": "2026-08-31T20:30:22.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "safepay": [
+      {
+        "victim": "compunnel.com",
+        "discovered": "2026-09-12T06:40:21.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/compunnelcom/"
+      },
+      {
+        "victim": "gayafores.es",
+        "discovered": "2026-09-09T06:40:49.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/gayaforeses/"
+      },
+      {
+        "victim": "cenmar-manila.com",
+        "discovered": "2026-09-09T06:40:48.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/cenmar-manilacom/"
+      },
+      {
+        "victim": "gsngestion.es",
+        "discovered": "2026-09-09T06:40:47.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/gsngestiones/"
+      },
+      {
+        "victim": "hbpro.pt",
+        "discovered": "2026-09-09T06:40:46.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/hbpropt/"
+      },
+      {
+        "victim": "recoverycafe.org",
+        "discovered": "2026-09-08T21:41:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/recoverycafeorg/"
+      },
+      {
+        "victim": "mcnishsteel.com",
+        "discovered": "2026-09-08T21:41:07.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/mcnishsteelcom/"
+      },
+      {
+        "victim": "palmettoeyeinstitute.com",
+        "discovered": "2026-09-08T21:41:06.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/palmettoeyeinstitutecom/"
+      },
+      {
+        "victim": "reichenau.at",
+        "discovered": "2026-09-08T21:41:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/reichenauat/"
+      },
+      {
+        "victim": "cannonpuntana.com",
+        "discovered": "2026-09-08T21:41:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/post/cannonpuntanacom/"
+      }
+    ],
+    "qilin": [
+      {
+        "victim": "Imperial Healthcare Solutions",
+        "discovered": "2026-09-12T02:50:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=c696224e-7b55-42fd-975d-523482859420"
+      },
+      {
+        "victim": "Mitsuwa Trading Co., Ltd",
+        "discovered": "2026-09-09T22:45:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=84596ac3-df07-4e54-9c58-c25effad7e42"
+      },
+      {
+        "victim": "Jet Specialty",
+        "discovered": "2026-09-09T14:39:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=503493c0-dba3-40f5-89ff-e0c9c0619fbf"
+      },
+      {
+        "victim": "Alaska Electrical Apprenticeship",
+        "discovered": "2026-09-08T17:44:14.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=70fa650d-b9a1-4f47-89cb-9551f5266355"
+      },
+      {
+        "victim": "Partners Group SK",
+        "discovered": "2026-09-07T23:40:02.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=ec038569-39b2-414e-bd92-45f99e174f42"
+      },
+      {
+        "victim": "Jbc",
+        "discovered": "2026-09-07T14:39:21.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=c2e31628-1690-4103-bed1-43a28ade6e0d"
+      },
+      {
+        "victim": "Philippine Ports Authority",
+        "discovered": "2026-09-05T18:45:15.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=65f2d9fb-d508-4c18-84e1-14defac537bb"
+      },
+      {
+        "victim": "Bauman Law Group",
+        "discovered": "2026-09-05T18:45:14.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=e46fa1b8-8412-4232-9d35-bec750d2f148"
+      },
+      {
+        "victim": "Jouvet SAS",
+        "discovered": "2026-09-05T13:44:14.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=ee0464c8-913c-4fec-bf54-04737c76b065"
+      },
+      {
+        "victim": "G&S Technologies",
+        "discovered": "2026-09-05T13:44:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/site/blog?uuid=443343d0-78e2-4240-833c-478a6c9bc3c2"
+      }
+    ],
+    "direwolf": [
+      {
+        "victim": "Port of Tanjung Pelepas",
+        "discovered": "2026-09-11T23:43:50.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "RelyComply AML Platform",
+        "discovered": "2026-09-09T15:30:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Sales Boomerang",
+        "discovered": "2026-09-09T03:39:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "EMS1R",
+        "discovered": "2026-09-08T18:44:26.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "TrainMe",
+        "discovered": "2026-09-07T19:35:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Precision Vehicle Logistics",
+        "discovered": "2026-09-07T19:35:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Lightcast",
+        "discovered": "2026-09-07T17:26:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Semper Laser",
+        "discovered": "2026-09-07T16:33:26.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "eAssist Dental Solutions",
+        "discovered": "2026-09-06T18:38:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Mission Pet Health",
+        "discovered": "2026-09-06T17:35:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "dragonforce": [
+      {
+        "victim": "Medical Department Store",
+        "discovered": "2026-09-11T16:41:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Homewood Sales",
+        "discovered": "2026-09-04T11:35:25.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Norwood Law Firm",
+        "discovered": "2026-09-04T11:35:24.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "rubbermill.com",
+        "discovered": "2026-09-01T16:29:59.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "pear": [
+      {
+        "victim": "Foss Inc.",
+        "discovered": "2026-09-11T15:43:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Companies/fossinc"
+      },
+      {
+        "victim": "Kovo Healthtech Corp",
+        "discovered": "2026-09-04T12:37:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Companies/kovoplus"
+      },
+      {
+        "victim": "EdgeChem Jamaica Limited",
+        "discovered": "2026-09-03T14:38:22.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Companies/edgechem"
+      },
+      {
+        "victim": "Next Level Medical, LLC",
+        "discovered": "2026-09-02T13:41:47.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Companies/nextlevelurgentcare"
+      }
+    ],
+    "fulcrumsec": [
+      {
+        "victim": "Dustin Group",
+        "discovered": "2026-09-11T12:40:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/dustin/"
+      },
+      {
+        "victim": "Manchester Airports Group",
+        "discovered": "2026-09-01T12:46:01.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/mag/"
+      }
+    ],
+    "globalsecretgroup": [
+      {
+        "victim": "CO-OP URBAN BANK LTD",
+        "discovered": "2026-09-11T00:43:25.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/mEMbPCoMYCBhYvwy/"
+      },
+      {
+        "victim": "Mesan USA",
+        "discovered": "2026-09-10T08:36:41.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/SyR7gg8M68RCbyjA/"
+      },
+      {
+        "victim": "Quality Resource Pvt",
+        "discovered": "2026-09-02T00:42:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/8tEkAvb4TaoYSH37/"
+      },
+      {
+        "victim": "R L Fine Chem Pvt. Ltd.",
+        "discovered": "2026-08-31T20:29:51.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/b6CUZMNZV4BJUiGi/"
+      }
+    ],
+    "vexy": [
+      {
+        "victim": "i2k2 Networks",
+        "discovered": "2026-09-10T23:43:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Logar Network Solutions",
+        "discovered": "2026-09-09T18:40:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "United Group",
+        "discovered": "2026-09-07T19:36:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "LIBRERIA SANTA FE A P S SRL",
+        "discovered": "2026-09-07T11:39:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Sancity",
+        "discovered": "2026-09-06T17:36:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "McDonalds Ecuador",
+        "discovered": "2026-09-06T14:40:59.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Mega Velocity",
+        "discovered": "2026-09-06T02:38:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Sancity Soft Touch",
+        "discovered": "2026-09-04T18:33:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Palsana Enviro (PEPL)",
+        "discovered": "2026-09-04T17:34:53.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Annapurna Fashion",
+        "discovered": "2026-09-04T17:34:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "beast": [
+      {
+        "victim": "M800 and CINNOX",
+        "discovered": "2026-09-10T22:46:51.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/card/m800_and_cinnox"
+      }
+    ],
+    "play": [
+      {
+        "victim": "Sys-kool",
+        "discovered": "2026-09-10T21:44:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=yyncT2aFBiPDiv"
+      },
+      {
+        "victim": "Grunthal Welding & Supplies",
+        "discovered": "2026-09-10T21:44:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=JOeV4CADDG9te"
+      },
+      {
+        "victim": "Red Star Oil",
+        "discovered": "2026-09-09T02:41:09.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=URWl0S32MlBaOs"
+      },
+      {
+        "victim": "GT Distributors",
+        "discovered": "2026-09-09T02:41:07.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=uvrc17ZppDE4Jp"
+      },
+      {
+        "victim": "MEQ",
+        "discovered": "2026-08-31T16:32:06.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=hEIeYmkZgItUu"
+      },
+      {
+        "victim": "Figgins Family Wine Estates",
+        "discovered": "2026-08-31T16:32:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=UmJAWJS9K2lw"
+      },
+      {
+        "victim": "KRC Machine Tool Solutions",
+        "discovered": "2026-08-31T16:32:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=nRz8hNyblr2Aee"
+      },
+      {
+        "victim": "Meteor Group",
+        "discovered": "2026-08-31T16:32:02.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=ERRbEvbLM2k5Ta"
+      }
+    ],
+    "auditteam": [
+      {
+        "victim": "AUDIT ENTITY: ki***jp",
+        "discovered": "2026-09-10T21:43:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/38B75D4B5E1AD271"
+      },
+      {
+        "victim": "AUDIT ENTITY: my***ru",
+        "discovered": "2026-09-10T21:43:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/F9CF4B639CAC1B18"
+      },
+      {
+        "victim": "AUDIT ENTITY: mo***al",
+        "discovered": "2026-09-10T01:43:27.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/FDC699DE3A112669"
+      },
+      {
+        "victim": "AUDIT ENTITY: dg***kr",
+        "discovered": "2026-09-09T18:39:46.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/E412B2E7E3ED1A93"
+      },
+      {
+        "victim": "AUDIT ENTITY: go***et",
+        "discovered": "2026-09-09T18:39:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/484EC15733A3F216"
+      },
+      {
+        "victim": "AUDIT ENTITY: kr***rg",
+        "discovered": "2026-09-09T18:39:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/CE33F39DA84768CA"
+      },
+      {
+        "victim": "AUDIT ENTITY: bu***en",
+        "discovered": "2026-09-08T23:36:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/1F9FDF1A9BCD9BB3"
+      },
+      {
+        "victim": "AUDIT ENTITY: Wi***IT",
+        "discovered": "2026-09-08T14:38:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/DD843CB564F9724E"
+      },
+      {
+        "victim": "AUDIT ENTITY: pa***op",
+        "discovered": "2026-09-08T10:38:21.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/276BEA45DB484D8E"
+      },
+      {
+        "victim": "AUDIT ENTITY: mansurovogroup",
+        "discovered": "2026-09-04T05:34:53.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/entity/17E19C9B6B41D33F"
+      }
+    ],
+    "rhysida": [
+      {
+        "victim": "General Santos Doctors Hospital",
+        "discovered": "2026-09-10T20:39:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=271"
+      },
+      {
+        "victim": "Professional Retail Services",
+        "discovered": "2026-09-10T20:39:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=272"
+      },
+      {
+        "victim": "SAD'S Interim",
+        "discovered": "2026-09-08T09:44:48.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=268"
+      },
+      {
+        "victim": "Rug & Home",
+        "discovered": "2026-09-07T18:35:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=267"
+      },
+      {
+        "victim": "Szechenyi Programiroda Nonprofit Kf",
+        "discovered": "2026-09-01T20:34:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=266"
+      },
+      {
+        "victim": "Berlin, Germany",
+        "discovered": "2026-08-28T17:30:58.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=264"
+      },
+      {
+        "victim": "Valley Health Team",
+        "discovered": "2026-08-28T17:30:57.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=265"
+      }
+    ],
+    "ransomhouse": [
+      {
+        "victim": "California School Employees Association",
+        "discovered": "2026-09-10T19:43:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/r/2b02392eb9ddc39713c83fafd8c4c1eae88b5bcf"
+      },
+      {
+        "victim": "[EVIDENCE]REXT Holdings Co., Ltd.",
+        "discovered": "2026-09-02T16:42:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/r/a54827e084a5e2b1a855d24b2c79b809621be1d5"
+      },
+      {
+        "victim": "REXT Holdings Co., Ltd.",
+        "discovered": "2026-09-01T15:53:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/r/0a9134b3273d30891b3c95edea912dde64428957"
+      }
+    ],
+    "chaos": [
+      {
+        "victim": "mankatoclinic.com",
+        "discovered": "2026-09-10T19:42:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Rct2l4z0PDB9rUIwh31yc0cSk5utsqfl/mankatoclinic-com"
+      },
+      {
+        "victim": "artiflexmfg.com",
+        "discovered": "2026-09-10T19:42:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/PzfXqKW5FK3vzC3lKchrNzIU8vn32VKA/artiflexmfg-com"
+      },
+      {
+        "victim": "copeplastics.com",
+        "discovered": "2026-09-09T00:39:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/8q2RrLiN6uJyo3CWGnW7QE1SXOQCfPCb/copeplastics-com"
+      },
+      {
+        "victim": "evergenbio.com",
+        "discovered": "2026-09-06T16:39:48.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/MU7nZVTkyUp3ngugKlwOnyVtxCATQdyB/evergenbio-com"
+      },
+      {
+        "victim": "corematerials.com",
+        "discovered": "2026-08-28T20:33:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Y1fpWBmDHkS9UVcAr34ryui3hKyJrn7R/corematerials-com"
+      },
+      {
+        "victim": "macallister.com",
+        "discovered": "2026-08-28T20:33:10.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/HWYpccK3tQd2VIazsCSTQ72a2gcLaAhr/macallister-com"
+      }
+    ],
+    "incransom": [
+      {
+        "victim": "jms building corporation",
+        "discovered": "2026-09-10T17:41:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a9e419a9cd108bf268b82e3"
+      },
+      {
+        "victim": "cullottalaw.com",
+        "discovered": "2026-09-10T09:41:56.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6aa1b4799cd108bf26fb4634"
+      },
+      {
+        "victim": "https://mediengruppethiel.de/",
+        "discovered": "2026-09-09T17:39:19.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6aa15b3d9cd108bf26f1a91f"
+      },
+      {
+        "victim": "Wellness Partners network(combined revenue)",
+        "discovered": "2026-09-07T21:44:02.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a9f08409cd108bf26a4f9bf"
+      },
+      {
+        "victim": "myglobal.com",
+        "discovered": "2026-09-03T20:31:59.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a99ad6a9cd108bf26e7ee52"
+      },
+      {
+        "victim": "Asfaltos y Pavimentos S.A. (Asfalpasa)",
+        "discovered": "2026-09-02T17:27:55.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a98332a9cd108bf26b37c4c"
+      },
+      {
+        "victim": "Westfield Public School District",
+        "discovered": "2026-09-02T17:27:54.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a98339f9cd108bf26b38e4f"
+      },
+      {
+        "victim": "Trucka",
+        "discovered": "2026-09-02T17:27:53.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a9834289cd108bf26b3a6ba"
+      },
+      {
+        "victim": "Policlinico Triestino",
+        "discovered": "2026-09-02T17:27:53.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a9835249cd108bf26b3d268"
+      },
+      {
+        "victim": "Multiver Ltée",
+        "discovered": "2026-09-02T17:27:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/disclosures/6a98358f9cd108bf26b3e38b"
+      }
+    ],
+    "wallstreet": [
+      {
+        "victim": "NcbChurch",
+        "discovered": "2026-09-10T16:36:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "On Demand Occupational Medicine",
+        "discovered": "2026-09-10T16:36:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Goldston Oil Corporation",
+        "discovered": "2026-09-10T16:36:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "America’s Food Basket",
+        "discovered": "2026-09-03T16:32:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Ormond Beach Florida",
+        "discovered": "2026-09-02T19:31:55.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Total Education Solutions",
+        "discovered": "2026-09-01T15:53:17.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Cedar County Memorial Hospital",
+        "discovered": "2026-08-31T16:32:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Andover",
+        "discovered": "2026-08-30T17:32:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "lockbit5": [
+      {
+        "victim": "alphaomega-eng.com",
+        "discovered": "2026-09-10T16:36:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/206a4cbc76440d74b64aea01d3bc429d"
+      },
+      {
+        "victim": "amorsaude.com.br",
+        "discovered": "2026-09-10T09:42:22.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/c582d78870d0815a9f37d2ee92981af3"
+      },
+      {
+        "victim": "fdcputman.nl",
+        "discovered": "2026-09-08T16:44:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/b4282657ac697c09ff05210c91e3dece"
+      },
+      {
+        "victim": "contreras.com.ar",
+        "discovered": "2026-09-08T16:44:27.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/eebdb941599051680b06f260a48734ff"
+      },
+      {
+        "victim": "vsbattorneys.co.za",
+        "discovered": "2026-09-08T00:41:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/13cde19e1e4f79aa4b6b458542f570c6"
+      },
+      {
+        "victim": "kalahealth.eu",
+        "discovered": "2026-09-04T18:32:56.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/8ada66fb50893d32c1efcf75d4fd6bd7"
+      },
+      {
+        "victim": "huisartsencentrumkleiniterson.nl",
+        "discovered": "2026-09-04T18:32:55.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/ad4c5e4fb3efe31d475d8a10290631e6"
+      },
+      {
+        "victim": "pscindustries.com",
+        "discovered": "2026-09-04T14:41:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/4652cbe1e838548b272effe6e93b8f2a"
+      },
+      {
+        "victim": "svfcu.org",
+        "discovered": "2026-08-31T16:31:58.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/2a3539977521ffdbf815d0e0ecc2a2c8"
+      },
+      {
+        "victim": "hoaattorneys.com",
+        "discovered": "2026-08-31T16:31:57.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/post/37a6fdefc028046fc8625cae8c209e88"
+      }
+    ],
+    "akira": [
+      {
+        "victim": "AK Stamping",
+        "discovered": "2026-09-10T16:36:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Eagle Construction",
+        "discovered": "2026-09-10T16:35:59.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "George Cameron Nash",
+        "discovered": "2026-09-10T16:35:58.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Kyodo USA",
+        "discovered": "2026-09-09T16:35:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Brentwood Country Club",
+        "discovered": "2026-09-08T17:43:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "CreateASoft",
+        "discovered": "2026-09-08T17:43:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Brent Electric",
+        "discovered": "2026-09-08T17:43:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Stransky Heiz-Mess-Regeltechnik GmbH",
+        "discovered": "2026-09-04T17:34:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Worrell",
+        "discovered": "2026-09-04T16:47:41.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "ScrubaDub Auto Wash Centers",
+        "discovered": "2026-09-02T16:41:53.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "emperador": [
+      {
+        "victim": "EASY JOB S.A.S.",
+        "discovered": "2026-09-10T10:21:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion/post/easy-job-sas/"
+      },
+      {
+        "victim": "Bosnia and Herzegovina Mine Action Center",
+        "discovered": "2026-09-09T12:33:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion/post/bosnia-and-herzegovina-mine-action-center/"
+      },
+      {
+        "victim": "BAYMER",
+        "discovered": "2026-09-09T11:23:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion/post/baymer/"
+      },
+      {
+        "victim": "Universal Starch-Chem Allied Ltd",
+        "discovered": "2026-09-09T11:13:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion/post/universal-starch-chem-allied-ltd/"
+      },
+      {
+        "victim": "Judicial Branch of the Province of Jujuy",
+        "discovered": "2026-09-05T01:47:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion/post/judicial-branch-of-the-province-of-jujuy/"
+      },
+      {
+        "victim": "Uniguacu",
+        "discovered": "2026-08-29T15:03:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion/post/uniguacu/"
+      },
+      {
+        "victim": "Hanwha Renewables",
+        "discovered": "2026-08-28T11:48:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion/post/hanwha-renewables/"
+      }
+    ],
+    "embargo": [
+      {
+        "victim": "gardensalive.com, bitsandpieces.com, iselinursery.local, weeksroses.org, esm.local",
+        "discovered": "2026-09-10T03:38:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/#/post/b44446de-514b-4c36-a5b2-8f893733fc3d"
+      }
+    ],
+    "clop": [
+      {
+        "victim": "HENRYPRATT.COM",
+        "discovered": "2026-09-10T01:43:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "HARLEY-DAVIDSON.COM",
+        "discovered": "2026-09-10T01:43:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "thegentlemen": [
+      {
+        "victim": "Air Canada",
+        "discovered": "2026-09-09T18:20:49.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "PharmaEssentia Corporation",
+        "discovered": "2026-09-09T17:13:49.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Superstore",
+        "discovered": "2026-09-07T19:00:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "AbacoViaggi",
+        "discovered": "2026-09-07T18:13:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "El Carriel",
+        "discovered": "2026-09-07T18:13:17.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Ritz Safety",
+        "discovered": "2026-09-07T18:00:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Comin Sac",
+        "discovered": "2026-09-07T18:00:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Biotipo Jeans",
+        "discovered": "2026-09-07T17:37:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Domis",
+        "discovered": "2026-09-07T17:25:21.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Metro",
+        "discovered": "2026-09-07T17:25:20.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "darkproject": [
+      {
+        "victim": "Specchem LLC",
+        "discovered": "2026-09-09T16:35:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=specchem-llc"
+      },
+      {
+        "victim": "MEI Architects",
+        "discovered": "2026-09-08T00:41:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=mei-architects"
+      },
+      {
+        "victim": "Alurwalls",
+        "discovered": "2026-09-07T20:42:56.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=alurwalls"
+      },
+      {
+        "victim": "Master Manufacturing Co., Inc.",
+        "discovered": "2026-09-07T20:42:55.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=master-manufacturing-co-inc"
+      }
+    ],
+    "blacknevas": [
+      {
+        "victim": "PROMOSFERA S.r.l.",
+        "discovered": "2026-09-09T12:34:41.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/4401a68f-4fb6-4e94-a6af-c9d26c8a9c2a"
+      },
+      {
+        "victim": "Cash and carry - COSAEN GRUP",
+        "discovered": "2026-09-09T12:34:40.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/a2282bbe-c123-400e-80d8-20375985e520"
+      },
+      {
+        "victim": "Abans Group",
+        "discovered": "2026-09-09T12:34:39.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/21316412-7321-43e4-bd3a-6f7ef5811446"
+      },
+      {
+        "victim": "Arkın Group / Arkın Casino, The Arkın Colony, The Arkın Iskele, and Arkın Palm Beach",
+        "discovered": "2026-09-09T12:34:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/281c9c40-9afe-413a-af7e-9cf7c3fdf3c0"
+      },
+      {
+        "victim": "L'azurde",
+        "discovered": "2026-09-09T12:34:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/adf52520-5448-4c49-8e3a-5488d52cf81c"
+      },
+      {
+        "victim": "Speed Group",
+        "discovered": "2026-09-09T12:34:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/9f3aadba-9ad7-40ec-92c9-8a42c918d76a"
+      },
+      {
+        "victim": "OTEGROUP",
+        "discovered": "2026-09-09T12:34:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/f8830413-b940-4d3e-899c-7deb7cc7816e"
+      },
+      {
+        "victim": "ASCOM S.p.A. ascom-italy.it serviced by an IT company Emilcom S.r.l. www.emilcom.it",
+        "discovered": "2026-09-09T12:34:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/ce0e49bd-ae59-477d-abf8-af67fe2a29c0"
+      },
+      {
+        "victim": "COMPUTER COUNTRY AND NETWORKS",
+        "discovered": "2026-09-09T12:34:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/80fc5086-bf81-4cb1-beb4-ddf5c5b598d9"
+      },
+      {
+        "victim": "Westbrook Greenhouse Systems www.westbrooksystems.com serviced by an IT company Computer C",
+        "discovered": "2026-09-09T12:34:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/fadee59c-ae05-4149-a569-e553a06c5ec5"
+      }
+    ],
+    "storm": [
+      {
+        "victim": "Technology Dynamics",
+        "discovered": "2026-09-09T10:39:29.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Star Aviation, Inc",
+        "discovered": "2026-09-09T10:39:27.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Valor Defense Solutions, Inc",
+        "discovered": "2026-09-09T10:39:26.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Sprachakademie Rhein-Ruhr",
+        "discovered": "2026-09-09T10:39:25.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "GSAC",
+        "discovered": "2026-09-09T10:39:24.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Superior Ag",
+        "discovered": "2026-09-09T10:39:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Ruggles Sign Company",
+        "discovered": "2026-09-09T10:39:21.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "WindRose Health Network",
+        "discovered": "2026-09-09T10:39:20.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "ITD Informations technologie",
+        "discovered": "2026-09-09T10:39:19.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Agrimac",
+        "discovered": "2026-09-09T10:39:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "anubis": [
+      {
+        "victim": "Gellibrand Support Services",
+        "discovered": "2026-09-09T07:21:40.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion/r/ObJBnOxUY1Uo4o+pNo4+1iokTlH+DV0xYGCT5h+m6Xr3PCnwl156GokKMstEqD4lviqX84Rf46pAugjKlIR1NYTnhqZGQ4"
+      },
+      {
+        "victim": "Marlborough Partners",
+        "discovered": "2026-09-02T06:21:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion/r/5VYRngWB4RHGrQhum0wZh8OC72oO1g3GU++a70ZsZ6tkH4WMROBRx4tJXAXmdwAp3e0NJ5M+6ftohrSE8ypGt5MGR0ZWd4"
+      }
+    ],
+    "eclipse": [
+      {
+        "victim": "The Zhou Law Group",
+        "discovered": "2026-09-08T17:43:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/hulk5pzh81yov2oh/"
+      },
+      {
+        "victim": "TTG Asia Media",
+        "discovered": "2026-09-08T17:43:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/2yiioe5fyw3jbfpg/"
+      },
+      {
+        "victim": "Royal Plaza On Scotts",
+        "discovered": "2026-09-02T16:42:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/luiusuxs7vt1g4fr/"
+      }
+    ],
+    "shinyhunters": [
+      {
+        "victim": "State of Florida DMV",
+        "discovered": "2026-09-07T21:44:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Medela.com",
+        "discovered": "2026-09-07T08:31:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Note to mr. databroker1 NEXUS DL Service",
+        "discovered": "2026-09-04T16:48:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "NeoGen Corporation",
+        "discovered": "2026-09-03T17:23:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Neogen Corporation",
+        "discovered": "2026-08-30T00:32:46.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "McKesson Corporation",
+        "discovered": "2026-08-29T02:30:51.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Elekta AB",
+        "discovered": "2026-08-29T01:30:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Jack Henry & Associates",
+        "discovered": "2026-08-29T01:30:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "insomnia": [
+      {
+        "victim": "NorthShore Health Centers",
+        "discovered": "2026-09-07T21:44:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/NorthShore/"
+      },
+      {
+        "victim": "Maglin, Miskiv & Associates",
+        "discovered": "2026-09-03T16:32:03.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/MnM/"
+      },
+      {
+        "victim": "N***************",
+        "discovered": "2026-09-02T18:23:57.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/Announce/"
+      },
+      {
+        "victim": "Metro Tulsa Foot",
+        "discovered": "2026-08-31T16:31:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/MTFAS/"
+      }
+    ],
+    "interlock": [
+      {
+        "victim": "NFM Lending",
+        "discovered": "2026-09-07T17:26:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://gpotnbhakwdnrcojjnr4msl3sl64a4gv2n4yizvmbsceiazpqq23s5yd.onion/index.php?p="
+      },
+      {
+        "victim": "Super Systems Inc",
+        "discovered": "2026-08-31T18:33:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://2nv4huuzjbsqncvuepdmwneo6l4ocgtxzcgdau7obcvaqebkssfpz2ad.onion/index.php?p="
+      }
+    ],
+    "everest": [
+      {
+        "victim": "GGS",
+        "discovered": "2026-09-07T17:26:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news/ggs"
+      },
+      {
+        "victim": "KÖRBER",
+        "discovered": "2026-09-07T17:26:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news/korber"
+      },
+      {
+        "victim": "GENESILICO",
+        "discovered": "2026-09-07T17:26:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news/genesilico"
+      },
+      {
+        "victim": "Negotiation Rules",
+        "discovered": "2026-09-04T18:32:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news/negotiation-rules"
+      },
+      {
+        "victim": "Rise UP",
+        "discovered": "2026-09-01T04:41:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news/rise-up"
+      },
+      {
+        "victim": "VIVOTEK",
+        "discovered": "2026-09-01T04:41:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news/vivotek"
+      },
+      {
+        "victim": "Italtel Peru",
+        "discovered": "2026-09-01T04:41:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news/italtel-peru"
+      }
+    ],
+    "aurora": [
+      {
+        "victim": "Benshaw, Inc.",
+        "discovered": "2026-09-07T16:33:17.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/benshaw-inc-a8850418"
+      },
+      {
+        "victim": "Jinny Beauty Supply",
+        "discovered": "2026-09-07T16:33:16.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/jinny-beauty-supply-4926057b"
+      },
+      {
+        "victim": "Metrea LLC/Commuter Air Technology, Inc.",
+        "discovered": "2026-09-05T12:36:16.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/metrea-llc-77f4beea"
+      },
+      {
+        "victim": "EDIF S.p.A.",
+        "discovered": "2026-09-04T15:06:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/edif-spa-privateonlyaccess"
+      },
+      {
+        "victim": "Chip 1 Exchange",
+        "discovered": "2026-09-02T09:38:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/chip-1-exchange-13b819b4"
+      },
+      {
+        "victim": "Ishbia & Gagleard, P.C.",
+        "discovered": "2026-08-31T15:45:10.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/ishbia-gagleard-pc-cbdf52c6"
+      }
+    ],
+    "kazu": [
+      {
+        "victim": "MSM Unify: Global Education Platform - CA",
+        "discovered": "2026-09-07T08:43:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Statistics South Africa – Official National Data and Insights Portal",
+        "discovered": "2026-09-07T08:43:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Gauteng City Region Academy (GCRA)",
+        "discovered": "2026-09-07T08:43:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "HealthDaq",
+        "discovered": "2026-09-07T08:43:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Health Time",
+        "discovered": "2026-09-07T08:43:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Natclar (S.G. Natclar S.A.C.)",
+        "discovered": "2026-09-07T08:43:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Gauteng Provincial Government",
+        "discovered": "2026-09-07T08:43:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "ConsultorioMovil: Telemedicine and Healthcare System",
+        "discovered": "2026-09-07T08:43:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Meducar: Telemedicine and Patient Management System",
+        "discovered": "2026-09-07T08:43:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Centro Médico Especializado OSI:  Healthcare Solutions",
+        "discovered": "2026-09-07T08:43:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "panzer": [
+      {
+        "victim": "KHALED ALFAGIH ENGINEERING CONSULTANCY",
+        "discovered": "2026-09-07T04:39:02.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Hochschule Heilbronn Bildungscampus",
+        "discovered": "2026-09-05T06:36:02.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Dinas Komunikasi dan Informatika",
+        "discovered": "2026-09-03T15:25:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Directorate-General for Education",
+        "discovered": "2026-08-30T22:25:24.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "blacklocks": [
+      {
+        "victim": "광명산업(주)",
+        "discovered": "2026-09-06T23:43:20.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/leaks/Z61IH585ezjN"
+      }
+    ],
+    "dysphor1a": [
+      {
+        "victim": "RTAD GOV MM",
+        "discovered": "2026-09-06T20:42:48.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "CitizensPay",
+        "discovered": "2026-09-05T18:44:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "MBT Telecom",
+        "discovered": "2026-09-04T19:30:54.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Yoma Fleet",
+        "discovered": "2026-08-29T17:42:41.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "AYUDHYA TH Insurance",
+        "discovered": "2026-08-29T17:42:40.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "GUSTO College GLMS",
+        "discovered": "2026-08-29T17:42:39.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Job Net .COM.MM",
+        "discovered": "2026-08-29T17:42:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "The University of Delhi (DU)",
+        "discovered": "2026-08-29T17:42:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Indonesian Police Database",
+        "discovered": "2026-08-29T17:42:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Netim Company",
+        "discovered": "2026-08-29T17:42:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "leaknet": [
+      {
+        "victim": "Will the Katecho,LLC be able to handle the hack and prevent a data breach in time?",
+        "discovered": "2026-09-06T01:41:57.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/view_article.php?article=oKcu3SSttlyF6q212cErhoSU0cSLdjicDyi4FQj420ZYPcZbAiP4XSH0bMxOICM9"
+      }
+    ],
+    "spacebears": [
+      {
+        "victim": "D-MAX Engineering, Inc",
+        "discovered": "2026-09-05T12:37:01.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/76/d-max-engineering-inc"
+      },
+      {
+        "victim": "Sports Endeavors",
+        "discovered": "2026-09-04T19:31:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/75/sports-endeavors"
+      },
+      {
+        "victim": "Studio Oculistico Ciraci",
+        "discovered": "2026-09-04T01:31:06.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/73/studio-oculistico-ciraci"
+      },
+      {
+        "victim": "Schwartz, Giannini, Lantsberger & Adamson (SGLA)",
+        "discovered": "2026-09-04T01:31:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/74/schwartz-giannini-lantsberger-adamson-sgla"
+      }
+    ],
+    "tridentlocker": [
+      {
+        "victim": "SouthernCarlson",
+        "discovered": "2026-09-04T16:48:25.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/article/5589e436-5387-4f33-99da-6c76ecf35856"
+      }
+    ],
+    "leakeddata": [
+      {
+        "victim": "P... S...",
+        "discovered": "2026-09-03T22:33:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "A...en",
+        "discovered": "2026-09-03T22:33:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Se...",
+        "discovered": "2026-09-03T19:24:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Katten Muchin Rosenman",
+        "discovered": "2026-09-03T19:24:01.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Greenberg Traurig",
+        "discovered": "2026-09-03T01:31:15.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "G... ...g",
+        "discovered": "2026-09-02T22:26:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "S... M...",
+        "discovered": "2026-09-02T21:28:01.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Holland & Knight",
+        "discovered": "2026-09-01T21:35:16.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "H... ...s",
+        "discovered": "2026-09-01T20:33:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "krybit": [
+      {
+        "victim": "ligacancerguate.org",
+        "discovered": "2026-09-03T15:25:07.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/48aed03de5af8c8a5e0d241efaede19509c0fc975e7522e8fe53440252d855e6/"
+      },
+      {
+        "victim": "incan.org.gt",
+        "discovered": "2026-09-03T14:37:58.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/48aed03de5af8c8a5e0d241efaede19509c0fc975e7522e8fe53440252d855e6/"
+      },
+      {
+        "victim": "seashellhospital.com",
+        "discovered": "2026-09-01T10:44:22.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/1f6acc99bc4cf24c193c37f93cdb7646832889985bab111d38d1dd5fdbe1a6ea/"
+      },
+      {
+        "victim": "uicc.org",
+        "discovered": "2026-09-01T10:44:22.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/e9a122ddcb62e924dca32e8ae95772f75bfd368a5aeb38ca883764cbbacf1df3/"
+      },
+      {
+        "victim": "tum.com.mx",
+        "discovered": "2026-09-01T10:44:21.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/ef6c76b6b5b16d083e8d389d65a557f0508753cdf9d6c9587a50f8e6141ffd45/"
+      },
+      {
+        "victim": "www.alphaplantes.com",
+        "discovered": "2026-09-01T10:44:20.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/4cbd84e6fad4c509ca2e838b55850baa2999b06d47e17b62c62de5e7c5108f11/"
+      },
+      {
+        "victim": "reignwoodpark.com",
+        "discovered": "2026-09-01T10:44:19.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/a4b7783f228e95d687242d90c562f3c82007667ab2c25634bc4dcc7a97dd6b7f/"
+      },
+      {
+        "victim": "orex.co.th",
+        "discovered": "2026-09-01T10:44:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/0cc1b08a430375b81d49f1e0bc6faa8f0f963165831ba630bb530e6f4913437b/"
+      },
+      {
+        "victim": "amptc.net",
+        "discovered": "2026-09-01T10:44:17.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/1e58b691ac4e24572b7d184beddefa3fc67addeb830714852e3c5d87c5a54b4f/"
+      },
+      {
+        "victim": "dmt-group.com",
+        "discovered": "2026-09-01T10:44:16.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/f6d3a75e05df78f42ef573ea36c91f4ae27682d98a1f4b152b836772912be9cd/"
+      }
+    ],
+    "meowciety403": [
+      {
+        "victim": "We have successfully infiltrated your systems",
+        "discovered": "2026-09-02T16:42:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/p/we-have-successfully-infiltrated-your-systems"
+      }
+    ],
+    "kairos": [
+      {
+        "victim": "Ville de Libercourt",
+        "discovered": "2026-09-02T16:42:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "payoutsking": [
+      {
+        "victim": "Proliance Surgeons",
+        "discovered": "2026-09-02T03:49:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "H.W. Lochner",
+        "discovered": "2026-08-28T23:30:47.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "deadlock": [
+      {
+        "victim": "SHAHEEN LAW GROUP PLC - Richmond, Virginia, USA",
+        "discovered": "2026-09-01T21:35:09.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/https://www.shaheenlaw.com/"
+      }
+    ],
+    "bravox": [
+      {
+        "victim": "SCHMIDT 🇺🇸",
+        "discovered": "2026-09-01T16:29:54.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/a40b5212-3e7e-4866-a96b-2e16b1b61e4e"
+      }
+    ],
+    "majinahanashi": [
+      {
+        "victim": "TERRACOM & MONTCAU",
+        "discovered": "2026-09-01T10:44:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://lthicpjqc7gkn5eq3epxndc2uig3yngvcbdya4u3m3byjod5km4yuwqd.onion/#post/blog-20"
+      },
+      {
+        "victim": "TERRA*** & MON****",
+        "discovered": "2026-08-29T14:38:02.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://lthicpjqc7gkn5eq3epxndc2uig3yngvcbdya4u3m3byjod5km4yuwqd.onion/#post/blog-20"
+      }
+    ],
+    "blackx": [
+      {
+        "victim": "iwin",
+        "discovered": "2026-09-01T04:41:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/target/6a9191acc47afd2aed25132f"
+      },
+      {
+        "victim": "FE CREDIT",
+        "discovered": "2026-08-28T16:32:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/target/6a917ed5c47afd2aed25122a"
+      },
+      {
+        "victim": "i-one",
+        "discovered": "2026-08-28T16:32:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/target/6a9191acc47afd2aed25132f"
+      }
+    ],
+    "braincipher": [
+      {
+        "victim": "ahadandco.com",
+        "discovered": "2026-08-31T22:28:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/ahadandco-com"
+      },
+      {
+        "victim": "sago.com",
+        "discovered": "2026-08-31T22:28:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/sago-com"
+      },
+      {
+        "victim": "crmeyer.com",
+        "discovered": "2026-08-31T22:28:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/crmeyer-com"
+      },
+      {
+        "victim": "ccsperfusion.com",
+        "discovered": "2026-08-31T22:28:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/ccsperfusion-com"
+      },
+      {
+        "victim": "icot.es",
+        "discovered": "2026-08-31T21:38:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/icot-es"
+      },
+      {
+        "victim": "aeiconsultants.com",
+        "discovered": "2026-08-31T21:38:51.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/aeiconsultants-com"
+      },
+      {
+        "victim": "syc.es",
+        "discovered": "2026-08-31T21:38:50.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/syc-es"
+      },
+      {
+        "victim": "Adviesbureau De Beuckelaer BV",
+        "discovered": "2026-08-31T21:38:49.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/n/adviesbureau-de-beuckelaer-BV"
+      }
+    ],
+    "orova": [
+      {
+        "victim": "ASYS Corporation",
+        "discovered": "2026-08-31T19:30:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion/lfqhsndqlzdhnujzge/"
+      },
+      {
+        "victim": "Fu Sheng Industrial Co., Ltd",
+        "discovered": "2026-08-31T19:30:41.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion/djimvmxbixinkgrrpr/"
+      },
+      {
+        "victim": "Magnolia Dental",
+        "discovered": "2026-08-30T07:50:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/ohxkatwccvyplxndpu/"
+      },
+      {
+        "victim": "Country Oaks Veterinary Clinic",
+        "discovered": "2026-08-30T07:50:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/kpdlxnjjihwozqwadq/"
+      },
+      {
+        "victim": "David King Architect",
+        "discovered": "2026-08-30T07:50:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/dwvmpvrnmffncsidph/"
+      },
+      {
+        "victim": "Woodside Ranch",
+        "discovered": "2026-08-30T07:50:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/qgsaxmqqasmlhbjqpk/"
+      },
+      {
+        "victim": "Stoneybrook West Master Association, Inc",
+        "discovered": "2026-08-30T07:50:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/ludzaszoggbsdqxmjv/"
+      },
+      {
+        "victim": "Stonecrest POA",
+        "discovered": "2026-08-30T07:50:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/okkrxtpwnkasdxdndj/"
+      },
+      {
+        "victim": "Hilliard's Air Conditioning & Heating Inc",
+        "discovered": "2026-08-30T07:50:29.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/jlenxnweytiywqwjwm/"
+      },
+      {
+        "victim": "Gemstone UK",
+        "discovered": "2026-08-30T07:50:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://mzlajyncb2rafn5bsb7esmo73kyawjxeirunba27n6nermmafzlcp4qd.onion/isrdaqhfinbvgfeqzu/"
+      }
+    ],
+    "falcon": [
+      {
+        "victim": "Hayward Holdings",
+        "discovered": "2026-08-31T17:24:56.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Globus Medical",
+        "discovered": "2026-08-29T17:42:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "DistributionNOW (DNOW Inc.)",
+        "discovered": "2026-08-29T17:42:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "zawoo": [
+      {
+        "victim": "zenithtechnology.co.nz",
+        "discovered": "2026-08-31T16:32:15.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=mtfszhtggfdsg"
+      },
+      {
+        "victim": "fes-sport.de",
+        "discovered": "2026-08-31T16:32:14.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=htrfdrghbtnyr"
+      },
+      {
+        "victim": "esopartnerscpa.com",
+        "discovered": "2026-08-31T16:32:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=vrfdeyhnbyuki"
+      },
+      {
+        "victim": "Company ID : mtfszhtggfdsg",
+        "discovered": "2026-08-30T12:43:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=mtfszhtggfdsg"
+      },
+      {
+        "victim": "Company ID : htrfdrghbtnyr",
+        "discovered": "2026-08-29T22:46:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=htrfdrghbtnyr"
+      },
+      {
+        "victim": "Company ID : vrfdeyhnbyuki",
+        "discovered": "2026-08-29T22:46:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=vrfdeyhnbyuki"
+      },
+      {
+        "victim": "vectorsoft.de",
+        "discovered": "2026-08-29T22:46:27.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=mocxosdpjsdpg"
+      },
+      {
+        "victim": "winterdienst-berlin.com",
+        "discovered": "2026-08-29T22:46:26.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=vhrtnmuykyuko"
+      },
+      {
+        "victim": "hd-werkstaetten.de",
+        "discovered": "2026-08-29T22:46:25.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=ptievcdnmksdn"
+      },
+      {
+        "victim": "ng-engineering.de",
+        "discovered": "2026-08-29T22:46:24.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/index.html?indexId=nczxoemvfisos"
+      }
+    ],
+    "crypto24": [
+      {
+        "victim": "Me***",
+        "discovered": "2026-08-31T13:38:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "coinbasecartel": [
+      {
+        "victim": "Westwing Group SE",
+        "discovered": "2026-08-31T00:30:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/westwing-2"
+      },
+      {
+        "victim": "Integrated Health Systems",
+        "discovered": "2026-08-29T15:45:29.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/ihs911"
+      },
+      {
+        "victim": "RXPE Group",
+        "discovered": "2026-08-29T15:45:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/rxhk"
+      },
+      {
+        "victim": "Tower Insurance",
+        "discovered": "2026-08-29T15:45:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/tower-co-nz"
+      },
+      {
+        "victim": "Flecha Bus",
+        "discovered": "2026-08-29T15:45:27.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/flechabus"
+      },
+      {
+        "victim": "OTEIS Conseil & Ingénierie",
+        "discovered": "2026-08-29T15:45:26.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/oteis"
+      },
+      {
+        "victim": "Longhorn Investments",
+        "discovered": "2026-08-29T15:45:25.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/longhorninvestments"
+      },
+      {
+        "victim": "Kessler Creative",
+        "discovered": "2026-08-29T15:45:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/kesslercreative"
+      },
+      {
+        "victim": "Klasko Immigration Law Partners",
+        "discovered": "2026-08-29T15:45:22.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/klaskolaw"
+      },
+      {
+        "victim": "Patel",
+        "discovered": "2026-08-29T15:45:21.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/companies/patelcpaoffice"
+      }
+    ],
+    "iah647": [
+      {
+        "victim": "mat-holdings-inc",
+        "discovered": "2026-08-29T17:42:48.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/a/mat-holdings-inc/"
+      },
+      {
+        "victim": "proampac",
+        "discovered": "2026-08-29T17:42:47.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/a/proampac/"
+      },
+      {
+        "victim": "trc-companies",
+        "discovered": "2026-08-29T17:42:46.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/a/trc-companies/"
+      },
+      {
+        "victim": "swagelok",
+        "discovered": "2026-08-29T17:42:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/a/swagelok/"
+      }
+    ],
+    "m3rx": [
+      {
+        "victim": "lindner-group.com",
+        "discovered": "2026-08-29T15:46:03.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "lynx": [
+      {
+        "victim": "cutlercapital",
+        "discovered": "2026-08-29T02:30:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/leaks/6a906f3fc192cbbf2f88112a"
+      }
+    ],
+    "3am": [
+      {
+        "victim": "wmdn.net",
+        "discovered": "2026-08-29T01:35:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "doommageddon": [
+      {
+        "victim": "SITTNAK Lojistik A.Ş.",
+        "discovered": "2026-08-29T01:29:58.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/victim/sittnak-lojistik-a-ş-"
+      },
+      {
+        "victim": "Akpera Gayrimenkul Yatırım A.Ş.",
+        "discovered": "2026-08-29T01:29:58.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/victim/akpera-gayrimenkul-yatırım-a-ş-"
+      }
+    ],
+    "moneymessage": [
+      {
+        "victim": "ProCare",
+        "discovered": "2026-08-28T16:33:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/news.php?id=1"
+      }
+    ],
+    "unsafe": [
+      {
+        "victim": "amzur.com",
+        "discovered": "2026-08-28T13:43:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion/reel/6a916155102e2455604e860b?page=1"
+      }
+    ],
+    "securotrop": [],
+    "vexyransomware": [],
+    "shadowbyt3": [],
+    "global": [],
+    "metaencryptor": [],
+    "silentransomgroup": [],
+    "gunra": [],
+    "settra": [],
+    "medusalocker": [],
+    "threeam": [],
+    "iah6477": [],
+    "abyss": [],
+    "ailock": [],
+    "genesis": [],
+    "boobaproject": [],
+    "arcusmedia": [],
+    "blackwater": [],
+    "killsec": [],
+    "lgroup": [],
+    "barracuda": [],
+    "helix": [],
+    "termite": [],
+    "xpl0itrs": [],
+    "payload": [],
+    "titan": [],
+    "ms13089": [],
+    "bluewhale": [],
+    "ethics": [],
+    "sovcali": [],
+    "gammax": [],
+    "cry0": [],
+    "orion": [],
+    "triplex": [],
+    "crpxo": [],
+    "cmdorganization": [],
+    "kyber": [],
+    "morpheus": [],
+    "exfilsquad": [],
+    "nova": [],
+    "apt73": [],
+    "worldleaks": [],
+    "blackout": [],
+    "d1r": [],
+    "blackfield": [],
+    "stormous": [],
+    "prinzeugen": [],
+    "redact": [],
+    "lapsus": [],
+    "icarus": [],
+    "ransomexx": [],
+    "cloak": [],
+    "lamashtu": [],
+    "ulose": [],
+    "nitrogen": [],
+    "0daysyndicate": [],
+    "leakbazaar": [],
+    "sinobi": [],
+    "mnt6": [],
+    "secp0": [],
+    "radar": [],
+    "orca": [],
+    "vect": [],
+    "exitium": [],
+    "timc": [],
+    "alp001": [],
+    "linkc": [],
+    "handala": [],
+    "netrunner": [],
+    "sarcoma": [],
+    "loki": [],
+    "tengu": [],
+    "alphalocker": [],
+    "kittykatkrew": [],
+    "atomsilo": [],
+    "cipherforce": [],
+    "medusa": [],
+    "reynolds": [],
+    "ciphbit": [],
+    "devman": [],
+    "thegreenbloodgroup": [],
+    "benzona": [],
+    "blackshrantac": [],
+    "obscura": [],
+    "osiris": [],
+    "brotherhood": [],
+    "sicarii": [],
+    "minteye": [],
+    "datacarry": [],
+    "lockbit3": [],
+    "skira": [],
+    "kraken": [],
+    "j": [],
+    "kryptos": [],
+    "warlock": [],
+    "radiant": [],
+    "bqtlock": [],
+    "lunalock": [],
+    "imncrew": [],
+    "daixin": [],
+    "yurei": [],
+    "cicada3301": [],
+    "desolator": [],
+    "cephalus": [],
+    "d4rk4rmy": [],
+    "apos": [],
+    "underground": [],
+    "runsomewares": [],
+    "weyhro": [],
+    "teamxxx": [],
+    "flocker": [],
+    "blackbyte": [],
+    "kawa4096": [],
+    "rebornvc": [],
+    "satanlockv2": [],
+    "blacklock": [],
+    "dunghill": [],
+    "silent": [],
+    "frag": [],
+    "bert": [],
+    "walocker": [],
+    "arkana": [],
+    "blacksuit": [],
+    "hunters": [],
+    "monti": [],
+    "ralord": [],
+    "babuk2": [],
+    "hellcat": [],
+    "vanhelsing": [],
+    "ransomhub": [],
+    "bianlian": [],
+    "crazyhunter": [],
+    "zerolockersec": [],
+    "cactus": [],
+    "fog": [],
+    "funksec": [],
+    "trinity": [],
+    "8base": [],
+    "gdlockersec": [],
+    "eldorado": [],
+    "blackbasta": [],
+    "darkvault": [],
+    "raworld": [],
+    "bluebox": [],
+    "dragonransomware": [],
+    "argonauts": [],
+    "chort": [],
+    "meow": [],
+    "helldown": [],
+    "playboy": [],
+    "madliberator": [],
+    "valencialeaks": [],
+    "dan0n": [],
+    "dispossessor": [],
+    "donutleaks": [],
+    "mallox": [],
+    "ransomcortex": [],
+    "vanirgroup": [],
+    "qiulong": [],
+    "redransomware": [],
+    "sensayq": [],
+    "snatch": [],
+    "zerotolerance": [],
+    "hellogookie": [],
+    "malekteam": [],
+    "trigona": [],
+    "werewolves": [],
+    "donex": [],
+    "alphv": [],
+    "mogilevich": [],
+    "trisec": [],
+    "knight": [],
+    "cuba": [],
+    "0mega": [],
+    "slug": [],
+    "insane": [],
+    "noname": [],
+    "raznatovic": [],
+    "toufan": [],
+    "ranstreet": [],
+    "lorenz": [],
+    "siegedsec": [],
+    "noescape": [],
+    "ransomed": [],
+    "arvinclub": [],
+    "ragnarlocker": [],
+    "losttrust": [],
+    "karakurt": [],
+    "cryptbb": [],
+    "rancoz": [],
+    "nokoyawa": [],
+    "babuk": [],
+    "cyclops": [],
+    "royal": [],
+    "vicesociety": [],
+    "lapiovra": [],
+    "darkrace": [],
+    "malas": [],
+    "cryptnet": [],
+    "crosslock": [],
+    "darkpower": [],
+    "vendetta": [],
+    "avoslocker": [],
+    "hive": [],
+    "freecivilian": [],
+    "projectrelic": [],
+    "quantum": [],
+    "dataleak": [],
+    "revil": [],
+    "lv": [],
+    "onyx": [],
+    "memedusalockerdusa": [],
+    "shaoleaks": [],
+    "blogxx": [],
+    "sparta": [],
+    "redalert": [],
+    "pysa": [],
+    "cheers": [],
+    "icefire": [],
+    "yanluowang": [],
+    "roadsweep": [],
+    "lockbit2": [],
+    "suncrypt": [],
+    "conti": [],
+    "darkleakmarket": [],
+    "kelvinsecurity": [],
+    "mindware": [],
+    "bitlocker": [],
+    "midas": [],
+    "pandora": [],
+    "leaktheanalyst": [],
+    "sabbath": [],
+    "marketo": [],
+    "mountlocker": [],
+    "rook": [],
+    "payloadbin": [],
+    "nightsky": [],
+    "blacktor": [],
+    "ragnarok": [],
+    "mosesstaff": [],
+    "blackshadow": [],
+    "cryp70n1c0d3": [],
+    "bonacigroup": [],
+    "robinhood": [],
+    "blackmatter": [],
+    "groove": [],
+    "xinglocker": [],
+    "spook": [],
+    "macaw": [],
+    "karma": [],
+    "lockdata": [],
+    "azroteam": [],
+    "pay2key": [],
+    "nefilim": [],
+    "avaddon": [],
+    "lockbit": [],
+    "deathkitty": [],
+    "grief": [],
+    "zeppelin": [],
+    "ryuk": [],
+    "darkside": [],
+    "networm": [],
+    "maui": [],
+    "doppelpaymer": [],
+    "astroteam": [],
+    "synack": [],
+    "phoenixcryptolocker": [],
+    "egregor": [],
+    "ronggolawe": [],
+    "cring": [],
+    "hades": [],
+    "netwalker": [],
+    "netflim": [],
+    "wastedlocker": [],
+    "maze": [],
+    "agelocker": [],
+    "thanos": [],
+    "sekhmet": [],
+    "snake": [],
+    "dharma": [],
+    "mamba": [],
+    "coldlock": [],
+    "prolock": [],
+    "bitpaymer": [],
+    "robbinhood": [],
+    "cryptolocker": [],
+    "lockergoga": [],
+    "nozelesn": [],
+    "pewcrypt": [],
+    "samsam": [],
+    "gandcrab": [],
+    "hermes": [],
+    "scarab": [],
+    "triplem": [],
+    "wannacry": [],
+    "samas": [],
+    "global3": [],
+    "erebus": [],
+    "cryptomix": [],
+    "cerber": [],
+    "notpetya": [],
+    "locky": [],
+    "hddcryptor": [],
+    "teslacrypt": [],
+    "lechiffre": [],
+    "cryptowall": [],
+    "keyholder": [],
+    "megacode": [],
+    "goznym": [],
+    "cryptoware": []
+  }
+}

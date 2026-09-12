@@ -1,0 +1,114 @@
+{
+  "slug": "everest",
+  "name": "everest",
+  "victims_7d": 6,
+  "victims_total": 406,
+  "last_seen": "2026-09-07T17:26:34.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": false,
+  "mirrors": 7,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cr…",
+  "meta": "Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cryptography and appending victim-specific extensions, but later shifted toward pure data extortion—threatening to sell or release stolen data without necessarily deploying encryption. Everest targets a wide range of sectors, including government, healthcare, manufacturing, and IT services, with confirmed victims in North America, Europe, and Asia. Initial access vectors include exploitation of vulnerable public-facing applications, phishing campaigns, and credential theft for remote access services. The group maintains a Tor-based leak site to publish stolen information and advertise access to compromised networks.",
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
+      "title": "",
+      "available": false,
+      "updated": "2026-09-11 21:02:02.327",
+      "version": 3
+    },
+    {
+      "fqdn": "ransomoefralti2zh5nrv7iqybp3d5b4a2eeecz5yjosp7ggbepj7iyd.onion",
+      "title": "Everest Group",
+      "available": false,
+      "updated": "2025-01-20 07:32:07.300",
+      "version": 3
+    },
+    {
+      "fqdn": "2vqamwfdpis5rkjtpkutigykp56n6hkxfurm6qukdxp6uz5uff5kkaid.onion",
+      "title": "Index of /",
+      "available": false,
+      "updated": "2025-03-25 08:15:49.198",
+      "version": 0
+    },
+    {
+      "fqdn": "bifpwatchoxp7tsb2kpes37b23ogjrb2kj4wgr7yncf4hhgsfahu7jad.onion",
+      "title": "404 Not Found",
+      "available": false,
+      "updated": "2025-02-02 17:00:04.724",
+      "version": 3
+    },
+    {
+      "fqdn": "aihvh6j6fbkfjyc6jqbsh2ed4s3rym2v2pu6kd3z3exdso2xc2qwcuqd.onion",
+      "title": "Index of /",
+      "available": false,
+      "updated": "2025-03-25 08:09:30.324",
+      "version": 3
+    },
+    {
+      "fqdn": "gxp6yt3wdj7yky27j37jfrrbkuy24n2zo5uxyuoy23uf76d6m2gnfpid.onion",
+      "title": "Everest",
+      "available": false,
+      "updated": "2025-10-20 13:07:16.588",
+      "version": 3
+    },
+    {
+      "fqdn": "everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
+      "title": "Everest",
+      "available": false,
+      "updated": "2026-09-12 00:08:26.930",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "GGS",
+      "discovered": "2026-09-07T17:26:34.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/news/ggs"
+    },
+    {
+      "victim": "KÖRBER",
+      "discovered": "2026-09-07T17:26:34.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/news/korber"
+    },
+    {
+      "victim": "GENESILICO",
+      "discovered": "2026-09-07T17:26:33.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/news/genesilico"
+    },
+    {
+      "victim": "Negotiation Rules",
+      "discovered": "2026-09-04T18:32:31.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/news/negotiation-rules"
+    },
+    {
+      "victim": "Rise UP",
+      "discovered": "2026-09-01T04:41:45.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/news/rise-up"
+    },
+    {
+      "victim": "VIVOTEK",
+      "discovered": "2026-09-01T04:41:44.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/news/vivotek"
+    },
+    {
+      "victim": "Italtel Peru",
+      "discovered": "2026-09-01T04:41:43.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/news/italtel-peru"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/everest",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

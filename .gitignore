@@ -148,3 +148,7 @@ og-overrides.generated.json
 /oss-feeds-staging/
 /threat-intel-staging/*
 !/threat-intel-staging/threaticon-catalog/
+# Committed small sources: ransomware-groups sync staging (reproducible builds
+# when upstreams flap) + ai-escape curatorial seed (source of truth).
+!/threat-intel-staging/ransomware-groups/
+!/threat-intel-staging/ai-escape/

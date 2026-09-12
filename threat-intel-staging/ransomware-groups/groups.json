@@ -1,0 +1,2486 @@
+{
+  "syncedAt": "2026-09-12T06:12:24.358Z",
+  "count": 620,
+  "groups": [
+    {
+      "name": "0apt",
+      "slug": "0apt"
+    },
+    {
+      "name": "0day",
+      "slug": "0day"
+    },
+    {
+      "name": "0mega",
+      "slug": "0mega"
+    },
+    {
+      "name": "2023lock",
+      "slug": "2023lock"
+    },
+    {
+      "name": "3am",
+      "slug": "3am"
+    },
+    {
+      "name": "8base",
+      "slug": "8base"
+    },
+    {
+      "name": "a1project",
+      "slug": "a1project"
+    },
+    {
+      "name": "abrahams_ax",
+      "slug": "abrahamsax"
+    },
+    {
+      "name": "abyss-data",
+      "slug": "abyssdata"
+    },
+    {
+      "name": "adminlocker",
+      "slug": "adminlocker"
+    },
+    {
+      "name": "agl0bgvycg",
+      "slug": "agl0bgvycg"
+    },
+    {
+      "name": "ailock",
+      "slug": "ailock"
+    },
+    {
+      "name": "akira",
+      "slug": "akira"
+    },
+    {
+      "name": "ako",
+      "slug": "ako"
+    },
+    {
+      "name": "alp-001",
+      "slug": "alp001"
+    },
+    {
+      "name": "alphv",
+      "slug": "alphv"
+    },
+    {
+      "name": "amnesia",
+      "slug": "amnesia"
+    },
+    {
+      "name": "ank",
+      "slug": "ank"
+    },
+    {
+      "name": "antefrigus",
+      "slug": "antefrigus"
+    },
+    {
+      "name": "antibrok3rs",
+      "slug": "antibrok3rs"
+    },
+    {
+      "name": "anubis",
+      "slug": "anubis"
+    },
+    {
+      "name": "apos",
+      "slug": "apos"
+    },
+    {
+      "name": "aptlock",
+      "slug": "aptlock"
+    },
+    {
+      "name": "arachna leak",
+      "slug": "arachnaleak"
+    },
+    {
+      "name": "arcane",
+      "slug": "arcane"
+    },
+    {
+      "name": "arcrypter",
+      "slug": "arcrypter"
+    },
+    {
+      "name": "arcus media",
+      "slug": "arcusmedia"
+    },
+    {
+      "name": "argonauts group",
+      "slug": "argonautsgroup"
+    },
+    {
+      "name": "arkana security",
+      "slug": "arkanasecurity"
+    },
+    {
+      "name": "arvinclub",
+      "slug": "arvinclub"
+    },
+    {
+      "name": "astralocker",
+      "slug": "astralocker"
+    },
+    {
+      "name": "atomsilo",
+      "slug": "atomsilo"
+    },
+    {
+      "name": "audit team",
+      "slug": "auditteam"
+    },
+    {
+      "name": "aurora",
+      "slug": "aurora"
+    },
+    {
+      "name": "avaddon",
+      "slug": "avaddon"
+    },
+    {
+      "name": "avos",
+      "slug": "avos"
+    },
+    {
+      "name": "avoslocker",
+      "slug": "avoslocker"
+    },
+    {
+      "name": "aware",
+      "slug": "aware"
+    },
+    {
+      "name": "axxes",
+      "slug": "axxes"
+    },
+    {
+      "name": "aztroteam",
+      "slug": "aztroteam"
+    },
+    {
+      "name": "azzasec",
+      "slug": "azzasec"
+    },
+    {
+      "name": "b0 group",
+      "slug": "b0group"
+    },
+    {
+      "name": "babuk-bjorka",
+      "slug": "babukbjorka"
+    },
+    {
+      "name": "babuk-locker",
+      "slug": "babuklocker"
+    },
+    {
+      "name": "babyduck",
+      "slug": "babyduck"
+    },
+    {
+      "name": "babylockerkz",
+      "slug": "babylockerkz"
+    },
+    {
+      "name": "backmydata",
+      "slug": "backmydata"
+    },
+    {
+      "name": "balletspistol",
+      "slug": "balletspistol"
+    },
+    {
+      "name": "barracuda",
+      "slug": "barracuda"
+    },
+    {
+      "name": "bavacai",
+      "slug": "bavacai"
+    },
+    {
+      "name": "beast",
+      "slug": "beast"
+    },
+    {
+      "name": "belsen group",
+      "slug": "belsengroup"
+    },
+    {
+      "name": "benzona",
+      "slug": "benzona"
+    },
+    {
+      "name": "bert",
+      "slug": "bert"
+    },
+    {
+      "name": "bianlian",
+      "slug": "bianlian"
+    },
+    {
+      "name": "bidon",
+      "slug": "bidon"
+    },
+    {
+      "name": "bitransomware",
+      "slug": "bitransomware"
+    },
+    {
+      "name": "bjorka",
+      "slug": "bjorka"
+    },
+    {
+      "name": "blackbasta",
+      "slug": "blackbasta"
+    },
+    {
+      "name": "blackberserk",
+      "slug": "blackberserk"
+    },
+    {
+      "name": "blackbit",
+      "slug": "blackbit"
+    },
+    {
+      "name": "blackbyte",
+      "slug": "blackbyte"
+    },
+    {
+      "name": "blackbyte-crux",
+      "slug": "blackbytecrux"
+    },
+    {
+      "name": "blackfield",
+      "slug": "blackfield"
+    },
+    {
+      "name": "blackfile",
+      "slug": "blackfile"
+    },
+    {
+      "name": "blackhunt",
+      "slug": "blackhunt"
+    },
+    {
+      "name": "blacklocks",
+      "slug": "blacklocks"
+    },
+    {
+      "name": "blackmatter",
+      "slug": "blackmatter"
+    },
+    {
+      "name": "black nevas",
+      "slug": "blacknevas"
+    },
+    {
+      "name": "blackout",
+      "slug": "blackout"
+    },
+    {
+      "name": "blackshadow",
+      "slug": "blackshadow"
+    },
+    {
+      "name": "blackshrantac",
+      "slug": "blackshrantac"
+    },
+    {
+      "name": "blacksnake",
+      "slug": "blacksnake"
+    },
+    {
+      "name": "black suit",
+      "slug": "blacksuit"
+    },
+    {
+      "name": "blacktor",
+      "slug": "blacktor"
+    },
+    {
+      "name": "blackwater",
+      "slug": "blackwater"
+    },
+    {
+      "name": "black witch",
+      "slug": "blackwitch"
+    },
+    {
+      "name": "black x",
+      "slug": "blackx"
+    },
+    {
+      "name": "bluebox",
+      "slug": "bluebox"
+    },
+    {
+      "name": "bluesky",
+      "slug": "bluesky"
+    },
+    {
+      "name": "bluewhale",
+      "slug": "bluewhale"
+    },
+    {
+      "name": "bober",
+      "slug": "bober"
+    },
+    {
+      "name": "bonacigroup",
+      "slug": "bonacigroup"
+    },
+    {
+      "name": "booba team",
+      "slug": "boobateam"
+    },
+    {
+      "name": "bqtlock",
+      "slug": "bqtlock"
+    },
+    {
+      "name": "br0k3r",
+      "slug": "br0k3r"
+    },
+    {
+      "name": "brain cipher",
+      "slug": "braincipher"
+    },
+    {
+      "name": "bravox",
+      "slug": "bravox"
+    },
+    {
+      "name": "brotherhood",
+      "slug": "brotherhood"
+    },
+    {
+      "name": "buddyransome",
+      "slug": "buddyransome"
+    },
+    {
+      "name": "bytesfromheaven",
+      "slug": "bytesfromheaven"
+    },
+    {
+      "name": "c3rb3r",
+      "slug": "c3rb3r"
+    },
+    {
+      "name": "cactus",
+      "slug": "cactus"
+    },
+    {
+      "name": "catb",
+      "slug": "catb"
+    },
+    {
+      "name": "cephalus",
+      "slug": "cephalus"
+    },
+    {
+      "name": "cerberimposter",
+      "slug": "cerberimposter"
+    },
+    {
+      "name": "cerbersyslock",
+      "slug": "cerbersyslock"
+    },
+    {
+      "name": "chaos",
+      "slug": "chaos"
+    },
+    {
+      "name": "cheers",
+      "slug": "cheers"
+    },
+    {
+      "name": "chilelocker",
+      "slug": "chilelocker"
+    },
+    {
+      "name": "chort",
+      "slug": "chort"
+    },
+    {
+      "name": "cicada3301",
+      "slug": "cicada3301"
+    },
+    {
+      "name": "ciphbit",
+      "slug": "ciphbit"
+    },
+    {
+      "name": "cipherforce",
+      "slug": "cipherforce"
+    },
+    {
+      "name": "cipherwolf",
+      "slug": "cipherwolf"
+    },
+    {
+      "name": "clearwater",
+      "slug": "clearwater"
+    },
+    {
+      "name": "cloak",
+      "slug": "cloak"
+    },
+    {
+      "name": "cloak.su (locker leak)",
+      "slug": "cloaksulockerleak"
+    },
+    {
+      "name": "clop",
+      "slug": "clop"
+    },
+    {
+      "name": "clop torrents",
+      "slug": "cloptorrents"
+    },
+    {
+      "name": "cmd organization",
+      "slug": "cmdorganization"
+    },
+    {
+      "name": "coinbase cartel",
+      "slug": "coinbasecartel"
+    },
+    {
+      "name": "colossus",
+      "slug": "colossus"
+    },
+    {
+      "name": "contfr",
+      "slug": "contfr"
+    },
+    {
+      "name": "conti",
+      "slug": "conti"
+    },
+    {
+      "name": "cooming",
+      "slug": "cooming"
+    },
+    {
+      "name": "core",
+      "slug": "core"
+    },
+    {
+      "name": "crazyhunter team",
+      "slug": "crazyhunterteam"
+    },
+    {
+      "name": "crosslock",
+      "slug": "crosslock"
+    },
+    {
+      "name": "crpx0",
+      "slug": "crpx0"
+    },
+    {
+      "name": "cry0",
+      "slug": "cry0"
+    },
+    {
+      "name": "cryakl",
+      "slug": "cryakl"
+    },
+    {
+      "name": "crylock",
+      "slug": "crylock"
+    },
+    {
+      "name": "crynox",
+      "slug": "crynox"
+    },
+    {
+      "name": "cryp70n1c0d3",
+      "slug": "cryp70n1c0d3"
+    },
+    {
+      "name": "cryptbb",
+      "slug": "cryptbb"
+    },
+    {
+      "name": "cryptedpay",
+      "slug": "cryptedpay"
+    },
+    {
+      "name": "cryptnet",
+      "slug": "cryptnet"
+    },
+    {
+      "name": "crypto24",
+      "slug": "crypto24"
+    },
+    {
+      "name": "crypt ransomware",
+      "slug": "cryptransomware"
+    },
+    {
+      "name": "cryptxxx",
+      "slug": "cryptxxx"
+    },
+    {
+      "name": "crysis",
+      "slug": "crysis"
+    },
+    {
+      "name": "cs-137",
+      "slug": "cs137"
+    },
+    {
+      "name": "ctblocker",
+      "slug": "ctblocker"
+    },
+    {
+      "name": "cuba",
+      "slug": "cuba"
+    },
+    {
+      "name": "cyberex",
+      "slug": "cyberex"
+    },
+    {
+      "name": "cyberleek",
+      "slug": "cyberleek"
+    },
+    {
+      "name": "cyclops",
+      "slug": "cyclops"
+    },
+    {
+      "name": "cylance",
+      "slug": "cylance"
+    },
+    {
+      "name": "d0glun",
+      "slug": "d0glun"
+    },
+    {
+      "name": "d1r",
+      "slug": "d1r"
+    },
+    {
+      "name": "d4rk4rmy",
+      "slug": "d4rk4rmy"
+    },
+    {
+      "name": "dagonlocker",
+      "slug": "dagonlocker"
+    },
+    {
+      "name": "daixin",
+      "slug": "daixin"
+    },
+    {
+      "name": "dan0n",
+      "slug": "dan0n"
+    },
+    {
+      "name": "darkangel",
+      "slug": "darkangel"
+    },
+    {
+      "name": "darkbit01",
+      "slug": "darkbit01"
+    },
+    {
+      "name": "darkhav0c",
+      "slug": "darkhav0c"
+    },
+    {
+      "name": "darkmatter",
+      "slug": "darkmatter"
+    },
+    {
+      "name": "dark power",
+      "slug": "darkpower"
+    },
+    {
+      "name": "dark project",
+      "slug": "darkproject"
+    },
+    {
+      "name": "darkrace",
+      "slug": "darkrace"
+    },
+    {
+      "name": "darkrypt",
+      "slug": "darkrypt"
+    },
+    {
+      "name": "dark shinigami",
+      "slug": "darkshinigami"
+    },
+    {
+      "name": "darkside",
+      "slug": "darkside"
+    },
+    {
+      "name": "darkvault",
+      "slug": "darkvault"
+    },
+    {
+      "name": "darkwave",
+      "slug": "darkwave"
+    },
+    {
+      "name": "darkylock",
+      "slug": "darkylock"
+    },
+    {
+      "name": "datacarry",
+      "slug": "datacarry"
+    },
+    {
+      "name": "dataf locker",
+      "slug": "dataflocker"
+    },
+    {
+      "name": "datakeeper",
+      "slug": "datakeeper"
+    },
+    {
+      "name": "dataleak",
+      "slug": "dataleak"
+    },
+    {
+      "name": "deadbydawn",
+      "slug": "deadbydawn"
+    },
+    {
+      "name": "deadlock",
+      "slug": "deadlock"
+    },
+    {
+      "name": "deathgrip",
+      "slug": "deathgrip"
+    },
+    {
+      "name": "deathransom",
+      "slug": "deathransom"
+    },
+    {
+      "name": "delta",
+      "slug": "delta"
+    },
+    {
+      "name": "desolated",
+      "slug": "desolated"
+    },
+    {
+      "name": "desolator",
+      "slug": "desolator"
+    },
+    {
+      "name": "devman",
+      "slug": "devman"
+    },
+    {
+      "name": "devman2",
+      "slug": "devman2"
+    },
+    {
+      "name": "dharma",
+      "slug": "dharma"
+    },
+    {
+      "name": "diavol",
+      "slug": "diavol"
+    },
+    {
+      "name": "direwolf",
+      "slug": "direwolf"
+    },
+    {
+      "name": "dispossessor",
+      "slug": "dispossessor"
+    },
+    {
+      "name": "donex",
+      "slug": "donex"
+    },
+    {
+      "name": "donutleaks",
+      "slug": "donutleaks"
+    },
+    {
+      "name": "doommageddon",
+      "slug": "doommageddon"
+    },
+    {
+      "name": "doppelpaymer",
+      "slug": "doppelpaymer"
+    },
+    {
+      "name": "dragonforce",
+      "slug": "dragonforce"
+    },
+    {
+      "name": "dunghill",
+      "slug": "dunghill"
+    },
+    {
+      "name": "dysphor1a",
+      "slug": "dysphor1a"
+    },
+    {
+      "name": "ech0raix",
+      "slug": "ech0raix"
+    },
+    {
+      "name": "eclipse",
+      "slug": "eclipse"
+    },
+    {
+      "name": "egregor",
+      "slug": "egregor"
+    },
+    {
+      "name": "elcometa",
+      "slug": "elcometa"
+    },
+    {
+      "name": "el dorado",
+      "slug": "eldorado"
+    },
+    {
+      "name": "elonmusknow",
+      "slug": "elonmusknow"
+    },
+    {
+      "name": "elpaco",
+      "slug": "elpaco"
+    },
+    {
+      "name": "embargo",
+      "slug": "embargo"
+    },
+    {
+      "name": "emperador",
+      "slug": "emperador"
+    },
+    {
+      "name": "enciphered",
+      "slug": "enciphered"
+    },
+    {
+      "name": "encrypthub",
+      "slug": "encrypthub"
+    },
+    {
+      "name": "endurance",
+      "slug": "endurance"
+    },
+    {
+      "name": "entropy",
+      "slug": "entropy"
+    },
+    {
+      "name": "ep918",
+      "slug": "ep918"
+    },
+    {
+      "name": "eraleign (apt73)",
+      "slug": "eraleignapt73"
+    },
+    {
+      "name": "eruption",
+      "slug": "eruption"
+    },
+    {
+      "name": "ethics",
+      "slug": "ethics"
+    },
+    {
+      "name": "everest",
+      "slug": "everest"
+    },
+    {
+      "name": "evolution",
+      "slug": "evolution"
+    },
+    {
+      "name": "exfilsquad",
+      "slug": "exfilsquad"
+    },
+    {
+      "name": "exitium",
+      "slug": "exitium"
+    },
+    {
+      "name": "exorcist",
+      "slug": "exorcist"
+    },
+    {
+      "name": "fakersa",
+      "slug": "fakersa"
+    },
+    {
+      "name": "falcon",
+      "slug": "falcon"
+    },
+    {
+      "name": "farattack",
+      "slug": "farattack"
+    },
+    {
+      "name": "fargo",
+      "slug": "fargo"
+    },
+    {
+      "name": "faust",
+      "slug": "faust"
+    },
+    {
+      "name": "fivehands",
+      "slug": "fivehands"
+    },
+    {
+      "name": "fletchen",
+      "slug": "fletchen"
+    },
+    {
+      "name": "fog",
+      "slug": "fog"
+    },
+    {
+      "name": "frag",
+      "slug": "frag"
+    },
+    {
+      "name": "freecivilian",
+      "slug": "freecivilian"
+    },
+    {
+      "name": "freeworld",
+      "slug": "freeworld"
+    },
+    {
+      "name": "frozen",
+      "slug": "frozen"
+    },
+    {
+      "name": "fsociety",
+      "slug": "fsociety"
+    },
+    {
+      "name": "fsteam",
+      "slug": "fsteam"
+    },
+    {
+      "name": "ftcode",
+      "slug": "ftcode"
+    },
+    {
+      "name": "fulcrumsec",
+      "slug": "fulcrumsec"
+    },
+    {
+      "name": "funksec",
+      "slug": "funksec"
+    },
+    {
+      "name": "fusion",
+      "slug": "fusion"
+    },
+    {
+      "name": "gammax",
+      "slug": "gammax"
+    },
+    {
+      "name": "gandcrab",
+      "slug": "gandcrab"
+    },
+    {
+      "name": "gangbang",
+      "slug": "gangbang"
+    },
+    {
+      "name": "gazprom",
+      "slug": "gazprom"
+    },
+    {
+      "name": "gd lockersec",
+      "slug": "gdlockersec"
+    },
+    {
+      "name": "genesis",
+      "slug": "genesis"
+    },
+    {
+      "name": "ghost",
+      "slug": "ghost"
+    },
+    {
+      "name": "global",
+      "slug": "global"
+    },
+    {
+      "name": "global secret group",
+      "slug": "globalsecretgroup"
+    },
+    {
+      "name": "globe",
+      "slug": "globe"
+    },
+    {
+      "name": "globeimposter",
+      "slug": "globeimposter"
+    },
+    {
+      "name": "good day",
+      "slug": "goodday"
+    },
+    {
+      "name": "grep",
+      "slug": "grep"
+    },
+    {
+      "name": "grief",
+      "slug": "grief"
+    },
+    {
+      "name": "grinch",
+      "slug": "grinch"
+    },
+    {
+      "name": "groove",
+      "slug": "groove"
+    },
+    {
+      "name": "gunra",
+      "slug": "gunra"
+    },
+    {
+      "name": "gwisin",
+      "slug": "gwisin"
+    },
+    {
+      "name": "hades",
+      "slug": "hades"
+    },
+    {
+      "name": "handala",
+      "slug": "handala"
+    },
+    {
+      "name": "haron",
+      "slug": "haron"
+    },
+    {
+      "name": "helix",
+      "slug": "helix"
+    },
+    {
+      "name": "hellcat",
+      "slug": "hellcat"
+    },
+    {
+      "name": "helldown",
+      "slug": "helldown"
+    },
+    {
+      "name": "hellogookie",
+      "slug": "hellogookie"
+    },
+    {
+      "name": "hellokitty",
+      "slug": "hellokitty"
+    },
+    {
+      "name": "help_restoremydata",
+      "slug": "helprestoremydata"
+    },
+    {
+      "name": "hermes",
+      "slug": "hermes"
+    },
+    {
+      "name": "himalayaa",
+      "slug": "himalayaa"
+    },
+    {
+      "name": "hive",
+      "slug": "hive"
+    },
+    {
+      "name": "holyghost",
+      "slug": "holyghost"
+    },
+    {
+      "name": "homeland",
+      "slug": "homeland"
+    },
+    {
+      "name": "hotarus",
+      "slug": "hotarus"
+    },
+    {
+      "name": "hunters",
+      "slug": "hunters"
+    },
+    {
+      "name": "hyflock",
+      "slug": "hyflock"
+    },
+    {
+      "name": "iah647",
+      "slug": "iah647"
+    },
+    {
+      "name": "icarus",
+      "slug": "icarus"
+    },
+    {
+      "name": "icefire",
+      "slug": "icefire"
+    },
+    {
+      "name": "imn crew",
+      "slug": "imncrew"
+    },
+    {
+      "name": "inc ransom",
+      "slug": "incransom"
+    },
+    {
+      "name": "inpivx",
+      "slug": "inpivx"
+    },
+    {
+      "name": "insane ransomware",
+      "slug": "insaneransomware"
+    },
+    {
+      "name": "insomnia",
+      "slug": "insomnia"
+    },
+    {
+      "name": "interlock",
+      "slug": "interlock"
+    },
+    {
+      "name": "invaderx",
+      "slug": "invaderx"
+    },
+    {
+      "name": "ironchain",
+      "slug": "ironchain"
+    },
+    {
+      "name": "izis",
+      "slug": "izis"
+    },
+    {
+      "name": "jackalock",
+      "slug": "jackalock"
+    },
+    {
+      "name": "jaff",
+      "slug": "jaff"
+    },
+    {
+      "name": "j group",
+      "slug": "jgroup"
+    },
+    {
+      "name": "jigsaw",
+      "slug": "jigsaw"
+    },
+    {
+      "name": "jo of satan",
+      "slug": "joofsatan"
+    },
+    {
+      "name": "jsworm",
+      "slug": "jsworm"
+    },
+    {
+      "name": "justice_blade",
+      "slug": "justiceblade"
+    },
+    {
+      "name": "kairos",
+      "slug": "kairos"
+    },
+    {
+      "name": "karakurt",
+      "slug": "karakurt"
+    },
+    {
+      "name": "karma",
+      "slug": "karma"
+    },
+    {
+      "name": "kasseika",
+      "slug": "kasseika"
+    },
+    {
+      "name": "kawa",
+      "slug": "kawa"
+    },
+    {
+      "name": "kazu",
+      "slug": "kazu"
+    },
+    {
+      "name": "kelvin security",
+      "slug": "kelvinsecurity"
+    },
+    {
+      "name": "key group",
+      "slug": "keygroup"
+    },
+    {
+      "name": "killada",
+      "slug": "killada"
+    },
+    {
+      "name": "killsec",
+      "slug": "killsec"
+    },
+    {
+      "name": "killsec3",
+      "slug": "killsec3"
+    },
+    {
+      "name": "kirov",
+      "slug": "kirov"
+    },
+    {
+      "name": "kittykatkrew",
+      "slug": "kittykatkrew"
+    },
+    {
+      "name": "knight",
+      "slug": "knight"
+    },
+    {
+      "name": "kraken",
+      "slug": "kraken"
+    },
+    {
+      "name": "krybit",
+      "slug": "krybit"
+    },
+    {
+      "name": "krypt",
+      "slug": "krypt"
+    },
+    {
+      "name": "kryptina",
+      "slug": "kryptina"
+    },
+    {
+      "name": "kryptos",
+      "slug": "kryptos"
+    },
+    {
+      "name": "kuiper",
+      "slug": "kuiper"
+    },
+    {
+      "name": "kuza",
+      "slug": "kuza"
+    },
+    {
+      "name": "kyber",
+      "slug": "kyber"
+    },
+    {
+      "name": "lamashtu",
+      "slug": "lamashtu"
+    },
+    {
+      "name": "lambda",
+      "slug": "lambda"
+    },
+    {
+      "name": "lamialocker",
+      "slug": "lamialocker"
+    },
+    {
+      "name": "la piovra",
+      "slug": "lapiovra"
+    },
+    {
+      "name": "lapsus$",
+      "slug": "lapsus"
+    },
+    {
+      "name": "late.lol",
+      "slug": "latelol"
+    },
+    {
+      "name": "lcryptorx",
+      "slug": "lcryptorx"
+    },
+    {
+      "name": "leak bazaar",
+      "slug": "leakbazaar"
+    },
+    {
+      "name": "leakeddata",
+      "slug": "leakeddata"
+    },
+    {
+      "name": "leaknet",
+      "slug": "leaknet"
+    },
+    {
+      "name": "l group",
+      "slug": "lgroup"
+    },
+    {
+      "name": "lilith",
+      "slug": "lilith"
+    },
+    {
+      "name": "linkc",
+      "slug": "linkc"
+    },
+    {
+      "name": "lockbit",
+      "slug": "lockbit"
+    },
+    {
+      "name": "lockbit3",
+      "slug": "lockbit3"
+    },
+    {
+      "name": "lockbit4",
+      "slug": "lockbit4"
+    },
+    {
+      "name": "lockbit5",
+      "slug": "lockbit5"
+    },
+    {
+      "name": "lockdata",
+      "slug": "lockdata"
+    },
+    {
+      "name": "lockergoga",
+      "slug": "lockergoga"
+    },
+    {
+      "name": "locky",
+      "slug": "locky"
+    },
+    {
+      "name": "locus",
+      "slug": "locus"
+    },
+    {
+      "name": "loki",
+      "slug": "loki"
+    },
+    {
+      "name": "lokilocker",
+      "slug": "lokilocker"
+    },
+    {
+      "name": "lolnek",
+      "slug": "lolnek"
+    },
+    {
+      "name": "lorenz",
+      "slug": "lorenz"
+    },
+    {
+      "name": "losttrust",
+      "slug": "losttrust"
+    },
+    {
+      "name": "lsd",
+      "slug": "lsd"
+    },
+    {
+      "name": "luckbit",
+      "slug": "luckbit"
+    },
+    {
+      "name": "lulzsec muslims",
+      "slug": "lulzsecmuslims"
+    },
+    {
+      "name": "lunalock",
+      "slug": "lunalock"
+    },
+    {
+      "name": "lv",
+      "slug": "lv"
+    },
+    {
+      "name": "lynx",
+      "slug": "lynx"
+    },
+    {
+      "name": "lynxr",
+      "slug": "lynxr"
+    },
+    {
+      "name": "lyrix",
+      "slug": "lyrix"
+    },
+    {
+      "name": "m3rx",
+      "slug": "m3rx"
+    },
+    {
+      "name": "mad liberator",
+      "slug": "madliberator"
+    },
+    {
+      "name": "mailto",
+      "slug": "mailto"
+    },
+    {
+      "name": "majinahanashi",
+      "slug": "majinahanashi"
+    },
+    {
+      "name": "makop",
+      "slug": "makop"
+    },
+    {
+      "name": "malas",
+      "slug": "malas"
+    },
+    {
+      "name": "malek team",
+      "slug": "malekteam"
+    },
+    {
+      "name": "mallox",
+      "slug": "mallox"
+    },
+    {
+      "name": "malphas",
+      "slug": "malphas"
+    },
+    {
+      "name": "mamona",
+      "slug": "mamona"
+    },
+    {
+      "name": "mario esxi",
+      "slug": "marioesxi"
+    },
+    {
+      "name": "maze",
+      "slug": "maze"
+    },
+    {
+      "name": "mbc",
+      "slug": "mbc"
+    },
+    {
+      "name": "mcafee",
+      "slug": "mcafee"
+    },
+    {
+      "name": "mcrypt2019",
+      "slug": "mcrypt2019"
+    },
+    {
+      "name": "medusa",
+      "slug": "medusa"
+    },
+    {
+      "name": "megacortex",
+      "slug": "megacortex"
+    },
+    {
+      "name": "megazord",
+      "slug": "megazord"
+    },
+    {
+      "name": "meow",
+      "slug": "meow"
+    },
+    {
+      "name": "meowciety403",
+      "slug": "meowciety403"
+    },
+    {
+      "name": "mespinoza",
+      "slug": "mespinoza"
+    },
+    {
+      "name": "metaencryptor",
+      "slug": "metaencryptor"
+    },
+    {
+      "name": "midas",
+      "slug": "midas"
+    },
+    {
+      "name": "miga",
+      "slug": "miga"
+    },
+    {
+      "name": "miliphen",
+      "slug": "miliphen"
+    },
+    {
+      "name": "mimic",
+      "slug": "mimic"
+    },
+    {
+      "name": "mimic-guram",
+      "slug": "mimicguram"
+    },
+    {
+      "name": "mindware",
+      "slug": "mindware"
+    },
+    {
+      "name": "minteye",
+      "slug": "minteye"
+    },
+    {
+      "name": "mnt6",
+      "slug": "mnt6"
+    },
+    {
+      "name": "mogilevich",
+      "slug": "mogilevich"
+    },
+    {
+      "name": "moisha",
+      "slug": "moisha"
+    },
+    {
+      "name": "money message",
+      "slug": "moneymessage"
+    },
+    {
+      "name": "monolock",
+      "slug": "monolock"
+    },
+    {
+      "name": "montage",
+      "slug": "montage"
+    },
+    {
+      "name": "monte",
+      "slug": "monte"
+    },
+    {
+      "name": "monti",
+      "slug": "monti"
+    },
+    {
+      "name": "morpheus",
+      "slug": "morpheus"
+    },
+    {
+      "name": "mortalkombat",
+      "slug": "mortalkombat"
+    },
+    {
+      "name": "mortar",
+      "slug": "mortar"
+    },
+    {
+      "name": "mount-locker",
+      "slug": "mountlocker"
+    },
+    {
+      "name": "ms13-089",
+      "slug": "ms13089"
+    },
+    {
+      "name": "muliaka",
+      "slug": "muliaka"
+    },
+    {
+      "name": "mydata",
+      "slug": "mydata"
+    },
+    {
+      "name": "mydecryptor",
+      "slug": "mydecryptor"
+    },
+    {
+      "name": "n3tworm",
+      "slug": "n3tworm"
+    },
+    {
+      "name": "naga",
+      "slug": "naga"
+    },
+    {
+      "name": "nasir security",
+      "slug": "nasirsecurity"
+    },
+    {
+      "name": "nblock",
+      "slug": "nblock"
+    },
+    {
+      "name": "nefilim",
+      "slug": "nefilim"
+    },
+    {
+      "name": "nemesis",
+      "slug": "nemesis"
+    },
+    {
+      "name": "nemty",
+      "slug": "nemty"
+    },
+    {
+      "name": "netrunner",
+      "slug": "netrunner"
+    },
+    {
+      "name": "netwalker",
+      "slug": "netwalker"
+    },
+    {
+      "name": "nevada",
+      "slug": "nevada"
+    },
+    {
+      "name": "nightsky",
+      "slug": "nightsky"
+    },
+    {
+      "name": "nightspire",
+      "slug": "nightspire"
+    },
+    {
+      "name": "nitrogen",
+      "slug": "nitrogen"
+    },
+    {
+      "name": "noescape",
+      "slug": "noescape"
+    },
+    {
+      "name": "nokoyawa",
+      "slug": "nokoyawa"
+    },
+    {
+      "name": "noname",
+      "slug": "noname"
+    },
+    {
+      "name": "nova",
+      "slug": "nova"
+    },
+    {
+      "name": "nullbulge",
+      "slug": "nullbulge"
+    },
+    {
+      "name": "nvrmre",
+      "slug": "nvrmre"
+    },
+    {
+      "name": "obscura",
+      "slug": "obscura"
+    },
+    {
+      "name": "obsidian orb",
+      "slug": "obsidianorb"
+    },
+    {
+      "name": "oceans",
+      "slug": "oceans"
+    },
+    {
+      "name": "octovillan",
+      "slug": "octovillan"
+    },
+    {
+      "name": "offwhite",
+      "slug": "offwhite"
+    },
+    {
+      "name": "onepercent",
+      "slug": "onepercent"
+    },
+    {
+      "name": "orca",
+      "slug": "orca"
+    },
+    {
+      "name": "orion",
+      "slug": "orion"
+    },
+    {
+      "name": "orova",
+      "slug": "orova"
+    },
+    {
+      "name": "osiris",
+      "slug": "osiris"
+    },
+    {
+      "name": "osyolorz collective",
+      "slug": "osyolorzcollective"
+    },
+    {
+      "name": "ox thief",
+      "slug": "oxthief"
+    },
+    {
+      "name": "pandora",
+      "slug": "pandora"
+    },
+    {
+      "name": "panzer",
+      "slug": "panzer"
+    },
+    {
+      "name": "paradise",
+      "slug": "paradise"
+    },
+    {
+      "name": "paradise2",
+      "slug": "paradise2"
+    },
+    {
+      "name": "pay2key",
+      "slug": "pay2key"
+    },
+    {
+      "name": "payload",
+      "slug": "payload"
+    },
+    {
+      "name": "payloadbin",
+      "slug": "payloadbin"
+    },
+    {
+      "name": "payoutsking",
+      "slug": "payoutsking"
+    },
+    {
+      "name": "pear",
+      "slug": "pear"
+    },
+    {
+      "name": "petya",
+      "slug": "petya"
+    },
+    {
+      "name": "phalcon",
+      "slug": "phalcon"
+    },
+    {
+      "name": "phantom",
+      "slug": "phantom"
+    },
+    {
+      "name": "phobos",
+      "slug": "phobos"
+    },
+    {
+      "name": "pink",
+      "slug": "pink"
+    },
+    {
+      "name": "piratelock",
+      "slug": "piratelock"
+    },
+    {
+      "name": "play",
+      "slug": "play"
+    },
+    {
+      "name": "playboy",
+      "slug": "playboy"
+    },
+    {
+      "name": "polyvice",
+      "slug": "polyvice"
+    },
+    {
+      "name": "prinz eugen",
+      "slug": "prinzeugen"
+    },
+    {
+      "name": "prolock",
+      "slug": "prolock"
+    },
+    {
+      "name": "prometheus",
+      "slug": "prometheus"
+    },
+    {
+      "name": "proton",
+      "slug": "proton"
+    },
+    {
+      "name": "providence",
+      "slug": "providence"
+    },
+    {
+      "name": "proxima",
+      "slug": "proxima"
+    },
+    {
+      "name": "punisher",
+      "slug": "punisher"
+    },
+    {
+      "name": "pyrx",
+      "slug": "pyrx"
+    },
+    {
+      "name": "pysa",
+      "slug": "pysa"
+    },
+    {
+      "name": "qilin",
+      "slug": "qilin"
+    },
+    {
+      "name": "qilin-securotrop",
+      "slug": "qilinsecurotrop"
+    },
+    {
+      "name": "qiulong",
+      "slug": "qiulong"
+    },
+    {
+      "name": "qlocker",
+      "slug": "qlocker"
+    },
+    {
+      "name": "quantum",
+      "slug": "quantum"
+    },
+    {
+      "name": "quicklock",
+      "slug": "quicklock"
+    },
+    {
+      "name": "quoter",
+      "slug": "quoter"
+    },
+    {
+      "name": "rabbit hole",
+      "slug": "rabbithole"
+    },
+    {
+      "name": "radar",
+      "slug": "radar"
+    },
+    {
+      "name": "radiant group",
+      "slug": "radiantgroup"
+    },
+    {
+      "name": "ragnarlocker",
+      "slug": "ragnarlocker"
+    },
+    {
+      "name": "ragnarok",
+      "slug": "ragnarok"
+    },
+    {
+      "name": "ra group",
+      "slug": "ragroup"
+    },
+    {
+      "name": "ralord",
+      "slug": "ralord"
+    },
+    {
+      "name": "ramp",
+      "slug": "ramp"
+    },
+    {
+      "name": "rancoz",
+      "slug": "rancoz"
+    },
+    {
+      "name": "ranion",
+      "slug": "ranion"
+    },
+    {
+      "name": "ransombay",
+      "slug": "ransombay"
+    },
+    {
+      "name": "ransomcartel",
+      "slug": "ransomcartel"
+    },
+    {
+      "name": "ransom corp",
+      "slug": "ransomcorp"
+    },
+    {
+      "name": "ransomcortex",
+      "slug": "ransomcortex"
+    },
+    {
+      "name": "ransomed",
+      "slug": "ransomed"
+    },
+    {
+      "name": "ransomedvc2",
+      "slug": "ransomedvc2"
+    },
+    {
+      "name": "ransomexx",
+      "slug": "ransomexx"
+    },
+    {
+      "name": "ransomhouse",
+      "slug": "ransomhouse"
+    },
+    {
+      "name": "ransomhub",
+      "slug": "ransomhub"
+    },
+    {
+      "name": "ransomware blog",
+      "slug": "ransomwareblog"
+    },
+    {
+      "name": "ranzy",
+      "slug": "ranzy"
+    },
+    {
+      "name": "raptum",
+      "slug": "raptum"
+    },
+    {
+      "name": "rapture",
+      "slug": "rapture"
+    },
+    {
+      "name": "raznatovic",
+      "slug": "raznatovic"
+    },
+    {
+      "name": "redact",
+      "slug": "redact"
+    },
+    {
+      "name": "redalert",
+      "slug": "redalert"
+    },
+    {
+      "name": "red ransomware",
+      "slug": "redransomware"
+    },
+    {
+      "name": "relic",
+      "slug": "relic"
+    },
+    {
+      "name": "revil",
+      "slug": "revil"
+    },
+    {
+      "name": "reynolds",
+      "slug": "reynolds"
+    },
+    {
+      "name": "rhysida",
+      "slug": "rhysida"
+    },
+    {
+      "name": "risen",
+      "slug": "risen"
+    },
+    {
+      "name": "robbing hood",
+      "slug": "robbinghood"
+    },
+    {
+      "name": "robinhood",
+      "slug": "robinhood"
+    },
+    {
+      "name": "rook",
+      "slug": "rook"
+    },
+    {
+      "name": "root",
+      "slug": "root"
+    },
+    {
+      "name": "royal",
+      "slug": "royal"
+    },
+    {
+      "name": "rransom",
+      "slug": "rransom"
+    },
+    {
+      "name": "rtm locker",
+      "slug": "rtmlocker"
+    },
+    {
+      "name": "run some wares",
+      "slug": "runsomewares"
+    },
+    {
+      "name": "rustylocker",
+      "slug": "rustylocker"
+    },
+    {
+      "name": "sabbath",
+      "slug": "sabbath"
+    },
+    {
+      "name": "safepay",
+      "slug": "safepay"
+    },
+    {
+      "name": "samsam",
+      "slug": "samsam"
+    },
+    {
+      "name": "sarcoma",
+      "slug": "sarcoma"
+    },
+    {
+      "name": "satancd",
+      "slug": "satancd"
+    },
+    {
+      "name": "satanlock",
+      "slug": "satanlock"
+    },
+    {
+      "name": "scarab",
+      "slug": "scarab"
+    },
+    {
+      "name": "scattered lapsus$ hunters",
+      "slug": "scatteredlapsushunters"
+    },
+    {
+      "name": "schoolboys",
+      "slug": "schoolboys"
+    },
+    {
+      "name": "secp0",
+      "slug": "secp0"
+    },
+    {
+      "name": "section9",
+      "slug": "section9"
+    },
+    {
+      "name": "securotrop",
+      "slug": "securotrop"
+    },
+    {
+      "name": "sekhmet",
+      "slug": "sekhmet"
+    },
+    {
+      "name": "sensayq",
+      "slug": "sensayq"
+    },
+    {
+      "name": "settra",
+      "slug": "settra"
+    },
+    {
+      "name": "sevyware",
+      "slug": "sevyware"
+    },
+    {
+      "name": "shade",
+      "slug": "shade"
+    },
+    {
+      "name": "shadow",
+      "slug": "shadow"
+    },
+    {
+      "name": "shadowbyt3$",
+      "slug": "shadowbyt3"
+    },
+    {
+      "name": "sharpboys",
+      "slug": "sharpboys"
+    },
+    {
+      "name": "shiba",
+      "slug": "shiba"
+    },
+    {
+      "name": "shinyhunters",
+      "slug": "shinyhunters"
+    },
+    {
+      "name": "sicari",
+      "slug": "sicari"
+    },
+    {
+      "name": "siegedsec",
+      "slug": "siegedsec"
+    },
+    {
+      "name": "sifrecikis",
+      "slug": "sifrecikis"
+    },
+    {
+      "name": "silent",
+      "slug": "silent"
+    },
+    {
+      "name": "silent ransom",
+      "slug": "silentransom"
+    },
+    {
+      "name": "sinobi",
+      "slug": "sinobi"
+    },
+    {
+      "name": "skira team",
+      "slug": "skirateam"
+    },
+    {
+      "name": "slam",
+      "slug": "slam"
+    },
+    {
+      "name": "slug",
+      "slug": "slug"
+    },
+    {
+      "name": "snatch",
+      "slug": "snatch"
+    },
+    {
+      "name": "soleenya",
+      "slug": "soleenya"
+    },
+    {
+      "name": "solidbit",
+      "slug": "solidbit"
+    },
+    {
+      "name": "sovcali",
+      "slug": "sovcali"
+    },
+    {
+      "name": "space bears",
+      "slug": "spacebears"
+    },
+    {
+      "name": "sparta",
+      "slug": "sparta"
+    },
+    {
+      "name": "spectre",
+      "slug": "spectre"
+    },
+    {
+      "name": "sphinx",
+      "slug": "sphinx"
+    },
+    {
+      "name": "spirigatito",
+      "slug": "spirigatito"
+    },
+    {
+      "name": "spook",
+      "slug": "spook"
+    },
+    {
+      "name": "spring",
+      "slug": "spring"
+    },
+    {
+      "name": "spy corporate",
+      "slug": "spycorporate"
+    },
+    {
+      "name": "storm",
+      "slug": "storm"
+    },
+    {
+      "name": "stormous",
+      "slug": "stormous"
+    },
+    {
+      "name": "sugar",
+      "slug": "sugar"
+    },
+    {
+      "name": "suncrypt",
+      "slug": "suncrypt"
+    },
+    {
+      "name": "sundawn",
+      "slug": "sundawn"
+    },
+    {
+      "name": "superblack",
+      "slug": "superblack"
+    },
+    {
+      "name": "synack",
+      "slug": "synack"
+    },
+    {
+      "name": "synapse",
+      "slug": "synapse"
+    },
+    {
+      "name": "syndicate",
+      "slug": "syndicate"
+    },
+    {
+      "name": "targetcompany",
+      "slug": "targetcompany"
+    },
+    {
+      "name": "taronis",
+      "slug": "taronis"
+    },
+    {
+      "name": "team underground",
+      "slug": "teamunderground"
+    },
+    {
+      "name": "teamxxx",
+      "slug": "teamxxx"
+    },
+    {
+      "name": "telegram",
+      "slug": "telegram"
+    },
+    {
+      "name": "tengu",
+      "slug": "tengu"
+    },
+    {
+      "name": "termite",
+      "slug": "termite"
+    },
+    {
+      "name": "thanos",
+      "slug": "thanos"
+    },
+    {
+      "name": "the gentlemen",
+      "slug": "thegentlemen"
+    },
+    {
+      "name": "the green blood group",
+      "slug": "thegreenbloodgroup"
+    },
+    {
+      "name": "thor",
+      "slug": "thor"
+    },
+    {
+      "name": "threatmarket",
+      "slug": "threatmarket"
+    },
+    {
+      "name": "thundercrypt",
+      "slug": "thundercrypt"
+    },
+    {
+      "name": "thunder x",
+      "slug": "thunderx"
+    },
+    {
+      "name": "timc",
+      "slug": "timc"
+    },
+    {
+      "name": "titan",
+      "slug": "titan"
+    },
+    {
+      "name": "tommyleaks",
+      "slug": "tommyleaks"
+    },
+    {
+      "name": "tooda",
+      "slug": "tooda"
+    },
+    {
+      "name": "toufan",
+      "slug": "toufan"
+    },
+    {
+      "name": "toxic",
+      "slug": "toxic"
+    },
+    {
+      "name": "tridentlocker",
+      "slug": "tridentlocker"
+    },
+    {
+      "name": "trigona",
+      "slug": "trigona"
+    },
+    {
+      "name": "trinity",
+      "slug": "trinity"
+    },
+    {
+      "name": "triple x",
+      "slug": "triplex"
+    },
+    {
+      "name": "trisec",
+      "slug": "trisec"
+    },
+    {
+      "name": "tssxx25",
+      "slug": "tssxx25"
+    },
+    {
+      "name": "tuborg",
+      "slug": "tuborg"
+    },
+    {
+      "name": "turkish crypter",
+      "slug": "turkishcrypter"
+    },
+    {
+      "name": "tycoon",
+      "slug": "tycoon"
+    },
+    {
+      "name": "u-bomb",
+      "slug": "ubomb"
+    },
+    {
+      "name": "ulose",
+      "slug": "ulose"
+    },
+    {
+      "name": "umbra",
+      "slug": "umbra"
+    },
+    {
+      "name": "unknown",
+      "slug": "unknown"
+    },
+    {
+      "name": "unsafe",
+      "slug": "unsafe"
+    },
+    {
+      "name": "valencia leaks",
+      "slug": "valencialeaks"
+    },
+    {
+      "name": "vandev",
+      "slug": "vandev"
+    },
+    {
+      "name": "vanhelsing",
+      "slug": "vanhelsing"
+    },
+    {
+      "name": "vanir group",
+      "slug": "vanirgroup"
+    },
+    {
+      "name": "vasalocker",
+      "slug": "vasalocker"
+    },
+    {
+      "name": "vaultcrypt",
+      "slug": "vaultcrypt"
+    },
+    {
+      "name": "vect",
+      "slug": "vect"
+    },
+    {
+      "name": "vegalocker",
+      "slug": "vegalocker"
+    },
+    {
+      "name": "vexy",
+      "slug": "vexy"
+    },
+    {
+      "name": "vfokx",
+      "slug": "vfokx"
+    },
+    {
+      "name": "vicesociety",
+      "slug": "vicesociety"
+    },
+    {
+      "name": "v is vendetta",
+      "slug": "visvendetta"
+    },
+    {
+      "name": "vsop",
+      "slug": "vsop"
+    },
+    {
+      "name": "vulcan",
+      "slug": "vulcan"
+    },
+    {
+      "name": "vurten",
+      "slug": "vurten"
+    },
+    {
+      "name": "w3crypto",
+      "slug": "w3crypto"
+    },
+    {
+      "name": "waissbein",
+      "slug": "waissbein"
+    },
+    {
+      "name": "wallstreet",
+      "slug": "wallstreet"
+    },
+    {
+      "name": "walocker",
+      "slug": "walocker"
+    },
+    {
+      "name": "warlock",
+      "slug": "warlock"
+    },
+    {
+      "name": "weaxor",
+      "slug": "weaxor"
+    },
+    {
+      "name": "werewolves",
+      "slug": "werewolves"
+    },
+    {
+      "name": "weyhro",
+      "slug": "weyhro"
+    },
+    {
+      "name": "white lock",
+      "slug": "whitelock"
+    },
+    {
+      "name": "wikileaksv2",
+      "slug": "wikileaksv2"
+    },
+    {
+      "name": "wiki ransomware",
+      "slug": "wikiransomware"
+    },
+    {
+      "name": "wiper leak",
+      "slug": "wiperleak"
+    },
+    {
+      "name": "worldleaks",
+      "slug": "worldleaks"
+    },
+    {
+      "name": "xelera",
+      "slug": "xelera"
+    },
+    {
+      "name": "xinglocker",
+      "slug": "xinglocker"
+    },
+    {
+      "name": "xinof",
+      "slug": "xinof"
+    },
+    {
+      "name": "xleaks",
+      "slug": "xleaks"
+    },
+    {
+      "name": "xollam",
+      "slug": "xollam"
+    },
+    {
+      "name": "xp95",
+      "slug": "xp95"
+    },
+    {
+      "name": "xpl0itrs",
+      "slug": "xpl0itrs"
+    },
+    {
+      "name": "yanluowang",
+      "slug": "yanluowang"
+    },
+    {
+      "name": "yashma",
+      "slug": "yashma"
+    },
+    {
+      "name": "ymir",
+      "slug": "ymir"
+    },
+    {
+      "name": "yurei",
+      "slug": "yurei"
+    },
+    {
+      "name": "zawoo",
+      "slug": "zawoo"
+    },
+    {
+      "name": "zeon",
+      "slug": "zeon"
+    },
+    {
+      "name": "zeoticus",
+      "slug": "zeoticus"
+    },
+    {
+      "name": "zeoticus2",
+      "slug": "zeoticus2"
+    },
+    {
+      "name": "zeppelin",
+      "slug": "zeppelin"
+    },
+    {
+      "name": "zerolockersec",
+      "slug": "zerolockersec"
+    },
+    {
+      "name": "zero tolerance gang (ztg)",
+      "slug": "zerotolerancegangztg"
+    },
+    {
+      "name": "zeta leaks",
+      "slug": "zetaleaks"
+    },
+    {
+      "name": "zetarink",
+      "slug": "zetarink"
+    },
+    {
+      "name": "zircon",
+      "slug": "zircon"
+    },
+    {
+      "name": "zixer2",
+      "slug": "zixer2"
+    },
+    {
+      "name": "zola",
+      "slug": "zola"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "slug": "beast",
+  "name": "beast",
+  "victims_7d": 2,
+  "victims_total": 74,
+  "last_seen": "2026-09-10T22:46:51.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": null,
+  "mirrors": 0,
+  "up_mirrors": 0,
+  "has_profile": false,
+  "blurb": "2 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": null,
+  "mirrors_detail": [],
+  "victims_sample": [
+    {
+      "victim": "M800 and CINNOX",
+      "discovered": "2026-09-10T22:46:51.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/card/m800_and_cinnox"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/beast",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

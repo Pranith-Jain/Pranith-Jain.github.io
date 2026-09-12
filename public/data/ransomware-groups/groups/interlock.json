@@ -1,0 +1,34 @@
+{
+  "slug": "interlock",
+  "name": "interlock",
+  "victims_7d": 2,
+  "victims_total": 126,
+  "last_seen": "2026-09-07T17:26:38.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": null,
+  "mirrors": 0,
+  "up_mirrors": 0,
+  "has_profile": false,
+  "blurb": "2 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": null,
+  "mirrors_detail": [],
+  "victims_sample": [
+    {
+      "victim": "NFM Lending",
+      "discovered": "2026-09-07T17:26:38.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://gpotnbhakwdnrcojjnr4msl3sl64a4gv2n4yizvmbsceiazpqq23s5yd.onion/index.php?p="
+    },
+    {
+      "victim": "Super Systems Inc",
+      "discovered": "2026-08-31T18:33:08.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://2nv4huuzjbsqncvuepdmwneo6l4ocgtxzcgdau7obcvaqebkssfpz2ad.onion/index.php?p="
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/interlock",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

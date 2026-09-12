@@ -1,0 +1,41 @@
+{
+  "slug": "direwolf",
+  "name": "direwolf",
+  "fetchedAt": "2026-09-12T06:12:51.802Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "Dire Wolf is a recently emerged double-extortion ransomware group that first appeared around May 2025. It is a crypto-ransomware and data broker targeting industries like manufacturing and technology across multiple countries, including the U.S., Thailand, Taiwan, Singapore, Türkiye, among others. Written in Go and delivered as a UPX-packed binary, it utilizes robust encryption (Curve25519 and ChaCha20) to lock files with a .direwolf extension, while deleting backups, disabling logging, and terminating key services to block recovery. Victims receive highly customized ransom notes containing live-chat credentials and victim-specific portals, indicating a highly professional and targeted approach.",
+      "locations": [
+        {
+          "fqdn": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
+          "title": "DireWolf",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 00:11:11.572",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "direwolfgpyqohwxwoetsz7a6p72diu32c3wfysqdx4ei6bwft7zh3yd.onion",
+          "title": "File Browser",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 04:00:56.734",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "direwolf66s5zealav7azcyqeipiswecvvnapyuby3dek473kyqfucad.onion",
+          "title": "DireWolf Negotiation System - Login",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 04:00:27.449",
+          "chat": true,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

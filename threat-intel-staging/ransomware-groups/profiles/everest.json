@@ -1,0 +1,77 @@
+{
+  "slug": "everest",
+  "name": "everest",
+  "fetchedAt": "2026-09-12T06:12:57.322Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cryptography and appending victim-specific extensions, but later shifted toward pure data extortion—threatening to sell or release stolen data without necessarily deploying encryption. Everest targets a wide range of sectors, including government, healthcare, manufacturing, and IT services, with confirmed victims in North America, Europe, and Asia. Initial access vectors include exploitation of vulnerable public-facing applications, phishing campaigns, and credential theft for remote access services. The group maintains a Tor-based leak site to publish stolen information and advertise access to compromised networks.",
+      "locations": [
+        {
+          "fqdn": "ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 21:02:02.327",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "ransomoefralti2zh5nrv7iqybp3d5b4a2eeecz5yjosp7ggbepj7iyd.onion",
+          "title": "Everest Group",
+          "version": 3,
+          "available": false,
+          "updated": "2025-01-20 07:32:07.300",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "2vqamwfdpis5rkjtpkutigykp56n6hkxfurm6qukdxp6uz5uff5kkaid.onion",
+          "title": "Index of /",
+          "version": 0,
+          "available": false,
+          "updated": "2025-03-25 08:15:49.198",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "bifpwatchoxp7tsb2kpes37b23ogjrb2kj4wgr7yncf4hhgsfahu7jad.onion",
+          "title": "404 Not Found",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-02 17:00:04.724",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "aihvh6j6fbkfjyc6jqbsh2ed4s3rym2v2pu6kd3z3exdso2xc2qwcuqd.onion",
+          "title": "Index of /",
+          "version": 3,
+          "available": false,
+          "updated": "2025-03-25 08:09:30.324",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "gxp6yt3wdj7yky27j37jfrrbkuy24n2zo5uxyuoy23uf76d6m2gnfpid.onion",
+          "title": "Everest",
+          "version": 3,
+          "available": false,
+          "updated": "2025-10-20 13:07:16.588",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
+          "title": "Everest",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 00:08:26.930",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

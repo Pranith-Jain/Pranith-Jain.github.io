@@ -1,0 +1,32 @@
+{
+  "slug": "wallstreet",
+  "name": "wallstreet",
+  "fetchedAt": "2026-09-12T06:12:57.262Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "4dwiv37h7hhuhjpvtn72hme4ylcv3qoe65arfc6mbweal7als6ma7pyd.onion",
+          "title": "Wallstreet | DLS",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 00:00:07.004",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "aifdajw7ptxmjnhi4xizvylw7bphct7rno7vikge2v2ddh5xoh3lmwqd.onion",
+          "title": "Wallstreet | MISC",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 05:00:05.690",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

@@ -1,0 +1,302 @@
+{
+  "slug": "play",
+  "name": "play",
+  "fetchedAt": "2026-09-12T06:12:55.223Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "Ransomware\r<br/>\r<br/>",
+      "locations": [
+        {
+          "fqdn": "mbrlkbtq5jonaqkurjwmxftytyn2ethqvbxfu4rgjbkkknndqwae6byd.onion",
+          "title": "PLAY NEWS",
+          "version": 3,
+          "available": false,
+          "updated": "2026-05-09 21:10:24.185",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "k7kg3jqxang3wh7hnmaiokchk7qoebupfgoik6rha6mjpzwupwtj25yd.onion",
+          "title": "PLAY NEWS",
+          "version": 3,
+          "available": false,
+          "updated": "2026-05-09 21:32:35.065",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "k7kg3jqzffsxe2z53jjx4goybvxu3a557kpsqakpwi6mrvfgcdo55tid.onion",
+          "title": "PLAY NEWS",
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-30 08:12:13.505",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "ipi4tiumgzjsym6pyuzrfqrtwskokxokqannmd6sa24shvr7x5kxdvqd.onion",
+          "title": "PLAY NEWS",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 23:00:44.936",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "j75o7xvvsm4lpsjhkjvb4wl2q6ajegvabe6oswthuaubbykk4xkzgpid.onion",
+          "title": "PLAY NEWS",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 17:00:42.630",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "zi34ocznt242jallttwvvhihrezjdzfgflf3uhdv6t3z23hhcn54efid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-02 22:16:15.264619",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "37wb3ygyb3r2vf2dt5o3ca62zlduuowvkkwjrtbcgc5iri4t6rnzr7yd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-02 22:16:54.069480",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "eppsldmcnv3ylabsx5srvf36wnk6jrowg6x4unxclv55rnu4kf5436yd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-02 22:18:21.434830",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "slg7tnjb65swwyaebnyymyvo73xm36hxwugdsps7cwcxicizyzyt2byd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-02 22:18:42.934114",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "x6zdxw6vt3gtpv35yqloydttvfvwyrju3opkmp4xejmlfxto7ahgnpyd.onion",
+          "title": "Index of /",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 23:02:52.995",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "eppsldmcnv3ylabsx5srvf36wnk6jrowg6x4unxclv55rnu4kf5436yd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-02 22:20:08.753999",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "jnbiz5lp44ddg4u5rsr4yebbpxa3iytcsshgbqa4m6r6po5y57h6yxid.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-25 09:11:49.474",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "sm2gah7bjg6u2dfl3voiex6njh2kcuqqquvv7za37xokmbcivsgqcnad.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2024-11-01 15:00:18.771",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "z7u6dkys7b2aeibvklxga7mldzrepoauiuniqwfhdadkkwwgmv6bqhad.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2024-11-02 13:01:35.632",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "kri3lez34pbqra3xs5wxo55djldtsekol6tuqdjqecqzga6dpnjqruyd.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-25 09:39:49.929",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "iejj6bywviuecjwi3kxanzojqroe3j3phzgplvrdzcicimtcw6xgk3yd.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2024-11-02 03:01:50.665",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "xixkhm6inbg6t5642t2pjafsjsh3eaonpjysdcfvr3zvadlqb6nhryad.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-25 08:38:08.123",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "giix5r763sbxmu442tmwfb4thqbz4i5ppxcqsmnnlqnm2yiezv6epxqd.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-25 08:30:21.734",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "mokcrzbitq2gc5qcpxcbce43pawuthyaoazl6iz2xknj53ebyb4r4eid.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2024-11-02 18:00:45.207",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "gpph6awu7hqsmzmr5sihusjoscp3itwtk3b4i2chwspmka2ikuqcwaqd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2025-07-04 09:20:52.957",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "v3r6g4q3b2jpqusznecxexr5aqi42vy5ts6jy6fu3strecvb5c2woead.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-25 08:39:25.041",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "4xo3cicwo2rhpwr6vkgwt7mqg4oiqihsmoxwlmklf4sjoatkdqjtmcyd.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2024-11-02 15:03:18.567",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "a4gbdvoorwn3tcqijoedvdeukqaqwc6t2kx4gh3gm37gv4p37evvzqad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-02 23:10:39.249482",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "6jb5avmh6rvcb7vcux7kaivnzpqcrfg4ui4xv2co5vmspgrwll7lkkyd.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-16 14:12:59.869",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "doz7omlqqanryonvil4iuj65shzcv3efupqwubkza6553wnekrrd4uid.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-16 14:28:41.445",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "hbwsxlq3uzknabg2blt7d4mcbu24oriklji36zdqsz3ou3mf2d7bvoid.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-16 13:23:10.848",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "ysknyr5m5n3pwg4jnaqsytxea2thwsbca3qipi64vlep42flywx7dgqd.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-07-04 09:27:08.316",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "b3pzp6qwelgeygmzn6awkduym6s4gxh6htwxuxeydrziwzlx63zergyd.onion",
+          "title": "Index of /",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 06:00:51.881",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "p2qzf3rfvg4f74v2ambcnr6vniueucitbw6lyupkagsqejtuyak6qrid.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 17:01:37.225",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "whfsjr35whjtrmmqqeqfxscfq564htdm427mjekic63737xscuayvkad.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2026-08-13 07:17:18.522",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "v3zgtoh5etfeuvhtgdpiejle4mzy7gdvoygildytlxwoay6qvrkixfad.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-15 01:03:49.843",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "75tkvxemb6zpyk3fbl3mwm32jklc2sdjacb3kazrioamopbfn2w2z5qd.onion",
+          "title": "PLAY FAQ",
+          "version": 3,
+          "available": false,
+          "updated": "2026-05-09 21:02:18.344",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "slug": "incransom",
+  "name": "inc ransom",
+  "fetchedAt": "2026-09-12T06:12:56.690Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "incblog7vmuq7rktic73r4ha4j757m3ptym37tyvifzp2roedyyzzxid.onion",
+          "title": "INC Ransom",
+          "version": 3,
+          "available": false,
+          "updated": "2024-07-10 02:01:40.411830",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incapt.blog",
+          "title": "Access Blocked",
+          "version": 0,
+          "available": false,
+          "updated": "2024-04-03 06:07:29.777653",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incapt.su",
+          "title": "Error Response Page",
+          "version": 0,
+          "available": false,
+          "updated": "2024-07-22 11:02:34.872415",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incblog6qu4y4mm4zvw5nrmue6qbwtgjsxpw6b7ixzssu36tsajldoad.onion",
+          "title": "Disclosures",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 21:00:04.717",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incpaysp74dphcbjyvg2eepxnl3tkgt5mq5vd4tnjusoissz342bdnad.onion",
+          "title": null,
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-10 04:25:47.416491",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "incpaykabjqc2mtdxq6c23nqh4x6m5dkps5fr6vgdkgzp5njssx6qkid.onion",
+          "title": "NULL",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 01:00:04.235",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 03:00:07.311",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incbackend.top",
+          "title": "",
+          "version": 0,
+          "available": false,
+          "updated": "2025-01-02 00:03:05.354",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incbackfgm7qa7sioq7r4tdunoaqsvzjg5i7w46bhqlfonwjgiemr7qd.onion",
+          "title": null,
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-11 09:59:38.461360",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incbackrlasjesgpfu5brktfjknbqoahe2hhmqfhasc5fb56mtukn4yd.onion",
+          "title": null,
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-11 09:59:47.665742",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

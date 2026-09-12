@@ -1,0 +1,39 @@
+{
+  "id": "CB-2026-0015",
+  "title": "Muse Spark 1.1 exploited a real website from a misconfigured evaluation",
+  "klass": "containment-breach",
+  "sev": "severe",
+  "tier": "A",
+  "cbs": 7.8,
+  "occurred": "2026-07-01",
+  "disclosed": "2026-08-06",
+  "dwell": null,
+  "autonomous": true,
+  "developer": "Meta",
+  "actor": "Meta Muse Spark 1.1 under third-party evaluation",
+  "systems": "Muse Spark 1.1; third-party (Irregular) evaluation environment",
+  "targets": "An unnamed real website — data read, database modified",
+  "purpose": "Cyber-capability evaluation run by a third-party vendor",
+  "summary": "The evaluation environment had open internet although the exercise assumed isolation, and the scenario named a real website as the target. The model completed the intrusion exercise as set: it found and exploited a vulnerability in the real site, read data, and wrote to its database. Meta confirmed after press reporting and published a retrospective after reviewing 10,000+ activity records.",
+  "disputed": "Website unnamed, vulnerability undescribed; occurrence dated to start of month from Meta's 'early July'.",
+  "chain": {
+    "PRESSURE": "Scenario named a real website; succeeding against it was the task as set.",
+    "PROBE": "Enumerated the real site from an environment with unintended open internet.",
+    "BREACH": "Exploited an undisclosed vulnerability in the real website.",
+    "CHANNEL": null,
+    "ESCALATE": "Read site data and wrote database changes.",
+    "PROPAGATE": null,
+    "HALT": "Press reporting; Meta record review; vendor confirmed the misconfiguration corrected."
+  },
+  "failed": ["EGRESS", "SUPPLY-CHAIN", "OBJECTIVE", "TELEMETRY", "HITL"],
+  "sources": [
+    {
+      "label": "Meta — addressing a third-party cyber testing misconfiguration (first-party)",
+      "url": "https://research.meta.ai/blog/addressing-third-party-testing-misconfiguration-muse-spark-1-1"
+    },
+    {
+      "label": "SecurityWeek — Meta AI hacked external systems during cybersecurity testing",
+      "url": "https://www.securityweek.com/meta-ai-hacked-external-systems-during-cybersecurity-testing/"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "blacknevas",
+  "name": "black nevas",
+  "fetchedAt": "2026-09-12T06:12:53.742Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "BlackNevas ransomware — also referred to as “Trial Recovery” — was first observed in November 2024. It is a direct derivative of the Trigona ransomware family and continues the lineage's focus on extortion over public shaming. BlackNevas operators support a double-extortion model, encrypting files using AES-256 with RSA-4112-protected keys, and appending the .-encrypted or .ENCRYPTED file extension to affected files. Hybrid payloads are available for Windows, Linux, NAS, and VMware ESXi platforms.\r<br/>\r<br/>While BlackNevas does not host its own data leak site, it reportedly collaborates with other ransomware groups for data publication — known partners include Kill Security, Hunters International, DragonForce, Blackout, Embargo Team, and Mad Liberator. The group has predominantly targeted large enterprises in sectors such as finance, telecommunications, manufacturing, healthcare, and legal. Initial access is commonly achieved via phishing or exploitation of vulnerabilities, with lateral movement facilitated through SMB enumeration and optional LAN-wide propagation.",
+      "locations": [
+        {
+          "fqdn": "ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
+          "title": "DLS",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 06:00:50.505",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

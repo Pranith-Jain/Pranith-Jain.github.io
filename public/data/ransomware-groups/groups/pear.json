@@ -1,0 +1,46 @@
+{
+  "slug": "pear",
+  "name": "pear",
+  "victims_7d": 2,
+  "victims_total": 123,
+  "last_seen": "2026-09-11T15:43:42.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": null,
+  "mirrors": 0,
+  "up_mirrors": 0,
+  "has_profile": false,
+  "blurb": "2 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": null,
+  "mirrors_detail": [],
+  "victims_sample": [
+    {
+      "victim": "Foss Inc.",
+      "discovered": "2026-09-11T15:43:42.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/Companies/fossinc"
+    },
+    {
+      "victim": "Kovo Healthtech Corp",
+      "discovered": "2026-09-04T12:37:52.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/Companies/kovoplus"
+    },
+    {
+      "victim": "EdgeChem Jamaica Limited",
+      "discovered": "2026-09-03T14:38:22.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/Companies/edgechem"
+    },
+    {
+      "victim": "Next Level Medical, LLC",
+      "discovered": "2026-09-02T13:41:47.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/Companies/nextlevelurgentcare"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/pear",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}
