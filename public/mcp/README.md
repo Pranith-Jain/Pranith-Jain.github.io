@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**350 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**360 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (236)
+### other (246)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -40,6 +40,7 @@
 - `depx_stats` - Supply-chain intelligence statistics — ecosystem breakdown, recent advisory counts, and disclosure trends from the OpenSSF Malicious Packages database.
 - `detect_c2_beaconing` - Score connection timestamps to one destination for C2 beacon periodicity: mean/stddev inter-arrival, jitter ratio, payload-size consistency. Returns 0-100 beacon score with verdict.
 - `detect_dns_tunneling` - Heuristic DNS-tunneling detection over query names targeting one zone: label length distribution, Shannon entropy, uniqueness ratio → 0-100 tunnel score with verdict and indicators.
+- `digest_analyze` - Get the analyst note for a Webamon daily threat brief or PCMedicalist digest: deterministic key signals plus a cached LLM assessment. Nothing generates on read — briefs are immutable per date.
 - `dn_abuseipdb_blacklist` - Get AbuseIPDB blacklist of the most reported malicious IP addresses. Requires ABUSEIPDB_API_KEY.
 - `dn_abuseipdb_check` - Check an IP address on AbuseIPDB for abuse reports: confidence score, ISP, country, report count, categories. Requires ABUSEIPDB_API_KEY.
 - `dn_abuseipdb_check_block` - Check an entire CIDR network block for abuse reports on AbuseIPDB. Requires ABUSEIPDB_API_KEY.
@@ -99,6 +100,9 @@
 - `dw_stats` - Return cache + manifest stats for the detection.wiki mirror: 15k rules, 218 techniques, 1,518 Windows providers, 426 Security-Auditing events, 17 platforms, 6 labs, and LRU body-cache info.
 - `email_check_registration` - Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.
 - `email_list_registration_platforms` - List all platforms available for email registration checking. Returns platform IDs, names, and categories.
+- `escape_get` - Return one incident docket: assigned task, summary, 7-stage containment chain, absent guardrails, disputed figures, sources. Use escape_list first to discover ids.
+- `escape_list` - List AI agent containment-failure incidents (15-entry seed registry, CBS-scored). Filter by class (containment-breach/agent-hijack/supply-chain/tool-misuse/injection), severity, evidence tier, absent guardrail, autonomy, or keyword.
+- `escape_stats` - Registry stats (entries, Tier A, eval-env breaches, autonomous count, median dwell, most-absent guardrail, days-since clock inputs), per-guardrail absent counts, month timeline buckets, and the 10 guardrail definitions + provenance trackers.
 - `etda_get_actor` - Return the full actor body for a single APT threat actor from the ETDA Threat Group Cards vertical. Includes names (with vendor sources), aliases, country, sponsor, motivation, description, sectors, tools, operations, counter operations, MITRE ATT&CK link, and information references. Use etda_list_actors first to discover slugs.
 - `etda_get_aptmap_data` - Return a specific APTmap malware analysis data file by filename. These are frequency-distribution statistics from 29GB of PE malware samples attributed to APT groups. Use etda_list_aptmap_data first to discover available files.
 - `etda_list_actors` - List APT threat actors from the ETDA Threat Group Cards vertical. 504 actors (416 APT, 54 other, 34 unknown). Filter by category, country, MITRE ATT&CK reference, or keyword. Each entry includes aliases, country, sponsor, motivation, observed period, and counts of tools/operations.
@@ -120,6 +124,7 @@
 - `get_sample_analysis_status` - Poll analysis results for a submitted sample: VirusTotal verdict stats and/or Hybrid Analysis detonation state + threat score + AV detection ratio.
 - `get_threat_pulse` - Get a global threat overview — top active threat actors, trending malware families, most exploited CVEs, and geopolitical cyber events from the past week.
 - `get_trending_iocs` - Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.
+- `heatwave_lookup` - Check a SENDING domain against the Validity Heatwave cold-email blocklist (keyless). Returns listed status (warming/active/pre-warming), stage, relative score band, observation ages, DNS answer, and related listed domains. Warming ≠ phishing; not-listed ≠ clean. Never apply to URL/content/DKIM verdicts.
 - `intelx_phonebook` - IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term (name, domain, keyword). Requires INTELX_API_KEY (paid).
 - `intelx_search` - Search IntelligenceX for leaked data, paste sites, breach archives, and dark-web content. Supports emails, domains, URLs, BTC addresses, IBANs, credit cards, phone numbers. Requires INTELX_API_KEY (paid).
 - `interpol_notice_detail` - Get details of a specific INTERPOL Red Notice by entity ID. Returns full charge info, arrest warrant details, and physical description. No API key required.
@@ -143,7 +148,11 @@
 - `pcm_search_items` - Search items within a PCMedicalist digest body. Filters against the mirrored top-items per layer (capped): filter by layer id, keyword, CVE, or limit.
 - `pcm_stats` - Return cache + manifest stats for the PCMedicalist feed: digest counts, latest date, and LRU body-cache hit/miss ratios.
 - `phone_osint` - Investigate a phone number — E.164 parsing, carrier/line-type detection, country lookup, messaging platform checks (WhatsApp/Telegram), breach exposure, and Google dorks. Returns structured JSON with parsed phone details, lookup URLs, and security flags.
+- `pi_get_entry` - Retrieve a single IoPC taxonomy entry (e.g. IOPC-T1.001 or IOPC-R012) with framework mappings and relationships. Requires server-side PROMPTINTEL_API_KEY.
+- `pi_search_prompts` - Search the PromptIntel Indicators-of-Prompt-Compromise feed: adversarial AI prompts with severity and category filters. Requires server-side PROMPTINTEL_API_KEY.
 - `poc_scan` - Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
+- `ransom_group_get` - Return one ransomware group: victim counts, last seen, leak-site mirrors (.onion needs Tor), victim sample, abridged profile meta. Use ransom_groups_list first to discover slugs.
+- `ransom_groups_list` - List ransomware leak-site groups from the directory (620 groups, Ransomlook + ransomware.live). Filter by keyword, leak-site status (online/offline/unknown), active-this-week, or profile presence. Sort by recent activity, victim count, or name.
 - `reports_get` - Return the full details of a single report entry by slug. Use reports_list first to discover slugs.
 - `reports_list` - List reports and reading resources from the curated library. Filter by category (annual-threat-report, reference, framework, standard, learning, whitepaper, research), keyword, year, or publisher.
 - `reports_stats` - Return cache + manifest stats for the Reports & Reading Library: total entries, categories, and index cache status.
@@ -168,6 +177,7 @@
 - `tc_list_misp_events` - List the slim MISP manifest pass-through from ThreatCluster (misp/manifest.json): event UUID, title, date, threat level, and tags per event. For full MISP ingestion use the upstream remote feed directly (https://threatcluster.io/misp/manifest.json).
 - `tc_list_victims` - List newly observed ransomware leak-site victims from the ThreatCluster Dark Web Victims feed (14-day window). Filter by ransom group, sector, country, or keyword. Each entry has a victim name, claiming group, sector, country, and publication date.
 - `tg_boolean_search` - Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix*) and exact phrases ("quoted").
+- `tg_live_search` - Keyword-search public Telegram channels LIVE (t.me/s previews matched in memory, nothing stored). AND-semantics across tokens. Returns snippets + permalinks + per-channel diagnostics. Sequential fetches; keep to ≤8 channels.
 - `tg_saved_search_create` - Save a Telegram boolean search query for one-click reuse.
 - `tg_saved_search_delete` - Delete a saved Telegram search query.
 - `tg_saved_searches_list` - List saved Telegram boolean search queries.
