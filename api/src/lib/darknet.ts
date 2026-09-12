@@ -297,7 +297,11 @@ function torExitShadowReq(): Request {
   return new Request('https://tor-exit-cache.internal/v1/nodes');
 }
 
-export async function torExitNodes(limit?: number, kv?: KVNamespace): Promise<string[]> {
+export async function torExitNodes(
+  limit?: number,
+  kv?: KVNamespace,
+  waitUntil?: (p: Promise<unknown>) => void
+): Promise<string[]> {
   // L1: per-colo Cache API first — no KV quota cost.
   try {
     const hit = await (caches as unknown as { default: Cache }).default.match(torExitShadowReq());
@@ -355,7 +359,13 @@ export async function torExitNodes(limit?: number, kv?: KVNamespace): Promise<st
     ),
   ];
   if (kv) {
-    kv.put(TOR_EXIT_CACHE_KEY, JSON.stringify(ips), { expirationTtl: TOR_EXIT_CACHE_TTL_S }).catch(() => {});
+    // Persist via waitUntil when the caller has an execution context;
+    // otherwise best-effort (a lost write just refetches next call).
+    const done = kv
+      .put(TOR_EXIT_CACHE_KEY, JSON.stringify(ips), { expirationTtl: TOR_EXIT_CACHE_TTL_S })
+      .then(() => {})
+      .catch(() => {});
+    if (waitUntil) waitUntil(done);
   }
   // Write-through the shadow so this colo's next check is free.
   try {

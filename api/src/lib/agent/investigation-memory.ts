@@ -3,6 +3,8 @@
  * sessions for cross-investigation context. Stored in D1 for durability.
  */
 
+import { logError } from '../logger';
+
 export interface InvestigationMemoryEntry {
   id: string;
   query: string;
@@ -54,7 +56,7 @@ export async function saveInvestigationMemory(
       )
       .run();
   } catch (err) {
-    console.error('saveInvestigationMemory failed:', err);
+    logError('saveInvestigationMemory failed', err);
   }
 }
 
@@ -130,7 +132,7 @@ export async function lookupMemory(
       .sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime())
       .slice(0, 5);
   } catch (err) {
-    console.error('lookupMemory failed:', err);
+    logError('lookupMemory failed', err);
     return [];
   }
 }
@@ -146,7 +148,7 @@ export async function getRecentInvestigations(db: D1Database, limit = 20): Promi
       .all<Record<string, unknown>>();
     return rows.map(rowToEntry);
   } catch (err) {
-    console.error('getRecentInvestigations failed:', err);
+    logError('getRecentInvestigations failed', err);
     return [];
   }
 }

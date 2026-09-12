@@ -1,5 +1,6 @@
 import type { KVNamespace } from '@cloudflare/workers-types';
 import type { FailureRecord } from '../types';
+import { logError } from '../../lib/logger';
 
 const BLOB_KEY = 'failed:all';
 
@@ -18,7 +19,7 @@ async function readBlob(ns: KVNamespace): Promise<FailureRecord[]> {
   ).filter((x): x is FailureRecord => x !== null);
   if (migrated.length > 0) {
     await ns.put(BLOB_KEY, JSON.stringify(migrated), { expirationTtl: THIRTY_DAYS_SECONDS });
-    for (const k of oldKeys) ns.delete(k.name).catch((err) => console.error('delete old failure key failed:', err));
+    for (const k of oldKeys) ns.delete(k.name).catch((err) => logError('delete old failure key failed', err));
   }
   return migrated;
 }

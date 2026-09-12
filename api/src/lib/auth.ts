@@ -21,6 +21,7 @@ import type { Env } from '../env';
 import { unauthorized } from './api-error';
 import { validateInternalToken, ALLOWED_INTERNAL_CALLERS } from './internal-token';
 import { getAllowedOrigins } from './site-config';
+import { logError } from './logger';
 
 /**
  * Failed auth attempt tracker. Per-IP, in-memory, auto-expiring.
@@ -230,7 +231,7 @@ function touchLastUsed(db: D1Database, keyId: string): Promise<void> {
     .bind(new Date().toISOString(), keyId)
     .run()
     .then(() => {})
-    .catch((err) => console.error('touch-last-used:', err));
+    .catch((err) => logError('touch-last-used', err));
 }
 
 /**

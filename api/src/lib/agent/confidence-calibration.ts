@@ -4,6 +4,8 @@
  * Stored in D1 for persistence.
  */
 
+import { logError } from '../logger';
+
 export interface CalibrationEntry {
   id: string;
   query: string;
@@ -36,7 +38,7 @@ export async function recordCalibration(db: D1Database, entry: Omit<CalibrationE
       )
       .run();
   } catch (err) {
-    console.error('recordCalibration failed:', err);
+    logError('recordCalibration failed', err);
   }
 }
 
@@ -78,7 +80,7 @@ export async function getCalibrationStats(
 
     return stats;
   } catch (err) {
-    console.error('getCalibrationStats failed:', err);
+    logError('getCalibrationStats failed', err);
     return {};
   }
 }

@@ -1,3 +1,4 @@
+import { logError } from '../lib/logger';
 /**
  * Notification webhooks for case-study pipeline events.
  * Sends Discord (rich embed) and/or Slack (simple message) webhooks when a
@@ -57,7 +58,7 @@ async function sendWebhook(url: string, body: Record<string, unknown>): Promise<
     body: JSON.stringify(body),
   });
   if (!r.ok) {
-    console.error(`webhook to ${url.slice(0, 40)}... failed: ${r.status} ${await r.text().catch(() => '')}`);
+    logError('webhook failed', new Error(`to ${url.slice(0, 40)}... status ${r.status}`));
   }
 }
 

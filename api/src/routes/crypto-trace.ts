@@ -401,7 +401,7 @@ export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise
   if (address.length > 100) return badRequest(c, 'address too long');
 
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request(`https://crypto-trace-cache.internal/v1?a=${address}`);
+  const cacheKey = new Request(`https://crypto-trace-cache.internal/v1?a=${encodeURIComponent(address)}`);
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 

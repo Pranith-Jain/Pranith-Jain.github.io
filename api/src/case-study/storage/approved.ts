@@ -1,6 +1,7 @@
 import type { KVNamespace } from '@cloudflare/workers-types';
 import type { Candidate } from '../types';
 import { kv } from '../kv-keys';
+import { logError } from '../../lib/logger';
 
 /** Single KV key storing the full approved list as a JSON array.
  *  Replaces the old per-key `approved:<key>` model to eliminate the
@@ -21,7 +22,7 @@ async function readBlob(ns: KVNamespace): Promise<Candidate[]> {
   if (migrated.length > 0) {
     await ns.put(BLOB_KEY, JSON.stringify(migrated));
     // Best-effort cleanup of old keys — don't await all deletes.
-    for (const k of oldKeys) ns.delete(k.name).catch((err) => console.error('delete old approved key failed:', err));
+    for (const k of oldKeys) ns.delete(k.name).catch((err) => logError('delete old approved key failed', err));
   }
   return migrated;
 }

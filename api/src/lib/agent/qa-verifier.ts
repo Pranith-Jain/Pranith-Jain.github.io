@@ -14,6 +14,7 @@ import { neutralizeUntrusted } from '../prompt-fence';
 import { QaOutputSchema, parseWithErrors, type QaOutputValidated } from './schemas';
 import { buildQaSystemPrompt, buildFactList } from './agent-framework';
 import { ensembleVerifyReport } from './ensemble-qa';
+import { logError } from '../logger';
 
 export interface QaResult {
   /** The verified/corrected report (may differ from original) */
@@ -146,9 +147,9 @@ async function singleModelVerifyReport(
   }
 
   if (allProvidersExhausted) {
-    console.error('qa-verifier: all LLM providers exhausted, skipping verification');
+    logError('qa-verifier skipping verification', 'all LLM providers exhausted');
   } else {
-    console.error('qa-verifier: failed after retries, returning original report. Last error:', lastErr);
+    logError('qa-verifier failed after retries (returning original report)', lastErr);
   }
 
   return {

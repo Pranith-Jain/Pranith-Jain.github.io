@@ -3,6 +3,8 @@
  * for monitoring and optimization. Stored in D1 for persistence.
  */
 
+import { logError } from '../logger';
+
 export interface AgentMetrics {
   totalInvestigations: number;
   successRate: number;
@@ -99,7 +101,7 @@ export async function recordMetrics(
       )
       .run();
   } catch (err) {
-    console.error('recordMetrics failed:', err);
+    logError('recordMetrics failed', err);
   }
 }
 
@@ -313,7 +315,7 @@ export async function getAgentMetrics(db: D1Database): Promise<AgentMetrics> {
       features,
     };
   } catch (err) {
-    console.error('getAgentMetrics failed:', err);
+    logError('getAgentMetrics failed', err);
     return {
       totalInvestigations: 0,
       successRate: 0,
@@ -362,7 +364,7 @@ export async function getToolHealth(db: D1Database): Promise<Record<string, Tool
     }
     return out;
   } catch (err) {
-    console.error('getToolHealth failed:', err);
+    logError('getToolHealth failed', err);
     return {};
   }
 }

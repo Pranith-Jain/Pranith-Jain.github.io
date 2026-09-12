@@ -69,6 +69,7 @@ import { getSiteUrl } from '../lib/site-config';
 import { fetchRecentVictims } from './ransom-source';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Candidate } from './types';
+import { logError } from '../lib/logger';
 
 /** The subset of bindings the case-study pipeline needs. */
 export interface CaseStudyEnv {
@@ -553,7 +554,7 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
   // Fire-and-forget auto-generation of social copy when a post was published
   if (result.published === 1 && result.slug) {
     generateSocialForPost(result.slug, env as unknown as CaseStudyEnv, now).catch((err) =>
-      console.error('auto-social generation failed:', err)
+      logError('auto-social generation failed', err)
     );
   }
 
@@ -577,7 +578,7 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     void import('./notifications')
       .then(({ notifyPublished }) =>
         notifyPublished(env as unknown as WebhookEnv, result.slug!, result.slug!, 'published').catch((err) =>
-          console.error('notifyPublished failed:', err)
+          logError('notifyPublished failed', err)
         )
       )
       .catch(() => {});
@@ -586,7 +587,7 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     void import('./notifications')
       .then(({ notifyDraftReady }) =>
         notifyDraftReady(env as unknown as WebhookEnv, result.slug!, result.slug!, 'draft').catch((err) =>
-          console.error('notifyDraftReady failed:', err)
+          logError('notifyDraftReady failed', err)
         )
       )
       .catch(() => {});

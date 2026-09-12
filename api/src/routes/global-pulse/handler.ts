@@ -425,8 +425,13 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   };
 
   if (!force) {
-    const cached = await cache.match(cacheReq);
-    if (cached) return new Response(cached.body, cached);
+    try {
+      const cached = await cache.match(cacheReq);
+      if (cached) return new Response(cached.body, cached);
+    } catch (_catchErr) {
+      logError('globalPulseHandler cache match failed', _catchErr);
+      /* fall through to KV/compute */
+    }
   }
 
   const kv = c.env.KV_CACHE;
@@ -437,7 +442,12 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       const kvBody = JSON.stringify(cachedBody);
       maybeNudgeDo(cachedBody as { generated_at?: string } | null);
       c.executionCtx.waitUntil(
-        cache.put(cacheReq, new Response(kvBody, { headers: { 'content-type': 'application/json' } })).catch(() => {})
+        cache.put(
+          cacheReq,
+          new Response(kvBody, {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL}` },
+          })
+        ).catch(() => {})
       );
       return new Response(kvBody, {
         headers: {
