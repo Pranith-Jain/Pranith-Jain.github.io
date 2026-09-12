@@ -1,9 +1,0 @@
-{
-  "id": 1633,
-  "name": "T1574.001 - Supply Chain Compromise",
-  "techniqueId": "T1574",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1633"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2941,
-  "name": "T1496 – Resource Hijacking (DDoS)",
-  "techniqueId": "T1496",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2941"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1440,
-  "name": "T1045.004 (_masquerading_as_credential.harvesting_type_ dll)",
-  "techniqueId": "T1045",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1440"
-}

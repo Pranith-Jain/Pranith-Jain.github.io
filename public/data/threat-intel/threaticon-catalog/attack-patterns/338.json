@@ -1,9 +1,0 @@
-{
-  "id": 338,
-  "name": "SVG Smuggling",
-  "techniqueId": "DET0510",
-  "added": "May 2, 2026",
-  "description": "Adversaries may smuggle data and files past content filters by hiding malicious payloads inside of seemingly benign SVG files.(Citation: Trustwave SVG Smuggling 2025) SVGs, or Scalable Vector Graphics, are vector-based image files constructed using XML. As such, they can legitimately include `<script>` tags that enable adversaries to include malicious JavaScript payloads. However, SVGs may appear less suspicious to users than other types of executable files, as they are often treated as image files. SVG smuggling can take a number of forms. For example, threat actors may include content that: * Assembles malicious payloads(Citation: Talos SVG Smuggling 2022) * Downloads malicious payloads(Citation: Cofense SVG Smuggling 2024) * Redirects users to malicious websites(Citation: Bleeping Computer SVG Smuggling 2024) * Displays interactive content to users, such as fake login forms and download buttons.(Citation: Bleeping Computer SVG Smuggling 2024) SVG Smuggling may be used in conjunction with HTML Smuggling where an SVG with a malicious payload is included inside an HTML file.(Citation: Talos SVG Smuggling 2022) SVGs may also be included in other types of documents, such as PDFs.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/338"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1124,
-  "name": "Route Disabling",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary disables the network route between two targets. The goal is to completely sever the communications channel between two entities. This is often the result of a major error or the use of an \"Internet kill switch\" by those in control of critical infrastructure. This attack pattern differs from most other obstruction patterns by targeting the route itself, as opposed to the data passed over the route.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1124"
-}

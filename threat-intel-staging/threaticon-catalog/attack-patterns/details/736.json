@@ -1,9 +1,0 @@
-{
-  "id": 736,
-  "fetchedAt": "2026-08-15T06:04:51.170Z",
-  "name": "Excavation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: High. An adversary actively probes the target in a manner that is designed to solicit information that could be leveraged for malicious purposes."
-}

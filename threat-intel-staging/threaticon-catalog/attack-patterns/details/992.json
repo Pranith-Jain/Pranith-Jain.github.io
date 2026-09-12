@@ -1,9 +1,0 @@
-{
-  "id": 992,
-  "fetchedAt": "2026-08-15T06:15:59.452Z",
-  "name": "Malicious Logic Inserted Into Product by Authorized Developer",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary uses their privileged position within an authorized development organization to inject malicious logic into a codebase or product."
-}

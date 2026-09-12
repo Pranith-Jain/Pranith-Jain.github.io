@@ -1,9 +1,0 @@
-{
-  "id": 1074,
-  "name": "Hardware Component Substitution",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An attacker substitutes out a tested and approved hardware component for a maliciously-altered hardware component. This type of attack is carried out directly on the system, enabling the attacker to then cause disruption or additional compromise.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1074"
-}

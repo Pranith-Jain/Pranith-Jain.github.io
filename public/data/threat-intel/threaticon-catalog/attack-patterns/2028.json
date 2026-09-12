@@ -1,9 +1,0 @@
-{
-  "id": 2028,
-  "name": "T1059.003 - Spear-Phishing via Email with Malicious Links",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2028"
-}

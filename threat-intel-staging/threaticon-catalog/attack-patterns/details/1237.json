@@ -1,9 +1,0 @@
-{
-  "id": 1237,
-  "fetchedAt": "2026-08-15T06:41:41.093Z",
-  "name": "System Location Discovery",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very Low. Likelihood of attack: High. An adversary collects information about the target system in an attempt to identify the system's geographical location. Information gathered could include keyboard layout, system language, and timezone. This information may benefit an adversary in confirming the desired target and/or tailoring further attacks."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2553,
-  "name": "T1082 (System Information Discovery)",
-  "techniqueId": "T1082",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2553"
-}

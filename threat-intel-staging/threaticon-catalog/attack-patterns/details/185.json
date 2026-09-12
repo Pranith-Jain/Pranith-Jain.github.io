@@ -1,9 +1,0 @@
-{
-  "id": 185,
-  "fetchedAt": "2026-08-15T08:37:24.909Z",
-  "name": "Reduce Key Space",
-  "tlp": "white",
-  "techniqueId": "DET0243",
-  "added": "May 2, 2026",
-  "description": "Adversaries may reduce the level of effort required to decrypt data transmitted over the network by reducing the cipher strength of encrypted communications.(Citation: Cisco Synful Knock Evolution) Adversaries can weaken the encryption software on a compromised network device by reducing the key size used by the software to convert plaintext to ciphertext (e.g., from hundreds or thousands of bytes to just a couple of bytes). As a result, adversaries dramatically reduce the amount of effort needed to decrypt the protected information without the key. Adversaries may modify the key size used and other encryption parameters using specialized commands in a Network Device CLI introduced to the system through Modify System Image to change the configuration of the device. (Citation: Cisco Blog Legacy Device Attacks)"
-}

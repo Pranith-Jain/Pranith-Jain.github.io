@@ -1,9 +1,0 @@
-{
-  "id": 2591,
-  "name": "T1059.003 - Command and Scripting Interpreter: Windows Command Shell (post-compromise activities)",
-  "techniqueId": "T1059",
-  "added": "Aug 1, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2591"
-}

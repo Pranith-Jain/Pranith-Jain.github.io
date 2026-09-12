@@ -1,9 +1,0 @@
-{
-  "id": 1663,
-  "name": "T1566.003 - Internal Spear-Phishing via Attachments",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1663"
-}

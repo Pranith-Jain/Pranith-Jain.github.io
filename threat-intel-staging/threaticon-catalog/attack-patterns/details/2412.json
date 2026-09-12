@@ -1,9 +1,0 @@
-{
-  "id": 2412,
-  "fetchedAt": "2026-08-15T07:22:37.860Z",
-  "name": "T1071.001: Use of standard non-secure protocols (SSH, DNS)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 31, 2026",
-  "description": null
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2081,
-  "fetchedAt": "2026-08-15T08:21:53.671Z",
-  "name": "T1566.001 - Encryption of Data at Rest: Encrypting files on a device before activating destructive actions.",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

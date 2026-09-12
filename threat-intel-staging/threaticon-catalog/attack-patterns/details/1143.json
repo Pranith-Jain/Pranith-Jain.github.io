@@ -1,9 +1,0 @@
-{
-  "id": 1143,
-  "fetchedAt": "2026-08-15T06:22:33.083Z",
-  "name": "Argument Injection",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An attacker changes the behavior or state of a targeted application through injecting data or command syntax through the targets use of non-validated and non-filtered arguments of exposed services or methods."
-}

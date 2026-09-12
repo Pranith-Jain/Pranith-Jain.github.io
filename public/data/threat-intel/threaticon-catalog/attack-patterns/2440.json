@@ -1,9 +1,0 @@
-{
-  "id": 2440,
-  "name": "T1025 - Custom C2 Protocol",
-  "techniqueId": "T1025",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2440"
-}

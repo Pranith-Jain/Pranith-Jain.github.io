@@ -1,9 +1,0 @@
-{
-  "id": 1255,
-  "name": "Using Escaped Slashes in Alternate Encoding",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. This attack targets the use of the backslash in alternate encoding. An adversary can provide a backslash as a leading character and causes a parser to believe that the next character is special. This is called an escape. By using that trick, the adversary tries to exploit alternate ways to encode the same character which leads to filter problems and opens avenues to attack.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1255"
-}

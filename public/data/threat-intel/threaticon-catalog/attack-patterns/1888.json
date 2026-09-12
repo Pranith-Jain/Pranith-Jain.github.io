@@ -1,9 +1,0 @@
-{
-  "id": 1888,
-  "name": "T1090.002: External Proxy",
-  "techniqueId": "T1090",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1888"
-}

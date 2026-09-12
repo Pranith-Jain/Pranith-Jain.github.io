@@ -104,9 +104,9 @@ function globMatch(pattern, name) {
 // happened on 2026-09-12 when 43 ransomware-group bodies + 15 AI-escape
 // dockets pushed dist/ to 20,006 files. Tripwire at 19,980: when it fires,
 // shard per-slice bodies (see scripts/build-ransomware-groups.mjs, the
-// living-threat shards) instead of bumping blindly — and look first at
-// public/data/threat-intel/threaticon-catalog/ (11.5k files and growing
-// weekly), the structural driver of cap pressure.
+// living-threat shards) instead of bumping blindly. (The former structural
+// driver — public/data/threat-intel/threaticon-catalog/, 11.5k files — was
+// removed entirely 2026-09-13.)
 const MAX_DIST_FILES = 19980;
 const WORKERS_ASSET_CAP = 20000;
 

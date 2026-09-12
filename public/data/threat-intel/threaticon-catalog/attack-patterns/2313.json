@@ -1,9 +1,0 @@
-{
-  "id": 2313,
-  "name": "T1021: Remote Services",
-  "techniqueId": "T1021",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2313"
-}

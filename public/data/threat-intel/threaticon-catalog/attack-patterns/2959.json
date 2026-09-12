@@ -1,9 +1,0 @@
-{
-  "id": 2959,
-  "name": "T1072 (Signed Binary Proxy Execution)",
-  "techniqueId": "T1072",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2959"
-}

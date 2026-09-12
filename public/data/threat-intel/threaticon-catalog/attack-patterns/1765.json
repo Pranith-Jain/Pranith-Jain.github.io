@@ -1,9 +1,0 @@
-{
-  "id": 1765,
-  "name": "T1685: Disable or Modify Tools",
-  "techniqueId": "T1685",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1765"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1334,
-  "fetchedAt": "2026-08-15T07:37:28.848Z",
-  "name": "T1098: OS Credential Dumping (Windows operating system)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

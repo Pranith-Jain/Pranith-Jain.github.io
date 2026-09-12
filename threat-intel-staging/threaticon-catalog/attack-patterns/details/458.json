@@ -1,9 +1,0 @@
-{
-  "id": 458,
-  "fetchedAt": "2026-08-15T08:15:49.641Z",
-  "name": "Inter-Process Communication",
-  "tlp": "white",
-  "techniqueId": "T1559",
-  "added": "May 2, 2026",
-  "description": "Adversaries may abuse inter-process communication (IPC) mechanisms for local code or command execution. IPC is typically used by processes to share data, communicate with each other, or synchronize execution. IPC is also commonly used to avoid situations such as deadlocks, which occurs when processes are stuck in a cyclic waiting pattern. Adversaries may abuse IPC to execute arbitrary code or commands. IPC mechanisms may differ depending on OS, but typically exists in a form accessible through programming languages/libraries or native interfaces such as Windows Dynamic Data Exchange or Component Object Model. Linux environments support several different IPC mechanisms, two of which being sockets and pipes.(Citation: Linux IPC) Higher level execution mediums, such as those of Command and Scripting Interpreters, may also leverage underlying IPC mechanisms. Adversaries may also use Remote Services such as Distributed Component Object Model to facilitate remote IPC execution.(Citation: Fireeye Hunting COM June 2019)"
-}

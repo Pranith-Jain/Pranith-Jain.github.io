@@ -1,9 +1,0 @@
-{
-  "id": 1928,
-  "name": "T1569.002 - Lateral Movement Over Cloud Infrastructure",
-  "techniqueId": "T1569",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1928"
-}

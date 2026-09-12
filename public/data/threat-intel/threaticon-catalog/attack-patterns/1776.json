@@ -1,9 +1,0 @@
-{
-  "id": 1776,
-  "name": "T1285 - Data Exfiltration: C2 Channel",
-  "techniqueId": "T1285",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1776"
-}

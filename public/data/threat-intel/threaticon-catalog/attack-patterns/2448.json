@@ -1,9 +1,0 @@
-{
-  "id": 2448,
-  "name": "T1552.001 - Compromise User Credentials - Leaked Cloud Keys",
-  "techniqueId": "T1552",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2448"
-}

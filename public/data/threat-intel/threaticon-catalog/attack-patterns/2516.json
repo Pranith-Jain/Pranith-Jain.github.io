@@ -1,9 +1,0 @@
-{
-  "id": 2516,
-  "name": "T1101 (Exploit Public-Facing Application)",
-  "techniqueId": "T1101",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2516"
-}

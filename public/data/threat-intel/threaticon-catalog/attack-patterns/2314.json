@@ -1,9 +1,0 @@
-{
-  "id": 2314,
-  "name": "T1040: Compromise Accounts",
-  "techniqueId": "T1040",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2314"
-}

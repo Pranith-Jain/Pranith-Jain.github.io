@@ -1,9 +1,0 @@
-{
-  "id": 2189,
-  "fetchedAt": "2026-08-15T07:29:24.590Z",
-  "name": "T1077 - Validate account using legitimate credentials via remote desktop protocol",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

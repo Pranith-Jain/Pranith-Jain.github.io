@@ -1,9 +1,0 @@
-{
-  "id": 1432,
-  "name": "T1539.001 - Exfiltration Over Web Service",
-  "techniqueId": "T1539",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1432"
-}

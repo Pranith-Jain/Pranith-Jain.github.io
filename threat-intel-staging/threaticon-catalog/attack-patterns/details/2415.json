@@ -1,9 +1,0 @@
-{
-  "id": 2415,
-  "fetchedAt": "2026-08-15T07:17:04.245Z",
-  "name": "T1070.004: Clearing Windows Event Logs",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 31, 2026",
-  "description": null
-}

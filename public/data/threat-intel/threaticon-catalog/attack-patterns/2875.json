@@ -1,9 +1,0 @@
-{
-  "id": 2875,
-  "name": "T1518.002 - Credentials from Non‑Local System Data Sources",
-  "techniqueId": "T1518",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2875"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1247,
-  "fetchedAt": "2026-08-15T06:42:18.191Z",
-  "name": "Exploiting Incorrect Chaining or Granularity of Hardware Debug Components",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: Low. An adversary exploits incorrect chaining or granularity of hardware debug components in order to gain unauthorized access to debug functionality on a chip. This happens when authorization is not checked on a per function basis and is assumed for a chain or group of debug functionality."
-}

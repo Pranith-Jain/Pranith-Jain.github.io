@@ -1,9 +1,0 @@
-{
-  "id": 1166,
-  "name": "Drop Encryption Level",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. An attacker forces the encryption level to be lowered, thus enabling a successful attack against the encrypted data.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1166"
-}

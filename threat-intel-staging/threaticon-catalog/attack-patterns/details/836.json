@@ -1,9 +1,0 @@
-{
-  "id": 836,
-  "fetchedAt": "2026-08-15T06:09:13.470Z",
-  "name": "Communication Channel Manipulation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise."
-}

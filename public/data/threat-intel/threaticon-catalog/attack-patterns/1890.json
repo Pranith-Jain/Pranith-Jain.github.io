@@ -1,9 +1,0 @@
-{
-  "id": 1890,
-  "name": "T1197 - Account Access Removal",
-  "techniqueId": "T1197",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1890"
-}

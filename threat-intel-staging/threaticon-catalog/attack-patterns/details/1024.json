@@ -1,9 +1,0 @@
-{
-  "id": 1024,
-  "fetchedAt": "2026-08-15T06:17:21.872Z",
-  "name": "Modification of Windows Service Configuration",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary exploits a weakness in access control to modify the execution parameters of a Windows service. The goal of this attack is to execute a malicious binary in place of an existing service."
-}

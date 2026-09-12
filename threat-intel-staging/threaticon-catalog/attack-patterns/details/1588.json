@@ -1,9 +1,0 @@
-{
-  "id": 1588,
-  "fetchedAt": "2026-08-15T07:13:54.057Z",
-  "name": "T1067 (Malware Code Execution via Web Request)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

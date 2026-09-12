@@ -1,9 +1,0 @@
-{
-  "id": 2442,
-  "name": "T1499.001 - Network Denial of Service",
-  "techniqueId": "T1499",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2442"
-}

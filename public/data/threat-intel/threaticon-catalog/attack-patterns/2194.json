@@ -1,9 +1,0 @@
-{
-  "id": 2194,
-  "name": "T1059.015",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2194"
-}

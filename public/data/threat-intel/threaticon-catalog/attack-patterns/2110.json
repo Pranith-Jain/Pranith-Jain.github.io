@@ -1,9 +1,0 @@
-{
-  "id": 2110,
-  "name": "T1568.003 - Use of Known Vulnerabilities: Zyxel vulnerability exploits",
-  "techniqueId": "T1568",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2110"
-}

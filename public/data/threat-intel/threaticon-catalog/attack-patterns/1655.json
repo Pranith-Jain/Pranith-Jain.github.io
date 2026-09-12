@@ -1,9 +1,0 @@
-{
-  "id": 1655,
-  "name": "T1608.001: Upload Malware",
-  "techniqueId": "T1608",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1655"
-}

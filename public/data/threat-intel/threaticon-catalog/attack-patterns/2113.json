@@ -1,9 +1,0 @@
-{
-  "id": 2113,
-  "name": "T1059.003 - Malware: Component Communication (e.g., C2 communications)",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2113"
-}

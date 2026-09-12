@@ -1,9 +1,0 @@
-{
-  "id": 1949,
-  "name": "T1048 Data Transfer Encrypted通道数据传输",
-  "techniqueId": "T1048",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1949"
-}

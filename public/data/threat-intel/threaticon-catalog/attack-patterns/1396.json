@@ -1,9 +1,0 @@
-{
-  "id": 1396,
-  "name": "T1070 - Lateral Movement via PsExec",
-  "techniqueId": "T1070",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1396"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1476,
-  "name": "T1567.001 - Destruction of Data on Host System",
-  "techniqueId": "T1567",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1476"
-}

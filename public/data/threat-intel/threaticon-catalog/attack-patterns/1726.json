@@ -1,9 +1,0 @@
-{
-  "id": 1726,
-  "name": "T1565 - Credential Dumping",
-  "techniqueId": "T1565",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1726"
-}

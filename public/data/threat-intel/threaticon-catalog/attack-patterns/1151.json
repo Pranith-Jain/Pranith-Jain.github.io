@@ -1,9 +1,0 @@
-{
-  "id": 1151,
-  "name": "Obstruction",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An attacker obstructs the interactions between system components. By interrupting or disabling these interactions, an adversary can often force the system into a degraded state or cause the system to stop working as intended. This can cause the system components to be unavailable until the obstruction mitigated.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1151"
-}

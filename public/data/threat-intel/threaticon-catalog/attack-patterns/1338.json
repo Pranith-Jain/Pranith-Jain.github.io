@@ -1,9 +1,0 @@
-{
-  "id": 1338,
-  "name": "T1058.002 - Application Window Stealing",
-  "techniqueId": "T1058",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1338"
-}

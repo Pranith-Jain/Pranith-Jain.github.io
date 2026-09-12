@@ -59,7 +59,9 @@ function ensureDir(p) {
 }
 
 function safeFilename(slug) {
-  return String(slug).replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
+  return String(slug)
+    .replace(/\//g, '__')
+    .replace(/[^A-Za-z0-9._-]/g, '_');
 }
 
 function readJsonIfExists(p) {
@@ -95,32 +97,96 @@ const RE_DATE = /\b(\d{4}[-/.]\d{2}[-/.]\d{2})\b/g;
 
 // RFC 5737 / documentation / example IPs to exclude
 const DOC_IPS = new Set([
-  '192.0.2.0', '192.0.2.1', '192.0.2.10', '192.0.2.42', '192.0.2.100', '192.0.2.200',
-  '198.51.100.0', '198.51.100.1', '198.51.100.42', '198.51.100.100', '198.51.100.200',
-  '203.0.113.0', '203.0.113.1', '203.0.113.42', '203.0.113.100', '203.0.113.200',
-  '0.0.0.0', '255.255.255.255', '127.0.0.1',
+  '192.0.2.0',
+  '192.0.2.1',
+  '192.0.2.10',
+  '192.0.2.42',
+  '192.0.2.100',
+  '192.0.2.200',
+  '198.51.100.0',
+  '198.51.100.1',
+  '198.51.100.42',
+  '198.51.100.100',
+  '198.51.100.200',
+  '203.0.113.0',
+  '203.0.113.1',
+  '203.0.113.42',
+  '203.0.113.100',
+  '203.0.113.200',
+  '0.0.0.0',
+  '255.255.255.255',
+  '127.0.0.1',
 ]);
 
 // Common false-positive domains
 const FP_DOMAINS = new Set([
-  'example.com', 'example.org', 'example.net', 'localhost.localdomain',
-  'schema.org', 'www.w3.org', 'schemas.openxmlformats.org',
-  'schemas.microsoft.com', 'purl.org', 'xmlns.com',
+  'example.com',
+  'example.org',
+  'example.net',
+  'localhost.localdomain',
+  'schema.org',
+  'www.w3.org',
+  'schemas.openxmlformats.org',
+  'schemas.microsoft.com',
+  'purl.org',
+  'xmlns.com',
 ]);
 
 // Code file extensions that look like TLDs but aren't domains
 const CODE_EXTENSIONS = new Set([
-  'ts', 'tsx', 'js', 'jsx', 'mjs', 'cjs', 'mts', 'cts',
-  'py', 'rb', 'go', 'rs', 'java', 'kt', 'scala',
-  'c', 'cpp', 'h', 'hpp', 'cs', 'swift',
-  'sh', 'bash', 'zsh', 'fish',
-  'json', 'yaml', 'yml', 'toml', 'xml', 'csv', 'txt',
-  'md', 'rst', 'adoc',
-  'sql', 'graphql', 'gql',
-  'css', 'scss', 'less', 'sass',
-  'html', 'htm', 'vue', 'svelte',
-  'wasm', 'so', 'dll', 'dylib',
-  'lock', 'sum', 'mod',
+  'ts',
+  'tsx',
+  'js',
+  'jsx',
+  'mjs',
+  'cjs',
+  'mts',
+  'cts',
+  'py',
+  'rb',
+  'go',
+  'rs',
+  'java',
+  'kt',
+  'scala',
+  'c',
+  'cpp',
+  'h',
+  'hpp',
+  'cs',
+  'swift',
+  'sh',
+  'bash',
+  'zsh',
+  'fish',
+  'json',
+  'yaml',
+  'yml',
+  'toml',
+  'xml',
+  'csv',
+  'txt',
+  'md',
+  'rst',
+  'adoc',
+  'sql',
+  'graphql',
+  'gql',
+  'css',
+  'scss',
+  'less',
+  'sass',
+  'html',
+  'htm',
+  'vue',
+  'svelte',
+  'wasm',
+  'so',
+  'dll',
+  'dylib',
+  'lock',
+  'sum',
+  'mod',
 ]);
 
 function isValidIocIp(ip) {
@@ -221,7 +287,7 @@ if (!existsSync(STAGING)) {
 
 // Wipe and rebuild ONLY the manifest subtrees this script owns
 // (cves/iocs/sectors/lists). The threat-intel dir also holds trees owned
-// by other build scripts (threaticon/, threaticon-catalog/, threatcluster/,
+// by other build scripts (threaticon/, threatcluster/,
 // darknet/, dphish/, living-threat/, malwareanalyzer/) — wiping the root
 // deletes them from git even when their own build fails.
 for (const sub of ['cves', 'iocs', 'sectors', 'lists']) {
@@ -279,9 +345,14 @@ for (const v of nvdItems) {
   const en = descriptions.find((d) => d.lang === 'en') ?? descriptions[0];
   const description = shortDesc(en?.value ?? '');
   const refs = (v.cve?.references ?? []).slice(0, 20).map((r) => ({
-    url: r.url, source: r.source ?? '', tags: r.tags ?? [],
+    url: r.url,
+    source: r.source ?? '',
+    tags: r.tags ?? [],
   }));
-  const cwes = (v.cve?.weaknesses ?? []).flatMap((w) => w.description ?? []).map((d) => d.value).filter(Boolean);
+  const cwes = (v.cve?.weaknesses ?? [])
+    .flatMap((w) => w.description ?? [])
+    .map((d) => d.value)
+    .filter(Boolean);
   // Tier 2: Extract vendor/product from KEV cross-reference
   const kevEntry = kevByCve.get(id);
   const vendor = v.cve?.vendor || kevEntry?.vendor || null;
@@ -295,9 +366,17 @@ for (const v of nvdItems) {
   const argusRising = argusData?.rising ?? null;
   const priorityScore = computePriorityScore(cvssScore, inKev, publishedAt || lastModifiedAt, argusHype);
   const indexEntry = {
-    cveId: id, publishedAt, lastModifiedAt,
-    cvssV3Score: cvssScore, cvssV3Severity: cvssSeverity,
-    vendor, product, inKev, inKevSince, priorityScore, description,
+    cveId: id,
+    publishedAt,
+    lastModifiedAt,
+    cvssV3Score: cvssScore,
+    cvssV3Severity: cvssSeverity,
+    vendor,
+    product,
+    inKev,
+    inKevSince,
+    priorityScore,
+    description,
     sizeBytes: description.length,
     argusHypeScore: argusHype,
     argusRising,
@@ -305,7 +384,9 @@ for (const v of nvdItems) {
   cveIndex.push(indexEntry);
   const body = {
     ...indexEntry,
-    cvssVector, cweIds: cwes, references: refs,
+    cvssVector,
+    cweIds: cwes,
+    references: refs,
     bsiDescription: null, // populated only when BSI CERT-Bund feed ships
     llmSummary: null,
     llmRecommendedAction: null,
@@ -345,7 +426,10 @@ for (const name of dhFiles) {
   else if (lower.includes('apt') || lower.includes('kimsuky') || lower.includes('lazarus')) category = 'apt';
   else if (lower.includes('backdoor') || lower.includes('trojan') || lower.includes('worm')) category = 'malware';
 
-  const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9._-]/g, '');
+  const slug = name
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9._-]/g, '');
   if (!slug) continue;
   const aliases = [];
   const mitreTechniques = [];
@@ -358,10 +442,17 @@ for (const name of dhFiles) {
   const firstSeen = extractFirstSeen(text);
 
   const iocEntry = {
-    slug, family: name.replace(/\.[a-z]+$/i, ''), category, aliases,
-    firstSeen, mitreTechniques: Array.from(new Set(mitreTechniques)).slice(0, 12),
-    indicatorCount: indicators.length || (text.match(/^\s*(?:[a-f0-9]{32,64}|\d{1,3}(?:\.\d{1,3}){3}|[A-Z0-9-]{8,})\s*$/gim) || []).length,
-    description, sizeBytes: text.length,
+    slug,
+    family: name.replace(/\.[a-z]+$/i, ''),
+    category,
+    aliases,
+    firstSeen,
+    mitreTechniques: Array.from(new Set(mitreTechniques)).slice(0, 12),
+    indicatorCount:
+      indicators.length ||
+      (text.match(/^\s*(?:[a-f0-9]{32,64}|\d{1,3}(?:\.\d{1,3}){3}|[A-Z0-9-]{8,})\s*$/gim) || []).length,
+    description,
+    sizeBytes: text.length,
   };
   iocIndex.push(iocEntry);
   const body = {
@@ -387,7 +478,9 @@ for (const sector of SECTORS) {
     title: `${sector[0].toUpperCase()}${sector.slice(1)} sector brief`,
     generatedAt: new Date().toISOString().slice(0, 10),
     topCount: top.length,
-    preview: top.length ? `${top[0].cveId} (${top[0].cvssV3Severity ?? 'unknown'}) leads with priority ${top[0].priorityScore}.` : 'No KEV-flagged CVEs in the current window.',
+    preview: top.length
+      ? `${top[0].cveId} (${top[0].cvssV3Severity ?? 'unknown'}) leads with priority ${top[0].priorityScore}.`
+      : 'No KEV-flagged CVEs in the current window.',
     sizeBytes: 0,
     executiveSummary: 'Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).',
     topThreats: top.map((c) => ({
@@ -417,21 +510,38 @@ function parseCsv(text) {
     const ch = text[i];
     if (inQuotes) {
       if (ch === '"') {
-        if (text[i + 1] === '"') { field += '"'; i++; }
-        else { inQuotes = false; }
+        if (text[i + 1] === '"') {
+          field += '"';
+          i++;
+        } else {
+          inQuotes = false;
+        }
       } else {
         field += ch;
       }
     } else {
-      if (ch === '"') { inQuotes = true; }
-      else if (ch === ',') { row.push(field); field = ''; }
-      else if (ch === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
-      else if (ch === '\r') { /* skip — handled by \n */ }
-      else { field += ch; }
+      if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',') {
+        row.push(field);
+        field = '';
+      } else if (ch === '\n') {
+        row.push(field);
+        rows.push(row);
+        row = [];
+        field = '';
+      } else if (ch === '\r') {
+        /* skip — handled by \n */
+      } else {
+        field += ch;
+      }
     }
   }
   // last field/row if file doesn't end with newline
-  if (field.length > 0 || row.length > 0) { row.push(field); rows.push(row); }
+  if (field.length > 0 || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
   return rows;
 }
 
@@ -446,9 +556,20 @@ function normaliseMetaKey(col) {
 
 // Known metadata fields we promote to top-level keys on each entry.
 const META_PROMOTE = new Set([
-  'description', 'tool', 'category', 'severity', 'priority', 'fpRisk',
-  'link', 'reference', 'regex', 'comment', 'confidence', 'toolType',
-  'usage', 'detectionType',
+  'description',
+  'tool',
+  'category',
+  'severity',
+  'priority',
+  'fpRisk',
+  'link',
+  'reference',
+  'regex',
+  'comment',
+  'confidence',
+  'toolType',
+  'usage',
+  'detectionType',
 ]);
 
 const listsIndex = [];

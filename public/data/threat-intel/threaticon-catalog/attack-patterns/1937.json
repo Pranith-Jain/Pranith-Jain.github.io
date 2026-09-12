@@ -1,9 +1,0 @@
-{
-  "id": 1937,
-  "name": "T1003 Credential dumping on remote systems to gather credentials.",
-  "techniqueId": "T1003",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1937"
-}

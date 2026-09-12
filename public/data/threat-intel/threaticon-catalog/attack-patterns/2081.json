@@ -1,9 +1,0 @@
-{
-  "id": 2081,
-  "name": "T1566.001 - Encryption of Data at Rest: Encrypting files on a device before activating destructive actions.",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2081"
-}

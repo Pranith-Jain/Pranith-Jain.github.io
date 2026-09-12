@@ -1,9 +1,0 @@
-{
-  "id": 1931,
-  "fetchedAt": "2026-08-15T08:10:04.840Z",
-  "name": "T1546.002 - System Account Access: Reusing Credentials for Lateral Movement",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

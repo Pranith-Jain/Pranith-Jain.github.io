@@ -1,9 +1,0 @@
-{
-  "id": 872,
-  "name": "Leverage Alternate Encoding",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An adversary leverages the possibility to encode potentially harmful input or content used by applications such that the applications are ineffective at validating this encoding standard.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/872"
-}

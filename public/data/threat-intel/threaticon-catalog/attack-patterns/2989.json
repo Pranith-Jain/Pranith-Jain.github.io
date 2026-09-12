@@ -1,9 +1,0 @@
-{
-  "id": 2989,
-  "name": "T1505.003 Web Shell",
-  "techniqueId": "T1505",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2989"
-}

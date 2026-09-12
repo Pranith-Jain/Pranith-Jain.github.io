@@ -1,9 +1,0 @@
-{
-  "id": 1292,
-  "fetchedAt": "2026-08-15T07:56:36.139Z",
-  "name": "T1264.003 - Exfiltrate data via secure communication channel or encrypted file transfer protocol",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 29, 2026",
-  "description": null
-}

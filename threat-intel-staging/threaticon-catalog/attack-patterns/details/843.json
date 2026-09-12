@@ -1,9 +1,0 @@
-{
-  "id": 843,
-  "fetchedAt": "2026-08-15T06:09:31.902Z",
-  "name": "iFrame Overlay",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. In an iFrame overlay attack the victim is tricked into unknowingly initiating some action in one system while interacting with the UI from seemingly completely different system."
-}

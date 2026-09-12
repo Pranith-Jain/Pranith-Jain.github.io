@@ -1,9 +1,0 @@
-{
-  "id": 1893,
-  "name": "T1568.002 - Non-state affiliated cyber espionage",
-  "techniqueId": "T1568",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1893"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 995,
-  "fetchedAt": "2026-08-15T06:16:07.378Z",
-  "name": "Malicious Logic Insertion into Product via Inclusion of Third-Party Component",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary conducts supply chain attacks by the inclusion of insecure third-party components into a technology, product, or code-base, possibly packaging a malicious driver or component along with the product before shipping it to the consumer or acquirer."
-}

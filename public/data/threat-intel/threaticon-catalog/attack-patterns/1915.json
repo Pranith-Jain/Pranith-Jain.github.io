@@ -1,9 +1,0 @@
-{
-  "id": 1915,
-  "name": "T1021.004 - Remote Services Session Hijacking: RDP",
-  "techniqueId": "T1021",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1915"
-}

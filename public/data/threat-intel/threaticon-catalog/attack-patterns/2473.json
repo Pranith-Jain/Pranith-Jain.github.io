@@ -1,9 +1,0 @@
-{
-  "id": 2473,
-  "name": "T1197.001 - Software Deployment Tools: Buer Loader deployment",
-  "techniqueId": "T1197",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2473"
-}

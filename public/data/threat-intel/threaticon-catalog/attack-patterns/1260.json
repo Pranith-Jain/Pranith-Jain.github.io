@@ -1,9 +1,0 @@
-{
-  "id": 1260,
-  "name": "XPath Injection",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An attacker can craft special user-controllable input consisting of XPath expressions to inject the XML database and bypass authentication or glean information that they normally would not be able to. XPath Injection enables an attacker to talk directly to the XML database, thus bypassing the application completely. XPath Injection results from the failure of an application to properly sanitize input used as part of dynamic XPath expressions used to query an XML database.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1260"
-}

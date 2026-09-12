@@ -1,9 +1,0 @@
-{
-  "id": 1874,
-  "name": "T1027.015: Compression",
-  "techniqueId": "T1027",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1874"
-}

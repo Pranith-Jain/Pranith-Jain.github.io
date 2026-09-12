@@ -1,9 +1,0 @@
-{
-  "id": 2294,
-  "name": "T1530.005 - Cloud Account Compromise – Microsoft 365",
-  "techniqueId": "T1530",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2294"
-}

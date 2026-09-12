@@ -1,9 +1,0 @@
-{
-  "id": 2251,
-  "name": "T1030.001 - Credential Dumping: OS Credential Dumping",
-  "techniqueId": "T1030",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2251"
-}

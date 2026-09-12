@@ -1,9 +1,0 @@
-{
-  "id": 1143,
-  "name": "Argument Injection",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An attacker changes the behavior or state of a targeted application through injecting data or command syntax through the targets use of non-validated and non-filtered arguments of exposed services or methods.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1143"
-}

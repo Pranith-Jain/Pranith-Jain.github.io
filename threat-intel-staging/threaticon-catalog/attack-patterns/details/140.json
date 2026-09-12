@@ -1,9 +1,0 @@
-{
-  "id": 140,
-  "fetchedAt": "2026-08-15T07:40:54.022Z",
-  "name": "Automated Collection",
-  "tlp": "white",
-  "techniqueId": "T1119",
-  "added": "May 2, 2026",
-  "description": "Once established within a system or network, an adversary may use automated techniques for collecting internal data. Methods for performing this technique could include use of a Command and Scripting Interpreter to search for and copy information fitting set criteria such as file type, location, or name at specific time intervals. In cloud-based environments, adversaries may also use cloud APIs, data pipelines, command line interfaces, or extract, transform, and load (ETL) services to automatically collect data.(Citation: Mandiant UNC3944 SMS Phishing 2023) This functionality could also be built into remote access tools. This technique may incorporate use of other techniques such as File and Directory Discovery and Lateral Tool Transfer to identify and move files, as well as Cloud Service Dashboard and Cloud Storage Object Discovery to identify resources in cloud environments."
-}

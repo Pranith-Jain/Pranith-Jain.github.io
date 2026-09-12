@@ -1,9 +1,0 @@
-{
-  "id": 1852,
-  "name": "T1136 - Phishing as a Service",
-  "techniqueId": "T1136",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1852"
-}

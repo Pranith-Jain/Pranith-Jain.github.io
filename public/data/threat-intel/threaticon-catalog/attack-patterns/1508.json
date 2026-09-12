@@ -1,9 +1,0 @@
-{
-  "id": 1508,
-  "name": "T1219: Remote Access Tools",
-  "techniqueId": "T1219",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1508"
-}

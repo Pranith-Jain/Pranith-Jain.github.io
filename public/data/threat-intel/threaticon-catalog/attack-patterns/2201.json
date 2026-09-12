@@ -1,9 +1,0 @@
-{
-  "id": 2201,
-  "name": "T1284 - Windows Management Instrumentation (WMI)",
-  "techniqueId": "T1284",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2201"
-}

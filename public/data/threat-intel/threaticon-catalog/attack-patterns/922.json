@@ -1,9 +1,0 @@
-{
-  "id": 922,
-  "name": "TCP (ISN) Counter Rate Probe",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Medium. This OS detection probe measures the average rate of initial sequence number increments during a period of time. Sequence numbers are incremented using a time-based algorithm and are susceptible to a timing analysis that can determine the number of increments per unit time. The result of this analysis is then compared against a database of operating systems and versions to determine likely operation system matches.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/922"
-}

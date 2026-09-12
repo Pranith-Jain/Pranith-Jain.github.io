@@ -1,9 +1,0 @@
-{
-  "id": 1639,
-  "name": "T1257 - Malware",
-  "techniqueId": "T1257",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1639"
-}

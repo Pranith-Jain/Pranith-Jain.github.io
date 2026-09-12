@@ -1,9 +1,0 @@
-{
-  "id": 710,
-  "name": "T1566.001: Spearphishing Attachment",
-  "techniqueId": "T1566",
-  "added": "May 18, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/710"
-}

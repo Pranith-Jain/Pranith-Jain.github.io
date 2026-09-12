@@ -1,9 +1,0 @@
-{
-  "id": 29,
-  "name": "OS Credential Dumping",
-  "techniqueId": "T1003",
-  "added": "May 2, 2026",
-  "description": "Adversaries may attempt to dump credentials to obtain account login and credential material, normally in the form of a hash or a clear text password. Credentials can be obtained from OS caches, memory, or structures.(Citation: Brining MimiKatz to Unix) Credentials can then be used to perform Lateral Movement and access restricted information. Several of the tools mentioned in associated sub-techniques may be used by both adversaries and professional security testers. Additional custom tools likely exist as well.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/29"
-}

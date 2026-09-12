@@ -1,9 +1,0 @@
-{
-  "id": 997,
-  "fetchedAt": "2026-08-15T06:16:12.641Z",
-  "name": "Embed Virus into DLL",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary tampers with a DLL and embeds a computer virus into gaps between legitimate machine instructions. These gaps may be the result of compiler optimizations that pad memory blocks for performance gains. The embedded virus then attempts to infect any machine which interfaces with the product, and possibly steal private data or eavesdrop."
-}

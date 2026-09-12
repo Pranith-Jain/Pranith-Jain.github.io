@@ -1,9 +1,0 @@
-{
-  "id": 1414,
-  "name": "T1074.001 - Encryption of data",
-  "techniqueId": "T1074",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1414"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2161,
-  "name": "T1233 - Discovery of domain information for external access",
-  "techniqueId": "T1233",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2161"
-}

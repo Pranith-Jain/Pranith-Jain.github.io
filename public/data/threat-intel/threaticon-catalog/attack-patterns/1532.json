@@ -1,9 +1,0 @@
-{
-  "id": 1532,
-  "name": "T1021.004: SSH",
-  "techniqueId": "T1021",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1532"
-}

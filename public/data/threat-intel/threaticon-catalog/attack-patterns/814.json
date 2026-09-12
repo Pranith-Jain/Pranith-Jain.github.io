@@ -1,9 +1,0 @@
-{
-  "id": 814,
-  "name": "Protocol Analysis",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Low. An adversary engages in activities to decipher and/or decode protocol information for a network or application communication protocol used for transmitting information between interconnected nodes or systems on a packet-switched data network. While this type of analysis involves the analysis of a networking protocol inherently, it does not require the presence of an actual or physical network.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/814"
-}

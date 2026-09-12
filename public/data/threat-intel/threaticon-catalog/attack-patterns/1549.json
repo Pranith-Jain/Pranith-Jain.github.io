@@ -1,9 +1,0 @@
-{
-  "id": 1549,
-  "name": "T1485.001 - Cryptocurrency mining malware deployment: GandCrab specifically targeted systems for encryption and ransom demands.",
-  "techniqueId": "T1485",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1549"
-}

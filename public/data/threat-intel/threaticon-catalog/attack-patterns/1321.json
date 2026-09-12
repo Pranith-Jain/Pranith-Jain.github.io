@@ -1,9 +1,0 @@
-{
-  "id": 1321,
-  "name": "T1566.013 - Impact scoped activity",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1321"
-}

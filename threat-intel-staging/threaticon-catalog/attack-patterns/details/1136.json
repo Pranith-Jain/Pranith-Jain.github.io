@@ -1,9 +1,0 @@
-{
-  "id": 1136,
-  "fetchedAt": "2026-08-15T06:22:15.260Z",
-  "name": "Session Hijacking",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very High. Likelihood of attack: High. This type of attack involves an adversary that exploits weaknesses in an application's use of sessions in performing authentication. The adversary is able to steal or manipulate an active session and use it to gain unathorized access to the application."
-}

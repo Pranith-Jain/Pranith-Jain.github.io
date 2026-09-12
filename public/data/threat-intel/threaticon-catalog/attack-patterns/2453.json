@@ -1,9 +1,0 @@
-{
-  "id": 2453,
-  "name": "T1070 (Indicator Removal on Host)",
-  "techniqueId": "T1070",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2453"
-}

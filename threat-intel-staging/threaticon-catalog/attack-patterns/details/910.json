@@ -1,9 +1,0 @@
-{
-  "id": 910,
-  "fetchedAt": "2026-08-15T06:12:27.703Z",
-  "name": "Network Topology Mapping",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An adversary engages in scanning activities to map network nodes, hosts, devices, and routes. Adversaries usually perform this type of network reconnaissance during the early stages of attack against an external network. Many types of scanning utilities are typically employed, including ICMP tools, network mappers, port scanners, and route testing utilities such as traceroute."
-}

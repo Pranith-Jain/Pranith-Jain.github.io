@@ -1,9 +1,0 @@
-{
-  "id": 2386,
-  "name": "T1560.001 - Data encryption for impact",
-  "techniqueId": "T1560",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2386"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2769,
-  "name": "T1075 Remote Services",
-  "techniqueId": "T1075",
-  "added": "Aug 9, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2769"
-}

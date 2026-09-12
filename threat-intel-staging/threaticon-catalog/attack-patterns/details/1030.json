@@ -1,9 +1,0 @@
-{
-  "id": 1030,
-  "fetchedAt": "2026-08-15T06:17:37.385Z",
-  "name": "Signature Spoofing by Key Recreation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An attacker obtains an authoritative or reputable signer's private signature key by exploiting a cryptographic weakness in the signature algorithm or pseudorandom number generation and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2462,
-  "fetchedAt": "2026-08-15T06:56:22.951Z",
-  "name": "T1040 - Data exfiltration over C2 channels",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 31, 2026",
-  "description": null
-}

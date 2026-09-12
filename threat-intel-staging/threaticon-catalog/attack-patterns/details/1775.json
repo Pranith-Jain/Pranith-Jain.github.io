@@ -1,9 +1,0 @@
-{
-  "id": 1775,
-  "fetchedAt": "2026-08-15T06:47:13.450Z",
-  "name": "T1003.001 - Credential Dumping: Windows LSASS memory",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

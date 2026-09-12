@@ -1,9 +1,0 @@
-{
-  "id": 1601,
-  "name": "T1590.005: IP Addresses",
-  "techniqueId": "T1590",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1601"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2082,
-  "name": "T1055 - Internal Domain Communication: Using internal domain communication to remain undetected.",
-  "techniqueId": "T1055",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2082"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2663,
-  "name": "T1105 – Ingress Tool Transfer",
-  "techniqueId": "T1105",
-  "added": "Aug 5, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2663"
-}

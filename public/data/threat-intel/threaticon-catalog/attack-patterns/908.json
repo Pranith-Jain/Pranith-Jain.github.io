@@ -1,9 +1,0 @@
-{
-  "id": 908,
-  "name": "TCP RPC Scan",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An adversary scans for RPC services listing on a Unix/Linux host.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/908"
-}

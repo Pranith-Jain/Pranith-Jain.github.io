@@ -1,9 +1,0 @@
-{
-  "id": 1557,
-  "name": "T1086.001 - PsExec",
-  "techniqueId": "T1086",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1557"
-}

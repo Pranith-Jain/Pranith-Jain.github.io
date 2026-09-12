@@ -1,9 +1,0 @@
-{
-  "id": 764,
-  "name": "Detect Unpublicized Web Pages",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An adversary searches a targeted web site for web pages that have not been publicized. In doing this, the adversary may be able to gain access to information that the targeted site did not intend to make public.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/764"
-}

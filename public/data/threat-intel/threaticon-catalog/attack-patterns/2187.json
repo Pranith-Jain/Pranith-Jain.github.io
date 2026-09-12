@@ -1,9 +1,0 @@
-{
-  "id": 2187,
-  "name": "T1567.003 - Leak data to cause chaos or fear",
-  "techniqueId": "T1567",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2187"
-}

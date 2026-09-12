@@ -1,9 +1,0 @@
-{
-  "id": 1584,
-  "name": "T1576 - Exfiltration Over Alternative Protocol",
-  "techniqueId": "T1576",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1584"
-}

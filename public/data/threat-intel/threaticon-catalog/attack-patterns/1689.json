@@ -1,9 +1,0 @@
-{
-  "id": 1689,
-  "name": "T1059 - Spear-phishing via email",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1689"
-}

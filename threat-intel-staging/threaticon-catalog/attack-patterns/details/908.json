@@ -1,9 +1,0 @@
-{
-  "id": 908,
-  "fetchedAt": "2026-08-15T06:12:22.485Z",
-  "name": "TCP RPC Scan",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An adversary scans for RPC services listing on a Unix/Linux host."
-}

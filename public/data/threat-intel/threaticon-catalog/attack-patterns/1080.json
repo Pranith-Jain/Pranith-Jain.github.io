@@ -1,9 +1,0 @@
-{
-  "id": 1080,
-  "name": "Infiltration of Hardware Development Environment",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary, leveraging the ability to manipulate components of primary support systems and tools within the development and production environments, inserts malicious software within the hardware and/or firmware development environment. The infiltration purpose is to alter developed hardware components in a system destined for deployment at the victim's organization, for the purpose of disruption or further compromise.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1080"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 820,
-  "fetchedAt": "2026-08-15T06:08:31.259Z",
-  "name": "XSS Targeting Error Pages",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. An adversary distributes a link (or possibly some other query structure) with a request to a third party web server that is malformed and also contains a block of exploit code in order to have the exploit become live code in the resulting error page."
-}

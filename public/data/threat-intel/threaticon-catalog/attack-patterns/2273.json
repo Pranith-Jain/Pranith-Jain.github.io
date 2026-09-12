@@ -1,9 +1,0 @@
-{
-  "id": 2273,
-  "name": "T1059.003 - Powershell command line option - Non-native use of rundll32.exe with arguments to execute code",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2273"
-}

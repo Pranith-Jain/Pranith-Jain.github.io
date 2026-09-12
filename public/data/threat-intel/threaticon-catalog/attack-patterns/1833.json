@@ -1,9 +1,0 @@
-{
-  "id": 1833,
-  "name": "T1027.001 (Spear Phishing via Email)",
-  "techniqueId": "T1027",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1833"
-}

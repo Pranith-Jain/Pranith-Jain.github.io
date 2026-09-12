@@ -1,9 +1,0 @@
-{
-  "id": 2402,
-  "name": "T1135 - Network Service Enumeration",
-  "techniqueId": "T1135",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2402"
-}

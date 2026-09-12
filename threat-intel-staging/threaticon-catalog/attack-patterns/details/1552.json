@@ -1,9 +1,0 @@
-{
-  "id": 1552,
-  "fetchedAt": "2026-08-15T07:14:41.917Z",
-  "name": "T1069.002 - Windows Admin Shares: Exploitation of shared drives for lateral movement and persistence.",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

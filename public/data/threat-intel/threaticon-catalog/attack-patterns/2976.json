@@ -1,9 +1,0 @@
-{
-  "id": 2976,
-  "name": "T1071.003 – DNS",
-  "techniqueId": "T1071",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2976"
-}

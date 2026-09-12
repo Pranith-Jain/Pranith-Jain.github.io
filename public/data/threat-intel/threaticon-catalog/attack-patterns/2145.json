@@ -1,9 +1,0 @@
-{
-  "id": 2145,
-  "name": "T1059 - Malware Code Injection",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2145"
-}

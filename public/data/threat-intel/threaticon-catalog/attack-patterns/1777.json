@@ -1,9 +1,0 @@
-{
-  "id": 1777,
-  "name": "T1053.005: Scheduled Task - Using scheduled task persistence",
-  "techniqueId": "T1053",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1777"
-}

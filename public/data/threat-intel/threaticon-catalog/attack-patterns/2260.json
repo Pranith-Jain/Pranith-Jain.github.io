@@ -1,9 +1,0 @@
-{
-  "id": 2260,
-  "name": "T1544.004 - Network-Based File Transfer Tools: Encrypted ZIP",
-  "techniqueId": "T1544",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2260"
-}

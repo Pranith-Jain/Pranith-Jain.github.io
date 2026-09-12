@@ -1,9 +1,0 @@
-{
-  "id": 1829,
-  "name": "T1563.001 -Credential Phishing",
-  "techniqueId": "T1563",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1829"
-}

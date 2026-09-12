@@ -1,9 +1,0 @@
-{
-  "id": 1791,
-  "name": "T1064.003 - Exploit Public-Server Vulnerability",
-  "techniqueId": "T1064",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1791"
-}
