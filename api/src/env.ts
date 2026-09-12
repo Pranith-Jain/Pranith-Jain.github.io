@@ -195,6 +195,12 @@ export interface Env {
    *  consumers (live-iocs, ransomware-recent) fall back to the existing
    *  t.me/s/mythreatintel scraper so nothing that works today breaks. */
   MYTHREATINTEL_API_TOKEN?: string;
+  /** PromptIntel IoPC registry bearer token (set via
+   *  `wrangler secret put PROMPTINTEL_API_KEY` — request one from the
+   *  PromptIntel team). Optional — /api/v1/promptintel/health works
+   *  without it; /taxonomy and /prompts degrade to 501 with setup
+   *  instructions when unset. Docs: https://promptintel.novahunting.ai/api */
+  PROMPTINTEL_API_KEY?: string;
   /** ProjectDiscovery Cloud Platform API key (free tier; set via
    *  `wrangler secret put PDCP_API_KEY`). Used as the Chaos `Authorization`
    *  header for free public-domain subdomain recon. Optional — the
@@ -301,6 +307,9 @@ export interface Env {
   /** Whoxy.com Reverse WHOIS API key.
    *  Set via `wrangler secret put WHOXY_API_KEY`. Paid ($0.01/query at whoxy.com). */
   WHOXY_API_KEY?: string;
+  /** StalkPhish.io phishing-intel API token.
+   *  Set via `wrangler secret put STALKPHISH_API_KEY`. Free tier at stalkphish.io (50 req/day). */
+  STALKPHISH_API_KEY?: string;
   /** Truecaller reverse phone lookup API key.
    *  Set via `wrangler secret put TRUECALLER_API_KEY`. Free tier at truecaller.com. */
   TRUECALLER_API_KEY?: string;

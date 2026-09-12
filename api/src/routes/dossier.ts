@@ -13,6 +13,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { kvBackedGet } from '../lib/route-cache';
 import { logError } from '../lib/logger';
+import { trackEvent } from '../lib/analytics';
 import { badRequest, internalError, notFound } from '../lib/api-error';
 import { detectType } from '../lib/report/subject-resolver';
 import { extractFiveW, type FiveW } from '../lib/fivew-extract';
@@ -43,8 +44,71 @@ interface DossierResponse {
   fiveW: FiveW | null;
   diamond: DiamondModel | null;
   enrichment: EnrichmentResult;
+  /**
+   * Explainable risk decomposition (ThreatLens pattern): every factor names
+   * its contribution and the evidence behind it, so `risk_score` is auditable
+   * instead of a black-box number. Deterministic — no LLM involved.
+   */
+  factors: RiskFactor[];
+  risk_score: number;
   generated_at: string;
   tlp: string;
+}
+
+export interface RiskFactor {
+  name: string;
+  /** Points contributed to risk_score (0-100 scale). */
+  contribution: number;
+  evidence: string;
+}
+
+const SEVERITY_POINTS: Record<string, number> = { critical: 40, high: 30, medium: 20, low: 10, info: 0 };
+
+/**
+ * Deterministic explainable scoring from the dossier's own artifacts.
+ * Additive and capped at 100; each factor carries its evidence string.
+ */
+export function buildRiskFactors(
+  fiveW: FiveW | null,
+  diamond: DiamondModel | null,
+  enrichment: EnrichmentResult
+): { factors: RiskFactor[]; risk_score: number } {
+  const factors: RiskFactor[] = [];
+  const severity = enrichment.scores?.severity ?? 'info';
+  factors.push({
+    name: 'severity',
+    contribution: SEVERITY_POINTS[severity] ?? 0,
+    evidence: `enrichment severity=${severity}`,
+  });
+  const confidence = enrichment.scores?.confidence ?? 0;
+  factors.push({
+    name: 'confidence',
+    contribution: Math.round(Math.max(0, Math.min(100, confidence)) * 0.2),
+    evidence: `model confidence=${confidence}%`,
+  });
+  if (enrichment.scores?.malicious === true) {
+    factors.push({ name: 'confirmed_malicious', contribution: 20, evidence: 'KEV listing / malicious flag present' });
+  }
+  const iocCount = (diamond as unknown as { iocs?: unknown[] } | null)?.iocs?.length ?? 0;
+  if (iocCount > 0) {
+    factors.push({
+      name: 'corroborating_indicators',
+      contribution: Math.min(15, iocCount * 5),
+      evidence: `${iocCount} diamond-model indicator(s)`,
+    });
+  }
+  if (fiveW) {
+    factors.push({ name: 'structured_intel', contribution: 5, evidence: '5W+H extraction succeeded' });
+  }
+  if (enrichment.sources.length > 1) {
+    factors.push({
+      name: 'multi_source',
+      contribution: Math.min(10, (enrichment.sources.length - 1) * 5),
+      evidence: `${enrichment.sources.length} sources: ${enrichment.sources.slice(0, 3).join(', ')}`,
+    });
+  }
+  const risk_score = Math.min(100, factors.reduce((s, f) => s + f.contribution, 0));
+  return { factors, risk_score };
 }
 
 // ── Route ──────────────────────────────────────────────────────────────
@@ -97,11 +161,20 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
     // Build Diamond Model from enrichment data
     const diamond = buildDiamondModelFromEnrichment(entity, enrichment, fiveW);
 
+    const { factors, risk_score } = buildRiskFactors(fiveW, diamond, enrichment);
+    try {
+      trackEvent(c.env, 'dossier_build', { blobs: [entity.type], doubles: [risk_score, factors.length] });
+    } catch {
+      /* analytics best-effort */
+    }
+
     return c.json({
       entity,
       fiveW,
       diamond,
       enrichment,
+      factors,
+      risk_score,
       generated_at: new Date().toISOString(),
       tlp: 'CLEAR',
     } satisfies DossierResponse);
@@ -212,11 +285,20 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
     },
   };
 
+  const { factors: cveFactors, risk_score: cveRisk } = buildRiskFactors(fiveW, diamond, enrichment);
+  try {
+    trackEvent(c.env, 'dossier_build', { blobs: [`${entity.type}:cve`], doubles: [cveRisk, cveFactors.length] });
+  } catch {
+    /* analytics best-effort */
+  }
+
   const dossier: DossierResponse = {
     entity,
     fiveW,
     diamond,
     enrichment,
+    factors: cveFactors,
+    risk_score: cveRisk,
     generated_at: new Date().toISOString(),
     tlp: 'CLEAR',
   };
@@ -302,16 +384,20 @@ function buildDiamondModelFromEnrichment(
 }
 
 function buildMinimalDossier(entity: DossierEntity, query: string, note: string): DossierResponse {
+  const enrichment: EnrichmentResult = {
+    entity,
+    rawText: note,
+    sources: [],
+    scores: { severity: 'info', confidence: 0 },
+  };
+  const { factors, risk_score } = buildRiskFactors(null, null, enrichment);
   return {
     entity,
     fiveW: null,
     diamond: null,
-    enrichment: {
-      entity,
-      rawText: note,
-      sources: [],
-      scores: { severity: 'info', confidence: 0 },
-    },
+    enrichment,
+    factors,
+    risk_score,
     generated_at: new Date().toISOString(),
     tlp: 'CLEAR',
   };
