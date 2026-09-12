@@ -219,8 +219,12 @@ async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | nul
 /**
  * Touch last_used_at for a key — fire-and-forget. Call via waitUntil
  * so it doesn't add latency to the request.
+ * Sampled at 5%: per-request UPDATEs cost 1 D1 write per authenticated
+ * API call for pure metadata. 5% keeps last_used_at fresh to ~20-request
+ * granularity with 95% fewer writes.
  */
 function touchLastUsed(db: D1Database, keyId: string): Promise<void> {
+  if (Math.random() >= 0.05) return Promise.resolve();
   return db
     .prepare('UPDATE api_keys SET last_used_at = ? WHERE id = ?')
     .bind(new Date().toISOString(), keyId)

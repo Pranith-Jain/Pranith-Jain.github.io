@@ -385,8 +385,15 @@ export async function applyDecayScoring(db: D1Database): Promise<{ updated: numb
   const now = Date.now();
   const dayMs = 86_400_000;
 
-  // Read all IOCs (or batch-wise for large DBs)
-  const rows = await db.prepare('SELECT id, type, last_seen, decay_score FROM cti_iocs WHERE decay_score > 0.01').all();
+  // Capped scan: the unbounded full-table read was the #1 D1 reader
+  // (entire live IOC table every hour). Decay is slow-moving (half-lives of
+  // 5-30 days), so 1000 rows/run ordered by recency is plenty — older rows
+  // catch up on subsequent maintenance runs.
+  const rows = await db
+    .prepare(
+      'SELECT id, type, last_seen, decay_score FROM cti_iocs WHERE decay_score > 0.01 ORDER BY last_seen DESC LIMIT 1000'
+    )
+    .all();
   const stmt = db.prepare('UPDATE cti_iocs SET decay_score = ? WHERE id = ?');
   const batches: D1PreparedStatement[] = [];
 
@@ -429,9 +436,10 @@ export interface SweepResult {
 }
 
 /**
- * Delete CTI data older than `days` days. Runs alongside every collection
- * so stale rows are purged hourly, not just at the daily 6am UTC retention
- * sweep. This gives the CTI module its own self-contained cleanup.
+ * Delete CTI data older than `days` days. Runs on the daily maintenance tick
+ * (see runFullCollection opts), not every collection — the hourly COUNT(*)
+ * probes were pure read amplification on large tables with zero deletes most
+ * days. DELETE directly and use meta.changes instead of a pre-COUNT round-trip.
  */
 export async function sweepStaleData(db: D1Database, days = 30): Promise<SweepResult> {
   const cutoff = new Date(Date.now() - days * 86_400_000).toISOString();
@@ -454,13 +462,10 @@ export async function sweepStaleData(db: D1Database, days = 30): Promise<SweepRe
 
   for (const [table, column, key] of sweeps) {
     try {
-      const countRow = await db
-        .prepare(`SELECT COUNT(*) as n FROM ${table} WHERE ${column} < ?`)
-        .bind(cutoff)
-        .first<{ n: number }>();
-      const n = countRow?.n ?? 0;
+      // No pre-COUNT: one DELETE round-trip, rows removed from meta.changes.
+      const res = await db.prepare(`DELETE FROM ${table} WHERE ${column} < ?`).bind(cutoff).run();
+      const n = res.meta?.changes ?? 0;
       if (n > 0) {
-        await db.prepare(`DELETE FROM ${table} WHERE ${column} < ?`).bind(cutoff).run();
         result[key] = n;
         result.total_deleted += n;
       }
@@ -501,7 +506,11 @@ export interface CollectionResult {
   sweep?: SweepResult;
 }
 
-export async function runFullCollection(db: D1Database, abuseChKey?: string): Promise<CollectionResult> {
+export async function runFullCollection(
+  db: D1Database,
+  abuseChKey?: string,
+  opts: { maintenance?: boolean } = {}
+): Promise<CollectionResult> {
   const start = Date.now();
   const errors: string[] = [];
   let sourcesAttempted = 0;
@@ -554,32 +563,49 @@ export async function runFullCollection(db: D1Database, abuseChKey?: string): Pr
   const allNews = newsResults.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
   const newsStored = await storeNews(db, allNews);
 
-  // Apply decay scoring
-  await applyDecayScoring(db);
+  // Maintenance (decay + sweep + job log) is daily, not hourly. Decay moves
+  // on 5-30 day half-lives and the sweep deletes 30d+ rows — running them
+  // 20x/day was ~4k wasted writes + a full-table scan per run. Manual
+  // /api/v1/cti/collect calls default to maintenance:true (rare, explicit).
+  const doMaintenance = opts.maintenance ?? true;
+  if (doMaintenance) {
+    // Apply decay scoring
+    await applyDecayScoring(db);
 
-  // Sweep stale data (>30 days old) every collection cycle
-  let sweepResult: SweepResult | null = null;
-  try {
-    sweepResult = await sweepStaleData(db, 30);
-    if (sweepResult.total_deleted > 0) {
+    // Sweep stale data (>30 days old) on maintenance ticks only
+    let sweepResult: SweepResult | null = null;
+    try {
+      sweepResult = await sweepStaleData(db, 30);
+      if (sweepResult.total_deleted > 0) {
+      }
+    } catch {
+      // Non-critical
     }
-  } catch {
-    // Non-critical
-  }
 
-  // Record job status
-  try {
-    await db
-      .prepare(
-        `
-      INSERT INTO cti_collection_jobs (source, status, items_collected, completed_at)
-      VALUES ('full_collection', 'success', ?, ?)
-    `
-      )
-      .bind(iocsStored + newsStored, new Date().toISOString())
-      .run();
-  } catch {
-    // Non-critical
+    // Record job status — maintenance ticks only (was 1 row/hour forever)
+    try {
+      await db
+        .prepare(
+          `
+        INSERT INTO cti_collection_jobs (source, status, items_collected, completed_at)
+        VALUES ('full_collection', 'success', ?, ?)
+      `
+        )
+        .bind(iocsStored + newsStored, new Date().toISOString())
+        .run();
+    } catch {
+      // Non-critical
+    }
+
+    return {
+      iocs_stored: iocsStored,
+      news_stored: newsStored,
+      sources_attempted: sourcesAttempted,
+      sources_succeeded: sourcesSucceeded,
+      errors,
+      duration_ms: Date.now() - start,
+      sweep: sweepResult ?? undefined,
+    };
   }
 
   return {
@@ -589,7 +615,6 @@ export async function runFullCollection(db: D1Database, abuseChKey?: string): Pr
     sources_succeeded: sourcesSucceeded,
     errors,
     duration_ms: Date.now() - start,
-    sweep: sweepResult ?? undefined,
   };
 }
 

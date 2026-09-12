@@ -37,7 +37,12 @@ import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
 import { checkAddressWatches } from '../api/src/lib/address-watch';
 import { sweepWatchlist } from '../api/src/lib/ioc-watchlist';
-import { buildStatusSnapshot, upsertStatusSnapshot } from '../api/src/lib/breach-forum-status';
+import {
+  buildStatusSnapshot,
+  upsertStatusSnapshot,
+  readLatestSnapshot,
+  computeStatusDeltas,
+} from '../api/src/lib/breach-forum-status';
 import { getCuratedForums } from '../api/src/routes/breach-forums';
 import { buildDeepDarkCti } from '../api/src/routes/deepdarkcti';
 import { buildBlocklists } from '../api/src/lib/blocklist-builder';
@@ -377,8 +382,11 @@ export async function executeCronJob(
 
           // Watched-channel scrape runs right after, sharing one burst window
           // before the cache-warm fans out more t.me requests.
+          // Every 3h (not hourly): each run issues up to 25 D1 UPDATEs even
+          // when every channel returns 0 messages. Rotation via last_scraped
+          // still covers the full list — just over 3h instead of 1h.
           try {
-            if (env.BRIEFINGS_DB) {
+            if (env.BRIEFINGS_DB && csNow.getUTCHours() % 3 === 0) {
               const w = await scrapeWatchedChannels(env.BRIEFINGS_DB);
               if (w.channels_scraped > 0) {
                 console.log(
@@ -841,9 +849,14 @@ export async function executeCronJob(
           // openphish, cisa_kev, news feeds) and would push the combined
           // subrequest count past the free-plan 50 cap. It catches up next
           // hour; no data is lost.
+          // D1: decay/sweep/job-log maintenance runs once daily (03 UTC) —
+          // hourly maintenance was ~4k wasted writes + full-table scans/day
+          // for slow-moving (5-30d half-life) data.
           try {
             if (env.BRIEFINGS_DB && runCti) {
-              const ctiResult = await runFullCollection(env.BRIEFINGS_DB, env.ABUSECH_AUTH_KEY);
+              const ctiResult = await runFullCollection(env.BRIEFINGS_DB, env.ABUSECH_AUTH_KEY, {
+                maintenance: csNow.getUTCHours() === 3,
+              });
               console.log(
                 JSON.stringify({
                   job: 'cti-collector',
@@ -908,24 +921,33 @@ export async function executeCronJob(
                 .catch(logCronFail('ioc-watchlist-sweep'))
             );
 
-          // === Breach-forum status snapshot ===
-          // Hourly: re-snapshot the deepdarkCTI forum directory + the curated
-          // well-known list, write to D1. The deltas route computes
-          // transitions from the history table. DDC re-read is fast (KV
-          // cache hit, the 12h cold-cache fallback only matters on the
-          // first run of the day). D1 batch write is ~30-50 rows — well
-          // under the 1k/day KV-equivalent we budget elsewhere.
+          // === Breach-forum status snapshot (write-on-change + 6h heartbeat) ===
+          // Was: unconditional hourly INSERT of every forum row (~30-80 rows ×
+          // 24 = up to ~2k writes/day + 3 DDLs). Now: diff against the latest
+          // snapshot and skip the D1 batch when nothing changed. A 6h
+          // heartbeat write keeps history continuity for the deltas route.
+          // Saves ~75-85% of this table's writes with zero signal loss —
+          // the change ITSELF is the signal (see breach-forum-status.ts).
           try {
             if (env.BRIEFINGS_DB) {
               const ddc = await buildDeepDarkCti(env.KV_CACHE, ctx);
               const curated = getCuratedForums();
               const observedAt = new Date().toISOString();
               const snapshot = buildStatusSnapshot(ddc, curated, observedAt);
-              await upsertStatusSnapshot(env.BRIEFINGS_DB as D1Database, snapshot);
+              const prev = await readLatestSnapshot(env.BRIEFINGS_DB as D1Database).catch(() => null);
+              const deltas = prev ? computeStatusDeltas(prev, snapshot) : [];
+              const prevMs = prev ? Date.parse(prev.observed_at) : NaN;
+              const ageHrs = Number.isFinite(prevMs) ? (Date.parse(observedAt) - prevMs) / 3_600_000 : Infinity;
+              const shouldWrite = !prev || deltas.length > 0 || ageHrs >= 6;
+              if (shouldWrite) {
+                await upsertStatusSnapshot(env.BRIEFINGS_DB as D1Database, snapshot);
+              }
               console.log(
                 JSON.stringify({
                   job: 'breach-forum-status-snapshot',
                   rows: snapshot.rows.length,
+                  deltas: deltas.length,
+                  written: shouldWrite,
                   ddc_entries: ddc.entries.filter((e) => /^(Criminal Forums|Dark Markets)$/i.test(e.category)).length,
                   curated_entries: curated.length,
                 })

@@ -70,6 +70,12 @@ export const RETENTION_POLICY: RetentionPolicy[] = [
   { table: 'cti_mutation_variants', column: 'created_at', format: 'iso' },
   { table: 'cti_mutation_seeds', column: 'created_at', format: 'iso' },
   { table: 'cti_collection_jobs', column: 'started_at', format: 'iso' },
+
+  // CyberPulse — scan_log was missing from retention (grew forever at
+  // 4 rows/run × 72 runs/day). 7-day window keeps ops visibility without
+  // unbounded growth; incidents keep the standard 30d.
+  { table: 'cyberpulse_scan_log', column: 'scanned_at', format: 'iso' },
+  { table: 'cyberpulse_incidents', column: 'discovered_at', format: 'iso' },
 ];
 
 export interface RetentionResult {
@@ -117,29 +123,27 @@ export async function runRetentionSweep(
 
   for (const p of policy) {
     try {
-      // Always run a count first so we have a number to return, even on dry-run.
-      // This is one extra round-trip on the hot path but lets us report stats.
-      const countRow = await db
-        .prepare(`SELECT COUNT(*) AS n FROM ${p.table} WHERE ${p.column} < ?`)
-        .bind(p.format === 'iso' ? cutoff : cutoffUnix(days))
-        .first<{ n: number }>();
-      const wouldDelete = countRow?.n ?? 0;
-
       if (dryRun) {
-        tables.push({ table: p.table, column: p.column, deleted: 0 });
+        const countRow = await db
+          .prepare(`SELECT COUNT(*) AS n FROM ${p.table} WHERE ${p.column} < ?`)
+          .bind(p.format === 'iso' ? cutoff : cutoffUnix(days))
+          .first<{ n: number }>();
+        tables.push({ table: p.table, column: p.column, deleted: countRow?.n ?? 0 });
         continue;
       }
 
-      if (wouldDelete > 0) {
-        await db
-          .prepare(`DELETE FROM ${p.table} WHERE ${p.column} < ?`)
-          .bind(p.format === 'iso' ? cutoff : cutoffUnix(days))
-          .run();
-      }
-      tables.push({ table: p.table, column: p.column, deleted: wouldDelete });
-      total += wouldDelete;
+      // No pre-COUNT on the live path: one DELETE round-trip, deleted count
+      // from meta.changes. The old COUNT+DELETE doubled reads on large
+      // tables (22 tables × full scan) with zero deletes most days.
+      const res = await db
+        .prepare(`DELETE FROM ${p.table} WHERE ${p.column} < ?`)
+        .bind(p.format === 'iso' ? cutoff : cutoffUnix(days))
+        .run();
+      const deleted = res.meta?.changes ?? 0;
+      tables.push({ table: p.table, column: p.column, deleted });
+      total += deleted;
       // Log a single line per non-empty table for ops visibility
-      if (wouldDelete > 0) {
+      if (deleted > 0) {
       }
     } catch (err) {
       tables.push({

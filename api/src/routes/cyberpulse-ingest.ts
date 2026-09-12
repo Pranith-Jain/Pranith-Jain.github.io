@@ -1099,6 +1099,10 @@ async function logScan(
   durationMs: number,
   error: string | null
 ): Promise<void> {
+  // Skip quiet no-op scans: 4 rows/run × 72 runs/day = 288 rows/day of
+  // "scanned 0, created 0" even when every feed is cold. Errors and
+  // productive scans are always logged; pure zeros carry no signal.
+  if (!error && incidentsCreated === 0 && itemsFound === 0) return;
   await db
     .prepare(
       `INSERT INTO cyberpulse_scan_log (source, handle, query, scanned_at, items_found, incidents_created, incidents_deduped, duration_ms, error)

@@ -6,4 +6,4 @@
  * card metadata (including image-fetch failures) per URL for days; a per-deploy
  * version segment forces a clean re-crawl of every card after each deploy.
  */
-export const OG_BUILD_VERSION = 'v96b3eb638';
+export const OG_BUILD_VERSION = 'vdb5aa9e5d';

@@ -73,7 +73,7 @@ export default function RadarHome() {
           <div className="flex w-full flex-col gap-3">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" />
-              <input
+              <Input
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
