@@ -45,7 +45,7 @@ export interface TelegramEntry {
   attribution?: string;
   categories: TelegramCategory[];
   /** Primary content language (ISO 639-1 lowercase, plus a few extras). */
-  language: 'en' | 'ru' | 'es' | 'pt' | 'zh' | 'fa' | 'ar' | 'mixed';
+  language: 'en' | 'ru' | 'es' | 'pt' | 'zh' | 'fa' | 'ar' | 'fr' | 'de' | 'mixed';
   audience: Audience;
   /** What an analyst gets out of this channel in 1–2 sentences. */
   description: string;
@@ -85,6 +85,8 @@ export const CATEGORY_BLURB: Record<TelegramCategory, string> = {
 
 export const LANGUAGE_LABELS: Record<TelegramEntry['language'], string> = {
   en: 'English',
+  fr: 'French',
+  de: 'German',
   ru: 'Russian',
   es: 'Spanish',
   pt: 'Portuguese',
@@ -224,6 +226,61 @@ export const CATALOG: TelegramEntry[] = [
     description:
       'Official LeakRadar channel - fresh stealer-log drops, breach-file indexing alerts, and combolist availability notices from the 290B+ credential corpus they index. Pairs with leakradar.io for searchable access.',
     badge: 'research',
+  },
+  // 2026-09-12 batch — all preview-verified with recent posts; also live
+  // in the t.me/s firehose + CyberPulse breach set (FBI_Watchdog,
+  // DarkfeedNews, brutsecurity) and the tg-live-search default scope.
+  {
+    id: 'cve-detector',
+    name: 'CVE Monitor',
+    handle: 'CVEDetector',
+    categories: ['threat-intel', 'security-news'],
+    language: 'en',
+    audience: 'public-channel',
+    description:
+      'CVE disclosure alerts - new vulnerabilities as they publish, a lighter-weight complement to the high-cadence CVE Notify style feeds.',
+  },
+  {
+    id: 'cyber-monitum',
+    name: 'Cyber Monitum',
+    handle: 'CyberMonitum',
+    categories: ['threat-intel', 'security-news'],
+    language: 'en',
+    audience: 'public-channel',
+    description:
+      'Threat-intel and cyber-security digest - sub-day cadence mixed feed of advisories, incidents, and research write-ups.',
+  },
+  {
+    id: 'fbi-watchdog',
+    name: 'FBI Watchdog',
+    handle: 'FBI_Watchdog',
+    attribution: 'Dark Web Informer',
+    categories: ['threat-intel', 'breach-leaks'],
+    language: 'en',
+    audience: 'public-channel',
+    description:
+      'FBI Watchdog alerts by Dark Web Informer - FBI-related cyber alerts and breach-adjacent reporting from the DWI family.',
+    badge: 'research',
+  },
+  {
+    id: 'brut-security',
+    name: 'Brut Security',
+    handle: 'brutsecurity',
+    categories: ['security-news', 'breach-leaks'],
+    language: 'fr',
+    audience: 'public-channel',
+    description:
+      'Brut Security breach and vulnerability news in French - daily incident posts covering breaches, CVEs, and threat-actor activity.',
+  },
+  {
+    id: 'int-cyber-digest',
+    name: 'International Cyber Digest',
+    handle: 'IntCyberDigest',
+    categories: ['threat-intel', 'security-news'],
+    language: 'en',
+    audience: 'public-channel',
+    description:
+      'International cyber-incident digest - daily cross-source roundup of incidents, advisories, and security news.',
   },
 
   // ─────────────────────────────────────────────────────────────────────
