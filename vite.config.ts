@@ -94,7 +94,6 @@ const clientBuild = {
         }
         return 'assets/[name]-[hash][extname]';
       },
-      compact: true,
     },
   },
   // Reduce chunk size warnings

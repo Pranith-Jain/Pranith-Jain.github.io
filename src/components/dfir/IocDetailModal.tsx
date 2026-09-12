@@ -66,6 +66,8 @@ export function IocDetailModal({ ioc, onClose, onPivot }: Props): JSX.Element {
             </button>
             <button
               onClick={onClose}
+              type="button"
+              aria-label="Close dialog"
               className="h-8 w-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] grid place-items-center hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))]"
             >
               ✕
@@ -79,6 +81,8 @@ export function IocDetailModal({ ioc, onClose, onPivot }: Props): JSX.Element {
               <div className="font-mono text-base font-bold text-heading break-all">{displayValue}</div>
               <button
                 onClick={() => copy(ioc.value)}
+                type="button"
+                aria-label="Copy IOC to clipboard"
                 className="shrink-0 p-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-white dark:hover:bg-[rgb(var(--surface-300))]"
               >
                 {copied === ioc.value ? (

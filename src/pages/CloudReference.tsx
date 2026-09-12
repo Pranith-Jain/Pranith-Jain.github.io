@@ -173,7 +173,7 @@ export default function CloudReference() {
               {index?.srm.description} Stakeholders: {index?.srm.stakeholders.join(', ')}.
             </p>
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm border-collapse">
+              <table className="w-full min-w-[720px] text-left text-sm border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-muted w-56">Domain</th>

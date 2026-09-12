@@ -1,9 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { MaturityPanel } from '../../components/threatintel/MaturityPanel';
-import { CveLandscapePanel } from './ThreatIntelDashboard';
+// recharts (~540KB) lives behind the `cves` tab only — a static import here
+// would make every IntelDashboard visit parse it even on `tab==='overview'`.
+const CveLandscapePanel = lazy(() =>
+  import('./ThreatIntelDashboard').then((m) => ({ default: m.CveLandscapePanel }))
+);
 import {
   Activity,
   AlertTriangle,
@@ -671,7 +675,11 @@ export default function IntelDashboard(): JSX.Element {
         </>
       )}
 
-      {tab === 'cves' && <CveLandscapePanel />}
+      {tab === 'cves' && (
+        <Suspense fallback={<div className="py-8 text-center text-sm text-slate-500">Loading charts…</div>}>
+          <CveLandscapePanel />
+        </Suspense>
+      )}
     </DataPageLayout>
   );
 }

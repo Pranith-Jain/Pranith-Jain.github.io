@@ -156,10 +156,11 @@ export default function GrcChecklists() {
               <div className={`${CARD} p-4`}>
                 <div className="flex flex-wrap items-center gap-3 mb-3">
                   <div className="relative flex-1 min-w-[200px] max-w-md">
-                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
                     <input
                       type="text"
                       placeholder="Search controls by ID, name, requirement..."
+                      aria-label="Search compliance controls"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                       className="w-full px-9 py-1.5 rounded-lg text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"

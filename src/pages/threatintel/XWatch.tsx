@@ -571,6 +571,7 @@ export default function XWatch(): JSX.Element {
                     onClick={() => removeCustom(h)}
                     className="text-muted hover:text-rose-600"
                     title="remove from watchlist"
+                    aria-label={`Remove @${h} from watchlist`}
                   >
                     <XIcon size={10} />
                   </button>

@@ -368,7 +368,7 @@ export default function Analyze(): JSX.Element {
 
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full min-w-[720px] text-sm">
                 <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <tr>
                     <th className="w-8 px-2 py-2" />
