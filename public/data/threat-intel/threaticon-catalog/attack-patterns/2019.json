@@ -1,9 +1,0 @@
-{
-  "id": 2019,
-  "name": "T1059.003 - Windows Command-Line Tools as Scripting Interface: PowerShell",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2019"
-}

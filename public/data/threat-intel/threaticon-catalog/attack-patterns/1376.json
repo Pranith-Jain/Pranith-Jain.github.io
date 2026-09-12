@@ -1,9 +1,0 @@
-{
-  "id": 1376,
-  "name": "T1583.001: Domains",
-  "techniqueId": "T1583",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1376"
-}

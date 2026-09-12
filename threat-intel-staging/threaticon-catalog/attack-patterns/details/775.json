@@ -1,9 +1,0 @@
-{
-  "id": 775,
-  "fetchedAt": "2026-08-15T06:06:33.036Z",
-  "name": "Resource Location Spoofing",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: Medium. An adversary deceives an application or user and convinces them to request a resource from an unintended location. By spoofing the location, the adversary can cause an alternate resource to be used, often one that the adversary controls and can be used to help them achieve their malicious goals."
-}

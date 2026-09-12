@@ -1,9 +1,0 @@
-{
-  "id": 2297,
-  "name": "T1027 - Obfuscated Files or Information",
-  "techniqueId": "T1027",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2297"
-}

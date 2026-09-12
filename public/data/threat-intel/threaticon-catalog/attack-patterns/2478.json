@@ -1,9 +1,0 @@
-{
-  "id": 2478,
-  "name": "T1071.001 - Application Layer protocols (HTTP)",
-  "techniqueId": "T1071",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2478"
-}

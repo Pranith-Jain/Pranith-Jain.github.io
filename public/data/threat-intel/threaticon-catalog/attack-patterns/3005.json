@@ -1,9 +1,0 @@
-{
-  "id": 3005,
-  "name": "T1528 Steal Application Access Token",
-  "techniqueId": "T1528",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/3005"
-}

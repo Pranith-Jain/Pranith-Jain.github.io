@@ -1,9 +1,0 @@
-{
-  "id": 830,
-  "name": "Removing Important Client Functionality",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary removes or disables functionality on the client that the server assumes to be present and trustworthy.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/830"
-}

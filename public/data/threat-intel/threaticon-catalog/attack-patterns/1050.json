@@ -1,9 +1,0 @@
-{
-  "id": 1050,
-  "name": "WebView Exposure",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary, through a malicious web page, accesses application specific functionality by leveraging interfaces registered through WebView's addJavascriptInterface API. Once an interface is registered to WebView through addJavascriptInterface, it becomes global and all pages loaded in the WebView can call this interface.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1050"
-}

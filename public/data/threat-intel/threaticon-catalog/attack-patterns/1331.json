@@ -1,9 +1,0 @@
-{
-  "id": 1331,
-  "name": "T1253 - 使用第三方供应商进行访问",
-  "techniqueId": "T1253",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1331"
-}

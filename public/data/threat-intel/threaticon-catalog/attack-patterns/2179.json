@@ -1,9 +1,0 @@
-{
-  "id": 2179,
-  "name": "T1566.001 - OS Account Access",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2179"
-}

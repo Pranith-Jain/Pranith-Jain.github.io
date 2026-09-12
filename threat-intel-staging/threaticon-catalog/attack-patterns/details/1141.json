@@ -1,9 +1,0 @@
-{
-  "id": 1141,
-  "fetchedAt": "2026-08-15T06:22:27.857Z",
-  "name": "DNS Spoofing",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary sends a malicious (\"NXDOMAIN\" (\"No such domain\") code, or DNS A record) response to a target's route request before a legitimate resolver can. This technique requires an On-path or In-path device that can monitor and respond to the target's DNS requests. This attack differs from BGP Tampering in that it directly responds to requests made by the target instead of polluting the routing the target's infrastructure uses."
-}

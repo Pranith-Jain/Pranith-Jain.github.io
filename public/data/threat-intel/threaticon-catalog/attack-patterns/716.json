@@ -1,9 +1,0 @@
-{
-  "id": 716,
-  "name": "T1055: Unsecured Credentials",
-  "techniqueId": "T1055",
-  "added": "May 25, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/716"
-}

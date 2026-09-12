@@ -1,9 +1,0 @@
-{
-  "id": 2284,
-  "name": "T1093 - Ingress Tool Transfer",
-  "techniqueId": "T1093",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2284"
-}

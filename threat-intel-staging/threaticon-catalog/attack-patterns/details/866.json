@@ -1,9 +1,0 @@
-{
-  "id": 866,
-  "fetchedAt": "2026-08-15T06:10:32.532Z",
-  "name": "PHP Local File Inclusion",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. The attacker loads and executes an arbitrary local PHP file on a target machine. The attacker could use this to try to load old versions of PHP files that have known vulnerabilities, to load PHP files that the attacker placed on the local machine during a prior attack, or to otherwise change the functionality of the targeted application in unexpected ways."
-}

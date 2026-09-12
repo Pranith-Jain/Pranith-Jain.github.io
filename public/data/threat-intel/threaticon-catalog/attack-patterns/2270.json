@@ -1,9 +1,0 @@
-{
-  "id": 2270,
-  "name": "T1058 (Password reuse)",
-  "techniqueId": "T1058",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2270"
-}

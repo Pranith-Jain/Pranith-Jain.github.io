@@ -1,9 +1,0 @@
-{
-  "id": 2889,
-  "name": "T1003: OS Credential Dumping – credential collection for lateral move",
-  "techniqueId": "T1003",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2889"
-}

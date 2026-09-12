@@ -1,9 +1,0 @@
-{
-  "id": 227,
-  "name": "Application Window Discovery",
-  "techniqueId": "T1010",
-  "added": "May 2, 2026",
-  "description": "Adversaries may attempt to get a listing of open application windows. Window listings could convey information about how the system is used.(Citation: Prevailion DarkWatchman 2021) For example, information about application windows could be used identify potential data to collect as well as identifying security tooling (Security Software Discovery) to evade.(Citation: ESET Grandoreiro April 2020) Adversaries typically abuse system features for this type of enumeration. For example, they may gather information through native system features such as Command and Scripting Interpreter commands and Native API functions.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/227"
-}

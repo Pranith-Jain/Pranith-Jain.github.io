@@ -1,9 +1,0 @@
-{
-  "id": 1091,
-  "name": "Physical Destruction of Device or Component",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary conducts a physical attack a device or component, destroying it such that it no longer functions as intended.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1091"
-}

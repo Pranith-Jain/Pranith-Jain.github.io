@@ -1,9 +1,0 @@
-{
-  "id": 705,
-  "name": "T1071.001: Web Protocols",
-  "techniqueId": "T1071",
-  "added": "May 18, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/705"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1371,
-  "name": "T1078 - Account Access Removal",
-  "techniqueId": "T1078",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1371"
-}

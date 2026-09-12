@@ -1,9 +1,0 @@
-{
-  "id": 2282,
-  "fetchedAt": "2026-08-15T07:58:39.501Z",
-  "name": "T1383 - Data Leak via Paste",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

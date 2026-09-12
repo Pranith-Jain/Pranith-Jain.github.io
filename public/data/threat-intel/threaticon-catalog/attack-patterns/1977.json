@@ -1,9 +1,0 @@
-{
-  "id": 1977,
-  "name": "T1064.001: Exploitation for Initial Access",
-  "techniqueId": "T1064",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1977"
-}

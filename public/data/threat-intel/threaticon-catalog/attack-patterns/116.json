@@ -1,9 +1,0 @@
-{
-  "id": 116,
-  "name": "Symmetric Cryptography",
-  "techniqueId": "DET0143",
-  "added": "May 2, 2026",
-  "description": "Adversaries may employ a known symmetric encryption algorithm to conceal command and control traffic rather than relying on any inherent protections provided by a communication protocol. Symmetric encryption algorithms use the same key for plaintext encryption and ciphertext decryption. Common symmetric encryption algorithms include AES, DES, 3DES, Blowfish, and RC4.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/116"
-}

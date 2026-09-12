@@ -1,9 +1,0 @@
-{
-  "id": 1523,
-  "name": "T1048.003: Exfiltration Over Unencrypted Non-C2 Protocol",
-  "techniqueId": "T1048",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1523"
-}

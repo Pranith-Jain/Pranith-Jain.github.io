@@ -1,9 +1,0 @@
-{
-  "id": 1083,
-  "fetchedAt": "2026-08-15T06:19:54.696Z",
-  "name": "Query System for Information",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: High. An adversary, aware of an application's location (and possibly authorized to use the application), probes an application's structure and evaluates its robustness by submitting requests and examining responses. Often, this is accomplished by sending variants of expected queries in the hope that these modified queries might return information beyond what the expected set of queries would provide."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 120,
-  "fetchedAt": "2026-08-15T08:09:03.625Z",
-  "name": "TFTP Boot",
-  "tlp": "white",
-  "techniqueId": "DET0582",
-  "added": "May 2, 2026",
-  "description": "Adversaries may abuse netbooting to load an unauthorized network device operating system from a Trivial File Transfer Protocol (TFTP) server. TFTP boot (netbooting) is commonly used by network administrators to load configuration-controlled network device images from a centralized management server. Netbooting is one option in the boot sequence and can be used to centralize, manage, and control device images. Adversaries may manipulate the configuration on the network device specifying use of a malicious TFTP server, which may be used in conjunction with Modify System Image to load a modified image on device startup or reset. The unauthorized image allows adversaries to modify device configuration, add malicious capabilities to the device, and introduce backdoors to maintain control of the network device while minimizing detection through use of a standard functionality. This technique is similar to ROMMONkit and may result in the network device running a modified image. (Citation: Cisco Blog Legacy Device Attacks)"
-}

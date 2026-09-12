@@ -1,9 +1,0 @@
-{
-  "id": 2235,
-  "fetchedAt": "2026-08-15T06:46:57.130Z",
-  "name": "T1003 -Credential dumping via Registry tools",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

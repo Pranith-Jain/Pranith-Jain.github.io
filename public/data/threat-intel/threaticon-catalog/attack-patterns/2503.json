@@ -1,9 +1,0 @@
-{
-  "id": 2503,
-  "name": "T1056 - Input Validation and Data Sanitization (Phishing Exploitation)",
-  "techniqueId": "T1056",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2503"
-}

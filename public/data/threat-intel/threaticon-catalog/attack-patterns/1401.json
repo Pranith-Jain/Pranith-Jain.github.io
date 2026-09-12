@@ -1,9 +1,0 @@
-{
-  "id": 1401,
-  "name": "T1207 - Email Compromise",
-  "techniqueId": "T1207",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1401"
-}

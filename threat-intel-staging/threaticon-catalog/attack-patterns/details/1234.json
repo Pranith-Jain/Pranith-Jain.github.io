@@ -1,9 +1,0 @@
-{
-  "id": 1234,
-  "fetchedAt": "2026-08-15T06:41:33.065Z",
-  "name": "Spoof Open-Source Software Metadata",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary spoofs open-source software metadata in an attempt to masquerade malicious software as popular, maintained, and trusted."
-}

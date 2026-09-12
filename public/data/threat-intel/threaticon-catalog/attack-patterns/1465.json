@@ -1,9 +1,0 @@
-{
-  "id": 1465,
-  "name": "T1568 -Process Injection:T1568",
-  "techniqueId": "T1568",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1465"
-}

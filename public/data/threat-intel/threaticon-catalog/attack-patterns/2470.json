@@ -1,9 +1,0 @@
-{
-  "id": 2470,
-  "name": "T1056 - Credential Dumping (via TrickBot/IcedID)",
-  "techniqueId": "T1056",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2470"
-}

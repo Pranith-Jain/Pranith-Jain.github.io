@@ -1,9 +1,0 @@
-{
-  "id": 2124,
-  "name": "T1005.001 - Data Exfiltration: Application Layer Protocols",
-  "techniqueId": "T1005",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2124"
-}

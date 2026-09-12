@@ -1,9 +1,0 @@
-{
-  "id": 881,
-  "name": "Inter-component Protocol Manipulation",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Inter-component protocols are used to communicate between different software and hardware modules within a single computer. Common examples are: interrupt signals and data pipes. Subverting the protocol can allow an adversary to impersonate others, discover sensitive information, control the outcome of a session, or perform other attacks. This type of attack targets invalid assumptions that may be inherent in implementers of the protocol, incorrect implementations of the protocol, or vulnerabilities in the protocol itself.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/881"
-}

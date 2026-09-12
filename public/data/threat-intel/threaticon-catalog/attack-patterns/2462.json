@@ -1,9 +1,0 @@
-{
-  "id": 2462,
-  "name": "T1040 - Data exfiltration over C2 channels",
-  "techniqueId": "T1040",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2462"
-}

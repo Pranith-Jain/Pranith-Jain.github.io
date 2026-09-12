@@ -1,9 +1,0 @@
-{
-  "id": 2225,
-  "fetchedAt": "2026-08-15T07:14:59.463Z",
-  "name": "T1070 (Exploit public facing RPC service)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

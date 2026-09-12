@@ -1,9 +1,0 @@
-{
-  "id": 2046,
-  "name": "T1093 - External Remote Control",
-  "techniqueId": "T1093",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2046"
-}

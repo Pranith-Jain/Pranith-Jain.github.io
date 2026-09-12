@@ -1,9 +1,0 @@
-{
-  "id": 1927,
-  "fetchedAt": "2026-08-15T06:47:39.363Z",
-  "name": "T1003.001 -Credential Dumping via DLL Side-Loading",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

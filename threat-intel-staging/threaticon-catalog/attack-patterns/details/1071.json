@@ -1,9 +1,0 @@
-{
-  "id": 1071,
-  "fetchedAt": "2026-08-15T06:19:23.899Z",
-  "name": "Malware-Directed Internal Reconnaissance",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: Medium. Adversary uses malware or a similarly controlled application installed inside an organizational perimeter to gather information about the composition, configuration, and security mechanisms of a targeted application, system or network."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2669,
-  "name": "T1056.001 – Input Capture: Keylogging",
-  "techniqueId": "T1056",
-  "added": "Aug 5, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2669"
-}

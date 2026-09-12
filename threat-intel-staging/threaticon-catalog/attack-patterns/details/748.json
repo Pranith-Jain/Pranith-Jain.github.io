@@ -1,9 +1,0 @@
-{
-  "id": 748,
-  "fetchedAt": "2026-08-15T06:05:22.907Z",
-  "name": "Pointer Manipulation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. This attack pattern involves an adversary manipulating a pointer within a target application resulting in the application accessing an unintended memory location. This can result in the crashing of the application or, for certain pointer values, access to data that would not normally be possible or the execution of arbitrary code. Since pointers are simply integer variables, Integer Attacks may often be used in Pointer Attacks."
-}

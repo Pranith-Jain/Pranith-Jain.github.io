@@ -1,9 +1,0 @@
-{
-  "id": 1397,
-  "name": "T1003 - Malware Execution: Script-Based Injection",
-  "techniqueId": "T1003",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1397"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2105,
-  "name": "T1538.001 - Use of Account Access Removal Tools",
-  "techniqueId": "T1538",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2105"
-}

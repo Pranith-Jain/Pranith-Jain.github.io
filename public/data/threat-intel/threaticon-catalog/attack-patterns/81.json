@@ -1,9 +1,0 @@
-{
-  "id": 81,
-  "name": "Disk Wipe",
-  "techniqueId": "T1561",
-  "added": "May 2, 2026",
-  "description": "Adversaries may wipe or corrupt raw disk data on specific systems or in large numbers in a network to interrupt availability to system and network resources. With direct write access to a disk, adversaries may attempt to overwrite portions of disk data. Adversaries may opt to wipe arbitrary portions of disk data and/or wipe disk structures like the master boot record (MBR). A complete wipe of all disk sectors may be attempted. To maximize impact on the target organization in operations where network-wide availability interruption is the goal, malware used for wiping disks may have worm-like features to propagate across a network by leveraging additional techniques like Valid Accounts, OS Credential Dumping, and SMB/Windows Admin Shares.(Citation: Novetta Blockbuster Destructive Malware) On network devices, adversaries may wipe configuration files and other data from the device using Network Device CLI commands such as `erase`.(Citation: erase_cmd_cisco)",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/81"
-}

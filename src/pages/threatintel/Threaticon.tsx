@@ -3,26 +3,13 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
-import {
-  Bug,
-  Check,
-  Copy,
-  Crosshair,
-  ExternalLink,
-  Globe,
-  Map as MapIcon,
-  Radar,
-  Search,
-  Shield,
-  Skull,
-  Target,
-} from 'lucide-react';
+import { Bug, Check, Copy, Crosshair, ExternalLink, Globe, Map as MapIcon, Search, Skull, Target } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /*  Types (mirror the API JSON)                                        */
 /* ------------------------------------------------------------------ */
 
-type TabId = 'actors' | 'malware' | 'coverage' | 'map' | 'campaigns' | 'attack-patterns' | 'catalog';
+type TabId = 'actors' | 'malware' | 'coverage' | 'map';
 
 interface TiIndex {
   source: string;
@@ -112,57 +99,6 @@ interface TiMapBody {
   sectors: { sector: string; count: number }[];
 }
 
-type CatalogSectionId =
-  'tools' | 'mitigations' | 'data-sources' | 'detection-strategies' | 'campaigns' | 'attack-patterns';
-
-interface TiCatalogItem {
-  id: number;
-  name: string;
-  tlp: string | null;
-  status?: string | null;
-  confidence?: number | null;
-  category?: string | null;
-  mitreId?: string | null;
-  dcId?: string | null;
-  detId?: string | null;
-  techniqueId?: string | null;
-  severity?: string | null;
-  productCwe?: string | null;
-  firstSeen?: string | null;
-  lastSeen?: string | null;
-  added?: string | null;
-  analyticCount?: number | null;
-  description?: string | null;
-}
-
-interface TiCatalogDetail extends TiCatalogItem {
-  description: string | null;
-  sourceUrl: string;
-  cvssScore?: string | null;
-  cvssVector?: string | null;
-  stixId?: string | null;
-  techniqueCoverage?: number | null;
-  published?: string | null;
-  lastModified?: string | null;
-  aliases?: string[];
-  analytics?: string[];
-  references?: { url: string; label: string }[];
-  [k: string]: unknown;
-}
-
-interface TiCatalogIndex {
-  source: string;
-  url: string;
-  description: string;
-  builtAt: string;
-  counts: Record<string, number>;
-  sections: Record<string, { syncedAt?: string; detailCount: number }>;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Page                                                               */
-/* ------------------------------------------------------------------ */
-
 /* ------------------------------------------------------------------ */
 /*  Shared bits                                                        */
 /* ------------------------------------------------------------------ */
@@ -172,48 +108,7 @@ const TABS: { id: TabId; label: string; icon: typeof Globe }[] = [
   { id: 'malware', label: 'Malware', icon: Bug },
   { id: 'coverage', label: 'Detection Coverage', icon: Crosshair },
   { id: 'map', label: 'Threat Map', icon: MapIcon },
-  { id: 'campaigns', label: 'Campaigns', icon: Radar },
-  { id: 'attack-patterns', label: 'Attack Patterns', icon: Target },
-  { id: 'catalog', label: 'Controls Catalog', icon: Shield },
 ];
-
-const CATALOG_TAB_IDS = new Set<TabId>(['campaigns', 'attack-patterns', 'catalog']);
-
-const SMALL_CATALOG_SECTIONS: {
-  id: 'tools' | 'mitigations' | 'data-sources' | 'detection-strategies';
-  label: string;
-  hint: string;
-}[] = [
-  { id: 'tools', label: 'Tools', hint: 'adversary tool objects' },
-  { id: 'mitigations', label: 'Mitigations', hint: 'ATT&CK mitigations' },
-  { id: 'data-sources', label: 'Data Sources', hint: 'ATT&CK data components' },
-  { id: 'detection-strategies', label: 'Detection Strategies', hint: 'ATT&CK detection strategies' },
-];
-
-const CATALOG_CODE_LABEL: Record<CatalogSectionId, string | null> = {
-  campaigns: null,
-  'attack-patterns': 'techniqueId',
-  tools: null,
-  mitigations: 'mitreId',
-  'data-sources': 'dcId',
-  'detection-strategies': 'detId',
-};
-
-const SEVERITY_STYLES: Record<string, string> = {
-  Critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  High: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  Medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  Low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-  Info: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
-};
-
-function statusCls(status: string | null | undefined): string {
-  if (!status) return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
-  const s = status.toLowerCase();
-  if (s === 'active' || s === 'open')
-    return 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
-  return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
-}
 
 const TLP_STYLES: Record<string, string> = {
   red: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
@@ -274,10 +169,6 @@ function Confidence({ value }: { value: number | null }) {
     </div>
   );
 }
-
-/* ------------------------------------------------------------------ */
-/*  Per-tab card components                                            */
-/* ------------------------------------------------------------------ */
 
 function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; onCopy: () => void }) {
   const [open, setOpen] = useState(false);
@@ -644,170 +535,6 @@ function SectorList({ sectors }: { sectors: { sector: string; count: number }[] 
   );
 }
 
-function CatalogCard({ item, section }: { item: TiCatalogItem; section: CatalogSectionId }) {
-  const [open, setOpen] = useState(false);
-  const codeField = CATALOG_CODE_LABEL[section];
-  const code = codeField ? (item[codeField as keyof TiCatalogItem] as string | null) : null;
-  return (
-    <details
-      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30"
-      open={open}
-      onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}
-    >
-      <summary className="cursor-pointer list-none">
-        <div className="flex items-start justify-between gap-2 mb-1.5">
-          <div className="min-w-0">
-            <h3 className="text-sm font-bold text-heading leading-snug break-all">{item.name}</h3>
-            {code && <span className="text-mini font-mono text-slate-500">{code}</span>}
-          </div>
-          <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
-            {item.severity && (
-              <Badge cls={SEVERITY_STYLES[item.severity] ?? statusCls(item.severity)}>{item.severity}</Badge>
-            )}
-            {item.status && <Badge cls={statusCls(item.status)}>{item.status}</Badge>}
-            {item.tlp && (
-              <Badge
-                cls={
-                  TLP_STYLES[item.tlp.toLowerCase()] ??
-                  'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                }
-              >
-                {item.tlp.toUpperCase()}
-              </Badge>
-            )}
-          </div>
-        </div>
-        {(item.category || item.productCwe) && (
-          <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-            {item.category && (
-              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-rose-500/10 text-rose-700 dark:text-rose-300">
-                {item.category}
-              </span>
-            )}
-            {item.productCwe && (
-              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
-                {item.productCwe}
-              </span>
-            )}
-          </div>
-        )}
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mt-1.5">
-          {item.confidence != null && <Confidence value={item.confidence} />}
-          {item.firstSeen && <span className="text-mini font-mono text-slate-500">first {item.firstSeen}</span>}
-          {item.lastSeen && <span className="text-mini font-mono text-slate-500">last {item.lastSeen}</span>}
-          {item.analyticCount != null && (
-            <span className="text-mini font-mono text-slate-500">{item.analyticCount} analytics</span>
-          )}
-          {item.added && <span className="text-mini font-mono text-slate-500">added {item.added}</span>}
-        </div>
-        {item.description && (
-          <p className="text-mini text-slate-500 mt-1.5 leading-snug line-clamp-2">{item.description}</p>
-        )}
-        <span className="inline-block font-mono text-micro text-slate-400 group-open:text-rose-500 mt-1">details</span>
-      </summary>
-      {open && <CatalogDetailBody section={section} id={item.id} />}
-    </details>
-  );
-}
-
-const SKIP_DETAIL_FIELDS = new Set([
-  'id',
-  'name',
-  'description',
-  'tlp',
-  'sourceUrl',
-  'badges',
-  'columns',
-  'references',
-  'aliases',
-  'analytics',
-]);
-
-function CatalogDetailBody({ section, id }: { section: CatalogSectionId; id: number }) {
-  const { body, loading } = useDetail<TiCatalogDetail>(`/api/v1/threat-intel/threaticon/catalog/${section}/${id}`);
-  if (loading) return <p className="text-mini text-slate-500 font-mono mt-3">loading details…</p>;
-  if (!body)
-    return (
-      <p className="text-mini text-slate-500 font-mono mt-3">detail unavailable (is the sync covered this record?)</p>
-    );
-  const rows = Object.entries(body).filter(([k, v]) => {
-    if (SKIP_DETAIL_FIELDS.has(k)) return false;
-    if (v == null) return false;
-    return typeof v !== 'object';
-  });
-  return (
-    <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-sm">
-      {body.description && <p className="text-body leading-relaxed">{body.description}</p>}
-      <PostAnalysisButton
-        title={typeof body.name === 'string' ? body.name : `${section} #${id}`}
-        description={typeof body.description === 'string' ? body.description : undefined}
-        source="threaticon.com"
-        compact
-      />
-      {Array.isArray(body.aliases) && body.aliases.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">aliases:</span>
-          {body.aliases.map((a) => (
-            <span key={a} className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
-              {a}
-            </span>
-          ))}
-        </div>
-      )}
-      {Array.isArray(body.analytics) && body.analytics.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">analytics:</span>
-          {body.analytics.map((a) => (
-            <span
-              key={a}
-              className="px-1.5 py-0.5 text-micro font-mono rounded bg-sky-500/10 text-sky-700 dark:text-sky-300"
-            >
-              {a}
-            </span>
-          ))}
-        </div>
-      )}
-      {rows.length > 0 && (
-        <div className="grid sm:grid-cols-2 gap-1.5 text-mini font-mono text-slate-500">
-          {rows.map(([k, v]) => (
-            <div key={k} className="min-w-0 break-all">
-              <span className="text-muted">{k}: </span>
-              {String(v)}
-            </div>
-          ))}
-        </div>
-      )}
-      {Array.isArray(body.references) && body.references.length > 0 && (
-        <div className="flex flex-wrap gap-2 text-mini">
-          {body.references.map((r) => (
-            <a
-              key={r.url}
-              href={sanitizeUrl(r.url) ?? undefined}
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="inline-flex items-center gap-0.5 text-sky-600 dark:text-sky-400 hover:underline"
-            >
-              {r.label}
-              <ExternalLink className="w-2.5 h-2.5" />
-            </a>
-          ))}
-        </div>
-      )}
-      {body.sourceUrl && (
-        <a
-          href={sanitizeUrl(body.sourceUrl) ?? undefined}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="inline-flex items-center gap-0.5 text-sky-600 dark:text-sky-400 hover:underline text-mini"
-        >
-          threaticon.com record
-          <ExternalLink className="w-2.5 h-2.5" />
-        </a>
-      )}
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /*  Page                                                               */
 /* ------------------------------------------------------------------ */
@@ -822,14 +549,6 @@ export default function ThreaticonFeeds() {
   const [families, setFamilies] = useState<TiMalwareFamily[]>([]);
   const [coverage, setCoverage] = useState<TiCoverageTechnique[]>([]);
   const [mapBody, setMapBody] = useState<TiMapBody | null>(null);
-
-  const [catalogIdx, setCatalogIdx] = useState<TiCatalogIndex | null>(null);
-  const [campaigns, setCampaigns] = useState<TiCatalogItem[]>([]);
-  const [attackPatterns, setAttackPatterns] = useState<TiCatalogItem[]>([]);
-  const [catalogItems, setCatalogItems] = useState<TiCatalogItem[]>([]);
-  const [catalogSection, setCatalogSection] = useState<
-    'tools' | 'mitigations' | 'data-sources' | 'detection-strategies'
-  >('tools');
 
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
@@ -856,21 +575,12 @@ export default function ThreaticonFeeds() {
     } finally {
       setLoading(false);
     }
-    try {
-      const cRes = await fetch('/api/v1/threat-intel/threaticon/catalog');
-      if (cRes.ok) setCatalogIdx((await cRes.json()) as TiCatalogIndex);
-    } catch {
-      /* extended catalog not built yet — tabs will note it */
-    }
   }
 
   const loadedTabs = useRef<Set<TabId>>(new Set());
 
   useEffect(() => {
     if (loadedTabs.current.has(tab)) return;
-    // 'catalog' is owned by the dedicated abort-guarded effect below —
-    // fetching it here too doubled the same request on first visit.
-    if (tab === 'catalog') return;
     loadedTabs.current.add(tab);
     const base = '/api/v1/threat-intel/threaticon';
     const endpoint =
@@ -880,13 +590,7 @@ export default function ThreaticonFeeds() {
           ? `${base}/malware?limit=10000`
           : tab === 'coverage'
             ? `${base}/coverage?limit=5000`
-            : tab === 'map'
-              ? `${base}/map`
-              : tab === 'campaigns'
-                ? `${base}/catalog/campaigns?limit=1000`
-                : tab === 'attack-patterns'
-                  ? `${base}/catalog/attack-patterns?limit=1000`
-                  : '';
+            : `${base}/map`;
     (async () => {
       try {
         const r = await fetch(endpoint);
@@ -896,33 +600,13 @@ export default function ThreaticonFeeds() {
         else if (tab === 'malware') setFamilies((json.families as TiMalwareFamily[]) ?? []);
         else if (tab === 'coverage') setCoverage((json.techniques as TiCoverageTechnique[]) ?? []);
         else if (tab === 'map') setMapBody(json as unknown as TiMapBody);
-        else if (tab === 'campaigns') setCampaigns((json.items as TiCatalogItem[]) ?? []);
-        else if (tab === 'attack-patterns') setAttackPatterns((json.items as TiCatalogItem[]) ?? []);
-        else if (tab === 'catalog') setCatalogItems((json.items as TiCatalogItem[]) ?? []);
       } catch {
         // Allow a retry on the next visit — memoizing a FAILED load made one
         // transient 500 show an empty tab forever (map tab rendered nothing).
         loadedTabs.current.delete(tab);
       }
     })();
-  }, [tab, catalogSection]);
-
-  useEffect(() => {
-    if (tab !== 'catalog') return;
-    const ctl = new AbortController();
-    (async () => {
-      try {
-        const r = await fetch(`/api/v1/threat-intel/threaticon/catalog/${catalogSection}?limit=1000`, {
-          signal: ctl.signal,
-        });
-        if (!r.ok) return;
-        setCatalogItems(((await r.json()) as { items?: TiCatalogItem[] }).items ?? []);
-      } catch {
-        /* non-fatal */
-      }
-    })();
-    return () => ctl.abort();
-  }, [tab, catalogSection]);
+  }, [tab]);
 
   const actorTypes = useMemo(() => {
     const m = new Map<string, number>();
@@ -979,26 +663,6 @@ export default function ThreaticonFeeds() {
     });
   }, [coverage, query, tacticFilter]);
 
-  const filteredCampaigns = useMemo(() => {
-    const n = query.toLowerCase().trim();
-    return campaigns.filter((c) => !n || `${c.name} ${c.status ?? ''}`.toLowerCase().includes(n));
-  }, [campaigns, query]);
-
-  const filteredPatterns = useMemo(() => {
-    const n = query.toLowerCase().trim();
-    return attackPatterns.filter((a) => !n || `${a.name} ${a.techniqueId ?? ''}`.toLowerCase().includes(n));
-  }, [attackPatterns, query]);
-
-  const filteredCatalogItems = useMemo(() => {
-    const n = query.toLowerCase().trim();
-    const codeField = CATALOG_CODE_LABEL[catalogSection];
-    return catalogItems.filter((i) => {
-      if (!n) return true;
-      const code = codeField ? ((i[codeField as keyof TiCatalogItem] as string | null) ?? '') : '';
-      return `${i.name} ${code} ${i.status ?? ''}`.toLowerCase().includes(n);
-    });
-  }, [catalogItems, query, catalogSection]);
-
   async function copyText(slug: string) {
     const a = actors.find((x) => x.slug === slug);
     if (!a) return;
@@ -1016,19 +680,6 @@ export default function ThreaticonFeeds() {
     malware: 'malwareFamilies',
     coverage: 'techniques',
     map: 'targetedCountries',
-  };
-
-  const catalogTabCount = (id: TabId): number | null => {
-    if (id === 'catalog') {
-      if (!catalogIdx) return null;
-      return (
-        (catalogIdx.counts.tools ?? 0) +
-        (catalogIdx.counts.mitigations ?? 0) +
-        (catalogIdx.counts['data-sources'] ?? 0) +
-        (catalogIdx.counts['detection-strategies'] ?? 0)
-      );
-    }
-    return catalogIdx?.counts[id] ?? null;
   };
 
   const summaryItems = useMemo(() => {
@@ -1053,35 +704,9 @@ export default function ThreaticonFeeds() {
                 body: `tactic: ${t.tactic} · ${t.rules} detection rules`,
                 source,
               }))
-            : tab === 'campaigns'
-              ? filteredCampaigns.slice(0, 30).map((c) => ({
-                  title: c.name,
-                  body: `status: ${c.status ?? 'unknown'}`,
-                  source,
-                }))
-              : tab === 'attack-patterns'
-                ? filteredPatterns.slice(0, 30).map((a) => ({
-                    title: a.name,
-                    body: `technique: ${a.techniqueId ?? 'n/a'}`,
-                    source,
-                  }))
-                : tab === 'catalog'
-                  ? filteredCatalogItems.slice(0, 30).map((i) => ({
-                      title: i.name,
-                      body: `status: ${i.status ?? 'unknown'}`,
-                      source,
-                    }))
-                  : [];
+            : [];
     return { surface: `Threaticon · ${tabLabel}`, items };
-  }, [
-    tab,
-    filteredActors,
-    filteredFamilies,
-    filteredCoverage,
-    filteredCampaigns,
-    filteredPatterns,
-    filteredCatalogItems,
-  ]);
+  }, [tab, filteredActors, filteredFamilies, filteredCoverage]);
 
   return (
     <DataPageLayout
@@ -1101,8 +726,8 @@ export default function ThreaticonFeeds() {
             threaticon.com
           </a>
           — a STIX 2.1 actor catalog, malware family dictionary, ATT&CK detection-coverage dataset, and a country-level
-          threat map, plus the extended public-preview catalog: campaigns, attack patterns, vulnerabilities, ATT&CK
-          controls, and a 480k IOC dictionary.
+          threat map. (The extended public-preview catalog — campaigns, attack patterns, controls — was removed
+          2026-09-13 to stay under the Workers 20k static-asset cap.) controls, and a 480k IOC dictionary.
         </>
       }
       loading={loading && !idx}
@@ -1137,9 +762,7 @@ export default function ThreaticonFeeds() {
             {TABS.map((t) => {
               const Icon = t.icon;
               const active = tab === t.id;
-              const count = CATALOG_TAB_IDS.has(t.id)
-                ? catalogTabCount(t.id)
-                : idx.counts[COUNT_KEY[t.id as keyof typeof COUNT_KEY]];
+              const count = idx.counts[COUNT_KEY[t.id as keyof typeof COUNT_KEY]];
               return (
                 <button
                   key={t.id}
@@ -1323,80 +946,6 @@ export default function ThreaticonFeeds() {
                 <CountryList title="Targeted countries" entries={mapBody.targeted} tone="bg-sky-500" />
               </div>
               <SectorList sectors={mapBody.sectors} />
-            </>
-          )}
-
-          {/* Campaigns tab */}
-          {tab === 'campaigns' && (
-            <>
-              <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                <SearchBox query={query} setQuery={setQuery} placeholder="Search campaigns…" />
-              </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
-                {catalogIdx
-                  ? `Showing ${filteredCampaigns.length} of ${catalogIdx.counts.campaigns ?? campaigns.length} campaign objects`
-                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
-              </div>
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredCampaigns.map((c) => (
-                  <CatalogCard key={c.id} item={c} section="campaigns" />
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* Attack patterns tab */}
-          {tab === 'attack-patterns' && (
-            <>
-              <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                <SearchBox query={query} setQuery={setQuery} placeholder="Search attack patterns (name, CAPEC)…" />
-              </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
-                {catalogIdx
-                  ? `Showing ${filteredPatterns.length} of ${catalogIdx.counts['attack-patterns'] ?? attackPatterns.length} attack patterns`
-                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
-              </div>
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredPatterns.map((a) => (
-                  <CatalogCard key={a.id} item={a} section="attack-patterns" />
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* Controls catalog tab */}
-          {tab === 'catalog' && (
-            <>
-              <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                <SearchBox
-                  query={query}
-                  setQuery={setQuery}
-                  placeholder="Search tools, mitigations, sources, strategies…"
-                />
-                <select
-                  value={catalogSection}
-                  onChange={(e) => setCatalogSection(e.target.value as typeof catalogSection)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
-                >
-                  {SMALL_CATALOG_SECTIONS.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.label} ({catalogIdx?.counts[s.id] ?? 0})
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
-                {catalogIdx
-                  ? `Showing ${filteredCatalogItems.length} of ${catalogIdx.counts[catalogSection] ?? catalogItems.length} ${
-                      SMALL_CATALOG_SECTIONS.find((s) => s.id === catalogSection)?.hint ?? ''
-                    }`
-                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
-              </div>
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredCatalogItems.map((i) => (
-                  <CatalogCard key={i.id} item={i} section={catalogSection} />
-                ))}
-              </div>
             </>
           )}
 

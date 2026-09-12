@@ -1,9 +1,0 @@
-{
-  "id": 1989,
-  "name": "T1595.002: Vulnerability Scanning",
-  "techniqueId": "T1595",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1989"
-}

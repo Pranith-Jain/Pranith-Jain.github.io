@@ -1,9 +1,0 @@
-{
-  "id": 1106,
-  "fetchedAt": "2026-08-15T06:20:55.082Z",
-  "name": "Add Malicious File to Shared Webroot",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversaries may add malicious content to a website through the open file share and then browse to that content with a web browser to cause the server to execute the content. The malicious content will typically run under the context and permissions of the web server process, often resulting in local system or administrative privileges depending on how the web server is configured."
-}

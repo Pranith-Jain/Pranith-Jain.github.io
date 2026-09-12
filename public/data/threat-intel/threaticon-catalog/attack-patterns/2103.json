@@ -1,9 +1,0 @@
-{
-  "id": 2103,
-  "name": "T1249.001 - PowerShell for Scripting",
-  "techniqueId": "T1249",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2103"
-}

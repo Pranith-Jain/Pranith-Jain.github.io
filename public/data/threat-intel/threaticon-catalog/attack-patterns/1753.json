@@ -1,9 +1,0 @@
-{
-  "id": 1753,
-  "name": "T1290 - Exploit Public-Facing Web Servers",
-  "techniqueId": "T1290",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1753"
-}

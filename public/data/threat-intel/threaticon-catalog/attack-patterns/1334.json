@@ -1,9 +1,0 @@
-{
-  "id": 1334,
-  "name": "T1098: OS Credential Dumping (Windows operating system)",
-  "techniqueId": "T1098",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1334"
-}

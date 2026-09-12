@@ -1,9 +1,0 @@
-{
-  "id": 564,
-  "fetchedAt": "2026-08-15T07:52:35.976Z",
-  "name": "Code Repositories",
-  "tlp": "white",
-  "techniqueId": "DET0263",
-  "added": "May 2, 2026",
-  "description": "Adversaries may leverage code repositories to collect valuable information. Code repositories are tools/services that store source code and automate software builds. They may be hosted internally or privately on third party sites such as Github, GitLab, SourceForge, and BitBucket. Users typically interact with code repositories through a web application or command-line utilities such as git. Once adversaries gain access to a victim network or a private code repository, they may collect sensitive information such as proprietary source code or Unsecured Credentials contained within software's source code. Having access to software's source code may allow adversaries to develop Exploits, while credentials may provide access to additional resources using Valid Accounts.(Citation: Wired Uber Breach)(Citation: Krebs Adobe) **Note:** This is distinct from Code Repositories, which focuses on conducting Reconnaissance via public code repositories."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1098,
-  "name": "Functionality Bypass",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary attacks a system by bypassing some or all functionality intended to protect it. Often, a system user will think that protection is in place, but the functionality behind those protections has been disabled by the adversary.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1098"
-}

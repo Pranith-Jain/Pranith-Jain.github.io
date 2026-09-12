@@ -1,9 +1,0 @@
-{
-  "id": 2886,
-  "name": "T1077: Windows Admin Shares – lateral movement via SMB (if used)",
-  "techniqueId": "T1077",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2886"
-}

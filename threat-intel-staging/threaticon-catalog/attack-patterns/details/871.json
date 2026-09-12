@@ -1,9 +1,0 @@
-{
-  "id": 871,
-  "fetchedAt": "2026-08-15T06:10:45.530Z",
-  "name": "Force Use of Corrupted Files",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. This describes an attack where an application is forced to use a file that an attacker has corrupted. The result is often a denial of service caused by the application being unable to process the corrupted file, but other results, including the disabling of filters or access controls (if the application fails in an unsafe way rather than failing by locking down) or buffer overflows are possible."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1120,
-  "name": "Replace Winlogon Helper DLL",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Winlogon is a part of Windows that performs logon actions. In Windows systems prior to Windows Vista, a registry key can be modified that causes Winlogon to load a DLL on startup. Adversaries may take advantage of this feature to load adversarial code at startup.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1120"
-}

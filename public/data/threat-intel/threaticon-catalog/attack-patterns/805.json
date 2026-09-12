@@ -1,9 +1,0 @@
-{
-  "id": 805,
-  "name": "Software Integrity Attack",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An attacker initiates a series of events designed to cause a user, program, server, or device to perform actions which undermine the integrity of software code, device data structures, or device firmware, achieving the modification of the target's integrity to achieve an insecure state.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/805"
-}

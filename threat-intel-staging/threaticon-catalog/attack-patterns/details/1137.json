@@ -1,9 +1,0 @@
-{
-  "id": 1137,
-  "fetchedAt": "2026-08-15T06:22:17.907Z",
-  "name": "Traffic Injection",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way."
-}

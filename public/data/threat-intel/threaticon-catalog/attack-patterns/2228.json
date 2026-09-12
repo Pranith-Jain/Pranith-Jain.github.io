@@ -1,9 +1,0 @@
-{
-  "id": 2228,
-  "name": "T1059 (Lateral access via remote services)",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2228"
-}

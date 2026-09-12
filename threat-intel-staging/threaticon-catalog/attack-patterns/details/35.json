@@ -1,9 +1,0 @@
-{
-  "id": 35,
-  "fetchedAt": "2026-08-15T07:52:28.043Z",
-  "name": "Sharepoint",
-  "tlp": "white",
-  "techniqueId": "DET0500",
-  "added": "May 2, 2026",
-  "description": "Adversaries may leverage the SharePoint repository as a source to mine valuable information. SharePoint will often contain useful information for an adversary to learn about the structure and functionality of the internal network and systems. For example, the following is a list of example information that may hold potential value to an adversary and may also be found on SharePoint: * Policies, procedures, and standards * Physical / logical network diagrams * System architecture diagrams * Technical system documentation * Testing / development credentials (i.e., Unsecured Credentials) * Work / project schedules * Source code snippets * Links to network shares and other internal resources"
-}

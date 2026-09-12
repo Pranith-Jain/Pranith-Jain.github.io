@@ -1,9 +1,0 @@
-{
-  "id": 2471,
-  "name": "T1133 - External Remote Services (VDI/VPN exploitation)",
-  "techniqueId": "T1133",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2471"
-}

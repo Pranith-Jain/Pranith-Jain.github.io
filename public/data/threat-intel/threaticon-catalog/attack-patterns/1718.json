@@ -1,9 +1,0 @@
-{
-  "id": 1718,
-  "name": "T1547.004 - Remote Access Tools: Web Shells",
-  "techniqueId": "T1547",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1718"
-}

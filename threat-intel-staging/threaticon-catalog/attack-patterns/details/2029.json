@@ -1,9 +1,0 @@
-{
-  "id": 2029,
-  "fetchedAt": "2026-08-15T06:47:42.034Z",
-  "name": "T1003.001 -Credential Dumping: DLL Injection",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

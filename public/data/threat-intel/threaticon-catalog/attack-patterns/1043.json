@@ -1,9 +1,0 @@
-{
-  "id": 1043,
-  "name": "File Discovery",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very Low. Likelihood of attack: High. An adversary engages in probing and exploration activities to determine if common key files exists. Such files often contain configuration and security parameters of the targeted application, system or network. Using this knowledge may often pave the way for more damaging attacks.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1043"
-}

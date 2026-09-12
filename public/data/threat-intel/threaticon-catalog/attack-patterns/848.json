@@ -1,9 +1,0 @@
-{
-  "id": 848,
-  "name": "Serialized Data Parameter Blowup",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. This attack exploits certain serialized data parsers (e.g., XML, YAML, etc.) which manage data in an inefficient manner. The attacker crafts an serialized data file with multiple configuration parameters in the same dataset. In a vulnerable parser, this results in a denial of service condition where CPU resources are exhausted because of the parsing algorithm. The weakness being exploited is tied to parser implementation and not language specific.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/848"
-}

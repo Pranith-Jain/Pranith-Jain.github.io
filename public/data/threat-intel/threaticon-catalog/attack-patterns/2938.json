@@ -1,9 +1,0 @@
-{
-  "id": 2938,
-  "name": "T1021.001 – Remote Services: SSH",
-  "techniqueId": "T1021",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2938"
-}

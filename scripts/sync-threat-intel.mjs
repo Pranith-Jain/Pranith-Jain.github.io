@@ -43,8 +43,8 @@ const ARGUS_TRENDING_URL = 'https://argus.rootxvishal.com/data/trending.json';
 
 function ensureStaging() {
   // Only clean paths THIS script owns. The staging root also holds
-  // committed state owned by other verticals (threaticon-catalog/ for the
-  // weekly resumable crawl) — wiping it all would delete them from git.
+  // committed state owned by other verticals — wiping it all would
+  // delete them from git.
   mkdirSync(STAGING, { recursive: true });
   for (const owned of ['nvd-recent.json', 'kev.json', 'argus-trending.json']) {
     if (existsSync(join(STAGING, owned))) rmSync(join(STAGING, owned));
@@ -79,7 +79,9 @@ async function fetchJson(url, dest, opts = {}) {
       lastErr = err;
       if (attempt < retries) {
         const waitMs = 5_000 * (attempt + 1);
-        console.warn(`  ⚠ attempt ${attempt + 1} failed (${err instanceof Error ? err.message : err}); retrying in ${waitMs}ms`);
+        console.warn(
+          `  ⚠ attempt ${attempt + 1} failed (${err instanceof Error ? err.message : err}); retrying in ${waitMs}ms`
+        );
         await new Promise((r) => setTimeout(r, waitMs));
       }
     }

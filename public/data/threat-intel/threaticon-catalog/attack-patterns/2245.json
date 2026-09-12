@@ -1,9 +1,0 @@
-{
-  "id": 2245,
-  "name": "T1055 - Use of legitimate credentials",
-  "techniqueId": "T1055",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2245"
-}

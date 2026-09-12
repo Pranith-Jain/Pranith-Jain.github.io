@@ -1,9 +1,0 @@
-{
-  "id": 1750,
-  "name": "T1054.001 - Remote Access Tools",
-  "techniqueId": "T1054",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1750"
-}

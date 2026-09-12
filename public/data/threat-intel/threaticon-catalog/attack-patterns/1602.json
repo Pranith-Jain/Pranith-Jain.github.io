@@ -1,9 +1,0 @@
-{
-  "id": 1602,
-  "name": "T1119: Automated Collection",
-  "techniqueId": "T1119",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1602"
-}

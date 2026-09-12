@@ -1,9 +1,0 @@
-{
-  "id": 1877,
-  "name": "T1203 - spear-phishing via compromised accounts",
-  "techniqueId": "T1203",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1877"
-}

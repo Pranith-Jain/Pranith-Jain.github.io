@@ -1,9 +1,0 @@
-{
-  "id": 2350,
-  "name": "T1530 - Data Exfiltration via Unsecured Channels",
-  "techniqueId": "T1530",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2350"
-}

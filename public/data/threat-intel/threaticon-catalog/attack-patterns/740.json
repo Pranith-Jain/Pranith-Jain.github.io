@@ -1,9 +1,0 @@
-{
-  "id": 740,
-  "name": "Exploit Non-Production Interfaces",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary exploits a sample, demonstration, test, or debug interface that is unintentionally enabled on a production system, with the goal of gleaning information or leveraging functionality that would otherwise be unavailable.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/740"
-}

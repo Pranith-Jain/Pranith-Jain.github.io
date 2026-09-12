@@ -1,9 +1,0 @@
-{
-  "id": 89,
-  "name": "Local Data Staging",
-  "techniqueId": "DET0261",
-  "added": "May 2, 2026",
-  "description": "Adversaries may stage collected data in a central location or directory on the local system prior to Exfiltration. Data may be kept in separate files or combined into one file through techniques such as Archive Collected Data. Interactive command shells may be used, and common functionality within cmd and bash may be used to copy data into a staging location. Adversaries may also stage collected data in various available formats/locations of a system, including local storage databases/repositories or the Windows Registry.(Citation: Prevailion DarkWatchman 2021)",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/89"
-}

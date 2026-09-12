@@ -1,9 +1,0 @@
-{
-  "id": 1812,
-  "name": "T1432.001 (Impersonation via False Flag)",
-  "techniqueId": "T1432",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1812"
-}

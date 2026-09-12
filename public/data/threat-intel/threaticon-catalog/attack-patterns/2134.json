@@ -1,9 +1,0 @@
-{
-  "id": 2134,
-  "name": "T1543.004 - Exploit Public-S Facing Application",
-  "techniqueId": "T1543",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2134"
-}

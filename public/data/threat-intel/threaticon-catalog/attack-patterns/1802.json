@@ -1,9 +1,0 @@
-{
-  "id": 1802,
-  "name": "T1194 - Exploitation for Credential Access",
-  "techniqueId": "T1194",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1802"
-}

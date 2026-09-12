@@ -1,9 +1,0 @@
-{
-  "id": 1649,
-  "name": "T1588.001: Malware",
-  "techniqueId": "T1588",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1649"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1612,
-  "name": "T1059.003 - Obfuscated Files or Information: Fileless Malware",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1612"
-}

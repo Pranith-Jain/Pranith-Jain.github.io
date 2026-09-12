@@ -1,9 +1,0 @@
-{
-  "id": 2982,
-  "fetchedAt": "2026-08-15T07:48:02.839Z",
-  "name": "T1194.001 PowerShell execution (T1059.001)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Aug 11, 2026",
-  "description": null
-}

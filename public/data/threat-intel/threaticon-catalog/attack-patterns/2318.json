@@ -1,9 +1,0 @@
-{
-  "id": 2318,
-  "name": "T1119: Input Capture",
-  "techniqueId": "T1119",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2318"
-}

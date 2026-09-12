@@ -1,9 +1,0 @@
-{
-  "id": 2186,
-  "name": "T1567.002 - Encrypt data for impact",
-  "techniqueId": "T1567",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2186"
-}

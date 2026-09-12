@@ -1,9 +1,0 @@
-{
-  "id": 2259,
-  "name": "T1093.001 - Valid Accounts: Account Access Removal or Modification",
-  "techniqueId": "T1093",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2259"
-}

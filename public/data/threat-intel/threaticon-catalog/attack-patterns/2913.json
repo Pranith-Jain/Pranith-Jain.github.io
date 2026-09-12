@@ -1,9 +1,0 @@
-{
-  "id": 2913,
-  "name": "T1560.001 – Archive via Utility",
-  "techniqueId": "T1560",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2913"
-}

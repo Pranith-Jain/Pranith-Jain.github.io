@@ -1,9 +1,0 @@
-{
-  "id": 178,
-  "name": "Compromise Hardware Supply Chain",
-  "techniqueId": "DET0368",
-  "added": "May 2, 2026",
-  "description": "Adversaries may manipulate hardware components in products prior to receipt by a final consumer for the purpose of data or system compromise. By modifying hardware or firmware in the supply chain, adversaries can insert a backdoor into consumer networks that may be difficult to detect and give the adversary a high degree of control over the system. Hardware backdoors may be inserted into various devices, such as servers, workstations, network infrastructure, or peripherals.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/178"
-}

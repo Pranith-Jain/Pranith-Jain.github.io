@@ -1,9 +1,0 @@
-{
-  "id": 918,
-  "fetchedAt": "2026-08-15T06:12:48.876Z",
-  "name": "XSS Through HTTP Query Strings",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An adversary embeds malicious script code in the parameters of an HTTP query string and convinces a victim to submit the HTTP request that contains the query string to a vulnerable web application. The web application then procedes to use the values parameters without properly validation them first and generates the HTML code that will be executed by the victim's browser."
-}

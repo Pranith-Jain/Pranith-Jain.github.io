@@ -1,9 +1,0 @@
-{
-  "id": 1737,
-  "name": "T1093.001 - Discovery of OS",
-  "techniqueId": "T1093",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1737"
-}

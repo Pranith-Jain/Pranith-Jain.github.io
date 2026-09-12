@@ -1,9 +1,0 @@
-{
-  "id": 278,
-  "fetchedAt": "2026-08-15T06:49:15.959Z",
-  "name": "Exfiltration Over Bluetooth",
-  "tlp": "white",
-  "techniqueId": "DET0554",
-  "added": "May 2, 2026",
-  "description": "Adversaries may attempt to exfiltrate data over Bluetooth rather than the command and control channel. If the command and control network is a wired Internet connection, an adversary may opt to exfiltrate data using a Bluetooth communication channel. Adversaries may choose to do this if they have sufficient access and proximity. Bluetooth connections might not be secured or defended as well as the primary Internet-connected channel because it is not routed through the same enterprise network."
-}

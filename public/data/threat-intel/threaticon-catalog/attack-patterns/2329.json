@@ -1,9 +1,0 @@
-{
-  "id": 2329,
-  "name": "T1133 (Steal or Forge Credentials)",
-  "techniqueId": "T1133",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2329"
-}

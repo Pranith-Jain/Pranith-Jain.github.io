@@ -1,9 +1,0 @@
-{
-  "id": 1551,
-  "name": "T1078.001 - Registry-run keys: Persistence mechanisms were maintained through registry entries.",
-  "techniqueId": "T1078",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1551"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1006,
-  "name": "Web Services API Signature Forgery Leveraging Hash Function Extension Weakness",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. An adversary utilizes a hash function extension/padding weakness, to modify the parameters passed to the web service requesting authentication by generating their own call in order to generate a legitimate signature hash (as described in the notes), without knowledge of the secret token sometimes provided by the web service.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1006"
-}

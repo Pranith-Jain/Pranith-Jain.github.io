@@ -1,9 +1,0 @@
-{
-  "id": 2770,
-  "name": "T1053.006 Scheduled Task/Job",
-  "techniqueId": "T1053",
-  "added": "Aug 9, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2770"
-}

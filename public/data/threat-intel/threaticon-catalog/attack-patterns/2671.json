@@ -1,9 +1,0 @@
-{
-  "id": 2671,
-  "name": "T1003 – Credential Dumping",
-  "techniqueId": "T1003",
-  "added": "Aug 5, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2671"
-}

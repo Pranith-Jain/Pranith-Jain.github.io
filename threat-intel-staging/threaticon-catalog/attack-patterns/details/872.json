@@ -1,9 +1,0 @@
-{
-  "id": 872,
-  "fetchedAt": "2026-08-15T06:10:48.304Z",
-  "name": "Leverage Alternate Encoding",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An adversary leverages the possibility to encode potentially harmful input or content used by applications such that the applications are ineffective at validating this encoding standard."
-}

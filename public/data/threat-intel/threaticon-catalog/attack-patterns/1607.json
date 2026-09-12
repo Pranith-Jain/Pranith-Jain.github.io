@@ -1,9 +1,0 @@
-{
-  "id": 1607,
-  "name": "T1567.002: Exfiltration to Cloud Storage",
-  "techniqueId": "T1567",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1607"
-}

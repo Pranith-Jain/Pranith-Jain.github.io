@@ -1,9 +1,0 @@
-{
-  "id": 2886,
-  "fetchedAt": "2026-08-15T07:29:32.387Z",
-  "name": "T1077: Windows Admin Shares – lateral movement via SMB (if used)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Aug 11, 2026",
-  "description": null
-}

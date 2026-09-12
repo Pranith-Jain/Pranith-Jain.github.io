@@ -107,11 +107,8 @@ signature-base-replication/
 /Threat*
 .mimocode/
 
-# Threaticon catalog staging IS committed (resumable crawl for the GitHub
-# Actions sync — a fresh full crawl exceeds the 6h runner limit).
 !/threat-intel-staging/
 threat-intel-staging/*
-!/threat-intel-staging/threaticon-catalog/
 
 # detection.wiki sync staging output
 detection-wiki-staging/
@@ -147,7 +144,6 @@ og-overrides.generated.json
 /webamon-dtb-staging/
 /oss-feeds-staging/
 /threat-intel-staging/*
-!/threat-intel-staging/threaticon-catalog/
 # Committed small sources: ransomware-groups sync staging (reproducible builds
 # when upstreams flap) + ai-escape curatorial seed (source of truth).
 !/threat-intel-staging/ransomware-groups/

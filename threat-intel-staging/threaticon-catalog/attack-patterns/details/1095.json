@@ -1,9 +1,0 @@
-{
-  "id": 1095,
-  "fetchedAt": "2026-08-15T06:20:25.974Z",
-  "name": "Install New Service",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "When an operating system starts, it also starts programs called services or daemons. Adversaries may install a new service which will be executed at startup (on a Windows system, by modifying the registry). The service name may be disguised by using a name from a related operating system or benign software. Services are usually run with elevated privileges."
-}

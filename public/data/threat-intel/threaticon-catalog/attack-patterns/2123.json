@@ -1,9 +1,0 @@
-{
-  "id": 2123,
-  "name": "T1552 - Code Reuse",
-  "techniqueId": "T1552",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2123"
-}

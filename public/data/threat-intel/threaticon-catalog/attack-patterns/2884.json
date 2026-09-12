@@ -1,9 +1,0 @@
-{
-  "id": 2884,
-  "name": "T1059.003: Command-Line Interface – PowerShell back‑door",
-  "techniqueId": "T1059",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2884"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1060,
-  "fetchedAt": "2026-08-15T06:18:54.718Z",
-  "name": "Hardware Component Substitution During Baselining",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary with access to system components during allocated baseline development can substitute a maliciously altered hardware component for a baseline component during the product development and research phases. This can lead to adjustments and calibrations being made in the product so that when the final product, now containing the modified component, is deployed it will not perform as designed and be advantageous to the adversary."
-}

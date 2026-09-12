@@ -1,9 +1,0 @@
-{
-  "id": 2041,
-  "name": "T1270.001 - Ransomware Deployment via Remote Desktop Protocol",
-  "techniqueId": "T1270",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2041"
-}

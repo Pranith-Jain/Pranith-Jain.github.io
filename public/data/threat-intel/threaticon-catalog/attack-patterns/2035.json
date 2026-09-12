@@ -1,9 +1,0 @@
-{
-  "id": 2035,
-  "name": "T1071: Internal Domain Communication over Custom Protocol",
-  "techniqueId": "T1071",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2035"
-}

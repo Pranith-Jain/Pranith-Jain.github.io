@@ -1,9 +1,0 @@
-{
-  "id": 2340,
-  "name": "T1102.001 - Exploit Public-Facing Application",
-  "techniqueId": "T1102",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2340"
-}

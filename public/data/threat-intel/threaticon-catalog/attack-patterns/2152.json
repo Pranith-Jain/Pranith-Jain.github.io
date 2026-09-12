@@ -1,9 +1,0 @@
-{
-  "id": 2152,
-  "name": "T1057 - Anti-Debugging",
-  "techniqueId": "T1057",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2152"
-}

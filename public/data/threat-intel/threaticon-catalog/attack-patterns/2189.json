@@ -1,9 +1,0 @@
-{
-  "id": 2189,
-  "name": "T1077 - Validate account using legitimate credentials via remote desktop protocol",
-  "techniqueId": "T1077",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2189"
-}

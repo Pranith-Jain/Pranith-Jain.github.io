@@ -1,9 +1,0 @@
-{
-  "id": 1181,
-  "fetchedAt": "2026-08-15T06:24:13.583Z",
-  "name": "Alternative Execution Due to Deceptive Filenames",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. The extension of a file name is often used in various contexts to determine the application that is used to open and use it. If an attacker can cause an alternative application to be used, it may be able to execute malicious code, cause a denial of service or expose sensitive information."
-}

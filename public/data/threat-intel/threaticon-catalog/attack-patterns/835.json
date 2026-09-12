@@ -1,9 +1,0 @@
-{
-  "id": 835,
-  "name": "Fuzzing for application mapping",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: High. An attacker sends random, malformed, or otherwise unexpected messages to a target application and observes the application's log or error messages returned. The attacker does not initially know how a target will respond to individual messages but by attempting a large number of message variants they may find a variant that trigger's desired behavior. In this attack, the purpose of the fuzzing is to observe the application's log and error messages, although fuzzing a target can also sometimes cause the target to enter an unstable state, causing a crash.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/835"
-}

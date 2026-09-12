@@ -1,9 +1,0 @@
-{
-  "id": 1427,
-  "name": "T1485 (Network Denial-of-Service Exploitation)",
-  "techniqueId": "T1485",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1427"
-}

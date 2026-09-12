@@ -1,9 +1,0 @@
-{
-  "id": 1855,
-  "fetchedAt": "2026-08-15T07:13:25.363Z",
-  "name": "T1064.004 - Remote File Execution via mshta.exe",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

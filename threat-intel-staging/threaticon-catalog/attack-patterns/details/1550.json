@@ -1,9 +1,0 @@
-{
-  "id": 1550,
-  "fetchedAt": "2026-08-15T08:22:25.580Z",
-  "name": "T1566.001 - Exfiltration over lawful intercept tools: Communication with compromised systems likely used encrypted channels.",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}
