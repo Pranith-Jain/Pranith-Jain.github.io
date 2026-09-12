@@ -1,3 +1,4 @@
+import { logError } from '../../lib/logger';
 /**
  * LLM client — multi-provider with fallback chain: Gemini → Groq → NVIDIA → Infron.
  *
@@ -187,7 +188,7 @@ export async function runWorkersAI(
       lastErr = `${model}: empty response`;
     } catch (err) {
       lastErr = `${model}: ${err instanceof Error ? err.message : String(err)}`;
-      console.error(`runWorkersAI ${lastErr.slice(0, 200)}`);
+      logError('runWorkersAI failed', new Error(lastErr.slice(0, 200)));
       // Invocation subrequest budget is spent — remaining models would all
       // fail identically, so do not burn them (free-plan 50-subrequest cap
       // is shared with the whole cron alarm). Re-throw to fail fast.
@@ -221,17 +222,17 @@ async function runGroq(key: string, input: CompletionInput, model?: string): Pro
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    console.error(`runGroq request failed: ${msg}`);
+    logError('runGroq request failed', new Error(msg));
     throw new Error(`groq request failed: ${msg}`);
   }
   if (res.status === 429) {
-    console.error('runGroq rate limited (429)');
+    logError('runGroq rate limited', new Error('429'));
     throw new RateLimitError('groq rate limited (429)');
   }
   if (!res.ok) {
     const body = await res.text().catch(() => '');
     const msg = `groq HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`;
-    console.error(`runGroq ${msg}`);
+    logError('runGroq failed', new Error(msg));
     throw new Error(msg);
   }
   const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
@@ -260,17 +261,17 @@ async function runInfron(key: string, input: CompletionInput, model: string): Pr
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    console.error(`runInfron request failed: ${msg}`);
+    logError('runInfron request failed', new Error(msg));
     throw new Error(`infron request failed: ${msg}`);
   }
   if (res.status === 429) {
-    console.error('runInfron rate limited (429)');
+    logError('runInfron rate limited', new Error('429'));
     throw new RateLimitError('infron rate limited (429)');
   }
   if (!res.ok) {
     const body = await res.text().catch(() => '');
     const msg = `infron HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`;
-    console.error(`runInfron ${msg}`);
+    logError('runInfron failed', new Error(msg));
     throw new Error(msg);
   }
   const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
@@ -312,7 +313,7 @@ async function runGemini(key: string, input: CompletionInput): Promise<{ text: s
     }
   }
   const msg = (lastError?.message ?? 'all models failed').slice(0, 200);
-  console.error(`runGemini failed: ${msg}`);
+  logError('runGemini failed', new Error(msg));
   throw new Error(`gemini failed: ${msg}`);
 }
 
@@ -342,7 +343,7 @@ async function runNvidia(key: string, input: CompletionInput): Promise<string> {
     return text;
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    console.error(`runNvidia failed: ${msg.slice(0, 200)}`);
+    logError('runNvidia failed', new Error(msg.slice(0, 200)));
     throw new Error(`nvidia failed: ${msg}`);
   }
 }
@@ -409,7 +410,7 @@ export async function runCompletion(
           return { text, modelUsed: `infron:${model}` };
         } catch (err) {
           const errMsg = err instanceof Error ? err.message : String(err);
-          console.error(`runCompletion infron:${model} failed: ${errMsg.slice(0, 200)}`);
+          logError('runCompletion infron failed', new Error(`${model}: ${errMsg.slice(0, 200)}`));
           errors.push(`infron:${model}: ${errMsg.slice(0, 80)}`);
           // Invocation subrequest budget spent — the whole chain is doomed,
           // do not walk the remaining models/providers.
@@ -435,7 +436,7 @@ export async function runCompletion(
           return { text, modelUsed: `groq:${model}` };
         } catch (err) {
           const errMsg = err instanceof Error ? err.message : String(err);
-          console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
+          logError('runCompletion groq failed', new Error(`${model}: ${errMsg.slice(0, 200)}`));
           errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
           // A 413 means THIS prompt is too big for Groq's models — the remaining
           // Groq models will also 413 on the same input, and it isn't a provider-
@@ -458,7 +459,7 @@ export async function runCompletion(
         return { text, modelUsed: `gemini:${model}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
-        console.error(`runCompletion gemini failed: ${errMsg.slice(0, 200)}`);
+        logError('runCompletion gemini failed', new Error(errMsg.slice(0, 200)));
         errors.push(`gemini: ${errMsg.slice(0, 80)}`);
         if (isSubrequestExhausted(err)) throw err;
         if (health) await health.recordFailure('gemini', isRateLimited(err));
@@ -472,7 +473,7 @@ export async function runCompletion(
         return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
-        console.error(`runCompletion nvidia failed: ${errMsg.slice(0, 200)}`);
+        logError('runCompletion nvidia failed', new Error(errMsg.slice(0, 200)));
         errors.push(`nvidia: ${errMsg.slice(0, 80)}`);
         if (isSubrequestExhausted(err)) throw err;
         if (health) await health.recordFailure('nvidia', isRateLimited(err));
@@ -597,8 +598,9 @@ export async function runCompletionStream(
       opts.recordUsage?.(`groq:${GROQ_MODEL}`, `${input.system}\n${input.user}`, text, opts.role ?? 'completion');
       return { text, modelUsed: `groq:${GROQ_MODEL}` };
     } catch (err) {
-      console.error(
-        `runCompletionStream groq failed: ${(err instanceof Error ? err.message : String(err)).slice(0, 120)}`
+      logError(
+        'runCompletionStream groq failed',
+        err instanceof Error ? err : new Error(String(err).slice(0, 120))
       );
       if (health) await health.recordFailure('groq', isRateLimited(err));
       // fall through to the whole-text chain

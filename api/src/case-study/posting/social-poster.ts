@@ -1,3 +1,4 @@
+import { logError } from '../../lib/logger';
 interface SocialParts {
   body: string;
   link?: { label: string; value: string };
@@ -67,13 +68,13 @@ async function uploadTwitterMedia(image: Uint8Array, creds: TwitterCredentials):
     const authHeader = await buildOAuth1Header('POST', url, creds);
     const res = await fetch(url, { method: 'POST', headers: { Authorization: authHeader }, body: form });
     if (!res.ok) {
-      console.error('twitter media upload failed:', res.status, await res.text());
+      logError('twitter media upload failed', new Error(`status ${res.status}: ${(await res.text()).slice(0, 200)}`));
       return undefined;
     }
     const data = (await res.json()) as { media_id_string?: string };
     return data.media_id_string;
   } catch (err) {
-    console.error('twitter media upload error:', err instanceof Error ? err.message : String(err));
+    logError('twitter media upload error', err);
     return undefined;
   }
 }
@@ -144,7 +145,7 @@ export async function postToTwitter(text: string, creds: TwitterCredentials, ima
       });
 
       if (!res.ok) {
-        console.error('twitter link reply failed:', res.status, await res.text());
+        logError('twitter link reply failed', new Error(`status ${res.status}: ${(await res.text()).slice(0, 200)}`));
       } else {
         const data = (await res.json()) as { data?: { id: string } };
         prevTweetId = data?.data?.id;
@@ -186,7 +187,7 @@ async function uploadLinkedinImage(
       }),
     });
     if (!regRes.ok) {
-      console.error('linkedin registerUpload failed:', regRes.status, await regRes.text());
+      logError('linkedin registerUpload failed', new Error(`status ${regRes.status}: ${(await regRes.text()).slice(0, 200)}`));
       return undefined;
     }
     const reg = (await regRes.json()) as {
@@ -204,12 +205,12 @@ async function uploadLinkedinImage(
       body: image,
     });
     if (!putRes.ok) {
-      console.error('linkedin image PUT failed:', putRes.status, await putRes.text());
+      logError('linkedin image PUT failed', new Error(`status ${putRes.status}: ${(await putRes.text()).slice(0, 200)}`));
       return undefined;
     }
     return asset;
   } catch (err) {
-    console.error('linkedin image upload error:', err instanceof Error ? err.message : String(err));
+    logError('linkedin image upload error', err);
     return undefined;
   }
 }

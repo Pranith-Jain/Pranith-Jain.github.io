@@ -396,7 +396,7 @@ export default function AgentInvestigator(): JSX.Element {
           setAgentState(state);
           if (state.status !== 'running') fetchSessions();
         })
-        .catch(() => {});
+        .catch((e) => logCatch(e, 'AgentInvestigator/fallback-poll'));
     }, 2000);
     return () => clearInterval(interval);
     // agentState?.status is already in the deps; eslint sees the full

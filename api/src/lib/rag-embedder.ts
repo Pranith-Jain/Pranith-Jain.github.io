@@ -1,4 +1,5 @@
 import type { Env } from '../env';
+import { logError } from './logger';
 
 /**
  * Content chunk metadata — stored alongside the vector so we can trace
@@ -85,7 +86,7 @@ async function embedText(ai: Ai, text: string): Promise<number[]> {
       return res.data?.[0] ?? [];
     } catch (err) {
       if (attempt === 2) {
-        console.error('embedText failed after retries:', err);
+        logError('embedText failed after retries', err);
         return [];
       }
       await new Promise((r) => setTimeout(r, 250 * (attempt + 1)));
@@ -152,7 +153,7 @@ export async function indexDocument(env: Env, meta: Omit<ChunkMeta, 'chunk_index
         await vec.upsert(vectors);
         inserted += vectors.length;
       } catch (err) {
-        console.error('Vectorize upsert error:', err);
+        logError('Vectorize upsert error', err);
       }
     }
   }

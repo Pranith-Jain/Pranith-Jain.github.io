@@ -1,4 +1,5 @@
 import type { D1Database } from '@cloudflare/workers-types';
+import { logError } from './logger';
 
 /**
  * 30-day data retention sweep. Removes rows older than the configured
@@ -152,7 +153,7 @@ export async function runRetentionSweep(
         deleted: 0,
         error: err instanceof Error ? err.message : String(err),
       });
-      console.error(`retention: ${p.table} failed:`, err);
+      logError(`retention ${p.table} failed`, err);
     }
   }
 

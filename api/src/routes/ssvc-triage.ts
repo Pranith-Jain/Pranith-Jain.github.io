@@ -34,7 +34,11 @@ interface EnrichedCve {
  * Enrich a CVE ID with all the data needed for SSVC-V.
  * Fetches from the existing CVE lookup path (KV cache + NVD + EPSS + KEV).
  */
-async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
+async function enrichCve(
+  cveId: string,
+  env: Env,
+  waitUntil?: (p: Promise<unknown>) => void
+): Promise<EnrichedCve | null> {
   const CVE_ANYWHERE = /CVE-\d{4}-\d{4,}/i;
   if (!CVE_ANYWHERE.test(cveId)) return null;
 
@@ -77,16 +81,19 @@ async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
     const cached = (await kv.get(`cve:${id}`, 'json').catch(() => null)) as Record<string, unknown> | null;
     const data = cached ?? {};
     const result = toEnriched(data);
-    // Shadow-write Cache API from KV hit (best-effort, no waitUntil available here)
+    // Shadow-write Cache API from KV hit. max-age (not s-maxage: the edge
+    // cache ignores s-maxage, so s-maxage-only entries were never fresh).
     if (cached) {
-      void caches.default
+      const done = caches.default
         .put(
           new Request(l1Key),
           new Response(JSON.stringify(data), {
-            headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, s-maxage=1800' },
+            headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=1800' },
           })
         )
         .catch(() => {});
+      if (waitUntil) waitUntil(done);
+      else void done;
     }
     return result;
   } catch (_catchErr) {
@@ -149,7 +156,8 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
       for (const row of rows.results ?? []) {
         const extracted = extractCveFromText(row.title + ' ' + row.source_url);
         if (!extracted) continue;
-        const enriched = await enrichCve(extracted, c.env);
+        const enriched = await enrichCve(extracted, c.env, (pr) =>
+          c.executionCtx.waitUntil(pr));
         if (!enriched) continue;
 
         const result = computeSsvcV({
@@ -171,7 +179,7 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
       // Skip if already processed via alert_id
       if (alertsToUpdate.some((a) => a.cve_id === cveId)) continue;
 
-      const enriched = await enrichCve(cveId, c.env);
+      const enriched = await enrichCve(cveId, c.env, (pr) => c.executionCtx.waitUntil(pr));
       if (!enriched) {
         batch.push({
           cve_id: cveId.toUpperCase(),
@@ -258,18 +266,25 @@ export async function ssvcGetHandler(c: Context<{ Bindings: Env }>): Promise<Res
       .first<{ id: string; title: string; ssvc_json: string; severity: string }>();
 
     if (row && row.ssvc_json && row.ssvc_json !== '{}') {
+      let ssvc: unknown;
+      try {
+        ssvc = JSON.parse(row.ssvc_json);
+      } catch (_catchErr) {
+        logError('ssvcGetHandler corrupt ssvc_json', _catchErr);
+        return internalError(c, 'corrupted SSVC record');
+      }
       return c.json({
         cve_id: id,
         title: row.title,
         alert_id: row.id,
-        ssvc: JSON.parse(row.ssvc_json),
+        ssvc,
         severity: row.severity,
       });
     }
   }
 
   // Compute fresh
-  const enriched = await enrichCve(id, c.env);
+  const enriched = await enrichCve(id, c.env, (pr) => c.executionCtx.waitUntil(pr));
   if (!enriched) {
     return notFound(c, 'CVE not found and no enrichment data available');
   }

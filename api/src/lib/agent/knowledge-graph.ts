@@ -7,6 +7,7 @@
 
 import type { GraphNode, GraphEdge, GraphData } from './ioc-graph';
 import type { AgentStep } from './types';
+import { logError } from '../logger';
 
 /**
  * Build a knowledge graph from a single investigation's observer findings.
@@ -97,7 +98,7 @@ export async function recordKnowledgeGraph(db: D1Database, graph: GraphData): Pr
         .run();
     }
   } catch (err) {
-    console.error('recordKnowledgeGraph failed:', err);
+    logError('recordKnowledgeGraph failed', err);
   }
 }
 
@@ -129,7 +130,7 @@ export async function getKnowledgeGraph(db: D1Database, limit = 100): Promise<Gr
       .map((e) => ({ source: e.source, target: e.target, relationship: e.relationship, confidence: e.confidence }));
     return { nodes, edges };
   } catch (err) {
-    console.error('getKnowledgeGraph failed:', err);
+    logError('getKnowledgeGraph failed', err);
     return { nodes: [], edges: [] };
   }
 }

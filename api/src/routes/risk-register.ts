@@ -210,7 +210,14 @@ export async function riskRegisterGetHandler(c: Context<{ Bindings: Env }>): Pro
   if (!kv) return serviceUnavailable(c, 'KV not available');
   const raw = await kv.get(`${KV_PREFIX}:${id}`);
   if (!raw) return notFound(c, 'not found');
-  return c.json(JSON.parse(raw) as RiskRegisterEntry);
+  let entry: RiskRegisterEntry;
+  try {
+    entry = JSON.parse(raw) as RiskRegisterEntry;
+  } catch (_catchErr) {
+    logError('riskRegisterGetHandler corrupt record', _catchErr);
+    return internalError(c, 'corrupted risk-register record');
+  }
+  return c.json(entry);
 }
 
 type RiskRegisterInput = Partial<

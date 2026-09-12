@@ -18,6 +18,7 @@ import type { Env } from '../env';
 import { runCompletion, runWorkersAI, isWorkersAi } from '../case-study/generation/ai-client';
 import { findUngroundedCves, extractCves, detectSlop } from './ai-output-validator';
 import { fenceUntrusted, neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
+import { logError } from './logger';
 
 export interface SummaryInput {
   /** Page surface name (e.g. "CTI Writeups", "Cybercrime", "Signal"). */
@@ -157,8 +158,9 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
     // The whole chain raced out (slow/rate-limited Groq + slow fallbacks) or
     // every provider failed. DON'T give up here — the Workers-AI recovery
     // below usually still lands a summary.
-    console.error(
-      `generateAiSummary[${input.surface}] chain failed/timeout: ${err instanceof Error ? err.message : String(err)}`
+    logError(
+      `generateAiSummary[${input.surface}] chain failed/timeout`,
+      err instanceof Error ? err : new Error(String(err))
     );
   }
 
@@ -182,13 +184,12 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           text = fbText;
           modelUsed = `workers-ai:${fb.model.split('/').pop()}`;
         } else {
-          console.error(
-            `generateAiSummary[${input.surface}] fallback short output (${fbText.length} chars) from ${fb.model}`
-          );
+          logError(`generateAiSummary[${input.surface}] fallback short output`, new Error(`${fbText.length} chars from ${fb.model}`));
         }
       } catch (err) {
-        console.error(
-          `generateAiSummary[${input.surface}] fallback failed: ${err instanceof Error ? err.message : String(err)}`
+        logError(
+          `generateAiSummary[${input.surface}] fallback failed`,
+          err instanceof Error ? err : new Error(String(err))
         );
       }
     }
@@ -196,7 +197,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
 
   if (!text || text.length < 50) {
     // Log it so the cause isn't lost behind the generic 503, then degrade.
-    console.error(`generateAiSummary[${input.surface}] no usable output (${text.length} chars, ${modelUsed})`);
+    logError(`generateAiSummary[${input.surface}] no usable output`, new Error(`${text.length} chars, ${modelUsed}`));
     return null;
   }
 
@@ -244,7 +245,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
     // worker log is the ONLY place the real cause (provider exhaustion, auth,
     // timeout, parse failure) surfaces. Keep returning null so the caller still
     // degrades gracefully, but make the failure diagnosable.
-    console.error(`generateAiSummary[${input.surface}] failed:`, err instanceof Error ? err.message : String(err));
+    logError(`generateAiSummary[${input.surface}] failed`, err);
     return null;
   }
 }
