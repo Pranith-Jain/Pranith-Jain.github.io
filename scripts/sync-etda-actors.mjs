@@ -47,13 +47,41 @@ async function fetchText(url) {
 }
 
 /**
+ * Decode a handful of HTML entities the ETDA pages use. Enough for the
+ * group list (nbsp spacers, ↳ subgroup markers, query-string &amp;).
+ */
+function decodeEntities(s) {
+  return s
+    .replace(/&#8627;/g, '↳')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;/g, "'");
+}
+
+function stripTags(s) {
+  return decodeEntities(s.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim();
+}
+
+/**
  * Parse the ETDA HTML group list into structured JSON.
- * The page is a flat HTML table with rows like:
- *   APT groups
- *   APT 41 (FireEye)Double Dragon (FireEye)...[China]2012-Jul 2025
- *     ↳ Subgroup: Earth Longzhi2020-Apr 2023
- *   Other groups
- *   Unknown groups
+ *
+ * Current upstream shape (verified 2026-09-12) is a <table>: category
+ * headers are `<tr><td colspan="6"><h2>APT groups</h2></td></tr>` and each
+ * group is a row whose cells are [spacer, name link, country, period, …].
+ * Country is either literal "[Unknown]" text or a flag `<img alt="…">`;
+ * subgroups are rows whose name cell holds "↳ Subgroup: <name>".
+ *
+ * Row sample:
+ *   …<td…><a href="/cgi-bin/showcard.cgi?g=AeroBlade&n=1" …>AeroBlade</a></td>
+ *   <td…>[Unknown]</td><td…>2022</td>…
+ *
+ * We parse the <tr>/<td> structure (not bare text lines) so a future
+ * header re-wrap can't silently bucket every group as "unknown" again —
+ * see PR #135, where `<h2>`-wrapped headers defeated exact-match parsing
+ * and 402 APT profiles were replaced by 576 card-less "unknown" stubs.
  */
 async function fetchEtdaGroupList() {
   console.log('  -> ETDA group list');
@@ -63,46 +91,55 @@ async function fetchEtdaGroupList() {
   const groups = [];
   let currentCategory = 'unknown';
 
-  // Parse line by line — ETDA renders groups as a plain list with
-  // category headers ("APT groups", "Other groups", "Unknown groups").
-  const lines = html.split('\n');
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) continue;
+  const rows = [...html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)];
+  for (const row of rows) {
+    const cells = [...row[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((m) => m[1] ?? '');
+    if (cells.length === 0) continue;
 
-    // Category headers
-    if (trimmed === 'APT groups') { currentCategory = 'apt'; continue; }
-    if (trimmed === 'Other groups') { currentCategory = 'other'; continue; }
-    if (trimmed === 'Unknown groups') { currentCategory = 'unknown'; continue; }
+    // Category header row: single cell holding "X groups".
+    if (cells.length === 1) {
+      const header = stripTags(cells[0]).toLowerCase();
+      if (header === 'apt groups') { currentCategory = 'apt'; continue; }
+      if (header === 'other groups') { currentCategory = 'other'; continue; }
+      if (header === 'unknown groups') { currentCategory = 'unknown'; continue; }
+      continue;
+    }
+    if (cells.length < 4) continue;
 
-    // Subgroup lines (indented with ↳)
-    if (trimmed.startsWith('↳')) {
+    const nameRaw = stripTags(cells[1]);
+    if (!nameRaw) continue;
+
+    // Country cell: "[Unknown]" text or a flag <img alt="Country">.
+    let country = null;
+    const imgAlt = cells[2].match(/<img[^>]*\salt="([^"]*)"/i);
+    if (imgAlt) {
+      country = (imgAlt[1] || '').trim() || null;
+    } else {
+      const c = stripTags(cells[2]).replace(/[\[\]]/g, '').trim();
+      country = c || null;
+    }
+    if (country === 'Unknown') country = null;
+
+    const period = stripTags(cells[3]) || null;
+
+    // Subgroup rows ("↳ Subgroup: <name>").
+    if (/↳/.test(nameRaw)) {
       if (groups.length === 0) continue;
-      const parent = groups[groups.length - 1];
-      const m = trimmed.match(/↳\s*Subgroup:\s*(.+?)(\d{4}(?:-\w+\s?\d{4})?)?\s*$/);
+      const m = nameRaw.match(/↳\s*Subgroup:\s*(.+?)(\d{4}(?:-\w+\s?\d{4})?)?\s*$/);
       if (m) {
+        const parent = groups[groups.length - 1];
         parent.subgroups = parent.subgroups || [];
         parent.subgroups.push({ name: m[1].trim(), period: m[2]?.trim() || null });
       }
       continue;
     }
 
-    // Main group line
-    // Pattern: "Name, Alias1, Alias2[Country]FirstSeen-LastSeen"
-    const groupMatch = trimmed.match(/^(.+?)(?:\s+\[([^\]]*)\])?\s*(\d{4}(?:-\w+\s?\d{4})?)?\s*$/);
-    if (!groupMatch) continue;
-
-    const namePart = groupMatch[1].trim();
-    const country = groupMatch[2] || null;
-    const period = groupMatch[3] || null;
-
-    // Split name from aliases (comma-separated, first is primary name)
-    const names = namePart.split(',').map((n) => n.trim()).filter(Boolean);
+    // Main group row: link text is "Name, Alias1, Alias2" (first is primary).
+    const names = nameRaw.split(',').map((n) => n.trim()).filter(Boolean);
     if (names.length === 0) continue;
 
     const name = names[0];
     const aliases = names.slice(1);
-
     const [firstSeen, lastSeen] = period ? period.split('-').map((p) => p.trim()) : [null, null];
 
     groups.push({

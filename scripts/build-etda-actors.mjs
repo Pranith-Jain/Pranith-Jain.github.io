@@ -153,12 +153,28 @@ if (!existsSync(STAGING)) {
   process.exit(1);
 }
 
-if (existsSync(OUT)) rmSync(OUT, { recursive: true });
-ensureDir(join(OUT, 'actors'));
-
 // ─── ETDA group list ────────────────────────────────────────────────
 const groups = JSON.parse(readFileSync(join(STAGING, 'etda-group-list.json'), 'utf8'));
+
+// Fail-closed floor (PR #135 lesson): the builder used to wipe OUT/ first
+// and ask questions later, so one degraded upstream parse (all groups
+// "unknown", 0 cards) became a 968-file mass-deletion PR. Validate the
+// staging input BEFORE touching OUT/.
+{
+  const aptCount = groups.filter((g) => g && g.category === 'apt').length;
+  if (!Array.isArray(groups) || groups.length < 200 || aptCount < 50) {
+    console.error(
+      `\u2718 Refusing to rebuild: staging looks degraded ` +
+      `(groups=${Array.isArray(groups) ? groups.length : 'n/a'}, apt=${aptCount}; ` +
+      `expected ≥200 groups / ≥50 APT). Upstream HTML may have changed shape — ` +
+      `inspect actors-staging/etda-group-list-raw.html before re-running.`
+    );
+    process.exit(1);
+  }
+}
+
 const actorIndex = [];
+const pendingBodies = [];
 let cardFetched = 0;
 let cardFailed = 0;
 
@@ -206,7 +222,7 @@ for (const g of groups) {
     subgroups: g.subgroups ?? [],
   };
 
-  writeFileSync(join(OUT, 'actors', safeFilename(slug) + '.json'), JSON.stringify(body));
+  pendingBodies.push({ slug, body });
   actorIndex.push(indexEntry);
 }
 
@@ -215,23 +231,20 @@ actorIndex.sort((a, b) => {
   return (order[a.category] ?? 3) - (order[b.category] ?? 3) || a.name.localeCompare(b.name);
 });
 
-// ─── APTmap graph ──────────────────────────────────────────────────
+// ─── APTmap graph (staged in memory — nothing touches OUT/ yet) ──────
 let aptmapData = null;
 const aptmapPath = join(STAGING, 'apt_rel.json');
 if (existsSync(aptmapPath)) {
   try {
     aptmapData = JSON.parse(readFileSync(aptmapPath, 'utf8'));
-    writeFileSync(join(OUT, 'aptmap.json'), JSON.stringify(aptmapData));
     console.log('    loaded APTmap (' + (aptmapData.nodes?.length ?? 0) + ' nodes, ' + (aptmapData.links?.length ?? 0) + ' links)');
   } catch (e) {
     console.warn('  \u26a0 failed to parse APTmap: ' + e.message);
   }
 }
 
-// ─── APTmap data files ────────────────────────────────────────────
+// ─── APTmap data files (collected — copied after validation) ─────────
 const APTMAP_DATA_DIR = join(STAGING, 'aptmap-data');
-const APTMAP_DATA_OUT = join(OUT, 'aptmap');
-ensureDir(APTMAP_DATA_OUT);
 const MAX_ASSET_BYTES = 25 * 1024 * 1024;
 let aptmapDataFiles = [];
 if (existsSync(APTMAP_DATA_DIR)) {
@@ -243,12 +256,52 @@ if (existsSync(APTMAP_DATA_DIR)) {
       console.warn('  \u26a0 skipped ' + f + ' (' + (stat.size / 1024 / 1024).toFixed(1) + ' MB) \u2014 exceeds 25 MB Cloudflare asset limit');
       continue;
     }
-    const dest = join(APTMAP_DATA_OUT, f);
-    copyFileSync(src, dest);
-    aptmapDataFiles.push({ name: f, sizeBytes: stat.size });
+    aptmapDataFiles.push({ name: f, src, sizeBytes: stat.size });
   }
   aptmapDataFiles.sort((a, b) => a.name.localeCompare(b.name));
   console.log('    ' + aptmapDataFiles.length + ' aptmap data files  (public/data/apt-actors/aptmap/)');
+}
+
+// ─── Fail-closed validation + atomic-ish replace ────────────────────
+// Everything above was pure computation. Only now, with a validated
+// result in hand, do we wipe OUT/ and write. Guards:
+//   1. Absolute floors (catches parser breakage like PR #135: apt 402→0).
+//   2. Relative floors vs the previous index (catches card-fetch collapse:
+//      same group list, but 0 detail cards when we previously had 400+).
+{
+  const aptCount = actorIndex.filter((a) => a.category === 'apt').length;
+  let prev = null;
+  try {
+    if (existsSync(join(OUT, 'index.json'))) prev = JSON.parse(readFileSync(join(OUT, 'index.json'), 'utf8'));
+  } catch { prev = null; }
+  const prevActors = prev?.counts?.actors ?? 0;
+  const prevCards = prev?.counts?.withCards ?? 0;
+
+  const problems = [];
+  if (actorIndex.length < 200) problems.push(`actors=${actorIndex.length} (floor 200)`);
+  if (aptCount < 50) problems.push(`apt=${aptCount} (floor 50)`);
+  if (prevActors > 0 && actorIndex.length < prevActors * 0.5)
+    problems.push(`actors=${actorIndex.length} < 50% of previous ${prevActors}`);
+  if (prevCards > 50 && cardFetched < prevCards * 0.5)
+    problems.push(`withCards=${cardFetched} < 50% of previous ${prevCards} (card fetches likely throttled)`);
+  if (problems.length > 0) {
+    console.error('\u2718 Refusing to replace public/data/apt-actors/: ' + problems.join('; '));
+    console.error('  OUT/ left untouched. Inspect actors-staging/ and re-run when upstream is healthy.');
+    process.exit(1);
+  }
+}
+
+if (existsSync(OUT)) rmSync(OUT, { recursive: true });
+ensureDir(join(OUT, 'actors'));
+for (const { slug, body } of pendingBodies) {
+  writeFileSync(join(OUT, 'actors', safeFilename(slug) + '.json'), JSON.stringify(body));
+}
+if (aptmapData) writeFileSync(join(OUT, 'aptmap.json'), JSON.stringify(aptmapData));
+if (aptmapDataFiles.length > 0) {
+  const APTMAP_DATA_OUT = join(OUT, 'aptmap');
+  ensureDir(APTMAP_DATA_OUT);
+  for (const f of aptmapDataFiles) copyFileSync(f.src, join(APTMAP_DATA_OUT, f.name));
+  aptmapDataFiles = aptmapDataFiles.map(({ name, sizeBytes }) => ({ name, sizeBytes }));
 }
 
 // ─── Index ──────────────────────────────────────────────────────────
@@ -264,9 +317,7 @@ const index = {
     withCards: cardFetched,
     withMitre: actorIndex.filter((a) => a.mitreId).length,
     withTools: actorIndex.filter((a) => a.toolCount > 0).length,
-    totalSectors: new Set(actorIndex.flatMap((a) => {
-      try { return JSON.parse(readFileSync(join(OUT, 'actors', safeFilename(a.slug) + '.json'), 'utf8')).sectors || []; } catch { return []; }
-    })).size,
+    totalSectors: new Set(pendingBodies.flatMap((p) => p.body.sectors || [])).size,
   },
   lastSyncedAt: new Date().toISOString(),
   lastCardUpdate: actorIndex.filter((a) => a.hasDetails).length > 0 ? new Date().toISOString() : null,
