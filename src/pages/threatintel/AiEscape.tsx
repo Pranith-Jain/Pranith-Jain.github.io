@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { logCatch } from '../../lib/log';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
@@ -258,31 +259,82 @@ export default function AiEscape(): JSX.Element {
   const guardMax = useMemo(() => Math.max(1, ...Object.values(idx?.guardrailCounts ?? { _: 1 })), [idx]);
   const sinceDays = daysSince(idx?.stats.lastDisclosedAt ?? null);
 
-  const issueUrl = useMemo(() => {
-    const title = encodeURIComponent('[ai-escape] New incident report: <short title>');
-    const body = encodeURIComponent(
-      [
-        '## What happened',
-        '<mechanism over narrative — which control was supposed to catch this?>',
-        '',
-        '## Class',
-        'containment-breach | agent-hijack | supply-chain | tool-misuse | injection',
-        '',
-        '## Date observed',
-        'YYYY-MM-DD',
-        '',
-        '## What was the agent deployed to do',
-        '<assigned task, not the failure>',
-        '',
-        '## Systems involved',
-        '<model, framework, platform>',
-        '',
-        '## Sources (required)',
-        '- https://…',
-      ].join('\n')
-    );
-    return `https://github.com/Pranith-Jain/Pranith-Jain.github.io/issues/new?title=${title}&body=${body}`;
+  // Community report queue (server-side, reviewed before publish).
+  const [queue, setQueue] = useState<
+    { id: string; title: string; klass: string; occurred: string | null; status: string; created_at: string }[]
+  >([]);
+  const [queueLoading, setQueueLoading] = useState(false);
+  const [form, setForm] = useState({
+    title: '',
+    klass: 'containment-breach',
+    occurred: '',
+    purpose: '',
+    systems: '',
+    summary: '',
+    sources: '',
+    handle: '',
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMsg, setSubmitMsg] = useState<string | null>(null);
+
+  const loadQueue = useCallback(async () => {
+    setQueueLoading(true);
+    try {
+      const r = await fetch('/api/v1/ai-escape/reports?status=pending&limit=50');
+      if (r.ok) {
+        const j = (await r.json()) as { reports: typeof queue };
+        setQueue(j.reports ?? []);
+      }
+    } catch (e) {
+      logCatch(e);
+    } finally {
+      setQueueLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void loadQueue();
+  }, [loadQueue]);
+
+  const submitReport = useCallback(async () => {
+    setSubmitting(true);
+    setSubmitMsg(null);
+    try {
+      const r = await fetch('/api/v1/ai-escape/reports', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          title: form.title.trim(),
+          klass: form.klass,
+          occurred: form.occurred || undefined,
+          purpose: form.purpose.trim() || undefined,
+          systems: form.systems.trim() || undefined,
+          summary: form.summary.trim(),
+          sources: form.sources.trim(),
+          handle: form.handle.trim() || undefined,
+        }),
+      });
+      const j = (await r.json().catch(() => ({}))) as { ok?: boolean; error?: string; message?: string };
+      if (!r.ok || !j.ok) throw new Error(j.message ?? j.error ?? `HTTP ${r.status}`);
+      setSubmitMsg('Received — queued for review. Nothing reaches the registry unreviewed.');
+      setForm({
+        title: '',
+        klass: 'containment-breach',
+        occurred: '',
+        purpose: '',
+        systems: '',
+        summary: '',
+        sources: '',
+        handle: '',
+      });
+      void loadQueue();
+    } catch (e) {
+      logCatch(e);
+      setSubmitMsg(`Submit failed: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setSubmitting(false);
+    }
+  }, [form, loadQueue]);
 
   return (
     <DataPageLayout
@@ -519,21 +571,150 @@ export default function AiEscape(): JSX.Element {
             </table>
           </div>
 
-          {/* Report */}
-          <div className="surface-card p-4 flex flex-wrap items-center gap-3">
-            <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" />
-            <p className="text-sm text-body flex-1 min-w-52">
-              Report an incident — two fields required (what happened + account), sources mandatory. Nothing reaches the
-              registry unreviewed.
+          {/* Report + public review queue */}
+          <div className="surface-card p-4">
+            <h2 className="flex items-center gap-2 text-lg font-bold text-heading mb-1">
+              <AlertTriangle className="w-4 h-4 text-amber-500" /> Report an incident
+            </h2>
+            <p className="text-xs text-muted mb-3">
+              Two fields required (what happened + account), sources mandatory. Nothing reaches the registry unreviewed
+              — the queue below is visible to every reader.
             </p>
-            <a
-              href={issueUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono bg-rose-600 dark:bg-rose-500 text-white hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
-            >
-              <GitPullRequest className="w-3.5 h-3.5" /> Submit for review
-            </a>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <label className="block sm:col-span-2">
+                <span className="text-micro font-mono text-muted">What happened *</span>
+                <input
+                  value={form.title}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  maxLength={140}
+                  placeholder="Agent bypassed egress allowlist via internal package proxy"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                />
+              </label>
+              <label className="block">
+                <span className="text-micro font-mono text-muted">Class</span>
+                <select
+                  value={form.klass}
+                  onChange={(e) => setForm({ ...form, klass: e.target.value })}
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                >
+                  <option value="containment-breach">Containment breach</option>
+                  <option value="agent-hijack">Agent hijack</option>
+                  <option value="supply-chain">Supply chain</option>
+                  <option value="tool-misuse">Tool misuse</option>
+                  <option value="injection">Injection</option>
+                </select>
+              </label>
+              <label className="block">
+                <span className="text-micro font-mono text-muted">Date observed</span>
+                <input
+                  type="date"
+                  value={form.occurred}
+                  onChange={(e) => setForm({ ...form, occurred: e.target.value })}
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                />
+              </label>
+              <label className="block sm:col-span-2">
+                <span className="text-micro font-mono text-muted">What was the agent deployed to do</span>
+                <input
+                  value={form.purpose}
+                  onChange={(e) => setForm({ ...form, purpose: e.target.value })}
+                  maxLength={140}
+                  placeholder="Automated code review in CI · capability evaluation · customer support"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                />
+              </label>
+              <label className="block">
+                <span className="text-micro font-mono text-muted">Systems involved</span>
+                <input
+                  value={form.systems}
+                  onChange={(e) => setForm({ ...form, systems: e.target.value })}
+                  maxLength={140}
+                  placeholder="Model, framework, affected platform"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                />
+              </label>
+              <label className="block">
+                <span className="text-micro font-mono text-muted">Attribution (optional)</span>
+                <input
+                  value={form.handle}
+                  onChange={(e) => setForm({ ...form, handle: e.target.value })}
+                  maxLength={60}
+                  placeholder="Name or handle"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                />
+              </label>
+              <label className="block sm:col-span-2">
+                <span className="text-micro font-mono text-muted">
+                  Account *{' '}
+                  <span className="text-slate-500">
+                    — mechanism over narrative: which control was supposed to catch this?
+                  </span>
+                </span>
+                <textarea
+                  value={form.summary}
+                  onChange={(e) => setForm({ ...form, summary: e.target.value })}
+                  maxLength={1600}
+                  rows={4}
+                  placeholder="What the agent was doing, what boundary it crossed, how it was noticed, what stopped it."
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                />
+              </label>
+              <label className="block sm:col-span-2">
+                <span className="text-micro font-mono text-muted">
+                  Sources * — comma-separated URLs; a report without a source will not clear review
+                </span>
+                <input
+                  value={form.sources}
+                  onChange={(e) => setForm({ ...form, sources: e.target.value })}
+                  maxLength={600}
+                  placeholder="https://…, https://…"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-rose-500"
+                />
+              </label>
+            </div>
+            <div className="mt-3 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => void submitReport()}
+                disabled={submitting}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono bg-rose-600 dark:bg-rose-500 text-white hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors disabled:opacity-40"
+              >
+                <GitPullRequest className="w-3.5 h-3.5" /> {submitting ? 'Submitting…' : 'Submit for review'}
+              </button>
+              {submitMsg && <p className="text-xs font-mono text-muted">{submitMsg}</p>}
+            </div>
+
+            <div className="mt-5">
+              <h3 className="text-sm font-bold text-heading mb-2">
+                Under review{' '}
+                <span className="font-mono text-xs text-muted">
+                  {queueLoading ? 'loading…' : `${queue.length} pending`}
+                </span>
+              </h3>
+              {queue.length === 0 && !queueLoading ? (
+                <p className="text-xs font-mono text-slate-500">Queue empty — be the first to report.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {queue.map((rep) => (
+                    <li
+                      key={rep.id}
+                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3"
+                    >
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm font-bold text-heading">{rep.title}</span>
+                        <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+                          {rep.klass}
+                        </span>
+                      </div>
+                      <p className="text-micro font-mono text-slate-500 mt-1">
+                        {rep.occurred ?? 'date unknown'} · submitted {fmtDate(rep.created_at)}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </>
       )}
