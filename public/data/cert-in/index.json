@@ -1,5 +1,32 @@
 [
   {
+    "id": "CIAD-2026-0044",
+    "published_at": "2026-09-09",
+    "severity": "high",
+    "cves": [
+      "CVE-2026-81963",
+      "CVE-2026-85880"
+    ],
+    "products_affected": [
+      "Microsoft Windows Microsoft Office Microsoft Dynamics SQL Server Extended Security Updates (ESU) for legacy Microsoft products Azure Apps Developer Tools Open Source Software Server Software"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products that could allow an attacker to gain elevated privileges, obtain sensitive information, execute arbitrary code remotely, bypass security restrictions, conduct spoofing attacks, perform tampering of data or system processes, or cause denial-of-service (DoS) conditions. CVE-2026-81963",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0044",
+    "summary": "HIGH severity · 2 CVEs · affects 1 product",
+    "indexed_at": "2026-09-12T07:12:13.257Z"
+  },
+  {
+    "id": "CIAD-2026-0043",
+    "published_at": "2026-08-28",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [],
+    "description": "Oracle products are used for several applications including enterprise-level data management, cloud solutions, software development, communications, financial services, hospitality, retail, and business applications. They are employed across a wide range of sectors, including finance, healthcare, manufacturing, government, and retail, among others. These vulnerabilities exist in various components of Oracle products due to weaknesses affecting different product functionalities and third-party components. Several of the vulnerabilities may be exploited remotely without authentication over a network without requiring valid user credentials.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0043",
+    "summary": "HIGH severity",
+    "indexed_at": "2026-09-12T07:12:11.508Z"
+  },
+  {
     "id": "CIAD-2026-0041",
     "published_at": "2026-08-19",
     "severity": "critical",
@@ -13,6 +40,19 @@
     "indexed_at": "2026-08-25T05:17:03.135Z"
   },
   {
+    "id": "CIAD-2026-0038",
+    "published_at": "2026-08-12",
+    "severity": "high",
+    "cves": [
+      "CVE-2026-68820"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products that could allow an attacker to gain elevated privileges, obtain sensitive information, execute arbitrary code remotely, bypass security restrictions, conduct spoofing attacks, perform tampering of data or system processes, or cause denial-of-service (DoS) conditions. CVE-2026-68820",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0038",
+    "summary": "HIGH severity · 1 CVE",
+    "indexed_at": "2026-09-12T07:11:53.568Z"
+  },
+  {
     "id": "CIAD-2026-0037",
     "published_at": "2026-08-07",
     "severity": "critical",
@@ -22,6 +62,36 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0037",
     "summary": "CRITICAL severity",
     "indexed_at": "2026-08-25T05:16:39.621Z"
+  },
+  {
+    "id": "CIAD-2026-0036",
+    "published_at": "2026-07-22",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [],
+    "description": "Oracle products are used for several applications including enterprise-level data management, cloud solutions, software development, and business applications. They are employed across a wide range of sectors, including finance, healthcare, manufacturing, government, and retail, among others. These vulnerabilities exist in various components of Oracle products due to improper input validation, deserialization issues, memory corruption errors, access control weaknesses, insufficient authentication, SQL injection, XML parsing errors, or vulnerable third-party libraries.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0036",
+    "summary": "HIGH severity",
+    "indexed_at": "2026-09-12T07:11:51.615Z"
+  },
+  {
+    "id": "CIAD-2026-0035",
+    "published_at": "2026-07-17",
+    "severity": "high",
+    "cves": [
+      "CVE-2026-56155",
+      "CVE-2026-56164",
+      "CVE-2026-58644"
+    ],
+    "products_affected": [
+      "Minecraft Bedrock Dedicated Server",
+      "GitHub Copilot Plugin for JetBrains IDEs",
+      "Age of Empires II: Definitive Edition Game)"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products that could allow an attacker to gain elevated privileges, obtain sensitive information, execute arbitrary code remotely, bypass security restrictions, conduct spoofing attacks, perform tampering of data or system processes, or cause denial-of-service (DoS) conditions.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0035",
+    "summary": "HIGH severity · 3 CVEs · affects 3 products",
+    "indexed_at": "2026-09-12T07:11:49.716Z"
   },
   {
     "id": "CIAD-2026-0034",
@@ -86,7 +156,25 @@
     "description": "Oracle products are used for several applications including enterprise-level data management, cloud solutions, software development, and business applications. They are employed across a wide range of sectors, including finance, healthcare, manufacturing, government, and retail, among others. Multiple vulnerabilities have been reported in various components of Oracle products.",
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0032",
     "summary": "CRITICAL severity",
-    "indexed_at": "2026-08-25T05:16:13.775Z"
+    "indexed_at": "2026-09-12T07:14:00.293Z"
+  },
+  {
+    "id": "CIAD-2026-0031",
+    "published_at": "2026-06-11",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [
+      "Adobe Experience Manager (AEM) Cloud Service (CS) prior to release 2026.05",
+      "SP24 and earlier Adobe Experience Manager Forms AEM 6.5.24.0 and earlier Adobe InDesign ID21.3 and earlier versions",
+      "ID20.5.3 and earlier versions Adobe InCopy 21.3 and earlier versions",
+      "c2pa-v0.80.1 and earlier Adobe Dreamweaver 21.7 and earlier versions Adobe Acrobat Reader in Adobe Acrobat and Acrobat Reader 26.001.21651 and earlier",
+      "and in Acrobat 2024 Classic 2024 24.001.30365 and earlier Adobe ColdFusion Update 8 and earlier versions",
+      "Update 19 and earlier versions Adobe Format Plugins 1.1.2 and earlier versions Adobe Campaign Classic ACC v7: 7.4.3 build 9394 and earlier"
+    ],
+    "description": "Multiple vulnerabilities have been reported in various Adobe products. These vulnerabilities exist due to improper input validation, cross-site scripting (DOM-based, reflected and stored XSS) issues, memory corruption issues, incorrect authorization, and supply chain related issues.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0031",
+    "summary": "HIGH severity · affects 6 products",
+    "indexed_at": "2026-09-12T07:11:48.110Z"
   },
   {
     "id": "CIAD-2026-0030",
@@ -100,6 +188,33 @@
     "indexed_at": "2026-08-25T05:16:02.187Z"
   },
   {
+    "id": "CIAD-2026-0029",
+    "published_at": "2026-06-09",
+    "severity": "critical",
+    "cves": [
+      "CVE-2026-22732",
+      "CVE-2026-24315",
+      "CVE-2026-27671",
+      "CVE-2026-29145",
+      "CVE-2026-40128",
+      "CVE-2026-44743",
+      "CVE-2026-44744",
+      "CVE-2026-44746",
+      "CVE-2026-44748",
+      "CVE-2026-44750",
+      "CVE-2026-44751",
+      "CVE-2026-44754",
+      "CVE-2026-44755",
+      "CVE-2026-44757",
+      "CVE-2026-68161"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; Details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0029",
+    "summary": "CRITICAL severity · 15 CVEs",
+    "indexed_at": "2026-09-12T07:11:46.071Z"
+  },
+  {
     "id": "CIAD-2026-0028",
     "published_at": "2026-06-08",
     "severity": "high",
@@ -111,6 +226,17 @@
     "indexed_at": "2026-08-25T05:15:49.584Z"
   },
   {
+    "id": "CIAD-2026-0027",
+    "published_at": "2026-05-25",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [],
+    "description": "Multiple Vulnerabilities existed in Atlassian products details of which are given below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0027",
+    "summary": "HIGH severity",
+    "indexed_at": "2026-09-12T07:11:44.394Z"
+  },
+  {
     "id": "CIAD-2026-0026",
     "published_at": "2026-05-21",
     "severity": "critical",
@@ -120,6 +246,20 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0026",
     "summary": "CRITICAL severity",
     "indexed_at": "2026-08-25T05:15:37.202Z"
+  },
+  {
+    "id": "CIAD-2026-0025",
+    "published_at": "2026-05-20",
+    "severity": "critical",
+    "cves": [],
+    "products_affected": [
+      "Drupal 11.3.x Drupal 11.2.x Drupal 10.6.x Drupal 10.5.x Unsupported",
+      "end-of-life and other Drupal versions may also be vulnerable."
+    ],
+    "description": "Drupal has issued a public security advisory regarding undisclosed highly critical vulnerabilities affecting Drupal Core. Technical details of the vulnerabilities will be disclosed upon the release of security patches. The advisory indicates a high probability of rapid exploitation following public disclosure. Internet-facing Drupal installations are particularly at risk.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0025",
+    "summary": "CRITICAL severity · affects 2 products",
+    "indexed_at": "2026-09-12T07:11:42.452Z"
   },
   {
     "id": "CIAD-2026-0024",
@@ -181,6 +321,19 @@
     "indexed_at": "2026-08-25T05:15:23.698Z"
   },
   {
+    "id": "CIAD-2026-0022",
+    "published_at": "2026-05-13",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [
+      "Microsoft Windows Microsoft Office Microsoft Dynamics Developer Tools SQL Server Extended Security Updates (ESU) for legacy Microsoft products Azure Apps"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products that could allow an attacker to gain elevated privileges, obtain sensitive information, execute arbitrary code remotely, bypass security restrictions, conduct spoofing attacks, perform tampering of data or system processes, or cause denial-of-service (DoS) conditions.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0022",
+    "summary": "HIGH severity · affects 1 product",
+    "indexed_at": "2026-09-12T07:11:40.744Z"
+  },
+  {
     "id": "CIAD-2026-0021",
     "published_at": "2026-05-12",
     "severity": "high",
@@ -194,6 +347,17 @@
     "indexed_at": "2026-08-25T05:15:12.051Z"
   },
   {
+    "id": "CIAD-2026-0020",
+    "published_at": "2026-04-26",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [],
+    "description": "Recent developments in frontier Artificial Intelligence (AI) systems indicate a significant increase in cyber capability maturity. Reported capabilities include the ability to autonomously discover security vulnerabilities in widely used software, analyse source code, plan and chain together multi stage attacks, and carry out simulations of compromising enterprise networks from end to end. These activities can be performed at a speed and scale that previously required teams of skilled human experts. Emerging frontier AI models could demonstrate cyber capabilities such as: Large-scale software analysis for identification of known and zero-day vulnerabilities across extensive codebases. Accelerated exploit development, including proof-of-concept generation for newly disclosed vulnerabilities",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0020",
+    "summary": "HIGH severity",
+    "indexed_at": "2026-09-12T07:11:39.047Z"
+  },
+  {
     "id": "CIAD-2026-0019",
     "published_at": "2026-04-23",
     "severity": "high",
@@ -205,6 +369,19 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0019",
     "summary": "HIGH severity · affects 1 product",
     "indexed_at": "2026-08-25T05:15:00.381Z"
+  },
+  {
+    "id": "CIAD-2026-0017",
+    "published_at": "2026-04-15",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [
+      "Microsoft Windows Microsoft Office Microsoft Dynamics Developer Tools SQL Server System Center Extended Security Updates (ESU) for legacy Microsoft products Azure"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products that could allow an attacker to gain elevated privileges, obtain sensitive information, execute arbitrary code remotely, bypass security restrictions, conduct spoofing attacks, perform tampering of data or system processes, or cause denial-of-service (DoS) conditions.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0017",
+    "summary": "HIGH severity · affects 1 product",
+    "indexed_at": "2026-09-12T07:11:25.303Z"
   },
   {
     "id": "CIAD-2026-0015",
@@ -229,6 +406,34 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0013",
     "summary": "HIGH severity",
     "indexed_at": "2026-08-25T05:14:14.964Z"
+  },
+  {
+    "id": "CIAD-2026-0012",
+    "published_at": "2026-03-11",
+    "severity": "critical",
+    "cves": [
+      "CVE-2019-17571",
+      "CVE-2025-9230",
+      "CVE-2025-9232",
+      "CVE-2026-0489",
+      "CVE-2026-24309",
+      "CVE-2026-24310",
+      "CVE-2026-24311",
+      "CVE-2026-24313",
+      "CVE-2026-24316",
+      "CVE-2026-24317",
+      "CVE-2026-27684",
+      "CVE-2026-27685",
+      "CVE-2026-27686",
+      "CVE-2026-27687",
+      "CVE-2026-27688",
+      "CVE-2026-27689"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; Details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0012",
+    "summary": "CRITICAL severity · 16 CVEs",
+    "indexed_at": "2026-09-12T07:10:58.992Z"
   },
   {
     "id": "CIAD-2026-0010",
@@ -458,6 +663,21 @@
     "indexed_at": "2026-08-25T05:12:33.183Z"
   },
   {
+    "id": "CIAD-2025-0049",
+    "published_at": "2025-12-10",
+    "severity": "high",
+    "cves": [
+      "CVE-2025-62221"
+    ],
+    "products_affected": [
+      "Product Family Windows Extended Security Updates (ESU) Microsoft Office Azure Server Software Open Source Software GitHub Copilot Plugin for JetBrains IDEs"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft Products which could allow an attacker to gain elevated privileges, obtain sensitive information, conduct remote code execution attacks, perform spoofing attacks or cause denial of service conditions on the targeted system.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0049",
+    "summary": "HIGH severity · 1 CVE · affects 1 product",
+    "indexed_at": "2026-09-12T07:09:32.556Z"
+  },
+  {
     "id": "CIAD-2025-0046",
     "published_at": "2025-11-26",
     "severity": "high",
@@ -527,6 +747,21 @@
     "indexed_at": "2026-08-25T05:12:07.465Z"
   },
   {
+    "id": "CIAD-2025-0043",
+    "published_at": "2025-11-13",
+    "severity": "high",
+    "cves": [
+      "CVE-2025-62215"
+    ],
+    "products_affected": [
+      "Windows Microsoft Office SQL Server Extended Security Updates (ESU) Developer Tools Microsoft Dynamics Open Source Software System Center Azure Nuance PowerScribe"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft Products which could allow an attacker to gain elevated privileges, obtain sensitive information, bypass security restrictions, conduct remote code execution attacks, perform spoofing attacks or cause denial of service conditions on the targeted system. A privilege escalation vulnerability ( CVE-2025-62215",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0043",
+    "summary": "HIGH severity · 1 CVE · affects 1 product",
+    "indexed_at": "2026-09-12T07:08:54.786Z"
+  },
+  {
     "id": "CIAD-2025-0042",
     "published_at": "2025-11-12",
     "severity": "high",
@@ -572,6 +807,26 @@
     "indexed_at": "2026-08-25T05:11:43.036Z"
   },
   {
+    "id": "CIAD-2025-0040",
+    "published_at": "2025-10-28",
+    "severity": "high",
+    "cves": [
+      "CVE-2025-22167",
+      "CVE-2025-48976",
+      "CVE-2025-48989",
+      "CVE-2025-58056",
+      "CVE-2025-58057",
+      "CVE-2025-7962"
+    ],
+    "products_affected": [
+      "Bamboo Data Center and Server Fisheye/Crucible Jira Data Center and Server Jira Service Management Data Center and Server"
+    ],
+    "description": "Atlassian products are used by software development teams, IT operations, project management professionals and business teams. Some of the products in the Atlassian suite include Jira, Fisheye and Bamboo.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0040",
+    "summary": "HIGH severity · 6 CVEs · affects 1 product",
+    "indexed_at": "2026-09-12T07:08:53.036Z"
+  },
+  {
     "id": "CIAD-2025-0039",
     "published_at": "2025-10-22",
     "severity": "high",
@@ -583,6 +838,76 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0039",
     "summary": "HIGH severity · affects 1 product",
     "indexed_at": "2026-08-25T05:11:30.383Z"
+  },
+  {
+    "id": "CIAD-2025-0037",
+    "published_at": "2025-10-16",
+    "severity": "high",
+    "cves": [
+      "CVE-2025-24990",
+      "CVE-2025-47827",
+      "CVE-2025-59230"
+    ],
+    "products_affected": [
+      "Open Source Software Apps Windows ESU Developer Tools Microsoft Office SQL Server Server Software System Center Azure"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products which could allow an attacker to gain elevated privileges, obtain Information Disclosure, Bypass Security restriction, and conduct remote code execution attacks, perform spoofing attacks, cause denial of service condition or tamper with system settings.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0037",
+    "summary": "HIGH severity · 3 CVEs · affects 1 product",
+    "indexed_at": "2026-09-12T07:08:38.649Z"
+  },
+  {
+    "id": "CIAD-2025-0036",
+    "published_at": "2025-10-15",
+    "severity": "critical",
+    "cves": [
+      "CVE-2025-49552",
+      "CVE-2025-49553",
+      "CVE-2025-54196",
+      "CVE-2025-54263",
+      "CVE-2025-54264",
+      "CVE-2025-54265",
+      "CVE-2025-54266",
+      "CVE-2025-54267",
+      "CVE-2025-54268",
+      "CVE-2025-54269",
+      "CVE-2025-54270",
+      "CVE-2025-54271",
+      "CVE-2025-54272",
+      "CVE-2025-54273",
+      "CVE-2025-54274",
+      "CVE-2025-54275",
+      "CVE-2025-54276",
+      "CVE-2025-54278",
+      "CVE-2025-54279",
+      "CVE-2025-54280",
+      "CVE-2025-54281",
+      "CVE-2025-54282",
+      "CVE-2025-54283",
+      "CVE-2025-54284",
+      "CVE-2025-61796",
+      "CVE-2025-61797",
+      "CVE-2025-61798",
+      "CVE-2025-61799",
+      "CVE-2025-61800",
+      "CVE-2025-61801",
+      "CVE-2025-61802",
+      "CVE-2025-61803",
+      "CVE-2025-61804",
+      "CVE-2025-61805",
+      "CVE-2025-61806",
+      "CVE-2025-61807"
+    ],
+    "products_affected": [
+      "Adobe Connect",
+      "AEM 6.5.22 Screens FP11.7 for all platforms Adobe Substance 3D Viewer",
+      "FrameMaker 2020 Update 10 for Windows Adobe FrameMaker",
+      "FrameMaker 2022 Update 8 for Windows Adobe Illustrator 2025"
+    ],
+    "description": "Multiple vulnerabilities exist in Adobe products due to improper access control, incorrect authorization, time-of-check time-of-use (TOCTOU) race conditions, heap-based and stack-based buffer overflows, use-after-free errors, out-of-bounds read and write issues, NULL pointer dereference, integer overflow or wraparound, and other issues.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0036",
+    "summary": "CRITICAL severity · 36 CVEs · affects 4 products",
+    "indexed_at": "2026-09-12T07:08:36.943Z"
   },
   {
     "id": "CIAD-2025-0034",
@@ -614,7 +939,7 @@
     "description": "The HPE Aruba Networking EdgeConnect SD-WAN Gateways are advanced edge devices designed to deliver secure, high-performance, and intelligent software-defined WAN (SD-WAN) connectivity. 1. Command Injection Vulnerability ( CVE-2025-37123 )",
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0032",
     "summary": "HIGH severity · 9 CVEs",
-    "indexed_at": "2026-08-25T05:10:34.529Z"
+    "indexed_at": "2026-09-12T07:14:02.578Z"
   },
   {
     "id": "CIAD-2025-0030",
@@ -626,6 +951,88 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0030",
     "summary": "HIGH severity",
     "indexed_at": "2026-06-22T11:45:05.851Z"
+  },
+  {
+    "id": "CIAD-2025-0029",
+    "published_at": "2025-09-09",
+    "severity": "critical",
+    "cves": [
+      "CVE-2023-27500",
+      "CVE-2023-5072",
+      "CVE-2024-13009",
+      "CVE-2025-22228",
+      "CVE-2025-27428",
+      "CVE-2025-42911",
+      "CVE-2025-42912",
+      "CVE-2025-42913",
+      "CVE-2025-42914",
+      "CVE-2025-42915",
+      "CVE-2025-42916",
+      "CVE-2025-42917",
+      "CVE-2025-42918",
+      "CVE-2025-42920",
+      "CVE-2025-42922",
+      "CVE-2025-42923",
+      "CVE-2025-42925",
+      "CVE-2025-42926",
+      "CVE-2025-42927",
+      "CVE-2025-42929",
+      "CVE-2025-42930",
+      "CVE-2025-42933",
+      "CVE-2025-42938",
+      "CVE-2025-42941",
+      "CVE-2025-42944",
+      "CVE-2025-42958",
+      "CVE-2025-42961"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0029",
+    "summary": "CRITICAL severity · 27 CVEs",
+    "indexed_at": "2026-09-12T07:08:00.063Z"
+  },
+  {
+    "id": "CIAD-2025-0028",
+    "published_at": "2025-08-18",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in Microsoft Products, which could allow an attacker to gain elevated privileges, obtain sensitive information, conduct remote code execution attacks, bypass security restrictions, conduct spoofing attacks, cause denial of service conditions or tamper with system settings.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0028",
+    "summary": "HIGH severity",
+    "indexed_at": "2026-09-12T07:07:50.603Z"
+  },
+  {
+    "id": "CIAD-2025-0027",
+    "published_at": "2025-08-14",
+    "severity": "high",
+    "cves": [
+      "CVE-2025-0059",
+      "CVE-2025-23194",
+      "CVE-2025-27429",
+      "CVE-2025-31331",
+      "CVE-2025-42934",
+      "CVE-2025-42935",
+      "CVE-2025-42936",
+      "CVE-2025-42941",
+      "CVE-2025-42942",
+      "CVE-2025-42943",
+      "CVE-2025-42945",
+      "CVE-2025-42946",
+      "CVE-2025-42948",
+      "CVE-2025-42949",
+      "CVE-2025-42950",
+      "CVE-2025-42951",
+      "CVE-2025-42955",
+      "CVE-2025-42957",
+      "CVE-2025-42975",
+      "CVE-2025-42976"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0027",
+    "summary": "HIGH severity · 20 CVEs",
+    "indexed_at": "2026-09-12T07:07:48.127Z"
   },
   {
     "id": "CIAD-2025-0026",
@@ -1012,6 +1419,23 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0003",
     "summary": "HIGH severity · 36 CVEs · affects 1 product",
     "indexed_at": "2026-08-25T05:07:57.666Z"
+  },
+  {
+    "id": "CIAD-2025-0002",
+    "published_at": "2025-01-15",
+    "severity": "critical",
+    "cves": [
+      "CVE-2025-21333",
+      "CVE-2025-21334",
+      "CVE-2025-21335"
+    ],
+    "products_affected": [
+      "Microsoft Windows Microsoft Office Microsoft Azure Microsoft Browser Microsoft Dynamics Developer Tools Miscellaneous (ESU)"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft Products which could allow an attacker to gain elevated privileges, bypass security restrictions obtain sensitive information, conduct spoofing attacks, conduct remote code execution attacks, or cause denial of service (DoS) conditions on the target system.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0002",
+    "summary": "CRITICAL severity · 3 CVEs · affects 1 product",
+    "indexed_at": "2026-09-12T07:05:50.058Z"
   },
   {
     "id": "CIAD-2025-0001",
