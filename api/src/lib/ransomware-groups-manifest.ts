@@ -1,0 +1,1 @@
+../../../worker/lib/ransomware-groups-manifest.ts

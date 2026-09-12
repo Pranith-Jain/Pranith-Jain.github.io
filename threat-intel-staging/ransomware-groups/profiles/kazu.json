@@ -1,0 +1,23 @@
+{
+  "slug": "kazu",
+  "name": "kazu",
+  "fetchedAt": "2026-09-12T06:12:52.001Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "6czlbd2jfiy6765fbnbnzuwuqocg57ebvp3tbm35kib425k4qnmiiiqd.onion",
+          "title": "KAZU",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 21:03:45.163",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

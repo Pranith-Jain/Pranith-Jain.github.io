@@ -1,0 +1,223 @@
+/**
+ * Ransomware Groups directory manifest loader (Sinon-style /ransomware reference).
+ *
+ * Reads the static JSON manifest shipped in /public/data/ransomware-groups/
+ * (built by scripts/build-ransomware-groups.mjs from Ransomlook +
+ * ransomware.live clearnet aggregation). The Worker fetches them through
+ * the env.ASSETS binding — no Tor egress, no per-request upstream calls.
+ *
+ * Shape:
+ *   /data/ransomware-groups/index.json          (slim row per group)
+ *   /data/ransomware-groups/groups/<slug>.json (bodies for active/profiled groups)
+ */
+
+export interface RansomwareGroupRow {
+  slug: string;
+  name: string;
+  victims_7d: number;
+  victims_total: number;
+  last_seen: string | null;
+  origins: string[];
+  /** Ransomlook reachability at last scrape; null when never enriched. */
+  online: boolean | null;
+  mirrors: number;
+  up_mirrors: number;
+  has_profile: boolean;
+  blurb: string;
+}
+
+export interface RansomwareGroupsIndex {
+  source: string;
+  sourceUrl: string;
+  license: string;
+  syncedAt: string | null;
+  builtAt: string;
+  counts: {
+    groups: number;
+    sites_up: number;
+    active_week: number;
+    profiled: number;
+    with_activity: number;
+  };
+  groups: RansomwareGroupRow[];
+  /** Slugs of the 12 most-recently-changed groups ("moved most recently"). */
+  recent: string[];
+}
+
+export interface RansomwareGroupMirror {
+  fqdn: string;
+  title: string | null;
+  available: boolean;
+  updated: string | null;
+  version: number | null;
+}
+
+export interface RansomwareVictimSample {
+  victim: string;
+  discovered: string;
+  origin: string;
+  source_url: string;
+}
+
+export interface RansomwareGroupBody extends RansomwareGroupRow {
+  meta: string | null;
+  meta_source: string | null;
+  mirrors_detail: RansomwareGroupMirror[];
+  victims_sample: RansomwareVictimSample[];
+  source_urls: { ransomlook: string; ransomware_live: string };
+}
+
+const DATA_PREFIX = '/data/ransomware-groups';
+const MAX_BODY_CACHE = 200;
+
+interface BodyCache<T> {
+  map: Map<string, T>;
+  hits: number;
+  misses: number;
+}
+
+const bodyCache: BodyCache<RansomwareGroupBody> = { map: new Map(), hits: 0, misses: 0 };
+let cachedIndex: RansomwareGroupsIndex | null = null;
+let cachedIndexAt: number | null = null;
+
+async function fetchJson<T>(assets: Fetcher, path: string): Promise<T | null> {
+  const url = `https://ransomware-groups.local${path}`;
+  const res = await assets.fetch(new Request(url));
+  if (!res.ok) return null;
+  return (await res.json()) as T;
+}
+
+function recordHit<T>(cache: BodyCache<T>, key: string, value: T): T {
+  if (cache.map.has(key)) cache.map.delete(key);
+  cache.map.set(key, value);
+  while (cache.map.size > MAX_BODY_CACHE) {
+    const oldest = cache.map.keys().next().value;
+    if (oldest === undefined) break;
+    cache.map.delete(oldest);
+  }
+  return value;
+}
+
+function trackHit<T>(cache: BodyCache<T>, key: string): T | undefined {
+  const v = cache.map.get(key);
+  if (v === undefined) {
+    cache.misses += 1;
+    return undefined;
+  }
+  cache.hits += 1;
+  cache.map.delete(key);
+  cache.map.set(key, v);
+  return v;
+}
+
+export async function loadRansomwareGroupsIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<RansomwareGroupsIndex> {
+  if (cachedIndex && !opts.forceRefresh) return cachedIndex;
+  const idx = await fetchJson<RansomwareGroupsIndex>(assets, `${DATA_PREFIX}/index.json`);
+  if (!idx) {
+    throw new Error(
+      `Ransomware Groups index not found at ${DATA_PREFIX}/index.json — run 'node scripts/build-ransomware-groups.mjs' first.`
+    );
+  }
+  cachedIndex = idx;
+  cachedIndexAt = Date.now();
+  return idx;
+}
+
+/**
+ * Body files exist only for active/profiled groups. Synthesises a body from
+ * the slim index row otherwise, so every /groups/:slug lookup resolves.
+ */
+export async function getRansomwareGroup(assets: Fetcher, slug: string): Promise<RansomwareGroupBody | null> {
+  const hit = trackHit(bodyCache, slug);
+  if (hit) return hit;
+  const raw = await fetchJson<Omit<RansomwareGroupBody, 'mirrors_detail'> & { mirrors?: RansomwareGroupMirror[] }>(
+    assets,
+    `${DATA_PREFIX}/groups/${slug}.json`
+  );
+  if (raw) {
+    const body: RansomwareGroupBody = {
+      ...raw,
+      mirrors_detail: Array.isArray((raw as { mirrors_detail?: unknown }).mirrors_detail)
+        ? (raw as unknown as RansomwareGroupBody).mirrors_detail
+        : Array.isArray(raw.mirrors)
+          ? (raw.mirrors as RansomwareGroupMirror[])
+          : [],
+    };
+    return recordHit(bodyCache, slug, body);
+  }
+  const idx = await loadRansomwareGroupsIndex(assets);
+  const row = idx.groups.find((g) => g.slug === slug);
+  if (!row) return null;
+  return recordHit(bodyCache, slug, {
+    ...row,
+    meta: null,
+    meta_source: null,
+    mirrors_detail: [],
+    victims_sample: [],
+    source_urls: {
+      ransomlook: `https://www.ransomlook.io/api/group/${encodeURIComponent(row.name)}`,
+      ransomware_live: 'https://www.ransomware.live/',
+    },
+  });
+}
+
+export type RansomwareGroupStatus = 'online' | 'offline' | 'unknown';
+export type RansomwareGroupSort = 'recent' | 'name' | 'victims';
+
+export interface RansomwareGroupListOptions {
+  q?: string;
+  status?: RansomwareGroupStatus;
+  activeWeek?: boolean;
+  hasProfile?: boolean;
+  sort?: RansomwareGroupSort;
+  limit?: number;
+}
+
+export function filterRansomwareGroups(
+  idx: RansomwareGroupsIndex,
+  opts: RansomwareGroupListOptions = {}
+): RansomwareGroupRow[] {
+  const { q, status, activeWeek, hasProfile, sort = 'recent', limit = 100 } = opts;
+  const needle = q?.toLowerCase().trim();
+  const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;
+  let out = idx.groups.filter((g) => {
+    if (status === 'online' && g.online !== true) return false;
+    if (status === 'offline' && g.online !== false) return false;
+    if (status === 'unknown' && g.online !== null) return false;
+    if (activeWeek) {
+      if (!g.last_seen || Date.parse(g.last_seen) < weekAgo) return false;
+    }
+    if (hasProfile && !g.has_profile) return false;
+    if (needle && !`${g.slug} ${g.name} ${g.blurb}`.toLowerCase().includes(needle)) return false;
+    return true;
+  });
+  out = [...out].sort((a, b) => {
+    if (sort === 'name') return a.slug.localeCompare(b.slug);
+    if (sort === 'victims')
+      return b.victims_7d - a.victims_7d || String(b.last_seen ?? '').localeCompare(String(a.last_seen ?? ''));
+    return String(b.last_seen ?? '').localeCompare(String(a.last_seen ?? '')) || b.victims_7d - a.victims_7d;
+  });
+  return out.slice(0, Math.min(Math.max(limit, 1), 620));
+}
+
+export function ransomwareGroupsCacheStats(): {
+  indexLoaded: boolean;
+  indexAgeMs: number | null;
+  bodies: { size: number; hits: number; misses: number };
+} {
+  return {
+    indexLoaded: cachedIndex !== null,
+    indexAgeMs: cachedIndexAt ? Date.now() - cachedIndexAt : null,
+    bodies: { size: bodyCache.map.size, hits: bodyCache.hits, misses: bodyCache.misses },
+  };
+}
+
+export function _resetRansomwareGroupsCacheForTests(): void {
+  bodyCache.map.clear();
+  cachedIndex = null;
+  cachedIndexAt = null;
+  bodyCache.hits = bodyCache.misses = 0;
+}

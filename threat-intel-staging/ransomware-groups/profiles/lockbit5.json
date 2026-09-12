@@ -1,0 +1,68 @@
+{
+  "slug": "lockbit5",
+  "name": "lockbit5",
+  "fetchedAt": "2026-09-12T06:12:54.282Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "lockbitfbinpwhbyomxkiqtwhwiyetrbkb4hnqmshaonqxmsrqwg7yad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 01:20:42.443",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "lockbitapt67g6rwzjbcxnww5efpg4qok6vpfeth7wx3okj52ks4wtad.onion",
+          "title": "LockBit 5.0 Blog",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 00:02:53.244",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "lockbitsuppyx2jegaoyiw44ica5vdho63m5ijjlmfb7omq3tfr3qhyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 15:01:13.738",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "lockbitfss2w7co3ij6am6wox4xcurtgwukunx3yubcoe5cbxiqakxqd.onion",
+          "title": "LockBit File Share",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 03:26:15.412",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbitfsvf75glg226he5inkfgtuoakt4vgfhd7nfgghx5kwz5zo3ad.onion",
+          "title": "LockBit File Share",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 01:00:07.049",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbitfskq2fxclyfrop5yizyxpzu65w7pphsgthawcyb4gd27x62id.onion",
+          "title": "LockBit File Share",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-10 21:00:07.076",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

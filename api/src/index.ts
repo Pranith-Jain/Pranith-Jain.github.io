@@ -94,6 +94,7 @@ import { webScanHandler } from './routes/web-scan';
 import { onionWatchHandler } from './routes/onion-watch';
 import {
   telegramFeedHandler,
+  tgLiveSearchHandler,
   telegramCustomChannelsGetHandler,
   telegramCustomChannelsPostHandler,
   telegramCustomChannelsDeleteHandler,
@@ -1061,6 +1062,8 @@ import { threatIntelRouter } from './routes/threat-intel-edge-tools';
 import { dailyBriefsRouter } from './routes/daily-briefs-edge-tools';
 import { webamonDtbRouter } from './routes/webamon-dtb';
 import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
+import { aiEscapeRouter } from './routes/ai-escape';
+import { ransomwareGroupsRouter } from './routes/ransomware-groups';
 import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
 import { pcmedicalistRouter } from './routes/pcmedicalist';
@@ -1073,6 +1076,7 @@ import { traceixRouter } from './routes/traceix';
 import { profileStatsRouter } from './routes/profile-stats';
 import { nhiScanRouter } from './routes/nhi-scan';
 import { whoxyRouter } from './routes/whoxy';
+import { heatwaveLookupHandler } from './routes/heatwave';
 import { threatMonitorRouter } from './routes/threat-monitor';
 import { truecallerRouter } from './routes/truecaller';
 import { fullhuntRouter } from './routes/fullhunt';
@@ -1309,6 +1313,7 @@ app.get('/api/v1/builtwith', builtwithHandler);
 app.get('/api/v1/ct-log', ctLogHandler);
 app.get('/api/v1/wayback/advanced', validate('query', waybackAdvancedSchema), waybackAdvancedHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
+app.get('/api/v1/tg-live-search', tgLiveSearchHandler);
 app.get('/api/v1/telegram-search', telegramSearchHandler);
 app.get('/api/v1/telegram-channel-meta', telegramChannelMetaHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
@@ -2074,6 +2079,14 @@ app.get('/api/v1/si/scripts/:name', siScriptHandler);
 // Source: https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/
 app.route('/api/v1', aiThreatsRouter);
 
+// Ransomware Groups directory — Sinon-style leak-site group reference.
+// Static manifest in public/data/ransomware-groups/ (Ransomlook + ransomware.live).
+app.route('/api/v1', ransomwareGroupsRouter);
+
+// AI Escape Watch — agent containment-failure registry.
+// Static manifest in public/data/ai-escape/ (curatorial seed, reviewed via PR).
+app.route('/api/v1', aiEscapeRouter);
+
 // OSS Feed Registry — curated catalog of 145+ free open-source threat intel feeds.
 // Data from github.com/Bert-JanP/Open-Source-Threat-Intel-Feeds (BSD-3-Clause).
 app.route('/api/v1', ossFeedsRouter);
@@ -2150,6 +2163,10 @@ app.route('/api/v1', nhiScanRouter);
 // Requires WHOXY_API_KEY Worker secret.
 // Endpoint: GET /api/v1/whoxy/reverse?q=<term>&type=email|name|company|keyword
 app.route('/api/v1', whoxyRouter);
+
+// Validity Heatwave — cold-email sending-domain blocklist (keyless scrape proxy).
+// Endpoint: GET /api/v1/heatwave/lookup?domain=<sending-domain>
+app.get('/api/v1/heatwave/lookup', heatwaveLookupHandler);
 
 // Global Threat Actor Monitor — RSS proxy for client-side APT detection.
 // Endpoints: /api/v1/threat-monitor/*

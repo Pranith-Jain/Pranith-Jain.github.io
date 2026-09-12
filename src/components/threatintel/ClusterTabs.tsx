@@ -49,6 +49,7 @@ export function ClusterTabs({ tabs, ariaLabel = 'Section' }: { tabs: ClusterTab[
 export const RANSOMWARE_TABS: ClusterTab[] = [
   { label: 'ransomware.live PRO', to: '/threatintel/ransomware-live' },
   { label: 'Ransomware Hub', to: '/threatintel/ransomware-hub' },
+  { label: 'Groups', to: '/threatintel/ransomware-groups' },
   { label: 'Re-leaks', to: '/threatintel/darkweb/leaks' },
   { label: 'Onion Watch', to: '/threatintel/onion-watch' },
 ];

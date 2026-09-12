@@ -1,6 +1,6 @@
 import { logCatch } from '../../lib/log';
 import { isAbortError } from '../../lib/abort-error';
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, Radio, Search, AlertTriangle, ExternalLink, Zap } from 'lucide-react';
 import { DataState } from '../../components/DataState';
@@ -125,6 +125,15 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 150);
   const [sourceFilter, setSourceFilter] = useState<Set<Source>>(new Set<Source>(['feed', 'leak', 'liveioc']));
+  // Stateless live channel search (GET /api/v1/tg-live-search) — fetches
+  // t.me/s previews on demand and matches in memory. Nothing is written
+  // to KV or D1; results live only in this component's state.
+  const [liveQ, setLiveQ] = useState('');
+  const [liveSearching, setLiveSearching] = useState(false);
+  const [liveSearchError, setLiveSearchError] = useState<string | null>(null);
+  const [liveHits, setLiveHits] = useState<FirehoseItem[]>([]);
+  const [liveMeta, setLiveMeta] = useState<{ count: number; channels: number } | null>(null);
+  const liveAbortRef = useRef<AbortController | null>(null);
   const [severityFilter, setSeverityFilter] = useState<Set<Severity>>(
     new Set<Severity>(['critical', 'high', 'medium', 'low', 'unknown'])
   );
@@ -195,6 +204,59 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
     },
     [fetchFeed, fetchLeaks, fetchLive]
   );
+
+  const runLiveSearch = useCallback(async () => {
+    const q = liveQ.trim();
+    if (!q) return;
+    liveAbortRef.current?.abort();
+    const ctrl = new AbortController();
+    liveAbortRef.current = ctrl;
+    setLiveSearching(true);
+    setLiveSearchError(null);
+    try {
+      const r = await fetch(`/api/v1/tg-live-search?q=${encodeURIComponent(q)}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30000)]),
+      });
+      if (!r.ok) {
+        const body = await r.text().catch(() => '');
+        throw new Error(body ? `API ${r.status}: ${body.slice(0, 120)}` : `API ${r.status}`);
+      }
+      const j = (await r.json()) as {
+        count: number;
+        channels: { handle: string; ok: boolean }[];
+        hits: {
+          channel_handle: string;
+          channel_name: string;
+          permalink: string;
+          datetime: string;
+          views?: string;
+          snippet: string;
+          matched: string[];
+        }[];
+      };
+      if (ctrl.signal.aborted) return;
+      setLiveHits(
+        (j.hits ?? []).map((h) => ({
+          id: `live-search:${h.permalink}`,
+          ts: h.datetime,
+          source: 'feed' as Source,
+          severity: 'unknown' as Severity,
+          title: h.channel_name,
+          body: h.snippet,
+          channel: h.channel_handle,
+          link: h.permalink,
+          meta: { views: h.views ?? '-', matched: h.matched.join(' + ') },
+        }))
+      );
+      setLiveMeta({ count: j.count ?? 0, channels: (j.channels ?? []).filter((ch) => ch.ok).length });
+    } catch (e) {
+      if (isAbortError(e)) return;
+      logCatch(e);
+      setLiveSearchError((e as Error).message);
+    } finally {
+      if (!ctrl.signal.aborted) setLiveSearching(false);
+    }
+  }, [liveQ]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -443,6 +505,55 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
             <AlertTriangle size={12} /> {anyError}
           </div>
         )}
+
+        {/* Stateless live channel search — on-demand t.me/s fetch matched
+            in memory. Nothing is persisted (no KV/D1 writes); results are
+            session-local. Defaults to the CVE/breach batch server-side. */}
+        <form
+          className="mt-3 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void runLiveSearch();
+          }}
+        >
+          <div className="flex flex-wrap gap-2">
+            <div className="relative flex-1 min-w-[220px]">
+              <Zap size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+              <input
+                value={liveQ}
+                onChange={(e) => setLiveQ(e.target.value)}
+                placeholder="live channel search — e.g. CVE-2026-XXXX or LockBit…"
+                className="w-full pl-7 pr-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+                aria-label="Live search Telegram channels"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={liveSearching || !liveQ.trim()}
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-40"
+            >
+              {liveSearching ? 'searching…' : 'live search'}
+            </button>
+          </div>
+          <p className="mt-1.5 text-micro font-mono text-slate-500">
+            stateless — fetches public previews on demand, matches in memory, stores nothing
+            {liveMeta && (
+              <span className="ml-2 text-body">
+                {liveMeta.count} hits · {liveMeta.channels} channels ok
+              </span>
+            )}
+          </p>
+          {liveSearchError && (
+            <p className="mt-1.5 text-mini font-mono text-rose-600 dark:text-rose-400">{liveSearchError}</p>
+          )}
+          {liveHits.length > 0 && (
+            <ul className="mt-2 space-y-2">
+              {liveHits.map((it) => (
+                <FirehoseRow key={it.id} item={it} />
+              ))}
+            </ul>
+          )}
+        </form>
       </section>
 
       {/* Page-level AI summary across the visible firehose items. Public

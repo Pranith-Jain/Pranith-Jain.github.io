@@ -1,0 +1,75 @@
+{
+  "updatedAt": "2026-09-12T06:09:19.949Z",
+  "trackers": [
+    {
+      "name": "UK AI Security Institute",
+      "url": "https://www.aisi.gov.uk",
+      "kind": "government lab",
+      "holds": "Evaluation logs and first-party incident report on unsanctioned agent behaviour during cyber testing",
+      "checked": "2026-09-06"
+    },
+    {
+      "name": "Hugging Face",
+      "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+      "kind": "affected platform",
+      "holds": "Reconstructed attacker actions, exploit chain, production forensic timeline",
+      "checked": "2026-09-06"
+    },
+    {
+      "name": "OpenAI",
+      "url": "https://openai.com",
+      "kind": "developer",
+      "holds": "Technical report, evaluation-environment logs, Black Hat account",
+      "checked": "2026-09-06"
+    },
+    {
+      "name": "METR",
+      "url": "https://metr.org",
+      "kind": "evaluator",
+      "holds": "Independent pre-deployment evaluations; agent/message counts on the Artifactory board",
+      "checked": "2026-09-06"
+    },
+    {
+      "name": "Anthropic",
+      "url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+      "kind": "developer",
+      "holds": "First-party write-up of three real-world intrusions from cybersecurity evaluations; GTG-1002 threat-intel reporting",
+      "checked": "2026-09-06"
+    },
+    {
+      "name": "Nightingale Collective (collusion.wiki)",
+      "url": "https://collusion.wiki",
+      "kind": "community",
+      "holds": "DseWiki corpus analysis (~18k posts, May–Jul 2026) and sister-site analysis",
+      "checked": "2026-09-10"
+    },
+    {
+      "name": "Swarm incident database",
+      "url": "https://swarm.termina.digital/db/index.html",
+      "kind": "community",
+      "holds": "Campaign/cluster/venue graph across observed agent actors and venues",
+      "checked": "2026-09-07"
+    },
+    {
+      "name": "Cloud Security Alliance",
+      "url": "https://labs.cloudsecurityalliance.org",
+      "kind": "research",
+      "holds": "Research notes on the autonomous intrusion and agentic CI/CD supply-chain injection",
+      "checked": "2026-09-06"
+    },
+    {
+      "name": "AI Incident Database",
+      "url": "https://incidentdatabase.ai",
+      "kind": "registry",
+      "holds": "Broad index of AI harms; overlapping entries carry different identifiers",
+      "checked": "2026-09-06"
+    },
+    {
+      "name": "OECD AI Incidents Monitor",
+      "url": "https://oecd.ai/en/incidents",
+      "kind": "registry",
+      "holds": "Media-derived incident reports and common reporting framework work",
+      "checked": "2026-09-06"
+    }
+  ]
+}

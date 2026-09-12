@@ -1,0 +1,90 @@
+{
+  "slug": "kazu",
+  "name": "kazu",
+  "victims_7d": 19,
+  "victims_total": 38,
+  "last_seen": "2026-09-07T08:43:38.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": false,
+  "mirrors": 1,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "19 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "6czlbd2jfiy6765fbnbnzuwuqocg57ebvp3tbm35kib425k4qnmiiiqd.onion",
+      "title": "KAZU",
+      "available": false,
+      "updated": "2026-09-11 21:03:45.163",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "MSM Unify: Global Education Platform - CA",
+      "discovered": "2026-09-07T08:43:38.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Statistics South Africa – Official National Data and Insights Portal",
+      "discovered": "2026-09-07T08:43:37.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Gauteng City Region Academy (GCRA)",
+      "discovered": "2026-09-07T08:43:37.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "HealthDaq",
+      "discovered": "2026-09-07T08:43:36.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Health Time",
+      "discovered": "2026-09-07T08:43:35.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Natclar (S.G. Natclar S.A.C.)",
+      "discovered": "2026-09-07T08:43:34.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Gauteng Provincial Government",
+      "discovered": "2026-09-07T08:43:33.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "ConsultorioMovil: Telemedicine and Healthcare System",
+      "discovered": "2026-09-07T08:43:32.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Meducar: Telemedicine and Patient Management System",
+      "discovered": "2026-09-07T08:43:31.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Centro Médico Especializado OSI:  Healthcare Solutions",
+      "discovered": "2026-09-07T08:43:30.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/kazu",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

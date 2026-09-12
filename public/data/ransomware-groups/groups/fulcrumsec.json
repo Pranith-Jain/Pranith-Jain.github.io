@@ -1,0 +1,34 @@
+{
+  "slug": "fulcrumsec",
+  "name": "fulcrumsec",
+  "victims_7d": 2,
+  "victims_total": 29,
+  "last_seen": "2026-09-11T12:40:23.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": null,
+  "mirrors": 0,
+  "up_mirrors": 0,
+  "has_profile": false,
+  "blurb": "2 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": null,
+  "mirrors_detail": [],
+  "victims_sample": [
+    {
+      "victim": "Dustin Group",
+      "discovered": "2026-09-11T12:40:23.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/dustin/"
+    },
+    {
+      "victim": "Manchester Airports Group",
+      "discovered": "2026-09-01T12:46:01.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/mag/"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/fulcrumsec",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

@@ -27,6 +27,8 @@ A live CTI surface that updates itself: ransomware leak-site + negotiation track
 | Surface                                 | What it does                                                                                                       |
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | Live Ransomware Activity                | Leak-site claims merged across Ransomlook, ransomware.live, MyThreatIntel & Andrea Fortuna; per-victim screenshots |
+| Ransomware Groups Directory             | 620-group leak-site directory — status, 7d victims, profiles, recent moves (Sinon-style reference)                 |
+| AI Escape Watch                         | 15-incident agent containment-failure registry — CBS scores, 7-stage chains, absent-guardrail analysis             |
 | Ransomware Negotiations                 | ransomware.live PRO negotiation chats — demand vs. settled, discount %, full transcripts                           |
 | Actor Activity Timeline                 | Per-actor leak-site cadence heatmap + MITRE ATT&CK group/TTP pivot                                                 |
 | Victim Re-leak Trends                   | Sector + operation-type breakdowns, group re-claim pairs, re-leak timeline                                         |
@@ -68,7 +70,7 @@ A live CTI surface that updates itself: ransomware leak-site + negotiation track
 | **Crypto & Blockchain**   | Fund-Flow Tracer (BTC/ETH/Solana/Tron), Wallet Risk Scoring, Address Watch & Alerts                                                                                                        |
 | **Malware Analysis**      | Malware Capabilities, Sample Scanner, PE Analysis, String Extraction                                                                                                                       |
 
-**IOC providers (60+):** VirusTotal, AbuseIPDB, Shodan, Censys, Netlas, OTX, URLScan, Hybrid Analysis, GreyNoise, CrowdSec, VulnCheck, Maltiverse, PulseDive, PhishTank, YARAify, and many more — all optional, the toolkit works with zero keys.
+**IOC providers (60+):** VirusTotal, AbuseIPDB, Shodan, Censys, Netlas, OTX, URLScan, Hybrid Analysis, GreyNoise, CrowdSec, VulnCheck, Maltiverse, PulseDive, PhishTank, YARAify, StalkPhish, and many more — all optional, the toolkit works with zero keys.
 
 ---
 
@@ -121,6 +123,7 @@ The toolkit works with **zero** keys. These unlock extra providers / the CTI eng
 npx wrangler secret put VT_API_KEY ABUSEIPDB_API_KEY SHODAN_API_KEY \
   CENSYS_PAT NETLAS_API_KEY OTX_API_KEY URLSCAN_API_KEY HYBRID_ANALYSIS_API_KEY
 npx wrangler secret put ABUSECH_AUTH_KEY        # ThreatFox + URLhaus + MalwareBazaar
+npx wrangler secret put STALKPHISH_API_KEY      # StalkPhish phishing intel (free: 50/day)
 
 # Threat-intel / content engine
 npx wrangler secret put RANSOMWARELIVE_API_KEY  # ransomware.live PRO

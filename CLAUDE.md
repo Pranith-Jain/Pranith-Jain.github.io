@@ -521,6 +521,38 @@ TLP:CLEAR marking included. Params: `include=entities,iocs,darknet,threaticon`,
 `api/src/routes/threat-intel-edge-tools.ts` (route),
 `api/test/routes/threat-intel-stix.test.ts` (4 tests).
 
+## Ransomware Groups directory (Sinon-style reference)
+
+`public/data/ransomware-groups/` (built, committed): `index.json` (620 slim rows) +
+`groups/<slug>.json` bodies for active/profiled groups (capped 200). Clearnet
+aggregation only — Ransomlook group list + deep-recent victims + ransomware.live
+dump; leak-site _status_ from Ransomlook reachability probes (Workers cannot
+egress via Tor, same constraint as `onion-watch.ts`).
+
+- `scripts/sync-ransomware-groups.mjs [--enrich 30]` → `threat-intel-staging/ransomware-groups/`
+- `scripts/build-ransomware-groups.mjs` → `public/data/ransomware-groups/`
+- `worker/lib/ransomware-groups-manifest.ts` (+ `api/` symlink) — loader + filters
+- `api/src/routes/ransomware-groups.ts` — 4 REST routes under `/api/v1/ransomware-groups/`
+- `src/pages/threatintel/RansomwareGroups.tsx` — SPA at `/threatintel/ransomware-groups`
+- `.github/workflows/ransomware-groups-sync.yml` — weekly sync + PR
+
+## AI Escape Watch (agent containment-failure registry)
+
+`public/data/ai-escape/` (built, committed): `index.json` + `incidents/<id>.json`
+(15) + `guardrails.json` (10) + `trackers.json`. Curatorial seed
+(`threat-intel-staging/ai-escape/seed.json`) — summaries are original
+condensations of cited sources, disputed figures flagged never averaged, every
+entry needs ≥1 source. New disclosures land via PR (reviewed before publish);
+no sync script by design. CBS v0.1 is a draft scale — scorer is curated data,
+not computed.
+
+- `scripts/build-ai-escape.mjs` — fail-closed validation (klass/sev/tier/cbs/chain/sources)
+- `worker/lib/ai-escape-manifest.ts` (+ `api/` symlink) — loader + `filterEscapes` + timeline buckets
+- `api/src/routes/ai-escape.ts` — 6 REST routes under `/api/v1/ai-escape/`
+- `src/pages/threatintel/AiEscape.tsx` — SPA at `/threatintel/ai-escape`
+- Report box links a prefilled GitHub issue (no D1 migration yet — server-side
+  review queue is the follow-up)
+
 ## Destroylist — Phishing & Scam Domain Blacklist
 
 A replicated vertical from [phishdestroy/destroylist](https://github.com/phishdestroy/destroylist)
@@ -680,6 +712,31 @@ keyword. Costs $0.01/query (paid, no free tier).
 - `src/pages/Whoxy.tsx` — SPA page at `/dfir/whoxy`
 
 **Secret**: `WHOXY_API_KEY` (`wrangler secret put WHOXY_API_KEY`)
+
+## Heatwave — Cold-Email Sending-Domain Blocklist
+
+A keyless sender-reputation source from Validity's Heatwave DBL
+(lookup.validity.tools): synthetic reputation warming vs. active cold
+outreach on the *sending domain*. No public API and the public DNS resolver
+is retired (both partner-only), so the free web Lookup page (100/day/IP) is
+parsed server-side — same scraper pattern as the MTI/Telegram helpers.
+
+**Semantics enforced in code** (`worker/lib/heatwave.ts`): exact-match only,
+score is a relative display-only band, "not listed" is unknown (never clean),
+warming-only is suspicious (never malicious), and scope is sending-domain
+only — it is NOT an IOC fan-out provider (a warming hit on a random domain
+would be a false phishing signal).
+
+**Files**:
+
+- `worker/lib/heatwave.ts` — `heatwaveLookup` + `parseHeatwavePage` + `heatwaveVerdict`
+- `worker/lib/heatwave.test.ts` — 9 parser/verdict tests over saved fixtures
+- `api/src/lib/heatwave.ts` — symlink to `worker/lib/heatwave.ts`
+- `api/src/routes/heatwave.ts` — `GET /api/v1/heatwave/lookup?domain=` (24h edge cache + KV last-good)
+- `api/test/routes/heatwave.test.ts` — 4 route tests (pass mock ExecutionContext; `app.request()` has none)
+- `src/pages/dfir/EmailReputation.tsx` — sender-domain panel + composite floors (active 60 / warming 40)
+
+**Secret**: none — keyless, quota-guarded by cache.
 
 ## depx — Supply-Chain Intelligence
 

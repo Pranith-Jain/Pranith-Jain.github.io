@@ -1,0 +1,203 @@
+{
+  "slug": "dragonforce",
+  "name": "dragonforce",
+  "fetchedAt": "2026-09-12T06:12:58.000Z",
+  "profiles": [
+    {
+      "captcha": true,
+      "meta": "DragonForce is a ransomware-as-a-service (RaaS) group first identified in late 2023. Originally linked to hacktivist activity, the group pivoted to financially motivated operations by early 2024. Since then, it has accelerated into a highly organized cartel-like network, providing customizable payloads to affiliates, a sophisticated affiliate portal, and shared infrastructure for leak sites and campaigns. The group has targeted a wide range of sectors globally, including major UK retailers such as M&S, Harrods, and Co-op, along with organizations in government, logistics, and manufacturing. Its operations are known for strategic branding flexibility, enabling affiliates to operate under their own labels using DragonForce’s backend services.",
+      "locations": [
+        {
+          "fqdn": "z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion",
+          "title": "DragonForce | Migration completed",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 00:09:30.079",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "3pktcrcbmssvrnwe5skburdwe2h3v6ibdnn5kbjqihsg6eu6s6b7ryqd.onion",
+          "title": "DragonForce | Migration completed",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 06:00:52.074",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "dragonforxxbp3awc7mzs5dkswrua3znqyx5roefmi4smjrsdi22xwqd.onion",
+          "title": "DragonForce | Leaks",
+          "version": 3,
+          "available": false,
+          "updated": "2026-08-29 21:07:59.674",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zsglo7t7osxyk3vcl7zxzup7hs4ir52sntteymmw63zvoxzcqytlw7qd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:32:44.521937",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "6dgi54prfmpuuolutr4hl3akasxbx4o34g5y2bj4blrvzzkjemhxenad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:33:05.748977",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "eogeko3sdn66gb7vjpwpmlmmmzfx7umtwaugpf5l6tb5jveolfydnuad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:33:21.220495",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "ewrxgpvv7wsrqq7itfwg5jr7lkc6zzknndmru5su2ugrowxo3wwy5yad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:33:44.873252",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "3ro23rujyigqrlrwk3e4keh3a3i6ntgrm3f42tbiqtf7vke47c6a6ayd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:34:00.106559",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "jziu7k7uee467r2wt66ndrwymmw7tsmqgcqi7aemcaxraqmaf2hdm3yd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:34:17.534128",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "2yczff6zyiey3gkgl5anwejktdp73abxbzbnvwobmrwkwgf3hudpyvyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:34:36.504737",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "bpoowhokr3vi32l3t4mjdtdxfrfpigwachopk5ojwmgxihnojhsawuyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:34:53.926330",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "dbvczza7nhwdb5kdvkzjtkrcvwnrt5viw7mihutueprvajy7rxhwq6id.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:35:08.919003",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "xtcwd3xmxpggtizn7kmwwqeizexflkkyqsytg2kauccau6ddsfa4gfyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:35:21.638928",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "4wcrfql53ljekid3sn66z6swjot725muveddq77utxltaelw64eikfid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:35:36.886208",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "73h3lxn24kuayyfkn4t6ij7e67jklo24vqzqdhpts3ygmim7hu6u6aid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:35:53.441956",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "nwtetzmrqhxieetg5lvth7szzvg35gfrqt23ly46vku56oo7pkueswyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-10-03 16:36:08.082893",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "dszmdx3jr7vggdaf2c5k4qunt4mxclelhgbtjlgewlkmlnfpsnsg3sad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2025-04-27 18:11:00.350",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "fsguestuctexqqaoxuahuydfa6ovxuhtng66pgyr5gqcrsi7qgchpkad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-08-29 21:01:07.586",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "dragongoztkdfmnd7jkchznd3fvkpdmeh4vhbt6p3usrlsoy5dw2bhyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2025-10-13 15:09:00.404173",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "dragongo.org",
+          "title": "",
+          "version": 0,
+          "available": false,
+          "updated": "2025-11-14 10:13:37.545",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "xjhmtitnrdrgzw4vmsghirdoo2fk35a3tzj4enlmah4pvehdspydsiyd.onion",
+          "title": "DragonForce | Blog",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 06:01:19.421",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

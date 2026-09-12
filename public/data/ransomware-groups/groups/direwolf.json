@@ -1,0 +1,104 @@
+{
+  "slug": "direwolf",
+  "name": "direwolf",
+  "victims_7d": 22,
+  "victims_total": 155,
+  "last_seen": "2026-09-11T23:43:50.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": false,
+  "mirrors": 3,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "Dire Wolf is a recently emerged double-extortion ransomware group that first appeared around May 2025. It is a crypto-ransomware and data broker targeting industries like manufacturing and technology…",
+  "meta": "Dire Wolf is a recently emerged double-extortion ransomware group that first appeared around May 2025. It is a crypto-ransomware and data broker targeting industries like manufacturing and technology across multiple countries, including the U.S., Thailand, Taiwan, Singapore, Türkiye, among others. Written in Go and delivered as a UPX-packed binary, it utilizes robust encryption (Curve25519 and ChaCha20) to lock files with a .direwolf extension, while deleting backups, disabling logging, and terminating key services to block recovery. Victims receive highly customized ransom notes containing live-chat credentials and victim-specific portals, indicating a highly professional and targeted approach.",
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
+      "title": "DireWolf",
+      "available": false,
+      "updated": "2026-09-12 00:11:11.572",
+      "version": 3
+    },
+    {
+      "fqdn": "direwolfgpyqohwxwoetsz7a6p72diu32c3wfysqdx4ei6bwft7zh3yd.onion",
+      "title": "File Browser",
+      "available": false,
+      "updated": "2026-09-12 04:00:56.734",
+      "version": 3
+    },
+    {
+      "fqdn": "direwolf66s5zealav7azcyqeipiswecvvnapyuby3dek473kyqfucad.onion",
+      "title": "DireWolf Negotiation System - Login",
+      "available": false,
+      "updated": "2026-09-12 04:00:27.449",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "Port of Tanjung Pelepas",
+      "discovered": "2026-09-11T23:43:50.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "RelyComply AML Platform",
+      "discovered": "2026-09-09T15:30:30.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Sales Boomerang",
+      "discovered": "2026-09-09T03:39:37.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "EMS1R",
+      "discovered": "2026-09-08T18:44:26.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "TrainMe",
+      "discovered": "2026-09-07T19:35:36.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Precision Vehicle Logistics",
+      "discovered": "2026-09-07T19:35:35.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Lightcast",
+      "discovered": "2026-09-07T17:26:30.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Semper Laser",
+      "discovered": "2026-09-07T16:33:26.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "eAssist Dental Solutions",
+      "discovered": "2026-09-06T18:38:33.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    },
+    {
+      "victim": "Mission Pet Health",
+      "discovered": "2026-09-06T17:35:31.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/recent"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/direwolf",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

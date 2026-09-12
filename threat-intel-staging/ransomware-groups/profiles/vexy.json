@@ -1,0 +1,23 @@
+{
+  "slug": "vexy",
+  "name": "vexy",
+  "fetchedAt": "2026-09-12T06:12:56.936Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion",
+          "title": "Vexy Ransomware | Blog",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 03:00:05.480",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

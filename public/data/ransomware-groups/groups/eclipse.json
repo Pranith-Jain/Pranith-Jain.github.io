@@ -1,0 +1,55 @@
+{
+  "slug": "eclipse",
+  "name": "eclipse",
+  "victims_7d": 4,
+  "victims_total": 11,
+  "last_seen": "2026-09-08T17:43:45.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": false,
+  "mirrors": 2,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "4 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "eclipse4g5kxfwsvpu4qx5sdcnrji6gxl5gt67bucjlgt35g7akvjoid.onion",
+      "title": "Eclipse Blog",
+      "available": false,
+      "updated": "2026-09-11 14:28:53.321",
+      "version": 3
+    },
+    {
+      "fqdn": "yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion",
+      "title": "Eclipse Blog",
+      "available": false,
+      "updated": "2026-09-11 14:01:00.190",
+      "version": 3
+    }
+  ],
+  "victims_sample": [
+    {
+      "victim": "The Zhou Law Group",
+      "discovered": "2026-09-08T17:43:45.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/place/hulk5pzh81yov2oh/"
+    },
+    {
+      "victim": "TTG Asia Media",
+      "discovered": "2026-09-08T17:43:44.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/place/2yiioe5fyw3jbfpg/"
+    },
+    {
+      "victim": "Royal Plaza On Scotts",
+      "discovered": "2026-09-02T16:42:00.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/place/luiusuxs7vt1g4fr/"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/eclipse",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

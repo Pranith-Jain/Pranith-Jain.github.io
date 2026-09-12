@@ -1,0 +1,23 @@
+{
+  "slug": "panzer",
+  "name": "panzer",
+  "fetchedAt": "2026-09-12T06:12:54.461Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "pnzruro7syvwvefx5mpo2fhzi4jftgquynsqf3vy5x3no57yp2iz4nyd.onion",
+          "title": "Panzer",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-12 05:00:49.163",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "metaencryptor",
+  "name": "metaencryptor",
+  "victims_7d": 4,
+  "victims_total": 42,
+  "last_seen": "2026-09-07T13:01:37.828Z",
+  "origins": ["ransomwarelive"],
+  "online": false,
+  "mirrors": 2,
+  "up_mirrors": 0,
+  "has_profile": true,
+  "blurb": "We are a group of young people who identify themselves as specialists in the field of network security with at least 15 years of experience. This blog and this work are ONLY commercial use, besides n…",
+  "meta": "We are a group of young people who identify themselves as specialists in the field of network security with at least 15 years of experience. This blog and this work are ONLY commercial use, besides not the main one. We have nothing to do with politics, intelligence agencies and the NSB. If you are a hunter of other people's data, then download any files and (or) wait until the time expires for others and the files will be available here. If you have any personal suggestions, we are ready to consider them. Contact us on the \"contacts\" page. There are a lot of other data, for various reasons, not posted here and we can discuss their sale or transfer under certain conditions. Also, every incident is notified to all possible press in the region and data not intended for sale is transmitted to breached and similar forums. Subscribe to RSS, add to favorites, visit us more often.",
+  "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+  "mirrors_detail": [
+    {
+      "fqdn": "metacrptmytukkj7ajwjovdpjqzd7esg5v3sg344uzhigagpezcqlpyd.onion",
+      "title": "Metaencryptor::Home",
+      "available": false,
+      "updated": "2026-09-11 01:00:45.391",
+      "version": 3
+    },
+    {
+      "fqdn": "metacrpttdfpbm4qoxzcrqqgr6e6zafpazgxm72knmujw2mwvi34rwad.onion",
+      "title": "Metaencryptor::Home",
+      "available": false,
+      "updated": "2026-09-11 10:00:07.932",
+      "version": 3
+    }
+  ],
+  "victims_sample": [],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/metaencryptor",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

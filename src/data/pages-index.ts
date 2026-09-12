@@ -3496,6 +3496,22 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['ransomware', 'activity', 'map', 'ransomwhere', 'report'],
   },
   {
+    path: '/threatintel/ransomware-groups',
+    label: 'Ransomware Groups',
+    description: 'Directory of every tracked ransomware leak site - status, recent victims, and profiles.',
+    sectionLabel: 'Threat Intel · Dark Web',
+    group: 'threatintel',
+    keywords: ['ransomware', 'groups', 'leak site', 'directory', 'status'],
+  },
+  {
+    path: '/threatintel/ai-escape',
+    label: 'AI Escape Watch',
+    description: 'Registry of AI agent containment failures - failed controls, containment chains, guardrail analysis.',
+    sectionLabel: 'Threat Intel · Wiki',
+    group: 'threatintel',
+    keywords: ['ai', 'agent', 'containment', 'escape', 'guardrail', 'sandbox'],
+  },
+  {
     path: '/threatintel/predictive/global-pulse',
     label: 'Global Pulse',
     description: 'Global threat pulse monitoring.',

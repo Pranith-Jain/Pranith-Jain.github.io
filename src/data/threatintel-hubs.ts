@@ -642,6 +642,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'RansomwareHub',
         keywords: ['ransomware', 'activity', 'map', 'ransomwhere', 'report'],
       },
+      {
+        path: '/threatintel/ransomware-groups',
+        tabId: 'ransomware-groups',
+        label: 'Ransomware Groups',
+        desc: 'Directory of every tracked ransomware leak site - status, recent victims, and profiles (620 groups).',
+        compVar: 'RansomwareGroups',
+        badge: 'new',
+        keywords: ['ransomware', 'groups', 'leak site', 'directory', 'status', 'profile'],
+      },
 
       {
         path: '/threatintel/darkweb/recon',
@@ -1035,6 +1044,15 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'LLM Threat Atlas',
         desc: 'MITRE ATLAS - LLM/AI threat atlas.',
         compVar: 'LlmThreatAtlas',
+      },
+      {
+        path: '/threatintel/ai-escape',
+        tabId: 'ai-escape',
+        label: 'AI Escape Watch',
+        desc: 'Registry of AI agent containment failures - indexed by the failed control, with containment chains and guardrail analysis.',
+        compVar: 'AiEscape',
+        badge: 'new',
+        keywords: ['ai', 'agent', 'containment', 'escape', 'guardrail', 'sandbox', 'cbs'],
       },
       {
         path: '/threatintel/about',

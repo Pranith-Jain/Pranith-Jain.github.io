@@ -1,0 +1,21 @@
+{
+  "slug": "securotrop",
+  "name": "securotrop",
+  "victims_7d": 1,
+  "victims_total": 43,
+  "last_seen": "2026-09-12T00:37:05.716Z",
+  "origins": ["ransomwarelive"],
+  "online": null,
+  "mirrors": 0,
+  "up_mirrors": 0,
+  "has_profile": false,
+  "blurb": "1 victim in the last 7d across 1 tracker.",
+  "meta": null,
+  "meta_source": null,
+  "mirrors_detail": [],
+  "victims_sample": [],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/securotrop",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

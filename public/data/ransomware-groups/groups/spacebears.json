@@ -1,0 +1,46 @@
+{
+  "slug": "spacebears",
+  "name": "space bears",
+  "victims_7d": 1,
+  "victims_total": 160,
+  "last_seen": "2026-09-05T12:37:01.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": null,
+  "mirrors": 0,
+  "up_mirrors": 0,
+  "has_profile": false,
+  "blurb": "1 victim in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": null,
+  "mirrors_detail": [],
+  "victims_sample": [
+    {
+      "victim": "D-MAX Engineering, Inc",
+      "discovered": "2026-09-05T12:37:01.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/76/d-max-engineering-inc"
+    },
+    {
+      "victim": "Sports Endeavors",
+      "discovered": "2026-09-04T19:31:31.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/75/sports-endeavors"
+    },
+    {
+      "victim": "Studio Oculistico Ciraci",
+      "discovered": "2026-09-04T01:31:06.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/73/studio-oculistico-ciraci"
+    },
+    {
+      "victim": "Schwartz, Giannini, Lantsberger & Adamson (SGLA)",
+      "discovered": "2026-09-04T01:31:05.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/74/schwartz-giannini-lantsberger-adamson-sgla"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/space%20bears",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

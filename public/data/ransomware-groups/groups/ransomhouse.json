@@ -1,0 +1,40 @@
+{
+  "slug": "ransomhouse",
+  "name": "ransomhouse",
+  "victims_7d": 2,
+  "victims_total": 210,
+  "last_seen": "2026-09-10T19:43:18.000Z",
+  "origins": ["ransomlook", "ransomwarelive"],
+  "online": null,
+  "mirrors": 0,
+  "up_mirrors": 0,
+  "has_profile": false,
+  "blurb": "2 victims in the last 7d across 2 trackers.",
+  "meta": null,
+  "meta_source": null,
+  "mirrors_detail": [],
+  "victims_sample": [
+    {
+      "victim": "California School Employees Association",
+      "discovered": "2026-09-10T19:43:18.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/r/2b02392eb9ddc39713c83fafd8c4c1eae88b5bcf"
+    },
+    {
+      "victim": "[EVIDENCE]REXT Holdings Co., Ltd.",
+      "discovered": "2026-09-02T16:42:35.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/r/a54827e084a5e2b1a855d24b2c79b809621be1d5"
+    },
+    {
+      "victim": "REXT Holdings Co., Ltd.",
+      "discovered": "2026-09-01T15:53:12.000Z",
+      "origin": "ransomlook",
+      "source_url": "https://www.ransomlook.io/r/0a9134b3273d30891b3c95edea912dde64428957"
+    }
+  ],
+  "source_urls": {
+    "ransomlook": "https://www.ransomlook.io/api/group/ransomhouse",
+    "ransomware_live": "https://www.ransomware.live/"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "slug": "shinyhunters",
+  "name": "shinyhunters",
+  "fetchedAt": "2026-09-12T06:13:00.320Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "toolatedhs5dtr2pv6h5kdraneak5gs3sxrecqhoufc5e45edior7mqd.onion",
+          "title": "SH",
+          "version": 3,
+          "available": false,
+          "updated": "2026-04-01 01:14:51.339",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "shinypogk4jjniry5qi7247tznop6mxdrdte2k6pdu5cyo43vdzmrwid.onion",
+          "title": "shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion",
+          "version": 3,
+          "available": false,
+          "updated": "2026-07-10 02:00:08.106",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "91.215.85.22.",
+          "title": "// SH",
+          "version": 0,
+          "available": true,
+          "updated": "2026-09-12 05:03:38.111",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-11 15:01:32.286",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "shinyhunte.rs",
+          "title": "[sh] shinyhunters",
+          "version": 0,
+          "available": false,
+          "updated": "2026-05-11 08:04:00.245",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "91.202.233.104.",
+          "title": "",
+          "version": 0,
+          "available": true,
+          "updated": "2026-09-12 05:27:53.390",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "176.120.22.24.",
+          "title": "// SH",
+          "version": 0,
+          "available": false,
+          "updated": "2026-09-12 05:33:57.623",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "91.215.85.103.",
+          "title": "// SH",
+          "version": 0,
+          "available": true,
+          "updated": "2026-09-12 05:03:43.397",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

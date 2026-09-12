@@ -1,0 +1,32 @@
+{
+  "slug": "dysphor1a",
+  "name": "dysphor1a",
+  "fetchedAt": "2026-09-12T06:13:00.416Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "y3maveiwszbnrziufbbberx74cvrdcsf72nxzuqxzv7ppdmmqzffazid.onion",
+          "title": "DYSPHOR1A Ransomware Group",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-09 00:01:05.211",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "normalhunters0x.surge.sh",
+          "title": "project not found",
+          "version": 0,
+          "available": true,
+          "updated": "2026-09-12 06:11:26.980",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

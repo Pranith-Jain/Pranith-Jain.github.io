@@ -1,0 +1,131 @@
+{
+  "slug": "safepay",
+  "name": "safepay",
+  "fetchedAt": "2026-09-12T06:12:52.986Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "nj5qix45sxnl4h4og6hcgwengg2oqloj3c2rhc6dpwiofx3jbivcs6qd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-11-16 07:32:55.773343",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "nz4z6ruzcekriti5cjjiiylzvrmysyqwibxztk6voem4trtx7gstpjid.onion",
+          "title": "SAFEPAY",
+          "version": 3,
+          "available": false,
+          "updated": "2025-06-17 12:22:11.851",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "qkzxzeabulbbaevqkoy2ew4nukakbi4etnnkcyo3avhwu7ih7cql4gyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2025-06-21 20:12:10.897",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "iieavvi4wtiuijas3zw4w54a5n2srnccm2fcb3jcrvbb7ap5tfphw6ad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2025-06-21 20:21:32.758",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "fcde4o7iquaspdbo5yetwqn3rfueet2zfy3wjosrc5dznyccwbiz6oyd.onion",
+          "title": "Welcome to nginx!",
+          "version": 3,
+          "available": false,
+          "updated": "2025-03-04 09:02:03.756",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "crmbcdcdwoex6dzajbicgzrsuw2t76pomajwdpi2mb2babbfdgcc6xid.onion",
+          "title": "404 - Not Found",
+          "version": 3,
+          "available": false,
+          "updated": "2025-09-11 20:14:57.675",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "j3dp6okmaklajrsk6zljl5sfa2vpui7j2w6cwmhmmqhab6frdfbphhid.onion",
+          "title": "SAFEPAY",
+          "version": 3,
+          "available": false,
+          "updated": "2025-09-13 08:18:41.114",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "wmgres25e43uwgebctgofo2qe23kf5vqevixiulubpovdglyizfugryd.onion",
+          "title": "Access denied",
+          "version": 3,
+          "available": false,
+          "updated": "2025-10-29 05:04:54.653",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "dgcg5ncjab6scb7fnk7gx5php4lbpxjy2jjnu3apnkxyippqf6yhw3ad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2025-08-08 07:57:41.496733",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "oxly5vxvvhi5fv5vsvj3kvlqeprbijitycqisylaxzf324bn7e4qr2ad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2025-08-08 07:57:51.392869",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "safepay.ton",
+          "title": "",
+          "version": 0,
+          "available": false,
+          "updated": "2025-08-08 07:58:27.944866",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "safepaypfxntwixwjrlcscft433ggemlhgkkdupi2ynhtcmvdgubmoyd.onion",
+          "title": "Safepay Blog",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-12 06:00:40.130",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "duslj3vgel72rilqlvvlo2qw6jybmvbcdmcm4n63kyivveeif6u2xrad.onion",
+          "title": "404 — Not Found",
+          "version": 3,
+          "available": false,
+          "updated": "2026-07-29 12:39:58.568",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}
