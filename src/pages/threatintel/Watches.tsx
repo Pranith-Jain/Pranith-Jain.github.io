@@ -6,10 +6,12 @@ import { DataState } from '../../components/DataState';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 import { AdminRequired } from '../../components/AdminRequired';
 
+type WatchType = 'ransomware-group' | 'cve-keyword' | 'actor' | 'ioc' | 'domain' | 'brand' | 'email' | 'keyword';
+
 interface Watch {
   id: string;
   label: string;
-  type: 'ransomware-group' | 'cve-keyword' | 'actor' | 'ioc';
+  type: WatchType;
   value: string;
   webhook: string;
   created_at: string;
@@ -31,6 +33,21 @@ const TYPE_LABELS: Record<Watch['type'], string> = {
   'cve-keyword': 'CVE Keyword',
   actor: 'Threat Actor',
   ioc: 'Indicator',
+  domain: 'Domain (exposure)',
+  brand: 'Brand (exposure)',
+  email: 'Email (exposure)',
+  keyword: 'Keyword (sweep)',
+};
+
+const TYPE_HINTS: Record<Watch['type'], string> = {
+  'ransomware-group': 'e.g. lockbit — fires when the group claims a new victim',
+  'cve-keyword': 'e.g. CVE-2026-1234 or “SharePoint” — matches CVE ids + descriptions',
+  actor: 'e.g. APT29 — fires on fresh actor-timeline posts',
+  ioc: 'Exact indicator value — fires on live-firehose hits',
+  domain: 'e.g. example.com — ransomware victim names + IOC hosts (exact)',
+  brand: 'e.g. Kelmarsh — word-match on ransomware victim names',
+  email: 'e.g. cfo@example.com — exact IOC match + domain victim match',
+  keyword: 'e.g. “hospitals” — sweeps victims, CVEs and actors',
 };
 
 const TYPE_COLORS: Record<Watch['type'], string> = {
@@ -38,6 +55,10 @@ const TYPE_COLORS: Record<Watch['type'], string> = {
   'cve-keyword': 'text-amber-600 dark:text-amber-400',
   actor: 'text-violet-600 dark:text-violet-400',
   ioc: 'text-cyan-600 dark:text-cyan-400',
+  domain: 'text-sky-600 dark:text-sky-400',
+  brand: 'text-fuchsia-600 dark:text-fuchsia-400',
+  email: 'text-emerald-600 dark:text-emerald-400',
+  keyword: 'text-slate-500',
 };
 
 export default function Watches(): JSX.Element {
@@ -372,7 +393,12 @@ export default function Watches(): JSX.Element {
                     <option value="cve-keyword">CVE Keyword</option>
                     <option value="actor">Threat Actor</option>
                     <option value="ioc">Indicator (exact match)</option>
+                    <option value="domain">Domain exposure</option>
+                    <option value="brand">Brand exposure</option>
+                    <option value="email">Email exposure</option>
+                    <option value="keyword">Keyword sweep</option>
                   </select>
+                  <p className="mt-1 text-micro font-mono text-slate-500">{TYPE_HINTS[form.type]}</p>
                 </div>
                 <div>
                   <label htmlFor="watch-create-value" className="block text-mini font-mono text-slate-500 mb-1">
@@ -382,7 +408,15 @@ export default function Watches(): JSX.Element {
                         ? 'CVE ID or keyword'
                         : form.type === 'actor'
                           ? 'Actor name or slug'
-                          : 'Indicator value (exact)'}
+                          : form.type === 'domain'
+                            ? 'Domain (e.g. example.com)'
+                            : form.type === 'brand'
+                              ? 'Brand name (e.g. Kelmarsh)'
+                              : form.type === 'email'
+                                ? 'Email address'
+                                : form.type === 'keyword'
+                                  ? 'Keyword (min 2 chars)'
+                                  : 'Indicator value (exact)'}
                   </label>
                   <input
                     id="watch-create-value"
@@ -396,7 +430,15 @@ export default function Watches(): JSX.Element {
                           ? 'e.g. CVE-2024- or log4j'
                           : form.type === 'actor'
                             ? 'e.g. Scattered Spider'
-                            : 'e.g. 1.2.3.4 or evil.exe'
+                            : form.type === 'domain'
+                              ? 'e.g. example.com'
+                              : form.type === 'brand'
+                                ? 'e.g. Kelmarsh'
+                                : form.type === 'email'
+                                  ? 'e.g. cfo@example.com'
+                                  : form.type === 'keyword'
+                                    ? 'e.g. hospitals'
+                                    : 'e.g. 1.2.3.4 or evil.exe'
                     }
                     className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                   />

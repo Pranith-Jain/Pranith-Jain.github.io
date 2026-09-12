@@ -6,10 +6,12 @@ import { LIVE_IOCS_CACHE_KEY } from '../routes/live-iocs';
 import { RANSOMWARE_RECENT_CACHE_KEY } from '../routes/ransomware-recent';
 import { pinnedFetch } from './ssrf-guard';
 
+export type WatchType = 'ransomware-group' | 'cve-keyword' | 'actor' | 'ioc' | 'domain' | 'brand' | 'email' | 'keyword';
+
 export interface Watch {
   id: string;
   label: string;
-  type: 'ransomware-group' | 'cve-keyword' | 'actor' | 'ioc';
+  type: WatchType;
   value: string;
   webhook: string;
   created_at: string;
@@ -122,6 +124,28 @@ export async function checkWatches(db: D1Database, now: string): Promise<AlertEv
     return elapsed > 3600_000;
   };
 
+  // Hoisted feed reads: one Cache-API lookup per feed per run (not per
+  // watch), so a large watchlist stays inside the subrequest budget.
+  const [ransom, cves, iocs, actors] = await Promise.all([
+    readCachedJson<{ victims: Array<{ victim: string; group: string }> }>(RANSOMWARE_RECENT_CACHE_KEY),
+    readCachedJson<{ cves: Array<{ id: string; description?: string }> }>(
+      'https://cve-recent-cache.internal/v10-750-paged'
+    ),
+    readCachedJson<{ items: Array<{ value: string; kind: string; source: string }> }>(LIVE_IOCS_CACHE_KEY),
+    readCachedJson<{ groups: Array<{ display_name: string; slug: string; posts_in_window: number }> }>(
+      'https://actor-timeline-cache.internal/v3-mti'
+    ),
+  ]);
+
+  /** Host part of a URL value, else the lowercased value itself. */
+  const hostOf = (v: string): string => {
+    try {
+      return new URL(v).hostname.toLowerCase();
+    } catch {
+      return v.toLowerCase();
+    }
+  };
+
   for (const watch of watches) {
     if (!needsTrigger(watch)) continue;
     if (!watch.webhook) continue;
@@ -132,56 +156,111 @@ export async function checkWatches(db: D1Database, now: string): Promise<AlertEv
       let detail = '';
 
       if (watch.type === 'ransomware-group') {
-        const data = await readCachedJson<{ victims: Array<{ victim: string; group: string }> }>(
-          RANSOMWARE_RECENT_CACHE_KEY
-        );
-        if (data) {
+        if (ransom) {
           const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
-          const victim = (data.victims ?? []).find((v) => re.test(v.group));
+          const victim = (ransom.victims ?? []).find((v) => re.test(v.group));
           if (victim) {
             matched = true;
             matchText = `New victim: ${victim.victim}`;
-            detail = `Group ${watch.value} — ${victim.victim}`;
+            detail = `source:ransomware — group ${watch.value} claimed ${victim.victim}`;
           }
         }
       } else if (watch.type === 'cve-keyword') {
-        const data = await readCachedJson<{ cves: Array<{ id: string; description?: string }> }>(
-          'https://cve-recent-cache.internal/v10-750-paged'
-        );
-        if (data) {
+        if (cves) {
           const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
-          const match = (data.cves ?? []).find(
+          const match = (cves.cves ?? []).find(
             (c) => c.id.toLowerCase().includes(watch.value.toLowerCase()) || re.test(c.description ?? '')
           );
           if (match) {
             matched = true;
             matchText = match.id;
-            detail = match.description ? match.description.slice(0, 200) : '';
+            detail = `source:cve — ${match.description ? match.description.slice(0, 200) : match.id}`;
           }
         }
       } else if (watch.type === 'ioc') {
-        const data = await readCachedJson<{ items: Array<{ value: string; kind: string; source: string }> }>(
-          LIVE_IOCS_CACHE_KEY
-        );
-        if (data) {
-          const match = (data.items ?? []).find((i) => i.value.toLowerCase() === watch.value.toLowerCase());
+        if (iocs) {
+          const match = (iocs.items ?? []).find((i) => i.value.toLowerCase() === watch.value.toLowerCase());
           if (match) {
             matched = true;
             matchText = match.value;
-            detail = `${match.kind} · ${match.source}`;
+            detail = `source:ioc — ${match.kind} · ${match.source}`;
           }
         }
       } else if (watch.type === 'actor') {
-        const data = await readCachedJson<{
-          groups: Array<{ display_name: string; slug: string; posts_in_window: number }>;
-        }>('https://actor-timeline-cache.internal/v3-mti');
-        if (data) {
+        if (actors) {
           const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
-          const match = (data.groups ?? []).find((g) => re.test(g.display_name) || re.test(g.slug));
+          const match = (actors.groups ?? []).find((g) => re.test(g.display_name) || re.test(g.slug));
           if (match && match.posts_in_window > 0) {
             matched = true;
             matchText = match.display_name;
-            detail = `${match.posts_in_window} recent post${match.posts_in_window === 1 ? '' : 's'}`;
+            detail = `source:actor — ${match.posts_in_window} recent post${match.posts_in_window === 1 ? '' : 's'}`;
+          }
+        }
+      } else if (watch.type === 'domain' || watch.type === 'brand' || watch.type === 'email') {
+        // Exposure monitors (Sinon-style): does YOUR name appear anywhere?
+        // domain  = registrable domain or hostname; matches ransomware
+        //           victim names (substring) + live-IOC values/hosts (exact).
+        // brand   = company/product name; word-match on victim names only
+        //           (a brand is not a host — no IOC matching).
+        // email   = address; exact IOC match + domain-part victim match.
+        const needle = watch.value.toLowerCase().trim();
+        const emailDomain = watch.type === 'email' && needle.includes('@') ? needle.split('@')[1]! : null;
+        const victimNeedle = emailDomain ?? needle;
+        if (ransom && victimNeedle.length >= 2) {
+          const victim =
+            watch.type === 'brand'
+              ? (ransom.victims ?? []).find((v) => new RegExp(`\\b${escapeRegex(victimNeedle)}\\b`, 'i').test(v.victim))
+              : (ransom.victims ?? []).find((v) => v.victim.toLowerCase().includes(victimNeedle));
+          if (victim) {
+            matched = true;
+            matchText = `Named as ransomware victim: ${victim.victim}`;
+            detail = `source:ransomware — claimed by ${victim.group} [severity:critical]`;
+          }
+        }
+        if (!matched && iocs && watch.type !== 'brand') {
+          const iocNeedle = emailDomain ?? needle;
+          const match = (iocs.items ?? []).find(
+            (i) => i.value.toLowerCase() === iocNeedle || hostOf(i.value) === iocNeedle
+          );
+          if (match) {
+            matched = true;
+            matchText = match.value;
+            detail = `source:ioc — ${match.kind} · ${match.source} [severity:high]`;
+          }
+        }
+        if (!matched && watch.type === 'email' && !needle.includes('@')) {
+          // Malformed email value — surface as a non-match, never throw.
+          detail = '';
+        }
+      } else if (watch.type === 'keyword') {
+        // Broad substring sweep across victim names, CVE text, actor names.
+        // First hit wins; detail cites which feed matched.
+        const needle = watch.value.toLowerCase().trim();
+        if (needle.length >= 2) {
+          const victim = (ransom?.victims ?? []).find((v) => v.victim.toLowerCase().includes(needle));
+          const cve = victim
+            ? undefined
+            : (cves?.cves ?? []).find(
+                (c) => c.id.toLowerCase().includes(needle) || (c.description ?? '').toLowerCase().includes(needle)
+              );
+          const actor =
+            victim || cve
+              ? undefined
+              : (actors?.groups ?? []).find(
+                  (g) => g.display_name.toLowerCase().includes(needle) || g.slug.includes(needle)
+                );
+          if (victim) {
+            matched = true;
+            matchText = `Ransomware victim mention: ${victim.victim}`;
+            detail = `source:ransomware — claimed by ${victim.group}`;
+          } else if (cve) {
+            matched = true;
+            matchText = cve.id;
+            detail = `source:cve — ${(cve.description ?? '').slice(0, 200)}`;
+          } else if (actor) {
+            matched = true;
+            matchText = actor.display_name;
+            detail = `source:actor — ${actor.posts_in_window} recent posts`;
           }
         }
       }
