@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
 
+# 30-min idempotent cache push to an orphan branch — never run two at once.
+concurrency:
+  group: telegram-rss-cache
+  cancel-in-progress: true
+
 jobs:
   fetch-telegram:
     name: Fetch Telegram RSS and publish to data branch

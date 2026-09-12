@@ -7,7 +7,7 @@ on:
 
 concurrency:
   group: briefings-export
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   export:
@@ -16,6 +16,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -40,6 +43,12 @@ jobs:
           # Wipe stale files so briefings beyond the 30-day window are removed.
           rm -rf briefings
           node scripts/export-briefings-to-github.mjs --days 30
+          # Empty-output guard: if the exporter wrote 0 files, abort before
+          # the commit step can record a mass deletion of 30 days of briefings.
+          if [ -z "$(ls -A briefings 2>/dev/null)" ]; then
+            echo "::error::exporter produced 0 briefing files — aborting (not committing a deletion)."
+            exit 1
+          fi
 
       - name: Commit and push briefings to main
         run: |

@@ -9,8 +9,9 @@ name: Threaticon catalog sync (weekly)
 
 on:
   schedule:
-    # Tuesdays 06:00 UTC (avoids clashing with the Monday SI sync).
-    - cron: "0 6 * * 2"
+    # Tuesdays 06:30 UTC — staggered 30 min after the sigbase 06:00 slot
+    # (both used to fire the same minute with parallel heavy crawls).
+    - cron: "30 6 * * 2"
   workflow_dispatch: {}
 
 concurrency:

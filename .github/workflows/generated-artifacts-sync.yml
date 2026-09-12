@@ -89,7 +89,7 @@ jobs:
                 exit 0
               fi
               echo "Push rejected (attempt $attempt) — rebasing onto origin/main and retrying."
-              git pull --rebase origin main
+              git pull --rebase origin main || git rebase --abort
             done
             echo "::error::push failed after 3 attempts"
             exit 1

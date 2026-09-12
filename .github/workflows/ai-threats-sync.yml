@@ -2,7 +2,9 @@ name: AI Threat Actors sync (weekly)
 
 on:
   schedule:
-    - cron: "0 6 * * 1"
+    # Mondays 06:30 UTC — staggered 30 min after the SI + daily-briefs 06:00
+    # slot (all three used to fire the same minute).
+    - cron: "30 6 * * 1"
   workflow_dispatch: {}
 
 concurrency:

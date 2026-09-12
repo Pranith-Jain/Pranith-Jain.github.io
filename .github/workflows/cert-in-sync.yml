@@ -50,7 +50,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       # Snapshot the existing index so we can compute the diff after the
       # fetch step. Snapshot lives in /tmp (not committed) and is gone
@@ -131,27 +131,34 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: "Build PR body"
+        if: steps.diff.outputs.changed == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          set -euo pipefail
+          {
+            echo "Automated weekly sync from [CERT-In](https://www.cert-in.org.in/) (Indian"
+            echo "Computer Emergency Response Team)."
+            echo ""
+            echo "Re-runs \`scripts/build-cert-in-index.mjs --discover\` to enumerate live"
+            echo "advisory IDs, then re-fetches the new ones + a small sample of existing"
+            echo "ones to detect parser regressions. The index is sorted newest-first by"
+            echo "\`published_at\`."
+            echo ""
+            echo '```'
+            cat diff_report.md
+            echo '```'
+            echo ""
+            echo "Trigger: \`${{ github.event_name }}\`"
+            echo "Run:     \`${{ github.run_id }}\`"
+          } > pr_body.md
+
       - name: "Open PR"
         if: steps.diff.outputs.changed == 'true' && github.event.inputs.dry_run != 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "chore(cert-in): sync advisories from CERT-In"
           title: "CERT-In sync — ${{ github.event_name == 'schedule' && 'weekly' || format('run {0}', github.run_id) }}"
-          body: |
-            Automated weekly sync from [CERT-In](https://www.cert-in.org.in/) (Indian
-            Computer Emergency Response Team).
-
-            Re-runs `scripts/build-cert-in-index.mjs --discover` to enumerate live
-            advisory IDs, then re-fetches the new ones + a small sample of existing
-            ones to detect parser regressions. The index is sorted newest-first by
-            `published_at`.
-
-            ```
-            $(cat diff_report.md)
-            ```
-
-            Trigger: `${{ github.event_name }}`
-            Run:     `${{ github.run_id }}`
+          body-path: pr_body.md
           branch: chore/cert-in-sync
           delete-branch: true
           add-paths: |

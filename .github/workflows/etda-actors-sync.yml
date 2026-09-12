@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: etda-actors-sync
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -23,7 +27,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "22"
+          cache: npm
 
       - name: Sync ETDA actors
         run: node scripts/sync-etda-actors.mjs
@@ -61,3 +66,5 @@ jobs:
           branch: etda-actors-sync
           base: main
           labels: automated, data, threat-intel
+          add-paths: |
+            public/data/apt-actors/

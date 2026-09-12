@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 # Run independently per PR so a slow run doesn't block a faster one.
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -42,7 +45,7 @@ jobs:
       # warning fails CI. If a deliberate, hard-to-avoid warning is added,
       # raise this to that exact count (with a note) rather than leaving slack.
       - name: Lint (zero-warning baseline)
-        run: npx eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0
+        run: npx eslint . --report-unused-disable-directives --max-warnings 0
 
   typecheck:
     name: TypeScript
@@ -116,6 +119,7 @@ jobs:
           name: coverage-report
           path: coverage/
           retention-days: 14
+          if-no-files-found: warn
 
   test-api:
     name: Vitest (api lib + case-study)
