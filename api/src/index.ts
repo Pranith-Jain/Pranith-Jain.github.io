@@ -1075,6 +1075,7 @@ import { traceixRouter } from './routes/traceix';
 import { profileStatsRouter } from './routes/profile-stats';
 import { nhiScanRouter } from './routes/nhi-scan';
 import { whoxyRouter } from './routes/whoxy';
+import { heatwaveLookupHandler } from './routes/heatwave';
 import { threatMonitorRouter } from './routes/threat-monitor';
 import { truecallerRouter } from './routes/truecaller';
 import { fullhuntRouter } from './routes/fullhunt';
@@ -2160,6 +2161,10 @@ app.route('/api/v1', nhiScanRouter);
 // Requires WHOXY_API_KEY Worker secret.
 // Endpoint: GET /api/v1/whoxy/reverse?q=<term>&type=email|name|company|keyword
 app.route('/api/v1', whoxyRouter);
+
+// Validity Heatwave — cold-email sending-domain blocklist (keyless scrape proxy).
+// Endpoint: GET /api/v1/heatwave/lookup?domain=<sending-domain>
+app.get('/api/v1/heatwave/lookup', heatwaveLookupHandler);
 
 // Global Threat Actor Monitor — RSS proxy for client-side APT detection.
 // Endpoints: /api/v1/threat-monitor/*

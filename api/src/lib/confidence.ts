@@ -133,6 +133,16 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     known_bias:
       'Community aggregate mixes feed quality; primary feed is curator-verified. Cloaking can hide live phishing from content checks.',
   },
+  stalkphish: {
+    id: 'stalkphish',
+    name: 'StalkPhish',
+    reliability: 'B',
+    category: 'primary',
+    description:
+      'Commercial phishing URL intel (stalkphish.io) — kit-family attribution, targeted-brand, Telegram exfiltration tracking; recall follows the API key plan (Free: 50/day, 4h window)',
+    known_bias:
+      'Keyed plan window limits recall — a miss is unknown, not clean. OSINT-fed; short-lived campaigns may age out of range.',
+  },
   'hudson-rock': {
     id: 'hudson-rock',
     name: 'Hudson Rock',

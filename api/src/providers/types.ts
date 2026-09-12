@@ -65,7 +65,8 @@ export type ProviderId =
   | 'mozilla-tls'
   | 'virushee'
   | 'dphish'
-  | 'destroylist';
+  | 'destroylist'
+  | 'stalkphish';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -160,6 +161,10 @@ export interface ProviderEnv {
    *  The hosted API has required `Authorization: ApiKey …` since 2025; the
    *  provider degrades to 'unsupported' (no_api_key) when unset. */
   OPENSANCTIONS_API_KEY?: string;
+  /** StalkPhish.io API token (free at stalkphish.io/accounts/register/).
+   *  Free plan is 50 req/day over a 4h window; the provider degrades to
+   *  'unsupported' when unset. */
+  STALKPHISH_API_KEY?: string;
   /** Static ASSETS binding (Worker) — used by the `dphish` provider to read
    *  the replicated dPhish indicator manifest (public/data/threat-intel/dphish/)
    *  with zero network egress. Optional so provider unit tests compile without
@@ -241,6 +246,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   virushee: ['hash'],
   dphish: ['ipv4', 'ipv6', 'domain', 'url'],
   destroylist: ['domain', 'url'],
+  stalkphish: ['url', 'domain', 'ipv4'],
 };
 
 /**
@@ -317,4 +323,8 @@ export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
   virushee: 2,
   dphish: 1,
   destroylist: 1,
+  // Tier 2: keyed + quota-tight (Free 50/day). Runs only when tier-1
+  // returns no actionable signal, and repeat checks are absorbed by the
+  // route's Cache API fronting.
+  stalkphish: 2,
 };

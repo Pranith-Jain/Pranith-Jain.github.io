@@ -713,6 +713,31 @@ keyword. Costs $0.01/query (paid, no free tier).
 
 **Secret**: `WHOXY_API_KEY` (`wrangler secret put WHOXY_API_KEY`)
 
+## Heatwave — Cold-Email Sending-Domain Blocklist
+
+A keyless sender-reputation source from Validity's Heatwave DBL
+(lookup.validity.tools): synthetic reputation warming vs. active cold
+outreach on the *sending domain*. No public API and the public DNS resolver
+is retired (both partner-only), so the free web Lookup page (100/day/IP) is
+parsed server-side — same scraper pattern as the MTI/Telegram helpers.
+
+**Semantics enforced in code** (`worker/lib/heatwave.ts`): exact-match only,
+score is a relative display-only band, "not listed" is unknown (never clean),
+warming-only is suspicious (never malicious), and scope is sending-domain
+only — it is NOT an IOC fan-out provider (a warming hit on a random domain
+would be a false phishing signal).
+
+**Files**:
+
+- `worker/lib/heatwave.ts` — `heatwaveLookup` + `parseHeatwavePage` + `heatwaveVerdict`
+- `worker/lib/heatwave.test.ts` — 9 parser/verdict tests over saved fixtures
+- `api/src/lib/heatwave.ts` — symlink to `worker/lib/heatwave.ts`
+- `api/src/routes/heatwave.ts` — `GET /api/v1/heatwave/lookup?domain=` (24h edge cache + KV last-good)
+- `api/test/routes/heatwave.test.ts` — 4 route tests (pass mock ExecutionContext; `app.request()` has none)
+- `src/pages/dfir/EmailReputation.tsx` — sender-domain panel + composite floors (active 60 / warming 40)
+
+**Secret**: none — keyless, quota-guarded by cache.
+
 ## depx — Supply-Chain Intelligence
 
 A supply-chain intelligence vertical replicating the depx pattern — recently

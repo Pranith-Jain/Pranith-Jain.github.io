@@ -65,6 +65,7 @@ import { mozillaTls } from './mozilla-tls';
 import { virushee } from './virushee';
 import { dphish } from './dphish';
 import { destroylist } from './destroylist';
+import { stalkphish } from './stalkphish';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS, PROVIDER_TIER };
 
@@ -134,6 +135,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   virushee,
   dphish,
   destroylist,
+  stalkphish,
 };
 
 /**
@@ -216,6 +218,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   virushee: 'Virushee',
   dphish: 'dPhish',
   destroylist: 'Destroylist',
+  stalkphish: 'StalkPhish',
 };
 
 export function buildProviderEnv(env: {
@@ -244,6 +247,7 @@ export function buildProviderEnv(env: {
   POLYSWARM_API_KEY?: string;
   FULLHUNT_API_KEY?: string;
   OPENSANCTIONS_API_KEY?: string;
+  STALKPHISH_API_KEY?: string;
   ASSETS?: Fetcher;
 }): ProviderEnv {
   return {
@@ -272,6 +276,7 @@ export function buildProviderEnv(env: {
     POLYSWARM_API_KEY: env.POLYSWARM_API_KEY,
     FULLHUNT_API_KEY: env.FULLHUNT_API_KEY,
     OPENSANCTIONS_API_KEY: env.OPENSANCTIONS_API_KEY,
+    STALKPHISH_API_KEY: env.STALKPHISH_API_KEY,
     ASSETS: env.ASSETS,
   };
 }

@@ -46,6 +46,7 @@ const SOURCE_RELIABILITY: Partial<Record<ProviderId, Reliability>> = {
   kaspersky: 'B',
   dphish: 'B',
   destroylist: 'B',
+  stalkphish: 'B',
 };
 
 /** Indicator-type baseline credibility — more persistent artifacts score higher. */

@@ -49,6 +49,22 @@ export default function EmailReputation(): JSX.Element {
       };
       error?: string;
     };
+    heatwave?: {
+      domain: string;
+      ok: boolean;
+      listed?: boolean;
+      status?: 'warming' | 'active' | 'pre-warming' | 'not-listed';
+      stage?: 2 | 3 | 4 | null;
+      score?: number | null;
+      observation_age?: string | null;
+      first_observed?: string | null;
+      listed_since?: string | null;
+      dns_answer?: string | null;
+      verdict?: 'suspicious' | 'unknown';
+      tags?: string[];
+      related?: Array<{ domain: string; classification: string; score: number }>;
+      error?: string;
+    };
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState('');
@@ -177,6 +193,43 @@ export default function EmailReputation(): JSX.Element {
       }
       if (signal.aborted) return;
 
+      // Heatwave sender-domain reputation (Validity cold-email blocklist).
+      // Domain-level like the DNSBL checks above — run for every lookup,
+      // not just full addresses. Warming on your own domain often means a
+      // vendor warming on your behalf; active means live cold outreach.
+      let heatwaveResult: NonNullable<typeof result>['heatwave'] | undefined;
+      try {
+        setProgress('Checking sender-domain reputation (Heatwave)…');
+        const hr = await fetch(`/api/v1/heatwave/lookup?domain=${encodeURIComponent(clean)}`, { signal });
+        if (hr.ok) {
+          const hj = (await hr.json()) as {
+            domain: string;
+            listed: boolean;
+            status: 'warming' | 'active' | 'pre-warming' | 'not-listed';
+            stage: 2 | 3 | 4 | null;
+            score: number | null;
+            observation_age: string | null;
+            first_observed: string | null;
+            listed_since: string | null;
+            dns_answer: string | null;
+            verdict: 'suspicious' | 'unknown';
+            tags: string[];
+            related: Array<{ domain: string; classification: string; score: number }>;
+          };
+          heatwaveResult = { domain: clean, ok: true, ...hj };
+          if (hj.listed && hj.status === 'active') scoreValue = Math.max(scoreValue, 60);
+          else if (hj.listed && hj.status === 'warming') scoreValue = Math.max(scoreValue, 40);
+        } else {
+          heatwaveResult = { domain: clean, ok: false, error: `Heatwave lookup failed (HTTP ${hr.status})` };
+        }
+      } catch (e) {
+        logCatch(e);
+        if ((e as { name?: string }).name !== 'AbortError') {
+          heatwaveResult = { domain: clean, ok: false, error: e instanceof Error ? e.message : String(e) };
+        }
+      }
+      if (signal.aborted) return;
+
       // Recompute verdict if emailrep bumped the score.
       const finalVerdict = scoreValue < 20 ? 'safe' : scoreValue < 50 ? 'suspicious' : 'poor';
 
@@ -195,6 +248,7 @@ export default function EmailReputation(): JSX.Element {
         mxBl: mxResults,
         truncated,
         emailRep: emailRepResult,
+        heatwave: heatwaveResult,
       });
     } catch (e) {
       logCatch(e);
@@ -356,6 +410,66 @@ export default function EmailReputation(): JSX.Element {
                   {result.emailRep.error === 'emailrep_not_configured'
                     ? 'EmailRep enrichment is currently disabled.'
                     : `emailrep lookup failed: ${result.emailRep.error ?? 'unknown error'}`}
+                </p>
+              )}
+            </section>
+          )}
+
+          {result.heatwave && (
+            <section className="surface-card p-4">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
+                <Mail size={12} aria-hidden="true" /> Sender-domain reputation (Heatwave){' '}
+                <span className="font-normal text-slate-500 normal-case">· {result.heatwave.domain}</span>
+              </h3>
+              {result.heatwave.ok ? (
+                <>
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span
+                      className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
+                        result.heatwave.listed
+                          ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
+                          : 'bg-slate-500/15 text-body border-slate-500/30'
+                      }`}
+                    >
+                      {result.heatwave.listed
+                        ? `${result.heatwave.status} · stage ${result.heatwave.stage}`
+                        : 'not listed'}
+                    </span>
+                    {result.heatwave.score !== undefined && result.heatwave.score !== null && (
+                      <span className="text-micro font-mono text-muted">score band {result.heatwave.score}/100</span>
+                    )}
+                    {result.heatwave.observation_age && (
+                      <span className="text-micro font-mono text-muted">warming {result.heatwave.observation_age}</span>
+                    )}
+                    {result.heatwave.first_observed && (
+                      <span className="text-micro font-mono text-muted">since {result.heatwave.first_observed}</span>
+                    )}
+                  </div>
+                  {result.heatwave.dns_answer && (
+                    <p className="text-mini font-mono text-slate-500 mb-2">{result.heatwave.dns_answer}</p>
+                  )}
+                  {result.heatwave.related && result.heatwave.related.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-2">
+                      <span className="text-mini font-mono text-muted mr-1">related listed:</span>
+                      {result.heatwave.related.slice(0, 8).map((rel) => (
+                        <span
+                          key={rel.domain}
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-body"
+                          title={`${rel.classification} · score ${rel.score}`}
+                        >
+                          {rel.domain}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-mini font-mono text-slate-400">
+                    Sending-domain reputation only — a hit means cold-email infrastructure, not phishing. Not listed is
+                    not a clean verdict, and the score is a relative band, not a threshold.
+                  </p>
+                </>
+              ) : (
+                <p className="text-xs font-mono text-amber-700 dark:text-amber-300">
+                  Heatwave lookup failed: {result.heatwave.error ?? 'unknown error'}
                 </p>
               )}
             </section>
