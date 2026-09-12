@@ -1,0 +1,13 @@
+{
+  "slug": "dragonforce",
+  "name": "DragonForce",
+  "akas": "Unknown",
+  "brief": "In a DragonForce ransomware case investigated by the Sophos Incident Response team, \"the threat actor produced what we strongly suspect to be an AI-generated report during negotiations with the targeted organization, containing a detailed analysis of the exfiltrated data, including PII and legal risks. AI-generated analysis was used as part of an attempt to exert pressure and persuade the organization to pay the ransom.\" Sophos places this at the lightest-touch end of its AI autonomy gradient — a human using generative AI to produce an artifact and deploying it manually. Sophos X-Ops *Analyst note: Sophos's own IR casework (primary), but the AI attribution is explicitly \"strongly suspect,\" not confirmed — the same confidence level as the existing TA547 and Multiple UnSub – Symantec entries. No dates, model, or campaign window are given.*",
+  "ttps": ["T1213", "T1657"],
+  "categories": ["LLM-enhanced extortion/negotiation", "LLM-directed Automated Collection"],
+  "reported": "Jul 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 849,
+  "ttpMd": "**LLM-enhanced extortion/negotiation** T1657 - Financial Theft<br><br>**LLM-directed Automated Collection** T1213 - Data from Information Repositories (analysis of exfiltrated victim data)"
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-possibly-earth-lamia-trend-micro",
+  "name": "UnSub (possibly Earth Lamia) — Trend Micro",
+  "akas": "UnSub",
+  "brief": "Trend Micro's 2026 H1 APT report records: \"The use of an autonomous AI agent for lateral movement by an unknown actor (possibly Earth Lamia). The group deployed the Claude Code command-line interface (CLI) as an autonomous AI agent against an organization in Thailand. The actor jailbroke the AI model by falsely claiming the operation was a legitimate penetration test. The AI agent then autonomously conducted internal network scanning, exploitation attempts (EternalBlue, SMBGhost, PrintNightmare, SMB relay), credential harvesting (via secretsdump, LaZagne, and Impacket), and password spraying.\" Trend Micro *Analyst note: Trend attributes this primarily to \"an unknown actor,\" with \"possibly Earth Lamia\" as a hedge — the name appears exactly once across the 28-page report — so this is logged under the UnSub convention rather than as an Earth Lamia entry. Target sector is not stated. No per-campaign dates are given; the Activity Span reflects the report's Jan–Jun 2026 scope. The false-authorization jailbreak pretext is recorded here as tradecraft detail; it is not mapped as a TTP label, as guardrail-bypass sits on the out-of-scope 'attacks on AI' side of this project's line.*",
+  "ttps": ["T1003", "T1110.003", "T1210", "T1595"],
+  "categories": ["LLM-orchestrated operations (Agentic AI attack orchestration)"],
+  "reported": "Jul 2026",
+  "activity": "Jan 2026 – Jun 2026",
+  "table": "main",
+  "sizeBytes": 1190,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0008 - Lateral Movement (agent ran the intrusion autonomously)<br><br>T1595 - Active Scanning<br><br>T1210 - Exploitation of Remote Services (EternalBlue, SMBGhost, PrintNightmare, SMB relay)<br><br>T1003 - OS Credential Dumping (secretsdump, LaZagne, Impacket)<br><br>T1110.003 - Brute Force: Password Spraying"
+}
