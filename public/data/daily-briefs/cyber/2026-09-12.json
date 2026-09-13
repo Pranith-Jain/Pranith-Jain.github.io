@@ -1,0 +1,127 @@
+{
+  "type": "cyber",
+  "date": "2026-09-12",
+  "threatLevel": "",
+  "executiveSummary": "Overall OT Threat Level: HIGH Multiple U.S. government advisories confirm active exploitation against internet-exposed PLCs in U.S. critical infrastructure, including logic tampering impacting operations in Water/Wastewater and Energy sectors. Immediate removal from internet exposure and integrity checks are advised. CISA Advisory A separate joint advisory highlights an ongoing, AI-assisted threat to Siemens S7 PLCs (S7comm/TCP-102) seeking to read/write memory and mimic monitoring tools; defenders should disable PUT/GET where possible and deploy S7-aware detections. CISA Advisory Edge device compromise risk elevated: Cisco Secure Firewall Management Center (FMC) CVSS 10 auth-bypass is being exploited in the wild to gain root, steal configs/credentials, and deploy ransomware; patch immediately and remove FMC from internet exposure. View Article MikroTik RouterOS zero/auth-bypass chains are under active exploitation with concrete IoCs and persistence; immediate upgrade, compromise assessment, and credential rotation are required. CERT Polska Citrix NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) in SAML mode with public PoC presents immediate perimeter risk and potential OT pivot; patch or restrict exposure now. JPCERT/CC Alert Supply chain exposure rising: GitLab CVSS 10 file-read (CVE-2026-85706) is under active probing, enabling theft of CI/CD tokens and secrets; restrict exposure and rotate credentials post-patch. View Article JFrog Artifactory vulnerabilities are being chained to gain admin control and plant backdoors, threatening downstream software integrity used in CI and OT gateways. View Article Core OT protocols/components: Multiple Eclipse Milo (OPC UA) server flaws could enable credential recovery, authorization bypass, and DoS across ICS environments. CISA Bulletin SCADA/HMI exposure: PcVue credential weaknesses prior to v17.0.0 can aid privilege escalation on HMI servers-prioritize upgrades and protect project directories. CISA Bulletin KEV expansions add active exploitation for Fortinet, Citrix NetScaler, Google V8, and Cisco FMC-accelerate remediation on exposed assets and verify for pre-patch compromise. CISA KEV Update Bottom line: The combination of confirmed PLC targeting, multiple exploited perimeter/management-plane devices, and active supply-chain abuse raises near-term risk of OT-impacting incidents. Prioritize edge hardening, rapid patching, and protocol-aware monitoring across IT/OT boundaries.",
+  "keyFindings": [
+    {
+      "title": "Adversaries are actively manipulating PLC logic and disabling alarms through exp",
+      "summary": "Adversaries are actively manipulating PLC logic and disabling alarms through exposed VNC/OT protocols, causing operational disruption in critical sectors. CISA Advisory"
+    },
+    {
+      "title": "AI-assisted tradecraft is accelerating development of ICS-relevant intrusion scr",
+      "summary": "AI-assisted tradecraft is accelerating development of ICS-relevant intrusion scripts (e.g., S7comm PUT/GET), complicating signature-based detection. CISA Advisory"
+    },
+    {
+      "title": "Firewall/edge management compromise (Cisco FMC) is being used for credential the",
+      "summary": "Firewall/edge management compromise (Cisco FMC) is being used for credential theft, policy tampering, and ransomware deployment-representing a critical IT-to-OT pivot vector. View Article"
+    },
+    {
+      "title": "Actively exploited MikroTik RouterOS chains provide total router control enablin",
+      "summary": "Actively exploited MikroTik RouterOS chains provide total router control enabling covert C2 and lateral movement toward industrial zones. CERT Polska"
+    },
+    {
+      "title": "Pre-auth NetScaler SAML RCE (CVE-2026-8452) with public PoC is a high-likelihood",
+      "summary": "Pre-auth NetScaler SAML RCE (CVE-2026-8452) with public PoC is a high-likelihood entry point for domain compromise; patching and SAML egress controls are high priority. JPCERT/CC Alert"
+    },
+    {
+      "title": "OPC UA stack (Eclipse Milo) and SCADA/HMI (PcVue) issues highlight persistent we",
+      "summary": "OPC UA stack (Eclipse Milo) and SCADA/HMI (PcVue) issues highlight persistent weaknesses in core OT protocols and visualization tiers. OPC UA Bulletin PcVue Bulletin"
+    },
+    {
+      "title": "Supply chain",
+      "summary": "GitLab CVSS 10 and exploited Artifactory chains enable secret theft and code tampering, risking poisoned updates in OT-adjacent tools. GitLab Artifactory"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "18",
+        "label": "Events - Escalate"
+      },
+      {
+        "value": "12+",
+        "label": "Actively Exploited/KEV"
+      },
+      {
+        "value": "20+",
+        "label": "OT/ICS Vendors Impacted"
+      },
+      {
+        "value": "6+",
+        "label": "Sectors Affected"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 (S7-1200/1500)",
+      "Rockwell Automation (CompactLogix/Micro850)",
+      "Schneider Electric (M340/Control Expert)",
+      "PcVue",
+      "Eclipse Milo (OPC UA)",
+      "Cisco Secure FMC",
+      "Citrix NetScaler ADC/Gateway",
+      "MikroTik RouterOS",
+      "ST Engineering iDirect",
+      "AVEVA Pipeline Integrity Monitor",
+      "GitLab CE/EE",
+      "JFrog Artifactory"
+    ],
+    "sectors": [
+      "Water & Wastewater Systems",
+      "Electric Power",
+      "Manufacturing",
+      "Transportation",
+      "Communications/Satellite",
+      "Healthcare (medical middleware)",
+      "Government Services/DIB"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated actors: Direct exploitation of PLCs, AOI manipulation, HMI/SCADA data changes in multiple CI sectors. CISA Advisory",
+        "Russia-linked activity: Large-scale router compromise for covert infrastructure and pre-positioning; FSB Center 16 tactics across CI. CISA/NSA/FBI",
+        "Pro-Russia hacktivists: Opportunistic VNC attacks on HMIs, setpoint changes, alarm suppression. Multi-Agency Advisory",
+        "AI-enabled tradecraft: AI-assisted S7 exploitation; AI-driven model distillation targeting U.S. providers (downstream CI impact). CISA/NSA/FBI",
+        "Ransomware RaaS (Gunra): Initial access via edge devices (Fortinet, RDP), Impacket, M365 exfiltration to Mega; .ENCRT extensions. CISA/FBI/NSA"
+      ]
+    }
+  ],
+  "relevance": "The week's intelligence shows concurrent pressure on: (1) field controllers (PLCs) via direct exposure and weak access controls, (2) protocol stacks (OPC UA, S7comm) enabling loss of view/control, and (3) the IT edge/management plane (VPN/firewall/routers, CI systems) that bridges IT to OT. Supply-chain compromises of GitLab/Artifactory can poison engineering tools or gateway components. Net effect: elevated probability of IT-to-OT pivot and process impact, especially for water, power, and manufacturing.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "OPC UA (Eclipse Milo): credential recovery, auth bypass, DoS (patch to fixed versions). CISA Bulletin",
+        "PvVue (SCADA/HMI) CISA Bulletin",
+        "ST Engineering iDirect iQ-Series: web auth issues/DoS in legacy versions; update and isolate. CISA ICS",
+        "AVEVA Pipeline Integrity Monitor: crypto/auth/XSS issues (upgrade per AVEVA-2026-006). CISA ICS",
+        "GitLab CE/EE CVE-2026-85706 (CVSS 10): active probing file read → secret theft; patch & rotate. View Article",
+        "JFrog Artifactory chain (CVE-2026-42018/42016/82329): exploited for admin takeover & backdoors. View Article",
+        "NetScaler ADC/Gateway (CVE-2026-8452): pre-auth RCE in SAML mode with PoC; patch fast. JPCERT/CC",
+        "MikroTik RouterOS: multi-CVE chain actively exploited; updates in 6.49.21/7.23.4/7.24.2/7.25beta3. CERT Polska (CVE set)"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial Access: Exploitation of public-facing edge (Cisco FMC, NetScaler), router compromise (MikroTik), exposed VNC/HMI; Supply-chain (GitLab/Artifactory).",
+      "Execution: Web shells/JSP/JAR loaders; policy tampering and LoTL via management consoles; PLC program writes (S7comm PUT/GET; Modbus writes).",
+      "Privilege Escalation/Lateral Movement: Impacket (psexec/secretsdump), token abuse, router pivot, management-plane to OT jump hosts.",
+      "Defense Evasion: Living-off-the-land within FMC; custom webshell paths (/var/vpn/theme/); router persistence (scheduler/scripts).",
+      "Exfiltration: M365 OneDrive/SharePoint to Mega; router tunneling; covert infra via compromised SOHO/IoT.",
+      "Impact: HMI alarm suppression, setpoint changes, PLC logic tampering; potential availability loss (OPC UA/DoS)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Patch & contain: Cisco FMC, NetScaler ADC/Gateway (SAML), MikroTik RouterOS, GitLab, JFrog Artifactory on internet-facing or shared-service systems. Hunt operations: Check NetScaler /var/vpn/theme/ for webshells; Cisco FMC web logs for anomalous tasks/users; MikroTik for new users/scheduler; GitLab API access to commits API with suspicious parameters; Artifactory for rogue plugins/tokens. OT safeguards: Disable PLC internet exposure; set Siemens S7 protection levels; verify logic integrity and alarm configurations; deploy protocol-aware (S7/OPC UA/Modbus) detections on jump hosts and DMZs. Credential hygiene: Rotate admin creds/tokens across edge and CI/CD platforms; invalidate sessions; enforce phishing-resistant MFA. KEV tracking: Align remediation with KEV timelines; perform pre-/post-patch compromise assessments on listed assets.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-85706",
+    "CVE-2026-42018"
+  ]
+}
