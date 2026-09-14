@@ -1,0 +1,122 @@
+{
+  "type": "cyber",
+  "date": "2026-09-13",
+  "threatLevel": "",
+  "executiveSummary": "The OT/ICS threat picture this period is elevated. Multiple government advisories cite active, high-confidence targeting of industrial controllers and OT perimeters, while several KEV additions and CISA weekly bulletins include directly exploitable OT technologies. The most urgent risks are: (1) nation-state and hacktivist activity against PLCs and internet-exposed HMIs; (2) active exploitation of MikroTik RouterOS edge devices and widely used dev/CI/CD platforms (Artifactory, GitLab) that can cascade into OT; and (3) newly disclosed, high-severity OT/IIoT vulnerabilities (PLC stacks, EVSE, drives, OPC UA). Active targeting of Siemens S7 PLCs with AI-assisted scripts for S7comm read/write on TCP/102; immediate removal of internet exposure and S7 protocol hardening is advised. Security Advisory Pro-Russia hacktivists are opportunistically accessing internet-exposed VNC on HMIs across Water/Wastewater, Energy, and Food/Agriculture, manipulating setpoints and alarms. Security Advisory Iranian-affiliated actors have exploited PLCs (Rockwell, Schneider, Siemens) by modifying logic/AOIs and disabling shutdown/alarm logic; disconnect PLCs from the internet and validate ladder logic integrity. Security Advisory MikroTik RouterOS is under active exploitation via unauthenticated SSH/auth bypass chains; patch immediately, restrict management, and rebuild if compromise is suspected. CERT Polska SANS ISC Active exploitation of JFrog Artifactory and GitLab can yield administrative control and secret exfiltration, enabling artifact poisoning and CI/CD supply-chain compromise that may bridge into OT environments. View Article View Article CISA weekly bulletins highlight directly exploitable OT/IIoT issues: Delta PLC Modbus exposures, EV chargers (OCPP/WebSocket RCE), Danfoss iC7 drive update/unsigned code risks, Eclipse Milo OPC UA flaws, and IIoT Arrowhead/Ditto auth-bypass/SSRF. Bulletin Bulletin Overall OT Cyber Threat Level HIGH Active exploitation reported Primary OT Impact Vectors PLCs • OT HMIs • Edge Routers S7comm • VNC • SSH/WinBox/API Perimeter & Supply Chain Artifactory • GitLab CISA KEV-listed Hot Protocols/Ports TCP/102 • 5900-5910 • 44818 Modbus, CIP, OPC UA",
+  "keyFindings": [
+    {
+      "title": "Nation-state and hacktivist activity is directly impacting industrial controller",
+      "summary": "Nation-state and hacktivist activity is directly impacting industrial controllers and operator interfaces (S7 PLCs; VNC-exposed HMIs), with demonstrated logic manipulation and loss-of-view. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Active exploitation of MikroTik RouterOS provides a rapid pathway to compromise ",
+      "summary": "Active exploitation of MikroTik RouterOS provides a rapid pathway to compromise OT perimeters; evidence includes new local admin users, SSH abuse, and btest service DoS/leak. CERT Polska"
+    },
+    {
+      "title": "Artifactory and GitLab KEV-listed flaws enable admin takeover and secret exfiltr",
+      "summary": "Artifactory and GitLab KEV-listed flaws enable admin takeover and secret exfiltration, threatening CI/CD and engineering pipelines used to stage OT updates. View Article View Article"
+    },
+    {
+      "title": "CISA bulletins list multiple OT/IIoT vulnerabilities with unauthenticated RCE/Do",
+      "summary": "CISA bulletins list multiple OT/IIoT vulnerabilities with unauthenticated RCE/DoS against PLCs, EVSE, OPC UA stacks, and industrial drives; prioritize segmentation and patch planning. Bulletin Bulletin"
+    },
+    {
+      "title": "TrueConf video server RCE campaigns (Head Mare APT) weaponize enterprise collabo",
+      "summary": "TrueConf video server RCE campaigns (Head Mare APT) weaponize enterprise collaboration to deliver backdoors and pivot; restrict exposure and verify installer integrity. View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": ""
+      },
+      {
+        "value": "PLCs • OT HMIs • Edge Routers",
+        "label": ""
+      },
+      {
+        "value": "Artifactory • GitLab",
+        "label": ""
+      },
+      {
+        "value": "TCP/102 • 5900-5910 • 44818",
+        "label": ""
+      },
+      {
+        "value": "PLC logic tampering • HMI access",
+        "label": ""
+      },
+      {
+        "value": "Routers • VPN • VNC",
+        "label": ""
+      },
+      {
+        "value": "Artifactory • GitLab",
+        "label": ""
+      },
+      {
+        "value": "EVSE • Drives • OPC UA",
+        "label": ""
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 PLC families Rockwell CompactLogix / Micro850 Schneider Modicon M340 OT HMIs (VNC) MikroTik RouterOS JFrog Artifactory GitLab CE/EE Delta PLC (Modbus/TCP) EVbee DC-80 (OCPP/WebSockets) Danfoss iC7 Drives Eclipse Milo (OPC UA), Arrowhead, Ditto TrueConf Server ST Engineering iDirect iQ-Series"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy; Transportation Systems (incl. EV charging, rail detection); Critical Manufacturing; Food and Agriculture; Government Facilities/Services; Communications/Telecom."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iranian-affiliated PLC targeting with logic/AOI manipulation; disable internet access, enforce programming protections, validate golden logic. Security Advisory",
+        "Pro-Russia hacktivists manipulating internet-exposed OT HMIs over VNC in WWS/Energy; immediate isolation and credential resets. Security Advisory",
+        "Head Mare APT exploiting TrueConf server to deploy backdoors and replace client installers (energy, transportation targets). View Article",
+        "LAUNDRY BEAR (Void Blizzard) Zimbra phishing/XSS to exfiltrate 90 days of mail and create IMAP persistence; revoke app passwords and patch ZCS. Security Advisory",
+        "Gunra ransomware leveraging FortiOS and VPN creds; Linux variant has weak PRNG (potential decryption route). #StopRansomware"
+      ]
+    }
+  ],
+  "relevance": "The period's highest-confidence intelligence centers on direct manipulation or pre-positioning against industrial controllers and operator interfaces (S7 PLC families; VNC-exposed HMIs), and exploitation of OT perimeters (edge routers, SATCOM terminals) and development infrastructure (artifact repositories, SCM/CI). Several CISA bulletins name PLC/IIoT vulnerabilities with unauthenticated RCE/DoS exposure, and multiple multi-agency advisories describe active adversary TTPs against water/wastewater and energy operations. Collectively, these substantiate a HIGH threat level for OT environments with weak perimeter hygiene, flat networks, or internet-exposed assets.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Delta Electronics PLC Modbus unauth exposure/DoS; restrict port 502, segment PLCs, monitor function codes. Bulletin",
+        "EVbee DC-80 EVSE unauth RCE (Web, Bluetooth, OCPP); isolate chargers and restrict OCPP to trusted backends. Bulletin",
+        "Danfoss iC7 drives unsigned code/firmware risks; lock down engineering/update interfaces. Bulletin",
+        "Eclipse Milo (OPC UA) auth/DoS/credential recovery weaknesses; disable weak policies, update stacks. Bulletin",
+        "Eclipse Arrowhead & Ditto IIoT auth-bypass/SSRF enabling admin takeover/policy override. Bulletin",
+        "OPC/IIoT & DMZ platforms (APISIX, Tomcat, Hive) with auth-bypass/HTTP smuggling/SSRF; apply WAF and patch. Bulletin",
+        "iDirect SATCOM terminals (Update A): remove internet exposure, enforce VPN, and upgrade firmware. ICS Advisory",
+        "AVEVA Pipeline Integrity Monitor web issues (XSS, auth gaps; CVSS 8.4); isolate and update to vendor-fixed release. ICS Advisory"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Internet scanning and access to exposed PLC/HMI services (S7comm TCP/102; VNC 5900-5910) - TA0043 / T1595.",
+      "Living-off-the-land in Windows AD/Entra ID and cloud (from CISA red-team water-sector report) - multiple enterprise TTPs.",
+      "Edge-device exploitation and persistence via rogue admin users (RouterOS) - T1136 / T1098.",
+      "Supply-chain CI/CD compromise (Artifactory/GitLab) for artifact poisoning and secret theft - T1195 / T1552.",
+      "Email platform exploitation for credential/session theft (Zimbra XSS) - T1539 / T1550.",
+      "Use of residential/SOHO botnets and covert networks to mask origin - AA26-113a patterning."
+    ],
+    "mitreIds": [
+      "T1595",
+      "T1136",
+      "T1098",
+      "T1195",
+      "T1552",
+      "T1539",
+      "T1550"
+    ]
+  },
+  "outlook72h": "Block external access to S7comm and VNC; validate S7 logic integrity on internet-exposed or recently scanned assets; enforce PLC protection levels. Patch MikroTik RouterOS fleet; search for IOC users (\"ops\", unknown admins), scheduler scripts, and unusual SSH logs; rebuild compromised devices. Emergency changes to CI/CD: patch Artifactory/GitLab, rotate tokens/keys, and verify artifact signatures before promotion to OT staging/production. Apply OT-focused compensating controls for EVSE, drives, OPC UA servers; deploy ICS-aware IDS signatures and tighten firewall rules. For Zimbra: apply fixes and revoke app-specific passwords; monitor outbound DNS/HTTPS anomalies from email infrastructure.",
+  "relatedCves": []
+}

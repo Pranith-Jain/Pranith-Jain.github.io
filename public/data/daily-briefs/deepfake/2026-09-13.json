@@ -1,0 +1,79 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-13",
+  "riskOutlook": "Generative",
+  "executiveSummary": "This period saw multiple high-urgency incidents spanning criminal abuse, national security misuse, and election-related risks. Notable events include large-scale AI-assisted business email compromise campaigns seeking nearly $50,000 per invoice from over one million scam emails targeting accounts payable teams View Article , persistent AI-generated child sexual abuse ads that continued to run on Meta's platforms even after removals Source , and government legal action ordering Meta to halt such ads in San Francisco Source . National security concerns escalated as Russia-linked operators reportedly used a frontier model to analyze a stolen drone vision SDK and adapt malware against detections View Article , while users in Houthi-controlled Northern Yemen allegedly sought model assistance to develop advanced missiles Source . Separately, U.S. agencies reported large-scale unauthorized extraction of billions of tokens from U.S. frontier AI models by Chinese firms View Article . Politically, Brazil's top electoral court defined \"deepfakes\" in ads after a campaign used an AI-generated image of Jair Bolsonaro endorsing his son Source , and Georgia election officials face pressure to remediate a voting-system issue that AI-enabled misinformation could exploit Source . Operational abuse also expanded through trusted AI platforms leveraged to deliver malware View Article , and law enforcement disrupted a criminal marketplace tied to deepfake services for scammers Source . Defensive and regulatory developments included OpenAI's provenance tooling updates (C2PA, SynthID, and verification APIs) View Article , research highlighting weaknesses in image deepfake detectors on modern content Source , and attacks undermining diffusion watermarking Source . Overall, the threat environment appears to be worsening given the diversity, scale, and operational maturity of reported misuse, despite some notable enforcement and tooling advances.",
+  "keyFindings": [
+    {
+      "title": "AI-assisted BEC campaigns targeted accounts payable staff with over one million ",
+      "summary": "AI-assisted BEC campaigns targeted accounts payable staff with over one million emails seeking nearly $50,000 per fraudulent invoice. View Article"
+    },
+    {
+      "title": "Meta failed to block hundreds of AI-generated child sexualized ads, some involvi",
+      "summary": "Meta failed to block hundreds of AI-generated child sexualized ads, some involving real children, even after prior removals. Source"
+    },
+    {
+      "title": "San Francisco issued a legal order demanding Meta stop allowing abusive AI-gener",
+      "summary": "San Francisco issued a legal order demanding Meta stop allowing abusive AI-generated child sexualized ads, spotlighting enforcement risk. Source"
+    },
+    {
+      "title": "Russia-linked operators reportedly used a frontier model to reverse engineer a s",
+      "summary": "Russia-linked operators reportedly used a frontier model to reverse engineer a stolen drone vision SDK and adapt malware against detections. View Article"
+    },
+    {
+      "title": "Users in Houthi-controlled Northern Yemen allegedly attempted to use a frontier ",
+      "summary": "Users in Houthi-controlled Northern Yemen allegedly attempted to use a frontier model for advanced missile development; accounts were blocked. Source"
+    },
+    {
+      "title": "Threat actors abused trusted AI platforms' shared content to deliver malware (Se",
+      "summary": "Threat actors abused trusted AI platforms' shared content to deliver malware (SectopRAT, MacSync) across more than 29 organizations. View Article"
+    },
+    {
+      "title": "U.S. agencies said Chinese firms extracted billions of tokens from U.S. frontier",
+      "summary": "U.S. agencies said Chinese firms extracted billions of tokens from U.S. frontier AI models using fraudulent and evasive access methods. View Article"
+    },
+    {
+      "title": "Brazil's top electoral court defined deepfakes in political ads after an AI-gene",
+      "summary": "Brazil's top electoral court defined deepfakes in political ads after an AI-generated image suggested an endorsement by Jair Bolsonaro. Source"
+    },
+    {
+      "title": "Research shows current image deepfake detectors struggle at low false-alarm rate",
+      "summary": "Research shows current image deepfake detectors struggle at low false-alarm rates on modern phone content. Source"
+    },
+    {
+      "title": "OpenAI advanced content provenance integrations (C2PA, SynthID, verification API",
+      "summary": "OpenAI advanced content provenance integrations (C2PA, SynthID, verification APIs) for images and audio. View Article"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [
+    "Financial fraud scaling with AI: layered BEC deception campaigns automate convincing outreach to finance workflows. View Article",
+    "Abuse of trusted AI platforms: adversaries use shared AI content and domains to deliver malware and bypass user suspicion. View Article",
+    "Coordinated synthetic personas: networks of fake \"ordinary\" accounts amplify aligned political narratives at scale. Source",
+    "Frontier-model misuse in conflict zones: reported use for drone SDK analysis and attempted missile development. View Article Source",
+    "Detector robustness concerns: image deepfake detectors underperform on real-world content; watermarking vulnerable to removal. Source Source",
+    "Content provenance integration: growing adoption of C2PA/SynthID-style proofs and verification APIs for authenticity workflows. View Article",
+    "Election safeguards: legal definitions of deepfakes in political ads and pre-election vulnerability remediation pressure. Source Source"
+  ],
+  "geographicObservations": [
+    "United States: Large-scale BEC fraud; election trust risks in Georgia; law enforcement disruption of deepfake marketplace; prior voice deepfake targeting of officials. Source Source Source",
+    "Brazil: Court defined deepfakes in political advertising following an AI-generated endorsement incident. Source",
+    "Ukraine and Europe: Reported frontier-model assistance in reverse engineering a stolen drone SDK and malware evasion. Source",
+    "Northern Yemen: Attempted model-assisted missile development by users in Houthi-controlled territory. Source",
+    "United States and China: Advisory on industrial-scale extraction of tokens from U.S. frontier models by China-linked firms. Source",
+    "United States and Southeast Asia: Disruption of a criminal marketplace linked to deepfake services for scammers. Source"
+  ],
+  "detectionDevelopments": [
+    "San Francisco issued a legal order to halt AI-generated child sexualized ads, escalating compliance pressure on Meta. Source",
+    "Law enforcement seized channels and wallets tied to a marketplace offering deepfake services to scammers. View Article",
+    "Brazil's top electoral court defined deepfakes for political ads, setting immediate campaign standards. Source",
+    "OpenAI expanded content provenance with C2PA, SynthID, and verification APIs for images and audio. View Article",
+    "Frontier-model provider identified and blocked accounts allegedly attempting to develop advanced missiles in Northern Yemen. Source",
+    "Implement finance-specific out-of-band verification for invoices and vendor changes; enforce dual-control approvals. (Analyst Recommendation)",
+    "Treat AI platform share links and hosted artifacts as untrusted; sandbox downloads, restrict script execution, and deploy content-disarm for common file types. (Analyst Recommendation)",
+    "Adopt provenance-first media pipelines (C2PA manifests, signature checks) and retain originals; avoid sole reliance on watermarking or single detectors. (Analyst Recommendation)",
+    "Prepare election rapid-response playbooks: pre-bunk common narratives, publish verification channels, and partner with platforms for expedited review. (Analyst Recommendation)",
+    "For voice threats, require call-back verification via official directories and implement known-voice challenges for sensitive requests. (Analyst Recommendation)",
+    "Monitor API usage for anomalous, high-volume, or evasive patterns; enforce rate limits and token-abuse detection with alerting. (Analyst Recommendation)"
+  ]
+}
