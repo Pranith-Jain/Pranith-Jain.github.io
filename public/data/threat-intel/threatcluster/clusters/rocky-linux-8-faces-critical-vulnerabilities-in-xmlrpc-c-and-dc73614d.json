@@ -1,0 +1,11 @@
+{
+  "slug": "rocky-linux-8-faces-critical-vulnerabilities-in-xmlrpc-c-and-dc73614d",
+  "title": "Rocky Linux 8 Faces Critical Vulnerabilities in xmlrpc-c and Redis",
+  "link": "https://threatcluster.io/cluster/rocky-linux-8-faces-critical-vulnerabilities-in-xmlrpc-c-and-dc73614d?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/rocky-linux-8-faces-critical-vulnerabilities-in-xmlrpc-c-and-dc73614d",
+  "pubDate": "2026-09-09T10:01:32.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "On September 9, 2026, two significant vulnerabilities were disclosed affecting Rocky Linux 8. The first involves xmlrpc-c, which has a critical cross-site scripting vulnerability.",
+  "sizeBytes": 179
+}

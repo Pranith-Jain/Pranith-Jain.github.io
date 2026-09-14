@@ -4,10 +4,10 @@
   "name": "global",
   "aliases": [],
   "sources": ["dictionary", "victims"],
-  "mentionCount": 3,
+  "mentionCount": 4,
   "firstSeen": "2026-09-09T10:04:21.000Z",
-  "lastSeen": "2026-09-12T08:26:30.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-12T09:58:39.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-09-09",
@@ -15,10 +15,16 @@
     },
     {
       "date": "2026-09-12",
-      "count": 1
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "sutton-public-schools-fb0e",
+      "title": "Sutton Public Schools — claimed by global",
+      "pubDate": "2026-09-12T09:58:39.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "town-of-sutton-massachusetts-1dfb",
@@ -41,6 +47,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "government-defense",
       "name": "Government & Defense",
       "weight": 1
@@ -48,6 +60,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "sutton-public-schools-fb0e",
+      "victim": "Sutton Public Schools — claimed by global",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-12T09:58:39.000Z"
+    },
     {
       "id": "town-of-sutton-massachusetts-1dfb",
       "victim": "TOWN OF SUTTON | MASSACHUSETTS — claimed by global",

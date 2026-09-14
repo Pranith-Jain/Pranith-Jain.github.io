@@ -1,0 +1,94 @@
+{
+  "type": "group",
+  "slug": "medusalocker",
+  "name": "medusalocker",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-09-12T09:00:10.000Z",
+  "lastSeen": "2026-09-12T09:01:44.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-12",
+      "count": 4
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ruixiang-jidian-eb08",
+      "title": "瑞祥机电 (Ruixiang Jidian) — claimed by medusalocker",
+      "pubDate": "2026-09-12T09:01:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "abourametals-d00f",
+      "title": "Abourametals — claimed by medusalocker",
+      "pubDate": "2026-09-12T09:01:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "frisby-roofing-frisby-construction-llc-8f56",
+      "title": "Frisby Roofing (Frisby Construction LLC) — claimed by medusalocker",
+      "pubDate": "2026-09-12T09:00:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "praveg-caves-jawai-bd25",
+      "title": "Praveg Caves Jawai — claimed by medusalocker",
+      "pubDate": "2026-09-12T09:00:10.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ruixiang-jidian-eb08",
+      "victim": "瑞祥机电 (Ruixiang Jidian) — claimed by medusalocker",
+      "sector": "Manufacturing",
+      "country": "CN",
+      "pubDate": "2026-09-12T09:01:44.000Z"
+    },
+    {
+      "id": "abourametals-d00f",
+      "victim": "Abourametals — claimed by medusalocker",
+      "sector": "Manufacturing",
+      "country": "AE",
+      "pubDate": "2026-09-12T09:01:13.000Z"
+    },
+    {
+      "id": "frisby-roofing-frisby-construction-llc-8f56",
+      "victim": "Frisby Roofing (Frisby Construction LLC) — claimed by medusalocker",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-09-12T09:00:41.000Z"
+    },
+    {
+      "id": "praveg-caves-jawai-bd25",
+      "victim": "Praveg Caves Jawai — claimed by medusalocker",
+      "sector": "Hospitality",
+      "country": "IN",
+      "pubDate": "2026-09-12T09:00:10.000Z"
+    }
+  ]
+}

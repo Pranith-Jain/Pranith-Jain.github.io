@@ -4,17 +4,27 @@
   "name": "vexy ransomware",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-10T21:27:11.000Z",
-  "lastSeen": "2026-09-10T21:27:11.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-12T23:58:29.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-10",
       "count": 1
+    },
+    {
+      "date": "2026-09-12",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "strad-solutions-0f05",
+      "title": "Strad Solutions — claimed by vexy ransomware",
+      "pubDate": "2026-09-12T23:58:29.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "i2k2-networks-e20a",
@@ -27,11 +37,18 @@
       "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 1
+      "weight": 2
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "strad-solutions-0f05",
+      "victim": "Strad Solutions — claimed by vexy ransomware",
+      "sector": "Technology",
+      "country": "GB",
+      "pubDate": "2026-09-12T23:58:29.000Z"
+    },
     {
       "id": "i2k2-networks-e20a",
       "victim": "i2k2 Networks — claimed by vexy ransomware",

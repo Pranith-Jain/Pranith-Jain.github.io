@@ -5,20 +5,26 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 3,
-  "firstSeen": "2026-09-09T20:53:25.000Z",
-  "lastSeen": "2026-09-11T10:53:16.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "firstSeen": "2026-09-11T00:52:07.000Z",
+  "lastSeen": "2026-09-13T23:23:34.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-09-09",
-      "count": 1
-    },
     {
       "date": "2026-09-11",
       "count": 2
+    },
+    {
+      "date": "2026-09-13",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "cer-micas-kantu-e398",
+      "title": "Cerámicas Kantu — claimed by panzer",
+      "pubDate": "2026-09-13T23:23:34.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "konica-minolta-bulgaria-d0d7",
@@ -30,12 +36,6 @@
       "slug": "agencia-estatal-de-meteorolog-a-e435",
       "title": "Agencia Estatal de Meteorología — claimed by panzer",
       "pubDate": "2026-09-11T00:52:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "aqualogus-c157",
-      "title": "Aqualogus — claimed by panzer",
-      "pubDate": "2026-09-09T20:53:25.000Z"
     }
   ],
   "relatedEntities": [
@@ -43,23 +43,24 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 1
+      "weight": 2
     },
     {
       "type": "sector",
       "slug": "government-defense",
       "name": "Government & Defense",
       "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
-      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "cer-micas-kantu-e398",
+      "victim": "Cerámicas Kantu — claimed by panzer",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-13T23:23:34.000Z"
+    },
     {
       "id": "konica-minolta-bulgaria-d0d7",
       "victim": "Konica Minolta Bulgaria — claimed by panzer",
@@ -73,13 +74,6 @@
       "sector": "Government & Defense",
       "country": "ES",
       "pubDate": "2026-09-11T00:52:07.000Z"
-    },
-    {
-      "id": "aqualogus-c157",
-      "victim": "Aqualogus — claimed by panzer",
-      "sector": "Agriculture and Food Production",
-      "country": null,
-      "pubDate": "2026-09-09T20:53:25.000Z"
     }
   ]
 }
