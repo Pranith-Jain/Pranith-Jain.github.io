@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-12T09:30:00.344Z",
-  "eventCount": 10,
+  "syncedAt": "2026-09-14T10:55:29.712Z",
+  "eventCount": 9,
   "events": [
     {
       "uuid": "004fd653-a3cc-5f31-9228-fc427045f51c",
@@ -51,16 +51,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "0b2a6038-31cc-5bd2-af21-c0b50cd07acb",
-      "info": "Critical RCE Vulnerability in N-able N-central Requires Immediate Patching",
-      "date": "2026-09-07",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1788776469",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "d8f5ae3a-024e-53fd-ae65-653a36d20392",
       "info": "AI-Driven Exploitation of PaperCut Vulnerabilities Compromises 440 Servers Globally",
       "date": "2026-09-09",
@@ -68,16 +58,6 @@
       "threat_level_id": "2",
       "timestamp": "1788977620",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "a59abb2c-2d17-561b-9105-7420d3491d27",
-      "info": "Critical RCE Vulnerabilities Under Active Exploitation",
-      "date": "2026-09-06",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1788719676",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:malware", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -91,6 +71,25 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "2c8ef828-93c0-5e20-87fe-97f19e4d81f7",
+      "info": "Russia's AI-Driven Cyber Espionage Targets Ukraine and Europe",
+      "date": "2026-09-12",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789186317",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:malware",
+        "misp-galaxy:threat-actor=\"Apt29\"",
+        "misp-galaxy:threat-actor=\"Cozy Bear\"",
+        "misp-galaxy:threat-actor=\"Midnight Blizzard\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "8f46d70a-8941-513f-9423-b534999073c2",
       "info": "U.S. Accuses Chinese AI Firms of Systematic Distillation of Proprietary Models",
       "date": "2026-09-09",
@@ -101,18 +100,21 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "2c8ef828-93c0-5e20-87fe-97f19e4d81f7",
-      "info": "Russian Hackers Use AI to Target Ukraine's Drone Manufacturing and Government",
-      "date": "2026-09-12",
+      "uuid": "8139a5e0-b776-55ff-8564-56e840b65167",
+      "info": "Trellix Reports on Five Evasive Cyber Campaigns in 2026",
+      "date": "2026-09-10",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1789186317",
+      "timestamp": "1789066062",
       "tags": [
         "source:ThreatCluster",
         "tlp:clear",
         "threat-level:medium",
         "type:apt",
-        "misp-galaxy:threat-actor=\"Midnight Blizzard\""
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"Apt28\"",
+        "misp-galaxy:threat-actor=\"Fancy Bear\""
       ],
       "orgc": "ThreatCluster"
     },

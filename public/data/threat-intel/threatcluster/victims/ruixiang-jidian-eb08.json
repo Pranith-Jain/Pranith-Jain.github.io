@@ -1,0 +1,14 @@
+{
+  "id": "ruixiang-jidian-eb08",
+  "victim": "瑞祥机电 (Ruixiang Jidian)",
+  "group": "medusalocker",
+  "sector": "Manufacturing",
+  "country": "CN",
+  "title": "瑞祥机电 (Ruixiang Jidian) — claimed by medusalocker",
+  "link": "https://threatcluster.io/dark-web/victim/%E7%91%9E%E7%A5%A5%E6%9C%BA%E7%94%B5%20%28Ruixiang%20Jidian%29",
+  "guid": "darkweb-victim:medusalocker:瑞祥机电 (ruixiang jidian)",
+  "pubDate": "2026-09-12T09:01:44.000Z",
+  "categories": ["Group: medusalocker", "Sector: Manufacturing", "Country: CN"],
+  "description": "CN · Manufacturing · Elevator manufacturer, brand 银海 (Yinhai). Produces machine-room-less (MRL) passenger elevators and OEMs elevator components (car top/bottom, car wall panels, COP, doors) for OTIS, KONE, Hitachi, Toshiba, TKS (蒂升). Export business (project DUBROVSKIY-2, customer 赛博). Infrastructure: Synology NAS (admin), IT dept with Epson L1118. | China, Jiangsu Province (黎民北路 / Limin North Road)",
+  "sizeBytes": 403
+}

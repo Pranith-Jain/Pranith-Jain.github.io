@@ -4,63 +4,105 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-09T20:08:41.000Z",
-  "lastSeen": "2026-09-11T22:03:56.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-11T22:03:56.000Z",
+  "lastSeen": "2026-09-14T07:59:50.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-09",
+      "date": "2026-09-11",
       "count": 1
     },
     {
-      "date": "2026-09-11",
+      "date": "2026-09-13",
+      "count": 2
+    },
+    {
+      "date": "2026-09-14",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "imperial-healthcare-solutions-5c4e",
-      "title": "Imperial Healthcare Solutions — claimed by qilin",
-      "pubDate": "2026-09-11T22:03:56.000Z"
+      "slug": "alicotrans-acc6",
+      "title": "Alicotrans — claimed by qilin",
+      "pubDate": "2026-09-14T07:59:50.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mitsuwa-trading-co-ltd-41dc",
-      "title": "Mitsuwa Trading Co., Ltd — claimed by qilin",
-      "pubDate": "2026-09-09T20:08:41.000Z"
+      "slug": "gilco-scaffolding-f971",
+      "title": "Gilco Scaffolding — claimed by qilin",
+      "pubDate": "2026-09-13T16:59:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "caridro-val-de-loire-91d2",
+      "title": "CARIDRO VAL DE LOIRE — claimed by qilin",
+      "pubDate": "2026-09-13T11:03:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "imperial-healthcare-solutions-5c4e",
+      "title": "Imperial Healthcare Solutions — claimed by qilin",
+      "pubDate": "2026-09-11T22:03:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "transportation",
+      "name": "Transportation",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "alicotrans-acc6",
+      "victim": "Alicotrans — claimed by qilin",
+      "sector": "Transportation",
+      "country": "BR",
+      "pubDate": "2026-09-14T07:59:50.000Z"
+    },
+    {
+      "id": "gilco-scaffolding-f971",
+      "victim": "Gilco Scaffolding — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "GB",
+      "pubDate": "2026-09-13T16:59:37.000Z"
+    },
+    {
+      "id": "caridro-val-de-loire-91d2",
+      "victim": "CARIDRO VAL DE LOIRE — claimed by qilin",
+      "sector": "Agriculture and Food Production",
+      "country": "FR",
+      "pubDate": "2026-09-13T11:03:46.000Z"
+    },
+    {
       "id": "imperial-healthcare-solutions-5c4e",
       "victim": "Imperial Healthcare Solutions — claimed by qilin",
       "sector": "Healthcare",
       "country": "US",
       "pubDate": "2026-09-11T22:03:56.000Z"
-    },
-    {
-      "id": "mitsuwa-trading-co-ltd-41dc",
-      "victim": "Mitsuwa Trading Co., Ltd — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "JP",
-      "pubDate": "2026-09-09T20:08:41.000Z"
     }
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "doommageddon",
+  "name": "doommageddon",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-13T00:53:02.000Z",
+  "lastSeen": "2026-09-13T00:53:02.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-13",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "incor-group-d2c1",
+      "title": "INCOR Group — claimed by doommageddon",
+      "pubDate": "2026-09-13T00:53:02.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "incor-group-d2c1",
+      "victim": "INCOR Group — claimed by doommageddon",
+      "sector": "Other",
+      "country": "IN",
+      "pubDate": "2026-09-13T00:53:02.000Z"
+    }
+  ]
+}

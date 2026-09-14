@@ -4,97 +4,45 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-09T21:29:45.000Z",
-  "lastSeen": "2026-09-11T22:03:56.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 6 ransomware groups and 4 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-11T22:03:56.000Z",
+  "lastSeen": "2026-09-12T10:31:06.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-09",
-      "count": 2
-    },
-    {
-      "date": "2026-09-10",
-      "count": 3
-    },
-    {
       "date": "2026-09-11",
+      "count": 1
+    },
+    {
+      "date": "2026-09-12",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "www-ibnsinatrust-com-1cee",
+      "title": "www.ibnsinatrust.com — claimed by krybit",
+      "pubDate": "2026-09-12T10:31:06.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "imperial-healthcare-solutions-5c4e",
       "title": "Imperial Healthcare Solutions — claimed by qilin",
       "pubDate": "2026-09-11T22:03:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "general-santos-doctors-hospital-a94a",
-      "title": "General Santos Doctors Hospital — claimed by rhysida",
-      "pubDate": "2026-09-10T18:30:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "mankatoclinic-com-47df",
-      "title": "mankatoclinic.com — claimed by chaos",
-      "pubDate": "2026-09-10T16:27:08.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "on-demand-occupational-medicine-6f42",
-      "title": "On Demand Occupational Medicine — claimed by wallstreet",
-      "pubDate": "2026-09-10T13:56:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "pharmaessentia-corporation-d91d",
-      "title": "PharmaEssentia Corporation — claimed by thegentlemen",
-      "pubDate": "2026-09-09T22:09:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "amorsaude-com-br-2d84",
-      "title": "amorsaude.com.br — claimed by lockbit5",
-      "pubDate": "2026-09-09T21:29:45.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "qilin",
       "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "rhysida",
-      "name": "rhysida",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "chaos",
-      "name": "chaos",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "wallstreet",
-      "name": "wallstreet",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "lockbit5",
-      "name": "lockbit5",
       "weight": 1
     }
   ],

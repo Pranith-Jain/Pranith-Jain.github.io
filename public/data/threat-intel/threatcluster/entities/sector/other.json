@@ -4,61 +4,73 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-09T23:52:49.000Z",
-  "lastSeen": "2026-09-11T17:00:08.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-11T17:00:08.000Z",
+  "lastSeen": "2026-09-13T00:53:02.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-09",
-      "count": 1
-    },
-    {
-      "date": "2026-09-10",
-      "count": 1
-    },
-    {
       "date": "2026-09-11",
+      "count": 1
+    },
+    {
+      "date": "2026-09-12",
+      "count": 2
+    },
+    {
+      "date": "2026-09-13",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "incor-group-d2c1",
+      "title": "INCOR Group — claimed by doommageddon",
+      "pubDate": "2026-09-13T00:53:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "eracm-fr-1f2b",
+      "title": "eracm.fr — claimed by krybit",
+      "pubDate": "2026-09-12T10:29:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "frisby-roofing-frisby-construction-llc-8f56",
+      "title": "Frisby Roofing (Frisby Construction LLC) — claimed by medusalocker",
+      "pubDate": "2026-09-12T09:00:41.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "diamondlease-41dd",
       "title": "DiamondLease — claimed by nightspire",
       "pubDate": "2026-09-11T17:00:08.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ncbchurch-077c",
-      "title": "NcbChurch — claimed by wallstreet",
-      "pubDate": "2026-09-10T13:56:38.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "mesan-usa-5867",
-      "title": "Mesan USA — claimed by global secret group",
-      "pubDate": "2026-09-09T23:52:49.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "doommageddon",
+      "name": "doommageddon",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "medusalocker",
+      "name": "medusalocker",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "nightspire",
       "name": "nightspire",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "wallstreet",
-      "name": "wallstreet",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "global-secret-group",
-      "name": "global secret group",
       "weight": 1
     }
   ],

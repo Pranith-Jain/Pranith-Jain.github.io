@@ -4,56 +4,44 @@
   "name": "auditteam",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-09T16:50:21.000Z",
-  "lastSeen": "2026-09-10T19:20:56.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 2 sectors and 5 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-12T10:50:20.000Z",
+  "lastSeen": "2026-09-13T09:51:41.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-09",
-      "count": 4
+      "date": "2026-09-12",
+      "count": 1
     },
     {
-      "date": "2026-09-10",
-      "count": 2
+      "date": "2026-09-13",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ki-jp-1541",
-      "title": "ki***jp — claimed by auditteam",
-      "pubDate": "2026-09-10T19:20:56.000Z"
+      "slug": "paid-victim-f9cf4b639cac1b18-d722",
+      "title": "Paid Victim F9CF4B639CAC1B18 — claimed by auditteam",
+      "pubDate": "2026-09-13T09:51:41.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "my-ru-d488",
-      "title": "my***ru — claimed by auditteam",
-      "pubDate": "2026-09-10T19:20:25.000Z"
+      "slug": "paid-victim-fdc699de3a112669-de6b",
+      "title": "Paid Victim FDC699DE3A112669 — claimed by auditteam",
+      "pubDate": "2026-09-13T09:51:07.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mo-al-bd34",
-      "title": "mo***al — claimed by auditteam",
-      "pubDate": "2026-09-09T21:50:22.000Z"
+      "slug": "vi-in-6401",
+      "title": "vi***in — claimed by auditteam",
+      "pubDate": "2026-09-13T09:50:31.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "dg-kr-f5bf",
-      "title": "dg***kr — claimed by auditteam",
-      "pubDate": "2026-09-09T16:51:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "go-et-ef57",
-      "title": "go***et — claimed by auditteam",
-      "pubDate": "2026-09-09T16:50:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "kr-rg-2a3f",
-      "title": "kr***rg — claimed by auditteam",
-      "pubDate": "2026-09-09T16:50:21.000Z"
+      "slug": "te-pb-c0b8",
+      "title": "TE***PB — claimed by auditteam",
+      "pubDate": "2026-09-12T10:50:20.000Z"
     }
   ],
   "relatedEntities": [
@@ -61,58 +49,44 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 4
+      "weight": 3
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 2
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "ki-jp-1541",
-      "victim": "ki***jp — claimed by auditteam",
+      "id": "paid-victim-f9cf4b639cac1b18-d722",
+      "victim": "Paid Victim F9CF4B639CAC1B18 — claimed by auditteam",
       "sector": "Not Found",
-      "country": "JP",
-      "pubDate": "2026-09-10T19:20:56.000Z"
-    },
-    {
-      "id": "my-ru-d488",
-      "victim": "my***ru — claimed by auditteam",
-      "sector": "Technology",
       "country": "RU",
-      "pubDate": "2026-09-10T19:20:25.000Z"
+      "pubDate": "2026-09-13T09:51:41.000Z"
     },
     {
-      "id": "mo-al-bd34",
-      "victim": "mo***al — claimed by auditteam",
+      "id": "paid-victim-fdc699de3a112669-de6b",
+      "victim": "Paid Victim FDC699DE3A112669 — claimed by auditteam",
       "sector": "Not Found",
       "country": "DE",
-      "pubDate": "2026-09-09T21:50:22.000Z"
+      "pubDate": "2026-09-13T09:51:07.000Z"
     },
     {
-      "id": "dg-kr-f5bf",
-      "victim": "dg***kr — claimed by auditteam",
+      "id": "vi-in-6401",
+      "victim": "vi***in — claimed by auditteam",
+      "sector": "Transportation",
+      "country": "IN",
+      "pubDate": "2026-09-13T09:50:31.000Z"
+    },
+    {
+      "id": "te-pb-c0b8",
+      "victim": "TE***PB — claimed by auditteam",
       "sector": "Not Found",
-      "country": "KR",
-      "pubDate": "2026-09-09T16:51:24.000Z"
-    },
-    {
-      "id": "go-et-ef57",
-      "victim": "go***et — claimed by auditteam",
-      "sector": "Technology",
-      "country": "KR",
-      "pubDate": "2026-09-09T16:50:52.000Z"
-    },
-    {
-      "id": "kr-rg-2a3f",
-      "victim": "kr***rg — claimed by auditteam",
-      "sector": "Not Found",
-      "country": "AR",
-      "pubDate": "2026-09-09T16:50:21.000Z"
+      "country": "RU",
+      "pubDate": "2026-09-12T10:50:20.000Z"
     }
   ]
 }

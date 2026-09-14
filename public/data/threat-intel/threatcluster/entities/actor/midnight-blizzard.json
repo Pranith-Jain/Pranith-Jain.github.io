@@ -2,7 +2,7 @@
   "type": "actor",
   "slug": "midnight-blizzard",
   "name": "Midnight Blizzard",
-  "aliases": [],
+  "aliases": ["Apt29", "Cozy Bear"],
   "sources": ["misp"],
   "mentionCount": 1,
   "firstSeen": "2026-09-12T00:00:00.000Z",
@@ -18,7 +18,7 @@
     {
       "recordType": "mispEvent",
       "slug": "2c8ef828-93c0-5e20-87fe-97f19e4d81f7",
-      "title": "Russian Hackers Use AI to Target Ukraine's Drone Manufacturing and Government",
+      "title": "Russia's AI-Driven Cyber Espionage Targets Ukraine and Europe",
       "pubDate": "2026-09-12T00:00:00.000Z"
     }
   ],

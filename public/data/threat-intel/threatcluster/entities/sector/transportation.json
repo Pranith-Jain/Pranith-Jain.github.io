@@ -4,21 +4,59 @@
   "name": "Transportation",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-09T22:08:43.000Z",
-  "lastSeen": "2026-09-11T16:59:44.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-09-11T15:54:58.000Z",
+  "lastSeen": "2026-09-14T07:59:50.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 6 ransomware groups and 6 countries.",
   "frequency": [
-    {
-      "date": "2026-09-09",
-      "count": 1
-    },
     {
       "date": "2026-09-11",
       "count": 2
+    },
+    {
+      "date": "2026-09-12",
+      "count": 2
+    },
+    {
+      "date": "2026-09-13",
+      "count": 2
+    },
+    {
+      "date": "2026-09-14",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "alicotrans-acc6",
+      "title": "Alicotrans — claimed by qilin",
+      "pubDate": "2026-09-14T07:59:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "navitrans-2966",
+      "title": "Navitrans — claimed by emperador",
+      "pubDate": "2026-09-13T13:51:22.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vi-in-6401",
+      "title": "vi***in — claimed by auditteam",
+      "pubDate": "2026-09-13T09:50:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "capricornlogistics-com-02ff",
+      "title": "capricornlogistics.com — claimed by krybit",
+      "pubDate": "2026-09-12T10:31:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "www-eac-airports-com-aff9",
+      "title": "www.eac-airports.com — claimed by krybit",
+      "pubDate": "2026-09-12T10:26:55.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "perimetral-oriental-de-bogot-s-a-s-f1d2",
@@ -30,15 +68,33 @@
       "slug": "port-of-tanjung-pelepas-9fb0",
       "title": "Port of Tanjung Pelepas — claimed by direwolf",
       "pubDate": "2026-09-11T15:54:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "air-canada-4c4f",
-      "title": "Air Canada — claimed by thegentlemen",
-      "pubDate": "2026-09-09T22:08:43.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "emperador",
+      "name": "emperador",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "auditteam",
+      "name": "auditteam",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "nightspire",
@@ -49,12 +105,6 @@
       "type": "group",
       "slug": "direwolf",
       "name": "direwolf",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
       "weight": 1
     }
   ],

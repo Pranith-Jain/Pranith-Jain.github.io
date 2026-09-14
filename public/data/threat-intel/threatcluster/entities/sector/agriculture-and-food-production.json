@@ -4,41 +4,29 @@
   "name": "Agriculture and Food Production",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-09T19:58:11.000Z",
-  "lastSeen": "2026-09-09T20:53:25.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 1 country.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-13T11:03:46.000Z",
+  "lastSeen": "2026-09-13T11:03:46.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-09",
-      "count": 2
+      "date": "2026-09-13",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "aqualogus-c157",
-      "title": "Aqualogus — claimed by panzer",
-      "pubDate": "2026-09-09T20:53:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gardensalive-com-bitsandpieces-com-iselinursery-local-weeksroses-org-esm-9355",
-      "title": "gardensalive.com, bitsandpieces.com, iselinursery.local, weeksroses.org, esm.local — claimed by embargo",
-      "pubDate": "2026-09-09T19:58:11.000Z"
+      "slug": "caridro-val-de-loire-91d2",
+      "title": "CARIDRO VAL DE LOIRE — claimed by qilin",
+      "pubDate": "2026-09-13T11:03:46.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "panzer",
-      "name": "panzer",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "embargo",
-      "name": "embargo",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 1
     }
   ],
