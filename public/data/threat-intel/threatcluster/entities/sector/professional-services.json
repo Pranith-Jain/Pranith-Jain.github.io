@@ -4,63 +4,87 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-11T16:59:35.000Z",
-  "lastSeen": "2026-09-12T13:10:06.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 2 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-09-14T14:00:21.000Z",
+  "lastSeen": "2026-09-15T07:10:19.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-11",
-      "count": 1
+      "date": "2026-09-14",
+      "count": 5
     },
     {
-      "date": "2026-09-12",
-      "count": 3
+      "date": "2026-09-15",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "axdia-international-8837",
-      "title": "Axdia International — claimed by rhysida",
-      "pubDate": "2026-09-12T13:10:06.000Z"
+      "slug": "multipla-contabilidade-empresarial-7698",
+      "title": "Multipla Contabilidade Empresarial — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:10:19.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "intherpro-com-e714",
-      "title": "intherpro.com — claimed by krybit",
-      "pubDate": "2026-09-12T10:28:08.000Z"
+      "slug": "better-accounting-solutions-fc41",
+      "title": "Better Accounting Solutions — claimed by anubis",
+      "pubDate": "2026-09-14T23:24:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "meridian16-hr-1229",
-      "title": "meridian16.hr — claimed by krybit",
-      "pubDate": "2026-09-12T10:27:32.000Z"
+      "slug": "bernath-amp-rosenberg-2cf9",
+      "title": "Bernath &amp; Rosenberg — claimed by genesis",
+      "pubDate": "2026-09-14T20:57:27.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "ozel-amp-ozel-laws-office-b3c5",
-      "title": "Ozel &amp; Ozel Laws Office — claimed by nightspire",
-      "pubDate": "2026-09-11T16:59:35.000Z"
+      "slug": "dorfman-abrams-music-p-c-128a",
+      "title": "Dorfman Abrams Music, P.C — claimed by genesis",
+      "pubDate": "2026-09-14T20:56:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "winston-contracting-llc-86f7",
+      "title": "Winston Contracting, LLC — claimed by qilin",
+      "pubDate": "2026-09-14T18:06:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "massey-stotser-amp-nichols-19e8",
+      "title": "Massey, Stotser &amp; Nichols — claimed by insomnia",
+      "pubDate": "2026-09-14T14:00:21.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
+      "slug": "genesis",
+      "name": "genesis",
       "weight": 2
     },
     {
       "type": "group",
-      "slug": "rhysida",
-      "name": "rhysida",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "nightspire",
-      "name": "nightspire",
+      "slug": "anubis",
+      "name": "anubis",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "insomnia",
+      "name": "insomnia",
       "weight": 1
     }
   ],

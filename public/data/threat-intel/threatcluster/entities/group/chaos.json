@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "chaos",
+  "name": "chaos",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-14T13:56:16.000Z",
+  "lastSeen": "2026-09-14T13:56:16.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-14",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "glasfloss-com-82bb",
+      "title": "glasfloss.com — claimed by chaos",
+      "pubDate": "2026-09-14T13:56:16.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "glasfloss-com-82bb",
+      "victim": "glasfloss.com — claimed by chaos",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-14T13:56:16.000Z"
+    }
+  ]
+}

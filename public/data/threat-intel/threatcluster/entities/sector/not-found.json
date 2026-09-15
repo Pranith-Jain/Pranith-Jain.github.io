@@ -4,91 +4,57 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-11T14:19:06.000Z",
-  "lastSeen": "2026-09-13T12:29:33.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 4 ransomware groups and 5 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-14T14:03:28.000Z",
+  "lastSeen": "2026-09-15T07:13:26.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 2 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-11",
+      "date": "2026-09-14",
       "count": 1
     },
     {
-      "date": "2026-09-12",
-      "count": 3
-    },
-    {
-      "date": "2026-09-13",
+      "date": "2026-09-15",
       "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "www-kashkha-com-27f9",
-      "title": "www.kashkha.com — claimed by krybit",
-      "pubDate": "2026-09-13T12:29:33.000Z"
+      "slug": "iveta-33a5",
+      "title": "Iveta — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:13:26.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "paid-victim-f9cf4b639cac1b18-d722",
-      "title": "Paid Victim F9CF4B639CAC1B18 — claimed by auditteam",
-      "pubDate": "2026-09-13T09:51:41.000Z"
+      "slug": "ardom-eilot-edb5",
+      "title": "Ardom Eilot — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:11:00.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "paid-victim-fdc699de3a112669-de6b",
-      "title": "Paid Victim FDC699DE3A112669 — claimed by auditteam",
-      "pubDate": "2026-09-13T09:51:07.000Z"
+      "slug": "aforpa-949a",
+      "title": "Aforpa — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:09:18.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "nexbex-solutions-private-limited-45ee",
-      "title": "Nexbex Solutions Private Limited — claimed by emperador",
-      "pubDate": "2026-09-12T13:51:54.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "te-pb-c0b8",
-      "title": "TE***PB — claimed by auditteam",
-      "pubDate": "2026-09-12T10:50:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "pss-ht-3110",
-      "title": "pss.ht — claimed by krybit",
-      "pubDate": "2026-09-12T10:29:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "foss-inc-e0ab",
-      "title": "Foss Inc. — claimed by pear",
-      "pubDate": "2026-09-11T14:19:06.000Z"
+      "slug": "httoy-fi-709c",
+      "title": "httoy.fi — claimed by lockbit5",
+      "pubDate": "2026-09-14T14:03:28.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "auditteam",
-      "name": "auditteam",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 3
     },
     {
       "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "emperador",
-      "name": "emperador",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "pear",
-      "name": "pear",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 1
     }
   ],

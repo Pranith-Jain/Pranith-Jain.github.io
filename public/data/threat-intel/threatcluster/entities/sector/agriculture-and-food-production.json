@@ -4,29 +4,51 @@
   "name": "Agriculture and Food Production",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-13T11:03:46.000Z",
-  "lastSeen": "2026-09-13T11:03:46.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-14T15:21:22.000Z",
+  "lastSeen": "2026-09-15T07:14:48.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-13",
+      "date": "2026-09-14",
       "count": 1
+    },
+    {
+      "date": "2026-09-15",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "caridro-val-de-loire-91d2",
-      "title": "CARIDRO VAL DE LOIRE — claimed by qilin",
-      "pubDate": "2026-09-13T11:03:46.000Z"
+      "slug": "cedars-foods-d310",
+      "title": "Cedars Foods — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:14:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "wada-farms-054e",
+      "title": "Wada Farms — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:09:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "rosello-et-fils-eec9",
+      "title": "Rosello et Fils — claimed by eclipse",
+      "pubDate": "2026-09-14T15:21:22.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "eclipse",
+      "name": "eclipse",
       "weight": 1
     }
   ],

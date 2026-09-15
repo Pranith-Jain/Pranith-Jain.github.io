@@ -4,73 +4,75 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-11T17:00:08.000Z",
-  "lastSeen": "2026-09-13T00:53:02.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 4 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-09-14T18:04:41.000Z",
+  "lastSeen": "2026-09-15T07:15:50.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 3 ransomware groups and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-11",
+      "date": "2026-09-14",
       "count": 1
     },
     {
-      "date": "2026-09-12",
-      "count": 2
-    },
-    {
-      "date": "2026-09-13",
-      "count": 1
+      "date": "2026-09-15",
+      "count": 5
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "incor-group-d2c1",
-      "title": "INCOR Group — claimed by doommageddon",
-      "pubDate": "2026-09-13T00:53:02.000Z"
+      "slug": "alchin-long-group-6d13",
+      "title": "Alchin Long Group — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:15:50.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "eracm-fr-1f2b",
-      "title": "eracm.fr — claimed by krybit",
-      "pubDate": "2026-09-12T10:29:54.000Z"
+      "slug": "gelarti-f325",
+      "title": "Gelarti — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:15:29.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "frisby-roofing-frisby-construction-llc-8f56",
-      "title": "Frisby Roofing (Frisby Construction LLC) — claimed by medusalocker",
-      "pubDate": "2026-09-12T09:00:41.000Z"
+      "slug": "humboldt-1625",
+      "title": "Humboldt — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:13:05.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "diamondlease-41dd",
-      "title": "DiamondLease — claimed by nightspire",
-      "pubDate": "2026-09-11T17:00:08.000Z"
+      "slug": "geieg-5987",
+      "title": "Geieg — claimed by qilin",
+      "pubDate": "2026-09-15T05:02:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "handytrac-greystar-litchfield-park-az-6df7",
+      "title": "HandyTrac (Greystar Litchfield Park, AZ) — claimed by shadowbyt3$",
+      "pubDate": "2026-09-15T00:23:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "minmer-global-20cf",
+      "title": "Minmer Global — claimed by qilin",
+      "pubDate": "2026-09-14T18:04:41.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "doommageddon",
-      "name": "doommageddon",
-      "weight": 1
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 3
     },
     {
       "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 1
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "medusalocker",
-      "name": "medusalocker",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "nightspire",
-      "name": "nightspire",
+      "slug": "shadowbyt3",
+      "name": "shadowbyt3$",
       "weight": 1
     }
   ],

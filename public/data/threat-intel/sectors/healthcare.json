@@ -1,7 +1,7 @@
 {
   "sector": "healthcare",
   "title": "Healthcare sector brief",
-  "generatedAt": "2026-09-14",
+  "generatedAt": "2026-09-15",
   "topCount": 8,
   "preview": "CVE-2025-67038 (critical) leads with priority 94.",
   "sizeBytes": 2826,
@@ -36,6 +36,13 @@
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
+      "cveId": "CVE-2026-65400",
+      "title": "An authentication issue was addressed with improved state management. This issue is fixed in macOS Golden Gate 27, macOS",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
       "cveId": "CVE-2022-41352",
       "title": "An issue was discovered in Zimbra Collaboration (ZCS) 8.8.15 and 9.0. An attacker can upload arbitrary files through ama",
       "relevance": "broadly-critical",
@@ -47,13 +54,6 @@
       "title": "Adobe Flash Player 21.0.0.226 and earlier allows remote attackers to execute arbitrary code via unspecified vectors, as ",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-42016",
-      "title": "JFrog Artifactory (Self Hosted) versions before 7.133.11 are vulnerable to a privilege escalation attack due to a valida",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 8.1; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {

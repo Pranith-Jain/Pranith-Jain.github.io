@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "insomnia",
+  "name": "insomnia",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-14T14:00:21.000Z",
+  "lastSeen": "2026-09-14T14:01:14.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-14",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "metropolitan-community-health-services-ab4f",
+      "title": "Metropolitan Community Health Services — claimed by insomnia",
+      "pubDate": "2026-09-14T14:01:14.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "massey-stotser-amp-nichols-19e8",
+      "title": "Massey, Stotser &amp; Nichols — claimed by insomnia",
+      "pubDate": "2026-09-14T14:00:21.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "metropolitan-community-health-services-ab4f",
+      "victim": "Metropolitan Community Health Services — claimed by insomnia",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-14T14:01:14.000Z"
+    },
+    {
+      "id": "massey-stotser-amp-nichols-19e8",
+      "victim": "Massey, Stotser &amp; Nichols — claimed by insomnia",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-14T14:00:21.000Z"
+    }
+  ]
+}

@@ -4,57 +4,29 @@
   "name": "Government & Defense",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-11T00:52:07.000Z",
-  "lastSeen": "2026-09-12T10:32:18.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-14T14:05:52.000Z",
+  "lastSeen": "2026-09-14T14:05:52.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-11",
+      "date": "2026-09-14",
       "count": 1
-    },
-    {
-      "date": "2026-09-12",
-      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "www-tender-mx-b54b",
-      "title": "www.tender.mx — claimed by krybit",
-      "pubDate": "2026-09-12T10:32:18.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "town-of-sutton-massachusetts-1dfb",
-      "title": "TOWN OF SUTTON | MASSACHUSETTS — claimed by global",
-      "pubDate": "2026-09-12T08:26:30.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "agencia-estatal-de-meteorolog-a-e435",
-      "title": "Agencia Estatal de Meteorología — claimed by panzer",
-      "pubDate": "2026-09-11T00:52:07.000Z"
+      "slug": "comune-robeccosulnaviglio-mi-it-20fe",
+      "title": "comune.robeccosulnaviglio.mi.it — claimed by lockbit5",
+      "pubDate": "2026-09-14T14:05:52.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "global",
-      "name": "global",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "panzer",
-      "name": "panzer",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 1
     }
   ],
