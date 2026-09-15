@@ -96,7 +96,7 @@ export default function ActorKb(): JSX.Element {
         setSkeletons(data.items ?? []);
       }
     } catch (_catchErr) {
-      console.error('ActorKb failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr, 'ActorKb');
       /* swallow - empty list */
     } finally {
       setSkeletonsLoading(false);

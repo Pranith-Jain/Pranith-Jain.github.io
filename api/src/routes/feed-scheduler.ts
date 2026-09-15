@@ -499,6 +499,8 @@ export async function autoRunFeedJobs(db: D1Database): Promise<{ ran: number; sa
   await saveJobs(db, jobsClone);
 
   let savedCount = 0;
+
+  let failCount = 0;
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
@@ -550,13 +552,25 @@ export async function autoRunFeedJobs(db: D1Database): Promise<{ ran: number; sa
           // Track in IOC lifecycle table
           const lt = nodeType === 'ip' ? 'ipv4' : nodeType;
           void safeNull(recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]));
-        } catch {}
+        } catch (err) {
+          failCount++;
+          logError('feed-scheduler upsert failed', err);
+        }
       }
     }
 
-    job.last_status = 'ok';
-    job.last_item_count = lines.length;
-    job.last_error = null;
+    // A run that saved nothing but failed on items is an error, not ok —
+    // previously the per-item swallow left job.last_status='ok' on total
+    // data loss, hiding D1 outages from the scheduler dashboard.
+    if (failCount > 0 && savedCount === 0) {
+      job.last_status = 'error';
+      job.last_error = `${failCount} item(s) failed to persist`;
+      job.last_item_count = 0;
+    } else {
+      job.last_status = 'ok';
+      job.last_item_count = lines.length;
+      job.last_error = failCount > 0 ? `${failCount} item(s) failed to persist` : null;
+    }
   } catch (err) {
     logError('handler failed', err);
     job.last_status = 'error';

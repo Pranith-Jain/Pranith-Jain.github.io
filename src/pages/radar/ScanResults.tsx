@@ -752,13 +752,17 @@ export default function ScanResults() {
       // Stale generation (user navigated to another scan / unmounted) — die.
       if (crawlGenRef.current !== gen) return;
       try {
-        const res = await fetch(`/api/v1/radar/crawl/${crawlId}/state`);
+        const res = await fetch(`/api/v1/radar/crawl/${crawlId}/state`, {
+          signal: AbortSignal.timeout(15000),
+        });
         if (!res.ok) return;
         const state = (await res.json()) as { status: string; crawledCount: number; maxPages: number };
         setCrawlStatus(`${state.status} (${state.crawledCount}/${state.maxPages})`);
         if (state.status === 'done') {
           if (crawlGenRef.current !== gen) return;
-          const resultRes = await fetch(`/api/v1/radar/crawl/${crawlId}/result`);
+          const resultRes = await fetch(`/api/v1/radar/crawl/${crawlId}/result`, {
+            signal: AbortSignal.timeout(30000),
+          });
           if (resultRes.ok) {
             const raw = await resultRes.json();
             const crawlData: Record<string, unknown> = {};

@@ -220,7 +220,13 @@ export default function AIThreats() {
                       <div
                         className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-100))]/50 p-3 font-mono text-mini leading-relaxed whitespace-pre-wrap"
                         dangerouslySetInnerHTML={{
+                          // Escape first, then format: entryDetail.ttpMd comes
+                          // from the replicated upstream manifest (third-party
+                          // content), so raw HTML must never reach the DOM.
                           __html: entryDetail.ttpMd
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
                             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                             .replace(/\n/g, '<br/>'),
                         }}
