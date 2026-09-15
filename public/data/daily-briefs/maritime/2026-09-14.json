@@ -1,0 +1,203 @@
+{
+  "type": "maritime",
+  "date": "2026-09-14",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates a MODERATE maritime cyber risk environment this week, driven primarily by credible AIS position-manipulation linked to sanctions-evasion tradecraft and heightened regulatory posture by U.S. authorities. Allegations of concealed signals-collection equipment aboard commercial vessels remain unverified but warrant prudent monitoring around sensitive ports and naval operating areas.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "Technologies: AIS and vessel-tracking ecosystems; shipboard and near-port RF/communications equipment.",
+      "Vendors: None specifically identified in this reporting."
+    ],
+    "sectors": [
+      "Commercial Shipping",
+      "Ports and Terminals",
+      "Maritime Logistics",
+      "Naval and Defense (potential communications exposure; unverified)"
+    ]
+  },
+  "keyFindings": [
+    "Observed manipulation complicates sanctions screening and maritime domain awareness; cross-validation with satellite imagery is recommended.",
+    "Signals continued regulatory focus across ports, vessels, and facilities; expect alignment with MTS cybersecurity oversight and compliance checks.",
+    "Potential counterintelligence and RF monitoring considerations for sensitive ports; reporting contested and low confidence."
+  ],
+  "topThreats": [
+    {
+      "title": "",
+      "action": "Undermines navigation trust and sanctions/compliance processes. Operational impact: Potential misrouting, vetting delays, and enforcement actions if relied upon without validation. Affected: AIS-dependent compliance teams; vessels transiting ME Gulf; ports screening arrivals. Recommended attention: Cross-validate AIS with SAT imagery and port-call corroboration; tune anomaly detection for implausible tracks. Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://www.lloydslist.com/LL1158346/SOMO-denies-links-to-sanctioned-false-flag-tanker-as-scrutiny-grows-over-spoofed-Middle-East-Gulf-voyages",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Potential OPSEC risk for naval/commercial comms around sensitive ports. Operational impact: Possible need for enhanced RF monitoring and ship inspection protocols. Affected: U.S. ports, nearby naval operations, commercial ships calling sensitive terminals. Recommended attention: Treat as unverified; coordinate with authorities; monitor for anomalous RF emissions. Confidence: Low",
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/article/cosco-calls-allegations-of-intelligence-collection-false-and-unfounded",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Signals increased U.S. compliance, standards, and enforcement coordination. Operational impact: Updates to facility/vessel cyber plans; possible inspection emphasis. Affected: MTSA-regulated facilities; U.S.-calling vessels; port authorities. Recommended attention: Review alignment with USCG cyber guidance; prepare for policy updates. Confidence: High",
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4586266/us-coast-guard-established-the-office-of-maritime-cybersecurity-policy/",
+          "label": "Government Advisory"
+        },
+        {
+          "url": "https://www.securityweek.com/coast-guard-establishes-office-of-maritime-cybersecurity-policy/",
+          "label": "Supporting Report"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "AIS Position Spoofing Associated with Sanctions-Evasion Practices",
+      "severity": "monitor",
+      "text": "Assessment Navigation impact: Possible degradation of trust in AIS plots. Operational impact: Navigation; Logistics; Supply Chain; Business Operations. Affected systems: AIS; vessel-tracking data; compliance monitoring tools. Ports/Vessels named: Binary Star; Khor al Zubair. TTPs: AIS position spoofing; location manipulation; false-flag practices; sanctions-evasion deception. Safety impact: Possible.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.lloydslist.com/LL1158346/SOMO-denies-links-to-sanctioned-false-flag-tanker-as-scrutiny-grows-over-spoofed-Middle-East-Gulf-voyages",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Possible degradation of trust in AIS plots.",
+        "Operational impact: Navigation; Logistics; Supply Chain; Business Operations.",
+        "Affected systems: AIS; vessel-tracking data; compliance monitoring tools.",
+        "Ports/Vessels named: Binary Star; Khor al Zubair.",
+        "TTPs: AIS position spoofing; location manipulation; false-flag practices; sanctions-evasion deception.",
+        "Safety impact: Possible."
+      ]
+    },
+    {
+      "title": "Alleged Concealed Signals Collection on Commercial Ships (Contested)",
+      "severity": "monitor",
+      "text": "Assessment Navigation impact: Unknown. Operational impact: Communications; Business Operations; Unknown. Affected countries: United States; China. Organizations: COSCO Shipping; OOCL (referenced); location mention: Port of Long Beach. TTPs: Concealed onboard collection; potential maritime SIGINT via commercial presence. Supply-chain impact: Possible.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/article/cosco-calls-allegations-of-intelligence-collection-false-and-unfounded",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Unknown.",
+        "Operational impact: Communications; Business Operations; Unknown.",
+        "Affected countries: United States; China.",
+        "Organizations: COSCO Shipping; OOCL (referenced); location mention: Port of Long Beach.",
+        "TTPs: Concealed onboard collection; potential maritime SIGINT via commercial presence.",
+        "Supply-chain impact: Possible."
+      ]
+    },
+    {
+      "title": "USCG Establishes Office of Maritime Cybersecurity Policy (Governance)",
+      "severity": "monitor",
+      "text": "Assessment Operational impact: Port operations; safety; business operations; potential supply-chain effects through compliance processes. Safety impact: Possible (through improved governance and controls). Regulatory references: U.S. Coast Guard maritime cybersecurity policy and MTS oversight framework.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4586266/us-coast-guard-established-the-office-of-maritime-cybersecurity-policy/",
+          "label": "Government Advisory"
+        },
+        {
+          "url": "https://www.securityweek.com/coast-guard-establishes-office-of-maritime-cybersecurity-policy/",
+          "label": "Supporting Report"
+        }
+      ],
+      "items": [
+        "Operational impact: Port operations; safety; business operations; potential supply-chain effects through compliance processes.",
+        "Safety impact: Possible (through improved governance and controls).",
+        "Regulatory references: U.S. Coast Guard maritime cybersecurity policy and MTS oversight framework."
+      ]
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "AIS Position Spoofing Associated with Sanctions-Evasion Practices",
+      "severity": "monitor",
+      "text": "Assessment Navigation impact: Possible degradation of trust in AIS plots. Operational impact: Navigation; Logistics; Supply Chain; Business Operations. Affected systems: AIS; vessel-tracking data; compliance monitoring tools. Ports/Vessels named: Binary Star; Khor al Zubair. TTPs: AIS position spoofing; location manipulation; false-flag practices; sanctions-evasion deception. Safety impact: Possible.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.lloydslist.com/LL1158346/SOMO-denies-links-to-sanctioned-false-flag-tanker-as-scrutiny-grows-over-spoofed-Middle-East-Gulf-voyages",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Possible degradation of trust in AIS plots.",
+        "Operational impact: Navigation; Logistics; Supply Chain; Business Operations.",
+        "Affected systems: AIS; vessel-tracking data; compliance monitoring tools.",
+        "Ports/Vessels named: Binary Star; Khor al Zubair.",
+        "TTPs: AIS position spoofing; location manipulation; false-flag practices; sanctions-evasion deception.",
+        "Safety impact: Possible."
+      ]
+    },
+    {
+      "title": "Alleged Concealed Signals Collection on Commercial Ships (Contested)",
+      "severity": "monitor",
+      "text": "Assessment Navigation impact: Unknown. Operational impact: Communications; Business Operations; Unknown. Affected countries: United States; China. Organizations: COSCO Shipping; OOCL (referenced); location mention: Port of Long Beach. TTPs: Concealed onboard collection; potential maritime SIGINT via commercial presence. Supply-chain impact: Possible.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/article/cosco-calls-allegations-of-intelligence-collection-false-and-unfounded",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Navigation impact: Unknown.",
+        "Operational impact: Communications; Business Operations; Unknown.",
+        "Affected countries: United States; China.",
+        "Organizations: COSCO Shipping; OOCL (referenced); location mention: Port of Long Beach.",
+        "TTPs: Concealed onboard collection; potential maritime SIGINT via commercial presence.",
+        "Supply-chain impact: Possible."
+      ]
+    },
+    {
+      "title": "USCG Establishes Office of Maritime Cybersecurity Policy (Governance)",
+      "severity": "monitor",
+      "text": "Assessment Operational impact: Port operations; safety; business operations; potential supply-chain effects through compliance processes. Safety impact: Possible (through improved governance and controls). Regulatory references: U.S. Coast Guard maritime cybersecurity policy and MTS oversight framework.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4586266/us-coast-guard-established-the-office-of-maritime-cybersecurity-policy/",
+          "label": "Government Advisory"
+        },
+        {
+          "url": "https://www.securityweek.com/coast-guard-establishes-office-of-maritime-cybersecurity-policy/",
+          "label": "Supporting Report"
+        }
+      ],
+      "items": [
+        "Operational impact: Port operations; safety; business operations; potential supply-chain effects through compliance processes.",
+        "Safety impact: Possible (through improved governance and controls).",
+        "Regulatory references: U.S. Coast Guard maritime cybersecurity policy and MTS oversight framework."
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "Deception and manipulation of operational data: AIS position spoofing; false-flag and location obfuscation to disguise voyage activity. (Behavior observed; no formal ATT&CK mapping asserted)",
+      "Potential covert collection: Concealed onboard RF/communications collection capability (unverified). (Behavioral description only; no confirmed ATT&CK mapping)"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Navigation integrity: Continued monitoring recommended for AIS spoofing patterns in the Middle East Gulf; further investigative reporting is likely. Confidence: medium. Supporting Report Regulatory cadence: Expect additional USCG communications and stakeholder engagement as the new office establishes coordination processes; facilities should anticipate clarifications affecting audits and exercises. Confidence: high. Government Advisory Signals security: Watch for corroboration or refutation related to alleged maritime RF collection near U.S. ports; immediate risk remains indeterminate. Confidence: low. View Article",
+  "relatedCves": []
+}

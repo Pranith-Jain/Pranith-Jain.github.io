@@ -1,0 +1,129 @@
+{
+  "type": "cyber",
+  "date": "2026-09-14",
+  "threatLevel": "",
+  "executiveSummary": "OT/ICS risk remains elevated this week due to active, multi-actor campaigns against PLCs, exposed HMIs, and edge infrastructure, combined with new and ongoing exploitation of software supply-chain systems and internet-facing appliances. Active, AI-assisted threat activity targeting Siemens S7 PLCs via S7comm (TCP/102) raises direct process-manipulation risk to Water/Wastewater, Energy, and Critical Manufacturing operators. Security Advisory Iranian-affiliated actors continue exploiting internet-exposed PLCs (Rockwell, Schneider, Siemens), modifying logic and disabling alarms with observed operational impacts; immediate removal of direct internet access and logic integrity checks are prioritized. Security Advisory Pro-Russia hacktivists are opportunistically compromising VNC-exposed HMIs in WWS/Energy, changing setpoints and suppressing alarms, causing downtime and loss of view; eliminate VNC exposure and enforce MFA on remote access. Security Advisory MikroTik RouterOS edge devices are under active exploitation with KEV listings; incidents show persistent rogue accounts and flagged devices post-update-assume compromise, patch immediately, and restrict WAN management. Supporting Report CISA KEV JFrog Artifactory exploitation (auth bypass + token abuse) enables admin takeover, malicious plugin deployment, and Rust backdoors-significant software supply-chain risk; patch, rotate tokens, and audit for persistence. View Article EV charging infrastructure and industrial drives present direct OT manipulation pathways: unauthenticated OCPP/WebSocket RCE in EVSE and code/firmware tampering in Danfoss iC7 VFDs warrant immediate segmentation and update planning. CISA Bulletin CISA Bulletin CISA/NSA/FBI advise urgent router-hardening against Russian state-nexus activity abusing SNMP/SMI to siphon configs and pivot-enforce SNMPv3 authPriv, disable SMI, and block risky management ports. Security Advisory Current OT/ICS Threat Posture HIGH Elevated Escalated Intelligence Events 14 Monitoring Items 18 Advisories with Active Exploitation (KEV/CSA) 10 Counts reflect merged events in this brief (not all-source totals).",
+  "keyFindings": [
+    {
+      "title": "Direct PLC targeting continues across multiple sectors (Siemens S7; Rockwell/Sch",
+      "summary": "Direct PLC targeting continues across multiple sectors (Siemens S7; Rockwell/Schneider/Siemens) with TTPs focused on logic manipulation and alarm suppression-risk of unsafe states persists. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Edge routers remain a primary ingress vector; active MikroTik exploitation and b",
+      "summary": "Edge routers remain a primary ingress vector; active MikroTik exploitation and broader router abuses (SNMP/SMI) facilitate credential theft and lateral movement into OT networks. Supporting Report Security Advisory"
+    },
+    {
+      "title": "Software supply-chain exposure increased via active Artifactory intrusions (admi",
+      "summary": "Software supply-chain exposure increased via active Artifactory intrusions (admin takeover, malicious Groovy plugins) and GitLab CVSS 10 file-read exploited-in-the-wild-downstream OT vendor pipelines are at risk. View Article View Article"
+    },
+    {
+      "title": "EVSE and industrial drive vulnerabilities (EVbee, Autel; Danfoss iC7) provide re",
+      "summary": "EVSE and industrial drive vulnerabilities (EVbee, Autel; Danfoss iC7) provide remote code/firmware tampering opportunities with real operational impact potential on energy and transport infrastructure. CISA Bulletin CISA Bulletin"
+    },
+    {
+      "title": "Hacktivist activity against internet-exposed HMIs (VNC) remains an immediate haz",
+      "summary": "Hacktivist activity against internet-exposed HMIs (VNC) remains an immediate hazard to smaller WWS and energy operators-rapid exposure reduction is critical. Security Advisory"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH Elevated",
+        "label": "Current OT/ICS Threat Posture"
+      },
+      {
+        "value": "14",
+        "label": "Escalated Intelligence Events"
+      },
+      {
+        "value": "18",
+        "label": "Monitoring Items"
+      },
+      {
+        "value": "10",
+        "label": "Advisories with Active Exploitation (KEV/CSA)"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 PLCs",
+      "Rockwell / Schneider PLCs",
+      "MikroTik RouterOS",
+      "JFrog Artifactory",
+      "GitLab CE/EE",
+      "PcVue SCADA/HMI",
+      "Eclipse Arrowhead / Ditto",
+      "Danfoss iC7 VFDs",
+      "EVbee / Autel EVSE",
+      "Citrix NetScaler",
+      "Microsoft Windows (DNS/RRAS/MSMQ)",
+      "OPC UA (Eclipse Milo)",
+      "TrueConf Server"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems",
+      "Energy / Electric Power",
+      "Transportation Systems",
+      "Critical Manufacturing",
+      "Communications",
+      "Government Services & Facilities",
+      "Healthcare (adjacent IT)",
+      "Aviation / Aerospace (supply chain)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Pro-Russia hacktivists: opportunistic HMI intrusions via exposed VNC targeting WWS/Energy. Security Advisory",
+        "Iran-aligned groups: PLC access/modification with AOI/logic tampering and alarm suppression. Security Advisory",
+        "APT using AI-assisted workflows (APT29 overlap) to accelerate malware rebuilds and credential theft against government/defense targets-monitor for polymorphism and DNS hijacking vectors. View Article",
+        "Mirage Kitten (Iran-aligned): NodeRabbit/PollCat targeting aviation/FinTech with Cloudflare/Azure C2; strong CI relevance for aerospace supply chains. Vendor Report",
+        "Head Mare APT: TrueConf server RCE to weaponize installers (PhantomCore/PhantomGraph) impacting energy/transport orgs in-region; treat conferencing servers as high-value ingress. Vendor Report"
+      ]
+    }
+  ],
+  "relevance": "Multiple advisories detail direct, near-term risk to OT controls: Siemens S7 threats and Iranian PLC exploitation target core control logic, while HMI compromise campaigns (VNC) show real-world impact (loss of view, unsafe changes). Concurrently, edge-router exploitation and DevOps repository intrusions increase the likelihood of enterprise-to-OT pivot and supply-chain poisoning. EV charging and industrial drive exposures create sector-specific process manipulation vectors. Net result: a broad, multi-vector risk environment for OT operators requiring immediate exposure reduction, segmentation, and targeted patching/hunting.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Citrix NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) with public PoC-critical for perimeter gateways; patch and hunt for web shells/log anomalies. JPCERT/CC",
+        "Microsoft Patch Tuesday includes exploited EoP and critical RCEs (DNS, Shell, RRAS/MSMQ)-prioritize ICS-adjacent servers and HMIs in maintenance windows. Krebs SANS ISC",
+        "OPC UA stack risks (Eclipse Milo) and other CI-relevant issues aggregated in CISA bulletins-update, enforce SignAndEncrypt, and disable anonymous endpoints. CISA Bulletin",
+        "PcVue SCADA/HMI ( CISA Bulletin",
+        "Arrowhead/Ditto IIoT: auth bypass and SSRF enabling remote admin/cloud control-patch and strictly segment management planes. CISA Bulletin"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Internet-facing exposure: scanning for VNC (5900-5910), PLC ports (102/44818/502/2222), router SNMP/SMI (161/162/4786). (Recon; ATT&CK TA0043)",
+      "Initial access: auth bypass on routers/devices; exploitation of gateway/DevOps appliances (NetScaler, Artifactory, GitLab). (T1190)",
+      "Privilege escalation & persistence: rogue accounts on routers; application passwords in Zimbra; malicious plugins (Groovy) and backdoors on DevOps servers. (T1136, T1053, T1546)",
+      "Lateral movement: VPN/RDP/SMB; misuse of SCCM/AD; SSH tunneling; abuse of cloud tokens. (T1021, T1550, T1557)",
+      "Command & control: MQTT/Matrix, DNS/HTTPS exfil, cloud services (OneDrive/Graph, Azure Websites). (T1071, T1095)",
+      "Impact on OT: PLC logic writes, alarm suppression, HMI setpoint changes; EVSE and VFD control manipulation. (ICS: T0831 Modify Control Logic; T0829 Manipulate I/O)"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1136",
+      "T1053",
+      "T1546",
+      "T1021",
+      "T1550",
+      "T1557",
+      "T1071",
+      "T1095",
+      "T0831",
+      "T0829"
+    ]
+  },
+  "outlook72h": "Conduct an exposure sweep for VNC/HMI, PLC ports, and router management on internet perimeters; immediately block or proxy with MFA. Emergency MikroTik remediation window: patch, audit, and rotate credentials; monitor for repeat compromise attempts. Initiate Artifactory/GitLab compromise assessments; rotate tokens/keys and validate CI/CD pipelines/artifact signatures. Stage PLC/SCADA logic integrity checks and backup verification; enable ICS protocol monitoring for unauthorized writes. Prioritize patching of NetScaler and Microsoft September updates on OT-adjacent hosts; deploy mitigations where patching must wait.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-72898"
+  ]
+}

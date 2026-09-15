@@ -1,0 +1,50 @@
+{
+  "type": "disaster",
+  "date": "2026-09-15",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic Himalayan floods in Nepal and Tibet/China caused mass casualties with reporting varying; at least 1,300 dead and more than 5,300 missing, while communities remain cut off and relief needs are acute. View Article Core infrastructure in Nepal sustained severe damage (roads, bridges, communication, hydropower), complicating search and medical support; safe water and health services are priority needs. Supporting Report Hurricane Lowell inflicted significant damage across Hawai'i, with at least two deaths, widespread outages, damaged roads and resorts, and Lanai's only cargo port inoperable for about two weeks, raising short-term food and fuel supply concerns. View Article Flash flooding in coastal Connecticut, New York, and New Jersey triggered numerous water rescues, road closures, and commuter rail disruptions, with at least one airport terminal shut due to flooding. View Article Southeast Texas floods drove dozens of rescues, including at an assisted living facility, and caused thousands of power outages, school closures, and structural damage. View Article Typhoon activity in southeast China prompted mass evacuations (≈600,000 in Fujian), with reports of deaths, rescues, landslides, and infrastructure damage across multiple provinces. View Article A wildfire emergency in southern Turkey led to one responder fatality, injuries, and expanded evacuations amid heavy smoke exposure. View Article Secondary hazards followed a Sichuan, China earthquake; landslide-dammed rivers elevated flood risk and forced ≈197,000 evacuations near the quake zone. An earthquake in southern Greece caused two fatalities and numerous injuries amid localized building collapse.",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Nepal-Tibet floods constitute the week's most severe humanitarian emergency, wit",
+      "summary": "Nepal-Tibet floods constitute the week's most severe humanitarian emergency, with confirmed deaths surpassing 1,000 and missing exceeding 5,000; needs include safe water, health care, and shelter. Supporting Report"
+    },
+    {
+      "title": "Damage to hydropower tunnels and mountain access routes is hampering rescues, wi",
+      "summary": "Damage to hydropower tunnels and mountain access routes is hampering rescues, with workers trapped and communities isolated. View Article"
+    },
+    {
+      "title": "Hurricane Lowell's impact in Hawai'i disrupted critical lifelines; Lanai's cargo",
+      "summary": "Hurricane Lowell's impact in Hawai'i disrupted critical lifelines; Lanai's cargo port remains out for roughly two weeks, posing food and fuel supply risks. View Article"
+    },
+    {
+      "title": "US Northeast flash floods produced hazardous travel conditions, water rescues, a",
+      "summary": "US Northeast flash floods produced hazardous travel conditions, water rescues, and rail and airport disruptions across CT-NY-NJ. View Article"
+    },
+    {
+      "title": "Southeast Texas faced high-consequence urban flooding with dozens of rescues, fa",
+      "summary": "Southeast Texas faced high-consequence urban flooding with dozens of rescues, facility evacuations, and thousands of outages. View Article"
+    },
+    {
+      "title": "China's southeast provinces executed large-scale evacuations as a typhoon brough",
+      "summary": "China's southeast provinces executed large-scale evacuations as a typhoon brought flooding, landslides, and infrastructure damage. View Article"
+    },
+    {
+      "title": "Turkey's wildfire response expanded amid one fatality and multiple injuries, wit",
+      "summary": "Turkey's wildfire response expanded amid one fatality and multiple injuries, with evacuations driven by smoke and fire progression. View Article"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Nepal/Tibet: Expect continued search-and-rescue and retrieval operations; access restoration will be gradual with elevated needs for safe water, primary health care, and shelter support. Disease prevention and protection for isolated communities remain priority. Supporting Report Hawai'i: Ongoing debris clearance and power restoration; Lanai port outage likely to persist into the period, requiring contingency planning for essential goods. View Article US Northeast and Texas: Residual high water, damaged road segments, and intermittent utility disruptions possible where saturated soils and debris remain; maintain localized flood vigilance. Northeast Texas Sichuan, China: Monitor for potential outburst flooding from landslide-dammed rivers and further slope failures following recent seismic activity.",
+  "regionalTrends": [
+    "Himalayan flood risk: High-impact monsoon flooding continues to expose mountain hydropower assets, amplify access constraints, and generate prolonged WASH and health needs.",
+    "Tropical cyclone exposure: Hawai'i and southeast China experienced damaging cyclones within the period, with lifeline and evacuation implications.",
+    "Urban flash-flood sensitivity: Rapid-onset floods in the US Northeast again disrupted dense transport corridors and critical services.",
+    "Secondary earthquake hazards: Landslide-dam formation in steep terrain (Sichuan) can escalate into sudden flood waves, necessitating precautionary evacuations and continuous monitoring.",
+    "Mediterranean fire weather: Late-summer wildfire in Turkey triggered lethal responder risk and displacement despite active aerial and ground suppression."
+  ]
+}
