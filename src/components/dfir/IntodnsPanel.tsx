@@ -329,8 +329,8 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
           </Link>
           <Link
             to={`/dfir/sec-headers-live-live?domain=${encodeURIComponent(snapshot.domain)}`}
-            onMouseEnter={() => preloadRoute('/dfir/sec-headers-live-live')}
-            onFocus={() => preloadRoute('/dfir/sec-headers-live-live')}
+            onMouseEnter={() => preloadRoute('/dfir/sec-headers-live')}
+            onFocus={() => preloadRoute('/dfir/sec-headers-live')}
             className="underline-offset-2 hover:underline dark:text-muted"
             title="Live third-party HTTP security-headers scan"
           >

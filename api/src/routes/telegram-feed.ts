@@ -635,7 +635,7 @@ export async function pollBotUpdates(env: Env): Promise<void> {
   const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getUpdates?timeout=3${
     offset ? `&offset=${offset}` : ''
   }`;
-  const r = await fetch(url).catch((e) => {
+  const r = await fetch(url, { signal: AbortSignal.timeout(15_000) }).catch((e) => {
     logError('tg-bot-poll fetch_failed', e);
     return null;
   });
@@ -674,7 +674,7 @@ export async function pollBotUpdates(env: Env): Promise<void> {
     const raw = await kv.get(`tg:bot-posts:${cid}`).catch(() => null);
     const existing: BotApiUpdate['channel_post'][] = raw ? JSON.parse(raw) : [];
     const merged = [...existing, ...posts].slice(-50);
-    await kv.put(`tg:bot-posts:${cid}`, JSON.stringify(merged));
+    await kv.put(`tg:bot-posts:${cid}`, JSON.stringify(merged), { expirationTtl: 172_800 });
   }
   if (mapChanged) {
     await kv.put(BOT_CHANNEL_MAP_KEY, JSON.stringify(Object.fromEntries(existingMap)));
@@ -701,7 +701,7 @@ export async function pollBotUpdatesWithResult(env: Env): Promise<{
   const offset = offsetStr ? parseInt(offsetStr, 10) : undefined;
 
   const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getUpdates?timeout=3${offset ? `&offset=${offset}` : ''}`;
-  const r = await fetch(url).catch(() => null);
+  const r = await fetch(url, { signal: AbortSignal.timeout(15_000) }).catch(() => null);
   if (!r || !r.ok)
     return { ok: false, updates_processed: 0, channels_updated: 0, error: `HTTP ${r?.status ?? 'fetch failed'}` };
 
@@ -733,7 +733,7 @@ export async function pollBotUpdatesWithResult(env: Env): Promise<{
     const raw = await kv.get(`tg:bot-posts:${cid}`).catch(() => null);
     const existing: BotApiUpdate['channel_post'][] = raw ? JSON.parse(raw) : [];
     const merged = [...existing, ...posts].slice(-50);
-    await kv.put(`tg:bot-posts:${cid}`, JSON.stringify(merged));
+    await kv.put(`tg:bot-posts:${cid}`, JSON.stringify(merged), { expirationTtl: 172_800 });
   }
   if (channelsUpdated > 0) {
     await kv.put(BOT_CHANNEL_MAP_KEY, JSON.stringify(Object.fromEntries(existingMap)));

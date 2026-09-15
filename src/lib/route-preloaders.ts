@@ -25,44 +25,41 @@ export const routePreloaders: Record<string, Preloader> = {
   '/projects': () => import('../pages/Projects'),
   '/dfir': () => import('../pages/DFIR'),
 
-  // DFIR app nav
-  '/dfir/ioc-check': () => import('../pages/dfir/IocCheck'),
+  // DFIR app nav (keys are real route paths; redirect sources like the old
+  // /dfir/ioc-check are intentionally absent — warming follows the target).
+  '/dfir/ioc-investigate': () => import('../pages/dfir/IocInvestigate'),
   '/dfir/url-preview': () => import('../pages/dfir/UrlPreview'),
-  '/dfir/domain': () => import('../pages/dfir/Domain'),
+  '/dfir/domain-investigator': () => import('../pages/dfir/DomainInvestigator'),
   '/dfir/cve': () => import('../pages/dfir/Cve'),
   '/dfir/diamond': () => import('../pages/dfir/Diamond'),
   '/dfir/host-graph': () => import('../pages/dfir/HostGraph'),
 
   // Threat-intel app nav
   '/threatintel': () => import('../pages/threatintel/Home'),
-  '/threatintel/live-iocs': () => import('../pages/threatintel/LiveIocs'),
-  '/threatintel/correlation': () => import('../pages/threatintel/IocCorrelation'),
-  '/threatintel/actor-timeline': () => import('../pages/threatintel/ActorTimeline'),
+  '/threatintel/iocs/live': () => import('../pages/threatintel/LiveIocs'),
+  '/threatintel/iocs/correlation': () => import('../pages/threatintel/IocCorrelation'),
+  '/threatintel/actors/hub': () => import('../pages/threatintel/ActorHub'),
   '/threatintel/writeups': () => import('../pages/threatintel/Writeups'),
   '/threatintel/metrics': () => import('../pages/threatintel/Metrics'),
-  '/threatintel/status': () => import('../pages/threatintel/FeedStatus'),
+  '/threatintel/catalog': () => import('../pages/threatintel/Catalog'),
   '/threatintel/c2-tracker': () => import('../pages/threatintel/C2Tracker'),
   '/threatintel/domain-monitor': () => import('../pages/threatintel/DomainMonitor'),
-  '/threatintel/threat-map': () => {
+  '/threatintel/iocs/map': () => {
     // Threat-map's bottleneck is the 190KB world-110m.json topojson on top of
     // the react-simple-maps chunk. Warm both concurrently so the first render
     // doesn't sit on a sequential 250-400ms wait.
     void fetch('/world-110m.json', { credentials: 'omit' }).catch(() => {});
     return import('../pages/dfir/ThreatMap');
   },
-  '/threatintel/ransomware-map': () => {
-    void fetch('/world-110m.json', { credentials: 'omit' }).catch(() => {});
-    return import('../pages/threatintel/RansomwareMap');
-  },
-  '/threatintel/certstream': () => import('../pages/threatintel/CertStreamLive'),
-  '/threatintel/campaign-generator': () => import('../pages/threatintel/CampaignGenerator'),
+  '/threatintel/ransomware-hub': () => import('../pages/threatintel/RansomwareHub'),
+  '/threatintel/predictive/certstream': () => import('../pages/threatintel/CertStreamLive'),
+  '/threatintel/campaigns/generator': () => import('../pages/threatintel/CampaignGenerator'),
 
   // Live-snap cards on the portfolio home (highest-traffic entry points).
   // Warming these on hover/focus removes the chunk-load round-trip the user
   // would otherwise see between click and first paint.
   '/threatintel/predictive/global-pulse': () => import('../pages/threatintel/GlobalPulse'),
-  '/threatintel/ransomware-hub': () => import('../pages/threatintel/RansomwareActivity'),
-  '/threatintel/detections': () => import('../pages/threatintel/Detections'),
+  '/threatintel/detections/detections': () => import('../pages/threatintel/Detections'),
   '/threatintel/iocs/cross': () => import('../pages/threatintel/CrossCorrelate'),
   // /threatintel/briefings reuses the DFIR Briefings component, so its
   // lazy chunk lives in pages/dfir/. Warm that chunk on hover.
@@ -75,13 +72,15 @@ export const routePreloaders: Record<string, Preloader> = {
   '/blog': () => import('../pages/Blog'),
 
   // New DFIR tools (inbound links from EmailDefense / Dnscope panels).
-  '/dfir/sec-headers-live-live': () => import('../pages/dfir/SecHeadersLive'),
+  '/dfir/sec-headers-live': () => import('../pages/dfir/SecHeadersLive'),
 };
 
 /**
  * Preload a route's chunk. No-op if the path isn't mapped or already loaded.
  */
 export function preloadRoute(path: string): void {
-  const fn = routePreloaders[path];
+  // Strip query/hash: callers pass hrefs like /threatintel/catalog?cat=tools.
+  const key = path.split(/[?#]/)[0];
+  const fn = routePreloaders[key ?? ''];
   if (fn) void fn().catch(() => {});
 }
