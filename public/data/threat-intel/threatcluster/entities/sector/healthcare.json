@@ -4,45 +4,57 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-11T22:03:56.000Z",
-  "lastSeen": "2026-09-12T10:31:06.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-14T14:01:14.000Z",
+  "lastSeen": "2026-09-15T07:17:04.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 2 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-11",
+      "date": "2026-09-14",
       "count": 1
     },
     {
-      "date": "2026-09-12",
-      "count": 1
+      "date": "2026-09-15",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "www-ibnsinatrust-com-1cee",
-      "title": "www.ibnsinatrust.com — claimed by krybit",
-      "pubDate": "2026-09-12T10:31:06.000Z"
+      "slug": "hattiesburg-eye-clinic-f732",
+      "title": "Hattiesburg Eye Clinic — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:17:04.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "imperial-healthcare-solutions-5c4e",
-      "title": "Imperial Healthcare Solutions — claimed by qilin",
-      "pubDate": "2026-09-11T22:03:56.000Z"
+      "slug": "apteki-mareshki-4a44",
+      "title": "Apteki Mareshki — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:08:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "medskin-solutions-dr-suwelack-ag-4324",
+      "title": "MedSkin Solutions Dr. Suwelack AG — claimed by thegentlemen",
+      "pubDate": "2026-09-15T07:07:34.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "metropolitan-community-health-services-ab4f",
+      "title": "Metropolitan Community Health Services — claimed by insomnia",
+      "pubDate": "2026-09-14T14:01:14.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 1
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 3
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "insomnia",
+      "name": "insomnia",
       "weight": 1
     }
   ],

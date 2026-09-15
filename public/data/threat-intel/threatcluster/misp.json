@@ -1,7 +1,7 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-14T10:55:29.712Z",
+  "syncedAt": "2026-09-15T10:17:47.216Z",
   "eventCount": 9,
   "events": [
     {
@@ -51,12 +51,39 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "7fb152ac-1e3f-50c8-a3bd-703cef7ec47f",
+      "info": "Critical SQL Injection Vulnerability in Cisco Secure Email Gateway Under Active Exploitation",
+      "date": "2026-09-14",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1789408447",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:high",
+        "type:ransomware",
+        "type:vulnerability",
+        "misp-galaxy:ransomware=\"Conti\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "d8f5ae3a-024e-53fd-ae65-653a36d20392",
       "info": "AI-Driven Exploitation of PaperCut Vulnerabilities Compromises 440 Servers Globally",
       "date": "2026-09-09",
       "analysis": "2",
       "threat_level_id": "2",
       "timestamp": "1788977620",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "d8c1498b-8e76-525e-8a75-27a52d57424a",
+      "info": "AI-Driven Cyber Attacks Targeting Critical Infrastructure and Data Security",
+      "date": "2026-09-14",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789401743",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
@@ -71,69 +98,30 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "2c8ef828-93c0-5e20-87fe-97f19e4d81f7",
-      "info": "Russia's AI-Driven Cyber Espionage Targets Ukraine and Europe",
-      "date": "2026-09-12",
+      "uuid": "42d3f8c0-a55f-5503-b6e2-21f2d157f7e6",
+      "info": "China-Aligned Hackers Exploit Tencent's Sogou Flaw for Backdoor Deployment",
+      "date": "2026-09-13",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1789186317",
+      "timestamp": "1789315018",
       "tags": [
         "source:ThreatCluster",
         "tlp:clear",
         "threat-level:medium",
         "type:apt",
         "type:malware",
-        "misp-galaxy:threat-actor=\"Apt29\"",
-        "misp-galaxy:threat-actor=\"Cozy Bear\"",
-        "misp-galaxy:threat-actor=\"Midnight Blizzard\""
+        "type:vulnerability"
       ],
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "8f46d70a-8941-513f-9423-b534999073c2",
-      "info": "U.S. Accuses Chinese AI Firms of Systematic Distillation of Proprietary Models",
-      "date": "2026-09-09",
+      "uuid": "dd8ce36f-96f8-5dd3-91a9-f1a48824e6b4",
+      "info": "Critical RCE Vulnerability in n8n Disclosed (CVE-2025-68613)",
+      "date": "2026-09-14",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1788934456",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "8139a5e0-b776-55ff-8564-56e840b65167",
-      "info": "Trellix Reports on Five Evasive Cyber Campaigns in 2026",
-      "date": "2026-09-10",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789066062",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"Apt28\"",
-        "misp-galaxy:threat-actor=\"Fancy Bear\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "09b6fd54-3a7a-585d-9eba-152a6c9ad934",
-      "info": "Cyclops Blink Malware Targets Cisco Firewall Devices",
-      "date": "2026-09-12",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789171875",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "misp-galaxy:threat-actor=\"Sandworm\"",
-        "misp-galaxy:threat-actor=\"Voodoo Bear\""
-      ],
+      "timestamp": "1789408446",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     }
   ]

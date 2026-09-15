@@ -2,9 +2,9 @@
   "source": "darknetlist.is",
   "url": "https://darknetlist.is/",
   "description": "A free directory of Tor-accessible sites. A scanner walks the list through a fresh SOCKS circuit every 30 minutes and rewrites the page with whatever responded.",
-  "rebuiltAt": "2026-09-14T10:45:56Z",
-  "syncedAt": "2026-09-14T10:55:25.354Z",
-  "counts": { "categories": 9, "sites": 108, "up": 76, "down": 32, "recommended": 11, "onion": 106 },
+  "rebuiltAt": "2026-09-15T09:52:03Z",
+  "syncedAt": "2026-09-15T10:17:43.105Z",
+  "counts": { "categories": 9, "sites": 108, "up": 75, "down": 33, "recommended": 11, "onion": 106 },
   "categories": [
     {
       "id": "markets",
@@ -12,7 +12,7 @@
       "description": "active market venues and their mirrors",
       "siteCount": 25,
       "mirrorCount": 62,
-      "upCount": 33
+      "upCount": 30
     },
     {
       "id": "search",
@@ -20,7 +20,7 @@
       "description": "darknet search engines and indexers",
       "siteCount": 11,
       "mirrorCount": 11,
-      "upCount": 9
+      "upCount": 7
     },
     {
       "id": "forums",
@@ -28,7 +28,7 @@
       "description": "community discussion and vendor review boards",
       "siteCount": 20,
       "mirrorCount": 22,
-      "upCount": 13
+      "upCount": 12
     },
     {
       "id": "news",
@@ -36,7 +36,7 @@
       "description": "independent reporting and whistleblower drops",
       "siteCount": 8,
       "mirrorCount": 8,
-      "upCount": 4
+      "upCount": 5
     },
     {
       "id": "security",
@@ -44,7 +44,7 @@
       "description": "privacy, security and research organizations",
       "siteCount": 8,
       "mirrorCount": 8,
-      "upCount": 5
+      "upCount": 6
     },
     {
       "id": "communications",
@@ -76,7 +76,7 @@
       "description": "tor-only large language models and assistants",
       "siteCount": 2,
       "mirrorCount": 2,
-      "upCount": 1
+      "upCount": 0
     }
   ],
   "sites": [
@@ -185,25 +185,12 @@
       "onion": "pitchzzzoot5i4cpsblu2d5poifsyixo5r4litxkukstre5lrbjakxid"
     },
     {
-      "slug": "dwd-c11d-830",
-      "name": "Qubes OS",
-      "dwdId": "DWD-C11D-830",
-      "category": "tools",
-      "status": "up",
-      "upMirrors": 1,
-      "totalMirrors": 1,
-      "recommended": true,
-      "isOnion": true,
-      "url": "http://qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/",
-      "onion": "qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/"
-    },
-    {
       "slug": "dwd-9663-467",
       "name": "The Nihilism OpSec Blog",
       "dwdId": "DWD-9663-467",
       "category": "security",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": true,
       "isOnion": true,
@@ -215,13 +202,26 @@
       "name": "Whonix",
       "dwdId": "DWD-EF14-537",
       "category": "tools",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": true,
       "isOnion": true,
       "url": "http://dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion",
       "onion": "dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd"
+    },
+    {
+      "slug": "dwd-c11d-830",
+      "name": "Qubes OS",
+      "dwdId": "DWD-C11D-830",
+      "category": "tools",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": true,
+      "isOnion": true,
+      "url": "http://qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/",
+      "onion": "qubesosfasa4zl44o4tws22di6kepyzfeqv3tg4e3ztknltfxqrymdad.onion/"
     },
     {
       "slug": "dwd-d95a-492",
@@ -268,7 +268,7 @@
       "dwdId": "DWD-0E55-101",
       "category": "markets",
       "status": "up",
-      "upMirrors": 2,
+      "upMirrors": 1,
       "totalMirrors": 2,
       "recommended": false,
       "isOnion": true,
@@ -354,19 +354,6 @@
       "onion": "catharibrmbuat2is36fef24gqf3rzcmkdy6llybjyxzrqthzx7o3oyd"
     },
     {
-      "slug": "dwd-d1c1-849",
-      "name": "Cebulka",
-      "dwdId": "DWD-D1C1-849",
-      "category": "forums",
-      "status": "up",
-      "upMirrors": 1,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://cebulka7uxchnbpvmqapg5pfos4ngaxglsktzvha7a5rigndghvadeyd.onion",
-      "onion": "cebulka7uxchnbpvmqapg5pfos4ngaxglsktzvha7a5rigndghvadeyd"
-    },
-    {
       "slug": "dwd-2dbd-690",
       "name": "cock.li",
       "dwdId": "DWD-2DBD-690",
@@ -385,7 +372,7 @@
       "dwdId": "DWD-A7C1-013",
       "category": "markets",
       "status": "up",
-      "upMirrors": 2,
+      "upMirrors": 1,
       "totalMirrors": 3,
       "recommended": false,
       "isOnion": true,
@@ -458,30 +445,30 @@
       "onion": "darkmat3kdxestusl437urshpsravq7oqb7t3m36u2l62vnmmldzdmid"
     },
     {
-      "slug": "dwd-59ac-943",
-      "name": "Dig",
-      "dwdId": "DWD-59AC-943",
-      "category": "search",
+      "slug": "dwd-699b-108",
+      "name": "DarkHub",
+      "dwdId": "DWD-699B-108",
+      "category": "news",
       "status": "up",
       "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
-      "url": "http://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/",
-      "onion": "digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/"
+      "url": "http://darkhubevczmxyljfv2p422p4xjr2npb2t7rxcfcz45l2oeq3bhoxbqd.onion",
+      "onion": "darkhubevczmxyljfv2p422p4xjr2npb2t7rxcfcz45l2oeq3bhoxbqd"
     },
     {
-      "slug": "dwd-b3bb-536",
-      "name": "Dig AI",
-      "dwdId": "DWD-B3BB-536",
-      "category": "ai",
+      "slug": "dwd-2e1f-895",
+      "name": "Darwin1210",
+      "dwdId": "DWD-2E1F-895",
+      "category": "communications",
       "status": "up",
       "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
-      "url": "http://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion",
-      "onion": "digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id"
+      "url": "http://mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/",
+      "onion": "mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/"
     },
     {
       "slug": "dwd-ab32-693",
@@ -495,32 +482,6 @@
       "isOnion": true,
       "url": "http://drughub666py6fgnml5kmxa7fva5noppkf6wkai4fwwvzwt4rz645aqd.onion",
       "onion": "drughub666py6fgnml5kmxa7fva5noppkf6wkai4fwwvzwt4rz645aqd"
-    },
-    {
-      "slug": "dwd-5b13-332",
-      "name": "Drugtown",
-      "dwdId": "DWD-5B13-332",
-      "category": "markets",
-      "status": "up",
-      "upMirrors": 1,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id.onion",
-      "onion": "drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id"
-    },
-    {
-      "slug": "dwd-84e3-631",
-      "name": "DuckDuckGo",
-      "dwdId": "DWD-84E3-631",
-      "category": "search",
-      "status": "up",
-      "upMirrors": 1,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/html/",
-      "onion": "duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/html/"
     },
     {
       "slug": "dwd-9880-545",
@@ -601,19 +562,6 @@
       "onion": "featherdvtpi7ckdbkb2yxjfwx3oyvr3xjz3oo4rszylfzjdg6pbm3id.onion/"
     },
     {
-      "slug": "dwd-ad24-611",
-      "name": "Germania",
-      "dwdId": "DWD-AD24-611",
-      "category": "forums",
-      "status": "up",
-      "upMirrors": 1,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://germania7zs27fu3gi76wlr5rd64cc2yjexyzvrbm4jufk7pibrpizad.onion",
-      "onion": "germania7zs27fu3gi76wlr5rd64cc2yjexyzvrbm4jufk7pibrpizad"
-    },
-    {
       "slug": "dwd-d296-119",
       "name": "Grams",
       "dwdId": "DWD-D296-119",
@@ -690,6 +638,19 @@
       "isOnion": true,
       "url": "http://eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad.onion",
       "onion": "eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad"
+    },
+    {
+      "slug": "dwd-c899-370",
+      "name": "Mist",
+      "dwdId": "DWD-C899-370",
+      "category": "markets",
+      "status": "up",
+      "upMirrors": 1,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd.onion",
+      "onion": "mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd"
     },
     {
       "slug": "dwd-2bf4-894",
@@ -770,6 +731,19 @@
       "onion": "i4pd4zpyhrojnyx5l3d2siauy4almteocqow4bp2lqxyocrfy6prycad.onion/"
     },
     {
+      "slug": "dwd-cd4e-816",
+      "name": "Omega",
+      "dwdId": "DWD-CD4E-816",
+      "category": "markets",
+      "status": "up",
+      "upMirrors": 1,
+      "totalMirrors": 2,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://omega7eye5ar3rkrhfr5odhzmlft7mrygp76fuqkh4kian73nd3b7hyd.onion",
+      "onion": "omega7eye5ar3rkrhfr5odhzmlft7mrygp76fuqkh4kian73nd3b7hyd"
+    },
+    {
       "slug": "dwd-9f85-808",
       "name": "OnionShare",
       "dwdId": "DWD-9F85-808",
@@ -807,19 +781,6 @@
       "isOnion": true,
       "url": "http://reycdxyc24gf7jrnwutzdn3smmweizedy7uojsa7ols6sflwu25ijoyd.onion/",
       "onion": "reycdxyc24gf7jrnwutzdn3smmweizedy7uojsa7ols6sflwu25ijoyd.onion/"
-    },
-    {
-      "slug": "dwd-e0aa-249",
-      "name": "Prime",
-      "dwdId": "DWD-E0AA-249",
-      "category": "markets",
-      "status": "up",
-      "upMirrors": 1,
-      "totalMirrors": 7,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd.onion",
-      "onion": "primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd"
     },
     {
       "slug": "dwd-578a-445",
@@ -885,6 +846,19 @@
       "isOnion": true,
       "url": "http://sageswap4ygi7k5e5gbnvhz2ldbprrelkkuourlp5vx6flfeypk4hvqd.onion",
       "onion": "sageswap4ygi7k5e5gbnvhz2ldbprrelkkuourlp5vx6flfeypk4hvqd"
+    },
+    {
+      "slug": "dwd-7207-133",
+      "name": "Secret Garden",
+      "dwdId": "DWD-7207-133",
+      "category": "forums",
+      "status": "up",
+      "upMirrors": 1,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://gardeni2xtbqdpn3mndvod5rzewor2rlo2g5iuyniqwd7vbyt7cwcrqd.onion",
+      "onion": "gardeni2xtbqdpn3mndvod5rzewor2rlo2g5iuyniqwd7vbyt7cwcrqd"
     },
     {
       "slug": "dwd-d3eb-765",
@@ -991,17 +965,17 @@
       "onion": "pzhdfe7jraknpj2qgu5cz2u3i4deuyfwmonvzu5i3nyw4t4bmg7o5pad.onion/index.html"
     },
     {
-      "slug": "dwd-f75b-787",
-      "name": "TorBox",
-      "dwdId": "DWD-F75B-787",
-      "category": "communications",
+      "slug": "dwd-ab8a-159",
+      "name": "Thor",
+      "dwdId": "DWD-AB8A-159",
+      "category": "markets",
       "status": "up",
       "upMirrors": 1,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
-      "url": "http://torbox36ijlcevujx7mjb4oiusvwgvmue7jfn2cvutwa6kl6to3uyqad.onion/",
-      "onion": "torbox36ijlcevujx7mjb4oiusvwgvmue7jfn2cvutwa6kl6to3uyqad.onion/"
+      "url": "http://vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd.onion",
+      "onion": "vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd"
     },
     {
       "slug": "dwd-9351-047",
@@ -1022,7 +996,7 @@
       "dwdId": "DWD-0C13-728",
       "category": "markets",
       "status": "up",
-      "upMirrors": 6,
+      "upMirrors": 4,
       "totalMirrors": 12,
       "recommended": false,
       "isOnion": false,
@@ -1134,6 +1108,19 @@
       "onion": "asknbidvuhhb363ctvpollagayitchrka4fyupqdtut55i3wq2kfn5qd"
     },
     {
+      "slug": "dwd-d1c1-849",
+      "name": "Cebulka",
+      "dwdId": "DWD-D1C1-849",
+      "category": "forums",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://cebulka7uxchnbpvmqapg5pfos4ngaxglsktzvha7a5rigndghvadeyd.onion",
+      "onion": "cebulka7uxchnbpvmqapg5pfos4ngaxglsktzvha7a5rigndghvadeyd"
+    },
+    {
       "slug": "dwd-cc77-067",
       "name": "Cloak",
       "dwdId": "DWD-CC77-067",
@@ -1145,19 +1132,6 @@
       "isOnion": true,
       "url": "http://cloak2yayxbqywine5h5qytcbave7bpe6o4u2wfqkay4u2hmjisdtvad.onion",
       "onion": "cloak2yayxbqywine5h5qytcbave7bpe6o4u2wfqkay4u2hmjisdtvad"
-    },
-    {
-      "slug": "dwd-699b-108",
-      "name": "DarkHub",
-      "dwdId": "DWD-699B-108",
-      "category": "news",
-      "status": "down",
-      "upMirrors": 0,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://darkhubevczmxyljfv2p422p4xjr2npb2t7rxcfcz45l2oeq3bhoxbqd.onion",
-      "onion": "darkhubevczmxyljfv2p422p4xjr2npb2t7rxcfcz45l2oeq3bhoxbqd"
     },
     {
       "slug": "dwd-4401-088",
@@ -1186,17 +1160,30 @@
       "onion": "dntrustmuq5ccf3lygrnhsprpdliakq7r2ljsspczmdsslj5wl4teeid.onion/"
     },
     {
-      "slug": "dwd-2e1f-895",
-      "name": "Darwin1210",
-      "dwdId": "DWD-2E1F-895",
-      "category": "communications",
+      "slug": "dwd-59ac-943",
+      "name": "Dig",
+      "dwdId": "DWD-59AC-943",
+      "category": "search",
       "status": "down",
       "upMirrors": 0,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
-      "url": "http://mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/",
-      "onion": "mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/"
+      "url": "http://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/",
+      "onion": "digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/"
+    },
+    {
+      "slug": "dwd-b3bb-536",
+      "name": "Dig AI",
+      "dwdId": "DWD-B3BB-536",
+      "category": "ai",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion",
+      "onion": "digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id"
     },
     {
       "slug": "dwd-f473-259",
@@ -1236,6 +1223,45 @@
       "isOnion": true,
       "url": "http://dreav274kne7kisdblemfliplkp3x7mxghd4p7nspcuwcehizr4ia5ad.onion",
       "onion": "dreav274kne7kisdblemfliplkp3x7mxghd4p7nspcuwcehizr4ia5ad"
+    },
+    {
+      "slug": "dwd-5b13-332",
+      "name": "Drugtown",
+      "dwdId": "DWD-5B13-332",
+      "category": "markets",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id.onion",
+      "onion": "drugtowniiwgnpiyljq7t7dhuaa4hwxzgux2ou4h7nn7hzfzhtkjq3id"
+    },
+    {
+      "slug": "dwd-84e3-631",
+      "name": "DuckDuckGo",
+      "dwdId": "DWD-84E3-631",
+      "category": "search",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/html/",
+      "onion": "duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/html/"
+    },
+    {
+      "slug": "dwd-ad24-611",
+      "name": "Germania",
+      "dwdId": "DWD-AD24-611",
+      "category": "forums",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://germania7zs27fu3gi76wlr5rd64cc2yjexyzvrbm4jufk7pibrpizad.onion",
+      "onion": "germania7zs27fu3gi76wlr5rd64cc2yjexyzvrbm4jufk7pibrpizad"
     },
     {
       "slug": "dwd-8d46-402",
@@ -1290,19 +1316,6 @@
       "onion": "mars24pazjige72veied4awxfb6gtkjauij7qkofveula7gc6fljy4qd"
     },
     {
-      "slug": "dwd-c899-370",
-      "name": "Mist",
-      "dwdId": "DWD-C899-370",
-      "category": "markets",
-      "status": "down",
-      "upMirrors": 0,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd.onion",
-      "onion": "mistbkqkykx3tjjdk44nwnxov5pfnhtqmlqpugxhjxeyuinoj72hxkyd"
-    },
-    {
       "slug": "dwd-b20c-867",
       "name": "Null World",
       "dwdId": "DWD-B20C-867",
@@ -1342,17 +1355,17 @@
       "onion": "nzdnmfcf2z5pd3vwfyfy3jhwoubv6qnumdglspqhurqnuvr52khatdad"
     },
     {
-      "slug": "dwd-cd4e-816",
-      "name": "Omega",
-      "dwdId": "DWD-CD4E-816",
+      "slug": "dwd-e0aa-249",
+      "name": "Prime",
+      "dwdId": "DWD-E0AA-249",
       "category": "markets",
       "status": "down",
       "upMirrors": 0,
-      "totalMirrors": 2,
+      "totalMirrors": 7,
       "recommended": false,
       "isOnion": true,
-      "url": "http://omega7eye5ar3rkrhfr5odhzmlft7mrygp76fuqkh4kian73nd3b7hyd.onion",
-      "onion": "omega7eye5ar3rkrhfr5odhzmlft7mrygp76fuqkh4kian73nd3b7hyd"
+      "url": "http://primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd.onion",
+      "onion": "primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd"
     },
     {
       "slug": "dwd-ca2a-454",
@@ -1394,19 +1407,6 @@
       "onion": "ruc4i7xn5qu5uc7fu2sc34r6xl55xhgvxbcs56t4ayvbqo2fmp4pehqd.onion/"
     },
     {
-      "slug": "dwd-7207-133",
-      "name": "Secret Garden",
-      "dwdId": "DWD-7207-133",
-      "category": "forums",
-      "status": "down",
-      "upMirrors": 0,
-      "totalMirrors": 1,
-      "recommended": false,
-      "isOnion": true,
-      "url": "http://gardeni2xtbqdpn3mndvod5rzewor2rlo2g5iuyniqwd7vbyt7cwcrqd.onion",
-      "onion": "gardeni2xtbqdpn3mndvod5rzewor2rlo2g5iuyniqwd7vbyt7cwcrqd"
-    },
-    {
       "slug": "dwd-3c2a-888",
       "name": "Shoot",
       "dwdId": "DWD-3C2A-888",
@@ -1433,17 +1433,17 @@
       "onion": "sonarmsng5vzwqezlvtu2iiwwdn3dxkhotftikhowpfjuzg7p3ca5eid.onion/"
     },
     {
-      "slug": "dwd-ab8a-159",
-      "name": "Thor",
-      "dwdId": "DWD-AB8A-159",
-      "category": "markets",
+      "slug": "dwd-f75b-787",
+      "name": "TorBox",
+      "dwdId": "DWD-F75B-787",
+      "category": "communications",
       "status": "down",
       "upMirrors": 0,
       "totalMirrors": 1,
       "recommended": false,
       "isOnion": true,
-      "url": "http://vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd.onion",
-      "onion": "vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd"
+      "url": "http://torbox36ijlcevujx7mjb4oiusvwgvmue7jfn2cvutwa6kl6to3uyqad.onion/",
+      "onion": "torbox36ijlcevujx7mjb4oiusvwgvmue7jfn2cvutwa6kl6to3uyqad.onion/"
     },
     {
       "slug": "dwd-4732-377",
