@@ -1,7 +1,7 @@
 {
   "slug": "incransom",
   "name": "inc ransom",
-  "fetchedAt": "2026-09-12T06:12:56.690Z",
+  "fetchedAt": "2026-09-16T11:54:05.960Z",
   "profiles": [
     {
       "captcha": false,
@@ -39,7 +39,7 @@
           "title": "Disclosures",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 21:00:04.717",
+          "updated": "2026-09-16 07:04:13.498",
           "chat": false,
           "fs": false
         },
@@ -57,7 +57,7 @@
           "title": "NULL",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 01:00:04.235",
+          "updated": "2026-09-15 23:09:54.033",
           "chat": true,
           "fs": false
         },
@@ -65,8 +65,8 @@
           "fqdn": "incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-12 03:00:07.311",
+          "available": true,
+          "updated": "2026-09-16 11:00:05.310",
           "chat": false,
           "fs": false
         },

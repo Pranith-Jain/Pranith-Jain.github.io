@@ -1,6 +1,6 @@
 {
-  "syncedAt": "2026-09-12T06:12:24.358Z",
-  "count": 620,
+  "syncedAt": "2026-09-16T11:53:55.482Z",
+  "count": 623,
   "groups": [
     {
       "name": "0apt",
@@ -889,6 +889,10 @@
     {
       "name": "fusion",
       "slug": "fusion"
+    },
+    {
+      "name": "galago",
+      "slug": "galago"
     },
     {
       "name": "gammax",
@@ -1879,6 +1883,10 @@
       "slug": "redransomware"
     },
     {
+      "name": "regulus",
+      "slug": "regulus"
+    },
+    {
       "name": "relic",
       "slug": "relic"
     },
@@ -2089,6 +2097,10 @@
     {
       "name": "sphinx",
       "slug": "sphinx"
+    },
+    {
+      "name": "spirals",
+      "slug": "spirals"
     },
     {
       "name": "spirigatito",

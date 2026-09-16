@@ -1,7 +1,7 @@
 {
   "slug": "blacknevas",
   "name": "black nevas",
-  "fetchedAt": "2026-09-12T06:12:53.742Z",
+  "fetchedAt": "2026-09-16T11:54:04.376Z",
   "profiles": [
     {
       "captcha": false,
@@ -9,10 +9,10 @@
       "locations": [
         {
           "fqdn": "ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
-          "title": "DLS",
+          "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-12 06:00:50.505",
+          "available": false,
+          "updated": "2026-09-16 08:29:14.326",
           "chat": false,
           "fs": false
         }

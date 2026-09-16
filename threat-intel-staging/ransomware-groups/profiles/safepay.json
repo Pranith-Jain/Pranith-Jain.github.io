@@ -1,7 +1,7 @@
 {
   "slug": "safepay",
   "name": "safepay",
-  "fetchedAt": "2026-09-12T06:12:52.986Z",
+  "fetchedAt": "2026-09-16T11:54:04.674Z",
   "profiles": [
     {
       "captcha": false,
@@ -110,8 +110,8 @@
           "fqdn": "safepaypfxntwixwjrlcscft433ggemlhgkkdupi2ynhtcmvdgubmoyd.onion",
           "title": "Safepay Blog",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-12 06:00:40.130",
+          "available": false,
+          "updated": "2026-09-16 10:18:02.086",
           "chat": false,
           "fs": false
         },

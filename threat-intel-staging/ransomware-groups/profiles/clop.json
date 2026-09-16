@@ -1,7 +1,7 @@
 {
   "slug": "clop",
   "name": "clop",
-  "fetchedAt": "2026-09-12T06:12:59.480Z",
+  "fetchedAt": "2026-09-16T11:54:08.299Z",
   "profiles": [
     {
       "captcha": true,
@@ -21,7 +21,7 @@
           "title": "HOME | CL0P^_- LEAKS",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 23:02:04.234",
+          "updated": "2026-09-16 00:05:16.019",
           "chat": false,
           "fs": false
         },
@@ -92,8 +92,8 @@
           "fqdn": "htmxyptur5wfjrd7uvg23snupub2pbtlfelk45n37b3augl2w4eearid.onion",
           "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-12 06:00:20.400",
+          "available": false,
+          "updated": "2026-09-16 10:18:48.168",
           "chat": true,
           "fs": false
         },

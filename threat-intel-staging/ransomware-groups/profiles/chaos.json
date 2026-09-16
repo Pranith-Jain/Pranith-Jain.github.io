@@ -1,7 +1,7 @@
 {
   "slug": "chaos",
   "name": "chaos",
-  "fetchedAt": "2026-09-12T06:12:55.953Z",
+  "fetchedAt": "2026-09-16T11:54:05.221Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "CHAOS",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 02:01:57.090",
+          "updated": "2026-09-16 06:02:19.770",
           "chat": false,
           "fs": false
         },
@@ -48,7 +48,7 @@
           "title": "Index of /goosehead/",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 23:07:29.208",
+          "updated": "2026-09-16 10:01:07.898",
           "chat": false,
           "fs": true
         },
@@ -92,8 +92,8 @@
           "fqdn": "hptqq2o2qjva7lcaaq67w36jihzivkaitkexorauw7b2yul2z6zozpqd.onion",
           "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-12 05:01:55.136",
+          "available": false,
+          "updated": "2026-09-16 04:16:29.064",
           "chat": false,
           "fs": true
         },
@@ -102,7 +102,7 @@
           "title": "403 Forbidden",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 02:25:12.298",
+          "updated": "2026-09-16 10:20:11.907",
           "chat": false,
           "fs": true
         },
@@ -111,7 +111,7 @@
           "title": "403 Forbidden",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 14:06:28.260",
+          "updated": "2026-09-16 10:21:59.339",
           "chat": false,
           "fs": true
         }

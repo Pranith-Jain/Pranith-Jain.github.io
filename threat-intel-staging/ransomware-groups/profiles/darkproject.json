@@ -1,7 +1,7 @@
 {
   "slug": "darkproject",
   "name": "dark project",
-  "fetchedAt": "2026-09-12T06:12:57.075Z",
+  "fetchedAt": "2026-09-16T11:54:06.320Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "Dark Project",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 23:00:17.296",
+          "updated": "2026-09-16 10:20:54.447",
           "chat": false,
           "fs": false
         },
@@ -20,8 +20,8 @@
           "fqdn": "wjcml4mxpcvsmjxm33zhjb46nzutxk6g3f5w23fopgpwj6pqjcidiyqd.onion",
           "title": "Home · File index",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-12 03:01:52.084",
+          "available": true,
+          "updated": "2026-09-16 11:03:39.180",
           "chat": false,
           "fs": true
         },
@@ -36,10 +36,10 @@
         },
         {
           "fqdn": "3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion",
-          "title": "",
+          "title": "Home · File index",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-11 23:37:34.196",
+          "available": true,
+          "updated": "2026-09-16 11:03:21.836",
           "chat": false,
           "fs": true
         },
@@ -47,8 +47,8 @@
           "fqdn": "tjaaioz32salcoj63ttxra6nfqggwbcezkzpwnhyoiwq5tuimzmsb3qd.onion",
           "title": "Home · File index",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-12 06:03:03.331",
+          "available": false,
+          "updated": "2026-09-16 09:01:49.369",
           "chat": false,
           "fs": true
         },
@@ -57,16 +57,16 @@
           "title": "Home · File index",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 19:02:34.505",
+          "updated": "2026-09-15 22:01:11.133",
           "chat": false,
           "fs": true
         },
         {
           "fqdn": "pokttabd2hod47ladeeoin22wmq4remyo3wshwvxfuhgqygcbezq2qqd.onion",
-          "title": "Home · File index",
+          "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-12 06:01:34.308",
+          "available": false,
+          "updated": "2026-09-16 10:35:07.808",
           "chat": false,
           "fs": true
         },
@@ -75,7 +75,7 @@
           "title": "Home · File index",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 00:09:20.743",
+          "updated": "2026-09-16 10:20:05.880",
           "chat": false,
           "fs": true
         },
@@ -84,7 +84,7 @@
           "title": "Home · File index",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 21:01:50.655",
+          "updated": "2026-09-16 09:14:55.407",
           "chat": false,
           "fs": true
         }

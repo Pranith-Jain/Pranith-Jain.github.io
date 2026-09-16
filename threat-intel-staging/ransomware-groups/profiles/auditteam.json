@@ -1,7 +1,7 @@
 {
   "slug": "auditteam",
   "name": "audit team",
-  "fetchedAt": "2026-09-12T06:12:52.541Z",
+  "fetchedAt": "2026-09-16T11:54:03.389Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "/// DATA EXPOSURE TERMINAL ///",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 03:02:16.969",
+          "updated": "2026-09-16 09:20:31.570",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "[ SYSTEM ERROR ]",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 01:00:04.299",
+          "updated": "2026-09-16 10:00:05.111",
           "chat": false,
           "fs": true
         }
