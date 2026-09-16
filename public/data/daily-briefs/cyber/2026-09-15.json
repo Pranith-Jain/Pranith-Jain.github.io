@@ -1,0 +1,121 @@
+{
+  "type": "cyber",
+  "date": "2026-09-15",
+  "threatLevel": "",
+  "executiveSummary": "Overall OT Cyber Threat Level: CRITICAL U.S. government advisories confirm active exploitation of industrial PLCs: Iranian-linked actors altered logic and HMI alarms across Water/Wastewater and Energy; defenders must immediately remove internet exposure, validate logic integrity, and enforce MFA on OT remote access. Security Advisory Separate advisory warns of active targeting of Siemens S7 PLCs using S7comm (TCP/102) with AI-assisted tooling for reconnaissance and write operations; block TCP/102 at perimeters, harden access controls, and baseline S7 traffic. Security Advisory Pro-Russia hacktivists are opportunistically abusing exposed VNC to access/deface HMIs, suppress alarms, and change setpoints, causing real operational impacts; immediately remove public VNC and broker remote access via MFA-protected jump hosts. Security Advisory MikroTik RouterOS pre-auth flaws are being widely exploited (\"MikroTrick\"); patch to 6.49.21/7.23.4+/7.24.2+/7.25beta3, restrict SSH/WebFig/Winbox to management networks, and hunt for rogue users/scripts. Supporting Report CISA KEV Multiple OT-adjacent product risks: Danfoss iC7 variable-frequency drives accept unsigned apps/firmware; EVbee DC-80 EVSE expose unauthenticated OCPP/WebSocket RCE; Eclipse Milo (OPC UA) server flaws enable unauthorized method calls and DoS-segmentation, strict allow-listing, and urgent patching are required. View Article View Article Critical perimeter and DevOps compromises elevate IT-to-OT pivot risk: actively exploited GitLab arbitrary file-read (CVE-2026-85706), Gitea RCE used by a China-nexus group to steal industrial automation code, and NetScaler SAML pre-auth RCE with public PoC-patch, rotate secrets, and audit for pre-patch compromise. View Article View Article Red team assessments show WWS and government networks at high risk from identity and AD misconfigurations that could bridge into OT DMZs; prioritize MFA everywhere, ADCS hardening (ESC1), token revocation, and strict IT/OT segmentation. Security Advisory Confirmed OT-Targeting CSAs 3+ PLCs, HMIs, VNC Actively Exploited Edge/VPN/Router CVEs 6+ MikroTik, NetScaler, Cisco SEG High-Risk OT/IIoT Product Families 5+ VFDs, EVSE, OPC UA libs, Cameras Priority Patch Windows (Next 72h) Critical Routers, NetScaler, DevOps",
+  "keyFindings": [
+    {
+      "title": "OT assets are under active, state-linked attack",
+      "summary": "confirmed PLC logic tampering and HMI alarm suppression in multiple U.S. sectors; immediate isolation and logic verification are mandatory. Security Advisory"
+    },
+    {
+      "title": "Exposed engineering/remote access paths (VNC, S7comm, public PLC ports) remain a",
+      "summary": "Exposed engineering/remote access paths (VNC, S7comm, public PLC ports) remain a top exploitation vector; close internet exposure and enforce MFA on jump hosts. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Actively exploited router/VPN flaws (MikroTik; NetScaler) and mail/web platforms",
+      "summary": "Actively exploited router/VPN flaws (MikroTik; NetScaler) and mail/web platforms (Zimbra, GeoServer) enable footholds and lateral movement toward OT networks. CERT Polska JPCERT"
+    },
+    {
+      "title": "OT-adjacent device risks-Danfoss iC7 drives (unsigned firmware/apps), EV charger",
+      "summary": "OT-adjacent device risks-Danfoss iC7 drives (unsigned firmware/apps), EV chargers (OCPP RCE), OPC UA server libs (unauthorized methods/DoS)-require urgent segmentation, allow-listing, and vendor updates. CISA Bulletin CISA Bulletin CISA Bulletin"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "3+",
+        "label": "Confirmed OT-Targeting CSAs"
+      },
+      {
+        "value": "6+",
+        "label": "Actively Exploited Edge/VPN/Router CVEs"
+      },
+      {
+        "value": "5+",
+        "label": "High-Risk OT/IIoT Product Families"
+      },
+      {
+        "value": "Critical",
+        "label": "Priority Patch Windows (Next 72h)"
+      },
+      {
+        "value": "15+",
+        "label": "Events Requiring Escalation"
+      },
+      {
+        "value": "20+",
+        "label": "Events to Monitor"
+      },
+      {
+        "value": "10+",
+        "label": "De-prioritized/Ignore"
+      },
+      {
+        "value": "10+",
+        "label": "Actively Exploited (KEV)"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "PLCs/Automation: Siemens S7-200/300/400/1200/1500; Rockwell/Schneider/Siemens (sector-wide exposure) Networking/Edge: MikroTik RouterOS; NetScaler ADC/Gateway; Cisco Secure Email Gateway; Fortinet SSL-VPN OT/IIoT: Danfoss iC7 VFDs; EVbee DC-80 EV chargers; OPC UA (Eclipse Milo); AVEVA PIM DevOps/Collaboration: GitLab; Gitea; Zimbra; TrueConf Server; GeoServer (DMZ/GIS)"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy; Transportation; Communications/ISPs; Pipeline/Oil & Gas; Government Facilities; Healthcare (adjacent)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated APT manipulating PLCs and HMIs in WWS/Energy. Security Advisory",
+        "Russia-nexus FSB Center 16 router exploitation for pre-positioning; pro-Russia hacktivists targeting exposed VNC to HMI. Security Advisory Security Advisory",
+        "China-nexus operations exploiting Gitea RCE to steal industrial/SCADA code; APT abuse of TrueConf servers for payload delivery (OT adjacency). View Article View Article",
+        "Ransomware (Gunra) leveraging Fortinet edge CVEs and Microsoft cloud abuse for data theft and encryption. Security Advisory"
+      ]
+    }
+  ],
+  "relevance": "Why this matters now Multiple concurrent, government-attributed operations are directly manipulating PLC logic and HMI states. Edge devices (routers/VPNs/gateways) and DevOps platforms (GitLab/Gitea) are being exploited to seed pivots into OT environments. Core industrial protocols and components (S7comm/OPC UA/VFDs/EVSE) are affected-this increases risk of loss of view/control. Immediate exposure indicators Any PLC or HMI reachable from the internet; open TCP/102 (S7comm), 44818/2222 (CIP), 5900-5910 (VNC). Unpatched MikroTik/NetScaler/Cisco SEG at perimeters; AD/IDP without phishing-resistant MFA. Unsegmented EV chargers, drives, cameras, satcom terminals sharing routes with OT controls.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Danfoss iC7 VFD: unsigned app/firmware risk (SB26-243). View Article",
+        "EVbee DC-80 EVSE: unauth OCPP/WebSocket RCE & insecure updates (SB26-215). View Article",
+        "Eclipse Milo (OPC UA) 0.6.0-1.1.4: unauthorized method exec, diagnostics exposure, DoS (SB26-222). View Article",
+        "PcVue HMI credential weaknesses pre-17.0.0 (SB26-194). View Article",
+        "MikroTik RouterOS actively exploited; patch to 6.49.21/7.23.4/7.24.2/7.25beta3. CERT Polska",
+        "NetScaler ADC/Gateway SAML pre-auth RCE (CVE-2026-8452) with public PoC-patch and hunt for webshells. JPCERT",
+        "GitLab CE/EE CVE-2026-85706 actively exploited; rotate tokens/keys post-patch. View Article"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "T1190 Exploit Public-Facing Application (NetScaler, GitLab/Gitea, GeoServer, Zimbra)",
+      "T1021.006 Lateral Movement via SMB/WinRM; T1078 Valid Accounts; T1110 Brute Force (VNC/SSH/VPN portals)",
+      "T1105 Exfiltration Over C2 Channels; T1041 Data Exfiltration to cloud (OneDrive/MEGA/HTTPS)",
+      "T1543 Create/Modify System Process (malicious services), T1547 Boot/Logon Autostart; kernel/rootkit drivers",
+      "ICS Techniques: Modify Controller Logic; Modify Program (S7comm writes); Inhibit Alarms; Loss of View"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1021.006",
+      "T1078",
+      "T1110",
+      "T1105",
+      "T1041",
+      "T1543",
+      "T1547"
+    ]
+  },
+  "outlook72h": "Priority patching & hunts: MikroTik fleets; NetScaler RCE PoC exposure; GitLab file-read abuse; perimeter routers for SNMP/TFTP patterns. Immediate isolation checks: confirm no direct internet routes to PLCs/HMIs; disable VNC where present; close S7comm at perimeter. Deploy detections: S7comm write/PUT/GET anomalies; webshell paths on NetScaler; rogue MikroTik users/schedulers; OneDrive/MEGA exfil on servers. Vendor maintenance windows: coordinate Danfoss iC7, EVSE, OPC UA server updates; validate signed firmware & configs post-update.",
+  "relatedCves": [
+    "CVE-2026-85706",
+    "CVE-2026-8452",
+    "CVE-2026-60004",
+    "CVE-2024-21762"
+  ]
+}
