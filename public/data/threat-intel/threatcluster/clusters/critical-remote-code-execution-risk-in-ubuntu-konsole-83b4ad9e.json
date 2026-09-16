@@ -1,0 +1,11 @@
+{
+  "slug": "critical-remote-code-execution-risk-in-ubuntu-konsole-83b4ad9e",
+  "title": "Critical Remote Code Execution Risk in Ubuntu Konsole",
+  "link": "https://threatcluster.io/cluster/critical-remote-code-execution-risk-in-ubuntu-konsole-83b4ad9e?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-remote-code-execution-risk-in-ubuntu-konsole-83b4ad9e",
+  "pubDate": "2026-09-15T04:40:21.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "A vulnerability in the Konsole terminal emulator allows remote attackers to execute arbitrary code by crafting specific URLs.",
+  "sizeBytes": 125
+}

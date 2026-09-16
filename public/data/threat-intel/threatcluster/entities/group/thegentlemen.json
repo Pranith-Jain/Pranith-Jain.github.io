@@ -4,14 +4,14 @@
   "name": "thegentlemen",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 30,
-  "firstSeen": "2026-09-15T07:07:34.000Z",
+  "mentionCount": 18,
+  "firstSeen": "2026-09-15T07:11:41.000Z",
   "lastSeen": "2026-09-15T07:17:26.000Z",
-  "summary": "Ransomware group with 30 leak-site victims across 11 sectors and 19 countries.",
+  "summary": "Ransomware group with 18 leak-site victims across 9 sectors and 13 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
-      "count": 30
+      "count": 18
     }
   ],
   "recentActivity": [
@@ -91,20 +91,14 @@
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 5
-    },
-    {
-      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 5
+      "weight": 4
     },
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 3
     },
     {
@@ -115,26 +109,8 @@
     },
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
-      "weight": 2
-    },
-    {
-      "type": "sector",
       "slug": "education",
       "name": "Education",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
       "weight": 2
     },
     {
@@ -145,14 +121,26 @@
     },
     {
       "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 2
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
@@ -197,7 +185,7 @@
       "id": "alchin-long-group-6d13",
       "victim": "Alchin Long Group — claimed by thegentlemen",
       "sector": "Other",
-      "country": "SG",
+      "country": "AU",
       "pubDate": "2026-09-15T07:15:50.000Z"
     },
     {
@@ -283,90 +271,6 @@
       "sector": "Financial Services",
       "country": "VN",
       "pubDate": "2026-09-15T07:11:41.000Z"
-    },
-    {
-      "id": "bgr-energy-systems-c90c",
-      "victim": "BGR Energy Systems — claimed by thegentlemen",
-      "sector": "Energy & Utilities",
-      "country": "IN",
-      "pubDate": "2026-09-15T07:11:20.000Z"
-    },
-    {
-      "id": "ardom-eilot-edb5",
-      "victim": "Ardom Eilot — claimed by thegentlemen",
-      "sector": "Not Found",
-      "country": "IL",
-      "pubDate": "2026-09-15T07:11:00.000Z"
-    },
-    {
-      "id": "technical-asia-e665",
-      "victim": "Technical Asia — claimed by thegentlemen",
-      "sector": "Technology",
-      "country": "SG",
-      "pubDate": "2026-09-15T07:10:39.000Z"
-    },
-    {
-      "id": "multipla-contabilidade-empresarial-7698",
-      "victim": "Multipla Contabilidade Empresarial — claimed by thegentlemen",
-      "sector": "Professional Services",
-      "country": "BR",
-      "pubDate": "2026-09-15T07:10:19.000Z"
-    },
-    {
-      "id": "somit-3457",
-      "victim": "Somit — claimed by thegentlemen",
-      "sector": "Technology",
-      "country": "FI",
-      "pubDate": "2026-09-15T07:09:59.000Z"
-    },
-    {
-      "id": "wada-farms-054e",
-      "victim": "Wada Farms — claimed by thegentlemen",
-      "sector": "Agriculture and Food Production",
-      "country": "JP",
-      "pubDate": "2026-09-15T07:09:38.000Z"
-    },
-    {
-      "id": "aforpa-949a",
-      "victim": "Aforpa — claimed by thegentlemen",
-      "sector": "Not Found",
-      "country": "FR",
-      "pubDate": "2026-09-15T07:09:18.000Z"
-    },
-    {
-      "id": "apteki-mareshki-4a44",
-      "victim": "Apteki Mareshki — claimed by thegentlemen",
-      "sector": "Healthcare",
-      "country": "BG",
-      "pubDate": "2026-09-15T07:08:57.000Z"
-    },
-    {
-      "id": "librer-a-santa-fe-fdfd",
-      "victim": "Librería Santa Fe — claimed by thegentlemen",
-      "sector": "Retail & E-Commerce",
-      "country": "AR",
-      "pubDate": "2026-09-15T07:08:36.000Z"
-    },
-    {
-      "id": "sarku-japan-1f75",
-      "victim": "Sarku Japan — claimed by thegentlemen",
-      "sector": "Retail & E-Commerce",
-      "country": "US",
-      "pubDate": "2026-09-15T07:08:16.000Z"
-    },
-    {
-      "id": "tmi-tecnicas-mecanicas-ilerdenses-d772",
-      "victim": "TMI Tecnicas Mecanicas Ilerdenses — claimed by thegentlemen",
-      "sector": "Manufacturing",
-      "country": "ES",
-      "pubDate": "2026-09-15T07:07:55.000Z"
-    },
-    {
-      "id": "medskin-solutions-dr-suwelack-ag-4324",
-      "victim": "MedSkin Solutions Dr. Suwelack AG — claimed by thegentlemen",
-      "sector": "Healthcare",
-      "country": "DE",
-      "pubDate": "2026-09-15T07:07:34.000Z"
     }
   ]
 }

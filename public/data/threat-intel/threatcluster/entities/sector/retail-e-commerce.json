@@ -4,36 +4,48 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-15T07:08:16.000Z",
-  "lastSeen": "2026-09-15T07:08:36.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 1 ransomware group and 2 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-15T10:47:23.000Z",
+  "lastSeen": "2026-09-15T19:31:55.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
-      "count": 2
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "librer-a-santa-fe-fdfd",
-      "title": "Librería Santa Fe — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:08:36.000Z"
+      "slug": "laconcepcion-com-mx-2cee",
+      "title": "laconcepcion.com.mx — claimed by safepay",
+      "pubDate": "2026-09-15T19:31:55.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "sarku-japan-1f75",
-      "title": "Sarku Japan — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:08:16.000Z"
+      "slug": "stoecklin-kuechen-ch-9d06",
+      "title": "stoecklin-kuechen.ch — claimed by safepay",
+      "pubDate": "2026-09-15T19:30:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mccarthy-tire-service-1323",
+      "title": "McCarthy Tire Service — claimed by storm",
+      "pubDate": "2026-09-15T10:47:23.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "safepay",
+      "name": "safepay",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "storm",
+      "weight": 1
     }
   ],
   "mitreTechniques": []

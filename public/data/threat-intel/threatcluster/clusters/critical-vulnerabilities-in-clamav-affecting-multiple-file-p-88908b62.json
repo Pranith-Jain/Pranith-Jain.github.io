@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-in-clamav-affecting-multiple-file-p-88908b62",
+  "title": "Critical Vulnerabilities in ClamAV Affecting Multiple File Parsers",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-clamav-affecting-multiple-file-p-88908b62?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-clamav-affecting-multiple-file-p-88908b62",
+  "pubDate": "2026-09-15T00:45:55.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "SUSE has issued important security advisories for ClamAV, addressing multiple denial of service vulnerabilities. The vulnerabilities, identified as CVE-2026-20213 through CVE-2026-20217 and CVE-2026-2…",
+  "sizeBytes": 201
+}

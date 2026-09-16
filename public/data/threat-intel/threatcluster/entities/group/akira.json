@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "akira",
+  "name": "akira",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-15T13:53:02.000Z",
+  "lastSeen": "2026-09-15T14:53:24.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-15",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pilot-precision-7902",
+      "title": "Pilot Precision — claimed by akira",
+      "pubDate": "2026-09-15T14:53:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lazyboyz-4c33",
+      "title": "Lazyboyz — claimed by akira",
+      "pubDate": "2026-09-15T14:22:06.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "southern-california-telephone-company-a504",
+      "title": "Southern California Telephone Company — claimed by akira",
+      "pubDate": "2026-09-15T13:53:02.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "pilot-precision-7902",
+      "victim": "Pilot Precision — claimed by akira",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-15T14:53:24.000Z"
+    },
+    {
+      "id": "lazyboyz-4c33",
+      "victim": "Lazyboyz — claimed by akira",
+      "sector": "Other",
+      "country": null,
+      "pubDate": "2026-09-15T14:22:06.000Z"
+    },
+    {
+      "id": "southern-california-telephone-company-a504",
+      "victim": "Southern California Telephone Company — claimed by akira",
+      "sector": "Energy & Utilities",
+      "country": "US",
+      "pubDate": "2026-09-15T13:53:02.000Z"
+    }
+  ]
+}

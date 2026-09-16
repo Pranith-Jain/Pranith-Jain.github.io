@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "arcusmedia",
+  "name": "arcusmedia",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-15T11:52:38.000Z",
+  "lastSeen": "2026-09-15T11:52:38.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-15",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "asada-sarapiqu-5cde",
+      "title": "Asada Sarapiqu — claimed by arcusmedia",
+      "pubDate": "2026-09-15T11:52:38.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "asada-sarapiqu-5cde",
+      "victim": "Asada Sarapiqu — claimed by arcusmedia",
+      "sector": "Agriculture and Food Production",
+      "country": "CR",
+      "pubDate": "2026-09-15T11:52:38.000Z"
+    }
+  ]
+}

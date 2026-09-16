@@ -1,11 +1,11 @@
 {
   "slug": "mass-scanning-targets-exposed-vite-development-servers-for-c-d12e1cf5",
-  "title": "Mass Scanning Targets Exposed Vite Development Servers for Cloud Secrets",
+  "title": "Mass Scanning Campaign Targets Exposed Vite Servers for Cloud Credentials",
   "link": "https://threatcluster.io/cluster/mass-scanning-targets-exposed-vite-development-servers-for-c-d12e1cf5?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/mass-scanning-targets-exposed-vite-development-servers-for-c-d12e1cf5",
   "pubDate": "2026-09-14T16:15:58.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
-  "description": "In August 2026, a mass-scanning campaign targeted internet-exposed Vite development servers, exploiting CVE-2026-39364 to steal AWS and Azure credentials.",
-  "sizeBytes": 154
+  "sourceCount": 11,
+  "categories": ["11 Sources"],
+  "description": "In August 2026, a mass-scanning campaign targeted internet-exposed Vite development servers to steal sensitive cloud credentials and configuration files from AWS and Azure.",
+  "sizeBytes": 172
 }

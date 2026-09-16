@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-15T10:17:47.216Z",
-  "eventCount": 9,
+  "syncedAt": "2026-09-16T10:10:53.001Z",
+  "eventCount": 8,
   "events": [
     {
       "uuid": "004fd653-a3cc-5f31-9228-fc427045f51c",
@@ -20,6 +20,23 @@
         "type:malware",
         "type:vulnerability",
         "misp-galaxy:threat-actor=\"Sandworm\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "7fb152ac-1e3f-50c8-a3bd-703cef7ec47f",
+      "info": "Critical Zero-Day Vulnerability in Cisco Secure Email Gateway Exploited",
+      "date": "2026-09-14",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1789408447",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:high",
+        "type:ransomware",
+        "type:vulnerability",
+        "misp-galaxy:ransomware=\"Conti\""
       ],
       "orgc": "ThreatCluster"
     },
@@ -51,19 +68,19 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "7fb152ac-1e3f-50c8-a3bd-703cef7ec47f",
-      "info": "Critical SQL Injection Vulnerability in Cisco Secure Email Gateway Under Active Exploitation",
+      "uuid": "d4e49acc-37d7-590f-ba19-005aa9114353",
+      "info": "Red Heron Exploits Gitea RCE Flaw in Multinational Campaign",
       "date": "2026-09-14",
       "analysis": "2",
       "threat_level_id": "1",
-      "timestamp": "1789408447",
+      "timestamp": "1789408446",
       "tags": [
         "source:ThreatCluster",
         "tlp:clear",
         "threat-level:high",
-        "type:ransomware",
-        "type:vulnerability",
-        "misp-galaxy:ransomware=\"Conti\""
+        "type:apt",
+        "type:malware",
+        "type:vulnerability"
       ],
       "orgc": "ThreatCluster"
     },
@@ -88,16 +105,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "8c366591-a6aa-5e1f-96a9-ad10880ac575",
-      "info": "Critical FreeIPA Vulnerabilities Allow Unauthenticated Admin Access",
-      "date": "2026-09-08",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1788868998",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "42d3f8c0-a55f-5503-b6e2-21f2d157f7e6",
       "info": "China-Aligned Hackers Exploit Tencent's Sogou Flaw for Backdoor Deployment",
       "date": "2026-09-13",
@@ -112,16 +119,6 @@
         "type:malware",
         "type:vulnerability"
       ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "dd8ce36f-96f8-5dd3-91a9-f1a48824e6b4",
-      "info": "Critical RCE Vulnerability in n8n Disclosed (CVE-2025-68613)",
-      "date": "2026-09-14",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789408446",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     }
   ]
