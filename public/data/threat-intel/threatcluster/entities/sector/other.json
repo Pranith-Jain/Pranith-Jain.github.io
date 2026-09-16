@@ -4,21 +4,33 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-14T18:04:41.000Z",
-  "lastSeen": "2026-09-15T07:15:50.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 3 ransomware groups and 5 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-15T07:13:05.000Z",
+  "lastSeen": "2026-09-16T03:55:01.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 3 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-14",
-      "count": 1
+      "date": "2026-09-15",
+      "count": 4
     },
     {
-      "date": "2026-09-15",
-      "count": 5
+      "date": "2026-09-16",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "community-property-management-a19f",
+      "title": "Community Property Management — claimed by dragonforce",
+      "pubDate": "2026-09-16T03:55:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lazyboyz-4c33",
+      "title": "Lazyboyz — claimed by akira",
+      "pubDate": "2026-09-15T14:22:06.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "alchin-long-group-6d13",
@@ -36,24 +48,6 @@
       "slug": "humboldt-1625",
       "title": "Humboldt — claimed by thegentlemen",
       "pubDate": "2026-09-15T07:13:05.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "geieg-5987",
-      "title": "Geieg — claimed by qilin",
-      "pubDate": "2026-09-15T05:02:27.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "handytrac-greystar-litchfield-park-az-6df7",
-      "title": "HandyTrac (Greystar Litchfield Park, AZ) — claimed by shadowbyt3$",
-      "pubDate": "2026-09-15T00:23:37.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "minmer-global-20cf",
-      "title": "Minmer Global — claimed by qilin",
-      "pubDate": "2026-09-14T18:04:41.000Z"
     }
   ],
   "relatedEntities": [
@@ -65,14 +59,14 @@
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 2
+      "slug": "dragonforce",
+      "name": "dragonforce",
+      "weight": 1
     },
     {
       "type": "group",
-      "slug": "shadowbyt3",
-      "name": "shadowbyt3$",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     }
   ],

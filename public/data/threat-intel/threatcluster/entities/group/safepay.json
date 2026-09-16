@@ -1,0 +1,183 @@
+{
+  "type": "group",
+  "slug": "safepay",
+  "name": "safepay",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 9,
+  "firstSeen": "2026-09-15T19:29:06.000Z",
+  "lastSeen": "2026-09-15T19:33:37.000Z",
+  "summary": "Ransomware group with 9 leak-site victims across 7 sectors and 6 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-15",
+      "count": 9
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "marlinhvac-com-786f",
+      "title": "marlinhvac.com — claimed by safepay",
+      "pubDate": "2026-09-15T19:33:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "neumerkel-gmbh-de-f6cb",
+      "title": "neumerkel-gmbh.de — claimed by safepay",
+      "pubDate": "2026-09-15T19:33:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "triniticaring-org-6fff",
+      "title": "triniticaring.org — claimed by safepay",
+      "pubDate": "2026-09-15T19:32:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "laconcepcion-com-mx-2cee",
+      "title": "laconcepcion.com.mx — claimed by safepay",
+      "pubDate": "2026-09-15T19:31:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "meterex-com-4b75",
+      "title": "meterex.com — claimed by safepay",
+      "pubDate": "2026-09-15T19:31:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "stoecklin-kuechen-ch-9d06",
+      "title": "stoecklin-kuechen.ch — claimed by safepay",
+      "pubDate": "2026-09-15T19:30:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ryomo-co-jp-ea24",
+      "title": "ryomo.co.jp — claimed by safepay",
+      "pubDate": "2026-09-15T19:30:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ara-lyss-ch-4c97",
+      "title": "ara-lyss.ch — claimed by safepay",
+      "pubDate": "2026-09-15T19:29:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gob-pe-1835",
+      "title": "gob.pe — claimed by safepay",
+      "pubDate": "2026-09-15T19:29:06.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "marlinhvac-com-786f",
+      "victim": "marlinhvac.com — claimed by safepay",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-15T19:33:37.000Z"
+    },
+    {
+      "id": "neumerkel-gmbh-de-f6cb",
+      "victim": "neumerkel-gmbh.de — claimed by safepay",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-09-15T19:33:01.000Z"
+    },
+    {
+      "id": "triniticaring-org-6fff",
+      "victim": "triniticaring.org — claimed by safepay",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-15T19:32:29.000Z"
+    },
+    {
+      "id": "laconcepcion-com-mx-2cee",
+      "victim": "laconcepcion.com.mx — claimed by safepay",
+      "sector": "Retail & E-Commerce",
+      "country": "MX",
+      "pubDate": "2026-09-15T19:31:55.000Z"
+    },
+    {
+      "id": "meterex-com-4b75",
+      "victim": "meterex.com — claimed by safepay",
+      "sector": "Technology",
+      "country": "DE",
+      "pubDate": "2026-09-15T19:31:20.000Z"
+    },
+    {
+      "id": "stoecklin-kuechen-ch-9d06",
+      "victim": "stoecklin-kuechen.ch — claimed by safepay",
+      "sector": "Retail & E-Commerce",
+      "country": "CH",
+      "pubDate": "2026-09-15T19:30:46.000Z"
+    },
+    {
+      "id": "ryomo-co-jp-ea24",
+      "victim": "ryomo.co.jp — claimed by safepay",
+      "sector": "Not Found",
+      "country": "JP",
+      "pubDate": "2026-09-15T19:30:13.000Z"
+    },
+    {
+      "id": "ara-lyss-ch-4c97",
+      "victim": "ara-lyss.ch — claimed by safepay",
+      "sector": "Professional Services",
+      "country": "CH",
+      "pubDate": "2026-09-15T19:29:39.000Z"
+    },
+    {
+      "id": "gob-pe-1835",
+      "victim": "gob.pe — claimed by safepay",
+      "sector": "Government & Defense",
+      "country": "PE",
+      "pubDate": "2026-09-15T19:29:06.000Z"
+    }
+  ]
+}

@@ -4,37 +4,25 @@
   "name": "insomnia",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-14T14:00:21.000Z",
-  "lastSeen": "2026-09-14T14:01:14.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-15T17:30:14.000Z",
+  "lastSeen": "2026-09-15T17:30:14.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-14",
-      "count": 2
+      "date": "2026-09-15",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "metropolitan-community-health-services-ab4f",
-      "title": "Metropolitan Community Health Services — claimed by insomnia",
-      "pubDate": "2026-09-14T14:01:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "massey-stotser-amp-nichols-19e8",
-      "title": "Massey, Stotser &amp; Nichols — claimed by insomnia",
-      "pubDate": "2026-09-14T14:00:21.000Z"
+      "slug": "wiggins-childs-pantazis-fisher-amp-goldfarb-llc-78c9",
+      "title": "Wiggins, Childs, Pantazis, Fisher, &amp; Goldfarb LLC — claimed by insomnia",
+      "pubDate": "2026-09-15T17:30:14.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
     {
       "type": "sector",
       "slug": "professional-services",
@@ -45,18 +33,11 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "metropolitan-community-health-services-ab4f",
-      "victim": "Metropolitan Community Health Services — claimed by insomnia",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-09-14T14:01:14.000Z"
-    },
-    {
-      "id": "massey-stotser-amp-nichols-19e8",
-      "victim": "Massey, Stotser &amp; Nichols — claimed by insomnia",
+      "id": "wiggins-childs-pantazis-fisher-amp-goldfarb-llc-78c9",
+      "victim": "Wiggins, Childs, Pantazis, Fisher, &amp; Goldfarb LLC — claimed by insomnia",
       "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-09-14T14:00:21.000Z"
+      "pubDate": "2026-09-15T17:30:14.000Z"
     }
   ]
 }

@@ -4,64 +4,76 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-14T18:04:41.000Z",
-  "lastSeen": "2026-09-15T05:02:27.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 2 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-09-15T11:02:55.000Z",
+  "lastSeen": "2026-09-16T04:01:03.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 4 sectors and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-14",
-      "count": 4
+      "date": "2026-09-15",
+      "count": 6
     },
     {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "geieg-5987",
-      "title": "Geieg — claimed by qilin",
-      "pubDate": "2026-09-15T05:02:27.000Z"
+      "slug": "aarsleff-3eb5",
+      "title": "Aarsleff — claimed by qilin",
+      "pubDate": "2026-09-16T04:01:03.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "foremost-mfg-3638",
-      "title": "Foremost Mfg — claimed by qilin",
-      "pubDate": "2026-09-14T18:59:34.000Z"
+      "slug": "taurus-ib-rica-9060",
+      "title": "Taurus Ibérica — claimed by qilin",
+      "pubDate": "2026-09-15T15:01:54.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "winston-contracting-llc-86f7",
-      "title": "Winston Contracting, LLC — claimed by qilin",
-      "pubDate": "2026-09-14T18:06:09.000Z"
+      "slug": "montana-civil-contractors-b403",
+      "title": "Montana Civil Contractors — claimed by qilin",
+      "pubDate": "2026-09-15T14:02:02.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "roadex-america-0145",
-      "title": "RoadEx America — claimed by qilin",
-      "pubDate": "2026-09-14T18:05:26.000Z"
+      "slug": "resolve-law-group-47d1",
+      "title": "Resolve Law Group — claimed by qilin",
+      "pubDate": "2026-09-15T13:03:21.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "minmer-global-20cf",
-      "title": "Minmer Global — claimed by qilin",
-      "pubDate": "2026-09-14T18:04:41.000Z"
+      "slug": "adm-a5cf",
+      "title": "ADM — claimed by qilin",
+      "pubDate": "2026-09-15T12:01:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "incrys-8fba",
+      "title": "Incrys — claimed by qilin",
+      "pubDate": "2026-09-15T11:03:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bravo-group-038e",
+      "title": "Bravo Group — claimed by qilin",
+      "pubDate": "2026-09-15T11:02:55.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 2
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 3
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 2
     },
     {
       "type": "sector",
@@ -71,47 +83,61 @@
     },
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "geieg-5987",
-      "victim": "Geieg — claimed by qilin",
-      "sector": "Other",
-      "country": "ES",
-      "pubDate": "2026-09-15T05:02:27.000Z"
+      "id": "aarsleff-3eb5",
+      "victim": "Aarsleff — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "SE",
+      "pubDate": "2026-09-16T04:01:03.000Z"
     },
     {
-      "id": "foremost-mfg-3638",
-      "victim": "Foremost Mfg — claimed by qilin",
+      "id": "taurus-ib-rica-9060",
+      "victim": "Taurus Ibérica — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "ES",
+      "pubDate": "2026-09-15T15:01:54.000Z"
+    },
+    {
+      "id": "montana-civil-contractors-b403",
+      "victim": "Montana Civil Contractors — claimed by qilin",
       "sector": "Manufacturing",
       "country": "US",
-      "pubDate": "2026-09-14T18:59:34.000Z"
+      "pubDate": "2026-09-15T14:02:02.000Z"
     },
     {
-      "id": "winston-contracting-llc-86f7",
-      "victim": "Winston Contracting, LLC — claimed by qilin",
+      "id": "resolve-law-group-47d1",
+      "victim": "Resolve Law Group — claimed by qilin",
       "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-09-14T18:06:09.000Z"
+      "pubDate": "2026-09-15T13:03:21.000Z"
     },
     {
-      "id": "roadex-america-0145",
-      "victim": "RoadEx America — claimed by qilin",
-      "sector": "Transportation",
+      "id": "adm-a5cf",
+      "victim": "ADM — claimed by qilin",
+      "sector": "Agriculture and Food Production",
       "country": "US",
-      "pubDate": "2026-09-14T18:05:26.000Z"
+      "pubDate": "2026-09-15T12:01:12.000Z"
     },
     {
-      "id": "minmer-global-20cf",
-      "victim": "Minmer Global — claimed by qilin",
-      "sector": "Other",
+      "id": "incrys-8fba",
+      "victim": "Incrys — claimed by qilin",
+      "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-09-14T18:04:41.000Z"
+      "pubDate": "2026-09-15T11:03:33.000Z"
+    },
+    {
+      "id": "bravo-group-038e",
+      "victim": "Bravo Group — claimed by qilin",
+      "sector": "Not Found",
+      "country": "IT",
+      "pubDate": "2026-09-15T11:02:55.000Z"
     }
   ]
 }

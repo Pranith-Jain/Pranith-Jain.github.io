@@ -5,20 +5,22 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 3,
-  "firstSeen": "2026-09-14T16:21:11.000Z",
-  "lastSeen": "2026-09-15T07:16:09.000Z",
+  "firstSeen": "2026-09-15T07:12:45.000Z",
+  "lastSeen": "2026-09-15T18:58:09.000Z",
   "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-14",
-      "count": 1
-    },
-    {
       "date": "2026-09-15",
-      "count": 2
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "springfield-public-schools-8a88",
+      "title": "Springfield Public Schools — claimed by interlock",
+      "pubDate": "2026-09-15T18:58:09.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "goteborgsregionens-tekniska-gymnasium-d9cc",
@@ -30,12 +32,6 @@
       "slug": "high-oakham-primary-school-8d00",
       "title": "High Oakham Primary School — claimed by thegentlemen",
       "pubDate": "2026-09-15T07:12:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dublin-city-schools-ga-f7a3",
-      "title": "Dublin City Schools GA — claimed by eclipse",
-      "pubDate": "2026-09-14T16:21:11.000Z"
     }
   ],
   "relatedEntities": [
@@ -47,8 +43,8 @@
     },
     {
       "type": "group",
-      "slug": "eclipse",
-      "name": "eclipse",
+      "slug": "interlock",
+      "name": "interlock",
       "weight": 1
     }
   ],

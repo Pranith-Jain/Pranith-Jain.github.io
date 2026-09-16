@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "storm",
+  "name": "storm",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-15T10:46:21.000Z",
+  "lastSeen": "2026-09-15T10:47:23.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-15",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "mccarthy-tire-service-1323",
+      "title": "McCarthy Tire Service — claimed by storm",
+      "pubDate": "2026-09-15T10:47:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pantherx-rare-ebf7",
+      "title": "PANTHERx Rare — claimed by storm",
+      "pubDate": "2026-09-15T10:46:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "insight-credit-union-25b6",
+      "title": "Insight Credit Union — claimed by storm",
+      "pubDate": "2026-09-15T10:46:21.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "mccarthy-tire-service-1323",
+      "victim": "McCarthy Tire Service — claimed by storm",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-15T10:47:23.000Z"
+    },
+    {
+      "id": "pantherx-rare-ebf7",
+      "victim": "PANTHERx Rare — claimed by storm",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-15T10:46:52.000Z"
+    },
+    {
+      "id": "insight-credit-union-25b6",
+      "victim": "Insight Credit Union — claimed by storm",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-09-15T10:46:21.000Z"
+    }
+  ]
+}

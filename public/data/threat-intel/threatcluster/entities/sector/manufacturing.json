@@ -4,21 +4,81 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-09-14T13:56:16.000Z",
-  "lastSeen": "2026-09-15T07:15:09.000Z",
-  "summary": "Sector hit by 9 leak-site victims across 5 ransomware groups and 5 countries.",
+  "mentionCount": 14,
+  "firstSeen": "2026-09-15T07:12:00.000Z",
+  "lastSeen": "2026-09-16T04:01:03.000Z",
+  "summary": "Sector hit by 14 leak-site victims across 7 ransomware groups and 9 countries.",
   "frequency": [
     {
-      "date": "2026-09-14",
-      "count": 2
+      "date": "2026-09-15",
+      "count": 13
     },
     {
-      "date": "2026-09-15",
-      "count": 7
+      "date": "2026-09-16",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "aarsleff-3eb5",
+      "title": "Aarsleff — claimed by qilin",
+      "pubDate": "2026-09-16T04:01:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hashimoto-jimuki-182d",
+      "title": "Hashimoto Jimuki — claimed by vexy ransomware",
+      "pubDate": "2026-09-15T19:58:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "marlinhvac-com-786f",
+      "title": "marlinhvac.com — claimed by safepay",
+      "pubDate": "2026-09-15T19:33:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "neumerkel-gmbh-de-f6cb",
+      "title": "neumerkel-gmbh.de — claimed by safepay",
+      "pubDate": "2026-09-15T19:33:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cumar-marble-amp-granite-b898",
+      "title": "Cumar Marble &amp; Granite — claimed by dark project",
+      "pubDate": "2026-09-15T15:21:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "taurus-ib-rica-9060",
+      "title": "Taurus Ibérica — claimed by qilin",
+      "pubDate": "2026-09-15T15:01:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pilot-precision-7902",
+      "title": "Pilot Precision — claimed by akira",
+      "pubDate": "2026-09-15T14:53:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "montana-civil-contractors-b403",
+      "title": "Montana Civil Contractors — claimed by qilin",
+      "pubDate": "2026-09-15T14:02:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sfa-engineering-corporation-8fa0",
+      "title": "SFA Engineering Corporation — claimed by metaencryptor",
+      "pubDate": "2026-09-15T11:59:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "nippon-steel-corporation-3dad",
+      "title": "Nippon Steel Corporation — claimed by metaencryptor",
+      "pubDate": "2026-09-15T11:59:12.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "balkan-polymers-ebf6",
@@ -30,48 +90,6 @@
       "slug": "downrite-engineering-01e4",
       "title": "Downrite Engineering — claimed by thegentlemen",
       "pubDate": "2026-09-15T07:14:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "neff-drexel-91cd",
-      "title": "Neff Drexel — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:13:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dome-gold-mines-e15a",
-      "title": "Dome Gold Mines — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:12:00.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tmi-tecnicas-mecanicas-ilerdenses-d772",
-      "title": "TMI Tecnicas Mecanicas Ilerdenses — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:07:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "honda-peru-fe00",
-      "title": "Honda (Peru) — claimed by panzer",
-      "pubDate": "2026-09-15T01:51:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "veritiv-d947",
-      "title": "veritiv — claimed by iah6477",
-      "pubDate": "2026-09-15T00:55:32.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "foremost-mfg-3638",
-      "title": "Foremost Mfg — claimed by qilin",
-      "pubDate": "2026-09-14T18:59:34.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "glasfloss-com-82bb",
-      "title": "glasfloss.com — claimed by chaos",
-      "pubDate": "2026-09-14T13:56:16.000Z"
     }
   ],
   "relatedEntities": [
@@ -79,30 +97,42 @@
       "type": "group",
       "slug": "thegentlemen",
       "name": "thegentlemen",
-      "weight": 5
-    },
-    {
-      "type": "group",
-      "slug": "panzer",
-      "name": "panzer",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "iah6477",
-      "name": "iah6477",
-      "weight": 1
+      "weight": 4
     },
     {
       "type": "group",
       "slug": "qilin",
       "name": "qilin",
+      "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "safepay",
+      "name": "safepay",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "vexy-ransomware",
+      "name": "vexy ransomware",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "chaos",
-      "name": "chaos",
+      "slug": "dark-project",
+      "name": "dark project",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     }
   ],
