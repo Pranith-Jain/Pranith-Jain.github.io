@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/mass-scanning-targets-exposed-vite-development-servers-for-c-d12e1cf5?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/mass-scanning-targets-exposed-vite-development-servers-for-c-d12e1cf5",
   "pubDate": "2026-09-14T16:15:58.000Z",
-  "sourceCount": 11,
-  "categories": ["11 Sources"],
+  "sourceCount": 12,
+  "categories": ["12 Sources"],
   "description": "In August 2026, a mass-scanning campaign targeted internet-exposed Vite development servers to steal sensitive cloud credentials and configuration files from AWS and Azure.",
   "sizeBytes": 172
 }

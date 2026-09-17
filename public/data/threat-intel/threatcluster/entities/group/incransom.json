@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "incransom",
+  "name": "incransom",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-17T07:24:58.000Z",
+  "lastSeen": "2026-09-17T07:25:33.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-17",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "www-appliancefactory-com-6357",
+      "title": "www.appliancefactory.com — claimed by incransom",
+      "pubDate": "2026-09-17T07:25:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "www-diarco-com-ar-6b5f",
+      "title": "www.diarco.com.ar — claimed by incransom",
+      "pubDate": "2026-09-17T07:24:58.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "www-appliancefactory-com-6357",
+      "victim": "www.appliancefactory.com — claimed by incransom",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-17T07:25:33.000Z"
+    },
+    {
+      "id": "www-diarco-com-ar-6b5f",
+      "victim": "www.diarco.com.ar — claimed by incransom",
+      "sector": "Retail & E-Commerce",
+      "country": "AR",
+      "pubDate": "2026-09-17T07:24:58.000Z"
+    }
+  ]
+}

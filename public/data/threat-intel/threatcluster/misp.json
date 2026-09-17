@@ -1,28 +1,9 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-16T10:10:53.001Z",
-  "eventCount": 8,
+  "syncedAt": "2026-09-17T10:16:58.375Z",
+  "eventCount": 9,
   "events": [
-    {
-      "uuid": "004fd653-a3cc-5f31-9228-fc427045f51c",
-      "info": "Critical Cisco FMC Vulnerabilities Under Active Exploitation",
-      "date": "2026-09-09",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1788986654",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:apt",
-        "type:ransomware",
-        "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"Sandworm\""
-      ],
-      "orgc": "ThreatCluster"
-    },
     {
       "uuid": "7fb152ac-1e3f-50c8-a3bd-703cef7ec47f",
       "info": "Critical Zero-Day Vulnerability in Cisco Secure Email Gateway Exploited",
@@ -51,20 +32,13 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "5549ea9a-721e-5146-8e25-57f009a94270",
-      "info": "BlueMoon Exploit Kit Targeting Chrome and Windows by Multiple State Actors",
-      "date": "2026-09-09",
+      "uuid": "22b843e4-f5e4-5d06-9778-3927873531d4",
+      "info": "Critical WSO2 API Manager Vulnerability Under Active Exploitation",
+      "date": "2026-09-16",
       "analysis": "2",
       "threat_level_id": "1",
-      "timestamp": "1788974094",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability"
-      ],
+      "timestamp": "1789546980",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -85,22 +59,22 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "d8f5ae3a-024e-53fd-ae65-653a36d20392",
-      "info": "AI-Driven Exploitation of PaperCut Vulnerabilities Compromises 440 Servers Globally",
-      "date": "2026-09-09",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1788977620",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "d8c1498b-8e76-525e-8a75-27a52d57424a",
       "info": "AI-Driven Cyber Attacks Targeting Critical Infrastructure and Data Security",
       "date": "2026-09-14",
       "analysis": "2",
       "threat_level_id": "2",
       "timestamp": "1789401743",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "23fc7acd-2005-5972-bb94-8c886afcc70a",
+      "info": "Critical Vulnerability in Issabel Framework Allows Remote Code Execution",
+      "date": "2026-09-16",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789580008",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
@@ -118,6 +92,40 @@
         "type:apt",
         "type:malware",
         "type:vulnerability"
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "dd8ce36f-96f8-5dd3-91a9-f1a48824e6b4",
+      "info": "Critical RCE Vulnerability in n8n Disclosed (CVE-2025-68613)",
+      "date": "2026-09-14",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789408446",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "1c54b5e9-dcda-5b67-8295-fadb01baea61",
+      "info": "Iranian State Actors Deploy CHOSEN BRICK Spyware Against Dissidents",
+      "date": "2026-09-15",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789486505",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"Kimsuky\"",
+        "misp-galaxy:threat-actor=\"Lazarus Group\"",
+        "misp-galaxy:threat-actor=\"Volt Typhoon\"",
+        "misp-galaxy:ransomware=\"Black Basta\"",
+        "misp-galaxy:ransomware=\"Conti\"",
+        "misp-galaxy:ransomware=\"Lockbit\""
       ],
       "orgc": "ThreatCluster"
     }

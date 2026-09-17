@@ -4,21 +4,55 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 14,
-  "firstSeen": "2026-09-15T07:12:00.000Z",
-  "lastSeen": "2026-09-16T04:01:03.000Z",
-  "summary": "Sector hit by 14 leak-site victims across 7 ransomware groups and 9 countries.",
+  "mentionCount": 13,
+  "firstSeen": "2026-09-15T14:02:02.000Z",
+  "lastSeen": "2026-09-17T07:25:33.000Z",
+  "summary": "Sector hit by 13 leak-site victims across 8 ransomware groups and 10 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
-      "count": 13
+      "count": 7
     },
     {
       "date": "2026-09-16",
+      "count": 5
+    },
+    {
+      "date": "2026-09-17",
       "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "www-appliancefactory-com-6357",
+      "title": "www.appliancefactory.com — claimed by incransom",
+      "pubDate": "2026-09-17T07:25:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "rda-motors-s-p-a-845c",
+      "title": "RDA MOTORS S.P.A. — claimed by emperador",
+      "pubDate": "2026-09-16T20:50:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "roshd-sanat-7dad",
+      "title": "Roshd Sanat — claimed by wallstreet",
+      "pubDate": "2026-09-16T16:22:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "thema-foundries-9027",
+      "title": "Thema Foundries — claimed by qilin",
+      "pubDate": "2026-09-16T15:05:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "manders-b33d",
+      "title": "Manders — claimed by akira",
+      "pubDate": "2026-09-16T14:23:12.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "aarsleff-3eb5",
@@ -60,50 +94,20 @@
       "slug": "pilot-precision-7902",
       "title": "Pilot Precision — claimed by akira",
       "pubDate": "2026-09-15T14:53:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "montana-civil-contractors-b403",
-      "title": "Montana Civil Contractors — claimed by qilin",
-      "pubDate": "2026-09-15T14:02:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sfa-engineering-corporation-8fa0",
-      "title": "SFA Engineering Corporation — claimed by metaencryptor",
-      "pubDate": "2026-09-15T11:59:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "nippon-steel-corporation-3dad",
-      "title": "Nippon Steel Corporation — claimed by metaencryptor",
-      "pubDate": "2026-09-15T11:59:12.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "balkan-polymers-ebf6",
-      "title": "Balkan Polymers — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:15:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "downrite-engineering-01e4",
-      "title": "Downrite Engineering — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:14:07.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 4
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 3
+      "slug": "akira",
+      "name": "akira",
+      "weight": 2
     },
     {
       "type": "group",
@@ -113,9 +117,21 @@
     },
     {
       "type": "group",
-      "slug": "metaencryptor",
-      "name": "metaencryptor",
-      "weight": 2
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "emperador",
+      "name": "emperador",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "wallstreet",
+      "name": "wallstreet",
+      "weight": 1
     },
     {
       "type": "group",
@@ -127,12 +143,6 @@
       "type": "group",
       "slug": "dark-project",
       "name": "dark project",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "akira",
-      "name": "akira",
       "weight": 1
     }
   ],

@@ -1,0 +1,11 @@
+{
+  "slug": "cisco-identity-services-engine-vulnerabilities-lead-to-remot-f4f0c6d1",
+  "title": "Cisco Identity Services Engine Vulnerabilities Lead to Remote Code Execution Risks",
+  "link": "https://threatcluster.io/cluster/cisco-identity-services-engine-vulnerabilities-lead-to-remot-f4f0c6d1?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/cisco-identity-services-engine-vulnerabilities-lead-to-remot-f4f0c6d1",
+  "pubDate": "2026-09-16T16:00:00.000Z",
+  "sourceCount": 27,
+  "categories": ["27 Sources"],
+  "description": "Multiple vulnerabilities have been identified in Cisco Identity Services Engine ISE and its Passive Identity Connector ISE-PIC, allowing authenticated remote attackers to execute arbitrary commands, p…",
+  "sizeBytes": 201
+}

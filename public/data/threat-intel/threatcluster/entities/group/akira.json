@@ -4,17 +4,39 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 6,
   "firstSeen": "2026-09-15T13:53:02.000Z",
-  "lastSeen": "2026-09-15T14:53:24.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "lastSeen": "2026-09-16T14:54:53.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 5 sectors and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
       "count": 3
+    },
+    {
+      "date": "2026-09-16",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "blossomland-accounting-ee4b",
+      "title": "Blossomland Accounting — claimed by akira",
+      "pubDate": "2026-09-16T14:54:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bee-maid-honey-2620",
+      "title": "Bee Maid Honey — claimed by akira",
+      "pubDate": "2026-09-16T14:54:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "manders-b33d",
+      "title": "Manders — claimed by akira",
+      "pubDate": "2026-09-16T14:23:12.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "pilot-precision-7902",
@@ -39,6 +61,18 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
       "weight": 1
     },
     {
@@ -56,6 +90,27 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "blossomland-accounting-ee4b",
+      "victim": "Blossomland Accounting — claimed by akira",
+      "sector": "Professional Services",
+      "country": null,
+      "pubDate": "2026-09-16T14:54:53.000Z"
+    },
+    {
+      "id": "bee-maid-honey-2620",
+      "victim": "Bee Maid Honey — claimed by akira",
+      "sector": "Agriculture and Food Production",
+      "country": "CA",
+      "pubDate": "2026-09-16T14:54:41.000Z"
+    },
+    {
+      "id": "manders-b33d",
+      "victim": "Manders — claimed by akira",
+      "sector": "Manufacturing",
+      "country": "GB",
+      "pubDate": "2026-09-16T14:23:12.000Z"
+    },
     {
       "id": "pilot-precision-7902",
       "victim": "Pilot Precision — claimed by akira",
