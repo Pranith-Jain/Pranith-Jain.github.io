@@ -1,0 +1,26 @@
+{
+  "type": "cyber",
+  "date": "2026-09-16",
+  "threatLevel": "",
+  "executiveSummary": "",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "relevance": "",
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "",
+  "relatedCves": [
+    "CVE-2026-8452"
+  ]
+}
