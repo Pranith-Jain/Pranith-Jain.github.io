@@ -4,21 +4,45 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-15T11:02:55.000Z",
-  "lastSeen": "2026-09-16T04:01:03.000Z",
-  "summary": "Ransomware group with 7 leak-site victims across 4 sectors and 4 countries.",
+  "mentionCount": 9,
+  "firstSeen": "2026-09-15T12:01:12.000Z",
+  "lastSeen": "2026-09-16T17:02:52.000Z",
+  "summary": "Ransomware group with 9 leak-site victims across 5 sectors and 6 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
-      "count": 6
+      "count": 4
     },
     {
       "date": "2026-09-16",
-      "count": 1
+      "count": 5
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "reddrop-group-1da6",
+      "title": "Reddrop Group — claimed by qilin",
+      "pubDate": "2026-09-16T17:02:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "in-the-company-of-huskies-cca6",
+      "title": "In The Company of Huskies — claimed by qilin",
+      "pubDate": "2026-09-16T17:02:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "thorndale-foundation-f525",
+      "title": "Thorndale Foundation — claimed by qilin",
+      "pubDate": "2026-09-16T15:05:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "thema-foundries-9027",
+      "title": "Thema Foundries — claimed by qilin",
+      "pubDate": "2026-09-16T15:05:26.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "aarsleff-3eb5",
@@ -48,18 +72,6 @@
       "slug": "adm-a5cf",
       "title": "ADM — claimed by qilin",
       "pubDate": "2026-09-15T12:01:12.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "incrys-8fba",
-      "title": "Incrys — claimed by qilin",
-      "pubDate": "2026-09-15T11:03:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bravo-group-038e",
-      "title": "Bravo Group — claimed by qilin",
-      "pubDate": "2026-09-15T11:02:55.000Z"
     }
   ],
   "relatedEntities": [
@@ -67,13 +79,19 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 3
+      "weight": 4
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 2
     },
     {
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 2
+      "weight": 1
     },
     {
       "type": "sector",
@@ -90,6 +108,34 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "reddrop-group-1da6",
+      "victim": "Reddrop Group — claimed by qilin",
+      "sector": "Not Found",
+      "country": "AU",
+      "pubDate": "2026-09-16T17:02:52.000Z"
+    },
+    {
+      "id": "in-the-company-of-huskies-cca6",
+      "victim": "In The Company of Huskies — claimed by qilin",
+      "sector": "Other",
+      "country": "CA",
+      "pubDate": "2026-09-16T17:02:23.000Z"
+    },
+    {
+      "id": "thorndale-foundation-f525",
+      "victim": "Thorndale Foundation — claimed by qilin",
+      "sector": "Other",
+      "country": "AU",
+      "pubDate": "2026-09-16T15:05:57.000Z"
+    },
+    {
+      "id": "thema-foundries-9027",
+      "victim": "Thema Foundries — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "FR",
+      "pubDate": "2026-09-16T15:05:26.000Z"
+    },
     {
       "id": "aarsleff-3eb5",
       "victim": "Aarsleff — claimed by qilin",
@@ -124,20 +170,6 @@
       "sector": "Agriculture and Food Production",
       "country": "US",
       "pubDate": "2026-09-15T12:01:12.000Z"
-    },
-    {
-      "id": "incrys-8fba",
-      "victim": "Incrys — claimed by qilin",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-09-15T11:03:33.000Z"
-    },
-    {
-      "id": "bravo-group-038e",
-      "victim": "Bravo Group — claimed by qilin",
-      "sector": "Not Found",
-      "country": "IT",
-      "pubDate": "2026-09-15T11:02:55.000Z"
     }
   ]
 }

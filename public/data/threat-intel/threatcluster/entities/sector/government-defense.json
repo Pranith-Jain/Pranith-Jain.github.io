@@ -4,17 +4,33 @@
   "name": "Government & Defense",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 4,
   "firstSeen": "2026-09-15T15:31:16.000Z",
-  "lastSeen": "2026-09-15T19:29:06.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "lastSeen": "2026-09-16T15:32:23.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
       "count": 2
+    },
+    {
+      "date": "2026-09-16",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "namibian-defence-force-0737",
+      "title": "Namibian Defence Force — claimed by ransomhouse",
+      "pubDate": "2026-09-16T15:32:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "arda-9489",
+      "title": "ARDA — claimed by arcusmedia",
+      "pubDate": "2026-09-16T13:53:57.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "gob-pe-1835",
@@ -29,6 +45,18 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "ransomhouse",
+      "name": "ransomhouse",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "arcusmedia",
+      "name": "arcusmedia",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "safepay",

@@ -4,17 +4,43 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-15T10:47:23.000Z",
-  "lastSeen": "2026-09-15T19:31:55.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 3 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-15T19:30:46.000Z",
+  "lastSeen": "2026-09-17T07:24:58.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
-      "count": 3
+      "count": 2
+    },
+    {
+      "date": "2026-09-16",
+      "count": 2
+    },
+    {
+      "date": "2026-09-17",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "www-diarco-com-ar-6b5f",
+      "title": "www.diarco.com.ar — claimed by incransom",
+      "pubDate": "2026-09-17T07:24:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "palletshop-8681",
+      "title": "palletshop — claimed by auditteam",
+      "pubDate": "2026-09-16T18:22:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "leisure-coast-kitchens-e59f",
+      "title": "Leisure Coast Kitchens — claimed by kairos",
+      "pubDate": "2026-09-16T17:57:09.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "laconcepcion-com-mx-2cee",
@@ -26,12 +52,6 @@
       "slug": "stoecklin-kuechen-ch-9d06",
       "title": "stoecklin-kuechen.ch — claimed by safepay",
       "pubDate": "2026-09-15T19:30:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "mccarthy-tire-service-1323",
-      "title": "McCarthy Tire Service — claimed by storm",
-      "pubDate": "2026-09-15T10:47:23.000Z"
     }
   ],
   "relatedEntities": [
@@ -43,8 +63,20 @@
     },
     {
       "type": "group",
-      "slug": "storm",
-      "name": "storm",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "auditteam",
+      "name": "auditteam",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "kairos",
+      "name": "kairos",
       "weight": 1
     }
   ],

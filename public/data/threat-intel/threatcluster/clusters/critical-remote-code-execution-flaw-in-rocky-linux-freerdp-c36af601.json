@@ -1,0 +1,11 @@
+{
+  "slug": "critical-remote-code-execution-flaw-in-rocky-linux-freerdp-c36af601",
+  "title": "Critical Remote Code Execution Flaw in Rocky Linux FreeRDP",
+  "link": "https://threatcluster.io/cluster/critical-remote-code-execution-flaw-in-rocky-linux-freerdp-c36af601?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-remote-code-execution-flaw-in-rocky-linux-freerdp-c36af601",
+  "pubDate": "2026-09-11T16:09:43.000Z",
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
+  "description": "Rocky Linux has issued advisories for significant remote code execution vulnerabilities in FreeRDP affecting versions 9 and 10.",
+  "sizeBytes": 127
+}

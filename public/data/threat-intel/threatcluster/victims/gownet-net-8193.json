@@ -1,0 +1,14 @@
+{
+  "id": "gownet-net-8193",
+  "victim": "gownet.net",
+  "group": "auditteam",
+  "sector": "Other",
+  "country": "KR",
+  "title": "gownet.net — claimed by auditteam",
+  "link": "https://threatcluster.io/dark-web/victim/gownet.net",
+  "guid": "darkweb-victim:auditteam:gownet.net",
+  "pubDate": "2026-09-16T18:21:20.000Z",
+  "categories": ["Group: auditteam", "Sector: Other", "Country: KR"],
+  "description": "KR · Other · No data breaches",
+  "sizeBytes": 29
+}

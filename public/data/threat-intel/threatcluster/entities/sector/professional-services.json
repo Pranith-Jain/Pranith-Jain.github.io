@@ -4,17 +4,27 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 4,
   "firstSeen": "2026-09-15T13:03:21.000Z",
-  "lastSeen": "2026-09-15T19:29:39.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "lastSeen": "2026-09-16T14:54:53.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-15",
       "count": 3
+    },
+    {
+      "date": "2026-09-16",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "blossomland-accounting-ee4b",
+      "title": "Blossomland Accounting — claimed by akira",
+      "pubDate": "2026-09-16T14:54:53.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "ara-lyss-ch-4c97",
@@ -35,6 +45,12 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "akira",
+      "name": "akira",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "safepay",

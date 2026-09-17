@@ -1,0 +1,126 @@
+{
+  "type": "group",
+  "slug": "auditteam",
+  "name": "auditteam",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 6,
+  "firstSeen": "2026-09-16T18:20:54.000Z",
+  "lastSeen": "2026-09-16T18:22:57.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-16",
+      "count": 6
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "palletshop-8681",
+      "title": "palletshop — claimed by auditteam",
+      "pubDate": "2026-09-16T18:22:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "wise-it-b645",
+      "title": "Wise IT — claimed by auditteam",
+      "pubDate": "2026-09-16T18:22:34.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "buben-02f0",
+      "title": "buben — claimed by auditteam",
+      "pubDate": "2026-09-16T18:22:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dg-ac-kr-bb01",
+      "title": "dg.ac.kr — claimed by auditteam",
+      "pubDate": "2026-09-16T18:21:45.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gownet-net-8193",
+      "title": "gownet.net — claimed by auditteam",
+      "pubDate": "2026-09-16T18:21:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "krimax-org-ad93",
+      "title": "krimax.org — claimed by auditteam",
+      "pubDate": "2026-09-16T18:20:54.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "palletshop-8681",
+      "victim": "palletshop — claimed by auditteam",
+      "sector": "Retail & E-Commerce",
+      "country": "RU",
+      "pubDate": "2026-09-16T18:22:57.000Z"
+    },
+    {
+      "id": "wise-it-b645",
+      "victim": "Wise IT — claimed by auditteam",
+      "sector": "Technology",
+      "country": "UA",
+      "pubDate": "2026-09-16T18:22:34.000Z"
+    },
+    {
+      "id": "buben-02f0",
+      "victim": "buben — claimed by auditteam",
+      "sector": "Other",
+      "country": "RU",
+      "pubDate": "2026-09-16T18:22:08.000Z"
+    },
+    {
+      "id": "dg-ac-kr-bb01",
+      "victim": "dg.ac.kr — claimed by auditteam",
+      "sector": "Education",
+      "country": "KR",
+      "pubDate": "2026-09-16T18:21:45.000Z"
+    },
+    {
+      "id": "gownet-net-8193",
+      "victim": "gownet.net — claimed by auditteam",
+      "sector": "Other",
+      "country": "KR",
+      "pubDate": "2026-09-16T18:21:20.000Z"
+    },
+    {
+      "id": "krimax-org-ad93",
+      "victim": "krimax.org — claimed by auditteam",
+      "sector": "Other",
+      "country": "AR",
+      "pubDate": "2026-09-16T18:20:54.000Z"
+    }
+  ]
+}

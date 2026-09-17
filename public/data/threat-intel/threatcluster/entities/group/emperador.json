@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "emperador",
+  "name": "emperador",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-16T18:54:25.000Z",
+  "lastSeen": "2026-09-16T20:50:58.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-16",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "rda-motors-s-p-a-845c",
+      "title": "RDA MOTORS S.P.A. — claimed by emperador",
+      "pubDate": "2026-09-16T20:50:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sevenoaks-s-r-o-ca1e",
+      "title": "SEVENOAKS s.r.o. — claimed by emperador",
+      "pubDate": "2026-09-16T18:54:25.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "rda-motors-s-p-a-845c",
+      "victim": "RDA MOTORS S.P.A. — claimed by emperador",
+      "sector": "Manufacturing",
+      "country": "IT",
+      "pubDate": "2026-09-16T20:50:58.000Z"
+    },
+    {
+      "id": "sevenoaks-s-r-o-ca1e",
+      "victim": "SEVENOAKS s.r.o. — claimed by emperador",
+      "sector": "Not Found",
+      "country": "CZ",
+      "pubDate": "2026-09-16T18:54:25.000Z"
+    }
+  ]
+}

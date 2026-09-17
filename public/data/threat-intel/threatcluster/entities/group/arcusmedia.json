@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-15T11:52:38.000Z",
-  "lastSeen": "2026-09-15T11:52:38.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "firstSeen": "2026-09-16T13:53:57.000Z",
+  "lastSeen": "2026-09-16T13:53:57.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "asada-sarapiqu-5cde",
-      "title": "Asada Sarapiqu — claimed by arcusmedia",
-      "pubDate": "2026-09-15T11:52:38.000Z"
+      "slug": "arda-9489",
+      "title": "ARDA — claimed by arcusmedia",
+      "pubDate": "2026-09-16T13:53:57.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
+      "slug": "government-defense",
+      "name": "Government & Defense",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "asada-sarapiqu-5cde",
-      "victim": "Asada Sarapiqu — claimed by arcusmedia",
-      "sector": "Agriculture and Food Production",
-      "country": "CR",
-      "pubDate": "2026-09-15T11:52:38.000Z"
+      "id": "arda-9489",
+      "victim": "ARDA — claimed by arcusmedia",
+      "sector": "Government & Defense",
+      "country": null,
+      "pubDate": "2026-09-16T13:53:57.000Z"
     }
   ]
 }

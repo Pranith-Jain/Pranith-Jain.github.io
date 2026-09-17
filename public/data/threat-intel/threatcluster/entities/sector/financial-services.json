@@ -4,47 +4,29 @@
   "name": "Financial Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-15T07:11:41.000Z",
-  "lastSeen": "2026-09-15T10:46:21.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 3 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-16T19:54:07.000Z",
+  "lastSeen": "2026-09-16T19:54:07.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 0 countries.",
   "frequency": [
     {
-      "date": "2026-09-15",
-      "count": 3
+      "date": "2026-09-16",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "insight-credit-union-25b6",
-      "title": "Insight Credit Union — claimed by storm",
-      "pubDate": "2026-09-15T10:46:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "agenzia-vittoria-assicurazioni-2884",
-      "title": "Agenzia Vittoria Assicurazioni — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:14:27.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dang-invest-group-9519",
-      "title": "Dang Invest Group — claimed by thegentlemen",
-      "pubDate": "2026-09-15T07:11:41.000Z"
+      "slug": "optimum-first-mortgage-pear-s-acting-group-s-promotional-blog-d41c",
+      "title": "Optimum First Mortgage (Pear's acting group's promotional blog) — claimed by blacknevas",
+      "pubDate": "2026-09-16T19:54:07.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "storm",
+      "slug": "blacknevas",
+      "name": "blacknevas",
       "weight": 1
     }
   ],
