@@ -5,11 +5,11 @@
   "discovered": "2026-09-18T00:23:07.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "PY",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/cb538035-9b3a-4ac6-82dd-fe3c47d5085c",
+  "description": "INOVAPY is a technology company specializing in software development and digital transformation solutions for small and medium-sized businesses, offering reliable and scalable technological services across Latin America and beyond.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

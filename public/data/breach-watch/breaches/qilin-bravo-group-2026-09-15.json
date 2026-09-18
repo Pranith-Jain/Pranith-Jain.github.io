@@ -5,11 +5,11 @@
   "discovered": "2026-09-15T11:02:55.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "SG",
+  "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/dccc5cd2-bdcf-4e3e-b084-42b359571e53",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

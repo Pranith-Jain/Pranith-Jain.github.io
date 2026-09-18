@@ -1,0 +1,15 @@
+{
+  "slug": "vexy-ransomware-strad-solutions-2026-09-12",
+  "title": "Strad Solutions",
+  "group": "Vexy Ransomware",
+  "discovered": "2026-09-12T23:58:29.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Strad Solutions provides cloud hosting, dedicated servers, managed IT, cybersecurity, and disaster recovery services for businesses worldwide.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

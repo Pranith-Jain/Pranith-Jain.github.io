@@ -1,15 +1,15 @@
 {
   "slug": "chaos-expresspros-com-2026-09-17",
   "title": "expresspros.com",
-  "group": "chaos",
-  "discovered": "2026-09-17T16:25:49.000Z",
+  "group": "Chaos",
+  "discovered": "2026-09-17T00:00:00.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/704aa65e-35f8-4860-93f5-6a5a23d82063",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/expresspros-com-chaos-2026-09",
   "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "activity": null,
+  "references": ["RecentBreaches.com"]
 }

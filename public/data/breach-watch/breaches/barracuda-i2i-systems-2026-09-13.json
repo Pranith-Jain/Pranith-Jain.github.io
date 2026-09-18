@@ -1,0 +1,15 @@
+{
+  "slug": "barracuda-i2i-systems-2026-09-13",
+  "title": "i2i-systems",
+  "group": "Barracuda",
+  "discovered": "2026-09-13T09:20:21.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "This is one of the most poorly secured companies we have ever encountered. Over the course of a week, we analyzed the infrastructure and moved freely across their network. The infrastructure lacked proper security configurations, and the IT department showed a complete disregard for the data. As a result of the attack, 693 gigabytes of data were exfiltrated.\r\nWe downloaded the complete source code for the following projects:\r\n\r\nCaplan\r\nDataGov-Dev-Docker\r\nDDR\r\nDDR-Veriskop\r\nDFE-Dev\r\nKangal-Dev\r\nSDD-DEV-DOCKER\r\nSDD-MAIN\r\ncommonprojects.zip\r\nCopycat.zip\r\nCopycatLive.zip\r\ndatacat.war\r\ndatagov.war\r\nKangal-Dev.zip\r\nKangal-Master.zip\r\nSDD-DEV-DOCKER@2.zip\r\nsmartdq.war\r\n\r\nThe volume of exfiltrated source code totaled 44 gigabytes. The data includes a full snapshot of the latest releases from the development repository. i2i-systems has a direct connection to the information security company Veriskop; therefore, this breach directly affects them as well. In addition, i2i-systems engaged in joint projects with partners such as Vodafone, Etiya, Bouygues, Freedom Mobile, and others; this is evidenced by the Linux servers located within the i2i-systems infrastructure:\r\n\r\n1864654005 backup_Veriskop-SQA1.local_2026-08-31_203808.tar.gz\r\n3292962897 copycat2019.i2isystems.local_critical_backup_2026-08-31_19-30-29.tar.gz\r\n18422354 critical_backup_bouygues_fcbs_batch2.local_20260830_221815.tar.gz\r\n2231188487 etiya-mobile-test-01.local_backup_20260831_213207.tar.gz\r\n20546323810 freedom-mobile1-critical-vault.tar.gz\r\n1050673952 freedom-mobile2-secrets-20260830-232814.tar.gz\r\n721661 maya-redhat7-9_2026-08-30_233036.tar.gz\r\n22966288270 ol8-10-innobi_full_backup_20260831_022640.tar.gz\r\n529695763 veriskop-db-critical-backup-2026-08-31_234418.tar.gz\r\n13012999372 veriskop-fiziksel-yedek-20260831023535.tar.gz\r\n309528511 veriskop-oracle-critical-backup-2026-08-31_203340.tar.gz\r\n633604141 veriskop-rhel-7.local_critical_backup.tar.gz\r\n4878999722 Veriskoptest01.local_backup_20260831_213236.tar.gz\r\n238487575 Veriskoptest02.local_critical_backup_20260831_213052.tar.gz\r\n33936543608 veriskoptest03_critical_backup_2026-08-31.tar.gz\r\n\r\nWe have extracted absolutely all critical data from these infrastructure Linux systems and created a snapshot of the databases.\r\nIn addition, i2i-systems recently launched a joint project with Turk Telekom—we have downloaded the database containing all their customers.\r\nThe data will be published soon... | Severity: HIGH | Size: 643 GB | Status: selling | 300000$",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

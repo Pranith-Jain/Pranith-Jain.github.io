@@ -1,15 +1,15 @@
 {
   "slug": "qilin-techwise-2026-09-17",
   "title": "Techwise",
-  "group": "Qilin",
-  "discovered": "2026-09-17T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-09-17T16:03:05.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "AR",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/techwise-qilin-2026-09",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Technology",
+  "references": ["ransomware.live"]
 }

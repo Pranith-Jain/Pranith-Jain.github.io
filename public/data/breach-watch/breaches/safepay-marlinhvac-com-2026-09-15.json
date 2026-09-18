@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d7cfd52e-9549-4be6-ad48-c754bbd03a55",
+  "description": "Founded in 1989 by Michael and Richard Pellino, the company has developed more than three decades of experience in mechanical …",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "MX",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0c0bf9bc-38c2-4912-bb5b-c0a1a0f6f8d3",
+  "description": "The organization identifies itself as one of the principal private healthcare providers in the region and serves patients from Coahuila …",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

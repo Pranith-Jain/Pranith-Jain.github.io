@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "NA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1aaf5219-7493-42f4-bb92-61808ae3c76d",
+  "description": "The Namibian Defence Force comprises the national military forces of Namibia. It was created when the country, then known as South West Africa, gained independence from apartheid South Africa in 1990.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["RANSOM HOUSE"],
   "activity": "Government & Defense",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

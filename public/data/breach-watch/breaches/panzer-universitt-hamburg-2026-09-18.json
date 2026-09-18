@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3e724638-5009-4aae-a5c1-51cc7321622e",
+  "description": "Universität Hamburg is the largest research and educational institution in Northern Germany, with over 42,000 students. It offers a wide range of academic programs and is recognized for its excellence in research and teaching. The university serves diverse target groups including prospective students, current students, researchers, and alumni. It collaborates with various societal and economic partners to address contemporary challenges and contribute to future solutions.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Education",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

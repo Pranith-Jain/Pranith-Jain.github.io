@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TW",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/90bac5f9-221e-474f-8010-dfa253faf91e",
+  "description": "Silicon Integrated Systems Corporation (SiS) is a Taiwan-based professional IC design company specializing in analog and mixed-signal technologies.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

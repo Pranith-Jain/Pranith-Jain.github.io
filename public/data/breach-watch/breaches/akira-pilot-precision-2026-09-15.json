@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c6c1a8ad-462c-45af-9608-d3c267c0e9ed",
+  "description": "Pilot Precision Products specializes in industrial broaches, cutting tools, milling, drilling, \nand turning for machining operations. They offer a diverse array of products including CNC inde\nxable broaching, solid carbide drills, and various types of milling tools.\n\nWe will upload 30gb of corporate data soon. Employee personal information (SSN numbers, names, \naddresses and so on), detailed financials, lots of projects info, contracts and agreements, cus\ntomers, partners and so on.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

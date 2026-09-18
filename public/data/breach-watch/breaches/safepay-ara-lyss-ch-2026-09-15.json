@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CH",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/2fbf22e2-fe1c-4491-807a-403239364c52",
+  "description": "Its headquarters and main wastewater-treatment facility are located at Industriering 28 in Lyss. The organization also operates the ARA Messen …",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,49 +1,55 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-09-18T06:13:55.463Z",
-  "counts": { "breaches": 320, "groups": 72, "categories": 3 },
-  "lastSyncedAt": "2026-09-18T06:13:55.463Z",
+  "replicatedAt": "2026-09-18T07:55:54.947Z",
+  "counts": { "breaches": 350, "groups": 79, "categories": 2 },
+  "lastSyncedAt": "2026-09-18T07:55:54.947Z",
   "categories": [
-    { "key": "data_breach", "label": "Data Breach", "count": 161 },
-    { "key": "ransomware", "label": "Ransomware", "count": 158 },
-    { "key": "credential_leak", "label": "Credential Leak", "count": 1 }
+    { "key": "ransomware", "label": "Ransomware", "count": 195 },
+    { "key": "data_breach", "label": "Data Breach", "count": 155 }
   ],
   "groups": [
-    { "name": "Unattributed", "count": 35, "topCategory": "data_breach" },
-    { "name": "safepay", "count": 31, "topCategory": "ransomware" },
+    { "name": "safepay", "count": 32, "topCategory": "ransomware" },
     { "name": "thegentlemen", "count": 30, "topCategory": "ransomware" },
-    { "name": "qilin", "count": 20, "topCategory": "ransomware" },
+    { "name": "qilin", "count": 25, "topCategory": "ransomware" },
     { "name": "METAENCRYPTER", "count": 18, "topCategory": "data_breach" },
+    { "name": "krybit", "count": 17, "topCategory": "ransomware" },
     { "name": "BrainCipher", "count": 16, "topCategory": "ransomware" },
+    { "name": "AuditTeam", "count": 12, "topCategory": "data_breach" },
     { "name": "inc ransom", "count": 9, "topCategory": "data_breach" },
     { "name": "akira", "count": 9, "topCategory": "ransomware" },
-    { "name": "the gentlemen", "count": 8, "topCategory": "data_breach" },
+    { "name": "storm", "count": 8, "topCategory": "data_breach" },
+    { "name": "Panzer", "count": 8, "topCategory": "data_breach" },
+    { "name": "emperador", "count": 7, "topCategory": "data_breach" },
     { "name": "Rhysida", "count": 6, "topCategory": "ransomware" },
     { "name": "settra", "count": 6, "topCategory": "data_breach" },
+    { "name": "pear", "count": 6, "topCategory": "ransomware" },
     { "name": "audit team", "count": 6, "topCategory": "data_breach" },
-    { "name": "AuditTeam", "count": 6, "topCategory": "data_breach" },
-    { "name": "Panzer", "count": 5, "topCategory": "data_breach" },
+    { "name": "dragonforce", "count": 5, "topCategory": "ransomware" },
     { "name": "metaencryptor", "count": 5, "topCategory": "data_breach" },
-    { "name": "emperador", "count": 5, "topCategory": "data_breach" },
-    { "name": "pear", "count": 5, "topCategory": "ransomware" },
-    { "name": "krybit", "count": 4, "topCategory": "ransomware" },
-    { "name": "dragonforce", "count": 4, "topCategory": "ransomware" },
     { "name": "ransomhouse", "count": 4, "topCategory": "ransomware" },
-    { "name": "Qilin", "count": 4, "topCategory": "ransomware" },
+    { "name": "Vexy Ransomware", "count": 4, "topCategory": "data_breach" },
+    { "name": "lockbit5", "count": 4, "topCategory": "ransomware" },
     { "name": "AUR0RA", "count": 4, "topCategory": "data_breach" },
+    { "name": "Settra", "count": 4, "topCategory": "data_breach" },
     { "name": "genesis", "count": 4, "topCategory": "ransomware" },
+    { "name": "the gentlemen", "count": 4, "topCategory": "data_breach" },
+    { "name": "medusalocker", "count": 4, "topCategory": "ransomware" },
+    { "name": "nightspire", "count": 4, "topCategory": "ransomware" },
     { "name": "VEXY", "count": 3, "topCategory": "data_breach" },
     { "name": "brain cipher", "count": 3, "topCategory": "data_breach" },
+    { "name": "rhysida", "count": 3, "topCategory": "ransomware" },
+    { "name": "chaos", "count": 3, "topCategory": "ransomware" },
     { "name": "incransom", "count": 3, "topCategory": "ransomware" },
+    { "name": "Brain Cipher", "count": 3, "topCategory": "data_breach" },
+    { "name": "insomnia", "count": 3, "topCategory": "data_breach" },
     { "name": "Storm", "count": 3, "topCategory": "data_breach" },
-    { "name": "storm", "count": 3, "topCategory": "data_breach" },
+    { "name": "EndZone", "count": 2, "topCategory": "data_breach" },
     { "name": "Krybit", "count": 2, "topCategory": "ransomware" },
-    { "name": "rhysida", "count": 2, "topCategory": "ransomware" },
+    { "name": "Global Secret Group", "count": 2, "topCategory": "data_breach" },
     { "name": "vexy", "count": 2, "topCategory": "data_breach" },
-    { "name": "Vexy Ransomware", "count": 2, "topCategory": "data_breach" },
-    { "name": "Metaencryptor", "count": 2, "topCategory": "data_breach" },
-    { "name": "Settra", "count": 2, "topCategory": "data_breach" },
+    { "name": "shinyhunters", "count": 2, "topCategory": "ransomware" },
+    { "name": "Akira", "count": 2, "topCategory": "ransomware" },
     { "name": "ShadowByt3$", "count": 2, "topCategory": "data_breach" },
     { "name": "blacknevas", "count": 2, "topCategory": "ransomware" },
     { "name": "wallstreet", "count": 2, "topCategory": "data_breach" },
@@ -51,39 +57,199 @@
     { "name": "Wallstreet", "count": 2, "topCategory": "data_breach" },
     { "name": "panzer", "count": 2, "topCategory": "data_breach" },
     { "name": "arcusmedia", "count": 2, "topCategory": "ransomware" },
+    { "name": "beast", "count": 2, "topCategory": "data_breach" },
     { "name": "Dark Project", "count": 2, "topCategory": "data_breach" },
     { "name": "interlock", "count": 2, "topCategory": "data_breach" },
     { "name": "anubis", "count": 2, "topCategory": "ransomware" },
+    { "name": "unsafe", "count": 2, "topCategory": "data_breach" },
     { "name": "Eclipse", "count": 2, "topCategory": "data_breach" },
+    { "name": "Booba Project", "count": 2, "topCategory": "ransomware" },
+    { "name": "global", "count": 2, "topCategory": "data_breach" },
+    { "name": "Spirals", "count": 1, "topCategory": "data_breach" },
     { "name": "Ransomhouse", "count": 1, "topCategory": "ransomware" },
     { "name": "killsec", "count": 1, "topCategory": "data_breach" },
     { "name": "SilentRansomGroup", "count": 1, "topCategory": "data_breach" },
-    { "name": "Global Secret Group", "count": 1, "topCategory": "data_breach" },
     { "name": "leakeddata", "count": 1, "topCategory": "data_breach" },
-    { "name": "chaos", "count": 1, "topCategory": "ransomware" },
-    { "name": "lockbit5", "count": 1, "topCategory": "ransomware" },
+    { "name": "Qilin", "count": 1, "topCategory": "ransomware" },
     { "name": "Deadlock", "count": 1, "topCategory": "ransomware" },
     { "name": "black nevas", "count": 1, "topCategory": "data_breach" },
-    { "name": "shinyhunters", "count": 1, "topCategory": "ransomware" },
-    { "name": "Brain Cipher", "count": 1, "topCategory": "data_breach" },
     { "name": "INC Ransom", "count": 1, "topCategory": "data_breach" },
-    { "name": "Emperador", "count": 1, "topCategory": "data_breach" },
-    { "name": "Akira", "count": 1, "topCategory": "ransomware" },
-    { "name": "Vexy", "count": 1, "topCategory": "data_breach" },
-    { "name": "ShinyHunters", "count": 1, "topCategory": "ransomware" },
     { "name": "RansomHouse", "count": 1, "topCategory": "ransomware" },
     { "name": "Black Nevas", "count": 1, "topCategory": "data_breach" },
+    { "name": "Chaos", "count": 1, "topCategory": "ransomware" },
     { "name": "kairos", "count": 1, "topCategory": "data_breach" },
     { "name": "MS13-089", "count": 1, "topCategory": "data_breach" },
     { "name": "Gammax", "count": 1, "topCategory": "data_breach" },
-    { "name": "beast", "count": 1, "topCategory": "data_breach" },
     { "name": "dark project", "count": 1, "topCategory": "data_breach" },
-    { "name": "insomnia", "count": 1, "topCategory": "data_breach" },
     { "name": "iah647", "count": 1, "topCategory": "data_breach" },
     { "name": "iah6477", "count": 1, "topCategory": "data_breach" },
-    { "name": "unsafe", "count": 1, "topCategory": "data_breach" }
+    { "name": "Barracuda", "count": 1, "topCategory": "data_breach" },
+    { "name": "Doommageddon", "count": 1, "topCategory": "data_breach" },
+    { "name": "securotrop", "count": 1, "topCategory": "data_breach" },
+    { "name": "direwolf", "count": 1, "topCategory": "data_breach" },
+    { "name": "fulcrumsec", "count": 1, "topCategory": "ransomware" }
   ],
   "breachIndex": [
+    {
+      "slug": "storm-american-casting-company-2026-09-18",
+      "title": "American Casting Company",
+      "group": "storm",
+      "discovered": "2026-09-18T08:17:23.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 1412
+    },
+    {
+      "slug": "storm-johnson-investment-counsel-2026-09-18",
+      "title": "Johnson Investment Counsel",
+      "group": "storm",
+      "discovered": "2026-09-18T08:17:22.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 1405
+    },
+    {
+      "slug": "storm-first-secure-community-bank-2026-09-18",
+      "title": "First Secure Community Bank",
+      "group": "storm",
+      "discovered": "2026-09-18T08:17:21.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 1209
+    },
+    {
+      "slug": "storm-the-state-bank-2026-09-18",
+      "title": "The State Bank",
+      "group": "storm",
+      "discovered": "2026-09-18T08:17:20.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 2345
+    },
+    {
+      "slug": "storm-first-secure-bank-and-trust-2026-09-18",
+      "title": "First Secure Bank and Trust",
+      "group": "storm",
+      "discovered": "2026-09-18T08:17:19.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 1507
+    },
+    {
+      "slug": "endzone-accela-com-2026-09-18",
+      "title": "Accela.com",
+      "group": "EndZone",
+      "discovered": "2026-09-18T07:06:41.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 889
+    },
+    {
+      "slug": "endzone-at-t-2026-09-18",
+      "title": "AT&T",
+      "group": "EndZone",
+      "discovered": "2026-09-18T07:06:21.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 991
+    },
+    {
+      "slug": "braincipher-eworldme-part01-rar-2026-09-18",
+      "title": "eworldme.part01.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "braincipher-eworldme-part02-rar-2026-09-18",
+      "title": "eworldme.part02.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "braincipher-eworldme-part03-rar-2026-09-18",
+      "title": "eworldme.part03.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "braincipher-eworldme-part04-rar-2026-09-18",
+      "title": "eworldme.part04.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "braincipher-eworldme-part05-rar-2026-09-18",
+      "title": "eworldme.part05.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "braincipher-eworldme-part06-rar-2026-09-18",
+      "title": "eworldme.part06.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "braincipher-eworldme-part07-rar-2026-09-18",
+      "title": "eworldme.part07.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "braincipher-eworldme-part08-rar-2026-09-18",
+      "title": "eworldme.part08.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T07:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 417
+    },
+    {
+      "slug": "spirals-anythingit-2026-09-18",
+      "title": "ANYTHINGIT",
+      "group": "Spirals",
+      "discovered": "2026-09-18T07:03:21.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 509
+    },
     {
       "slug": "metaencrypter-st-engineering-singapore-technologies-engineering-2026-09-18",
       "title": "ST Engineering (Singapore Technologies Engineering)",
@@ -272,7 +438,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "SG",
-      "sizeBytes": 389
+      "sizeBytes": 346
     },
     {
       "slug": "krybit-www-harputyapi-com-2026-09-18",
@@ -302,7 +468,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "DE",
-      "sizeBytes": 401
+      "sizeBytes": 817
     },
     {
       "slug": "panzer-inovapy-2026-09-18",
@@ -311,8 +477,8 @@
       "discovered": "2026-09-18T00:23:07.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 380
+      "country": "PY",
+      "sizeBytes": 550
     },
     {
       "slug": "panzer-stim-2026-09-18",
@@ -321,8 +487,8 @@
       "discovered": "2026-09-18T00:22:35.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 374
+      "country": "FR",
+      "sizeBytes": 587
     },
     {
       "slug": "krybit-harputyapi-com-2026-09-18",
@@ -352,7 +518,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": null,
-      "sizeBytes": 428
+      "sizeBytes": 446
     },
     {
       "slug": "krybit-www-harputyapi-com-2026-09-17",
@@ -362,7 +528,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "TR",
-      "sizeBytes": 400
+      "sizeBytes": 462
     },
     {
       "slug": "krybit-www-diakonie-apolda-de-2026-09-17",
@@ -372,7 +538,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "DE",
-      "sizeBytes": 409
+      "sizeBytes": 471
     },
     {
       "slug": "global-secret-group-hinduja-tech-bmw-group-koda-auto-2026-09-17",
@@ -392,7 +558,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "DE",
-      "sizeBytes": 381
+      "sizeBytes": 323
     },
     {
       "slug": "leakeddata-w-b-2026-09-17",
@@ -412,7 +578,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 393
+      "sizeBytes": 335
     },
     {
       "slug": "brain-cipher-hoyletanner-com-2026-09-17",
@@ -522,7 +688,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 404
+      "sizeBytes": 649
     },
     {
       "slug": "braincipher-hoyletanner-com-2026-09-17",
@@ -532,7 +698,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "GB",
-      "sizeBytes": 434
+      "sizeBytes": 391
     },
     {
       "slug": "braincipher-aecom-com-2026-09-17",
@@ -542,7 +708,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 422
+      "sizeBytes": 800
     },
     {
       "slug": "qilin-techwise-2026-09-17",
@@ -552,7 +718,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "AR",
-      "sizeBytes": 383
+      "sizeBytes": 325
     },
     {
       "slug": "qilin-the-gran-hotel-ingles-2026-09-17",
@@ -562,7 +728,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "ES",
-      "sizeBytes": 410
+      "sizeBytes": 352
     },
     {
       "slug": "settra-rottner-tresor-at-2026-09-17",
@@ -572,7 +738,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "AT",
-      "sizeBytes": 403
+      "sizeBytes": 445
     },
     {
       "slug": "settra-naturesplus-com-2026-09-17",
@@ -582,7 +748,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 405
+      "sizeBytes": 447
     },
     {
       "slug": "settra-pacificabs-com-2026-09-17",
@@ -592,7 +758,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "AU",
-      "sizeBytes": 405
+      "sizeBytes": 449
     },
     {
       "slug": "settra-fchhotels-com-2026-09-17",
@@ -602,7 +768,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "BR",
-      "sizeBytes": 393
+      "sizeBytes": 437
     },
     {
       "slug": "settra-budgetms-com-2026-09-17",
@@ -612,7 +778,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "MS",
-      "sizeBytes": 398
+      "sizeBytes": 440
     },
     {
       "slug": "settra-sym-com-mx-2026-09-17",
@@ -622,7 +788,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "MX",
-      "sizeBytes": 386
+      "sizeBytes": 430
     },
     {
       "slug": "braincipher-xpera-ca-2026-09-17",
@@ -632,7 +798,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "CA",
-      "sizeBytes": 409
+      "sizeBytes": 366
     },
     {
       "slug": "ransomhouse-pertamina-2026-09-17",
@@ -642,7 +808,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "ID",
-      "sizeBytes": 415
+      "sizeBytes": 558
     },
     {
       "slug": "incransom-silicon-integrated-systems-2026-09-17",
@@ -652,7 +818,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "TW",
-      "sizeBytes": 445
+      "sizeBytes": 531
     },
     {
       "slug": "akira-practice-management-maximizedrevenue-com-2026-09-17",
@@ -662,7 +828,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 470
+      "sizeBytes": 816
     },
     {
       "slug": "akira-vetta-2026-09-17",
@@ -671,8 +837,8 @@
       "discovered": "2026-09-17T13:24:13.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": null,
-      "sizeBytes": 387
+      "country": "BR",
+      "sizeBytes": 761
     },
     {
       "slug": "akira-javep-chevrolet-2026-09-17",
@@ -681,8 +847,8 @@
       "discovered": "2026-09-17T13:23:54.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": null,
-      "sizeBytes": 416
+      "country": "BR",
+      "sizeBytes": 788
     },
     {
       "slug": "metaencryptor-beckman-coulter-inc-2026-09-17",
@@ -692,7 +858,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 419
+      "sizeBytes": 770
     },
     {
       "slug": "metaencryptor-aecom-2026-09-17",
@@ -702,7 +868,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 401
+      "sizeBytes": 710
     },
     {
       "slug": "metaencryptor-promantra-inc-2026-09-17",
@@ -712,7 +878,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 407
+      "sizeBytes": 723
     },
     {
       "slug": "vexy-stp-fashion-lab-2026-09-17",
@@ -732,7 +898,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "IT",
-      "sizeBytes": 423
+      "sizeBytes": 617
     },
     {
       "slug": "lockbit5-hygear-com-2026-09-17",
@@ -752,7 +918,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": null,
-      "sizeBytes": 449
+      "sizeBytes": 505
     },
     {
       "slug": "incransom-www-appliancefactory-com-2026-09-17",
@@ -762,7 +928,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 444
+      "sizeBytes": 995
     },
     {
       "slug": "incransom-www-diarco-com-ar-2026-09-17",
@@ -772,7 +938,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "AR",
-      "sizeBytes": 436
+      "sizeBytes": 566
     },
     {
       "slug": "qilin-in-the-company-of-huskies-2026-09-17",
@@ -942,7 +1108,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 388
+      "sizeBytes": 480
     },
     {
       "slug": "ransomhouse-namibian-defence-force-2026-09-17",
@@ -955,64 +1121,14 @@
       "sizeBytes": 412
     },
     {
-      "slug": "qilin-invincible-gg-2026-09-17",
-      "title": "Invincible GG",
-      "group": "Qilin",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 386
-    },
-    {
-      "slug": "metaencryptor-aecom-2026-09-17",
-      "title": "Aecom",
-      "group": "Metaencryptor",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "United States",
-      "sizeBytes": 413
-    },
-    {
-      "slug": "settra-fchhotels-com-2026-09-17",
-      "title": "fchhotels.com",
-      "group": "Settra",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Brazil",
-      "sizeBytes": 399
-    },
-    {
-      "slug": "brain-cipher-hoyletanner-com-2026-09-17",
-      "title": "hoyletanner.com",
-      "group": "Brain Cipher",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 409
-    },
-    {
-      "slug": "inc-ransom-silicon-integrated-systems-2026-09-17",
-      "title": "Silicon Integrated Systems",
+      "slug": "inc-ransom-appliancefactory-com-2026-09-17",
+      "title": "appliancefactory.com",
       "group": "INC Ransom",
       "discovered": "2026-09-17T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 436
-    },
-    {
-      "slug": "emperador-westbridge-institute-of-technology-inc-2026-09-17",
-      "title": "Westbridge Institute of Technology, Inc.",
-      "group": "Emperador",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 472
+      "country": "United States",
+      "sizeBytes": 429
     },
     {
       "slug": "settra-pacificabs-com-2026-09-17",
@@ -1025,74 +1141,44 @@
       "sizeBytes": 415
     },
     {
-      "slug": "qilin-techwise-2026-09-17",
-      "title": "Techwise",
-      "group": "Qilin",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 371
-    },
-    {
-      "slug": "akira-javep-chevrolet-2026-09-17",
-      "title": "Javep Chevrolet",
-      "group": "Akira",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 402
-    },
-    {
-      "slug": "metaencryptor-beckman-coulter-inc-2026-09-17",
-      "title": "Beckman Coulter, Inc",
-      "group": "Metaencryptor",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "United States",
-      "sizeBytes": 445
-    },
-    {
-      "slug": "qilin-the-gran-hotel-ingles-2026-09-17",
-      "title": "The Gran Hotel Ingles",
-      "group": "Qilin",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 410
-    },
-    {
-      "slug": "vexy-stp-fashion-lab-2026-09-17",
-      "title": "STP Fashion Lab",
-      "group": "Vexy",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 386
-    },
-    {
-      "slug": "shinyhunters-qi-2026-09-17",
-      "title": "Qi****",
-      "group": "ShinyHunters",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 385
-    },
-    {
       "slug": "ransomhouse-pertamina-2026-09-17",
       "title": "Pertamina",
       "group": "RansomHouse",
       "discovered": "2026-09-17T00:00:00.000Z",
       "category": "ransomware",
       "severity": "high",
-      "country": "Indonesia",
-      "sizeBytes": 425
+      "country": null,
+      "sizeBytes": 402
+    },
+    {
+      "slug": "settra-sym-com-mx-2026-09-17",
+      "title": "sym.com.mx",
+      "group": "Settra",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "Mexico",
+      "sizeBytes": 389
+    },
+    {
+      "slug": "brain-cipher-hoyletanner-com-2026-09-17",
+      "title": "hoyletanner.com",
+      "group": "Brain Cipher",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 409
+    },
+    {
+      "slug": "settra-naturesplus-com-2026-09-17",
+      "title": "naturesplus.com",
+      "group": "Settra",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "United States",
+      "sizeBytes": 420
     },
     {
       "slug": "black-nevas-optimum-first-mortgage-2026-09-17",
@@ -1105,6 +1191,66 @@
       "sizeBytes": 466
     },
     {
+      "slug": "akira-practice-management-2026-09-17",
+      "title": "Practice Management",
+      "group": "Akira",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 435
+    },
+    {
+      "slug": "brain-cipher-aecom-com-2026-09-17",
+      "title": "aecom.com",
+      "group": "Brain Cipher",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 391
+    },
+    {
+      "slug": "settra-fchhotels-com-2026-09-17",
+      "title": "fchhotels.com",
+      "group": "Settra",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "Brazil",
+      "sizeBytes": 399
+    },
+    {
+      "slug": "akira-vetta-2026-09-17",
+      "title": "Vetta",
+      "group": "Akira",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 372
+    },
+    {
+      "slug": "brain-cipher-xpera-ca-2026-09-17",
+      "title": "xpera.ca",
+      "group": "Brain Cipher",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 388
+    },
+    {
+      "slug": "chaos-expresspros-com-2026-09-17",
+      "title": "expresspros.com",
+      "group": "Chaos",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 388
+    },
+    {
       "slug": "shadowbyt3-handytrac-greystar-az-warning-2026-09-16",
       "title": "HandyTrac Greystar AZ WARNING",
       "group": "ShadowByt3$",
@@ -1112,7 +1258,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 428
+      "sizeBytes": 1434
     },
     {
       "slug": "emperador-rda-motors-s-p-a-2026-09-16",
@@ -1122,7 +1268,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "IT",
-      "sizeBytes": 408
+      "sizeBytes": 488
     },
     {
       "slug": "audit-team-audit-entity-palletshop-2026-09-16",
@@ -1202,7 +1348,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": null,
-      "sizeBytes": 516
+      "sizeBytes": 1181
     },
     {
       "slug": "emperador-sevenoaks-s-r-o-2026-09-16",
@@ -1212,7 +1358,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "CZ",
-      "sizeBytes": 402
+      "sizeBytes": 560
     },
     {
       "slug": "wallstreet-odyssey-charter-school-inc-2026-09-16",
@@ -1242,7 +1388,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "RU",
-      "sizeBytes": 413
+      "sizeBytes": 365
     },
     {
       "slug": "auditteam-wise-it-2026-09-16",
@@ -1252,7 +1398,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "UA",
-      "sizeBytes": 398
+      "sizeBytes": 609
     },
     {
       "slug": "auditteam-buben-2026-09-16",
@@ -1261,8 +1407,8 @@
       "discovered": "2026-09-16T18:22:08.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "RU",
-      "sizeBytes": 389
+      "country": "IT",
+      "sizeBytes": 336
     },
     {
       "slug": "auditteam-dg-ac-kr-2026-09-16",
@@ -1272,7 +1418,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 399
+      "sizeBytes": 354
     },
     {
       "slug": "auditteam-gownet-net-2026-09-16",
@@ -1282,7 +1428,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 399
+      "sizeBytes": 354
     },
     {
       "slug": "auditteam-krimax-org-2026-09-16",
@@ -1292,7 +1438,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "AR",
-      "sizeBytes": 399
+      "sizeBytes": 354
     },
     {
       "slug": "kairos-leisure-coast-kitchens-2026-09-16",
@@ -1302,7 +1448,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "AU",
-      "sizeBytes": 419
+      "sizeBytes": 921
     },
     {
       "slug": "inc-ransom-trulite-glass-aluminum-solutions-2026-09-16",
@@ -1372,7 +1518,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "AU",
-      "sizeBytes": 392
+      "sizeBytes": 334
     },
     {
       "slug": "qilin-in-the-company-of-huskies-2026-09-16",
@@ -1382,7 +1528,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "CA",
-      "sizeBytes": 412
+      "sizeBytes": 354
     },
     {
       "slug": "arcus-media-arda-2026-09-16",
@@ -1402,7 +1548,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 427
+      "sizeBytes": 593
     },
     {
       "slug": "wallstreet-roshd-sanat-2026-09-16",
@@ -1412,7 +1558,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "IR",
-      "sizeBytes": 399
+      "sizeBytes": 499
     },
     {
       "slug": "panzer-nielsen-design-2026-09-16",
@@ -1432,7 +1578,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "NA",
-      "sizeBytes": 443
+      "sizeBytes": 582
     },
     {
       "slug": "qilin-thorndale-foundation-2026-09-16",
@@ -1442,7 +1588,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "AU",
-      "sizeBytes": 402
+      "sizeBytes": 344
     },
     {
       "slug": "qilin-thema-foundries-2026-09-16",
@@ -1452,7 +1598,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "FR",
-      "sizeBytes": 400
+      "sizeBytes": 342
     },
     {
       "slug": "akira-blossomland-accounting-2026-09-16",
@@ -1462,7 +1608,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 432
+      "sizeBytes": 916
     },
     {
       "slug": "akira-bee-maid-honey-2026-09-16",
@@ -1472,7 +1618,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "CA",
-      "sizeBytes": 426
+      "sizeBytes": 877
     },
     {
       "slug": "akira-manders-2026-09-16",
@@ -1482,7 +1628,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "GB",
-      "sizeBytes": 394
+      "sizeBytes": 763
     },
     {
       "slug": "arcusmedia-arda-2026-09-16",
@@ -1492,7 +1638,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": null,
-      "sizeBytes": 404
+      "sizeBytes": 471
     },
     {
       "slug": "panzer-nielsen-design-2026-09-16",
@@ -1502,7 +1648,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": null,
-      "sizeBytes": 389
+      "sizeBytes": 568
     },
     {
       "slug": "qilin-aarsleff-2026-09-16",
@@ -1512,7 +1658,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "SE",
-      "sizeBytes": 386
+      "sizeBytes": 328
     },
     {
       "slug": "dragonforce-community-property-management-2026-09-16",
@@ -1522,7 +1668,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 446
+      "sizeBytes": 1843
     },
     {
       "slug": "dragonforce-owen-leigh-optometry-2026-09-16",
@@ -1532,7 +1678,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "GB",
-      "sizeBytes": 433
+      "sizeBytes": 1627
     },
     {
       "slug": "metaencrypter-lee-hartman-sons-inc-2026-09-16",
@@ -1832,7 +1978,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "JP",
-      "sizeBytes": 419
+      "sizeBytes": 499
     },
     {
       "slug": "safepay-marlinhvac-com-2026-09-15",
@@ -1842,7 +1988,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 398
+      "sizeBytes": 466
     },
     {
       "slug": "safepay-neumerkel-gmbh-de-2026-09-15",
@@ -1852,7 +1998,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "DE",
-      "sizeBytes": 404
+      "sizeBytes": 467
     },
     {
       "slug": "safepay-triniticaring-org-2026-09-15",
@@ -1862,7 +2008,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 401
+      "sizeBytes": 485
     },
     {
       "slug": "safepay-laconcepcion-com-mx-2026-09-15",
@@ -1872,7 +2018,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "MX",
-      "sizeBytes": 414
+      "sizeBytes": 492
     },
     {
       "slug": "safepay-meterex-com-2026-09-15",
@@ -1882,7 +2028,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "DE",
-      "sizeBytes": 389
+      "sizeBytes": 464
     },
     {
       "slug": "safepay-stoecklin-kuechen-ch-2026-09-15",
@@ -1892,7 +2038,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "CH",
-      "sizeBytes": 416
+      "sizeBytes": 482
     },
     {
       "slug": "safepay-ryomo-co-jp-2026-09-15",
@@ -1902,7 +2048,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "JP",
-      "sizeBytes": 388
+      "sizeBytes": 476
     },
     {
       "slug": "safepay-ara-lyss-ch-2026-09-15",
@@ -1912,7 +2058,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "CH",
-      "sizeBytes": 400
+      "sizeBytes": 485
     },
     {
       "slug": "safepay-gob-pe-2026-09-15",
@@ -1922,7 +2068,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "PE",
-      "sizeBytes": 389
+      "sizeBytes": 493
     },
     {
       "slug": "interlock-springfield-public-schools-2026-09-15",
@@ -1932,7 +2078,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 423
+      "sizeBytes": 1219
     },
     {
       "slug": "panzer-honda-peru-2026-09-15",
@@ -1982,7 +2128,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 473
+      "sizeBytes": 644
     },
     {
       "slug": "interlock-city-of-fort-smith-arkansas-2026-09-15",
@@ -1992,7 +2138,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 436
+      "sizeBytes": 1944
     },
     {
       "slug": "dark-project-cumar-marble-granite-2026-09-15",
@@ -2002,7 +2148,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "TR",
-      "sizeBytes": 423
+      "sizeBytes": 1441
     },
     {
       "slug": "qilin-taurus-ib-rica-2026-09-15",
@@ -2012,7 +2158,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "ES",
-      "sizeBytes": 399
+      "sizeBytes": 341
     },
     {
       "slug": "akira-pilot-precision-2026-09-15",
@@ -2022,7 +2168,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 410
+      "sizeBytes": 842
     },
     {
       "slug": "akira-lazyboyz-2026-09-15",
@@ -2031,8 +2177,8 @@
       "discovered": "2026-09-15T14:22:06.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": "Norway",
-      "sizeBytes": 392
+      "country": null,
+      "sizeBytes": 760
     },
     {
       "slug": "braincipher-admin-share-rar-2026-09-15",
@@ -2085,86 +2231,6 @@
       "sizeBytes": 435
     },
     {
-      "slug": "braincipher-managers-share-part04-rar-2026-09-15",
-      "title": "Managers_Share.part04.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part05-rar-2026-09-15",
-      "title": "Managers_Share.part05.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part06-rar-2026-09-15",
-      "title": "Managers_Share.part06.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part07-rar-2026-09-15",
-      "title": "Managers_Share.part07.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part08-rar-2026-09-15",
-      "title": "Managers_Share.part08.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part09-rar-2026-09-15",
-      "title": "Managers_Share.part09.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part10-rar-2026-09-15",
-      "title": "Managers_Share.part10.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part11-rar-2026-09-15",
-      "title": "Managers_Share.part11.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
       "slug": "qilin-montana-civil-contractors-2026-09-15",
       "title": "Montana Civil Contractors",
       "group": "qilin",
@@ -2172,7 +2238,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 420
+      "sizeBytes": 362
     },
     {
       "slug": "akira-southern-california-telephone-company-2026-09-15",
@@ -2182,7 +2248,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 459
+      "sizeBytes": 1000
     },
     {
       "slug": "qilin-resolve-law-group-2026-09-15",
@@ -2192,7 +2258,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 412
+      "sizeBytes": 354
     },
     {
       "slug": "qilin-adm-2026-09-15",
@@ -2202,7 +2268,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 394
+      "sizeBytes": 336
     },
     {
       "slug": "metaencryptor-sfa-engineering-corporation-2026-09-15",
@@ -2212,7 +2278,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 437
+      "sizeBytes": 681
     },
     {
       "slug": "metaencryptor-nippon-steel-corporation-2026-09-15",
@@ -2222,7 +2288,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "JP",
-      "sizeBytes": 431
+      "sizeBytes": 824
     },
     {
       "slug": "arcusmedia-asada-sarapiqu-2026-09-15",
@@ -2232,7 +2298,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "CR",
-      "sizeBytes": 435
+      "sizeBytes": 502
     },
     {
       "slug": "iah647-veritiv-2026-09-15",
@@ -2252,7 +2318,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 378
+      "sizeBytes": 320
     },
     {
       "slug": "qilin-bravo-group-2026-09-15",
@@ -2261,8 +2327,8 @@
       "discovered": "2026-09-15T11:02:55.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": "SG",
-      "sizeBytes": 388
+      "country": "IT",
+      "sizeBytes": 330
     },
     {
       "slug": "storm-mccarthy-tire-service-2026-09-15",
@@ -2272,7 +2338,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 415
+      "sizeBytes": 1261
     },
     {
       "slug": "storm-pantherx-rare-2026-09-15",
@@ -2282,7 +2348,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 390
+      "sizeBytes": 1054
     },
     {
       "slug": "storm-insight-credit-union-2026-09-15",
@@ -2292,7 +2358,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 412
+      "sizeBytes": 1024
     },
     {
       "slug": "thegentlemen-aca-pescara-2026-09-15",
@@ -2302,7 +2368,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "IT",
-      "sizeBytes": 426
+      "sizeBytes": 1372
     },
     {
       "slug": "thegentlemen-hattiesburg-eye-clinic-2026-09-15",
@@ -2312,7 +2378,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 440
+      "sizeBytes": 964
     },
     {
       "slug": "thegentlemen-indic-2026-09-15",
@@ -2322,7 +2388,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "IN",
-      "sizeBytes": 406
+      "sizeBytes": 849
     },
     {
       "slug": "thegentlemen-aurora-technologies-2026-09-15",
@@ -2332,7 +2398,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 434
+      "sizeBytes": 1348
     },
     {
       "slug": "thegentlemen-goteborgsregionens-tekniska-gymnasium-2026-09-15",
@@ -2342,7 +2408,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "SE",
-      "sizeBytes": 469
+      "sizeBytes": 1260
     },
     {
       "slug": "thegentlemen-alchin-long-group-2026-09-15",
@@ -2351,8 +2417,8 @@
       "discovered": "2026-09-15T07:15:50.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": "SG",
-      "sizeBytes": 425
+      "country": "AU",
+      "sizeBytes": 1354
     },
     {
       "slug": "thegentlemen-gelarti-2026-09-15",
@@ -2362,7 +2428,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "PE",
-      "sizeBytes": 405
+      "sizeBytes": 1358
     },
     {
       "slug": "thegentlemen-balkan-polymers-2026-09-15",
@@ -2372,7 +2438,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "BG",
-      "sizeBytes": 429
+      "sizeBytes": 1393
     },
     {
       "slug": "thegentlemen-cedars-foods-2026-09-15",
@@ -2382,7 +2448,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 441
+      "sizeBytes": 975
     },
     {
       "slug": "thegentlemen-agenzia-vittoria-assicurazioni-2026-09-15",
@@ -2392,7 +2458,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "IT",
-      "sizeBytes": 464
+      "sizeBytes": 1386
     },
     {
       "slug": "thegentlemen-downrite-engineering-2026-09-15",
@@ -2402,7 +2468,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 439
+      "sizeBytes": 1375
     },
     {
       "slug": "thegentlemen-neff-drexel-2026-09-15",
@@ -2412,7 +2478,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "CH",
-      "sizeBytes": 421
+      "sizeBytes": 1362
     },
     {
       "slug": "thegentlemen-iveta-2026-09-15",
@@ -2422,7 +2488,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "HR",
-      "sizeBytes": 405
+      "sizeBytes": 1039
     },
     {
       "slug": "thegentlemen-humboldt-2026-09-15",
@@ -2432,7 +2498,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "BR",
-      "sizeBytes": 407
+      "sizeBytes": 1364
     },
     {
       "slug": "thegentlemen-high-oakham-primary-school-2026-09-15",
@@ -2442,7 +2508,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "GB",
-      "sizeBytes": 447
+      "sizeBytes": 1302
     },
     {
       "slug": "thegentlemen-tentac-2026-09-15",
@@ -2452,7 +2518,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "JP",
-      "sizeBytes": 408
+      "sizeBytes": 1352
     },
     {
       "slug": "thegentlemen-dome-gold-mines-2026-09-15",
@@ -2462,7 +2528,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 429
+      "sizeBytes": 1224
     },
     {
       "slug": "thegentlemen-dang-invest-group-2026-09-15",
@@ -2472,7 +2538,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "VN",
-      "sizeBytes": 438
+      "sizeBytes": 1091
     },
     {
       "slug": "thegentlemen-bgr-energy-systems-2026-09-15",
@@ -2482,7 +2548,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "IN",
-      "sizeBytes": 440
+      "sizeBytes": 1382
     },
     {
       "slug": "thegentlemen-ardom-eilot-2026-09-15",
@@ -2492,7 +2558,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "IL",
-      "sizeBytes": 417
+      "sizeBytes": 1269
     },
     {
       "slug": "thegentlemen-technical-asia-2026-09-15",
@@ -2501,8 +2567,8 @@
       "discovered": "2026-09-15T07:10:39.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": "SG",
-      "sizeBytes": 424
+      "country": "TH",
+      "sizeBytes": 1148
     },
     {
       "slug": "thegentlemen-multipla-contabilidade-empresarial-2026-09-15",
@@ -2512,7 +2578,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "BR",
-      "sizeBytes": 475
+      "sizeBytes": 1230
     },
     {
       "slug": "thegentlemen-somit-2026-09-15",
@@ -2522,7 +2588,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "FI",
-      "sizeBytes": 406
+      "sizeBytes": 944
     },
     {
       "slug": "thegentlemen-wada-farms-2026-09-15",
@@ -2532,7 +2598,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "JP",
-      "sizeBytes": 437
+      "sizeBytes": 1064
     },
     {
       "slug": "thegentlemen-aforpa-2026-09-15",
@@ -2542,7 +2608,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "FR",
-      "sizeBytes": 407
+      "sizeBytes": 975
     },
     {
       "slug": "thegentlemen-apteki-mareshki-2026-09-15",
@@ -2552,7 +2618,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "BG",
-      "sizeBytes": 426
+      "sizeBytes": 1075
     },
     {
       "slug": "thegentlemen-librer-a-santa-fe-2026-09-15",
@@ -2562,7 +2628,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "AR",
-      "sizeBytes": 440
+      "sizeBytes": 1021
     },
     {
       "slug": "thegentlemen-sarku-japan-2026-09-15",
@@ -2572,7 +2638,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 427
+      "sizeBytes": 1337
     },
     {
       "slug": "thegentlemen-tmi-tecnicas-mecanicas-ilerdenses-2026-09-15",
@@ -2582,7 +2648,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "ES",
-      "sizeBytes": 465
+      "sizeBytes": 944
     },
     {
       "slug": "thegentlemen-medskin-solutions-dr-suwelack-ag-2026-09-15",
@@ -2592,7 +2658,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "DE",
-      "sizeBytes": 461
+      "sizeBytes": 1259
     },
     {
       "slug": "qilin-geieg-2026-09-15",
@@ -2602,7 +2668,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "ES",
-      "sizeBytes": 372
+      "sizeBytes": 314
     },
     {
       "slug": "emperador-audit-and-tax-audit-medell-n-2026-09-15",
@@ -2682,7 +2748,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "PE",
-      "sizeBytes": 391
+      "sizeBytes": 892
     },
     {
       "slug": "storm-mccarthy-tire-service-2026-09-15",
@@ -2722,7 +2788,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 385
+      "sizeBytes": 337
     },
     {
       "slug": "genesis-bernath-rosenberg-2026-09-15",
@@ -2752,7 +2818,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 447
+      "sizeBytes": 1188
     },
     {
       "slug": "anubis-better-accounting-solutions-2026-09-14",
@@ -2762,7 +2828,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": null,
-      "sizeBytes": 430
+      "sizeBytes": 405
     },
     {
       "slug": "genesis-bernath-rosenberg-2026-09-14",
@@ -2772,7 +2838,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 414
+      "sizeBytes": 376
     },
     {
       "slug": "genesis-dorfman-abrams-music-p-c-2026-09-14",
@@ -2782,7 +2848,7 @@
       "category": "ransomware",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 427
+      "sizeBytes": 389
     },
     {
       "slug": "unsafe-geekybunch-com-2026-09-14",
@@ -2792,7 +2858,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 394
+      "sizeBytes": 352
     },
     {
       "slug": "the-gentlemen-medskin-solutions-dr-suwelack-ag-2026-09-14",
@@ -2835,16 +2901,6 @@
       "sizeBytes": 919
     },
     {
-      "slug": "the-gentlemen-apteki-mareshki-2026-09-14",
-      "title": "Apteki Mareshki",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T19:25:13.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 1053
-    },
-    {
       "slug": "qilin-foremost-mfg-2026-09-14",
       "title": "Foremost Mfg",
       "group": "qilin",
@@ -2852,37 +2908,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 394
-    },
-    {
-      "slug": "the-gentlemen-multipla-contabilidade-empresarial-2026-09-14",
-      "title": "Multipla Contabilidade Empresarial",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T18:51:56.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 1197
-    },
-    {
-      "slug": "the-gentlemen-somit-2026-09-14",
-      "title": "Somit",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T18:51:56.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 922
-    },
-    {
-      "slug": "the-gentlemen-wada-farms-2026-09-14",
-      "title": "Wada Farms",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T18:51:54.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 1021
+      "sizeBytes": 336
     },
     {
       "slug": "qilin-winston-contracting-llc-2026-09-14",
@@ -2892,7 +2918,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 425
+      "sizeBytes": 367
     },
     {
       "slug": "qilin-roadex-america-2026-09-14",
@@ -2902,7 +2928,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": "US",
-      "sizeBytes": 399
+      "sizeBytes": 341
     },
     {
       "slug": "qilin-minmer-global-2026-09-14",
@@ -2912,7 +2938,7 @@
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 388
+      "sizeBytes": 330
     },
     {
       "slug": "eclipse-dublin-city-schools-ga-2026-09-14",
@@ -2922,7 +2948,7 @@
       "category": "data_breach",
       "severity": "high",
       "country": "US",
-      "sizeBytes": 411
+      "sizeBytes": 786
     },
     {
       "slug": "eclipse-rosello-et-fils-2026-09-14",
@@ -2932,357 +2958,637 @@
       "category": "data_breach",
       "severity": "high",
       "country": "FR",
-      "sizeBytes": 419
+      "sizeBytes": 740
     },
     {
-      "slug": "unattributed-baxterinternational-2026-09-04",
-      "title": "BaxterInternational",
-      "group": "Unattributed",
-      "discovered": "2026-09-04T12:28:08.000Z",
+      "slug": "lockbit5-tpi-tw-2026-09-14",
+      "title": "tpi.tw",
+      "group": "lockbit5",
+      "discovered": "2026-09-14T14:06:32.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "TW",
+      "sizeBytes": 423
+    },
+    {
+      "slug": "lockbit5-comune-robeccosulnaviglio-mi-it-2026-09-14",
+      "title": "comune.robeccosulnaviglio.mi.it",
+      "group": "lockbit5",
+      "discovered": "2026-09-14T14:05:52.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "IT",
+      "sizeBytes": 462
+    },
+    {
+      "slug": "lockbit5-httoy-fi-2026-09-14",
+      "title": "httoy.fi",
+      "group": "lockbit5",
+      "discovered": "2026-09-14T14:03:28.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "FI",
+      "sizeBytes": 427
+    },
+    {
+      "slug": "insomnia-metropolitan-community-health-services-2026-09-14",
+      "title": "Metropolitan Community Health Services",
+      "group": "insomnia",
+      "discovered": "2026-09-14T14:01:14.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 625
+      "country": "US",
+      "sizeBytes": 617
     },
     {
-      "slug": "unattributed-manchesterairportsgroup-2026-09-03",
-      "title": "ManchesterAirportsGroup",
-      "group": "Unattributed",
-      "discovered": "2026-09-03T07:41:36.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 687
-    },
-    {
-      "slug": "unattributed-sharecare-2026-08-31",
-      "title": "Sharecare",
-      "group": "Unattributed",
-      "discovered": "2026-08-31T10:56:34.000Z",
+      "slug": "insomnia-massey-stotser-nichols-2026-09-14",
+      "title": "Massey, Stotser & Nichols",
+      "group": "insomnia",
+      "discovered": "2026-09-14T14:00:21.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": null,
+      "country": "US",
       "sizeBytes": 600
     },
     {
-      "slug": "unattributed-lumenis-2026-08-30",
-      "title": "Lumenis",
-      "group": "Unattributed",
-      "discovered": "2026-08-30T13:41:25.000Z",
-      "category": "data_breach",
+      "slug": "chaos-glasfloss-com-2026-09-14",
+      "title": "glasfloss.com",
+      "group": "chaos",
+      "discovered": "2026-09-14T13:56:16.000Z",
+      "category": "ransomware",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 589
+      "country": "US",
+      "sizeBytes": 639
     },
     {
-      "slug": "unattributed-carhartt-2026-08-26",
-      "title": "Carhartt",
-      "group": "Unattributed",
-      "discovered": "2026-08-26T01:45:15.000Z",
-      "category": "data_breach",
+      "slug": "chaos-steelhausinc-com-2026-09-14",
+      "title": "steelhausinc.com",
+      "group": "chaos",
+      "discovered": "2026-09-14T13:55:41.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 579
+    },
+    {
+      "slug": "qilin-vitar-group-2026-09-14",
+      "title": "Vitar Group",
+      "group": "qilin",
+      "discovered": "2026-09-14T13:09:19.000Z",
+      "category": "ransomware",
       "severity": "critical",
-      "country": null,
-      "sizeBytes": 563
+      "country": "AR",
+      "sizeBytes": 326
     },
     {
-      "slug": "unattributed-questel-2026-08-25",
-      "title": "Questel",
-      "group": "Unattributed",
-      "discovered": "2026-08-25T12:35:03.000Z",
+      "slug": "booba-project-mestechkin-law-group-p-c-2026-09-14",
+      "title": "Mestechkin Law Group P.C.",
+      "group": "Booba Project",
+      "discovered": "2026-09-14T12:51:44.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 410
+    },
+    {
+      "slug": "booba-project-atlas-ocean-voyages-2026-09-14",
+      "title": "Atlas Ocean Voyages",
+      "group": "Booba Project",
+      "discovered": "2026-09-14T12:20:35.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 396
+    },
+    {
+      "slug": "auditteam-ne-ox-2026-09-14",
+      "title": "Ne***ox",
+      "group": "AuditTeam",
+      "discovered": "2026-09-14T11:50:24.000Z",
       "category": "data_breach",
+      "severity": "high",
+      "country": "RU",
+      "sizeBytes": 337
+    },
+    {
+      "slug": "qilin-alicotrans-2026-09-14",
+      "title": "Alicotrans",
+      "group": "qilin",
+      "discovered": "2026-09-14T07:59:50.000Z",
+      "category": "ransomware",
       "severity": "critical",
-      "country": null,
-      "sizeBytes": 619
+      "country": "BR",
+      "sizeBytes": 333
     },
     {
-      "slug": "unattributed-ozhairandbeauty-2026-08-24",
-      "title": "OzHairAndBeauty",
-      "group": "Unattributed",
-      "discovered": "2026-08-24T12:03:43.000Z",
+      "slug": "panzer-cer-micas-kantu-2026-09-13",
+      "title": "Cerámicas Kantu",
+      "group": "Panzer",
+      "discovered": "2026-09-13T23:23:34.000Z",
       "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 888
+    },
+    {
+      "slug": "qilin-gilco-scaffolding-2026-09-13",
+      "title": "Gilco Scaffolding",
+      "group": "qilin",
+      "discovered": "2026-09-13T16:59:37.000Z",
+      "category": "ransomware",
       "severity": "critical",
-      "country": null,
-      "sizeBytes": 534
+      "country": "GB",
+      "sizeBytes": 346
     },
     {
-      "slug": "unattributed-brinkshome-2026-08-14",
-      "title": "BrinksHome",
-      "group": "Unattributed",
-      "discovered": "2026-08-14T11:47:55.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 664
-    },
-    {
-      "slug": "unattributed-ringcentral-2026-08-13",
-      "title": "RingCentral",
-      "group": "Unattributed",
-      "discovered": "2026-08-13T12:43:50.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 635
-    },
-    {
-      "slug": "unattributed-interconsecurity-2026-08-13",
-      "title": "InterConSecurity",
-      "group": "Unattributed",
-      "discovered": "2026-08-13T03:15:49.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 664
-    },
-    {
-      "slug": "unattributed-alcon-2026-08-10",
-      "title": "Alcon",
-      "group": "Unattributed",
-      "discovered": "2026-08-10T13:19:30.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 588
-    },
-    {
-      "slug": "unattributed-houstoncitycollege-2026-07-31",
-      "title": "HoustonCityCollege",
-      "group": "Unattributed",
-      "discovered": "2026-07-31T13:07:47.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 665
-    },
-    {
-      "slug": "unattributed-exactsciences-2026-07-30",
-      "title": "ExactSciences",
-      "group": "Unattributed",
-      "discovered": "2026-07-30T13:14:21.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 540
-    },
-    {
-      "slug": "unattributed-paidwork-2026-07-25",
-      "title": "Paidwork",
-      "group": "Unattributed",
-      "discovered": "2026-07-25T00:01:49.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 592
-    },
-    {
-      "slug": "unattributed-harvarduniversity-2026-07-24",
-      "title": "HarvardUniversity",
-      "group": "Unattributed",
-      "discovered": "2026-07-24T06:15:49.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 616
-    },
-    {
-      "slug": "unattributed-autocentrum-2026-07-22",
-      "title": "Autocentrum",
-      "group": "Unattributed",
-      "discovered": "2026-07-22T13:41:28.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 509
-    },
-    {
-      "slug": "unattributed-paytm-2026-07-21",
-      "title": "Paytm",
-      "group": "Unattributed",
-      "discovered": "2026-07-21T07:13:39.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 601
-    },
-    {
-      "slug": "unattributed-fluke-2026-07-20",
-      "title": "Fluke",
-      "group": "Unattributed",
-      "discovered": "2026-07-20T13:31:30.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 625
-    },
-    {
-      "slug": "unattributed-actmobile-2026-07-19",
-      "title": "ACTMobile",
-      "group": "Unattributed",
-      "discovered": "2026-07-19T01:32:04.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 570
-    },
-    {
-      "slug": "unattributed-glendalecommunitycollege-2026-07-17",
-      "title": "GlendaleCommunityCollege",
-      "group": "Unattributed",
-      "discovered": "2026-07-17T10:35:19.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 690
-    },
-    {
-      "slug": "unattributed-turknet-2026-07-04",
-      "title": "Turknet",
-      "group": "Unattributed",
-      "discovered": "2026-07-04T13:29:45.000Z",
-      "category": "credential_leak",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 651
-    },
-    {
-      "slug": "unattributed-mercer-2026-07-03",
-      "title": "Mercer",
-      "group": "Unattributed",
-      "discovered": "2026-07-03T11:11:22.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 551
-    },
-    {
-      "slug": "unattributed-maxance-2026-07-02",
-      "title": "Maxance",
-      "group": "Unattributed",
-      "discovered": "2026-07-02T13:41:07.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 608
-    },
-    {
-      "slug": "unattributed-illinoiscentralcollege-2026-07-01",
-      "title": "IllinoisCentralCollege",
-      "group": "Unattributed",
-      "discovered": "2026-07-01T13:43:07.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 591
-    },
-    {
-      "slug": "unattributed-sysco-2026-06-30",
-      "title": "Sysco",
-      "group": "Unattributed",
-      "discovered": "2026-06-30T08:53:52.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 625
-    },
-    {
-      "slug": "unattributed-moody-2026-06-29",
-      "title": "Moody",
-      "group": "Unattributed",
-      "discovered": "2026-06-29T11:00:51.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 556
-    },
-    {
-      "slug": "unattributed-ralphlauren-2026-06-28",
-      "title": "RalphLauren",
-      "group": "Unattributed",
-      "discovered": "2026-06-28T12:23:32.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 604
-    },
-    {
-      "slug": "unattributed-dentaquest-2026-06-27",
-      "title": "DentaQuest",
-      "group": "Unattributed",
-      "discovered": "2026-06-27T12:58:44.000Z",
-      "category": "data_breach",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 597
-    },
-    {
-      "slug": "unattributed-albertsons-2026-06-26",
-      "title": "Albertsons",
-      "group": "Unattributed",
-      "discovered": "2026-06-26T11:37:28.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 595
-    },
-    {
-      "slug": "unattributed-americantower-2026-06-25",
-      "title": "AmericanTower",
-      "group": "Unattributed",
-      "discovered": "2026-06-25T15:45:07.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 553
-    },
-    {
-      "slug": "unattributed-ctars-2026-06-24",
-      "title": "CTARS",
-      "group": "Unattributed",
-      "discovered": "2026-06-24T13:54:53.000Z",
+      "slug": "emperador-navitrans-2026-09-13",
+      "title": "Navitrans",
+      "group": "emperador",
+      "discovered": "2026-09-13T13:51:22.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": null,
       "sizeBytes": 790
     },
     {
-      "slug": "unattributed-madisonsquaregardensports-2026-06-23",
-      "title": "MadisonSquareGardenSports",
-      "group": "Unattributed",
-      "discovered": "2026-06-23T14:22:43.000Z",
+      "slug": "krybit-www-kashkha-com-2026-09-13",
+      "title": "www.kashkha.com",
+      "group": "krybit",
+      "discovered": "2026-09-13T12:29:33.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 456
+    },
+    {
+      "slug": "qilin-caridro-val-de-loire-2026-09-13",
+      "title": "CARIDRO VAL DE LOIRE",
+      "group": "qilin",
+      "discovered": "2026-09-13T11:03:46.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "FR",
+      "sizeBytes": 370
+    },
+    {
+      "slug": "auditteam-paid-victim-f9cf4b639cac1b18-2026-09-13",
+      "title": "Paid Victim F9CF4B639CAC1B18",
+      "group": "AuditTeam",
+      "discovered": "2026-09-13T09:51:41.000Z",
       "category": "data_breach",
+      "severity": "high",
+      "country": "RU",
+      "sizeBytes": 396
+    },
+    {
+      "slug": "auditteam-paid-victim-fdc699de3a112669-2026-09-13",
+      "title": "Paid Victim FDC699DE3A112669",
+      "group": "AuditTeam",
+      "discovered": "2026-09-13T09:51:07.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "DE",
+      "sizeBytes": 396
+    },
+    {
+      "slug": "auditteam-vi-in-2026-09-13",
+      "title": "vi***in",
+      "group": "AuditTeam",
+      "discovered": "2026-09-13T09:50:31.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "IN",
+      "sizeBytes": 341
+    },
+    {
+      "slug": "barracuda-i2i-systems-2026-09-13",
+      "title": "i2i-systems",
+      "group": "Barracuda",
+      "discovered": "2026-09-13T09:20:21.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "TR",
+      "sizeBytes": 2917
+    },
+    {
+      "slug": "shinyhunters-kimberly-clark-2026-09-13",
+      "title": "Kimberly-Clark",
+      "group": "shinyhunters",
+      "discovered": "2026-09-13T08:48:41.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "US",
+      "sizeBytes": 588
+    },
+    {
+      "slug": "doommageddon-incor-group-2026-09-13",
+      "title": "INCOR Group",
+      "group": "Doommageddon",
+      "discovered": "2026-09-13T00:53:02.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "IN",
+      "sizeBytes": 417
+    },
+    {
+      "slug": "vexy-ransomware-strad-solutions-2026-09-12",
+      "title": "Strad Solutions",
+      "group": "Vexy Ransomware",
+      "discovered": "2026-09-12T23:58:29.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "GB",
+      "sizeBytes": 495
+    },
+    {
+      "slug": "emperador-nexbex-solutions-private-limited-2026-09-12",
+      "title": "Nexbex Solutions Private Limited",
+      "group": "emperador",
+      "discovered": "2026-09-12T13:51:54.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "IN",
+      "sizeBytes": 1580
+    },
+    {
+      "slug": "rhysida-axdia-international-2026-09-12",
+      "title": "Axdia International",
+      "group": "rhysida",
+      "discovered": "2026-09-12T13:10:06.000Z",
+      "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 693
+      "sizeBytes": 532
     },
     {
-      "slug": "unattributed-woflow-2026-06-22",
-      "title": "WoFlow",
-      "group": "Unattributed",
-      "discovered": "2026-06-22T15:18:44.000Z",
+      "slug": "unsafe-watchops-com-2026-09-12",
+      "title": "watchops.com",
+      "group": "unsafe",
+      "discovered": "2026-09-12T12:44:48.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 692
+      "country": "US",
+      "sizeBytes": 350
     },
     {
-      "slug": "unattributed-berkadia-2026-06-21",
-      "title": "Berkadia",
-      "group": "Unattributed",
-      "discovered": "2026-06-21T12:47:08.000Z",
+      "slug": "auditteam-te-pb-2026-09-12",
+      "title": "TE***PB",
+      "group": "AuditTeam",
+      "discovered": "2026-09-12T10:50:20.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 629
+      "country": "RU",
+      "sizeBytes": 336
     },
     {
-      "slug": "unattributed-bcdtravel-2026-06-20",
-      "title": "BCDTravel",
-      "group": "Unattributed",
-      "discovered": "2026-06-20T13:49:19.000Z",
-      "category": "data_breach",
+      "slug": "krybit-www-tiflispalace-ge-2026-09-12",
+      "title": "www.tiflispalace.ge",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:32:53.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "GE",
+      "sizeBytes": 466
+    },
+    {
+      "slug": "krybit-www-tender-mx-2026-09-12",
+      "title": "www.tender.mx",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:32:18.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "MX",
+      "sizeBytes": 463
+    },
+    {
+      "slug": "krybit-capricornlogistics-com-2026-09-12",
+      "title": "capricornlogistics.com",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:31:42.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "ZA",
+      "sizeBytes": 475
+    },
+    {
+      "slug": "krybit-www-ibnsinatrust-com-2026-09-12",
+      "title": "www.ibnsinatrust.com",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:31:06.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "AE",
+      "sizeBytes": 467
+    },
+    {
+      "slug": "krybit-lasultanahotels-com-2026-09-12",
+      "title": "lasultanahotels.com",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:30:30.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "MA",
+      "sizeBytes": 466
+    },
+    {
+      "slug": "krybit-eracm-fr-2026-09-12",
+      "title": "eracm.fr",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:29:54.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "FR",
+      "sizeBytes": 438
+    },
+    {
+      "slug": "krybit-pss-ht-2026-09-12",
+      "title": "pss.ht",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:29:19.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "HT",
+      "sizeBytes": 438
+    },
+    {
+      "slug": "krybit-www-metalware-ca-2026-09-12",
+      "title": "www.metalware.ca",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:28:44.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "CA",
+      "sizeBytes": 462
+    },
+    {
+      "slug": "krybit-intherpro-com-2026-09-12",
+      "title": "intherpro.com",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:28:08.000Z",
+      "category": "ransomware",
       "severity": "high",
       "country": null,
-      "sizeBytes": 641
+      "sizeBytes": 464
+    },
+    {
+      "slug": "krybit-meridian16-hr-2026-09-12",
+      "title": "meridian16.hr",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:27:32.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "HR",
+      "sizeBytes": 464
+    },
+    {
+      "slug": "krybit-www-eac-airports-com-2026-09-12",
+      "title": "www.eac-airports.com",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:26:55.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "KE",
+      "sizeBytes": 471
+    },
+    {
+      "slug": "krybit-swadeshicipl-com-2026-09-12",
+      "title": "swadeshicipl.com",
+      "group": "krybit",
+      "discovered": "2026-09-12T10:26:18.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "IN",
+      "sizeBytes": 462
+    },
+    {
+      "slug": "global-sutton-public-schools-2026-09-12",
+      "title": "Sutton Public Schools",
+      "group": "global",
+      "discovered": "2026-09-12T09:58:39.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 498
+    },
+    {
+      "slug": "medusalocker-ruixiang-jidian-2026-09-12",
+      "title": "瑞祥机电 (Ruixiang Jidian)",
+      "group": "medusalocker",
+      "discovered": "2026-09-12T09:01:44.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "CN",
+      "sizeBytes": 766
+    },
+    {
+      "slug": "medusalocker-abourametals-2026-09-12",
+      "title": "Abourametals",
+      "group": "medusalocker",
+      "discovered": "2026-09-12T09:01:13.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "AE",
+      "sizeBytes": 409
+    },
+    {
+      "slug": "medusalocker-frisby-roofing-frisby-construction-llc-2026-09-12",
+      "title": "Frisby Roofing (Frisby Construction LLC)",
+      "group": "medusalocker",
+      "discovered": "2026-09-12T09:00:41.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 1408
+    },
+    {
+      "slug": "medusalocker-praveg-caves-jawai-2026-09-12",
+      "title": "Praveg Caves Jawai",
+      "group": "medusalocker",
+      "discovered": "2026-09-12T09:00:10.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "IN",
+      "sizeBytes": 818
+    },
+    {
+      "slug": "global-town-of-sutton-massachusetts-2026-09-12",
+      "title": "TOWN OF SUTTON | MASSACHUSETTS",
+      "group": "global",
+      "discovered": "2026-09-12T08:26:30.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 519
+    },
+    {
+      "slug": "securotrop-shelco-filters-2026-09-12",
+      "title": "Shelco Filters",
+      "group": "securotrop",
+      "discovered": "2026-09-12T00:37:05.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 374
+    },
+    {
+      "slug": "safepay-compunnel-com-2026-09-11",
+      "title": "compunnel.com",
+      "group": "safepay",
+      "discovered": "2026-09-11T22:04:42.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 506
+    },
+    {
+      "slug": "qilin-imperial-healthcare-solutions-2026-09-11",
+      "title": "Imperial Healthcare Solutions",
+      "group": "qilin",
+      "discovered": "2026-09-11T22:03:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "US",
+      "sizeBytes": 367
+    },
+    {
+      "slug": "nightspire-diamondlease-2026-09-11",
+      "title": "DiamondLease",
+      "group": "nightspire",
+      "discovered": "2026-09-11T17:00:08.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "AE",
+      "sizeBytes": 362
+    },
+    {
+      "slug": "nightspire-perimetral-oriental-de-bogot-s-a-s-2026-09-11",
+      "title": "Perimetral Oriental de Bogotá S.A.S.",
+      "group": "nightspire",
+      "discovered": "2026-09-11T16:59:44.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "CO",
+      "sizeBytes": 466
+    },
+    {
+      "slug": "nightspire-ozel-ozel-laws-office-2026-09-11",
+      "title": "Ozel & Ozel Laws Office",
+      "group": "nightspire",
+      "discovered": "2026-09-11T16:59:35.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "TR",
+      "sizeBytes": 406
+    },
+    {
+      "slug": "nightspire-tuboa-os-da-amaz-nia-ltda-2026-09-11",
+      "title": "Tuboaços da Amazônia Ltda.",
+      "group": "nightspire",
+      "discovered": "2026-09-11T16:01:18.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "BR",
+      "sizeBytes": 421
+    },
+    {
+      "slug": "direwolf-port-of-tanjung-pelepas-2026-09-11",
+      "title": "Port of Tanjung Pelepas",
+      "group": "direwolf",
+      "discovered": "2026-09-11T15:54:58.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "MY",
+      "sizeBytes": 406
+    },
+    {
+      "slug": "pear-foss-inc-2026-09-11",
+      "title": "Foss Inc.",
+      "group": "pear",
+      "discovered": "2026-09-11T14:19:06.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 393
+    },
+    {
+      "slug": "fulcrumsec-dustin-group-2026-09-11",
+      "title": "Dustin Group",
+      "group": "fulcrumsec",
+      "discovered": "2026-09-11T12:29:31.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "SE",
+      "sizeBytes": 841
+    },
+    {
+      "slug": "panzer-konica-minolta-bulgaria-2026-09-11",
+      "title": "Konica Minolta Bulgaria",
+      "group": "Panzer",
+      "discovered": "2026-09-11T10:53:16.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "BG",
+      "sizeBytes": 639
+    },
+    {
+      "slug": "dragonforce-medical-department-store-2026-09-11",
+      "title": "Medical Department Store",
+      "group": "dragonforce",
+      "discovered": "2026-09-11T05:53:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "US",
+      "sizeBytes": 429
+    },
+    {
+      "slug": "panzer-agencia-estatal-de-meteorolog-a-2026-09-11",
+      "title": "Agencia Estatal de Meteorología",
+      "group": "Panzer",
+      "discovered": "2026-09-11T00:52:07.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "ES",
+      "sizeBytes": 920
+    },
+    {
+      "slug": "global-secret-group-co-op-urban-bank-ltd-2026-09-10",
+      "title": "CO-OP URBAN BANK LTD",
+      "group": "Global Secret Group",
+      "discovered": "2026-09-10T22:53:11.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "IN",
+      "sizeBytes": 639
+    },
+    {
+      "slug": "vexy-ransomware-i2k2-networks-2026-09-10",
+      "title": "i2k2 Networks",
+      "group": "Vexy Ransomware",
+      "discovered": "2026-09-10T21:27:11.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "IN",
+      "sizeBytes": 698
+    },
+    {
+      "slug": "beast-m800-and-cinnox-2026-09-10",
+      "title": "M800 and CINNOX",
+      "group": "beast",
+      "discovered": "2026-09-10T20:22:44.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "HK",
+      "sizeBytes": 488
+    },
+    {
+      "slug": "auditteam-ki-jp-2026-09-10",
+      "title": "ki***jp",
+      "group": "AuditTeam",
+      "discovered": "2026-09-10T19:20:56.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "JP",
+      "sizeBytes": 336
     }
   ]
 }

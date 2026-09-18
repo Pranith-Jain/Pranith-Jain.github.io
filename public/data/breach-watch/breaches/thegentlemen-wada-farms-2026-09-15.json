@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/dc30b177-6add-4d8e-8c4a-7bd7c3c527f4",
+  "description": "wadafarms.com Wada Farms third-generation family potato empire from Idaho — founded 1945 by Japanese-American farmer Albert Wada (whose family was interned at Minidoka camp during WWII, then returned and bought 160 acres near Pocatello); today run by the third generation (~10,000 acres in Magic Valley growing Idaho® Russet potatoes, onions and sweet potatoes) with its own climate-controlled storage, packing shed and three brands: Potato King™, Wada Farms® and Wada Farms Organic® — selling into national grocery chains, processors and export channels. Vertical integration from field to branded shelf; revenue undisclosed (est. $50–100M+); 50–150 seasonal/permanent staff",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

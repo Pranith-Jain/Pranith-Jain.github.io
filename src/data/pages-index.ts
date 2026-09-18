@@ -224,6 +224,14 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     keywords: ['anarchy', 'courses', 'catalog', 'learning', 'tracks', 'library'],
   },
   {
+    path: '/anarchy/c/:id',
+    label: 'Anarchy Course',
+    description: 'Single Anarchy course page - deep link, provider, duration, and recommendations.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['anarchy', 'course', 'catalog', 'learning'],
+  },
+  {
     path: '/traceix',
     label: 'Traceix Hash Lookup',
     description:
@@ -2782,7 +2790,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/mcp-search',
     label: 'MCP Search · TI Mindmap Hub',
     description:
-      'Search 1,628+ threat intelligence reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com. Filter by severity and date range.',
+      'Search 1,628+ threat intelligence reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com. Includes the full MCP Tools Reference — every tool name, description, and parameters — plus report details, AI summaries, mindmaps, TTPs, IOCs, and STIX slices. Filter by severity and date range.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
     keywords: [
@@ -2802,6 +2810,18 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
       'tool',
       'mcp search',
       'ti-mindmap-hub',
+      'list_reports',
+      'get_report_details',
+      'get_report_content',
+      'get_available_sources',
+      'get_available_tags',
+      'search_ioc',
+      'search_cve',
+      'kg_search',
+      'kg_cluster',
+      'stix bundle',
+      'submit_article',
+      'get_statistics',
     ],
   },
   {
@@ -4297,37 +4317,9 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
-  {
-    path: '/threatintel/tools/mcp',
-    label: 'MCP Search · TI Mindmap Hub',
-    description:
-      'Live gateway to 25 MCP tools on ti-mindmap-hub.com - reports, CVE intel, IOC search, briefings, STIX bundles, knowledge graph, platform stats.',
-    sectionLabel: 'Threat Intel · Tools',
-    group: 'threatintel',
-    keywords: [
-      'mindmap',
-      'ti-mindmap',
-      'mcp',
-      'model context protocol',
-      'reports',
-      'cve',
-      'ioc',
-      'briefing',
-      'stix',
-      'knowledge graph',
-      'kg_search',
-      'kg_cluster',
-      'kg_timeline',
-      'kg_attack_path',
-      'search_ioc',
-      'search_cve',
-      'list_reports',
-      'list_briefings',
-      'list_stix_bundles',
-      'submit_article',
-      'get_statistics',
-    ],
-  },
+  // NOTE: the old /threatintel/tools/mcp entry was removed — the MCP Tools
+  // Explorer merged into /threatintel/mcp-search (single canonical MCP page,
+  // with the per-tool reference table). The old URL 301s via App.tsx REDIRECTS.
   {
     path: '/threatintel/tools/misp',
     label: 'MISP',

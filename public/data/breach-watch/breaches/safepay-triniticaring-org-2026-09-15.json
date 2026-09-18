@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ab8c10dc-fb11-40c4-81b9-5a593bb3d80e",
+  "description": "The organization is jointly owned by Guardian Angels Senior Services of Elk River and Cassia, an Augustana/Elim affiliation. Its headquarters …",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

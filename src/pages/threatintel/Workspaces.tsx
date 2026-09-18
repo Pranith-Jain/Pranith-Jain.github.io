@@ -313,7 +313,7 @@ export default function Workspaces() {
               [
                 ['/threatintel/investigation-suite', 'Investigations', Search],
                 ['/threatintel/tools/unified-search', 'Unified Search', Crosshair],
-                ['/threatintel/tools/mcp', 'MCP Tools', Shield],
+                ['/threatintel/mcp-search', 'MCP Tools', Shield],
                 ['/threatintel/tools/stix', 'STIX Export', FileText],
               ] as const
             ).map(([to, label, Icon]) => (

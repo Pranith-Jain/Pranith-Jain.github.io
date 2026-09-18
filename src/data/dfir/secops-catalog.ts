@@ -1515,7 +1515,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-list-reports',
     name: 'TIM: List Reports',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description:
@@ -1524,7 +1524,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-report-details',
     name: 'TIM: Report Details',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description:
@@ -1533,7 +1533,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-report-content',
     name: 'TIM: Report Content',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description:
@@ -1542,7 +1542,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-available-sources',
     name: 'TIM: Available Sources',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'List all report sources available on TI Mindmap Hub with per-source report counts.',
@@ -1550,7 +1550,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-available-tags',
     name: 'TIM: Available Tags',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'List all tags used across TI Mindmap Hub reports with per-tag report counts.',
@@ -1558,7 +1558,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-search-ioc',
     name: 'TIM: Search IOC',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'dfir'],
     pricing: 'free',
     description:
@@ -1567,7 +1567,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-search-cve',
     name: 'TIM: Search CVE',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description:
@@ -1576,7 +1576,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-search-cves-by-keyword',
     name: 'TIM: Search CVEs by Keyword',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description:
@@ -1585,7 +1585,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-list-cves',
     name: 'TIM: List CVEs',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description: 'Paginated list of all CVEs in TI Mindmap Hub. Filter by severity, sort by CVSS or date.',
@@ -1593,7 +1593,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-cves-by-article',
     name: 'TIM: CVEs by Article',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description: 'Retrieve all CVEs associated with a specific article/report on TI Mindmap Hub.',
@@ -1601,7 +1601,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-cve-statistics',
     name: 'TIM: CVE Statistics',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description:
@@ -1610,7 +1610,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-list-briefings',
     name: 'TIM: List Briefings',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'List daily and weekly threat intelligence briefings from TI Mindmap Hub with summaries.',
@@ -1618,7 +1618,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-latest-briefing',
     name: 'TIM: Latest Briefing',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'Fetch the most recent daily or weekly briefing from TI Mindmap Hub.',
@@ -1626,7 +1626,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-briefing-by-date',
     name: 'TIM: Briefing by Date',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'Retrieve a specific briefing by date from TI Mindmap Hub.',
@@ -1634,7 +1634,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-list-stix-bundles',
     name: 'TIM: List STIX Bundles',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'detection-engineering'],
     pricing: 'free',
     description: 'List available STIX 2.1 bundles on TI Mindmap Hub with object counts and creation dates.',
@@ -1642,7 +1642,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-stix-bundle',
     name: 'TIM: Get STIX Bundle',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'detection-engineering'],
     pricing: 'free',
     description: 'Download a full STIX 2.1 bundle by article ID for import into OpenCTI, MISP, or other CTI platforms.',
@@ -1650,7 +1650,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-stix-statistics',
     name: 'TIM: STIX Statistics',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'detection-engineering'],
     pricing: 'free',
     description: 'STIX bundle statistics - total bundles, total objects, distribution by STIX object type.',
@@ -1658,7 +1658,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-kg-stats',
     name: 'TIM: Knowledge Graph Stats',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description:
@@ -1667,7 +1667,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-kg-search',
     name: 'TIM: Knowledge Graph Search',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'Search the STIX constellation knowledge graph for entities by name or alias. Filter by entity type.',
@@ -1675,7 +1675,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-kg-cluster',
     name: 'TIM: Knowledge Graph Cluster',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description:
@@ -1684,7 +1684,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-kg-timeline',
     name: 'TIM: Knowledge Graph Timeline',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'Build a chronological timeline of reports mentioning a specific entity in the knowledge graph.',
@@ -1692,7 +1692,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-kg-attack-path',
     name: 'TIM: Knowledge Graph Attack Path',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel', 'detection-engineering'],
     pricing: 'free',
     description: 'Find attack paths between entities in the knowledge graph via TTP relationships.',
@@ -1700,7 +1700,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-kg-cross-report',
     name: 'TIM: Knowledge Graph Cross-Report',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'Find shared entities between two TI reports - useful for linking campaigns and actor infrastructure.',
@@ -1708,7 +1708,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-get-statistics',
     name: 'TIM: Platform Statistics',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description: 'TI Mindmap Hub platform statistics - total reports, IOCs, CVEs, briefings, and source count.',
@@ -1716,7 +1716,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'tim-submit-article',
     name: 'TIM: Submit Article',
-    url: '/threatintel/tools/mcp',
+    url: '/threatintel/mcp-search',
     categories: ['threat-intel'],
     pricing: 'free',
     description:

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/edd0d053-d655-4f86-8903-36c1184349af",
+  "description": "is an Italian company engaged in premium cars. There are many customer documents and employee data [Size: 7.3 GB | Sector: Technology, Other]",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

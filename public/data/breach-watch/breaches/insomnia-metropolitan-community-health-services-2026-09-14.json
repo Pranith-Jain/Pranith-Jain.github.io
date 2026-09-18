@@ -1,0 +1,15 @@
+{
+  "slug": "insomnia-metropolitan-community-health-services-2026-09-14",
+  "title": "Metropolitan Community Health Services",
+  "group": "insomnia",
+  "discovered": "2026-09-14T14:01:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Agape Health Services, a CCBHC/FQHC run by Metropolitan Community Health Services, offers sliding-scale primary, preventive, dental, pharmacy, and behavioral health care, plus mobile, law-enforcement, training, and reentry services.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

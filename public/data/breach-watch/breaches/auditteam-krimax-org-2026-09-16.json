@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/4b2048fc-90b1-494b-878d-22c18e0fdaf4",
+  "description": "No data breaches",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["audit team"],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

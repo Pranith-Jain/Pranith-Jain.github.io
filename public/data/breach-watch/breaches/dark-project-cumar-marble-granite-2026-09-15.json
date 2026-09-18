@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "TR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a2dfed74-5eb7-42a7-8b51-eb6ab01aca42",
+  "description": "About Cumar Cumar Marble & Granite is a leading fabricator and supplier of high-quality marble, granite, limestone, and exotic stones in New England, specializing in luxury kitchens, bathrooms, and custom projects. The company caters to designers, architects, developers, and discerning homeowners, offering a wide range of custom stone products including countertops, sinks, and fireplaces. Their extensive inventory features various natural stones from around the world, ensuring elegance and durability in every project. Cumar is recognized for its commitment to quality and craftsmanship, making it the preferred choice for luxury stone solutions. Cumar Marble & Granite, a company specializing in luxury kitchens, bathrooms, and custom projects, has been the target of a massive cyberattack. Hackers stole 489 gigabytes of data from the company’s servers, including personal information, technical drawings, and financial documents. This incident raises serious concerns regarding the theft of intellectual property and potential breaches of employee and customer privacy.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

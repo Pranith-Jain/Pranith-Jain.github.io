@@ -7,9 +7,9 @@
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/074f5243-ba1a-4cb7-8424-3790300cec13",
+  "description": "Redacted entry - full company name pending disclosure (FULL DATA TIMER active).",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Luna Moth", "Silent Ransom", "TG2729"],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

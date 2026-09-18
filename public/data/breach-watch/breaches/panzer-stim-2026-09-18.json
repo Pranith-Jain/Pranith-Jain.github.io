@@ -5,11 +5,11 @@
   "discovered": "2026-09-18T00:22:35.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "FR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c054f5db-ea17-472f-807d-fd975af4c73f",
+  "description": "Stim France specializes in video surveillance solutions within the security industry. The company offers a range of video recorders, video receivers, storage expansion, and integration services for surveillance cameras, as well as software for video surveillance management.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

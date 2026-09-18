@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/972960fe-87c0-44ac-abaf-f540925ff7fc",
+  "description": "Diakoniewerk Apolda gGmbH is a German non-profit social welfare organization (gemeinnützige GmbH) founded in 2006, head...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

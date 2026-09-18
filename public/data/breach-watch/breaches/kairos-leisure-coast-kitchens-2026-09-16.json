@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AU",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5241eade-f107-4b15-9b45-8d33c6e6c4c6",
+  "description": "Leisure Coast Kitchens specializes in designing and installing high-quality bespoke kitchens, laundries, and bathrooms tailored to individual styles and needs. They offer a full range of services including custom cabinetry, benchtops, and renovation solutions, ensuring a personalized approach for each project. The company is dedicated to helping homeowners create functional and beautiful spaces, believing that everyone deserves a dream kitchen. With competitive pricing and expert advice, they aim to transform homes into enjoyable and inspiring environments.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

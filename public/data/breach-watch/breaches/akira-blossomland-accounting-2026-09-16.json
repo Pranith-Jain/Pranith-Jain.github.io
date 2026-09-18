@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3f10e068-5eb8-4643-8fdf-408cd4fa5232",
+  "description": "Blossomland Accounting LLC provides a range of accounting services including tax preparation an\nd planning, payroll services, and consulting in Southwest Michigan. The company focuses on deve\nloping long-term relationships with clients, offering personalized services tailored to their u\nnique financial needs.\n\nWe will upload 12gb of corporate data soon. Employee personal information (SSN numbers, passpor\nts, DLs, death certs), financials, confidential clients files, credit card details, projects, c\nontracts and agreements and so on.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

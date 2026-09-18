@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "FR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3c90137e-89a9-4819-a32c-383d64d6de43",
+  "description": "Rosello & Fils is a fruit and vegetable wholesaler based in Saint-Laurent-Blangy, France. With over 100 years of experience, the company operates exclusively within the Hauts-de-France region, serving professionals in the Nord, Pas-de-Calais, and Somme departments. Its client base includes commercial and collective catering, local shops, and large and medium-sized retail surfaces",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -292,7 +292,6 @@ const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
 const MalwareSandbox = lazy(() => import('./pages/threatintel/MalwareSandbox'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
 const McpSearch = lazy(() => import('./pages/threatintel/McpSearch'));
-const McpToolsExplorer = lazy(() => import('./pages/threatintel/McpToolsExplorer'));
 const Metrics = lazy(() => import('./pages/threatintel/Metrics'));
 const MispBrowser = lazy(() => import('./pages/threatintel/MispBrowser'));
 const MitreMatrix = lazy(() => import('./pages/dfir/MitreMatrix'));
@@ -747,7 +746,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/social/news', Component: TechAiNews },
   { path: '/threatintel/social/crypto-scam', Component: CryptoScamFeed },
   { path: '/threatintel/tools/copilot', Component: Copilot },
-  { path: '/threatintel/tools/mcp', Component: McpToolsExplorer },
+  // McpToolsExplorer merged into /threatintel/mcp-search (redirect in REDIRECTS).
   { path: '/threatintel/tools/misp', Component: MispBrowser },
   { path: '/threatintel/tools/stix-hub', Component: StixHub },
   // CisaKevCatalog route moved to redirect below
@@ -782,6 +781,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
 const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boolean }> = [
+  // Old MCP explorer URL → merged MCP Search page.
+  { path: '/threatintel/tools/mcp', to: '/threatintel/mcp-search' },
   { path: '/dfir/tools/:group', to: '/dfir/catalog' },
   { path: '/dfir/fleet-map', to: '/dfir/catalog' },
   { path: '/dfir/wordpress-sim', to: '/dfir/catalog' },

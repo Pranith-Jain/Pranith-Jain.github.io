@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/69e5dcb7-07e3-4fde-aea5-a746a43e42db",
+  "description": "Southern California Telephone Company (SCTC) is a dynamic telecom provider with over 30 years o\nf experience, offering a comprehensive range of services for both residential and business clie\nnts. Their product lineup includes high-speed internet, mobility solutions, virtual fax service\ns, and VoIP offerings, catering to various connectivity needs.\n\nWe will upload 34gb of corporate data soon. Employee personal information (passports, w-9s and \nso on), customer information (phone numbers and other sensitive information), contracts and agr\neements, NDAs, confidential certificates and so on.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Energy & Utilities",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

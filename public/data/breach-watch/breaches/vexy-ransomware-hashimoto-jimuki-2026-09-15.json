@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/cb5c1969-a671-40ba-b1d5-8951c8770c83",
+  "description": "Japanese company providing office equipment, IT equipment and services, office furniture, meeting/conferencing systems, and computer support.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

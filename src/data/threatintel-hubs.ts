@@ -1228,10 +1228,10 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
-        path: '/threatintel/tools/mcp',
+        path: '/threatintel/mcp-search',
         tabId: 'mcp',
         label: 'MCP Search · TI Mindmap Hub',
-        desc: 'Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com.',
+        desc: 'Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com — with a full per-tool reference (names, descriptions, parameters).',
         compVar: 'McpSearch',
         badge: 'new',
       },
@@ -1242,6 +1242,8 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'MISP galaxy and event browser.',
         compVar: 'MispBrowser',
       },
+      // NOTE: the old /threatintel/tools/mcp hub entry was merged into
+      // /threatintel/mcp-search above (single canonical MCP page).
       {
         path: '/threatintel/tools/stix-hub',
         tabId: 'stix-hub',

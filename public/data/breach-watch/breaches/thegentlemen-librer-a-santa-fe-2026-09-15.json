@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5ee062eb-2647-4a3d-90b9-5280f3200bc6",
+  "description": "santafelibros.com.ar Librería Santa Fe APS S.R.L. is an Argentine book retailer and distributor from Buenos Aires — founded 1996 (SIC 5942 Book Stores, Active status), operating a chain of bookstores (named after Avenida Santa Fe, the city's legendary book district in Barrio Norte) plus B2B book/stationery distribution to schools and institutions across Argentina, with traces in Italian business aggregators (export/Italy-linked operations). Classic family bookselling business — pre-Amazon era model: retail + distribution. Bottom line: a Buenos Aires book chain riding the avenue that made the city UNESCO's 2011 World Book Capital.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

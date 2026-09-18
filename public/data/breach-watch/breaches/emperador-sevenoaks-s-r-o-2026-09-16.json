@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CZ",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c2cff03e-6f29-4b58-87eb-6c435f814795",
+  "description": "Sevenoaks, S.R.O. is an enterprise based in Czech Republic.\n Its main office is in Prague. \nThe company operates in the Computer Systems Design and Related Services industry. [Size: 3.3 GB | Sector: Technology, Other]",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }
