@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-squamish-data-part2-rar-2026-09-18",
-  "title": "squamish_data.part2.rar",
-  "group": "BrainCipher",
-  "discovered": "2026-09-18T13:06:45.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://lhsxojxowgtwdqlryl72d2v5cpgqv3sll4d47yyqdisersigvfbl5uid.onion/squamish_data.part2.rar",
-  "groupAliases": ["brain cipher"],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"braincipher-squamish-data-part2-rar-2026-09-18","title":"squamish_data.part2.rar","group":"BrainCipher","discovered":"2026-09-18T13:06:45.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://lhsxojxowgtwdqlryl72d2v5cpgqv3sll4d47yyqdisersigvfbl5uid.onion/squamish_data.part2.rar","groupAliases":["brain cipher"],"activity":null,"references":["CTI.FYI"]}
