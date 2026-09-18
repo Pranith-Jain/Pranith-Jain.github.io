@@ -328,10 +328,22 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
 
   // If no leaks found, return empty result — never fabricate demo data.
 
+  // Persist successful non-empty scans to KV last-good so the fallback can
+  // never be permanently empty (the read path above depends on it).
+  if (kv && leaks.length > 0) {
+    const body = JSON.stringify(response);
+    c.executionCtx.waitUntil(
+      kv.put(kvKey, body).catch((e: unknown) => logError('secret-leaks lastgood write failed', e))
+    );
+  }
+
+  // Empty results must not poison the edge cache for the full TTL — cache
+  // them for 60s only so a recovered token/rate-limit window shows data fast.
+  const ttl = leaks.length > 0 ? CACHE_TTL_SECONDS : 60;
   const res = new Response(JSON.stringify(response), {
     headers: {
       'content-type': 'application/json',
-      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+      'cache-control': `public, max-age=${ttl}`,
     },
   });
   await cache.put(cacheKey, res.clone());
