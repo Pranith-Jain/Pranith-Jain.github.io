@@ -1064,6 +1064,7 @@ import { webamonDtbRouter } from './routes/webamon-dtb';
 import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
 import { aiEscapeRouter } from './routes/ai-escape';
 import { ransomwareGroupsRouter } from './routes/ransomware-groups';
+import { anarchyRouter } from './routes/anarchy';
 import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
 import { pcmedicalistRouter } from './routes/pcmedicalist';
@@ -2082,6 +2083,10 @@ app.route('/api/v1', aiThreatsRouter);
 // Ransomware Groups directory — Sinon-style leak-site group reference.
 // Static manifest in public/data/ransomware-groups/ (Ransomlook + ransomware.live).
 app.route('/api/v1', ransomwareGroupsRouter);
+
+// Anarchy — kazamadono.github.io course catalog (1708 courses, daily sync).
+// Static manifest in public/data/anarchy/ (replicated with attribution).
+app.route('/api/v1', anarchyRouter);
 
 // AI Escape Watch — agent containment-failure registry.
 // Static manifest in public/data/ai-escape/ (curatorial seed, reviewed via PR).

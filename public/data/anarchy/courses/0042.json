@@ -1,0 +1,1 @@
+{"id":"0042","title":"Cross-site request forgery (CSRF)","desc":"This learning path covers CSRF (Cross-Site Request Forgery). Youll learn about some common CSRF vulnerabilities, and how to prevent them.","href":"https://portswigger.net/web-security/csrf","img":"22.gif","tags":["webappsec"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

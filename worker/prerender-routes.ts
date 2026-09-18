@@ -27,6 +27,7 @@ export const PRERENDERED_ROUTES = new Map<string, string>([
   ['/skills', '/__prerendered/skills'],
   ['/experience', '/__prerendered/experience'],
   ['/projects', '/__prerendered/projects'],
+  ['/anarchy', '/__prerendered/anarchy'],
   ['/blog', '/__prerendered/blog'],
 
   // ── Landings ──────────────────────────────────────────────────

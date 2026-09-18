@@ -1,0 +1,122 @@
+name: Anarchy sync (daily)
+
+# Replicates KazamaDono's Anarchy portal (kazamadono.github.io) — 1,708 courses
+# across 20 tracks (AI/ML, Low Level, PsyOps, Defensive/Offensive, OSINT, Game
+# Hacking, BugBounty, Crypto, Reversing, Cloud, Forensics, CTF, Blockchain,
+# IoT/HW, Dev/CS, Math). Daily sync at 06:00 UTC, mirrored with attribution
+# into public/data/anarchy/ (static ASSETS, no D1/KV). The SPA at /anarchy
+# replicates the original portal's search + filter + binary-rain aesthetic.
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: anarchy-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
+
+      - name: Sync Anarchy catalog
+        run: node scripts/sync-anarchy.mjs
+
+      - name: Build Anarchy manifest
+        run: node scripts/build-anarchy.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/anarchy/ ==="
+          ls -lh public/data/anarchy/ || true
+          wc -c public/data/anarchy/index.json || true
+          echo "=== git status ==="
+          git status --short public/data/anarchy/ threat-intel-staging/anarchy.json | head -20
+          echo "=== staging ==="
+          ls -lh threat-intel-staging/anarchy.json || true
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git add public/data/anarchy/ threat-intel-staging/anarchy.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes — skipping commit/deploy."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected — will commit."
+            git diff --cached --stat
+          fi
+
+      - name: Commit to main
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Skip husky/lint-staged — prettier would reformat generated JSON and empty the commit
+          git commit --no-verify -m "chore(anarchy): daily sync $(date -u +%Y-%m-%d) — $(jq '.counts.courses' public/data/anarchy/index.json) courses"
+          for attempt in 1 2 3; do
+            if git push origin main 2>/dev/null; then
+              echo "Push succeeded (attempt $attempt)."
+              exit 0
+            fi
+            echo "Push rejected (attempt $attempt) — rebasing onto origin/main and retrying."
+            git pull --rebase origin main || git rebase --abort
+          done
+          echo "::error::push failed after 3 attempts"
+          exit 1
+
+      - name: Typecheck
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npx tsc --noEmit -p tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.worker.json
+
+      - name: Build
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Budget check
+        if: steps.changes.outputs.changed == 'true'
+        run: node scripts/check-budgets.mjs
+
+      - name: Deploy to Cloudflare Workers
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+
+      - name: Smoke test
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 8
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/data/anarchy/index.json")
+          echo "anarchy index -> HTTP $code"
+          test "$code" = "200" || { echo "::error::anarchy index returned HTTP $code"; exit 1; }
+          code2=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/anarchy")
+          echo "/anarchy -> HTTP $code2"
+          test "$code2" = "200" || { echo "::error::/anarchy returned HTTP $code2"; exit 1; }

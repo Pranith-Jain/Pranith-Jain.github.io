@@ -372,6 +372,8 @@ const Dnscope = lazy(() => import('./pages/dfir/Dnscope'));
 const Tracerules = lazy(() => import('./pages/dfir/Tracerules'));
 const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
 
+const Anarchy = lazy(() => import('./pages/Anarchy'));
+
 const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
@@ -761,6 +763,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/report-hub', Component: ReportHub },
   { path: '/admin', Component: AdminApp },
   { path: '/admin/analytics', Component: AdminAnalyticsDashboard },
+  { path: '/anarchy', Component: Anarchy },
   { path: '/radar', Component: RadarHome },
   { path: '/radar/scan/:id', Component: RadarScanResults },
   { path: '/argus', Component: ArgusPage },

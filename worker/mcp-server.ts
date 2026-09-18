@@ -86,6 +86,13 @@ import {
   type WinRegListOptions,
 } from './lib/winreg-manifest';
 import {
+  loadAnarchyIndex,
+  getAnarchyCourse,
+  getAnarchyTag,
+  filterAnarchyCourses,
+  anarchyCacheStats,
+} from './lib/anarchy-manifest';
+import {
   loadDwIndex,
   loadDwTechniques,
   loadDwPlatforms,
@@ -1857,6 +1864,67 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             source: idx.source,
             sourceUrl: idx.sourceUrl,
             categories: idx.categories,
+          });
+        }
+      );
+
+      this.tools(
+        'anarchy_list_courses',
+        'List courses from the Anarchy (kazamadono.github.io) portal — 1708 courses across 20 tracks (AI/ML, Low Level, PsyOps, Defensive, Offensive, OSINT, Game Hacking, BugBounty, Crypto, Reversing, Cloud, Forensics, CTF, Blockchain, IoT/HW, Dev/CS, Math). Filter by tag or free-text query. Daily sync from https://kazamadono.github.io/courses.json.',
+        {
+          tag: z
+            .string()
+            .optional()
+            .describe('Filter by tag: aiml, exploits, psyops, bio, infra, blue, red, osint, game, webappsec, crypto, re, mobile, cloud, forensics, ctf, blockchain, iot, dev, math, project'),
+          q: z.string().optional().describe('Free-text search across title, preview, and tags'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max courses to return (default 50)'),
+        },
+        async ({ tag, q, limit }) => {
+          const idx = await loadAnarchyIndex(ASSETS);
+          const filtered = filterAnarchyCourses(idx, { tag, q, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.counts.courses,
+            returned: filtered.length,
+            categories: idx.categories,
+            syncedAt: idx.syncedAt,
+            builtAt: idx.builtAt,
+            source: idx.source,
+            sourceUrl: idx.url,
+            courses: filtered,
+          });
+        }
+      );
+
+      this.tools(
+        'anarchy_get_course',
+        'Return the full body of a single Anarchy course by ID. Includes title, full description, tags, and external href. Use anarchy_list_courses first to discover IDs.',
+        {
+          id: z.string().describe('Course ID, e.g. "0001" or "0420". Get these from anarchy_list_courses.'),
+        },
+        async ({ id }) => {
+          const body = await getAnarchyCourse(ASSETS, String(id).padStart(4, '0'));
+          if (!body) return untrustedToolResult({ error: `anarchy course not found: ${id}`, hint: 'Call anarchy_list_courses to see available IDs.' });
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'anarchy_stats',
+        'Return cache + manifest stats for the Anarchy course catalog: course counts, top tags, sync timestamps, and LRU cache hit/miss ratios.',
+        {},
+        async () => {
+          const idx = await loadAnarchyIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            categories: idx.categories,
+            topTags: idx.topTags,
+            source: idx.source,
+            sourceUrl: idx.url,
+            syncedAt: idx.syncedAt,
+            builtAt: idx.builtAt,
+            author: idx.author,
+            authorUrl: idx.authorUrl,
+            cache: anarchyCacheStats(),
           });
         }
       );

@@ -1,0 +1,174 @@
+/**
+ * Anarchy (kazamadono.github.io) manifest loader.
+ *
+ * Reads the static JSON manifest shipped in /public/data/anarchy/
+ * (replicated daily from https://kazamadono.github.io/courses.json).
+ * The Worker fetches them through env.ASSETS — no D1, no KV, no public
+ * internet at runtime.
+ *
+ * Shape:
+ *   /data/anarchy/index.json          (≈368 KB, slim index + counts)
+ *   /data/anarchy/courses/<id>.json   (one per course, full body)
+ *   /data/anarchy/by-tag/<tag>.json   (one per tag, slim list)
+ *
+ * Source: https://kazamadono.github.io/ (public GitHub Pages, KazamaDono)
+ */
+
+export interface AnarchyCourseSlim {
+  id: string;
+  title: string;
+  href: string;
+  img: string | null;
+  tags: string[];
+  preview: string;
+  sizeBytes: number;
+}
+
+export interface AnarchyIndex {
+  source: string;
+  url: string;
+  coursesUrl: string;
+  description: string;
+  license: string;
+  author: string;
+  authorUrl: string;
+  syncedAt: string;
+  builtAt: string;
+  counts: {
+    courses: number;
+    categories: number;
+  };
+  categories: { tag: string; count: number }[];
+  topTags: { tag: string; count: number }[];
+  courses: AnarchyCourseSlim[];
+}
+
+export interface AnarchyCourseBody {
+  id: string;
+  title: string;
+  desc: string;
+  href: string;
+  img: string | null;
+  tags: string[];
+  source: string;
+  sourceUrl: string;
+}
+
+export interface AnarchyTagBody {
+  tag: string;
+  count: number;
+  courses: AnarchyCourseSlim[];
+}
+
+const DATA_PREFIX = '/data/anarchy';
+const MAX_BODY_CACHE = 200;
+
+interface BodyCache<T> {
+  map: Map<string, T>;
+  hits: number;
+  misses: number;
+}
+
+const courseCache: BodyCache<AnarchyCourseBody> = { map: new Map(), hits: 0, misses: 0 };
+const tagCache: BodyCache<AnarchyTagBody> = { map: new Map(), hits: 0, misses: 0 };
+let cachedIndex: AnarchyIndex | null = null;
+let cachedIndexAt: number | null = null;
+
+function safeFilename(slug: string): string {
+  return slug.replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
+}
+
+async function fetchJson<T>(assets: Fetcher, path: string): Promise<T | null> {
+  const url = `https://anarchy.local${path}`;
+  const res = await assets.fetch(new Request(url));
+  if (!res.ok) return null;
+  return (await res.json()) as T;
+}
+
+function recordHit<T>(cache: BodyCache<T>, key: string, value: T): T {
+  if (cache.map.has(key)) cache.map.delete(key);
+  cache.map.set(key, value);
+  while (cache.map.size > MAX_BODY_CACHE) {
+    const oldest = cache.map.keys().next().value;
+    if (oldest === undefined) break;
+    cache.map.delete(oldest);
+  }
+  return value;
+}
+
+function trackHit<T>(cache: BodyCache<T>, key: string): T | undefined {
+  const v = cache.map.get(key);
+  if (v === undefined) {
+    cache.misses += 1;
+    return undefined;
+  }
+  cache.hits += 1;
+  cache.map.delete(key);
+  cache.map.set(key, v);
+  return v;
+}
+
+export async function loadAnarchyIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<AnarchyIndex> {
+  if (cachedIndex && !opts.forceRefresh) return cachedIndex;
+  const idx = await fetchJson<AnarchyIndex>(assets, `${DATA_PREFIX}/index.json`);
+  if (!idx) {
+    throw new Error(
+      `Anarchy manifest not found at ${DATA_PREFIX}/index.json — did the build run? Run \`node scripts/sync-anarchy.mjs && node scripts/build-anarchy.mjs\`.`
+    );
+  }
+  cachedIndex = idx;
+  cachedIndexAt = Date.now();
+  return idx;
+}
+
+export async function getAnarchyCourse(assets: Fetcher, id: string): Promise<AnarchyCourseBody | null> {
+  const key = id.toLowerCase();
+  const hit = trackHit(courseCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<AnarchyCourseBody>(assets, `${DATA_PREFIX}/courses/${safeFilename(key)}.json`);
+  if (!body) return null;
+  return recordHit(courseCache, key, body);
+}
+
+export async function getAnarchyTag(assets: Fetcher, tag: string): Promise<AnarchyTagBody | null> {
+  const key = tag.toLowerCase();
+  const hit = trackHit(tagCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<AnarchyTagBody>(assets, `${DATA_PREFIX}/by-tag/${safeFilename(key)}.json`);
+  if (!body) return null;
+  return recordHit(tagCache, key, body);
+}
+
+export interface AnarchyListOptions {
+  tag?: string;
+  q?: string;
+  limit?: number;
+}
+
+export function filterAnarchyCourses(idx: AnarchyIndex, opts: AnarchyListOptions = {}): AnarchyCourseSlim[] {
+  const { tag, q, limit = 100 } = opts;
+  const needle = q?.toLowerCase();
+  const tagNeedle = tag?.toLowerCase();
+  const out: AnarchyCourseSlim[] = [];
+  for (const c of idx.courses) {
+    if (tagNeedle && !c.tags.includes(tagNeedle)) continue;
+    if (needle) {
+      const hay = `${c.title} ${c.preview} ${c.tags.join(' ')}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(c);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function anarchyCacheStats() {
+  return {
+    index: cachedIndex ? { cachedAt: cachedIndexAt, counts: cachedIndex.counts } : null,
+    course: { hits: courseCache.hits, misses: courseCache.misses, size: courseCache.map.size },
+    tag: { hits: tagCache.hits, misses: tagCache.misses, size: tagCache.map.size },
+  };
+}

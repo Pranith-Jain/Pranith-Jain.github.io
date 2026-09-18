@@ -48,6 +48,7 @@ const ROUTES = [
   '/skills',
   '/experience',
   '/projects',
+  '/anarchy',
   '/daily-briefs',
   '/blog',
 
