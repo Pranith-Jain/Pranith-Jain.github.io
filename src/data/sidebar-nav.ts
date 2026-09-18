@@ -227,7 +227,8 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/osint/threat-actor-monitor': Shield,
   // Tools
   '/threatintel/tools/copilot': Sparkles,
-  '/threatintel/tools/mcp': Zap,
+  '/threatintel/mcp-search': Zap,
+  // '/threatintel/tools/mcp' now redirects to /threatintel/mcp-search
   '/threatintel/tools/misp': Database,
   '/threatintel/tools/stix': FileText,
   '/threatintel/tools/stix-ip-export': FileText,

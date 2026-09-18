@@ -1,0 +1,73 @@
+{
+  "slug": "PortSwigger__mcp-server",
+  "repo": "PortSwigger/mcp-server",
+  "category": "mcp",
+  "scope": ["webapp", "api"],
+  "stars": 1167,
+  "description": "MCP Server for Burp",
+  "homepage": null,
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:47Z",
+  "pushedAt": "2026-08-28",
+  "daysIdle": 20,
+  "archived": false,
+  "license": "GPL-3.0",
+  "upstream": {
+    "entry": { "category": "mcp", "repo": "PortSwigger/mcp-server", "scope": ["webapp", "api"], "added": "2026-09-12" },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:47Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-08-28",
+        "days_since_push": 20,
+        "total_commits": 57,
+        "last100_span_days": 497,
+        "last100_authors": 14,
+        "releases": 1,
+        "latest_release_at": "2026-05-26",
+        "days_since_release": 114,
+        "days_idle": 20,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "PortSwigger/mcp-server",
+        "stars": 1167,
+        "forks": 190,
+        "created_at": "2025-04-02",
+        "is_fork": false,
+        "contributors": 14,
+        "top_contributor_share": 0.33,
+        "homepage": null,
+        "description": "MCP Server for Burp",
+        "topics": ["extension"]
+      },
+      "licence": { "file": "GPL-3.0", "api_spdx": "GPL-3.0", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 7078,
+        "code_files": 41,
+        "files": 55,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": true,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": true,
+        "privilege": false,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

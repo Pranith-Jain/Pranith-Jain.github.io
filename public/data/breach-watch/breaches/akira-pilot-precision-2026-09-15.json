@@ -1,1 +1,15 @@
-{"slug":"akira-pilot-precision-2026-09-15","title":"Pilot Precision","group":"akira","discovered":"2026-09-15T14:53:24.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Pilot Precision Products specializes in industrial broaches, cutting tools, milling, drilling, \nand turning for machining operations. They offer a diverse array of products including CNC inde\nxable broaching, solid carbide drills, and various types of milling tools.\n\nWe will upload 30gb of corporate data soon. Employee personal information (SSN numbers, names, \naddresses and so on), detailed financials, lots of projects info, contracts and agreements, cus\ntomers, partners and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "akira-pilot-precision-2026-09-15",
+  "title": "Pilot Precision",
+  "group": "akira",
+  "discovered": "2026-09-15T14:53:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Pilot Precision Products specializes in industrial broaches, cutting tools, milling, drilling, \nand turning for machining operations. They offer a diverse array of products including CNC inde\nxable broaching, solid carbide drills, and various types of milling tools.\n\nWe will upload 30gb of corporate data soon. Employee personal information (SSN numbers, names, \naddresses and so on), detailed financials, lots of projects info, contracts and agreements, cus\ntomers, partners and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

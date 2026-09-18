@@ -1,0 +1,90 @@
+{
+  "slug": "ADScanPro__Claude-AD",
+  "repo": "ADScanPro/Claude-AD",
+  "category": "skill",
+  "scope": ["ad"],
+  "stars": 201,
+  "description": "Active Directory pentest methodology for Claude Code: skills, agents and slash commands for internal AD red-team work (Kerberoasting, ADCS ESC1-17, DCSync, ACL abuse, NTLM relay, delegation), with per-technique OPSEC/telemetry notes. Drive…",
+  "homepage": "https://adscanpro.com",
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:42:46Z",
+  "pushedAt": "2026-08-24",
+  "daysIdle": 24,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": { "category": "skill", "repo": "ADScanPro/Claude-AD", "scope": ["ad"], "added": "2026-09-12" },
+    "derived": {
+      "checked_at": "2026-09-17T08:42:46Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-08-24",
+        "days_since_push": 24,
+        "total_commits": 2,
+        "last100_span_days": 0,
+        "last100_authors": 1,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 24,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "ADScanPro/Claude-AD",
+        "stars": 201,
+        "forks": 32,
+        "created_at": "2026-08-24",
+        "is_fork": false,
+        "contributors": 1,
+        "top_contributor_share": 1,
+        "homepage": "https://adscanpro.com",
+        "description": "Active Directory pentest methodology for Claude Code: skills, agents and slash commands for internal AD red-team work (Kerberoasting, ADCS ESC1-17, DCSync, ACL abuse, NTLM relay, delegation), with per-technique OPSEC/telemetry notes. Drives netexec, impacket, certipy, bloodyAD, BloodHound CE.",
+        "topics": [
+          "active-directory",
+          "active-directory-security",
+          "adcs",
+          "bloodhound",
+          "claude",
+          "claude-code",
+          "claude-code-plugin",
+          "claude-skills",
+          "dcsync",
+          "kerberoasting",
+          "kerberos",
+          "ntlm-relay",
+          "offensive-security",
+          "penetration-testing",
+          "pentesting",
+          "red-team"
+        ]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 0,
+        "code_files": 0,
+        "files": 19,
+        "has_ci": false,
+        "has_tests": false,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": null,
+        "providers": null,
+        "mcp_server": null,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

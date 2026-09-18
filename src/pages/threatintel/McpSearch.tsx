@@ -4,6 +4,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { McpStatusBanner } from '../../components/ti-mindmap-mcp/McpStatusBanner';
 import { useMcp } from '../../components/ti-mindmap-mcp/McpContext';
 import { McpSearchWorkbench } from '../../components/ti-mindmap-mcp/McpSearchWorkbench';
+import { McpToolsReference } from '../../components/ti-mindmap-mcp/McpToolsReference';
 
 export default function McpSearch(): JSX.Element {
   const { apiKey } = useMcp();
@@ -25,7 +26,8 @@ export default function McpSearch(): JSX.Element {
           >
             ti-mindmap-hub.com
           </a>
-          . Search reports, CVEs, IOCs, briefings, and STIX bundles - all via MCP.
+          . Search reports, CVEs, IOCs, briefings, and STIX bundles - all via MCP — with the full per-tool reference
+          (names, descriptions, parameters) below.
         </span>
       }
       headerExtra={<McpStatusBanner className="max-w-2xl" />}
@@ -53,6 +55,9 @@ export default function McpSearch(): JSX.Element {
       )}
 
       <McpSearchWorkbench />
+
+      {/* Per-tool reference: name / description / parameters for all 25 tools */}
+      <McpToolsReference />
 
       {apiKey && (
         <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted">

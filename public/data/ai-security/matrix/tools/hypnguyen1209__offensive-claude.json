@@ -1,0 +1,81 @@
+{
+  "slug": "hypnguyen1209__offensive-claude",
+  "repo": "hypnguyen1209/offensive-claude",
+  "category": "skill",
+  "scope": ["redteam", "ad"],
+  "stars": 367,
+  "description": "Offensive security toolkit for Claude Code covering red team, exploit dev, AD attacks, EDR bypass, mobile pentest",
+  "homepage": null,
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:44:04Z",
+  "pushedAt": "2026-09-16",
+  "daysIdle": 1,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": {
+      "category": "skill",
+      "repo": "hypnguyen1209/offensive-claude",
+      "scope": ["redteam", "ad"],
+      "added": "2026-09-14"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:44:04Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-16",
+        "days_since_push": 1,
+        "total_commits": 73,
+        "last100_span_days": 120,
+        "last100_authors": 3,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 1,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "hypnguyen1209/offensive-claude",
+        "stars": 367,
+        "forks": 60,
+        "created_at": "2026-05-19",
+        "is_fork": false,
+        "contributors": 4,
+        "top_contributor_share": 0.7,
+        "homepage": null,
+        "description": "Offensive security toolkit for Claude Code covering red team, exploit dev, AD attacks, EDR bypass, mobile pentest",
+        "topics": ["claude-code", "claude-code-skills", "exploit-development", "offensive-security", "redteam"]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 39476,
+        "code_files": 238,
+        "files": 558,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": false,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": null,
+        "tool_defs": 3,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": {
+        "bundled": ["impacket", "semgrep"],
+        "manifests": [".devcontainer/Dockerfile", "skills/network-attack/scripts/mitm6_relay_launcher.sh"]
+      },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

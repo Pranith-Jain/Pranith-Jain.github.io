@@ -1,7 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, internalError } from '../lib/api-error';
+import { badRequest, internalError, notFound } from '../lib/api-error';
+import { callerOwnerId, ownerVisibilityFilter, ownerCheck } from '../lib/ownership';
 
 interface SavedRule {
   id: string;
@@ -33,8 +34,8 @@ export async function copilotRulesSaveHandler(c: Context<{ Bindings: Env }>): Pr
     const now = new Date().toISOString();
     await db
       .prepare(
-        `INSERT INTO copilot_saved_rules (id, session_id, rule_type, rule_name, rule_content, description, context, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        `INSERT INTO copilot_saved_rules (id, session_id, rule_type, rule_name, rule_content, description, context, created_at, owner_hash)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
       )
       .bind(
         id,
@@ -44,7 +45,8 @@ export async function copilotRulesSaveHandler(c: Context<{ Bindings: Env }>): Pr
         body.rule_content,
         body.description ?? '',
         body.context ?? '',
-        now
+        now,
+        callerOwnerId(c)
       )
       .run();
 
@@ -61,19 +63,21 @@ export async function copilotRulesListHandler(c: Context<{ Bindings: Env }>): Pr
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
     const type = c.req.query('type');
+    const vis = ownerVisibilityFilter(c);
     let rows: D1Result<SavedRule>;
     if (type) {
       rows = await db
         .prepare(
-          'SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules WHERE rule_type = ? ORDER BY created_at DESC LIMIT 50'
+          `SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules WHERE rule_type = ? AND ${vis.clause} ORDER BY created_at DESC LIMIT 50`
         )
-        .bind(type)
+        .bind(type, ...vis.bindings)
         .all<SavedRule>();
     } else {
       rows = await db
         .prepare(
-          'SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules ORDER BY created_at DESC LIMIT 50'
+          `SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules WHERE ${vis.clause} ORDER BY created_at DESC LIMIT 50`
         )
+        .bind(...vis.bindings)
         .all<SavedRule>();
     }
     return c.json({ rules: rows.results ?? [] });
@@ -89,6 +93,12 @@ export async function copilotRulesDeleteHandler(c: Context<{ Bindings: Env }>): 
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
     const id = c.req.param('id');
     if (!id) return badRequest(c, 'id required');
+
+    const row = await db
+      .prepare('SELECT owner_hash FROM copilot_saved_rules WHERE id = ?')
+      .bind(id)
+      .first<{ owner_hash: string | null }>();
+    if (!row || ownerCheck(c, row.owner_hash) === 'hidden') return notFound(c, 'rule not found');
 
     await db.prepare('DELETE FROM copilot_saved_rules WHERE id = ?').bind(id).run();
     return c.json({ deleted: true });

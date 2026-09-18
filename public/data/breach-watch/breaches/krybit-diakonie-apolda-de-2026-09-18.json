@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-diakonie-apolda-de-2026-09-18",
+  "title": "diakonie-apolda.de",
+  "group": "Krybit",
+  "discovered": "2026-09-18T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/diakonie-apolda-de-krybit-2026-09",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

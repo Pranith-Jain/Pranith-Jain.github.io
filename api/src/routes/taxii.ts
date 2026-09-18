@@ -11,23 +11,29 @@ import type { D1Database } from '@cloudflare/workers-types';
  *
  * Implements the Trusted Automated eXchange of Intelligence Information
  * (TAXII) 2.1 protocol, allowing other security tools (MISP, OpenCTI,
- * Splunk SOAR, etc.) to pull threat intelligence from this platform.
+ * ThreatConnect, ThreatQ, ThreatStream, Cortex XSOAR, etc.) to pull threat
+ * intelligence from this platform.
  *
  * Endpoints:
- *   GET  /api/taxii2/                     → Discovery
+ *   GET  /api/taxii2/                     → Discovery (absolute api_roots)
  *   GET  /api/taxii2/collections/         → List collections
  *   GET  /api/taxii2/collections/{id}/    → Collection metadata
- *   GET  /api/taxii2/collections/{id}/objects/ → Get STIX objects
- *   POST /api/taxii2/collections/{id}/objects/ → Add STIX objects
+ *   GET  /api/taxii2/collections/{id}/objects/ → Envelope { more, next }
+ *   POST /api/taxii2/collections/{id}/objects/ → Admin-only (all read-only)
+ *
+ * Get-Objects supports: limit (cap 500), next (opaque offset cursor),
+ * added_after (RFC3339, all collections), match[type], match[id],
+ * match[version] (accepted; single-version store behaves as "all").
  *
  * Collections:
- *   - iocs: All IOCs (IPs, domains, URLs, hashes)
+ *   - iocs: Recent IOCs — rolling 7-day window, use added_after to page
  *   - actors: Threat actor profiles
  *   - malware: Malware families
  *   - vulnerabilities: CVE data
  *   - briefings: Daily/weekly briefings
  *
- * Authentication: Bearer token (same as API keys).
+ * Authentication: API key via Authorization: Bearer, X-API-Key, or HTTP
+ * Basic (key as password — for TAXII clients that only speak Basic).
  */
 
 const TAXII_CONTENT_TYPE = 'application/vnd.oasis.taxii+json; version=2.1';
@@ -46,7 +52,8 @@ const COLLECTIONS: TaxiiCollection[] = [
   {
     id: 'iocs',
     title: 'Indicators of Compromise',
-    description: 'All IOCs aggregated from 30+ threat intelligence feeds',
+    description:
+      'Recent IOCs aggregated from 30+ threat intelligence feeds (rolling 7-day window; use added_after for incremental sync)',
     can_read: true,
     can_write: false,
     media_types: [STIX_CONTENT_TYPE],
@@ -85,14 +92,67 @@ const COLLECTIONS: TaxiiCollection[] = [
   },
 ];
 
+/** STIX object types served per collection (for match[type] gating). */
+const COLLECTION_TYPES: Record<string, string[]> = {
+  iocs: ['indicator'],
+  actors: ['threat-actor'],
+  malware: ['malware'],
+  vulnerabilities: ['vulnerability'],
+  briefings: ['identity', 'report'],
+};
+
+/** Platform producer identity + TLP marking attached to every envelope. */
+const PRODUCER_ID = 'identity--b1c2d3e4-0000-5000-8000-000000000001';
+const PRODUCER: Record<string, unknown> = {
+  type: 'identity',
+  spec_version: '2.1',
+  id: PRODUCER_ID,
+  created: '2024-01-01T00:00:00.000Z',
+  modified: '2024-01-01T00:00:00.000Z',
+  name: 'pranithjain CTI',
+  identity_class: 'organization',
+};
+// Official OASIS TLP:CLEAR marking-definition id (shared with the STIX exporter).
+const MARKING_CLEAR_ID = 'marking-definition--613f2e26-407d-48c7-9eca-b8e91df99dc9';
+const MARKING_CLEAR: Record<string, unknown> = {
+  type: 'marking-definition',
+  spec_version: '2.1',
+  id: MARKING_CLEAR_ID,
+  created: '2017-01-20T00:00:00Z',
+  modified: '2017-01-20T00:00:00Z',
+  name: 'TLP:CLEAR',
+  definition_type: 'tlp',
+  definition: { tlp: 'clear' },
+};
+
+/**
+ * Attach producer + handling refs to collection objects (when absent) and
+ * prepend the producer identity + marking so every envelope is self-contained.
+ * STIX lists must be non-empty — refs are only added, never emptied.
+ */
+function withProducer(objects: Record<string, unknown>[]): Record<string, unknown>[] {
+  const marked = objects.map((o) => {
+    if (o.type === 'identity' || o.type === 'marking-definition') return o;
+    const out = { ...o };
+    if (!out.created_by_ref) out.created_by_ref = PRODUCER_ID;
+    if (!out.object_marking_refs) out.object_marking_refs = [MARKING_CLEAR_ID];
+    return out;
+  });
+  return [PRODUCER, MARKING_CLEAR, ...marked];
+}
+
 /** GET /api/taxii2/ — Discovery */
 export async function taxiiDiscoveryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  // api_roots must be absolute URIs — strict clients (ThreatConnect,
+  // ThreatQ, Anomali, XSOAR URL builders) reject relative roots.
+  const siteUrl = getSiteUrl(c.env).replace(/\/$/, '');
+  const apiRoot = `${siteUrl}/api/taxii2/`;
   return c.json(
     {
       title: 'DFIR & Threat Intel TAXII Server',
       description: 'TAXII 2.1 server for automated threat intelligence sharing',
-      default: '/api/taxii2/collections/',
-      api_roots: ['/api/taxii2/'],
+      default: `${apiRoot}collections/`,
+      api_roots: [apiRoot],
     },
     200,
     { 'Content-Type': TAXII_CONTENT_TYPE }
@@ -118,7 +178,7 @@ export async function taxiiCollectionHandler(c: Context<{ Bindings: Env }>): Pro
   return c.json(collection, 200, { 'Content-Type': TAXII_CONTENT_TYPE });
 }
 
-/** GET /api/taxii2/collections/{id}/objects/ — Get STIX objects */
+/** GET /api/taxii2/collections/{id}/objects/ — Get STIX objects (envelope + paging) */
 export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   const collection = COLLECTIONS.find((col) => col.id === id);
@@ -136,43 +196,87 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
     });
   }
 
-  // Parse pagination params
-  const limit = Math.min(parseInt(c.req.query('limit') ?? '100'), 500);
+  const badRequest = (description: string): Response =>
+    c.json({ title: 'Bad Request', description }, 400, { 'Content-Type': TAXII_CONTENT_TYPE });
+
+  // Pagination: limit (cap 500) + opaque `next` offset cursor.
+  const limitRaw = c.req.query('limit');
+  const limit = limitRaw === undefined ? 100 : Number(limitRaw);
+  if (!Number.isInteger(limit) || limit < 1 || limit > 500) {
+    return badRequest('limit must be an integer between 1 and 500');
+  }
+  const nextRaw = c.req.query('next');
+  const offset = nextRaw === undefined ? 0 : Number(nextRaw);
+  if (!Number.isInteger(offset) || offset < 0 || offset > 2147483647) {
+    return badRequest('next is an opaque cursor from a previous response');
+  }
+
+  // Incremental polling — honored by every collection (compared against
+  // first_seen/last_seen/published_at depending on the collection).
   const addedAfter = c.req.query('added_after');
+  if (addedAfter !== undefined && Number.isNaN(Date.parse(addedAfter))) {
+    return badRequest('added_after must be an RFC3339 timestamp');
+  }
+
+  // STIX filters. match[version] is accepted but this store keeps a single
+  // version per object, so it behaves as "all" (documented, not rejected).
+  const matchTypes = (c.req.query('match[type]') ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const matchIds =
+    c.req.query('match[id]') === undefined
+      ? null
+      : new Set(
+          c.req
+            .query('match[id]')!
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean)
+        );
+
+  // match[type] that excludes every type in this collection → empty page
+  // (producer envelope only, same shape as any other empty result).
+  const collectionTypes = COLLECTION_TYPES[id ?? ''] ?? [];
+  if (matchTypes.length > 0 && !matchTypes.some((t) => collectionTypes.includes(t))) {
+    return taxiiEnvelope(withProducer([]));
+  }
 
   try {
+    // match[id] targets individual objects — return all matches, no paging.
+    const pageLimit = matchIds ? 5000 : limit + 1;
+    const pageOffset = matchIds ? 0 : offset;
     let objects: Record<string, unknown>[] = [];
 
     switch (id) {
       case 'iocs':
-        objects = await getIocObjects(db, limit, addedAfter);
+        objects = await getIocObjects(db, pageLimit, addedAfter, pageOffset);
         break;
       case 'actors':
-        objects = await getActorObjects(db, limit);
+        objects = await getActorObjects(db, pageLimit, addedAfter, pageOffset);
         break;
       case 'malware':
-        objects = await getMalwareObjects(db, limit);
+        objects = await getMalwareObjects(db, pageLimit, addedAfter, pageOffset);
         break;
       case 'vulnerabilities':
-        objects = await getVulnerabilityObjects(db, limit);
+        objects = await getVulnerabilityObjects(db, pageLimit, addedAfter, pageOffset);
         break;
       case 'briefings':
-        objects = await getBriefingObjects(db, limit, c.env);
+        objects = await getBriefingObjects(db, pageLimit, c.env, addedAfter, pageOffset);
         break;
     }
 
-    return c.json(
-      {
-        type: 'bundle',
-        id: `bundle--${crypto.randomUUID()}`,
-        objects,
-      },
-      200,
-      {
-        'Content-Type': STIX_CONTENT_TYPE,
-        'Cache-Control': 'public, max-age=300',
-      }
-    );
+    if (matchTypes.length > 0) {
+      objects = objects.filter((o) => matchTypes.includes(o.type as string));
+    }
+    if (matchIds) {
+      objects = objects.filter((o) => matchIds.has(o.id as string));
+      return taxiiEnvelope(withProducer(objects));
+    }
+
+    const more = objects.length > limit;
+    const page = more ? objects.slice(0, limit) : objects;
+    return taxiiEnvelope(withProducer(page), more ? { more: true, next: String(offset + limit) } : undefined);
   } catch (err) {
     logError('handler failed', err);
     return c.json(
@@ -184,6 +288,26 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
       { 'Content-Type': TAXII_CONTENT_TYPE }
     );
   }
+}
+
+/** TAXII 2.1 Get-Objects envelope (TAXII media type, not application/stix+json). */
+function taxiiEnvelope(objects: Record<string, unknown>[], page?: { more: boolean; next: string }): Response {
+  return Response.json(
+    {
+      type: 'envelope',
+      id: `envelope--${crypto.randomUUID()}`,
+      objects,
+      more: page?.more ?? false,
+      ...(page ? { next: page.next } : {}),
+    },
+    {
+      status: 200,
+      headers: {
+        'Content-Type': TAXII_CONTENT_TYPE,
+        'Cache-Control': 'public, max-age=300',
+      },
+    }
+  );
 }
 
 /** POST /api/taxii2/collections/{id}/objects/ — Add STIX objects */
@@ -233,7 +357,8 @@ export async function taxiiAddObjectsHandler(c: Context<{ Bindings: Env }>): Pro
 export async function getIocObjects(
   db: D1Database,
   limit: number,
-  addedAfter?: string
+  addedAfter?: string,
+  offset = 0
 ): Promise<Record<string, unknown>[]> {
   // Get recent IOCs from lifecycle table
   let query = `
@@ -248,8 +373,8 @@ export async function getIocObjects(
     params.push(addedAfter);
   }
 
-  query += ' ORDER BY last_seen DESC LIMIT ?';
-  params.push(limit);
+  query += ' ORDER BY last_seen DESC LIMIT ? OFFSET ?';
+  params.push(limit, offset);
 
   const rows = await db
     .prepare(query)
@@ -263,35 +388,51 @@ export async function getIocObjects(
       tags: string;
     }>();
 
-  return await Promise.all(
-    (rows.results ?? []).map(async (row) => {
-      const tags: string[] = JSON.parse(row.tags ?? '[]');
+  const out: Record<string, unknown>[] = [];
+  for (const row of rows.results ?? []) {
+    // Unknown indicator types have no valid STIX pattern — skip rather than
+    // emit a misleading guess (previously artifact:payload_bin).
+    const pattern = buildStixPattern(row.indicator, row.indicator_type);
+    if (!pattern) continue;
+    const tags: string[] = JSON.parse(row.tags ?? '[]');
 
-      return {
-        type: 'indicator',
-        spec_version: '2.1',
-        id: await stixId('indicator', `indicator|${row.indicator_type}|${String(row.indicator).toLowerCase()}`),
-        created: row.first_seen,
-        modified: row.last_seen,
-        name: row.indicator,
-        description: `IOC from threat intelligence feeds. Tags: ${tags.join(', ')}`,
-        pattern: buildStixPattern(row.indicator, row.indicator_type),
-        pattern_type: 'stix',
-        valid_from: row.first_seen,
-        labels: tags.slice(0, 5),
-        confidence: row.peak_score >= 70 ? 85 : row.peak_score >= 40 ? 60 : 30,
-      };
-    })
-  );
+    out.push({
+      type: 'indicator',
+      spec_version: '2.1',
+      id: await stixId('indicator', `indicator|${row.indicator_type}|${String(row.indicator).toLowerCase()}`),
+      created: row.first_seen,
+      modified: row.last_seen,
+      name: row.indicator,
+      description: `IOC from threat intelligence feeds. Tags: ${tags.join(', ')}`,
+      pattern,
+      pattern_type: 'stix',
+      valid_from: row.first_seen,
+      // STIX lists must be non-empty — omit labels when there are no tags.
+      ...(tags.length > 0 ? { labels: tags.slice(0, 5) } : {}),
+      confidence: row.peak_score >= 70 ? 85 : row.peak_score >= 40 ? 60 : 30,
+    });
+  }
+  return out;
 }
 
-export async function getActorObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+export async function getActorObjects(
+  db: D1Database,
+  limit: number,
+  addedAfter?: string,
+  offset = 0
+): Promise<Record<string, unknown>[]> {
   // Query graph DB for actor nodes; fall back to hardcoded if empty
+  let query = 'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ?';
+  const params: unknown[] = ['actor'];
+  if (addedAfter) {
+    query += ' AND last_seen > ?';
+    params.push(addedAfter);
+  }
+  query += ' ORDER BY confidence DESC LIMIT ? OFFSET ?';
+  params.push(limit, offset);
   const rows = await db
-    .prepare(
-      'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY confidence DESC LIMIT ?'
-    )
-    .bind('actor', limit)
+    .prepare(query)
+    .bind(...params)
     .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
   const fromDb = await Promise.all(
     (rows.results ?? []).map(async (r) => {
@@ -327,7 +468,7 @@ export async function getActorObjects(db: D1Database, limit: number): Promise<Re
     { name: 'Sandworm', aliases: ['Voodoo Bear', 'Seashell Blizzard'], country: 'Russia' },
   ];
   return await Promise.all(
-    ACTORS.slice(0, limit).map(async (actor) => ({
+    ACTORS.slice(offset, offset + limit).map(async (actor) => ({
       type: 'threat-actor',
       spec_version: '2.1',
       id: await stixId('threat-actor', `threat-actor|${actor.name}`),
@@ -345,12 +486,23 @@ export async function getActorObjects(db: D1Database, limit: number): Promise<Re
   );
 }
 
-export async function getMalwareObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+export async function getMalwareObjects(
+  db: D1Database,
+  limit: number,
+  addedAfter?: string,
+  offset = 0
+): Promise<Record<string, unknown>[]> {
+  let query = 'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ?';
+  const params: unknown[] = ['malware'];
+  if (addedAfter) {
+    query += ' AND last_seen > ?';
+    params.push(addedAfter);
+  }
+  query += ' ORDER BY confidence DESC LIMIT ? OFFSET ?';
+  params.push(limit, offset);
   const rows = await db
-    .prepare(
-      'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY confidence DESC LIMIT ?'
-    )
-    .bind('malware', limit)
+    .prepare(query)
+    .bind(...params)
     .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
   const fromDb = await Promise.all(
     (rows.results ?? []).map(async (r) => {
@@ -385,7 +537,7 @@ export async function getMalwareObjects(db: D1Database, limit: number): Promise<
     { name: 'TrickBot', type: 'banking-trojan', description: 'Modular banking trojan with C2 capabilities' },
   ];
   return await Promise.all(
-    MALWARE.slice(0, limit).map(async (m) => ({
+    MALWARE.slice(offset, offset + limit).map(async (m) => ({
       type: 'malware',
       spec_version: '2.1',
       id: await stixId('malware', `malware|${m.name}`),
@@ -399,12 +551,23 @@ export async function getMalwareObjects(db: D1Database, limit: number): Promise<
   );
 }
 
-export async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+export async function getVulnerabilityObjects(
+  db: D1Database,
+  limit: number,
+  addedAfter?: string,
+  offset = 0
+): Promise<Record<string, unknown>[]> {
+  let query = 'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ?';
+  const params: unknown[] = ['cve'];
+  if (addedAfter) {
+    query += ' AND last_seen > ?';
+    params.push(addedAfter);
+  }
+  query += ' ORDER BY last_seen DESC LIMIT ? OFFSET ?';
+  params.push(limit, offset);
   const rows = await db
-    .prepare(
-      'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY last_seen DESC LIMIT ?'
-    )
-    .bind('cve', limit)
+    .prepare(query)
+    .bind(...params)
     .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
   const fromDb = await Promise.all(
     (rows.results ?? []).map(async (r) => ({
@@ -433,13 +596,27 @@ export async function getVulnerabilityObjects(db: D1Database, limit: number): Pr
       description: 'XZ Utils backdoor - malicious code in liblzma',
       external_references: [{ source_name: 'CVE', external_id: 'CVE-2024-3094' }],
     },
-  ].slice(0, limit);
+  ].slice(offset, offset + limit);
 }
 
-export async function getBriefingObjects(db: D1Database, limit: number, env?: Env): Promise<Record<string, unknown>[]> {
+export async function getBriefingObjects(
+  db: D1Database,
+  limit: number,
+  env?: Env,
+  addedAfter?: string,
+  offset = 0
+): Promise<Record<string, unknown>[]> {
+  let query = 'SELECT slug, title, type, published_at FROM briefings';
+  const params: unknown[] = [];
+  if (addedAfter) {
+    query += ' WHERE published_at > ?';
+    params.push(addedAfter);
+  }
+  query += ' ORDER BY published_at DESC LIMIT ? OFFSET ?';
+  params.push(limit, offset);
   const rows = await db
-    .prepare('SELECT slug, title, type, published_at FROM briefings ORDER BY published_at DESC LIMIT ?')
-    .bind(limit)
+    .prepare(query)
+    .bind(...params)
     .all<{ slug: string; title: string; type: string; published_at: string }>();
   const results = rows.results ?? [];
   if (results.length === 0) return [];
@@ -482,7 +659,7 @@ export async function getBriefingObjects(db: D1Database, limit: number, env?: En
   return [producer, ...reports];
 }
 
-function buildStixPattern(value: string, type: string): string {
+function buildStixPattern(value: string, type: string): string | null {
   switch (type) {
     case 'ipv4':
       return `[ipv4-addr:value = '${value}']`;
@@ -492,12 +669,24 @@ function buildStixPattern(value: string, type: string): string {
       return `[domain-name:value = '${value}']`;
     case 'url':
       return `[url:value = '${value}']`;
+    case 'email':
+      return `[email-addr:value = '${value}']`;
     case 'hash':
       if (value.length === 64) return `[file:hashes.'SHA-256' = '${value}']`;
       if (value.length === 40) return `[file:hashes.'SHA-1' = '${value}']`;
       if (value.length === 32) return `[file:hashes.'MD5' = '${value}']`;
       return `[file:hashes.'SHA-256' = '${value}']`;
+    case 'md5':
+      return `[file:hashes.'MD5' = '${value}']`;
+    case 'sha1':
+      return `[file:hashes.'SHA-1' = '${value}']`;
+    case 'sha256':
+      return `[file:hashes.'SHA-256' = '${value}']`;
     default:
-      return `[artifact:payload_bin = '${value}']`;
+      // No valid STIX pattern for this type — the caller skips the object
+      // rather than emitting a misleading guess. Every type the lifecycle
+      // writer emits is mapped above, so this is a defensive dead-end that
+      // keeps limit+1 paging exact.
+      return null;
   }
 }

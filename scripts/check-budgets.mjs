@@ -47,7 +47,12 @@ const BUDGETS = {
   // (new GenerateTab) and the Destroylist feed page added per-page utility
   // classes. +8KB raw headroom; both pages are admin/lazy routes so the
   // transfer cost lands on the chunks that need them.
-  'index-*.css': { uncompressed: 398_000, gzip: 52_000 },
+  // raw 398→414KB / gzip 52→54KB: accumulated page growth — anarchy phases
+  // 1–3 (interactive catalog + library + progress + share) plus the AI
+  // Security hub (5 data pages; measured contribution is 2 novel utilities,
+  // so this is cumulative drift, not one feature). Set to current size
+  // (410.3KB / 52.9KB) + modest headroom; gzipped CSS is cached aggressively.
+  'index-*.css': { uncompressed: 414_000, gzip: 54_000 },
   // raw 280→300KB / gzip 92→96KB: the in-flight Dnscope, EmailDefense,
   // and IntodnsPanel pages (plus the api/ validation rewrite) added new
   // panel components and form schemas to the main app chunk. +20KB raw

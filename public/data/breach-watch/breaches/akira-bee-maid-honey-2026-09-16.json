@@ -1,1 +1,15 @@
-{"slug":"akira-bee-maid-honey-2026-09-16","title":"Bee Maid Honey","group":"akira","discovered":"2026-09-16T14:54:41.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"Bee Maid Honey Limited is the marketing arm of the Alberta Honey Producers Cooperative Limited \nand the Manitoba Cooperative Honey Producers Limited. Honey produced by beekeepers in western C\nanada is processed and packaged at Bee Maid's Winnipeg, MB and Spruce Grove, AB plants.\n\nWe will upload 46gb of corporate data soon. Employee personal information (passports numbers, D\nLs, death certs and other HR files), financials, confidential internal files, projects, contrac\nts and agreements, NDA and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}
+{
+  "slug": "akira-bee-maid-honey-2026-09-16",
+  "title": "Bee Maid Honey",
+  "group": "akira",
+  "discovered": "2026-09-16T14:54:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Bee Maid Honey Limited is the marketing arm of the Alberta Honey Producers Cooperative Limited \nand the Manitoba Cooperative Honey Producers Limited. Honey produced by beekeepers in western C\nanada is processed and packaged at Bee Maid's Winnipeg, MB and Spruce Grove, AB plants.\n\nWe will upload 46gb of corporate data soon. Employee personal information (passports numbers, D\nLs, death certs and other HR files), financials, confidential internal files, projects, contrac\nts and agreements, NDA and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

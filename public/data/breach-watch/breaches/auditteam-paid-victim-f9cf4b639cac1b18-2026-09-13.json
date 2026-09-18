@@ -1,1 +1,15 @@
-{"slug":"auditteam-paid-victim-f9cf4b639cac1b18-2026-09-13","title":"Paid Victim F9CF4B639CAC1B18","group":"AuditTeam","discovered":"2026-09-13T09:51:41.000Z","category":"data_breach","severity":"high","country":"RU","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["audit team"],"activity":"Not Found","references":["ransomware.live"]}
+{
+  "slug": "auditteam-paid-victim-f9cf4b639cac1b18-2026-09-13",
+  "title": "Paid Victim F9CF4B639CAC1B18",
+  "group": "AuditTeam",
+  "discovered": "2026-09-13T09:51:41.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "RU",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

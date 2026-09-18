@@ -1,1 +1,15 @@
-{"slug":"metaencryptor-promantra-inc-2026-09-17","title":"Promantra, Inc","group":"metaencryptor","discovered":"2026-09-17T13:04:44.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"ProMantra is a U.S.-based healthcare technology and business process services company specializing in Revenue Cycle Management (RCM), medical billing, healthcare data processing, and automation. Founded in 2003, the company provides technology-enabled services designed to help healthcare providers manage the financial and administrative processes associated with patient care","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "metaencryptor-promantra-inc-2026-09-17",
+  "title": "Promantra, Inc",
+  "group": "metaencryptor",
+  "discovered": "2026-09-17T13:04:44.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "ProMantra is a U.S.-based healthcare technology and business process services company specializing in Revenue Cycle Management (RCM), medical billing, healthcare data processing, and automation. Founded in 2003, the company provides technology-enabled services designed to help healthcare providers manage the financial and administrative processes associated with patient care",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

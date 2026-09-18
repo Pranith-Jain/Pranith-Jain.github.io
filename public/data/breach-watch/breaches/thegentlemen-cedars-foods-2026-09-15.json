@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-cedars-foods-2026-09-15","title":"Cedars Foods","group":"thegentlemen","discovered":"2026-09-15T07:14:48.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"cedarsfoods.com zoominfo.com/c/cedars-mediterranean-foods-inc/22189641 Cedars Foods America's #1 hummus & falafel brand — a 1981-founded Dearborn, Michigan family company (the Hamady family, in the heart of the Arab-American community) that made Mediterranean food mainstream in the US. Products: hummus, falafel, baba ghanoush, taboule, dolmas, pita chips, kibbeh, tzatziki, toum — in retail formats (8–10 oz) and foodservice 10-lb boxes for US Foods, Sysco and Shamrock; clients: Costco, Kroger, Walmart, Whole Foods, Meijer — national reach from a Dearborn plant with ~110–140 staff","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-cedars-foods-2026-09-15",
+  "title": "Cedars Foods",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:14:48.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "cedarsfoods.com zoominfo.com/c/cedars-mediterranean-foods-inc/22189641 Cedars Foods America's #1 hummus & falafel brand — a 1981-founded Dearborn, Michigan family company (the Hamady family, in the heart of the Arab-American community) that made Mediterranean food mainstream in the US. Products: hummus, falafel, baba ghanoush, taboule, dolmas, pita chips, kibbeh, tzatziki, toum — in retail formats (8–10 oz) and foodservice 10-lb boxes for US Foods, Sysco and Shamrock; clients: Costco, Kroger, Walmart, Whole Foods, Meijer — national reach from a Dearborn plant with ~110–140 staff",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

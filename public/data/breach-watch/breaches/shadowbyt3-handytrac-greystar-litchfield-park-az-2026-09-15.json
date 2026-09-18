@@ -1,1 +1,15 @@
-{"slug":"shadowbyt3-handytrac-greystar-litchfield-park-az-2026-09-15","title":"HandyTrac (Greystar Litchfield Park, AZ)","group":"ShadowByt3$","discovered":"2026-09-15T00:23:37.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"We have access to sensitive data. It's in your best interest to contact us and negotiate since it will just hurt you if you don't. We stole a lot of sensitive info including the following:\n\n- Physical-to-Digital Key Maps (Reports)\n- Property Intelligence & Vulnerability Logs (HandyTrac Key Control.pdf)\n- Employee Identity & Credential Data (Employees)\n- Financial & Vendor Records (Open_and_closed_Invoices)\n- Administrative Portal Control (Dashboard / Administration)\n\nThis is not a joke or a bluff it's a sign of a corporate disaster. Figure it out and negotiate and the picture for proof is on are site at the below\n\nurl: http://sdwbyttda4uzwdffbt4m7niuodiwhcgmkyxqg5nly2bjxqa6xtbe3fyd.onion/Screenshot_proof.png\n\nAs you can see negotiate within 72 hours or we will leak the full data.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "shadowbyt3-handytrac-greystar-litchfield-park-az-2026-09-15",
+  "title": "HandyTrac (Greystar Litchfield Park, AZ)",
+  "group": "ShadowByt3$",
+  "discovered": "2026-09-15T00:23:37.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "We have access to sensitive data. It's in your best interest to contact us and negotiate since it will just hurt you if you don't. We stole a lot of sensitive info including the following:\n\n- Physical-to-Digital Key Maps (Reports)\n- Property Intelligence & Vulnerability Logs (HandyTrac Key Control.pdf)\n- Employee Identity & Credential Data (Employees)\n- Financial & Vendor Records (Open_and_closed_Invoices)\n- Administrative Portal Control (Dashboard / Administration)\n\nThis is not a joke or a bluff it's a sign of a corporate disaster. Figure it out and negotiate and the picture for proof is on are site at the below\n\nurl: http://sdwbyttda4uzwdffbt4m7niuodiwhcgmkyxqg5nly2bjxqa6xtbe3fyd.onion/Screenshot_proof.png\n\nAs you can see negotiate within 72 hours or we will leak the full data.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

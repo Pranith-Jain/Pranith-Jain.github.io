@@ -1,0 +1,84 @@
+{
+  "slug": "dreadnode__ares",
+  "repo": "dreadnode/ares",
+  "category": "agent",
+  "scope": ["ad", "network", "redteam"],
+  "stars": 76,
+  "description": "Ares is an autonomous security operations platform where LLM-driven red and blue team agents operate against each other on live infrastructure, enabling realistic evaluation of attack and defense.",
+  "homepage": null,
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:28Z",
+  "pushedAt": "2026-09-16",
+  "daysIdle": 1,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": {
+      "category": "agent",
+      "repo": "dreadnode/ares",
+      "scope": ["ad", "network", "redteam"],
+      "added": "2026-09-12"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:28Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-16",
+        "days_since_push": 1,
+        "total_commits": 223,
+        "last100_span_days": 71,
+        "last100_authors": 3,
+        "releases": 3,
+        "latest_release_at": "2026-05-18",
+        "days_since_release": 122,
+        "days_idle": 1,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "dreadnode/ares",
+        "stars": 76,
+        "forks": 14,
+        "created_at": "2025-12-15",
+        "is_fork": false,
+        "contributors": 3,
+        "top_contributor_share": 0.69,
+        "homepage": null,
+        "description": "Ares is an autonomous security operations platform where LLM-driven red and blue team agents operate against each other on live infrastructure, enabling realistic evaluation of attack and defense.",
+        "topics": null
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
+      "shape": {
+        "loc": 270869,
+        "code_files": 556,
+        "files": 842,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": {
+          "count": 64,
+          "context": "ted by an LLM coordination loop that autonomously chains 64+ Active Directory attack tools"
+        },
+        "evidence": null
+      },
+      "substrate": {
+        "bundled": ["bloodhound", "certipy-ad", "hashcat", "impacket", "nmap", "smbclient"],
+        "manifests": [".taskfiles/ec2/scripts/setup-tools.sh"]
+      },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": false,
+        "opaque": true
+      }
+    }
+  }
+}

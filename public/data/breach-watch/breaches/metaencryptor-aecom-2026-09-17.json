@@ -1,1 +1,15 @@
-{"slug":"metaencryptor-aecom-2026-09-17","title":"AECOM","group":"metaencryptor","discovered":"2026-09-17T13:05:28.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"AECOM is a leading U.S.-based global infrastructure consulting and engineering company. It provides design, engineering, construction management, and advisory services for major infrastructure projects across transportation, water, energy, buildings, environmental services, and government markets. AECOM operates worldwide and serves public- and private-sector clients.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "metaencryptor-aecom-2026-09-17",
+  "title": "AECOM",
+  "group": "metaencryptor",
+  "discovered": "2026-09-17T13:05:28.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "AECOM is a leading U.S.-based global infrastructure consulting and engineering company. It provides design, engineering, construction management, and advisory services for major infrastructure projects across transportation, water, energy, buildings, environmental services, and government markets. AECOM operates worldwide and serves public- and private-sector clients.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "metaencrypter-promantra-2026-09-18",
+  "title": "ProMantra",
+  "group": "METAENCRYPTER",
+  "discovered": "2026-09-18T03:12:34.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/a633f4fa-0277-4639-b3bd-3b21baee3bad",
+  "groupAliases": [],
+  "activity": "Healthcare Technology",
+  "references": ["Darkfield"]
+}

@@ -1,1 +1,15 @@
-{"slug":"eclipse-dublin-city-schools-ga-2026-09-14","title":"Dublin City Schools GA","group":"Eclipse","discovered":"2026-09-14T16:21:11.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Dublin City Schools is a charter school system dedicated to preparing students to be effective communicators, problem solvers, and lifelong learners. The district offers a range of academic programs, including advanced and gifted education, special education, and various support services. Their intended clients include students and families in Dublin, Georgia, as well as educators seeking employment opportunities within the district","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}
+{
+  "slug": "eclipse-dublin-city-schools-ga-2026-09-14",
+  "title": "Dublin City Schools GA",
+  "group": "Eclipse",
+  "discovered": "2026-09-14T16:21:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Dublin City Schools is a charter school system dedicated to preparing students to be effective communicators, problem solvers, and lifelong learners. The district offers a range of academic programs, including advanced and gifted education, special education, and various support services. Their intended clients include students and families in Dublin, Georgia, as well as educators seeking employment opportunities within the district",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

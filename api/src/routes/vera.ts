@@ -22,6 +22,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
+import { callerOwnerId, ownerVisibilityFilter, ownerCheck } from '../lib/ownership';
 import { detectType } from '../lib/report/subject-resolver';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { VERA_MODES, getVeraMode, type VeraMode } from '../lib/agent/vera-prompts';
@@ -91,9 +92,9 @@ function getLastSubstantiveQuery(messages: VeraMessage[]): { query: string; type
   return null;
 }
 
-async function loadSession(db: D1Database, id: string): Promise<VeraSession | null> {
+async function loadSession(c: Context<{ Bindings: Env }>, db: D1Database, id: string): Promise<VeraSession | null> {
   const row = await db
-    .prepare('SELECT id, mode, messages_json, created_at, updated_at, role FROM vera_sessions WHERE id = ?')
+    .prepare('SELECT id, mode, messages_json, created_at, updated_at, role, owner_hash FROM vera_sessions WHERE id = ?')
     .bind(id)
     .first<{
       id: string;
@@ -102,8 +103,10 @@ async function loadSession(db: D1Database, id: string): Promise<VeraSession | nu
       created_at: string;
       updated_at: string;
       role: string | null;
+      owner_hash: string | null;
     }>();
   if (!row) return null;
+  if (ownerCheck(c, row.owner_hash) === 'hidden') return null;
   return {
     id: row.id,
     messages: JSON.parse(row.messages_json) as VeraMessage[],
@@ -114,11 +117,11 @@ async function loadSession(db: D1Database, id: string): Promise<VeraSession | nu
   };
 }
 
-async function saveSession(db: D1Database, session: VeraSession): Promise<void> {
+async function saveSession(c: Context<{ Bindings: Env }>, db: D1Database, session: VeraSession): Promise<void> {
   await db
     .prepare(
-      `INSERT INTO vera_sessions (id, mode, messages_json, created_at, updated_at, role)
-       VALUES (?, ?, ?, ?, ?, ?)
+      `INSERT INTO vera_sessions (id, mode, messages_json, created_at, updated_at, role, owner_hash)
+       VALUES (?, ?, ?, ?, ?, ?, ?)
        ON CONFLICT(id) DO UPDATE SET
          messages_json = excluded.messages_json,
          updated_at = excluded.updated_at,
@@ -130,7 +133,8 @@ async function saveSession(db: D1Database, session: VeraSession): Promise<void> 
       JSON.stringify(session.messages),
       session.created_at,
       new Date().toISOString(),
-      session.role ?? null
+      session.role ?? null,
+      callerOwnerId(c)
     )
     .run();
 }
@@ -168,7 +172,7 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
     let session: VeraSession;
     if (body.sessionId) {
-      const existing = await loadSession(db, body.sessionId);
+      const existing = await loadSession(c, db, body.sessionId);
       if (!existing) return notFound(c, 'session not found');
       session = existing;
       // Use the session's existing role if not explicitly set
@@ -234,7 +238,7 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
     session.messages.push({ role: 'user', content: query, mode, query_type: queryType });
     session.messages.push({ role: 'system', content: '', mode, agent_id: agentId });
-    await saveSession(db, session);
+    await saveSession(c, db, session);
 
     trackEvent(c.env, 'api_call', {
       blobs: ['/api/v1/agents/chat'],
@@ -296,7 +300,7 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
   const doNamespace = c.env.INVESTIGATOR_AGENT;
   if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
 
-  const session = await loadSession(db, sessionId);
+  const session = await loadSession(c, db, sessionId);
   if (!session) return notFound(c, 'session not found');
 
   const systemMsg = [...session.messages].reverse().find((m) => m.role === 'system' && m.agent_id);
@@ -376,7 +380,7 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
                 }
 
                 try {
-                  await saveSession(db, session);
+                  await saveSession(c, db, session);
                 } catch (_catchErr) {
                   logError('handler failed', _catchErr);
                   /* non-fatal */
@@ -452,7 +456,7 @@ export async function veraChatHistoryHandler(c: Context<{ Bindings: Env }>): Pro
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    const session = await loadSession(db, sessionId);
+    const session = await loadSession(c, db, sessionId);
     if (!session) return notFound(c, 'session not found');
 
     return c.json({
@@ -478,14 +482,16 @@ export async function veraSessionsListHandler(c: Context<{ Bindings: Env }>): Pr
 
     const limit = Math.min(Number(c.req.query('limit') ?? 20), 100);
 
+    const vis = ownerVisibilityFilter(c);
     const res = await db
       .prepare(
         `SELECT id, mode, messages_json, created_at, updated_at, role
          FROM vera_sessions
+         WHERE ${vis.clause}
          ORDER BY updated_at DESC
          LIMIT ?`
       )
-      .bind(limit)
+      .bind(...vis.bindings, limit)
       .all<{
         id: string;
         mode: string;
@@ -528,7 +534,7 @@ export async function veraChatDeleteHandler(c: Context<{ Bindings: Env }>): Prom
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    const existing = await loadSession(db, sessionId);
+    const existing = await loadSession(c, db, sessionId);
     if (!existing) return notFound(c, 'session not found');
 
     await db.prepare('DELETE FROM vera_sessions WHERE id = ?').bind(sessionId).run();
@@ -554,7 +560,7 @@ export async function veraChatCancelHandler(c: Context<{ Bindings: Env }>): Prom
     const doNamespace = c.env.INVESTIGATOR_AGENT;
     if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
 
-    const session = await loadSession(db, sessionId);
+    const session = await loadSession(c, db, sessionId);
     if (!session) return notFound(c, 'session not found');
 
     const systemMsg = [...session.messages].reverse().find((m) => m.role === 'system' && m.agent_id);

@@ -1,0 +1,78 @@
+{
+  "slug": "Masriyan__Claude-Code-CyberSecurity-Skill",
+  "repo": "Masriyan/Claude-Code-CyberSecurity-Skill",
+  "category": "skill",
+  "scope": ["redteam", "binary", "llm"],
+  "stars": 425,
+  "description": "22 production-quality Claude Code Skills for cybersecurity professionals — covering offensive security, defensive operations, reverse engineering, threat hunting, threat intelligence, purple team / adversary emulation, CSOC automation, AI/…",
+  "homepage": "https://www.security-life.org",
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:43:59Z",
+  "pushedAt": "2026-09-07",
+  "daysIdle": 10,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": {
+      "category": "skill",
+      "repo": "Masriyan/Claude-Code-CyberSecurity-Skill",
+      "scope": ["redteam", "binary", "llm"],
+      "added": "2026-09-14"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:43:59Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-07",
+        "days_since_push": 10,
+        "total_commits": 39,
+        "last100_span_days": 192,
+        "last100_authors": 3,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 10,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "Masriyan/Claude-Code-CyberSecurity-Skill",
+        "stars": 425,
+        "forks": 79,
+        "created_at": "2026-02-27",
+        "is_fork": false,
+        "contributors": 3,
+        "top_contributor_share": 0.82,
+        "homepage": "https://www.security-life.org",
+        "description": "22 production-quality Claude Code Skills for cybersecurity professionals — covering offensive security, defensive operations, reverse engineering, threat hunting, threat intelligence, purple team / adversary emulation, CSOC automation, AI/LLM security, mobile, OT/ICS, GRC, software supply chain security, and more. ",
+        "topics": ["claude-skills", "claudecode"]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
+      "shape": {
+        "loc": 9529,
+        "code_files": 35,
+        "files": 93,
+        "has_ci": false,
+        "has_tests": false,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": null,
+        "providers": null,
+        "mcp_server": null,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": false,
+        "install": true,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

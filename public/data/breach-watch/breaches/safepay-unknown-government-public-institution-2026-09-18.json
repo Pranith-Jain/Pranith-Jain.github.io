@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-government-public-institution-2026-09-18",
+  "title": "Unknown Government/Public Institution",
+  "group": "safepay",
+  "discovered": "2026-09-18T03:04:33.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/7e81679d-5cc7-4491-95ce-dbc5f6d49e0d",
+  "groupAliases": [],
+  "activity": "Government",
+  "references": ["Darkfield"]
+}

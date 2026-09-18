@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-pellino-company-michael-and-richard-pellino-2026-09-18",
+  "title": "Pellino Company (Michael and Richard Pellino)",
+  "group": "safepay",
+  "discovered": "2026-09-18T03:04:35.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/550528ab-9e96-4500-83f4-67645d1622d7",
+  "groupAliases": [],
+  "activity": "Engineering",
+  "references": ["Darkfield"]
+}

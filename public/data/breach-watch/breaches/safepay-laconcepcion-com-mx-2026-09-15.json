@@ -1,1 +1,15 @@
-{"slug":"safepay-laconcepcion-com-mx-2026-09-15","title":"laconcepcion.com.mx","group":"safepay","discovered":"2026-09-15T19:31:55.000Z","category":"ransomware","severity":"high","country":"MX","sizeBytes":0,"description":"The organization identifies itself as one of the principal private healthcare providers in the region and serves patients from Coahuila …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}
+{
+  "slug": "safepay-laconcepcion-com-mx-2026-09-15",
+  "title": "laconcepcion.com.mx",
+  "group": "safepay",
+  "discovered": "2026-09-15T19:31:55.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "The organization identifies itself as one of the principal private healthcare providers in the region and serves patients from Coahuila …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

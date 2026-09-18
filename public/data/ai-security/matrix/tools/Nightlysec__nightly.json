@@ -1,0 +1,95 @@
+{
+  "slug": "Nightlysec__nightly",
+  "repo": "Nightlysec/nightly",
+  "category": "agent",
+  "scope": ["webapp", "api", "code"],
+  "stars": 1,
+  "description": "Autonomous AI penetration testing agent",
+  "homepage": null,
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:38Z",
+  "pushedAt": "2026-08-13",
+  "daysIdle": 35,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": {
+      "category": "agent",
+      "repo": "Nightlysec/nightly",
+      "scope": ["webapp", "api", "code"],
+      "added": "2026-09-12"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:38Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-08-13",
+        "days_since_push": 35,
+        "total_commits": 704,
+        "last100_span_days": 20,
+        "last100_authors": 14,
+        "releases": 1,
+        "latest_release_at": "2026-08-13",
+        "days_since_release": 35,
+        "days_idle": 35,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "Nightlysec/nightly",
+        "stars": 1,
+        "forks": 0,
+        "created_at": "2026-08-13",
+        "is_fork": false,
+        "contributors": 68,
+        "top_contributor_share": 0.72,
+        "homepage": null,
+        "description": "Autonomous AI penetration testing agent",
+        "topics": null
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 59092,
+        "code_files": 275,
+        "files": 409,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "litellm"],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": {
+        "bundled": [
+          "arjun",
+          "dirsearch",
+          "ffuf",
+          "httpx",
+          "katana",
+          "naabu",
+          "ncat",
+          "nmap",
+          "nuclei",
+          "semgrep",
+          "sqlmap",
+          "subfinder",
+          "wafw00f"
+        ],
+        "manifests": ["containers/Dockerfile"]
+      },
+      "rebadge": [{ "repo": "usestrix/strix", "shared_files": 118, "overlap": 0.3554 }],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": true,
+        "opaque": false
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-unknown-county-government-entity-2026-09-18",
+  "title": "Unknown County/Government Entity",
+  "group": "Rhysida",
+  "discovered": "2026-09-18T02:58:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/739edd03-4e19-41d3-889b-a38f7d263b12",
+  "groupAliases": [],
+  "activity": "Government / Healthcare",
+  "references": ["Darkfield"]
+}

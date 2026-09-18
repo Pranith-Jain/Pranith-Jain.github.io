@@ -1,0 +1,1 @@
+../../../worker/lib/ai-security-manifest.ts

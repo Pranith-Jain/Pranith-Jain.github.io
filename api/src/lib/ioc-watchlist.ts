@@ -53,6 +53,8 @@ export interface WatchlistEntry {
   alert_count: number;
   /** Free-form notes. */
   notes: string | null;
+  /** Owning API-key id (NULL = legacy shared row). */
+  owner_hash?: string | null;
 }
 
 export interface WatchAlert {
@@ -134,14 +136,15 @@ export async function addWatch(
     source_filter?: string[];
     tlp?: string;
     notes?: string;
+    owner_hash?: string | null;
   }
 ): Promise<WatchlistEntry> {
   await ensureWatchlistTables(db);
   const now = new Date().toISOString();
   const result = await db
     .prepare(
-      `INSERT INTO ioc_watchlist (indicator, indicator_type, label, alert_channel, webhook_url, min_confidence, source_filter, tlp, added_at, notes)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO ioc_watchlist (indicator, indicator_type, label, alert_channel, webhook_url, min_confidence, source_filter, tlp, added_at, notes, owner_hash)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .bind(
       entry.indicator.toLowerCase().trim(),
@@ -153,7 +156,8 @@ export async function addWatch(
       JSON.stringify(entry.source_filter ?? []),
       entry.tlp ?? 'GREEN',
       now,
-      entry.notes ?? null
+      entry.notes ?? null,
+      entry.owner_hash ?? null
     )
     .run();
   return {
@@ -171,24 +175,40 @@ export async function addWatch(
     last_alerted: null,
     alert_count: 0,
     notes: entry.notes ?? null,
+    owner_hash: entry.owner_hash ?? null,
   };
 }
 
 export async function listWatches(
   db: D1Database,
-  opts: { type?: IocType; limit?: number } = {}
+  opts: { type?: IocType; limit?: number; owner?: string | null; includeUnowned?: boolean } = {}
 ): Promise<WatchlistEntry[]> {
   await ensureWatchlistTables(db);
   const limit = Math.min(opts.limit ?? 100, 500);
-  let sql = 'SELECT * FROM ioc_watchlist';
+  const conditions: string[] = [];
   const params: unknown[] = [];
   if (opts.type) {
-    sql += ' WHERE indicator_type = ?';
+    conditions.push('indicator_type = ?');
     params.push(opts.type);
   }
+  // Owner visibility: undefined = legacy callers (cron sweep, MCP bridge) see
+  // everything; string = own rows + legacy pool; null = legacy pool only.
+  if (opts.owner !== undefined) {
+    if (opts.owner === null) {
+      conditions.push('owner_hash IS NULL');
+    } else {
+      conditions.push('(owner_hash IS NULL OR owner_hash = ?)');
+      params.push(opts.owner);
+    }
+  }
+  let sql = 'SELECT * FROM ioc_watchlist';
+  if (conditions.length > 0) sql += ` WHERE ${conditions.join(' AND ')}`;
   sql += ' ORDER BY added_at DESC LIMIT ?';
   params.push(limit);
-  const result = await db.prepare(sql).bind(...params).all();
+  const result = await db
+    .prepare(sql)
+    .bind(...params)
+    .all();
   return (result.results ?? []).map(rowToWatch);
 }
 
@@ -220,6 +240,7 @@ function rowToWatch(r: Record<string, unknown>): WatchlistEntry {
     last_alerted: (r.last_alerted as string) ?? null,
     alert_count: (r.alert_count as number) ?? 0,
     notes: (r.notes as string) ?? null,
+    owner_hash: (r.owner_hash as string | null) ?? null,
   };
 }
 
@@ -242,9 +263,7 @@ export async function sweepWatchlist(
 
   // Fetch watches ordered by last_checked (oldest first)
   const result = await db
-    .prepare(
-      `SELECT * FROM ioc_watchlist ORDER BY last_checked ASC NULLS FIRST LIMIT ?`
-    )
+    .prepare(`SELECT * FROM ioc_watchlist ORDER BY last_checked ASC NULLS FIRST LIMIT ?`)
     .bind(SWEEP_BATCH)
     .all();
   const watches = (result.results ?? []).map(rowToWatch);
@@ -342,9 +361,8 @@ async function checkIocSightings(db: D1Database, watch: WatchlistEntry): Promise
   const lastSources: string[] = JSON.parse(lifecycle.last_sources ?? '[]');
 
   // Apply source filter
-  const relevantSources = watch.source_filter.length > 0
-    ? lastSources.filter((s) => watch.source_filter.includes(s))
-    : lastSources;
+  const relevantSources =
+    watch.source_filter.length > 0 ? lastSources.filter((s) => watch.source_filter.includes(s)) : lastSources;
 
   if (relevantSources.length === 0) return sightings;
 
@@ -391,11 +409,7 @@ async function checkIocSightings(db: D1Database, watch: WatchlistEntry): Promise
 
 // ── Webhook Delivery ────────────────────────────────────────────────────
 
-async function deliverWebhook(
-  watch: WatchlistEntry,
-  sighting: IocSighting,
-  now: string
-): Promise<boolean> {
+async function deliverWebhook(watch: WatchlistEntry, sighting: IocSighting, now: string): Promise<boolean> {
   if (!watch.webhook_url) return false;
 
   const isDiscord = watch.webhook_url.includes('discord.com');
@@ -406,9 +420,7 @@ async function deliverWebhook(
 
   if (isDiscord) {
     const color =
-      sighting.alert_type === 'cross_feed_consensus' ? 0xff0000 :
-      sighting.confidence >= 80 ? 0xff6600 :
-      0xffcc00;
+      sighting.alert_type === 'cross_feed_consensus' ? 0xff0000 : sighting.confidence >= 80 ? 0xff6600 : 0xffcc00;
     body = {
       embeds: [
         {
@@ -445,7 +457,9 @@ async function deliverWebhook(
               `*Source:* ${sighting.source}`,
               `*TLP:* ${watch.tlp}`,
               watch.label ? `*Label:* ${watch.label}` : '',
-            ].filter(Boolean).join('\n'),
+            ]
+              .filter(Boolean)
+              .join('\n'),
           },
         },
       ],
@@ -461,7 +475,9 @@ async function deliverWebhook(
       `*Source:* ${sighting.source}`,
       `*TLP:* ${watch.tlp}`,
       watch.label ? `*Label:* ${watch.label}` : '',
-    ].filter(Boolean).join('\n');
+    ]
+      .filter(Boolean)
+      .join('\n');
     body = { text, parse_mode: 'Markdown' };
   } else {
     // Generic webhook (JSON POST)
@@ -577,9 +593,7 @@ export async function getWatchlistStats(db: D1Database): Promise<{
     .first<{ cnt: number }>();
 
   const alertsByTypeResult = await db
-    .prepare(
-      `SELECT alert_type, COUNT(*) as cnt FROM ioc_watch_alerts WHERE detected_at >= ? GROUP BY alert_type`
-    )
+    .prepare(`SELECT alert_type, COUNT(*) as cnt FROM ioc_watch_alerts WHERE detected_at >= ? GROUP BY alert_type`)
     .bind(ago7d)
     .all<{ alert_type: string; cnt: number }>();
   const alertsByType: Record<string, number> = {};

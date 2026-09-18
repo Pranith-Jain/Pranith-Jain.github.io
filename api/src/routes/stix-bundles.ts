@@ -20,8 +20,8 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { serviceUnavailable } from '../lib/api-error';
-import { parsePostgrestQuery } from '../lib/postgrest-filter';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
+import { parsePostgrestQuery, resolveColumn, type PgFilter } from '../lib/postgrest-filter';
 
 const STIX_BUNDLES_TABLE = 'intel_bundles';
 
@@ -69,15 +69,108 @@ const DEFAULT_SELECT = [
   'malware_count',
 ];
 
-/** Build a SELECT expression for requested columns. */
-function buildSelectExpression(select?: string[]): string {
+/** Build a SELECT expression for requested columns; null when any column is unknown. */
+function buildSelectExpression(select?: string[]): string | null {
   if (!select?.length) return DEFAULT_SELECT.join(', ');
-  return select
-    .map((col) => {
-      const dbCol = COLUMN_MAP[col] ?? col;
-      return col === dbCol ? dbCol : `${dbCol} AS ${col}`;
-    })
-    .join(', ');
+  const parts: string[] = [];
+  for (const col of select) {
+    const dbCol = resolveColumn(COLUMN_MAP, col);
+    if (!dbCol) return null;
+    parts.push(col === dbCol ? dbCol : `${dbCol} AS ${col}`);
+  }
+  return parts.join(', ');
+}
+
+/**
+ * Build the WHERE clause + bindings once and reuse for both the data
+ * query and the COUNT query — never string-slice the main SQL (fragile
+ * if a value ever contains "WHERE").
+ */
+function buildBundleWhere(filters: PgFilter[]): { clause: string; bindings: unknown[] } {
+  const whereClauses: string[] = [];
+  const bindings: unknown[] = [];
+  for (const f of filters) {
+    // Handler pre-validates every column against COLUMN_MAP; the guard
+    // below is defense-in-depth so an unvalidated path fails closed.
+    const col = resolveColumn(COLUMN_MAP, f.column);
+    if (!col) continue;
+    switch (f.op) {
+      case 'eq':
+        whereClauses.push(`b.${col} = ?`);
+        bindings.push(f.value);
+        break;
+      case 'neq':
+        whereClauses.push(`b.${col} != ?`);
+        bindings.push(f.value);
+        break;
+      case 'gt':
+        whereClauses.push(`b.${col} > ?`);
+        bindings.push(f.value);
+        break;
+      case 'gte':
+        whereClauses.push(`b.${col} >= ?`);
+        bindings.push(f.value);
+        break;
+      case 'lt':
+        whereClauses.push(`b.${col} < ?`);
+        bindings.push(f.value);
+        break;
+      case 'lte':
+        whereClauses.push(`b.${col} <= ?`);
+        bindings.push(f.value);
+        break;
+      case 'like':
+        whereClauses.push(`b.${col} LIKE ?`);
+        bindings.push(f.value);
+        break;
+      case 'ilike':
+        whereClauses.push(`LOWER(b.${col}) LIKE LOWER(?)`);
+        bindings.push(f.value);
+        break;
+      case 'is': {
+        const v = f.value;
+        if (v === null) whereClauses.push(`b.${col} IS NULL`);
+        else if (String(v).toLowerCase() === 'not.null') whereClauses.push(`b.${col} IS NOT NULL`);
+        else {
+          whereClauses.push(`b.${col} = ?`);
+          bindings.push(v);
+        }
+        break;
+      }
+      case 'in': {
+        const arr = f.value as unknown[];
+        if (arr.length === 0) {
+          whereClauses.push('1 = 0');
+          break;
+        }
+        whereClauses.push(`b.${col} IN (${arr.map(() => '?').join(',')})`);
+        bindings.push(...arr);
+        break;
+      }
+      case 'cs': {
+        // Array contains: JSON array column (stored as TEXT, e.g. '["APT29"]')
+        const arr = f.value as string[];
+        if (arr.length === 0) break;
+        const subClauses = arr.map(() => `b.${col} LIKE ?`);
+        whereClauses.push(`(${subClauses.join(' AND ')})`);
+        for (const v of arr) bindings.push(`%"${escapeJsonString(v)}"%`);
+        break;
+      }
+      case 'cd': {
+        // Contains any: JSON array column, match if ANY element matches
+        const arr = f.value as string[];
+        if (arr.length === 0) break;
+        const subClauses = arr.map(() => `b.${col} LIKE ?`);
+        whereClauses.push(`(${subClauses.join(' OR ')})`);
+        for (const v of arr) bindings.push(`%"${escapeJsonString(v)}"%`);
+        break;
+      }
+    }
+  }
+  return {
+    clause: whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '',
+    bindings,
+  };
 }
 
 export async function stixBundlesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -89,104 +182,36 @@ export async function stixBundlesHandler(c: Context<{ Bindings: Env }>): Promise
     c.req.header('Range')
   );
   const selectExpr = buildSelectExpression(query.select);
-
-  let sql = `SELECT ${selectExpr} FROM ${STIX_BUNDLES_TABLE} b`;
-  const bindings: unknown[] = [];
-
-  // Build WHERE from filters
-  if (query.filters.length > 0) {
-    const whereClauses: string[] = [];
-    for (const f of query.filters) {
-      const col = COLUMN_MAP[f.column] ?? f.column;
-      switch (f.op) {
-        case 'eq':
-          whereClauses.push(`b.${col} = ?`);
-          bindings.push(f.value);
-          break;
-        case 'neq':
-          whereClauses.push(`b.${col} != ?`);
-          bindings.push(f.value);
-          break;
-        case 'gt':
-          whereClauses.push(`b.${col} > ?`);
-          bindings.push(f.value);
-          break;
-        case 'gte':
-          whereClauses.push(`b.${col} >= ?`);
-          bindings.push(f.value);
-          break;
-        case 'lt':
-          whereClauses.push(`b.${col} < ?`);
-          bindings.push(f.value);
-          break;
-        case 'lte':
-          whereClauses.push(`b.${col} <= ?`);
-          bindings.push(f.value);
-          break;
-        case 'like':
-          whereClauses.push(`b.${col} LIKE ?`);
-          bindings.push(f.value);
-          break;
-        case 'ilike':
-          whereClauses.push(`LOWER(b.${col}) LIKE LOWER(?)`);
-          bindings.push(f.value);
-          break;
-        case 'is': {
-          const v = f.value;
-          if (v === null) whereClauses.push(`b.${col} IS NULL`);
-          else if (String(v).toLowerCase() === 'not.null') whereClauses.push(`b.${col} IS NOT NULL`);
-          else {
-            whereClauses.push(`b.${col} = ?`);
-            bindings.push(v);
-          }
-          break;
-        }
-        case 'in': {
-          const arr = f.value as unknown[];
-          whereClauses.push(`b.${col} IN (${arr.map(() => '?').join(',')})`);
-          bindings.push(...arr);
-          break;
-        }
-        case 'cs': {
-          // Array contains: JSON array column (stored as TEXT, e.g. '["APT29"]')
-          const arr = f.value as string[];
-          const subClauses = arr.map(() => `b.${col} LIKE ?`);
-          whereClauses.push(`(${subClauses.join(' AND ')})`);
-          for (const v of arr) bindings.push(`%"${escapeJsonString(v)}"%`);
-          break;
-        }
-        case 'cd': {
-          // Contains any: JSON array column, match if ANY element matches
-          const arr = f.value as string[];
-          const subClauses = arr.map(() => `b.${col} LIKE ?`);
-          whereClauses.push(`(${subClauses.join(' OR ')})`);
-          for (const v of arr) bindings.push(`%"${escapeJsonString(v)}"%`);
-          break;
-        }
-      }
-    }
-    if (whereClauses.length > 0) {
-      sql += ` WHERE ${whereClauses.join(' AND ')}`;
-    }
+  if (!selectExpr) return badRequest(c, 'unknown column in select');
+  // Reject unknown filter/order columns instead of interpolating them.
+  for (const f of query.filters) {
+    if (!resolveColumn(COLUMN_MAP, f.column)) return badRequest(c, `unknown column "${f.column}"`);
+  }
+  if (query.order && !resolveColumn(COLUMN_MAP, query.order.column)) {
+    return badRequest(c, `unknown column "${query.order.column}"`);
   }
 
-  // Count query for Content-Range
-  const countSql = `SELECT COUNT(*) as total FROM ${STIX_BUNDLES_TABLE} ${sql.includes('WHERE') ? sql.slice(sql.indexOf('WHERE')) : ''}`;
+  const { clause: whereClause, bindings } = buildBundleWhere(query.filters);
+  let sql = `SELECT ${selectExpr} FROM ${STIX_BUNDLES_TABLE} b`;
+  if (whereClause) sql += ` ${whereClause}`;
+
+  // Count query for Content-Range — reuses the same WHERE, no string slicing.
   const countRow = await db
-    .prepare(countSql)
+    .prepare(`SELECT COUNT(*) as total FROM ${STIX_BUNDLES_TABLE}${whereClause ? ` ${whereClause}` : ''}`)
     .bind(...bindings)
     .first<{ total: number }>();
   const total = countRow?.total ?? 0;
 
   // ORDER
   if (query.order) {
-    const col = COLUMN_MAP[query.order.column] ?? query.order.column;
-    sql += ` ORDER BY b.${col} ${query.order.dir.toUpperCase()}`;
+    // Pre-validated above; the guard below is defense-in-depth.
+    const col = resolveColumn(COLUMN_MAP, query.order.column) ?? 'created_at';
+    sql += ` ORDER BY b.${col} ${query.order.dir === 'desc' ? 'DESC' : 'ASC'}`;
   } else {
     sql += ' ORDER BY b.created_at DESC';
   }
 
-  // LIMIT / OFFSET
+  // LIMIT / OFFSET — parsePostgrestQuery only yields finite ints.
   const limit = query.limit ?? 50;
   const offset = query.offset ?? 0;
   sql += ` LIMIT ${limit} OFFSET ${offset}`;

@@ -1,0 +1,89 @@
+{
+  "slug": "CSPF-Founder__red-clippy",
+  "repo": "CSPF-Founder/red-clippy",
+  "category": "mcp",
+  "scope": ["redteam", "logging"],
+  "stars": 28,
+  "description": "open-source pentest management built to be operated by an AI agent",
+  "homepage": "https://cspf-founder.github.io/red-clippy/",
+  "added": "2026-09-15",
+  "checkedAt": "2026-09-17T08:43:18Z",
+  "pushedAt": "2026-09-01",
+  "daysIdle": 16,
+  "archived": false,
+  "license": "GPL-3.0",
+  "upstream": {
+    "entry": {
+      "category": "mcp",
+      "repo": "CSPF-Founder/red-clippy",
+      "scope": ["redteam", "logging"],
+      "added": "2026-09-15"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:43:18Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-01",
+        "days_since_push": 16,
+        "total_commits": 5,
+        "last100_span_days": 10,
+        "last100_authors": 1,
+        "releases": 1,
+        "latest_release_at": "2026-08-27",
+        "days_since_release": 21,
+        "days_idle": 16,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "CSPF-Founder/red-clippy",
+        "stars": 28,
+        "forks": 0,
+        "created_at": "2026-08-27",
+        "is_fork": false,
+        "contributors": 1,
+        "top_contributor_share": 1,
+        "homepage": "https://cspf-founder.github.io/red-clippy/",
+        "description": "open-source pentest management built to be operated by an AI agent",
+        "topics": [
+          "ai-agents",
+          "ai-penetration-testing",
+          "ai-pentesting",
+          "ai-red-teaming",
+          "automated-pentesting",
+          "mcp",
+          "pentesting",
+          "redteam",
+          "redteam-tools",
+          "vulnerability-scanner"
+        ]
+      },
+      "licence": { "file": "GPL-3.0", "api_spdx": "GPL-3.0", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 43545,
+        "code_files": 133,
+        "files": 249,
+        "has_ci": true,
+        "has_tests": false,
+        "has_dockerfile": false,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": true,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "slug": "0x4m4__hexstrike-ai",
+  "repo": "0x4m4/hexstrike-ai",
+  "category": "mcp",
+  "scope": ["webapp", "network", "recon", "binary"],
+  "stars": 11927,
+  "description": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. S…",
+  "homepage": "https://www.hexstrike.com/",
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:43Z",
+  "pushedAt": "2026-08-03",
+  "daysIdle": 45,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": {
+      "category": "mcp",
+      "repo": "0x4m4/hexstrike-ai",
+      "scope": ["webapp", "network", "recon", "binary"],
+      "added": "2026-09-12"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:43Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-08-03",
+        "days_since_push": 45,
+        "total_commits": 63,
+        "last100_span_days": 389,
+        "last100_authors": 2,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 45,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "0x4m4/hexstrike-ai",
+        "stars": 11927,
+        "forks": 2448,
+        "created_at": "2025-07-10",
+        "is_fork": false,
+        "contributors": 2,
+        "top_contributor_share": 0.98,
+        "homepage": "https://www.hexstrike.com/",
+        "description": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security capabilities.",
+        "topics": [
+          "0x4m4",
+          "ai",
+          "ai-agents",
+          "ai-cybersecurity",
+          "ai-hacking",
+          "ai-penetration-testing",
+          "ai-security-tool",
+          "artificial-intelligence",
+          "ctf-tools",
+          "generative-ai",
+          "hexstrike",
+          "kali-linux",
+          "kali-tools",
+          "llm",
+          "llm-integration",
+          "mcp",
+          "mcp-server",
+          "mcp-tools",
+          "pentesting",
+          "pentesting-tools"
+        ]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
+      "shape": {
+        "loc": 22759,
+        "code_files": 2,
+        "files": 14,
+        "has_ci": false,
+        "has_tests": false,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": true,
+        "tool_defs": 151,
+        "readme_tool_claim": {
+          "count": 150,
+          "context": " ]( ]( ]( **Advanced AI-powered penetration testing MCP framework with 150+ security tools"
+        },
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

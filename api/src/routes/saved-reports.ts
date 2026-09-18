@@ -11,6 +11,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, notFound } from '../lib/api-error';
+import { callerOwnerId, ownerVisibilityFilter, ownerCheck } from '../lib/ownership';
 
 function uuid(): string {
   return crypto.randomUUID();
@@ -20,28 +21,30 @@ function now(): string {
   return new Date().toISOString();
 }
 
-/** List saved reports. */
+/** List saved reports (own + legacy unowned; operator sees all). */
 export async function listSavedReports(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB!;
+  const vis = ownerVisibilityFilter(c);
   const { results } = await db
     .prepare(
-      'SELECT id, title, source_url, text_length, ioc_count, ttp_count, cve_count, created_at FROM saved_reports ORDER BY created_at DESC LIMIT 50'
+      `SELECT id, title, source_url, text_length, ioc_count, ttp_count, cve_count, created_at FROM saved_reports WHERE ${vis.clause} ORDER BY created_at DESC LIMIT 50`
     )
+    .bind(...vis.bindings)
     .all();
   return c.json({ reports: results });
 }
 
-/** Get a single saved report. */
+/** Get a single saved report (hidden rows 404). */
 export async function getSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   const db = c.env.BRIEFINGS_DB!;
   const row = await db
     .prepare(
-      'SELECT id, title, source_url, source_text, report_json, text_length, elapsed_ms, ioc_count, ttp_count, cve_count, created_at FROM saved_reports WHERE id = ?'
+      'SELECT id, title, source_url, source_text, report_json, text_length, elapsed_ms, ioc_count, ttp_count, cve_count, created_at, owner_hash FROM saved_reports WHERE id = ?'
     )
     .bind(id)
     .first();
-  if (!row) return notFound(c, 'not_found');
+  if (!row || ownerCheck(c, row.owner_hash as string | null) === 'hidden') return notFound(c, 'not_found');
   return c.json(row);
 }
 
@@ -79,18 +82,33 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
   const db = c.env.BRIEFINGS_DB!;
   await db
     .prepare(
-      'INSERT INTO saved_reports (id, title, source_url, source_text, report_json, text_length, elapsed_ms, ioc_count, ttp_count, cve_count, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+      'INSERT INTO saved_reports (id, title, source_url, source_text, report_json, text_length, elapsed_ms, ioc_count, ttp_count, cve_count, created_at, owner_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
     )
-    .bind(id, title, sourceUrl, sourceText, body.reportJson, textLength, elapsedMs, iocCount, ttpCount, cveCount, now())
+    .bind(
+      id,
+      title,
+      sourceUrl,
+      sourceText,
+      body.reportJson,
+      textLength,
+      elapsedMs,
+      iocCount,
+      ttpCount,
+      cveCount,
+      now(),
+      callerOwnerId(c)
+    )
     .run();
 
   return c.json({ id, title, created_at: now() }, 201);
 }
 
-/** Delete a saved report. */
+/** Delete a saved report (hidden rows 404). */
 export async function deleteSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   const db = c.env.BRIEFINGS_DB!;
+  const row = await db.prepare('SELECT owner_hash FROM saved_reports WHERE id = ?').bind(id).first();
+  if (!row || ownerCheck(c, row.owner_hash as string | null) === 'hidden') return notFound(c, 'not_found');
   await db.prepare('DELETE FROM saved_reports WHERE id = ?').bind(id).run();
   return c.json({ ok: true });
 }
@@ -109,13 +127,15 @@ export async function correlateIocs(c: Context<{ Bindings: Env }>): Promise<Resp
   > = {};
 
   // Search for each IOC in saved reports (limit to avoid query explosion).
+  // Scoped to visible rows so foreign reports never leak into correlations.
+  const vis = ownerVisibilityFilter(c);
   for (const ioc of body.iocs.slice(0, 20)) {
     const { results } = await db
       .prepare(
         `SELECT id, title, created_at, report_json FROM saved_reports
-         WHERE report_json LIKE ? ORDER BY created_at DESC LIMIT 10`
+         WHERE report_json LIKE ? AND ${vis.clause} ORDER BY created_at DESC LIMIT 10`
       )
-      .bind(`%${ioc}%`)
+      .bind(`%${ioc}%`, ...vis.bindings)
       .all();
 
     if (results.length > 1) {
@@ -140,14 +160,16 @@ export async function correlateIocs(c: Context<{ Bindings: Env }>): Promise<Resp
   return c.json({ correlations, searched: body.iocs.length });
 }
 
-/** Timeline — get all saved reports with their IOCs/TTPs for temporal visualization. */
+/** Timeline — visible saved reports with their IOCs/TTPs for temporal visualization. */
 export async function getTimeline(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB!;
+  const vis = ownerVisibilityFilter(c);
   const { results } = await db
     .prepare(
       `SELECT id, title, source_url, created_at, ioc_count, ttp_count, cve_count, report_json
-       FROM saved_reports ORDER BY created_at ASC LIMIT 50`
+       FROM saved_reports WHERE ${vis.clause} ORDER BY created_at ASC LIMIT 50`
     )
+    .bind(...vis.bindings)
     .all();
 
   const timeline = results.map((r) => {
@@ -248,6 +270,8 @@ export async function setBranding(c: Context<{ Bindings: Env }>): Promise<Respon
     );
   }
   const db = c.env.BRIEFINGS_DB!;
+  const row = await db.prepare('SELECT owner_hash FROM saved_reports WHERE id = ?').bind(id).first();
+  if (!row || ownerCheck(c, row.owner_hash as string | null) === 'hidden') return notFound(c, 'not_found');
   const res = await db
     .prepare('UPDATE saved_reports SET branding_json = ? WHERE id = ?')
     .bind(Object.keys(branding).length ? JSON.stringify(branding) : null, id)
@@ -260,17 +284,25 @@ export async function setBranding(c: Context<{ Bindings: Env }>): Promise<Respon
 export async function shareSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   const db = c.env.BRIEFINGS_DB!;
-  const row = await db.prepare('SELECT id FROM saved_reports WHERE id = ?').bind(id).first();
-  if (!row) return notFound(c, 'not_found');
+  const row = await db.prepare('SELECT id, owner_hash FROM saved_reports WHERE id = ?').bind(id).first();
+  if (!row || ownerCheck(c, row.owner_hash as string | null) === 'hidden') return notFound(c, 'not_found');
   const token = shareToken();
   await db.prepare('UPDATE saved_reports SET share_token = ?, shared_at = ? WHERE id = ?').bind(token, now(), id).run();
-  return c.json({ ok: true, token, url: `/share/report/${token}`, data_url: `/api/v1/public/report/${token}`, shared_at: now() });
+  return c.json({
+    ok: true,
+    token,
+    url: `/share/report/${token}`,
+    data_url: `/api/v1/public/report/${token}`,
+    shared_at: now(),
+  });
 }
 
 /** DELETE /saved-reports/:id/share — revoke the share link. */
 export async function unshareSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   const db = c.env.BRIEFINGS_DB!;
+  const row = await db.prepare('SELECT owner_hash FROM saved_reports WHERE id = ?').bind(id).first();
+  if (!row || ownerCheck(c, row.owner_hash as string | null) === 'hidden') return notFound(c, 'not_found');
   await db.prepare('UPDATE saved_reports SET share_token = NULL, shared_at = NULL WHERE id = ?').bind(id).run();
   return c.json({ ok: true });
 }

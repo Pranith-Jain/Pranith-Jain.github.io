@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-aurora-technologies-2026-09-15","title":"Aurora Technologies","group":"thegentlemen","discovered":"2026-09-15T07:16:22.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"ati-1.com zoominfo.com/c/aurora-technologies-inc/1151986102 Aurora Technologies / ATI orth America's largest fabricator and stocking distributor of thermosets, thermoplastics and other non-metallic materials — founded in 1988 by Tom C. White in a barn in Ballwin, Missouri, now run with his son Thomas White III, with ~200 employees, ~$24M revenue, 7 locations across the US and Mexico (Pacific MO HQ, Spartanburg SC, Grand Haven MI, El Paso TX, Apodaca Mexico) and 300,000+ sq ft of manufacturing/warehouse space. Capabilities: compression molding (SMC/BMC — 16 presses at its Polyply division), CNC machining of engineering plastics (30% glass-filled PEEK down to UHMW), thermoforming, waterjet and punch-press work — with an inventory moat that means days, not weeks, of lead time. Markets: electrical (a certified manufacturer of insulating components for arc furnaces — a rare, high-barrier niche), oil & gas, medical/lab, materials handling; ISO 9001 since 2003","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-aurora-technologies-2026-09-15",
+  "title": "Aurora Technologies",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:16:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "ati-1.com zoominfo.com/c/aurora-technologies-inc/1151986102 Aurora Technologies / ATI orth America's largest fabricator and stocking distributor of thermosets, thermoplastics and other non-metallic materials — founded in 1988 by Tom C. White in a barn in Ballwin, Missouri, now run with his son Thomas White III, with ~200 employees, ~$24M revenue, 7 locations across the US and Mexico (Pacific MO HQ, Spartanburg SC, Grand Haven MI, El Paso TX, Apodaca Mexico) and 300,000+ sq ft of manufacturing/warehouse space. Capabilities: compression molding (SMC/BMC — 16 presses at its Polyply division), CNC machining of engineering plastics (30% glass-filled PEEK down to UHMW), thermoforming, waterjet and punch-press work — with an inventory moat that means days, not weeks, of lead time. Markets: electrical (a certified manufacturer of insulating components for arc furnaces — a rare, high-barrier niche), oil & gas, medical/lab, materials handling; ISO 9001 since 2003",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

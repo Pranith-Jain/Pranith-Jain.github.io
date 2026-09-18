@@ -1,1 +1,15 @@
-{"slug":"booba-project-mestechkin-law-group-p-c-2026-09-14","title":"Mestechkin Law Group P.C.","group":"Booba Project","discovered":"2026-09-14T12:51:44.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Law Practice Stolen data: 37 GB.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "booba-project-mestechkin-law-group-p-c-2026-09-14",
+  "title": "Mestechkin Law Group P.C.",
+  "group": "Booba Project",
+  "discovered": "2026-09-14T12:51:44.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Law Practice Stolen data: 37 GB.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

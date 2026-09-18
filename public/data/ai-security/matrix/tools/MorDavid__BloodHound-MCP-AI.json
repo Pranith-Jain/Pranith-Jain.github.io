@@ -1,0 +1,76 @@
+{
+  "slug": "MorDavid__BloodHound-MCP-AI",
+  "repo": "MorDavid/BloodHound-MCP-AI",
+  "category": "mcp",
+  "scope": ["ad"],
+  "stars": 376,
+  "description": "BloodHound-MCP-AI is integration that connects BloodHound with AI through Model Context Protocol, allowing security professionals to analyze Active Directory attack paths using natural language instead of complex Cypher queries.",
+  "homepage": "https://www.MORDAVID.com",
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:54Z",
+  "pushedAt": "2025-06-02",
+  "daysIdle": 472,
+  "archived": false,
+  "license": null,
+  "upstream": {
+    "entry": { "category": "mcp", "repo": "MorDavid/BloodHound-MCP-AI", "scope": ["ad"], "added": "2026-09-12" },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:54Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2025-06-02",
+        "days_since_push": 472,
+        "total_commits": 9,
+        "last100_span_days": 59,
+        "last100_authors": 1,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 472,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "MorDavid/BloodHound-MCP-AI",
+        "stars": 376,
+        "forks": 56,
+        "created_at": "2025-04-04",
+        "is_fork": false,
+        "contributors": 1,
+        "top_contributor_share": 1,
+        "homepage": "https://www.MORDAVID.com",
+        "description": "BloodHound-MCP-AI is integration that connects BloodHound with AI through Model Context Protocol, allowing security professionals to analyze Active Directory attack paths using natural language instead of complex Cypher queries.",
+        "topics": ["ai", "bloodhound", "bloodhoundad", "cypher-query-language", "mcp", "mcp-server"]
+      },
+      "licence": { "file": null, "api_spdx": null, "readme_claim": "MIT", "conflict": "no_license_file" },
+      "shape": {
+        "loc": 873,
+        "code_files": 1,
+        "files": 6,
+        "has_ci": false,
+        "has_tests": false,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": true,
+        "tool_defs": 75,
+        "readme_tool_claim": {
+          "count": 75,
+          "context": "h database used by BloodHound to store AD relationship data With over 75 specialized tools"
+        },
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": false,
+        "credentials": false,
+        "install": true,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

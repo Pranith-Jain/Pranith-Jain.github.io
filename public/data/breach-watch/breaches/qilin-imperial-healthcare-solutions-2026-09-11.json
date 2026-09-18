@@ -1,1 +1,15 @@
-{"slug":"qilin-imperial-healthcare-solutions-2026-09-11","title":"Imperial Healthcare Solutions","group":"qilin","discovered":"2026-09-11T22:03:56.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}
+{
+  "slug": "qilin-imperial-healthcare-solutions-2026-09-11",
+  "title": "Imperial Healthcare Solutions",
+  "group": "qilin",
+  "discovered": "2026-09-11T22:03:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

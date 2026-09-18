@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-hattiesburg-eye-clinic-2026-09-15","title":"Hattiesburg Eye Clinic","group":"thegentlemen","discovered":"2026-09-15T07:17:04.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"hattiesburgeyeclinic.com zoominfo.com/c/hattiesburg-eye-clinic-pa/46138946 1974-founded family ophthalmology practice in Hattiesburg, Mississippi — started by Dr. David Richardson and now run by his son Dr. Ben Richardson, making it the region's oldest and largest eye clinic (8 ophthalmologists + 1 optometrist, on-site surgery center and optical shop). Full-stack eye care under one roof: cataract surgery — including the first Light Adjustable Lens (RxSight LAL) in south Mississippi — LASIK, glaucoma (MIGS), retina injections, oculoplastics, pediatric and diabetic eye care.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-hattiesburg-eye-clinic-2026-09-15",
+  "title": "Hattiesburg Eye Clinic",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:17:04.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "hattiesburgeyeclinic.com zoominfo.com/c/hattiesburg-eye-clinic-pa/46138946 1974-founded family ophthalmology practice in Hattiesburg, Mississippi — started by Dr. David Richardson and now run by his son Dr. Ben Richardson, making it the region's oldest and largest eye clinic (8 ophthalmologists + 1 optometrist, on-site surgery center and optical shop). Full-stack eye care under one roof: cataract surgery — including the first Light Adjustable Lens (RxSight LAL) in south Mississippi — LASIK, glaucoma (MIGS), retina injections, oculoplastics, pediatric and diabetic eye care.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

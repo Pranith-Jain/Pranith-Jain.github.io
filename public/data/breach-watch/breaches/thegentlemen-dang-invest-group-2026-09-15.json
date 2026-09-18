@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-dang-invest-group-2026-09-15","title":"Dang Invest Group","group":"thegentlemen","discovered":"2026-09-15T07:11:41.000Z","category":"ransomware","severity":"critical","country":"VN","sizeBytes":0,"description":"danginvestgroup.com Dang Invest Group zech family restaurant group from Ostrava, founded in 1998 by Vietnamese immigrants — the force behind the country's biggest Asian fast-food network: brands GUTY (\"Taste of Modern Asia\" — bánh mì, bao, rice bowls), Multifood (the original, 1998), Rakki Sushi, Tuk Tuk and Amart cafés, running 70+ company-owned outlets across Czechia, Slovakia and Germany, mostly on shopping-mall food courts, with a central kitchen and no franchise/PE money. The Vietnamese-diaspora ladder: one stall in 1998 → mall standard in the 2000s → sub-brands in the 2010s → three countries in the 2020s, with the GUTY trademark registered at EUIPO/UKIPO for future European expansion.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-dang-invest-group-2026-09-15",
+  "title": "Dang Invest Group",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:11:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "VN",
+  "sizeBytes": 0,
+  "description": "danginvestgroup.com Dang Invest Group zech family restaurant group from Ostrava, founded in 1998 by Vietnamese immigrants — the force behind the country's biggest Asian fast-food network: brands GUTY (\"Taste of Modern Asia\" — bánh mì, bao, rice bowls), Multifood (the original, 1998), Rakki Sushi, Tuk Tuk and Amart cafés, running 70+ company-owned outlets across Czechia, Slovakia and Germany, mostly on shopping-mall food courts, with a central kitchen and no franchise/PE money. The Vietnamese-diaspora ladder: one stall in 1998 → mall standard in the 2000s → sub-brands in the 2010s → three countries in the 2020s, with the GUTY trademark registered at EUIPO/UKIPO for future European expansion.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

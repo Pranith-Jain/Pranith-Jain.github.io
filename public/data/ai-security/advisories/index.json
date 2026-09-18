@@ -1,0 +1,1282 @@
+{
+  "updatedAt": "2026-09-18T06:27:37.472Z",
+  "total": 126,
+  "bySource": {
+    "ghsa": 60,
+    "garak": 5,
+    "pyrit": 5,
+    "promptfoo": 5,
+    "litellm": 5,
+    "vllm": 5,
+    "ollama": 5,
+    "langchain": 5,
+    "mcp-sdk": 5,
+    "mitre-atlas": 5,
+    "owasp-llm-top10": 8,
+    "owasp-threat-intel": 3,
+    "owasp-acs": 8,
+    "exploitdb": 2
+  },
+  "items": [
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.103.0-dev.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.0-dev.2",
+      "updated": "2026-09-18T02:42:04Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "0.123.1",
+      "link": "https://github.com/promptfoo/promptfoo/releases/tag/0.123.1",
+      "updated": "2026-09-18T01:07:54Z",
+      "source": "promptfoo",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.34.2",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.2",
+      "updated": "2026-09-17T23:04:24Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-typesafe==0.0.1a2",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-typesafe%3D%3D0.0.1a2",
+      "updated": "2026-09-17T22:24:59Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.34.2-rc3",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.2-rc3",
+      "updated": "2026-09-17T18:49:24Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-typesafe==0.0.1a1",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-typesafe%3D%3D0.0.1a1",
+      "updated": "2026-09-17T18:07:14Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: Request-selected PyNvVideoCodec GPU decode bypasses static VRAM reservation",
+      "link": "https://github.com/advisories/GHSA-8pw2-6jv3-mj5j",
+      "updated": "2026-09-17T17:17:39Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-69147"],
+      "description": "## Summary Current vLLM `main` lets an inference request choose the PyNvVideoCodec GPU video decoder through `media_io_kwargs.video.video_backend`, but engine GPU memory reservation is computed only from static startup configuration and `VLLM_VIDEO_LOADER_BACKEND`. If the server starts with the default OpenCV/software backend and no `--mm-ipc-gpu-memory-gb` budget, a client can still route a video request into the PyNvVideoCodec path after startup, causing frontend CUDA-context, decoder-surface,"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.34.2-rc2: mlxrunner: Release freed KV buffers during speculative decode",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.2-rc2",
+      "updated": "2026-09-17T16:45:01Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LiteLLM Proxy has server-side request forgery via the `user_config` request parameter",
+      "link": "https://github.com/advisories/GHSA-hx8v-g79f-8w5f",
+      "updated": "2026-09-17T14:51:21Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-59823"],
+      "description": "### Summary A server-side request forgery in LiteLLM Proxy lets an authenticated caller redirect the proxy's outbound request to a host of their choosing by smuggling an `api_base` inside the `user_config` request body, bypassing the existing parameter guard. ### Details LiteLLM Proxy validates request bodies with `is_request_body_safe`, which blocks the `api_base` and `base_url` parameters but does not cover `user_config`. The `user_config` object is used to build the outbound router for a requ"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.30.0rc1: [Bugfix] Isolate supplemental FlashInfer BF16 autotuning (#57285)",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0rc1",
+      "updated": "2026-09-17T10:37:53Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "proto-v0.3.0",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/proto-v0.3.0",
+      "updated": "2026-09-17T03:47:02Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: Unauthenticated audio decompression-bomb DoS in /v1/chat/completions",
+      "link": "https://github.com/advisories/GHSA-hcwq-8wjf-3gcr",
+      "updated": "2026-09-16T22:12:17Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-57173"],
+      "description": "### Summary The audio decode-duration guard (`max_duration_s`, env `VLLM_MAX_AUDIO_DECODE_DURATION_S`, default 600s) that protects against audio decompression-bomb DoS is wired into **only** the speech-to-text path (`/v1/audio/transcriptions`). The **chat** audio path (`/v1/chat/completions`, `input_audio` content parts) calls the same decoder with **no** limit, so an **unauthenticated** client can submit a few-KB compressed audio file that expands to multiple GB of float32 PCM at decode time, O"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.34.2-rc1: mlxrunner: lay out model by contract, checkpoint and construction",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.2-rc1",
+      "updated": "2026-09-16T21:06:08Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.102.0-rc.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.102.0-rc.2",
+      "updated": "2026-09-16T20:29:51Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain==1.4.1",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.1",
+      "updated": "2026-09-16T17:07:04Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Detect event-loop blocking in tests (#3510)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/6affe5c0d3588fd1705713b3703dc68015cfe3eb",
+      "updated": "2026-09-16T10:12:27Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "proto-v0.2.0: vllm-proto 0.2.0",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/proto-v0.2.0",
+      "updated": "2026-09-16T08:32:41Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.103.0-dev.1",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.0-dev.1",
+      "updated": "2026-09-16T02:56:03Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.34.2-rc0: llama.cpp: version bump b10969 (#18446)",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.2-rc0",
+      "updated": "2026-09-15T20:13:31Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.101.0",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.0",
+      "updated": "2026-09-15T03:41:59Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.102.0-rc.1",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.102.0-rc.1",
+      "updated": "2026-09-13T04:56:38Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.29.1rc0",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0",
+      "updated": "2026-09-12T18:42:01Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-core==1.6.3",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.3",
+      "updated": "2026-09-11T17:38:04Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "proto-v0.1.0",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0",
+      "updated": "2026-09-11T08:30:05Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-anthropic==1.7.2",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-anthropic%3D%3D1.7.2",
+      "updated": "2026-09-10T19:13:12Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Release v2026.09",
+      "link": "https://github.com/mitre-atlas/atlas-data/commit/3259f388d19cbcca11bacf12a0ef97f4198f711b",
+      "updated": "2026-09-10T16:25:07Z",
+      "source": "mitre-atlas",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Merge pull request #105 from GenAI-Security-Project/integration",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/bfdb898be4a9bcaedd90529b480ae5b62e94f29a",
+      "updated": "2026-09-10T14:49:43Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Reconcile the project board from labels (#104)",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/7d2dd3c69f82ec7565eef49b1609906deba1ef6b",
+      "updated": "2026-09-10T14:48:35Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Merge pull request #103 from GenAI-Security-Project/main",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/29778220078b83e7c51571a8e709d3c75f68561b",
+      "updated": "2026-09-10T14:03:12Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Correct the one documentation claim that outlived its facts (#102)",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/060b2855d3668e267b14bbcf8df2e1ae98a95c71",
+      "updated": "2026-09-10T14:01:25Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Merge pull request #81 from GenAI-Security-Project/integration",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/1772cb97eb6d5f5bbb4b7c431f47ffd9a4e12175",
+      "updated": "2026-09-10T12:53:39Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Install the contribution governance for the OWASP re-launch (#64)",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/7cf72e4dde9a1535fb3e0e74c851f88c766760b3",
+      "updated": "2026-09-10T12:51:34Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Add 11 diagrams, vendor mermaid, and stop the site fetching code from…",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/5110a7a4232c9153095a4e1585b9c4e31d5ee00f",
+      "updated": "2026-09-10T12:51:18Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Merge pull request #80 from GenAI-Security-Project/main",
+      "link": "https://github.com/GenAI-Security-Project/agent-control-standard/commit/21f2b46558448349ad0292a6ed5a3b7ebc13f69a",
+      "updated": "2026-09-10T12:49:48Z",
+      "source": "owasp-acs",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "0.123.0",
+      "link": "https://github.com/promptfoo/promptfoo/releases/tag/0.123.0",
+      "updated": "2026-09-10T02:34:32Z",
+      "source": "promptfoo",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.17.0",
+      "link": "https://github.com/NVIDIA/garak/releases/tag/v0.17.0",
+      "updated": "2026-09-09T18:56:03Z",
+      "source": "garak",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "sharp: Vulnerabilities in libheif: GHSA-g89c-p67h-r497 and GHSA-2jg2-4ch7-h545",
+      "link": "https://github.com/advisories/GHSA-rgj7-g3m4-5g8c",
+      "updated": "2026-09-08T21:25:11Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": [],
+      "description": "### Impact A number of vulnerabilities, two rated as \"Critical\" severity using CVSSv3, have been discovered and fixed in the upstream libheif dependency. These can lead to possible remote code execution (RCE) on glibc-based Linux when run under certain conditions. The attack vector for these claims to be \"network\" however sharp does not provide any networking features so this vulnerability is down-rated to a \"High\" severity using CVSSv4 but please note its Subsequent System Impact. Those process"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: SSRF + arbitrary local file read in MiMoV2OmniMultiModalProcessor `_fetch_image` and audio loader bypass MediaConnector protections",
+      "link": "https://github.com/advisories/GHSA-4hhp-h66f-j5j7",
+      "updated": "2026-09-08T20:42:00Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-73560"],
+      "description": "### Summary `vllm/transformers_utils/processors/mimo_v2_omni.py` — the multimodal processor for `MiMoV2OmniForCausalLM` — issues `requests.get(...)` directly on user-supplied image and audio URL strings and `Image.open(...)` on user-supplied local paths, **without** the SSRF / `allowed_local_media_path` checks that `vllm.multimodal.utils.MediaConnector` was hardened with in **GHSA-qh4c-xf7m-gxfc**, **GHSA-v359-jj2v-j536**, and **GHSA-pf3h-qjgv-vcpr**. This is the same bug class as those three pu"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: Cross-User Data Leak Vulnerability",
+      "link": "https://github.com/advisories/GHSA-7m6h-x95x-82q5",
+      "updated": "2026-09-08T20:24:49Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-73558"],
+      "description": "### Summary An integer overflow in the act_and_mul_kernel kernel can cause the output of one user request to be incorporated into the response of another request within the same inference batch. Under certain conditions, the last request in a batch can receive a partial or complete copy of the first user's inference result, resulting in cross-user data leakage. ### Details The root cause is an integer overflow in the expression blockIdx.x * 2 * d at https://github.com/vllm-project/vllm/blob/ff71"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Replace RootModel wrappers with type aliases and TypeAdapter validati…",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/9972c21aa42054fb1450c5fc614761ed11847ec6",
+      "updated": "2026-09-07T15:40:21Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "docs: refresh translations, and translate pages in parallel (#3458)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/fd66270926b98b28e6cca21b35ec5ba0e4855892",
+      "updated": "2026-09-07T12:35:53Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "docs: ask for AI disclosure on comments too (#3459)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/08a3bc8eaf5bb69a6cb05ac708a86f5325977c20",
+      "updated": "2026-09-06T13:44:38Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "docs: stop presenting the in-memory client as the way to connect (#3443)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/7bb486a10fa68681b262f063e36438cc45260f7d",
+      "updated": "2026-09-05T03:15:58Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: Incomplete CVE-2025-62164 remediation can be bypassed by concurrent prompt parts",
+      "link": "https://github.com/advisories/GHSA-pr7f-p5mw-fc87",
+      "updated": "2026-09-04T21:39:02Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-73557"],
+      "description": "## Executive Summary The follow-up protection for CVE-2025-62164 is incomplete at vLLM revision `26587f9519e22a5c4549ead7595ad9ca3229c4fd`. It wraps serialized prompt-embedding reconstruction and dense conversion in `torch.sparse.check_sparse_tensor_invariants()`, but PyTorch 2.11.0 implements that context with save/enable/restore operations over process-global state. Two prompt-embedding parts in one `/v1/chat/completions` request are gathered concurrently on the event loop's default executor."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: ReDoS via structured_outputs.regex in the lm-format-enforcer backend (no compile timeout) — missed sibling of GHSA-rwxx-mrjm-wc2m",
+      "link": "https://github.com/advisories/GHSA-48jh-3gj7-fg8v",
+      "updated": "2026-09-04T21:37:00Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-73556"],
+      "description": "### Summary The fix for `GHSA-rwxx-mrjm-wc2m` (\"ReDoS via `structured_outputs.regex` compiled without timeout\") wrapped the regex compile in the **xgrammar** and **outlines** backends with `compile_regex_with_timeout` (and, for outlines, `validate_regex_is_buildable`). The **lm-format-enforcer** backend was left unguarded: it compiles the attacker-supplied regex with no timeout and no buildability check. A single request with a catastrophic regex hangs the structured-output compile step and stal"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: Unauthenticated Internal Path and Username Disclosure via Validation Error Messages",
+      "link": "https://github.com/advisories/GHSA-hwrm-c4cx-rf4j",
+      "updated": "2026-09-04T21:36:33Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-73555"],
+      "description": "## Summary When the vLLM API receives a malformed request (e.g., invalid JSON or missing required fields), FastAPI raises a Pydantic `RequestValidationError`. The `validation_exception_handler` in `vllm/entrypoints/openai/server_utils.py` converts this exception to a string via `str(exc)`, which includes the internal file path and line number of the handler function. The existing `sanitize_message()` function in `vllm/entrypoints/utils.py` strips memory addresses (e.g., `0x7f...`) but does not s"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: Derender endpoints decode caller-supplied GenerateResponse token IDs without output bounds",
+      "link": "https://github.com/advisories/GHSA-8737-qx52-hjff",
+      "updated": "2026-09-04T21:32:07Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-71486"],
+      "description": "## Summary The `/v1/completions/derender` and `/v1/chat/completions/derender` endpoints accept caller-supplied `GenerateResponse` objects and postprocess every nested `choices[*].token_ids` list directly. Unlike the normal render/generate path, derender does not enforce model context length, resolved `max_tokens`, `max_num_seqs`, choice-count, or response-size bounds before detokenizing and returning the supplied token IDs. An authenticated API client can therefore make the CPU-only render front"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Release v2026.08",
+      "link": "https://github.com/mitre-atlas/atlas-data/commit/41d4f5ca4112f0e492ffaa3ebff07dc80a75afa5",
+      "updated": "2026-09-01T00:53:37Z",
+      "source": "mitre-atlas",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "code-scan-action: 0.2.0",
+      "link": "https://github.com/promptfoo/promptfoo/releases/tag/code-scan-action-0.2.0",
+      "updated": "2026-08-28T07:34:11Z",
+      "source": "promptfoo",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "0.122.2",
+      "link": "https://github.com/promptfoo/promptfoo/releases/tag/0.122.2",
+      "updated": "2026-08-28T07:03:20Z",
+      "source": "promptfoo",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LiteLLM vulnerable to server-side template injection in the /prompts/test endpoint",
+      "link": "https://github.com/advisories/GHSA-6wvf-77m9-58rm",
+      "updated": "2026-08-27T21:31:31Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-37004"],
+      "description": "BerriAI litellm <=1.82.4 is vulnerable to Server-Side Template Injection (SSTI), which allows unauthenticated remote attackers to execute arbitrary OS commands via a crafted dotprompt_content parameter in the /prompts/test endpoint due to use of an unsandboxed jinja2.Environment."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Add CITATION.cff and the 2026 Zenodo DOI (#124)",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/9253e38ade58e959b531c0c5c9a4842272c9cd0e",
+      "updated": "2026-08-26T21:57:01Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "0.122.1",
+      "link": "https://github.com/promptfoo/promptfoo/releases/tag/0.122.1",
+      "updated": "2026-08-26T20:33:34Z",
+      "source": "promptfoo",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM: Completion prompt lists fan out into unbounded engine requests",
+      "link": "https://github.com/advisories/GHSA-87x5-vmc3-756j",
+      "updated": "2026-08-13T18:40:06Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-73559"],
+      "description": "## Summary The `/v1/completions` request model accepts `prompt` as a list of text prompts or a list of token-id prompts without any outer prompt-count bound. The serving path turns each element into a separate engine input, creates one engine generator per element, merges all generators, and allocates a response slot per prompt. An authenticated API client can therefore turn one request into an attacker-chosen number of backend subrequests before any aggregate request-count budget is enforced. #"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "[remote] PraisonAI praisonaiagents 1.6.77 - Remote Code Execution",
+      "link": "https://www.exploit-db.com/exploits/52639",
+      "updated": "Tue, 11 Aug 2026 00:00:00 +0000",
+      "source": "exploitdb",
+      "kind": "exploit",
+      "cves": [],
+      "description": "PraisonAI praisonaiagents 1.6.77 - Remote Code Execution"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "[remote] mcp-server-kubernetes 3.8.x - Argument Injection",
+      "link": "https://www.exploit-db.com/exploits/52638",
+      "updated": "Tue, 11 Aug 2026 00:00:00 +0000",
+      "source": "exploitdb",
+      "kind": "exploit",
+      "cves": [],
+      "description": "mcp-server-kubernetes 3.8.x - Argument Injection"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Publish 2026 release status and contribution guidance (#128)",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/7bbe0f06f468cdcc61fa73e1752183c6cfd23987",
+      "updated": "2026-08-05T17:47:16Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Merge pull request #130 from virtualsteve-exa/codex/merge-rc1-to-main",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/82a6a5824670cf7117b90297d8105eb68754fa13",
+      "updated": "2026-08-05T17:42:31Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Merge main into the published 2026 release candidate",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/fdc5e3c1c172f89baa6a6f8882dbaea7f785f3c2",
+      "updated": "2026-08-05T17:23:12Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.16.0",
+      "link": "https://github.com/NVIDIA/garak/releases/tag/v0.16.0",
+      "updated": "2026-08-04T19:03:13Z",
+      "source": "garak",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Transformers save_pretrained path traversal allows arbitrary file writes through chat template names",
+      "link": "https://github.com/advisories/GHSA-xrqw-3rrv-vx5w",
+      "updated": "2026-08-02T18:30:20Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-9856"],
+      "description": "A vulnerability in huggingface/transformers versions < 5.10.0 allows an attacker to perform arbitrary file writes via path traversal. The issue resides in the `save_pretrained()` methods of `PreTrainedTokenizerBase` and `ProcessorMixin`, where keys from the `chat_template` dictionary are used directly as filenames without proper validation. An attacker can exploit this by publishing a malicious Hugging Face Hub repository with a crafted `tokenizer_config.json` file. When a victim downloads and s"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Release v2026.07",
+      "link": "https://github.com/mitre-atlas/atlas-data/commit/2306ecaf04fb7a14be068b97e3ff40c2d9112e28",
+      "updated": "2026-07-31T14:23:53Z",
+      "source": "mitre-atlas",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Merge pull request #2 from cybershujin/patch-1",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-Threat-Intelligence-Initiative/commit/718578d9125ff06ab8397a77b192f7764400d0d4",
+      "updated": "2026-07-28T01:02:47Z",
+      "source": "owasp-threat-intel",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LiteLLM: Custom Code Guardrails production endpoints bypass code safety checks",
+      "link": "https://github.com/advisories/GHSA-72m8-9m7m-h278",
+      "updated": "2026-07-22T22:38:55Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-59821"],
+      "description": "### Impact LiteLLM's Custom Code Guardrails production create/update paths did not apply the same sandboxing and validation used by the test endpoint. A privileged user with access to create or update guardrails could submit custom Python code that executed in the LiteLLM proxy environment. In deployments without a configured master key, callers could be treated as proxy administrators, making this reachable without intended administrative authorization. This could allow arbitrary code execution"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LiteLLM: MCP Authentication Bypass via OAuth2 Passthrough Fallback",
+      "link": "https://github.com/advisories/GHSA-7488-6r32-c95q",
+      "updated": "2026-07-22T22:38:33Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-59822"],
+      "description": "### Impact LiteLLM's MCP Streamable HTTP endpoint could allow an unauthenticated attacker to establish an authenticated MCP session using an arbitrary Bearer token. The MCP auth handler supported OAuth2 passthrough for upstream MCP servers, but the fallback path could replace failed LiteLLM key validation with an empty `UserAPIKeyAuth()` object. This allowed requests with a fabricated `Authorization` header to reach MCP tooling without a valid LiteLLM key. An attacker could use this to list and"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LiteLLM: Local file read via request-supplied OIDC file references",
+      "link": "https://github.com/advisories/GHSA-4g5m-c9r5-49xf",
+      "updated": "2026-07-22T22:38:04Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-59819"],
+      "description": "### Impact LiteLLM's `/health/test_connection` endpoint resolved request-supplied environment and OIDC file references in `litellm_params`. A proxy administrator, or another privileged caller with permission to test model connections, could cause LiteLLM to read files from the local filesystem via an `oidc/file/` reference. Because exploitation requires privileged proxy access, this is treated as a defense-in-depth issue rather than a cross-tenant privilege bypass. ### Patches The issue is fixed"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LiteLLM: Arbitrary file write via path traversal in Skills archive extraction",
+      "link": "https://github.com/advisories/GHSA-5jmr-gcrj-2c9q",
+      "updated": "2026-07-22T22:37:15Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-59820"],
+      "description": "### Impact LiteLLM Skills archive extraction did not sufficiently validate file paths from uploaded skill ZIP archives. An authenticated user with access to LiteLLM LLM API routes, or a key whose `allowed_routes` includes `/v1/skills`, `anthropic_routes`, or `llm_api_routes`, could upload a crafted skill archive containing path traversal entries. When the skill was processed for execution, those entries could be written outside the intended extraction/staging directory. This could allow arbitrar"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "sharp inherited vulnerabilities in libvips: CVE-2026-33327, CVE-2026-33328, CVE-2026-35590, CVE-2026-35591",
+      "link": "https://github.com/advisories/GHSA-f88m-g3jw-g9cj",
+      "updated": "2026-07-21T22:07:17Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": [],
+      "description": "### Impact A number of vulnerabilities, two rated as \"High\" severity using CVSSv4, have been discovered and fixed in the upstream libvips dependency. Those processing untrusted input with versions of sharp prior to 0.35.0 are affected. ### Patches #### Using prebuilt binaries provided by sharp? Most people rely on the prebuilt binaries provided by sharp. Please upgrade sharp to the latest version, currently 0.35.3, which provides libvips 8.18.3. #### Using a globally-installed libvips? Please en"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "vLLM denial of service via prompt embeds on M-RoPE models",
+      "link": "https://github.com/advisories/GHSA-33cg-gxv8-3p8g",
+      "updated": "2026-07-20T19:13:07Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-55514"],
+      "description": "### Summary _Short summary of the problem. Make the impact and severity as clear as possible. For example: An unsafe deserialization vulnerability allows any unauthenticated user to execute arbitrary code on the server._ Sending a pure prompt embeds payload in a `/v1/completions` request with a model using M-RoPE causes the EngineCore to fail an assertion and fatally crash, shutting down the entire server application. Any remote user who is authorized to make a `/v1/completions` endpoint can tri"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Update README.md",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-Threat-Intelligence-Initiative/commit/bcc697e9c972e73f2cd53c76788e7654aac8127b",
+      "updated": "2026-07-18T04:45:06Z",
+      "source": "owasp-threat-intel",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LLM10:2026 Improper Output Handling: RC1 review fixes (#110)",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/7e144e05142b2105faa1603178a1163a2a34df24",
+      "updated": "2026-07-17T01:28:56Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LLM01: dedup/compression pass (#116) + RC1 review retains (#123)",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/2e802ff2a698351cfa56d6b300dc0b70c72f5852",
+      "updated": "2026-07-17T01:28:53Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "MCP Python SDK: WebSocket server transport does not support Host/Origin validation",
+      "link": "https://github.com/advisories/GHSA-vj7q-gjh5-988w",
+      "updated": "2026-07-16T20:14:34Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-59950"],
+      "description": "### Summary In affected versions, the deprecated WebSocket server transport (`mcp.server.websocket.websocket_server`) accepted the WebSocket handshake without applying any `Host` or `Origin` header validation. The `TransportSecuritySettings` mechanism that the SSE and Streamable HTTP transports use for this purpose was not wired into the WebSocket transport, so there was no SDK-level way to restrict which origins could connect. ### Am I affected? Only if a developer's application server exposes"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "MCP Python SDK: HTTP transports serve session requests without verifying the authenticated principal",
+      "link": "https://github.com/advisories/GHSA-jpw9-pfvf-9f58",
+      "updated": "2026-07-16T19:58:53Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-52869"],
+      "description": "### Summary In affected versions, the SSE and Streamable HTTP server transports routed incoming requests to an existing session based only on the session identifier, without verifying that the request was authenticated as the same principal that created the session. Anyone who learned or guessed a session ID could send JSON-RPC messages on that session, regardless of which bearer token the request carried. ### Am I affected? Only if a developer's application server uses an HTTP transport (SSE, o"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "MCP Python SDK: Experimental task handlers allow any client to access and cancel other clients' tasks",
+      "link": "https://github.com/advisories/GHSA-hvrp-rf83-w775",
+      "updated": "2026-07-16T19:56:12Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-52870"],
+      "description": "### Summary In affected versions, the default request handlers installed by the experimental tasks feature (`server.experimental.enable_tasks()`) did not check which session created a task before acting on it. On a server with more than one connected client, any client could observe, read results from, and cancel tasks belonging to other clients. ### Am I affected? Only if the developer's application server calls `server.experimental.enable_tasks()`. If `grep -r enable_tasks` over their codebase"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LLM02: convert pseudo-numbered examples and tier bullets to ordered l…",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/38d2b9c278a6bc59acbd951dcc1375f4bc8f8f40",
+      "updated": "2026-07-16T18:30:36Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LLM09: AI-tell conformance sweep (em dashes, semicolons) on merged en…",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/commit/9821f122a8e3ed1e32a82125eb16741fabf4bd9b",
+      "updated": "2026-07-16T18:22:42Z",
+      "source": "owasp-llm-top10",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Release v2026.06",
+      "link": "https://github.com/mitre-atlas/atlas-data/commit/651dad90d3c007e797c89356fa1f4d8732f90c8d",
+      "updated": "2026-06-30T22:58:04Z",
+      "source": "mitre-atlas",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "BerriAI litellm: UI User Enumeration leads to System-Wide Information Disclosure",
+      "link": "https://github.com/advisories/GHSA-m2v5-74w2-qhcj",
+      "updated": "2026-06-21T12:30:52Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-12799"],
+      "description": "A security vulnerability has been detected in BerriAI litellm up to 1.82.2. Affected by this issue is the function ui_view_users of the file litellm/proxy/management_endpoints/internal_user_endpoints.py of the component Incomplete Fix CVE-2025-0628. Such manipulation leads to improper authorization. It is possible to launch the attack remotely. The exploit has been disclosed publicly and may be used. The vendor was contacted early about this disclosure."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "BerriAI litellm has SSRF via Unvalidated spec_path URL in MCP OpenAPI Spec Loader",
+      "link": "https://github.com/advisories/GHSA-c693-x898-5g4h",
+      "updated": "2026-06-21T12:30:52Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-12798"],
+      "description": "A weakness has been identified in BerriAI litellm up to 1.82.2. Affected by this vulnerability is the function load_openapi_spec_async of the file litellm/proxy/_experimental/mcp_server/openapi_to_mcp_generator.py of the component MCP OpenAPI Spec Loader. This manipulation of the argument spec_path causes server-side request forgery. It is possible to initiate the attack remotely. The exploit has been made available to the public and could be used for attacks. The vendor was contacted early abou"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "BerriAI litellm has Security Feature Bypass in BannedKeywords and AzureContentSafety Guardrails via call_type Mismatch on Async Endpoints",
+      "link": "https://github.com/advisories/GHSA-p897-vf7j-f5h8",
+      "updated": "2026-06-21T12:30:52Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-12797"],
+      "description": "A security flaw has been discovered in BerriAI litellm up to 1.82.5. Affected is the function async_pre_call_hook of the file enterprise/enterprise_hooks/banned_keywords.py of the component Completions Interface. The manipulation of the argument prompt results in incorrect authorization. The attack may be performed from remote. The exploit has been released to the public and may be used for attacks. The vendor was contacted early about this disclosure."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "BerriAI litellm: SSO Login Does Not Invalidate Previous UI Session Tokens",
+      "link": "https://github.com/advisories/GHSA-w2mh-qq9q-453x",
+      "updated": "2026-06-21T12:30:52Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-12796"],
+      "description": "A vulnerability was identified in BerriAI litellm up to 1.82.2. This impacts the function get_redirect_response_from_openid of the file litellm/proxy/management_endpoints/ui_sso.py of the component SSO Authentication Flow. The manipulation leads to session expiration. The attack is possible to be carried out remotely. The exploit is publicly available and might be used. The vendor was contacted early about this disclosure."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LangChain: Path traversal and sandbox escape in LangChain file-search middleware and loaders",
+      "link": "https://github.com/advisories/GHSA-gr75-jv2w-4656",
+      "updated": "2026-06-16T15:03:14Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-55443"],
+      "description": "## Summary Several LangChain components that resolve filesystem paths or expand search patterns do not consistently confine the *resolved* path to the intended root directory. Affected behaviors include: a file-search agent middleware that validates a starting directory but not the search pattern or the resolved target of matched files, so glob patterns and symlinks can reach files outside the configured root; prompt- and chain/agent-configuration loaders that accept path fields and resolve them"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.15.1",
+      "link": "https://github.com/NVIDIA/garak/releases/tag/v0.15.1",
+      "updated": "2026-06-05T17:24:50Z",
+      "source": "garak",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "huggingface/transformers: Arbitrary Code Execution During Model Initialization in the LightGlue Model Loading Path",
+      "link": "https://github.com/advisories/GHSA-fgcw-684q-jj6r",
+      "updated": "2026-06-03T15:30:43Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-5241"],
+      "description": "A vulnerability in the LightGlue model loading path of huggingface/transformers version 5.2.0 allows an attacker-controlled model repository to execute arbitrary code during model initialization. The issue arises because the `trust_remote_code` parameter, intended to prevent remote code execution, is overridden by untrusted serialized configuration data in a nested code path. Specifically, when loading a LightGlue model using `AutoModel.from_pretrained()` with `trust_remote_code=False`, the `Lig"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Release v6.0.0 / v2026.05",
+      "link": "https://github.com/mitre-atlas/atlas-data/commit/da9ebf9b66e6902ad97c267e2a20af0bd996a60f",
+      "updated": "2026-05-27T18:02:51Z",
+      "source": "mitre-atlas",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "HuggingFace transformers vulnerable to remote code execution",
+      "link": "https://github.com/advisories/GHSA-29pf-2h5f-8g72",
+      "updated": "2026-05-26T13:30:33Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-4372"],
+      "description": "A critical remote code execution vulnerability exists in all versions of the HuggingFace transformers library prior to version 5.3.0. The vulnerability allows an attacker to craft a malicious `config.json` file containing the `_attn_implementation_internal` field set to an attacker-controlled HuggingFace Hub repository ID. When a victim loads this model using the standard `AutoModelForCausalLM.from_pretrained()` API, the library downloads and executes arbitrary Python code from the attacker's re"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LangSmith SDK: Public prompt pull deserializes untrusted manifests without trust boundary warning",
+      "link": "https://github.com/advisories/GHSA-3644-q5cj-c5c7",
+      "updated": "2026-05-13T15:29:30Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-45134"],
+      "description": "## Description The LangSmith SDK's prompt pull methods (`pull_prompt` / `pull_prompt_commit` in Python, `pullPrompt` / `pullPromptCommit` in JS/TS) fetch and deserialize prompt manifests from the LangSmith Hub. These manifests may contain serialized LangChain objects and model configuration that affect runtime behavior. When pulling a public prompt by `owner/name` identifier, the manifest content is controlled by an external party, but prior versions of the SDK did not distinguish this from pull"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Initial commit",
+      "link": "https://github.com/GenAI-Security-Project/GenAI-Threat-Intelligence-Initiative/commit/6e35c6be22b4a67b117e90bf975e62b521622b0d",
+      "updated": "2026-05-02T22:06:28Z",
+      "source": "owasp-threat-intel",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.15.0",
+      "link": "https://github.com/NVIDIA/garak/releases/tag/v0.15.0",
+      "updated": "2026-05-01T18:17:24Z",
+      "source": "garak",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "HuggingFace Transformers allows for arbitrary code execution in the `Trainer` class",
+      "link": "https://github.com/advisories/GHSA-69w3-r845-3855",
+      "updated": "2026-04-07T06:30:28Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-1839"],
+      "description": "A vulnerability in the HuggingFace Transformers library, specifically in the `Trainer` class, allows for arbitrary code execution. The `_load_rng_state()` method in `src/transformers/trainer.py` at line 3059 calls `torch.load()` without the `weights_only=True` parameter. This issue affects all versions of the library supporting `torch>=2.2` when used with PyTorch versions below 2.6, as the `safe_globals()` context manager provides no protection in these versions. An attacker can exploit this vul"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.14.1",
+      "link": "https://github.com/NVIDIA/garak/releases/tag/v0.14.1",
+      "updated": "2026-04-03T15:24:32Z",
+      "source": "garak",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Configure GitHub Pages",
+      "link": "https://github.com/Azure/PyRIT/commit/bec7cb5d6089481d75fb8df143793de3da6905f5",
+      "updated": "2026-03-25T01:18:45Z",
+      "source": "pyrit",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Update README",
+      "link": "https://github.com/Azure/PyRIT/commit/a81d27a76aeecf188b22c7825079f8ad3b1930f6",
+      "updated": "2026-03-25T01:03:12Z",
+      "source": "pyrit",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "SUPPORT.md committed",
+      "link": "https://github.com/Azure/PyRIT/commit/18fcbf9ff6b7d293386d6775d9db2e3295831a52",
+      "updated": "2026-03-25T00:51:05Z",
+      "source": "pyrit",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "README.md committed",
+      "link": "https://github.com/Azure/PyRIT/commit/96d5c827e165ef4ec57fc947e8371b96580ad9b6",
+      "updated": "2026-03-25T00:51:04Z",
+      "source": "pyrit",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "SECURITY.md committed",
+      "link": "https://github.com/Azure/PyRIT/commit/7061d0fbbc02e846bfff38d3127df828a23e113c",
+      "updated": "2026-03-25T00:51:03Z",
+      "source": "pyrit",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Model Context Protocol (MCP) Python SDK does not enable DNS rebinding protection by default",
+      "link": "https://github.com/advisories/GHSA-9h52-p55h-vw2f",
+      "updated": "2025-12-02T16:52:08Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-66416"],
+      "description": "### Description The Model Context Protocol (MCP) Python SDK does not enable DNS rebinding protection by default for HTTP-based servers. When an HTTP-based MCP server is run on localhost without authentication using `FastMCP` with streamable HTTP or SSE transport, and has not configured `TransportSecuritySettings`, a malicious website could exploit DNS rebinding to bypass same-origin policy restrictions and send requests to the local MCP server. This could allow an attacker to invoke tools or acc"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Hugging Face Transformers vulnerable to Regular Expression Denial of Service (ReDoS) in the AdamWeightDecay optimizer",
+      "link": "https://github.com/advisories/GHSA-4w7r-h757-3r74",
+      "updated": "2025-09-23T15:31:09Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-6921"],
+      "description": "The huggingface/transformers library, versions prior to 4.53.0, is vulnerable to Regular Expression Denial of Service (ReDoS) in the AdamWeightDecay optimizer. The vulnerability arises from the _do_use_weight_decay method, which processes user-controlled regular expressions in the include_in_weight_decay and exclude_from_weight_decay lists. Malicious regular expressions can cause catastrophic backtracking during the re.search call, leading to 100% CPU utilization and a denial of service. This is"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Hugging Face Transformers library has Regular Expression Denial of Service",
+      "link": "https://github.com/advisories/GHSA-rcv9-qm8p-9p6j",
+      "updated": "2025-09-14T18:30:26Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-6051"],
+      "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically within the `normalize_numbers()` method of the `EnglishNormalizer` class. This vulnerability affects versions up to 4.52.4 and is fixed in version 4.53.0. The issue arises from the method's handling of numeric strings, which can be exploited using crafted input strings containing long sequences of digits, leading to excessive CPU consumption. This vulnerability impac"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Hugging Face Transformers is vulnerable to ReDoS through its MarianTokenizer",
+      "link": "https://github.com/advisories/GHSA-59p9-h35m-wg4g",
+      "updated": "2025-09-12T12:30:23Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-6638"],
+      "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically affecting the MarianTokenizer's `remove_language_code()` method. This vulnerability is present in version 4.52.4 and has been fixed in version 4.53.0. The issue arises from inefficient regex processing, which can be exploited by crafted input strings containing malformed language code patterns, leading to excessive CPU consumption and potential denial of service."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Hugging Face Transformers Regular Expression Denial of Service (ReDoS) vulnerability",
+      "link": "https://github.com/advisories/GHSA-9356-575x-2w9m",
+      "updated": "2025-08-06T12:31:20Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-5197"],
+      "description": "A Regular Expression Denial of Service (ReDoS) vulnerability exists in the Hugging Face Transformers library, specifically in the `convert_tf_weight_name_to_pt_weight_name()` function. This function, responsible for converting TensorFlow weight names to PyTorch format, uses a regex pattern `/[^/]*___([^/]*)/` that can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. The vulnerability affects versions up to 4.51.3 and is fixed in vers"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Transformers is vulnerable to ReDoS attack through its DonutProcessor class",
+      "link": "https://github.com/advisories/GHSA-37mw-44qp-f5jm",
+      "updated": "2025-07-11T12:30:32Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-3933"],
+      "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically within the DonutProcessor class's `token2json()` method. This vulnerability affects versions 4.51.3 and earlier, and is fixed in version 4.52.1. The issue arises from the regex pattern `<s_(.*?)>` which can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. This vulnerability can lead to service disruption,"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Transformers's Improper Input Validation vulnerability can be exploited through username injection",
+      "link": "https://github.com/advisories/GHSA-phhr-52qp-3mj4",
+      "updated": "2025-07-07T12:30:22Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-3777"],
+      "description": "Hugging Face Transformers versions up to 4.49.0 are affected by an improper input validation vulnerability in the `image_utils.py` file. The vulnerability arises from insecure URL validation using the `startswith()` method, which can be bypassed through URL username injection. This allows attackers to craft URLs that appear to be from YouTube but resolve to malicious domains, potentially leading to phishing attacks, malware distribution, or data exfiltration. The issue is fixed in version 4.52.1"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "MCP Python SDK vulnerability in the FastMCP Server causes validation error, leading to DoS",
+      "link": "https://github.com/advisories/GHSA-3qhf-m339-9g5v",
+      "updated": "2025-07-04T22:06:49Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-53366"],
+      "description": "A validation error in the MCP SDK can cause an unhandled exception when processing malformed requests, resulting in service unavailability (500 errors) until manually restarted. Impact may vary depending on the deployment conditions, and presence of infrastructure-level resilience measures. Thank you to Rich Harang for reporting this issue."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "MCP Python SDK has Unhandled Exception in Streamable HTTP Transport, Leading to Denial of Service",
+      "link": "https://github.com/advisories/GHSA-j975-95f5-7wqh",
+      "updated": "2025-07-04T22:06:31Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-53365"],
+      "description": "If a client deliberately triggers an exception after establishing a streamable HTTP session, this can lead to an uncaught ClosedResourceError on the server side, causing the server to crash and requiring a restart to restore service. Impact may vary depending on the deployment conditions, and presence of infrastructure-level resilience measures. Thank you to Rich Harang for reporting this issue."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch: `torch.load` with `weights_only=True` leads to remote code execution",
+      "link": "https://github.com/advisories/GHSA-53q9-r3pm-6pq6",
+      "updated": "2025-04-18T15:19:28Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-32434"],
+      "description": "# Description I found a Remote Command Execution (RCE) vulnerability in PyTorch. When loading model using torch.load with weights_only=True, it can still achieve RCE. # Background knowledge https://github.com/pytorch/pytorch/security As you can see, the PyTorch official documentation considers using `torch.load()` with `weights_only=True` to be safe. ![image](https://github.com/user-attachments/assets/fdaa8520-d66a-473a-ab1f-163d793de298) Since everyone knows that weights_only=False is unsafe, s"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch Improper Resource Shutdown or Release vulnerability",
+      "link": "https://github.com/advisories/GHSA-887c-mr87-cxwp",
+      "updated": "2025-04-16T21:30:59Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-3730"],
+      "description": "A vulnerability, which was classified as problematic, was found in PyTorch 2.6.0. Affected is the function torch.nn.functional.ctc_loss of the file aten/src/ATen/native/LossCTC.cpp. The manipulation leads to denial of service. An attack has to be approached locally. The exploit has been disclosed to the public and may be used. The name of the patch is 46fc5d8e360127361211cb237d5f9eef0223e567. It is recommended to apply a patch to fix this issue."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch is vulnerable to memory corruption through its torch.lstm_cell function",
+      "link": "https://github.com/advisories/GHSA-qfhq-4f3w-5fph",
+      "updated": "2025-03-31T18:31:08Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-3001"],
+      "description": "A vulnerability classified as critical was found in PyTorch 2.6.0. This vulnerability affects the function torch.lstm_cell. The manipulation leads to memory corruption. The attack needs to be approached locally. The exploit has been disclosed to the public and may be used. A patch is available through commit [999d94b](https://github.com/pytorch/pytorch/commit/999d94b5ede5f4ec111ba7dd144129e2c2725b03)."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch is vulnerable to memory corruption through its unpack_sequence function",
+      "link": "https://github.com/advisories/GHSA-vgrw-7cvw-pwgx",
+      "updated": "2025-03-31T15:30:48Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-2999"],
+      "description": "A vulnerability was found in PyTorch 2.6.0. It has been rated as critical. Affected by this issue is the function torch.nn.utils.rnn.unpack_sequence. The manipulation leads to memory corruption. Attacking locally is a requirement. The exploit has been disclosed to the public and may be used. A patch is available through commit [4945180](https://github.com/pytorch/pytorch/commit/494518046816d29099b7d056a74ffa5c244fdcdd)."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch is vulnerable to memory corruption through its torch.jit.script function",
+      "link": "https://github.com/advisories/GHSA-rrmf-rvhw-rf47",
+      "updated": "2025-03-31T15:30:48Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-3000"],
+      "description": "A vulnerability classified as critical has been found in PyTorch 2.6.0. This affects the function torch.jit.script. The manipulation leads to memory corruption. It is possible to launch the attack on the local host. The exploit has been disclosed to the public and may be used."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch is Vulnerable to Memory Consumption through pad_packed_sequence Function",
+      "link": "https://github.com/advisories/GHSA-f4hp-rmr7-r7v8",
+      "updated": "2025-03-31T15:30:48Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-2998"],
+      "description": "A vulnerability was found in PyTorch 2.6.0. It has been declared as critical. Affected by this vulnerability is the function torch.nn.utils.rnn.pad_packed_sequence. The manipulation leads to memory corruption. Local access is required to approach this attack. The exploit has been disclosed to the public and may be used."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch susceptible to local Denial of Service",
+      "link": "https://github.com/advisories/GHSA-3749-ghw9-m3mg",
+      "updated": "2025-03-30T18:30:24Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-2953"],
+      "description": "A vulnerability, which was classified as problematic, has been found in PyTorch 2.6.0+cu124. Affected by this issue is the function torch.mkldnn_max_pool2d. The manipulation leads to denial of service. An attack has to be approached locally. The exploit has been disclosed to the public and may be used."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Withdrawn Advisory: PyTorch deserialization vulnerability",
+      "link": "https://github.com/advisories/GHSA-4vmg-rw8f-92f9",
+      "updated": "2025-03-20T12:32:46Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2024-7804"],
+      "description": "## Withdrawn Advisory This advisory has been withdrawn because it describes known functionality of PyTorch. This link is maintained to preserve external references. ## Original Description A deserialization vulnerability exists in the Pytorch RPC framework (torch.distributed.rpc) in pytorch/pytorch versions <=2.3.1. The vulnerability arises from the lack of security verification during the deserialization process of PythonUDF objects in pytorch/torch/distributed/rpc/internal.py. This flaw allows"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch: Manipulation of the argument scale/zero_point leads to improper initialization via Quantized Sigmoid Module",
+      "link": "https://github.com/advisories/GHSA-x3gm-94wq-g975",
+      "updated": "2025-03-10T15:30:47Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-2149"],
+      "description": "A vulnerability was found in PyTorch 2.6.0+cu124. It has been rated as problematic. Affected by this issue is the function nnq_Sigmoid of the component Quantized Sigmoid Module. The manipulation of the argument scale/zero_point leads to improper initialization. The attack needs to be approached locally. The complexity of an attack is rather high. The exploitation is known to be difficult. The exploit has been disclosed to the public and may be used."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "PyTorch Tuple Handler is Vulnerable to Memory Corruption through Manipulation of None Argument",
+      "link": "https://github.com/advisories/GHSA-c678-jfcj-6jmf",
+      "updated": "2025-03-10T12:30:55Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2025-2148"],
+      "description": "A vulnerability was found in PyTorch 2.6.0+cu124. It has been declared as critical. Affected by this vulnerability is the function torch.ops.profiler._call_end_callbacks_on_jit_fut of the component Tuple Handler. The manipulation of the argument None leads to memory corruption. The attack can be launched remotely. The complexity of an attack is rather high. The exploitation appears to be difficult."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Langchain SQL Injection vulnerability",
+      "link": "https://github.com/advisories/GHSA-45pg-36p6-83v9",
+      "updated": "2024-10-29T15:32:05Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2024-8309"],
+      "description": "A vulnerability in the GraphCypherQAChain class of langchain-ai/langchain version 0.2.5 allows for SQL injection through prompt injection. This vulnerability can lead to unauthorized data manipulation, data exfiltration, denial of service (DoS) by deleting all data, breaches in multi-tenant security environments, and data integrity issues. Attackers can create, update, or delete nodes and relationships without proper authorization, extract sensitive data, disrupt services, access data across dif"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Denial of service in langchain-community",
+      "link": "https://github.com/advisories/GHSA-3hjh-jh2h-vrg6",
+      "updated": "2024-06-06T21:30:36Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2024-2965"],
+      "description": "Denial of service in `SitemapLoader` Document Loader in the `langchain-community` package, affecting versions below 0.2.5. The `parse_sitemap` method, responsible for parsing sitemaps and extracting URLs, lacks a mechanism to prevent infinite recursion when a sitemap URL refers to the current sitemap itself. This oversight allows for the possibility of an infinite loop, leading to a crash by exceeding the maximum recursion depth in Python. This vulnerability can be exploited to occupy server soc"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain vulnerable to path traversal",
+      "link": "https://github.com/advisories/GHSA-rgp8-pm28-3759",
+      "updated": "2024-04-16T00:30:34Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2024-3571"],
+      "description": "langchain-ai/langchain is vulnerable to path traversal due to improper limitation of a pathname to a restricted directory ('Path Traversal') in its LocalFileStore functionality. An attacker can leverage this vulnerability to read or write files anywhere on the filesystem, potentially leading to information disclosure or remote code execution. The issue lies in the handling of file paths in the mset and mget methods, where user-supplied input is not adequately sanitized, allowing directory traver"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LangChain directory traversal vulnerability",
+      "link": "https://github.com/advisories/GHSA-h59x-p739-982c",
+      "updated": "2024-03-04T00:30:53Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2024-28088"],
+      "description": "LangChain through 0.1.10 allows ../ directory traversal by an actor who is able to control the final part of the path parameter in a load_chain call. This bypasses the intended behavior of loading configurations only from the hwchase17/langchain-hub GitHub repository. The outcome can be disclosure of an API key for a large language model online service, or remote code execution."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain Server-Side Request Forgery vulnerability",
+      "link": "https://github.com/advisories/GHSA-h9j7-5xvc-qhg5",
+      "updated": "2024-02-26T18:30:29Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2024-0243"],
+      "description": "With the following crawler configuration: ```python from bs4 import BeautifulSoup as Soup url = \"https://example.com\" loader = RecursiveUrlLoader( url=url, max_depth=2, extractor=lambda x: Soup(x, \"html.parser\").text ) docs = loader.load() ``` An attacker in control of the contents of `https://example.com` could place a malicious HTML file in there with links like \"https://example.completely.different/my_file.html\" and the crawler would proceed to download that file as well even though `prevent_"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "sharp vulnerability in libwebp dependency CVE-2023-4863",
+      "link": "https://github.com/advisories/GHSA-54xq-cgqr-rpm3",
+      "updated": "2023-11-16T17:14:15Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": [],
+      "description": "## Overview sharp uses libwebp to decode WebP images and versions prior to the latest 0.32.6 are vulnerable to the high severity https://github.com/advisories/GHSA-j7hp-h8jx-5ppr. ## Who does this affect? Almost anyone processing untrusted input with versions of sharp prior to 0.32.6. ## How to resolve this? ### Using prebuilt binaries provided by sharp? Most people rely on the prebuilt binaries provided by sharp. Please upgrade sharp to the latest 0.32.6, which provides libwebp 1.3.2. ### Using"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Langchain Server-Side Request Forgery vulnerability",
+      "link": "https://github.com/advisories/GHSA-6h8p-4hx9-w66c",
+      "updated": "2023-10-21T00:30:47Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2023-32786"],
+      "description": "In Langchain before 0.0.329, prompt injection allows an attacker to force the service to retrieve data from an arbitrary URL, essentially providing SSRF and potentially injecting content into downstream tasks."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Langchain SQL Injection vulnerability",
+      "link": "https://github.com/advisories/GHSA-8h5w-f6q9-wg35",
+      "updated": "2023-10-21T00:30:47Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2023-32785"],
+      "description": "In Langchain before 0.0.247, prompt injection allows execution of arbitrary code against the SQL service provided by the chain."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LangChain Server Side Request Forgery vulnerability",
+      "link": "https://github.com/advisories/GHSA-655w-fm8m-m478",
+      "updated": "2023-10-19T06:30:23Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2023-46229"],
+      "description": "LangChain before 0.0.317 allows SSRF via `document_loaders/recursive_url_loader.py` because crawling can proceed from an external server to an internal server."
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "sharp vulnerable to Command Injection in post-installation over build environment",
+      "link": "https://github.com/advisories/GHSA-gp95-ppv5-3jc5",
+      "updated": "2022-06-01T19:58:29Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2022-29256"],
+      "description": "There's a possible vulnerability in logic that is run only at `npm install` time when installing versions of `sharp` prior to the latest v0.30.5. This is not part of any runtime code, does not affect Windows users at all, and is unlikely to affect anyone that already cares about the security of their build environment. However, out of an abundance of caution, I've created this advisory. If an attacker has the ability to set the value of the `PKG_CONFIG_PATH` environment variable in a build envir"
+    }
+  ]
+}

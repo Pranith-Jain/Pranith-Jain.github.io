@@ -1,1 +1,15 @@
-{"slug":"booba-project-atlas-ocean-voyages-2026-09-14","title":"Atlas Ocean Voyages","group":"Booba Project","discovered":"2026-09-14T12:20:35.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Travel Arrangements Stolen data: 37 GB.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Hospitality","references":["ransomware.live"]}
+{
+  "slug": "booba-project-atlas-ocean-voyages-2026-09-14",
+  "title": "Atlas Ocean Voyages",
+  "group": "Booba Project",
+  "discovered": "2026-09-14T12:20:35.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Travel Arrangements Stolen data: 37 GB.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality",
+  "references": ["ransomware.live"]
+}

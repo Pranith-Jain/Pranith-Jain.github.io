@@ -1,0 +1,84 @@
+{
+  "slug": "cyberark__FuzzyAI",
+  "repo": "cyberark/FuzzyAI",
+  "category": "scanner",
+  "scope": ["llm"],
+  "stars": 1574,
+  "description": "A powerful tool for automated LLM fuzzing. It is designed to help developers and security researchers identify and mitigate potential jailbreaks in their LLM APIs.",
+  "homepage": null,
+  "added": "2026-09-13",
+  "checkedAt": "2026-09-17T08:42:31Z",
+  "pushedAt": "2026-02-06",
+  "daysIdle": 223,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": { "category": "scanner", "repo": "cyberark/FuzzyAI", "scope": ["llm"], "added": "2026-09-13" },
+    "derived": {
+      "checked_at": "2026-09-17T08:42:31Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-02-06",
+        "days_since_push": 223,
+        "total_commits": 206,
+        "last100_span_days": 367,
+        "last100_authors": 11,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 223,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "cyberark/FuzzyAI",
+        "stars": 1574,
+        "forks": 216,
+        "created_at": "2024-12-03",
+        "is_fork": false,
+        "contributors": 13,
+        "top_contributor_share": 0.28,
+        "homepage": null,
+        "description": "A powerful tool for automated LLM fuzzing. It is designed to help developers and security researchers identify and mitigate potential jailbreaks in their LLM APIs.",
+        "topics": [
+          "ai",
+          "ai-red-team",
+          "fuzzing",
+          "jailbreak",
+          "jailbreaking",
+          "llm",
+          "llm-evaluation",
+          "llm-security",
+          "llms",
+          "security"
+        ]
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 11682,
+        "code_files": 199,
+        "files": 234,
+        "has_ci": false,
+        "has_tests": true,
+        "has_dockerfile": false,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai"],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": false,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "slug": "cisco-ai-defense__mcp-scanner",
+  "repo": "cisco-ai-defense/mcp-scanner",
+  "category": "scanner",
+  "scope": ["agentic"],
+  "stars": 1074,
+  "description": "Scan MCP servers for potential threats & security findings.",
+  "homepage": "https://blogs.cisco.com/ai/securing-the-ai-agent-supply-chain-with-ciscos-open-source-mcp-scanner",
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:43:39Z",
+  "pushedAt": "2026-09-17",
+  "daysIdle": 0,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": {
+      "category": "scanner",
+      "repo": "cisco-ai-defense/mcp-scanner",
+      "scope": ["agentic"],
+      "added": "2026-09-14"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:43:39Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-17",
+        "days_since_push": 0,
+        "total_commits": 134,
+        "last100_span_days": 330,
+        "last100_authors": 24,
+        "releases": 48,
+        "latest_release_at": "2026-08-28",
+        "days_since_release": 20,
+        "days_idle": 0,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "cisco-ai-defense/mcp-scanner",
+        "stars": 1074,
+        "forks": 138,
+        "created_at": "2025-09-24",
+        "is_fork": false,
+        "contributors": 26,
+        "top_contributor_share": 0.49,
+        "homepage": "https://blogs.cisco.com/ai/securing-the-ai-agent-supply-chain-with-ciscos-open-source-mcp-scanner",
+        "description": "Scan MCP servers for potential threats & security findings.",
+        "topics": ["agents", "ai", "mcp", "security"]
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
+      "shape": {
+        "loc": 97087,
+        "code_files": 368,
+        "files": 457,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "litellm"],
+        "mcp_server": true,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

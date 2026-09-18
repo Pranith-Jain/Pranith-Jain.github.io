@@ -782,6 +782,8 @@ app.use('/api/v1/*', async (c, next) => {
   if (
     path.includes('/si/') ||
     path.includes('/threat-intel/') ||
+    path.includes('/ai-security/') ||
+    path.includes('/ai-escape/') ||
     path.includes('/frameworks/') ||
     path.includes('/winreg/') ||
     path.includes('/dfir-ref/') ||
@@ -920,6 +922,15 @@ app.use('/api/v1/admin/telegram/*', requireAdminMiddleware);
 // maltrail-sync writes KV-backed actor records and fans out to the GitHub API;
 // it is an operator-only mutation, not a public/readonly-key endpoint.
 app.use('/api/v1/maltrail-sync', requireAdminMiddleware);
+// CTI operator pipelines — global-table writes (collect/mutate/decay/sweep)
+// plus AI prediction cost, with a caller-controlled wipe cutoff on sweep.
+// Cron calls the lib functions directly and no SPA/MCP/SELF path hits these
+// handlers, so gating the HTTP layer is cron-safe.
+app.use('/api/v1/cti/collect', requireAdminMiddleware);
+app.use('/api/v1/cti/predictions', requireAdminMiddleware);
+app.use('/api/v1/cti/mutate', requireAdminMiddleware);
+app.use('/api/v1/cti/decay', requireAdminMiddleware);
+app.use('/api/v1/cti/sweep', requireAdminMiddleware);
 
 import {
   iocCheckSchema,
@@ -1063,6 +1074,7 @@ import { dailyBriefsRouter } from './routes/daily-briefs-edge-tools';
 import { webamonDtbRouter } from './routes/webamon-dtb';
 import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
 import { aiEscapeRouter } from './routes/ai-escape';
+import { aiSecurityRouter } from './routes/ai-security';
 import { ransomwareGroupsRouter } from './routes/ransomware-groups';
 import { anarchyRouter } from './routes/anarchy';
 import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
@@ -2091,6 +2103,10 @@ app.route('/api/v1', anarchyRouter);
 // AI Escape Watch — agent containment-failure registry.
 // Static manifest in public/data/ai-escape/ (curatorial seed, reviewed via PR).
 app.route('/api/v1', aiEscapeRouter);
+
+// AI Security hub — matrix + incidents + escape parity + vulns + advisories + research.
+// Static manifest in public/data/ai-security/ (daily sync, reviewed via PR).
+app.route('/api/v1', aiSecurityRouter);
 
 // OSS Feed Registry — curated catalog of 145+ free open-source threat intel feeds.
 // Data from github.com/Bert-JanP/Open-Source-Threat-Intel-Feeds (BSD-3-Clause).

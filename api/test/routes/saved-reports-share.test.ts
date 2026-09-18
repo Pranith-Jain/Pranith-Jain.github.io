@@ -20,7 +20,9 @@ function makeDb() {
         bind(...args: unknown[]) {
           return {
             async first() {
-              if (sql.includes('SELECT id FROM saved_reports WHERE id = ?')) {
+              // Handlers SELECT id/owner_hash from saved_reports by id; rows
+              // without owner_hash behave as legacy unowned (visible to all).
+              if (sql.includes('FROM saved_reports WHERE id = ?')) {
                 return rows.get(args[0] as string) ?? null;
               }
               if (sql.includes('WHERE share_token = ?')) {

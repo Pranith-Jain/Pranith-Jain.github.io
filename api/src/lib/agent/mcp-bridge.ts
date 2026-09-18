@@ -1365,6 +1365,90 @@ export function bridgeMcpTools(
   });
 
   // ══════════════════════════════════════════════════════════════════════
+  //  AI SECURITY — realtime AI vulns / advisories / research (REST-backed)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'ai_vulns',
+    description:
+      'Realtime AI vulnerability tracking (EUVD + NVD + OSV watchlist, KEV overlap, EPSS). Filter by query, KEV-only, min EPSS, source.',
+    params: [
+      { name: 'q', type: 'string', description: 'Search CVE/GHSA ids, packages, vendors', required: false },
+      { name: 'kev_only', type: 'boolean', description: 'Only KEV-listed vulns', required: false },
+      { name: 'min_epss', type: 'number', description: 'Minimum EPSS 0-1', required: false },
+      { name: 'source', type: 'string', description: 'Source: euvd, nvd, osv, kev', required: false },
+      { name: 'limit', type: 'number', description: 'Max entries (default 100)', required: false },
+    ],
+    execute: async (args) => {
+      const params = new URLSearchParams();
+      if (args.q) params.set('q', args.q as string);
+      if (args.kev_only) params.set('kev_only', 'true');
+      if (args.min_epss !== undefined) params.set('min_epss', String(args.min_epss));
+      if (args.source) params.set('source', args.source as string);
+      if (args.limit) params.set('limit', String(args.limit));
+      const qs = params.toString();
+      return apiFetch(`/api/v1/ai-security/vulns${qs ? `?${qs}` : ''}`);
+    },
+  });
+
+  add({
+    name: 'ai_vuln_get',
+    description:
+      'Full body for one AI vuln (description, references, packages, KEV dates, EPSS). Call ai_vulns first to discover IDs.',
+    params: [{ name: 'id', type: 'string', description: 'Vuln ID, e.g. CVE-2026-42271', required: true }],
+    execute: async (args) => apiFetch(`/api/v1/ai-security/vulns/${encodeURIComponent(args.id as string)}`),
+  });
+
+  add({
+    name: 'ai_advisories',
+    description:
+      'AI advisory firehose: per-package GHSA advisories, cvelistV5 CVE commits, tool release trains, ExploitDB PoCs.',
+    params: [
+      { name: 'q', type: 'string', description: 'Search titles, sources, CVE ids', required: false },
+      {
+        name: 'source',
+        type: 'string',
+        description: 'Source filter (ghsa, garak, pyrit, owasp-llm-top10, exploitdb, …)',
+        required: false,
+      },
+      { name: 'kind', type: 'string', description: 'Kind: advisory, cve, release, exploit', required: false },
+      { name: 'limit', type: 'number', description: 'Max entries (default 100)', required: false },
+    ],
+    execute: async (args) => {
+      const params = new URLSearchParams();
+      if (args.q) params.set('q', args.q as string);
+      if (args.source) params.set('source', args.source as string);
+      if (args.kind) params.set('kind', args.kind as string);
+      if (args.limit) params.set('limit', String(args.limit));
+      const qs = params.toString();
+      return apiFetch(`/api/v1/ai-security/advisories${qs ? `?${qs}` : ''}`);
+    },
+  });
+
+  add({
+    name: 'ai_research',
+    description: 'AI security research feed (Hacktron, Unit42, CSA, BleepingComputer AI-filtered).',
+    params: [
+      { name: 'q', type: 'string', description: 'Search titles and sources', required: false },
+      {
+        name: 'source',
+        type: 'string',
+        description: 'Source: hacktron, unit42, csa, bleepingcomputer',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max entries (default 100)', required: false },
+    ],
+    execute: async (args) => {
+      const params = new URLSearchParams();
+      if (args.q) params.set('q', args.q as string);
+      if (args.source) params.set('source', args.source as string);
+      if (args.limit) params.set('limit', String(args.limit));
+      const qs = params.toString();
+      return apiFetch(`/api/v1/ai-security/research${qs ? `?${qs}` : ''}`);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
   //  BREACHVIP — Breach Database Search (REST-backed)
   // ══════════════════════════════════════════════════════════════════════
 

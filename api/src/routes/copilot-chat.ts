@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
+import { callerOwnerId, ownerVisibilityFilter, ownerCheck } from '../lib/ownership';
 import type { AgentState } from '../lib/agent/types';
 import { detectType } from '../lib/report/subject-resolver';
 
@@ -77,9 +78,9 @@ function truncate(s: string, max: number): string {
   return s.slice(0, max) + '…';
 }
 
-async function loadSession(db: D1Database, id: string): Promise<ChatSession | null> {
+async function loadSession(c: Context<{ Bindings: Env }>, db: D1Database, id: string): Promise<ChatSession | null> {
   const row = await db
-    .prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?')
+    .prepare('SELECT id, title, messages_json, created_at, updated_at, owner_hash FROM copilot_sessions WHERE id = ?')
     .bind(id)
     .first<{
       id: string;
@@ -87,8 +88,10 @@ async function loadSession(db: D1Database, id: string): Promise<ChatSession | nu
       messages_json: string;
       created_at: string;
       updated_at: string;
+      owner_hash: string | null;
     }>();
   if (!row) return null;
+  if (ownerCheck(c, row.owner_hash) === 'hidden') return null;
   return {
     id: row.id,
     title: row.title,
@@ -98,11 +101,11 @@ async function loadSession(db: D1Database, id: string): Promise<ChatSession | nu
   };
 }
 
-async function saveSession(db: D1Database, session: ChatSession): Promise<void> {
+async function saveSession(c: Context<{ Bindings: Env }>, db: D1Database, session: ChatSession): Promise<void> {
   await db
     .prepare(
-      `INSERT INTO copilot_sessions (id, title, messages_json, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?)
+      `INSERT INTO copilot_sessions (id, title, messages_json, created_at, updated_at, owner_hash)
+       VALUES (?, ?, ?, ?, ?, ?)
        ON CONFLICT(id) DO UPDATE SET title = excluded.title, messages_json = excluded.messages_json, updated_at = excluded.updated_at`
     )
     .bind(
@@ -110,7 +113,8 @@ async function saveSession(db: D1Database, session: ChatSession): Promise<void> 
       session.title ?? '',
       JSON.stringify(session.messages),
       session.created_at,
-      new Date().toISOString()
+      new Date().toISOString(),
+      callerOwnerId(c)
     )
     .run();
 }
@@ -119,10 +123,12 @@ export async function copilotChatListHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
+    const vis = ownerVisibilityFilter(c);
     const rows = await db
       .prepare(
-        'SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions ORDER BY updated_at DESC LIMIT 50'
+        `SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE ${vis.clause} ORDER BY updated_at DESC LIMIT 50`
       )
+      .bind(...vis.bindings)
       .all<{ id: string; title: string; messages_json: string; created_at: string; updated_at: string }>();
     const sessions = (rows.results ?? [])
       .map((row) => {
@@ -162,7 +168,7 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
     let session: ChatSession;
     let isNewSession = false;
     if (body.sessionId) {
-      const existing = await loadSession(db, body.sessionId);
+      const existing = await loadSession(c, db, body.sessionId);
       if (!existing) return notFound(c, 'session not found');
       session = existing;
     } else {
@@ -216,7 +222,7 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
 
     session.messages.push({ role: 'user', content: query, query_type: queryType });
     session.messages.push({ role: 'system', content: '', agent_id: agentId });
-    await saveSession(db, session);
+    await saveSession(c, db, session);
 
     return c.json({ sessionId: session.id, agentId, isNewSession });
   } catch (e) {
@@ -235,7 +241,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
   const doNamespace = c.env.INVESTIGATOR_AGENT;
   if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
 
-  const session = await loadSession(db, sessionId);
+  const session = await loadSession(c, db, sessionId);
   if (!session) return notFound(c, 'session not found');
 
   const systemMsg = [...session.messages].reverse().find((m) => m.role === 'system' && m.agent_id);
@@ -318,7 +324,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
               }
 
               try {
-                await saveSession(db, session);
+                await saveSession(c, db, session);
               } catch (_catchErr) {
                 logError('handler failed', _catchErr);
               }
@@ -430,7 +436,7 @@ export async function copilotChatCancelHandler(c: Context<{ Bindings: Env }>): P
     const doNamespace = c.env.INVESTIGATOR_AGENT;
     if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
 
-    const session = await loadSession(db, sessionId);
+    const session = await loadSession(c, db, sessionId);
     if (!session) return notFound(c, 'session not found');
 
     const systemMsg = [...session.messages].reverse().find((m) => m.role === 'system' && m.agent_id);
@@ -457,7 +463,7 @@ export async function copilotChatDeleteHandler(c: Context<{ Bindings: Env }>): P
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    const existing = await loadSession(db, sessionId);
+    const existing = await loadSession(c, db, sessionId);
     if (!existing) return notFound(c, 'session not found');
 
     await db.prepare('DELETE FROM copilot_sessions WHERE id = ?').bind(sessionId).run();
@@ -476,7 +482,7 @@ export async function copilotChatHistoryHandler(c: Context<{ Bindings: Env }>): 
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    const session = await loadSession(db, sessionId);
+    const session = await loadSession(c, db, sessionId);
     if (!session) return notFound(c, 'session not found');
 
     return c.json({

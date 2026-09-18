@@ -10,7 +10,7 @@ function pkgApp() {
   a.get('/api/v1/supply-chain/package', validate('query', depsDevPackageSchema), depsDevPackageHandler);
   return a;
 }
-const env = (): any => ({ ...testEnv, OPEN_PUBLIC_READS: 'true' });
+const env = (): any => ({ ...testEnv, OPEN_PUBLIC_READS: '2099-01-01T00:00:00.000Z' });
 
 describe('deps.dev package route (mini-app)', () => {
   it('400 on missing name (schema mirrors handler reads)', async () => {

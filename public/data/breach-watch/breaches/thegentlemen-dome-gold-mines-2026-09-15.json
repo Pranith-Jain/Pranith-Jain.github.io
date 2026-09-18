@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-dome-gold-mines-2026-09-15","title":"Dome Gold Mines","group":"thegentlemen","discovered":"2026-09-15T07:12:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Dome Gold Mines (ASX: DOM) is an Australian pre-revenue explorer with a stalled copper-gold project in Fiji — incorporated 1992 in Perth, it holds the Sigatoka Ironsands Project: unique coastal dune + offshore heavy-mineral sands (Fe-Ti-V-TREO + Au-Cu), with a ready design: modular wet plant, US$38M CAPEX, US$103M NPV, 33% IRR — but zero revenue in 34 years. Why stuck: 87% of Fiji's land belongs to indigenous mataqali clans (land-use deals take years), coastal/fisheries opposition, COVID freeze 2020–22, and repeated dilution from capital raises. Shares now trade off-market via PrimaryMarkets (a sign of suspension/possible delisting) at an implied cap of A$20–30M. Bottom line: a textbook \"sleeping asset\" — perfect on paper, stuck on land tenure and financing — the classic case of why 90% of exploration companies never build a mine.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-dome-gold-mines-2026-09-15",
+  "title": "Dome Gold Mines",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:12:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Dome Gold Mines (ASX: DOM) is an Australian pre-revenue explorer with a stalled copper-gold project in Fiji — incorporated 1992 in Perth, it holds the Sigatoka Ironsands Project: unique coastal dune + offshore heavy-mineral sands (Fe-Ti-V-TREO + Au-Cu), with a ready design: modular wet plant, US$38M CAPEX, US$103M NPV, 33% IRR — but zero revenue in 34 years. Why stuck: 87% of Fiji's land belongs to indigenous mataqali clans (land-use deals take years), coastal/fisheries opposition, COVID freeze 2020–22, and repeated dilution from capital raises. Shares now trade off-market via PrimaryMarkets (a sign of suspension/possible delisting) at an implied cap of A$20–30M. Bottom line: a textbook \"sleeping asset\" — perfect on paper, stuck on land tenure and financing — the classic case of why 90% of exploration companies never build a mine.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

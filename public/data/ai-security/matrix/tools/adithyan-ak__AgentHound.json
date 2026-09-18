@@ -1,0 +1,88 @@
+{
+  "slug": "adithyan-ak__AgentHound",
+  "repo": "adithyan-ak/AgentHound",
+  "category": "scanner",
+  "scope": ["agentic"],
+  "stars": 436,
+  "description": "Offensive security framework for AI agent infrastructure - recon, credential looting, model exfiltration, poisoning, and attack-path analysis across MCP, A2A, gateways, and AI services. BloodHound for the agentic stack.",
+  "homepage": "https://agenthound.io",
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:43:42Z",
+  "pushedAt": "2026-09-12",
+  "daysIdle": 5,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": { "category": "scanner", "repo": "adithyan-ak/AgentHound", "scope": ["agentic"], "added": "2026-09-14" },
+    "derived": {
+      "checked_at": "2026-09-17T08:43:42Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-12",
+        "days_since_push": 5,
+        "total_commits": 453,
+        "last100_span_days": 46,
+        "last100_authors": 3,
+        "releases": 3,
+        "latest_release_at": "2026-08-23",
+        "days_since_release": 25,
+        "days_idle": 5,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "adithyan-ak/AgentHound",
+        "stars": 436,
+        "forks": 82,
+        "created_at": "2026-04-05",
+        "is_fork": false,
+        "contributors": 4,
+        "top_contributor_share": 0.85,
+        "homepage": "https://agenthound.io",
+        "description": "Offensive security framework for AI agent infrastructure - recon, credential looting, model exfiltration, poisoning, and attack-path analysis across MCP, A2A, gateways, and AI services. BloodHound for the agentic stack.",
+        "topics": [
+          "a2a",
+          "agentic-ai",
+          "ai-agents",
+          "ai-security",
+          "attack-paths",
+          "bloodhound",
+          "llm-security",
+          "mcp",
+          "model-context-protocol",
+          "neo4j",
+          "offensive-security",
+          "pentesting",
+          "red-team",
+          "security-tools"
+        ]
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
+      "shape": {
+        "loc": 159049,
+        "code_files": 774,
+        "files": 1023,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["langchain"],
+        "mcp_server": true,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

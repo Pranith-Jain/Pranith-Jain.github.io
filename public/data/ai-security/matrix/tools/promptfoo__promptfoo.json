@@ -1,0 +1,97 @@
+{
+  "slug": "promptfoo__promptfoo",
+  "repo": "promptfoo/promptfoo",
+  "category": "scanner",
+  "scope": ["llm", "agentic"],
+  "stars": 25209,
+  "description": "Test your prompts, agents, and RAGs. Red teaming/pentesting/vulnerability scanning for AI. Compare performance of GPT, Claude, Gemini, DeepSeek, and more. Simple declarative configs with command line and CI/CD integration. Used by OpenAI a…",
+  "homepage": "https://promptfoo.dev",
+  "added": "2026-09-13",
+  "checkedAt": "2026-09-17T08:42:06Z",
+  "pushedAt": "2026-09-17",
+  "daysIdle": 0,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": {
+      "category": "scanner",
+      "repo": "promptfoo/promptfoo",
+      "scope": ["llm", "agentic"],
+      "added": "2026-09-13"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:42:06Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-17",
+        "days_since_push": 0,
+        "total_commits": 9779,
+        "last100_span_days": 8,
+        "last100_authors": 26,
+        "releases": 100,
+        "latest_release_at": "2026-09-10",
+        "days_since_release": 7,
+        "days_idle": 0,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "promptfoo/promptfoo",
+        "stars": 25209,
+        "forks": 2327,
+        "created_at": "2023-04-28",
+        "is_fork": false,
+        "contributors": 100,
+        "top_contributor_share": 0.31,
+        "homepage": "https://promptfoo.dev",
+        "description": "Test your prompts, agents, and RAGs. Red teaming/pentesting/vulnerability scanning for AI. Compare performance of GPT, Claude, Gemini, DeepSeek, and more. Simple declarative configs with command line and CI/CD integration.  Used by OpenAI and Anthropic.",
+        "topics": [
+          "ci",
+          "ci-cd",
+          "cicd",
+          "evaluation",
+          "evaluation-framework",
+          "llm",
+          "llm-eval",
+          "llm-evaluation",
+          "llm-evaluation-framework",
+          "llmops",
+          "pentesting",
+          "prompt-engineering",
+          "prompt-testing",
+          "prompts",
+          "rag",
+          "red-teaming",
+          "testing",
+          "vulnerability-scanners"
+        ]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
+      "shape": {
+        "loc": 1023233,
+        "code_files": 2946,
+        "files": 5546,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "anthropic", "langchain"],
+        "mcp_server": true,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": true,
+        "opaque": true
+      }
+    }
+  }
+}

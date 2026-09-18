@@ -1,0 +1,83 @@
+{
+  "slug": "mrexodia__ida-pro-mcp",
+  "repo": "mrexodia/ida-pro-mcp",
+  "category": "mcp",
+  "scope": ["binary"],
+  "stars": 12101,
+  "description": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
+  "homepage": "https://plugins.hex-rays.com/mrexodia/ida-pro-mcp",
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:41Z",
+  "pushedAt": "2026-09-16",
+  "daysIdle": 1,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": { "category": "mcp", "repo": "mrexodia/ida-pro-mcp", "scope": ["binary"], "added": "2026-09-12" },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:41Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-16",
+        "days_since_push": 1,
+        "total_commits": 579,
+        "last100_span_days": 136,
+        "last100_authors": 29,
+        "releases": 3,
+        "latest_release_at": "2025-10-06",
+        "days_since_release": 346,
+        "days_idle": 1,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "mrexodia/ida-pro-mcp",
+        "stars": 12101,
+        "forks": 1432,
+        "created_at": "2025-03-25",
+        "is_fork": false,
+        "contributors": 79,
+        "top_contributor_share": 0.53,
+        "homepage": "https://plugins.hex-rays.com/mrexodia/ida-pro-mcp",
+        "description": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
+        "topics": [
+          "ai",
+          "aiagent",
+          "binary-analysis",
+          "ida-plugin",
+          "ida-pro",
+          "mcp",
+          "mcp-server",
+          "modelcontextprotocol",
+          "reverse-engineering"
+        ]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 35212,
+        "code_files": 85,
+        "files": 211,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": false,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": true,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": false,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

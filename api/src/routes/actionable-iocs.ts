@@ -30,7 +30,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, serviceUnavailable } from '../lib/api-error';
-import { parsePostgrestQuery } from '../lib/postgrest-filter';
+import { parsePostgrestQuery, resolveColumn, type PgQuery } from '../lib/postgrest-filter';
 
 const ACTIONABLE_IOCS_TABLE = 'actionable_iocs';
 
@@ -61,24 +61,48 @@ const COLUMN_MAP: Record<string, string> = {
 
 const DEFAULT_SELECT = ['ioc_value', 'ioc_type', 'valid_until', 'source_bundle_id', 'created_at', 'seq_id'];
 
+/**
+ * Find the first select/filter/order column outside the allowlist, if any.
+ * Callers reject it (400) instead of interpolating raw input into SQL.
+ */
+function findUnknownColumn(query: PgQuery, columnMap: Record<string, string>): string | null {
+  for (const s of query.select ?? []) {
+    if (!resolveColumn(columnMap, s)) return s;
+  }
+  for (const f of query.filters) {
+    if (!resolveColumn(columnMap, f.column)) return f.column;
+  }
+  if (query.order && !resolveColumn(columnMap, query.order.column)) return query.order.column;
+  return null;
+}
+
+/** Strict ORDER BY direction — the parser already normalizes, this is belt-and-braces. */
+function orderDir(dir: string): 'ASC' | 'DESC' {
+  return dir === 'desc' ? 'DESC' : 'ASC';
+}
+
 async function queryIocs(
   db: D1Database,
   tableOrView: string,
   query: ReturnType<typeof parsePostgrestQuery>,
   columnMap: Record<string, string> = COLUMN_MAP
 ): Promise<Response> {
-  const selectCols = query.select?.length
-    ? query.select.map((c) => columnMap[c] ?? c).join(', ')
-    : DEFAULT_SELECT.join(', ');
+  // Strict allowlist (handler 400s unknown columns first — the skips
+  // below are defense-in-depth so an unvalidated path fails closed).
+  const requested = query.select?.length
+    ? query.select.map((c) => resolveColumn(columnMap, c)).filter((c): c is string => c !== null)
+    : [];
+  const selectList = requested.length > 0 ? requested : [...DEFAULT_SELECT];
 
-  let sql = `SELECT ${selectCols} FROM ${tableOrView}`;
+  let sql = `SELECT ${selectList.join(', ')} FROM ${tableOrView}`;
   const bindings: unknown[] = [];
 
   // Build WHERE
   if (query.filters.length > 0) {
     const clauses: string[] = [];
     for (const f of query.filters) {
-      const col = columnMap[f.column] ?? f.column;
+      const col = resolveColumn(columnMap, f.column);
+      if (!col) continue;
       switch (f.op) {
         case 'eq':
           clauses.push(`${col} = ?`);
@@ -116,6 +140,10 @@ async function queryIocs(
         }
         case 'in': {
           const arr = f.value as unknown[];
+          if (arr.length === 0) {
+            clauses.push('1 = 0');
+            break;
+          }
           clauses.push(`${col} IN (${arr.map(() => '?').join(',')})`);
           bindings.push(...arr);
           break;
@@ -137,8 +165,8 @@ async function queryIocs(
 
   // ORDER
   if (query.order) {
-    const col = columnMap[query.order.column] ?? query.order.column;
-    sql += ` ORDER BY ${col} ${query.order.dir.toUpperCase()}`;
+    const col = resolveColumn(columnMap, query.order.column);
+    sql += col ? ` ORDER BY ${col} ${orderDir(query.order.dir)}` : ' ORDER BY seq_id DESC';
   } else {
     sql += ' ORDER BY seq_id DESC';
   }
@@ -157,7 +185,8 @@ async function queryIocs(
     if (query.filters.length > 0) {
       const clauses: string[] = [];
       for (const f of query.filters) {
-        const col = columnMap[f.column] ?? f.column;
+        const col = resolveColumn(columnMap, f.column);
+        if (!col) continue;
         switch (f.op) {
           case 'eq':
             clauses.push(`${col} = ?`);
@@ -186,6 +215,10 @@ async function queryIocs(
           }
           case 'in': {
             const arr = f.value as unknown[];
+            if (arr.length === 0) {
+              clauses.push('1 = 0');
+              break;
+            }
             clauses.push(`${col} IN (${arr.map(() => '?').join(',')})`);
             break;
           }
@@ -232,6 +265,8 @@ export async function actionableIocsHandler(c: Context<{ Bindings: Env }>): Prom
     new URLSearchParams(c.req.query() as Record<string, string>),
     c.req.header('Range')
   );
+  const unknown = findUnknownColumn(query, COLUMN_MAP);
+  if (unknown) return badRequest(c, `unknown column "${unknown}"`);
   return queryIocs(db, ACTIONABLE_IOCS_TABLE, query);
 }
 
@@ -257,10 +292,13 @@ export function createIocTypeHandler(iocType: string) {
       valid_until: 'valid_until',
       source_bundle_id: 'source_bundle_id',
     };
+    const unknownCol = findUnknownColumn(query, perTypeColumnMap);
+    if (unknownCol) return badRequest(c, `unknown column "${unknownCol}"`);
 
-    const selectCols = (query.select?.length ? query.select : ['ioc', 'valid_until', 'source_bundle_id'])
-      .map((c) => perTypeColumnMap[c] ?? c)
-      .join(', ');
+    const requested = (query.select?.length ? query.select : ['ioc', 'valid_until', 'source_bundle_id'])
+      .map((c) => resolveColumn(perTypeColumnMap, c))
+      .filter((c): c is string => c !== null);
+    const selectCols = (requested.length > 0 ? requested : ['ioc', 'valid_until', 'source_bundle_id']).join(', ');
 
     let sql = `SELECT ${selectCols} FROM ${viewName}`;
     const bindings: unknown[] = [];
@@ -268,7 +306,8 @@ export function createIocTypeHandler(iocType: string) {
     if (query.filters.length > 0) {
       const clauses: string[] = [];
       for (const f of query.filters) {
-        const col = perTypeColumnMap[f.column] ?? f.column;
+        const col = resolveColumn(perTypeColumnMap, f.column);
+        if (!col) continue;
         switch (f.op) {
           case 'eq':
             clauses.push(`${col} = ?`);
@@ -310,7 +349,8 @@ export function createIocTypeHandler(iocType: string) {
     }
 
     if (query.order) {
-      sql += ` ORDER BY ${perTypeColumnMap[query.order.column] ?? query.order.column} ${query.order.dir.toUpperCase()}`;
+      const mapped = resolveColumn(perTypeColumnMap, query.order.column);
+      sql += mapped ? ` ORDER BY ${mapped} ${orderDir(query.order.dir)}` : ' ORDER BY valid_until DESC';
     } else {
       sql += ' ORDER BY valid_until DESC';
     }

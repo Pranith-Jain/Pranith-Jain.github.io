@@ -1,0 +1,89 @@
+{
+  "slug": "aliasrobotics__cai",
+  "repo": "aliasrobotics/cai",
+  "category": "agent",
+  "scope": ["network", "webapp", "recon"],
+  "stars": 9835,
+  "description": "Cybersecurity AI (CAI), the framework for AI Security",
+  "homepage": "https://aliasrobotics.com/cybersecuritysuperintelligence.php",
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:40:45Z",
+  "pushedAt": "2026-08-22",
+  "daysIdle": 26,
+  "archived": true,
+  "license": "MIT",
+  "upstream": {
+    "entry": {
+      "category": "agent",
+      "repo": "aliasrobotics/cai",
+      "scope": ["network", "webapp", "recon"],
+      "added": "2026-09-12"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:40:45Z",
+      "cloned": true,
+      "alive": {
+        "archived": true,
+        "pushed_at": "2026-08-22",
+        "days_since_push": 26,
+        "total_commits": 1,
+        "last100_span_days": null,
+        "last100_authors": null,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 26,
+        "relocated": { "notice": "this repository is archived", "target": null }
+      },
+      "identity": {
+        "canonical_repo": "aliasrobotics/cai",
+        "stars": 9835,
+        "forks": 1475,
+        "created_at": "2025-03-31",
+        "is_fork": false,
+        "contributors": 1,
+        "top_contributor_share": 1,
+        "homepage": "https://aliasrobotics.com/cybersecuritysuperintelligence.php",
+        "description": "Cybersecurity AI (CAI), the framework for AI Security",
+        "topics": ["artificial-intelligence", "cybersecurity", "framework", "generative-ai", "llm", "pentesting"]
+      },
+      "licence": { "file": "MIT", "api_spdx": null, "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 257755,
+        "code_files": 1122,
+        "files": 1537,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "litellm"],
+        "mcp_server": true,
+        "tool_defs": 3,
+        "readme_tool_claim": {
+          "count": 15,
+          "context": "26M prompts, 230,935 sessions, 123 countries ( ) | | 🤖 **Agents** | 15+ specialised agents"
+        },
+        "evidence": null
+      },
+      "substrate": {
+        "bundled": ["dirb", "gobuster", "hashcat", "hydra", "john", "metasploit-framework", "nikto", "nmap", "sqlmap"],
+        "manifests": [
+          ".devcontainer/Dockerfile",
+          "src/cai/caibench/cyber_ranges/CobaltGroupRansomware/infra/office/dev/Dockerfile",
+          "src/cai/caibench/cyber_ranges/CobaltGroupRansomware/infra/office/hr/Dockerfile",
+          "src/cai/caibench/cyber_ranges/poo-range/attacker/Dockerfile"
+        ]
+      },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

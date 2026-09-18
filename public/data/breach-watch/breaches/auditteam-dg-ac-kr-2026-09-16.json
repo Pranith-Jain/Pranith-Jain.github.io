@@ -1,1 +1,15 @@
-{"slug":"auditteam-dg-ac-kr-2026-09-16","title":"dg.ac.kr","group":"AuditTeam","discovered":"2026-09-16T18:21:45.000Z","category":"data_breach","severity":"high","country":"KR","sizeBytes":0,"description":"No data breaches","source_url":"https://www.ransomware.live/","groupAliases":["audit team"],"activity":"Education","references":["ransomware.live"]}
+{
+  "slug": "auditteam-dg-ac-kr-2026-09-16",
+  "title": "dg.ac.kr",
+  "group": "AuditTeam",
+  "discovered": "2026-09-16T18:21:45.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "KR",
+  "sizeBytes": 0,
+  "description": "No data breaches",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

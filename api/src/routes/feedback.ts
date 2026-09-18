@@ -1,7 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, serviceUnavailable, unauthorized } from '../lib/api-error';
+import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
+import { requireAdmin } from '../lib/admin-auth';
 import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 export type FeedbackTarget = 'copilot' | 'briefing' | 'pir' | 'finding' | 'ioc' | 'assessment';
@@ -276,8 +277,11 @@ export async function feedbackDeleteHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const kv = c.env.KV_CACHE;
     if (!kv) return serviceUnavailable(c, 'feedback storage not configured');
-    const authHeader = c.req.header('authorization');
-    if (!authHeader) return unauthorized(c, 'missing authorization header');
+    // Admin-only: deleting feedback mutates public aggregates. A
+    // presence-only header check used to live here — any Authorization
+    // value passed it. Require the admin token instead.
+    const gate = requireAdmin(c);
+    if ('error' in gate) return gate.error;
     const id = c.req.param('id');
     const itemKey = `${KV_PREFIX}:${id}`;
     const raw = await kv.get(itemKey);

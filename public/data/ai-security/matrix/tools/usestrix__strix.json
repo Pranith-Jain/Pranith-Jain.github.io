@@ -1,0 +1,116 @@
+{
+  "slug": "usestrix__strix",
+  "repo": "usestrix/strix",
+  "category": "agent",
+  "scope": ["webapp", "api", "code"],
+  "stars": 63132,
+  "description": "Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
+  "homepage": "https://strix.ai",
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:40:33Z",
+  "pushedAt": "2026-09-17",
+  "daysIdle": 0,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": {
+      "category": "agent",
+      "repo": "usestrix/strix",
+      "scope": ["webapp", "api", "code"],
+      "added": "2026-09-12"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:40:33Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-17",
+        "days_since_push": 0,
+        "total_commits": 807,
+        "last100_span_days": 38,
+        "last100_authors": 9,
+        "releases": 29,
+        "latest_release_at": "2026-09-05",
+        "days_since_release": 12,
+        "days_idle": 0,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "usestrix/strix",
+        "stars": 63132,
+        "forks": 6891,
+        "created_at": "2025-08-05",
+        "is_fork": false,
+        "contributors": 71,
+        "top_contributor_share": 0.69,
+        "homepage": "https://strix.ai",
+        "description": "Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
+        "topics": [
+          "agents",
+          "ai-hacking",
+          "ai-penetration-testing",
+          "ai-pentesting",
+          "ai-security",
+          "artificial-intelligence",
+          "bug-bounty",
+          "code-quality",
+          "ctf-tools",
+          "cybersecurity",
+          "cybersecurity-tools",
+          "ethical-hacking",
+          "hacking",
+          "llm-security",
+          "offensive-security",
+          "penetration-testing",
+          "pentesting-tools",
+          "red-teaming",
+          "security",
+          "security-automation"
+        ]
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 91722,
+        "code_files": 349,
+        "files": 507,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "litellm"],
+        "mcp_server": true,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": {
+        "bundled": [
+          "arjun",
+          "dirsearch",
+          "ffuf",
+          "httpx",
+          "katana",
+          "naabu",
+          "ncat",
+          "nmap",
+          "nuclei",
+          "semgrep",
+          "sqlmap",
+          "subfinder",
+          "wafw00f"
+        ],
+        "manifests": ["containers/Dockerfile"]
+      },
+      "rebadge": [{ "repo": "Nightlysec/nightly", "shared_files": 118, "overlap": 0.3554 }],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": true,
+        "opaque": false
+      }
+    }
+  }
+}

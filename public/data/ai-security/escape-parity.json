@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-09-18T05:32:35.480Z",
+  "upstream": {
+    "registryEntries": 0,
+    "queuePending": 0,
+    "embeddedIds": 19,
+    "ids": [
+      "CB-2025-0001",
+      "CB-2025-0002",
+      "CB-2025-0003",
+      "CB-2026-0004",
+      "CB-2026-0005",
+      "CB-2026-0006",
+      "CB-2026-0007",
+      "CB-2026-0008",
+      "CB-2026-0009",
+      "CB-2026-0010",
+      "CB-2026-0011",
+      "CB-2026-0012",
+      "CB-2026-0013",
+      "CB-2026-0014",
+      "CB-2026-0015",
+      "CB-2026-0016",
+      "CB-2026-0017",
+      "CB-2026-0018",
+      "CB-2026-0019"
+    ]
+  },
+  "local": { "entries": 15, "version": "v0.1", "compiled": "2026-09-06" },
+  "drift": true,
+  "onlyUpstream": ["CB-2025-0001", "CB-2026-0017", "CB-2026-0018", "CB-2026-0019"],
+  "onlyLocal": [],
+  "note": "Two-way parity report only — never auto-overwrites the curatorial seed. Merge drift via reviewed PR either direction.",
+  "builtAt": "2026-09-18T06:27:37.373Z"
+}

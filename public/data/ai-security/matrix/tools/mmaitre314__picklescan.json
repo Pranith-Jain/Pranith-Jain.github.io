@@ -1,0 +1,73 @@
+{
+  "slug": "mmaitre314__picklescan",
+  "repo": "mmaitre314/picklescan",
+  "category": "scanner",
+  "scope": ["modfile"],
+  "stars": 423,
+  "description": "Security scanner detecting Python Pickle files performing suspicious actions",
+  "homepage": null,
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:43:46Z",
+  "pushedAt": "2026-09-01",
+  "daysIdle": 16,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": { "category": "scanner", "repo": "mmaitre314/picklescan", "scope": ["modfile"], "added": "2026-09-14" },
+    "derived": {
+      "checked_at": "2026-09-17T08:43:46Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-01",
+        "days_since_push": 16,
+        "total_commits": 121,
+        "last100_span_days": 1431,
+        "last100_authors": 8,
+        "releases": 40,
+        "latest_release_at": "2026-07-01",
+        "days_since_release": 78,
+        "days_idle": 16,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "mmaitre314/picklescan",
+        "stars": 423,
+        "forks": 48,
+        "created_at": "2022-09-04",
+        "is_fork": false,
+        "contributors": 8,
+        "top_contributor_share": 0.68,
+        "homepage": null,
+        "description": "Security scanner detecting Python Pickle files performing suspicious actions",
+        "topics": null
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 3160,
+        "code_files": 9,
+        "files": 144,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": false,
+        "ai_layer": false,
+        "providers": [],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": false,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

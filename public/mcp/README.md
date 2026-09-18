@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**357 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**366 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,11 +14,20 @@
 
 ## Tools by category
 
-### other (243)
+### other (252)
 
+- `ai_advisories` - AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.
+- `ai_research` - AI security research feed — Hacktron, Palo Alto Unit42, Cloud Security Alliance, BleepingComputer AI-filtered items with links back upstream.
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
 - `ai_threats_stats` - Return cache + manifest stats for the AI Threat Actors data: total entries, index load state, body-cache hit ratios.
+- `ai_vuln_get` - Full body for one AI vuln: description, references, aliases, affected packages, KEV dates, EPSS percentile. Call ai_vulns first to discover IDs.
+- `ai_vulns` - Realtime AI vulnerability tracking — EUVD + NVD + OSV watchlist (litellm, vllm, langchain, mcp, transformers…), CISA/EU KEV overlap, FIRST EPSS exploit-probability. KEV-listed rows sort first.
+- `anarchy_get_course` - Return the full body of a single Anarchy course by ID. Includes title, full description, tags, and external href. Use anarchy_list_courses first to discover IDs.
+- `anarchy_list_courses` - List courses from the Anarchy (kazamadono.github.io) portal — 1708 courses across 20 tracks (AI/ML, Low Level, PsyOps, Defensive, Offensive, OSINT, Game Hacking, BugBounty, Crypto, Reversing, Cloud, Forensics, CTF, Blockchain, IoT/HW, Dev/CS, Math). Filter by tag, difficulty, provider, hours, or free-text query. Daily sync from https://kazamadono.github.io/courses.json.
+- `anarchy_recommend` - Rank Anarchy courses for a user library. Deterministic scorer (no LLM): tag affinity with saved/done/doing courses, same-provider affinity, and a difficulty ladder one rung above completed courses. Excludes library courses. Empty library returns beginner-friendly popular picks.
+- `anarchy_similar` - Courses similar to one Anarchy course: shared tracks first, then same provider, then same difficulty. Use anarchy_list_courses first to discover IDs.
+- `anarchy_stats` - Return cache + manifest stats for the Anarchy course catalog: course counts, top tags, sync timestamps, and LRU cache hit/miss ratios.
 - `briefings_related` - Find prior briefings related to a given briefing — links by shared IOCs (domains/IPs/hashes/URL hosts) or shared tactic keywords, ranked by match count then severity then recency. Case-triage linkage (port of the CTI case-queue related-case matcher).
 - `btc_abuse_check` - Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
 - `bw_get_breach` - Return the full body of a single breach/leak claim by slug. Includes description, source URL, activity sector, and references. Use bw_list_breaches first to discover slugs.

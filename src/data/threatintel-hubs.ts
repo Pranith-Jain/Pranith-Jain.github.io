@@ -1073,6 +1073,61 @@ export const HUB_META: readonly HubMeta[] = [
     ],
   },
   {
+    id: 'ai-security',
+    label: 'AI Security',
+    blurb:
+      'Rogue agents, AI incidents, offensive tooling, live vulns, advisories, and NHI identities — one tracking surface.',
+    icon: ShieldAlert,
+    tone: 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10',
+    pages: [
+      {
+        path: '/threatintel/ai-security',
+        tabId: 'ai-security',
+        label: 'AI Security Hub',
+        desc: 'Tracking hub for AI escape, AI incidents, security-matrix tools, live vulns, advisories, and NHI scanner.',
+        compVar: 'AiSecurityHub',
+        badge: 'new',
+        keywords: ['ai', 'security', 'hub', 'incidents', 'rogue', 'nhi', 'llm', 'matrix', 'vuln', 'kev'],
+      },
+      {
+        path: '/threatintel/ai-incidents',
+        tabId: 'ai-incidents',
+        label: 'AI Incidents',
+        desc: 'Daily mirror of incidentdatabase.ai reports — AI harms in the wild, tracked per cite.',
+        compVar: 'AiIncidents',
+        badge: 'new',
+        keywords: ['ai', 'incident', 'database', 'harm', 'cite', 'rss'],
+      },
+      {
+        path: '/threatintel/ai-security-matrix',
+        tabId: 'ai-security-matrix',
+        label: 'AI Security Matrix',
+        desc: 'Daily mirror of aisecuritymatrix.com — AI-enabled pentest, scanner, MCP, and skill tooling.',
+        compVar: 'AiSecurityMatrix',
+        badge: 'new',
+        keywords: ['ai', 'matrix', 'pentest', 'scanner', 'mcp', 'tools'],
+      },
+      {
+        path: '/threatintel/ai-vulns',
+        tabId: 'ai-vulns',
+        label: 'AI Vulns',
+        desc: 'Realtime AI vulnerability tracking — EUVD + NVD + OSV watchlist with KEV overlap and EPSS scoring.',
+        compVar: 'AiVulns',
+        badge: 'new',
+        keywords: ['ai', 'vuln', 'cve', 'kev', 'epss', 'euvd', 'nvd', 'osv', 'litellm', 'mcp'],
+      },
+      {
+        path: '/threatintel/ai-advisories',
+        tabId: 'ai-advisories',
+        label: 'Advisories & Research',
+        desc: 'CVE firehose, tool release trains, ExploitDB PoCs, plus Hacktron/Unit42/CSA research.',
+        compVar: 'AiAdvisories',
+        badge: 'new',
+        keywords: ['ai', 'advisory', 'release', 'exploit', 'research', 'hacktron', 'cvelist'],
+      },
+    ],
+  },
+  {
     id: 'osint',
     label: 'OSINT',
     blurb: 'OSINT frameworks, CLI tools, country map, and curated toolbox.',
@@ -1173,10 +1228,10 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
-        path: '/threatintel/tools/mcp',
+        path: '/threatintel/mcp-search',
         tabId: 'mcp',
         label: 'MCP Search · TI Mindmap Hub',
-        desc: 'Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com.',
+        desc: 'Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com — with a full per-tool reference (names, descriptions, parameters).',
         compVar: 'McpSearch',
         badge: 'new',
       },
@@ -1187,6 +1242,8 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'MISP galaxy and event browser.',
         compVar: 'MispBrowser',
       },
+      // NOTE: the old /threatintel/tools/mcp hub entry was merged into
+      // /threatintel/mcp-search above (single canonical MCP page).
       {
         path: '/threatintel/tools/stix-hub',
         tabId: 'stix-hub',
