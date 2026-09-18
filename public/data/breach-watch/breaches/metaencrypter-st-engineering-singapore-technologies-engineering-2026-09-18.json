@@ -1,15 +1,1 @@
-{
-  "slug": "metaencrypter-st-engineering-singapore-technologies-engineering-2026-09-18",
-  "title": "ST Engineering (Singapore Technologies Engineering)",
-  "group": "METAENCRYPTER",
-  "discovered": "2026-09-18T03:13:06.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "SG",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/b03115ed-9208-454a-837d-0aae14215c6c",
-  "groupAliases": [],
-  "activity": "Defence & Engineering",
-  "references": ["Darkfield"]
-}
+{"slug":"metaencrypter-st-engineering-singapore-technologies-engineering-2026-09-18","title":"ST Engineering (Singapore Technologies Engineering)","group":"METAENCRYPTER","discovered":"2026-09-18T03:13:06.000Z","category":"data_breach","severity":"high","country":"SG","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/b03115ed-9208-454a-837d-0aae14215c6c","groupAliases":[],"activity":"Defence & Engineering","references":["Darkfield"]}

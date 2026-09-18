@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-qi-2026-09-17",
-  "title": "Qi****",
-  "group": "shinyhunters",
-  "discovered": "2026-09-17T01:28:52.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Processing publication of this company unless they start negotiating appropriately. Deadline: 18 Sep 2026 | Updated: 17 Sep 2026 | Warning: FINAL WARNING",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-qi-2026-09-17","title":"Qi****","group":"shinyhunters","discovered":"2026-09-17T01:28:52.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Processing publication of this company unless they start negotiating appropriately. Deadline: 18 Sep 2026 | Updated: 17 Sep 2026 | Warning: FINAL WARNING","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

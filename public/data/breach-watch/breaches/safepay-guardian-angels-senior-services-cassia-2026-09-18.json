@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-guardian-angels-senior-services-cassia-2026-09-18",
-  "title": "Guardian Angels Senior Services / Cassia",
-  "group": "safepay",
-  "discovered": "2026-09-18T03:04:34.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "United States",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/34496d2c-501e-4dc0-bb70-f95a0f6a050d",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["Darkfield"]
-}
+{"slug":"safepay-guardian-angels-senior-services-cassia-2026-09-18","title":"Guardian Angels Senior Services / Cassia","group":"safepay","discovered":"2026-09-18T03:04:34.000Z","category":"ransomware","severity":"high","country":"United States","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/34496d2c-501e-4dc0-bb70-f95a0f6a050d","groupAliases":[],"activity":"Healthcare","references":["Darkfield"]}

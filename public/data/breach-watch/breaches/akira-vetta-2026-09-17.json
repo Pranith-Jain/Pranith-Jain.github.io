@@ -1,15 +1,1 @@
-{
-  "slug": "akira-vetta-2026-09-17",
-  "title": "Vetta",
-  "group": "akira",
-  "discovered": "2026-09-17T13:24:13.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "Vetta Digital Serviços specializes in providing integrated digital solutions focused on energy \nmanagement and sustainability for industrial operations. Their offerings include advanced softw\nare technologies, industrial automation projects, and data infrastructure optimization aimed at\nreducing carbon footprints and energy costs.\n\nWe will upload corporate data soon. Internal files, a bit of corporate docs, clients, projects.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-vetta-2026-09-17","title":"Vetta","group":"akira","discovered":"2026-09-17T13:24:13.000Z","category":"ransomware","severity":"critical","country":"BR","sizeBytes":0,"description":"Vetta Digital Serviços specializes in providing integrated digital solutions focused on energy \nmanagement and sustainability for industrial operations. Their offerings include advanced softw\nare technologies, industrial automation projects, and data infrastructure optimization aimed at\nreducing carbon footprints and energy costs.\n\nWe will upload corporate data soon. Internal files, a bit of corporate docs, clients, projects.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Technology","references":["ransomware.live"]}

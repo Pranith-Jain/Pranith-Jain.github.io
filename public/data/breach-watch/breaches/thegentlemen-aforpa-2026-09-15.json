@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-aforpa-2026-09-15",
-  "title": "Aforpa",
-  "group": "thegentlemen",
-  "discovered": "2026-09-15T07:09:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "aforpa.fr zoominfo.com/c/aforpa/427085810 Aforpa French electrical engineering & installation contractor based in Roissy-en-France (next to Paris-CDG airport) — founded 1965 (current SAS registered 1978), specializing in high-power electrical works (HTA/BT networks, lighting) and industrial automation for airports, power plants, tunnels, telecom and residential towers. Its verified credentials: RATP certificate Q19 (electrical works for Paris transport — tunnels/stations) and registration on SFR's contractor registry (telecom power infrastructure). Headcount ~100–250, revenue est. €30–60M (private, undisclosed).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-aforpa-2026-09-15","title":"Aforpa","group":"thegentlemen","discovered":"2026-09-15T07:09:18.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"aforpa.fr zoominfo.com/c/aforpa/427085810 Aforpa French electrical engineering & installation contractor based in Roissy-en-France (next to Paris-CDG airport) — founded 1965 (current SAS registered 1978), specializing in high-power electrical works (HTA/BT networks, lighting) and industrial automation for airports, power plants, tunnels, telecom and residential towers. Its verified credentials: RATP certificate Q19 (electrical works for Paris transport — tunnels/stations) and registration on SFR's contractor registry (telecom power infrastructure). Headcount ~100–250, revenue est. €30–60M (private, undisclosed).","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}

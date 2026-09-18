@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-somit-2026-09-15",
-  "title": "Somit",
-  "group": "thegentlemen",
-  "discovered": "2026-09-15T07:09:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FI",
-  "sizeBytes": 0,
-  "description": "somit.com zoominfo.com/c/somit/372548242  Guatemalan IT systems integrator founded in 1994 — designing, deploying and maintaining data networks, telecommunications, security systems, data-center engineering (power/cooling) and telemedicine & distance-learning interactive platforms for Guatemala's corporate and government sectors. In-house certified engineering staff; anchor clients include banks, universities and government institutions. A classic invisible Central-American integrator: 30+ years in the market, stable demand from banks and the state, near-zero international digital footprint",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-somit-2026-09-15","title":"Somit","group":"thegentlemen","discovered":"2026-09-15T07:09:59.000Z","category":"ransomware","severity":"critical","country":"FI","sizeBytes":0,"description":"somit.com zoominfo.com/c/somit/372548242  Guatemalan IT systems integrator founded in 1994 — designing, deploying and maintaining data networks, telecommunications, security systems, data-center engineering (power/cooling) and telemedicine & distance-learning interactive platforms for Guatemala's corporate and government sectors. In-house certified engineering staff; anchor clients include banks, universities and government institutions. A classic invisible Central-American integrator: 30+ years in the market, stable demand from banks and the state, near-zero international digital footprint","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

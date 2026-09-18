@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-technical-asia-2026-09-15",
-  "title": "Technical Asia",
-  "group": "thegentlemen",
-  "discovered": "2026-09-15T07:10:39.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "technicalasia.com zoominfo.com/c/technical-asia-pte-ltd/347370168 Technical Asia  Thai-Japanese JV (founded 1990, HQ Samut Prakan/Bangkok) — the leading engineering-plastics distributor and fabricator in Thailand & Southeast Asia, importing materials from Japan's Sankyo Kasei and processing them locally: UHMW-PE, MC-Nylon, POM, PA6G, HDPE, PEEK, PVC-C, PVDF, PET, PTFE — sold as cut-to-size sheets/rods/tubes and CNC-machined custom parts for automotive, food & packaging, semiconductors, chemicals, oil & gas, robotics and water treatment across SEA. Model: local warehouse stock (days vs. months from Japan) + cut-to-size service + CNC fabrication + engineering material consultation; ISO 9001 certified. ~50–100 staff, revenue est. 100–500M THB (private JV, not disclosed)",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-technical-asia-2026-09-15","title":"Technical Asia","group":"thegentlemen","discovered":"2026-09-15T07:10:39.000Z","category":"ransomware","severity":"critical","country":"TH","sizeBytes":0,"description":"technicalasia.com zoominfo.com/c/technical-asia-pte-ltd/347370168 Technical Asia  Thai-Japanese JV (founded 1990, HQ Samut Prakan/Bangkok) — the leading engineering-plastics distributor and fabricator in Thailand & Southeast Asia, importing materials from Japan's Sankyo Kasei and processing them locally: UHMW-PE, MC-Nylon, POM, PA6G, HDPE, PEEK, PVC-C, PVDF, PET, PTFE — sold as cut-to-size sheets/rods/tubes and CNC-machined custom parts for automotive, food & packaging, semiconductors, chemicals, oil & gas, robotics and water treatment across SEA. Model: local warehouse stock (days vs. months from Japan) + cut-to-size service + CNC fabrication + engineering material consultation; ISO 9001 certified. ~50–100 staff, revenue est. 100–500M THB (private JV, not disclosed)","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

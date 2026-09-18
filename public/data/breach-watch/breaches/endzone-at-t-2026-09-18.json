@@ -1,15 +1,1 @@
-{
-  "slug": "endzone-at-t-2026-09-18",
-  "title": "AT&T",
-  "group": "EndZone",
-  "discovered": "2026-09-18T07:06:21.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Revenue: $125.6 billion\n\nInitial access was via a CX contractor doing business with AT&T. Access originally used as vehicle for Equipment Changes/Call Forwarding (thanks a lot TORCH patch) - VPN + HVD (both external and internal MyDesktop) instances were accessed for a prolonged period without any detection or incident response taking place. Certificates exported from certlm in the VDI + OPUS self installer (automatically joins EP to S1) opened up the door to the VPN. Salesforce data was accessed via a project manager ATTUID + a DirecTV contractor who for some reason had the apps available in Salesforce. AT&T CSO, if you are reading this, you are to contact us ASAP!",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"endzone-at-t-2026-09-18","title":"AT&T","group":"EndZone","discovered":"2026-09-18T07:06:21.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Revenue: $125.6 billion\n\nInitial access was via a CX contractor doing business with AT&T. Access originally used as vehicle for Equipment Changes/Call Forwarding (thanks a lot TORCH patch) - VPN + HVD (both external and internal MyDesktop) instances were accessed for a prolonged period without any detection or incident response taking place. Certificates exported from certlm in the VDI + OPUS self installer (automatically joins EP to S1) opened up the door to the VPN. Salesforce data was accessed via a project manager ATTUID + a DirecTV contractor who for some reason had the apps available in Salesforce. AT&T CSO, if you are reading this, you are to contact us ASAP!","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

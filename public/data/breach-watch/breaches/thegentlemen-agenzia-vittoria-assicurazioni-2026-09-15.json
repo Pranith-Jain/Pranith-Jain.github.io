@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-agenzia-vittoria-assicurazioni-2026-09-15",
-  "title": "Agenzia Vittoria Assicurazioni",
-  "group": "thegentlemen",
-  "discovered": "2026-09-15T07:14:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "assicurazionilodi.it zoominfo.com/c/agenzia-vittoria-assicurazioni-lodi-stazione/1342235416 Vittoria Assicurazioni \"Lodi Stazione\" agency (#393 in the network) — a private insurance agency owned by Massimo Garati in Lodi, Lombardy (Via Nino dall'Oro 28/30, RUI A000169373, registered 30.11.2010, Section A agent under IVASS supervision). Garati's story: he ran an ITAS agency for years, then in 2016 executed a full portfolio transfer (travaso di portafoglio) from ITAS to Vittoria Assicurazioni — a rare mandate switch carrying his entire client base — and built an unusual digital edge for provincial Italy: a generic city domain (\"assicurazioni Lodi\" = local SEO gold), Google Ads/My Business management and a content-rich FAQ site. He sells the full Vittoria line: auto/mobility, home, family, pets, savings, pensions, legal protection, agriculture, crafts, offices/hotels, transport. Behind it stands the parent — Vittoria Assicurazioni S.p.A. (Milan, founded 1921 )",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-agenzia-vittoria-assicurazioni-2026-09-15","title":"Agenzia Vittoria Assicurazioni","group":"thegentlemen","discovered":"2026-09-15T07:14:27.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"assicurazionilodi.it zoominfo.com/c/agenzia-vittoria-assicurazioni-lodi-stazione/1342235416 Vittoria Assicurazioni \"Lodi Stazione\" agency (#393 in the network) — a private insurance agency owned by Massimo Garati in Lodi, Lombardy (Via Nino dall'Oro 28/30, RUI A000169373, registered 30.11.2010, Section A agent under IVASS supervision). Garati's story: he ran an ITAS agency for years, then in 2016 executed a full portfolio transfer (travaso di portafoglio) from ITAS to Vittoria Assicurazioni — a rare mandate switch carrying his entire client base — and built an unusual digital edge for provincial Italy: a generic city domain (\"assicurazioni Lodi\" = local SEO gold), Google Ads/My Business management and a content-rich FAQ site. He sells the full Vittoria line: auto/mobility, home, family, pets, savings, pensions, legal protection, agriculture, crafts, offices/hotels, transport. Behind it stands the parent — Vittoria Assicurazioni S.p.A. (Milan, founded 1921 )","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}

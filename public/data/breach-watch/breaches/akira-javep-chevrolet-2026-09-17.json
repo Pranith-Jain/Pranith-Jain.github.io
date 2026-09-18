@@ -1,15 +1,1 @@
-{
-  "slug": "akira-javep-chevrolet-2026-09-17",
-  "title": "Javep Chevrolet",
-  "group": "Akira",
-  "discovered": "2026-09-17T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/javep-chevrolet-akira-2026-09",
-  "groupAliases": ["Megazord"],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"akira-javep-chevrolet-2026-09-17","title":"Javep Chevrolet","group":"akira","discovered":"2026-09-17T13:23:54.000Z","category":"ransomware","severity":"critical","country":"BR","sizeBytes":0,"description":"Javep Chevrolet makes buying a car simple and easy. They help customers find their perfect vehi\ncle through a complete online experience. From first contact to final delivery, everything happ\nens right from home.\n\nWe will upload 16gb of corporate data soon. Detailed employee personal information (passport nu\nmber, NAME, address, phone, email address and so on), projects, clients information, Chevrolet \nagreements and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

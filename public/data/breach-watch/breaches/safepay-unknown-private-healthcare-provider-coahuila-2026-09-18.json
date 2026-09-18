@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-unknown-private-healthcare-provider-coahuila-2026-09-18",
-  "title": "Unknown Private Healthcare Provider (Coahuila)",
-  "group": "safepay",
-  "discovered": "2026-09-18T03:04:34.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "Mexico",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/032dec55-9134-4d45-bb1b-6cd8636e0929",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["Darkfield"]
-}
+{"slug":"safepay-unknown-private-healthcare-provider-coahuila-2026-09-18","title":"Unknown Private Healthcare Provider (Coahuila)","group":"safepay","discovered":"2026-09-18T03:04:34.000Z","category":"ransomware","severity":"high","country":"Mexico","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/032dec55-9134-4d45-bb1b-6cd8636e0929","groupAliases":[],"activity":"Healthcare","references":["Darkfield"]}

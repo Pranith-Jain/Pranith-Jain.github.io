@@ -1,15 +1,1 @@
-{
-  "slug": "brain-cipher-aecom-com-2026-09-17",
-  "title": "aecom.com",
-  "group": "brain cipher",
-  "discovered": "2026-09-17T18:36:59.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "We've obtained 670 GB of data that most likely belongs to a Fortune 500 company. Stay tuned for more details — it's going to be interesting. If you think you are here by mistake,...",
-  "source_url": "https://www.ransomlook.io/screenshots/brain cipher/aecomcom.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"brain-cipher-aecom-com-2026-09-17","title":"aecom.com","group":"brain cipher","discovered":"2026-09-17T18:36:59.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"We've obtained 670 GB of data that most likely belongs to a Fortune 500 company. Stay tuned for more details — it's going to be interesting. If you think you are here by mistake,...","source_url":"https://www.ransomlook.io/screenshots/brain cipher/aecomcom.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

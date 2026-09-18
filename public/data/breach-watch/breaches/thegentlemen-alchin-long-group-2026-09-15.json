@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-alchin-long-group-2026-09-15",
-  "title": "Alchin Long Group",
-  "group": "thegentlemen",
-  "discovered": "2026-09-15T07:15:50.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "alchinlong.com zoominfo.com/c/alchin-long-group/1158898894 Alchin Long Group Australian hardware conglomerate founded in 1969, when Ray Long and Roy Alchin started a dormant sand-casting foundry out of an old racehorse stable in Annandale, Sydney — today HQ'd in a purpose-built 12,000 m² Wetherill Park campus with ~250 staff, ~$50–100M revenue, and manufacturing across Australia, NZ, Malaysia, Taiwan and China. Its portfolio covers the whole door & window hardware value chain: flagship Doric (award-winning locks, rollers, chainwinders, multi-point systems + new Sparq smart automation), heritage Cowdroy (est. 1890 — tracks & seals), Colonial Castings (world's largest cast-aluminium outdoor furniture maker), government-endorsed security brand AMS, and repair franchise Lock & Roll — plus its own NATA-accredited testing lab (Azuma Design), a rare in-house compliance moat. Second-generation family leadership (Nigel Long, Mike Alchin), 80+ patents, in-house 3D printing/CNC",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-alchin-long-group-2026-09-15","title":"Alchin Long Group","group":"thegentlemen","discovered":"2026-09-15T07:15:50.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"alchinlong.com zoominfo.com/c/alchin-long-group/1158898894 Alchin Long Group Australian hardware conglomerate founded in 1969, when Ray Long and Roy Alchin started a dormant sand-casting foundry out of an old racehorse stable in Annandale, Sydney — today HQ'd in a purpose-built 12,000 m² Wetherill Park campus with ~250 staff, ~$50–100M revenue, and manufacturing across Australia, NZ, Malaysia, Taiwan and China. Its portfolio covers the whole door & window hardware value chain: flagship Doric (award-winning locks, rollers, chainwinders, multi-point systems + new Sparq smart automation), heritage Cowdroy (est. 1890 — tracks & seals), Colonial Castings (world's largest cast-aluminium outdoor furniture maker), government-endorsed security brand AMS, and repair franchise Lock & Roll — plus its own NATA-accredited testing lab (Azuma Design), a rare in-house compliance moat. Second-generation family leadership (Nigel Long, Mike Alchin), 80+ patents, in-house 3D printing/CNC","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Other","references":["ransomware.live"]}

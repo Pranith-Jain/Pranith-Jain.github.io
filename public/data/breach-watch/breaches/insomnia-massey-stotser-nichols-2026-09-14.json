@@ -1,15 +1,1 @@
-{
-  "slug": "insomnia-massey-stotser-nichols-2026-09-14",
-  "title": "Massey, Stotser & Nichols",
-  "group": "insomnia",
-  "discovered": "2026-09-14T14:00:21.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Massey, Stotser & Nichols is a Birmingham, AL law firm offering real estate, family law, and civil/corporate litigation. They serve Fortune 500, businesses, and individuals, delivering personalized solutions with big-firm capability.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"insomnia-massey-stotser-nichols-2026-09-14","title":"Massey, Stotser & Nichols","group":"insomnia","discovered":"2026-09-14T14:00:21.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Massey, Stotser & Nichols is a Birmingham, AL law firm offering real estate, family law, and civil/corporate litigation. They serve Fortune 500, businesses, and individuals, delivering personalized solutions with big-firm capability.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
