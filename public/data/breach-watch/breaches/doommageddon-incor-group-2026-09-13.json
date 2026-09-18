@@ -1,15 +1,1 @@
-{
-  "slug": "doommageddon-incor-group-2026-09-13",
-  "title": "INCOR Group",
-  "group": "Doommageddon",
-  "discovered": "2026-09-13T00:53:02.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "Status: upcoming | Data size: — | Files: 0 files | Deadline: 2026-09-20T00:00:00Z",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"doommageddon-incor-group-2026-09-13","title":"INCOR Group","group":"Doommageddon","discovered":"2026-09-13T00:53:02.000Z","category":"data_breach","severity":"high","country":"IN","sizeBytes":0,"description":"Status: upcoming | Data size: — | Files: 0 files | Deadline: 2026-09-20T00:00:00Z","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

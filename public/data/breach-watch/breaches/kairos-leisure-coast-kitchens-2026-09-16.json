@@ -1,15 +1,1 @@
-{
-  "slug": "kairos-leisure-coast-kitchens-2026-09-16",
-  "title": "Leisure Coast Kitchens",
-  "group": "kairos",
-  "discovered": "2026-09-16T17:57:09.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "Leisure Coast Kitchens specializes in designing and installing high-quality bespoke kitchens, laundries, and bathrooms tailored to individual styles and needs. They offer a full range of services including custom cabinetry, benchtops, and renovation solutions, ensuring a personalized approach for each project. The company is dedicated to helping homeowners create functional and beautiful spaces, believing that everyone deserves a dream kitchen. With competitive pricing and expert advice, they aim to transform homes into enjoyable and inspiring environments.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
-}
+{"slug":"kairos-leisure-coast-kitchens-2026-09-16","title":"Leisure Coast Kitchens","group":"kairos","discovered":"2026-09-16T17:57:09.000Z","category":"data_breach","severity":"high","country":"AU","sizeBytes":0,"description":"Leisure Coast Kitchens specializes in designing and installing high-quality bespoke kitchens, laundries, and bathrooms tailored to individual styles and needs. They offer a full range of services including custom cabinetry, benchtops, and renovation solutions, ensuring a personalized approach for each project. The company is dedicated to helping homeowners create functional and beautiful spaces, believing that everyone deserves a dream kitchen. With competitive pricing and expert advice, they aim to transform homes into enjoyable and inspiring environments.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

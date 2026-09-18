@@ -1,15 +1,1 @@
-{
-  "slug": "ransomhouse-pertamina-2026-09-17",
-  "title": "Pertamina",
-  "group": "ransomhouse",
-  "discovered": "2026-09-17T14:31:55.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ID",
-  "sizeBytes": 0,
-  "description": "Pertamina is an energy company primarily in the oil and gas sector. The company provides services for new and renewable energy, and other activities related to or supporting business activities in energy.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["RANSOM HOUSE"],
-  "activity": "Energy & Utilities",
-  "references": ["ransomware.live"]
-}
+{"slug":"ransomhouse-pertamina-2026-09-17","title":"Pertamina","group":"ransomhouse","discovered":"2026-09-17T14:31:55.000Z","category":"ransomware","severity":"high","country":"ID","sizeBytes":0,"description":"Pertamina is an energy company primarily in the oil and gas sector. The company provides services for new and renewable energy, and other activities related to or supporting business activities in energy.","source_url":"https://www.ransomware.live/","groupAliases":["RANSOM HOUSE"],"activity":"Energy & Utilities","references":["ransomware.live"]}

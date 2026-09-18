@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-neff-drexel-2026-09-15",
-  "title": "Neff Drexel",
-  "group": "thegentlemen",
-  "discovered": "2026-09-15T07:13:46.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "neff-drexel.ch zoominfo.com/c/neff--drexel/431534427 Neff & Drexel AG Swiss multimedia retailer and integrator founded in 1967 in Gais (Appenzell) as a family Radio-TV shop — today operating as 1xRichtig (\"once, correctly\") from Gaiserstrasse 46, Appenzell (AG, UID CHE-105.772.429, capital CHF 100,000 after a June 2026 capital reduction from CHF 400,000). It sells, installs and repairs consumer and professional audio/video tech — home Hi-Fi and home cinema (with room-calibration via its own measurement system), plus pro-AV integration for churches, school halls, swimming pools, restaurants and boardrooms — and retails through the European Expert buying cooperative to match marketplace pricing. Run by Jakob Sutter (board president) and Markus Wetter — a 32-year multimedia veteran and former president of the Swiss radio/TV retailers' association for Eastern Switzerland + Liechtenstein — it's also an accredited apprenticeship company (Multimediaelektroniker EFZ, 4-year program).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-neff-drexel-2026-09-15","title":"Neff Drexel","group":"thegentlemen","discovered":"2026-09-15T07:13:46.000Z","category":"ransomware","severity":"critical","country":"CH","sizeBytes":0,"description":"neff-drexel.ch zoominfo.com/c/neff--drexel/431534427 Neff & Drexel AG Swiss multimedia retailer and integrator founded in 1967 in Gais (Appenzell) as a family Radio-TV shop — today operating as 1xRichtig (\"once, correctly\") from Gaiserstrasse 46, Appenzell (AG, UID CHE-105.772.429, capital CHF 100,000 after a June 2026 capital reduction from CHF 400,000). It sells, installs and repairs consumer and professional audio/video tech — home Hi-Fi and home cinema (with room-calibration via its own measurement system), plus pro-AV integration for churches, school halls, swimming pools, restaurants and boardrooms — and retails through the European Expert buying cooperative to match marketplace pricing. Run by Jakob Sutter (board president) and Markus Wetter — a 32-year multimedia veteran and former president of the Swiss radio/TV retailers' association for Eastern Switzerland + Liechtenstein — it's also an accredited apprenticeship company (Multimediaelektroniker EFZ, 4-year program).","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

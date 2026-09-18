@@ -1,15 +1,1 @@
-{
-  "slug": "vexy-ransomware-hashimoto-jimuki-2026-09-15",
-  "title": "Hashimoto Jimuki",
-  "group": "Vexy Ransomware",
-  "discovered": "2026-09-15T19:58:08.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "Japanese company providing office equipment, IT equipment and services, office furniture, meeting/conferencing systems, and computer support.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"vexy-ransomware-hashimoto-jimuki-2026-09-15","title":"Hashimoto Jimuki","group":"Vexy Ransomware","discovered":"2026-09-15T19:58:08.000Z","category":"data_breach","severity":"high","country":"JP","sizeBytes":0,"description":"Japanese company providing office equipment, IT equipment and services, office furniture, meeting/conferencing systems, and computer support.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

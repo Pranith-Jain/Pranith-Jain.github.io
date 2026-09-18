@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-harputyapi-com-2026-09-17",
-  "title": "www.harputyapi.com",
-  "group": "krybit",
-  "discovered": "2026-09-17T22:31:56.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "TR",
-  "sizeBytes": 0,
-  "description": "Harput Yapı is an Istanbul-based residential real estate developer and construction company operating under the legal n...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-www-harputyapi-com-2026-09-17","title":"www.harputyapi.com","group":"krybit","discovered":"2026-09-17T22:31:56.000Z","category":"ransomware","severity":"high","country":"TR","sizeBytes":0,"description":"Harput Yapı is an Istanbul-based residential real estate developer and construction company operating under the legal n...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

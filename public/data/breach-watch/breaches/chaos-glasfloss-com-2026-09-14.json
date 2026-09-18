@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-glasfloss-com-2026-09-14",
-  "title": "glasfloss.com",
-  "group": "chaos",
-  "discovered": "2026-09-14T13:56:16.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "DATA LEAK NOTICE: GLASFLOSS (glasfloss.com)\n\nA comprehensive data breach has exposed 402 GB of confidential corporate, financial, and employee records from Glasfloss. \n\nThe compromised database contains internal documentation across multiple departments:\n• Accounting & Finance: Contracts, ESOP rec…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-glasfloss-com-2026-09-14","title":"glasfloss.com","group":"chaos","discovered":"2026-09-14T13:56:16.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"DATA LEAK NOTICE: GLASFLOSS (glasfloss.com)\n\nA comprehensive data breach has exposed 402 GB of confidential corporate, financial, and employee records from Glasfloss. \n\nThe compromised database contains internal documentation across multiple departments:\n• Accounting & Finance: Contracts, ESOP rec…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

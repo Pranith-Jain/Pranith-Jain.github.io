@@ -1,15 +1,1 @@
-{
-  "slug": "unsafe-geekybunch-com-2026-09-14",
-  "title": "geekybunch.com",
-  "group": "unsafe",
-  "discovered": "2026-09-14T20:04:08.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Revenue: $5 million",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"unsafe-geekybunch-com-2026-09-14","title":"geekybunch.com","group":"unsafe","discovered":"2026-09-14T20:04:08.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Revenue: $5 million","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

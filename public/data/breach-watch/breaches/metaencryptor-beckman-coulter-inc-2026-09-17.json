@@ -1,15 +1,1 @@
-{
-  "slug": "metaencryptor-beckman-coulter-inc-2026-09-17",
-  "title": "Beckman Coulter, Inc",
-  "group": "metaencryptor",
-  "discovered": "2026-09-17T13:06:14.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Beckman Coulter Diagnostics is a leading U.S.-based medical diagnostics company and a Danaher company. It develops and manufactures clinical laboratory instruments, diagnostic systems, and testing solutions used by hospitals, laboratories, and healthcare providers worldwide. The company’s technologies support areas such as hematology, immunoassay, clinical chemistry, microbiology, and laboratory automation.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"metaencryptor-beckman-coulter-inc-2026-09-17","title":"Beckman Coulter, Inc","group":"metaencryptor","discovered":"2026-09-17T13:06:14.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Beckman Coulter Diagnostics is a leading U.S.-based medical diagnostics company and a Danaher company. It develops and manufactures clinical laboratory instruments, diagnostic systems, and testing solutions used by hospitals, laboratories, and healthcare providers worldwide. The company’s technologies support areas such as hematology, immunoassay, clinical chemistry, microbiology, and laboratory automation.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}
