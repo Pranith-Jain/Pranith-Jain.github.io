@@ -1,7 +1,7 @@
 {
   "slug": "play",
   "name": "play",
-  "fetchedAt": "2026-09-12T06:12:55.223Z",
+  "fetchedAt": "2026-09-16T11:54:07.066Z",
   "profiles": [
     {
       "captcha": false,
@@ -38,8 +38,8 @@
           "fqdn": "ipi4tiumgzjsym6pyuzrfqrtwskokxokqannmd6sa24shvr7x5kxdvqd.onion",
           "title": "PLAY NEWS",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-11 23:00:44.936",
+          "available": true,
+          "updated": "2026-09-16 11:04:39.021",
           "chat": false,
           "fs": false
         },
@@ -47,8 +47,8 @@
           "fqdn": "j75o7xvvsm4lpsjhkjvb4wl2q6ajegvabe6oswthuaubbykk4xkzgpid.onion",
           "title": "PLAY NEWS",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-11 17:00:42.630",
+          "available": true,
+          "updated": "2026-09-16 11:01:13.208",
           "chat": false,
           "fs": false
         },
@@ -90,10 +90,10 @@
         },
         {
           "fqdn": "x6zdxw6vt3gtpv35yqloydttvfvwyrju3opkmp4xejmlfxto7ahgnpyd.onion",
-          "title": "Index of /",
+          "title": "403 Forbidden",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-11 23:02:52.995",
+          "available": true,
+          "updated": "2026-09-16 11:00:50.314",
           "chat": false,
           "fs": true
         },
@@ -252,10 +252,10 @@
         },
         {
           "fqdn": "b3pzp6qwelgeygmzn6awkduym6s4gxh6htwxuxeydrziwzlx63zergyd.onion",
-          "title": "Index of /",
+          "title": "403 Forbidden",
           "version": 3,
           "available": true,
-          "updated": "2026-09-12 06:00:51.881",
+          "updated": "2026-09-16 11:03:42.516",
           "chat": false,
           "fs": true
         },
@@ -263,8 +263,8 @@
           "fqdn": "p2qzf3rfvg4f74v2ambcnr6vniueucitbw6lyupkagsqejtuyak6qrid.onion",
           "title": "403 Forbidden",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-11 17:01:37.225",
+          "available": true,
+          "updated": "2026-09-16 11:03:56.507",
           "chat": false,
           "fs": true
         },

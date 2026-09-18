@@ -1,7 +1,7 @@
 {
   "slug": "lockbit5",
   "name": "lockbit5",
-  "fetchedAt": "2026-09-12T06:12:54.282Z",
+  "fetchedAt": "2026-09-16T11:54:04.574Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 01:20:42.443",
+          "updated": "2026-09-16 08:39:27.694",
           "chat": false,
           "fs": false
         },
@@ -20,8 +20,8 @@
           "fqdn": "lockbitapt67g6rwzjbcxnww5efpg4qok6vpfeth7wx3okj52ks4wtad.onion",
           "title": "LockBit 5.0 Blog",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-12 00:02:53.244",
+          "available": true,
+          "updated": "2026-09-16 11:03:10.088",
           "chat": false,
           "fs": false
         },
@@ -30,7 +30,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 15:01:13.738",
+          "updated": "2026-09-16 08:12:51.940",
           "chat": true,
           "fs": false
         },

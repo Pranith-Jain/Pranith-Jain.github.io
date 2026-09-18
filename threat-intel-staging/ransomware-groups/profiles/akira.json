@@ -1,7 +1,7 @@
 {
   "slug": "akira",
   "name": "akira",
-  "fetchedAt": "2026-09-12T06:12:53.543Z",
+  "fetchedAt": "2026-09-16T11:54:03.568Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 14:27:55.497",
+          "updated": "2026-09-16 06:00:52.220",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "/",
           "version": 3,
           "available": false,
-          "updated": "2026-09-12 04:03:14.089",
+          "updated": "2026-09-16 03:07:42.065",
           "chat": true,
           "fs": false
         },
@@ -29,8 +29,8 @@
           "fqdn": "akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-12 01:00:53.538",
+          "available": true,
+          "updated": "2026-09-16 11:03:01.053",
           "chat": false,
           "fs": false
         }

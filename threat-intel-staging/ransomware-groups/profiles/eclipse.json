@@ -1,7 +1,7 @@
 {
   "slug": "eclipse",
   "name": "eclipse",
-  "fetchedAt": "2026-09-12T06:12:59.021Z",
+  "fetchedAt": "2026-09-16T11:54:06.569Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "Eclipse Blog",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 14:28:53.321",
+          "updated": "2026-09-16 06:01:50.793",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "Eclipse Blog",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 14:01:00.190",
+          "updated": "2026-09-16 08:03:02.788",
           "chat": false,
           "fs": false
         }

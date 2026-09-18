@@ -1,0 +1,23 @@
+{
+  "slug": "genesis",
+  "name": "genesis",
+  "fetchedAt": "2026-09-16T11:54:06.400Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "    Financial interests only.\r<br/>    We do not provide or work with affiliate programs, no collaborations either.\r<br/>    The requested payment must be made within a specified time frame, otherwise the price may be increased, we will begin to publish the data we have about your company and notify the company's customers and suppliers.\r<br/>    Charitable, non-profit, and medical institutions are only hacked if they have reputation gaps known from open sources or discovered in company data. However, this is only data extraction; live support systems are not affected.\r<br/>    Data is always destroyed after payment; we do not attack the same company twice.\r<br/>    Interesting fact: once, the total amount of claims against a breached company exceeded its entire capitalization. We know how to create trouble, though it is in our mutual interest to avoid it.\r<br/>    To make the data leak more valuable, the most important information is published in a separate folder for each company called “parsed” and is also published on darkweb forums.",
+      "locations": [
+        {
+          "fqdn": "genesis6ixpb5mcy4kudybtw5op2wqlrkocfogbnenz3c647ibqixiad.onion",
+          "title": "GENESIS",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-16 11:01:03.545",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

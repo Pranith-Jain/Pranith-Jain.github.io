@@ -1,7 +1,7 @@
 {
   "slug": "panzer",
   "name": "panzer",
-  "fetchedAt": "2026-09-12T06:12:54.461Z",
+  "fetchedAt": "2026-09-16T11:54:04.019Z",
   "profiles": [
     {
       "captcha": false,
@@ -11,10 +11,109 @@
           "fqdn": "pnzruro7syvwvefx5mpo2fhzi4jftgquynsqf3vy5x3no57yp2iz4nyd.onion",
           "title": "Panzer",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-12 05:00:49.163",
+          "available": true,
+          "updated": "2026-09-16 11:03:07.813",
           "chat": false,
           "fs": false
+        },
+        {
+          "fqdn": "34enzhp4pkfrj5bnmede23wk2io2a44nj23ldwvv3stkaewurup7svad.onion",
+          "title": "Panzer | Cloud . festina-group",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 10:00:41.324",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "tvhm7xw756yscfixmoyr2aymgu4oan66ospp44vcykvgxmgyq3ua2vyd.onion",
+          "title": "Panzer | Cloud . surakarta-unv",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 09:14:01.920",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "ixxrzs3zo57qhbscszen2nvx6hgav5zrx6tjs7lq6unsphwcadeadlid.onion",
+          "title": "Panzer | Cloud . daily-trust",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-16 11:05:00.825",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "qxstd6r6zkzgoolpdqsdxf4lq6rhukgpngwrgbejyyioqy2kwbkxpiyd.onion",
+          "title": "Panzer | Cloud . siamoil",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 08:40:05.290",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "uchhaxue34fz6r2nyrvatxynponoe7wy6ffhwwigpfbz5zgz24w5b6id.onion",
+          "title": "Panzer | Cloud . Alpine Company",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 09:13:12.816",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "vqyux3rgt3ips2kecakobstj4ht2bmfjvpqdignb6zpjpstkmbun5fqd.onion",
+          "title": "Panzer | Cloud . SAGASTA",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 08:00:19.621",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "sl3iwbho7zdqjc3phm24pcd2xnko3nympkiplp6xthkc4775lb6nmxqd.onion",
+          "title": "Panzer | Cloud . doimocucine",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 10:18:44.243",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "mbqq27t4idm3im2wqtb2sziynr4gtatqbeozrrvkdy7pco4ah3roxfyd.onion",
+          "title": "Panzer | Cloud . Castilla la mancha",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-16 11:02:28.090",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "czxzcu2smxtrbm7rj4eclskgydq5kiif4tgrvlsn2ri5rbndj5hu6wad.onion",
+          "title": "Panzer | Cloud . dlenc",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 08:06:52.965",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "aket65o2xznczt5ef4xtlo46g6lv5nlebjpsjrl3ihrvq3pmysekhhyd.onion",
+          "title": "Panzer | Cloud . Nteitalia",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 09:23:34.470",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "2v75pgpqlguqpflfjtz6iynwg3ndshjhh6vkxyldorarc6mpc5if5qqd.onion",
+          "title": "Panzer | Cloud . Frisian",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 06:01:38.525",
+          "chat": false,
+          "fs": true
         }
       ]
     },

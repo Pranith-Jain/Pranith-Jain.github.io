@@ -1,0 +1,50 @@
+{
+  "slug": "krybit",
+  "name": "krybit",
+  "fetchedAt": "2026-09-16T11:54:03.071Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 04:05:00.677",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "krybitx3fh5krdnhegyp2ob3lhizsaiadturtio3ginf7it5gsdgu2yd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 06:01:47.344",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 05:04:40.453",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "krybieodq754vlwufrsuxaswxb5zpxyibaawmed2jaduoz2e5m56hmid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 10:00:41.513",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

@@ -1,1 +1,2680 @@
-{"play":{"slug":"play","name":"play","victims_7d":8,"victims_total":1320,"last_seen":"2026-09-10T21:44:13.000Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":32,"up_mirrors":1,"has_profile":true,"blurb":"Ransomware <br/> <br/>","meta":"Ransomware\r<br/>\r<br/>","meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"mbrlkbtq5jonaqkurjwmxftytyn2ethqvbxfu4rgjbkkknndqwae6byd.onion","title":"PLAY NEWS","available":false,"updated":"2026-05-09 21:10:24.185","version":3},{"fqdn":"k7kg3jqxang3wh7hnmaiokchk7qoebupfgoik6rha6mjpzwupwtj25yd.onion","title":"PLAY NEWS","available":false,"updated":"2026-05-09 21:32:35.065","version":3},{"fqdn":"k7kg3jqzffsxe2z53jjx4goybvxu3a557kpsqakpwi6mrvfgcdo55tid.onion","title":"PLAY NEWS","available":false,"updated":"2024-12-30 08:12:13.505","version":3},{"fqdn":"ipi4tiumgzjsym6pyuzrfqrtwskokxokqannmd6sa24shvr7x5kxdvqd.onion","title":"PLAY NEWS","available":false,"updated":"2026-09-11 23:00:44.936","version":3},{"fqdn":"j75o7xvvsm4lpsjhkjvb4wl2q6ajegvabe6oswthuaubbykk4xkzgpid.onion","title":"PLAY NEWS","available":false,"updated":"2026-09-11 17:00:42.630","version":3},{"fqdn":"zi34ocznt242jallttwvvhihrezjdzfgflf3uhdv6t3z23hhcn54efid.onion","title":"","available":false,"updated":"2024-10-02 22:16:15.264619","version":3},{"fqdn":"37wb3ygyb3r2vf2dt5o3ca62zlduuowvkkwjrtbcgc5iri4t6rnzr7yd.onion","title":"","available":false,"updated":"2024-10-02 22:16:54.069480","version":3},{"fqdn":"eppsldmcnv3ylabsx5srvf36wnk6jrowg6x4unxclv55rnu4kf5436yd.onion","title":"","available":false,"updated":"2024-10-02 22:18:21.434830","version":3},{"fqdn":"slg7tnjb65swwyaebnyymyvo73xm36hxwugdsps7cwcxicizyzyt2byd.onion","title":"","available":false,"updated":"2024-10-02 22:18:42.934114","version":3},{"fqdn":"x6zdxw6vt3gtpv35yqloydttvfvwyrju3opkmp4xejmlfxto7ahgnpyd.onion","title":"Index of /","available":false,"updated":"2026-09-11 23:02:52.995","version":3},{"fqdn":"eppsldmcnv3ylabsx5srvf36wnk6jrowg6x4unxclv55rnu4kf5436yd.onion","title":"","available":false,"updated":"2024-10-02 22:20:08.753999","version":3},{"fqdn":"jnbiz5lp44ddg4u5rsr4yebbpxa3iytcsshgbqa4m6r6po5y57h6yxid.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-25 09:11:49.474","version":3},{"fqdn":"sm2gah7bjg6u2dfl3voiex6njh2kcuqqquvv7za37xokmbcivsgqcnad.onion","title":"Welcome to nginx!","available":false,"updated":"2024-11-01 15:00:18.771","version":3},{"fqdn":"z7u6dkys7b2aeibvklxga7mldzrepoauiuniqwfhdadkkwwgmv6bqhad.onion","title":"Welcome to nginx!","available":false,"updated":"2024-11-02 13:01:35.632","version":3},{"fqdn":"kri3lez34pbqra3xs5wxo55djldtsekol6tuqdjqecqzga6dpnjqruyd.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-25 09:39:49.929","version":3},{"fqdn":"iejj6bywviuecjwi3kxanzojqroe3j3phzgplvrdzcicimtcw6xgk3yd.onion","title":"Welcome to nginx!","available":false,"updated":"2024-11-02 03:01:50.665","version":3},{"fqdn":"xixkhm6inbg6t5642t2pjafsjsh3eaonpjysdcfvr3zvadlqb6nhryad.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-25 08:38:08.123","version":3},{"fqdn":"giix5r763sbxmu442tmwfb4thqbz4i5ppxcqsmnnlqnm2yiezv6epxqd.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-25 08:30:21.734","version":3},{"fqdn":"mokcrzbitq2gc5qcpxcbce43pawuthyaoazl6iz2xknj53ebyb4r4eid.onion","title":"Welcome to nginx!","available":false,"updated":"2024-11-02 18:00:45.207","version":3},{"fqdn":"gpph6awu7hqsmzmr5sihusjoscp3itwtk3b4i2chwspmka2ikuqcwaqd.onion","title":"403 Forbidden","available":false,"updated":"2025-07-04 09:20:52.957","version":3},{"fqdn":"v3r6g4q3b2jpqusznecxexr5aqi42vy5ts6jy6fu3strecvb5c2woead.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-25 08:39:25.041","version":3},{"fqdn":"4xo3cicwo2rhpwr6vkgwt7mqg4oiqihsmoxwlmklf4sjoatkdqjtmcyd.onion","title":"Welcome to nginx!","available":false,"updated":"2024-11-02 15:03:18.567","version":3},{"fqdn":"a4gbdvoorwn3tcqijoedvdeukqaqwc6t2kx4gh3gm37gv4p37evvzqad.onion","title":"","available":false,"updated":"2024-10-02 23:10:39.249482","version":3},{"fqdn":"6jb5avmh6rvcb7vcux7kaivnzpqcrfg4ui4xv2co5vmspgrwll7lkkyd.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-16 14:12:59.869","version":3},{"fqdn":"doz7omlqqanryonvil4iuj65shzcv3efupqwubkza6553wnekrrd4uid.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-16 14:28:41.445","version":3},{"fqdn":"hbwsxlq3uzknabg2blt7d4mcbu24oriklji36zdqsz3ou3mf2d7bvoid.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-16 13:23:10.848","version":3},{"fqdn":"ysknyr5m5n3pwg4jnaqsytxea2thwsbca3qipi64vlep42flywx7dgqd.onion","title":"Welcome to nginx!","available":false,"updated":"2025-07-04 09:27:08.316","version":3},{"fqdn":"b3pzp6qwelgeygmzn6awkduym6s4gxh6htwxuxeydrziwzlx63zergyd.onion","title":"Index of /","available":true,"updated":"2026-09-12 06:00:51.881","version":3},{"fqdn":"p2qzf3rfvg4f74v2ambcnr6vniueucitbw6lyupkagsqejtuyak6qrid.onion","title":"403 Forbidden","available":false,"updated":"2026-09-11 17:01:37.225","version":3},{"fqdn":"whfsjr35whjtrmmqqeqfxscfq564htdm427mjekic63737xscuayvkad.onion","title":"403 Forbidden","available":false,"updated":"2026-08-13 07:17:18.522","version":3},{"fqdn":"v3zgtoh5etfeuvhtgdpiejle4mzy7gdvoygildytlxwoay6qvrkixfad.onion","title":"Welcome to nginx!","available":false,"updated":"2025-02-15 01:03:49.843","version":3},{"fqdn":"75tkvxemb6zpyk3fbl3mwm32jklc2sdjacb3kazrioamopbfn2w2z5qd.onion","title":"PLAY FAQ","available":false,"updated":"2026-05-09 21:02:18.344","version":3}],"victims_sample":[{"victim":"Sys-kool","discovered":"2026-09-10T21:44:13.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=yyncT2aFBiPDiv"},{"victim":"Grunthal Welding & Supplies","discovered":"2026-09-10T21:44:11.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=JOeV4CADDG9te"},{"victim":"Red Star Oil","discovered":"2026-09-09T02:41:09.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=URWl0S32MlBaOs"},{"victim":"GT Distributors","discovered":"2026-09-09T02:41:07.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=uvrc17ZppDE4Jp"},{"victim":"MEQ","discovered":"2026-08-31T16:32:06.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=hEIeYmkZgItUu"},{"victim":"Figgins Family Wine Estates","discovered":"2026-08-31T16:32:05.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=UmJAWJS9K2lw"},{"victim":"KRC Machine Tool Solutions","discovered":"2026-08-31T16:32:04.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=nRz8hNyblr2Aee"},{"victim":"Meteor Group","discovered":"2026-08-31T16:32:02.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/topic.php?id=ERRbEvbLM2k5Ta"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/play","ransomware_live":"https://www.ransomware.live/"}},"rhysida":{"slug":"rhysida","name":"rhysida","victims_7d":8,"victims_total":293,"last_seen":"2026-09-10T20:39:33.000Z","origins":["ransomlook","ransomwarelive"],"online":false,"mirrors":7,"up_mirrors":0,"has_profile":true,"blurb":"8 victims in the last 7d across 2 trackers.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"rhysidafohrhyy2aszi7bm32tnjat5xri65fopcxkdfxhi4tidsg7cad.onion","title":"Rhysida","available":false,"updated":"2026-09-12 04:00:07.740","version":3},{"fqdn":"rhysidafohrhyy2aszi7bm32tnjat5xri65fopcxkdfxhi4tidsg7cad.onion","title":"","available":false,"updated":"2026-09-12 04:03:28.591","version":3},{"fqdn":"rhysidafohrhyy2aszi7bm32tnjat5xri65fopcxkdfxhi4tidsg7cad.onion","title":"","available":false,"updated":"2026-09-12 00:37:05.458","version":3},{"fqdn":"rhysidafc6lm7qa2mkiukbezh7zuth3i4wof4mh2audkymscjm6yegad.onion","title":"Rhysida","available":false,"updated":"2026-09-12 03:00:06.812","version":3},{"fqdn":"rhysidaeoxtkejwuheks3a7htk4zn3dfuynt5mqw6oawlcx6kcxjdeyd.onion","title":"Onionsite Not Found","available":false,"updated":"2026-01-05 14:03:24.927","version":3},{"fqdn":"rhysidaiqemmlrvn2jvncdwhkvuiv7s2iu342xnrpeynxoe6r2dtjfyd.onion","title":"Onionsite Not Found","available":false,"updated":"2026-01-06 18:13:34.034","version":3},{"fqdn":"rhysidaqho36b6i6mvpmy5di4ro5zglovtxixrirky6q3fgack7q5uyd.onion","title":"Onionsite Not Found","available":false,"updated":"2026-09-12 01:00:05.136","version":3}],"victims_sample":[{"victim":"General Santos Doctors Hospital","discovered":"2026-09-10T20:39:33.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/archive.php?company=271"},{"victim":"Professional Retail Services","discovered":"2026-09-10T20:39:32.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/archive.php?company=272"},{"victim":"SAD'S Interim","discovered":"2026-09-08T09:44:48.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/archive.php?company=268"},{"victim":"Rug & Home","discovered":"2026-09-07T18:35:18.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/archive.php?company=267"},{"victim":"Szechenyi Programiroda Nonprofit Kf","discovered":"2026-09-01T20:34:11.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/archive.php?company=266"},{"victim":"Berlin, Germany","discovered":"2026-08-28T17:30:58.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/archive.php?company=264"},{"victim":"Valley Health Team","discovered":"2026-08-28T17:30:57.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/archive.php?company=265"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/rhysida","ransomware_live":"https://www.ransomware.live/"}},"vexy":{"slug":"vexy","name":"vexy","victims_7d":7,"victims_total":12,"last_seen":"2026-09-10T23:43:42.000Z","origins":["ransomlook"],"online":false,"mirrors":1,"up_mirrors":0,"has_profile":true,"blurb":"7 victims in the last 7d across 1 tracker.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion","title":"Vexy Ransomware | Blog","available":false,"updated":"2026-09-12 03:00:05.480","version":3}],"victims_sample":[{"victim":"i2k2 Networks","discovered":"2026-09-10T23:43:42.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Logar Network Solutions","discovered":"2026-09-09T18:40:32.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"United Group","discovered":"2026-09-07T19:36:13.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"LIBRERIA SANTA FE A P S SRL","discovered":"2026-09-07T11:39:12.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Sancity","discovered":"2026-09-06T17:36:08.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"McDonalds Ecuador","discovered":"2026-09-06T14:40:59.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Mega Velocity","discovered":"2026-09-06T02:38:05.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Sancity Soft Touch","discovered":"2026-09-04T18:33:05.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Palsana Enviro (PEPL)","discovered":"2026-09-04T17:34:53.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Annapurna Fashion","discovered":"2026-09-04T17:34:52.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/vexy","ransomware_live":"https://www.ransomware.live/"}},"aurora":{"slug":"aurora","name":"aurora","victims_7d":6,"victims_total":44,"last_seen":"2026-09-07T16:33:17.000Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":3,"up_mirrors":1,"has_profile":true,"blurb":"6 victims in the last 7d across 2 trackers.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"ijexszhscln27nl263lmcd7tx3jttkhm4wjhd4e3y6r4csdbfyeprvid.onion","title":"Negotiation Chat","available":true,"updated":"2026-09-12 06:00:38.374","version":3},{"fqdn":"pavregldzg2ypbd3gxbil2suxfok7ykmcknwhkli24anpks6lndymyyd.onion","title":"","available":false,"updated":"2026-09-11 15:33:11.090","version":3},{"fqdn":"exposedrecords.io","title":null,"available":false,"updated":"2026-06-22 16:23:23.022801","version":0}],"victims_sample":[{"victim":"Benshaw, Inc.","discovered":"2026-09-07T16:33:17.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/blog/benshaw-inc-a8850418"},{"victim":"Jinny Beauty Supply","discovered":"2026-09-07T16:33:16.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/blog/jinny-beauty-supply-4926057b"},{"victim":"Metrea LLC/Commuter Air Technology, Inc.","discovered":"2026-09-05T12:36:16.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/blog/metrea-llc-77f4beea"},{"victim":"EDIF S.p.A.","discovered":"2026-09-04T15:06:11.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/blog/edif-spa-privateonlyaccess"},{"victim":"Chip 1 Exchange","discovered":"2026-09-02T09:38:44.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/blog/chip-1-exchange-13b819b4"},{"victim":"Ishbia & Gagleard, P.C.","discovered":"2026-08-31T15:45:10.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/blog/ishbia-gagleard-pc-cbdf52c6"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/aurora","ransomware_live":"https://www.ransomware.live/"}},"everest":{"slug":"everest","name":"everest","victims_7d":6,"victims_total":406,"last_seen":"2026-09-07T17:26:34.000Z","origins":["ransomlook","ransomwarelive"],"online":false,"mirrors":7,"up_mirrors":0,"has_profile":true,"blurb":"Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cr…","meta":"Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cryptography and appending victim-specific extensions, but later shifted toward pure data extortion—threatening to sell or release stolen data without necessarily deploying encryption. Everest targets a wide range of sectors, including government, healthcare, manufacturing, and IT services, with confirmed victims in North America, Europe, and Asia. Initial access vectors include exploitation of vulnerable public-facing applications, phishing campaigns, and credential theft for remote access services. The group maintains a Tor-based leak site to publish stolen information and advertise access to compromised networks.","meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion","title":"","available":false,"updated":"2026-09-11 21:02:02.327","version":3},{"fqdn":"ransomoefralti2zh5nrv7iqybp3d5b4a2eeecz5yjosp7ggbepj7iyd.onion","title":"Everest Group","available":false,"updated":"2025-01-20 07:32:07.300","version":3},{"fqdn":"2vqamwfdpis5rkjtpkutigykp56n6hkxfurm6qukdxp6uz5uff5kkaid.onion","title":"Index of /","available":false,"updated":"2025-03-25 08:15:49.198","version":0},{"fqdn":"bifpwatchoxp7tsb2kpes37b23ogjrb2kj4wgr7yncf4hhgsfahu7jad.onion","title":"404 Not Found","available":false,"updated":"2025-02-02 17:00:04.724","version":3},{"fqdn":"aihvh6j6fbkfjyc6jqbsh2ed4s3rym2v2pu6kd3z3exdso2xc2qwcuqd.onion","title":"Index of /","available":false,"updated":"2025-03-25 08:09:30.324","version":3},{"fqdn":"gxp6yt3wdj7yky27j37jfrrbkuy24n2zo5uxyuoy23uf76d6m2gnfpid.onion","title":"Everest","available":false,"updated":"2025-10-20 13:07:16.588","version":3},{"fqdn":"everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion","title":"Everest","available":false,"updated":"2026-09-12 00:08:26.930","version":3}],"victims_sample":[{"victim":"GGS","discovered":"2026-09-07T17:26:34.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/news/ggs"},{"victim":"KÖRBER","discovered":"2026-09-07T17:26:34.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/news/korber"},{"victim":"GENESILICO","discovered":"2026-09-07T17:26:33.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/news/genesilico"},{"victim":"Negotiation Rules","discovered":"2026-09-04T18:32:31.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/news/negotiation-rules"},{"victim":"Rise UP","discovered":"2026-09-01T04:41:45.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/news/rise-up"},{"victim":"VIVOTEK","discovered":"2026-09-01T04:41:44.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/news/vivotek"},{"victim":"Italtel Peru","discovered":"2026-09-01T04:41:43.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/news/italtel-peru"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/everest","ransomware_live":"https://www.ransomware.live/"}},"wallstreet":{"slug":"wallstreet","name":"wallstreet","victims_7d":6,"victims_total":23,"last_seen":"2026-09-10T16:36:45.000Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":2,"up_mirrors":1,"has_profile":true,"blurb":"6 victims in the last 7d across 2 trackers.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"4dwiv37h7hhuhjpvtn72hme4ylcv3qoe65arfc6mbweal7als6ma7pyd.onion","title":"Wallstreet | DLS","available":false,"updated":"2026-09-12 00:00:07.004","version":3},{"fqdn":"aifdajw7ptxmjnhi4xizvylw7bphct7rno7vikge2v2ddh5xoh3lmwqd.onion","title":"Wallstreet | MISC","available":true,"updated":"2026-09-12 05:00:05.690","version":3}],"victims_sample":[{"victim":"NcbChurch","discovered":"2026-09-10T16:36:45.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"On Demand Occupational Medicine","discovered":"2026-09-10T16:36:44.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Goldston Oil Corporation","discovered":"2026-09-10T16:36:43.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"America’s Food Basket","discovered":"2026-09-03T16:32:34.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Ormond Beach Florida","discovered":"2026-09-02T19:31:55.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Total Education Solutions","discovered":"2026-09-01T15:53:17.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Cedar County Memorial Hospital","discovered":"2026-08-31T16:32:11.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Andover","discovered":"2026-08-30T17:32:38.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/wallstreet","ransomware_live":"https://www.ransomware.live/"}},"dragonforce":{"slug":"dragonforce","name":"dragonforce","victims_7d":5,"victims_total":653,"last_seen":"2026-09-11T16:41:04.000Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":21,"up_mirrors":2,"has_profile":true,"blurb":"DragonForce is a ransomware-as-a-service (RaaS) group first identified in late 2023. Originally linked to hacktivist activity, the group pivoted to financially motivated operations by early 2024. Sin…","meta":"DragonForce is a ransomware-as-a-service (RaaS) group first identified in late 2023. Originally linked to hacktivist activity, the group pivoted to financially motivated operations by early 2024. Since then, it has accelerated into a highly organized cartel-like network, providing customizable payloads to affiliates, a sophisticated affiliate portal, and shared infrastructure for leak sites and campaigns. The group has targeted a wide range of sectors globally, including major UK retailers such as M&S, Harrods, and Co-op, along with organizations in government, logistics, and manufacturing. Its operations are known for strategic branding flexibility, enabling affiliates to operate under their own labels using DragonForce’s backend services.","meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion","title":"DragonForce | Migration completed","available":false,"updated":"2026-09-12 00:09:30.079","version":3},{"fqdn":"3pktcrcbmssvrnwe5skburdwe2h3v6ibdnn5kbjqihsg6eu6s6b7ryqd.onion","title":"DragonForce | Migration completed","available":true,"updated":"2026-09-12 06:00:52.074","version":3},{"fqdn":"dragonforxxbp3awc7mzs5dkswrua3znqyx5roefmi4smjrsdi22xwqd.onion","title":"DragonForce | Leaks","available":false,"updated":"2026-08-29 21:07:59.674","version":3},{"fqdn":"zsglo7t7osxyk3vcl7zxzup7hs4ir52sntteymmw63zvoxzcqytlw7qd.onion","title":"","available":false,"updated":"2024-10-03 16:32:44.521937","version":3},{"fqdn":"6dgi54prfmpuuolutr4hl3akasxbx4o34g5y2bj4blrvzzkjemhxenad.onion","title":"","available":false,"updated":"2024-10-03 16:33:05.748977","version":3},{"fqdn":"eogeko3sdn66gb7vjpwpmlmmmzfx7umtwaugpf5l6tb5jveolfydnuad.onion","title":"","available":false,"updated":"2024-10-03 16:33:21.220495","version":3},{"fqdn":"ewrxgpvv7wsrqq7itfwg5jr7lkc6zzknndmru5su2ugrowxo3wwy5yad.onion","title":"","available":false,"updated":"2024-10-03 16:33:44.873252","version":3},{"fqdn":"3ro23rujyigqrlrwk3e4keh3a3i6ntgrm3f42tbiqtf7vke47c6a6ayd.onion","title":"","available":false,"updated":"2024-10-03 16:34:00.106559","version":3},{"fqdn":"jziu7k7uee467r2wt66ndrwymmw7tsmqgcqi7aemcaxraqmaf2hdm3yd.onion","title":"","available":false,"updated":"2024-10-03 16:34:17.534128","version":3},{"fqdn":"2yczff6zyiey3gkgl5anwejktdp73abxbzbnvwobmrwkwgf3hudpyvyd.onion","title":"","available":false,"updated":"2024-10-03 16:34:36.504737","version":3},{"fqdn":"bpoowhokr3vi32l3t4mjdtdxfrfpigwachopk5ojwmgxihnojhsawuyd.onion","title":"","available":false,"updated":"2024-10-03 16:34:53.926330","version":3},{"fqdn":"dbvczza7nhwdb5kdvkzjtkrcvwnrt5viw7mihutueprvajy7rxhwq6id.onion","title":"","available":false,"updated":"2024-10-03 16:35:08.919003","version":3},{"fqdn":"xtcwd3xmxpggtizn7kmwwqeizexflkkyqsytg2kauccau6ddsfa4gfyd.onion","title":"","available":false,"updated":"2024-10-03 16:35:21.638928","version":3},{"fqdn":"4wcrfql53ljekid3sn66z6swjot725muveddq77utxltaelw64eikfid.onion","title":"","available":false,"updated":"2024-10-03 16:35:36.886208","version":3},{"fqdn":"73h3lxn24kuayyfkn4t6ij7e67jklo24vqzqdhpts3ygmim7hu6u6aid.onion","title":"","available":false,"updated":"2024-10-03 16:35:53.441956","version":3},{"fqdn":"nwtetzmrqhxieetg5lvth7szzvg35gfrqt23ly46vku56oo7pkueswyd.onion","title":"","available":false,"updated":"2024-10-03 16:36:08.082893","version":3},{"fqdn":"dszmdx3jr7vggdaf2c5k4qunt4mxclelhgbtjlgewlkmlnfpsnsg3sad.onion","title":"","available":false,"updated":"2025-04-27 18:11:00.350","version":3},{"fqdn":"fsguestuctexqqaoxuahuydfa6ovxuhtng66pgyr5gqcrsi7qgchpkad.onion","title":"","available":false,"updated":"2026-08-29 21:01:07.586","version":3},{"fqdn":"dragongoztkdfmnd7jkchznd3fvkpdmeh4vhbt6p3usrlsoy5dw2bhyd.onion","title":"","available":false,"updated":"2025-10-13 15:09:00.404173","version":3},{"fqdn":"dragongo.org","title":"","available":false,"updated":"2025-11-14 10:13:37.545","version":0},{"fqdn":"xjhmtitnrdrgzw4vmsghirdoo2fk35a3tzj4enlmah4pvehdspydsiyd.onion","title":"DragonForce | Blog","available":true,"updated":"2026-09-12 06:01:19.421","version":3}],"victims_sample":[{"victim":"Medical Department Store","discovered":"2026-09-11T16:41:04.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Homewood Sales","discovered":"2026-09-04T11:35:25.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Norwood Law Firm","discovered":"2026-09-04T11:35:24.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"rubbermill.com","discovered":"2026-09-01T16:29:59.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/dragonforce","ransomware_live":"https://www.ransomware.live/"}},"clop":{"slug":"clop","name":"clop","victims_7d":4,"victims_total":1344,"last_seen":"2026-09-10T10:22:39.757Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":11,"up_mirrors":1,"has_profile":true,"blurb":"Clop is a ransomware which uses the .clop extension after having encrypted the victim's files. Another unique characteristic belonging with Clop is in the string: \"Dont Worry C|0P\" included into the …","meta":"Clop is a ransomware which uses the .clop extension after having encrypted the victim's files. Another unique characteristic belonging with Clop is in the string: \"Dont Worry C|0P\" included into the ransom notes. It is a variant of CryptoMix ransomware, but it additionally attempts to disable Windows Defender and to remove the Microsoft Security Essentials in order to avoid user space detection.","meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"ekbgzchl6x2ias37.onion","title":"HOME | CL0P^_- LEAKS","available":false,"updated":"2022-08-19 02:13:02.704101","version":2},{"fqdn":"santat7kpllt6iyvqbr7q4amdv6dzrh6paatvyrzl7ry3zm72zigf4ad.onion","title":"HOME | CL0P^_- LEAKS","available":false,"updated":"2026-09-11 23:02:04.234","version":3},{"fqdn":"3ws3t4uo7fehnn4qpmadk3zjrxta5xlt3gsc5mx4sztrsy7ficuz5ayd.onion","title":"","available":false,"updated":"2024-12-15 13:29:35.540","version":3},{"fqdn":"amnwxasjtjc6e42siac6t45mhbkgtycrx5krv7sf5festvqxmnchuayd.onion","title":"","available":false,"updated":"2024-12-15 13:00:28.652","version":3},{"fqdn":"qahjimrublt35jlv4teesicrw6zhpwhkb6nhtonwxuqafmjhr7hax2id.onion","title":"403 Forbidden","available":false,"updated":"2024-12-15 13:15:44.613","version":3},{"fqdn":"npkoxkuygikbkpuf5yxte66um727wmdo2jtpg2djhb2e224i4r25v7ad.onion","title":"404 Not Found","available":false,"updated":"2025-01-22 11:15:51.281","version":3},{"fqdn":"6v4q5w7di74grj2vtmikzgx2tnq5eagyg2cubpcnqrvvee2ijpmprzqd.onion","title":"","available":false,"updated":"2025-01-22 12:03:03.388","version":3},{"fqdn":"l4rdimrqyonulqjttebry4t6wuzgjv5m62rnpjho3q22a6maf6d5evyd.onion","title":"403 Forbidden","available":false,"updated":"2025-11-09 04:03:00.563","version":3},{"fqdn":"frgp3f3u2ddafv4ny7tqn6tc674m6fyymyywoaxot7xskbjmiyhhsyqd.onion","title":"","available":false,"updated":"2026-02-20 12:24:32.088","version":3},{"fqdn":"htmxyptur5wfjrd7uvg23snupub2pbtlfelk45n37b3augl2w4eearid.onion","title":"","available":true,"updated":"2026-09-12 06:00:20.400","version":3},{"fqdn":"2vi357dgf4246nvrcsavrt5jsrm7pfqim4t2n3ykzedjim5bzqezmlyd.onion","title":"403 Forbidden","available":false,"updated":"2025-10-09 10:02:35.837","version":0}],"victims_sample":[{"victim":"HENRYPRATT.COM","discovered":"2026-09-10T01:43:34.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"HARLEY-DAVIDSON.COM","discovered":"2026-09-10T01:43:33.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/clop","ransomware_live":"https://www.ransomware.live/"}},"dysphor1a":{"slug":"dysphor1a","name":"dysphor1a","victims_7d":4,"victims_total":21,"last_seen":"2026-09-06T20:42:48.000Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":2,"up_mirrors":1,"has_profile":true,"blurb":"4 victims in the last 7d across 2 trackers.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"y3maveiwszbnrziufbbberx74cvrdcsf72nxzuqxzv7ppdmmqzffazid.onion","title":"DYSPHOR1A Ransomware Group","available":false,"updated":"2026-09-09 00:01:05.211","version":3},{"fqdn":"normalhunters0x.surge.sh","title":"project not found","available":true,"updated":"2026-09-12 06:11:26.980","version":0}],"victims_sample":[{"victim":"RTAD GOV MM","discovered":"2026-09-06T20:42:48.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"CitizensPay","discovered":"2026-09-05T18:44:45.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"MBT Telecom","discovered":"2026-09-04T19:30:54.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Yoma Fleet","discovered":"2026-08-29T17:42:41.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"AYUDHYA TH Insurance","discovered":"2026-08-29T17:42:40.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"GUSTO College GLMS","discovered":"2026-08-29T17:42:39.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Job Net .COM.MM","discovered":"2026-08-29T17:42:38.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"The University of Delhi (DU)","discovered":"2026-08-29T17:42:37.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Indonesian Police Database","discovered":"2026-08-29T17:42:36.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Netim Company","discovered":"2026-08-29T17:42:35.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/dysphor1a","ransomware_live":"https://www.ransomware.live/"}},"eclipse":{"slug":"eclipse","name":"eclipse","victims_7d":4,"victims_total":11,"last_seen":"2026-09-08T17:43:45.000Z","origins":["ransomlook","ransomwarelive"],"online":false,"mirrors":2,"up_mirrors":0,"has_profile":true,"blurb":"4 victims in the last 7d across 2 trackers.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"eclipse4g5kxfwsvpu4qx5sdcnrji6gxl5gt67bucjlgt35g7akvjoid.onion","title":"Eclipse Blog","available":false,"updated":"2026-09-11 14:28:53.321","version":3},{"fqdn":"yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion","title":"Eclipse Blog","available":false,"updated":"2026-09-11 14:01:00.190","version":3}],"victims_sample":[{"victim":"The Zhou Law Group","discovered":"2026-09-08T17:43:45.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/place/hulk5pzh81yov2oh/"},{"victim":"TTG Asia Media","discovered":"2026-09-08T17:43:44.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/place/2yiioe5fyw3jbfpg/"},{"victim":"Royal Plaza On Scotts","discovered":"2026-09-02T16:42:00.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/place/luiusuxs7vt1g4fr/"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/eclipse","ransomware_live":"https://www.ransomware.live/"}},"globalsecretgroup":{"slug":"globalsecretgroup","name":"global secret group","victims_7d":4,"victims_total":50,"last_seen":"2026-09-11T00:43:25.000Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":6,"up_mirrors":2,"has_profile":true,"blurb":"4 victims in the last 7d across 2 trackers.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"o5lsqyar7ox25z734k6zaxt2vf7bsyi4q5rturi5iyxzqo3ica7bjsad.onion","title":"Home — Global Secret Group","available":false,"updated":"2026-09-11 16:19:48.373","version":3},{"fqdn":"ee2iit5piqlarwz3kxm6ctkpbpt2olsxadq7lclqwnhlzaafamfbpiid.onion","title":"Home — Global Secret Group","available":false,"updated":"2026-09-11 15:01:22.624","version":3},{"fqdn":"dcjy5n3qqnk4lbpwoxh7xgki6lym23jdjsjlkhcw63gbh4jl7r4bukqd.onion","title":"Home — Global Secret Group","available":false,"updated":"2026-09-11 20:01:01.305","version":3},{"fqdn":"b5gozwifyvy5bhys3bsiq5tedhpot345udggjyb54fsjd2m7nteftkad.onion","title":"Home — Global Secret Group","available":false,"updated":"2026-09-11 20:01:16.995","version":0},{"fqdn":"hnkclceyxgwa2g5fxvvu37bvpejqhpup5vlybxfx45h6xloyjnvxuuyd.onion","title":"Home — Global Secret Group","available":true,"updated":"2026-09-12 06:00:37.211","version":3},{"fqdn":"3u2h3ingiz45yyiplgbuflp6jex4xd2wtubvgjdg44nlgllrjv6qxxid.onion","title":"Home — Global Secret Group","available":true,"updated":"2026-09-12 05:00:15.380","version":3}],"victims_sample":[{"victim":"CO-OP URBAN BANK LTD","discovered":"2026-09-11T00:43:25.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/project/mEMbPCoMYCBhYvwy/"},{"victim":"Mesan USA","discovered":"2026-09-10T08:36:41.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/project/SyR7gg8M68RCbyjA/"},{"victim":"Quality Resource Pvt","discovered":"2026-09-02T00:42:42.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/project/8tEkAvb4TaoYSH37/"},{"victim":"R L Fine Chem Pvt. Ltd.","discovered":"2026-08-31T20:29:51.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/project/b6CUZMNZV4BJUiGi/"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/global%20secret%20group","ransomware_live":"https://www.ransomware.live/"}},"metaencryptor":{"slug":"metaencryptor","name":"metaencryptor","victims_7d":4,"victims_total":42,"last_seen":"2026-09-07T13:01:37.828Z","origins":["ransomwarelive"],"online":false,"mirrors":2,"up_mirrors":0,"has_profile":true,"blurb":"We are a group of young people who identify themselves as specialists in the field of network security with at least 15 years of experience. This blog and this work are ONLY commercial use, besides n…","meta":"We are a group of young people who identify themselves as specialists in the field of network security with at least 15 years of experience. This blog and this work are ONLY commercial use, besides not the main one. We have nothing to do with politics, intelligence agencies and the NSB. If you are a hunter of other people's data, then download any files and (or) wait until the time expires for others and the files will be available here. If you have any personal suggestions, we are ready to consider them. Contact us on the \"contacts\" page. There are a lot of other data, for various reasons, not posted here and we can discuss their sale or transfer under certain conditions. Also, every incident is notified to all possible press in the region and data not intended for sale is transmitted to breached and similar forums. Subscribe to RSS, add to favorites, visit us more often.","meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"metacrptmytukkj7ajwjovdpjqzd7esg5v3sg344uzhigagpezcqlpyd.onion","title":"Metaencryptor::Home","available":false,"updated":"2026-09-11 01:00:45.391","version":3},{"fqdn":"metacrpttdfpbm4qoxzcrqqgr6e6zafpazgxm72knmujw2mwvi34rwad.onion","title":"Metaencryptor::Home","available":false,"updated":"2026-09-11 10:00:07.932","version":3}],"victims_sample":[],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/metaencryptor","ransomware_live":"https://www.ransomware.live/"}},"shinyhunters":{"slug":"shinyhunters","name":"shinyhunters","victims_7d":4,"victims_total":165,"last_seen":"2026-09-07T21:44:37.000Z","origins":["ransomlook","ransomwarelive"],"online":true,"mirrors":8,"up_mirrors":3,"has_profile":true,"blurb":"4 victims in the last 7d across 2 trackers.","meta":null,"meta_source":"Ransomlook group profile (abridged, screen bytes omitted)","mirrors_detail":[{"fqdn":"toolatedhs5dtr2pv6h5kdraneak5gs3sxrecqhoufc5e45edior7mqd.onion","title":"SH","available":false,"updated":"2026-04-01 01:14:51.339","version":3},{"fqdn":"shinypogk4jjniry5qi7247tznop6mxdrdte2k6pdu5cyo43vdzmrwid.onion","title":"shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion","available":false,"updated":"2026-07-10 02:00:08.106","version":3},{"fqdn":"91.215.85.22.","title":"// SH","available":true,"updated":"2026-09-12 05:03:38.111","version":0},{"fqdn":"shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion","title":"","available":false,"updated":"2026-09-11 15:01:32.286","version":3},{"fqdn":"shinyhunte.rs","title":"[sh] shinyhunters","available":false,"updated":"2026-05-11 08:04:00.245","version":0},{"fqdn":"91.202.233.104.","title":"","available":true,"updated":"2026-09-12 05:27:53.390","version":0},{"fqdn":"176.120.22.24.","title":"// SH","available":false,"updated":"2026-09-12 05:33:57.623","version":0},{"fqdn":"91.215.85.103.","title":"// SH","available":true,"updated":"2026-09-12 05:03:43.397","version":0}],"victims_sample":[{"victim":"State of Florida DMV","discovered":"2026-09-07T21:44:37.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Medela.com","discovered":"2026-09-07T08:31:43.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Note to mr. databroker1 NEXUS DL Service","discovered":"2026-09-04T16:48:23.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"NeoGen Corporation","discovered":"2026-09-03T17:23:42.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Neogen Corporation","discovered":"2026-08-30T00:32:46.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"McKesson Corporation","discovered":"2026-08-29T02:30:51.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Elekta AB","discovered":"2026-08-29T01:30:36.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"},{"victim":"Jack Henry & Associates","discovered":"2026-08-29T01:30:35.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/recent"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/shinyhunters","ransomware_live":"https://www.ransomware.live/"}},"anubis":{"slug":"anubis","name":"anubis","victims_7d":2,"victims_total":110,"last_seen":"2026-09-09T07:21:40.000Z","origins":["ransomlook","ransomwarelive"],"online":null,"mirrors":0,"up_mirrors":0,"has_profile":false,"blurb":"2 victims in the last 7d across 2 trackers.","meta":null,"meta_source":null,"mirrors_detail":[],"victims_sample":[{"victim":"Gellibrand Support Services","discovered":"2026-09-09T07:21:40.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/http://om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion/r/ObJBnOxUY1Uo4o+pNo4+1iokTlH+DV0xYGCT5h+m6Xr3PCnwl156GokKMstEqD4lviqX84Rf46pAugjKlIR1NYTnhqZGQ4"},{"victim":"Marlborough Partners","discovered":"2026-09-02T06:21:36.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/http://om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion/r/5VYRngWB4RHGrQhum0wZh8OC72oO1g3GU++a70ZsZ6tkH4WMROBRx4tJXAXmdwAp3e0NJ5M+6ftohrSE8ypGt5MGR0ZWd4"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/anubis","ransomware_live":"https://www.ransomware.live/"}},"beast":{"slug":"beast","name":"beast","victims_7d":2,"victims_total":74,"last_seen":"2026-09-10T22:46:51.000Z","origins":["ransomlook","ransomwarelive"],"online":null,"mirrors":0,"up_mirrors":0,"has_profile":false,"blurb":"2 victims in the last 7d across 2 trackers.","meta":null,"meta_source":null,"mirrors_detail":[],"victims_sample":[{"victim":"M800 and CINNOX","discovered":"2026-09-10T22:46:51.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/card/m800_and_cinnox"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/beast","ransomware_live":"https://www.ransomware.live/"}},"blacklocks":{"slug":"blacklocks","name":"blacklocks","victims_7d":2,"victims_total":2,"last_seen":"2026-09-06T23:43:20.000Z","origins":["ransomlook","ransomwarelive"],"online":null,"mirrors":0,"up_mirrors":0,"has_profile":false,"blurb":"2 victims in the last 7d across 2 trackers.","meta":null,"meta_source":null,"mirrors_detail":[],"victims_sample":[{"victim":"광명산업(주)","discovered":"2026-09-06T23:43:20.000Z","origin":"ransomlook","source_url":"https://www.ransomlook.io/leaks/Z61IH585ezjN"}],"source_urls":{"ransomlook":"https://www.ransomlook.io/api/group/blacklocks","ransomware_live":"https://www.ransomware.live/"}}}
+{
+  "insomnia": {
+    "slug": "insomnia",
+    "name": "insomnia",
+    "victims_7d": 6,
+    "victims_total": 59,
+    "last_seen": "2026-09-15T19:25:43.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 2,
+    "up_mirrors": 1,
+    "has_profile": true,
+    "blurb": "6 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "i62huw7ve22rpyw6lnq3kmfump2dmsg4xpveec3ere73njwatrz74gad.onion",
+        "title": "Insomnia",
+        "available": true,
+        "updated": "2026-09-16 11:01:16.026",
+        "version": 3
+      },
+      {
+        "fqdn": "r3keoxye5mki4fqcvlk4hpfqqzxmakchjpmem7oppynobcieamdbmcyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 08:37:19.639",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Wiggins, Childs, Pantazis, Fisher, & Goldfarb LLC",
+        "discovered": "2026-09-15T19:25:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/Wiggins/"
+      },
+      {
+        "victim": "Metropolitan Community Health Services",
+        "discovered": "2026-09-14T17:44:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/Agape/"
+      },
+      {
+        "victim": "Massey, Stotser & Nichols",
+        "discovered": "2026-09-14T17:44:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/Massey/"
+      },
+      {
+        "victim": "NorthShore Health Centers",
+        "discovered": "2026-09-07T21:44:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/NorthShore/"
+      },
+      {
+        "victim": "Maglin, Miskiv & Associates",
+        "discovered": "2026-09-03T16:32:03.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/MnM/"
+      },
+      {
+        "victim": "N***************",
+        "discovered": "2026-09-02T18:23:57.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/Announce/"
+      },
+      {
+        "victim": "Metro Tulsa Foot",
+        "discovered": "2026-08-31T16:31:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Company/MTFAS/"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/insomnia",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "rhysida": {
+    "slug": "rhysida",
+    "name": "rhysida",
+    "victims_7d": 6,
+    "victims_total": 293,
+    "last_seen": "2026-09-12T15:39:31.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 7,
+    "up_mirrors": 4,
+    "has_profile": true,
+    "blurb": "6 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "rhysidafohrhyy2aszi7bm32tnjat5xri65fopcxkdfxhi4tidsg7cad.onion",
+        "title": "Rhysida",
+        "available": true,
+        "updated": "2026-09-16 11:09:13.260",
+        "version": 3
+      },
+      {
+        "fqdn": "rhysidafohrhyy2aszi7bm32tnjat5xri65fopcxkdfxhi4tidsg7cad.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:04:08.250",
+        "version": 3
+      },
+      {
+        "fqdn": "rhysidafohrhyy2aszi7bm32tnjat5xri65fopcxkdfxhi4tidsg7cad.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:05:05.449",
+        "version": 3
+      },
+      {
+        "fqdn": "rhysidafc6lm7qa2mkiukbezh7zuth3i4wof4mh2audkymscjm6yegad.onion",
+        "title": "Rhysida",
+        "available": false,
+        "updated": "2026-09-16 10:11:40.545",
+        "version": 3
+      },
+      {
+        "fqdn": "rhysidaeoxtkejwuheks3a7htk4zn3dfuynt5mqw6oawlcx6kcxjdeyd.onion",
+        "title": "Onionsite Not Found",
+        "available": false,
+        "updated": "2026-01-05 14:03:24.927",
+        "version": 3
+      },
+      {
+        "fqdn": "rhysidaiqemmlrvn2jvncdwhkvuiv7s2iu342xnrpeynxoe6r2dtjfyd.onion",
+        "title": "Onionsite Not Found",
+        "available": false,
+        "updated": "2026-01-06 18:13:34.034",
+        "version": 3
+      },
+      {
+        "fqdn": "rhysidaqho36b6i6mvpmy5di4ro5zglovtxixrirky6q3fgack7q5uyd.onion",
+        "title": "Onionsite Not Found",
+        "available": true,
+        "updated": "2026-09-16 11:04:18.401",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Axdia International",
+        "discovered": "2026-09-12T15:39:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=273"
+      },
+      {
+        "victim": "General Santos Doctors Hospital",
+        "discovered": "2026-09-10T20:39:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=271"
+      },
+      {
+        "victim": "Professional Retail Services",
+        "discovered": "2026-09-10T20:39:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=272"
+      },
+      {
+        "victim": "SAD'S Interim",
+        "discovered": "2026-09-08T09:44:48.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=268"
+      },
+      {
+        "victim": "Rug & Home",
+        "discovered": "2026-09-07T18:35:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=267"
+      },
+      {
+        "victim": "Szechenyi Programiroda Nonprofit Kf",
+        "discovered": "2026-09-01T20:34:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/archive.php?company=266"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/rhysida",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "wallstreet": {
+    "slug": "wallstreet",
+    "name": "wallstreet",
+    "victims_7d": 6,
+    "victims_total": 23,
+    "last_seen": "2026-09-10T16:36:45.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 2,
+    "up_mirrors": 1,
+    "has_profile": true,
+    "blurb": "6 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "4dwiv37h7hhuhjpvtn72hme4ylcv3qoe65arfc6mbweal7als6ma7pyd.onion",
+        "title": "Wallstreet | DLS",
+        "available": true,
+        "updated": "2026-09-16 11:05:51.096",
+        "version": 3
+      },
+      {
+        "fqdn": "aifdajw7ptxmjnhi4xizvylw7bphct7rno7vikge2v2ddh5xoh3lmwqd.onion",
+        "title": "Wallstreet | MISC",
+        "available": false,
+        "updated": "2026-09-16 09:13:12.793",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "NcbChurch",
+        "discovered": "2026-09-10T16:36:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "On Demand Occupational Medicine",
+        "discovered": "2026-09-10T16:36:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Goldston Oil Corporation",
+        "discovered": "2026-09-10T16:36:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "America’s Food Basket",
+        "discovered": "2026-09-03T16:32:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Ormond Beach Florida",
+        "discovered": "2026-09-02T19:31:55.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Total Education Solutions",
+        "discovered": "2026-09-01T15:53:17.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Cedar County Memorial Hospital",
+        "discovered": "2026-08-31T16:32:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Andover",
+        "discovered": "2026-08-30T17:32:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/wallstreet",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "clop": {
+    "slug": "clop",
+    "name": "clop",
+    "victims_7d": 4,
+    "victims_total": 1344,
+    "last_seen": "2026-09-10T10:22:39.757Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": false,
+    "mirrors": 11,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "Clop is a ransomware which uses the .clop extension after having encrypted the victim's files. Another unique characteristic belonging with Clop is in the string: \"Dont Worry C|0P\" included into the …",
+    "meta": "Clop is a ransomware which uses the .clop extension after having encrypted the victim's files. Another unique characteristic belonging with Clop is in the string: \"Dont Worry C|0P\" included into the ransom notes. It is a variant of CryptoMix ransomware, but it additionally attempts to disable Windows Defender and to remove the Microsoft Security Essentials in order to avoid user space detection.",
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "ekbgzchl6x2ias37.onion",
+        "title": "HOME | CL0P^_- LEAKS",
+        "available": false,
+        "updated": "2022-08-19 02:13:02.704101",
+        "version": 2
+      },
+      {
+        "fqdn": "santat7kpllt6iyvqbr7q4amdv6dzrh6paatvyrzl7ry3zm72zigf4ad.onion",
+        "title": "HOME | CL0P^_- LEAKS",
+        "available": false,
+        "updated": "2026-09-16 00:05:16.019",
+        "version": 3
+      },
+      {
+        "fqdn": "3ws3t4uo7fehnn4qpmadk3zjrxta5xlt3gsc5mx4sztrsy7ficuz5ayd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-12-15 13:29:35.540",
+        "version": 3
+      },
+      {
+        "fqdn": "amnwxasjtjc6e42siac6t45mhbkgtycrx5krv7sf5festvqxmnchuayd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-12-15 13:00:28.652",
+        "version": 3
+      },
+      {
+        "fqdn": "qahjimrublt35jlv4teesicrw6zhpwhkb6nhtonwxuqafmjhr7hax2id.onion",
+        "title": "403 Forbidden",
+        "available": false,
+        "updated": "2024-12-15 13:15:44.613",
+        "version": 3
+      },
+      {
+        "fqdn": "npkoxkuygikbkpuf5yxte66um727wmdo2jtpg2djhb2e224i4r25v7ad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2025-01-22 11:15:51.281",
+        "version": 3
+      },
+      {
+        "fqdn": "6v4q5w7di74grj2vtmikzgx2tnq5eagyg2cubpcnqrvvee2ijpmprzqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-01-22 12:03:03.388",
+        "version": 3
+      },
+      {
+        "fqdn": "l4rdimrqyonulqjttebry4t6wuzgjv5m62rnpjho3q22a6maf6d5evyd.onion",
+        "title": "403 Forbidden",
+        "available": false,
+        "updated": "2025-11-09 04:03:00.563",
+        "version": 3
+      },
+      {
+        "fqdn": "frgp3f3u2ddafv4ny7tqn6tc674m6fyymyywoaxot7xskbjmiyhhsyqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-02-20 12:24:32.088",
+        "version": 3
+      },
+      {
+        "fqdn": "htmxyptur5wfjrd7uvg23snupub2pbtlfelk45n37b3augl2w4eearid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:18:48.168",
+        "version": 3
+      },
+      {
+        "fqdn": "2vi357dgf4246nvrcsavrt5jsrm7pfqim4t2n3ykzedjim5bzqezmlyd.onion",
+        "title": "403 Forbidden",
+        "available": false,
+        "updated": "2025-10-09 10:02:35.837",
+        "version": 0
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "HENRYPRATT.COM",
+        "discovered": "2026-09-10T01:43:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "HARLEY-DAVIDSON.COM",
+        "discovered": "2026-09-10T01:43:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/clop",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "darkproject": {
+    "slug": "darkproject",
+    "name": "dark project",
+    "victims_7d": 4,
+    "victims_total": 35,
+    "last_seen": "2026-09-15T17:37:28.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 9,
+    "up_mirrors": 2,
+    "has_profile": true,
+    "blurb": "4 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion",
+        "title": "Dark Project",
+        "available": false,
+        "updated": "2026-09-16 10:20:54.447",
+        "version": 3
+      },
+      {
+        "fqdn": "wjcml4mxpcvsmjxm33zhjb46nzutxk6g3f5w23fopgpwj6pqjcidiyqd.onion",
+        "title": "Home · File index",
+        "available": true,
+        "updated": "2026-09-16 11:03:39.180",
+        "version": 3
+      },
+      {
+        "fqdn": "7iphetz64a7iihcpwr3nirjioghyt6lrku62gu4z7f3zo7rcz5qrgvad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-08-05 16:01:27.369820",
+        "version": 3
+      },
+      {
+        "fqdn": "3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion",
+        "title": "Home · File index",
+        "available": true,
+        "updated": "2026-09-16 11:03:21.836",
+        "version": 3
+      },
+      {
+        "fqdn": "tjaaioz32salcoj63ttxra6nfqggwbcezkzpwnhyoiwq5tuimzmsb3qd.onion",
+        "title": "Home · File index",
+        "available": false,
+        "updated": "2026-09-16 09:01:49.369",
+        "version": 3
+      },
+      {
+        "fqdn": "x2jz63qemhcbhyskzt3pie757oicdkctk2rh5dpykmxsw2yoayeqs5yd.onion",
+        "title": "Home · File index",
+        "available": false,
+        "updated": "2026-09-15 22:01:11.133",
+        "version": 3
+      },
+      {
+        "fqdn": "pokttabd2hod47ladeeoin22wmq4remyo3wshwvxfuhgqygcbezq2qqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:35:07.808",
+        "version": 3
+      },
+      {
+        "fqdn": "2zl5qc3mqap7vziqfis65oyjcgdiedigoequxbqsn6uwian7ieozvoqd.onion",
+        "title": "Home · File index",
+        "available": false,
+        "updated": "2026-09-16 10:20:05.880",
+        "version": 3
+      },
+      {
+        "fqdn": "t2ru74fbgut26xnagtrl4ajeh5vqytrl6cpr6cubmr6sqdxk5guh5mqd.onion",
+        "title": "Home · File index",
+        "available": false,
+        "updated": "2026-09-16 09:14:55.407",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Cumar Marble & Granite",
+        "discovered": "2026-09-15T17:37:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=cumar-marble-granite"
+      },
+      {
+        "victim": "Specchem LLC",
+        "discovered": "2026-09-09T16:35:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=specchem-llc"
+      },
+      {
+        "victim": "MEI Architects",
+        "discovered": "2026-09-08T00:41:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=mei-architects"
+      },
+      {
+        "victim": "Alurwalls",
+        "discovered": "2026-09-07T20:42:56.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=alurwalls"
+      },
+      {
+        "victim": "Master Manufacturing Co., Inc.",
+        "discovered": "2026-09-07T20:42:55.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://darkprn3d3udnhpuxknsrhft3376lrz5tenhgkrxge5hxqe46pkbrwid.onion/article?slug=master-manufacturing-co-inc"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/dark%20project",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "eclipse": {
+    "slug": "eclipse",
+    "name": "eclipse",
+    "victims_7d": 4,
+    "victims_total": 15,
+    "last_seen": "2026-09-14T18:41:58.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": false,
+    "mirrors": 2,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "4 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "eclipse4g5kxfwsvpu4qx5sdcnrji6gxl5gt67bucjlgt35g7akvjoid.onion",
+        "title": "Eclipse Blog",
+        "available": false,
+        "updated": "2026-09-16 06:01:50.793",
+        "version": 3
+      },
+      {
+        "fqdn": "yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion",
+        "title": "Eclipse Blog",
+        "available": false,
+        "updated": "2026-09-16 08:03:02.788",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Dublin City Schools GA",
+        "discovered": "2026-09-14T18:41:58.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/ibt8uhe2ij8m4gy2/"
+      },
+      {
+        "victim": "Rosello et Fils",
+        "discovered": "2026-09-14T17:44:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/ff64huj542fj0suv/"
+      },
+      {
+        "victim": "The Zhou Law Group",
+        "discovered": "2026-09-08T17:43:45.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/hulk5pzh81yov2oh/"
+      },
+      {
+        "victim": "TTG Asia Media",
+        "discovered": "2026-09-08T17:43:44.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/2yiioe5fyw3jbfpg/"
+      },
+      {
+        "victim": "Royal Plaza On Scotts",
+        "discovered": "2026-09-02T16:42:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/place/luiusuxs7vt1g4fr/"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/eclipse",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "genesis": {
+    "slug": "genesis",
+    "name": "genesis",
+    "victims_7d": 4,
+    "victims_total": 119,
+    "last_seen": "2026-09-15T00:40:01.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 1,
+    "up_mirrors": 1,
+    "has_profile": true,
+    "blurb": "Financial interests only. <br/> We do not provide or work with affiliate programs, no collaborations either. <br/> The requested payment must be made within a specified time frame, otherwise the pric…",
+    "meta": "    Financial interests only.\r<br/>    We do not provide or work with affiliate programs, no collaborations either.\r<br/>    The requested payment must be made within a specified time frame, otherwise the price may be increased, we will begin to publish the data we have about your company and notify the company's customers and suppliers.\r<br/>    Charitable, non-profit, and medical institutions are only hacked if they have reputation gaps known from open sources or discovered in company data. However, this is only data extraction; live support systems are not affected.\r<br/>    Data is always destroyed after payment; we do not attack the same company twice.\r<br/>    Interesting fact: once, the total amount of claims against a breached company exceeded its entire capitalization. We know how to create trouble, though it is in our mutual interest to avoid it.\r<br/>    To make the data leak more valuable, the most important information is published in a separate folder for each company called “parsed” and is also published on darkweb forums.",
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "genesis6ixpb5mcy4kudybtw5op2wqlrkocfogbnenz3c647ibqixiad.onion",
+        "title": "GENESIS",
+        "available": true,
+        "updated": "2026-09-16 11:01:03.545",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Bernath & Rosenberg",
+        "discovered": "2026-09-15T00:40:01.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/90ce0b64cdc3c528b622/"
+      },
+      {
+        "victim": "Dorfman Abrams Music, P.C",
+        "discovered": "2026-09-15T00:40:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/3c7a776e71fb1643bb07/"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/genesis",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "globalsecretgroup": {
+    "slug": "globalsecretgroup",
+    "name": "global secret group",
+    "victims_7d": 4,
+    "victims_total": 50,
+    "last_seen": "2026-09-11T00:43:25.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 6,
+    "up_mirrors": 1,
+    "has_profile": true,
+    "blurb": "4 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "o5lsqyar7ox25z734k6zaxt2vf7bsyi4q5rturi5iyxzqo3ica7bjsad.onion",
+        "title": "Home — Global Secret Group",
+        "available": false,
+        "updated": "2026-09-16 08:02:32.699",
+        "version": 3
+      },
+      {
+        "fqdn": "ee2iit5piqlarwz3kxm6ctkpbpt2olsxadq7lclqwnhlzaafamfbpiid.onion",
+        "title": "Home — Global Secret Group",
+        "available": false,
+        "updated": "2026-09-15 22:30:06.327",
+        "version": 3
+      },
+      {
+        "fqdn": "dcjy5n3qqnk4lbpwoxh7xgki6lym23jdjsjlkhcw63gbh4jl7r4bukqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 08:37:48.253",
+        "version": 3
+      },
+      {
+        "fqdn": "b5gozwifyvy5bhys3bsiq5tedhpot345udggjyb54fsjd2m7nteftkad.onion",
+        "title": "Home — Global Secret Group",
+        "available": false,
+        "updated": "2026-09-15 21:17:19.152",
+        "version": 0
+      },
+      {
+        "fqdn": "hnkclceyxgwa2g5fxvvu37bvpejqhpup5vlybxfx45h6xloyjnvxuuyd.onion",
+        "title": "Home — Global Secret Group",
+        "available": false,
+        "updated": "2026-09-15 23:27:12.258",
+        "version": 3
+      },
+      {
+        "fqdn": "3u2h3ingiz45yyiplgbuflp6jex4xd2wtubvgjdg44nlgllrjv6qxxid.onion",
+        "title": "Home — Global Secret Group",
+        "available": true,
+        "updated": "2026-09-16 11:02:30.394",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "CO-OP URBAN BANK LTD",
+        "discovered": "2026-09-11T00:43:25.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/mEMbPCoMYCBhYvwy/"
+      },
+      {
+        "victim": "Mesan USA",
+        "discovered": "2026-09-10T08:36:41.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/SyR7gg8M68RCbyjA/"
+      },
+      {
+        "victim": "Quality Resource Pvt",
+        "discovered": "2026-09-02T00:42:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/8tEkAvb4TaoYSH37/"
+      },
+      {
+        "victim": "R L Fine Chem Pvt. Ltd.",
+        "discovered": "2026-08-31T20:29:51.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/project/b6CUZMNZV4BJUiGi/"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/global%20secret%20group",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "interlock": {
+    "slug": "interlock",
+    "name": "interlock",
+    "victims_7d": 4,
+    "victims_total": 130,
+    "last_seen": "2026-09-15T20:33:22.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 183,
+    "up_mirrors": 11,
+    "has_profile": true,
+    "blurb": "4 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "ebhmkoohccl45qesdbvrjqtyro2hmhkmh6vkyfyjjzfllm3ix72aqaid.onion",
+        "title": "Interlock",
+        "available": true,
+        "updated": "2026-09-16 11:06:13.791",
+        "version": 3
+      },
+      {
+        "fqdn": "ebhmkoohccl45qesdbvrjqtyro2hmhkmh6vkyfyjjzfllm3ix72aqaid.onion",
+        "title": "Interlock",
+        "available": false,
+        "updated": "2026-09-16 08:02:09.574",
+        "version": 3
+      },
+      {
+        "fqdn": "zmqolc6yrdgn24w7eaaf4pfm235x65zbeggr4byk7og3crhcwn7sqeyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-03 12:05:01.316",
+        "version": 3
+      },
+      {
+        "fqdn": "4awnzgndu5u3bb6vne2vixizdftkc4mdlz45lnrhjgelzm5ujywxmuqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-03 12:17:15.155",
+        "version": 3
+      },
+      {
+        "fqdn": "hp4fxytyky26q3kpgqlhewhrazaag5wg4jsaiwxlv3lkd7r7rmsamqyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-03 12:18:37.306",
+        "version": 3
+      },
+      {
+        "fqdn": "soqdfmnocwg47ixineyzlhyem5tx3fju4hadydwob7fk4oyldxhju4ad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-04 01:05:52.034",
+        "version": 3
+      },
+      {
+        "fqdn": "sya5wcoyib7rozq6cjrdmrrunucqehkuzxs6rkrkffukkn5urq6bv7yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-03 12:06:32.557",
+        "version": 3
+      },
+      {
+        "fqdn": "4ep4zkhqqg3kihqlbpsppld4qvg7c7llotilezqr6evbazqbmcwu6fyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-03 12:14:12.685",
+        "version": 3
+      },
+      {
+        "fqdn": "hsthebgwlp6xxnhgmvmgukyzxuyaqkx5uqncg56wib7byonddo5k6myd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-04 01:11:02.756",
+        "version": 3
+      },
+      {
+        "fqdn": "z7yjie5fejolxvscc3lralybnhynajewnqinjfdasoqa2mt2ixjnelqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-03 12:14:43.741",
+        "version": 3
+      },
+      {
+        "fqdn": "ebhmkoohccl45qesdbvrjqtyro2hmhkmh6vkyfyjjzfllm3ix72aqaid.onion",
+        "title": "Interlock",
+        "available": false,
+        "updated": "2026-09-16 10:19:09.928",
+        "version": 3
+      },
+      {
+        "fqdn": "53pkw34sr5aohkkpg4w3nz4wpsqod5mxdqer3hijrz2btv2pe3vncgad.onion",
+        "title": "Index of /",
+        "available": false,
+        "updated": "2025-04-03 12:04:31.213",
+        "version": 3
+      },
+      {
+        "fqdn": "74yeft3x7wvqnscbzfdljnvnmflnlib2b6mhu6a3arc3vvpi4qbrt2qd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-12-11 09:53:57.909868",
+        "version": 3
+      },
+      {
+        "fqdn": "7baltffgfltbjh26fd62h2ieeomdcpro44xwkdqipbn5dtuklgkigkyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-12-11 09:54:05.195143",
+        "version": 3
+      },
+      {
+        "fqdn": "fkdhvlseh3xyeugsu54frnui62zjrfpeb2v5rm44b53iopcr3h4flxyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-03 12:02:38.009",
+        "version": 3
+      },
+      {
+        "fqdn": "hmrr2zllzzxxrdqi5ktjflpga4skdnxm4wvzgkkl72apofvczmsno2ad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-04 01:07:00.123",
+        "version": 3
+      },
+      {
+        "fqdn": "hvhidyqcyj4dozqdxuongpcs2yffjs2ojhazrncqi5cr4hhx3ljopiqd.onion",
+        "title": "Index of /",
+        "available": false,
+        "updated": "2025-04-03 12:13:03.594",
+        "version": 3
+      },
+      {
+        "fqdn": "sjd7ssbiptl62jktrwc5yffsh4llljx7hswfltnfkttq47gdjlpknxid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2025-04-03 00:16:38.603",
+        "version": 3
+      },
+      {
+        "fqdn": "zmdmlidqqrxbkyqkqttbsbticjbofjs5uzwecqvdxfadvsjw7mp5kjyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-12-11 09:54:47.853530",
+        "version": 3
+      },
+      {
+        "fqdn": "tyrvuuh5tvrvk4x6lfxrvgabqmzpnxehelmdqztu3vekujcknvl2ufad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-03 20:17:00.388",
+        "version": 3
+      },
+      {
+        "fqdn": "k5pmfzuqwxr2uhnskktjicbnzr633zejupe54yginljj3mgoysfwe4id.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-04 01:04:45.111",
+        "version": 3
+      },
+      {
+        "fqdn": "65bhkrfbqnfjgcsr7456luzjauw5nikuwxradlysivy5wbttjikdhxid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-04 02:01:46.632",
+        "version": 3
+      },
+      {
+        "fqdn": "k6oor2g5bfvdxhxr2g6fczu3iqldbzyavydk56lh6z7ex7n7wqg4eryd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-20 10:00:08.251",
+        "version": 3
+      },
+      {
+        "fqdn": "tpwgxrocjvlonhrfjm4jx3dore2u4brxfj4ikt7iba36c23svthhf7ad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-04 01:04:02.125",
+        "version": 3
+      },
+      {
+        "fqdn": "7hhhjnxeps222bydmavgawgw5mzkdnduuzifpobycjwsdryix2szlnqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-03-12 18:00:07.612",
+        "version": 3
+      },
+      {
+        "fqdn": "ljurl2gqwtgfqzk6pkz5ggtdrdrpzpzzkdvf4jhpkk33dnwkcsmdi4ad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2025-09-20 10:04:12.628",
+        "version": 3
+      },
+      {
+        "fqdn": "hhmbi4q4sy7m7oyfrpjkxparnrrwijna3ncucu3vwc24v7xhjvst7nqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-08-29 01:00:13.318",
+        "version": 3
+      },
+      {
+        "fqdn": "gmgcrvr2piu5wl7eh7vuw3cyrunksox5d4zhvdkgd3kbnwbgvrglkjad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-08-29 01:02:55.846",
+        "version": 3
+      },
+      {
+        "fqdn": "5mk7t3hpdjei4ezymeog3kfsjmfxghvwr5ekerdilitafolstou5vpid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-08-29 00:13:28.107",
+        "version": 3
+      },
+      {
+        "fqdn": "gxtrbmin7uses7lo6ryg6zdik6pevsjhk42zzlos7dbwpsfrqd6osjad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-08-29 00:18:14.268",
+        "version": 3
+      },
+      {
+        "fqdn": "5f7erlowczufe5cntt37ljhibswckyyxj4wrtuepdyygvooozkqpciid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-19 02:00:06.600",
+        "version": 3
+      },
+      {
+        "fqdn": "e762chqol5savlrfqljepxwtozrxxwarkuyhqps2n34tm3rliff4beqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:23:55.525",
+        "version": 3
+      },
+      {
+        "fqdn": "k5nuvkinhjd3nf75zb452xl5oxtdhg4hucmui5n72fou3frw6e25v5id.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-08-29 02:00:53.362",
+        "version": 3
+      },
+      {
+        "fqdn": "ad7tx2oyln5g6yk7turvhjxhqvunfucuiq5iwzc5odlomft7tvysxvqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:10:31.614",
+        "version": 3
+      },
+      {
+        "fqdn": "z6xr75yrgbry3a7zxc734sac2u6libikshm2j5tsbrh5geq7ilik3nad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-19 01:14:06.310",
+        "version": 3
+      },
+      {
+        "fqdn": "xbgiykmt3v25qkspndphfdktiezfeesq6t45ewsrizid5s37ljgs25ad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:01:16.431",
+        "version": 3
+      },
+      {
+        "fqdn": "523gzulwswe5tfevqlrxvqqh2fxo2mwrs2irnjel4mtu7qodgdu2ccyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:28:45.943",
+        "version": 3
+      },
+      {
+        "fqdn": "yp7yctliltdy3mdrdd2lfvcjx2xgcxrbvycje47jn6fbceurgznnapqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:01:38.682",
+        "version": 3
+      },
+      {
+        "fqdn": "6mwjyc64rnkht3qc4bv7svpufmbvm3k73vekxgdlsbqzx5toueq3ndyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:08:37.648",
+        "version": 3
+      },
+      {
+        "fqdn": "ivaoowg6juugqyn4tfpt2ilmwx3ea47c6ijxwlvgvrc6pemuwdywn6yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:09:38.755",
+        "version": 3
+      },
+      {
+        "fqdn": "5eyzyzb6boe4dud4pwcuyigd54k262xf53z6zqkxs6gyzcfhoj2utcqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-07-09 00:02:18.807",
+        "version": 3
+      },
+      {
+        "fqdn": "ernx4wj3gzhlqxhlrsrsfxe3hd275uny7w3yorhbgwp7jlsxv23rolqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:03:43.166",
+        "version": 3
+      },
+      {
+        "fqdn": "3zzis52fvjbhoo2i5gyrmoeofqdr3m45jyvltuamxzktt77grsuczxid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:24:40.772",
+        "version": 3
+      },
+      {
+        "fqdn": "6476eeaclqfjhnlusdwcui7i5mqxmo6i4evxi7jhqxemx2s6rtucxead.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:22:00.329",
+        "version": 3
+      },
+      {
+        "fqdn": "cbmeu74emtvhqr7cwbq4aaui4qw4f2kui674fuoeowwd6oem33bzf7yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:10:24.154",
+        "version": 3
+      },
+      {
+        "fqdn": "iwdzb7nnphh2rffdygryptldmr5ip3lk6dejfwn6qlbtvyipqxzbwdyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:05:03.308",
+        "version": 3
+      },
+      {
+        "fqdn": "vdo2l4ujgxfcucbhnzdd4745sbbd2vnnkj4csyf5blds2qomguubx5yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 19:22:07.225",
+        "version": 3
+      },
+      {
+        "fqdn": "gd2cx4zvobqui6ssbbroferiv6oxlqyyy447aqpp2socxvvdu5rooyid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:14:27.669",
+        "version": 3
+      },
+      {
+        "fqdn": "af2o3nw2txv3u2vfwntytytw73cgplcsaf7zccrg3xxcwzapu3sgydad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-07-08 21:08:24.925",
+        "version": 3
+      },
+      {
+        "fqdn": "key55aknlvgxs57kapodjw55ww23ryxbwfgwki5334gs5ok73wntdmyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-07-09 00:12:05.297",
+        "version": 3
+      },
+      {
+        "fqdn": "5hiynrduugrjbzxluostnxmitaer62obvfyrfxnqkdeog2ejpxhzuqid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:01:14.033",
+        "version": 3
+      },
+      {
+        "fqdn": "zdn5uv663oiffbrloxalsdl4v3lg73elrnuso47rbuavu6bmhqvd2wqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:05:39.566",
+        "version": 3
+      },
+      {
+        "fqdn": "63dxcqyjooi55s2x25aqsvrykywmmaaoxj4kc23kdboyxyng2zqtkbyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-07-09 00:06:05.544",
+        "version": 3
+      },
+      {
+        "fqdn": "rqkmahiz55v6bgogfgyni5h7v4sq3bgayycpa6u4c7if7kpvrylcrmad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-07-09 00:08:37.728",
+        "version": 3
+      },
+      {
+        "fqdn": "fe3klmmbb7upoybd45ayjkxebqxaxukleu2w56kgo67rcnrxlalrxdad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-07-09 00:07:28.601",
+        "version": 3
+      },
+      {
+        "fqdn": "nz5rdh2alikmxiyojqx52yhzxdqfty3jwtvcybqajxrkbtsk36jy4aqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 11:13:50.403",
+        "version": 3
+      },
+      {
+        "fqdn": "u2qvcxl65guk4lxi2lyxq5zwlgnq7ojahihr4ipl7a3wcui6pvff7dyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:03:57.089",
+        "version": 3
+      },
+      {
+        "fqdn": "lbqgjosup47uopyrlvbylzixcp7l5rsrxcdv3y4vy23cczcftsr6imad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:29:45.138",
+        "version": 3
+      },
+      {
+        "fqdn": "bt52afulf6zsk3xhzceam6ukipw2wrzpfsizlizdcootn5bc4ewzr7ad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:12:06.230",
+        "version": 3
+      },
+      {
+        "fqdn": "ir3oqafizlapipdyrebrfuk5bxd56zqjemljvfkeb42nzpxvkxwmqpqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:10:57.640",
+        "version": 3
+      },
+      {
+        "fqdn": "vdnoyjrxieoikuqu3rpathtejvgl4xc6laihepyoyhw7tmuyxxhtvrqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 12:07:53.706",
+        "version": 3
+      },
+      {
+        "fqdn": "xqcx7b57dd5vrqllokebwuvub4hk3viktn4lsgyt2bg67oujd42xolqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 11:12:20.637",
+        "version": 3
+      },
+      {
+        "fqdn": "dnyyuk3nevegj37tnv3xav57c5twomc7uqsfbjlkwto3p4spzfop47qd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 11:13:55.966",
+        "version": 3
+      },
+      {
+        "fqdn": "c4xaaynebochyp6ccvxi2bzbvncosdhqcb65cjuqwgqcljlul5gbrhyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 11:01:47.782",
+        "version": 3
+      },
+      {
+        "fqdn": "6oqw2koek4nbmbb7ic3y4jr6scqsypg5en4h6mcqyrgg3jkny4sgaiyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 11:17:46.768",
+        "version": 3
+      },
+      {
+        "fqdn": "b5yuydwoxorp2qvirovzavbhpj72lcisv5unwblohkb6443u7m2mzuad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 11:11:29.580",
+        "version": 3
+      },
+      {
+        "fqdn": "ph2ilpfayyumhbetpdu6zovwy4vvm7qz3puh7k4zbre7bsf4e4ym5lqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 05:06:58.385",
+        "version": 3
+      },
+      {
+        "fqdn": "4k6hj4ash2oo5svymxxrsycex3mdv5dqzom5rlyoojpe6map2lqgmqad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-09-11 11:06:11.624",
+        "version": 3
+      },
+      {
+        "fqdn": "y3zfr23ubg7zvzdlo2incm55ro2ybtmzth67eklxpxo55aux2jiqpbid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:24:47.438",
+        "version": 3
+      },
+      {
+        "fqdn": "soyjfzmmhadt7v4xugqhhl55kiebrjprjypwwbcun5nehmdabquumiqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:19:46.423",
+        "version": 3
+      },
+      {
+        "fqdn": "sexquqf4dcwtgv2spjguu4msvawaxrmlmjfiyciuthhtjmwim7i6b4id.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:11:21.555",
+        "version": 3
+      },
+      {
+        "fqdn": "vubcpscmz2hveptwsv3voi6l3blgior6jk4kxe5zwnz23siofqwvw7yd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:06:13.025",
+        "version": 3
+      },
+      {
+        "fqdn": "hm5c4dgtsiieuxnbaieinkokhcwryspk5xzqknm53ocahyxaddlfwsad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:02:29.983",
+        "version": 3
+      },
+      {
+        "fqdn": "if6cf3llwqht3bs2glotrlsj4ayowc4pipadzbf7bkztln5ykifkjpyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:36:30.169",
+        "version": 3
+      },
+      {
+        "fqdn": "mt6vixiaaupvpbqfft6r7kyvumlpiim5k4j26j2mpvoskar4keanuhad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:11:39.822",
+        "version": 3
+      },
+      {
+        "fqdn": "dzdzs6kv75adyeowpztwaih5t3fuwtccgdgvdv3mmhkh2lbxuznaldyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:36:49.109",
+        "version": 3
+      },
+      {
+        "fqdn": "yzyeh2yjj3ku7lgricfbg7vbhc4fy3s6icoccb7272tsoz3pggrek7qd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:25:06.574",
+        "version": 3
+      },
+      {
+        "fqdn": "2yhjemwks5pkrev5mzwo6cgfqvz2xnrvka2nxursjadn26p3o2k64ryd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:02:10.639",
+        "version": 3
+      },
+      {
+        "fqdn": "5nfm2urc2cwnr6ydie2airqozhggno3dagswnndb4efh4d4w7adapcid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:12:46.919",
+        "version": 3
+      },
+      {
+        "fqdn": "smfqmccqa5go2vm4ern426rcc2med7einerpt5unpv5zr222fwmz6jid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:09:51.254",
+        "version": 3
+      },
+      {
+        "fqdn": "dnwvgf7jzohu4exrokw4wphxtd77wueiswgvtgzhqihvituzzjw4coyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:11:20.172",
+        "version": 3
+      },
+      {
+        "fqdn": "4e44wmx75wmu4s4w362udyi62shlwf4i3svoqyarnnwcnnbs5x45h4yd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 13:33:54.206",
+        "version": 3
+      },
+      {
+        "fqdn": "a6lkcqjlxnlnik2h2dy747mnhz6vlnpzwdgy3k64zmbhu7h4l5xdq6yd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:28:44.176",
+        "version": 3
+      },
+      {
+        "fqdn": "ff3sx2vy5bpyiso756gndde6bt7i2diqzlwz5augagvkyykevy4326qd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:07:16.603",
+        "version": 3
+      },
+      {
+        "fqdn": "c2ru4ewkanyqud25xp3i4jctkw3pdmo4kosceyzwzwx6dfkj43oqq6id.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 15:08:42.724",
+        "version": 3
+      },
+      {
+        "fqdn": "socqxduah5lbzgyuhg2qn5nikufg2taerdjzxx3scwxbng2haw4nyiid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:36:27.044",
+        "version": 3
+      },
+      {
+        "fqdn": "rz7tnory6tdtd6jtyav7giryrvitrzryt36qjpb3fznoy6qbo44i3yqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:09:06.119",
+        "version": 3
+      },
+      {
+        "fqdn": "jqtid6srueyxf6vwllcjdqip34usp2pulacs32wdo3moayl7r7mexjid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:06:58.360",
+        "version": 3
+      },
+      {
+        "fqdn": "qj7qf42blj4a26uf5irazkxbivtutvg4vgkd4zbzbtu4nkipwkdtcsid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:04:10.834",
+        "version": 3
+      },
+      {
+        "fqdn": "r6bldqhpune45yj6eeafxmrhszjzgijtoxgw256zpe44tqnj5popbaqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 15:09:30.489",
+        "version": 3
+      },
+      {
+        "fqdn": "tb7u2kklhck3j4wlf7d32p5s7dbiear34rew4dpebljyl3xomkce4yyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 19:00:21.718",
+        "version": 3
+      },
+      {
+        "fqdn": "xg6f26wud5ah7dirviynwjd2r6ue6d2qgxur6lhva4heh4od26cnqmid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:32:23.787",
+        "version": 3
+      },
+      {
+        "fqdn": "nfx5jpjpyzshisp2kerg23h5vyckzca7nt7psfbp7oo5jlfbbbqthtad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-01-17 20:24:34.318",
+        "version": 3
+      },
+      {
+        "fqdn": "v64ygsm7lhc6atz5tbm2xubb5qxzt22abdkceanirbavjqvkximxbeyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 11:04:12.703",
+        "version": 3
+      },
+      {
+        "fqdn": "mdwmuf62db2xmuwsfdfsu54dek5amtuig74rvhvgyysh3tbjocq72pqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 12:17:13.060",
+        "version": 3
+      },
+      {
+        "fqdn": "pqb54aeitnoiikcsourdmnpawuk55pa7w3a37dyyii2yrqh2nrx6qfid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:07:36.253",
+        "version": 3
+      },
+      {
+        "fqdn": "zwvr7nt32hari3532hmqp6eh65ajiytpqjn6iyfby3relsnebdhurcyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:32:44.219",
+        "version": 3
+      },
+      {
+        "fqdn": "vnka63n2nkyrsiigq5mvvvum6ch6czbb4liumk2gvicw5pts3a2ffwyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:02:15.412",
+        "version": 3
+      },
+      {
+        "fqdn": "kjmofzzu4mhhuprggcdfex2zdgzwrtkn6d4ead7zgfh36vjrm56zskad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:00:15.142",
+        "version": 3
+      },
+      {
+        "fqdn": "4uc4rp7p6u4qsizcjpiyif4r5jxt54rejvs2qcljtnqfogiovtpfdpyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:22:40.533",
+        "version": 3
+      },
+      {
+        "fqdn": "77tolkryntdehobn6ewnykd3cdbd5vkaf7v4mbycwnlykxxv6holl4id.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:19:08.023",
+        "version": 3
+      },
+      {
+        "fqdn": "bb2cul7lhepsndibwkjn2ngabetiwtisx3ctcrdq5hpr54oqu66vjeqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 12:27:37.205",
+        "version": 3
+      },
+      {
+        "fqdn": "zgqemwdpqhfcykdanocr3ietnribz66mvot7xjbjc3flz7x577los4yd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 12:14:35.738",
+        "version": 3
+      },
+      {
+        "fqdn": "of5rslzmymbsdny4iyq23xp476s5i4wgxnq3dkasq4ttorpk4isf4bqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 12:25:44.557",
+        "version": 3
+      },
+      {
+        "fqdn": "ojzzeir4smqznsfsrg6xu5vcpsx4z2ue7yfgk7zf3tiqe3cp65mxe7yd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 12:06:11.547",
+        "version": 3
+      },
+      {
+        "fqdn": "xkx3mnwnnq7pxv3n7aj73ks3ktsrd2cbizkdakh4kcwz4um3cqgb7lad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:16:02.906",
+        "version": 3
+      },
+      {
+        "fqdn": "2pkcf4khxmekivwcdaciw745cgwjzvmsubv5itijvwlgi6koesvsimyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:27:38.020",
+        "version": 3
+      },
+      {
+        "fqdn": "h3am4jted6s4r7ksbpdhlh7576oyfqrg5vz6ekgjqxt23gbnnwqj3uid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:23:17.648",
+        "version": 3
+      },
+      {
+        "fqdn": "u4d4ep4azlkdl3yexoe3dqdod4be3coupi6ksvdjhvisyx5imeec2nqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 12:05:55.565",
+        "version": 3
+      },
+      {
+        "fqdn": "zvcj6cc6qs3zxk25uq4wq22cxu7gwu5zsevn7jdizinoomem34vmvbid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:20:32.918",
+        "version": 3
+      },
+      {
+        "fqdn": "cavpp4bldfjrk42bb3ter532fnfp3qjtnizn7xh62b3j3zat6jmuluqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 15:02:57.650",
+        "version": 3
+      },
+      {
+        "fqdn": "sv3tk3wcdkwednk5rxpz5ejxe4n2cvwx62rct66qjaukkpmpuovgwhid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 13:13:10.967",
+        "version": 3
+      },
+      {
+        "fqdn": "siveyggnpoei2ehkmov6jri265tlaeyxfvlqnwrsgawgwmia44pmvcqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-04-30 12:29:49.089",
+        "version": 3
+      },
+      {
+        "fqdn": "si5km7k55oggbea5xwls3bbypmsmuaamr3ejttmjnodcb3v4r766uzid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-05-06 14:33:47.799",
+        "version": 3
+      },
+      {
+        "fqdn": "sogw6fz6swsg42esmor63wj3iijpmoydt7sizwgzf2k6na6nglqt52ad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-05 18:22:47.390",
+        "version": 3
+      },
+      {
+        "fqdn": "5s2rv76limdt3eelmoh2vw6xovckjl563tjdifplvyxezdchcyn5xxyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:35:10.983",
+        "version": 3
+      },
+      {
+        "fqdn": "u2q76zahlrpgvktr3i2j6o2emzcre67et2kvz43kj2gbrhokc2othqyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:32:44.495",
+        "version": 3
+      },
+      {
+        "fqdn": "vecdwhichsjnv3x7t5b4o2hk23iwjurmcp2wrwd25jp3smvsth6e6nid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:13:33.515",
+        "version": 3
+      },
+      {
+        "fqdn": "ycgykop5f4te6yaptg57ze75kgnqo6u2e3yyeo3hkjgjxakjx2g5ksqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:36:32.962",
+        "version": 3
+      },
+      {
+        "fqdn": "viqh6qmehdkpn7jrfhthyejxtg3gd5hg4bch7sjetvkdaipeu3k6anad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:21:35.091",
+        "version": 3
+      },
+      {
+        "fqdn": "d55ahmrs2mbfcmframropdz4epz3is77ex2fbkbowhrqtxv7knunkxqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:25:01.939",
+        "version": 3
+      },
+      {
+        "fqdn": "hhzt3me6rtxg5rwjbikojbxioosmiprsjrd25ovjhxirx4ocjdwuoqad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:14:13.469",
+        "version": 3
+      },
+      {
+        "fqdn": "glsvddrnd4qu56uhx65mrepgaoer6vtfr6q6qgsbpnml3b3fm2h7lcid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:12:41.359",
+        "version": 3
+      },
+      {
+        "fqdn": "pzbd27cw7pkctovnmfaoeldjf32bc63mwqwhcxcftkqntest2bkkuaid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:07:47.718",
+        "version": 3
+      },
+      {
+        "fqdn": "wp5yyng6znkcsijil5w4bug7b6uww573ut3czz3amjpfdusnuu4u5kad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:11:12.205",
+        "version": 3
+      },
+      {
+        "fqdn": "6rv6jkdw762q7md7ryqi2ooqmv54ajlnevxl4ozgdvo7p6e2msndyxid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:08:13.595",
+        "version": 3
+      },
+      {
+        "fqdn": "f4fjja74gn766x5fwxqepl4aa7wyzuu3tj6fllt6oy6j5e27zxwskeid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:28:48.736",
+        "version": 3
+      },
+      {
+        "fqdn": "gobj3ph5sj332iithgescrsejiszhaey5l4ffwnou4nwanbcf37phdqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:17:04.225",
+        "version": 3
+      },
+      {
+        "fqdn": "zsjvoqymwx5gdwntsrrk3pvnkfyoxy3knhoxitpdaobxznwc5iwcj4id.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:12:51.240",
+        "version": 3
+      },
+      {
+        "fqdn": "vhs6omcvvqdtmgae5cvpy4jfxfrw2l4b7e64j7fn7xeaqeppzab67oad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:13:37.370",
+        "version": 3
+      },
+      {
+        "fqdn": "mpyeixjqjufjki2qg7dutvxk6tjjzv2jf7qc63bljzfqrtbjcdktziqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:33:53.051",
+        "version": 3
+      },
+      {
+        "fqdn": "qfxx5gxyh53a32itguxez6dqcsm3vkrron3nmxhzkn3g64qld5lijoyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:01:20.281",
+        "version": 3
+      },
+      {
+        "fqdn": "24nmjyf6g5otaydjtintzmqv3qme3fnrt62ui2anqdz2hmxnwps4e2ad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:32:59.198",
+        "version": 3
+      },
+      {
+        "fqdn": "3y5p4cq7bke5exre4smsgueqzfwdy7u4z3rp7o3dgxm27lhsx6vqraid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:17:13.780",
+        "version": 3
+      },
+      {
+        "fqdn": "x6obl6pfmqsasvwj72hr22s2mpsdaklwkoa46zk3h7kbkcznu6whdmad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:17:50.054",
+        "version": 3
+      },
+      {
+        "fqdn": "fbvrolfvadyhigunc5hfw5hextwqn4lvq7d5ieeivcizsxh3avn6dryd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:06:25.370",
+        "version": 3
+      },
+      {
+        "fqdn": "f53mekzwvscxejfqxtikrzcmqnd3bt5i4d7odvh62sir7eqhdwwjntad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 05:00:09.334",
+        "version": 3
+      },
+      {
+        "fqdn": "c7bgta4watnqu64jnfgp4tzvhfhxgwveqnes65q3mcu4f34xvn7rumad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:16:41.917",
+        "version": 3
+      },
+      {
+        "fqdn": "efgmr2vxwynrn7vlemidwf4ffwl4vljsb4eusaz3bplwk3apthpkpsad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:15:37.028",
+        "version": 3
+      },
+      {
+        "fqdn": "pgjf3dfkamnprahggbw4yojyb7sot3no2glnbfwyzbzqbnaislpv52yd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:31:57.471",
+        "version": 3
+      },
+      {
+        "fqdn": "x2ol75zago3z2nrp7lnmbcwoq3okiexuwi456oe6jqurbprg6lljz3yd.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:05:17.014",
+        "version": 3
+      },
+      {
+        "fqdn": "hu5zd7ek6glyoke5kfc4mvt6s3cmia6ebtqptumvbogzdo2vrn5e7bid.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:29:12.296",
+        "version": 3
+      },
+      {
+        "fqdn": "hz7krqig75lgdzl7rtxynw26m3vornjl24ikeyqb5vagbae2iectorqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:34:57.341",
+        "version": 3
+      },
+      {
+        "fqdn": "3ssy6kepkwajapmra262il4tnufgbujf2boz7odgigc3e46dzdqd6wad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:15:06.645",
+        "version": 3
+      },
+      {
+        "fqdn": "2tlkuy2qn7bfxyvbfpxqaqveoezctbrnk6yvbvin6dueiuk4rdoosyqd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:00:25.164",
+        "version": 3
+      },
+      {
+        "fqdn": "ihbpu7nworzao2klqeeahnz7wcuavltny3p2cmfkhe5tko3vl3zcowyd.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-09 18:34:20.151",
+        "version": 3
+      },
+      {
+        "fqdn": "eeguyk3ypl4afd4hqjg6hsb2wq2lg6wdesdbmdglrmnpx3qhnxuacbad.onion",
+        "title": "404 Not Found",
+        "available": false,
+        "updated": "2026-06-15 18:03:46.248",
+        "version": 3
+      },
+      {
+        "fqdn": "pal3f65j4qj7b2hz2mlmimu4vhl4wz7sfdlvp3g2ry3qwk5nc6pbakid.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:00:09.631",
+        "version": 3
+      },
+      {
+        "fqdn": "nh2kwgilfzi5mngiiqtcuoueh2oy4dkjq5cnfnjymueoj654fi7qtpid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:00:10.219",
+        "version": 3
+      },
+      {
+        "fqdn": "ixybueqla5otlp5qfud5bcri2qoyxxhujwtrae5dkxnuo2eof3oliiyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:00:10.308",
+        "version": 3
+      },
+      {
+        "fqdn": "awlcpawkphkrrhg6jhwoz5nnrhzz5kfwq2tuzmteyrosgfcpbkisarqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 08:02:07.215",
+        "version": 3
+      },
+      {
+        "fqdn": "pcixe2pw5ho6qpkjwbrsscvdcpzfj7vt3stvyde5ii5wdlqgvtyr4vad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 08:01:17.439",
+        "version": 3
+      },
+      {
+        "fqdn": "k6aw4if6phmqcdp5wzfdjfb3plmybzpkcssmgvv5nltv23tndvh4ewid.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:00:09.720",
+        "version": 3
+      },
+      {
+        "fqdn": "ex55if4jgsdyi6do4gtyzpishq2tvwatjrhoclqcihxcsipam3uxrryd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 06:01:44.941",
+        "version": 3
+      },
+      {
+        "fqdn": "3cpc3v57l7rstjtaelxgnlrzsolz7pd6ltsygjo2tjuonxteyaba2pid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 04:00:09.772",
+        "version": 3
+      },
+      {
+        "fqdn": "efs3fkrjyvqsk7nugzteelo5i5jxoch5ziqhf37dzmmlmzzlymhawmid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 09:00:09.183",
+        "version": 3
+      },
+      {
+        "fqdn": "6dzghkscfds7uege2auedn7chtni7c3op6mlwfxeufzph7yebudeyxqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:00:10.248",
+        "version": 3
+      },
+      {
+        "fqdn": "qh3dfeepsedjcointe2p3wmfrm7rvmpkc5cske726r5hzwm7g2daxzad.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:03:29.650",
+        "version": 3
+      },
+      {
+        "fqdn": "3iw4b5sjfvttxp4m23vouzirdjfcnteztz6louulc7qzzzmxdevlarad.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:04:56.175",
+        "version": 3
+      },
+      {
+        "fqdn": "adx22qbq6sqqtxhhkan2ohzvf7xzrqhqxmgqxnrr2qgzdmntmw2turqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 05:03:16.291",
+        "version": 3
+      },
+      {
+        "fqdn": "zouuiplz37jxpu75gjdh73rlrgfsspjmq6s5366r3lw3s2re64wlaiyd.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:02:24.368",
+        "version": 3
+      },
+      {
+        "fqdn": "q5st6sooi4b6puqs7bahmqmep3ct4o3tei5eqwoo7sos46gqzqmdrmqd.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:03:16.037",
+        "version": 3
+      },
+      {
+        "fqdn": "4lippfsmsdhcv5z7w57gpimjaxbbrvd6rlsebaxn44mwwd7ck2vik3yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 04:26:41.197",
+        "version": 3
+      },
+      {
+        "fqdn": "3xv4xxg2ljqvj3wcyzogktfmdusvusqdkapi476k3prt2q7basoejjid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 05:04:02.132",
+        "version": 3
+      },
+      {
+        "fqdn": "ccnneb7ydlbepaxzeqpztmtu74lklmwhcayo3wf4wlgexz7hfkmdplqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 08:01:09.732",
+        "version": 3
+      },
+      {
+        "fqdn": "3co4y4cmh7c2wxuo5q3df3pzstqe3p4d6dbgiku6ulbsvjjqvtnrmpad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:21:06.925",
+        "version": 3
+      },
+      {
+        "fqdn": "jkuznpm776w65vltha2khrr46rogu7a35ervkatn53ia46ao6bnsttid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 09:00:09.415",
+        "version": 3
+      },
+      {
+        "fqdn": "lt3zyc6nxy5lstx4ug3h6p5nisme2pizl2trdrfgvjjfu3qiebie67id.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 07:02:59.292",
+        "version": 3
+      },
+      {
+        "fqdn": "2aeo5xsw4bpus2k7nkbb3hbcq6omha55nf6b7t4ee2e72rawl7zs6tyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 09:00:09.506",
+        "version": 3
+      },
+      {
+        "fqdn": "bmec5qflyyin4jj4zd4mjsvad7jmnba7bogku47bdzipyn2ixbc6qbqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 02:00:09.794",
+        "version": 3
+      },
+      {
+        "fqdn": "moyaddrnerilo5hij4ipmawoueewraqqvohpxjhqa6pxc4xrinqvjtad.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:00:09.902",
+        "version": 3
+      },
+      {
+        "fqdn": "c2aekaij2khpuwifyeozvopddroh6odjnpu76i7vofb3reav6cqnyead.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 07:01:14.809",
+        "version": 3
+      },
+      {
+        "fqdn": "7y5shgihgmnmdw2w775ql4ehjou7ohcvodpqftvv7njbw7gquzzgypad.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:05:46.033",
+        "version": 3
+      },
+      {
+        "fqdn": "e7uwqmk5zxn7nbi2nidna4zxq5gbzrr3dlijo52gqawstm4uo2ry5qyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 08:04:41.319",
+        "version": 3
+      },
+      {
+        "fqdn": "6cc3dxzg7x6cdev6pqhguslywzwy736fqd5cvuofpvkbnixcnt6vv3id.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 07:02:13.385",
+        "version": 3
+      },
+      {
+        "fqdn": "b52ol5cbixgaqqfk5omdh7lol6spbtjujk7wmeqvqn6hqgxgg57hbayd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 05:00:09.722",
+        "version": 3
+      },
+      {
+        "fqdn": "jmpskyo5updruqhmzonlkgwylzzkjm6vc3275fqwvskm5ky4rsdrwkad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 06:03:16.760",
+        "version": 3
+      },
+      {
+        "fqdn": "cw3vtldn5uyvnxsqxyw4yp26di2stbjtaefdamogxj6shll5qhywhayd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 03:00:58.560",
+        "version": 3
+      },
+      {
+        "fqdn": "qd64buovx475ebnhgzfxkrw6acdjyh6xvcjrzs6dolm6vyrfrugjeeid.onion",
+        "title": "",
+        "available": true,
+        "updated": "2026-09-16 11:04:51.752",
+        "version": 3
+      },
+      {
+        "fqdn": "aclcin5dix2zxnravkhxmdn65z72s6fuz7kvfunvvzbk2vhcusbc4iqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:00:10.477",
+        "version": 3
+      },
+      {
+        "fqdn": "ujsgp44cddhfqhd332kbhe5g25ydsffdws7znd2kzub57qje6puxtaad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 10:19:49.878",
+        "version": 3
+      },
+      {
+        "fqdn": "dpzt5br7627qhzh2uumvgawf22nwdc2bqxzwwmxo44qsl6k4bqylgcyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 09:02:55.371",
+        "version": 3
+      },
+      {
+        "fqdn": "stqeg2wjdbt55cb2iwppgvxw4zzjht65ebh5o5jxg6j4d5cojh6ofayd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 07:00:10.424",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Springfield Public Schools",
+        "discovered": "2026-09-15T20:33:22.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://4xhhhpooioaz4cre2lmxowbxqvczotik4qqk7nh4wgtxripqj4urdzqd.onion/index.php?p="
+      },
+      {
+        "victim": "City of Fort Smith Arkansas",
+        "discovered": "2026-09-15T17:37:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://dcwatuq6kzwj5i2sx7f2cx5hud2ryo3cnm6n6j2r6am57qskfqvdpeqd.onion/index.php?p="
+      },
+      {
+        "victim": "NFM Lending",
+        "discovered": "2026-09-07T17:26:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://gpotnbhakwdnrcojjnr4msl3sl64a4gv2n4yizvmbsceiazpqq23s5yd.onion/index.php?p="
+      },
+      {
+        "victim": "Super Systems Inc",
+        "discovered": "2026-08-31T18:33:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://2nv4huuzjbsqncvuepdmwneo6l4ocgtxzcgdau7obcvaqebkssfpz2ad.onion/index.php?p="
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/interlock",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "play": {
+    "slug": "play",
+    "name": "play",
+    "victims_7d": 4,
+    "victims_total": 1320,
+    "last_seen": "2026-09-10T21:44:13.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 32,
+    "up_mirrors": 5,
+    "has_profile": true,
+    "blurb": "Ransomware <br/> <br/>",
+    "meta": "Ransomware\r<br/>\r<br/>",
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "mbrlkbtq5jonaqkurjwmxftytyn2ethqvbxfu4rgjbkkknndqwae6byd.onion",
+        "title": "PLAY NEWS",
+        "available": false,
+        "updated": "2026-05-09 21:10:24.185",
+        "version": 3
+      },
+      {
+        "fqdn": "k7kg3jqxang3wh7hnmaiokchk7qoebupfgoik6rha6mjpzwupwtj25yd.onion",
+        "title": "PLAY NEWS",
+        "available": false,
+        "updated": "2026-05-09 21:32:35.065",
+        "version": 3
+      },
+      {
+        "fqdn": "k7kg3jqzffsxe2z53jjx4goybvxu3a557kpsqakpwi6mrvfgcdo55tid.onion",
+        "title": "PLAY NEWS",
+        "available": false,
+        "updated": "2024-12-30 08:12:13.505",
+        "version": 3
+      },
+      {
+        "fqdn": "ipi4tiumgzjsym6pyuzrfqrtwskokxokqannmd6sa24shvr7x5kxdvqd.onion",
+        "title": "PLAY NEWS",
+        "available": true,
+        "updated": "2026-09-16 11:04:39.021",
+        "version": 3
+      },
+      {
+        "fqdn": "j75o7xvvsm4lpsjhkjvb4wl2q6ajegvabe6oswthuaubbykk4xkzgpid.onion",
+        "title": "PLAY NEWS",
+        "available": true,
+        "updated": "2026-09-16 11:01:13.208",
+        "version": 3
+      },
+      {
+        "fqdn": "zi34ocznt242jallttwvvhihrezjdzfgflf3uhdv6t3z23hhcn54efid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-02 22:16:15.264619",
+        "version": 3
+      },
+      {
+        "fqdn": "37wb3ygyb3r2vf2dt5o3ca62zlduuowvkkwjrtbcgc5iri4t6rnzr7yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-02 22:16:54.069480",
+        "version": 3
+      },
+      {
+        "fqdn": "eppsldmcnv3ylabsx5srvf36wnk6jrowg6x4unxclv55rnu4kf5436yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-02 22:18:21.434830",
+        "version": 3
+      },
+      {
+        "fqdn": "slg7tnjb65swwyaebnyymyvo73xm36hxwugdsps7cwcxicizyzyt2byd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-02 22:18:42.934114",
+        "version": 3
+      },
+      {
+        "fqdn": "x6zdxw6vt3gtpv35yqloydttvfvwyrju3opkmp4xejmlfxto7ahgnpyd.onion",
+        "title": "403 Forbidden",
+        "available": true,
+        "updated": "2026-09-16 11:00:50.314",
+        "version": 3
+      },
+      {
+        "fqdn": "eppsldmcnv3ylabsx5srvf36wnk6jrowg6x4unxclv55rnu4kf5436yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-02 22:20:08.753999",
+        "version": 3
+      },
+      {
+        "fqdn": "jnbiz5lp44ddg4u5rsr4yebbpxa3iytcsshgbqa4m6r6po5y57h6yxid.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-25 09:11:49.474",
+        "version": 3
+      },
+      {
+        "fqdn": "sm2gah7bjg6u2dfl3voiex6njh2kcuqqquvv7za37xokmbcivsgqcnad.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2024-11-01 15:00:18.771",
+        "version": 3
+      },
+      {
+        "fqdn": "z7u6dkys7b2aeibvklxga7mldzrepoauiuniqwfhdadkkwwgmv6bqhad.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2024-11-02 13:01:35.632",
+        "version": 3
+      },
+      {
+        "fqdn": "kri3lez34pbqra3xs5wxo55djldtsekol6tuqdjqecqzga6dpnjqruyd.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-25 09:39:49.929",
+        "version": 3
+      },
+      {
+        "fqdn": "iejj6bywviuecjwi3kxanzojqroe3j3phzgplvrdzcicimtcw6xgk3yd.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2024-11-02 03:01:50.665",
+        "version": 3
+      },
+      {
+        "fqdn": "xixkhm6inbg6t5642t2pjafsjsh3eaonpjysdcfvr3zvadlqb6nhryad.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-25 08:38:08.123",
+        "version": 3
+      },
+      {
+        "fqdn": "giix5r763sbxmu442tmwfb4thqbz4i5ppxcqsmnnlqnm2yiezv6epxqd.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-25 08:30:21.734",
+        "version": 3
+      },
+      {
+        "fqdn": "mokcrzbitq2gc5qcpxcbce43pawuthyaoazl6iz2xknj53ebyb4r4eid.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2024-11-02 18:00:45.207",
+        "version": 3
+      },
+      {
+        "fqdn": "gpph6awu7hqsmzmr5sihusjoscp3itwtk3b4i2chwspmka2ikuqcwaqd.onion",
+        "title": "403 Forbidden",
+        "available": false,
+        "updated": "2025-07-04 09:20:52.957",
+        "version": 3
+      },
+      {
+        "fqdn": "v3r6g4q3b2jpqusznecxexr5aqi42vy5ts6jy6fu3strecvb5c2woead.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-25 08:39:25.041",
+        "version": 3
+      },
+      {
+        "fqdn": "4xo3cicwo2rhpwr6vkgwt7mqg4oiqihsmoxwlmklf4sjoatkdqjtmcyd.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2024-11-02 15:03:18.567",
+        "version": 3
+      },
+      {
+        "fqdn": "a4gbdvoorwn3tcqijoedvdeukqaqwc6t2kx4gh3gm37gv4p37evvzqad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-02 23:10:39.249482",
+        "version": 3
+      },
+      {
+        "fqdn": "6jb5avmh6rvcb7vcux7kaivnzpqcrfg4ui4xv2co5vmspgrwll7lkkyd.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-16 14:12:59.869",
+        "version": 3
+      },
+      {
+        "fqdn": "doz7omlqqanryonvil4iuj65shzcv3efupqwubkza6553wnekrrd4uid.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-16 14:28:41.445",
+        "version": 3
+      },
+      {
+        "fqdn": "hbwsxlq3uzknabg2blt7d4mcbu24oriklji36zdqsz3ou3mf2d7bvoid.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-16 13:23:10.848",
+        "version": 3
+      },
+      {
+        "fqdn": "ysknyr5m5n3pwg4jnaqsytxea2thwsbca3qipi64vlep42flywx7dgqd.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-07-04 09:27:08.316",
+        "version": 3
+      },
+      {
+        "fqdn": "b3pzp6qwelgeygmzn6awkduym6s4gxh6htwxuxeydrziwzlx63zergyd.onion",
+        "title": "403 Forbidden",
+        "available": true,
+        "updated": "2026-09-16 11:03:42.516",
+        "version": 3
+      },
+      {
+        "fqdn": "p2qzf3rfvg4f74v2ambcnr6vniueucitbw6lyupkagsqejtuyak6qrid.onion",
+        "title": "403 Forbidden",
+        "available": true,
+        "updated": "2026-09-16 11:03:56.507",
+        "version": 3
+      },
+      {
+        "fqdn": "whfsjr35whjtrmmqqeqfxscfq564htdm427mjekic63737xscuayvkad.onion",
+        "title": "403 Forbidden",
+        "available": false,
+        "updated": "2026-08-13 07:17:18.522",
+        "version": 3
+      },
+      {
+        "fqdn": "v3zgtoh5etfeuvhtgdpiejle4mzy7gdvoygildytlxwoay6qvrkixfad.onion",
+        "title": "Welcome to nginx!",
+        "available": false,
+        "updated": "2025-02-15 01:03:49.843",
+        "version": 3
+      },
+      {
+        "fqdn": "75tkvxemb6zpyk3fbl3mwm32jklc2sdjacb3kazrioamopbfn2w2z5qd.onion",
+        "title": "PLAY FAQ",
+        "available": false,
+        "updated": "2026-05-09 21:02:18.344",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Sys-kool",
+        "discovered": "2026-09-10T21:44:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=yyncT2aFBiPDiv"
+      },
+      {
+        "victim": "Grunthal Welding & Supplies",
+        "discovered": "2026-09-10T21:44:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=JOeV4CADDG9te"
+      },
+      {
+        "victim": "Red Star Oil",
+        "discovered": "2026-09-09T02:41:09.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=URWl0S32MlBaOs"
+      },
+      {
+        "victim": "GT Distributors",
+        "discovered": "2026-09-09T02:41:07.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=uvrc17ZppDE4Jp"
+      },
+      {
+        "victim": "MEQ",
+        "discovered": "2026-08-31T16:32:06.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=hEIeYmkZgItUu"
+      },
+      {
+        "victim": "Figgins Family Wine Estates",
+        "discovered": "2026-08-31T16:32:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=UmJAWJS9K2lw"
+      },
+      {
+        "victim": "KRC Machine Tool Solutions",
+        "discovered": "2026-08-31T16:32:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=nRz8hNyblr2Aee"
+      },
+      {
+        "victim": "Meteor Group",
+        "discovered": "2026-08-31T16:32:02.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/topic.php?id=ERRbEvbLM2k5Ta"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/play",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "unsafe": {
+    "slug": "unsafe",
+    "name": "unsafe",
+    "victims_7d": 4,
+    "victims_total": 26,
+    "last_seen": "2026-09-14T21:49:34.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": false,
+    "mirrors": 1,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "4 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion",
+        "title": "UnSafe",
+        "available": false,
+        "updated": "2026-09-16 09:02:16.902",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "geekybunch.com",
+        "discovered": "2026-09-14T21:49:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion/reel/6aa843a2102e2455604e87b7?page=1"
+      },
+      {
+        "victim": "watchops.com",
+        "discovered": "2026-09-12T16:40:54.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion/reel/6aa53cbe102e2455604e8663?page=1"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/unsafe",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "vexy": {
+    "slug": "vexy",
+    "name": "vexy",
+    "victims_7d": 4,
+    "victims_total": 14,
+    "last_seen": "2026-09-15T21:36:00.000Z",
+    "origins": ["ransomlook"],
+    "online": false,
+    "mirrors": 1,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "4 victims in the last 7d across 1 tracker.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion",
+        "title": "Vexy Ransomware | Blog",
+        "available": false,
+        "updated": "2026-09-16 08:00:07.161",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Hashimoto Jimuki",
+        "discovered": "2026-09-15T21:36:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Strad Solutions",
+        "discovered": "2026-09-13T12:42:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "i2k2 Networks",
+        "discovered": "2026-09-10T23:43:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Logar Network Solutions",
+        "discovered": "2026-09-09T18:40:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "United Group",
+        "discovered": "2026-09-07T19:36:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "LIBRERIA SANTA FE A P S SRL",
+        "discovered": "2026-09-07T11:39:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Sancity",
+        "discovered": "2026-09-06T17:36:08.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "McDonalds Ecuador",
+        "discovered": "2026-09-06T14:40:59.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Mega Velocity",
+        "discovered": "2026-09-06T02:38:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Sancity Soft Touch",
+        "discovered": "2026-09-04T18:33:05.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/vexy",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "ransomhouse": {
+    "slug": "ransomhouse",
+    "name": "ransomhouse",
+    "victims_7d": 3,
+    "victims_total": 211,
+    "last_seen": "2026-09-15T17:38:04.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": null,
+    "mirrors": 0,
+    "up_mirrors": 0,
+    "has_profile": false,
+    "blurb": "3 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": null,
+    "mirrors_detail": [],
+    "victims_sample": [
+      {
+        "victim": "[DISCLOSED] California School Employees Association",
+        "discovered": "2026-09-15T17:38:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/r/a8b46b22d6de4e2268a5643cd0203d118bd67a35"
+      },
+      {
+        "victim": "California School Employees Association",
+        "discovered": "2026-09-10T19:43:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/r/2b02392eb9ddc39713c83fafd8c4c1eae88b5bcf"
+      },
+      {
+        "victim": "[EVIDENCE]REXT Holdings Co., Ltd.",
+        "discovered": "2026-09-02T16:42:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/r/a54827e084a5e2b1a855d24b2c79b809621be1d5"
+      },
+      {
+        "victim": "REXT Holdings Co., Ltd.",
+        "discovered": "2026-09-01T15:53:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/r/0a9134b3273d30891b3c95edea912dde64428957"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/ransomhouse",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "metaencryptor": {
+    "slug": "metaencryptor",
+    "name": "metaencryptor",
+    "victims_7d": 2,
+    "victims_total": 44,
+    "last_seen": "2026-09-15T11:59:46.342Z",
+    "origins": ["ransomwarelive"],
+    "online": false,
+    "mirrors": 2,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "We are a group of young people who identify themselves as specialists in the field of network security with at least 15 years of experience. This blog and this work are ONLY commercial use, besides n…",
+    "meta": "We are a group of young people who identify themselves as specialists in the field of network security with at least 15 years of experience. This blog and this work are ONLY commercial use, besides not the main one. We have nothing to do with politics, intelligence agencies and the NSB. If you are a hunter of other people's data, then download any files and (or) wait until the time expires for others and the files will be available here. If you have any personal suggestions, we are ready to consider them. Contact us on the \"contacts\" page. There are a lot of other data, for various reasons, not posted here and we can discuss their sale or transfer under certain conditions. Also, every incident is notified to all possible press in the region and data not intended for sale is transmitted to breached and similar forums. Subscribe to RSS, add to favorites, visit us more often.",
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "metacrptmytukkj7ajwjovdpjqzd7esg5v3sg344uzhigagpezcqlpyd.onion",
+        "title": "Metaencryptor::Home",
+        "available": false,
+        "updated": "2026-09-11 01:00:45.391",
+        "version": 3
+      },
+      {
+        "fqdn": "metacrpttdfpbm4qoxzcrqqgr6e6zafpazgxm72knmujw2mwvi34rwad.onion",
+        "title": "Metaencryptor::Home",
+        "available": false,
+        "updated": "2026-09-11 10:00:07.932",
+        "version": 3
+      }
+    ],
+    "victims_sample": [],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/metaencryptor",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "shinyhunters": {
+    "slug": "shinyhunters",
+    "name": "shinyhunters",
+    "victims_7d": 2,
+    "victims_total": 163,
+    "last_seen": "2026-09-13T15:47:35.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 8,
+    "up_mirrors": 3,
+    "has_profile": true,
+    "blurb": "2 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "toolatedhs5dtr2pv6h5kdraneak5gs3sxrecqhoufc5e45edior7mqd.onion",
+        "title": "SH",
+        "available": false,
+        "updated": "2026-04-01 01:14:51.339",
+        "version": 3
+      },
+      {
+        "fqdn": "shinypogk4jjniry5qi7247tznop6mxdrdte2k6pdu5cyo43vdzmrwid.onion",
+        "title": "shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion",
+        "available": false,
+        "updated": "2026-07-10 02:00:08.106",
+        "version": 3
+      },
+      {
+        "fqdn": "91.215.85.22.",
+        "title": "// SH",
+        "available": true,
+        "updated": "2026-09-12 05:03:38.111",
+        "version": 0
+      },
+      {
+        "fqdn": "shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-11 15:01:32.286",
+        "version": 3
+      },
+      {
+        "fqdn": "shinyhunte.rs",
+        "title": "[sh] shinyhunters",
+        "available": false,
+        "updated": "2026-05-11 08:04:00.245",
+        "version": 0
+      },
+      { "fqdn": "91.202.233.104.", "title": "", "available": true, "updated": "2026-09-12 05:27:53.390", "version": 0 },
+      {
+        "fqdn": "176.120.22.24.",
+        "title": "// SH",
+        "available": false,
+        "updated": "2026-09-12 05:33:57.623",
+        "version": 0
+      },
+      {
+        "fqdn": "91.215.85.103.",
+        "title": "// SH",
+        "available": true,
+        "updated": "2026-09-12 05:03:43.397",
+        "version": 0
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Kimberly-Clark",
+        "discovered": "2026-09-13T15:47:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "State of Florida DMV",
+        "discovered": "2026-09-07T21:44:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Medela.com",
+        "discovered": "2026-09-07T08:31:43.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Note to mr. databroker1 NEXUS DL Service",
+        "discovered": "2026-09-04T16:48:23.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "NeoGen Corporation",
+        "discovered": "2026-09-03T17:23:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/shinyhunters",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "anubis": {
+    "slug": "anubis",
+    "name": "anubis",
+    "victims_7d": 2,
+    "victims_total": 112,
+    "last_seen": "2026-09-15T02:30:11.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": null,
+    "mirrors": 0,
+    "up_mirrors": 0,
+    "has_profile": false,
+    "blurb": "2 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": null,
+    "mirrors_detail": [],
+    "victims_sample": [
+      {
+        "victim": "Better Accounting Solutions",
+        "discovered": "2026-09-15T02:30:11.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://anubisyfkh5rixydjpoo3jqucauajz2juybrbtuglcppjj2y3eg3y6ad.onion/r/n7OJxbNlcpQFjxvqP7ZUH0SviViC7e1rz5rpFWAo9sicfLZqWAY5ac5rr5Stb03ahbceE749fGYjTZHiA19QoWtkOXgwcVZP"
+      },
+      {
+        "victim": "Gellibrand Support Services",
+        "discovered": "2026-09-09T07:21:40.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion/r/ObJBnOxUY1Uo4o+pNo4+1iokTlH+DV0xYGCT5h+m6Xr3PCnwl156GokKMstEqD4lviqX84Rf46pAugjKlIR1NYTnhqZGQ4"
+      },
+      {
+        "victim": "Marlborough Partners",
+        "discovered": "2026-09-02T06:21:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion/r/5VYRngWB4RHGrQhum0wZh8OC72oO1g3GU++a70ZsZ6tkH4WMROBRx4tJXAXmdwAp3e0NJ5M+6ftohrSE8ypGt5MGR0ZWd4"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/anubis",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  }
+}

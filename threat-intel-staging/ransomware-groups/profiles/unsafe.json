@@ -1,18 +1,18 @@
 {
-  "slug": "vexy",
-  "name": "vexy",
-  "fetchedAt": "2026-09-16T11:54:06.134Z",
+  "slug": "unsafe",
+  "name": "unsafe",
+  "fetchedAt": "2026-09-16T11:54:06.485Z",
   "profiles": [
     {
       "captcha": false,
       "meta": "",
       "locations": [
         {
-          "fqdn": "vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion",
-          "title": "Vexy Ransomware | Blog",
+          "fqdn": "unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion",
+          "title": "UnSafe",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 08:00:07.161",
+          "updated": "2026-09-16 09:02:16.902",
           "chat": false,
           "fs": false
         }

@@ -1,0 +1,32 @@
+{
+  "slug": "insomnia",
+  "name": "insomnia",
+  "fetchedAt": "2026-09-16T11:54:05.899Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "i62huw7ve22rpyw6lnq3kmfump2dmsg4xpveec3ere73njwatrz74gad.onion",
+          "title": "Insomnia",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-16 11:01:16.026",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "r3keoxye5mki4fqcvlk4hpfqqzxmakchjpmem7oppynobcieamdbmcyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 08:37:19.639",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

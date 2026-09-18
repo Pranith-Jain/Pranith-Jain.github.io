@@ -1,7 +1,7 @@
 {
   "slug": "nightspire",
   "name": "nightspire",
-  "fetchedAt": "2026-09-12T06:12:55.265Z",
+  "fetchedAt": "2026-09-16T11:54:05.466Z",
   "profiles": [
     {
       "captcha": false,
@@ -30,7 +30,7 @@
           "title": "NightSpire",
           "version": 3,
           "available": false,
-          "updated": "2026-09-03 09:04:25.698",
+          "updated": "2026-09-16 10:17:46.913",
           "chat": false,
           "fs": false
         },
@@ -63,10 +63,10 @@
         },
         {
           "fqdn": "nspirep7orjq73k2x2fwh2mxgh74vm2now6cdbnnxjk2f5wn34bmdxad.onion",
-          "title": "RaaS Service Started",
+          "title": "Laravel",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-12 00:01:54.093",
+          "available": true,
+          "updated": "2026-09-16 11:05:23.504",
           "chat": false,
           "fs": false
         },
