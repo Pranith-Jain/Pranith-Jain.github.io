@@ -1,0 +1,73 @@
+{
+  "slug": "MythicAgents__Sage",
+  "repo": "MythicAgents/Sage",
+  "category": "agent",
+  "scope": ["redteam", "ad"],
+  "stars": 25,
+  "description": "Sage is a virtual Mythic agent that that uses an AI agentic system to operate Mythic and Mythic agents running on compromised hosts.",
+  "homepage": null,
+  "added": "2026-09-16",
+  "checkedAt": "2026-09-17T08:44:11Z",
+  "pushedAt": "2026-08-26",
+  "daysIdle": 22,
+  "archived": false,
+  "license": "GPL-3.0",
+  "upstream": {
+    "entry": { "category": "agent", "repo": "MythicAgents/Sage", "scope": ["redteam", "ad"], "added": "2026-09-16" },
+    "derived": {
+      "checked_at": "2026-09-17T08:44:11Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-08-26",
+        "days_since_push": 22,
+        "total_commits": 232,
+        "last100_span_days": 45,
+        "last100_authors": 1,
+        "releases": 2,
+        "latest_release_at": "2026-08-26",
+        "days_since_release": 22,
+        "days_idle": 22,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "MythicAgents/sage",
+        "stars": 25,
+        "forks": 4,
+        "created_at": "2025-04-03",
+        "is_fork": false,
+        "contributors": 2,
+        "top_contributor_share": 0.99,
+        "homepage": null,
+        "description": "Sage is a virtual Mythic agent that that uses an AI agentic system to operate Mythic and Mythic agents running on compromised hosts.",
+        "topics": ["ai", "ai-agents", "ai-chatbot", "arize-phoenix", "langchain", "llm", "mythic", "python"]
+      },
+      "licence": { "file": "GPL-3.0", "api_spdx": "GPL-3.0", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 227125,
+        "code_files": 437,
+        "files": 809,
+        "has_ci": false,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": false,
+        "ai_layer": true,
+        "providers": ["langchain", "google-genai"],
+        "mcp_server": true,
+        "tool_defs": 2,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

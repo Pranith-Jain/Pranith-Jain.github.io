@@ -1,0 +1,423 @@
+{
+  "updatedAt": "2026-09-18T06:27:37.474Z",
+  "total": 52,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 3 },
+  "items": [
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "OpenAI details more cases of AI agents taking unauthorized actions",
+      "link": "https://www.bleepingcomputer.com/news/security/openai-details-more-cases-of-ai-agents-taking-unauthorized-actions/",
+      "pubDate": "Thu, 17 Sep 2026 14:55:12 -0400",
+      "source": "bleepingcomputer",
+      "description": "OpenAI has presented new examples of what they call \"AI model misalignment\" from the past six months, including unauthorized file uploads, following self-generated instructions, hiding mistakes, and leveraging exposed API keys. [...]"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Anthropic wants Claude to analyze your bank account and financial data",
+      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-wants-claude-to-analyze-your-bank-account-and-financial-data/",
+      "pubDate": "Wed, 16 Sep 2026 20:35:48 -0400",
+      "source": "bleepingcomputer",
+      "description": "Anthropic is testing a new personal finance feature called \"Claude Money\" that will allow you to connect your bank accounts directly to Claude and \"understand your money.\" [...]"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Spain's data agency gets first report of AI-powered data breach",
+      "link": "https://www.bleepingcomputer.com/news/security/spains-data-agency-gets-first-report-of-ai-powered-data-breach/",
+      "pubDate": "Wed, 16 Sep 2026 13:26:41 -0400",
+      "source": "bleepingcomputer",
+      "description": "The Spanish Data Protection Agency (AEPD) was notified of an attack allegedly carried out with an AI agent powered by a known large language model (LLM). [...]"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Hacking OpenAI",
+      "link": "https://www.hacktron.ai/blog/hacking-openai",
+      "pubDate": "Sun, 13 Sep 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "A heap overflow and SSO misconfiguration to compromise OpenAI internal repositories"
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "Shadow AI Does Not Read Your Org Chart: Rethinking Identity Governance for Autonomous Agents",
+      "link": "https://cloudsecurityalliance.org/articles/shadow-ai-does-not-read-your-org-chart-rethinking-identity-governance-for-autonomous-agents",
+      "pubDate": "Thu, 03 Sep 2026 10:21:35 -0700",
+      "source": "csa",
+      "description": "RBAC is solving yesterday's identity problem while autonomous systems are making decisions with access they already have. At RSA Conference 2026, Adi Shamir, the \"S\" in RSA, warned the security professionals that he is \"totally terrified\" of AI agents, because they need access to everything to be useful, and he does not extend that kind of access even to his own wife [1]. Most CISOs are living a quieter version of that fear. Enterprise AI agent deployments are growing tenfold in months r..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "2026 Cloud Security Index: How Risk Differs Across AWS, Azure, and Google Cloud",
+      "link": "https://cloudsecurityalliance.org/articles/2026-cloud-security-index-how-risk-differs-across-aws-azure-and-google-cloud-csa",
+      "pubDate": "Wed, 02 Sep 2026 15:49:34 -0700",
+      "source": "csa",
+      "description": "Originally published by Intruder. Juggling multiple cloud providers is complicated enough without each one failing in different places. But that's what&amp;nbsp;Intruder’s 2026 Cloud Security Index&amp;nbsp;found: the issues that dominate on AWS barely overlap with those on Google Cloud, and Azure looks different again. For security teams, this doesn't just create more work: it fragments teams' understanding of risk, makes prioritization harder, and can slow down remediation. That matters beca.."
+    },
+    {
+      "id": "aHR0cHM6Ly91",
+      "title": "An AI-Assisted Cyber Attack: Inside a Unit 42 Investigation",
+      "link": "https://unit42.paloaltonetworks.com/ai-assisted-cyber-attack-inside-a-unit-42-investigation/",
+      "pubDate": "Wed, 02 Sep 2026 10:00:46 +0000",
+      "source": "unit42",
+      "description": "Using autonomous AI agents, an attacker breached an enterprise network in a matter of hours. Understand how to address and defend against agentic attacks. The post An AI-Assisted Cyber Attack: Inside a Unit 42 Investigation appeared first on Unit 42 ."
+    },
+    {
+      "id": "aHR0cHM6Ly91",
+      "title": "Perturbation Probing: A New Diagnostic for the Fragility of LLM Safety",
+      "link": "https://unit42.paloaltonetworks.com/perturbation-probing-llm-safety/",
+      "pubDate": "Fri, 28 Aug 2026 22:00:07 +0000",
+      "source": "unit42",
+      "description": "New research reveals that AI safety refusal lives in a thin neural layer, highlighting the critical need for external, multi-layered security. The post Perturbation Probing: A New Diagnostic for the Fragility of LLM Safety appeared first on Unit 42 ."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "What Zero Trust Can Teach Us About AI Watermarks",
+      "link": "https://cloudsecurityalliance.org/articles/what-zero-trust-can-teach-us-about-ai-watermarks",
+      "pubDate": "Thu, 27 Aug 2026 23:31:24 -0700",
+      "source": "csa",
+      "description": "I recently wrote about the mess that is watermarking AI-generated text and how Anthropic's move to add watermarks (in response to the EU AI Act's transparency rules) raises more questions than it answers. If you haven't read that blog, the short version is this: telling AI content apart from human content is getting harder every day – AI is a tool that should be used much in the same way that you use a calculator to do long division, and slapping a watermark on it doesn't change that. B..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "Enterprise Reality: Why Organizations Aren't as Prepared for AI Governance as They Think They Are",
+      "link": "https://cloudsecurityalliance.org/articles/enterprise-reality-why-organizations-aren-t-as-prepared-for-ai-governance-as-they-think-they-are",
+      "pubDate": "Wed, 26 Aug 2026 15:10:15 -0700",
+      "source": "csa",
+      "description": "If you ask most enterprise leaders, 74% would say their organization could pass an AI compliance audit today. Yet if you ask about the maturity of their AI governance program, only 27% say their programs are fully mature. That gap is the finding at the center of Schellman's new research, The 2026 State of AI Governance Report, based on a survey of more than 500 U.S. enterprise leaders. This disconnect is not a result of organizations ignoring AI governance, as nearly everyone is already ..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "Top 6 Claude in Chrome Security Risks to Model Before You Roll It Out",
+      "link": "https://cloudsecurityalliance.org/articles/top-6-claude-in-chrome-security-risks-to-model-before-you-roll-it-out",
+      "pubDate": "Wed, 26 Aug 2026 15:09:00 -0700",
+      "source": "csa",
+      "description": "Most teams evaluate a browser agent like a browser extension. Check the permissions, check the vendor, check for open CVEs, approve or deny. That framing produced two clean patch cycles in 2026 and no reduction in exposure. Two problems are being treated as one. Implementation bugs, which vendors fix. And the authority the agent carries while it works, which no patch touches. Every hard question in agentic AI security lives in the gap between them. Six categories worth modeling separate..."
+    },
+    {
+      "id": "aHR0cHM6Ly91",
+      "title": "The State of AI-Enabled Malware August 2026: From Brand Abuse to Agentic Execution",
+      "link": "https://unit42.paloaltonetworks.com/ai-enabled-malware-analysis/",
+      "pubDate": "Tue, 25 Aug 2026 10:00:57 +0000",
+      "source": "unit42",
+      "description": "Explore Unit 42 research on AI-enabled malware. Learn how existing behavioral detection and endpoint analytics stop AI-authored code before execution. The post The State of AI-Enabled Malware August 2026: From Brand Abuse to Agentic Execution appeared first on Unit 42 ."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "Beyond Deepfakes: Zero Trust Security for the AI Economy",
+      "link": "https://cloudsecurityalliance.org/articles/beyond-deepfakes-zero-trust-security-for-the-ai-economy",
+      "pubDate": "Wed, 19 Aug 2026 10:27:15 -0700",
+      "source": "csa",
+      "description": "TL;DR: Deepfakes are not merely a detection challenge. They expose fundamental weaknesses in how organizations establish identity, grant authority, and protect data. Appearances alone can no longer serve as proof. CSA research shows how Zero Trust, IAM, and AI data security can provide the trust infrastructure organizations need. A familiar face appears on a video call. A known voice delivers an urgent instruction. A senior executive requests an unusual payment, data transfer, or passwor..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "EU AI Act Compliance for High-Risk AI Systems: What Your Organization Needs to Know",
+      "link": "https://cloudsecurityalliance.org/articles/eu-ai-act-compliance-for-high-risk-ai-systems-what-your-organization-needs-to-know",
+      "pubDate": "Tue, 18 Aug 2026 14:13:22 -0700",
+      "source": "csa",
+      "description": "A Q&amp;amp;A about the EU AI Act with Schellman CEO Avani Desai on risk classification, AI literacy, and the August 2 deadline Schellman CEO, Avani Desai, recently joined a DataCamp panel webinar, \"Deadline Approaching: EU AI Act Compliance for High-Risk AI Systems\", alongside Jessica Eaves Mathews (Managing Attorney at Leverage Legal Group) and Jason M. Loring (Partner at Jones Walker, co-chair of its Privacy, Data Strategy and AI team). The panel broke down what the EU AI Act requires, h..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "Why Cloud Security Requires More Than Point-in-Time Audits",
+      "link": "https://cloudsecurityalliance.org/articles/why-cloud-security-requires-more-than-point-in-time-audits",
+      "pubDate": "Tue, 18 Aug 2026 14:12:20 -0700",
+      "source": "csa",
+      "description": "An organization may pass its annual cloud security audit with every control in place. Yet days later, a misconfigured storage bucket, an overly permissive IAM policy, or an insecure firewall rule can alter its security posture. The audit report remains unchanged, but the environment no longer reflects what was assessed. This is the challenge with point-in-time audits. They verify security at a single point in time, while dynamic cloud environments require continuous validation. The focu..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "We Asked an AI Agent to Close a Linear Ticket. It Dropped a Production Table.",
+      "link": "https://cloudsecurityalliance.org/articles/we-asked-an-ai-agent-to-close-a-linear-ticket-it-dropped-a-production-table",
+      "pubDate": "Tue, 18 Aug 2026 14:11:56 -0700",
+      "source": "csa",
+      "description": "Originally published by Eve Security. A developer opens Cursor, points it at a Linear ticket, and asks it to implement the fix. Cursor loads&amp;nbsp;ticket-work, a small skill that standardizes how the agent pulls context from Linear and closes tickets. It’s the kind of utility a team writes once and then forgets about. The agent reads the ticket and loads the skill. A few tool calls later, the&amp;nbsp;insurance_claims&amp;nbsp;table is gone. Unconfined agent drop — after “Implement RND-1277,”"
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "Legacy Operating Models Can’t Keep Pace With IT Complexity, Cloud Security Alliance Survey Finds",
+      "link": "https://cloudsecurityalliance.org/articles/legacy-operating-models-can-t-keep-pace-with-it-complexity-cloud-security-alliance-survey-finds",
+      "pubDate": "Tue, 18 Aug 2026 03:35:00 -0700",
+      "source": "csa",
+      "description": "Study reveals that fragmented ownership and limited visibility have made manual policy management a production risk SEATTLE – Aug. 18, 2026 — Fragmented operating models spanning teams, tools, and environments and which are still heavily reliant on manual processes are taking a measurable toll on production uptime, deployment velocity, and compliance readiness, according to a new survey from the Cloud Security Alliance (CSA), the world's leading not-for-profit organization committed to ..."
+    },
+    {
+      "id": "aHR0cHM6Ly91",
+      "title": "The Permanent Threat: Analyzing Aeternum’s Blockchain-Based C2 Operations and Communications",
+      "link": "https://unit42.paloaltonetworks.com/aeternum-blockchain-c2-analysis/",
+      "pubDate": "Mon, 10 Aug 2026 22:00:02 +0000",
+      "source": "unit42",
+      "description": "Analysis of the Aeternum botnet loader, a threat leveraging Polygon blockchain smart contracts for decentralized C2 infrastructure and payload execution. The post The Permanent Threat: Analyzing Aeternum’s Blockchain-Based C2 Operations and Communications appeared first on Unit 42 ."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Here’s How an OpenAI Model Went Rogue and Hacked Hugging Face",
+      "link": "https://www.hacktron.ai/blog/here-is-how-openai-model-hacked-huggingface",
+      "pubDate": "Thu, 23 Jul 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "OpenAI and Hugging Face probably won’t tell us exactly how the whole incident unfolded. But using publicly available data, we can reconstruct what likely happened."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Could Modern Code Review Have Prevented wp2shell?",
+      "link": "https://www.hacktron.ai/blog/wp2shell",
+      "pubDate": "Sun, 19 Jul 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We recreated the WordPress pull requests behind CVE-2026-63030 and CVE-2026-60137 to test whether today&apos;s code reviewers and SAST tools would catch both vulnerabilities."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Breaking Into PostHog Prod Database",
+      "link": "https://www.hacktron.ai/blog/posthog-rce",
+      "pubDate": "Wed, 15 Jul 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Escalating a Hacktron finding into a PostHog production RCE using Claude, and challenging open-weight models to write the same V8 exploit."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Watching GPT-5.6 Sol Ultra Write a Chrome Exploit: Exploit Development as We Know It Is Dead",
+      "link": "https://www.hacktron.ai/blog/watching-gpt-55-sol-ultra-write-a-chrome-exploit-exploit-development-as-we-know-it-is-over",
+      "pubDate": "Tue, 14 Jul 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We benchmarked the latest frontier models, GPT-5.6 Sol Medium, Sol Ultra, and Grok 4.5, on their exploit-development capabilities. After processing 2.096 billion tokens, Sol Ultra was the only model to produce a complete exploit chain."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "GLM and DeepSeek Are Catching Frontier Models at Finding Vulnerabilities",
+      "link": "https://www.hacktron.ai/blog/open-weight-models-vs-frontier-models",
+      "pubDate": "Wed, 08 Jul 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We benchmarked GLM, DeepSeek, Kimi, and MiniMax against GPT, Claude, Gemini, and Opus on 15 real vulnerabilities patched in Fider, an open-source Go and React app. Frontier models still lead, but open-weight models are closing the gap fast."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Metabase Cloud: The winner takes it all",
+      "link": "https://www.hacktron.ai/blog/metabase-cloud",
+      "pubDate": "Thu, 25 Jun 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We could have pwned every Metabase Cloud tenant by chaining an H2 INIT sanitizer bypass into RCE, then cloud misconfigurations into a full multi-tenant cluster compromise."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "The Attack Surface Is Everyone Now",
+      "link": "https://www.hacktron.ai/blog/the-attack-surface-is-everyone-now",
+      "pubDate": "Tue, 09 Jun 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Why AI is broadening the attack surface across OSS, new SaaS, and fast-shipping teams, and how to position yourself with an assume-breach mindset."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Hacktron&apos;s $350 Pentest vs XBOW and Aikido at $4,000",
+      "link": "https://www.hacktron.ai/blog/hacktron-vs-xbow-and-aikido",
+      "pubDate": "Fri, 05 Jun 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We ran the same scan Doyensec used to test XBOW and Aikido, for a tenth of the price. Here&apos;s how our $350 AI pentest compared."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "When Your VPN Opens Your Private Network to the Public",
+      "link": "https://www.hacktron.ai/blog/cve-2026-0265-panos-globalprotect-cas-auth-bypass",
+      "pubDate": "Wed, 20 May 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "How AI-assisted reverse engineering of stripped PAN-OS binaries led to finding a JWT algorithm confusion vulnerability in GlobalProtect&apos;s Cloud Authentication Service, enabling full VPN auth bypass with just a username."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "RCE in VSCode Copilot Chat",
+      "link": "https://www.hacktron.ai/blog/rce-in-vscode-copilot",
+      "pubDate": "Wed, 13 May 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Copilot agent mode is vulnerable to a prompt injection attack. If a repository maintainer clicks &apos;code with agent mode&apos; on an issue, it will open a new codespace and copilot will automatically run the issue&apos;s description."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Hacktron Review for Open Source",
+      "link": "https://www.hacktron.ai/blog/hacktron-review-for-open-source",
+      "pubDate": "Fri, 08 May 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We are opening up Hacktron Review for Open Source, giving qualifying maintainers free PR security reviews with inline findings, auto-resolution, and project-specific learning."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "$170k in Bypasses: The Vercel React2Shell Challenge",
+      "link": "https://www.hacktron.ai/blog/react2shell-vercel-waf-bypass",
+      "pubDate": "Mon, 04 May 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Working with Vercel Team to Keep the Internet Secure from React2Shell"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Why Mythos doesn&apos;t matter (for us)",
+      "link": "https://www.hacktron.ai/blog/why-mythos-doesnt-matter-for-us",
+      "pubDate": "Wed, 29 Apr 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Benchmarking Hacktron&apos;s scanning pipeline shows that for most applications, smaller models run repeatedly can outperform larger frontier models on cost-to-recall."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Introducing Hacktron Review",
+      "link": "https://www.hacktron.ai/blog/introducing-hacktron-review",
+      "pubDate": "Tue, 28 Apr 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Hacktron Review is an AI security reviewer for pull requests that understands codebase context, reduces false positives, and catches exploitable vulnerabilities before they are merged."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "I Let Claude Opus Write a Chrome Exploit: The Next Model (Mythos?) Won&apos;t Need My Help?",
+      "link": "https://www.hacktron.ai/blog/i-let-claude-opus-to-write-me-a-chrome-exploit",
+      "pubDate": "Wed, 15 Apr 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "I pointed Claude Opus at Discord&apos;s bundled Chrome (version 138, nine major versions behind upstream) and asked it to build a full V8 exploit chain. The V8 OOB we used was from Chrome 146, the same version Anthropic&apos;s own Claude Desktop is running. A week of back and forth, 2.3 billion tokens, $2,283 in API costs, and about ~20 hours of me unsticking it from dead ends. It popped calc."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Pre-Auth RCE in OpenAM via jato.clientSession (CVE-2026-33439)",
+      "link": "https://www.hacktron.ai/blog/openam-deserialization-pre-auth-rce",
+      "pubDate": "Tue, 07 Apr 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Hacktron AI discovers a critical pre-authentication RCE in OpenAM through a forgotten deserialization parameter that the original CVE-2021-35464 fix missed."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "vinext: Vibe-Hacking Cloudflare&apos;s Vibe-Coded Next.js Replacement",
+      "link": "https://www.hacktron.ai/blog/hacking-cloudflare-vinext",
+      "pubDate": "Fri, 27 Feb 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Cloudflare built a Next.js replacement in a week with AI for $1100. We pointed Hacktron at it to find what the tests missed."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Turning Cluely Into Malware",
+      "link": "https://www.hacktron.ai/blog/hacking-cluely",
+      "pubDate": "Sat, 14 Feb 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "How we found a vulnerability in Cluely&apos;s Electron app that let any website silently capture screenshots, record audio, and exfiltrate everything - all because of a missing will-navigate handler."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "RCE in Google&apos;s AI code editor Antigravity - $10000 Bounty",
+      "link": "https://www.hacktron.ai/blog/hacking-google-antigravity",
+      "pubDate": "Sun, 08 Feb 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Hacktron AI Research Team discovered a critical RCE in Google’s Antigravity IDE that lets attackers take over your system just by opening a malicious website."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "CVE-2026-1731: Pre-Auth RCE in BeyondTrust Remote Support &amp; PRA",
+      "link": "https://www.hacktron.ai/blog/cve-2026-1731-beyondtrust-remote-support-rce",
+      "pubDate": "Fri, 06 Feb 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Hacktron AI&apos;s agents identified a critical pre-authentication remote code execution (RCE) vulnerability in BeyondTrust Remote Support (RS) and older versions of Privileged Remote Access (PRA). This has been assigned CVE-2026-1731 with a CVSS 9.9 critical score."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Our commitment to security: Hacktron achieves SOC 2 Type 1 compliance",
+      "link": "https://www.hacktron.ai/blog/soc-2-type-1",
+      "pubDate": "Tue, 13 Jan 2026 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Hacktron has achieved SOC 2 Type 1 compliance, demonstrating our commitment to robust security practices and protecting our customers&apos; data."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Pwning OpenAI Atlas Through Exposed Browser Internals",
+      "link": "https://www.hacktron.ai/blog/hacking-openai-atlas-browser",
+      "pubDate": "Tue, 02 Dec 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "A critical ChatGPT Atlas Browser vulnerability: XSS on an OpenAI subdomain let attackers hijack tabs, leak browsing URLs, and steal OAuth tokens."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Securing Perplexity’s AI Browser from a One-Click UXSS",
+      "link": "https://www.hacktron.ai/blog/perplexity-comet-uxss",
+      "pubDate": "Mon, 24 Nov 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "How Hacktron AI Research team identified and prevented a critical UXSS vulnerability in Perplexity&apos;s AI Browser - Comet."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Auditing JDBC Drivers at Scale with Hacktron CLI",
+      "link": "https://www.hacktron.ai/blog/jdbc-audit-at-scale",
+      "pubDate": "Fri, 21 Nov 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "How we used Hacktron CLI to audit JDBC drivers at scale, mapping dangerous sinks to user input and turning file primitives into real-world RCEs and bug bounties."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "SupaPwn: Hacking Our Way into Lovable&apos;s Office and Helping Secure Supabase",
+      "link": "https://www.hacktron.ai/blog/supapwn",
+      "pubDate": "Mon, 17 Nov 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We hacked our way into Lovable&apos;s office by demoing SupaPwn — a chain that could potentially enable region-wide tenant takeover: event-trigger privilege window, DB superuser, host RCE, SUID escalation, exposed configs, orchestration takeover"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Introducing Hacktron AI: An autonomous penetration test of Gumroad",
+      "link": "https://www.hacktron.ai/blog/introducing-hacktron",
+      "pubDate": "Thu, 14 Aug 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "At Hacktron, we&apos;re building collaborative AI agents that act as autonomous security researchers. Learn more about our approach and our AI-driven pentest on Gumroad."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Executing arbitrary Python code from a comment",
+      "link": "https://www.hacktron.ai/blog/python-zip-confusion",
+      "pubDate": "Mon, 28 Jul 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "How a Python comment can turn a file into a ZIP polyglot, tricking the interpreter into running code. Insights from a UIUCTF 2025 challenge and Python&apos;s ZIP parsing quirks."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Hacktron finds pre-auth RCE in Dassault Delmia Apriso",
+      "link": "https://www.hacktron.ai/blog/dassault-delmia-apriso-rce",
+      "pubDate": "Tue, 03 Jun 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "For years, this vulnerability hid in plain sight — missed by multiple audits and even used in production by Apple. In just ten minutes, Hacktron exposed a full pre‐auth RCE path."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Hacktron finds another pre-auth RCE variant in Ivanti EPMM",
+      "link": "https://www.hacktron.ai/blog/ivanti-epmm-variant-analysis",
+      "pubDate": "Fri, 16 May 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Hacktron AI uncovers a new pre-authenticated RCE variant in Ivanti EPMM by identifying a fresh EL injection sink."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "AI hackers are both a generational threat and a generational opportunity",
+      "link": "https://www.hacktron.ai/blog/ai-hackers-generational-threat",
+      "pubDate": "Thu, 08 May 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "AI hackers will scale cyber threats via automated exploitation, but the same technology can turn this generational risk into an industry-wide defence."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "How can we make AI hack like a human?",
+      "link": "https://www.hacktron.ai/blog/how-ai-can-hack",
+      "pubDate": "Mon, 21 Apr 2025 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "Why does hacking feel like magic? We dive deep into how human hackers think, and how we can design AI agents to find bugs in complex systems the way top security researchers do."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "CVE-2022-23597: Remote code execution on Element Desktop",
+      "link": "https://www.hacktron.ai/blog/element-rce",
+      "pubDate": "Sat, 13 Aug 2022 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "We achieved full RCE on Element Desktop by chaining iframe injection, Electron misconfigs, and a V8 exploit to bypass sandboxing and access Node.js APIs from a subframe."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Remote code execution on Discord Desktop",
+      "link": "https://www.hacktron.ai/blog/discord-rce",
+      "pubDate": "Fri, 29 Jul 2022 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "How a chain of XSS, CSP bypass, and Electron misconfigs led to full remote code execution on Discord Desktop. We walk through the technical details, steps, and lessons learned."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "CVE-2021-43908: Remote code execution in VSCode restricted mode",
+      "link": "https://www.hacktron.ai/blog/vscode-rce",
+      "pubDate": "Wed, 29 Jun 2022 00:00:00 GMT",
+      "source": "hacktron",
+      "description": "How we achieved remote code execution in Visual Studio Code&apos;s Restricted Mode by chaining origin leaks, CSP bypasses, and webview message handler flaws."
+    }
+  ]
+}

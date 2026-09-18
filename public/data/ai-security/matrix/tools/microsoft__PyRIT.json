@@ -1,0 +1,73 @@
+{
+  "slug": "microsoft__PyRIT",
+  "repo": "microsoft/PyRIT",
+  "category": "scanner",
+  "scope": ["llm"],
+  "stars": 4487,
+  "description": "The Python Risk Identification Tool for generative AI (PyRIT) is an open source framework built to empower security professionals and engineers to proactively identify risks in generative AI systems.",
+  "homepage": "https://microsoft.github.io/PyRIT/",
+  "added": "2026-09-13",
+  "checkedAt": "2026-09-17T08:42:19Z",
+  "pushedAt": "2026-09-16",
+  "daysIdle": 1,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": { "category": "scanner", "repo": "microsoft/PyRIT", "scope": ["llm"], "added": "2026-09-13" },
+    "derived": {
+      "checked_at": "2026-09-17T08:42:19Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-16",
+        "days_since_push": 1,
+        "total_commits": 1982,
+        "last100_span_days": 14,
+        "last100_authors": 26,
+        "releases": 24,
+        "latest_release_at": "2026-09-04",
+        "days_since_release": 13,
+        "days_idle": 1,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "microsoft/PyRIT",
+        "stars": 4487,
+        "forks": 891,
+        "created_at": "2023-12-12",
+        "is_fork": false,
+        "contributors": 100,
+        "top_contributor_share": 0.26,
+        "homepage": "https://microsoft.github.io/PyRIT/",
+        "description": "The Python Risk Identification Tool for generative AI (PyRIT) is an open source framework built to empower security professionals and engineers to proactively identify risks in generative AI systems.",
+        "topics": ["ai-red-team", "generative-ai", "red-team-tools", "responsible-ai"]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 458776,
+        "code_files": 1672,
+        "files": 2935,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "litellm", "ollama"],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": false,
+        "install": true,
+        "phones_home": true,
+        "opaque": true
+      }
+    }
+  }
+}

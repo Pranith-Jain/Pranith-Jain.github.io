@@ -1875,17 +1875,30 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           tag: z
             .string()
             .optional()
-            .describe('Filter by tag: aiml, exploits, psyops, bio, infra, blue, red, osint, game, webappsec, crypto, re, mobile, cloud, forensics, ctf, blockchain, iot, dev, math, project'),
+            .describe(
+              'Filter by tag: aiml, exploits, psyops, bio, infra, blue, red, osint, game, webappsec, crypto, re, mobile, cloud, forensics, ctf, blockchain, iot, dev, math, project'
+            ),
           q: z.string().optional().describe('Free-text search across title, preview, tags, provider'),
           difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional().describe('Filter by difficulty'),
-          provider: z.string().optional().describe('Filter by provider name/host substring (e.g. "TryHackMe", "github.com")'),
+          provider: z
+            .string()
+            .optional()
+            .describe('Filter by provider name/host substring (e.g. "TryHackMe", "github.com")'),
           maxHours: z.number().int().min(1).max(12).optional().describe('Only courses <= this many hours'),
           sort: z.enum(['id', 'hours', 'difficulty']).optional().describe('Sort results'),
           limit: z.number().int().min(1).max(500).optional().describe('Max courses to return (default 50)'),
         },
         async ({ tag, q, difficulty, provider, maxHours, sort, limit }) => {
           const idx = await loadAnarchyIndex(ASSETS);
-          const filtered = filterAnarchyCourses(idx, { tag, q, difficulty, provider, maxHours, sort, limit: limit ?? 50 });
+          const filtered = filterAnarchyCourses(idx, {
+            tag,
+            q,
+            difficulty,
+            provider,
+            maxHours,
+            sort,
+            limit: limit ?? 50,
+          });
           return untrustedToolResult({
             total: idx.counts.courses,
             returned: filtered.length,
@@ -1907,7 +1920,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ id }) => {
           const body = await getAnarchyCourse(ASSETS, String(id).padStart(4, '0'));
-          if (!body) return untrustedToolResult({ error: `anarchy course not found: ${id}`, hint: 'Call anarchy_list_courses to see available IDs.' });
+          if (!body)
+            return untrustedToolResult({
+              error: `anarchy course not found: ${id}`,
+              hint: 'Call anarchy_list_courses to see available IDs.',
+            });
           return untrustedToolResult(body);
         }
       );
@@ -5003,6 +5020,84 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         {},
         async () => {
           const r = await apiFetch(this.env.SELF, '/api/v1/depx/feed/stats', this.apiKey);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── AI Security hub — realtime AI vulns / advisories / research ──
+      this.tools(
+        'ai_vulns',
+        'Realtime AI vulnerability tracking — EUVD + NVD + OSV watchlist (litellm, vllm, langchain, mcp, transformers…), CISA/EU KEV overlap, FIRST EPSS exploit-probability. KEV-listed rows sort first.',
+        {
+          q: z.string().optional().describe('Search CVE/GHSA ids, packages, vendors, e.g. "litellm" or "mcp".'),
+          kev_only: z.boolean().optional().describe('Only KEV-listed (actively exploited) vulns.'),
+          min_epss: z.number().optional().describe('Minimum EPSS exploit probability 0-1, e.g. 0.5.'),
+          source: z.string().optional().describe('Source filter: euvd, nvd, osv, kev.'),
+          limit: z.number().optional().describe('Max entries (default 100).'),
+        },
+        async ({ q, kev_only, min_epss, source, limit }) => {
+          const params = new URLSearchParams();
+          if (q) params.set('q', q);
+          if (kev_only) params.set('kev_only', 'true');
+          if (min_epss !== undefined) params.set('min_epss', String(min_epss));
+          if (source) params.set('source', source);
+          if (limit) params.set('limit', String(limit));
+          const r = await apiFetch(this.env.SELF, `/api/v1/ai-security/vulns?${params}`, this.apiKey);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'ai_vuln_get',
+        'Full body for one AI vuln: description, references, aliases, affected packages, KEV dates, EPSS percentile. Call ai_vulns first to discover IDs.',
+        {
+          id: z.string().describe('Vuln ID, e.g. "CVE-2026-42271" or a GHSA id.'),
+        },
+        async ({ id }) => {
+          const r = await apiFetch(this.env.SELF, `/api/v1/ai-security/vulns/${encodeURIComponent(id)}`, this.apiKey);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'ai_advisories',
+        'AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.',
+        {
+          q: z.string().optional().describe('Search titles, sources, CVE ids.'),
+          source: z
+            .string()
+            .optional()
+            .describe(
+              'Source filter: ghsa, cvelistV5, garak, pyrit, promptfoo, litellm, vllm, ollama, langchain, mcp-sdk, mitre-atlas, owasp-llm-top10, owasp-threat-intel, owasp-acs, exploitdb.'
+            ),
+          kind: z.string().optional().describe('Kind filter: advisory, cve, release, exploit.'),
+          limit: z.number().optional().describe('Max entries (default 100).'),
+        },
+        async ({ q, source, kind, limit }) => {
+          const params = new URLSearchParams();
+          if (q) params.set('q', q);
+          if (source) params.set('source', source);
+          if (kind) params.set('kind', kind);
+          if (limit) params.set('limit', String(limit));
+          const r = await apiFetch(this.env.SELF, `/api/v1/ai-security/advisories?${params}`, this.apiKey);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'ai_research',
+        'AI security research feed — Hacktron, Palo Alto Unit42, Cloud Security Alliance, BleepingComputer AI-filtered items with links back upstream.',
+        {
+          q: z.string().optional().describe('Search titles and sources, e.g. "heist" or "rce".'),
+          source: z.string().optional().describe('Source filter: hacktron, unit42, csa, bleepingcomputer.'),
+          limit: z.number().optional().describe('Max entries (default 100).'),
+        },
+        async ({ q, source, limit }) => {
+          const params = new URLSearchParams();
+          if (q) params.set('q', q);
+          if (source) params.set('source', source);
+          if (limit) params.set('limit', String(limit));
+          const r = await apiFetch(this.env.SELF, `/api/v1/ai-security/research?${params}`, this.apiKey);
           return untrustedToolResult(r);
         }
       );

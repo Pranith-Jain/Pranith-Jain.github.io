@@ -1,0 +1,97 @@
+{
+  "slug": "xalgorix__xalgorix",
+  "repo": "xalgorix/xalgorix",
+  "category": "agent",
+  "scope": ["recon", "webapp", "network"],
+  "stars": 1098,
+  "description": "Autonomous AI pentesting agents — real-time reconnaissance, vulnerability detection, and exploitation orchestration. Go + TypeScript.",
+  "homepage": "https://www.xalgorix.com",
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:43:08Z",
+  "pushedAt": "2026-09-15",
+  "daysIdle": 2,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": {
+      "category": "agent",
+      "repo": "xalgorix/xalgorix",
+      "scope": ["recon", "webapp", "network"],
+      "added": "2026-09-14"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:43:08Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-15",
+        "days_since_push": 2,
+        "total_commits": 1039,
+        "last100_span_days": 11,
+        "last100_authors": 3,
+        "releases": 100,
+        "latest_release_at": "2026-09-15",
+        "days_since_release": 2,
+        "days_idle": 2,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "xalgorix/xalgorix",
+        "stars": 1098,
+        "forks": 193,
+        "created_at": "2026-03-13",
+        "is_fork": false,
+        "contributors": 16,
+        "top_contributor_share": 0.93,
+        "homepage": "https://www.xalgorix.com",
+        "description": "Autonomous AI pentesting agents — real-time reconnaissance, vulnerability detection, and exploitation orchestration. Go + TypeScript.",
+        "topics": [
+          "ai-agent",
+          "ai-security",
+          "automation",
+          "autonomous-pentesting",
+          "bug-bounty",
+          "cybersecurity",
+          "ethical-hacking",
+          "golang",
+          "penetration-testing",
+          "pentest",
+          "pentesting-tools",
+          "recon",
+          "security",
+          "security-research",
+          "security-tools",
+          "typescript",
+          "vulnerability-detection",
+          "vulnerability-scanner"
+        ]
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
+      "shape": {
+        "loc": 128596,
+        "code_files": 400,
+        "files": 1330,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": [],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": ["dirsearch", "httpx", "naabu", "nuclei", "seclists"], "manifests": ["Dockerfile"] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": true,
+        "opaque": false
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 357 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 364 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,9 +16,19 @@
       "listChanged": false
     }
   },
-  "toolCount": 357,
-  "generatedAt": "2026-09-13T01:36:12+05:30",
+  "toolCount": 364,
+  "generatedAt": "2026-09-18T11:45:46+05:30",
   "tools": [
+    {
+      "name": "ai_advisories",
+      "description": "AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.",
+      "category": "other"
+    },
+    {
+      "name": "ai_research",
+      "description": "AI security research feed — Hacktron, Palo Alto Unit42, Cloud Security Alliance, BleepingComputer AI-filtered items with links back upstream.",
+      "category": "other"
+    },
     {
       "name": "ai_threats_get",
       "description": "Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.",
@@ -32,6 +42,16 @@
     {
       "name": "ai_threats_stats",
       "description": "Return cache + manifest stats for the AI Threat Actors data: total entries, index load state, body-cache hit ratios.",
+      "category": "other"
+    },
+    {
+      "name": "ai_vuln_get",
+      "description": "Full body for one AI vuln: description, references, aliases, affected packages, KEV dates, EPSS percentile. Call ai_vulns first to discover IDs.",
+      "category": "other"
+    },
+    {
+      "name": "ai_vulns",
+      "description": "Realtime AI vulnerability tracking — EUVD + NVD + OSV watchlist (litellm, vllm, langchain, mcp, transformers…), CISA/EU KEV overlap, FIRST EPSS exploit-probability. KEV-listed rows sort first.",
       "category": "other"
     },
     {
@@ -53,6 +73,21 @@
       "name": "analyze_url_risk",
       "description": "Correlate a URL across VirusTotal, Google Safe Browsing, urlscan.io, AbuseIPDB, and WHOIS domain age using the weighted IntelX risk engine. Returns a 0-100 risk score, verdict (Critical/High/Suspicious/Low/No Strong Threat Evidence), confidence, static heuristic flags (punycode, shorteners, keywords, @-symbol, IP hosts), and a per-provider evidence chain with score breakdown.",
       "category": "phishing"
+    },
+    {
+      "name": "anarchy_get_course",
+      "description": "Return the full body of a single Anarchy course by ID. Includes title, full description, tags, and external href. Use anarchy_list_courses first to discover IDs.",
+      "category": "other"
+    },
+    {
+      "name": "anarchy_list_courses",
+      "description": "List courses from the Anarchy (kazamadono.github.io) portal — 1708 courses across 20 tracks (AI/ML, Low Level, PsyOps, Defensive, Offensive, OSINT, Game Hacking, BugBounty, Crypto, Reversing, Cloud, Forensics, CTF, Blockchain, IoT/HW, Dev/CS, Math). Filter by tag, difficulty, provider, hours, or free-text query. Daily sync from https://kazamadono.github.io/courses.json.",
+      "category": "other"
+    },
+    {
+      "name": "anarchy_stats",
+      "description": "Return cache + manifest stats for the Anarchy course catalog: course counts, top tags, sync timestamps, and LRU cache hit/miss ratios.",
+      "category": "other"
     },
     {
       "name": "breach_vip_search",

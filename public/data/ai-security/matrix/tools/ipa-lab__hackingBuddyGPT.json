@@ -1,0 +1,73 @@
+{
+  "slug": "ipa-lab__hackingBuddyGPT",
+  "repo": "ipa-lab/hackingBuddyGPT",
+  "category": "agent",
+  "scope": ["network"],
+  "stars": 1240,
+  "description": "Helping Ethical Hackers use LLMs in 50 Lines of Code or less..",
+  "homepage": "https://hackingbuddy.ai/",
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:15Z",
+  "pushedAt": "2026-09-13",
+  "daysIdle": 4,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": { "category": "agent", "repo": "ipa-lab/hackingBuddyGPT", "scope": ["network"], "added": "2026-09-12" },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:15Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-13",
+        "days_since_push": 4,
+        "total_commits": 889,
+        "last100_span_days": 374,
+        "last100_authors": 3,
+        "releases": 5,
+        "latest_release_at": "2025-08-27",
+        "days_since_release": 386,
+        "days_idle": 4,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "ipa-lab/hackingBuddyGPT",
+        "stars": 1240,
+        "forks": 217,
+        "created_at": "2023-08-02",
+        "is_fork": false,
+        "contributors": 15,
+        "top_contributor_share": 0.53,
+        "homepage": "https://hackingbuddy.ai/",
+        "description": "Helping Ethical Hackers use LLMs in 50 Lines of Code or less..",
+        "topics": ["large-language-models", "llm", "penetration-testing", "pentesting"]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
+      "shape": {
+        "loc": 18450,
+        "code_files": 132,
+        "files": 171,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "litellm", "langchain"],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": false,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

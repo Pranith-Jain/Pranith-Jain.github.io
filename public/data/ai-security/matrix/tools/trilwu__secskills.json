@@ -1,0 +1,76 @@
+{
+  "slug": "trilwu__secskills",
+  "repo": "trilwu/secskills",
+  "category": "skill",
+  "scope": ["redteam", "code"],
+  "stars": 143,
+  "description": "Transform Claude Code into your personal security engineer",
+  "homepage": "https://trilwu.github.io/secskills/",
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:44:06Z",
+  "pushedAt": "2026-09-04",
+  "daysIdle": 13,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": { "category": "skill", "repo": "trilwu/secskills", "scope": ["redteam", "code"], "added": "2026-09-14" },
+    "derived": {
+      "checked_at": "2026-09-17T08:44:06Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-04",
+        "days_since_push": 13,
+        "total_commits": 70,
+        "last100_span_days": 266,
+        "last100_authors": 1,
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 13,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "trilwu/secskills",
+        "stars": 143,
+        "forks": 14,
+        "created_at": "2025-11-13",
+        "is_fork": false,
+        "contributors": 1,
+        "top_contributor_share": 1,
+        "homepage": "https://trilwu.github.io/secskills/",
+        "description": "Transform Claude Code into your personal security engineer",
+        "topics": ["security", "skills"]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
+      "shape": {
+        "loc": 1308,
+        "code_files": 4,
+        "files": 220,
+        "has_ci": true,
+        "has_tests": false,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": null,
+        "providers": null,
+        "mcp_server": null,
+        "tool_defs": null,
+        "readme_tool_claim": {
+          "count": 40,
+          "context": "reAD PowerShell module (→ Microsoft Graph), Volatility's entry point wrong in ~40 commands"
+        },
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

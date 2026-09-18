@@ -1,0 +1,73 @@
+{
+  "slug": "protectai__modelscan",
+  "repo": "protectai/modelscan",
+  "category": "scanner",
+  "scope": ["modfile"],
+  "stars": 774,
+  "description": "Protection against Model Serialization Attacks",
+  "homepage": "http://modelscan.ai",
+  "added": "2026-09-13",
+  "checkedAt": "2026-09-17T08:42:43Z",
+  "pushedAt": "2026-02-18",
+  "daysIdle": 211,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": { "category": "scanner", "repo": "protectai/modelscan", "scope": ["modfile"], "added": "2026-09-13" },
+    "derived": {
+      "checked_at": "2026-09-17T08:42:43Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-02-18",
+        "days_since_push": 211,
+        "total_commits": 192,
+        "last100_span_days": 631,
+        "last100_authors": 12,
+        "releases": 28,
+        "latest_release_at": "2026-02-18",
+        "days_since_release": 211,
+        "days_idle": 211,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "protectai/modelscan",
+        "stars": 774,
+        "forks": 166,
+        "created_at": "2023-07-25",
+        "is_fork": false,
+        "contributors": 22,
+        "top_contributor_share": 0.48,
+        "homepage": "http://modelscan.ai",
+        "description": "Protection against Model Serialization Attacks",
+        "topics": null
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
+      "shape": {
+        "loc": 4681,
+        "code_files": 33,
+        "files": 78,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": false,
+        "has_lockfile": true,
+        "ai_layer": false,
+        "providers": [],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": false,
+        "credentials": true,
+        "install": false,
+        "phones_home": false,
+        "opaque": false
+      }
+    }
+  }
+}

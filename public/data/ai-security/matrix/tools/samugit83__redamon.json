@@ -1,0 +1,108 @@
+{
+  "slug": "samugit83__redamon",
+  "repo": "samugit83/redamon",
+  "category": "agent",
+  "scope": ["redteam", "ad", "network", "recon"],
+  "stars": 2457,
+  "description": "An AI-powered agentic red team framework that automates offensive security operations, from reconnaissance to exploitation to post-exploitation, with zero human intervention.",
+  "homepage": null,
+  "added": "2026-09-12",
+  "checkedAt": "2026-09-17T08:41:03Z",
+  "pushedAt": "2026-09-16",
+  "daysIdle": 1,
+  "archived": false,
+  "license": "MIT",
+  "upstream": {
+    "entry": {
+      "category": "agent",
+      "repo": "samugit83/redamon",
+      "scope": ["redteam", "ad", "network", "recon"],
+      "added": "2026-09-12"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:41:03Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-16",
+        "days_since_push": 1,
+        "total_commits": 1086,
+        "last100_span_days": 7,
+        "last100_authors": 1,
+        "releases": 16,
+        "latest_release_at": "2026-09-11",
+        "days_since_release": 6,
+        "days_idle": 1,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "samugit83/redamon",
+        "stars": 2457,
+        "forks": 502,
+        "created_at": "2025-12-29",
+        "is_fork": false,
+        "contributors": 17,
+        "top_contributor_share": 0.63,
+        "homepage": null,
+        "description": "An AI-powered agentic red team framework that automates offensive security operations, from reconnaissance to exploitation to post-exploitation, with zero human intervention.",
+        "topics": [
+          "agentic-ai",
+          "ai",
+          "cybersecurity",
+          "ethical-hacking",
+          "ethical-hacking-tools",
+          "exploitation",
+          "metasploit",
+          "osint",
+          "penetration-testing",
+          "red-team"
+        ]
+      },
+      "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 583613,
+        "code_files": 2243,
+        "files": 2832,
+        "has_ci": false,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "litellm", "langchain", "google-genai", "ollama"],
+        "mcp_server": true,
+        "tool_defs": 71,
+        "readme_tool_claim": {
+          "count": 11,
+          "context": "en a CodeFix agent clones your repository, navigates the codebase with 11 code-aware tools"
+        },
+        "evidence": null
+      },
+      "substrate": {
+        "bundled": [
+          "bloodhound",
+          "certipy-ad",
+          "gau",
+          "httpx",
+          "katana",
+          "kerbrute",
+          "ldapdomaindump",
+          "metasploit-framework",
+          "naabu",
+          "nuclei",
+          "semgrep",
+          "subfinder"
+        ],
+        "manifests": ["mcp/kali-sandbox/Dockerfile", "mcp/kali-sandbox/entrypoint.sh"]
+      },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": true,
+        "credentials": true,
+        "install": true,
+        "phones_home": true,
+        "opaque": true
+      }
+    }
+  }
+}

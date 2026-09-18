@@ -1,0 +1,155 @@
+name: AI Security sync (daily)
+
+# Daily mirror of the AI Security hub sources:
+#   - ai-escape.watch parity (/api/registry + /api/queue + app.js embedded IDs)
+#   - aisecuritymatrix.com/data.json (AI-enabled security testing tools)
+#   - incidentdatabase.ai/rss.xml (AI Incident Database reports)
+#   - Tier-1 realtime feeds: ENISA EUVD + CISA/EU KEV + NVD + OSV watchlist +
+#     EPSS (vulns), cvelistV5 + tool Atoms + ExploitDB (advisories),
+#     hacktron/Unit42/CSA/BleepingComputer RSS (research)
+# then rebuilds public/data/ai-security/. If the data changed, opens a PR
+# and auto-merges it into main so the data lands the same day (same
+# self-deploy pattern as threat-intel-sync.yml: GITHUB_TOKEN merges do not
+# trigger deploy.yml, so this job builds + deploys itself).
+
+on:
+  schedule:
+    # Daily 06:15 UTC — staggered off the SI 06:00 + ai-threats 06:30 slots.
+    - cron: "15 6 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: ai-security-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Sync AI Security sources (escape parity + matrix + incidents)
+        # Each source inside the script is isolated with try/catch so one
+        # flaky upstream never aborts the other verticals.
+        continue-on-error: true
+        run: node scripts/sync-ai-security.mjs
+
+      - name: Sync Tier-1 realtime feeds (vulns + advisories + research)
+        # Separate script, same isolation: EUVD/NVD/OSV/EPSS, Atoms,
+        # ExploitDB, research RSS each degrade independently.
+        continue-on-error: true
+        run: node scripts/sync-ai-vulns.mjs
+
+      - name: Build AI Security manifest
+        continue-on-error: true
+        run: node scripts/build-ai-security.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/ai-security/ changed files ==="
+          git status --short public/data/ai-security/ | head -40
+          echo "=== staging folder size ==="
+          du -sh threat-intel-staging/ai-security/ || true
+
+      - name: Open PR if data changed
+        id: pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(ai-security): sync hub sources + tier-1 feeds"
+          title: "AI Security upstream sync — ${{ github.event.schedule || 'manual' }}"
+          body: |
+            Automated daily sync of the AI Security hub data.
+
+            Re-runs `scripts/sync-ai-security.mjs` (ai-escape.watch parity via
+            /api/registry + /api/queue + app.js embedded CB-* IDs,
+            aisecuritymatrix.com/data.json, incidentdatabase.ai/rss.xml),
+            `scripts/sync-ai-vulns.mjs` (EUVD search + KEV dump + NVD keyword +
+            OSV watchlist + EPSS; cvelistV5 + tool Atoms + ExploitDB; research
+            RSS) and `scripts/build-ai-security.mjs` (manifest rebuild into
+            `public/data/ai-security/`). The PR is auto-merged by the same run
+            (data-only changes; main is unprotected), and deploy.yml gates +
+            deploys the merge on main.
+
+            Escape Watch parity is report-only: drift between ai-escape.watch
+            and the curatorial seed never auto-overwrites either side — port
+            drift IDs via reviewed PR.
+
+            Sources:
+            - https://ai-escape.watch/api/registry (parity only)
+            - https://aisecuritymatrix.com/data.json
+            - https://incidentdatabase.ai/rss.xml
+            - ENISA EUVD API + CISA/EU KEV + NVD 2.0 + OSV.dev + FIRST EPSS
+            - CVEProject cvelistV5 + GitHub tool Atoms + ExploitDB RSS
+            - hacktron.ai + Unit42 + CSA + BleepingComputer RSS
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/ai-security-sync
+          delete-branch: true
+          add-paths: |
+            public/data/ai-security/
+            threat-intel-staging/ai-security/
+
+      - name: Auto-merge sync PR
+        id: automerge
+        if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge "${{ steps.pr.outputs.pull-request-number }}" \
+            --merge --delete-branch
+
+      # ── Self-deploy (only when the sync PR actually landed) ──────────
+      - name: Checkout merged main
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Setup Node for deploy
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install for deploy
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          npm ci --no-fund || npm install --no-fund
+          cd api && npm ci --legacy-peer-deps
+
+      - name: Build
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+
+      - name: Smoke test ai-security manifest
+        if: steps.pr.outputs.pull-request-number != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 8
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/data/ai-security/index.json")
+          echo "ai-security index -> HTTP $code"
+          test "$code" = "200" || { echo "::error::ai-security index returned HTTP $code"; exit 1; }

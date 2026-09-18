@@ -1,0 +1,93 @@
+{
+  "slug": "msoedov__agentic_security",
+  "repo": "msoedov/agentic_security",
+  "category": "scanner",
+  "scope": ["llm", "agentic"],
+  "stars": 2001,
+  "description": "Agentic LLM Vulnerability Scanner / AI red teaming kit 🧪",
+  "homepage": "https://agentic-security.vercel.app",
+  "added": "2026-09-14",
+  "checkedAt": "2026-09-17T08:43:32Z",
+  "pushedAt": "2026-09-11",
+  "daysIdle": 6,
+  "archived": false,
+  "license": "Apache-2.0",
+  "upstream": {
+    "entry": {
+      "category": "scanner",
+      "repo": "msoedov/agentic_security",
+      "scope": ["llm", "agentic"],
+      "added": "2026-09-14"
+    },
+    "derived": {
+      "checked_at": "2026-09-17T08:43:32Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-11",
+        "days_since_push": 6,
+        "total_commits": 746,
+        "last100_span_days": 120,
+        "last100_authors": 17,
+        "releases": 19,
+        "latest_release_at": "2026-06-03",
+        "days_since_release": 106,
+        "days_idle": 6,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "msoedov/agentic_security",
+        "stars": 2001,
+        "forks": 288,
+        "created_at": "2024-04-11",
+        "is_fork": false,
+        "contributors": 35,
+        "top_contributor_share": 0.77,
+        "homepage": "https://agentic-security.vercel.app",
+        "description": "Agentic LLM Vulnerability Scanner / AI red teaming kit 🧪",
+        "topics": [
+          "agent-framework",
+          "agent-security",
+          "ai-red-team",
+          "llm-evaluation",
+          "llm-evaluation-framework",
+          "llm-fuzzer",
+          "llm-fuzzer-aggregator",
+          "llm-fuzzing",
+          "llm-guardrails",
+          "llm-jailbreaks",
+          "llm-scanner",
+          "llm-security",
+          "llm-vulnerabilities",
+          "prompt-testing"
+        ]
+      },
+      "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 44547,
+        "code_files": 144,
+        "files": 210,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": true,
+        "has_lockfile": true,
+        "ai_layer": true,
+        "providers": ["openai", "anthropic"],
+        "mcp_server": false,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": [],
+      "risk": {
+        "binaries": false,
+        "privilege": false,
+        "credentials": false,
+        "install": false,
+        "phones_home": true,
+        "opaque": false
+      }
+    }
+  }
+}

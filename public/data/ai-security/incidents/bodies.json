@@ -1,0 +1,1002 @@
+{
+  "7873": {
+    "id": "7873",
+    "guid": "f19e0fa8-b8c5-534f-909c-cb410090f9ed",
+    "title": "OpenAI agents hijacked German website in previously undisclosed AI breakout this spring",
+    "link": "https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1668",
+    "reportNum": "7873",
+    "description": "A swarm of rogue OpenAI agents hijacked a German website this spring and transformed it into a bulletin board for other AI agents, according to new research published Friday and two people familiar with the matter.\n\nOpenAI officials learned ... (https://incidentdatabase.ai/cite/1668#7873)"
+  },
+  "7874": {
+    "id": "7874",
+    "guid": "36a64b4e-bb8b-5ea9-a003-6a06117e8446",
+    "title": "Another swarm of OpenAI agents reached the open internet without the frontier lab’s knowledge",
+    "link": "https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1668",
+    "reportNum": "7874",
+    "description": "A group of independent AI researchers discovered that internally deployed OpenAI agents began posting on an obscure German wiki forum in order to collaborate on evaluations. They appear to have worked together for over a month without OpenA ... (https://incidentdatabase.ai/cite/1668#7874)"
+  },
+  "7875": {
+    "id": "7875",
+    "guid": "614a106f-ea16-5a66-b6ff-15b2231b09ac",
+    "title": "Thailand's Ministry of Finance Targeted With Hermes AI Agent Running Unattended, Hades Implant Staged",
+    "link": "https://hunt.io/blog/thailand-ministry-finance-targeted-with-hermes-ai-agent",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1669",
+    "reportNum": "7875",
+    "description": "Disclosure note: This research was conducted jointly by Hunt.io and Bob Diachenko, security researcher and journalist. Thailand's national CERT and NCSA were notified on July 15, 2026, and acknowledged receipt the same day. Publication was  ... (https://incidentdatabase.ai/cite/1669#7875)"
+  },
+  "7876": {
+    "id": "7876",
+    "guid": "fdf9f81a-4f94-55fe-b745-2556dcecd472",
+    "title": "Hermes AI agent used to automate attack on Thai Finance Ministry",
+    "link": "https://www.bleepingcomputer.com/news/security/hermes-ai-agent-used-to-automate-attack-on-thai-finance-ministry/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1669",
+    "reportNum": "7876",
+    "description": "A threat actor used the open-source Hermes AI agent in unattended \"YOLO\" mode to automate post-exploitation activity during an alleged breach of Thailand's Ministry of Finance.\n\nThe activity was uncovered by threat intelligence company Hunt ... (https://incidentdatabase.ai/cite/1669#7876)"
+  },
+  "7877": {
+    "id": "7877",
+    "guid": "1019384d-ee0b-5eb4-ad5b-4dfb94ed9092",
+    "title": "Hackers used autonomous AI agent to spy on Thailand's finance ministry",
+    "link": "https://therecord.media/thailand-hackers-ai-finance-ministry",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1669",
+    "reportNum": "7877",
+    "description": "Hackers used an autonomous artificial intelligence agent to carry out a cyber-espionage campaign against Thailand's Ministry of Finance, according to researchers who uncovered a hacker-controlled server that exposed the inner workings of th ... (https://incidentdatabase.ai/cite/1669#7877)"
+  },
+  "7878": {
+    "id": "7878",
+    "guid": "625fc179-502b-5d5d-96e3-1bf65bffa8e9",
+    "title": "Hacker Runs Hermes AI Agent Unattended for Post-Exploitation at Thai Finance Ministry",
+    "link": "https://thehackernews.com/2026/07/hacker-runs-hermes-ai-agent-unattended.html",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1669",
+    "reportNum": "7878",
+    "description": "Someone installed a popular AI assistant on a rented server, switched off the setting that makes it ask permission before running risky commands, and pointed it at Thailand's Ministry of Finance, which runs the country's treasury and tax co ... (https://incidentdatabase.ai/cite/1669#7878)"
+  },
+  "7879": {
+    "id": "7879",
+    "guid": "49237aa8-59e3-5ce4-b224-cfc2661efa13",
+    "title": "AI agent at the wheel: How an attacker used LLMs to move from a CVE to an internal database in 4 pivots",
+    "link": "https://www.sysdig.com/blog/ai-agent-at-the-wheel-how-an-attacker-used-llms-to-move-from-a-cve-to-an-internal-database-in-4-pivots",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1670",
+    "reportNum": "7879",
+    "description": "Key Findings\n\nAn LLM agent executed the post-compromise actions in real time rather than running a pre-built playbook. This is the first AI-agent-driven intrusion the Sysdig TRT has captured.\n\nThe full attack chain --- marimo notebook compr ... (https://incidentdatabase.ai/cite/1670#7879)"
+  },
+  "7880": {
+    "id": "7880",
+    "guid": "81353e75-6414-5f0d-8240-79bcb875c098",
+    "title": "AI Agent Conducted a Cyberattack on Its Own — It Took Less Than One Hour",
+    "link": "https://www.securitymagazine.com/articles/102325-ai-agent-conducted-a-cyberattack-on-its-own-it-took-less-than-one-hour",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1670",
+    "reportNum": "7880",
+    "description": "AIID editor's note: Please visit the original source for the full report.\n\nResearchers discovered an intrusion conducted by a large language model (LLM) agent while it was in the post-exploitation phase. According to the researchers, this c ... (https://incidentdatabase.ai/cite/1670#7880)"
+  },
+  "7881": {
+    "id": "7881",
+    "guid": "a6027fbc-f5af-51d4-ab37-d86e0512037c",
+    "title": "Attackers Use LLM Agent for Post-Exploitation After Marimo CVE-2026-39987 Exploit",
+    "link": "https://thehackernews.com/2026/05/attackers-use-llm-agent-for-post.html",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1670",
+    "reportNum": "7881",
+    "description": "An unknown threat actor has been observed using a large language model (LLM) agent to conduct post-compromise actions after obtaining initial access following the exploitation of a publicly-accessible Marimo network using a recently disclos ... (https://incidentdatabase.ai/cite/1670#7881)"
+  },
+  "7882": {
+    "id": "7882",
+    "guid": "187bde9b-8f71-5f05-b11b-affce87b5e27",
+    "title": "The Warning Was in the Manual: GPT-5.6 Sol and the Deleted Database",
+    "link": "https://paddo.dev/blog/the-warning-was-in-the-manual/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1672",
+    "reportNum": "7882",
+    "description": "Matt Shumer's Friday started with a tweet that has now been seen 4.5 million times: \"GPT-5.6-Sol just accidentally deleted almost ALL of my Mac's files.\" Three days later, Bruno Lemos followed with the sequel: \"GPT-5.6 Sol just deleted my w ... (https://incidentdatabase.ai/cite/1672#7882)"
+  },
+  "7883": {
+    "id": "7883",
+    "guid": "ef19210b-790d-5d46-a0ee-5d3d4fd681be",
+    "title": "OpenAI’s new flagship model deletes files on its own, people keep warning",
+    "link": "https://techcrunch.com/2026/07/14/openais-new-flagship-model-deletes-files-on-its-own-people-keep-warning/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1672",
+    "reportNum": "7883",
+    "description": "Users of OpenAI's latest coding and cybersecurity-oriented flagship model, GPT-5.6 Sol, are posting horrifying accounts on social media, claiming the model just up and deleted their files, data, even entire databases on its own, without ask ... (https://incidentdatabase.ai/cite/1672#7883)"
+  },
+  "7884": {
+    "id": "7884",
+    "guid": "bb77abea-3ba2-5f16-969a-c599dc9a0b82",
+    "title": "OpenAI admits GPT-5.6 occasionally deletes files – but it's an 'honest mistake'",
+    "link": "https://www.theregister.com/ai-and-ml/2026/07/16/openai-admits-gpt-56-occasionally-deletes-files-but-its-an-honest-mistake/5274008",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1672",
+    "reportNum": "7884",
+    "description": "penAI has confirmed reports that GPT-5.6 has deleted users' files without authorization but insists these rare erasures represent an \"honest mistake.\"\n\nFollowing the release of OpenAI's GPT‑5.6 family of models on July 9, 2026, tech investo ... (https://incidentdatabase.ai/cite/1672#7884)"
+  },
+  "7885": {
+    "id": "7885",
+    "guid": "132d946b-3b65-5f78-a272-371d8387d590",
+    "title": "OpenAI’s GPT-5.6 Sol users report missing files, deleted databases: Here’s what we know",
+    "link": "https://indianexpress.com/article/technology/artificial-intelligence/openai-gpt-5-6-sol-ai-users-missing-files-10787913/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1672",
+    "reportNum": "7885",
+    "description": "Amid the buzz and excitement surrounding GPT-5.6 Sol, OpenAI's latest coding and cybersecurity-focused flagship AI model, recent posts across social media suggest that the model's rollout may have hit a few bumps.\n\nSeveral users on X and Re ... (https://incidentdatabase.ai/cite/1672#7885)"
+  },
+  "7886": {
+    "id": "7886",
+    "guid": "e8189db1-be4d-50f4-a405-dab5b981bbf2",
+    "title": "Gemini accused of 30,000-line code purge and fake recovery report",
+    "link": "https://www.theregister.com/ai-and-ml/2026/05/21/gemini-accused-of-30000-line-code-purge-and-fake-recovery-report/5244219",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1673",
+    "reportNum": "7886",
+    "description": "A developer claims Google's Gemini coding assistant deleted nearly 30,000 lines of working production code while making changes to a live application -- the sort of productivity boost usually associated with ransomware.\n\nThe now-viral Reddi ... (https://incidentdatabase.ai/cite/1673#7886)"
+  },
+  "7887": {
+    "id": "7887",
+    "guid": "627c24ab-377c-5971-8c5a-4ab08e070161",
+    "title": "Gemini allegedly broke production, then wrote itself the hero",
+    "link": "https://www.digitaltrends.com/computing/gemini-allegedly-broke-production-then-wrote-itself-the-hero/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1673",
+    "reportNum": "7887",
+    "description": "A developer claims a Gemini coding agent knocked a live portal offline for 33 minutes, then generated recovery notes that made it sound as if it had fixed the failure itself.\n\nThe incident, described in a viral Reddit post centers on a requ ... (https://incidentdatabase.ai/cite/1673#7887)"
+  },
+  "7888": {
+    "id": "7888",
+    "guid": "397629a7-7d69-5249-b47a-a3b5ccdeac22",
+    "title": "Instinct’s powerful AI assistant is raising privacy and security concerns",
+    "link": "https://techcrunch.com/2026/08/24/instincts-powerful-ai-assistant-is-raising-privacy-and-security-concerns/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1674",
+    "reportNum": "7888",
+    "description": "AIID editor's note: Please visit the original source for the numerous embedded social media posts.\n\nEveryone is buzzing about Instinct, an AI personal assistant still in private access, not only for its incredible capabilities, but also for ... (https://incidentdatabase.ai/cite/1674#7888)"
+  },
+  "7889": {
+    "id": "7889",
+    "guid": "d994131c-1633-5f6b-bb54-cc8127db9fe6",
+    "title": "Is Instinct safe to use? Three things to know before you sign up",
+    "link": "https://us.norton.com/blog/ai/is-instinct-safe",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1675",
+    "reportNum": "7889",
+    "description": "Artificial intelligence capabilities are rapidly evolving, and it seems like there's always a new buzzy use case emerging that's leaps and bounds more advanced than what came before. AI is now finding its way from workplaces into people's d ... (https://incidentdatabase.ai/cite/1675#7889)"
+  },
+  "7890": {
+    "id": "7890",
+    "guid": "4d1cdaca-46c2-5619-8ee2-1f1c59a34e15",
+    "title": "An AI coding agent wiped a production database",
+    "link": "https://www.exemplar.dev/why-harness/reddit-database-wipe",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1676",
+    "reportNum": "7890",
+    "description": "Summary. In early August 2026, a developer connected Claude Opus 5, running in Ultracode mode, to a production Supabase database with unrestricted access. A migration command intended for a disposable test database instead targeted producti ... (https://incidentdatabase.ai/cite/1676#7890)"
+  },
+  "7891": {
+    "id": "7891",
+    "guid": "9dd4e085-9624-5dfe-a2ca-7fa954433807",
+    "title": "and just like that Opus 5 ultracode wipes the entire database",
+    "link": "https://www.reddit.com/r/Anthropic/comments/1v9iurd/and_just_like_that_opus_5_ultracode_wipes_the/",
+    "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
+    "citeId": "1676",
+    "reportNum": "7891",
+    "description": "r/Anthropic - and just like that Opus 5 ultracode wipes the entire database\n\nAfter hearing a lot about Claude code I decided to try it myself within 10 mins mf wiped my entire database\n\nVibe coded this project with dumb models like 4.6 sonn ... (https://incidentdatabase.ai/cite/1676#7891)"
+  },
+  "7893": {
+    "id": "7893",
+    "guid": "59d195b7-5a85-5c13-b959-566758d65f7e",
+    "title": "When AI Takes Notes: Court Allows Privacy Claims Against Otter.ai to Proceed",
+    "link": "https://www.sheppard.com/insights/blogs/when-ai-takes-notes-court-allows-privacy-claims-against-otterai-to-proceed",
+    "pubDate": "Sat, 05 Sep 2026 00:00:00 GMT",
+    "citeId": "1650",
+    "reportNum": "7893",
+    "description": "Otter.ai's AI notetaker tool has been accused of violating Illinois's biometric privacy law, and the California court hearing the case recently let the proceedings move forward. As we have previously written in our sister blog, AI notetaker ... (https://incidentdatabase.ai/cite/1650#7893)"
+  },
+  "7896": {
+    "id": "7896",
+    "guid": "3d1fac17-119a-52b4-bbb5-4ce24535fd0d",
+    "title": "Pollution from Musk’s unpermitted xAI power project hits hardest in Black communities",
+    "link": "https://www.reuters.com/world/americas/pollution-musks-unpermitted-xai-power-project-hits-hardest-black-communities-2026-07-14/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1677",
+    "reportNum": "7896",
+    "description": "Elon Musk's artificial intelligence company xAI has installed 59 natural gas turbines for its Colossus 2 data center project in Tennessee without securing federal clean air permits, according to communications between regulators and xAI rep ... (https://incidentdatabase.ai/cite/1677#7896)"
+  },
+  "7897": {
+    "id": "7897",
+    "guid": "fcd7bfe8-2d3d-5fa0-b13b-9d1e81f157c7",
+    "title": "Notice of Intent to Sue for Violations of the Clean Air Act at the Gas Turbines Power Plant Located at 2875 Stanton Road S., Southaven, MS, that Powers xAI’s Colossus II Data Center",
+    "link": "https://earthjustice.org/wp-content/uploads/2026/02/2026.02.13-final-xai-southaven-noi-with-exhibit-a.pdf",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1677",
+    "reportNum": "7897",
+    "description": "AIID editor’s note: This is an abridged transcription of the original source. Substantive content is preserved, while some contact information, footnotes, procedural discussion, figures, and supporting specifications are omitted. Please con ... (https://incidentdatabase.ai/cite/1677#7897)"
+  },
+  "7898": {
+    "id": "7898",
+    "guid": "e95189d0-d80f-576a-8395-8ce945cace8c",
+    "title": "‘A different set of rules’: thermal drone footage shows Musk’s AI power plant flouting clean air regulations",
+    "link": "https://www.theguardian.com/environment/2026/feb/13/elon-musk-xai-datacenters-air-pollution-mississippi",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1677",
+    "reportNum": "7898",
+    "description": "Elon Musk’s artificial intelligence company is continuing to fuel its datacenters with unpermitted gas turbines, an investigation by the Floodlight newsroom shows. Thermal footage captured by Floodlight via drone shows xAI is still burning  ... (https://incidentdatabase.ai/cite/1677#7898)"
+  },
+  "7899": {
+    "id": "7899",
+    "guid": "b56f7320-1996-5b0d-ad29-995e0386a249",
+    "title": "Complaint: National Association for the Advancement of Colored People et al. v. X.AI Corp. and MZX Tech LLC",
+    "link": "https://naacp.org/sites/default/files/documents/1%20-%20Complaint.pdf",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1677",
+    "reportNum": "7899",
+    "description": "AIID editor’s note: This is an abridged transcription of the original source. Substantive content is preserved, while some contact information, footnotes, procedural discussion, figures, and supporting specifications are omitted. Please con ... (https://incidentdatabase.ai/cite/1677#7899)"
+  },
+  "7900": {
+    "id": "7900",
+    "guid": "d1c16a9d-e151-5d2f-8846-82f0ae2794bb",
+    "title": "Justice Department Files to Intervene and Dismiss Lawsuit that Would Hamper America’s AI Innovation and Security",
+    "link": "https://www.justice.gov/opa/pr/justice-department-files-intervene-and-dismiss-lawsuit-would-hamper-americas-ai-innovation",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1677",
+    "reportNum": "7900",
+    "description": "Note: View motion for intervention and dismissal here.\n\nYesterday, the Justice Department's Environment and Natural Resources Division (ENRD) filed a motion to intervene and to dismiss a private citizen lawsuit seeking to power down a large ... (https://incidentdatabase.ai/cite/1677#7900)"
+  },
+  "7901": {
+    "id": "7901",
+    "guid": "fdcc4706-cba6-55cb-b703-db82fddf9c13",
+    "title": "A self-driving car in Texas hit and killed a mother duck, sparking neighborhood outrage",
+    "link": "https://techcrunch.com/2026/04/08/avride-self-driving-car-austin-kills-duck-mueller/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1678",
+    "reportNum": "7901",
+    "description": "The death of a duck in the Austin, Texas enclave of Mueller Lake has neighbors raising concerns about autonomous vehicles and whether they belong there.\n\nWhile humans are responsible for killing animals with their cars all the time, this in ... (https://incidentdatabase.ai/cite/1678#7901)"
+  },
+  "7902": {
+    "id": "7902",
+    "guid": "6e67b23f-f08a-579a-9f25-7767ad799a5f",
+    "title": "Residents say self-driving car killed duck in Mueller",
+    "link": "https://www.axios.com/local/austin/2026/04/02/autonomous-vehicle-avride-duck-mueller",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1678",
+    "reportNum": "7902",
+    "description": "Facebook post screenshot: title \"Mueller Neighbors 2.0\" by Lewis Pierce, 1d ago. Black text describes an Avride self-driving car running over a duck near the park; the nest of eggs sits in a flower pot.\n\nLewis Pierce's post about the incide ... (https://incidentdatabase.ai/cite/1678#7902)"
+  },
+  "7903": {
+    "id": "7903",
+    "guid": "a9893e9c-d3a4-507c-a208-571df2038623",
+    "title": "Self-driving car runs over Mueller Lake Park duck, raising safety concerns",
+    "link": "https://www.kxan.com/news/local/austin/self-driving-car-runs-over-mueller-lake-park-duck-raising-safety-concerns/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1678",
+    "reportNum": "7903",
+    "description": "AUSTIN (KXAN) --- An autonomous vehicle company is investigating an incident after a witness reported that one of its self-driving vehicles struck and killed a duck near Mueller Lake Park earlier this week, raising concerns about the safety ... (https://incidentdatabase.ai/cite/1678#7903)"
+  },
+  "7904": {
+    "id": "7904",
+    "guid": "352b8eaa-f77a-5e84-bfeb-48797d5515ac",
+    "title": "Mueller residents upset after self-driving car runs over, kills duck",
+    "link": "https://www.fox7austin.com/news/mueller-residents-upset-after-self-driving-car-runs-over-kills-duck",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1678",
+    "reportNum": "7904",
+    "description": "AUSTIN, Texas - An autonomous vehicle company is investigating after a local says he watched one of its self-driving cars run over and kill a duck in the Mueller neighborhood.\n\nWhat they're saying:\n\"I love ducks. I think they're so cute,\" s ... (https://incidentdatabase.ai/cite/1678#7904)"
+  },
+  "7906": {
+    "id": "7906",
+    "guid": "e068275e-3e16-5dee-b115-fe8e76fb7fa7",
+    "title": "LYFT DRIVER SCAM: Boca Raton Area Driver Uses AI To Accuse Rider",
+    "link": "https://bocanewsnow.com/2026/05/18/lyft-driver-scam-boca-raton-area-driver-uses-ai-to-accuse-rider/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1679",
+    "reportNum": "7906",
+    "description": "A driver for ride share company \"Lyft\" is being closely monitored by the platform after he was accused of using artificial intelligence to claim a rider trashed his car.\n\nThe rider, a teenage girl who lives in Boca Raton, was accused by the ... (https://incidentdatabase.ai/cite/1679#7906)"
+  },
+  "7907": {
+    "id": "7907",
+    "guid": "cc70688d-14b3-56b1-a077-4ff153c2b864",
+    "title": "Lyft driver uses AI to falsely accuse Boca Raton man's daughters of damaging car",
+    "link": "https://www.wpbf.com/article/lyft-driver-ai-falsely-accuse-damaging-car/71341981",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1679",
+    "reportNum": "7907",
+    "description": "BOCA RATON, Fla. ---\n\nA Boca Raton man is sharing his story after he says his daughters were falsely accused of damaging a Lyft driver's car.\n\nHe said it was all engineered using AI.\n\nSaturday afternoon, Bert Gor said he had just returned h ... (https://incidentdatabase.ai/cite/1679#7907)"
+  },
+  "7908": {
+    "id": "7908",
+    "guid": "f7d01652-c2b8-5226-87d4-9244631fd857",
+    "title": "Father, daughter speak after Lyft driver is accused of using AI-generated image for damage claim",
+    "link": "https://abcnews.com/GMA/News/father-daughter-speak-after-lyft-driver-accused-ai/story?id=133144373",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1679",
+    "reportNum": "7908",
+    "description": "A father and daughter are speaking out after a recent Lyft ride resulted in a driver being accused of submitting an AI-generated image for a damage claim.\n\nBert Gor of Florida said his teenage daughter and a friend took a Lyft home from the ... (https://incidentdatabase.ai/cite/1679#7908)"
+  },
+  "7910": {
+    "id": "7910",
+    "guid": "abdadedf-a40f-5bb1-ab1d-54af015f8786",
+    "title": "Clinejection — Compromising Cline's Production Releases just by Prompting an Issue Triager",
+    "link": "https://adnanthekhan.com/posts/clinejection/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1680",
+    "reportNum": "7910",
+    "description": "UPDATE - NPM Package\n\nTo make sure it's clear in the midst of the NPM package situation: I did NOT conduct overt testing on Cline's repository.\n\nI conducted my PoC on a mirror of Cline to confirm the prompt injection vulnerability. A differ ... (https://incidentdatabase.ai/cite/1680#7910)"
+  },
+  "7911": {
+    "id": "7911",
+    "guid": "3f2ac7d9-6789-5e24-9aa2-d89248d211ce",
+    "title": "Post-mortem: Unauthorized Cline CLI npm publish on February 17, 2026",
+    "link": "https://cline.bot/blog/post-mortem-unauthorized-cline-cli-npm",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1680",
+    "reportNum": "7911",
+    "description": "At 3:26 AM PT on February 17th, an unauthorized party used a compromised npm publish token to publish cline@2.3.0 to npm. The published package contained a single modification: an added postinstall script (npm install -g openclaw@latest) th ... (https://incidentdatabase.ai/cite/1680#7911)"
+  },
+  "7912": {
+    "id": "7912",
+    "guid": "873aecd1-6240-5e48-86ac-127949c2f815",
+    "title": "Unauthorized npm publish of Cline CLI cline@2.3.0 with modified postinstall script to install openclaw",
+    "link": "https://github.com/cline/cline/security/advisories/GHSA-9ppg-jx86-fqw7",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1680",
+    "reportNum": "7912",
+    "description": "Package\n\n cline (npm)\n\nAffected versions\n\n2.3.0\n\nPatched versions\n\n\\=2.4.0\n\nDescription\n\nDescription\n\nOn February 17, 2026 at 3:26 AM PT, an unauthorized party used a compromised npm publish token to publish an update to Cline CLI on the NP ... (https://incidentdatabase.ai/cite/1680#7912)"
+  },
+  "7913": {
+    "id": "7913",
+    "guid": "2a7b7e15-6e3b-581a-aafa-36b1863a1a45",
+    "title": "Cline Supply Chain Attack Detected: cline@2.3.0 Silently Installs OpenClaw",
+    "link": "https://www.stepsecurity.io/blog/cline-supply-chain-attack-detected-cline-2-3-0-silently-installs-openclaw",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1680",
+    "reportNum": "7913",
+    "description": "Overview\n\nOn February 17, 2026 at 11:40 UTC, the StepSecurity npm monitoring system detected a suspicious release of the cline npm package. Version 2.3.0 of this widely-used autonomous coding agent CLI was published with a malicious post-in ... (https://incidentdatabase.ai/cite/1680#7913)"
+  },
+  "7914": {
+    "id": "7914",
+    "guid": "0fb75440-08b0-5907-b89e-d2774c7fc4a0",
+    "title": "Cline CLI npm Package Compromised via Suspected Cache Poisoning Attack",
+    "link": "https://socket.dev/blog/cline-cli-npm-package-compromised-via-suspected-cache-poisoning-attack",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1680",
+    "reportNum": "7914",
+    "description": "On February 17, 2026, an unauthorized party used a compromised npm publish token to push cline@2.3.0 to the npm registry. Cline is a popular AI coding agent CLI in the developer ecosystem, with around 90,000 weekly downloads from npm. The m ... (https://incidentdatabase.ai/cite/1680#7914)"
+  },
+  "7916": {
+    "id": "7916",
+    "guid": "d36602c1-96d5-57b1-98dc-9e7561dba965",
+    "title": "Georgia couple loses $800K in sophisticated cryptocurrency scam",
+    "link": "https://www.fox5atlanta.com/news/georgia-couple-loses-800k-sophisticated-cryptocurrency-scam.amp",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1681",
+    "reportNum": "7916",
+    "description": "The Brief\n\nA Georgia couple lost nearly $800,000 in a cryptocurrency scam initiated through a WhatsApp message, leaving them financially devastated.\n\nThe scam involved a legitimate-looking mobile trading app and an AI-generated \"ghost site\" ... (https://incidentdatabase.ai/cite/1681#7916)"
+  },
+  "7917": {
+    "id": "7917",
+    "guid": "93f07cb2-6362-56cb-8b0e-87e9157b781f",
+    "title": "Gwinnett couple warn others after losing $800K in cryptocurrency scam",
+    "link": "https://www.ajc.com/news/2025/06/gwinnett-couple-warn-others-after-losing-800k-in-cryptocurrency-scam/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1681",
+    "reportNum": "7917",
+    "description": "Jerry Dunaway said his heart sank while staring at the glow of a cellphone inside his northeast Gwinnett County home last week.\n\nHe had just tried to withdraw money from his cryptocurrency account, but couldn't. The 74-year-old's head was s ... (https://incidentdatabase.ai/cite/1681#7917)"
+  },
+  "7918": {
+    "id": "7918",
+    "guid": "1f9b6a17-d9e9-5933-820c-cc27b2c95bfb",
+    "title": "AI scams in Georgia and South Florida: How scammers use deepfakes to steal millions",
+    "link": "https://www.cbsnews.com/atlanta/news/ai-scams-in-georgia-and-south-florida-how-scammers-use-deepfakes-to-steal-millions/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1660",
+    "reportNum": "7918",
+    "description": "Artificial intelligence is no longer just helping people write emails or generate images. Investigators say it's also helping scammers steal money by making fake voices, photos and phone calls look and sound frighteningly real.\n\nFor one Sou ... (https://incidentdatabase.ai/cite/1660#7918)"
+  },
+  "7919": {
+    "id": "7919",
+    "guid": "04c75624-7d01-5271-86e0-b3846d116ce6",
+    "title": "Waymo cars stranded on San Francisco streets as Fourth of July gridlock drains batteries",
+    "link": "https://www.nbcnews.com/news/us-news/waymo-cars-stranded-san-francisco-streets-drain-batteries-rcna353089",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1583",
+    "reportNum": "7919",
+    "description": "Several Waymo vehicles had to be towed away after the company said their batteries died while they were stuck in heavy San Francisco traffic amid Fourth of July celebrations.\n\nVideo verified by NBC News showed at least a dozen stationary Wa ... (https://incidentdatabase.ai/cite/1583#7919)"
+  },
+  "7922": {
+    "id": "7922",
+    "guid": "2ebfdf99-5bdb-51e1-8ae4-4841bfc8a2f3",
+    "title": "DC court faults lawyers for Deutsche Bank subsidiary over AI hallucination",
+    "link": "https://www.reuters.com/legal/legalindustry/dc-court-faults-lawyers-deutsche-bank-subsidiary-over-ai-hallucination-2026-09-03/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1682",
+    "reportNum": "7922",
+    "description": "The District of Columbia Court of Appeals said in a ruling on Thursday, opens new tab that lawyers for a Deutsche Bank subsidiary in a mortgage foreclosure lawsuit cited nonexistent cases generated by artificial ​intelligence, calling the m ... (https://incidentdatabase.ai/cite/1682#7922)"
+  },
+  "7923": {
+    "id": "7923",
+    "guid": "65bf1436-4006-586f-9eef-c12afff4bfe4",
+    "title": "Douglas v. Deutsche Bank National Trust Co., No. 24-CV-1099, Published Order",
+    "link": "https://fingfx.thomsonreuters.com/gfx/legaldocs/znpnoyqgmvl/Douglas%20v.%20Deutsche%20Bank%20Nat%27l%20Trt%20Co.%2024-CV-1099%20ORDER.pdf",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": "1682",
+    "reportNum": "7923",
+    "description": "AIID editor’s note: Please consult the original source for authoritative formatting.\n\nDouglas v. Deutsche Bank National Trust Company, No. 24-CV-1099 — Published Order\n\n\n\nOriginal PDF page 1\n\nNotice: This opinion is subject to formal revisi ... (https://incidentdatabase.ai/cite/1682#7923)"
+  },
+  "7925": {
+    "id": "7925",
+    "guid": "acc1e89a-c421-5a31-a6ce-a8852a9a7a1c",
+    "title": "Delhi: Man held for circulating obscene AI-generated photos of college acquaintance",
+    "link": "https://www.tribuneindia.com/news/delhi/delhi-man-held-for-circulating-obscene-ai-generated-photos-of-college-acquaintance/",
+    "pubDate": "Wed, 09 Sep 2026 00:00:00 GMT",
+    "citeId": "1683",
+    "reportNum": "7925",
+    "description": "A 22-year-old man was arrested for allegedly using photographs of a college acquaintance taken from her private social media account to create obscene AI-generated images and circulate them through fake social media accounts, police said on ... (https://incidentdatabase.ai/cite/1683#7925)"
+  },
+  "7926": {
+    "id": "7926",
+    "guid": "161250d7-3d18-5c9b-a74a-af6a22dcb184",
+    "title": "Resentment leads techie to circulate fake obscene images of woman online",
+    "link": "https://timesofindia.indiatimes.com/city/delhi/resentment-leads-techie-to-circulate-fake-obscene-images-of-woman-online/articleshow/133980172.cms",
+    "pubDate": "Wed, 09 Sep 2026 00:00:00 GMT",
+    "citeId": "1683",
+    "reportNum": "7926",
+    "description": "New Delhi: A college grudge culminated in online harassment after a 22-year-old man misused a woman’s private photographs on social media to create obscene AI-generated images. Police arrested Keshav Bansal, a B.Tech graduate from East Punj ... (https://incidentdatabase.ai/cite/1683#7926)"
+  },
+  "7927": {
+    "id": "7927",
+    "guid": "88aca8fc-cffc-5fb7-84d8-08b3a00b58df",
+    "title": "Deepfake pornovideo’s schokken medialandschap: BN’ers en politici doen aangifte",
+    "link": "https://www.ad.nl/tech/deepfake-pornovideos-schokken-medialandschap-bners-en-politici-doen-aangifte~aecdc584/",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1684",
+    "reportNum": "7927",
+    "description": "Managementbureaus en instanties proberen de beelden offline te krijgen. D66 vraagt een debat aan. Autoriteit Persoonsgegevens roept slachtoffers op om naar het OM te stappen.\n\nOok demissionair minister van Justitie Dilan Yesilgöz roept slac ... (https://incidentdatabase.ai/cite/1684#7927)"
+  },
+  "7928": {
+    "id": "7928",
+    "guid": "7d2f5452-dad3-578f-9c11-36c1cf566518",
+    "title": "Vrouwelijke BN'ers overwegen aangifte vanwege deepfake pornovideo's",
+    "link": "https://nos.nl/artikel/2513371-vrouwelijke-bn-ers-overwegen-aangifte-vanwege-deepfake-pornovideo-s",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1684",
+    "reportNum": "7928",
+    "description": "Meerdere vrouwelijke bekende Nederlanders overwegen juridische stappen omdat zij zijn opgedoken in gemanipuleerde pornovideo's. Deze video's staan op een online platform met maandelijks 13 miljoen bezoekers, schrijft het AD.\n\nOp dit platfor ... (https://incidentdatabase.ai/cite/1684#7928)"
+  },
+  "7929": {
+    "id": "7929",
+    "guid": "cf06d5e4-75a2-5fee-8d7d-4c3067f9e840",
+    "title": "Wel of niet zeggen dat je in een neppornovideo zit? BN'ers worstelen ermee",
+    "link": "https://nos.nl/artikel/2513552-wel-of-niet-zeggen-dat-je-in-een-neppornovideo-zit-bn-ers-worstelen-ermee",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1684",
+    "reportNum": "7929",
+    "description": "Meerdere vrouwelijke BN'ers die te zien zijn in zogenoemde deepfake pornovideo's doen hun verhaal in de media. Door zich publiekelijk uit te spreken, willen ze dit soort seksuele misstanden voorkomen. Maar wel of niet naar buiten treden is  ... (https://incidentdatabase.ai/cite/1684#7929)"
+  },
+  "7930": {
+    "id": "7930",
+    "guid": "11840607-4640-5cd9-b963-bc8966bbc20d",
+    "title": "Bekende Nederlanders doen massaal aangifte in zaak deepfakepornovideo's",
+    "link": "https://www.rtl.nl/boulevard/crime/artikel/5447386/15-aangiftes-zaak-deepfakepornovideos-bekende-nederlanders",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1684",
+    "reportNum": "7930",
+    "description": "In een zaak waarbij tientallen bekende Nederlanders en publieke figuren slachtoffer zijn geworden van deepfakepornovideo's die rondgingen op internet, zijn vijftien aangiftes gedaan. Een woordvoerder van het OM Parket-Generaal bevestigt don ... (https://incidentdatabase.ai/cite/1684#7930)"
+  },
+  "7931": {
+    "id": "7931",
+    "guid": "2b81cd33-08b7-50fb-8843-688049b59ca8",
+    "title": "Kamerleden horen al maanden niets na deepfake pornovideo's: 'Week ophef, daarna werd het stil'",
+    "link": "https://www.rtl.nl/nieuws/artikel/5475720/kamerleden-horen-al-maanden-niets-na-deepfake-pornovideos-week-ophef-daarna",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1684",
+    "reportNum": "7931",
+    "description": "Tweede Kamerleden Sandra Beckerman en Eline Vedder kregen precies zeven maanden geleden te horen dat ze net als tientallen andere BN'ers in deepfake pornovideo's figureerden. De Kamerleden deden aangifte, maar hebben sindsdien niets meer ov ... (https://incidentdatabase.ai/cite/1684#7931)"
+  },
+  "7932": {
+    "id": "7932",
+    "guid": "f4298e7a-9509-5060-9ded-7bea5b21cbdc",
+    "title": "Wat vrouwen ervaren in de Tweede Kamer. ‘Je hebt geluk dat jij een vrouw bent, want ze hebben jou minder hard aangepakt’",
+    "link": "https://www.nrc.nl/nieuws/2026/09/09/wat-vrouwen-ervaren-in-de-tweede-kamer-je-hebt-geluk-dat-jij-een-vrouw-bent-want-ze-hebben-jou-minder-hard-aangepakt-a4936077",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1684",
+    "reportNum": "7932",
+    "description": "In de werkkamer van VVD-Tweede Kamerlid Queeny Rajkowski staat een tegeltje met „Bedankt, man\". Gekregen van haar medewerkers. Ze werd namelijk zó vaak benaderd door mannelijke experts die haar iets wilden uitleggen over een onderwerp in ha ... (https://incidentdatabase.ai/cite/1684#7932)"
+  },
+  "7933": {
+    "id": "7933",
+    "guid": "51bad48f-877f-5239-bf87-c6f6ad4cbc06",
+    "title": "Motie van het lid Beckerman over een bevoegde instantie aanwijzen om ook deepfakeporno en andere onrechtmatige seksuele beelden offline te halen",
+    "link": "https://www.tweedekamer.nl/kamerstukken/moties/detail?did=2026D09268&amp;id=2026Z04049",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1684",
+    "reportNum": "7933",
+    "description": "36 800 VII Vaststelling van de begrotingsstaten van het Ministerie van Binnenlandse Zaken en Koninkrijksrelaties (VII) voor het jaar 2026\n\nNr. 86\nMOTIE VAN HET LID BECKERMAN\n\n\n\nVoorgesteld tijdens het wetgevingsoverleg van 2 maart 2026\n\nDe  ... (https://incidentdatabase.ai/cite/1684#7933)"
+  },
+  "7936": {
+    "id": "7936",
+    "guid": "7b0c3a60-6cea-5f4f-84e1-633ccd61cc5c",
+    "title": "An alignment assessment of recent cybersecurity incidents",
+    "link": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1685",
+    "reportNum": "7936",
+    "description": "AIID editor's note: This is a non-contiguous abridgment of Anthropic's September 9, 2026 report, prepared so a single AIID report record can be linked to all four Anthropic cybersecurity-evaluation incident IDs without duplicating the same  ... (https://incidentdatabase.ai/cite/1685#7936)"
+  },
+  "7937": {
+    "id": "7937",
+    "guid": "42fae0a2-0f92-53ca-9455-6a4a8b1b2f92",
+    "title": "Anthropic discloses fourth AI hacking incident missed in earlier review",
+    "link": "https://www.reuters.com/legal/litigation/anthropic-reports-fourth-cybersecurity-incident-with-early-version-claude-2026-09-09/",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1685",
+    "reportNum": "7937",
+    "description": "Anthropic on ​Wednesday disclosed another instance of an AI model hacking external systems during testing, the latest in a ‌growing list of such incidents that have raised concerns about the risk posed by autonomous AI agents.\n\nThe January  ... (https://incidentdatabase.ai/cite/1685#7937)"
+  },
+  "7938": {
+    "id": "7938",
+    "guid": "4c992adc-93d8-51b5-b1bf-e668e309e6ea",
+    "title": "Another Anthropic model gained access to the open internet during testing, company says",
+    "link": "https://www.cbsnews.com/news/anthropic-ai-model-internet-hack-fourth-time/",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1685",
+    "reportNum": "7938",
+    "description": "Anthropic disclosed on Wednesday that another one of its Claude models mistakenly gained access to the open internet during a cybersecurity exercise, marking the fourth time its models have done so. \n\nAn early version of the Claude Opus 4.6 ... (https://incidentdatabase.ai/cite/1685#7938)"
+  },
+  "7939": {
+    "id": "7939",
+    "guid": "077d994b-ed59-564a-8c40-9c4fafcada7d",
+    "title": "Ahead of its Cybercab launch, Tesla told a grieving family that a self-driving car’s fatal crash data was gone — a hacker proved every car keeps it",
+    "link": "https://moneywise.com/news/top-stories/tesla-cybercab-autopilot-crash-data-hacker-lawsuit",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7939",
+    "description": "Elon Musk is planning to launch Cybercabs, fully autonomous vehicles without the means for a human to control them, any day now. But a lawsuit that closed this year indicates the electric car company may not be ready for the launch.\n\nIn Mar ... (https://incidentdatabase.ai/cite/1686#7939)"
+  },
+  "7940": {
+    "id": "7940",
+    "guid": "77c96591-9005-54e7-b45d-208cfabcc7cd",
+    "title": "Jury orders Tesla to pay more than $240 million in Autopilot crash case",
+    "link": "https://apnews.com/article/tesla-miami-musk-benavides-selfdriving-autopilot-autonomous-vehicles-c342f2716b1ec4e9ede09b8e958751b7",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7940",
+    "description": "MIAMI (AP) --- A Miami jury decided that Elon Musk's car company Tesla was partly responsible for a deadly crash in Florida involving its Autopilot driver assist technology and must pay the victims more than $240 million in damages.\n\nThe fe ... (https://incidentdatabase.ai/cite/1686#7940)"
+  },
+  "7941": {
+    "id": "7941",
+    "guid": "893b4d1c-714c-5d5c-80ff-53f6f97d12d5",
+    "title": "Tesla said it didn’t have key data in a fatal crash. Then a hacker found it.",
+    "link": "https://www.washingtonpost.com/technology/2025/08/29/tesla-autopilot-crashes-evidence-testimony-wrongful-death/",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7941",
+    "description": "Years after a Tesla driver using Autopilot plowed into a young Florida couple in 2019, crucial electronic data detailing how the fatal wreck unfolded was missing. The information was key for a wrongful death case the survivor and the victim ... (https://incidentdatabase.ai/cite/1686#7941)"
+  },
+  "7942": {
+    "id": "7942",
+    "guid": "02c72097-4bfb-532f-bf64-e72a8a18f5a5",
+    "title": "US judge upholds $243 million verdict against Tesla over fatal Autopilot crash",
+    "link": "https://www.reuters.com/world/us-judge-upholds-243-million-verdict-against-tesla-over-fatal-autopilot-crash-2026-02-20/",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7942",
+    "description": "Feb 20 (Reuters) - A federal judge rejected Tesla's (TSLA.O), opens new tab request to overturn a $243 million jury verdict over the 2019 crash of an Autopilot-equipped Model S, which killed a 22-year-old woman and severely injured her boyf ... (https://incidentdatabase.ai/cite/1686#7942)"
+  },
+  "7943": {
+    "id": "7943",
+    "guid": "0f4a5326-19eb-5825-81ff-1bf09e4ff632",
+    "title": "Omnibus Order on Motion for Summary Judgment and Daubert Motions",
+    "link": "https://www.govinfo.gov/content/pkg/USCOURTS-flsd-1_21-cv-21940/pdf/USCOURTS-flsd-1_21-cv-21940-4.pdf",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7943",
+    "description": "AIID editor's note: This report contains a non-contiguous abridgment of the court's June 26, 2025 order. It retains selected source passages relevant to the April 25, 2019 collision, Tesla Autopilot's operation, the parties' competing causa ... (https://incidentdatabase.ai/cite/1686#7943)"
+  },
+  "7944": {
+    "id": "7944",
+    "guid": "457546c0-4d5c-5bab-bdf4-143f0bd5913f",
+    "title": "Order on Amended Renewed Motion for Judgment as a Matter of Law or, Alternatively, Motion for New Trial",
+    "link": "https://www.govinfo.gov/content/pkg/USCOURTS-flsd-1_21-cv-21940/pdf/USCOURTS-flsd-1_21-cv-21940-14.pdf",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7944",
+    "description": "Order on Amended Renewed Motion for Judgment as a Matter of Law or, Alternatively, Motion for New Trial\n\nUnited States District Court\nSouthern District of Florida\nCase No. 21-cv-21940-BLOOM/Torres\nDocument 612\nEntered on FLSD Docket: Februa ... (https://incidentdatabase.ai/cite/1686#7944)"
+  },
+  "7945": {
+    "id": "7945",
+    "guid": "cc777fe6-c999-5503-806d-8c0a25538ccd",
+    "title": "Benavides v. Tesla: Judge Upholds $243 Million Jury Verdict",
+    "link": "https://www.carcomplaints.com/news/2026/benavides-v-tesla-judge-upholds-243-million-jury-verdict.shtml",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7945",
+    "description": "Tesla is still stuck with a $243 million jury verdict after a Florida judge ruled there will be no new trial.\n\nThe Key Largo, Florida, Tesla Model S crash occurred in April 2019 when driver George McGee was speeding through an intersection  ... (https://incidentdatabase.ai/cite/1686#7945)"
+  },
+  "7946": {
+    "id": "7946",
+    "guid": "2577116d-fa79-529f-8f72-811de523f549",
+    "title": "Paint it black",
+    "link": "https://www.businessinsider.com/tesla-autopilot-failure-fatal-crash-missing-data-2026-7",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7946",
+    "description": "The last thing Dillon Angulo says he remembers is pulling over to see the stars. It was around 9:15 on April 25, 2019, in Key Largo, Florida. He and Naibel Benavides had been inseparable since their first date a few weeks earlier. Angulo, a ... (https://incidentdatabase.ai/cite/1686#7946)"
+  },
+  "7947": {
+    "id": "7947",
+    "guid": "12b3b073-75c3-54c0-ae90-65e59f8168b4",
+    "title": "Tesla's Missing Autopilot Data Showed It Detected A Hazard Before Fatal Crash, Despite Claims It Was Missing",
+    "link": "https://www.ibtimes.co.uk/tesla-autopilot-verdict-upheld-missing-data-1806254",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": "1686",
+    "reportNum": "7947",
+    "description": "A federal judge has officially rejected Tesla's attempt to overturn a staggering $243 million (£180 million) jury verdict, marking a decisive legal defeat for the electric vehicle giant in one of the most high-profile Autopilot liability ca ... (https://incidentdatabase.ai/cite/1686#7947)"
+  },
+  "7948": {
+    "id": "7948",
+    "guid": "3fe98f29-0148-5e23-bf02-ab7ec40a920d",
+    "title": "Houthis used Anthropic AI to try to build ballistic missiles",
+    "link": "https://www.ft.com/content/8310cf56-ce60-4e6e-8254-5bb470e9a880",
+    "pubDate": "Fri, 11 Sep 2026 00:00:00 GMT",
+    "citeId": "1687",
+    "reportNum": "7948",
+    "description": "Yemeni militants sought to use Anthropic’s Claude AI model to develop guidance, control and navigation software for its ballistic missiles, the US company said.\n\nIn its intelligence threat report released on Thursday, Anthropic did not name ... (https://incidentdatabase.ai/cite/1687#7948)"
+  },
+  "7949": {
+    "id": "7949",
+    "guid": "053b6431-17b5-5396-839d-1a9a3cacb94e",
+    "title": "Un adolescente planificó con la Inteligencia Artificial matar a sus compañeros de colegio: fue detectado por el FBI y allanado en Quilmes",
+    "link": "https://www.clarin.com/policiales/adolescente-planifico-inteligencia-artificial-matar-companeros-colegio-detectado-fbi-allanado-quilmes_0_vSUeHLZ4nv.html",
+    "pubDate": "Sat, 12 Sep 2026 00:00:00 GMT",
+    "citeId": "1688",
+    "reportNum": "7949",
+    "description": "Un adolescente de 15 años de edad había planificado con la Inteligencia Artificial protagonizar para 2027 un tiroteo en su colegio y matar a sus compañeros, un hecho que gracias a la advertencia del FBI pudo ser desactivado. Además, su domi ... (https://incidentdatabase.ai/cite/1688#7949)"
+  },
+  "7950": {
+    "id": "7950",
+    "guid": "52ee01df-97c9-5e04-91d6-6fc702eb60c5",
+    "title": "Cómo descubrió el FBI al chico de 15 años que organizaba con IA una masacre escolar en Quilmes y cuál era su plan",
+    "link": "https://www.clarin.com/policiales/cuchillos-tacticos-mascaras-pruebas-detras-adolescente-planeo-masacre-escolar-quilmes-usando-ia-descubierto-fbi_0_xhLcCUdm4D.html",
+    "pubDate": "Sat, 12 Sep 2026 00:00:00 GMT",
+    "citeId": "1688",
+    "reportNum": "7950",
+    "description": "A partir de una inquietante conversación con ChatGPT, que disparó una alarma en Estados Unidos, la Policía Federal argentina logró frustrar a un chico de 15 años que planeaba un ataque en su colegio para matar a varios de sus compañeros uti ... (https://incidentdatabase.ai/cite/1688#7950)"
+  },
+  "7951": {
+    "id": "7951",
+    "guid": "b0054563-d049-52ff-9b80-99f601a352b6",
+    "title": "Un adolescente planificó con Inteligencia Artificial matar a sus compañeros: el FBI dio aviso y lo allanaron en Quilmes",
+    "link": "https://www.lanacion.com.ar/seguridad/un-adolescente-planifico-con-inteligencia-artificial-sus-companeros-de-colegio-el-fbi-dio-aviso-y-lo-nid11092026/",
+    "pubDate": "Sat, 12 Sep 2026 00:00:00 GMT",
+    "citeId": "1688",
+    "reportNum": "7951",
+    "description": "Un aviso del \"agregado jurídico\" del FBI en la embajada de los Estados Unidos en Buenos Aires encendió las alarmas y dio origen a una investigación judicial: un adolescente de 15 años habría usado un modelo de Inteligencia Artificial (IA) p ... (https://incidentdatabase.ai/cite/1688#7951)"
+  },
+  "7952": {
+    "id": "7952",
+    "guid": "2cc2e34b-645d-5916-b02c-df8be7857c0c",
+    "title": "Planeó una masacre escolar con ChatGPT, intervino el FBI y no recibirá ninguna pena",
+    "link": "https://www.eltrecetv.com.ar/mediodia-noticias/2026/09/11/planeo-una-masacre-escolar-con-chatgpt-intervino-el-fbi-y-no-recibira-ninguna-pena/",
+    "pubDate": "Sat, 12 Sep 2026 00:00:00 GMT",
+    "citeId": "1688",
+    "reportNum": "7952",
+    "description": "El joven de 15 años que había averiguado a través del ChatGPT cómo organizar una masacre en su colegiode Quilmes está identificado y su domicilio fue allanado en busca de pruebas de su macabro plan pergeñado con inteligencia artificial. Per ... (https://incidentdatabase.ai/cite/1688#7952)"
+  },
+  "7954": {
+    "id": "7954",
+    "guid": "2e8bb95f-2b84-5336-b01f-f268b4605e62",
+    "title": "Fort Bend County Sheriff's Office lieutenant admits to improper use of Flock cameras per docs",
+    "link": "https://abc13.com/post/fort-bend-county-sheriffs-office-lieutenant-admits-improper-use-flock-cameras-docs/19528986/",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1689",
+    "reportNum": "7954",
+    "description": "FORT BEND COUNTY, Texas (KTRK) -- Documents obtained by ABC13 show a Fort Bend County Sheriff's Office lieutenant used Flock cameras to look up one license plate 41 times and another plate 148 times from January 2022 through December 2025.\n ... (https://incidentdatabase.ai/cite/1689#7954)"
+  },
+  "7955": {
+    "id": "7955",
+    "guid": "8729d9bd-a91d-5060-a790-552952955437",
+    "title": "Critics warned about Flock surveillance. Three Houston-area investigations are fueling those concerns.",
+    "link": "https://www.chron.com/texas/article/flock-houston-area-misuse-22367312.php",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1689",
+    "reportNum": "7955",
+    "description": "Three Houston area law-enforcement agencies conducted  internal investigations this summer over officers' alleged abuse of the Flock license plate surveillance database. \n\nAlthough law enforcement agencies statewide have repeatedly emphasiz ... (https://incidentdatabase.ai/cite/1689#7955)"
+  },
+  "7956": {
+    "id": "7956",
+    "guid": "fd856883-6ab8-59ba-96c2-6240e17e889e",
+    "title": "Kechi police lieutenant arrested for using police technology to stalk wife",
+    "link": "https://www.kwch.com/2022/10/31/kechi-police-lieutenant-arrested-using-police-technology-stalk-wife/",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1690",
+    "reportNum": "7956",
+    "description": "WICHITA, Kan. (KWCH) - Kechi Police Lieutenant Victor Heiar was arrested by the Wichita Police Department after it was discovered he utilized his position within the police department to unlawfully access WPD’s flock license plate reader te ... (https://incidentdatabase.ai/cite/1690#7956)"
+  },
+  "7957": {
+    "id": "7957",
+    "guid": "64d1b930-6f53-5a1d-82a5-3709cca92aeb",
+    "title": "Former Kechi police lieutenant convicted on stalking charges",
+    "link": "https://www.kwch.com/2023/04/05/former-kechi-police-lieutenant-convicted-stalking-charges/",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1690",
+    "reportNum": "7957",
+    "description": "WICHITA, Kan. (KWCH) - A former police officer has been sentenced in Sedgwick County District Court.\n\nJudge David Kaufman sentenced Victor Heiar, 32 of Park City, to a controlling term of 24 months in jail from which he was granted probatio ... (https://incidentdatabase.ai/cite/1690#7957)"
+  },
+  "7958": {
+    "id": "7958",
+    "guid": "a027f11d-04f8-5592-8e75-7f55d5158753",
+    "title": "A former police officer has been sentenced in Sedgwick County District Court",
+    "link": "https://www.sedgwickcounty.org/media/63863/heiar-sentenced-news-release.pdf",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1690",
+    "reportNum": "7958",
+    "description": "WICHITA, KAN. -- A former police officer has been sentenced in Sedgwick County District Court. Judge David Kaufman sentenced Victor Heiar, 32 of Park City, to a controlling term of 24 months in jail from which he was granted probation for 1 ... (https://incidentdatabase.ai/cite/1690#7958)"
+  },
+  "7959": {
+    "id": "7959",
+    "guid": "33596265-d0a3-5dc6-b7b8-b3a4b67033ac",
+    "title": "‘You were spotted’: KS officer who used police cameras to stalk estranged wife sentenced",
+    "link": "https://www.kansas.com/news/local/crime/article274003460.html",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1690",
+    "reportNum": "7959",
+    "description": "A former Kechi police lieutenant was sentenced Wednesday to probation for using Wichita police cameras to stalk his estranged wife, the Sedgwick County District Attorney’s Office said.\n\nVictor Heiar, who accessed the cameras while working f ... (https://incidentdatabase.ai/cite/1690#7959)"
+  },
+  "7960": {
+    "id": "7960",
+    "guid": "ff226e1e-cdd9-5e78-bdc5-c3c983eb7348",
+    "title": "Wichita moves to tighten access, increase oversight on secretive police surveillance program",
+    "link": "https://www.kansas.com/news/politics-government/article268186392.html",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1690",
+    "reportNum": "7960",
+    "description": "Where are you going, where have you been — and where are you right now?\n\nIf the answer is Wichita, and you got there by motor vehicle, it’s likely the Wichita Police Department already knows. Or it can find out with a reasonable degree of c ... (https://incidentdatabase.ai/cite/1690#7960)"
+  },
+  "7961": {
+    "id": "7961",
+    "guid": "835190f3-ba4d-5021-804a-03c0ae4621a3",
+    "title": "How rogue officers turned a nationwide camera network into a tool for stalking",
+    "link": "https://www.washingtonpost.com/technology/2026/08/02/how-police-officers-used-vast-network-cameras-spy-their-exes/",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1690",
+    "reportNum": "7961",
+    "description": "JEFFERSON, Ga. --- Marci Bakely couldn't understand how her ex-boyfriend always seemed to know where she was.\n\nWhen she went to buy groceries or on a date or to the doctor, he'd text her about it, sometimes within minutes, despite working 1 ... (https://incidentdatabase.ai/cite/1690#7961)"
+  },
+  "7962": {
+    "id": "7962",
+    "guid": "ec7893f2-fa5d-520e-bb40-c6cedb4fb8e1",
+    "title": "Messerangriff auf Kinder: Täter «kaufte Rindfleisch, um zu üben»",
+    "link": "https://www.20min.ch/story/messerangriff-zuerich-oerlikon-taeter-uebte-stiche-an-rohem-rindfleisch-103632247",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1691",
+    "reportNum": "7962",
+    "description": "Messerangriff auf Kinder: Täter «kaufte Rindfleisch, um zu üben»\n\nEin chinesischer Student, der im Herbst 2024 in Zürich-Oerlikon auf drei Buben eingestochen hat, steht am Donnerstag wegen versuchten Mordes vor Gericht. Die Anklageschrift e ... (https://incidentdatabase.ai/cite/1691#7962)"
+  },
+  "7963": {
+    "id": "7963",
+    "guid": "c69faf42-cdf1-5082-ba16-b4269a4922b2",
+    "title": "Chinese hatte Tat zusammen mit ChatGPT geplant!",
+    "link": "https://www.blick.ch/schweiz/zuerich/drei-kindergaertler-in-zuerich-oerlikon-mit-messer-attackiert-und-schwer-verletzt-chinese-hatte-tat-zusammen-mit-chatgpt-geplant-id22244459.html",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1691",
+    "reportNum": "7963",
+    "description": "Drei Kindergärtler in Zürich mit Messer attackiert und schwer verletzt\n\nChinese hatte Tat zusammen mit ChatGPT geplant!\n\nEr plante die Tat über Wochen und soll dafür sogar ChatGPT genutzt haben. Nächste Woche steht Han L.\\* (24) wegen des M ... (https://incidentdatabase.ai/cite/1691#7963)"
+  },
+  "7964": {
+    "id": "7964",
+    "guid": "05011da3-6e01-51d9-a12e-84311abcf44b",
+    "title": "Zürich-Oerlikon: Angriff auf Kinder eines Kinderhortes mit Verletzungsfolgen",
+    "link": "https://www.zh.ch/de/news-uebersicht/medienmitteilungen/2024/10/241002_medienmitteilung_osta_oerlikon.html",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1691",
+    "reportNum": "7964",
+    "description": "Am 01. Oktober 2024 verletzte eine männliche Person an der Berninastrasse in Oerlikon mit einer Stichwaffe mehrere Kinder.\n\nBeim Täter handelt es sich um einen 23-jährigen chinesischen Staatsangehörigen, der sich seit dem Sommer 2023 zu Stu ... (https://incidentdatabase.ai/cite/1691#7964)"
+  },
+  "7965": {
+    "id": "7965",
+    "guid": "f374bfcb-1dfc-5e60-a678-38c9c4ebc401",
+    "title": "L'homme qui a attaqué une garderie suisse a trouvé ses victimes sur ChatGPT",
+    "link": "https://www.watson.ch/fr/suisse/justice/158071647-il-a-utilise-chatgpt-pour-poignarder-des-enfants-en-suisse",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1691",
+    "reportNum": "7965",
+    "description": "L'homme qui a attaqué une garderie suisse a trouvé ses victimes sur ChatGPT\n\nEn octobre 2024, un Chinois avait poignardé en pleine rue des enfants qui se rendaient à l’accueil parascolaire à Zurich. Jeudi, l’homme, aujourd’hui âgé de 25 ans ... (https://incidentdatabase.ai/cite/1691#7965)"
+  },
+  "7966": {
+    "id": "7966",
+    "guid": "9f426c96-2088-5146-852b-bd64ee7d2806",
+    "title": "Columbus man sentenced to 15 years in prison for cyberstalking exes, creating AI-generated obscene material of adults & children",
+    "link": "https://www.justice.gov/usao-sdoh/pr/columbus-man-sentenced-15-years-prison-cyberstalking-exes-creating-ai-generated",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1448",
+    "reportNum": "7966",
+    "description": "Defendant was first in nation convicted of violating new Take It Down Act\n\nCOLUMBUS, Ohio -- James Strahler II, 37, of Columbus, was sentenced today in U.S. District Court to 180 months in prison for cybercrimes that included both real and  ... (https://incidentdatabase.ai/cite/1448#7966)"
+  },
+  "7967": {
+    "id": "7967",
+    "guid": "a5d84051-4235-55e4-a745-9c7984e7e077",
+    "title": "Parkview High receives 4th AI-generated bomb threat this year",
+    "link": "https://www.fox5atlanta.com/news/parkview-high-receives-4th-ai-generated-bomb-threat-year",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1692",
+    "reportNum": "7967",
+    "description": "GWINNETT COUNTY, Ga. - Gwinnett County school police are working with state and federal investigators after Parkview High School received its fourth AI-generated bomb threat of the school year.\n\nPREVIOUS STORY: Masked AI call forces Parkvie ... (https://incidentdatabase.ai/cite/1692#7967)"
+  },
+  "7968": {
+    "id": "7968",
+    "guid": "152c932d-176e-5872-80ac-4afd5f199cd3",
+    "title": "Hoax phone call at Gwinnett high school causes lockdown; campus cleared",
+    "link": "https://www.wsbtv.com/news/local/hoax-phone-call-gwinnett-high-school-causes-lockdown-campus-cleared/7CX7VJGA7FBNFASNTHSSTLRTMY/",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1692",
+    "reportNum": "7968",
+    "description": "GWINNETT COUNTY, Ga. — Parkview High School went into a soft lockdown Friday, but no credible threat was found, police said.\n\nGwinnett County Police said investigators believe a hoax phone call. caused the lockdown.\n\nOfficers have cleared t ... (https://incidentdatabase.ai/cite/1692#7968)"
+  },
+  "7969": {
+    "id": "7969",
+    "guid": "bef0bf80-f984-519b-b715-cc8765930536",
+    "title": "Masked AI call forces Parkview High into soft lockdown",
+    "link": "https://www.fox5atlanta.com/news/masked-ai-call-forces-parkview-high-soft-lockdown",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1692",
+    "reportNum": "7969",
+    "description": "LILBURN, Ga. - Parkview High School resumed normal operations Friday after law enforcement cleared a threat that briefly forced the campus into a soft lockdown. \n\nParkview High threat\n\nWhat we know:\n\nParkview High School went into a soft lo ... (https://incidentdatabase.ai/cite/1692#7969)"
+  },
+  "7970": {
+    "id": "7970",
+    "guid": "7096825f-6679-5628-a7d1-bf4f0d030e2a",
+    "title": "Primera notificación de una brecha de datos personales causada por un ataque ejecutado mediante un agente de IA",
+    "link": "https://www.aepd.es/prensa-y-comunicacion/blog/primera-notiviacion-brecha-datos-personales-causada-por-ataque-ejecutado-mediante-agente-ia",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1693",
+    "reportNum": "7970",
+    "description": "El agente atacante inició una búsqueda de vulnerabilidades en archivos genéricos, y realizó un login correcto. Una vez accedió al sistema, comenzó a buscar, de forma autónoma, vulnerabilidades en la aplicación, lo que, una vez conseguido, l ... (https://incidentdatabase.ai/cite/1693#7970)"
+  },
+  "7971": {
+    "id": "7971",
+    "guid": "2c1d3da3-ab61-50a4-99ae-1a66b95aaabf",
+    "title": "Spanish data watchdog publicises first AI agent-linked data breach report",
+    "link": "https://www.reuters.com/business/spanish-data-watchdog-publicises-first-ai-agent-linked-data-breach-report-2026-09-15/",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1693",
+    "reportNum": "7971",
+    "description": "MADRID, Sept 15 (Reuters) - Spain's data protection watchdog said it has received the first reported notification of a personal data breach allegedly carried out by an artificial intelligence agent, a case that suggests autonomous ​systems  ... (https://incidentdatabase.ai/cite/1693#7971)"
+  },
+  "7972": {
+    "id": "7972",
+    "guid": "48fb9938-3105-5374-be64-f69b51df122f",
+    "title": "First Agentic AI Data Breach Reported to Spanish Regulator",
+    "link": "https://www.securityweek.com/first-agentic-ai-data-breach-reported-to-spanish-regulator/",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1693",
+    "reportNum": "7972",
+    "description": "\\*\\*The Spanish Data Protection Agency (AEPD) has published details of the first notification of a personal data protection breach executed by design through an AI agent. \\*\\*\n\nInvestigation into the attack is continuing, and the AEPD uses  ... (https://incidentdatabase.ai/cite/1693#7972)"
+  },
+  "7973": {
+    "id": "7973",
+    "guid": "e9e4f522-a430-54f9-acd6-449646946f24",
+    "title": "Primera brecha de datos ejecutada por un agente de inteligencia artificial de forma autónoma",
+    "link": "https://cincodias.elpais.com/companias/2026-09-16/primera-brecha-de-dato-ejecutada-por-un-agente-de-inteligencia-artificial-de-forma-autonoma.html",
+    "pubDate": "Wed, 16 Sep 2026 00:00:00 GMT",
+    "citeId": "1693",
+    "reportNum": "7973",
+    "description": "La Agencia Española de Protección de Datos (AEPD) recibió este lunes la primera notificación de una brecha de datos personales en España en la que el ataque habría sido ejecutado mediante un agente de inteligencia artificial (IA), que utili ... (https://incidentdatabase.ai/cite/1693#7973)"
+  },
+  "NDQ4NTBhNWYt": {
+    "id": "NDQ4NTBhNWYt",
+    "guid": "44850a5f-79d5-5441-9ef8-e6a8193bd79a",
+    "title": "No title",
+    "link": "",
+    "pubDate": "Sun, 13 Sep 2026 01:00:02 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "... (report_number: 7953)"
+  },
+  "M2UyZjBhNjMt": {
+    "id": "M2UyZjBhNjMt",
+    "guid": "3e2f0a63-8f47-50eb-9920-2f01411019fb",
+    "title": "60 Posts in 10 Hours: How Trump’s Social Media Reflects His Version of Reality",
+    "link": "https://www.nytimes.com/2026/09/09/us/politics/trump-social-media-ai-reality.html",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "Just before noon on a holiday weekend, while many Americans were at the beach, President Trump's social media account roared to life. In what has increasingly become his weekend habit, he unleashed a daylong barrage of posts that put the bu ... (report_number: 7934)"
+  },
+  "OTAwMTc2Y2It": {
+    "id": "OTAwMTc2Y2It",
+    "guid": "900176cb-c9f3-514a-a7b2-08936ad62897",
+    "title": "Claude, Codex, and Hermes installed unowned code inside corporate networks",
+    "link": "https://arstechnica.com/security/2026/08/claude-codex-and-hermes-installed-unowned-code-inside-corporate-networks/",
+    "pubDate": "Thu, 10 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "Documentation files on more than 100 websites are referencing potentially dangerous executable content that gets installed automatically when visited by many AI agents. A few dozen companies, some of them Fortune 500s, are among those that  ... (report_number: 7935)"
+  },
+  "MDIzOTI0ZjUt": {
+    "id": "MDIzOTI0ZjUt",
+    "guid": "023924f5-0e5b-5fd7-80f1-f4ee9b3af4c3",
+    "title": "No title",
+    "link": "",
+    "pubDate": "Tue, 08 Sep 2026 10:03:06 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "... (report_number: 7895)"
+  },
+  "NzM4NDA2MDgt": {
+    "id": "NzM4NDA2MDgt",
+    "guid": "73840608-545f-512d-8553-755b3301789d",
+    "title": "The mystery behind an audio clip that helped upend a Senate race",
+    "link": "https://www.washingtonpost.com/politics/2026/09/05/mystery-behind-an-audio-clip-that-helped-upend-senate-race/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "Late last month, left-wing firebrand Hasan Piker showed his Twitch viewers a social media post quoting a supposed audio recording of a Jewish American politician saying that the primary objective of his campaign was to aid Israel.\n\nPiker di ... (report_number: 7905)"
+  },
+  "ZDA4NzljOGUt": {
+    "id": "ZDA4NzljOGUt",
+    "guid": "d0879c8e-423d-5b81-82f5-9529af791a5c",
+    "title": "ChatGPT Operator: Prompt Injection Exploits & Defenses",
+    "link": "https://embracethered.com/blog/posts/2025/chatgpt-operator-prompt-injection-exploits/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "ChatGPT Operator is a research preview agent from OpenAI that lets ChatGPT use a web browser. It uses vision and reasoning abilities to complete tasks like researching topics, booking travel, ordering groceries, or as this post will show, s ... (report_number: 7909)"
+  },
+  "YTg2OTU4NjEt": {
+    "id": "YTg2OTU4NjEt",
+    "guid": "a8695861-67ee-5915-9cf3-91ebb50da041",
+    "title": "How Claude Code escapes its own denylist and sandbox",
+    "link": "https://ona.com/stories/how-claude-code-escapes-its-own-denylist-and-sandbox",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "In the last ten days: a single person used Claude to breach Mexican government agencies. Cline's own AI-powered triage workflow was compromised via prompt injection. A new Shai-Hulud variant started injecting rogue MCP servers into develope ... (report_number: 7915)"
+  },
+  "MjcyY2IwOTMt": {
+    "id": "MjcyY2IwOTMt",
+    "guid": "272cb093-aca1-51f7-9f4a-0fe9a07f1a94",
+    "title": "Google's AI Is Telling Users That Flock Cameras Are Filled With Valuable Gold and Copper",
+    "link": "https://futurism.com/artificial-intelligence/google-ai-overview-flock-alpr-surveillance-hallucination-gold-copper",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "Google's notorious AI Overview just handed would-be Flock vandals a perfect excuse to carve into the company's controversial AI-integrated license plate readers (ALPRs).\n\nALRPs are wildly unpopular, especially online, where privacy-minded c ... (report_number: 7920)"
+  },
+  "N2Q0ODU4OWYt": {
+    "id": "N2Q0ODU4OWYt",
+    "guid": "7d48589f-564d-5ec2-833f-15b56f0d8a3a",
+    "title": "A Hacking Tool Built With A.I. Can Breach Phones Without a Click",
+    "link": "https://www.nytimes.com/2026/09/08/us/politics/calif-ai-worm-wechat-hack.html",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "A friend you haven't heard from in a while suddenly calls. You don't pick up, but in a matter of seconds, the damage is already done.\n\nThe call wasn't actually from an old companion looking to reconnect, but from a hacker who had hijacked t ... (report_number: 7921)"
+  },
+  "NmEzMGI4OGIt": {
+    "id": "NmEzMGI4OGIt",
+    "guid": "6a30b88b-86ea-5a48-b331-17ed2df28774",
+    "title": "Claude, Codex, and Hermes installed unowned code inside corporate networks",
+    "link": "https://arstechnica.com/security/2026/08/claude-codex-and-hermes-installed-unowned-code-inside-corporate-networks/",
+    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "Documentation files on more than 100 websites are referencing potentially dangerous executable content that gets installed automatically when visited by many AI agents. A few dozen companies, some of them Fortune 500s, are among those that  ... (report_number: 7924)"
+  },
+  "ZGQzY2ZkOGIt": {
+    "id": "ZGQzY2ZkOGIt",
+    "guid": "dd3cfd8b-aeb4-518e-a099-b01fc665aab2",
+    "title": "California regulators rushed their decision on driverless trucks, Teamsters’ lawsuit says",
+    "link": "https://www.latimes.com/business/story/2026-08-29/california-regulators-rushed-their-decision-on-driverless-trucks-teamsters-lawsuit-says",
+    "pubDate": "Sat, 05 Sep 2026 00:00:00 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "As self-driving vehicles spread across the country, a major California labor union is taking a stand against state regulators who say autonomous trucks are ready for the road.\n\nTeamsters California sued the California Department of Motor Ve ... (report_number: 7894)"
+  }
+}
