@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ExternalLink, Search, X, Github, Linkedin, MessageCircle, Filter, Clock, BookOpen, Shield, Code, ChevronDown, Bookmark, Check, Share2, Download, Upload, Trash2 } from 'lucide-react';
+import { ExternalLink, Search, X, Github, Linkedin, MessageCircle, Filter, Clock, BookOpen, Shield, Code, ChevronDown, Bookmark, Check, Share2, Download, Upload, Trash2, Sparkles } from 'lucide-react';
 import {
   courseUrl,
   loadBookmarks,
@@ -12,6 +12,7 @@ import {
   serializeLibrary,
   type AnarchyProgress,
 } from '../lib/anarchy-library';
+import { recommendCourses, similarCourses } from '../lib/anarchy-recommend';
 
 interface AnarchyProvider {
   name: string;
@@ -418,6 +419,26 @@ export default function Anarchy() {
     return { saved: bookmarks.length, doing, done };
   }, [bookmarks, progress]);
 
+  // Phase 4 — deterministic picks from the local library (no fetch needed:
+  // the full slim index is already in memory). Hidden until the user saves
+  // or tracks at least one course.
+  const forYou = useMemo(() => {
+    if (!idx) return [];
+    if (bookmarks.length + Object.keys(progress).length === 0) return [];
+    const done = Object.entries(progress)
+      .filter(([, v]) => v === 'done')
+      .map(([k]) => k);
+    const doing = Object.entries(progress)
+      .filter(([, v]) => v === 'doing')
+      .map(([k]) => k);
+    return recommendCourses(idx.courses, { saved: bookmarks, done, doing, limit: 8 });
+  }, [idx, bookmarks, progress]);
+
+  const similar = useMemo(() => {
+    if (!idx || !selected) return [];
+    return similarCourses(idx.courses, selected.id, 4);
+  }, [idx, selected]);
+
   const exportLibrary = useCallback(() => {
     const blob = new Blob([serializeLibrary(bookmarks, progress)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -712,6 +733,78 @@ export default function Anarchy() {
         </div>
       </section>
 
+      {/* Phase 4 — For you (deterministic picks from the local library) */}
+      {forYou.length > 0 && (
+        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-2">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles className="w-4 h-4 text-cyan-300" />
+            <h3 className="font-mono text-xs tracking-[0.2em] text-slate-300">FOR YOU • FROM YOUR LIBRARY</h3>
+            <span className="text-[11px] font-mono text-slate-500">
+              {libraryCounts.saved} saved • {libraryCounts.done} done
+            </span>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-3 -mx-1 px-1">
+            {forYou.map(({ course: c, score, reasons }, i) => {
+              const normId = normalizeCourseId(c.id) ?? c.id;
+              const saved = bookmarks.includes(normId);
+              return (
+                <article
+                  key={c.id}
+                  onClick={() => openCourse(c)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openCourse(c);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`#${i + 1}: ${c.title} — open details`}
+                  className="group shrink-0 w-64 text-left rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-[#0b1a1c]/90 to-[#050808]/90 backdrop-blur hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,229,255,.15)] transition-all duration-300 overflow-hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60"
+                >
+                  <div className="p-4 flex flex-col h-full">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-lg font-bold text-cyan-300/80">#{i + 1}</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleBookmark(c.id);
+                        }}
+                        aria-pressed={saved}
+                        aria-label={saved ? `Remove ${c.title} from saved` : `Save ${c.title} for later`}
+                        className={`w-7 h-7 rounded-full border flex items-center justify-center transition-all hover:scale-110 ${
+                          saved ? 'bg-cyan-500/30 border-cyan-400/50 text-cyan-100' : 'bg-black/40 border-white/10 text-white/70 hover:text-white'
+                        }`}
+                      >
+                        <Bookmark className="w-3.5 h-3.5" fill={saved ? 'currentColor' : 'none'} />
+                      </button>
+                    </div>
+                    <h4 className="mt-2 font-mono text-sm font-semibold leading-tight line-clamp-2 group-hover:text-cyan-300 transition-colors" style={{ fontFamily: 'Orbitron, monospace' }}>
+                      {c.title}
+                    </h4>
+                    <p className="mt-1 text-[11px] font-mono text-slate-500 line-clamp-2 leading-relaxed flex-1">
+                      {reasons[0] ?? `Score ${score.toFixed(1)}`}
+                      {reasons[1] ? ` • ${reasons[1]}` : ''}
+                    </p>
+                    <div className="mt-2 flex items-center gap-1.5 text-[10px] font-mono">
+                      <span className="text-white/80">{c.provider.icon} {c.provider.name}</span>
+                      <span className="text-slate-500">•</span>
+                      <span className={c.difficulty === 'advanced' ? 'text-red-300' : c.difficulty === 'beginner' ? 'text-emerald-300' : 'text-amber-300'}>
+                        {c.difficulty}
+                      </span>
+                      <span className="text-slate-500">•</span>
+                      <span className="text-cyan-200 inline-flex items-center gap-0.5">
+                        <Clock className="w-3 h-3" /> {c.hours}h
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Grid */}
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="flex items-center justify-between mb-4">
@@ -978,6 +1071,26 @@ export default function Anarchy() {
                     })}
                   </div>
                   <p className="text-[11px] text-slate-500 mt-2">Click a prereq tag to filter. Graph derived from tag co-occurrence across 1,708 courses.</p>
+                </div>
+              )}
+              {/* Phase 4 — similar courses */}
+              {similar.length > 0 && (
+                <div className="mt-4 rounded-xl border border-teal-900/20 bg-[#050808]/50 p-3">
+                  <div className="text-slate-500 tracking-widest text-[10px] font-mono">SIMILAR COURSES</div>
+                  <div className="mt-2 grid gap-1.5">
+                    {similar.map(({ course: c, reasons }) => (
+                      <button
+                        key={c.id}
+                        onClick={() => openCourse(c)}
+                        className="text-left rounded-lg border border-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5 px-3 py-2 transition-colors"
+                      >
+                        <div className="text-xs font-mono text-slate-200 truncate">{c.title}</div>
+                        <div className="text-[11px] font-mono text-slate-500 truncate">
+                          #{c.id} • {reasons[0] ?? `${c.provider.name} • ${c.difficulty} • ${c.hours}h`}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
               {/* Phase 3 — my track: progress + share */}

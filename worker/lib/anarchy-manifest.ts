@@ -13,6 +13,12 @@
  *
  * Source: https://kazamadono.github.io/ (public GitHub Pages, KazamaDono)
  */
+import {
+  recommendCourses,
+  similarCourses,
+  type RecommendInput,
+  type ScoredCourse,
+} from '../../src/lib/anarchy-recommend';
 
 export interface AnarchyProvider {
   name: string;
@@ -194,6 +200,30 @@ export function filterAnarchyCourses(idx: AnarchyIndex, opts: AnarchyListOptions
   }
   if (sort) out = out.slice(0, limit);
   return out;
+}
+
+// ─── Recommendations (deterministic, no LLM) ─────────────────────────
+// Scoring lives in src/lib/anarchy-recommend.ts (zero-DOM pure module shared
+// with the SPA); these wrappers adapt the worker manifest types to it.
+export type { RecommendInput, ScoredCourse } from '../../src/lib/anarchy-recommend';
+
+export type AnarchyRecommendOptions = RecommendInput;
+
+export function recommendAnarchyCourses(
+  idx: AnarchyIndex,
+  opts: AnarchyRecommendOptions = {}
+): ScoredCourse<AnarchyCourseSlim>[] {
+  const popularity: Record<string, number> = {};
+  for (const { tag, count } of idx.categories) popularity[tag] = count;
+  return recommendCourses(idx.courses, { ...opts, tagPopularity: popularity });
+}
+
+export function similarAnarchyCourses(
+  idx: AnarchyIndex,
+  id: string,
+  limit = 4
+): ScoredCourse<AnarchyCourseSlim>[] {
+  return similarCourses(idx.courses, id, limit);
 }
 
 export function anarchyCacheStats() {
