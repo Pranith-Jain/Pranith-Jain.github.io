@@ -1,1 +1,1 @@
-{"id":"1509","title":"Reforge Blog","desc":"Free product/growth articles.","href":"https://www.reforge.com/blog","img":"5.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1509","title":"Reforge Blog","desc":"Free product/growth articles.","href":"https://www.reforge.com/blog","img":"5.gif","tags":["dev"],"provider":{"name":"Reforge","host":"reforge.com","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

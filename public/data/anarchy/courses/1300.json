@@ -1,1 +1,1 @@
-{"id":"1300","title":"247CTF","desc":"Long-lasting continuous CTF platform.","href":"https://247ctf.com/","img":"78.gif","tags":["ctf"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1300","title":"247CTF","desc":"Long-lasting continuous CTF platform.","href":"https://247ctf.com/","img":"78.gif","tags":["ctf"],"provider":{"name":"247ctf","host":"247ctf.com","icon":"🔗"},"difficulty":"beginner","hours":3,"prereqs":["red","crypto","exploits"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

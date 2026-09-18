@@ -1,1 +1,1 @@
-{"id":"1717","title":"Cyber5W","desc":"Free defensive-focused range.","href":"https://www.cyber5w.com/","img":"72.gif","tags":["blue","red"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1717","title":"Cyber5W","desc":"Free defensive-focused range.","href":"https://www.cyber5w.com/","img":"72.gif","tags":["blue","red"],"provider":{"name":"Cyber5w","host":"cyber5w.com","icon":"🔗"},"difficulty":"intermediate","hours":4,"prereqs":["forensics","cloud","webappsec"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

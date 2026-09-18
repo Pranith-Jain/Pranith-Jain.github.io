@@ -1,1 +1,1 @@
-{"id":"1288","title":"Unity Learn","desc":"Official Unity learning content.","href":"https://learn.unity.com/","img":"66.gif","tags":["game","dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1288","title":"Unity Learn","desc":"Official Unity learning content.","href":"https://learn.unity.com/","img":"66.gif","tags":["game","dev"],"provider":{"name":"Learn","host":"learn.unity.com","icon":"🔗"},"difficulty":"beginner","hours":3,"prereqs":["re","aiml","cloud"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

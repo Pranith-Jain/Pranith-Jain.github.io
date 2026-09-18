@@ -1,1 +1,1 @@
-{"id":"1259","title":"Rekt.news","desc":"Analysis of major DeFi hacks.","href":"https://rekt.news/","img":"37.gif","tags":["blockchain"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1259","title":"Rekt.news","desc":"Analysis of major DeFi hacks.","href":"https://rekt.news/","img":"37.gif","tags":["blockchain"],"provider":{"name":"Rekt","host":"rekt.news","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["dev","ctf","crypto"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

@@ -1,1 +1,1 @@
-{"id":"1324","title":"OWASP iGoat","desc":"Vulnerable iOS app.","href":"https://github.com/OWASP/igoat","img":"102.gif","tags":["mobile","webappsec"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1324","title":"OWASP iGoat","desc":"Vulnerable iOS app.","href":"https://github.com/OWASP/igoat","img":"102.gif","tags":["mobile","webappsec"],"provider":{"name":"GitHub","host":"github.com","icon":"⭐"},"difficulty":"beginner","hours":2,"prereqs":["dev","re","red"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

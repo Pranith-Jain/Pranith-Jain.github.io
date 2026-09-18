@@ -1,1 +1,1 @@
-{"id":"1712","title":"LiteLLM Docs","desc":"Cross-provider LLM routing.","href":"https://docs.litellm.ai/","img":"67.gif","tags":["aiml","dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1712","title":"LiteLLM Docs","desc":"Cross-provider LLM routing.","href":"https://docs.litellm.ai/","img":"67.gif","tags":["aiml","dev"],"provider":{"name":"Docs","host":"docs.litellm.ai","icon":"🔗"},"difficulty":"beginner","hours":4,"prereqs":["math","cloud"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

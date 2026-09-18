@@ -1,1 +1,1 @@
-{"id":"1420","title":"SQLZoo","desc":"Free interactive SQL tutorials.","href":"https://sqlzoo.net/","img":"57.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1420","title":"SQLZoo","desc":"Free interactive SQL tutorials.","href":"https://sqlzoo.net/","img":"57.gif","tags":["dev"],"provider":{"name":"Sqlzoo","host":"sqlzoo.net","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

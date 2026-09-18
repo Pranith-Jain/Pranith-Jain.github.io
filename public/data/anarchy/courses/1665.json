@@ -1,1 +1,1 @@
-{"id":"1665","title":"CodeHS (catalog)","desc":"Free public intro classes.","href":"https://codehs.com/course/all","img":"20.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1665","title":"CodeHS (catalog)","desc":"Free public intro classes.","href":"https://codehs.com/course/all","img":"20.gif","tags":["dev"],"provider":{"name":"Codehs","host":"codehs.com","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

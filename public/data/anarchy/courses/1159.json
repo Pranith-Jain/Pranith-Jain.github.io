@@ -1,1 +1,1 @@
-{"id":"1159","title":"Cypress Docs","desc":"Modern e2e testing docs.","href":"https://docs.cypress.io/","img":"78.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1159","title":"Cypress Docs","desc":"Modern e2e testing docs.","href":"https://docs.cypress.io/","img":"78.gif","tags":["dev"],"provider":{"name":"Docs","host":"docs.cypress.io","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

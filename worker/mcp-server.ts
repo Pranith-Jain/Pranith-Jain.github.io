@@ -1870,18 +1870,22 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
 
       this.tools(
         'anarchy_list_courses',
-        'List courses from the Anarchy (kazamadono.github.io) portal — 1708 courses across 20 tracks (AI/ML, Low Level, PsyOps, Defensive, Offensive, OSINT, Game Hacking, BugBounty, Crypto, Reversing, Cloud, Forensics, CTF, Blockchain, IoT/HW, Dev/CS, Math). Filter by tag or free-text query. Daily sync from https://kazamadono.github.io/courses.json.',
+        'List courses from the Anarchy (kazamadono.github.io) portal — 1708 courses across 20 tracks (AI/ML, Low Level, PsyOps, Defensive, Offensive, OSINT, Game Hacking, BugBounty, Crypto, Reversing, Cloud, Forensics, CTF, Blockchain, IoT/HW, Dev/CS, Math). Filter by tag, difficulty, provider, hours, or free-text query. Daily sync from https://kazamadono.github.io/courses.json.',
         {
           tag: z
             .string()
             .optional()
             .describe('Filter by tag: aiml, exploits, psyops, bio, infra, blue, red, osint, game, webappsec, crypto, re, mobile, cloud, forensics, ctf, blockchain, iot, dev, math, project'),
-          q: z.string().optional().describe('Free-text search across title, preview, and tags'),
+          q: z.string().optional().describe('Free-text search across title, preview, tags, provider'),
+          difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional().describe('Filter by difficulty'),
+          provider: z.string().optional().describe('Filter by provider name/host substring (e.g. "TryHackMe", "github.com")'),
+          maxHours: z.number().int().min(1).max(12).optional().describe('Only courses <= this many hours'),
+          sort: z.enum(['id', 'hours', 'difficulty']).optional().describe('Sort results'),
           limit: z.number().int().min(1).max(500).optional().describe('Max courses to return (default 50)'),
         },
-        async ({ tag, q, limit }) => {
+        async ({ tag, q, difficulty, provider, maxHours, sort, limit }) => {
           const idx = await loadAnarchyIndex(ASSETS);
-          const filtered = filterAnarchyCourses(idx, { tag, q, limit: limit ?? 50 });
+          const filtered = filterAnarchyCourses(idx, { tag, q, difficulty, provider, maxHours, sort, limit: limit ?? 50 });
           return untrustedToolResult({
             total: idx.counts.courses,
             returned: filtered.length,

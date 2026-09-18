@@ -1,1 +1,1 @@
-{"id":"1056","title":"UC Berkeley CS61C","desc":"Machine architecture course.","href":"https://cs61c.org/","img":"116.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1056","title":"UC Berkeley CS61C","desc":"Machine architecture course.","href":"https://cs61c.org/","img":"116.gif","tags":["dev"],"provider":{"name":"Cs61c","host":"cs61c.org","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

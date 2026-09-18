@@ -1,12 +1,22 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { ExternalLink, Search, X, Github, Linkedin, MessageCircle, Filter, Clock, BookOpen, Shield, Code, ChevronDown } from 'lucide-react';
 
+interface AnarchyProvider {
+  name: string;
+  host: string;
+  icon: string;
+}
+type AnarchyDifficulty = 'beginner' | 'intermediate' | 'advanced';
+
 interface AnarchyCourseSlim {
   id: string;
   title: string;
   href: string;
   img: string | null;
   tags: string[];
+  provider: AnarchyProvider;
+  difficulty: AnarchyDifficulty;
+  hours: number;
   preview: string;
   sizeBytes: number;
 }
@@ -24,6 +34,8 @@ interface AnarchyIndex {
   counts: { courses: number; categories: number };
   categories: { tag: string; count: number }[];
   topTags: { tag: string; count: number }[];
+  topProviders: { name: string; count: number }[];
+  prereqGraph: Record<string, { tag: string; weight: number }[]>;
   courses: AnarchyCourseSlim[];
 }
 
@@ -34,6 +46,10 @@ interface AnarchyCourseBody {
   href: string;
   img: string | null;
   tags: string[];
+  provider: AnarchyProvider;
+  difficulty: AnarchyDifficulty;
+  hours: number;
+  prereqs: string[];
 }
 
 // Display mapping — mirrors kazamadono.github.io filter chips
@@ -80,6 +96,9 @@ export default function Anarchy() {
   const [error, setError] = useState<string | null>(null);
   const [q, setQ] = useState('');
   const [filter, setFilter] = useState<string>('all');
+  const [difficulty, setDifficulty] = useState<string>('all');
+  const [sort, setSort] = useState<'id' | 'hours' | 'difficulty'>('id');
+  const [maxHours, setMaxHours] = useState<number>(12);
   const [visibleCount, setVisibleCount] = useState(48);
   const [selected, setSelected] = useState<AnarchyCourseSlim | null>(null);
   const [selectedBody, setSelectedBody] = useState<AnarchyCourseBody | null>(null);
@@ -187,6 +206,10 @@ export default function Anarchy() {
               href: selected.href,
               img: selected.img,
               tags: selected.tags,
+              provider: selected.provider,
+              difficulty: selected.difficulty,
+              hours: selected.hours,
+              prereqs: [],
             });
         }
       } catch {
@@ -198,6 +221,10 @@ export default function Anarchy() {
             href: selected.href,
             img: selected.img,
             tags: selected.tags,
+            provider: selected.provider,
+            difficulty: selected.difficulty,
+            hours: selected.hours,
+            prereqs: [],
           });
       }
     })();
@@ -232,14 +259,31 @@ export default function Anarchy() {
     if (filter !== 'all') {
       list = list.filter((c) => c.tags.includes(filter));
     }
+    if (difficulty !== 'all') {
+      list = list.filter((c) => c.difficulty === difficulty);
+    }
+    if (maxHours < 12) {
+      list = list.filter((c) => c.hours <= maxHours);
+    }
     if (q.trim()) {
       const needle = q.toLowerCase();
       list = list.filter(
-        (c) => c.title.toLowerCase().includes(needle) || c.preview.toLowerCase().includes(needle) || c.tags.join(' ').includes(needle)
+        (c) =>
+          c.title.toLowerCase().includes(needle) ||
+          c.preview.toLowerCase().includes(needle) ||
+          c.tags.join(' ').includes(needle) ||
+          c.provider.name.toLowerCase().includes(needle) ||
+          c.provider.host.toLowerCase().includes(needle)
       );
     }
+    // Sort
+    if (sort === 'hours') list = [...list].sort((a, b) => a.hours - b.hours);
+    else if (sort === 'difficulty') {
+      const rank: Record<string, number> = { beginner: 0, intermediate: 1, advanced: 2 };
+      list = [...list].sort((a, b) => (rank[a.difficulty] ?? 1) - (rank[b.difficulty] ?? 1));
+    }
     return list;
-  }, [idx, filter, q]);
+  }, [idx, filter, difficulty, maxHours, sort, q]);
 
   const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
@@ -385,7 +429,54 @@ export default function Anarchy() {
               })}
             </div>
 
-            <div className="mt-4 flex items-center gap-3 text-xs font-mono text-slate-500">
+            {/* Phase 2: difficulty + hours + sort */}
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-mono text-slate-500 tracking-widest">DIFFICULTY:</span>
+              {(['all', 'beginner', 'intermediate', 'advanced'] as const).map((d) => (
+                <button
+                  key={d}
+                  onClick={() => {
+                    setDifficulty(d);
+                    setVisibleCount(48);
+                  }}
+                  className={`rounded-full border px-3 py-1 text-xs font-mono capitalize transition-colors ${
+                    difficulty === d ? 'bg-amber-500/20 border-amber-500/40 text-amber-200' : 'border-white/10 text-slate-400 hover:border-white/20'
+                  }`}
+                >
+                  {d}
+                </button>
+              ))}
+              <span className="text-xs font-mono text-slate-500 tracking-widest ml-2">SORT:</span>
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as never)}
+                className="rounded-full border border-white/10 bg-[#050808] px-3 py-1 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500/40"
+              >
+                <option value="id">ID</option>
+                <option value="hours">Hours ↑</option>
+                <option value="difficulty">Difficulty</option>
+              </select>
+              <span className="text-xs font-mono text-slate-500 tracking-widest ml-2">MAX HOURS:</span>
+              <input
+                type="range"
+                min={2}
+                max={12}
+                value={maxHours}
+                onChange={(e) => {
+                  setMaxHours(Number(e.target.value));
+                  setVisibleCount(48);
+                }}
+                className="w-20 accent-cyan-500"
+              />
+              <span className="text-xs font-mono text-cyan-300 w-8">{maxHours}h</span>
+              {maxHours < 12 && (
+                <button onClick={() => setMaxHours(12)} className="text-xs font-mono text-slate-500 hover:text-white">
+                  reset
+                </button>
+              )}
+            </div>
+
+            <div className="mt-3 flex items-center gap-3 text-xs font-mono text-slate-500">
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> {filtered.length} matches
               </span>
@@ -510,6 +601,20 @@ export default function Anarchy() {
                     <span className="absolute top-2 right-2 text-[10px] font-mono text-white/60 bg-black/40 backdrop-blur px-2 py-0.5 rounded-full border border-white/10">
                       #{c.id}
                     </span>
+                    {/* Provider + difficulty + hours */}
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-mono bg-black/50 backdrop-blur px-2 py-0.5 rounded-full border border-white/10 text-white">
+                        <span>{c.provider.icon}</span> {c.provider.name}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border backdrop-blur ${c.difficulty === 'advanced' ? 'border-red-500/30 bg-red-500/20 text-red-200' : c.difficulty === 'beginner' ? 'border-emerald-500/30 bg-emerald-500/20 text-emerald-200' : 'border-amber-500/30 bg-amber-500/20 text-amber-200'}`}>
+                          {c.difficulty}
+                        </span>
+                        <span className="text-[10px] font-mono bg-black/50 backdrop-blur px-2 py-0.5 rounded-full border border-white/10 text-cyan-200 inline-flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> {c.hours}h
+                        </span>
+                      </span>
+                    </div>
                   </div>
                   <div className="p-4 flex-1 flex flex-col">
                     <h4 className="font-mono text-sm font-semibold leading-tight line-clamp-2 group-hover:text-cyan-300 transition-colors" style={{ fontFamily: 'Orbitron, monospace' }}>
@@ -520,7 +625,9 @@ export default function Anarchy() {
                       <span className="inline-flex items-center gap-1 text-[11px] font-mono text-cyan-400 group-hover:text-cyan-300">
                         Open <ExternalLink className="w-3 h-3" />
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500">{c.tags.length} tracks</span>
+                      <span className="text-[10px] font-mono text-slate-500">
+                        {c.tags.length} tracks • {c.provider.host || 'external'}
+                      </span>
                     </div>
                   </div>
                   <div className="h-0.5 bg-gradient-to-r from-cyan-500 to-teal-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
@@ -598,13 +705,39 @@ export default function Anarchy() {
               <div className="mt-6 grid grid-cols-2 gap-3 text-xs font-mono">
                 <div className="rounded-xl border border-teal-900/20 bg-[#050808]/50 p-3">
                   <div className="text-slate-500 tracking-widest text-[10px]">PROVIDER</div>
-                  <div className="text-slate-200 mt-1 truncate">{new URL(sanitizeUrl(selected.href)).hostname || 'external'}</div>
+                  <div className="text-slate-200 mt-1 flex items-center gap-1.5 truncate">
+                    <span>{(selectedBody?.provider ?? selected.provider).icon}</span> {(selectedBody?.provider ?? selected.provider).name} • {(selectedBody?.provider ?? selected.provider).host}
+                  </div>
                 </div>
                 <div className="rounded-xl border border-teal-900/20 bg-[#050808]/50 p-3">
-                  <div className="text-slate-500 tracking-widest text-[10px]">ID</div>
-                  <div className="text-slate-200 mt-1 font-mono">{selected.id}</div>
+                  <div className="text-slate-500 tracking-widest text-[10px]">ID • DIFFICULTY • HOURS</div>
+                  <div className="text-slate-200 mt-1 flex items-center gap-2 font-mono">
+                    <span>#{selected.id}</span>
+                    <span className={`px-2 py-0.5 rounded-full text-[11px] border ${((selectedBody?.difficulty ?? selected.difficulty) === 'advanced' ? 'border-red-500/30 bg-red-500/20 text-red-200' : (selectedBody?.difficulty ?? selected.difficulty) === 'beginner' ? 'border-emerald-500/30 bg-emerald-500/20 text-emerald-200' : 'border-amber-500/30 bg-amber-500/20 text-amber-200')}`}>
+                      {selectedBody?.difficulty ?? selected.difficulty}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-cyan-300">
+                      <Clock className="w-3 h-3" /> {selectedBody?.hours ?? selected.hours}h
+                    </span>
+                  </div>
                 </div>
               </div>
+              {selectedBody?.prereqs && selectedBody.prereqs.length > 0 && (
+                <div className="mt-4 rounded-xl border border-teal-900/20 bg-[#050808]/50 p-3">
+                  <div className="text-slate-500 tracking-widest text-[10px] font-mono">PREREQUISITES • TAG GRAPH</div>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {selectedBody.prereqs.map((p) => {
+                      const meta = FILTER_META[p] ?? { label: p, color: 'border-white/10 bg-white/5 text-slate-300' };
+                      return (
+                        <button key={p} onClick={() => { setFilter(p); setSelected(null); setVisibleCount(48); gridRef.current?.scrollIntoView({ behavior: 'smooth' }); }} className={`text-xs font-mono px-2.5 py-1 rounded-full border ${meta.color} hover:scale-[1.02] transition-transform`}>
+                          → {meta.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-2">Click a prereq tag to filter. Graph derived from tag co-occurrence across 1,708 courses.</p>
+                </div>
+              )}
             </div>
             <div className="p-4 border-t border-teal-900/20 bg-[#050808]/50 flex gap-3">
               <a

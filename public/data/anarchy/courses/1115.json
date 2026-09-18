@@ -1,1 +1,1 @@
-{"id":"1115","title":"Next.js Learn","desc":"Interactive Next.js learn track.","href":"https://nextjs.org/learn","img":"34.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1115","title":"Next.js Learn","desc":"Interactive Next.js learn track.","href":"https://nextjs.org/learn","img":"34.gif","tags":["dev"],"provider":{"name":"Nextjs","host":"nextjs.org","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

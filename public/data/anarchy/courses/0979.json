@@ -1,1 +1,1 @@
-{"id":"0979","title":"Learn Helm","desc":"Templating + package management for k8s.","href":"https://helm.sh/docs/","img":"39.gif","tags":["cloud","dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"0979","title":"Learn Helm","desc":"Templating + package management for k8s.","href":"https://helm.sh/docs/","img":"39.gif","tags":["cloud","dev"],"provider":{"name":"Helm","host":"helm.sh","icon":"🔗"},"difficulty":"beginner","hours":4,"prereqs":["blue","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

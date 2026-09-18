@@ -1,1 +1,1 @@
-{"id":"0635","title":"ired.team","desc":"Community-maintained red team notebook.","href":"https://www.ired.team/","img":"118.gif","tags":["red"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"0635","title":"ired.team","desc":"Community-maintained red team notebook.","href":"https://www.ired.team/","img":"118.gif","tags":["red"],"provider":{"name":"Ired","host":"ired.team","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["blue","webappsec","exploits"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

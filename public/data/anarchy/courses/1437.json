@@ -1,1 +1,1 @@
-{"id":"1437","title":"DuckDB Docs","desc":"Modern embedded analytics DB.","href":"https://duckdb.org/docs/","img":"74.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1437","title":"DuckDB Docs","desc":"Modern embedded analytics DB.","href":"https://duckdb.org/docs/","img":"74.gif","tags":["dev"],"provider":{"name":"Duckdb","host":"duckdb.org","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

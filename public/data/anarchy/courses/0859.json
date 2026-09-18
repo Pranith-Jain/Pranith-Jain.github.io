@@ -1,1 +1,1 @@
-{"id":"0859","title":"Any.Run","desc":"Analyze samples interactively in-browser.","href":"https://any.run/","img":"60.gif","tags":["re","blue"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"0859","title":"Any.Run","desc":"Analyze samples interactively in-browser.","href":"https://any.run/","img":"60.gif","tags":["re","blue"],"provider":{"name":"Any","host":"any.run","icon":"🔗"},"difficulty":"advanced","hours":11,"prereqs":["exploits","game","forensics"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

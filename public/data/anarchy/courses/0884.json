@@ -1,1 +1,1 @@
-{"id":"0884","title":"Reversing.kr","desc":"Wargame-style RE challenges.","href":"http://reversing.kr/","img":"85.gif","tags":["re","ctf"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"0884","title":"Reversing.kr","desc":"Wargame-style RE challenges.","href":"http://reversing.kr/","img":"85.gif","tags":["re","ctf"],"provider":{"name":"Reversing","host":"reversing.kr","icon":"🔗"},"difficulty":"advanced","hours":12,"prereqs":["exploits","blue","game"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

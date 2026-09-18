@@ -1,1 +1,1 @@
-{"id":"1383","title":"Chef Docs","desc":"Chef Infra intro.","href":"https://docs.chef.io/","img":"20.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1383","title":"Chef Docs","desc":"Chef Infra intro.","href":"https://docs.chef.io/","img":"20.gif","tags":["dev"],"provider":{"name":"Docs","host":"docs.chef.io","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

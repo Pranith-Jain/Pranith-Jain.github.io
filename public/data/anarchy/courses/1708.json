@@ -1,1 +1,1 @@
-{"id":"1708","title":"Modal Docs","desc":"Serverless GPU compute.","href":"https://modal.com/docs","img":"63.gif","tags":["aiml","cloud"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1708","title":"Modal Docs","desc":"Serverless GPU compute.","href":"https://modal.com/docs","img":"63.gif","tags":["aiml","cloud"],"provider":{"name":"Modal","host":"modal.com","icon":"🔗"},"difficulty":"beginner","hours":4,"prereqs":["dev","math","blue"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

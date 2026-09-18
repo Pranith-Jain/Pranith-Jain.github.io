@@ -1,1 +1,1 @@
-{"id":"1436","title":"Trino/Presto Docs","desc":"Distributed SQL query engine.","href":"https://trino.io/docs/current/","img":"73.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1436","title":"Trino/Presto Docs","desc":"Distributed SQL query engine.","href":"https://trino.io/docs/current/","img":"73.gif","tags":["dev"],"provider":{"name":"Trino","host":"trino.io","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

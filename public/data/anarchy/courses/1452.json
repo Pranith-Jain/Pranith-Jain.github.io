@@ -1,1 +1,1 @@
-{"id":"1452","title":"Postgres Weekly","desc":"Weekly Postgres reading.","href":"https://postgresweekly.com/","img":"89.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1452","title":"Postgres Weekly","desc":"Weekly Postgres reading.","href":"https://postgresweekly.com/","img":"89.gif","tags":["dev"],"provider":{"name":"Postgresweekly","host":"postgresweekly.com","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

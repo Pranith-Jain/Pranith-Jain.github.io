@@ -1,1 +1,1 @@
-{"id":"1104","title":"web.dev Learn CSS","desc":"Deep interactive CSS course.","href":"https://web.dev/learn/css/","img":"23.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1104","title":"web.dev Learn CSS","desc":"Deep interactive CSS course.","href":"https://web.dev/learn/css/","img":"23.gif","tags":["dev"],"provider":{"name":"Web","host":"web.dev","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

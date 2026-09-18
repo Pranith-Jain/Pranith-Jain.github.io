@@ -1,1 +1,1 @@
-{"id":"1447","title":"InfluxDB Docs","desc":"Time-series DB tutorials.","href":"https://docs.influxdata.com/","img":"84.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1447","title":"InfluxDB Docs","desc":"Time-series DB tutorials.","href":"https://docs.influxdata.com/","img":"84.gif","tags":["dev"],"provider":{"name":"Docs","host":"docs.influxdata.com","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

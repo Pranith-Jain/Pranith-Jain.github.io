@@ -1,1 +1,1 @@
-{"id":"1013","title":"Fly.io Docs","desc":"Global edge deployment platform.","href":"https://fly.io/docs/","img":"73.gif","tags":["cloud","dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1013","title":"Fly.io Docs","desc":"Global edge deployment platform.","href":"https://fly.io/docs/","img":"73.gif","tags":["cloud","dev"],"provider":{"name":"Fly","host":"fly.io","icon":"🔗"},"difficulty":"beginner","hours":4,"prereqs":["blue","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

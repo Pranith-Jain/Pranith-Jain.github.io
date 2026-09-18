@@ -1,1 +1,1 @@
-{"id":"0846","title":"Hex-Rays Blog","desc":"Official IDA Pro tutorials.","href":"https://hex-rays.com/blog/","img":"47.gif","tags":["re"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"0846","title":"Hex-Rays Blog","desc":"Official IDA Pro tutorials.","href":"https://hex-rays.com/blog/","img":"47.gif","tags":["re"],"provider":{"name":"Hex-rays","host":"hex-rays.com","icon":"🔗"},"difficulty":"advanced","hours":11,"prereqs":["exploits","blue","game"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

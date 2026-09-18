@@ -14,12 +14,23 @@
  * Source: https://kazamadono.github.io/ (public GitHub Pages, KazamaDono)
  */
 
+export interface AnarchyProvider {
+  name: string;
+  host: string;
+  icon: string;
+}
+
+export type AnarchyDifficulty = 'beginner' | 'intermediate' | 'advanced';
+
 export interface AnarchyCourseSlim {
   id: string;
   title: string;
   href: string;
   img: string | null;
   tags: string[];
+  provider: AnarchyProvider;
+  difficulty: AnarchyDifficulty;
+  hours: number;
   preview: string;
   sizeBytes: number;
 }
@@ -38,6 +49,8 @@ export interface AnarchyIndex {
     courses: number;
     categories: number;
   };
+  topProviders: { name: string; count: number }[];
+  prereqGraph: Record<string, { tag: string; weight: number }[]>;
   categories: { tag: string; count: number }[];
   topTags: { tag: string; count: number }[];
   courses: AnarchyCourseSlim[];
@@ -50,6 +63,10 @@ export interface AnarchyCourseBody {
   href: string;
   img: string | null;
   tags: string[];
+  provider: AnarchyProvider;
+  difficulty: AnarchyDifficulty;
+  hours: number;
+  prereqs: string[];
   source: string;
   sourceUrl: string;
 }
@@ -145,23 +162,37 @@ export async function getAnarchyTag(assets: Fetcher, tag: string): Promise<Anarc
 export interface AnarchyListOptions {
   tag?: string;
   q?: string;
+  difficulty?: AnarchyDifficulty;
+  provider?: string;
+  maxHours?: number;
   limit?: number;
+  sort?: 'id' | 'hours' | 'difficulty';
 }
 
 export function filterAnarchyCourses(idx: AnarchyIndex, opts: AnarchyListOptions = {}): AnarchyCourseSlim[] {
-  const { tag, q, limit = 100 } = opts;
+  const { tag, q, difficulty, provider, maxHours, limit = 100, sort } = opts;
   const needle = q?.toLowerCase();
   const tagNeedle = tag?.toLowerCase();
-  const out: AnarchyCourseSlim[] = [];
+  const providerNeedle = provider?.toLowerCase();
+  let out: AnarchyCourseSlim[] = [];
   for (const c of idx.courses) {
     if (tagNeedle && !c.tags.includes(tagNeedle)) continue;
+    if (difficulty && c.difficulty !== difficulty) continue;
+    if (providerNeedle && !c.provider.name.toLowerCase().includes(providerNeedle) && !c.provider.host.toLowerCase().includes(providerNeedle)) continue;
+    if (maxHours !== undefined && c.hours > maxHours) continue;
     if (needle) {
-      const hay = `${c.title} ${c.preview} ${c.tags.join(' ')}`.toLowerCase();
+      const hay = `${c.title} ${c.preview} ${c.tags.join(' ')} ${c.provider.name}`.toLowerCase();
       if (!hay.includes(needle)) continue;
     }
     out.push(c);
-    if (out.length >= limit) break;
+    if (!sort && out.length >= limit) break;
   }
+  if (sort === 'hours') out.sort((a, b) => a.hours - b.hours);
+  else if (sort === 'difficulty') {
+    const rank: Record<string, number> = { beginner: 0, intermediate: 1, advanced: 2 };
+    out.sort((a, b) => (rank[a.difficulty] ?? 1) - (rank[b.difficulty] ?? 1));
+  }
+  if (sort) out = out.slice(0, limit);
   return out;
 }
 

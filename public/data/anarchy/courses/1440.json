@@ -1,1 +1,1 @@
-{"id":"1440","title":"dbt Fundamentals","desc":"Foundational dbt course.","href":"https://learn.getdbt.com/","img":"77.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1440","title":"dbt Fundamentals","desc":"Foundational dbt course.","href":"https://learn.getdbt.com/","img":"77.gif","tags":["dev"],"provider":{"name":"Learn","host":"learn.getdbt.com","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

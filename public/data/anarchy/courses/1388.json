@@ -1,1 +1,1 @@
-{"id":"1388","title":"CDK Workshop","desc":"AWS CDK workshop.","href":"https://cdkworkshop.com/","img":"25.gif","tags":["dev","cloud"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1388","title":"CDK Workshop","desc":"AWS CDK workshop.","href":"https://cdkworkshop.com/","img":"25.gif","tags":["dev","cloud"],"provider":{"name":"Cdkworkshop","host":"cdkworkshop.com","icon":"🔗"},"difficulty":"beginner","hours":4,"prereqs":["aiml","math","blue"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

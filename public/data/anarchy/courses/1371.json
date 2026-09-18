@@ -1,1 +1,1 @@
-{"id":"1371","title":"Crontab Guru","desc":"Learn cron with a live syntax explainer.","href":"https://crontab.guru/","img":"8.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1371","title":"Crontab Guru","desc":"Learn cron with a live syntax explainer.","href":"https://crontab.guru/","img":"8.gif","tags":["dev"],"provider":{"name":"Crontab","host":"crontab.guru","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

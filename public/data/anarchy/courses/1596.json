@@ -1,1 +1,1 @@
-{"id":"1596","title":"Awesome Fuzzing","desc":"Fuzzing meta-list.","href":"https://github.com/cpuu/awesome-fuzzing","img":"92.gif","tags":["exploits"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1596","title":"Awesome Fuzzing","desc":"Fuzzing meta-list.","href":"https://github.com/cpuu/awesome-fuzzing","img":"92.gif","tags":["exploits"],"provider":{"name":"GitHub","host":"github.com","icon":"⭐"},"difficulty":"advanced","hours":11,"prereqs":["re","dev","red"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

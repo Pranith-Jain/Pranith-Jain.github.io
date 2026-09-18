@@ -1,1 +1,1 @@
-{"id":"1707","title":"Replicate Docs","desc":"Run open-source models via API.","href":"https://replicate.com/docs","img":"62.gif","tags":["aiml"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1707","title":"Replicate Docs","desc":"Run open-source models via API.","href":"https://replicate.com/docs","img":"62.gif","tags":["aiml"],"provider":{"name":"Replicate","host":"replicate.com","icon":"🔗"},"difficulty":"beginner","hours":4,"prereqs":["dev","math","cloud"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

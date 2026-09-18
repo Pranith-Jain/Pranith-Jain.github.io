@@ -37,6 +37,8 @@ anarchyRouter.get('/anarchy/', async (c) => {
       counts: idx.counts,
       categories: idx.categories,
       topTags: idx.topTags,
+      topProviders: (idx as unknown as { topProviders?: unknown }).topProviders ?? [],
+      prereqGraph: (idx as unknown as { prereqGraph?: unknown }).prereqGraph ?? {},
     });
   } catch (e) {
     logError('anarchy index failed', e);
@@ -51,6 +53,10 @@ anarchyRouter.get('/anarchy/courses', async (c) => {
     const entries = mod.filterAnarchyCourses(idx, {
       tag: c.req.query('tag') || undefined,
       q: c.req.query('q') || undefined,
+      difficulty: c.req.query('difficulty') as never,
+      provider: c.req.query('provider') || undefined,
+      maxHours: c.req.query('maxHours') ? Number(c.req.query('maxHours')) : undefined,
+      sort: c.req.query('sort') as never,
       limit: c.req.query('limit') ? Number(c.req.query('limit')) : 100,
     });
     return c.json({ total: idx.counts.courses, returned: entries.length, courses: entries });

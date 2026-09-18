@@ -1,1 +1,1 @@
-{"id":"1314","title":"CTFd Documentation","desc":"Deploy your own CTF platform.","href":"https://docs.ctfd.io/","img":"92.gif","tags":["ctf","dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1314","title":"CTFd Documentation","desc":"Deploy your own CTF platform.","href":"https://docs.ctfd.io/","img":"92.gif","tags":["ctf","dev"],"provider":{"name":"Docs","host":"docs.ctfd.io","icon":"🔗"},"difficulty":"beginner","hours":3,"prereqs":["red","crypto","exploits"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

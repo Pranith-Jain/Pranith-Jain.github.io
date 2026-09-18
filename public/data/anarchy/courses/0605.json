@@ -1,1 +1,1 @@
-{"id":"0605","title":"WeChall","desc":"Meta-platform indexing 60+ hacking sites.","href":"https://www.wechall.net/","img":"88.gif","tags":["ctf"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"0605","title":"WeChall","desc":"Meta-platform indexing 60+ hacking sites.","href":"https://www.wechall.net/","img":"88.gif","tags":["ctf"],"provider":{"name":"Wechall","host":"wechall.net","icon":"🔗"},"difficulty":"beginner","hours":3,"prereqs":["red","crypto","exploits"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

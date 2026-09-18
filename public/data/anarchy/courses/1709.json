@@ -1,1 +1,1 @@
-{"id":"1709","title":"RunPod Docs","desc":"GPU cloud rental docs.","href":"https://docs.runpod.io/","img":"64.gif","tags":["aiml","cloud"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1709","title":"RunPod Docs","desc":"GPU cloud rental docs.","href":"https://docs.runpod.io/","img":"64.gif","tags":["aiml","cloud"],"provider":{"name":"Docs","host":"docs.runpod.io","icon":"🔗"},"difficulty":"beginner","hours":4,"prereqs":["dev","math","blue"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

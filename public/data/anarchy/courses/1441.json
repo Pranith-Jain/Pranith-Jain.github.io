@@ -1,1 +1,1 @@
-{"id":"1441","title":"getdbt.com Docs","desc":"Combine ELT + dbt.","href":"https://www.getdbt.com/docs/","img":"78.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1441","title":"getdbt.com Docs","desc":"Combine ELT + dbt.","href":"https://www.getdbt.com/docs/","img":"78.gif","tags":["dev"],"provider":{"name":"Getdbt","host":"getdbt.com","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

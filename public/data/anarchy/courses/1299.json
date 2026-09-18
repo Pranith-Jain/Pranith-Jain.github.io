@@ -1,1 +1,1 @@
-{"id":"1299","title":"CSAW CTF Archive","desc":"CSAW archived past CTFs, categorized.","href":"https://csaw.io/ctf","img":"77.gif","tags":["ctf"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1299","title":"CSAW CTF Archive","desc":"CSAW archived past CTFs, categorized.","href":"https://csaw.io/ctf","img":"77.gif","tags":["ctf"],"provider":{"name":"Csaw","host":"csaw.io","icon":"🔗"},"difficulty":"beginner","hours":3,"prereqs":["red","crypto","exploits"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

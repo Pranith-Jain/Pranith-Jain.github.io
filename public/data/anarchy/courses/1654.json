@@ -1,1 +1,1 @@
-{"id":"1654","title":"Numberphile","desc":"Math-themed videos.","href":"https://www.youtube.com/@numberphile","img":"9.gif","tags":["math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1654","title":"Numberphile","desc":"Math-themed videos.","href":"https://www.youtube.com/@numberphile","img":"9.gif","tags":["math"],"provider":{"name":"YouTube","host":"youtube.com","icon":"▶️"},"difficulty":"intermediate","hours":4,"prereqs":["dev","aiml","crypto"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

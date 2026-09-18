@@ -1,1 +1,1 @@
-{"id":"1372","title":"Pro Git Book","desc":"The canonical Git textbook.","href":"https://git-scm.com/book/en/v2","img":"9.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1372","title":"Pro Git Book","desc":"The canonical Git textbook.","href":"https://git-scm.com/book/en/v2","img":"9.gif","tags":["dev"],"provider":{"name":"Git-scm","host":"git-scm.com","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

@@ -1,1 +1,1 @@
-{"id":"1069","title":"Beej's Guide to C","desc":"Great intro to modern C.","href":"https://beej.us/guide/bgc/","img":"129.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1069","title":"Beej's Guide to C","desc":"Great intro to modern C.","href":"https://beej.us/guide/bgc/","img":"129.gif","tags":["dev"],"provider":{"name":"Beej","host":"beej.us","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}

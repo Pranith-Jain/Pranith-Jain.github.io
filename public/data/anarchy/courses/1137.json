@@ -1,1 +1,1 @@
-{"id":"1137","title":"Ziglearn","desc":"Community Zig tutorial.","href":"https://ziglearn.org/","img":"56.gif","tags":["dev"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
+{"id":"1137","title":"Ziglearn","desc":"Community Zig tutorial.","href":"https://ziglearn.org/","img":"56.gif","tags":["dev"],"provider":{"name":"Ziglearn","host":"ziglearn.org","icon":"🔗"},"difficulty":"beginner","hours":2,"prereqs":["cloud","aiml","math"],"source":"kazamadono.github.io","sourceUrl":"https://kazamadono.github.io/"}
