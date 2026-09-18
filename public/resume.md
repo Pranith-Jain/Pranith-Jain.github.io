@@ -1,6 +1,6 @@
 # PRANITH JAIN
 
-**Security Analyst | Threat Intelligence | DFIR & Security Automation**
+**Associate Cyber Security Analyst | Capgemini CERT · AI Threats & Security Automation**
 
 hello@pranithjain.qzz.io | +91 83103 86578 | [linkedin.com/in/pranithjain](https://www.linkedin.com/in/pranithjain) | [pranithjain.qzz.io](https://pranithjain.qzz.io)
 
@@ -10,12 +10,19 @@ hello@pranithjain.qzz.io | +91 83103 86578 | [linkedin.com/in/pranithjain](https
 
 ## SUMMARY
 
-Security analyst with 3 years of experience in email threat response, DFIR, and SOC operations. Defended 1,300+ domains and 2,700+ inboxes across 150+ startups at Qubit Capital. Streamlines operations through automation: n8n pipelines, MCP threat intelligence workflows, and real-time infrastructure dashboards. M3AAWG member targeting CTI, threat intelligence, and security automation roles.
+Associate Cyber Security Analyst on the Capgemini CERT team (Threat and Vulnerability Intelligence group, Sep 2026 - Present): AI automation, autonomous agentic workflows, tech and tool implementations, and AI threat intelligence, hunting and researching AI-driven threats. Previously 3 years across email infrastructure and security automation: defended 1,300+ domains and 2,700+ inboxes across 150+ startups at Qubit Capital with n8n pipelines, MCP threat-intelligence workflows, and real-time infrastructure dashboards. M3AAWG member.
 
 ## EXPERIENCE
 
-**Security Analyst | Qubit Capital (Sujata Outsourcing)**
-Remote | Jul 2024 - Present
+**Associate Cyber Security Analyst | Capgemini, CERT Threat and Vulnerability Intelligence Group**
+India | Sep 2026 - Present
+
+- Building AI automation and autonomous agentic workflows for the Computer Emergency Response Team: tooling and technology implementations that take repeatable triage, enrichment, and reporting off the analyst critical path.
+- Hunting and researching AI-driven threats: AI-enabled attack tooling, LLM abuse, and agent containment failures. Mapping the emerging AI attack surface and feeding findings into detection and threat intelligence.
+- Working AI security for the Threat and Vulnerability Intelligence group: enterprise vulnerability triage in a CERT context, AI-assisted detection engineering, and threat-intel pipelines covering traditional and AI-specific threat vectors.
+
+**IT Support Specialist | Qubit Capital (Sujata Outsourcing)**
+Remote | Jul 2024 - Jul 2026
 
 - Enforced SPF, DKIM, and DMARC across 1,300+ domains for 150+ startups, reaching 98%+ authentication alignment and cutting spoofing incidents by 60% in six months. Blocked impersonation attempts at the perimeter before reaching any inbox.
 - Engineered a real-time infrastructure monitoring dashboard using Claude Code, delivering live visibility across the full domain and inbox portfolio and eliminating a manual daily check process that consumed two hours each morning.
@@ -23,12 +30,12 @@ Remote | Jul 2024 - Present
 - Automated phishing triage, IOC enrichment, and email blocking pipelines in n8n, cutting average incident response time from 4 hours to under 75 minutes and removing the manual steps from high-volume alert queues.
 - Dismantled 30+ lookalike and impersonation campaigns via domain abuse monitoring and OSINT attacker tracing, reducing the phishing surface by 40%.
 
-**Tech Associate | UnifyCX (GlowTouch Technologies PVT Ltd)**
+**Junior Support Engineer | UnifyCX (GlowTouch Technologies PVT Ltd)**
 Mysuru, India | Sep 2023 - Jul 2024
 
 - Restored 95% inbox placement across 200+ enterprise domains by resolving IP blacklisting events and hardening SMTP authentication controls, reducing delivery failures by 40%.
 - Automated SSL/TLS certificate lifecycle management for 300+ domains, eliminating renewal-related outages and maintaining 99.9% uptime across the client environment.
-- Resolved 100+ DNS, email routing, and SSL/TLS issues weekly, building the infrastructure depth that now underpins the email security work at Qubit Capital.
+- Resolved 100+ DNS, email routing, and SSL/TLS issues weekly, building the infrastructure depth that now underpins the security automation work across Qubit Capital and Capgemini CERT.
 
 ## PROJECTS
 

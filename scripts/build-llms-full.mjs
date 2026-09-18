@@ -83,8 +83,10 @@ function main() {
   // Hero - matches the homepage opening.
   lines.push('## Overview');
   lines.push('');
-  lines.push('Pranith Jain is a security analyst who builds and runs a live, edge-deployed DFIR and ');
-  lines.push('threat-intelligence platform at https://pranithjain.qzz.io . The platform has three surfaces:');
+  lines.push('Pranith Jain is an Associate Cyber Security Analyst on the Capgemini CERT team (Threat and');
+  lines.push('Vulnerability Intelligence group) working AI automation, autonomous workflows, and AI threat intelligence.');
+  lines.push('He builds and runs a live, edge-deployed DFIR and threat-intelligence platform at');
+  lines.push('https://pranithjain.qzz.io . The platform has three surfaces:');
   lines.push('');
   lines.push('- A personal portfolio (/, /about, /skills, /experience, /projects).');
   lines.push('- A 130+ tool DFIR toolkit (/dfir/*) covering IOC checks, phishing analysis, CVE triage, ');

@@ -25,7 +25,7 @@ export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
     sameAs: [personalInfo.linkedInUrl, personalInfo.githubUrl, personalInfo.featuredUrl],
     worksFor: {
       '@type': 'Organization',
-      name: 'Qubit Capital',
+      name: 'Capgemini',
     },
     knowsAbout: [
       'Digital Forensics and Incident Response',
@@ -67,6 +67,13 @@ export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
       'False Positive Reduction',
       'AI Security',
       'NHI Governance',
+      'AI Threat Intelligence',
+      'AI Threat Hunting',
+      'AI Automation',
+      'Autonomous Workflows',
+      'Agentic SOC Tooling',
+      'CERT Operations',
+      'Vulnerability Management',
     ],
     alumniOf: [
       {
@@ -113,20 +120,20 @@ export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
   const professionalServiceSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: `${personalInfo.name} - Security Analyst, Threat Intel & Security Automation`,
+    name: `${personalInfo.name} - Associate Cyber Security Analyst, Capgemini CERT`,
     description:
-      'Security analysis, threat intelligence, and security automation. Phishing / BEC / commodity-malware response across 150+ global brands. Builder of an open, edge-hosted DFIR toolkit on Cloudflare Workers.',
+      'Cyber security analyst on the Capgemini CERT Threat and Vulnerability Intelligence group: AI automation, autonomous workflows, and AI threat intelligence. Formerly security automation and threat intel at Qubit Capital. Builder of an open, edge-hosted DFIR toolkit on Cloudflare Workers.',
     provider: {
       '@type': 'Person',
       name: personalInfo.name,
     },
     areaServed: 'Global',
     serviceType: [
+      'AI Threat Intelligence',
+      'AI Automation & Autonomous Workflows',
       'Detection Engineering',
       'Threat Intelligence Analysis',
       'Phishing Investigation',
-      'Email Security Consulting',
-      'DMARC Implementation',
       'DFIR Tooling',
       'SOC Automation',
       'Incident Response Automation',

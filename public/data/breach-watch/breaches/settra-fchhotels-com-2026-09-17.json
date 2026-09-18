@@ -1,15 +1,15 @@
 {
   "slug": "settra-fchhotels-com-2026-09-17",
   "title": "fchhotels.com",
-  "group": "Settra",
-  "discovered": "2026-09-17T00:00:00.000Z",
+  "group": "settra",
+  "discovered": "2026-09-17T15:30:58.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "Brazil",
+  "country": "BR",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/fchhotels-com-settra-2026-08",
+  "description": "THE FIRST CALL The company that manages your hotel and calls itself \"First Call Hospitality\" forgot ...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Hospitality",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

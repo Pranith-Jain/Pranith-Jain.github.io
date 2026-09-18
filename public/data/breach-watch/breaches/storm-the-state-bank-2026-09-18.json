@@ -1,15 +1,15 @@
 {
   "slug": "storm-the-state-bank-2026-09-18",
   "title": "The State Bank",
-  "group": "storm",
-  "discovered": "2026-09-18T08:17:20.000Z",
+  "group": "Storm",
+  "discovered": "2026-09-18T07:50:21.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": "FinTech | Wonder Lake, Illinois, United States | The State Bank Group is comprised of Wonder Lake State Bank (east), Wonder Lake State Bank (west), Johnsburg State Bank, Spring Grove State Bank, Lakemoor State Bank and Hebron State Bank. The company is proud to have directorship of local business owners and professionals. It has always been the company's focus as a community bank to provide the best banking services available. The company has selected the company's banking locations by identifying areas that were at the time unserviced. Therefore, each of the company's bank locations represents the first bank in their respective community. The company's group of banks has grown since the company's inception in 1979. The company currently have a staff of more than 80 employees. In addition to myself, the company has a teller who has been servicing the company's customers banking needs since 1979. The company thrive on building relationships with the company's customers and believe the company's slogan, \"Bank Where You're Known\", promotes the company's continuing mission and commitment to providing true \"Community Banking\". The company's extended lobby and drive-up hours provide the company's customers with the most flexible banking hours in McHenry County. All of the company's locations are full service banks, staffed with loan officers and new accounts representatives. In addition, all the company's locations have safe deposit boxes. Each of the company's loan officers have \"real\" lending authority, meaning that you will always be dealing with the decision makers. This makes your experience both personal and efficient. To the company's customers who are visiting the company's web site, \"Thank You Very Much\". If you are not currently a customer, the company invite you to \"Bank Where You're Known\". \nThe company headquarters is located in 7526 Hancock Drive, Wonder Lake, IL 60097, United States.11-50 Employees\n | Deadline: 2026-10-01T05:46:22.000Z",
-  "source_url": "https://www.ransomlook.io/screenshots/storm/The State Bank.png",
+  "description": "The State Bank Group is comprised of Wonder Lake State Bank (east), Wonder Lake State Bank (west), Johnsburg State Bank, Spring Grove State Bank, Lakemoor State Bank and Hebron State Bank. The company is proud to have directorship of local business owners and professionals. It has always been the company's focus as a community bank to provide the best banking services available. The company has selected the company's banking locations by identifying areas that were at the time unserviced. Therefore, each of the company's bank locations represents the first bank in their respective community. The company's group of banks has grown since the company's inception in 1979. The company currently have a staff of more than 80 employees. In addition to myself, the company has a teller who has been servicing the company's customers banking needs since 1979. The company thrive on building relationships with the company's customers and believe the company's slogan, \"Bank Where You're Known\", promotes the company's continuing mission and commitment to providing true \"Community Banking\". The company's extended lobby and drive-up hours provide the company's customers with the most flexible banking hours in McHenry County. All of the company's locations are full service banks, staffed with loan officers and new accounts representatives. In addition, all the company's locations have safe deposit boxes. Each of the company's loan officers have \"real\" lending authority, meaning that you will always be dealing with the decision makers. This makes your experience both personal and efficient. To the company's customers who are visiting the company's web site, \"Thank You Very Much\". If you are not currently a customer, the company invite you to \"Bank Where You're Known\". \nThe company headquarters is located in 7526 Hancock Drive, Wonder Lake, IL 60097, United States.11-50 Employees",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
 }

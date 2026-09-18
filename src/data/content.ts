@@ -1,17 +1,18 @@
 export const personalInfo = {
   name: 'Pranith Jain',
   // Long form, used in headlines, SEO, and structured-data schema.
-  title: 'Security Analyst: Threat Intel & Security Automation',
+  title:
+    'Associate Cyber Security Analyst: CERT Threat and Vulnerability Intelligence Group, AI Threats & Security Automation',
   // Short form, used in tight UI like the profile card to avoid overflow.
-  shortTitle: 'Security Analyst · Threat Intel · Security Automation',
+  shortTitle: 'Associate Cyber Security Analyst · Capgemini CERT',
   headline: 'Building at the intersection of AI, threat intelligence, and edge-native security tooling.',
   // Plain-text bio. Used as-is by StructuredData (SEO schema). The Hero
   // renders a JSX version with inline links on "DFIR toolkit" and
   // "threat-intel platform" - see Hero.tsx. Keep both copies in sync:
   // any rewording here should be mirrored over there.
-  description: `a security analyst working phishing, BEC, and malware incidents across 150+ brands. The rest of the time I ship the tools I wished I'd had on shift: a 60+ tool DFIR toolkit and a live, self-updating threat-intel platform, both edge-hosted on Cloudflare and free to use. Currently digging into AI security, NHI governance, and detection engineering.`,
-  currentFocus: 'Threat intel, email defense, and cloud identity security',
-  currentlyLearning: 'NHI Security & Advanced Threat Hunting',
+  description: `a cyber security analyst on the Capgemini CERT Threat and Vulnerability Intelligence group, working AI automation, autonomous workflows, and AI threat intelligence: hunting and researching AI-driven threats. The rest of the time I ship the tools I wished I'd had on shift: a 60+ tool DFIR toolkit and a live, self-updating threat-intel platform, both edge-hosted on Cloudflare and free to use.`,
+  currentFocus: 'AI threats, AI threat intelligence, and autonomous SOC workflows',
+  currentlyLearning: 'AI red-teaming & autonomous threat hunting',
   availability: 'Open for Consultations & Strategy Calls',
   email: 'hello@pranithjain.qzz.io',
   phone: '+91 8310386578',
@@ -169,10 +170,40 @@ export const companies = [
 
 export const experiences = [
   {
-    title: 'Security Analyst – Threat Intel, Security Automation',
+    title: 'Associate Cyber Security Analyst, CERT Threat and Vulnerability Intelligence Group',
+    company: 'Capgemini',
+    location: 'India',
+    period: 'Sep 2026 - Present',
+    badge: 'AI Automation • AI Threat Intel • Autonomous Workflows',
+    sections: [
+      {
+        title: 'AI Automation & Autonomous Workflows',
+        icon: 'Zap',
+        items: [
+          'Building AI automation and autonomous agentic workflows for the Computer Emergency Response Team: tooling and technology implementations that take repeatable triage, enrichment, and reporting work off the analyst critical path.',
+        ],
+      },
+      {
+        title: 'AI Threat Intelligence & Hunting',
+        icon: 'Search',
+        items: [
+          'Hunting and researching AI-driven threats: AI-enabled attack tooling, LLM abuse, and agent containment failures. Mapping the emerging AI attack surface and feeding findings back into detection and threat intelligence.',
+        ],
+      },
+      {
+        title: 'AI Security',
+        icon: 'Shield',
+        items: [
+          'Working AI security for the Threat and Vulnerability Intelligence group: vulnerability triage in an enterprise CERT context, AI-assisted detection engineering, and threat intel pipelines covering both traditional and AI-specific threat vectors.',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'IT Support Specialist',
     company: 'Qubit Capital',
     location: 'Remote',
-    period: 'Jul 2024 - Present',
+    period: 'Jul 2024 - Jul 2026',
     badge: '250+ Incidents • <75min Response',
     sections: [
       {
@@ -220,7 +251,7 @@ export const experiences = [
     ],
   },
   {
-    title: 'Tech Associate – Infrastructure & Email Security',
+    title: 'Junior Support Engineer',
     company: 'UnifyCX',
     location: 'Mysore',
     period: 'Sep 2023 - Jul 2024',

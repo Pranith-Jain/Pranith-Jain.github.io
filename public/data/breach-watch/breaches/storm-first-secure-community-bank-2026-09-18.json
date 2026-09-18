@@ -1,15 +1,15 @@
 {
   "slug": "storm-first-secure-community-bank-2026-09-18",
   "title": "First Secure Community Bank",
-  "group": "storm",
-  "discovered": "2026-09-18T08:17:21.000Z",
+  "group": "Storm",
+  "discovered": "2026-09-18T07:50:52.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": "FinTech | Sugar Grove, Illinois, United States | First Secure Community Bank is a locally-owned financial institution based in Sugar Grove, Illinois, offering a range of personal and business banking services. Their product offerings include residential lending, personal and business credit cards, and interest-bearing accounts such as CDs and IRAs. The bank focuses on meeting the financial needs of local residents and businesses, ensuring convenience and security in managing finances. Established in 2000, First Secure Community Bank has become a trusted fixture in the community, dedicated to helping clients achieve their financial goals. \nThe company headquarters is located in 670 Sugar Grove Parkway (Route 47), Sugar Grove, IL 60554, United States. 11-50 Employees\n | Deadline: 2026-10-01T05:49:07.000Z",
-  "source_url": "https://www.ransomlook.io/screenshots/storm/First Secure Community Bank.png",
+  "description": "First Secure Community Bank is a locally-owned financial institution based in Sugar Grove, Illinois, offering a range of personal and business banking services. Their product offerings include residential lending, personal and business credit cards, and interest-bearing accounts such as CDs and IRAs. The bank focuses on meeting the financial needs of local residents and businesses, ensuring convenience and security in managing finances. Established in 2000, First Secure Community Bank has become a trusted fixture in the community, dedicated to helping clients achieve their financial goals. \nThe company headquarters is located in 670 Sugar Grove Parkway (Route 47), Sugar Grove, IL 60554, United States. 11-50 Employees",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
 }

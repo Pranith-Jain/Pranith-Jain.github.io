@@ -1,12 +1,12 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-09-18T07:55:54.947Z",
+  "replicatedAt": "2026-09-18T08:19:55.793Z",
   "counts": { "breaches": 350, "groups": 79, "categories": 2 },
-  "lastSyncedAt": "2026-09-18T07:55:54.947Z",
+  "lastSyncedAt": "2026-09-18T08:19:55.793Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 195 },
-    { "key": "data_breach", "label": "Data Breach", "count": 155 }
+    { "key": "ransomware", "label": "Ransomware", "count": 193 },
+    { "key": "data_breach", "label": "Data Breach", "count": 157 }
   ],
   "groups": [
     { "name": "safepay", "count": 32, "topCategory": "ransomware" },
@@ -15,7 +15,8 @@
     { "name": "METAENCRYPTER", "count": 18, "topCategory": "data_breach" },
     { "name": "krybit", "count": 17, "topCategory": "ransomware" },
     { "name": "BrainCipher", "count": 16, "topCategory": "ransomware" },
-    { "name": "AuditTeam", "count": 12, "topCategory": "data_breach" },
+    { "name": "AuditTeam", "count": 11, "topCategory": "data_breach" },
+    { "name": "Storm", "count": 9, "topCategory": "data_breach" },
     { "name": "inc ransom", "count": 9, "topCategory": "data_breach" },
     { "name": "akira", "count": 9, "topCategory": "ransomware" },
     { "name": "storm", "count": 8, "topCategory": "data_breach" },
@@ -28,10 +29,8 @@
     { "name": "dragonforce", "count": 5, "topCategory": "ransomware" },
     { "name": "metaencryptor", "count": 5, "topCategory": "data_breach" },
     { "name": "ransomhouse", "count": 4, "topCategory": "ransomware" },
-    { "name": "Vexy Ransomware", "count": 4, "topCategory": "data_breach" },
     { "name": "lockbit5", "count": 4, "topCategory": "ransomware" },
     { "name": "AUR0RA", "count": 4, "topCategory": "data_breach" },
-    { "name": "Settra", "count": 4, "topCategory": "data_breach" },
     { "name": "genesis", "count": 4, "topCategory": "ransomware" },
     { "name": "the gentlemen", "count": 4, "topCategory": "data_breach" },
     { "name": "medusalocker", "count": 4, "topCategory": "ransomware" },
@@ -41,15 +40,15 @@
     { "name": "rhysida", "count": 3, "topCategory": "ransomware" },
     { "name": "chaos", "count": 3, "topCategory": "ransomware" },
     { "name": "incransom", "count": 3, "topCategory": "ransomware" },
-    { "name": "Brain Cipher", "count": 3, "topCategory": "data_breach" },
+    { "name": "Vexy Ransomware", "count": 3, "topCategory": "data_breach" },
+    { "name": "Settra", "count": 3, "topCategory": "data_breach" },
     { "name": "insomnia", "count": 3, "topCategory": "data_breach" },
-    { "name": "Storm", "count": 3, "topCategory": "data_breach" },
     { "name": "EndZone", "count": 2, "topCategory": "data_breach" },
     { "name": "Krybit", "count": 2, "topCategory": "ransomware" },
     { "name": "Global Secret Group", "count": 2, "topCategory": "data_breach" },
     { "name": "vexy", "count": 2, "topCategory": "data_breach" },
     { "name": "shinyhunters", "count": 2, "topCategory": "ransomware" },
-    { "name": "Akira", "count": 2, "topCategory": "ransomware" },
+    { "name": "Brain Cipher", "count": 2, "topCategory": "data_breach" },
     { "name": "ShadowByt3$", "count": 2, "topCategory": "data_breach" },
     { "name": "blacknevas", "count": 2, "topCategory": "ransomware" },
     { "name": "wallstreet", "count": 2, "topCategory": "data_breach" },
@@ -57,7 +56,6 @@
     { "name": "Wallstreet", "count": 2, "topCategory": "data_breach" },
     { "name": "panzer", "count": 2, "topCategory": "data_breach" },
     { "name": "arcusmedia", "count": 2, "topCategory": "ransomware" },
-    { "name": "beast", "count": 2, "topCategory": "data_breach" },
     { "name": "Dark Project", "count": 2, "topCategory": "data_breach" },
     { "name": "interlock", "count": 2, "topCategory": "data_breach" },
     { "name": "anubis", "count": 2, "topCategory": "ransomware" },
@@ -68,6 +66,7 @@
     { "name": "Spirals", "count": 1, "topCategory": "data_breach" },
     { "name": "Ransomhouse", "count": 1, "topCategory": "ransomware" },
     { "name": "killsec", "count": 1, "topCategory": "data_breach" },
+    { "name": "KillSec", "count": 1, "topCategory": "data_breach" },
     { "name": "SilentRansomGroup", "count": 1, "topCategory": "data_breach" },
     { "name": "leakeddata", "count": 1, "topCategory": "data_breach" },
     { "name": "Qilin", "count": 1, "topCategory": "ransomware" },
@@ -76,10 +75,11 @@
     { "name": "INC Ransom", "count": 1, "topCategory": "data_breach" },
     { "name": "RansomHouse", "count": 1, "topCategory": "ransomware" },
     { "name": "Black Nevas", "count": 1, "topCategory": "data_breach" },
-    { "name": "Chaos", "count": 1, "topCategory": "ransomware" },
+    { "name": "Akira", "count": 1, "topCategory": "ransomware" },
     { "name": "kairos", "count": 1, "topCategory": "data_breach" },
     { "name": "MS13-089", "count": 1, "topCategory": "data_breach" },
     { "name": "Gammax", "count": 1, "topCategory": "data_breach" },
+    { "name": "beast", "count": 1, "topCategory": "data_breach" },
     { "name": "dark project", "count": 1, "topCategory": "data_breach" },
     { "name": "iah647", "count": 1, "topCategory": "data_breach" },
     { "name": "iah6477", "count": 1, "topCategory": "data_breach" },
@@ -139,6 +139,56 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 1507
+    },
+    {
+      "slug": "storm-american-casting-company-2026-09-18",
+      "title": "American Casting Company",
+      "group": "Storm",
+      "discovered": "2026-09-18T07:51:54.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 1287
+    },
+    {
+      "slug": "storm-johnson-investment-counsel-2026-09-18",
+      "title": "Johnson Investment Counsel",
+      "group": "Storm",
+      "discovered": "2026-09-18T07:51:22.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 1294
+    },
+    {
+      "slug": "storm-first-secure-community-bank-2026-09-18",
+      "title": "First Secure Community Bank",
+      "group": "Storm",
+      "discovered": "2026-09-18T07:50:52.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 1092
+    },
+    {
+      "slug": "storm-the-state-bank-2026-09-18",
+      "title": "The State Bank",
+      "group": "Storm",
+      "discovered": "2026-09-18T07:50:21.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 2241
+    },
+    {
+      "slug": "storm-first-secure-bank-and-trust-2026-09-18",
+      "title": "First Secure Bank and Trust",
+      "group": "Storm",
+      "discovered": "2026-09-18T07:49:50.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 1390
     },
     {
       "slug": "endzone-accela-com-2026-09-18",
@@ -509,6 +559,26 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 400
+    },
+    {
+      "slug": "storm-american-casting-2026-09-18",
+      "title": "American Casting",
+      "group": "Storm",
+      "discovered": "2026-09-18T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 392
+    },
+    {
+      "slug": "killsec-giti-2026-09-18",
+      "title": "Giti",
+      "group": "KillSec",
+      "discovered": "2026-09-18T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "Singapore",
+      "sizeBytes": 380
     },
     {
       "slug": "silentransomgroup-c-2026-09-17",
@@ -1209,46 +1279,6 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 391
-    },
-    {
-      "slug": "settra-fchhotels-com-2026-09-17",
-      "title": "fchhotels.com",
-      "group": "Settra",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Brazil",
-      "sizeBytes": 399
-    },
-    {
-      "slug": "akira-vetta-2026-09-17",
-      "title": "Vetta",
-      "group": "Akira",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 372
-    },
-    {
-      "slug": "brain-cipher-xpera-ca-2026-09-17",
-      "title": "xpera.ca",
-      "group": "Brain Cipher",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 388
-    },
-    {
-      "slug": "chaos-expresspros-com-2026-09-17",
-      "title": "expresspros.com",
-      "group": "Chaos",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 388
     },
     {
       "slug": "shadowbyt3-handytrac-greystar-az-warning-2026-09-16",
@@ -3559,36 +3589,6 @@
       "severity": "high",
       "country": "IN",
       "sizeBytes": 639
-    },
-    {
-      "slug": "vexy-ransomware-i2k2-networks-2026-09-10",
-      "title": "i2k2 Networks",
-      "group": "Vexy Ransomware",
-      "discovered": "2026-09-10T21:27:11.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "IN",
-      "sizeBytes": 698
-    },
-    {
-      "slug": "beast-m800-and-cinnox-2026-09-10",
-      "title": "M800 and CINNOX",
-      "group": "beast",
-      "discovered": "2026-09-10T20:22:44.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "HK",
-      "sizeBytes": 488
-    },
-    {
-      "slug": "auditteam-ki-jp-2026-09-10",
-      "title": "ki***jp",
-      "group": "AuditTeam",
-      "discovered": "2026-09-10T19:20:56.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "JP",
-      "sizeBytes": 336
     }
   ]
 }
