@@ -1,1 +1,15 @@
-{"slug":"settra-pacificabs-com-2026-09-17","title":"pacificabs.com","group":"Settra","discovered":"2026-09-17T00:00:00.000Z","category":"data_breach","severity":"high","country":"Australia","sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/pacificabs-com-settra-2026-08","groupAliases":[],"activity":"Professional Services","references":["RecentBreaches.com"]}
+{
+  "slug": "settra-pacificabs-com-2026-09-17",
+  "title": "pacificabs.com",
+  "group": "settra",
+  "discovered": "2026-09-17T15:31:31.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Documents: Pacific Global Solutions / PABS / Atteign LLC PROLOGUE 40+ American businesses — medical ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

@@ -30,12 +30,12 @@
  * Each tier has a weight multiplier for score calculation.
  */
 export const SOURCE_RELIABILITY: Record<string, { weight: number; label: string }> = {
-  'A': { weight: 1.0, label: 'Completely reliable' },
-  'B': { weight: 0.8, label: 'Usually reliable' },
-  'C': { weight: 0.6, label: 'Fairly reliable' },
-  'D': { weight: 0.4, label: 'Not usually reliable' },
-  'E': { weight: 0.2, label: 'Unreliable' },
-  'F': { weight: 0.1, label: 'Reliability cannot be judged' },
+  A: { weight: 1.0, label: 'Completely reliable' },
+  B: { weight: 0.8, label: 'Usually reliable' },
+  C: { weight: 0.6, label: 'Fairly reliable' },
+  D: { weight: 0.4, label: 'Not usually reliable' },
+  E: { weight: 0.2, label: 'Unreliable' },
+  F: { weight: 0.1, label: 'Reliability cannot be judged' },
 };
 
 /** Default reliability tier for sources not explicitly rated. */
@@ -180,9 +180,16 @@ export function scoreIoc(
   const unique = [...bySource.values()];
   if (unique.length === 0) {
     return {
-      score: 0, baseScore: 0, decayFactor: 0, correlationBoost: 1.0,
-      sourceCount: 0, lastSeen: '', firstSeen: '', isDormant: true,
-      confidence: 'LOW', breakdown: [],
+      score: 0,
+      baseScore: 0,
+      decayFactor: 0,
+      correlationBoost: 1.0,
+      sourceCount: 0,
+      lastSeen: '',
+      firstSeen: '',
+      isDormant: true,
+      confidence: 'LOW',
+      breakdown: [],
     };
   }
   const sourceCount = unique.length;
@@ -195,7 +202,7 @@ export function scoreIoc(
   for (const obs of unique) {
     const weight = getReliabilityWeight(obs.reliability);
     const decay = timeDecay(obs.observedAt, now, decayHalfLifeDays);
-    const baseContrib = obs.sourceScore ?? (weight * 100);
+    const baseContrib = obs.sourceScore ?? weight * 100;
     const decayedContrib = baseContrib * decay;
 
     weightedSum += decayedContrib * weight;
@@ -217,30 +224,35 @@ export function scoreIoc(
   const cBoost = correlationBoost(sourceCount);
   const boostedScore = Math.min(100, baseScore * cBoost);
 
-  // Time decay of the most recent observation.
-  const mostRecent = unique.reduce((a, b) =>
-    new Date(a.observedAt) > new Date(b.observedAt) ? a : b
-  );
-  const oldest = unique.reduce((a, b) =>
-    new Date(a.observedAt) < new Date(b.observedAt) ? a : b
-  );
+  // Time decay was already applied per-observation above (decayedContrib),
+  // so baseScore/boostedScore are already decayed — do NOT decay again here
+  // or the two factors multiply (80 → 0 for an observation just one
+  // half-life old). `decayFactor` reports the most recent observation's
+  // decay so callers can still see freshness.
+  const mostRecent = unique.reduce((a, b) => (new Date(a.observedAt) > new Date(b.observedAt) ? a : b));
+  const oldest = unique.reduce((a, b) => (new Date(a.observedAt) < new Date(b.observedAt) ? a : b));
   if (!mostRecent || !oldest) {
     return {
-      score: 0, baseScore: 0, decayFactor: 0, correlationBoost: 1.0,
-      sourceCount: 0, lastSeen: '', firstSeen: '', isDormant: true,
-      confidence: 'LOW', breakdown: [],
+      score: 0,
+      baseScore: 0,
+      decayFactor: 0,
+      correlationBoost: 1.0,
+      sourceCount: 0,
+      lastSeen: '',
+      firstSeen: '',
+      isDormant: true,
+      confidence: 'LOW',
+      breakdown: [],
     };
   }
   const recentDecay = timeDecay(mostRecent.observedAt, now, decayHalfLifeDays);
 
-  // Final score: boosted score * recent observation decay.
-  const finalScore = Math.round(boostedScore * recentDecay);
+  // Final score: the (already decayed) boosted score.
+  const finalScore = Math.round(boostedScore);
 
   // Confidence classification.
   const confidence: IocScore['confidence'] =
-    finalScore >= 70 && sourceCount >= 3 ? 'HIGH' :
-    finalScore >= 40 && sourceCount >= 2 ? 'MODERATE' :
-    'LOW';
+    finalScore >= 70 && sourceCount >= 3 ? 'HIGH' : finalScore >= 40 && sourceCount >= 2 ? 'MODERATE' : 'LOW';
 
   return {
     score: Math.min(100, Math.max(0, finalScore)),
@@ -264,7 +276,8 @@ export function scoreToGrade(score: number): { grade: string; label: string; col
   if (score >= 60) return { grade: 'B', label: 'Probable — likely malicious, investigate', color: 'blue' };
   if (score >= 40) return { grade: 'C', label: 'Possible — suspicious, monitor', color: 'amber' };
   if (score >= 20) return { grade: 'D', label: 'Doubtful — low confidence, verify', color: 'orange' };
-  if (score >= DORMANT_THRESHOLD) return { grade: 'E', label: 'Improbable — likely stale or false positive', color: 'red' };
+  if (score >= DORMANT_THRESHOLD)
+    return { grade: 'E', label: 'Improbable — likely stale or false positive', color: 'red' };
   return { grade: 'F', label: 'Dormant — no recent activity', color: 'slate' };
 }
 
@@ -292,15 +305,11 @@ export function calculateLifecycle(observations: IocObservation[]): {
     };
   }
 
-  const sorted = [...observations].sort(
-    (a, b) => new Date(a.observedAt).getTime() - new Date(b.observedAt).getTime()
-  );
+  const sorted = [...observations].sort((a, b) => new Date(a.observedAt).getTime() - new Date(b.observedAt).getTime());
 
   const firstSeen = sorted[0]?.observedAt ?? '';
   const lastSeen = sorted[sorted.length - 1]?.observedAt ?? '';
-  const activeDays = Math.ceil(
-    (new Date(lastSeen).getTime() - new Date(firstSeen).getTime()) / (1000 * 60 * 60 * 24)
-  );
+  const activeDays = Math.ceil((new Date(lastSeen).getTime() - new Date(firstSeen).getTime()) / (1000 * 60 * 60 * 24));
 
   const uniqueSources = new Set(observations.map((o) => o.source)).size;
 
@@ -312,9 +321,7 @@ export function calculateLifecycle(observations: IocObservation[]): {
   const recentRate = recentHalf.length / Math.max(1, activeDays / 2);
 
   const trend: 'rising' | 'stable' | 'declining' =
-    recentRate > olderRate * 1.3 ? 'rising' :
-    recentRate < olderRate * 0.7 ? 'declining' :
-    'stable';
+    recentRate > olderRate * 1.3 ? 'rising' : recentRate < olderRate * 0.7 ? 'declining' : 'stable';
 
   // Decay rate: how fast the score is declining (observations per day).
   const decayRate = observations.length / Math.max(1, activeDays);

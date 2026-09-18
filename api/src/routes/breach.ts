@@ -313,7 +313,11 @@ async function queryLeakIx(q: string): Promise<BreachEntry[]> {
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];
-    const data = (await res.json()) as Array<{
+    const parsed: unknown = await res.json();
+    // LeakIX normally returns an array, but error/rate-limit responses are
+    // objects ({error: ...}) — guard so data.slice can't throw.
+    if (!Array.isArray(parsed)) return [];
+    const data = parsed as Array<{
       ip?: string;
       port?: number;
       leak?: { id: string; leak_type: string; leak_data: string; created_at: string };

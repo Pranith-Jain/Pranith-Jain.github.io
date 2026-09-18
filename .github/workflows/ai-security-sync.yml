@@ -52,6 +52,29 @@ jobs:
         continue-on-error: true
         run: node scripts/sync-ai-security.mjs
 
+      - name: Import new ai-escape.watch incidents into the curatorial seed
+        # Parity (above) only REPORTS drift; this closes it. Fetches the
+        # upstream app.js INCIDENTS array and appends ids missing from the
+        # seed — each entry fail-closed validated (klass/sev/tier/cbs/chain/
+        # sources) before anything is written; never deletes/rewrites
+        # existing entries. Summaries stay upstream's own condensations,
+        # so the curatorial rules are preserved. Exits 0 with "nothing to
+        # import" when in parity. If an entry fails validation it is
+        # skipped and the build below still runs on the rest.
+        continue-on-error: true
+        run: node scripts/import-ai-escape-upstream.mjs
+
+      - name: Build AI Security manifest
+        continue-on-error: true
+        run: node scripts/build-ai-security.mjs
+
+      - name: Rebuild the AI Escape Watch registry data
+        # public/data/ai-escape/ ships to /threatintel/ai-escape. Without
+        # this step a new upstream incident lands in the seed but never
+        # reaches the site.
+        continue-on-error: true
+        run: node scripts/build-ai-escape.mjs
+
       - name: Sync Tier-1 realtime feeds (vulns + advisories + research)
         # Separate script, same isolation: EUVD/NVD/OSV/EPSS, Atoms,
         # ExploitDB, research RSS each degrade independently.
@@ -83,17 +106,22 @@ jobs:
             aisecuritymatrix.com/data.json, incidentdatabase.ai/rss.xml),
             `scripts/sync-ai-vulns.mjs` (EUVD search + KEV dump + NVD keyword +
             OSV watchlist + EPSS; cvelistV5 + tool Atoms + ExploitDB; research
-            RSS) and `scripts/build-ai-security.mjs` (manifest rebuild into
+            RSS), `scripts/import-ai-escape-upstream.mjs` +
+            `scripts/build-ai-escape.mjs` (append missing upstream incidents
+            to the curatorial seed, fail-closed validated, then rebuild
+            public/data/ai-escape/ so /threatintel/ai-escape tracks upstream)
+            and `scripts/build-ai-security.mjs` (manifest rebuild into
             `public/data/ai-security/`). The PR is auto-merged by the same run
             (data-only changes; main is unprotected), and deploy.yml gates +
             deploys the merge on main.
 
-            Escape Watch parity is report-only: drift between ai-escape.watch
-            and the curatorial seed never auto-overwrites either side — port
-            drift IDs via reviewed PR.
+            Escape Watch parity is closed in the same run: the import step
+            appends upstream-only ids to the seed (never overwrites or
+            deletes reviewed entries); local-only ids still require a
+            reviewed PR to remove.
 
             Sources:
-            - https://ai-escape.watch/api/registry (parity only)
+            - https://ai-escape.watch/api/registry + app.js (parity + import)
             - https://aisecuritymatrix.com/data.json
             - https://incidentdatabase.ai/rss.xml
             - ENISA EUVD API + CISA/EU KEV + NVD 2.0 + OSV.dev + FIRST EPSS
@@ -106,7 +134,9 @@ jobs:
           delete-branch: true
           add-paths: |
             public/data/ai-security/
+            public/data/ai-escape/
             threat-intel-staging/ai-security/
+            threat-intel-staging/ai-escape/seed.json
 
       - name: Auto-merge sync PR
         id: automerge

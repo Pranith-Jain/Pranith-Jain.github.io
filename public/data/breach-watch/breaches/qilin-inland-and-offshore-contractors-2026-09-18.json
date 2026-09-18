@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-inland-and-offshore-contractors-2026-09-18",
+  "title": "Inland and Offshore Contractors",
+  "group": "qilin",
+  "discovered": "2026-09-18T10:09:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TT",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy & Utilities",
+  "references": ["ransomware.live"]
+}

@@ -1,15 +1,15 @@
 {
   "slug": "settra-naturesplus-com-2026-09-17",
   "title": "naturesplus.com",
-  "group": "Settra",
-  "discovered": "2026-09-17T00:00:00.000Z",
+  "group": "settra",
+  "discovered": "2026-09-17T15:32:04.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "United States",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/naturesplus-com-settra-2026-08",
+  "description": "Documents: Natural Organics, Inc. / NaturesPlus PROLOGUE CEO Jim Gibbons, between 2015 and 2019, pur...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

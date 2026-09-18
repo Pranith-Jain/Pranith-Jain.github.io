@@ -37,11 +37,15 @@ describe('runFeedSourceById', () => {
 });
 
 describe('FEED_SOURCE_IDS', () => {
-  it('lists the 28 runner units in registry order', () => {
-    expect(FEED_SOURCE_IDS).toHaveLength(28);
+  it('lists the 30 runner units in registry order', () => {
+    // Count pinned to the registry (threatbase + swiftioc added in bb53f68db).
+    // When adding a feed, bump this number AND register it below.
+    expect(FEED_SOURCE_IDS).toHaveLength(30);
     expect(FEED_SOURCE_IDS[0]).toBe('tweetfeed');
+    expect(FEED_SOURCE_IDS[29]).toBe('swiftioc');
     expect(FEED_SOURCE_IDS).toContain('emerging-threats');
     expect(FEED_SOURCE_IDS).toContain('crypto-scam');
+    expect(FEED_SOURCE_IDS).toContain('threatbase');
     // Removed dead sources
     expect(FEED_SOURCE_IDS).not.toContain('sslbl-c2');
     expect(FEED_SOURCE_IDS).not.toContain('andreafortuna-defacements');

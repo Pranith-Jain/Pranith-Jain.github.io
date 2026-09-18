@@ -1,81 +1,74 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-09-18T08:19:55.793Z",
-  "counts": { "breaches": 350, "groups": 79, "categories": 2 },
-  "lastSyncedAt": "2026-09-18T08:19:55.793Z",
+  "replicatedAt": "2026-09-18T12:02:42.916Z",
+  "counts": { "breaches": 350, "groups": 70, "categories": 2 },
+  "lastSyncedAt": "2026-09-18T12:02:42.916Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 193 },
-    { "key": "data_breach", "label": "Data Breach", "count": 157 }
+    { "key": "ransomware", "label": "Ransomware", "count": 209 },
+    { "key": "data_breach", "label": "Data Breach", "count": 141 }
   ],
   "groups": [
-    { "name": "safepay", "count": 32, "topCategory": "ransomware" },
+    { "name": "BrainCipher", "count": 53, "topCategory": "ransomware" },
+    { "name": "safepay", "count": 31, "topCategory": "ransomware" },
     { "name": "thegentlemen", "count": 30, "topCategory": "ransomware" },
-    { "name": "qilin", "count": 25, "topCategory": "ransomware" },
+    { "name": "qilin", "count": 29, "topCategory": "ransomware" },
     { "name": "METAENCRYPTER", "count": 18, "topCategory": "data_breach" },
-    { "name": "krybit", "count": 17, "topCategory": "ransomware" },
-    { "name": "BrainCipher", "count": 16, "topCategory": "ransomware" },
     { "name": "AuditTeam", "count": 11, "topCategory": "data_breach" },
     { "name": "Storm", "count": 9, "topCategory": "data_breach" },
     { "name": "inc ransom", "count": 9, "topCategory": "data_breach" },
     { "name": "akira", "count": 9, "topCategory": "ransomware" },
     { "name": "storm", "count": 8, "topCategory": "data_breach" },
-    { "name": "Panzer", "count": 8, "topCategory": "data_breach" },
     { "name": "emperador", "count": 7, "topCategory": "data_breach" },
     { "name": "Rhysida", "count": 6, "topCategory": "ransomware" },
+    { "name": "krybit", "count": 6, "topCategory": "ransomware" },
+    { "name": "Panzer", "count": 6, "topCategory": "data_breach" },
     { "name": "settra", "count": 6, "topCategory": "data_breach" },
-    { "name": "pear", "count": 6, "topCategory": "ransomware" },
     { "name": "audit team", "count": 6, "topCategory": "data_breach" },
-    { "name": "dragonforce", "count": 5, "topCategory": "ransomware" },
     { "name": "metaencryptor", "count": 5, "topCategory": "data_breach" },
+    { "name": "pear", "count": 5, "topCategory": "ransomware" },
     { "name": "ransomhouse", "count": 4, "topCategory": "ransomware" },
     { "name": "lockbit5", "count": 4, "topCategory": "ransomware" },
+    { "name": "Qilin", "count": 4, "topCategory": "ransomware" },
     { "name": "AUR0RA", "count": 4, "topCategory": "data_breach" },
     { "name": "genesis", "count": 4, "topCategory": "ransomware" },
-    { "name": "the gentlemen", "count": 4, "topCategory": "data_breach" },
-    { "name": "medusalocker", "count": 4, "topCategory": "ransomware" },
-    { "name": "nightspire", "count": 4, "topCategory": "ransomware" },
     { "name": "VEXY", "count": 3, "topCategory": "data_breach" },
     { "name": "brain cipher", "count": 3, "topCategory": "data_breach" },
-    { "name": "rhysida", "count": 3, "topCategory": "ransomware" },
     { "name": "chaos", "count": 3, "topCategory": "ransomware" },
     { "name": "incransom", "count": 3, "topCategory": "ransomware" },
     { "name": "Vexy Ransomware", "count": 3, "topCategory": "data_breach" },
-    { "name": "Settra", "count": 3, "topCategory": "data_breach" },
     { "name": "insomnia", "count": 3, "topCategory": "data_breach" },
     { "name": "EndZone", "count": 2, "topCategory": "data_breach" },
     { "name": "Krybit", "count": 2, "topCategory": "ransomware" },
-    { "name": "Global Secret Group", "count": 2, "topCategory": "data_breach" },
     { "name": "vexy", "count": 2, "topCategory": "data_breach" },
     { "name": "shinyhunters", "count": 2, "topCategory": "ransomware" },
-    { "name": "Brain Cipher", "count": 2, "topCategory": "data_breach" },
     { "name": "ShadowByt3$", "count": 2, "topCategory": "data_breach" },
-    { "name": "blacknevas", "count": 2, "topCategory": "ransomware" },
     { "name": "wallstreet", "count": 2, "topCategory": "data_breach" },
     { "name": "arcus media", "count": 2, "topCategory": "data_breach" },
     { "name": "Wallstreet", "count": 2, "topCategory": "data_breach" },
     { "name": "panzer", "count": 2, "topCategory": "data_breach" },
     { "name": "arcusmedia", "count": 2, "topCategory": "ransomware" },
+    { "name": "dragonforce", "count": 2, "topCategory": "ransomware" },
     { "name": "Dark Project", "count": 2, "topCategory": "data_breach" },
     { "name": "interlock", "count": 2, "topCategory": "data_breach" },
     { "name": "anubis", "count": 2, "topCategory": "ransomware" },
     { "name": "unsafe", "count": 2, "topCategory": "data_breach" },
     { "name": "Eclipse", "count": 2, "topCategory": "data_breach" },
     { "name": "Booba Project", "count": 2, "topCategory": "ransomware" },
-    { "name": "global", "count": 2, "topCategory": "data_breach" },
     { "name": "Spirals", "count": 1, "topCategory": "data_breach" },
     { "name": "Ransomhouse", "count": 1, "topCategory": "ransomware" },
     { "name": "killsec", "count": 1, "topCategory": "data_breach" },
     { "name": "KillSec", "count": 1, "topCategory": "data_breach" },
     { "name": "SilentRansomGroup", "count": 1, "topCategory": "data_breach" },
     { "name": "leakeddata", "count": 1, "topCategory": "data_breach" },
-    { "name": "Qilin", "count": 1, "topCategory": "ransomware" },
     { "name": "Deadlock", "count": 1, "topCategory": "ransomware" },
     { "name": "black nevas", "count": 1, "topCategory": "data_breach" },
+    { "name": "Brain Cipher", "count": 1, "topCategory": "data_breach" },
     { "name": "INC Ransom", "count": 1, "topCategory": "data_breach" },
-    { "name": "RansomHouse", "count": 1, "topCategory": "ransomware" },
-    { "name": "Black Nevas", "count": 1, "topCategory": "data_breach" },
+    { "name": "LockBit", "count": 1, "topCategory": "ransomware" },
     { "name": "Akira", "count": 1, "topCategory": "ransomware" },
+    { "name": "Emperador", "count": 1, "topCategory": "data_breach" },
+    { "name": "blacknevas", "count": 1, "topCategory": "ransomware" },
     { "name": "kairos", "count": 1, "topCategory": "data_breach" },
     { "name": "MS13-089", "count": 1, "topCategory": "data_breach" },
     { "name": "Gammax", "count": 1, "topCategory": "data_breach" },
@@ -85,11 +78,559 @@
     { "name": "iah6477", "count": 1, "topCategory": "data_breach" },
     { "name": "Barracuda", "count": 1, "topCategory": "data_breach" },
     { "name": "Doommageddon", "count": 1, "topCategory": "data_breach" },
-    { "name": "securotrop", "count": 1, "topCategory": "data_breach" },
-    { "name": "direwolf", "count": 1, "topCategory": "data_breach" },
-    { "name": "fulcrumsec", "count": 1, "topCategory": "ransomware" }
+    { "name": "rhysida", "count": 1, "topCategory": "ransomware" }
   ],
   "breachIndex": [
+    {
+      "slug": "braincipher-data-part01-rar-2026-09-18",
+      "title": "DATA.part01.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part02-rar-2026-09-18",
+      "title": "DATA.part02.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part03-rar-2026-09-18",
+      "title": "DATA.part03.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part04-rar-2026-09-18",
+      "title": "DATA.part04.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part05-rar-2026-09-18",
+      "title": "DATA.part05.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part06-rar-2026-09-18",
+      "title": "DATA.part06.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part07-rar-2026-09-18",
+      "title": "DATA.part07.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part08-rar-2026-09-18",
+      "title": "DATA.part08.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part09-rar-2026-09-18",
+      "title": "DATA.part09.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part10-rar-2026-09-18",
+      "title": "DATA.part10.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part11-rar-2026-09-18",
+      "title": "DATA.part11.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part12-rar-2026-09-18",
+      "title": "DATA.part12.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part13-rar-2026-09-18",
+      "title": "DATA.part13.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part14-rar-2026-09-18",
+      "title": "DATA.part14.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part15-rar-2026-09-18",
+      "title": "DATA.part15.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part16-rar-2026-09-18",
+      "title": "DATA.part16.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part17-rar-2026-09-18",
+      "title": "DATA.part17.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part18-rar-2026-09-18",
+      "title": "DATA.part18.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part19-rar-2026-09-18",
+      "title": "DATA.part19.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part20-rar-2026-09-18",
+      "title": "DATA.part20.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part21-rar-2026-09-18",
+      "title": "DATA.part21.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part22-rar-2026-09-18",
+      "title": "DATA.part22.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part23-rar-2026-09-18",
+      "title": "DATA.part23.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part24-rar-2026-09-18",
+      "title": "DATA.part24.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part25-rar-2026-09-18",
+      "title": "DATA.part25.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part26-rar-2026-09-18",
+      "title": "DATA.part26.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part27-rar-2026-09-18",
+      "title": "DATA.part27.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part28-rar-2026-09-18",
+      "title": "DATA.part28.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part29-rar-2026-09-18",
+      "title": "DATA.part29.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part30-rar-2026-09-18",
+      "title": "DATA.part30.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part31-rar-2026-09-18",
+      "title": "DATA.part31.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part32-rar-2026-09-18",
+      "title": "DATA.part32.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part33-rar-2026-09-18",
+      "title": "DATA.part33.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part34-rar-2026-09-18",
+      "title": "DATA.part34.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part35-rar-2026-09-18",
+      "title": "DATA.part35.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part36-rar-2026-09-18",
+      "title": "DATA.part36.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part37-rar-2026-09-18",
+      "title": "DATA.part37.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part38-rar-2026-09-18",
+      "title": "DATA.part38.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part39-rar-2026-09-18",
+      "title": "DATA.part39.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part40-rar-2026-09-18",
+      "title": "DATA.part40.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part41-rar-2026-09-18",
+      "title": "DATA.part41.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part42-rar-2026-09-18",
+      "title": "DATA.part42.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part43-rar-2026-09-18",
+      "title": "DATA.part43.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part44-rar-2026-09-18",
+      "title": "DATA.part44.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part45-rar-2026-09-18",
+      "title": "DATA.part45.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part46-rar-2026-09-18",
+      "title": "DATA.part46.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part47-rar-2026-09-18",
+      "title": "DATA.part47.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part48-rar-2026-09-18",
+      "title": "DATA.part48.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part49-rar-2026-09-18",
+      "title": "DATA.part49.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "braincipher-data-part50-rar-2026-09-18",
+      "title": "DATA.part50.rar",
+      "group": "BrainCipher",
+      "discovered": "2026-09-18T11:06:47.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 405
+    },
+    {
+      "slug": "qilin-ascend-com-2026-09-18",
+      "title": "Ascend Com",
+      "group": "qilin",
+      "discovered": "2026-09-18T10:12:12.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "SG",
+      "sizeBytes": 329
+    },
+    {
+      "slug": "qilin-ceres-tolvas-2026-09-18",
+      "title": "Ceres Tolvas",
+      "group": "qilin",
+      "discovered": "2026-09-18T10:11:27.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "AR",
+      "sizeBytes": 354
+    },
+    {
+      "slug": "qilin-futuro-forestal-2026-09-18",
+      "title": "Futuro Forestal",
+      "group": "qilin",
+      "discovered": "2026-09-18T10:10:42.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "CL",
+      "sizeBytes": 360
+    },
+    {
+      "slug": "qilin-grupo-juste-2026-09-18",
+      "title": "Grupo Juste",
+      "group": "qilin",
+      "discovered": "2026-09-18T10:09:56.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "MX",
+      "sizeBytes": 326
+    },
+    {
+      "slug": "qilin-inland-and-offshore-contractors-2026-09-18",
+      "title": "Inland and Offshore Contractors",
+      "group": "qilin",
+      "discovered": "2026-09-18T10:09:09.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "TT",
+      "sizeBytes": 379
+    },
     {
       "slug": "storm-american-casting-company-2026-09-18",
       "title": "American Casting Company",
@@ -209,86 +750,6 @@
       "severity": "high",
       "country": "US",
       "sizeBytes": 991
-    },
-    {
-      "slug": "braincipher-eworldme-part01-rar-2026-09-18",
-      "title": "eworldme.part01.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
-      "slug": "braincipher-eworldme-part02-rar-2026-09-18",
-      "title": "eworldme.part02.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
-      "slug": "braincipher-eworldme-part03-rar-2026-09-18",
-      "title": "eworldme.part03.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
-      "slug": "braincipher-eworldme-part04-rar-2026-09-18",
-      "title": "eworldme.part04.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
-      "slug": "braincipher-eworldme-part05-rar-2026-09-18",
-      "title": "eworldme.part05.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
-      "slug": "braincipher-eworldme-part06-rar-2026-09-18",
-      "title": "eworldme.part06.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
-      "slug": "braincipher-eworldme-part07-rar-2026-09-18",
-      "title": "eworldme.part07.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
-      "slug": "braincipher-eworldme-part08-rar-2026-09-18",
-      "title": "eworldme.part08.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-18T07:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 417
     },
     {
       "slug": "spirals-anythingit-2026-09-18",
@@ -611,16 +1072,6 @@
       "sizeBytes": 471
     },
     {
-      "slug": "global-secret-group-hinduja-tech-bmw-group-koda-auto-2026-09-17",
-      "title": "Hinduja Tech | BMW Group & Škoda Auto",
-      "group": "Global Secret Group",
-      "discovered": "2026-09-17T22:12:34.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 453
-    },
-    {
       "slug": "qilin-vigatec-2026-09-17",
       "title": "Vigatec",
       "group": "qilin",
@@ -669,46 +1120,6 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 543
-    },
-    {
-      "slug": "dragonforce-owen-leigh-optometry-2026-09-17",
-      "title": "Owen Leigh Optometry",
-      "group": "dragonforce",
-      "discovered": "2026-09-17T18:07:43.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 425
-    },
-    {
-      "slug": "dragonforce-community-property-management-2026-09-17",
-      "title": "Community Property Management",
-      "group": "dragonforce",
-      "discovered": "2026-09-17T18:07:43.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 452
-    },
-    {
-      "slug": "rhysida-professional-retail-services-2026-09-17",
-      "title": "Professional Retail Services",
-      "group": "rhysida",
-      "discovered": "2026-09-17T18:06:14.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 423
-    },
-    {
-      "slug": "rhysida-general-santos-doctors-hospital-2026-09-17",
-      "title": "General Santos Doctors Hospital",
-      "group": "rhysida",
-      "discovered": "2026-09-17T18:06:14.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 432
     },
     {
       "slug": "inc-ransom-www-appliancefactory-com-2026-09-17",
@@ -1191,94 +1602,84 @@
       "sizeBytes": 412
     },
     {
-      "slug": "inc-ransom-appliancefactory-com-2026-09-17",
-      "title": "appliancefactory.com",
-      "group": "INC Ransom",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "United States",
-      "sizeBytes": 429
-    },
-    {
-      "slug": "settra-pacificabs-com-2026-09-17",
-      "title": "pacificabs.com",
-      "group": "Settra",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Australia",
-      "sizeBytes": 415
-    },
-    {
-      "slug": "ransomhouse-pertamina-2026-09-17",
-      "title": "Pertamina",
-      "group": "RansomHouse",
+      "slug": "qilin-the-gran-hotel-ingles-2026-09-17",
+      "title": "The Gran Hotel Ingles",
+      "group": "Qilin",
       "discovered": "2026-09-17T00:00:00.000Z",
       "category": "ransomware",
-      "severity": "high",
+      "severity": "critical",
       "country": null,
-      "sizeBytes": 402
+      "sizeBytes": 410
     },
     {
-      "slug": "settra-sym-com-mx-2026-09-17",
-      "title": "sym.com.mx",
-      "group": "Settra",
-      "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Mexico",
-      "sizeBytes": 389
-    },
-    {
-      "slug": "brain-cipher-hoyletanner-com-2026-09-17",
-      "title": "hoyletanner.com",
+      "slug": "brain-cipher-xpera-ca-2026-09-17",
+      "title": "xpera.ca",
       "group": "Brain Cipher",
       "discovered": "2026-09-17T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": null,
-      "sizeBytes": 409
+      "sizeBytes": 388
     },
     {
-      "slug": "settra-naturesplus-com-2026-09-17",
-      "title": "naturesplus.com",
-      "group": "Settra",
+      "slug": "inc-ransom-diarco-com-ar-2026-09-17",
+      "title": "diarco.com.ar",
+      "group": "INC Ransom",
       "discovered": "2026-09-17T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "United States",
-      "sizeBytes": 420
+      "country": "Argentina",
+      "sizeBytes": 421
     },
     {
-      "slug": "black-nevas-optimum-first-mortgage-2026-09-17",
-      "title": "Optimum First Mortgage",
-      "group": "Black Nevas",
+      "slug": "lockbit-hygear-com-2026-09-17",
+      "title": "hygear.com",
+      "group": "LockBit",
       "discovered": "2026-09-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
+      "category": "ransomware",
+      "severity": "critical",
       "country": null,
-      "sizeBytes": 466
+      "sizeBytes": 446
     },
     {
-      "slug": "akira-practice-management-2026-09-17",
-      "title": "Practice Management",
+      "slug": "qilin-techwise-2026-09-17",
+      "title": "Techwise",
+      "group": "Qilin",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 371
+    },
+    {
+      "slug": "akira-javep-chevrolet-2026-09-17",
+      "title": "Javep Chevrolet",
       "group": "Akira",
       "discovered": "2026-09-17T00:00:00.000Z",
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 435
+      "sizeBytes": 402
     },
     {
-      "slug": "brain-cipher-aecom-com-2026-09-17",
-      "title": "aecom.com",
-      "group": "Brain Cipher",
+      "slug": "qilin-invincible-gg-2026-09-17",
+      "title": "Invincible GG",
+      "group": "Qilin",
+      "discovered": "2026-09-17T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 386
+    },
+    {
+      "slug": "emperador-westbridge-institute-of-technology-inc-2026-09-17",
+      "title": "Westbridge Institute of Technology, Inc.",
+      "group": "Emperador",
       "discovered": "2026-09-17T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": null,
-      "sizeBytes": 391
+      "sizeBytes": 472
     },
     {
       "slug": "shadowbyt3-handytrac-greystar-az-warning-2026-09-16",
@@ -1359,16 +1760,6 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 453
-    },
-    {
-      "slug": "blacknevas-mefa-group-www-mefagroup-com-tr-mefa-end-stri-www-mefaendustri-com-and-efachem-ecopolymer-milkrun-lojistik-20",
-      "title": "Mefa Group www.mefagroup.com.tr / MEFA Endüstri www.mefaendustri.com / and (Efachem, EcoPolymer, Milkrun Lojistik)",
-      "group": "blacknevas",
-      "discovered": "2026-09-16T20:01:58.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 602
     },
     {
       "slug": "blacknevas-optimum-first-mortgage-pears-acting-groups-promotional-blog-2026-09-16",
@@ -2211,56 +2602,6 @@
       "sizeBytes": 760
     },
     {
-      "slug": "braincipher-admin-share-rar-2026-09-15",
-      "title": "Admin_Share.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 405
-    },
-    {
-      "slug": "braincipher-hr-share-rar-2026-09-15",
-      "title": "HR_share.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 396
-    },
-    {
-      "slug": "braincipher-managers-share-part01-rar-2026-09-15",
-      "title": "Managers_Share.part01.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part02-rar-2026-09-15",
-      "title": "Managers_Share.part02.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
-      "slug": "braincipher-managers-share-part03-rar-2026-09-15",
-      "title": "Managers_Share.part03.rar",
-      "group": "BrainCipher",
-      "discovered": "2026-09-15T14:02:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 435
-    },
-    {
       "slug": "qilin-montana-civil-contractors-2026-09-15",
       "title": "Montana Civil Contractors",
       "group": "qilin",
@@ -2891,46 +3232,6 @@
       "sizeBytes": 352
     },
     {
-      "slug": "the-gentlemen-medskin-solutions-dr-suwelack-ag-2026-09-14",
-      "title": "MedSkin Solutions Dr. Suwelack AG",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T20:03:33.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 1237
-    },
-    {
-      "slug": "the-gentlemen-librer-a-santa-fe-2026-09-14",
-      "title": "Librería Santa Fe",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T19:37:25.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 990
-    },
-    {
-      "slug": "the-gentlemen-sarku-japan-2026-09-14",
-      "title": "Sarku Japan",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T19:37:24.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 1306
-    },
-    {
-      "slug": "the-gentlemen-tmi-tecnicas-mecanicas-ilerdenses-2026-09-14",
-      "title": "TMI Tecnicas Mecanicas Ilerdenses",
-      "group": "the gentlemen",
-      "discovered": "2026-09-14T19:37:23.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 919
-    },
-    {
       "slug": "qilin-foremost-mfg-2026-09-14",
       "title": "Foremost Mfg",
       "group": "qilin",
@@ -3279,316 +3580,6 @@
       "severity": "high",
       "country": "GE",
       "sizeBytes": 466
-    },
-    {
-      "slug": "krybit-www-tender-mx-2026-09-12",
-      "title": "www.tender.mx",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:32:18.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "MX",
-      "sizeBytes": 463
-    },
-    {
-      "slug": "krybit-capricornlogistics-com-2026-09-12",
-      "title": "capricornlogistics.com",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:31:42.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "ZA",
-      "sizeBytes": 475
-    },
-    {
-      "slug": "krybit-www-ibnsinatrust-com-2026-09-12",
-      "title": "www.ibnsinatrust.com",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:31:06.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "AE",
-      "sizeBytes": 467
-    },
-    {
-      "slug": "krybit-lasultanahotels-com-2026-09-12",
-      "title": "lasultanahotels.com",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:30:30.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "MA",
-      "sizeBytes": 466
-    },
-    {
-      "slug": "krybit-eracm-fr-2026-09-12",
-      "title": "eracm.fr",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:29:54.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "FR",
-      "sizeBytes": 438
-    },
-    {
-      "slug": "krybit-pss-ht-2026-09-12",
-      "title": "pss.ht",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:29:19.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "HT",
-      "sizeBytes": 438
-    },
-    {
-      "slug": "krybit-www-metalware-ca-2026-09-12",
-      "title": "www.metalware.ca",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:28:44.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "CA",
-      "sizeBytes": 462
-    },
-    {
-      "slug": "krybit-intherpro-com-2026-09-12",
-      "title": "intherpro.com",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:28:08.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 464
-    },
-    {
-      "slug": "krybit-meridian16-hr-2026-09-12",
-      "title": "meridian16.hr",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:27:32.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "HR",
-      "sizeBytes": 464
-    },
-    {
-      "slug": "krybit-www-eac-airports-com-2026-09-12",
-      "title": "www.eac-airports.com",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:26:55.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "KE",
-      "sizeBytes": 471
-    },
-    {
-      "slug": "krybit-swadeshicipl-com-2026-09-12",
-      "title": "swadeshicipl.com",
-      "group": "krybit",
-      "discovered": "2026-09-12T10:26:18.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "IN",
-      "sizeBytes": 462
-    },
-    {
-      "slug": "global-sutton-public-schools-2026-09-12",
-      "title": "Sutton Public Schools",
-      "group": "global",
-      "discovered": "2026-09-12T09:58:39.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 498
-    },
-    {
-      "slug": "medusalocker-ruixiang-jidian-2026-09-12",
-      "title": "瑞祥机电 (Ruixiang Jidian)",
-      "group": "medusalocker",
-      "discovered": "2026-09-12T09:01:44.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "CN",
-      "sizeBytes": 766
-    },
-    {
-      "slug": "medusalocker-abourametals-2026-09-12",
-      "title": "Abourametals",
-      "group": "medusalocker",
-      "discovered": "2026-09-12T09:01:13.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "AE",
-      "sizeBytes": 409
-    },
-    {
-      "slug": "medusalocker-frisby-roofing-frisby-construction-llc-2026-09-12",
-      "title": "Frisby Roofing (Frisby Construction LLC)",
-      "group": "medusalocker",
-      "discovered": "2026-09-12T09:00:41.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 1408
-    },
-    {
-      "slug": "medusalocker-praveg-caves-jawai-2026-09-12",
-      "title": "Praveg Caves Jawai",
-      "group": "medusalocker",
-      "discovered": "2026-09-12T09:00:10.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "IN",
-      "sizeBytes": 818
-    },
-    {
-      "slug": "global-town-of-sutton-massachusetts-2026-09-12",
-      "title": "TOWN OF SUTTON | MASSACHUSETTS",
-      "group": "global",
-      "discovered": "2026-09-12T08:26:30.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 519
-    },
-    {
-      "slug": "securotrop-shelco-filters-2026-09-12",
-      "title": "Shelco Filters",
-      "group": "securotrop",
-      "discovered": "2026-09-12T00:37:05.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 374
-    },
-    {
-      "slug": "safepay-compunnel-com-2026-09-11",
-      "title": "compunnel.com",
-      "group": "safepay",
-      "discovered": "2026-09-11T22:04:42.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 506
-    },
-    {
-      "slug": "qilin-imperial-healthcare-solutions-2026-09-11",
-      "title": "Imperial Healthcare Solutions",
-      "group": "qilin",
-      "discovered": "2026-09-11T22:03:56.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "US",
-      "sizeBytes": 367
-    },
-    {
-      "slug": "nightspire-diamondlease-2026-09-11",
-      "title": "DiamondLease",
-      "group": "nightspire",
-      "discovered": "2026-09-11T17:00:08.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "AE",
-      "sizeBytes": 362
-    },
-    {
-      "slug": "nightspire-perimetral-oriental-de-bogot-s-a-s-2026-09-11",
-      "title": "Perimetral Oriental de Bogotá S.A.S.",
-      "group": "nightspire",
-      "discovered": "2026-09-11T16:59:44.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "CO",
-      "sizeBytes": 466
-    },
-    {
-      "slug": "nightspire-ozel-ozel-laws-office-2026-09-11",
-      "title": "Ozel & Ozel Laws Office",
-      "group": "nightspire",
-      "discovered": "2026-09-11T16:59:35.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "TR",
-      "sizeBytes": 406
-    },
-    {
-      "slug": "nightspire-tuboa-os-da-amaz-nia-ltda-2026-09-11",
-      "title": "Tuboaços da Amazônia Ltda.",
-      "group": "nightspire",
-      "discovered": "2026-09-11T16:01:18.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "BR",
-      "sizeBytes": 421
-    },
-    {
-      "slug": "direwolf-port-of-tanjung-pelepas-2026-09-11",
-      "title": "Port of Tanjung Pelepas",
-      "group": "direwolf",
-      "discovered": "2026-09-11T15:54:58.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "MY",
-      "sizeBytes": 406
-    },
-    {
-      "slug": "pear-foss-inc-2026-09-11",
-      "title": "Foss Inc.",
-      "group": "pear",
-      "discovered": "2026-09-11T14:19:06.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 393
-    },
-    {
-      "slug": "fulcrumsec-dustin-group-2026-09-11",
-      "title": "Dustin Group",
-      "group": "fulcrumsec",
-      "discovered": "2026-09-11T12:29:31.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "SE",
-      "sizeBytes": 841
-    },
-    {
-      "slug": "panzer-konica-minolta-bulgaria-2026-09-11",
-      "title": "Konica Minolta Bulgaria",
-      "group": "Panzer",
-      "discovered": "2026-09-11T10:53:16.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "BG",
-      "sizeBytes": 639
-    },
-    {
-      "slug": "dragonforce-medical-department-store-2026-09-11",
-      "title": "Medical Department Store",
-      "group": "dragonforce",
-      "discovered": "2026-09-11T05:53:47.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "US",
-      "sizeBytes": 429
-    },
-    {
-      "slug": "panzer-agencia-estatal-de-meteorolog-a-2026-09-11",
-      "title": "Agencia Estatal de Meteorología",
-      "group": "Panzer",
-      "discovered": "2026-09-11T00:52:07.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "ES",
-      "sizeBytes": 920
-    },
-    {
-      "slug": "global-secret-group-co-op-urban-bank-ltd-2026-09-10",
-      "title": "CO-OP URBAN BANK LTD",
-      "group": "Global Secret Group",
-      "discovered": "2026-09-10T22:53:11.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "IN",
-      "sizeBytes": 639
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "inc-ransom-diarco-com-ar-2026-09-17",
+  "title": "diarco.com.ar",
+  "group": "INC Ransom",
+  "discovered": "2026-09-17T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Argentina",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/diarco-com-ar-incransom-2026-09",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["RecentBreaches.com"]
+}
