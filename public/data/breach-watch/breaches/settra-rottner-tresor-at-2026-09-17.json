@@ -1,1 +1,15 @@
-{"slug":"settra-rottner-tresor-at-2026-09-17","title":"rottner-tresor.at","group":"settra","discovered":"2026-09-17T15:32:36.000Z","category":"data_breach","severity":"high","country":"AT","sizeBytes":0,"description":"Documents: Rottner Tresor GmbH PROLOGUE An invoice for a 60-minute general anesthesia procedure with...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "settra-rottner-tresor-at-2026-09-17",
+  "title": "rottner-tresor.at",
+  "group": "settra",
+  "discovered": "2026-09-17T15:32:36.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ef2234d5-815a-40b5-b173-c6c54a6a3e1f",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

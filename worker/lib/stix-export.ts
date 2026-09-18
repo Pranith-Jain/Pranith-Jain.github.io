@@ -292,10 +292,15 @@ async function stixFromTcIoc(ioc: TcIoc, created: string): Promise<StixIndicator
     created_by_ref: STIX_PUBLISHER_ID,
     object_marking_refs: [STIX_TLP_CLEAR_ID],
     labels: [`confidence:${ioc.confidence}`],
-    external_references: ioc.sources.slice(0, 5).map((s) => ({
-      source_name: s.source,
-      url: s.url || undefined,
-    })),
+    // Omitted when sourceless — STIX lists must be non-empty.
+    ...(ioc.sources.length > 0
+      ? {
+          external_references: ioc.sources.slice(0, 5).map((s) => ({
+            source_name: s.source,
+            url: s.url || undefined,
+          })),
+        }
+      : {}),
   } as StixIndicator;
 }
 
@@ -396,10 +401,15 @@ export async function stixFromIocFamilies(bodies: TiIocBody[], opts: { max: numb
         created_by_ref: STIX_PUBLISHER_ID,
         object_marking_refs: [STIX_TLP_CLEAR_ID],
         labels: ['ioc-family', `confidence:${ind.confidence}`],
-        kill_chain_phases: body.mitreTechniques.slice(0, 8).map((t) => ({
-          kill_chain_name: 'mitre-attack',
-          phase_name: t,
-        })),
+        // Omitted when the family has no techniques — STIX lists must be non-empty.
+        ...(body.mitreTechniques.length > 0
+          ? {
+              kill_chain_phases: body.mitreTechniques.slice(0, 8).map((t) => ({
+                kill_chain_name: 'mitre-attack',
+                phase_name: t,
+              })),
+            }
+          : {}),
       } as StixIndicator);
     }
   }

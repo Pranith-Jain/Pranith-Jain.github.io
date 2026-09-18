@@ -66,6 +66,7 @@ export interface StixCommon {
 
 export interface StixBundle {
   type: 'bundle';
+  spec_version: '2.1';
   id: string;
   objects: StixCommon[];
 }
@@ -360,7 +361,8 @@ export async function buildStixBundle(
         id,
         ...timeFields(t),
         name: a.canonical,
-        aliases: a.aliases,
+        // STIX lists must be non-empty — omit aliases when there are none.
+        ...(a.aliases.length > 0 ? { aliases: a.aliases } : {}),
         created_by_ref: identityId,
       };
       const ref = attackExternalRefFor(a.mitreId, 'group');
@@ -380,7 +382,7 @@ export async function buildStixBundle(
         id,
         ...timeFields(t),
         name: m.canonical,
-        aliases: m.aliases,
+        ...(m.aliases.length > 0 ? { aliases: m.aliases } : {}),
         is_family: true,
         created_by_ref: identityId,
       };
@@ -468,6 +470,7 @@ export async function buildStixBundle(
     entities.iocs.map(async (ioc: ExtractedIoc) => {
       const enrich = enrichmentFor(enrichmentByKey, ioc);
       const id = await stixId('indicator', `indicator|${ioc.type}|${ioc.value.toLowerCase()}`);
+      const stixLabels = mapTagsToStixLabels(enrich.tags, enrich.verdict);
       const obj: StixCommon = {
         type: 'indicator',
         spec_version: '2.1',
@@ -484,8 +487,10 @@ export async function buildStixBundle(
               : ['benign'],
         // `labels` is now an OV-compliant subset (indicator-type-ov +
         // attribution/anonymization). Raw provider tags ride in `x_tags`
-        // for round-tripping back to the analyst-facing UI.
-        labels: mapTagsToStixLabels(enrich.tags, enrich.verdict),
+        // for round-tripping back to the analyst-facing UI. Omitted when
+        // empty — STIX lists must be non-empty (verdict 'unknown' with no
+        // tag hits yields none).
+        ...(stixLabels.length > 0 ? { labels: stixLabels } : {}),
         confidence: enrich.confidence,
         x_tags: enrich.tags,
         x_risk_score: enrich.riskScore,
@@ -661,7 +666,7 @@ export async function buildStixBundle(
       partial: llmEntities.partial,
       modelUsed: llmEntities.modelUsed,
     },
-    labels: entities.tags,
+    labels: entities.tags.length > 0 ? entities.tags : undefined,
     created_by_ref: identityId,
   };
 
@@ -669,6 +674,7 @@ export async function buildStixBundle(
   const bundleId = `bundle--${await uuidv5(`bundle|${report.sourceId}|${report.itemRef}`, NS_INTEL_BUNDLE)}`;
   const bundle: StixBundle = {
     type: 'bundle',
+    spec_version: '2.1',
     id: bundleId,
     objects: [
       identity,

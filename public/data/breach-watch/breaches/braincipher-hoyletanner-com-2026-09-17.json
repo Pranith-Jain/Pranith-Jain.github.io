@@ -1,1 +1,15 @@
-{"slug":"braincipher-hoyletanner-com-2026-09-17","title":"hoyletanner.com","group":"BrainCipher","discovered":"2026-09-17T16:21:16.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "braincipher-hoyletanner-com-2026-09-17",
+  "title": "hoyletanner.com",
+  "group": "BrainCipher",
+  "discovered": "2026-09-17T16:21:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f8be16a3-8fa3-416e-a151-dca05561ac74",
+  "groupAliases": ["brain cipher"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

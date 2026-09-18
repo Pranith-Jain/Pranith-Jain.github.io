@@ -12,6 +12,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
+import { assertPublicHost } from '../lib/ssrf-guard';
 
 interface FortiGateResult {
   target: string;
@@ -67,6 +68,24 @@ async function detectFortiGate(target: string): Promise<FortiGateResult> {
     details: [],
     recommendations: [],
   };
+
+  // SSRF guard: this probes the target across 4 ports with raw fetch, so
+  // private/internal hosts must be rejected before any connection attempt.
+  let hostname: string | null = null;
+  try {
+    hostname = new URL(target.includes('://') ? target : `https://${target}`).hostname || null;
+  } catch {
+    hostname = null;
+  }
+  if (!hostname) {
+    result.details.push('Invalid target');
+    return result;
+  }
+  const hostCheck = await assertPublicHost(hostname);
+  if (!hostCheck.ok) {
+    result.details.push('Target host not allowed (private/internal address)');
+    return result;
+  }
 
   const baseUrl = target.startsWith('http') ? target : `https://${target}`;
   const ports = [443, 8443, 10443, 80];

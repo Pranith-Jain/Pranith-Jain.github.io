@@ -1,1 +1,15 @@
-{"slug":"qilin-taurus-ib-rica-2026-09-15","title":"Taurus Ibérica","group":"qilin","discovered":"2026-09-15T15:01:54.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "qilin-taurus-ib-rica-2026-09-15",
+  "title": "Taurus Ibérica",
+  "group": "qilin",
+  "discovered": "2026-09-15T15:01:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d5f83398-4702-4c93-a564-bda957175cc2",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

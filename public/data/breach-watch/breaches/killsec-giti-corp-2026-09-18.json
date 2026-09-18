@@ -1,0 +1,15 @@
+{
+  "slug": "killsec-giti-corp-2026-09-18",
+  "title": "Giti Corp",
+  "group": "killsec",
+  "discovered": "2026-09-18T02:02:22.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b629e33a-9783-4f5e-ae6a-352231c28e84",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

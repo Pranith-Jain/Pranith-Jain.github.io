@@ -1,1 +1,15 @@
-{"slug":"safepay-gob-pe-2026-09-15","title":"gob.pe","group":"safepay","discovered":"2026-09-15T19:29:06.000Z","category":"ransomware","severity":"high","country":"PE","sizeBytes":0,"description":"It serves as the country's primary online point of contact between public institutions and citizens, providing government information, administrative procedures, …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}
+{
+  "slug": "safepay-gob-pe-2026-09-15",
+  "title": "gob.pe",
+  "group": "safepay",
+  "discovered": "2026-09-15T19:29:06.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "PE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/158fc88f-e92c-43d3-9c1b-153f502f0936",
+  "groupAliases": [],
+  "activity": "Government & Defense",
+  "references": ["Darkfield"]
+}

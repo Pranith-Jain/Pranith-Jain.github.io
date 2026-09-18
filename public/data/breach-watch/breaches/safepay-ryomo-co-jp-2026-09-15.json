@@ -1,1 +1,15 @@
-{"slug":"safepay-ryomo-co-jp-2026-09-15","title":"ryomo.co.jp","group":"safepay","discovered":"2026-09-15T19:30:13.000Z","category":"ransomware","severity":"high","country":"JP","sizeBytes":0,"description":"Established in January 1970 as a regional computer-services center, the company has developed into a publicly listed systems integrator providing …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}
+{
+  "slug": "safepay-ryomo-co-jp-2026-09-15",
+  "title": "ryomo.co.jp",
+  "group": "safepay",
+  "discovered": "2026-09-15T19:30:13.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/81eb205a-5bc4-427f-bf3b-025841a3752f",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

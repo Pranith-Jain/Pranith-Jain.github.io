@@ -1,1 +1,15 @@
-{"slug":"qilin-aarsleff-2026-09-16","title":"Aarsleff","group":"qilin","discovered":"2026-09-16T04:01:03.000Z","category":"ransomware","severity":"critical","country":"SE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "qilin-aarsleff-2026-09-16",
+  "title": "Aarsleff",
+  "group": "qilin",
+  "discovered": "2026-09-16T04:01:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/bc3123cd-0d35-4f0b-9251-e9e29bd8c280",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

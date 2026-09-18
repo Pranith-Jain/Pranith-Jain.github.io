@@ -35,6 +35,42 @@ export interface PgQuery {
   offset?: number;
 }
 
+const SAFE_IDENTIFIER_RE = /^[A-Za-z_][A-Za-z0-9_]*$/;
+
+/**
+ * True when `name` is a bare SQL identifier (letters/digits/underscore,
+ * not starting with a digit). A value passing this check cannot break out
+ * of an identifier slot — defense-in-depth behind the per-table column
+ * allowlists enforced at each call site via resolveColumn().
+ */
+export function isSafeSqlIdentifier(name: string): boolean {
+  return SAFE_IDENTIFIER_RE.test(name);
+}
+
+/**
+ * Parse a non-negative integer query param. Returns undefined for
+ * missing/garbage/negative/oversized input so callers fall back to their
+ * default instead of interpolating NaN into LIMIT/OFFSET (which 500s).
+ */
+export function parseFiniteInt(raw: string | null | undefined): number | undefined {
+  if (raw == null || raw === '') return undefined;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 0 || n > 2147483647) return undefined;
+  return n;
+}
+
+/**
+ * Resolve an API column name through a per-table allowlist map.
+ * Returns the D1 column, or null when the name is unknown or the mapped
+ * value is not a safe identifier — callers must reject (400) rather than
+ * interpolate the raw value.
+ */
+export function resolveColumn(columnMap: Record<string, string>, col: string): string | null {
+  const mapped = columnMap[col];
+  if (!mapped || !isSafeSqlIdentifier(mapped)) return null;
+  return mapped;
+}
+
 /** Parse a single `column=op.value` filter token. */
 function parseFilterToken(key: string, raw: string): PgFilter {
   const dotIdx = raw.indexOf('.');
@@ -87,18 +123,20 @@ export function parsePostgrestQuery(params: URLSearchParams, rangeHeader?: strin
   const sel = params.get('select');
   if (sel && sel !== '*') q.select = sel.split(',').map((s) => s.trim());
 
-  // order
+  // order — direction is strictly asc/desc (case-insensitive); anything
+  // else falls back to asc so the raw value can never reach SQL verbatim.
   const ord = params.get('order');
   if (ord) {
     const parts = ord.split('.');
-    q.order = { column: parts[0]!, dir: (parts[1] as 'asc' | 'desc') ?? 'asc' };
+    q.order = { column: parts[0] ?? '', dir: parts[1]?.toLowerCase() === 'desc' ? 'desc' : 'asc' };
   }
 
-  // limit / offset
+  // limit / offset — finite non-negative ints only; garbage → undefined
+  // (callers apply their defaults).
   const limit = params.get('limit');
-  if (limit) q.limit = parseInt(limit, 10);
+  if (limit) q.limit = parseFiniteInt(limit);
   const offset = params.get('offset');
-  if (offset) q.offset = parseInt(offset, 10);
+  if (offset) q.offset = parseFiniteInt(offset);
 
   // Range header
   if (rangeHeader) {
@@ -177,10 +215,13 @@ export function buildWhereClause(
 ): SqlWhereClause {
   const clauses: string[] = [];
   const bindings: unknown[] = [];
-  const map = (col: string) => columnMap[col] ?? col;
-
+  // Strict allowlist: filters on unknown columns are dropped. Callers 400
+  // first, so reaching here with one means an unvalidated path — fail
+  // closed rather than interpolate.
   for (const f of filters) {
-    const col = `${tableAlias}.${map(f.column)}`;
+    const mapped = resolveColumn(columnMap, f.column);
+    if (!mapped) continue;
+    const col = `${tableAlias}.${mapped}`;
     switch (f.op) {
       case 'eq':
         clauses.push(`${col} = ?`);
@@ -226,6 +267,10 @@ export function buildWhereClause(
       }
       case 'in': {
         const arr = f.value as unknown[];
+        if (arr.length === 0) {
+          clauses.push('1 = 0');
+          break;
+        }
         clauses.push(`${col} IN (${arr.map(() => '?').join(',')})`);
         bindings.push(...arr);
         break;
@@ -233,6 +278,7 @@ export function buildWhereClause(
       case 'cs': {
         // Contains: value is present in JSON array column (stored as TEXT)
         const arr = f.value as string[];
+        if (arr.length === 0) break;
         const subClauses = arr.map(() => `EXISTS (SELECT 1 FROM json_each(${col}) WHERE value = ?)`);
         clauses.push(`(${subClauses.join(' AND ')})`);
         bindings.push(...arr);
@@ -241,6 +287,7 @@ export function buildWhereClause(
       case 'cd': {
         // Contained by: all elements of column are in the provided set
         const arr = f.value as string[];
+        if (arr.length === 0) break;
         const placeholders = arr.map(() => '?').join(',');
         clauses.push(`NOT EXISTS (SELECT 1 FROM json_each(${col}) j WHERE j.value NOT IN (${placeholders}))`);
         bindings.push(...arr);
@@ -270,9 +317,14 @@ export function buildSelectQuery(
 ): { sql: string; bindings: unknown[] } {
   const alias = options?.tableAlias ?? 'b';
   const cols = options?.columnMap ?? {};
-  const selectCols = query.select?.length
-    ? query.select.map((c) => `${alias}.${cols[c] ?? c}`).join(', ')
-    : (options?.defaultSelect ?? ['*']).map((c) => `${alias}.${c}`).join(', ');
+  // Strict allowlist: unknown select columns fall back to the default
+  // select rather than interpolating raw input.
+  const requested = query.select?.length
+    ? query.select.map((c) => resolveColumn(cols, c)).filter((c): c is string => c !== null)
+    : [];
+  const selectCols = (requested.length > 0 ? requested : (options?.defaultSelect ?? ['*']))
+    .map((c) => `${alias}.${c}`)
+    .join(', ');
 
   let sql = `SELECT ${selectCols} FROM ${table} ${alias}`;
 
@@ -280,11 +332,12 @@ export function buildSelectQuery(
   if (where.sql) sql += ` ${where.sql}`;
 
   if (query.order) {
-    sql += ` ORDER BY ${alias}.${cols[query.order.column] ?? query.order.column} ${query.order.dir.toUpperCase()}`;
+    const mapped = resolveColumn(cols, query.order.column);
+    if (mapped) sql += ` ORDER BY ${alias}.${mapped} ${query.order.dir === 'desc' ? 'DESC' : 'ASC'}`;
   }
 
-  if (query.limit) sql += ` LIMIT ${query.limit}`;
-  if (query.offset) sql += ` OFFSET ${query.offset}`;
+  if (Number.isInteger(query.limit) && (query.limit as number) >= 0) sql += ` LIMIT ${query.limit}`;
+  if (Number.isInteger(query.offset) && (query.offset as number) >= 0) sql += ` OFFSET ${query.offset}`;
 
   return { sql, bindings: where.bindings };
 }

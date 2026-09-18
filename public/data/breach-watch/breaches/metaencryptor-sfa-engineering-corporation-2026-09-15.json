@@ -1,1 +1,15 @@
-{"slug":"metaencryptor-sfa-engineering-corporation-2026-09-15","title":"SFA Engineering Corporation","group":"metaencryptor","discovered":"2026-09-15T11:59:46.000Z","category":"data_breach","severity":"high","country":"KR","sizeBytes":0,"description":"SFA Engineering Corporation is a South Korean high-tech engineering company specializing in industrial automation, robotics, and manufacturing equipment. The company provides advanced solutions for the semiconductor, OLED display, battery, and smart factory industries, serving major global manufacturers.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "metaencryptor-sfa-engineering-corporation-2026-09-15",
+  "title": "SFA Engineering Corporation",
+  "group": "metaencryptor",
+  "discovered": "2026-09-15T11:59:46.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "KR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/87efc61e-427b-4622-b72a-cd3e48eaa5ef",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

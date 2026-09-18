@@ -20,9 +20,9 @@ describe('external-read auth gate (authenticate "external-only")', () => {
     expect(res.status).toBe(401);
   });
 
-  it('allows an external GET when OPEN_PUBLIC_READS=true (emergency valve)', async () => {
+  it('keeps reads gated for legacy bare OPEN_PUBLIC_READS=true (fail closed)', async () => {
     const res = await appWith({ OPEN_PUBLIC_READS: 'true' })({});
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(401);
   });
 
   it('allows a same-origin GET (website) with no key', async () => {
@@ -90,8 +90,8 @@ describe('OPEN_PUBLIC_READS valve expiry', () => {
     expect(valveOpenUntilMs(undefined)).toBeNull();
     expect(valveOpenUntilMs('')).toBeNull();
     expect(valveOpenUntilMs('nope')).toBeNull();
-    expect(valveOpenUntilMs('true')).toBe(Number.POSITIVE_INFINITY);
-    expect(valveOpenUntilMs('TRUE')).toBe(Number.POSITIVE_INFINITY);
+    expect(valveOpenUntilMs('true')).toBeNull();
+    expect(valveOpenUntilMs('TRUE')).toBeNull();
     expect(valveOpenUntilMs('1893456000000')).toBe(1893456000000);
     expect(valveOpenUntilMs('2030-01-01T00:00:00Z')).toBe(Date.parse('2030-01-01T00:00:00Z'));
   });

@@ -1,1 +1,15 @@
-{"slug":"panzer-nielsen-design-2026-09-16","title":"Nielsen Design","group":"Panzer","discovered":"2026-09-16T13:22:39.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Helmar Nielsen dreamed of a frame that was accessible, precise, and above all, industrially reproducible, without sacrificing elegance. This was the birth of a concept that, a few years later, would forever change the perception of framing.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "panzer-nielsen-design-2026-09-16",
+  "title": "Nielsen Design",
+  "group": "Panzer",
+  "discovered": "2026-09-16T13:22:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ff759332-b768-4624-8480-9f0dbf1d5d08",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

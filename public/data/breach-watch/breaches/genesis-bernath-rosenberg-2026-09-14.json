@@ -1,1 +1,15 @@
-{"slug":"genesis-bernath-rosenberg-2026-09-14","title":"Bernath & Rosenberg","group":"genesis","discovered":"2026-09-14T20:57:27.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A full service CPA firm","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "genesis-bernath-rosenberg-2026-09-14",
+  "title": "Bernath & Rosenberg",
+  "group": "genesis",
+  "discovered": "2026-09-14T20:57:27.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/279133f3-1f9c-4414-9579-1bc5c53bf5f2",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

@@ -1,1 +1,15 @@
-{"slug":"auditteam-wise-it-2026-09-16","title":"Wise IT","group":"AuditTeam","discovered":"2026-09-16T18:22:34.000Z","category":"data_breach","severity":"high","country":"UA","sizeBytes":0,"description":"Wise IT (wiseit.com.ua) is a Kyiv-based Ukrainian system integrator that provides data center, networking, virtualization, cloud migration, cybersecurity, software licensing, and IT outsourcing services, partnering with vendors such as Google, Microsoft, VMware, and Dell.","source_url":"https://www.ransomware.live/","groupAliases":["audit team"],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "auditteam-wise-it-2026-09-16",
+  "title": "Wise IT",
+  "group": "AuditTeam",
+  "discovered": "2026-09-16T18:22:34.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "UA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/62428639-bf8d-46bd-ac52-ebee34d48a79",
+  "groupAliases": ["audit team"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

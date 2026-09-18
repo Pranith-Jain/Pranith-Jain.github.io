@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-ardom-eilot-2026-09-15","title":"Ardom Eilot","group":"thegentlemen","discovered":"2026-09-15T07:11:00.000Z","category":"ransomware","severity":"critical","country":"IL","sizeBytes":0,"description":"ardomeilot.com Ardom Eilot transport & logistics arm of the Ardom Group — the southern-Arava (Israel) kibbutz conglomerate owned by 9 kibbutzim + the Hevel Eilot Regional Council (founded 1978 as a cooperative). It hauls the region's entire output — dates (80,000+ palms, ~7,000 t/yr via Ardom Dates), vegetables (~10,000 t/yr via Ardom Marketing), mail, materials and equipment for the owner-kibbutzim — across Israel, running on the group's own VIA CARGO / EITAM logistics software (Israel's leading transport ERP, acquired 2008). The domain is one branch of the same cooperative ecosystem that also owns Ardom Dates Factories, Ardom Marketing, Ardom Water Association, Ardom Telecomputing (ICT) and Eilat-Eilot Renewable Energy (104 MW solar, target 400 MW by 2040, green hydrogen with H2PRO/Doral). Bottom line: the internal hauler of a kibbutz-built desert economy — and yes, this is definitely them.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-ardom-eilot-2026-09-15",
+  "title": "Ardom Eilot",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:11:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IL",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b7744249-a34a-473e-88c9-74c63a9b5596",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

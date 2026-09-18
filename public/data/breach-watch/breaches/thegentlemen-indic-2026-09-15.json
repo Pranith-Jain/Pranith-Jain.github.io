@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-indic-2026-09-15","title":"Indic","group":"thegentlemen","discovered":"2026-09-15T07:16:43.000Z","category":"ransomware","severity":"critical","country":"IN","sizeBytes":0,"description":"indicelectronics.com zoominfo.com/c/indic/353907783 INDiC Electronic Solutions Houston-based manufacturer's rep firm founded in 2001 by Jim Nussrallah, covering 6 industrial states — Texas, Louisiana, Arkansas, Oklahoma, New Mexico and West Tennessee. It represents 70+ non-competing manufacturers of industrial electronics: power supplies, sensors, industrial PCs/HMIs, enclosures, thermal management, test equipment, relays and connectors — selling to OEMs, machine builders and system integrators.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-indic-2026-09-15",
+  "title": "Indic",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:16:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/afa38168-cacf-4ef2-aaa2-3558c76da75d",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

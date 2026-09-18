@@ -215,6 +215,15 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     keywords: ['yara', 'ioc', 'signature', 'rule', 'hash', 'c2', 'loki', 'thor', 'malware'],
   },
   {
+    path: '/anarchy',
+    label: 'Anarchy Course Catalog',
+    description:
+      'kazamadono.github.io course catalog mirror (1,708 courses, 20 tracks) with deep links, saved library, and progress - daily sync.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['anarchy', 'courses', 'catalog', 'learning', 'tracks', 'library'],
+  },
+  {
     path: '/traceix',
     label: 'Traceix Hash Lookup',
     description:
@@ -3518,6 +3527,47 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     sectionLabel: 'Threat Intel · Wiki',
     group: 'threatintel',
     keywords: ['ai', 'agent', 'containment', 'escape', 'guardrail', 'sandbox'],
+  },
+  {
+    path: '/threatintel/ai-security',
+    label: 'AI Security Hub',
+    description:
+      'Tracking hub for rogue agents, AI incidents, security-matrix tools, live vulns, advisories, and NHI scanner.',
+    sectionLabel: 'Threat Intel · AI Security',
+    group: 'threatintel',
+    keywords: ['ai', 'security', 'hub', 'incidents', 'rogue', 'nhi', 'matrix', 'vuln'],
+  },
+  {
+    path: '/threatintel/ai-incidents',
+    label: 'AI Incidents',
+    description: 'Daily mirror of incidentdatabase.ai reports - AI harms in the wild, tracked per cite.',
+    sectionLabel: 'Threat Intel · AI Security',
+    group: 'threatintel',
+    keywords: ['ai', 'incident', 'database', 'harm', 'cite', 'rss'],
+  },
+  {
+    path: '/threatintel/ai-security-matrix',
+    label: 'AI Security Matrix',
+    description: 'Daily mirror of aisecuritymatrix.com - AI-enabled pentest, scanner, MCP, and skill tooling.',
+    sectionLabel: 'Threat Intel · AI Security',
+    group: 'threatintel',
+    keywords: ['ai', 'matrix', 'pentest', 'scanner', 'mcp', 'tools'],
+  },
+  {
+    path: '/threatintel/ai-vulns',
+    label: 'AI Vulns',
+    description: 'Realtime AI vulnerability tracking - EUVD, NVD, OSV watchlist, KEV overlap, EPSS scoring.',
+    sectionLabel: 'Threat Intel · AI Security',
+    group: 'threatintel',
+    keywords: ['ai', 'vuln', 'cve', 'kev', 'epss', 'euvd', 'nvd', 'osv'],
+  },
+  {
+    path: '/threatintel/ai-advisories',
+    label: 'Advisories & Research',
+    description: 'CVE firehose, tool releases, exploit PoCs, plus AI security research.',
+    sectionLabel: 'Threat Intel · AI Security',
+    group: 'threatintel',
+    keywords: ['ai', 'advisory', 'release', 'exploit', 'research', 'hacktron'],
   },
   {
     path: '/threatintel/predictive/global-pulse',

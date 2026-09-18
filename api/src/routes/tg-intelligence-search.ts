@@ -10,6 +10,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { callerOwnerId, ownerVisibilityFilter, ownerCheck } from '../lib/ownership';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { parseBooleanQuery } from '../lib/tg-boolean-search';
@@ -175,10 +176,12 @@ export async function tgSavedSearchesListHandler(c: Context<{ Bindings: Env }>):
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
 
+  const vis = ownerVisibilityFilter(c);
   const { results } = await db
     .prepare(
-      'SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches ORDER BY updated_at DESC'
+      `SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches WHERE ${vis.clause} ORDER BY updated_at DESC`
     )
+    .bind(...vis.bindings)
     .all();
 
   return c.json({ searches: results });
@@ -204,8 +207,8 @@ export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>):
   await db
     .prepare(
       `
-    INSERT INTO tg_saved_searches (id, name, query, mode, filters, sort_order, date_range, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%SZ', 'now'), strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+    INSERT INTO tg_saved_searches (id, name, query, mode, filters, sort_order, date_range, created_at, updated_at, owner_hash)
+    VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%SZ', 'now'), strftime('%Y-%m-%dT%H:%M:%SZ', 'now'), ?)
   `
     )
     .bind(
@@ -215,7 +218,8 @@ export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>):
       b.mode || 'boolean',
       JSON.stringify(b.filters || {}),
       b.sort_order || 'newest',
-      b.date_range || ''
+      b.date_range || '',
+      callerOwnerId(c)
     )
     .run();
 
@@ -233,7 +237,11 @@ export async function tgSavedSearchDeleteHandler(c: Context<{ Bindings: Env }>):
   if (!db) return serviceUnavailable(c, 'database not available');
 
   const id = c.req.param('id');
-  const result = await db.prepare('DELETE FROM tg_saved_searches WHERE id = ?').bind(id).run();
-  if ((result.meta?.changes ?? 0) === 0) return notFound(c, 'not found');
+  const row = await db
+    .prepare('SELECT owner_hash FROM tg_saved_searches WHERE id = ?')
+    .bind(id)
+    .first<{ owner_hash: string | null }>();
+  if (!row || ownerCheck(c, row.owner_hash) === 'hidden') return notFound(c, 'not found');
+  await db.prepare('DELETE FROM tg_saved_searches WHERE id = ?').bind(id).run();
   return c.json({ success: true });
 }

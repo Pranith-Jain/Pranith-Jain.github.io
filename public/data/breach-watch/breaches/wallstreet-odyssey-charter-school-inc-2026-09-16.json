@@ -1,1 +1,15 @@
-{"slug":"wallstreet-odyssey-charter-school-inc-2026-09-16","title":"Odyssey Charter School, Inc.","group":"Wallstreet","discovered":"2026-09-16T16:22:21.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Odyssey Charter School, Inc. is a nonprofit organization operating tuition-free public charter schools in Florida for students from preschool through 12th grade, with a focus on academic achievement and whole-child development.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}
+{
+  "slug": "wallstreet-odyssey-charter-school-inc-2026-09-16",
+  "title": "Odyssey Charter School, Inc.",
+  "group": "Wallstreet",
+  "discovered": "2026-09-16T16:22:21.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8c34cac2-fc31-4c96-9140-8d9bd7116704",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

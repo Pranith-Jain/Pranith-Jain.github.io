@@ -1,1 +1,15 @@
-{"slug":"akira-manders-2026-09-16","title":"Manders","group":"akira","discovered":"2026-09-16T14:23:12.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"Manders Companies is a family-owned contractor based in the Washington Metropolitan Area, recog\nnized for its full-service maintenance, renovation support, and painting services for multi-fam\nily, commercial, and residential properties.\n\nWe will upload 70gb of corporate data soon. Employee personal information (SSN numbers, passpor\nts, DLs), financials, confidential clients files, contracts and agreements, NDAs and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "akira-manders-2026-09-16",
+  "title": "Manders",
+  "group": "akira",
+  "discovered": "2026-09-16T14:23:12.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/5bbcc493-8986-468a-8380-303398685412",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

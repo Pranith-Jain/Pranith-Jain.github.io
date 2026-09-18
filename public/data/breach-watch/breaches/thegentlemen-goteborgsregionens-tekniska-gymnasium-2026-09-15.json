@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-goteborgsregionens-tekniska-gymnasium-2026-09-15","title":"Goteborgsregionens Tekniska Gymnasium","group":"thegentlemen","discovered":"2026-09-15T07:16:09.000Z","category":"ransomware","severity":"critical","country":"SE","sizeBytes":0,"description":"gtg.se zoominfo.com/c/göteborgsregionens-tekniska-gymnasium/458572877 GTG technical upper-secondary school (gymnasium) owned by 13 Gothenburg-area municipalities (via the Göteborgsregionens kommunalförbund) — founded in 2006 specifically to solve the region's engineering talent shortage, the first inter-municipal school of its kind in Sweden. Located inside Lindholmen Science Park next to Chalmers, Volvo, SKF and Saab — a genuine \"school inside an industrial cluster\" with guest lectures, real projects, internships and equipment from industry partners. Programs: Teknikprogrammet (design & product development, production, IT/media tech) and El- och energiprogrammet (automation, electricity, energy) — ~700–900 students, tuition-free, with graduates feeding directly into Chalmers engineering programs or industrial apprenticeships.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Education","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-goteborgsregionens-tekniska-gymnasium-2026-09-15",
+  "title": "Goteborgsregionens Tekniska Gymnasium",
+  "group": "thegentlemen",
+  "discovered": "2026-09-15T07:16:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b511f151-e0cb-4297-b88e-c89cf55b6ffd",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

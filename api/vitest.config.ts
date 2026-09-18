@@ -22,11 +22,12 @@ export default defineConfig({
       // Never use real keys here — these values are committed.
       miniflare: {
         bindings: {
-          // .dev.vars (with OPEN_PUBLIC_READS=true) only exists on the local
+          // .dev.vars (with an OPEN_PUBLIC_READS expiry) only exists on the local
           // machine; CI has none, so the SELF worker key-gates keyless GETs
           // (health/ratelimit tests expect 200). Test-only value — mirrors
-          // the committed fake provider keys above.
-          OPEN_PUBLIC_READS: 'true',
+          // the committed fake provider keys above. Must be an explicit
+          // ISO expiry: the valve rejects bare 'true' (fail closed).
+          OPEN_PUBLIC_READS: '2099-01-01T00:00:00.000Z',
           VT_API_KEY: 'test-key',
           GOOGLE_SAFE_BROWSING_API_KEY: 'test-key',
           ABUSEIPDB_API_KEY: 'test-key',

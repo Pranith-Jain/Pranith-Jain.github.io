@@ -1,1 +1,15 @@
-{"slug":"qilin-incrys-2026-09-15","title":"Incrys","group":"qilin","discovered":"2026-09-15T11:03:33.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}
+{
+  "slug": "qilin-incrys-2026-09-15",
+  "title": "Incrys",
+  "group": "qilin",
+  "discovered": "2026-09-15T11:03:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1a3335a8-3cd2-4822-8f3d-809a9709717a",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

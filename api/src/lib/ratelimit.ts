@@ -189,6 +189,92 @@ function isAdminStrict(pathname: string, method: string): boolean {
   );
 }
 
+/**
+ * AI/costly-mutation bucket (10/min/IP/colo, all callers). These endpoints
+ * are public by design (the SPA calls them keyless same-origin, MCP agents
+ * call them keyed) but each hit burns Workers AI, paid upstream quota, or
+ * shared writes — a forged-Origin scraper at the global 30/min could run up
+ * real cost. 10/min is ample for interactive use; internal SELF calls
+ * (hostname 'self'/'x', incl. all MCP-agent fan-out) skip limiting entirely.
+ *
+ * GETs are excluded: parallel SPA tab loads must not trip a write-bucket,
+ * and these GETs are reads (the briefings POSTs below stay covered).
+ */
+const AI_STRICT_LIMIT = 10;
+/** Prefix-match (no trailing slash; matches the path itself + /...). */
+const AI_STRICT_PREFIXES = [
+  '/api/v1/copilot', // chat/investigate/pivots/follow-ups/bulk-ioc/rules — AI + D1 writes
+  '/api/v1/agents/chat', // vera — AI + D1 writes
+  '/api/v1/ti', // ti analyze/summarize/risk-score/hunt/brief (LLM) + ti/domains POST (D1)
+  '/api/v1/velociraptor', // live IR backend proxy when configured
+  '/api/v1/darknet-intel/vulners', // paid VULNERS_API_KEY burn
+  '/api/v1/sample-submission', // forwards samples to VT/Hybrid-Analysis
+  '/api/v1/briefings', // POST feedback/annotations (D1 writes); GETs excluded by method
+  '/api/v1/saved-reports', // global-shared D1 writes
+  '/api/v1/workspaces', // global-shared D1 writes
+  '/api/v1/ioc-watchlist', // D1 writes + stored webhooks
+  '/api/v1/tg-saved-searches', // global-shared D1 writes
+];
+/** Exact-match costly POSTs. */
+const AI_STRICT_EXACT = new Set<string>([
+  // Single-shot AI analysis (Workers AI / Groq / Gemini / NVIDIA)
+  '/api/v1/threat-analysis',
+  '/api/v1/ioc-extraction',
+  '/api/v1/mitre-mapping',
+  '/api/v1/country-intel',
+  '/api/v1/event-correlation',
+  '/api/v1/campaign-tracker',
+  '/api/v1/feed-quality',
+  '/api/v1/story-cluster',
+  '/api/v1/alert-check',
+  '/api/v1/research-digest',
+  '/api/v1/darkweb-intel',
+  '/api/v1/knowledge-graph',
+  '/api/v1/ai-summary',
+  '/api/v1/ai-item-summary',
+  '/api/v1/dossier', // + KV write
+  '/api/v1/ttp-extract',
+  '/api/v1/fivew',
+  '/api/v1/image-ioc', // vision model, raw image bytes
+  '/api/v1/report-analyzer',
+  '/api/v1/threat-intel/ach',
+  '/api/v1/campaign-generator',
+  '/api/v1/unified-search/summarize',
+  '/api/v1/hunting-queries/generate',
+  '/api/v1/ir-playbooks/generate',
+  '/api/v1/fplens/analyze',
+  // Heavy/keyed provider fan-out
+  '/api/v1/ioc/explain',
+  '/api/v1/ioc/rule',
+  '/api/v1/ioc/enrich-deep',
+  '/api/v1/url-risk/analyze',
+  '/api/v1/file/analyze',
+  '/api/v1/cve/lookup/batch',
+  '/api/v1/soc-cve-report',
+  '/api/v1/soc-cve-report/json',
+  '/api/v1/radar/scan', // + KV writes
+  '/api/v1/tie/enrich', // + Investigator-DO spawn on deep:true
+  '/api/v1/actor-enrich/otx-stream', // up to 50 keyed OTX calls
+  '/api/v1/x-firehose/probe-batch', // up to 80 timelines on operator cookies
+  '/api/v1/sample/scan',
+  '/api/v1/email-osnit/bulk', // 10x full profile fan-out
+  '/api/v1/tracer/expand', // Etherscan-keyed + set fetches
+  // Shared writes / quota-sensitive singles
+  '/api/v1/ti-dashboard/build', // LLM + INSERT OR REPLACE weekly_reports
+  '/api/v1/auth/register', // open registration — bot-farm throttle
+  '/api/v1/one-time-secret', // KV write per call
+  '/api/v1/threat-intel/feedback', // aggregate-mutating writes
+  '/api/v1/domain/history/snapshot', // live RDAP/WHOIS + D1 insert
+  '/api/v1/phishing/fingerprint', // KV write per call
+  '/api/v1/webamon/scan', // third-party scan-job initiation
+  '/api/v1/si/render', // resvg-wasm PNG render (CPU)
+]);
+function isAiStrict(pathname: string, method: string): boolean {
+  if (method === 'GET' || method === 'HEAD' || method === 'OPTIONS') return false;
+  if (AI_STRICT_EXACT.has(pathname)) return true;
+  return AI_STRICT_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+}
+
 function isBypassed(pathname: string): boolean {
   if (BYPASS_EXACT.has(pathname)) return true;
   if (pathname.startsWith('/api/v1/briefings/') && !BRIEFINGS_ADMIN.has(pathname)) return true;
@@ -199,21 +285,26 @@ function isBypassed(pathname: string): boolean {
 }
 
 /**
- * Atomically increment the admin rate-limit bucket via the CRON_LOCK_DO `incr`
+ * Atomically increment a strict rate-limit bucket via the CRON_LOCK_DO `incr`
  * op and return the post-increment count, or null when the DO is unbound or
  * errors (so the caller can fall back to the legacy KV/Cache path). A Durable
  * Object is single-threaded, so the read-modify-write is atomic and globally
  * consistent — this closes the parallel-burst bypass (RL-RACE-1) on the
  * brute-force-protection bucket without putting a DO hop on every public request.
  */
-async function atomicAdminIncr(c: Context<{ Bindings: Env }>, ip: string, bucket: number): Promise<number | null> {
+async function atomicStrictIncr(
+  c: Context<{ Bindings: Env }>,
+  scope: 'admin' | 'ai',
+  ip: string,
+  bucket: number
+): Promise<number | null> {
   const ns = (c.env as { CRON_LOCK_DO?: DurableObjectNamespace }).CRON_LOCK_DO;
   if (!ns) return null;
   try {
-    const id = ns.idFromName(`rl:admin:${ip}:${bucket}`);
+    const id = ns.idFromName(`rl:${scope}:${ip}:${bucket}`);
     const res = await ns.get(id).fetch('https://cron-lock.internal/incr', {
       method: 'POST',
-      body: JSON.stringify({ op: 'incr', cron: `admin:${ip}:${bucket}`, ttlMs: WINDOW_SEC * 2 * 1000 }),
+      body: JSON.stringify({ op: 'incr', cron: `${scope}:${ip}:${bucket}`, ttlMs: WINDOW_SEC * 2 * 1000 }),
     });
     if (!res.ok) return null;
     const data = (await res.json()) as { count?: number };
@@ -226,7 +317,13 @@ async function atomicAdminIncr(c: Context<{ Bindings: Env }>, ip: string, bucket
 export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
   const url = new URL(c.req.url);
   if (!url.pathname.startsWith('/api/v1/') && !url.pathname.startsWith('/api/taxii2/')) return next();
-  if (isBypassed(url.pathname)) return next();
+  // Strict buckets (admin + AI-costly) are evaluated BEFORE the read-bypass:
+  // a POST under a bypassed prefix (e.g. /api/v1/briefings/:slug/feedback)
+  // must still hit its strict bucket. Both predicates return false for
+  // GET/HEAD/OPTIONS, so read bypasses are unaffected.
+  const adminStrict = isAdminStrict(url.pathname, c.req.method);
+  const aiStrict = isAiStrict(url.pathname, c.req.method);
+  if (isBypassed(url.pathname) && !adminStrict && !aiStrict) return next();
 
   // Skip rate limiting in the vitest-pool-workers test environment and for
   // internal SELF service-binding calls. The test harness makes many requests
@@ -254,12 +351,14 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   const cache = (caches as unknown as { default: Cache }).default;
   const ipEnc = encodeURIComponent(ip);
   const key = new Request(`https://rl.internal/u/${bucket}/${ipEnc}`);
-  const adminStrict = isAdminStrict(url.pathname, c.req.method);
   const adminKey = adminStrict ? new Request(`https://rl.internal/a/${bucket}/${ipEnc}`) : null;
+  const aiKey = aiStrict ? new Request(`https://rl.internal/c/${bucket}/${ipEnc}`) : null;
 
   let count = 0;
   let adminCount = 0;
   let adminViaDO = false;
+  let aiCount = 0;
+  let aiViaDO = false;
   try {
     const hit = await cache.match(key);
     if (hit) count = parseInt(await hit.text(), 10) || 0;
@@ -268,7 +367,7 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
       // increments as part of the read, so the returned value is the
       // post-increment count — map it back to the pre-increment value the
       // check below expects, and skip the separate write further down.
-      const doCount = await atomicAdminIncr(c, ip, bucket);
+      const doCount = await atomicStrictIncr(c, 'admin', ip, bucket);
       if (doCount !== null) {
         adminCount = doCount - 1;
         adminViaDO = true;
@@ -276,6 +375,18 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
         // DO unavailable — fall back to per-colo Cache API (free, no KV quota).
         const adminHit = await cache.match(adminKey);
         if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
+      }
+    }
+    if (aiKey) {
+      // Same atomic-first pattern in a separate 'ai' namespace, so AI burn
+      // and admin brute-force budgets don't share headroom.
+      const doCount = await atomicStrictIncr(c, 'ai', ip, bucket);
+      if (doCount !== null) {
+        aiCount = doCount - 1;
+        aiViaDO = true;
+      } else {
+        const aiHit = await cache.match(aiKey);
+        if (aiHit) aiCount = parseInt(await aiHit.text(), 10) || 0;
       }
     }
   } catch {
@@ -317,6 +428,25 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
     );
   }
 
+  if (aiKey && aiCount >= AI_STRICT_LIMIT) {
+    return c.json(
+      {
+        error: 'rate_limited',
+        limit: AI_STRICT_LIMIT,
+        window_seconds: WINDOW_SEC,
+        scope: 'ai-costly',
+      },
+      429,
+      {
+        'retry-after': String(WINDOW_SEC),
+        'x-ratelimit-limit': String(AI_STRICT_LIMIT),
+        'x-ratelimit-remaining': '0',
+        'x-ratelimit-reset': String((bucket + 1) * WINDOW_SEC),
+        'cache-control': 'no-store',
+      }
+    );
+  }
+
   // Best-effort increment (don't block). max-age expires the entry at
   // the end of the window so the bucket resets without a TTL sweep.
   c.executionCtx.waitUntil(
@@ -339,6 +469,21 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
         .put(
           adminKey,
           new Response(String(adminCount + 1), {
+            headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
+          })
+        )
+        .catch(() => undefined)
+    );
+  }
+  if (aiKey && !aiViaDO) {
+    // Same best-effort write for the AI bucket (skipped when the DO path
+    // already counted). AI endpoints see more traffic than admin ones but
+    // far less than feed reads; per-colo counting is acceptable.
+    c.executionCtx.waitUntil(
+      cache
+        .put(
+          aiKey,
+          new Response(String(aiCount + 1), {
             headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
           })
         )

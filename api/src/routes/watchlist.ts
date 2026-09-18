@@ -20,6 +20,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { kvBulkGetText } from '../lib/safe-catch';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
+import { callerOwnerId, ownerVisibilityFilter, ownerCheck } from '../lib/ownership';
 
 // ── Helpers ────────────────────────────────────────────────────────────
 
@@ -39,13 +40,15 @@ export async function watchlistActorsListHandler(c: Context<{ Bindings: Env }>):
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not configured');
   try {
+    const vis = ownerVisibilityFilter(c);
     const rows = await db
       .prepare(
         `SELECT id, actor_name, description, target_sectors, target_regions, active, last_activity, created_at, updated_at
          FROM actor_watchlist
-         WHERE active = 1
+         WHERE active = 1 AND ${vis.clause}
          ORDER BY last_activity DESC, created_at DESC`
       )
+      .bind(...vis.bindings)
       .all<{
         id: string;
         actor_name: string;
@@ -92,15 +95,16 @@ export async function watchlistActorsAddHandler(c: Context<{ Bindings: Env }>): 
     const id = generateId();
     await db
       .prepare(
-        `INSERT INTO actor_watchlist (id, actor_name, description, target_sectors, target_regions, updated_at)
-         VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))`
+        `INSERT INTO actor_watchlist (id, actor_name, description, target_sectors, target_regions, updated_at, owner_hash)
+         VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%SZ', 'now'), ?)`
       )
       .bind(
         id,
         name,
         body.description ?? '',
         JSON.stringify(body.target_sectors ?? []),
-        JSON.stringify(body.target_regions ?? [])
+        JSON.stringify(body.target_regions ?? []),
+        callerOwnerId(c)
       )
       .run();
 
@@ -120,6 +124,11 @@ export async function watchlistActorsDeleteHandler(c: Context<{ Bindings: Env }>
   try {
     const id = c.req.param('id');
     if (!id) return badRequest(c, 'id required');
+    const row = await db
+      .prepare('SELECT owner_hash FROM actor_watchlist WHERE id = ?')
+      .bind(id)
+      .first<{ owner_hash: string | null }>();
+    if (!row || ownerCheck(c, row.owner_hash) === 'hidden') return notFound(c, 'actor not found');
     await db.prepare('UPDATE actor_watchlist SET active = 0 WHERE id = ?').bind(id).run();
     return c.json({ ok: true });
   } catch (e) {

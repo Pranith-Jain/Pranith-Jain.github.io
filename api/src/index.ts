@@ -922,6 +922,15 @@ app.use('/api/v1/admin/telegram/*', requireAdminMiddleware);
 // maltrail-sync writes KV-backed actor records and fans out to the GitHub API;
 // it is an operator-only mutation, not a public/readonly-key endpoint.
 app.use('/api/v1/maltrail-sync', requireAdminMiddleware);
+// CTI operator pipelines — global-table writes (collect/mutate/decay/sweep)
+// plus AI prediction cost, with a caller-controlled wipe cutoff on sweep.
+// Cron calls the lib functions directly and no SPA/MCP/SELF path hits these
+// handlers, so gating the HTTP layer is cron-safe.
+app.use('/api/v1/cti/collect', requireAdminMiddleware);
+app.use('/api/v1/cti/predictions', requireAdminMiddleware);
+app.use('/api/v1/cti/mutate', requireAdminMiddleware);
+app.use('/api/v1/cti/decay', requireAdminMiddleware);
+app.use('/api/v1/cti/sweep', requireAdminMiddleware);
 
 import {
   iocCheckSchema,

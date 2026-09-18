@@ -55,9 +55,9 @@ function clearFailedAuth(ip: string): void {
  * value is parsed by `valveOpenUntilMs`:
  *   - an ISO-8601 timestamp or epoch-millis → keyless reads allowed only while
  *     `now < that instant`, enforced identically by every isolate (stateless);
- *   - the literal 'true' or unset → closed (the legacy non-expiring mode has
- *     been removed for security — a forgotten valve leaves all reads open
- *     indefinitely).
+ *   - anything else (including the legacy bare 'true'/'yes'/'on') → closed.
+ *     The non-expiring mode was removed: a forgotten valve must never leave
+ *     all reads open indefinitely.
  *
  * Returns the epoch-ms the valve is open until,
  * or null when the valve is unset/blank/malformed/expired (i.e. closed).
@@ -65,11 +65,10 @@ function clearFailedAuth(ip: string): void {
 export function valveOpenUntilMs(raw: string | undefined | null): number | null {
   const v = (raw ?? '').trim();
   if (v === '') return null;
-  // Legacy 'true' / 'yes' / 'on' → open indefinitely (no expiry). Represent
-  // as Number.MAX_SAFE_INTEGER so the `Date.now() < openUntil` check always
-  // passes. Returning null here (the old behaviour) was interpreted by the
-  // caller as "valve closed", which silently broke the emergency valve.
-  if (/^(true|yes|on)$/i.test(v)) return Number.POSITIVE_INFINITY;
+  // Legacy bare words ('true'/'yes'/'on') are rejected — fail closed. Use an
+  // explicit ISO-8601/epoch-ms expiry instead (even far-future), so every
+  // open valve carries a deterministic close instant.
+  if (/^(true|yes|on)$/i.test(v)) return null;
   if (/^\d{10,}$/.test(v)) {
     const ms = Number(v);
     return Number.isFinite(ms) && ms > Date.now() ? ms : null;
@@ -151,12 +150,32 @@ async function hashKey(key: string): Promise<string> {
 }
 
 /**
- * Extract a candidate key from `Authorization: Bearer <key>` or `X-API-Key`.
+ * Extract a candidate key from `Authorization: Bearer <key>`, `X-API-Key`,
+ * or HTTP Basic (`Authorization: Basic base64(user:pass)`).
+ *
+ * Basic exists for TAXII/enterprise clients (ThreatQ, Anomali, XSOAR custom
+ * headers) that only speak username/password: put the API key in the
+ * password field (preferred) or, when the client sends no password, in the
+ * username field. The value is looked up exactly like a Bearer key downstream
+ * (SHA-256 hash compare + failure tracking), so a wrong password costs an
+ * attacker nothing more than a wrong Bearer token.
  */
 function extractKey(c: Context<{ Bindings: Env }>): string | null {
   const authz = c.req.header('authorization') ?? '';
   const bearer = /^Bearer\s+(.+)$/i.exec(authz)?.[1];
   if (bearer) return bearer;
+  const basic = /^Basic\s+(.+)$/i.exec(authz)?.[1];
+  if (basic) {
+    try {
+      const decoded = atob(basic.trim());
+      const idx = decoded.indexOf(':');
+      const user = idx === -1 ? decoded : decoded.slice(0, idx);
+      const pass = idx === -1 ? '' : decoded.slice(idx + 1);
+      return pass || user || null;
+    } catch {
+      return null;
+    }
+  }
   return c.req.header('x-api-key') ?? null;
 }
 
@@ -293,8 +312,8 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
     // External reads (GET/HEAD) are gated behind an API key. Mint one at /admin
     // and send it via `Authorization: Bearer <key>` or `X-API-Key`. The website
     // itself is exempt via the same-origin check above. Break-glass: set the
-    // OPEN_PUBLIC_READS secret to an ISO/epoch-ms expiry (or legacy 'true') to
-    // allow keyless reads without a redeploy — see valveOpenUntilMs.
+    // OPEN_PUBLIC_READS secret to an ISO/epoch-ms expiry to allow keyless
+    // reads without a redeploy — see valveOpenUntilMs.
     if (mode === 'external-only' && (c.req.method === 'GET' || c.req.method === 'HEAD')) {
       const openUntil = valveOpenUntilMs(c.env.OPEN_PUBLIC_READS);
       if (openUntil !== null && Date.now() < openUntil) {

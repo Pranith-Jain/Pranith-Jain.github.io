@@ -1,1 +1,15 @@
-{"slug":"auditteam-palletshop-2026-09-16","title":"palletshop","group":"AuditTeam","discovered":"2026-09-16T18:22:57.000Z","category":"data_breach","severity":"high","country":"RU","sizeBytes":0,"description":"palletshop.ru","source_url":"https://www.ransomware.live/","groupAliases":["audit team"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}
+{
+  "slug": "auditteam-palletshop-2026-09-16",
+  "title": "palletshop",
+  "group": "AuditTeam",
+  "discovered": "2026-09-16T18:22:57.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "RU",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/23394d50-61f7-4e7d-b139-832cd5bf6968",
+  "groupAliases": ["audit team"],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

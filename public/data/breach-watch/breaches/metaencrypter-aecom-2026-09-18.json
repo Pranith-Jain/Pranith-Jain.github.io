@@ -1,0 +1,15 @@
+{
+  "slug": "metaencrypter-aecom-2026-09-18",
+  "title": "AECOM",
+  "group": "METAENCRYPTER",
+  "discovered": "2026-09-18T03:12:34.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/7d219bf4-164f-488c-ad9c-085761781a44",
+  "groupAliases": [],
+  "activity": "Infrastructure / Engineering",
+  "references": ["Darkfield"]
+}

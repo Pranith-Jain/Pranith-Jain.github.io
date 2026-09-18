@@ -1,1 +1,15 @@
-{"slug":"akira-lazyboyz-2026-09-15","title":"Lazyboyz","group":"akira","discovered":"2026-09-15T14:22:06.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Lazy Boyz - Harley-Davidson Oslo specializes in motorcycles and workshop services, particularly\nfor Harley-Davidson and Royal Enfield, with over 30 years of experience. They offer a wide ran\nge of new and used motorcycles, as well as comprehensive services including repairs, customizat\nions, and parts supply.\n\nWe will upload corporate data soon. Employee personal information, financials, contracts and ag\nreements and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "akira-lazyboyz-2026-09-15",
+  "title": "Lazyboyz",
+  "group": "akira",
+  "discovered": "2026-09-15T14:22:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "Norway",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/787515cd-226c-47a6-9a54-0cc0fb73fec3",
+  "groupAliases": ["Megazord"],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

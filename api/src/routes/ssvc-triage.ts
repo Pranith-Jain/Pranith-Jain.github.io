@@ -14,6 +14,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
+import { requireAdmin } from '../lib/admin-auth';
 import { computeSsvcV, type SsvcResult, type SsvcDecision } from '../lib/ssvc-v';
 
 // ── Helpers ────────────────────────────────────────────────────────────
@@ -140,6 +141,13 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
       return badRequest(c, 'Provide cve_ids, alert_ids, or both');
     }
 
+    // The alert_ids path UPDATEs the shared alert_feeds table — operator
+    // bookkeeping, not public triage. The pure-cve_ids path stays public.
+    if (alertIds.length > 0) {
+      const gate = requireAdmin(c);
+      if ('error' in gate) return gate.error;
+    }
+
     const batch: SsvcBatchResult[] = [];
     const alertsToUpdate: AlertFeedUpdate[] = [];
 
@@ -156,8 +164,7 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
       for (const row of rows.results ?? []) {
         const extracted = extractCveFromText(row.title + ' ' + row.source_url);
         if (!extracted) continue;
-        const enriched = await enrichCve(extracted, c.env, (pr) =>
-          c.executionCtx.waitUntil(pr));
+        const enriched = await enrichCve(extracted, c.env, (pr) => c.executionCtx.waitUntil(pr));
         if (!enriched) continue;
 
         const result = computeSsvcV({

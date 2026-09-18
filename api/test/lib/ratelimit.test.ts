@@ -75,9 +75,12 @@ describe('rate limiter', () => {
     // 429 from the global limiter before the admin token check — the
     // brute-force guard on BRIEFINGS_ADMIN_TOKEN.
     let nextCalled = false;
-    const res = await rateLimit(makeCtx('https://api.example.com/api/v1/briefings/build?type=daily', 'POST', ip), async () => {
-      nextCalled = true;
-    });
+    const res = await rateLimit(
+      makeCtx('https://api.example.com/api/v1/briefings/build?type=daily', 'POST', ip),
+      async () => {
+        nextCalled = true;
+      }
+    );
     expect(nextCalled).toBe(false);
     expect((res as Response | undefined)?.status).toBe(429);
   });
@@ -123,5 +126,65 @@ describe('rate limiter — keyed callers get 4x headroom', () => {
     expect(res?.status).toBe(429);
     const body = (await res!.json()) as Record<string, unknown>;
     expect(body.limit).toBe(120);
+  });
+});
+
+describe('rate limiter — AI-costly strict bucket (10/min)', () => {
+  async function seedAi(ip: string, count: number): Promise<void> {
+    const bucket = Math.floor(Date.now() / 1000 / 60);
+    const key = new Request(`https://rl.internal/c/${bucket}/${encodeURIComponent(ip)}`);
+    await caches.default.put(key, new Response(String(count), { headers: { 'cache-control': 'max-age=60' } }));
+  }
+
+  async function run(url: string, method: string, ip: string) {
+    const ctx = makeCtx(url, method, ip) as unknown as {
+      executionCtx: { waitUntil: (p: Promise<unknown>) => void };
+    };
+    const pending: Promise<unknown>[] = [];
+    ctx.executionCtx = { waitUntil: (p) => pending.push(p) };
+    let nextCalled = false;
+    const res = await rateLimit(ctx as unknown as Parameters<typeof rateLimit>[0], async () => {
+      nextCalled = true;
+    });
+    await Promise.allSettled(pending);
+    return { res: res as Response | undefined, nextCalled };
+  }
+
+  it('429s an AI POST at the AI limit with scope ai-costly', async () => {
+    const ip = '198.51.100.201';
+    await seedAi(ip, 10);
+    const { res, nextCalled } = await run('https://api.example.com/api/v1/dossier', 'POST', ip);
+    expect(nextCalled).toBe(false);
+    expect(res?.status).toBe(429);
+    const body = (await res!.json()) as Record<string, unknown>;
+    expect(body.limit).toBe(10);
+    expect(body.scope).toBe('ai-costly');
+  });
+
+  it('covers AI prefixes (copilot) and bypassed-prefix POSTs (briefings feedback)', async () => {
+    const ip = '198.51.100.202';
+    await seedAi(ip, 10);
+    for (const [url, method] of [
+      ['https://api.example.com/api/v1/copilot/chat', 'POST'],
+      ['https://api.example.com/api/v1/briefings/some-slug/feedback', 'POST'],
+      ['https://api.example.com/api/v1/saved-reports', 'POST'],
+      ['https://api.example.com/api/v1/auth/register', 'POST'],
+    ] as const) {
+      const { res } = await run(url, method, ip);
+      expect(res?.status).toBe(429);
+    }
+  });
+
+  it('does not touch GETs on AI paths or unrelated endpoints', async () => {
+    const ip = '198.51.100.203';
+    await seedAi(ip, 999);
+    // GET excluded by method check (parallel SPA loads must not trip it).
+    const get = await run('https://api.example.com/api/v1/dossier', 'GET', ip);
+    expect(get.nextCalled).toBe(true);
+    // Separate namespace: global + admin buckets unaffected by AI burn.
+    const other = await run('https://api.example.com/api/v1/cti/parse', 'POST', ip);
+    expect(other.nextCalled).toBe(true);
+    const admin = await run('https://api.example.com/api/v1/admin/purge', 'POST', ip);
+    expect(admin.nextCalled).toBe(true);
   });
 });

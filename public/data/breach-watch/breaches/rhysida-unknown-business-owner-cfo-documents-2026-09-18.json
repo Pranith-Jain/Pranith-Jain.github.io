@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-unknown-business-owner-cfo-documents-2026-09-18",
+  "title": "Unknown Business (Owner/CFO documents)",
+  "group": "Rhysida",
+  "discovered": "2026-09-18T02:58:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/877b02b1-ceef-48bf-9f03-d2134653b5d9",
+  "groupAliases": [],
+  "activity": "Unknown",
+  "references": ["Darkfield"]
+}

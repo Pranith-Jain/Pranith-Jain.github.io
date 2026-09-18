@@ -1,0 +1,15 @@
+{
+  "slug": "vexy-it-services-company-web-software-payment-digital-2026-09-18",
+  "title": "IT services company (web/software/payment/digital)",
+  "group": "VEXY",
+  "discovered": "2026-09-18T02:37:16.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/7d2242a7-ebc2-48e7-b70e-fbc7a7b28e0f",
+  "groupAliases": [],
+  "activity": "IT Services",
+  "references": ["Darkfield"]
+}

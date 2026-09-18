@@ -1,1 +1,15 @@
-{"slug":"qilin-thema-foundries-2026-09-16","title":"Thema Foundries","group":"qilin","discovered":"2026-09-16T15:05:26.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "qilin-thema-foundries-2026-09-16",
+  "title": "Thema Foundries",
+  "group": "qilin",
+  "discovered": "2026-09-16T15:05:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ac15abe8-6614-47ba-8d1a-fd296588f988",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

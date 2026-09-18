@@ -1,1 +1,15 @@
-{"slug":"braincipher-aecom-com-2026-09-17","title":"aecom.com","group":"BrainCipher","discovered":"2026-09-17T16:20:40.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"[AI generated] AECOM is a global infrastructure and engineering firm headquartered in the United States. The company provides design, consulting, construction, and management services across sectors including transportation, water, environment, energy, and government facilities. Operating in over 150 countries, AECOM serves public and private clients worldwide and is recognized as one of the largest engineering services firms globally.","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "braincipher-aecom-com-2026-09-17",
+  "title": "aecom.com",
+  "group": "BrainCipher",
+  "discovered": "2026-09-17T16:20:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/21c50b75-a1b1-4749-b578-3cbf4aa0519d",
+  "groupAliases": ["brain cipher"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

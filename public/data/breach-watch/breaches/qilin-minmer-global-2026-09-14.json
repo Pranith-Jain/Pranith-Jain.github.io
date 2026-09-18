@@ -1,1 +1,15 @@
-{"slug":"qilin-minmer-global-2026-09-14","title":"Minmer Global","group":"qilin","discovered":"2026-09-14T18:04:41.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "qilin-minmer-global-2026-09-14",
+  "title": "Minmer Global",
+  "group": "qilin",
+  "discovered": "2026-09-14T18:04:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/937b56d8-084b-451c-bdcc-6ea440168c2a",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

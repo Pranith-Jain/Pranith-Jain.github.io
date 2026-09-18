@@ -10,7 +10,7 @@ function app() {
   a.post('/api/v1/osv/scan', validate('json', osvScanSchema), osvScanHandler);
   return a;
 }
-const env = (): any => ({ ...testEnv, OPEN_PUBLIC_READS: 'true' });
+const env = (): any => ({ ...testEnv, OPEN_PUBLIC_READS: '2099-01-01T00:00:00.000Z' });
 const json = { 'content-type': 'application/json' };
 
 const realFetch = globalThis.fetch;

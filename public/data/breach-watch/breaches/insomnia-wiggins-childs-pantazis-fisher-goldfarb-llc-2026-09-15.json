@@ -1,1 +1,15 @@
-{"slug":"insomnia-wiggins-childs-pantazis-fisher-goldfarb-llc-2026-09-15","title":"Wiggins, Childs, Pantazis, Fisher, & Goldfarb LLC","group":"insomnia","discovered":"2026-09-15T17:30:14.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Large U.S. plaintiffs firm with Alabama, D.C., and Florida offices. Since 1985, it’s been known for excellence in discrimination, consumer protection, and employment law, leading class actions that advance protections for victims.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "insomnia-wiggins-childs-pantazis-fisher-goldfarb-llc-2026-09-15",
+  "title": "Wiggins, Childs, Pantazis, Fisher, & Goldfarb LLC",
+  "group": "insomnia",
+  "discovered": "2026-09-15T17:30:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/9f3f860a-aba1-46cd-b036-ef5a2d6842d5",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

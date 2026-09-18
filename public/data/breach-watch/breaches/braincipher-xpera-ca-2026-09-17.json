@@ -1,1 +1,15 @@
-{"slug":"braincipher-xpera-ca-2026-09-17","title":"xpera.ca","group":"BrainCipher","discovered":"2026-09-17T15:21:08.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "braincipher-xpera-ca-2026-09-17",
+  "title": "xpera.ca",
+  "group": "BrainCipher",
+  "discovered": "2026-09-17T15:21:08.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/56285282-f68f-4280-971d-836d1a33823e",
+  "groupAliases": ["brain cipher"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}
