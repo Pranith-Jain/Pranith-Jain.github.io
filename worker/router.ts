@@ -63,6 +63,9 @@ const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
   [/^\/blog\/[^/]+$/i, '/__prerendered/blog'],
   // ── Projects ───────────────────────────────────────────────────
   [/^\/projects\/[^/]+$/i, '/__prerendered/projects'],
+  // ── Anarchy: per-course deep links fall back to the /anarchy prerender;
+  // the client opens the matching course modal from the :id param.
+  [/^\/anarchy\/c\/[^/]+$/i, '/__prerendered/anarchy'],
   // ── DFIR tools category ────────────────────────────────────────
   [/^\/dfir\/tools\/[^/]+$/i, '/__prerendered/dfir__catalog'],
   // ── ThreatIntel: hub tab routes (14) — fall back to catalog ──

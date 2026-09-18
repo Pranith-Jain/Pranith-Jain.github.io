@@ -1,5 +1,17 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
-import { ExternalLink, Search, X, Github, Linkedin, MessageCircle, Filter, Clock, BookOpen, Shield, Code, ChevronDown } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ExternalLink, Search, X, Github, Linkedin, MessageCircle, Filter, Clock, BookOpen, Shield, Code, ChevronDown, Bookmark, Check, Share2, Download, Upload, Trash2 } from 'lucide-react';
+import {
+  courseUrl,
+  loadBookmarks,
+  loadProgress,
+  normalizeCourseId,
+  parseLibraryImport,
+  saveBookmarks,
+  saveProgress,
+  serializeLibrary,
+  type AnarchyProgress,
+} from '../lib/anarchy-library';
 
 interface AnarchyProvider {
   name: string;
@@ -105,6 +117,16 @@ export default function Anarchy() {
   const [showSettings, setShowSettings] = useState(false);
   const [binaryOn, setBinaryOn] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
+  // Phase 3 — personal library (localStorage) + deep-link routing
+  const [bookmarks, setBookmarks] = useState<string[]>(() => loadBookmarks());
+  const [progress, setProgress] = useState<Record<string, AnarchyProgress>>(() => loadProgress());
+  const [savedOnly, setSavedOnly] = useState(false);
+  const [hideDone, setHideDone] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [importError, setImportError] = useState<string | null>(null);
+  const importRef = useRef<HTMLInputElement>(null);
+  const routeParams = useParams<{ id?: string }>();
+  const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -233,6 +255,87 @@ export default function Anarchy() {
     };
   }, [selected]);
 
+  // Phase 3 — persist personal library
+  useEffect(() => {
+    saveBookmarks(bookmarks);
+  }, [bookmarks]);
+  useEffect(() => {
+    saveProgress(progress);
+  }, [progress]);
+
+  const openCourse = useCallback(
+    (c: AnarchyCourseSlim) => {
+      setSelected(c);
+      setCopied(false);
+      navigate(`/anarchy/c/${c.id}`, { replace: true });
+    },
+    [navigate]
+  );
+
+  const closeSelected = useCallback(() => {
+    setSelected(null);
+    setCopied(false);
+    navigate('/anarchy', { replace: true });
+  }, [navigate]);
+
+  // Phase 3 — deep link: /anarchy/c/:id opens the course once the index loads
+  const routeId = normalizeCourseId(routeParams.id);
+  useEffect(() => {
+    if (!idx || !routeId) return;
+    if (selected?.id === routeId) return;
+    const found = idx.courses.find((c) => normalizeCourseId(c.id) === routeId);
+    if (found) setSelected(found);
+  }, [idx, routeId, selected?.id]);
+
+  const toggleBookmark = useCallback((id: string) => {
+    const norm = normalizeCourseId(id) ?? id;
+    setBookmarks((prev) => (prev.includes(norm) ? prev.filter((b) => b !== norm) : [...prev, norm]));
+  }, []);
+
+  const setCourseProgress = useCallback((id: string, value: AnarchyProgress | null) => {
+    const norm = normalizeCourseId(id) ?? id;
+    setProgress((prev) => {
+      if (value === null) {
+        if (!(norm in prev)) return prev;
+        const next = { ...prev };
+        delete next[norm];
+        return next;
+      }
+      return { ...prev, [norm]: value };
+    });
+  }, []);
+
+  const copyCourseLink = useCallback(async (id: string) => {
+    const url = courseUrl(id);
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // Clipboard API unavailable (permissions / insecure context) — fall back to selection hack
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  }, []);
+
+  const shareCourse = useCallback(async (course: AnarchyCourseSlim | AnarchyCourseBody) => {
+    const url = courseUrl(course.id);
+    const nav = navigator as Navigator & { share?: (data: { title?: string; text?: string; url?: string }) => Promise<void> };
+    if (typeof nav.share === 'function') {
+      try {
+        await nav.share({ title: course.title, text: course.title, url });
+        return;
+      } catch {
+        /* user dismissed — fall through to copy */
+      }
+    }
+    await copyCourseLink(course.id);
+  }, [copyCourseLink]);
+
   // Keyboard shortcuts: / to focus, Esc to clear
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -241,7 +344,7 @@ export default function Anarchy() {
         searchRef.current?.focus();
       }
       if (e.key === 'Escape') {
-        if (selected) setSelected(null);
+        if (selected) closeSelected();
         else if (showSettings) setShowSettings(false);
         else {
           setQ('');
@@ -251,7 +354,7 @@ export default function Anarchy() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [selected, showSettings]);
+  }, [selected, showSettings, closeSelected]);
 
   const filtered = useMemo(() => {
     if (!idx) return [];
@@ -264,6 +367,12 @@ export default function Anarchy() {
     }
     if (maxHours < 12) {
       list = list.filter((c) => c.hours <= maxHours);
+    }
+    if (savedOnly) {
+      list = list.filter((c) => bookmarks.includes(normalizeCourseId(c.id) ?? c.id));
+    }
+    if (hideDone) {
+      list = list.filter((c) => progress[normalizeCourseId(c.id) ?? c.id] !== 'done');
     }
     if (q.trim()) {
       const needle = q.toLowerCase();
@@ -283,7 +392,7 @@ export default function Anarchy() {
       list = [...list].sort((a, b) => (rank[a.difficulty] ?? 1) - (rank[b.difficulty] ?? 1));
     }
     return list;
-  }, [idx, filter, difficulty, maxHours, sort, q]);
+  }, [idx, filter, difficulty, maxHours, sort, q, savedOnly, hideDone, bookmarks, progress]);
 
   const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
@@ -302,6 +411,42 @@ export default function Anarchy() {
     for (const { tag, count } of idx.categories) m.set(tag, count);
     return m;
   }, [idx]);
+
+  const libraryCounts = useMemo(() => {
+    const done = Object.values(progress).filter((v) => v === 'done').length;
+    const doing = Object.values(progress).filter((v) => v === 'doing').length;
+    return { saved: bookmarks.length, doing, done };
+  }, [bookmarks, progress]);
+
+  const exportLibrary = useCallback(() => {
+    const blob = new Blob([serializeLibrary(bookmarks, progress)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'anarchy-library.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [bookmarks, progress]);
+
+  const importLibraryFile = useCallback(async (file: File) => {
+    setImportError(null);
+    try {
+      const text = await file.text();
+      const { bookmarks: b, progress: p } = parseLibraryImport(text);
+      setBookmarks(b);
+      setProgress(p);
+    } catch (e) {
+      setImportError(e instanceof Error ? e.message : 'Could not read that file — expected an anarchy-library.json export.');
+    }
+  }, []);
+
+  const clearLibrary = useCallback(() => {
+    setBookmarks([]);
+    setProgress({});
+    setSavedOnly(false);
+  }, []);
 
   if (loading) {
     return (
@@ -369,6 +514,10 @@ export default function Anarchy() {
               onClick={() => {
                 setQ('');
                 setFilter('all');
+                setDifficulty('all');
+                setMaxHours(12);
+                setSavedOnly(false);
+                setHideDone(false);
                 setVisibleCount(48);
               }}
               className="hidden sm:inline-flex rounded-xl border border-teal-900/40 px-3 py-2 font-mono text-xs hover:bg-teal-900/20 transition-colors"
@@ -474,6 +623,33 @@ export default function Anarchy() {
                   reset
                 </button>
               )}
+              <button
+                onClick={() => {
+                  setSavedOnly((v) => !v);
+                  setVisibleCount(48);
+                }}
+                aria-pressed={savedOnly}
+                className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-mono transition-colors ${
+                  savedOnly ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-200' : 'border-white/10 text-slate-400 hover:border-white/20'
+                }`}
+              >
+                <Bookmark className="w-3 h-3" /> Saved ({libraryCounts.saved})
+              </button>
+              <button
+                onClick={() => {
+                  setHideDone((v) => !v);
+                  setVisibleCount(48);
+                }}
+                aria-pressed={hideDone}
+                className={`rounded-full border px-3 py-1 text-xs font-mono transition-colors ${
+                  hideDone ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-200' : 'border-white/10 text-slate-400 hover:border-white/20'
+                }`}
+              >
+                Hide done{libraryCounts.done > 0 ? ` (${libraryCounts.done})` : ''}
+              </button>
+              {libraryCounts.doing > 0 && (
+                <span className="text-xs font-mono text-slate-500">• {libraryCounts.doing} in progress</span>
+              )}
             </div>
 
             <div className="mt-3 flex items-center gap-3 text-xs font-mono text-slate-500">
@@ -550,11 +726,15 @@ export default function Anarchy() {
         {filtered.length === 0 ? (
           <div className="rounded-2xl border border-teal-900/30 bg-[#050808]/50 p-12 text-center">
             <Search className="w-8 h-8 mx-auto text-slate-600 mb-3" />
-            <p className="font-mono text-sm text-slate-400">No courses match “{q}” in {filter}.</p>
+            <p className="font-mono text-sm text-slate-400">No courses match “{q}”{savedOnly ? ' in your saved library' : ''}.</p>
             <button
               onClick={() => {
                 setQ('');
                 setFilter('all');
+                setDifficulty('all');
+                setMaxHours(12);
+                setSavedOnly(false);
+                setHideDone(false);
               }}
               className="mt-4 rounded-xl border border-teal-900/40 px-4 py-2 font-mono text-xs hover:bg-teal-900/20"
             >
@@ -564,11 +744,24 @@ export default function Anarchy() {
         ) : (
           <>
             <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-              {visible.map((c) => (
-                <button
+              {visible.map((c) => {
+                const normId = normalizeCourseId(c.id) ?? c.id;
+                const saved = bookmarks.includes(normId);
+                const st = progress[normId];
+                return (
+                <article
                   key={c.id}
-                  onClick={() => setSelected(c)}
-                  className="group text-left rounded-2xl border border-teal-900/30 bg-gradient-to-br from-[#0a1214]/80 to-[#050808]/80 backdrop-blur hover:border-cyan-500/30 hover:shadow-[0_0_20px_rgba(0,229,255,.15)] transition-all duration-300 overflow-hidden flex flex-col h-full"
+                  onClick={() => openCourse(c)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openCourse(c);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${c.title} — open details`}
+                  className="group text-left rounded-2xl border border-teal-900/30 bg-gradient-to-br from-[#0a1214]/80 to-[#050808]/80 backdrop-blur hover:border-cyan-500/30 hover:shadow-[0_0_20px_rgba(0,229,255,.15)] transition-all duration-300 overflow-hidden flex flex-col h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60"
                 >
                   {/* Image */}
                   <div className="h-28 bg-[#050808] relative overflow-hidden border-b border-teal-900/20">
@@ -598,9 +791,25 @@ export default function Anarchy() {
                         );
                       })}
                     </div>
-                    <span className="absolute top-2 right-2 text-[10px] font-mono text-white/60 bg-black/40 backdrop-blur px-2 py-0.5 rounded-full border border-white/10">
-                      #{c.id}
-                    </span>
+                    <div className="absolute top-2 right-2 flex items-center gap-1.5">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleBookmark(c.id);
+                        }}
+                        aria-pressed={saved}
+                        aria-label={saved ? `Remove ${c.title} from saved` : `Save ${c.title} for later`}
+                        title={saved ? 'Saved — click to remove' : 'Save for later'}
+                        className={`w-7 h-7 rounded-full backdrop-blur border flex items-center justify-center transition-all hover:scale-110 ${
+                          saved ? 'bg-cyan-500/30 border-cyan-400/50 text-cyan-100' : 'bg-black/40 border-white/10 text-white/70 hover:text-white'
+                        }`}
+                      >
+                        <Bookmark className="w-3.5 h-3.5" fill={saved ? 'currentColor' : 'none'} />
+                      </button>
+                      <span className="text-[10px] font-mono text-white/60 bg-black/40 backdrop-blur px-2 py-0.5 rounded-full border border-white/10">
+                        #{c.id}
+                      </span>
+                    </div>
                     {/* Provider + difficulty + hours */}
                     <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
                       <span className="inline-flex items-center gap-1 text-[10px] font-mono bg-black/50 backdrop-blur px-2 py-0.5 rounded-full border border-white/10 text-white">
@@ -625,14 +834,27 @@ export default function Anarchy() {
                       <span className="inline-flex items-center gap-1 text-[11px] font-mono text-cyan-400 group-hover:text-cyan-300">
                         Open <ExternalLink className="w-3 h-3" />
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500">
-                        {c.tags.length} tracks • {c.provider.host || 'external'}
-                      </span>
+                      {st ? (
+                        <span
+                          className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+                            st === 'done'
+                              ? 'border-emerald-500/40 bg-emerald-500/15 text-emerald-200'
+                              : 'border-amber-500/40 bg-amber-500/15 text-amber-200'
+                          }`}
+                        >
+                          {st === 'done' ? '✓ Done' : '◐ Doing'}
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-mono text-slate-500">
+                          {c.tags.length} tracks • {c.provider.host || 'external'}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="h-0.5 bg-gradient-to-r from-cyan-500 to-teal-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                </button>
-              ))}
+                </article>
+                );
+              })}
             </div>
 
             {visible.length < filtered.length && (
@@ -664,9 +886,14 @@ export default function Anarchy() {
       </main>
 
       {/* Course Modal */}
-      {selected && (
+      {selected &&
+        (() => {
+          const modalNorm = normalizeCourseId(selected.id) ?? selected.id;
+          const modalSaved = bookmarks.includes(modalNorm);
+          const modalProgress = progress[modalNorm] ?? null;
+          return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setSelected(null)} />
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={closeSelected} />
           <div className="relative w-full max-w-2xl max-h-[90vh] overflow-hidden rounded-2xl border border-teal-900/30 bg-[#070b0c] shadow-[0_0_40px_rgba(0,229,255,.2)] flex flex-col">
             <div className="h-48 relative overflow-hidden shrink-0">
               {selected.img ? (
@@ -677,12 +904,27 @@ export default function Anarchy() {
                 </div>
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#070b0c] via-black/20 to-transparent" />
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur border border-white/10 flex items-center justify-center hover:bg-black/80 transition-colors"
-              >
-                <X className="w-4 h-4 text-white" />
-              </button>
+              <div className="absolute top-3 right-3 flex items-center gap-2">
+                <button
+                  onClick={() => toggleBookmark(selected.id)}
+                  aria-pressed={modalSaved}
+                  aria-label={modalSaved ? 'Remove from saved' : 'Save for later'}
+                  title={modalSaved ? 'Saved — click to remove' : 'Save for later'}
+                  className={`h-8 px-3 rounded-full backdrop-blur border flex items-center gap-1.5 font-mono text-xs transition-colors ${
+                    modalSaved ? 'bg-cyan-500/30 border-cyan-400/50 text-cyan-100' : 'bg-black/60 border-white/10 text-white hover:bg-black/80'
+                  }`}
+                >
+                  <Bookmark className="w-3.5 h-3.5" fill={modalSaved ? 'currentColor' : 'none'} />
+                  {modalSaved ? 'Saved' : 'Save'}
+                </button>
+                <button
+                  onClick={closeSelected}
+                  aria-label="Close details"
+                  className="w-8 h-8 rounded-full bg-black/60 backdrop-blur border border-white/10 flex items-center justify-center hover:bg-black/80 transition-colors"
+                >
+                  <X className="w-4 h-4 text-white" />
+                </button>
+              </div>
               <div className="absolute bottom-3 left-4 right-4">
                 <div className="flex gap-1.5 flex-wrap mb-2">
                   {(selectedBody?.tags ?? selected.tags).map((t) => {
@@ -729,7 +971,7 @@ export default function Anarchy() {
                     {selectedBody.prereqs.map((p) => {
                       const meta = FILTER_META[p] ?? { label: p, color: 'border-white/10 bg-white/5 text-slate-300' };
                       return (
-                        <button key={p} onClick={() => { setFilter(p); setSelected(null); setVisibleCount(48); gridRef.current?.scrollIntoView({ behavior: 'smooth' }); }} className={`text-xs font-mono px-2.5 py-1 rounded-full border ${meta.color} hover:scale-[1.02] transition-transform`}>
+                        <button key={p} onClick={() => { setFilter(p); closeSelected(); setVisibleCount(48); gridRef.current?.scrollIntoView({ behavior: 'smooth' }); }} className={`text-xs font-mono px-2.5 py-1 rounded-full border ${meta.color} hover:scale-[1.02] transition-transform`}>
                           → {meta.label}
                         </button>
                       );
@@ -738,6 +980,49 @@ export default function Anarchy() {
                   <p className="text-[11px] text-slate-500 mt-2">Click a prereq tag to filter. Graph derived from tag co-occurrence across 1,708 courses.</p>
                 </div>
               )}
+              {/* Phase 3 — my track: progress + share */}
+              <div className="mt-4 rounded-xl border border-teal-900/20 bg-[#050808]/50 p-3">
+                <div className="text-slate-500 tracking-widest text-[10px] font-mono">MY TRACK • SAVED IN THIS BROWSER</div>
+                <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                  {(['todo', 'doing', 'done'] as const).map((s) => {
+                    const active = (modalProgress ?? 'todo') === s;
+                    return (
+                      <button
+                        key={s}
+                        onClick={() => setCourseProgress(selected.id, s === 'todo' ? null : s)}
+                        aria-pressed={active}
+                        className={`text-xs font-mono px-3 py-1.5 rounded-full border transition-colors ${
+                          active
+                            ? s === 'done'
+                              ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-200'
+                              : s === 'doing'
+                                ? 'bg-amber-500/20 border-amber-500/50 text-amber-200'
+                                : 'bg-white/10 border-white/20 text-white'
+                            : 'border-white/10 text-slate-400 hover:border-white/25 hover:text-slate-200'
+                        }`}
+                      >
+                        {s === 'todo' ? 'Not started' : s === 'doing' ? '◐ In progress' : '✓ Done'}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                  <button
+                    onClick={() => copyCourseLink(selected.id)}
+                    className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20 transition-colors"
+                  >
+                    {copied ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
+                    {copied ? 'Link copied!' : 'Copy link'}
+                  </button>
+                  <button
+                    onClick={() => shareCourse(selectedBody ?? selected)}
+                    className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-white/10 text-slate-300 hover:border-white/25 hover:text-white transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" /> Share…
+                  </button>
+                  <span className="text-[11px] font-mono text-slate-600 truncate">{courseUrl(selected.id)}</span>
+                </div>
+              </div>
             </div>
             <div className="p-4 border-t border-teal-900/20 bg-[#050808]/50 flex gap-3">
               <a
@@ -749,7 +1034,7 @@ export default function Anarchy() {
                 Open course <ExternalLink className="w-4 h-4" />
               </a>
               <button
-                onClick={() => setSelected(null)}
+                onClick={closeSelected}
                 className="rounded-xl border border-teal-900/40 px-6 py-3 font-mono text-sm hover:bg-teal-900/20 transition-colors"
               >
                 Close
@@ -757,7 +1042,8 @@ export default function Anarchy() {
             </div>
           </div>
         </div>
-      )}
+          );
+        })()}
 
       {/* Settings */}
       {showSettings && (
@@ -783,6 +1069,48 @@ export default function Anarchy() {
                   <span className={`block w-4 h-4 rounded-full bg-white transition-transform ${binaryOn ? 'translate-x-5' : 'translate-x-0'}`} />
                 </button>
               </label>
+              <div className="rounded-xl border border-teal-900/20 bg-[#050808]/50 p-3">
+                <div className="font-mono text-xs text-white">My library</div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {libraryCounts.saved} saved • {libraryCounts.doing} in progress • {libraryCounts.done} done — stored in this browser only.
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  <button
+                    onClick={exportLibrary}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-teal-900/40 px-3 py-1.5 font-mono text-xs text-slate-200 hover:bg-teal-900/20 transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5" /> Export
+                  </button>
+                  <button
+                    onClick={() => {
+                      setImportError(null);
+                      importRef.current?.click();
+                    }}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-teal-900/40 px-3 py-1.5 font-mono text-xs text-slate-200 hover:bg-teal-900/20 transition-colors"
+                  >
+                    <Upload className="w-3.5 h-3.5" /> Import
+                  </button>
+                  <button
+                    onClick={clearLibrary}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-red-900/40 px-3 py-1.5 font-mono text-xs text-red-300 hover:bg-red-900/20 transition-colors"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" /> Clear
+                  </button>
+                  <input
+                    ref={importRef}
+                    type="file"
+                    accept="application/json,.json"
+                    className="hidden"
+                    aria-label="Import library file"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      e.target.value = '';
+                      if (f) void importLibraryFile(f);
+                    }}
+                  />
+                </div>
+                {importError && <div className="mt-2 text-xs font-mono text-red-400">Import failed: {importError}</div>}
+              </div>
               <div className="rounded-xl border border-teal-900/20 bg-[#050808]/50 p-3 font-mono text-xs text-slate-400">
                 <div>Source: kazamadono.github.io • Daily sync 06:00 UTC</div>
                 <div className="mt-1">Synced: {new Date(idx.syncedAt).toLocaleString()}</div>

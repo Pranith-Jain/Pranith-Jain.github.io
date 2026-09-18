@@ -98,6 +98,11 @@ const RansomwareHub = lazy(() => import('./pages/threatintel/RansomwareHub'));
 const ExposureCheck = lazy(() => import('./pages/threatintel/Exposure'));
 const RansomwareGroups = lazy(() => import('./pages/threatintel/RansomwareGroups'));
 const AiEscape = lazy(() => import('./pages/threatintel/AiEscape'));
+const AiSecurityHub = lazy(() => import('./pages/threatintel/AiSecurityHub'));
+const AiIncidents = lazy(() => import('./pages/threatintel/AiIncidents'));
+const AiSecurityMatrix = lazy(() => import('./pages/threatintel/AiSecurityMatrix'));
+const AiVulns = lazy(() => import('./pages/threatintel/AiVulns'));
+const AiAdvisories = lazy(() => import('./pages/threatintel/AiAdvisories'));
 const InvestigationSuite = lazy(() => import('./pages/threatintel/InvestigationSuite'));
 const DashboardHub = lazy(() => import('./pages/threatintel/DashboardHub'));
 const CertSearch = lazy(() => import('./pages/dfir/CertSearch'));
@@ -639,6 +644,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/exposure', Component: ExposureCheck },
   { path: '/threatintel/ransomware-groups', Component: RansomwareGroups },
   { path: '/threatintel/ai-escape', Component: AiEscape },
+  { path: '/threatintel/ai-security', Component: AiSecurityHub },
+  { path: '/threatintel/ai-incidents', Component: AiIncidents },
+  { path: '/threatintel/ai-security-matrix', Component: AiSecurityMatrix },
+  { path: '/threatintel/ai-vulns', Component: AiVulns },
+  { path: '/threatintel/ai-advisories', Component: AiAdvisories },
   { path: '/threatintel/darkweb/recon', Component: DarkWebRecon },
   { path: '/threatintel/darkweb/playbook', Component: DarkWebPlaybook },
   { path: '/threatintel/onion-watch', Component: OnionWatch },
@@ -764,6 +774,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/admin', Component: AdminApp },
   { path: '/admin/analytics', Component: AdminAnalyticsDashboard },
   { path: '/anarchy', Component: Anarchy },
+  { path: '/anarchy/c/:id', Component: Anarchy },
   { path: '/radar', Component: RadarHome },
   { path: '/radar/scan/:id', Component: RadarScanResults },
   { path: '/argus', Component: ArgusPage },
