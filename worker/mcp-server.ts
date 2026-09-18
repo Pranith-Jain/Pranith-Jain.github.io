@@ -90,6 +90,8 @@ import {
   getAnarchyCourse,
   getAnarchyTag,
   filterAnarchyCourses,
+  recommendAnarchyCourses,
+  similarAnarchyCourses,
   anarchyCacheStats,
 } from './lib/anarchy-manifest';
 import {
@@ -1895,6 +1897,47 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             source: idx.source,
             sourceUrl: idx.url,
             courses: filtered,
+          });
+        }
+      );
+
+      this.tools(
+        'anarchy_recommend',
+        'Rank Anarchy courses for a user library. Deterministic scorer (no LLM): tag affinity with saved/done/doing courses, same-provider affinity, and a difficulty ladder one rung above completed courses. Excludes library courses. Empty library returns beginner-friendly popular picks.',
+        {
+          saved: z.array(z.string()).optional().describe('Bookmarked course IDs, e.g. ["0001","0042"]'),
+          done: z.array(z.string()).optional().describe('Completed course IDs'),
+          doing: z.array(z.string()).optional().describe('In-progress course IDs'),
+          maxHours: z.number().int().min(1).max(12).optional().describe('Only courses within this many hours'),
+          limit: z.number().int().min(1).max(50).optional().describe('Max recommendations (default 12)'),
+        },
+        async ({ saved, done, doing, maxHours, limit }) => {
+          const idx = await loadAnarchyIndex(ASSETS);
+          const recs = recommendAnarchyCourses(idx, { saved, done, doing, maxHours, limit: limit ?? 12 });
+          return untrustedToolResult({
+            total: idx.counts.courses,
+            returned: recs.length,
+            recommendations: recs.map((r) => ({ ...r.course, score: r.score, reasons: r.reasons })),
+          });
+        }
+      );
+
+      this.tools(
+        'anarchy_similar',
+        'Courses similar to one Anarchy course: shared tracks first, then same provider, then same difficulty. Use anarchy_list_courses first to discover IDs.',
+        {
+          id: z.string().describe('Course ID, e.g. "0001".'),
+          limit: z.number().int().min(1).max(20).optional().describe('Max similar courses (default 4)'),
+        },
+        async ({ id, limit }) => {
+          const idx = await loadAnarchyIndex(ASSETS);
+          const sims = similarAnarchyCourses(idx, id, limit ?? 4);
+          if (sims.length === 0)
+            return untrustedToolResult({ error: `anarchy course not found: ${id}`, hint: 'Call anarchy_list_courses to see available IDs.' });
+          return untrustedToolResult({
+            id,
+            returned: sims.length,
+            similar: sims.map((r) => ({ ...r.course, score: r.score, reasons: r.reasons })),
           });
         }
       );
