@@ -7,9 +7,9 @@
   "description": "open-source pentest management built to be operated by an AI agent",
   "homepage": "https://cspf-founder.github.io/red-clippy/",
   "added": "2026-09-15",
-  "checkedAt": "2026-09-17T08:43:18Z",
+  "checkedAt": "2026-09-19T08:08:32Z",
   "pushedAt": "2026-09-01",
-  "daysIdle": 16,
+  "daysIdle": 18,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-15"
     },
     "derived": {
-      "checked_at": "2026-09-17T08:43:18Z",
+      "checked_at": "2026-09-19T08:08:32Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-01",
-        "days_since_push": 16,
+        "days_since_push": 18,
         "total_commits": 5,
         "last100_span_days": 10,
         "last100_authors": 1,
         "releases": 1,
         "latest_release_at": "2026-08-27",
-        "days_since_release": 21,
-        "days_idle": 16,
+        "days_since_release": 23,
+        "days_idle": 18,
         "relocated": false
       },
       "identity": {

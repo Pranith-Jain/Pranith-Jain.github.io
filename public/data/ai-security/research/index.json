@@ -1,8 +1,16 @@
 {
-  "updatedAt": "2026-09-18T06:27:37.474Z",
-  "total": 52,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 3 },
+  "updatedAt": "2026-09-19T10:53:48.464Z",
+  "total": 49,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 1 },
   "items": [
+    {
+      "id": "aHR0cHM6Ly91",
+      "title": "A Vault with a Heap-View: The Uncomfortable Space Between AgentCore Harness and Identity",
+      "link": "https://unit42.paloaltonetworks.com/securing-aws-agentcore-harness-credentials/",
+      "pubDate": "Fri, 18 Sep 2026 10:00:36 +0000",
+      "source": "unit42",
+      "description": "Analysis of how default configurations in AWS AgentCore Harness allow prompt injection to exfiltrate credentials, and key steps to secure your agents. The post A Vault with a Heap-View: The Uncomfortable Space Between AgentCore Harness and Identity appeared first on Unit 42 ."
+    },
     {
       "id": "aHR0cHM6Ly93",
       "title": "OpenAI details more cases of AI agents taking unauthorized actions",
@@ -10,22 +18,6 @@
       "pubDate": "Thu, 17 Sep 2026 14:55:12 -0400",
       "source": "bleepingcomputer",
       "description": "OpenAI has presented new examples of what they call \"AI model misalignment\" from the past six months, including unauthorized file uploads, following self-generated instructions, hiding mistakes, and leveraging exposed API keys. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "Anthropic wants Claude to analyze your bank account and financial data",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-wants-claude-to-analyze-your-bank-account-and-financial-data/",
-      "pubDate": "Wed, 16 Sep 2026 20:35:48 -0400",
-      "source": "bleepingcomputer",
-      "description": "Anthropic is testing a new personal finance feature called \"Claude Money\" that will allow you to connect your bank accounts directly to Claude and \"understand your money.\" [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "Spain's data agency gets first report of AI-powered data breach",
-      "link": "https://www.bleepingcomputer.com/news/security/spains-data-agency-gets-first-report-of-ai-powered-data-breach/",
-      "pubDate": "Wed, 16 Sep 2026 13:26:41 -0400",
-      "source": "bleepingcomputer",
-      "description": "The Spanish Data Protection Agency (AEPD) was notified of an attack allegedly carried out with an AI agent powered by a known large language model (LLM). [...]"
     },
     {
       "id": "aHR0cHM6Ly93",
@@ -130,22 +122,6 @@
       "pubDate": "Tue, 18 Aug 2026 14:11:56 -0700",
       "source": "csa",
       "description": "Originally published by Eve Security. A developer opens Cursor, points it at a Linear ticket, and asks it to implement the fix. Cursor loads&amp;nbsp;ticket-work, a small skill that standardizes how the agent pulls context from Linear and closes tickets. It’s the kind of utility a team writes once and then forgets about. The agent reads the ticket and loads the skill. A few tool calls later, the&amp;nbsp;insurance_claims&amp;nbsp;table is gone. Unconfined agent drop — after “Implement RND-1277,”"
-    },
-    {
-      "id": "aHR0cHM6Ly9j",
-      "title": "Legacy Operating Models Can’t Keep Pace With IT Complexity, Cloud Security Alliance Survey Finds",
-      "link": "https://cloudsecurityalliance.org/articles/legacy-operating-models-can-t-keep-pace-with-it-complexity-cloud-security-alliance-survey-finds",
-      "pubDate": "Tue, 18 Aug 2026 03:35:00 -0700",
-      "source": "csa",
-      "description": "Study reveals that fragmented ownership and limited visibility have made manual policy management a production risk SEATTLE – Aug. 18, 2026 — Fragmented operating models spanning teams, tools, and environments and which are still heavily reliant on manual processes are taking a measurable toll on production uptime, deployment velocity, and compliance readiness, according to a new survey from the Cloud Security Alliance (CSA), the world's leading not-for-profit organization committed to ..."
-    },
-    {
-      "id": "aHR0cHM6Ly91",
-      "title": "The Permanent Threat: Analyzing Aeternum’s Blockchain-Based C2 Operations and Communications",
-      "link": "https://unit42.paloaltonetworks.com/aeternum-blockchain-c2-analysis/",
-      "pubDate": "Mon, 10 Aug 2026 22:00:02 +0000",
-      "source": "unit42",
-      "description": "Analysis of the Aeternum botnet loader, a threat leveraging Polygon blockchain smart contracts for decentralized C2 infrastructure and payload execution. The post The Permanent Threat: Analyzing Aeternum’s Blockchain-Based C2 Operations and Communications appeared first on Unit 42 ."
     },
     {
       "id": "aHR0cHM6Ly93",

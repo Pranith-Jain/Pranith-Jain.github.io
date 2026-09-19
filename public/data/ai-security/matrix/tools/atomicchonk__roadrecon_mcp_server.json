@@ -7,9 +7,9 @@
   "description": "Claude MCP server to perform analysis on ROADrecon data",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-17T08:42:00Z",
+  "checkedAt": "2026-09-19T08:06:35Z",
   "pushedAt": "2025-03-30",
-  "daysIdle": 536,
+  "daysIdle": 538,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-17T08:42:00Z",
+      "checked_at": "2026-09-19T08:06:35Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-03-30",
-        "days_since_push": 536,
+        "days_since_push": 538,
         "total_commits": 9,
         "last100_span_days": 1,
         "last100_authors": 1,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 536,
+        "days_idle": 538,
         "relocated": false
       },
       "identity": {

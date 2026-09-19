@@ -22,7 +22,7 @@
     ],
     "euvdId": "EUVD-2026-80986",
     "kevDateAdded": null,
-    "epssPercentile": null
+    "epssPercentile": 0.37579
   },
   "CVE-2026-84377": {
     "id": "CVE-2026-84377",
@@ -52,7 +52,7 @@
     ],
     "euvdId": "EUVD-2026-70236",
     "kevDateAdded": null,
-    "epssPercentile": 0.24164
+    "epssPercentile": 0.24371
   },
   "CVE-2026-59822": {
     "id": "CVE-2026-59822",
@@ -78,7 +78,7 @@
     ],
     "euvdId": "EUVD-2026-42359",
     "kevDateAdded": "2026-09-02",
-    "epssPercentile": 0.57029
+    "epssPercentile": 0.57224
   },
   "CVE-2026-37004": {
     "id": "CVE-2026-37004",
@@ -102,7 +102,7 @@
     ],
     "euvdId": "EUVD-2026-67271",
     "kevDateAdded": null,
-    "epssPercentile": 0.44512
+    "epssPercentile": 0.44727
   },
   "CVE-2026-47102": {
     "id": "CVE-2026-47102",
@@ -132,7 +132,7 @@
     ],
     "euvdId": "EUVD-2026-31345",
     "kevDateAdded": null,
-    "epssPercentile": 0.49626
+    "epssPercentile": 0.49835
   },
   "CVE-2026-47101": {
     "id": "CVE-2026-47101",
@@ -162,7 +162,7 @@
     ],
     "euvdId": "EUVD-2026-31346",
     "kevDateAdded": null,
-    "epssPercentile": 0.66236
+    "epssPercentile": 0.66388
   },
   "CVE-2026-30623": {
     "id": "CVE-2026-30623",
@@ -187,7 +187,7 @@
     ],
     "euvdId": "EUVD-2026-44846",
     "kevDateAdded": null,
-    "epssPercentile": 0.91789
+    "epssPercentile": 0.91829
   },
   "CVE-2026-12773": {
     "id": "CVE-2026-12773",
@@ -214,7 +214,7 @@
     ],
     "euvdId": "EUVD-2026-38139",
     "kevDateAdded": null,
-    "epssPercentile": 0.61588
+    "epssPercentile": 0.61761
   },
   "CVE-2026-35029": {
     "id": "CVE-2026-35029",
@@ -235,7 +235,7 @@
     "references": ["https://github.com/BerriAI/litellm/security/advisories/GHSA-53mr-6c8q-9789"],
     "euvdId": "EUVD-2026-19370",
     "kevDateAdded": null,
-    "epssPercentile": 0.98136
+    "epssPercentile": 0.98145
   },
   "CVE-2026-35030": {
     "id": "CVE-2026-35030",
@@ -256,7 +256,7 @@
     "references": ["https://github.com/BerriAI/litellm/security/advisories/GHSA-jjhc-v7c2-5hh6"],
     "euvdId": "EUVD-2026-19372",
     "kevDateAdded": null,
-    "epssPercentile": 0.48338
+    "epssPercentile": 0.4855
   },
   "CVE-2026-40217": {
     "id": "CVE-2026-40217",
@@ -277,7 +277,7 @@
     "references": ["https://www.x41-dsec.de/lab/advisories/x41-2026-001-litellm/"],
     "euvdId": "EUVD-2026-21376",
     "kevDateAdded": null,
-    "epssPercentile": 0.96546
+    "epssPercentile": 0.96563
   },
   "CVE-2026-42203": {
     "id": "CVE-2026-42203",
@@ -301,7 +301,7 @@
     ],
     "euvdId": "EUVD-2026-28502",
     "kevDateAdded": null,
-    "epssPercentile": 0.31009
+    "epssPercentile": 0.31212
   },
   "CVE-2026-42208": {
     "id": "CVE-2026-42208",
@@ -325,7 +325,7 @@
     ],
     "euvdId": "EUVD-2026-28503",
     "kevDateAdded": "2026-05-08",
-    "epssPercentile": 0.99776
+    "epssPercentile": 0.99777
   },
   "CVE-2026-42271": {
     "id": "CVE-2026-42271",
@@ -349,7 +349,7 @@
     ],
     "euvdId": "EUVD-2026-28507",
     "kevDateAdded": "2026-06-08",
-    "epssPercentile": 0.99669
+    "epssPercentile": 0.99671
   },
   "CVE-2026-49468": {
     "id": "CVE-2026-49468",
@@ -373,7 +373,7 @@
     ],
     "euvdId": "EUVD-2026-38361",
     "kevDateAdded": null,
-    "epssPercentile": 0.55356
+    "epssPercentile": 0.5556
   },
   "CVE-2026-59821": {
     "id": "CVE-2026-59821",
@@ -398,7 +398,7 @@
     ],
     "euvdId": "EUVD-2026-42350",
     "kevDateAdded": null,
-    "epssPercentile": 0.58032
+    "epssPercentile": 0.58217
   },
   "CVE-2026-59820": {
     "id": "CVE-2026-59820",
@@ -424,7 +424,7 @@
     ],
     "euvdId": "EUVD-2026-42357",
     "kevDateAdded": null,
-    "epssPercentile": 0.46488
+    "epssPercentile": 0.467
   },
   "CVE-2026-59819": {
     "id": "CVE-2026-59819",
@@ -449,7 +449,7 @@
     ],
     "euvdId": "EUVD-2026-42361",
     "kevDateAdded": null,
-    "epssPercentile": 0.45808
+    "epssPercentile": 0.46019
   },
   "CVE-2026-12795": {
     "id": "CVE-2026-12795",
@@ -476,7 +476,7 @@
     ],
     "euvdId": "EUVD-2026-38154",
     "kevDateAdded": null,
-    "epssPercentile": 0.54637
+    "epssPercentile": 0.54838
   },
   "CVE-2026-12770": {
     "id": "CVE-2026-12770",
@@ -505,7 +505,7 @@
     ],
     "euvdId": "EUVD-2026-38136",
     "kevDateAdded": null,
-    "epssPercentile": 0.45626
+    "epssPercentile": 0.4584
   },
   "CVE-2026-12796": {
     "id": "CVE-2026-12796",
@@ -532,7 +532,7 @@
     ],
     "euvdId": "EUVD-2026-38155",
     "kevDateAdded": null,
-    "epssPercentile": 0.45661
+    "epssPercentile": 0.45875
   },
   "CVE-2026-12772": {
     "id": "CVE-2026-12772",
@@ -559,7 +559,7 @@
     ],
     "euvdId": "EUVD-2026-38138",
     "kevDateAdded": null,
-    "epssPercentile": 0.33777
+    "epssPercentile": 0.33997
   },
   "CVE-2026-12798": {
     "id": "CVE-2026-12798",
@@ -586,7 +586,7 @@
     ],
     "euvdId": "EUVD-2026-38157",
     "kevDateAdded": null,
-    "epssPercentile": 0.33776
+    "epssPercentile": 0.33998
   },
   "CVE-2026-12799": {
     "id": "CVE-2026-12799",
@@ -613,7 +613,7 @@
     ],
     "euvdId": "EUVD-2026-38158",
     "kevDateAdded": null,
-    "epssPercentile": 0.36286
+    "epssPercentile": 0.36511
   },
   "CVE-2026-12797": {
     "id": "CVE-2026-12797",
@@ -640,7 +640,7 @@
     ],
     "euvdId": "EUVD-2026-38156",
     "kevDateAdded": null,
-    "epssPercentile": 0.33777
+    "epssPercentile": 0.33998
   },
   "CVE-2026-12771": {
     "id": "CVE-2026-12771",
@@ -667,7 +667,7 @@
     ],
     "euvdId": "EUVD-2026-38137",
     "kevDateAdded": null,
-    "epssPercentile": 0.3672
+    "epssPercentile": 0.36942
   },
   "CVE-2026-12774": {
     "id": "CVE-2026-12774",
@@ -694,7 +694,7 @@
     ],
     "euvdId": "EUVD-2026-38140",
     "kevDateAdded": null,
-    "epssPercentile": 0.33777
+    "epssPercentile": 0.33998
   },
   "CVE-2026-34936": {
     "id": "CVE-2026-34936",
@@ -715,7 +715,7 @@
     "references": ["https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-x6m9-gxvr-7jpv"],
     "euvdId": "EUVD-2026-18915",
     "kevDateAdded": null,
-    "epssPercentile": 0.26926
+    "epssPercentile": 0.27138
   },
   "CVE-2026-4993": {
     "id": "CVE-2026-4993",
@@ -741,7 +741,7 @@
     ],
     "euvdId": "EUVD-2026-16913",
     "kevDateAdded": null,
-    "epssPercentile": 0.04049
+    "epssPercentile": 0.04058
   },
   "CVE-2026-33634": {
     "id": "CVE-2026-33634",
@@ -771,7 +771,7 @@
     ],
     "euvdId": "EUVD-2026-14601",
     "kevDateAdded": "2026-03-26",
-    "epssPercentile": 0.99065
+    "epssPercentile": 0.9907
   },
   "CVE-2025-45809": {
     "id": "CVE-2025-45809",
@@ -795,7 +795,7 @@
     ],
     "euvdId": "EUVD-2025-19897",
     "kevDateAdded": null,
-    "epssPercentile": 0.16936
+    "epssPercentile": 0.17121
   },
   "CVE-2025-11203": {
     "id": "CVE-2025-11203",
@@ -819,7 +819,7 @@
     ],
     "euvdId": "EUVD-2025-36712",
     "kevDateAdded": null,
-    "epssPercentile": 0.3537
+    "epssPercentile": 0.3559
   },
   "CVE-2024-5751": {
     "id": "CVE-2024-5751",
@@ -840,7 +840,7 @@
     "references": ["https://huntr.com/bounties/ae623c2f-b64b-4245-9ed4-f13a0a5824ce"],
     "euvdId": "EUVD-2024-2057",
     "kevDateAdded": null,
-    "epssPercentile": 0.57383
+    "epssPercentile": 0.57572
   },
   "CVE-2025-0628": {
     "id": "CVE-2025-0628",
@@ -864,7 +864,7 @@
     ],
     "euvdId": "EUVD-2025-6827",
     "kevDateAdded": null,
-    "epssPercentile": 0.26352
+    "epssPercentile": 0.26562
   },
   "CVE-2024-8984": {
     "id": "CVE-2024-8984",
@@ -888,7 +888,7 @@
     ],
     "euvdId": "EUVD-2025-6882",
     "kevDateAdded": null,
-    "epssPercentile": 0.55627
+    "epssPercentile": 0.55825
   },
   "CVE-2024-6825": {
     "id": "CVE-2024-6825",
@@ -912,7 +912,7 @@
     ],
     "euvdId": "EUVD-2025-6976",
     "kevDateAdded": null,
-    "epssPercentile": 0.74878
+    "epssPercentile": 0.74993
   },
   "CVE-2024-5710": {
     "id": "CVE-2024-5710",
@@ -933,7 +933,7 @@
     "references": ["https://huntr.com/bounties/70897f59-a966-4d93-b71e-745e3da91970"],
     "euvdId": "EUVD-2024-2149",
     "kevDateAdded": null,
-    "epssPercentile": 0.3438
+    "epssPercentile": 0.34599
   },
   "CVE-2024-9606": {
     "id": "CVE-2024-9606",
@@ -957,7 +957,7 @@
     ],
     "euvdId": "EUVD-2025-6847",
     "kevDateAdded": null,
-    "epssPercentile": 0.5283
+    "epssPercentile": 0.53035
   },
   "CVE-2025-0330": {
     "id": "CVE-2025-0330",
@@ -978,7 +978,7 @@
     "references": ["https://huntr.com/bounties/661b388a-44d8-4ad5-862b-4dc5b80be30a"],
     "euvdId": "EUVD-2025-6833",
     "kevDateAdded": null,
-    "epssPercentile": 0.44409
+    "epssPercentile": 0.44625
   },
   "CVE-2024-10188": {
     "id": "CVE-2024-10188",
@@ -1002,7 +1002,7 @@
     ],
     "euvdId": "EUVD-2025-7124",
     "kevDateAdded": null,
-    "epssPercentile": 0.44543
+    "epssPercentile": 0.44757
   },
   "CVE-2024-4888": {
     "id": "CVE-2024-4888",
@@ -1023,7 +1023,7 @@
     "references": ["https://huntr.com/bounties/48461d89-cf13-4ad3-a43e-0d37da08fc6c"],
     "euvdId": "EUVD-2024-1906",
     "kevDateAdded": null,
-    "epssPercentile": 0.48013
+    "epssPercentile": 0.48224
   },
   "CVE-2024-6587": {
     "id": "CVE-2024-6587",
@@ -1047,7 +1047,7 @@
     ],
     "euvdId": "EUVD-2024-2785",
     "kevDateAdded": null,
-    "epssPercentile": 0.98362
+    "epssPercentile": 0.9837
   },
   "CVE-2024-4264": {
     "id": "CVE-2024-4264",
@@ -1068,7 +1068,7 @@
     "references": ["https://huntr.com/bounties/a3221b0c-6e25-4295-ab0f-042997e8fc61"],
     "euvdId": "EUVD-2024-1491",
     "kevDateAdded": null,
-    "epssPercentile": 0.57411
+    "epssPercentile": 0.576
   },
   "CVE-2024-5225": {
     "id": "CVE-2024-5225",
@@ -1089,7 +1089,7 @@
     "references": ["https://huntr.com/bounties/491e4884-0306-4cd4-8fe2-9a19de33bf5c"],
     "euvdId": "EUVD-2024-2064",
     "kevDateAdded": null,
-    "epssPercentile": 0.36466
+    "epssPercentile": 0.36688
   },
   "CVE-2024-4889": {
     "id": "CVE-2024-4889",
@@ -1110,7 +1110,7 @@
     "references": ["https://huntr.com/bounties/be3fda72-a65b-4993-9a0e-7e0f05db51f8"],
     "euvdId": "EUVD-2024-44458",
     "kevDateAdded": null,
-    "epssPercentile": 0.567
+    "epssPercentile": 0.56887
   },
   "CVE-2024-4890": {
     "id": "CVE-2024-4890",
@@ -1131,7 +1131,7 @@
     "references": ["https://huntr.com/bounties/a4f6d357-5b44-4e00-9cac-f1cc351211d2"],
     "euvdId": "EUVD-2024-1982",
     "kevDateAdded": null,
-    "epssPercentile": 0.45152
+    "epssPercentile": 0.45369
   },
   "CVE-2024-2952": {
     "id": "CVE-2024-2952",
@@ -1155,85 +1155,60 @@
     ],
     "euvdId": "EUVD-2024-1088",
     "kevDateAdded": null,
-    "epssPercentile": 0.68283
+    "epssPercentile": 0.68422
   },
-  "CVE-2026-93436": {
-    "id": "CVE-2026-93436",
-    "title": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0…",
+  "CVE-2026-93841": {
+    "id": "CVE-2026-93841",
+    "title": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabular…",
     "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
+    "severity": "6.3 (4.0)",
+    "cvssBase": 6.3,
     "epss": 0,
     "kev": false,
     "kevSources": [],
-    "published": "Sep 17, 2026, 10:15:31 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82534",
-    "aliases": ["CVE-2026-93436", "GHSA-jh5x-pggf-m4cr"],
+    "published": "Sep 18, 2026, 7:06:06 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83285",
+    "aliases": ["GHSA-q9hm-g73w-q6wp", "CVE-2026-93841"],
     "packages": [],
     "vendor": "vllm-project",
     "product": "vllm",
-    "description": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0 to exhaust decode-worker memory without bound until the worker restarts.",
+    "description": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabulary size. Attackers can submit multimodal audio requests with tokens equal to vocabulary size, causing out-of-bounds writes that corrupt concurrent requests' sampler state and alter repetition penalty behavior.",
     "references": [
-      "https://github.com/vllm-project/vllm/pull/55677",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/push_worker.py#L162-L181",
+      "https://github.com/vllm-project/vllm/pull/49081",
       "https://github.com/vllm-project/vllm",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-memory-exhaustion-via-rejected-requests"
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/worker/gpu/sample/penalties.py#L241-L255",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/worker/gpu/sample/penalties.py#L33-L37",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-adjacent-request-sampler-state-corruption-via-unvalidated-prompt-token-ids"
     ],
-    "euvdId": "EUVD-2026-82534",
+    "euvdId": "EUVD-2026-83285",
     "kevDateAdded": null,
     "epssPercentile": null
   },
-  "CVE-2026-92220": {
-    "id": "CVE-2026-92220",
-    "title": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_messa…",
+  "CVE-2026-93840": {
+    "id": "CVE-2026-93840",
+    "title": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the …",
     "sources": ["euvd"],
-    "severity": "6.9 (4.0)",
-    "cvssBase": 6.9,
-    "epss": 0.52,
+    "severity": "6.3 (4.0)",
+    "cvssBase": 6.3,
+    "epss": 0,
     "kev": false,
     "kevSources": [],
-    "published": "Sep 16, 2026, 2:15:10 AM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80081",
-    "aliases": ["CVE-2026-92220", "GHSA-72xc-v4m3-9r7g"],
+    "published": "Sep 18, 2026, 7:06:06 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83284",
+    "aliases": ["GHSA-97fp-7cr2-23qc", "CVE-2026-93840"],
     "packages": [],
     "vendor": "vllm-project",
     "product": "vllm",
-    "description": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_message of the file vllm/distributed/kv_transfer/kv_connector/v1/moriio/moriio_connector.py of the component MoRIIO Acknowledgement Handler. Performing a manipulation of the argument request_id/kv_transfer_params results in resource consumption. It is possible to initiate the attack remotely. The project was informed of the problem early through a pull request but has not reacted yet.",
+    "description": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the output vocabulary that pass validation, causing LogitBiasState to corrupt GPU logits state and allow concurrent requests to sample tokens outside their allowlists.",
     "references": [
-      "https://vuldb.com/vuln/404470",
-      "https://vuldb.com/vuln/404470/cti",
-      "https://vuldb.com/cve/CVE-2026-92220",
-      "https://vuldb.com/submit/934149",
-      "https://github.com/vllm-project/vllm/pull/50674",
-      "https://github.com/vllm-project/vllm/"
+      "https://github.com/vllm-project/vllm/pull/49080",
+      "https://github.com/vllm-project/vllm",
+      "https://github.com/vllm-project/vllm/commit/5b0e5b69ac1a3884a6479c9537789c95263cc804",
+      "https://github.com/vllm-project/vllm/blob/v0.28.0/vllm/sampling_params.py#L881-L903",
+      "https://github.com/vllm-project/vllm/blob/v0.28.0/vllm/v1/worker/gpu/sample/logit_bias.py#L179-L191",
+      "https://www.vulncheck.com/advisories/vllm-before-0.29.0-cross-request-logits-corruption-via-allowed-token-ids"
     ],
-    "euvdId": "EUVD-2026-80081",
-    "kevDateAdded": null,
-    "epssPercentile": 0.42961
-  },
-  "CVE-2026-69147": {
-    "id": "CVE-2026-69147",
-    "title": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, an…",
-    "sources": ["euvd"],
-    "severity": "6.5 (3.1)",
-    "cvssBase": 6.5,
-    "epss": 0.46,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 16, 2026, 5:49:20 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80935",
-    "aliases": ["GHSA-8pw2-6jv3-mj5j", "CVE-2026-69147"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, and MediaConnector.fetch_video forwards that choice to VideoMediaIO even when startup configuration selected a software decoder. The engine's _reserve_mm_ipc_gpu_memory logic budgets decoder memory only from static configuration, so the request-selected VIDEO_LOADER_REGISTRY backend can create a CUDA context, decoder surfaces, and decoded-frame allocations that were not removed from the engine's KV-cache budget. An attacker able to submit video requests to a video-capable GPU deployment with PyNvVideoCodec installed can exhaust shared GPU memory, causing request failures, worker crashes, or denial of service. The first release containing the fix is version 0.28.0.",
-    "references": [
-      "https://github.com/vllm-project/vllm/security/advisories/GHSA-8pw2-6jv3-mj5j",
-      "https://github.com/vllm-project/vllm/pull/47259",
-      "https://github.com/vllm-project/vllm/commit/283893c72292ede38d277e3cd2b9b64c3e4f1dda",
-      "https://github.com/vllm-project/vllm/commit/ba22152096b2484faa3579624a253d54804d876d"
-    ],
-    "euvdId": "EUVD-2026-80935",
+    "euvdId": "EUVD-2026-83284",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -1261,7 +1236,111 @@
     ],
     "euvdId": "EUVD-2026-80880",
     "kevDateAdded": null,
+    "epssPercentile": 0.50012
+  },
+  "CVE-2026-93592": {
+    "id": "CVE-2026-93592",
+    "title": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative t…",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 18, 2026, 1:20:05 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82911",
+    "aliases": ["CVE-2026-93592", "GHSA-c3vq-r33v-49cr"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative token IDs. A single request with a negative token ID triggers a CUDA device-side assertion that poisons the GPU context, causing all subsequent requests to fail until the process restarts.",
+    "references": [
+      "https://github.com/vllm-project/vllm/security/advisories/GHSA-25q3-v2hm-8vpf",
+      "https://www.vulncheck.com/advisories/vllm-before-0.28.0-denial-of-service-via-negative-token-id"
+    ],
+    "euvdId": "EUVD-2026-82911",
+    "kevDateAdded": null,
     "epssPercentile": null
+  },
+  "CVE-2026-93436": {
+    "id": "CVE-2026-93436",
+    "title": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0…",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0.54,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 17, 2026, 10:15:31 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82534",
+    "aliases": ["CVE-2026-93436", "GHSA-jh5x-pggf-m4cr"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0 to exhaust decode-worker memory without bound until the worker restarts.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/55677",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/push_worker.py#L162-L181",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-memory-exhaustion-via-rejected-requests"
+    ],
+    "euvdId": "EUVD-2026-82534",
+    "kevDateAdded": null,
+    "epssPercentile": 0.44172
+  },
+  "CVE-2026-92220": {
+    "id": "CVE-2026-92220",
+    "title": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_messa…",
+    "sources": ["euvd"],
+    "severity": "6.9 (4.0)",
+    "cvssBase": 6.9,
+    "epss": 0.52,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 16, 2026, 2:15:10 AM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80081",
+    "aliases": ["CVE-2026-92220", "GHSA-72xc-v4m3-9r7g"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_message of the file vllm/distributed/kv_transfer/kv_connector/v1/moriio/moriio_connector.py of the component MoRIIO Acknowledgement Handler. Performing a manipulation of the argument request_id/kv_transfer_params results in resource consumption. It is possible to initiate the attack remotely. The project was informed of the problem early through a pull request but has not reacted yet.",
+    "references": [
+      "https://vuldb.com/vuln/404470",
+      "https://vuldb.com/vuln/404470/cti",
+      "https://vuldb.com/cve/CVE-2026-92220",
+      "https://vuldb.com/submit/934149",
+      "https://github.com/vllm-project/vllm/pull/50674",
+      "https://github.com/vllm-project/vllm/"
+    ],
+    "euvdId": "EUVD-2026-80081",
+    "kevDateAdded": null,
+    "epssPercentile": 0.43178
+  },
+  "CVE-2026-69147": {
+    "id": "CVE-2026-69147",
+    "title": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, an…",
+    "sources": ["euvd"],
+    "severity": "6.5 (3.1)",
+    "cvssBase": 6.5,
+    "epss": 0.46,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 16, 2026, 5:49:20 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80935",
+    "aliases": ["GHSA-8pw2-6jv3-mj5j", "CVE-2026-69147"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, and MediaConnector.fetch_video forwards that choice to VideoMediaIO even when startup configuration selected a software decoder. The engine's _reserve_mm_ipc_gpu_memory logic budgets decoder memory only from static configuration, so the request-selected VIDEO_LOADER_REGISTRY backend can create a CUDA context, decoder surfaces, and decoded-frame allocations that were not removed from the engine's KV-cache budget. An attacker able to submit video requests to a video-capable GPU deployment with PyNvVideoCodec installed can exhaust shared GPU memory, causing request failures, worker crashes, or denial of service. The first release containing the fix is version 0.28.0.",
+    "references": [
+      "https://github.com/vllm-project/vllm/security/advisories/GHSA-8pw2-6jv3-mj5j",
+      "https://github.com/vllm-project/vllm/pull/47259",
+      "https://github.com/vllm-project/vllm/commit/283893c72292ede38d277e3cd2b9b64c3e4f1dda",
+      "https://github.com/vllm-project/vllm/commit/ba22152096b2484faa3579624a253d54804d876d"
+    ],
+    "euvdId": "EUVD-2026-80935",
+    "kevDateAdded": null,
+    "epssPercentile": 0.391
   },
   "CVE-2026-92365": {
     "id": "CVE-2026-92365",
@@ -1289,7 +1368,7 @@
     ],
     "euvdId": "EUVD-2026-80771",
     "kevDateAdded": null,
-    "epssPercentile": null
+    "epssPercentile": 0.32584
   },
   "CVE-2026-48746": {
     "id": "CVE-2026-48746",
@@ -1314,7 +1393,7 @@
     ],
     "euvdId": "EUVD-2026-38401",
     "kevDateAdded": null,
-    "epssPercentile": 0.6534
+    "epssPercentile": 0.65496
   },
   "CVE-2026-90713": {
     "id": "CVE-2026-90713",
@@ -1344,7 +1423,7 @@
     ],
     "euvdId": "EUVD-2026-77463",
     "kevDateAdded": null,
-    "epssPercentile": 0.04809
+    "epssPercentile": 0.0483
   },
   "CVE-2026-90878": {
     "id": "CVE-2026-90878",
@@ -1373,7 +1452,7 @@
     ],
     "euvdId": "EUVD-2026-78268",
     "kevDateAdded": null,
-    "epssPercentile": 0.22989
+    "epssPercentile": 0.23191
   },
   "CVE-2026-90553": {
     "id": "CVE-2026-90553",
@@ -1397,7 +1476,7 @@
     ],
     "euvdId": "EUVD-2026-76871",
     "kevDateAdded": null,
-    "epssPercentile": 0.11024
+    "epssPercentile": 0.11168
   },
   "CVE-2026-90554": {
     "id": "CVE-2026-90554",
@@ -1421,7 +1500,7 @@
     ],
     "euvdId": "EUVD-2026-76872",
     "kevDateAdded": null,
-    "epssPercentile": 0.01542
+    "epssPercentile": 0.01551
   },
   "CVE-2026-90555": {
     "id": "CVE-2026-90555",
@@ -1445,7 +1524,7 @@
     ],
     "euvdId": "EUVD-2026-76873",
     "kevDateAdded": null,
-    "epssPercentile": 0.19644
+    "epssPercentile": 0.22189
   },
   "CVE-2026-41523": {
     "id": "CVE-2026-41523",
@@ -1470,7 +1549,7 @@
     ],
     "euvdId": "EUVD-2026-38406",
     "kevDateAdded": null,
-    "epssPercentile": 0.58329
+    "epssPercentile": 0.58513
   },
   "CVE-2026-78684": {
     "id": "CVE-2026-78684",
@@ -1495,7 +1574,7 @@
     ],
     "euvdId": "EUVD-2026-65457",
     "kevDateAdded": null,
-    "epssPercentile": 0.2586
+    "epssPercentile": 0.26071
   },
   "CVE-2026-37237": {
     "id": "CVE-2026-37237",
@@ -1520,7 +1599,7 @@
     ],
     "euvdId": "EUVD-2026-67775",
     "kevDateAdded": null,
-    "epssPercentile": 0.43623
+    "epssPercentile": 0.43841
   },
   "CVE-2026-7141": {
     "id": "CVE-2026-7141",
@@ -1548,7 +1627,7 @@
     ],
     "euvdId": "EUVD-2026-25892",
     "kevDateAdded": null,
-    "epssPercentile": 0.2149
+    "epssPercentile": 0.21682
   },
   "CVE-2026-34755": {
     "id": "CVE-2026-34755",
@@ -1569,7 +1648,7 @@
     "references": ["https://github.com/vllm-project/vllm/security/advisories/GHSA-pq5c-rjhq-qp7p"],
     "euvdId": "EUVD-2026-19350",
     "kevDateAdded": null,
-    "epssPercentile": 0.39184
+    "epssPercentile": 0.39405
   },
   "CVE-2026-34756": {
     "id": "CVE-2026-34756",
@@ -1594,7 +1673,7 @@
     ],
     "euvdId": "EUVD-2026-19351",
     "kevDateAdded": null,
-    "epssPercentile": 0.35851
+    "epssPercentile": 0.36076
   },
   "CVE-2026-73560": {
     "id": "CVE-2026-73560",
@@ -1620,7 +1699,7 @@
     ],
     "euvdId": "EUVD-2026-60377",
     "kevDateAdded": null,
-    "epssPercentile": 0.2491
+    "epssPercentile": 0.25111
   },
   "CVE-2026-71486": {
     "id": "CVE-2026-71486",
@@ -1646,7 +1725,7 @@
     ],
     "euvdId": "EUVD-2026-60376",
     "kevDateAdded": null,
-    "epssPercentile": 0.27519
+    "epssPercentile": 0.27734
   },
   "CVE-2026-73556": {
     "id": "CVE-2026-73556",
@@ -1672,7 +1751,7 @@
     ],
     "euvdId": "EUVD-2026-58063",
     "kevDateAdded": null,
-    "epssPercentile": 0.24379
+    "epssPercentile": 0.24587
   },
   "CVE-2026-73559": {
     "id": "CVE-2026-73559",
@@ -1698,7 +1777,7 @@
     ],
     "euvdId": "EUVD-2026-58067",
     "kevDateAdded": null,
-    "epssPercentile": 0.39707
+    "epssPercentile": 0.39928
   },
   "CVE-2026-73555": {
     "id": "CVE-2026-73555",
@@ -1724,7 +1803,7 @@
     ],
     "euvdId": "EUVD-2026-58053",
     "kevDateAdded": null,
-    "epssPercentile": 0.17287
+    "epssPercentile": 0.17469
   },
   "CVE-2026-73557": {
     "id": "CVE-2026-73557",
@@ -1750,7 +1829,7 @@
     ],
     "euvdId": "EUVD-2026-58064",
     "kevDateAdded": null,
-    "epssPercentile": 0.16684
+    "epssPercentile": 0.16871
   },
   "CVE-2026-73558": {
     "id": "CVE-2026-73558",
@@ -1777,7 +1856,7 @@
     ],
     "euvdId": "EUVD-2026-58066",
     "kevDateAdded": null,
-    "epssPercentile": 0.25686
+    "epssPercentile": 0.25894
   },
   "CVE-2026-27765": {
     "id": "CVE-2026-27765",
@@ -1798,7 +1877,7 @@
     "references": ["https://intel.com/content/www/us/en/security-center/advisory/intel-sa-01487.html"],
     "euvdId": "EUVD-2026-56522",
     "kevDateAdded": null,
-    "epssPercentile": 0.01538
+    "epssPercentile": 0.01547
   },
   "CVE-2026-27893": {
     "id": "CVE-2026-27893",
@@ -1823,7 +1902,7 @@
     ],
     "euvdId": "EUVD-2026-16478",
     "kevDateAdded": null,
-    "epssPercentile": 0.69995
+    "epssPercentile": 0.7013
   },
   "CVE-2026-5497": {
     "id": "CVE-2026-5497",
@@ -1847,7 +1926,7 @@
     ],
     "euvdId": "EUVD-2026-36217",
     "kevDateAdded": null,
-    "epssPercentile": 0.43902
+    "epssPercentile": 0.44118
   },
   "CVE-2026-56340": {
     "id": "CVE-2026-56340",
@@ -1871,7 +1950,7 @@
     ],
     "euvdId": "EUVD-2026-38129",
     "kevDateAdded": null,
-    "epssPercentile": 0.49174
+    "epssPercentile": 0.49384
   },
   "CVE-2026-22807": {
     "id": "CVE-2026-22807",
@@ -1879,7 +1958,7 @@
     "sources": ["euvd"],
     "severity": "8.8 (3.1)",
     "cvssBase": 8.8,
-    "epss": 0.76,
+    "epss": 0.83,
     "kev": false,
     "kevSources": [],
     "published": "Jan 21, 2026, 9:13:11 PM",
@@ -1897,7 +1976,7 @@
     ],
     "euvdId": "EUVD-2026-3678",
     "kevDateAdded": null,
-    "epssPercentile": 0.53427
+    "epssPercentile": 0.55962
   },
   "CVE-2026-24779": {
     "id": "CVE-2026-24779",
@@ -1922,7 +2001,7 @@
     ],
     "euvdId": "EUVD-2026-4711",
     "kevDateAdded": null,
-    "epssPercentile": 0.44629
+    "epssPercentile": 0.44845
   },
   "CVE-2026-25960": {
     "id": "CVE-2026-25960",
@@ -1948,7 +2027,7 @@
     ],
     "euvdId": "EUVD-2026-10356",
     "kevDateAdded": null,
-    "epssPercentile": 0.44326
+    "epssPercentile": 0.44544
   },
   "CVE-2026-22778": {
     "id": "CVE-2026-22778",
@@ -1974,7 +2053,7 @@
     ],
     "euvdId": "EUVD-2026-5277",
     "kevDateAdded": null,
-    "epssPercentile": 0.89237
+    "epssPercentile": 0.89289
   },
   "CVE-2026-15574": {
     "id": "CVE-2026-15574",
@@ -1998,7 +2077,7 @@
     ],
     "euvdId": "EUVD-2026-43310",
     "kevDateAdded": null,
-    "epssPercentile": 0.37372
+    "epssPercentile": 0.37596
   },
   "CVE-2026-54234": {
     "id": "CVE-2026-54234",
@@ -2023,7 +2102,7 @@
     ],
     "euvdId": "EUVD-2026-41921",
     "kevDateAdded": null,
-    "epssPercentile": 0.47892
+    "epssPercentile": 0.48102
   },
   "CVE-2026-12491": {
     "id": "CVE-2026-12491",
@@ -2047,7 +2126,7 @@
     ],
     "euvdId": "EUVD-2026-37645",
     "kevDateAdded": null,
-    "epssPercentile": 0.15157
+    "epssPercentile": 0.1533
   },
   "CVE-2026-55574": {
     "id": "CVE-2026-55574",
@@ -2072,7 +2151,7 @@
     ],
     "euvdId": "EUVD-2026-41924",
     "kevDateAdded": null,
-    "epssPercentile": 0.46318
+    "epssPercentile": 0.46531
   },
   "CVE-2026-55514": {
     "id": "CVE-2026-55514",
@@ -2098,7 +2177,7 @@
     ],
     "euvdId": "EUVD-2026-41925",
     "kevDateAdded": null,
-    "epssPercentile": 0.50071
+    "epssPercentile": 0.5028
   },
   "CVE-2026-55646": {
     "id": "CVE-2026-55646",
@@ -2123,7 +2202,7 @@
     ],
     "euvdId": "EUVD-2026-41914",
     "kevDateAdded": null,
-    "epssPercentile": 0.42861
+    "epssPercentile": 0.43079
   },
   "CVE-2026-53923": {
     "id": "CVE-2026-53923",
@@ -2148,7 +2227,7 @@
     ],
     "euvdId": "EUVD-2026-38400",
     "kevDateAdded": null,
-    "epssPercentile": 0.40579
+    "epssPercentile": 0.4079
   },
   "CVE-2026-54232": {
     "id": "CVE-2026-54232",
@@ -2169,7 +2248,7 @@
     "references": ["https://github.com/vllm-project/vllm/security/advisories/GHSA-jrf6-vqxq-pjv2"],
     "euvdId": "EUVD-2026-38405",
     "kevDateAdded": null,
-    "epssPercentile": 0.45342
+    "epssPercentile": 0.45558
   },
   "CVE-2026-47155": {
     "id": "CVE-2026-47155",
@@ -2195,7 +2274,7 @@
     ],
     "euvdId": "EUVD-2026-38407",
     "kevDateAdded": null,
-    "epssPercentile": 0.16462
+    "epssPercentile": 0.16646
   },
   "CVE-2026-54236": {
     "id": "CVE-2026-54236",
@@ -2220,7 +2299,7 @@
     ],
     "euvdId": "EUVD-2026-38403",
     "kevDateAdded": null,
-    "epssPercentile": 0.5875
+    "epssPercentile": 0.58932
   },
   "CVE-2026-54235": {
     "id": "CVE-2026-54235",
@@ -2245,7 +2324,7 @@
     ],
     "euvdId": "EUVD-2026-38402",
     "kevDateAdded": null,
-    "epssPercentile": 0.38247
+    "epssPercentile": 0.38463
   },
   "CVE-2026-54233": {
     "id": "CVE-2026-54233",
@@ -2269,7 +2348,7 @@
     ],
     "euvdId": "EUVD-2026-38404",
     "kevDateAdded": null,
-    "epssPercentile": 0.35886
+    "epssPercentile": 0.36111
   },
   "CVE-2026-44223": {
     "id": "CVE-2026-44223",
@@ -2293,7 +2372,7 @@
     ],
     "euvdId": "EUVD-2026-29800",
     "kevDateAdded": null,
-    "epssPercentile": 0.30259
+    "epssPercentile": 0.30469
   },
   "CVE-2025-71379": {
     "id": "CVE-2025-71379",
@@ -2317,7 +2396,7 @@
     ],
     "euvdId": "EUVD-2025-210290",
     "kevDateAdded": null,
-    "epssPercentile": 0.40355
+    "epssPercentile": 0.40564
   },
   "CVE-2026-10813": {
     "id": "CVE-2026-10813",
@@ -2367,7 +2446,7 @@
     "references": ["https://huntr.com/bounties/97f706f7-a852-49b2-a4eb-76811e611daf"],
     "euvdId": "EUVD-2026-32979",
     "kevDateAdded": null,
-    "epssPercentile": 0.53098
+    "epssPercentile": 0.53302
   },
   "CVE-2026-5817": {
     "id": "CVE-2026-5817",
@@ -2388,7 +2467,7 @@
     "references": ["https://docs.docker.com/desktop/release-notes/#4680"],
     "euvdId": "EUVD-2026-31493",
     "kevDateAdded": null,
-    "epssPercentile": 0.13219
+    "epssPercentile": 0.13395
   },
   "CVE-2026-9540": {
     "id": "CVE-2026-9540",
@@ -2417,7 +2496,7 @@
     ],
     "euvdId": "EUVD-2026-31810",
     "kevDateAdded": null,
-    "epssPercentile": 0.36348
+    "epssPercentile": 0.36573
   },
   "CVE-2026-44222": {
     "id": "CVE-2026-44222",
@@ -2441,7 +2520,7 @@
     ],
     "euvdId": "EUVD-2026-29799",
     "kevDateAdded": null,
-    "epssPercentile": 0.35132
+    "epssPercentile": null
   },
   "CVE-2026-34753": {
     "id": "CVE-2026-34753",
@@ -2462,7 +2541,7 @@
     "references": ["https://github.com/vllm-project/vllm/security/advisories/GHSA-pf3h-qjgv-vcpr"],
     "euvdId": "EUVD-2026-19349",
     "kevDateAdded": null,
-    "epssPercentile": 0.15978
+    "epssPercentile": null
   },
   "CVE-2026-34760": {
     "id": "CVE-2026-34760",
@@ -2488,7 +2567,7 @@
     ],
     "euvdId": "EUVD-2026-18522",
     "kevDateAdded": null,
-    "epssPercentile": 0.1892
+    "epssPercentile": null
   },
   "CVE-2026-22773": {
     "id": "CVE-2026-22773",
@@ -4241,7 +4320,7 @@
     "sources": ["euvd"],
     "severity": "9.3 (3.1)",
     "cvssBase": 9.3,
-    "epss": 0.43420000000000003,
+    "epss": 0.4293,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 10:47:44 PM",
@@ -4270,7 +4349,7 @@
     "sources": ["euvd"],
     "severity": "8.6 (3.1)",
     "cvssBase": 8.6,
-    "epss": 0.81,
+    "epss": 0.79,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 10:56:04 PM",
@@ -5413,13 +5492,149 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
+  "CVE-2026-64684": {
+    "id": "CVE-2026-64684",
+    "title": "RMCP is an official Rust SDK for the Model Context Protocol. Prior to 2.1.0, the rmcp crate's StreamableHttpClientTransport in crates/rmcp/src/transport/common/reqwest/streamable_http_client.rs build…",
+    "sources": ["euvd"],
+    "severity": "6.8 (3.1)",
+    "cvssBase": 6.8,
+    "epss": 0.4,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 16, 2026, 9:18:48 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-81266",
+    "aliases": ["GHSA-9g45-5xwm-f3wc", "CVE-2026-64684"],
+    "packages": [],
+    "vendor": "modelcontextprotocol",
+    "product": "rust-sdk",
+    "description": "RMCP is an official Rust SDK for the Model Context Protocol. Prior to 2.1.0, the rmcp crate's StreamableHttpClientTransport in crates/rmcp/src/transport/common/reqwest/streamable_http_client.rs builds its default_http_client with reqwest's automatic redirect policy and applies caller-supplied values from StreamableHttpClientTransportConfig.custom_headers without marking them as sensitive. When a malicious or compromised MCP endpoint returns a cross-origin 307 or 308 redirect, reqwest follows the redirect and apply_custom_headers causes custom API keys or authentication tokens to be replayed to the new origin, where an attacker can capture and reuse them. The separate auth_header path is not affected because it uses the standard Authorization header, which reqwest strips on cross-origin redirects. This issue is fixed in version 2.1.0.",
+    "references": [
+      "https://github.com/modelcontextprotocol/rust-sdk/security/advisories/GHSA-9g45-5xwm-f3wc",
+      "https://github.com/modelcontextprotocol/rust-sdk/pull/936",
+      "https://github.com/modelcontextprotocol/rust-sdk/commit/496902b9cf2c8a947454718da31829ae776b969b",
+      "https://github.com/modelcontextprotocol/rust-sdk/releases/tag/rmcp-v2.1.0"
+    ],
+    "euvdId": "EUVD-2026-81266",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-63646": {
+    "id": "CVE-2026-63646",
+    "title": "CordysCRM is an open source AI-powered customer relationship management system that supports private deployment. Prior to 1.7.2, GET /mcp/form/config/{formKey} calls McpController.getMcpField without…",
+    "sources": ["euvd"],
+    "severity": "6.9 (4.0)",
+    "cvssBase": 6.9,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 18, 2026, 7:52:06 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83442",
+    "aliases": ["CVE-2026-63646"],
+    "packages": [],
+    "vendor": "1Panel-dev",
+    "product": "CordysCRM",
+    "description": "CordysCRM is an open source AI-powered customer relationship management system that supports private deployment. Prior to 1.7.2, GET /mcp/form/config/{formKey} calls McpController.getMcpField without authentication because ShiroFilter.addPublicPathFilters marks /mcp/** as anonymous and the controller has no permission annotation. An unauthenticated caller can obtain field names, types, required flags, default values, options, validation rules, and binding sources for CRM modules, allowing reconstruction of the application data model and more targeted attacks against other inputs. This issue is fixed in version 1.7.2.",
+    "references": [
+      "https://github.com/1Panel-dev/CordysCRM/security/advisories/GHSA-46p5-m7pq-82hm",
+      "https://github.com/1Panel-dev/CordysCRM/pull/2725",
+      "https://github.com/1Panel-dev/CordysCRM/commit/ea8d5f128b94659ce881e9d034a37c18fa86bbbc",
+      "https://github.com/1Panel-dev/CordysCRM/releases/tag/v1.7.2"
+    ],
+    "euvdId": "EUVD-2026-83442",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-93189": {
+    "id": "CVE-2026-93189",
+    "title": "In the Linux kernel, the following vulnerability has been resolved: HID: core: quiesce input in hid_hw_stop() to prevent use-after-free A driver's probe calls hid_device_io_start() to enable input de…",
+    "sources": ["euvd"],
+    "severity": "8.8 (3.1)",
+    "cvssBase": 8.8,
+    "epss": 0.2,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 17, 2026, 4:12:14 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82297",
+    "aliases": ["GHSA-c7vq-j3hm-m6qq", "CVE-2026-93189"],
+    "packages": [],
+    "vendor": "Linux",
+    "product": "Linux",
+    "description": "In the Linux kernel, the following vulnerability has been resolved: HID: core: quiesce input in hid_hw_stop() to prevent use-after-free A driver's probe calls hid_device_io_start() to enable input delivery, then fails at a later initialization step and unwinds via hid_hw_stop(). The unwind frees struct hidraw via hidraw_disconnect() while in-flight HID reports may still be running on another CPU, dereferencing the freed object through hidraw_report_event(). syzbot reports the resulting use-after-free for the corsair-psu HID driver. Edward Adam Davis posted a per-driver fix for corsair-psu that adds an explicit hid_device_io_stop() before hid_hw_stop() in the probe error path (\"hwmon: prevent packets from going to driver for probe\", 2026-04-28). Auditing the tree shows 15 drivers call hid_device_io_start(); 7 also call hid_device_io_stop() and 8 do not: drivers calling hid_device_io_start() without a matching hid_device_io_stop() before hid_hw_stop(): drivers/hwmon/corsair-psu.c (fix posted by Edward) drivers/hwmon/corsair-cpro.c drivers/hwmon/nzxt-kraken3.c drivers/hwmon/nzxt-smart2.c drivers/hwmon/gigabyte_waterforce.c drivers/hid/hid-logitech-dj.c drivers/hid/hid-nintendo.c drivers/hid/hid-mcp2221.c Roughly half of all callers of the API are exposed. Centralize the quiesce in hid_hw_stop() so callers do not have to remember the matching stop: if a driver has left hdev->io_started true on entry, call hid_device_io_stop() before hid_disconnect(). For the 7 drivers that already call hid_device_io_stop() correctly, hdev->io_started is false on entry, the guard short-circuits, and behavior is unchanged. No Fixes: tag because the affected drivers gained their hid_device_io_start() calls independently over years; the bug is a class-wide API misuse rather than a regression from one commit.",
+    "references": [
+      "https://git.kernel.org/stable/c/0744cb9520aade37e78f69134f3111086158f1d2",
+      "https://git.kernel.org/stable/c/c876c437d188911685d8bed645416f2e86bd0354",
+      "https://git.kernel.org/stable/c/6787f1828f5616f17250e108c0031fb96fd2cfe6",
+      "https://git.kernel.org/stable/c/92cca302a4eaf65d1b38b3fb600b4ee5eb856a51",
+      "https://git.kernel.org/stable/c/02246d8b462fd9bd90bc7ae7d6cab1acf69bcb87",
+      "https://git.kernel.org/stable/c/544ebb25bd58f67e821573412ab7a982b9e02211",
+      "https://git.kernel.org/stable/c/0fecd89f979a8653b9a5b0816570329b7a94a081",
+      "https://git.kernel.org/stable/c/a4bc41504690b7d7064931909874f5b98cd148b6"
+    ],
+    "euvdId": "EUVD-2026-82297",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-58197": {
+    "id": "CVE-2026-58197",
+    "title": "ToolHive is a utility designed to simplify the deployment and management of Model Context Protocol servers. Prior to ToolHive CLI 0.30.1 and ToolHive Studio 0.38.0, locally run MCP server containers …",
+    "sources": ["euvd"],
+    "severity": "8.8 (3.1)",
+    "cvssBase": 8.8,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 18, 2026, 4:34:55 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83167",
+    "aliases": ["GHSA-qg2g-g9w3-m5h8", "CVE-2026-58197"],
+    "packages": [],
+    "vendor": "stacklok",
+    "product": "toolhive",
+    "description": "ToolHive is a utility designed to simplify the deployment and management of Model Context Protocol servers. Prior to ToolHive CLI 0.30.1 and ToolHive Studio 0.38.0, locally run MCP server containers use the default network permission profile without network isolation, permitting access to host.docker.internal while ToolHive API and MCP proxy endpoints are reachable without authentication. A malicious or compromised MCP server can use the Docker gateway to contact host-local services, other ToolHive-managed MCP proxies, or the ToolHive control plane without escaping the container. This access can expose data and logs, invoke sibling MCP tools, alter process or workload state, and disrupt services. ToolHive Studio additionally sends network_isolation as false and overrides the backend's secure isolation default. This issue is fixed in ToolHive CLI 0.30.1 and ToolHive Studio 0.38.0.",
+    "references": [
+      "https://github.com/stacklok/toolhive/security/advisories/GHSA-qg2g-g9w3-m5h8",
+      "https://github.com/stacklok/toolhive-studio/pull/2469",
+      "https://github.com/stacklok/toolhive/pull/5583",
+      "https://github.com/stacklok/toolhive-studio/commit/968182d7f3ee1e55123369e66ad88f82128119b0",
+      "https://github.com/stacklok/toolhive/commit/d8f40cb1599b8bf66657f2dfff15bfbfc236e712",
+      "https://github.com/stacklok/toolhive-studio/releases/tag/v0.38.0",
+      "https://github.com/stacklok/toolhive/releases/tag/v0.30.1"
+    ],
+    "euvdId": "EUVD-2026-83167",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77339": {
+    "id": "CVE-2026-77339",
+    "title": "Process Compose is a scheduler and orchestrator for non-containerized applications. Prior to 1.120.0, the MCP SSE listener in src/mcp/server.go accepts browser-origin requests to /sse and the returne…",
+    "sources": ["euvd"],
+    "severity": "5.1 (4.0)",
+    "cvssBase": 5.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 18, 2026, 4:37:19 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83168",
+    "aliases": ["GHSA-5gm3-9crp-6g3v", "CVE-2026-77339"],
+    "packages": [],
+    "vendor": "F1bonacc1",
+    "product": "process-compose",
+    "description": "Process Compose is a scheduler and orchestrator for non-containerized applications. Prior to 1.120.0, the MCP SSE listener in src/mcp/server.go accepts browser-origin requests to /sse and the returned message endpoint without validating the Host header, validating the Origin header, or authenticating the caller. When MCP SSE is enabled, a malicious website can use DNS rebinding to reach the loopback listener and issue MCP requests. If expose_control_tools is enabled, the attacker can enumerate process state, read or search logs, truncate logs, and start, stop, restart, or scale local processes; configured user-defined tools can expose additional commands and output. The Gin REST API token middleware does not protect this separately started MCP listener. This issue is fixed in version 1.120.0.",
+    "references": [
+      "https://github.com/F1bonacc1/process-compose/security/advisories/GHSA-5gm3-9crp-6g3v",
+      "https://github.com/F1bonacc1/process-compose/commit/6ffa74f462cd2fa4f8dc1ee63c70b793b298c858",
+      "https://github.com/F1bonacc1/process-compose/releases/tag/v1.120.0"
+    ],
+    "euvdId": "EUVD-2026-83168",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
   "CVE-2026-50158": {
     "id": "CVE-2026-50158",
     "title": "yutu is an AI-powered toolkit for managing and growing YouTube channels. Prior to 0.10.9, the caption-download MCP tool accepts a caller-controlled file parameter through cmd/caption/download.go and …",
     "sources": ["euvd"],
     "severity": "7.7 (3.1)",
     "cvssBase": 7.7,
-    "epss": 0,
+    "epss": 0.17,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 9:43:49 PM",
@@ -5444,7 +5659,7 @@
     "sources": ["euvd"],
     "severity": "7.5 (3.1)",
     "cvssBase": 7.5,
-    "epss": 0,
+    "epss": 0.41,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 7:52:37 PM",
@@ -5468,7 +5683,7 @@
     "sources": ["euvd"],
     "severity": "9.4 (3.1)",
     "cvssBase": 9.4,
-    "epss": 0,
+    "epss": 0.4,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 7:45:15 PM",
@@ -5522,7 +5737,7 @@
     "sources": ["euvd"],
     "severity": "8.1 (3.1)",
     "cvssBase": 8.1,
-    "epss": 0,
+    "epss": 0.47,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 5:13:29 PM",
@@ -5547,7 +5762,7 @@
     "sources": ["euvd"],
     "severity": "8.8 (3.1)",
     "cvssBase": 8.8,
-    "epss": 0,
+    "epss": 0.67,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 6:36:40 PM",
@@ -5696,36 +5911,6 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
-  "CVE-2026-93189": {
-    "id": "CVE-2026-93189",
-    "title": "In the Linux kernel, the following vulnerability has been resolved: HID: core: quiesce input in hid_hw_stop() to prevent use-after-free A driver's probe calls hid_device_io_start() to enable input de…",
-    "sources": ["euvd"],
-    "severity": "0",
-    "cvssBase": 0,
-    "epss": 0,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 17, 2026, 4:12:14 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82297",
-    "aliases": ["GHSA-c7vq-j3hm-m6qq", "CVE-2026-93189"],
-    "packages": [],
-    "vendor": "Linux",
-    "product": "Linux",
-    "description": "In the Linux kernel, the following vulnerability has been resolved: HID: core: quiesce input in hid_hw_stop() to prevent use-after-free A driver's probe calls hid_device_io_start() to enable input delivery, then fails at a later initialization step and unwinds via hid_hw_stop(). The unwind frees struct hidraw via hidraw_disconnect() while in-flight HID reports may still be running on another CPU, dereferencing the freed object through hidraw_report_event(). syzbot reports the resulting use-after-free for the corsair-psu HID driver. Edward Adam Davis posted a per-driver fix for corsair-psu that adds an explicit hid_device_io_stop() before hid_hw_stop() in the probe error path (\"hwmon: prevent packets from going to driver for probe\", 2026-04-28). Auditing the tree shows 15 drivers call hid_device_io_start(); 7 also call hid_device_io_stop() and 8 do not: drivers calling hid_device_io_start() without a matching hid_device_io_stop() before hid_hw_stop(): drivers/hwmon/corsair-psu.c (fix posted by Edward) drivers/hwmon/corsair-cpro.c drivers/hwmon/nzxt-kraken3.c drivers/hwmon/nzxt-smart2.c drivers/hwmon/gigabyte_waterforce.c drivers/hid/hid-logitech-dj.c drivers/hid/hid-nintendo.c drivers/hid/hid-mcp2221.c Roughly half of all callers of the API are exposed. Centralize the quiesce in hid_hw_stop() so callers do not have to remember the matching stop: if a driver has left hdev->io_started true on entry, call hid_device_io_stop() before hid_disconnect(). For the 7 drivers that already call hid_device_io_stop() correctly, hdev->io_started is false on entry, the guard short-circuits, and behavior is unchanged. No Fixes: tag because the affected drivers gained their hid_device_io_start() calls independently over years; the bug is a class-wide API misuse rather than a regression from one commit.",
-    "references": [
-      "https://git.kernel.org/stable/c/0744cb9520aade37e78f69134f3111086158f1d2",
-      "https://git.kernel.org/stable/c/c876c437d188911685d8bed645416f2e86bd0354",
-      "https://git.kernel.org/stable/c/6787f1828f5616f17250e108c0031fb96fd2cfe6",
-      "https://git.kernel.org/stable/c/92cca302a4eaf65d1b38b3fb600b4ee5eb856a51",
-      "https://git.kernel.org/stable/c/02246d8b462fd9bd90bc7ae7d6cab1acf69bcb87",
-      "https://git.kernel.org/stable/c/544ebb25bd58f67e821573412ab7a982b9e02211",
-      "https://git.kernel.org/stable/c/0fecd89f979a8653b9a5b0816570329b7a94a081",
-      "https://git.kernel.org/stable/c/a4bc41504690b7d7064931909874f5b98cd148b6"
-    ],
-    "euvdId": "EUVD-2026-82297",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
   "CVE-2026-91931": {
     "id": "CVE-2026-91931",
     "title": "Flowise before 3.1.4 contains a remote code execution vulnerability in the Custom MCP node that allows authenticated attackers to execute arbitrary code by supplying npx package names in the mcpServe…",
@@ -5799,32 +5984,6 @@
       "https://github.com/MervinPraison/PraisonAI/releases/tag/v4.6.60"
     ],
     "euvdId": "EUVD-2026-78393",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-64684": {
-    "id": "CVE-2026-64684",
-    "title": "RMCP is an official Rust SDK for the Model Context Protocol. Prior to 2.1.0, the rmcp crate's StreamableHttpClientTransport in crates/rmcp/src/transport/common/reqwest/streamable_http_client.rs build…",
-    "sources": ["euvd"],
-    "severity": "6.8 (3.1)",
-    "cvssBase": 6.8,
-    "epss": 0.4,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 16, 2026, 9:18:48 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-81266",
-    "aliases": ["GHSA-9g45-5xwm-f3wc", "CVE-2026-64684"],
-    "packages": [],
-    "vendor": "modelcontextprotocol",
-    "product": "rust-sdk",
-    "description": "RMCP is an official Rust SDK for the Model Context Protocol. Prior to 2.1.0, the rmcp crate's StreamableHttpClientTransport in crates/rmcp/src/transport/common/reqwest/streamable_http_client.rs builds its default_http_client with reqwest's automatic redirect policy and applies caller-supplied values from StreamableHttpClientTransportConfig.custom_headers without marking them as sensitive. When a malicious or compromised MCP endpoint returns a cross-origin 307 or 308 redirect, reqwest follows the redirect and apply_custom_headers causes custom API keys or authentication tokens to be replayed to the new origin, where an attacker can capture and reuse them. The separate auth_header path is not affected because it uses the standard Authorization header, which reqwest strips on cross-origin redirects. This issue is fixed in version 2.1.0.",
-    "references": [
-      "https://github.com/modelcontextprotocol/rust-sdk/security/advisories/GHSA-9g45-5xwm-f3wc",
-      "https://github.com/modelcontextprotocol/rust-sdk/pull/936",
-      "https://github.com/modelcontextprotocol/rust-sdk/commit/496902b9cf2c8a947454718da31829ae776b969b",
-      "https://github.com/modelcontextprotocol/rust-sdk/releases/tag/rmcp-v2.1.0"
-    ],
-    "euvdId": "EUVD-2026-81266",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -7836,83 +7995,6 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
-  "CVE-2026-82905": {
-    "id": "CVE-2026-82905",
-    "title": "A vulnerability was detected in sdcb chats up to 1.12.0. This affects the function McpController of the file src/BE/web/Controllers/Users/Mcps/McpController.cs of the component fetch-tools Endpoint. …",
-    "sources": ["euvd"],
-    "severity": "5.3 (4.0)",
-    "cvssBase": 5.3,
-    "epss": 0.35,
-    "kev": false,
-    "kevSources": [],
-    "published": "Aug 31, 2026, 7:45:08 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-68740",
-    "aliases": ["GHSA-36p9-wgqq-whgv", "CVE-2026-82905"],
-    "packages": [],
-    "vendor": "sdcb",
-    "product": "chats",
-    "description": "A vulnerability was detected in sdcb chats up to 1.12.0. This affects the function McpController of the file src/BE/web/Controllers/Users/Mcps/McpController.cs of the component fetch-tools Endpoint. The manipulation results in server-side request forgery. The attack may be launched remotely. The exploit is now public and may be used. The vendor was contacted early about this disclosure but did not respond in any way.",
-    "references": [
-      "https://vuldb.com/vuln/397285",
-      "https://vuldb.com/vuln/397285/cti",
-      "https://vuldb.com/cve/CVE-2026-82905",
-      "https://vuldb.com/submit/877764",
-      "https://github.com/yaowenxiao721/Poc/blob/main/sdcb-chats/chats-poc-1.md"
-    ],
-    "euvdId": "EUVD-2026-68740",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-79747": {
-    "id": "CVE-2026-79747",
-    "title": "MCPHub is a unified hub for centrally managing and dynamically orchestrating multiple MCP servers/APIs into separate endpoints with flexible routing strategies. Prior to version 1.0.32, an authentica…",
-    "sources": ["euvd"],
-    "severity": "7.1 (3.1)",
-    "cvssBase": 7.1,
-    "epss": 0.18,
-    "kev": false,
-    "kevSources": [],
-    "published": "Aug 31, 2026, 5:55:20 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-68687",
-    "aliases": ["CVE-2026-79747"],
-    "packages": [],
-    "vendor": "MCPHub",
-    "product": "MCPHub",
-    "description": "MCPHub is a unified hub for centrally managing and dynamically orchestrating multiple MCP servers/APIs into separate endpoints with flexible routing strategies. Prior to version 1.0.32, an authenticated non-admin user can register a server pointing at an arbitrary URL and make the hub issue server-side requests to it, with no egress filtering (no block of loopback / RFC1918 / link-local 169.254.0.0/16). Via the OpenAPI proxy path the response body is returned to the caller (full, reflected SSRF); via the SSE/streamable-http transport the request is sent blind. This issue has been patched in version 1.0.32.",
-    "references": [
-      "https://github.com/samanhappy/mcphub/security/advisories/GHSA-9wx9-prgc-gmjr",
-      "https://github.com/samanhappy/mcphub/releases/tag/v1.0.32"
-    ],
-    "euvdId": "EUVD-2026-68687",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-82021": {
-    "id": "CVE-2026-82021",
-    "title": "Hermes Agent 0.18.2 prior to 0.19.0 contains a supply chain vulnerability in its bundled MCP catalog that allows a remote attacker to execute arbitrary code by compromising a third-party upstream rep…",
-    "sources": ["euvd"],
-    "severity": "9 (4.0)",
-    "cvssBase": 9,
-    "epss": 0.23,
-    "kev": false,
-    "kevSources": [],
-    "published": "Aug 28, 2026, 6:50:38 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-67867",
-    "aliases": ["GHSA-w9gw-vgmg-q67h", "CVE-2026-82021"],
-    "packages": [],
-    "vendor": "NousResearch",
-    "product": "hermes-agent",
-    "description": "Hermes Agent 0.18.2 prior to 0.19.0 contains a supply chain vulnerability in its bundled MCP catalog that allows a remote attacker to execute arbitrary code by compromising a third-party upstream repository referenced via a mutable branch rather than a pinned commit SHA. An attacker who compromises the upstream repository can propagate malicious code to every host that installs the affected catalog entry, with no further action required by the operator.",
-    "references": [
-      "https://github.com/NousResearch/hermes-agent/releases/tag/v2026.7.20",
-      "https://github.com/NousResearch/hermes-agent/pull/64463",
-      "https://github.com/NousResearch/hermes-agent/commit/9df5f879b4a5925c0f8f947e7e16ed8e845932c3",
-      "https://www.vulncheck.com/advisories/hermes-agent-mcp-catalog-supply-chain-rce-via-mutable-branch-reference"
-    ],
-    "euvdId": "EUVD-2026-67867",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
   "CVE-2025-15514": {
     "id": "CVE-2025-15514",
     "title": "Ollama 0.11.5-rc0 through current version 0.13.5 contain a null pointer dereference vulnerability in the multi-modal model image processing functionality. When processing base64-encoded image data vi…",
@@ -8468,7 +8550,7 @@
     "sources": ["euvd"],
     "severity": "7.5 (3.1)",
     "cvssBase": 7.5,
-    "epss": 0.0473,
+    "epss": 0.0521,
     "kev": false,
     "kevSources": [],
     "published": "Jan 21, 2026, 12:00:00 AM",
@@ -8492,7 +8574,7 @@
     "sources": ["euvd"],
     "severity": "7.5 (3.1)",
     "cvssBase": 7.5,
-    "epss": 0.38,
+    "epss": 0.42,
     "kev": false,
     "kevSources": [],
     "published": "Jan 21, 2026, 12:00:00 AM",
@@ -10955,9 +11037,9 @@
     "id": "CVE-2026-92230",
     "title": "Apache Karaf's XmlUtils cached XML parser/transformer factories in static ThreadLocal fields on long-lived container threads. Because a ThreadLocal value outlives the OSGi bundle that created it, rep…",
     "sources": ["euvd"],
-    "severity": "0",
-    "cvssBase": 0,
-    "epss": 0,
+    "severity": "7.5 (3.1)",
+    "cvssBase": 7.5,
+    "epss": 0.17,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 6:38:29 PM",
@@ -10978,7 +11060,7 @@
     "sources": ["euvd"],
     "severity": "6.9 (4.0)",
     "cvssBase": 6.9,
-    "epss": 0,
+    "epss": 0.42,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 1:46:01 PM",
@@ -11871,7 +11953,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.32,
+    "epss": 0.33,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:52 PM",
@@ -11892,7 +11974,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.33,
+    "epss": 0.34,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:48 PM",
@@ -11913,7 +11995,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.32,
+    "epss": 0.33,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:40 PM",
@@ -11934,7 +12016,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.32,
+    "epss": 0.33,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:36 PM",
@@ -11955,7 +12037,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.33,
+    "epss": 0.34,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:32 PM",
@@ -11976,7 +12058,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.33,
+    "epss": 0.34,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:28 PM",
@@ -11997,7 +12079,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.32,
+    "epss": 0.33,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:23 PM",
@@ -12018,7 +12100,7 @@
     "sources": ["euvd"],
     "severity": "7.8 (3.0)",
     "cvssBase": 7.8,
-    "epss": 0.38,
+    "epss": 0.37,
     "kev": false,
     "kevSources": [],
     "published": "Dec 23, 2025, 9:04:15 PM",
