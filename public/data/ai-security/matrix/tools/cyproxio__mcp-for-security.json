@@ -7,9 +7,9 @@
   "description": "MCP for Security: A collection of Model Context Protocol servers for popular security tools like SQLMap, FFUF, NMAP, Masscan and more. Integrate security testing and penetration testing into AI workflows.",
   "homepage": "https://cyprox.io",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-17T08:41:52Z",
+  "checkedAt": "2026-09-19T08:06:22Z",
   "pushedAt": "2026-03-30",
-  "daysIdle": 171,
+  "daysIdle": 173,
   "archived": true,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-17T08:41:52Z",
+      "checked_at": "2026-09-19T08:06:22Z",
       "cloned": true,
       "alive": {
         "archived": true,
         "pushed_at": "2026-03-30",
-        "days_since_push": 171,
+        "days_since_push": 173,
         "total_commits": 71,
         "last100_span_days": 361,
         "last100_authors": 4,
         "releases": 1,
         "latest_release_at": "2025-07-02",
-        "days_since_release": 442,
-        "days_idle": 171,
+        "days_since_release": 444,
+        "days_idle": 173,
         "relocated": false
       },
       "identity": {

@@ -7,9 +7,9 @@
   "description": "MCP configuration to connect AI agent to a Linux machine.",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-17T08:41:50Z",
+  "checkedAt": "2026-09-19T08:06:18Z",
   "pushedAt": "2026-03-17",
-  "daysIdle": 184,
+  "daysIdle": 186,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,25 +20,25 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-17T08:41:50Z",
+      "checked_at": "2026-09-19T08:06:18Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-03-17",
-        "days_since_push": 184,
+        "days_since_push": 186,
         "total_commits": 47,
         "last100_span_days": 344,
         "last100_authors": 4,
         "releases": 1,
         "latest_release_at": "2025-04-08",
-        "days_since_release": 527,
-        "days_idle": 184,
+        "days_since_release": 529,
+        "days_idle": 186,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "Wh0am123/MCP-Kali-Server",
         "stars": 826,
-        "forks": 164,
+        "forks": 166,
         "created_at": "2025-04-07",
         "is_fork": false,
         "contributors": 4,
