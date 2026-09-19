@@ -1,31 +1,17 @@
 {
   "sector": "healthcare",
   "title": "Healthcare sector brief",
-  "generatedAt": "2026-09-18",
+  "generatedAt": "2026-09-19",
   "topCount": 8,
-  "preview": "CVE-2026-86060 (critical) leads with priority 92.",
-  "sizeBytes": 2826,
+  "preview": "CVE-2026-81578 (critical) leads with priority 91.",
+  "sizeBytes": 2827,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
-    {
-      "cveId": "CVE-2026-86060",
-      "title": "RouterOS contains an argument-handling flaw in the SSH login\npath involving usernames that begin with a prohibited chara",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
     {
       "cveId": "CVE-2026-81578",
       "title": "An improper access control vulnerability exists in the web management interface of PaperCut MF and PaperCut NG. Under sp",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-84869",
-      "title": "A condition in the ScreenConnect client may allow files to be transferred and executed through an active remote session ",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.9; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
@@ -50,10 +36,10 @@
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2026-67277",
-      "title": "RouterOS accepts a \"related\" btest connection before the corresponding primary session has completed authentication. An ",
+      "cveId": "CVE-2026-53266",
+      "title": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: bridge: make ebt_snat ARP rewrite writab",
       "relevance": "broadly-critical",
-      "risk": "CVSS 8.2; actively exploited.",
+      "risk": "CVSS 8.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
@@ -61,6 +47,20 @@
       "title": "A vulnerability in the Remote Access SSL VPN service for Cisco Secure Firewall Adaptive Security Appliance (ASA) Softwar",
       "relevance": "broadly-critical",
       "risk": "CVSS 8.6; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2025-39682",
+      "title": "In the Linux kernel, the following vulnerability has been resolved:\n\ntls: fix handling of zero-length records on the rx_",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-20316",
+      "title": "A vulnerability in the web interface of Cisco Secure Firewall Management Center (FMC) Software could allow an unauthenti",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 5.3; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     }
   ]
