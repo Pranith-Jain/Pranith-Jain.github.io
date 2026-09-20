@@ -4,94 +4,64 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-09-15T14:22:06.000Z",
-  "lastSeen": "2026-09-16T21:53:11.000Z",
-  "summary": "Sector hit by 9 leak-site victims across 6 ransomware groups and 6 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-09-18T10:09:56.000Z",
+  "lastSeen": "2026-09-19T17:23:32.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-15",
-      "count": 1
+      "date": "2026-09-18",
+      "count": 4
     },
     {
-      "date": "2026-09-16",
-      "count": 8
+      "date": "2026-09-19",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "handytrac-greystar-az-warning-5b14",
-      "title": "HandyTrac Greystar AZ WARNING — claimed by shadowbyt3$",
-      "pubDate": "2026-09-16T21:53:11.000Z"
+      "slug": "francaretrad-83b0",
+      "title": "FRANCARETRAD — claimed by zawoo",
+      "pubDate": "2026-09-19T17:23:32.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "buben-02f0",
-      "title": "buben — claimed by auditteam",
-      "pubDate": "2026-09-16T18:22:08.000Z"
+      "slug": "ambpvc-de47",
+      "title": "ambpvc — claimed by zawoo",
+      "pubDate": "2026-09-19T17:22:42.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "gownet-net-8193",
-      "title": "gownet.net — claimed by auditteam",
-      "pubDate": "2026-09-16T18:21:20.000Z"
+      "slug": "k3g-solutions-brazil-023c",
+      "title": "K3G Solutions Brazil — claimed by panzer",
+      "pubDate": "2026-09-18T22:23:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "krimax-org-ad93",
-      "title": "krimax.org — claimed by auditteam",
-      "pubDate": "2026-09-16T18:20:54.000Z"
+      "slug": "prefix-corp-bd97",
+      "title": "Prefix Corp — claimed by securotrop",
+      "pubDate": "2026-09-18T15:45:39.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "in-the-company-of-huskies-cca6",
-      "title": "In The Company of Huskies — claimed by qilin",
-      "pubDate": "2026-09-16T17:02:23.000Z"
+      "slug": "vietnamese-betting-operator-gc789-network-boundless-te-1a96",
+      "title": "Vietnamese betting operator (GC789 network / Boundless TE) — claimed by n0n",
+      "pubDate": "2026-09-18T15:23:23.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "thorndale-foundation-f525",
-      "title": "Thorndale Foundation — claimed by qilin",
-      "pubDate": "2026-09-16T15:05:57.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "nielsen-design-af8c",
-      "title": "Nielsen Design — claimed by panzer",
-      "pubDate": "2026-09-16T13:22:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "community-property-management-a19f",
-      "title": "Community Property Management — claimed by dragonforce",
-      "pubDate": "2026-09-16T03:55:01.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "lazyboyz-4c33",
-      "title": "Lazyboyz — claimed by akira",
-      "pubDate": "2026-09-15T14:22:06.000Z"
+      "slug": "grupo-juste-2ec4",
+      "title": "Grupo Juste — claimed by qilin",
+      "pubDate": "2026-09-18T10:09:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "auditteam",
-      "name": "auditteam",
-      "weight": 3
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "zawoo",
+      "name": "zawoo",
       "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "shadowbyt3",
-      "name": "shadowbyt3$",
-      "weight": 1
     },
     {
       "type": "group",
@@ -101,14 +71,20 @@
     },
     {
       "type": "group",
-      "slug": "dragonforce",
-      "name": "dragonforce",
+      "slug": "securotrop",
+      "name": "securotrop",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "akira",
-      "name": "akira",
+      "slug": "n0n",
+      "name": "n0n",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 1
     }
   ],

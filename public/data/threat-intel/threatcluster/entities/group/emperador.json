@@ -5,27 +5,27 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-16T18:54:25.000Z",
-  "lastSeen": "2026-09-16T20:50:58.000Z",
+  "firstSeen": "2026-09-19T07:50:51.000Z",
+  "lastSeen": "2026-09-19T15:50:53.000Z",
   "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-16",
+      "date": "2026-09-19",
       "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "rda-motors-s-p-a-845c",
-      "title": "RDA MOTORS S.P.A. — claimed by emperador",
-      "pubDate": "2026-09-16T20:50:58.000Z"
+      "slug": "electrolux-b50b",
+      "title": "Electrolux — claimed by emperador",
+      "pubDate": "2026-09-19T15:50:53.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "sevenoaks-s-r-o-ca1e",
-      "title": "SEVENOAKS s.r.o. — claimed by emperador",
-      "pubDate": "2026-09-16T18:54:25.000Z"
+      "slug": "cassias-mg-government-f13b",
+      "title": "Cassias MG Government — claimed by emperador",
+      "pubDate": "2026-09-19T07:50:51.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,26 +37,26 @@
     },
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "government-defense",
+      "name": "Government & Defense",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "rda-motors-s-p-a-845c",
-      "victim": "RDA MOTORS S.P.A. — claimed by emperador",
+      "id": "electrolux-b50b",
+      "victim": "Electrolux — claimed by emperador",
       "sector": "Manufacturing",
-      "country": "IT",
-      "pubDate": "2026-09-16T20:50:58.000Z"
+      "country": "SE",
+      "pubDate": "2026-09-19T15:50:53.000Z"
     },
     {
-      "id": "sevenoaks-s-r-o-ca1e",
-      "victim": "SEVENOAKS s.r.o. — claimed by emperador",
-      "sector": "Not Found",
-      "country": "CZ",
-      "pubDate": "2026-09-16T18:54:25.000Z"
+      "id": "cassias-mg-government-f13b",
+      "victim": "Cassias MG Government — claimed by emperador",
+      "sector": "Government & Defense",
+      "country": "BR",
+      "pubDate": "2026-09-19T07:50:51.000Z"
     }
   ]
 }

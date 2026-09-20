@@ -4,40 +4,59 @@
   "name": "arcusmedia",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-16T13:53:57.000Z",
-  "lastSeen": "2026-09-16T13:53:57.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-19T16:53:14.000Z",
+  "lastSeen": "2026-09-19T16:53:54.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-16",
-      "count": 1
+      "date": "2026-09-19",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "arda-9489",
-      "title": "ARDA — claimed by arcusmedia",
-      "pubDate": "2026-09-16T13:53:57.000Z"
+      "slug": "schneider-s-computing-1764",
+      "title": "Schneider’s Computing — claimed by arcusmedia",
+      "pubDate": "2026-09-19T16:53:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "akazzo-dcb4",
+      "title": "AKAZZO — claimed by arcusmedia",
+      "pubDate": "2026-09-19T16:53:14.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "arda-9489",
-      "victim": "ARDA — claimed by arcusmedia",
-      "sector": "Government & Defense",
-      "country": null,
-      "pubDate": "2026-09-16T13:53:57.000Z"
+      "id": "schneider-s-computing-1764",
+      "victim": "Schneider’s Computing — claimed by arcusmedia",
+      "sector": "Technology",
+      "country": "CA",
+      "pubDate": "2026-09-19T16:53:54.000Z"
+    },
+    {
+      "id": "akazzo-dcb4",
+      "victim": "AKAZZO — claimed by arcusmedia",
+      "sector": "Not Found",
+      "country": "BR",
+      "pubDate": "2026-09-19T16:53:14.000Z"
     }
   ]
 }

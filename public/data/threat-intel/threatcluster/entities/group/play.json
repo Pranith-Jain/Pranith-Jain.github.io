@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "play",
+  "name": "play",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-18T20:43:11.000Z",
+  "lastSeen": "2026-09-18T20:44:20.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-18",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "vista-plastic-solutions-d4c5",
+      "title": "Vista Plastic Solutions — claimed by play",
+      "pubDate": "2026-09-18T20:44:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "inglewood-golf-47af",
+      "title": "Inglewood Golf — claimed by play",
+      "pubDate": "2026-09-18T20:43:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "barrett-mahony-consulting-engineers-654c",
+      "title": "Barrett Mahony Consulting Engineers — claimed by play",
+      "pubDate": "2026-09-18T20:43:11.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "vista-plastic-solutions-d4c5",
+      "victim": "Vista Plastic Solutions — claimed by play",
+      "sector": "Manufacturing",
+      "country": "CA",
+      "pubDate": "2026-09-18T20:44:20.000Z"
+    },
+    {
+      "id": "inglewood-golf-47af",
+      "victim": "Inglewood Golf — claimed by play",
+      "sector": "Hospitality",
+      "country": "CA",
+      "pubDate": "2026-09-18T20:43:47.000Z"
+    },
+    {
+      "id": "barrett-mahony-consulting-engineers-654c",
+      "victim": "Barrett Mahony Consulting Engineers — claimed by play",
+      "sector": "Professional Services",
+      "country": "IE",
+      "pubDate": "2026-09-18T20:43:11.000Z"
+    }
+  ]
+}

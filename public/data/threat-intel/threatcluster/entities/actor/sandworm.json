@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "sandworm",
+  "name": "Sandworm",
+  "aliases": [],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-16T00:00:00.000Z",
+  "lastSeen": "2026-09-16T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-09-16",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "c3fe4803-f7f9-5795-81c2-d11f0ee11611",
+      "title": "Critical Zero-Day Vulnerability in Cisco ISE Under Active Exploitation",
+      "pubDate": "2026-09-16T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

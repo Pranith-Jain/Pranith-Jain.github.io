@@ -1,0 +1,66 @@
+{
+  "type": "group",
+  "slug": "rhysida",
+  "name": "rhysida",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-18T13:48:49.000Z",
+  "lastSeen": "2026-09-19T15:07:38.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-18",
+      "count": 1
+    },
+    {
+      "date": "2026-09-19",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "kreishandwerkerschaft-borken-a871",
+      "title": "Kreishandwerkerschaft Borken — claimed by rhysida",
+      "pubDate": "2026-09-19T15:07:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mpa-pharma-ee76",
+      "title": "MPA Pharma — claimed by rhysida",
+      "pubDate": "2026-09-18T13:48:49.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "kreishandwerkerschaft-borken-a871",
+      "victim": "Kreishandwerkerschaft Borken — claimed by rhysida",
+      "sector": "Professional Services",
+      "country": "DE",
+      "pubDate": "2026-09-19T15:07:38.000Z"
+    },
+    {
+      "id": "mpa-pharma-ee76",
+      "victim": "MPA Pharma — claimed by rhysida",
+      "sector": "Healthcare",
+      "country": "DE",
+      "pubDate": "2026-09-18T13:48:49.000Z"
+    }
+  ]
+}

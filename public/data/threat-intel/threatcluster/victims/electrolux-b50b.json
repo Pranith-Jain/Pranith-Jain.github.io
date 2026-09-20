@@ -1,0 +1,14 @@
+{
+  "id": "electrolux-b50b",
+  "victim": "Electrolux",
+  "group": "emperador",
+  "sector": "Manufacturing",
+  "country": "SE",
+  "title": "Electrolux — claimed by emperador",
+  "link": "https://threatcluster.io/dark-web/victim/Electrolux",
+  "guid": "darkweb-victim:emperador:electrolux",
+  "pubDate": "2026-09-19T15:50:53.000Z",
+  "categories": ["Group: emperador", "Sector: Manufacturing", "Country: SE"],
+  "description": "SE · Manufacturing · Electrolux Group is a Swedish multinational home-appliance manufacturer, producing refrigerators, washing machines, ovens, dishwashers, vacuum cleaners, and other household appliances under several brands worldwide.\n\nWe were able to access your azure database, and export every piece of data which adds up to ~41GB.\n\nYou will receive an email shortly containing the instructions you need to proce",
+  "sizeBytes": 417
+}
