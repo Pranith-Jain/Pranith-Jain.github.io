@@ -4,172 +4,110 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-09-15T12:01:12.000Z",
-  "lastSeen": "2026-09-16T17:02:52.000Z",
-  "summary": "Ransomware group with 9 leak-site victims across 5 sectors and 6 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-18T10:09:09.000Z",
+  "lastSeen": "2026-09-18T10:12:12.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-15",
-      "count": 4
-    },
-    {
-      "date": "2026-09-16",
+      "date": "2026-09-18",
       "count": 5
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "reddrop-group-1da6",
-      "title": "Reddrop Group — claimed by qilin",
-      "pubDate": "2026-09-16T17:02:52.000Z"
+      "slug": "ascend-com-e8f3",
+      "title": "Ascend Com — claimed by qilin",
+      "pubDate": "2026-09-18T10:12:12.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "in-the-company-of-huskies-cca6",
-      "title": "In The Company of Huskies — claimed by qilin",
-      "pubDate": "2026-09-16T17:02:23.000Z"
+      "slug": "ceres-tolvas-3835",
+      "title": "Ceres Tolvas — claimed by qilin",
+      "pubDate": "2026-09-18T10:11:27.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "thorndale-foundation-f525",
-      "title": "Thorndale Foundation — claimed by qilin",
-      "pubDate": "2026-09-16T15:05:57.000Z"
+      "slug": "futuro-forestal-004c",
+      "title": "Futuro Forestal — claimed by qilin",
+      "pubDate": "2026-09-18T10:10:42.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "thema-foundries-9027",
-      "title": "Thema Foundries — claimed by qilin",
-      "pubDate": "2026-09-16T15:05:26.000Z"
+      "slug": "grupo-juste-2ec4",
+      "title": "Grupo Juste — claimed by qilin",
+      "pubDate": "2026-09-18T10:09:56.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "aarsleff-3eb5",
-      "title": "Aarsleff — claimed by qilin",
-      "pubDate": "2026-09-16T04:01:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "taurus-ib-rica-9060",
-      "title": "Taurus Ibérica — claimed by qilin",
-      "pubDate": "2026-09-15T15:01:54.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "montana-civil-contractors-b403",
-      "title": "Montana Civil Contractors — claimed by qilin",
-      "pubDate": "2026-09-15T14:02:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "resolve-law-group-47d1",
-      "title": "Resolve Law Group — claimed by qilin",
-      "pubDate": "2026-09-15T13:03:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "adm-a5cf",
-      "title": "ADM — claimed by qilin",
-      "pubDate": "2026-09-15T12:01:12.000Z"
+      "slug": "inland-and-offshore-contractors-e001",
+      "title": "Inland and Offshore Contractors — claimed by qilin",
+      "pubDate": "2026-09-18T10:09:09.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 4
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
     },
     {
       "type": "sector",
       "slug": "other",
       "name": "Other",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "reddrop-group-1da6",
-      "victim": "Reddrop Group — claimed by qilin",
-      "sector": "Not Found",
-      "country": "AU",
-      "pubDate": "2026-09-16T17:02:52.000Z"
+      "id": "ascend-com-e8f3",
+      "victim": "Ascend Com — claimed by qilin",
+      "sector": "Technology",
+      "country": "SG",
+      "pubDate": "2026-09-18T10:12:12.000Z"
     },
     {
-      "id": "in-the-company-of-huskies-cca6",
-      "victim": "In The Company of Huskies — claimed by qilin",
-      "sector": "Other",
-      "country": "CA",
-      "pubDate": "2026-09-16T17:02:23.000Z"
-    },
-    {
-      "id": "thorndale-foundation-f525",
-      "victim": "Thorndale Foundation — claimed by qilin",
-      "sector": "Other",
-      "country": "AU",
-      "pubDate": "2026-09-16T15:05:57.000Z"
-    },
-    {
-      "id": "thema-foundries-9027",
-      "victim": "Thema Foundries — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "FR",
-      "pubDate": "2026-09-16T15:05:26.000Z"
-    },
-    {
-      "id": "aarsleff-3eb5",
-      "victim": "Aarsleff — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "SE",
-      "pubDate": "2026-09-16T04:01:03.000Z"
-    },
-    {
-      "id": "taurus-ib-rica-9060",
-      "victim": "Taurus Ibérica — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "ES",
-      "pubDate": "2026-09-15T15:01:54.000Z"
-    },
-    {
-      "id": "montana-civil-contractors-b403",
-      "victim": "Montana Civil Contractors — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-15T14:02:02.000Z"
-    },
-    {
-      "id": "resolve-law-group-47d1",
-      "victim": "Resolve Law Group — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-15T13:03:21.000Z"
-    },
-    {
-      "id": "adm-a5cf",
-      "victim": "ADM — claimed by qilin",
+      "id": "ceres-tolvas-3835",
+      "victim": "Ceres Tolvas — claimed by qilin",
       "sector": "Agriculture and Food Production",
-      "country": "US",
-      "pubDate": "2026-09-15T12:01:12.000Z"
+      "country": "AR",
+      "pubDate": "2026-09-18T10:11:27.000Z"
+    },
+    {
+      "id": "futuro-forestal-004c",
+      "victim": "Futuro Forestal — claimed by qilin",
+      "sector": "Agriculture and Food Production",
+      "country": "CL",
+      "pubDate": "2026-09-18T10:10:42.000Z"
+    },
+    {
+      "id": "grupo-juste-2ec4",
+      "victim": "Grupo Juste — claimed by qilin",
+      "sector": "Other",
+      "country": "MX",
+      "pubDate": "2026-09-18T10:09:56.000Z"
+    },
+    {
+      "id": "inland-and-offshore-contractors-e001",
+      "victim": "Inland and Offshore Contractors — claimed by qilin",
+      "sector": "Energy & Utilities",
+      "country": "TT",
+      "pubDate": "2026-09-18T10:09:09.000Z"
     }
   ]
 }

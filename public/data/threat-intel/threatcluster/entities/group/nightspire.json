@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "nightspire",
+  "name": "nightspire",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-20T06:40:26.000Z",
+  "lastSeen": "2026-09-20T06:40:26.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-20",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "great-bay-bio-a128",
+      "title": "Great Bay Bio — claimed by nightspire",
+      "pubDate": "2026-09-20T06:40:26.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "great-bay-bio-a128",
+      "victim": "Great Bay Bio — claimed by nightspire",
+      "sector": "Healthcare",
+      "country": "HK",
+      "pubDate": "2026-09-20T06:40:26.000Z"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "paypal-support-operations-transcom-worldwide-1d4d",
+  "victim": "PayPal support operations (Transcom WorldWide)",
+  "group": "n0n",
+  "sector": "Financial Services",
+  "country": "SE",
+  "title": "PayPal support operations (Transcom WorldWide) — claimed by n0n",
+  "link": "https://threatcluster.io/dark-web/victim/PayPal%20support%20operations%20%28Transcom%20WorldWide%29",
+  "guid": "darkweb-victim:n0n:paypal support operations (transcom worldwide)",
+  "pubDate": "2026-09-18T15:27:18.000Z",
+  "categories": ["Group: n0n", "Sector: Financial Services", "Country: SE"],
+  "description": "SE · Financial Services · Outsourced customer support / financial services · Netherlands / Tunisia | 86.7M connection records: daily support-agent sessions into PayPal corporate Citrix/AAA systems; Complete infrastructure map: internal AD, PKI, Netskope/Zscaler tenants, all 8 sites | All 8 sites are enforcing a network blackout until settlement. | [ACTIVE: deadline 2026-09-21 03:01 UTC]",
+  "sizeBytes": 389
+}

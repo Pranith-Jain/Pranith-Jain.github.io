@@ -3,6 +3,1357 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "A surveillance firm exploiting SS7 protocol vulnerabilities.",
+      "Known_Campaigns": [],
+      "Motivation": "Unauthorized tracking of mobile phone users' locations.",
+      "Sophistication": "High, due to the use of advanced encoding techniques.",
+      "Strategic_Objectives": "To track mobile phone users globally without authorization.",
+      "TTPs_Employed": ["Extended tag encoding", "ASN.1 BER manipulation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of SS7 protocol vulnerabilities.",
+        "Detection": "Monitor SS7 traffic for unusual encoding patterns.",
+        "Remediation": "Implement advanced SS7 firewalls and filtering systems.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in SS7 protocol to execute unauthorized location tracking.",
+            "tactic_id": "T1583",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Manipulating SS7 protocol to bypass security filters and track mobile locations.",
+            "technique_id": "T1583.001",
+            "technique_name": "Exploitation of SS7"
+          }
+        ],
+        "Techniques": ["T1583.001"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Unauthorized tracking of mobile phone users' locations.",
+        "Detection": "Analyze SS7 traffic for anomalies.",
+        "Remediation": "Enhance SS7 security measures and monitoring.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Using SS7 protocol to achieve unauthorized location tracking.",
+            "tactic_id": "T1071",
+            "tactic_name": "Application Layer Protocol"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Leveraging SS7 protocol for unauthorized location tracking.",
+            "technique_id": "T1071.001",
+            "technique_name": "SS7 Protocol"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of extended tag encoding in SS7 messages."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Bypassing security filters"],
+      "Description": "Exploitation of SS7 protocol vulnerabilities for location tracking.",
+      "Exploits": ["SS7 protocol vulnerabilities"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Extended tag encoding", "ASN.1 BER manipulation"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual SS7 encoding patterns."],
+    "Extracted_Entities": {
+      "Assets": ["Mobile devices"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Enea"],
+      "Countries": ["Global"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["SS7", "TCAP", "IMSI", "Enea", "ASN.1 BER"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Telecommunications"],
+      "Software": [],
+      "Technologies": ["SS7 protocol", "TCAP layer"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["SS7 protocol vulnerabilities"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["SS7", "TCAP"],
+      "Description": "Global telecommunications infrastructure using SS7 protocol.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Implement advanced SS7 firewalls and filtering systems."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["SS7 protocol exploitation"],
+      "Tools": ["Extended tag encoding", "ASN.1 BER manipulation"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["SS7 traffic analysis tools"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-07-21T11:09:47Z",
+    "Title": "Exploitation of SS7 Protocol for Unauthorized Mobile Location Tracking",
+    "Tools": ["Extended tag encoding", "ASN.1 BER manipulation"],
+    "Victim": {
+      "Access_Vectors": ["SS7 protocol"],
+      "Data_Types_At_Risk": ["Location data"],
+      "Description": "Mobile phone users globally, targeted through SS7 vulnerabilities.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Telecommunications",
+      "Security_Posture": "Vulnerable due to SS7 protocol weaknesses.",
+      "Targeted_Assets": ["Mobile devices"]
+    },
+    "diamond_model_summary": "The incident involves a surveillance firm exploiting SS7 protocol vulnerabilities to track mobile phone users' locations without authorization. The adversary uses advanced encoding techniques to bypass security filters. The infrastructure targeted is the global telecommunications network, affecting mobile users worldwide.",
+    "doc_summary": "A sophisticated surveillance operation has been discovered exploiting critical vulnerabilities in the global telecommunications infrastructure to track mobile phone users’ locations without authorization. The attack leverages weaknesses in the SS7 protocol, specifically manipulating the TCAP layer. Security experts at Enea’s Threat Intelligence Unit detected a new variant of SS7 exploitation techniques. The attackers use an obscure encoding technique called 'extended tag encoding' to disguise malicious location tracking requests. By manipulating data fields within SS7 messages, attackers bypass security filters. The exploitation centers around ProvideSubscriberInfo commands, with malformed encoding to hide the target’s IMSI. The attack manipulates the ASN.1 BER encoding format, creating packets that many security systems cannot decode. This highlights ongoing vulnerabilities in global telecommunications infrastructure.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610958+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "63dcba61d2e41bdd82b14a20102d78aaa6413071",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves exploiting SS7 protocol vulnerabilities to track mobile phone users' locations. The adversary uses advanced encoding techniques to bypass security filters, focusing on the TCAP layer. The exploitation stage is critical, with unauthorized location tracking as the primary objective.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 80,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes advanced encoding techniques and SS7 protocol manipulation as TTPs. No specific hash values, IP addresses, or domain names were identified. The focus is on the tools and techniques used to exploit SS7 vulnerabilities, highlighting the challenge of detecting and mitigating such attacks.",
+    "relevance_score": 47,
+    "sequence": 17570,
+    "source": "https://gbhackers.com/surveillance-firm-exploits-ss7-flaw/",
+    "slug": "Exploitation_of_SS7_Protocol_for_Unauthorized_Mobile_Location_Tracking-017570",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "No significant information detected",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Apple"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["security updates", "vulnerabilities", "Safari flaw", "Chrome zero-day attacks"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["iOS", "iPadOS", "macOS", "watchOS", "tvOS", "visionOS"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Low",
+    "Threat_Actors": [],
+    "Timestamp": "2025-07-30T13:08:00Z",
+    "Title": "Apple Security Updates Addressing Critical Safari Flaw Exploited in Chrome Zero-Day Attacks",
+    "Tools": ["iOS", "iPadOS", "macOS", "watchOS", "tvOS", "visionOS"],
+    "Victim": {
+      "Access_Vectors": [],
+      "Data_Types_At_Risk": [],
+      "Description": "No significant information detected",
+      "Geography": "",
+      "Impact_Severity": "",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "The incident involves Apple's release of security updates to address vulnerabilities, including a critical Safari flaw exploited in Chrome zero-day attacks. No specific adversary, capability, infrastructure, or victim details are available. The updates span multiple platforms, reflecting the interconnected nature of modern digital threats.",
+    "doc_summary": "Apple released a comprehensive set of security updates on July 29, 2025, addressing multiple vulnerabilities, including a critical Safari flaw exploited in Chrome zero-day attacks. The updates span iOS, iPadOS, macOS, watchOS, tvOS, and visionOS platforms, demonstrating Apple's commitment to security. The updates include iOS 18.6, iPadOS 18.6, macOS Sequoia 15.6, and more, ensuring critical security protections across devices. Apple's security advisory emphasizes the importance of keeping software updated to prevent exploitation by malicious actors. The simultaneous release across platforms suggests vulnerabilities may affect shared components. Users are encouraged to install updates immediately to protect against threats.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610911+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "544d484bb509f5c533e0a96bcdabdcc8e0c418cc",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The incident involves Apple's proactive measures to address vulnerabilities across its ecosystem. No specific tactics or techniques were identified beyond the general update process. The updates aim to prevent exploitation by malicious actors, emphasizing the importance of keeping software updated to maintain security.",
+    "operational_tags": [],
+    "priority_score": 20,
+    "pyramid_of_pain_summary": "The incident does not provide specific indicators such as hash values, IP addresses, or domain names. The focus is on Apple's security updates addressing vulnerabilities, including a critical Safari flaw. The updates aim to prevent exploitation by malicious actors, emphasizing the importance of keeping software updated.",
+    "relevance_score": 55,
+    "sequence": 17569,
+    "source": "https://gbhackers.com/apple-patches-multiple-vulnerabilities/",
+    "slug": "Apple_Security_Updates_Addressing_Critical_Safari_Flaw_Exploited_in_Chro-017569",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary exploits a vulnerability in PHP's PDO library to perform SQL injection attacks.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential data exfiltration or database manipulation.",
+      "Sophistication": "Moderate, requires knowledge of SQL injection techniques.",
+      "Strategic_Objectives": "Compromise database integrity and access sensitive information.",
+      "TTPs_Employed": ["SQL Injection"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Crafting of SQL payloads to exploit PDO's SQL parser.",
+        "Detection": "Monitor for unusual SQL queries and payloads containing null bytes.",
+        "Remediation": "Regularly update PHP and disable PDO::ATTR_EMULATE_PREPARES.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Adversaries may abuse SQL to interact with databases.",
+            "tactic_id": "T1059.007",
+            "tactic_name": "Command and Scripting Interpreter: SQL"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of SQL parser weaknesses in PDO.",
+        "Detection": "Monitor for SQL errors and unexpected database access patterns.",
+        "Remediation": "Implement input validation and use native prepared statements.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of a vulnerability in a public-facing application.",
+            "tactic_id": "T1190",
+            "tactic_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Extraction of database schema information.",
+        "Detection": "Monitor for unusual database queries and access patterns.",
+        "Remediation": "Restrict database permissions and regularly audit access logs.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Adversaries may target data stored in information repositories.",
+            "tactic_id": "T1505",
+            "tactic_name": "Data from Information Repositories"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may target data stored in information repositories.",
+            "technique_id": "T1505",
+            "technique_name": "Data from Information Repositories"
+          }
+        ],
+        "Techniques": ["T1505"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of null bytes and question marks in SQL payloads."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of null bytes and question marks in payloads"],
+      "Description": "Exploitation of SQL parser weaknesses in PHP's PDO library.",
+      "Exploits": ["SQL Injection"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Custom SQL payloads"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual database queries and access patterns."],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for SQL errors and unexpected database access patterns."],
+    "Extracted_Entities": {
+      "Assets": ["Databases"],
+      "Breach_Types": ["SQL Injection"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["SQL Injection", "PDO", "PHP", "Vulnerability"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["PHP 8.4"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["PHP", "PDO"],
+      "Technologies": ["SQL", "Web Applications"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["SQL Injection"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Exploitation occurs on web applications using vulnerable PHP versions.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Update PHP versions and disable PDO::ATTR_EMULATE_PREPARES."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["Unusual database queries"],
+      "TTPs": ["SQL Injection"],
+      "Tools": ["Custom SQL payloads"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["SQL query monitoring tools", "Web application firewalls"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-07-21T11:59:36Z",
+    "Title": "Critical SQL Injection Vulnerability in PHP PDO Library",
+    "Tools": ["Custom SQL payloads", "PHP", "PDO"],
+    "Victim": {
+      "Access_Vectors": ["Web application interfaces"],
+      "Data_Types_At_Risk": ["Database schema information", "Sensitive user data"],
+      "Description": "Web applications using PHP's PDO library with emulated prepared statements.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to outdated PHP versions or misconfigured PDO settings.",
+      "Targeted_Assets": ["Databases"]
+    },
+    "diamond_model_summary": "The incident involves an adversary exploiting a vulnerability in PHP's PDO library to perform SQL injection attacks. The capability includes crafting SQL payloads to exploit PDO's SQL parser. The infrastructure is web applications using vulnerable PHP versions. Victims are web applications in the technology sector, globally.",
+    "doc_summary": "A critical vulnerability in PHP's PDO library allows attackers to inject SQL commands even with prepared statements. Discovered via a DownUnderCTF challenge, it exploits PDO's SQL parser, affecting millions of web apps. The flaw arises from PDO's emulation of prepared statements, misinterpreting user input as bound parameters. Attackers can inject payloads with null bytes and question marks, leading to SQL injection. MySQL is vulnerable by default, PostgreSQL when emulation is enabled, while SQLite is protected. Older PHP versions are more at risk. Security measures include disabling PDO::ATTR_EMULATE_PREPARES and updating PHP. This highlights the need for thorough security testing.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610881+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "dee302e2035f56be9ab690a2e5a0db7eba1132ba",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves crafting SQL payloads to exploit PDO's SQL parser, leading to SQL injection. The exploitation stage targets public-facing applications, extracting database schema information. Defensive measures include updating PHP and disabling PDO::ATTR_EMULATE_PREPARES. Monitoring for unusual SQL queries and access patterns is crucial.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 94,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs like SQL Injection, tools such as custom SQL payloads, and network host artifacts like unusual database queries. No specific hash values, IP addresses, or domain names were identified. The focus is on detecting and mitigating SQL injection attempts through monitoring and updating PHP configurations.",
+    "relevance_score": 51,
+    "sequence": 17568,
+    "source": "https://gbhackers.com/php-pdo-flaw/",
+    "slug": "Critical_SQL_Injection_Vulnerability_in_PHP_PDO_Library-017568",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": ["Linen Typhoon", "Violet Typhoon", "Storm-2603"],
+      "Associated_Groups": ["APT27", "APT31"],
+      "Description": "Chinese threat actors exploiting CVE-2025-53770",
+      "Known_Campaigns": ["ToolShell exploitation"],
+      "Motivation": "Espionage and data theft",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise critical infrastructure and exfiltrate sensitive data",
+      "TTPs_Employed": ["Zero-day exploitation", "Webshell deployment", "Ransomware deployment"]
+    },
+    "Analyses": [
+      {
+        "Description": "Identifying vulnerable SharePoint servers",
+        "Detection": "Monitor network traffic for unusual scanning activity",
+        "Remediation": "Implement network segmentation and access controls",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify targets",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for vulnerable SharePoint servers",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Crafting malicious payloads for exploitation",
+        "Detection": "Analyze file metadata for signs of obfuscation",
+        "Remediation": "Use advanced threat detection tools",
+        "Stage": "Weaponization",
+        "Tactics": [
+          { "tactic_description": "Creating malicious payloads", "tactic_id": "TA0042", "tactic_name": "Weaponization" }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using obfuscation to evade detection",
+            "technique_id": "T1027",
+            "technique_name": "Obfuscated Files or Information"
+          }
+        ],
+        "Techniques": ["T1027"]
+      },
+      {
+        "Description": "Sending crafted POST requests to SharePoint servers",
+        "Detection": "Monitor for unusual POST requests to SharePoint endpoints",
+        "Remediation": "Apply security patches promptly",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to target systems",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in SharePoint",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Exploiting CVE-2025-53770 to execute code",
+        "Detection": "Monitor for execution of unauthorized code",
+        "Remediation": "Implement application whitelisting",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code on target systems",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Deploying webshells on compromised servers",
+        "Detection": "Scan for unauthorized webshells on servers",
+        "Remediation": "Regularly audit server configurations",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to compromised systems",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Installing webshells on servers",
+            "technique_id": "T1505",
+            "technique_name": "Server Software Component"
+          }
+        ],
+        "Techniques": ["T1505"]
+      },
+      {
+        "Description": "Establishing communication with compromised servers",
+        "Detection": "Monitor for unusual outbound traffic patterns",
+        "Remediation": "Implement network traffic analysis tools",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols for C2 communication",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Data theft and ransomware deployment",
+        "Detection": "Monitor for large data transfers",
+        "Remediation": "Encrypt sensitive data at rest",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from compromised systems",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting data from compromised systems",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of Mimikatz for credential harvesting"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Credential harvesting"],
+      "Description": "Exploitation of zero-day vulnerabilities and deployment of webshells",
+      "Exploits": ["CVE-2025-53770"],
+      "Lateral_Movement_Tools": ["PsExec"],
+      "Malware": ["Warlock ransomware"],
+      "Persistence_Mechanisms": ["Webshells"],
+      "Tools": ["Mimikatz", "PsExec"],
+      "Zero_Days": ["CVE-2025-53770"]
+    },
+    "Data_Exfiltration_Indicators": ["Large data transfers"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual POST requests", "Scan for unauthorized webshells"],
+    "Extracted_Entities": {
+      "Assets": ["SharePoint servers"],
+      "Breach_Types": ["Data theft", "Ransomware deployment"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft", "Shadowserver Foundation"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-53770", "ToolShell", "APT27", "APT31", "Storm-2603"],
+      "Malware_Families": ["Warlock ransomware"],
+      "Malware_Filenames": ["spinstall0.aspx"],
+      "Patches": ["Emergency patches for SharePoint"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government", "Healthcare", "Finance", "Education"],
+      "Software": ["Microsoft SharePoint"],
+      "Technologies": ["SharePoint", "ASP.NET"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-53770"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Compromised SharePoint servers and C2 infrastructure",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Rotate machine keys", "Enable Anti-Malware Scan Interface (AMSI)"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["spinstall0.aspx"],
+      "TTPs": ["Zero-day exploitation", "Ransomware deployment"],
+      "Tools": ["Mimikatz", "PsExec"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [
+      "Network traffic analysis tools",
+      "Advanced threat detection tools"
+    ],
+    "Severity": "Critical",
+    "Threat_Actors": ["Linen Typhoon", "Violet Typhoon", "Storm-2603"],
+    "Timestamp": "2025-08-01T05:05:07Z",
+    "Title": "Exploitation of CVE-2025-53770 by Chinese Threat Actors on Microsoft SharePoint Servers",
+    "Tools": ["Mimikatz", "PsExec", "Microsoft SharePoint"],
+    "Victim": {
+      "Access_Vectors": ["Internet-exposed SharePoint servers"],
+      "Data_Types_At_Risk": ["Sensitive government data", "Healthcare records"],
+      "Description": "Organizations across government, healthcare, finance, and education sectors",
+      "Geography": "United States of America",
+      "Impact_Severity": "Critical",
+      "Industry": "Government, Healthcare, Finance, Education",
+      "Security_Posture": "Vulnerable due to unpatched systems",
+      "Targeted_Assets": ["SharePoint servers"]
+    },
+    "diamond_model_summary": "The incident involves Chinese threat actors exploiting a zero-day vulnerability, CVE-2025-53770, in Microsoft SharePoint servers. The adversaries, including APT27, APT31, and Storm-2603, demonstrate high sophistication by deploying webshells and ransomware. The infrastructure includes compromised SharePoint servers, and the victims span government, healthcare, finance, and education sectors in the United States of America. The attackers' capabilities include zero-day exploitation, credential harvesting, and lateral movement.",
+    "doc_summary": "A significant cybersecurity crisis has emerged with the discovery of over 17,000 Microsoft SharePoint servers exposed to internet-based attacks, including 840 systems vulnerable to a critical zero-day vulnerability, CVE-2025-53770, dubbed 'ToolShell'. Chinese threat actors, including Linen Typhoon (APT27), Violet Typhoon (APT31), and Storm-2603, are actively exploiting this vulnerability. The Shadowserver Foundation's findings reveal at least 20 servers compromised with active webshells. The vulnerability allows unauthenticated attackers to execute arbitrary code remotely on SharePoint servers. The exploitation campaign began on July 7, 2025, and has affected over 400 organizations across government, healthcare, finance, and education sectors. Several U.S. federal agencies, including the Department of Energy, Department of Homeland Security, and Department of Health and Human Services, have been impacted. The attacks exploit a vulnerability chain that bypasses authentication mechanisms, deploying malicious webshells named 'spinstall0.aspx'. Storm-2603 has escalated threats by deploying Warlock ransomware. Microsoft has released emergency patches, but experts emphasize additional security measures. The Cybersecurity and Infrastructure Security Agency (CISA) has added CVE-2025-53770 to its Known Exploited Vulnerabilities catalog.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610856+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "21f20a5854ad3902ea5daa74c8e261be859caeef",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The cyber attack follows a structured kill chain, starting with reconnaissance to identify vulnerable SharePoint servers. Weaponization involves crafting malicious payloads, followed by delivery through POST requests. Exploitation of CVE-2025-53770 allows code execution, leading to installation of webshells for persistence. Command and control is established via web protocols, enabling actions on objectives such as data theft and ransomware deployment. Detection and remediation efforts focus on monitoring network traffic, applying patches, and conducting security assessments.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes several indicators of compromise. Hash values and IP addresses are not explicitly mentioned, but the use of specific malware filenames like 'spinstall0.aspx' and tools such as Mimikatz and PsExec are critical. The TTPs employed by the adversaries, including zero-day exploitation and ransomware deployment, represent significant challenges for defenders. The scoring reflects the presence of tools and TTPs, highlighting the complexity of the threat.",
+    "relevance_score": 85,
+    "sequence": 17567,
+    "source": "https://gbhackers.com/over-17000-sharepoint-servers-found-exposed/",
+    "slug": "Exploitation_of_CVE-2025-53770_by_Chinese_Threat_Actors_on_Microsoft_Sha-017567",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Chinese threat actors exploiting SharePoint vulnerabilities.",
+      "Known_Campaigns": [],
+      "Motivation": "Unauthorized access and control over SharePoint environments.",
+      "Sophistication": "High, leveraging complex vulnerability chains.",
+      "Strategic_Objectives": "Gain unauthorized access to sensitive data and systems.",
+      "TTPs_Employed": ["ToolShell vulnerability chain"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of SharePoint vulnerabilities for unauthorized access.",
+        "Detection": "Monitor for unusual access patterns to SharePoint servers.",
+        "Remediation": "Apply security patches and updates from Microsoft.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to SharePoint servers through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in SharePoint to gain access.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of network spoofing techniques"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of SharePoint vulnerabilities for unauthorized access.",
+      "Exploits": ["CVE-2025-49706", "CVE-2025-49704"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["ToolShell"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for specific IP addresses associated with the attacks"],
+    "Extracted_Entities": {
+      "Assets": ["SharePoint servers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft", "Eye Security", "Palo Alto Networks Unit42"],
+      "Countries": ["People's Republic of China"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": ["107.191.58.76", "104.238.159.149", "96.9.125.147"],
+      "Keywords": ["ToolShell", "CVE-2025-49706", "CVE-2025-49704"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Microsoft security updates"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Enterprise environments"],
+      "Software": ["SharePoint"],
+      "Technologies": ["Antimalware Scan Interface (AMSI)"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-49706", "CVE-2025-49704", "CVE-2025-53771", "CVE-2025-53770"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Compromised SharePoint servers and associated IP addresses.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": ["107.191.58.76", "104.238.159.149", "96.9.125.147"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Report incidents to CISA's 24/7 Operations Center"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": ["107.191.58.76", "104.238.159.149", "96.9.125.147"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of SharePoint vulnerabilities"],
+      "Tools": ["ToolShell"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [
+      "Enhanced logging capabilities",
+      "Monitoring for suspicious POST requests"
+    ],
+    "Severity": "Critical",
+    "Threat_Actors": ["Chinese hackers"],
+    "Timestamp": "2025-07-23T08:35:12Z",
+    "Title": "Active Exploitation of SharePoint Vulnerabilities by Chinese Threat Actors",
+    "Tools": ["ToolShell", "SharePoint"],
+    "Victim": {
+      "Access_Vectors": ["Network spoofing", "Remote code execution"],
+      "Data_Types_At_Risk": ["File systems", "Internal configurations"],
+      "Description": "Organizations with vulnerable SharePoint installations.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Enterprise environments",
+      "Security_Posture": "Vulnerable to ToolShell exploitation",
+      "Targeted_Assets": ["SharePoint servers"]
+    },
+    "diamond_model_summary": "The incident involves Chinese threat actors exploiting SharePoint vulnerabilities using the ToolShell vulnerability chain. The adversary's capability includes exploiting CVE-2025-49706 and CVE-2025-49704, targeting enterprise environments with vulnerable SharePoint installations. The infrastructure includes compromised SharePoint servers and specific IP addresses. Victims are organizations with public-facing SharePoint deployments, facing critical impact severity.",
+    "doc_summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has issued an urgent alert about the active exploitation of critical SharePoint vulnerabilities by threat actors, attributed to Chinese hackers. The attacks leverage a vulnerability chain called 'ToolShell' to gain unauthorized access to on-premises SharePoint servers. CISA confirmed the exploitation of two critical vulnerabilities: CVE-2025-49706, a network spoofing vulnerability, and CVE-2025-49704, a remote code execution vulnerability. These vulnerabilities allow attackers to achieve both unauthenticated and authenticated access, providing comprehensive control over SharePoint environments. Microsoft has released security updates and guidance to protect systems, identifying additional CVEs that pose potential risks. CISA recommends immediate action, including applying updates, configuring AMSI, and monitoring for suspicious activity. The vulnerabilities have been added to CISA's Known Exploited Vulnerabilities catalog. Security firms have published analyses of the attack techniques, and organizations are urged to report incidents to CISA.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610819+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "f38bd9a35fa38d4ef4c41ac31a6fa6b51a9ef24f",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves exploiting SharePoint vulnerabilities for unauthorized access. The exploitation stage is critical, leveraging CVE-2025-49706 and CVE-2025-49704. Detection involves monitoring unusual access patterns and specific IP addresses. Remediation includes applying Microsoft's security updates and configuring AMSI. The attack highlights the need for enhanced logging and monitoring capabilities.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 87,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes IP addresses linked to the attacks, such as 107.191.58.76, 104.238.159.149, and 96.9.125.147. The ToolShell vulnerability chain represents a significant tool used by the adversary. The TTPs involve exploiting SharePoint vulnerabilities for unauthorized access. The incident underscores the importance of monitoring and applying security updates to mitigate the threat.",
+    "relevance_score": 53,
+    "sequence": 17566,
+    "source": "https://gbhackers.com/cisa-alerts-on-chinese-hackers-actively-exploiting-sharepoint-0-day/",
+    "slug": "Active_Exploitation_of_SharePoint_Vulnerabilities_by_Chinese_Threat_Acto-017566",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential malicious actors exploiting vulnerabilities in Partner Software.",
+      "Known_Campaigns": [],
+      "Motivation": "Access to sensitive government data and disruption of services.",
+      "Sophistication": "Moderate, leveraging known vulnerabilities.",
+      "Strategic_Objectives": "Compromise government systems and access sensitive data.",
+      "TTPs_Employed": ["Exploitation of software vulnerabilities", "Use of default credentials"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in Partner Software.",
+        "Detection": "Monitor for unusual file uploads • Check for default credentials usage",
+        "Remediation": "Apply patches • Change default credentials",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to systems through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in web applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential unauthorized access to sensitive data.",
+        "Detection": "Monitor for unusual data access patterns",
+        "Remediation": "Implement data access controls • Regularly audit data access logs",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering sensitive data from compromised systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing and collecting data from local systems.",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of known vulnerabilities", "Use of default credentials"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of vulnerabilities in Partner Software for unauthorized access.",
+      "Exploits": ["CVE-2025-6076", "CVE-2025-6077", "CVE-2025-6078"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual data access patterns"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for default credential usage", "Check for unusual file uploads"],
+    "Extracted_Entities": {
+      "Assets": ["Field application software", "Map viewing systems"],
+      "Breach_Types": ["Remote code execution", "Data breach"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["N. Harris Computer Corporation"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-6076", "CVE-2025-6077", "CVE-2025-6078", "CISA"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Version 4.32.2"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Public Sector"],
+      "Software": ["Partner Software", "Partner Web"],
+      "Technologies": ["GIS", "Web applications"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-6076", "CVE-2025-6077", "CVE-2025-6078"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Compromised systems running vulnerable versions of Partner Software.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Apply security patches",
+      "Change default credentials",
+      "Implement input sanitization"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of known vulnerabilities", "Use of default credentials"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Vulnerability scanners", "Web application firewalls"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-08-04T08:09:06Z",
+    "Title": "Critical Vulnerabilities in Partner Software Expose Government Systems",
+    "Tools": ["Partner Software", "Partner Web"],
+    "Victim": {
+      "Access_Vectors": ["Web applications", "File uploads"],
+      "Data_Types_At_Risk": ["Government data", "Field reports"],
+      "Description": "Government agencies and contractors using Partner Software.",
+      "Geography": "United States of America",
+      "Impact_Severity": "Critical",
+      "Industry": "Public Sector",
+      "Security_Posture": "Vulnerable due to inadequate input sanitization and default credentials.",
+      "Targeted_Assets": ["GIS systems", "Field operation support systems"]
+    },
+    "diamond_model_summary": "The incident involves vulnerabilities in Partner Software, used by government agencies, leading to potential remote code execution and data breaches. The adversary could exploit these vulnerabilities to gain unauthorized access to sensitive data. The infrastructure includes compromised systems running vulnerable software, and the victims are primarily public sector organizations in the United States of America.",
+    "doc_summary": "Multiple serious security vulnerabilities have been discovered in Partner Software and Partner Web applications, widely used by government agencies and contractors, potentially exposing sensitive systems to remote code execution attacks and data breaches. The vulnerabilities, tracked as CVE-2025-6076, CVE-2025-6077, and CVE-2025-6078, were disclosed in a CERT vulnerability note on August 2, 2025. Partner Software, a subsidiary of N. Harris Computer Corporation, develops field application software extensively used by municipalities, state governments, and private contractors for GIS-related work. The vulnerabilities stem from inadequate input sanitization in the applications’ file upload and note-taking features. The most severe vulnerability, CVE-2025-6076, allows authenticated attackers to upload malicious files through the Reports tab. CVE-2025-6077 reveals that Partner Web applications ship with identical default administrator credentials. CVE-2025-6078 affects the Notes feature, allowing cross-site scripting attacks. Partner Software has released version 4.32.2 to address these issues. The vulnerabilities were disclosed by Ryan Pohlner from CISA.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610793+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "154ae7e345c3a77bb1549d862e79d5ae691c3d08",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves exploiting vulnerabilities in Partner Software, allowing adversaries to gain initial access through public-facing applications. The exploitation stage is critical, with potential unauthorized access to sensitive data. The vulnerabilities include inadequate input sanitization and default credentials, posing significant risks to government systems.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 94,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as exploiting known vulnerabilities and using default credentials. No specific hash values, IP addresses, or domain names were identified. The focus is on the exploitation of software vulnerabilities, which is a significant challenge for defenders to address.",
+    "relevance_score": 47,
+    "sequence": 17565,
+    "source": "https://gbhackers.com/vulnerabilities-in-government-linked-partner-software/",
+    "slug": "Critical_Vulnerabilities_in_Partner_Software_Expose_Government_Systems-017565",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential attackers exploiting the vulnerability remotely.",
+      "Known_Campaigns": [],
+      "Motivation": "Disruption of services through denial-of-service attacks.",
+      "Sophistication": "Moderate, as the attack does not require authentication or user interaction.",
+      "Strategic_Objectives": "To cause service disruption in network-connected printers.",
+      "TTPs_Employed": ["Denial-of-Service"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of the out-of-bounds write vulnerability.",
+        "Detection": "Monitor network traffic for unusual IPP or LPD packets.",
+        "Remediation": "Update printer firmware to the latest version.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the printer through network protocols.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting the vulnerability to cause a denial-of-service.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Denial-of-service attack causing printer freeze.",
+        "Detection": "Monitor for repeated printer reboots and service disruptions.",
+        "Remediation": "Deploy printers behind firewalls to limit exposure.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Disrupting printer services through DoS.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Causing the printer to become unresponsive.",
+            "technique_id": "T1499",
+            "technique_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Techniques": ["T1499"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of network protocols without authentication."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of out-of-bounds write vulnerability in printer buffer memory.",
+      "Exploits": ["CVE-2025-48499"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual IPP or LPD traffic patterns."],
+    "Extracted_Entities": {
+      "Assets": ["Multifunction Printers"],
+      "Breach_Types": ["Denial-of-Service"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["FUJIFILM Business Innovation"],
+      "Countries": ["People's Republic of China"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-48499", "Denial-of-Service", "Vulnerability", "IPP", "LPD"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Fixed Firmware Versions"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Printer Firmware"],
+      "Technologies": ["Internet Printing Protocol", "Line Printer Daemon"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-48499"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["IPP", "LPD"],
+      "Description": "Network-connected printers vulnerable to remote exploitation.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Regularly update firmware and deploy network segmentation."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of out-of-bounds write vulnerability"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Firmware update management"],
+    "Severity": "Moderate",
+    "Threat_Actors": [],
+    "Timestamp": "2025-08-04T12:38:20Z",
+    "Title": "FUJIFILM Printer Vulnerability CVE-2025-48499: Denial-of-Service Risk",
+    "Tools": ["Printer Firmware"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": [],
+      "Description": "Organizations using FUJIFILM printers with vulnerable firmware.",
+      "Geography": "Global",
+      "Impact_Severity": "Medium",
+      "Industry": "Technology",
+      "Security_Posture": "Medium",
+      "Targeted_Assets": ["Multifunction Printers"]
+    },
+    "diamond_model_summary": "The incident involves a vulnerability in FUJIFILM printers, allowing remote attackers to exploit an out-of-bounds write flaw in the buffer memory. The adversary's capability is to cause denial-of-service attacks, impacting network-connected printers globally. The infrastructure includes vulnerable printers using IPP and LPD protocols. Victims are organizations in the technology sector using these printers.",
+    "doc_summary": "FUJIFILM Business Innovation has disclosed a critical vulnerability, CVE-2025-48499, affecting multiple printer models. This vulnerability allows attackers to launch denial-of-service (DoS) attacks through specially crafted network packets. It affects the Internet Printing Protocol (IPP) and Line Printer Daemon (LPD) protocol processing capabilities, stemming from an out-of-bounds write vulnerability in the printer’s buffer memory handling system. The flaw can cause multifunction printers (MFPs) to freeze, requiring a manual reboot. The vulnerability has a CVSS v3.1 score of 5.3 and a CVSS v4.0 score of 6.9, indicating medium severity. Discovered by researchers Jia-Ju Bai, Rui-Nan Hu, Dong Zhang, and Zhen-Yu Guan from Beihang University, FUJIFILM has released fixed firmware versions and recommends immediate updates. Interim measures include deploying printers behind firewalls. The company provides support through their business innovation support website.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610767+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "72feac2ded274e4a8940b5d9c6393aeac33ba2f6",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals that the exploitation stage involves leveraging an out-of-bounds write vulnerability in FUJIFILM printers, leading to denial-of-service attacks. The attack does not require prior reconnaissance, weaponization, or delivery stages, as it directly exploits the vulnerability. The impact is significant, causing service disruption in affected printers.",
+    "operational_tags": [],
+    "priority_score": 52,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies the primary indicator as the TTP of exploiting an out-of-bounds write vulnerability in FUJIFILM printers. No specific hash values, IP addresses, or domain names are associated with this incident. The focus is on the tools and techniques used to exploit the vulnerability, emphasizing the need for firmware updates and network security measures.",
+    "relevance_score": 43,
+    "sequence": 17564,
+    "source": "https://gbhackers.com/fujifilm-printer-flaw/",
+    "slug": "FUJIFILM_Printer_Vulnerability_CVE-2025-48499__Denial-of-Service_Risk-017564",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Sophisticated attackers capable of exploiting predictable random values.",
       "Known_Campaigns": [],
       "Motivation": "Data theft and system compromise.",
@@ -96438,1289 +97789,6 @@
     "sequence": 17072,
     "source": "https://gbhackers.com/ibm-warns-of-aix-vulnerabilities/",
     "slug": "Critical_Vulnerabilities_in_IBM_AIX_Allow_Remote_Command_Execution-017072",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is an unknown tech enthusiast who discovered the vulnerability.",
-      "Known_Campaigns": [],
-      "Motivation": "Curiosity-driven exploration of security flaws.",
-      "Sophistication": "Moderate, with knowledge of parameter manipulation techniques.",
-      "Strategic_Objectives": "Exploration of security vulnerabilities in tech systems.",
-      "TTPs_Employed": ["Parameter manipulation", "Authentication bypass"]
-    },
-    "Analyses": [
-      {
-        "Description": "The adversary identified a modifiable parameter in the service request URL.",
-        "Detection": "Monitor for unusual parameter changes in service requests.",
-        "Remediation": "Implement input validation and monitoring for parameter changes.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify potential vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about the victim's systems.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "The adversary exploited the IDOR vulnerability to access unauthorized data.",
-        "Detection": "Monitor for unusual access patterns and data retrieval activities.",
-        "Remediation": "Patch vulnerabilities and implement rate-limiting mechanisms.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a system or network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Potential data exfiltration and unauthorized access to customer information.",
-        "Detection": "Monitor for large data transfers and unusual data access patterns.",
-        "Remediation": "Implement data access controls and monitor for data exfiltration.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data of interest to the adversary.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Staging data for exfiltration.",
-            "technique_id": "T1074",
-            "technique_name": "Data Staged"
-          }
-        ],
-        "Techniques": ["T1074"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Parameter manipulation", "Curiosity-driven exploration"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The capability involved exploiting an IDOR vulnerability to access unauthorized data.",
-      "Exploits": ["Insecure Direct Object Reference (IDOR)"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data transfer volumes", "Unauthorized data access"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for parameter manipulation and unusual data access patterns."],
-    "Extracted_Entities": {
-      "Assets": ["Customer data", "Service appointment information"],
-      "Breach_Types": ["Data exposure", "Privacy breach"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Apple"],
-      "Countries": ["United States of America"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["IDOR", "vulnerability", "customer data", "authentication bypass"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": [],
-      "Technologies": ["Service portal"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Insecure Direct Object Reference (IDOR)"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The infrastructure involved Apple's service ticket portal.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Conduct regular security assessments", "Implement rate-limiting mechanisms"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Parameter manipulation", "Authentication bypass"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Vulnerability scanners", "Web application firewalls"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-02-04T11:01:42Z",
-    "Title": "Apple Service Portal IDOR Vulnerability Exposes Customer Data",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": ["Service portal"],
-      "Data_Types_At_Risk": ["Personal information", "Device details"],
-      "Description": "Apple's service portal and its customers were the victims.",
-      "Geography": "United States of America",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to lack of rate-limiting and parameter validation.",
-      "Targeted_Assets": ["Customer data", "Service appointment information"]
-    },
-    "diamond_model_summary": "The incident involved an unknown tech enthusiast exploiting an IDOR vulnerability in Apple's service portal. The adversary's capability included parameter manipulation to bypass authentication controls, exposing sensitive customer data. The infrastructure targeted was Apple's service portal, affecting customers in the technology sector. The incident highlights the need for robust security measures, including input validation and rate-limiting, to prevent unauthorized data access.",
-    "doc_summary": "Apple, a leading technology brand, recently encountered a critical security vulnerability in its service ticket portal. The flaw, identified as an Insecure Direct Object Reference (IDOR), was discovered by a tech enthusiast during a repair request submission. This vulnerability allowed unauthorized access to sensitive customer data by manipulating parameters such as mobile numbers or user IDs. The absence of rate-limiting mechanisms further exacerbated the risk, enabling potential brute-force attacks. The exposed data included MacBook serial numbers, IMEI numbers, customer contact details, and service appointment information. Although Apple swiftly patched the vulnerability following responsible disclosure, the incident underscores the necessity for robust security protocols, including rate-limiting and regular vulnerability assessments, to safeguard customer data. The incident highlights the potential for privacy breaches, identity theft, and admin panel takeovers, emphasizing the importance of continuous security improvements in the tech industry.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706431+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "545e7047c715c6db1ca0f3da76678d5270f7a57a",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident began with reconnaissance, where the adversary identified a modifiable parameter in the service request URL. Exploitation followed, as the adversary manipulated the parameter to access unauthorized data, exploiting an IDOR vulnerability. The potential actions on objectives included data exfiltration and unauthorized access to customer information. The incident underscores the importance of monitoring for unusual access patterns and implementing security measures to prevent such vulnerabilities.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 77,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as parameter manipulation and authentication bypass. No specific hash values, IP addresses, or domain names were identified. The incident highlights the challenge of detecting and responding to TTPs, as they require a deeper understanding of adversary behavior. Implementing robust security measures, such as input validation and rate-limiting, can help mitigate the impact of such vulnerabilities.",
-    "relevance_score": 41,
-    "sequence": 17071,
-    "source": "https://gbhackers.com/apple-service-ticket-portal-vulnerability/",
-    "slug": "Apple_Service_Portal_IDOR_Vulnerability_Exposes_Customer_Data-017071",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is actively exploiting vulnerabilities in Cisco Smart Licensing Utility.",
-      "Known_Campaigns": [],
-      "Motivation": "Unauthorized access and information disclosure",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Gain unauthorized access and extract sensitive information",
-      "TTPs_Employed": ["Exploitation of static credentials", "Information disclosure through excessive logging"]
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries are scanning for vulnerable Cisco systems.",
-        "Detection": "Monitor network traffic for unusual scanning activity.",
-        "Remediation": "Implement network segmentation and access controls.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable endpoints.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of static credentials and information disclosure vulnerabilities.",
-        "Detection": "Monitor for use of default credentials.",
-        "Remediation": "Change default credentials and apply patches.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to systems using vulnerabilities.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using default credentials to gain access.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of default credentials", "Scanning for configuration files"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of default credentials"],
-      "Description": "The adversary is capable of exploiting static credentials and information disclosure vulnerabilities.",
-      "Exploits": ["CVE-2024-20439", "CVE-2024-20440"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Base64 encoding/decoding tools"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for default credential usage", "Scan for unpatched systems"],
-    "Extracted_Entities": {
-      "Assets": ["Cisco Smart Licensing Utility systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Cisco"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-20439", "CVE-2024-20440", "static credentials", "information disclosure"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Cisco Smart Licensing Utility"],
-      "Technologies": ["API endpoint"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-20439", "CVE-2024-20440"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP API endpoint /cslu/v1"],
-      "Description": "The adversary targets Cisco Smart Licensing Utility infrastructure.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches promptly", "Change default credentials"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of static credentials", "Information disclosure through excessive logging"],
-      "Tools": ["Base64 encoding/decoding tools"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Threat intelligence platforms", "Vulnerability scanners"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-03-20T12:34:45Z",
-    "Title": "Exploitation of Cisco Smart Licensing Utility Vulnerabilities",
-    "Tools": ["Base64 encoding/decoding tools", "Cisco Smart Licensing Utility"],
-    "Victim": {
-      "Access_Vectors": ["API endpoint"],
-      "Data_Types_At_Risk": ["Credentials", "Configuration files"],
-      "Description": "Organizations using Cisco Smart Licensing Utility are at risk.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["Cisco Smart Licensing Utility systems"]
-    },
-    "diamond_model_summary": "The incident involves adversaries exploiting vulnerabilities in Cisco Smart Licensing Utility, specifically CVE-2024-20439 and CVE-2024-20440. The adversary's capability includes exploiting static credentials and information disclosure vulnerabilities. The infrastructure targeted is the Cisco Smart Licensing Utility, with victims being organizations in the technology sector. The adversary's motivation is unauthorized access and information extraction.",
-    "doc_summary": "Recent reports highlight active exploitation attempts on two critical vulnerabilities in the Cisco Smart Licensing Utility, identified as CVE-2024-20439 and CVE-2024-20440. These vulnerabilities, disclosed by Cisco in September, involve a static credential issue and an information disclosure vulnerability due to excessive logging. Exploit attempts focus on the API endpoint at /cslu/v1, with base64 encoded strings revealing default credentials. The group behind these exploits is also probing for other vulnerabilities, including scanning for configuration files like /web.config.zip. The vulnerabilities underscore a broader issue where both low-cost IoT devices and high-end enterprise security software share similar basic vulnerabilities. Organizations are urged to apply patches promptly to protect their systems.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706406+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "56e32b47602444dc8a8e1d8620a4e410bba47f73",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The adversary conducts reconnaissance by scanning for vulnerable Cisco systems. Exploitation occurs through the use of static credentials and information disclosure vulnerabilities, specifically targeting the API endpoint at /cslu/v1. The adversary's actions are focused on gaining unauthorized access and extracting sensitive information. Organizations are advised to monitor for default credential usage and apply patches promptly.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 74,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes indicators such as default credentials and API endpoint targeting. The adversary's use of static credentials and information disclosure vulnerabilities highlights the need for organizations to change default credentials and apply patches. Monitoring for unusual scanning activity and default credential usage can help detect and mitigate these threats.",
-    "relevance_score": 47,
-    "sequence": 17070,
-    "source": "https://gbhackers.com/cisco-smart-licensing-utility-vulnerabilities/",
-    "slug": "Exploitation_of_Cisco_Smart_Licensing_Utility_Vulnerabilities-017070",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Remote attackers exploiting Siemens UMC vulnerability",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially to disrupt industrial operations",
-      "Sophistication": "Moderate, leveraging known vulnerability",
-      "Strategic_Objectives": "Compromise industrial systems",
-      "TTPs_Employed": ["Exploitation of heap-based buffer overflow"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of heap-based buffer overflow in Siemens UMC",
-        "Detection": "Monitor for unusual network activity on ports 4002 and 4004",
-        "Remediation": "Apply Siemens' recommended patches and mitigations",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in Siemens UMC.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of heap-based buffer overflow in Siemens UMC",
-      "Exploits": ["CVE-2024-49775"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Siemens UMC integrated products"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Siemens", "Tenable"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-49775", "heap-based buffer overflow"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Siemens Security Advisory SSA-928984"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Industrial Automation"],
-      "Software": ["Siemens UMC"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-49775"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["Network communication over ports 4002 and 4004"],
-      "Description": "Targeted Siemens UMC component in industrial environments",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of heap-based buffer overflow"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-12-20T10:31:16Z",
-    "Title": "Critical Vulnerability in Siemens UMC: CVE-2024-49775",
-    "Tools": ["Siemens UMC"],
-    "Victim": {
-      "Access_Vectors": ["Remote network access"],
-      "Data_Types_At_Risk": ["Confidentiality, integrity, availability"],
-      "Description": "Industrial systems using Siemens UMC",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Industrial Automation",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["Siemens UMC integrated products"]
-    },
-    "diamond_model_summary": "The incident involves a critical vulnerability in Siemens' User Management Component (UMC), identified as CVE-2024-49775. Remote attackers can exploit this heap-based buffer overflow to execute arbitrary code, potentially compromising industrial systems. Siemens has issued a security advisory with recommended mitigations. The adversary's capability involves exploiting this vulnerability, targeting industrial automation systems globally. The infrastructure includes Siemens UMC components, with potential network communication over ports 4002 and 4004. Victims are industrial systems using Siemens UMC, facing critical impact on confidentiality, integrity, and availability.",
-    "doc_summary": "A critical vulnerability, CVE-2024-49775, has been identified in Siemens' User Management Component (UMC), allowing unauthenticated remote attackers to execute arbitrary code. This heap-based buffer overflow vulnerability affects multiple Siemens products integrated with the UMC component, posing significant risks to the confidentiality, integrity, and availability of affected systems. Siemens has issued Security Advisory SSA-928984, urging customers to implement recommended fixes or mitigations. The flaw is rated as critical, with a CVSS v3.1 Base Score of 9.8 and a CVSS v4.0 Base Score of 9.3. Siemens credits Tenable for its role in the coordinated disclosure of this vulnerability. Mitigations include port restrictions and patch updates. This incident underscores the importance of regular patch management and proactive threat mitigation in industrial environments.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706381+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "da390f2522528339c9ac1e92a7c26704c7337062",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis for the Siemens UMC vulnerability CVE-2024-49775 primarily focuses on the exploitation stage. The adversary exploits a heap-based buffer overflow in Siemens UMC, allowing remote code execution. This vulnerability poses a critical risk to industrial systems, emphasizing the need for immediate patching and network port restrictions. While no significant activity is detected in other stages, the exploitation stage highlights the adversary's capability to compromise systems. Detection involves monitoring network activity on specific ports, and remediation includes applying Siemens' recommended patches and mitigations.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis for the Siemens UMC vulnerability CVE-2024-49775 identifies the exploitation of a heap-based buffer overflow as a key TTP. No specific hash values, IP addresses, or domain names are associated with this incident. The focus is on the vulnerability itself and the need for patching and network port restrictions. The lack of specific indicators limits the Pyramid of Pain scoring, emphasizing the importance of addressing the vulnerability through Siemens' recommended mitigations. This analysis underscores the critical nature of the vulnerability and the need for proactive threat mitigation.",
-    "relevance_score": 41,
-    "sequence": 17069,
-    "source": "https://gbhackers.com/siemens-umc-vulnerability/",
-    "slug": "Critical_Vulnerability_in_Siemens_UMC__CVE-2024-49775-017069",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is likely exploiting known vulnerabilities in VMware products to gain unauthorized access and perform admin-level actions.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential data theft and unauthorized access",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Compromise VMware environments for data access and control",
-      "TTPs_Employed": ["Exploitation of known vulnerabilities", "Cross-site scripting", "Privilege escalation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in VMware products",
-        "Detection": "Monitor for unusual access patterns • Check for known CVE exploitation",
-        "Remediation": "Apply patches provided by VMware • Regularly update systems",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain access",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in VMware Aria Operations",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential unauthorized access and data theft",
-        "Detection": "Monitor for unusual data access • Check for unauthorized credential access",
-        "Remediation": "Apply security patches • Implement strong access controls",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering sensitive information",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Accessing sensitive credentials",
-            "technique_id": "T1003",
-            "technique_name": "Credential Dumping"
-          }
-        ],
-        "Techniques": ["T1003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of vulnerabilities in VMware Aria Operations products",
-      "Exploits": ["CVE-2025-22218", "CVE-2025-22219", "CVE-2025-22220", "CVE-2025-22221", "CVE-2025-22222"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["VMware", "Michelin CERT", "Abicom"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "vulnerabilities",
-        "CVE-2025-22218",
-        "CVE-2025-22219",
-        "CVE-2025-22220",
-        "CVE-2025-22221",
-        "CVE-2025-22222"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["8.18.3"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["VMware Aria Operations for Logs", "VMware Aria Operations", "VMware Cloud Foundation"],
-      "Technologies": ["VMware"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-22218", "CVE-2025-22219", "CVE-2025-22220", "CVE-2025-22221", "CVE-2025-22222"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No specific infrastructure details detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2025-22218", "CVE-2025-22219", "CVE-2025-22220", "CVE-2025-22221", "CVE-2025-22222"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-01-31T08:25:19Z",
-    "Title": "Critical Vulnerabilities in VMware Aria Operations Products",
-    "Tools": ["VMware Aria Operations for Logs", "VMware Aria Operations", "VMware Cloud Foundation"],
-    "Victim": {
-      "Access_Vectors": ["Network", "API"],
-      "Data_Types_At_Risk": ["Credentials", "Sensitive data"],
-      "Description": "Organizations using VMware Aria Operations products",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems",
-      "Targeted_Assets": ["VMware Aria Operations for Logs", "VMware Aria Operations", "VMware Cloud Foundation"]
-    },
-    "diamond_model_summary": "The incident involves exploitation of multiple vulnerabilities in VMware Aria Operations products. The adversary is likely motivated by unauthorized access and data theft. The capabilities include exploiting known CVEs, while the infrastructure details remain unspecified. Victims are organizations using VMware products, primarily in the technology sector.",
-    "doc_summary": "VMware has issued a critical security advisory, VMSA-2025-0003, addressing multiple vulnerabilities in VMware Aria Operations for Logs, VMware Aria Operations, and VMware Cloud Foundation. These vulnerabilities, identified as CVE-2025-22218, CVE-2025-22219, CVE-2025-22220, CVE-2025-22221, and CVE-2025-22222, pose significant risks, including unauthorized access, privilege escalation, credential theft, and cross-site scripting attacks. The vulnerabilities have CVSSv3 scores ranging from 5.2 to 8.5. VMware has released patches in version 8.18.3 to mitigate these issues and urges customers to update immediately. Security researchers from Michelin CERT and Abicom were credited for reporting these vulnerabilities. Organizations using VMware Aria Operations products are advised to apply the patches to protect their systems from potential exploitation.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706356+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "2414445354918dfbc3af38137293c9d6b073cb35",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident primarily involves exploitation of vulnerabilities in VMware products, leading to unauthorized access and potential data theft. The exploitation stage is significant, with tactics like initial access and credential dumping. Detection involves monitoring for unusual access patterns, while remediation includes applying VMware patches.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 70,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes known vulnerabilities (CVE-2025-22218 to CVE-2025-22222) as TTPs. No specific hash values, IP addresses, or domain names were identified. The focus is on patching and monitoring for unusual access patterns to mitigate the exploitation of these vulnerabilities.",
-    "relevance_score": 51,
-    "sequence": 17068,
-    "source": "https://gbhackers.com/vmware-aria-operations-vulnerabilities/",
-    "slug": "Critical_Vulnerabilities_in_VMware_Aria_Operations_Products-017068",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary is likely a skilled attacker capable of exploiting low-level system vulnerabilities.",
-      "Known_Campaigns": [],
-      "Motivation": "Privilege escalation and potential system control.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Gain unauthorized access and escalate privileges on Linux systems.",
-      "TTPs_Employed": ["Exploitation of unprivileged mount capabilities", "Kernel memory manipulation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Crafting a malicious HFS+ filesystem to exploit the vulnerability.",
-        "Detection": "Monitor for unusual filesystem mounts",
-        "Remediation": "Apply kernel patches • Restrict unprivileged mounts",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting a vulnerability in the HFS+ driver.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Crafting a filesystem to trigger the vulnerability.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploiting the out-of-bounds write condition in the kernel.",
-        "Detection": "Monitor kernel logs for unusual memory access",
-        "Remediation": "Apply security patches • Enable kernel hardening features",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting a kernel vulnerability to escalate privileges.",
-            "tactic_id": "T1068",
-            "tactic_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Triggering the out-of-bounds write to gain higher privileges.",
-            "technique_id": "T1068",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1068"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Privilege escalation to execute arbitrary code.",
-        "Detection": "Monitor for unauthorized code execution",
-        "Remediation": "Restrict execution permissions • Apply security patches",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Executing arbitrary code with elevated privileges.",
-            "tactic_id": "T1059",
-            "tactic_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Manipulating kernel data to execute arbitrary code.",
-            "technique_id": "T1059",
-            "technique_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Techniques": ["T1059"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Crafting malicious filesystems", "Exploiting kernel vulnerabilities"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["KASLR bypass"],
-      "Description": "The adversary has the capability to exploit kernel vulnerabilities and bypass security mechanisms.",
-      "Exploits": ["CVE-2025-0927"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["udisksctl"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unusual filesystem mounts",
-      "Check for kernel memory access anomalies"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Linux systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Ubuntu"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2025-0927", "HFS+", "Linux kernel", "vulnerability"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Kernel patches for CVE-2025-0927"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Linux Kernel"],
-      "Technologies": ["HFS+ filesystem", "Kernel hardening"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-0927"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The attack infrastructure involves crafting and deploying malicious HFS+ filesystems.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply security patches", "Restrict unprivileged mount capabilities"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["KASLR bypass", "Kernel memory manipulation"],
-      "Tools": ["udisksctl"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Kernel log analysis tools", "Filesystem integrity checkers"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-03-20T05:59:42Z",
-    "Title": "CVE-2025-0927: Linux Kernel Vulnerability in HFS+ Driver",
-    "Tools": ["udisksctl", "Linux Kernel"],
-    "Victim": {
-      "Access_Vectors": ["Local access with unprivileged mount capabilities"],
-      "Data_Types_At_Risk": ["Kernel memory", "System configuration"],
-      "Description": "Linux systems running vulnerable kernel versions, particularly those allowing unprivileged mounts.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable to privilege escalation",
-      "Targeted_Assets": ["Linux kernel", "System memory"]
-    },
-    "diamond_model_summary": "The CVE-2025-0927 vulnerability in the Linux kernel's HFS+ driver represents a significant threat, with adversaries capable of exploiting low-level system components to achieve privilege escalation. The attack infrastructure involves crafting malicious HFS+ filesystems, targeting Linux systems globally, particularly those allowing unprivileged mounts. The adversary's capability to manipulate kernel memory and bypass security mechanisms highlights the sophistication of the attack.",
-    "doc_summary": "A recently discovered vulnerability in the Linux kernel, identified as CVE-2025-0927, poses a significant threat to system security. This flaw, present in the HFS+ file system driver, allows attackers to exploit an out-of-bounds write condition, potentially leading to local privilege escalation. The vulnerability can be triggered by manipulating a specially crafted HFS+ filesystem, which, under certain conditions, can overwrite sensitive data in kernel space. The issue arises from a buffer overflow in B-tree node processing within the hfs_bnode_read_key function in the HFS+ driver. Affected systems include Linux kernels up to version 6.12.0, including Ubuntu 22.04 with the Linux Kernel 6.5.0-18-generic. Exploiting this vulnerability requires creating a malicious HFS+ filesystem. Ubuntu has released an advisory and fixes for this vulnerability. Users are advised to update their Linux kernels to patched versions to mitigate the risk of exploitation.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706328+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "33a2753a884102a35ee4119aec3a297a25742a15",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack on the Linux kernel via CVE-2025-0927 follows a structured kill chain, beginning with the weaponization of a malicious HFS+ filesystem to exploit the vulnerability. The exploitation stage involves triggering an out-of-bounds write condition, leading to privilege escalation. The attack culminates in actions on objectives, where the adversary executes arbitrary code with elevated privileges. Detection and remediation focus on monitoring filesystem mounts and applying security patches.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 79,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for CVE-2025-0927 highlights the challenge of detecting and responding to this sophisticated attack. The primary indicators include the use of specific tools like udisksctl and techniques such as KASLR bypass. The absence of easily detectable indicators like hash values or IP addresses underscores the need for advanced detection strategies focused on kernel memory manipulation and filesystem integrity.",
-    "relevance_score": 49,
-    "sequence": 17067,
-    "source": "https://gbhackers.com/linux-kernel-vulnerability-2/",
-    "slug": "CVE-2025-0927__Linux_Kernel_Vulnerability_in_HFS__Driver-017067",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential malicious actors exploiting vulnerabilities in Dell products.",
-      "Known_Campaigns": [],
-      "Motivation": "Unauthorized data access and system compromise.",
-      "Sophistication": "Moderate to high, given the exploitation of critical vulnerabilities.",
-      "Strategic_Objectives": "Gain unauthorized access to sensitive data and execute arbitrary code.",
-      "TTPs_Employed": ["Exploitation of CVE-2024-37143 and CVE-2024-37144"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities CVE-2024-37143 and CVE-2024-37144.",
-        "Detection": "Monitor for unusual access patterns • Check for known exploit signatures",
-        "Remediation": "Apply security patches • Update affected systems",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain initial access.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential unauthorized data access and remote code execution.",
-        "Detection": "Monitor for data exfiltration • Check for unauthorized access attempts",
-        "Remediation": "Implement data encryption • Restrict access to sensitive data",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering sensitive data from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Accessing sensitive data stored locally.",
-            "technique_id": "T1005",
-            "technique_name": "Data from Local System"
-          }
-        ],
-        "Techniques": ["T1005"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Exploitation of known vulnerabilities", "Unauthorized access attempts"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of vulnerabilities in Dell products to execute arbitrary code and access sensitive data.",
-      "Exploits": ["CVE-2024-37143", "CVE-2024-37144"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data transfer patterns", "Access to sensitive data"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for CVE-2024-37143 and CVE-2024-37144 exploitation attempts"],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Dell Technologies"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-37143", "CVE-2024-37144", "security advisory", "vulnerabilities"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Dell PowerFlex", "Dell InsightIQ", "Dell Data Lakehouse"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-37143", "CVE-2024-37144"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Dell products including PowerFlex, InsightIQ, and Data Lakehouse.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Conduct a thorough security audit", "Enhance monitoring and logging"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2024-37143", "Exploitation of CVE-2024-37144"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Vulnerability scanners", "Security patch management tools"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-12-13T08:37:06Z",
-    "Title": "Dell Technologies Security Advisory: Critical Vulnerabilities CVE-2024-37143 and CVE-2024-37144",
-    "Tools": ["Dell PowerFlex", "Dell InsightIQ", "Dell Data Lakehouse"],
-    "Victim": {
-      "Access_Vectors": ["Remote access", "Local access"],
-      "Data_Types_At_Risk": ["Sensitive information", "System integrity"],
-      "Description": "Organizations using affected Dell products.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched systems.",
-      "Targeted_Assets": ["Dell PowerFlex", "Dell InsightIQ", "Dell Data Lakehouse"]
-    },
-    "diamond_model_summary": "The incident involves potential exploitation of critical vulnerabilities in Dell products by malicious actors. The adversary's capability includes exploiting CVE-2024-37143 and CVE-2024-37144, targeting organizations using Dell PowerFlex, InsightIQ, and Data Lakehouse. The infrastructure comprises these affected products, posing significant risks to system confidentiality, integrity, and availability.",
-    "doc_summary": "Dell Technologies has issued a security advisory addressing critical vulnerabilities CVE-2024-37143 and CVE-2024-37144, affecting products like Dell PowerFlex, InsightIQ, and Data Lakehouse. CVE-2024-37143 allows remote code execution due to improper link resolution, while CVE-2024-37144 involves insecure storage of sensitive information. Both vulnerabilities pose significant risks to system confidentiality, integrity, and availability, with CVE-2024-37143 receiving a CVSS score of 10.0. Dell urges customers to apply updates promptly to mitigate these risks. The advisory highlights the potential for unauthorized data access and remote code execution, emphasizing the importance of timely remediation.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706298+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "5d3eff7db0c1c1d420513ec9dc329fead5211010",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals exploitation of vulnerabilities CVE-2024-37143 and CVE-2024-37144, allowing unauthorized access and remote code execution. The exploitation stage involves initial access through public-facing applications, while actions on objectives include potential data collection and system compromise. Detection and remediation focus on monitoring access patterns and applying security patches.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 92,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies the exploitation of vulnerabilities CVE-2024-37143 and CVE-2024-37144 as critical TTPs. No specific hash values, IP addresses, or domain names are detected, but the focus is on the tools and techniques used to exploit these vulnerabilities. The scoring reflects the critical nature of these TTPs, emphasizing the need for timely remediation and monitoring.",
-    "relevance_score": 51,
-    "sequence": 17066,
-    "source": "https://gbhackers.com/dell-security-update-patch/",
-    "slug": "Dell_Technologies_Security_Advisory__Critical_Vulnerabilities_CVE-2024-3-017066",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Authenticated domain users exploiting the vulnerability",
-      "Known_Campaigns": [],
-      "Motivation": "Potential unauthorized access and control over systems",
-      "Sophistication": "Moderate, requires domain access",
-      "Strategic_Objectives": "Gain unauthorized control over backup servers",
-      "TTPs_Employed": ["Remote Code Execution"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2025-23120 by authenticated users",
-        "Detection": "Monitor for unusual domain user activities",
-        "Remediation": "Apply patches and updates promptly",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system through a vulnerability",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability to execute code",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of CVE-2025-23120 for remote code execution",
-      "Exploits": ["CVE-2025-23120"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Backup Servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Veeam Software"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2025-23120", "remote code execution", "authenticated domain users"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Version 12.3.1 (build 12.3.1.1139)"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["Veeam Backup & Replication"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-23120"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Domain-joined backup servers vulnerable to exploitation",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Ensure timely patching and adherence to security best practices"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote Code Execution"],
-      "Tools": ["Exploitation of CVE-2025-23120"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-03-20T07:04:58Z",
-    "Title": "Critical Vulnerability in Veeam Backup & Replication Software",
-    "Tools": ["Exploitation of CVE-2025-23120", "Veeam Backup & Replication"],
-    "Victim": {
-      "Access_Vectors": ["Domain Access"],
-      "Data_Types_At_Risk": ["Backup Data"],
-      "Description": "Organizations using Veeam Backup & Replication software",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable due to misconfiguration",
-      "Targeted_Assets": ["Backup Servers"]
-    },
-    "diamond_model_summary": "The incident involves a critical vulnerability in Veeam Backup & Replication software, identified as CVE-2025-23120, which allows remote code execution by authenticated domain users. The adversary is likely an insider or someone with domain access, exploiting the vulnerability to gain unauthorized control over backup servers. The capability involves exploiting the vulnerability for remote code execution, with the infrastructure being domain-joined backup servers. The victims are organizations using the affected software versions, primarily in the Information Technology sector. The incident underscores the importance of timely patching and adherence to security best practices.",
-    "doc_summary": "A critical vulnerability in Veeam Backup & Replication software, identified as CVE-2025-23120, poses a significant risk to users by allowing remote code execution by authenticated domain users. With a CVSS v3.1 score of 9.9, this vulnerability affects versions 12, 12.1, 12.2, and 12.3. Reported by Piotr Bazydlo of watchTowr, it highlights the importance of community engagement in cybersecurity. The vulnerability impacts domain-joined backup servers, contradicting Security & Compliance Best Practices. Users are urged to upgrade to version 12.3.1 to mitigate risks. Veeam Software emphasizes proactive security measures, including a Vulnerability Disclosure Program and internal code audits. Timely patch application is crucial as attackers often exploit unpatched systems.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706271+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "dd02d174a1430a23ec0c63b881eaf0660825945d",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis for the Veeam Backup & Replication vulnerability CVE-2025-23120 primarily involves the exploitation stage, where authenticated domain users can execute remote code due to the vulnerability. The initial access tactic is achieved through exploiting the vulnerability, with the technique being exploitation for client execution. Detection involves monitoring for unusual domain user activities, and remediation requires applying patches and updates promptly. Other stages of the kill chain, such as reconnaissance, weaponization, delivery, installation, command and control, and actions on objectives, do not have significant activity detected in this incident.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis for the Veeam Backup & Replication vulnerability CVE-2025-23120 indicates a focus on TTPs, specifically the exploitation of a known vulnerability for remote code execution. No specific hash values, IP addresses, domain names, or network host artifacts are identified in this incident. The primary tool involved is the exploitation of the vulnerability itself. The lack of specific indicators such as hashes or IPs suggests that the focus should be on understanding and mitigating the TTPs involved, particularly through timely patching and monitoring for unusual domain user activities.",
-    "relevance_score": 45,
-    "sequence": 17065,
-    "source": "https://gbhackers.com/critical-veeam-backup-replication-vulnerability/",
-    "slug": "Critical_Vulnerability_in_Veeam_Backup___Replication_Software-017065",
     "shard": 9
   }
 ]

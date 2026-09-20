@@ -1,0 +1,11 @@
+{
+  "slug": "critical-sql-injection-vulnerabilities-in-cakephp-disclosed-55152fec",
+  "title": "Critical SQL Injection Vulnerabilities in CakePHP Disclosed",
+  "link": "https://threatcluster.io/cluster/critical-sql-injection-vulnerabilities-in-cakephp-disclosed-55152fec?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-sql-injection-vulnerabilities-in-cakephp-disclosed-55152fec",
+  "pubDate": "2026-09-19T20:48:37.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "Two critical SQL injection vulnerabilities affecting CakePHP have been disclosed. CVE-2026-79752 allows SQL injection through user-controlled parameters in FunctionsBuilder prior to versions 4.5.12, 4…",
+  "sizeBytes": 201
+}

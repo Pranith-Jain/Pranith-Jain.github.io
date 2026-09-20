@@ -1,6 +1,1398 @@
 [
   {
     "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No specific adversary identified for this incident.",
+      "Known_Campaigns": [],
+      "Motivation": "Exploit Redis vulnerability for unauthorized access.",
+      "Sophistication": "Medium",
+      "Strategic_Objectives": "Gain unauthorized remote access to systems running vulnerable Redis versions.",
+      "TTPs_Employed": ["Remote Code Execution", "Buffer Overflow"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of Redis CVE-2025-62507 via XACKDEL command.",
+        "Detection": "Monitor for unusual Redis command usage, especially XACKDEL with large ID lists.",
+        "Remediation": "Update Redis to version 8.3.2 or later. • Implement authentication for Redis instances.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in an internet-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of Redis CVE-2025-62507 for remote code execution.",
+      "Exploits": ["CVE-2025-62507"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor Redis logs for unusual XACKDEL command usage."],
+    "Extracted_Entities": {
+      "Assets": ["Redis Servers"],
+      "Breach_Types": ["Remote Code Execution"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["JFrog"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-62507", "remote code execution", "buffer overflow"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Redis 8.3.2"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Redis"],
+      "Technologies": ["XACKDEL command"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-62507"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Vulnerable Redis servers exposed to the internet.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Ensure all Redis instances are updated to the latest secure version.",
+      "Implement network segmentation to limit exposure of Redis servers."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Remote Code Execution", "Buffer Overflow"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-14T18:30:00Z",
+    "Title": "Redis CVE-2025-62507 Remote Code Execution Vulnerability",
+    "Tools": ["Redis"],
+    "Victim": {
+      "Access_Vectors": ["Remote"],
+      "Data_Types_At_Risk": ["System Integrity"],
+      "Description": "Redis servers running version 8.2 with default configuration.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable",
+      "Targeted_Assets": ["Redis Servers"]
+    },
+    "diamond_model_summary": "The Redis CVE-2025-62507 incident involves a high-severity vulnerability that allows remote code execution through a stack buffer overflow. The adversary can exploit this flaw in the default Redis configuration without authentication, targeting vulnerable servers globally. The capability involves exploiting the XACKDEL command, and the infrastructure includes exposed Redis servers. The victim profile is primarily technology sector organizations using Redis 8.2.",
+    "doc_summary": "A high-severity security flaw in Redis, identified as CVE-2025-62507, allows for remote code execution via a stack buffer overflow. The vulnerability is triggered by the XACKDEL command in Redis 8.2, which does not verify the number of IDs provided by the client, leading to buffer overflow. JFrog's analysis highlights that the flaw can be exploited remotely in the default Redis configuration without authentication. As of the report, 2,924 servers are susceptible. The issue has been addressed in Redis version 8.3.2.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:56.989117+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "bdb26d42c3782647f76e628e62e7a4c759c2e5a9700910c8c3510450864c6d07",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The Redis CVE-2025-62507 vulnerability follows a kill chain where the adversary gains initial access by exploiting a public-facing application. The exploitation stage involves using the XACKDEL command to trigger a buffer overflow, leading to remote code execution. Detection involves monitoring Redis command usage, and remediation includes updating to a secure version and implementing authentication.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 67,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for the Redis CVE-2025-62507 incident includes TTPs such as remote code execution and buffer overflow. No specific hash values, IP addresses, or domain names are identified, but the focus is on the exploitation of the XACKDEL command. The scoring reflects the challenge of detecting and responding to this type of vulnerability, emphasizing the need for timely patching and monitoring.",
+    "relevance_score": 41,
+    "sequence": 19052,
+    "source": "https://thehackernews.com/2026/01/threatsday-bulletin-ai-voice-cloning.html",
+    "slug": "Redis_CVE-2025-62507_Remote_Code_Execution_Vulnerability-019052",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary exploits AI chatbot vulnerabilities to exfiltrate data.",
+      "Known_Campaigns": [],
+      "Motivation": "Data exfiltration",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Exfiltrate sensitive data from AI chatbots",
+      "TTPs_Employed": ["Indirect prompt injection"]
+    },
+    "Analyses": [
+      {
+        "Description": "The attacker identifies potential targets using Microsoft Copilot.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify potential targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about the victim's environment.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Host Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "The attacker crafts a legitimate-looking Microsoft link with embedded prompts.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating tools or capabilities for attacks.",
+            "technique_id": "T1588.006",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1588.006"]
+      },
+      {
+        "Description": "The attacker sends the crafted link to the target via email.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a target's network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Sending a link to a target to gain access.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Link"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "The target clicks the link, triggering the execution of embedded prompts.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Running malicious code on a target system.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting a vulnerability to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The attacker maintains control through server-side prompts.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing a communication channel to control a compromised system.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web services for command and control.",
+            "technique_id": "T1102.001",
+            "technique_name": "Web Service"
+          }
+        ],
+        "Techniques": ["T1102.001"]
+      },
+      {
+        "Description": "The attacker exfiltrates data using the AI chatbot.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Stealing data from a target's network.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using automated tools to exfiltrate data.",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Bypass enterprise security controls"],
+      "Description": "Exploits AI chatbot vulnerabilities for data exfiltration.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Reprompt"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Sensitive data"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft", "Varonis"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Reprompt", "AI chatbot", "data exfiltration", "prompt injection"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Microsoft Copilot"],
+      "Technologies": ["AI", "chatbots"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Utilizes legitimate Microsoft links to initiate attacks.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Indirect prompt injection"],
+      "Tools": ["Reprompt"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-14T18:30:00Z",
+    "Title": "Reprompt Attack on Microsoft Copilot for Data Exfiltration",
+    "Tools": ["Reprompt", "Microsoft Copilot"],
+    "Victim": {
+      "Access_Vectors": ["Email links"],
+      "Data_Types_At_Risk": ["User data", "Corporate data"],
+      "Description": "Targets users of Microsoft Copilot AI chatbots.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable to prompt injection",
+      "Targeted_Assets": ["AI chatbots", "Sensitive data"]
+    },
+    "diamond_model_summary": "The Reprompt attack on Microsoft Copilot involves an adversary exploiting AI chatbot vulnerabilities to exfiltrate data. The attack is sophisticated, requiring only a single click on a legitimate link to initiate. The adversary uses the AI system's inability to differentiate between user-entered instructions and those sent in a request, leading to indirect prompt injections. The infrastructure involves legitimate Microsoft links, and the victim is typically a user of Microsoft Copilot, with the technology sector being the primary target. The attack highlights the need for improved security measures in AI systems.",
+    "doc_summary": "Cybersecurity researchers have disclosed a new attack method called Reprompt, which allows attackers to exfiltrate sensitive data from AI chatbots like Microsoft Copilot. The attack requires only a single click on a legitimate Microsoft link, bypassing enterprise security controls. The attacker maintains control even when the Copilot chat is closed, allowing the victim's session to be silently exfiltrated. Microsoft has addressed the issue, and the attack does not affect enterprise customers using Microsoft 365 Copilot. Reprompt employs techniques to execute prompts smuggled via the 'q' parameter, turning Copilot into an invisible channel for data exfiltration. The root cause is the AI system's inability to differentiate between user-entered instructions and those sent in a request, leading to indirect prompt injections. The attack highlights the need for layered defenses and limiting access to sensitive data.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:56.989065+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "b19a1306885e4a9652baee32a0ebb8fbaf5ba4f54797d0038c149139cde72895",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The Reprompt attack follows a structured kill chain, starting with reconnaissance to identify potential targets using Microsoft Copilot. The weaponization stage involves crafting a legitimate-looking link with embedded prompts. Delivery is achieved by sending the link via email, and exploitation occurs when the target clicks the link, triggering the execution of embedded prompts. The attacker maintains command and control through server-side prompts, allowing for data exfiltration using the AI chatbot. The attack underscores the importance of securing AI systems against prompt injection vulnerabilities.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 78,
+    "pyramid_of_pain_summary": "The Reprompt attack on Microsoft Copilot does not provide specific indicators such as hashes, IP addresses, or domains, making it challenging to apply the Pyramid of Pain effectively. The attack relies on exploiting AI vulnerabilities and using legitimate infrastructure, which complicates detection and response efforts. The lack of concrete indicators highlights the need for advanced monitoring and detection capabilities to identify and mitigate such sophisticated attacks. Organizations must focus on securing AI systems and implementing robust defenses to counteract these emerging threats.",
+    "relevance_score": 55,
+    "sequence": 19051,
+    "source": "https://thehackernews.com/2026/01/researchers-reveal-reprompt-attack.html",
+    "slug": "Reprompt_Attack_on_Microsoft_Copilot_for_Data_Exfiltration-019051",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of the CVE-2026-23550 vulnerability in the Modular DS plugin",
+        "Detection": "Monitor for unusual HTTP GET requests to \"/api/modular-connector/login/\" • Check for unauthorized admin user creation",
+        "Remediation": "Update Modular DS plugin to version 2.5.2 • Implement additional authentication mechanisms",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for full site compromise and malicious changes",
+        "Detection": "Monitor for changes in website content or configuration • Check for unauthorized redirects or malware staging",
+        "Remediation": "Restore from clean backups • Conduct a full security audit of the site",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to manipulate, interrupt, or destroy your systems and data.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is trying to destroy data.",
+            "technique_id": "T1485",
+            "technique_name": "Data Destruction"
+          }
+        ],
+        "Techniques": ["T1485"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of unauthenticated privilege escalation vulnerability in Modular DS plugin",
+      "Exploits": ["CVE-2026-23550"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["WordPress websites"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Patchstack"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2026-23550", "WordPress", "plugin", "vulnerability", "exploitation", "privilege escalation"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["2.5.2"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Modular DS"],
+      "Technologies": ["WordPress"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-23550"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-23550"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-14T18:30:00Z",
+    "Title": "Exploitation of CVE-2026-23550 in Modular DS WordPress Plugin",
+    "Tools": ["Modular DS"],
+    "Victim": {
+      "Access_Vectors": ["Web application"],
+      "Data_Types_At_Risk": ["Administrator credentials", "Sensitive system data"],
+      "Description": "Users of the Modular DS WordPress plugin",
+      "Geography": "",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to outdated plugin version",
+      "Targeted_Assets": ["WordPress websites"]
+    },
+    "diamond_model_summary": "The incident involves the exploitation of a critical vulnerability in the Modular DS WordPress plugin, allowing unauthenticated privilege escalation. The adversary exploits the plugin's routing mechanism to bypass authentication, gaining administrator access. The capability involves exploiting CVE-2026-23550, with the infrastructure being WordPress websites using the vulnerable plugin. Victims are users of the Modular DS plugin, primarily in the technology sector. The attack highlights the risk of implicit trust in internal request paths exposed to the internet.",
+    "doc_summary": "A critical security flaw in the WordPress plugin Modular DS, tracked as CVE-2026-23550, has been actively exploited. The vulnerability allows unauthenticated privilege escalation due to bypassing authentication mechanisms, impacting versions up to 2.5.1. The flaw is rooted in the plugin's routing mechanism, exposing routes under the \"/api/modular-connector/\" prefix. Exploitation involves setting the \"origin\" parameter to \"mo\" and a \"type\" parameter to any value, allowing attackers to bypass authentication and gain administrator access. The vulnerability was first detected on January 13, 2026, with attacks originating from specific IP addresses. Users are advised to update to version 2.5.2 to mitigate the risk.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:56.989009+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "a6c41829b27894a557e5af4f01f3faa526b4ee08ac932846eeec622370c8d0d7",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the exploitation of a vulnerability in the Modular DS plugin, allowing unauthenticated access to administrator privileges. The exploitation stage involves bypassing authentication mechanisms by manipulating request parameters. Once access is gained, the adversary can perform actions on objectives, such as compromising the site, introducing malicious changes, or staging malware. The attack demonstrates the critical impact of exploiting public-facing applications and the importance of timely patching and robust authentication mechanisms.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 90,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of a known vulnerability (CVE-2026-23550) in the Modular DS plugin. While specific IP addresses or domains were not identified, the attack relies on manipulating request parameters to bypass authentication. The lack of specific indicators like hashes or domains limits the ability to apply the Pyramid of Pain effectively. However, the critical nature of the vulnerability and its exploitation underscores the importance of addressing such weaknesses promptly to mitigate potential impacts.",
+    "relevance_score": 43,
+    "sequence": 19050,
+    "source": "https://thehackernews.com/2026/01/critical-wordpress-modular-ds-plugin.html",
+    "slug": "Exploitation_of_CVE-2026-23550_in_Modular_DS_WordPress_Plugin-019050",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Adversaries exploited AI workflows through malicious Chrome extensions and prompt injections.",
+      "Known_Campaigns": [],
+      "Motivation": "Data theft and manipulation of AI behavior",
+      "Sophistication": "Medium",
+      "Strategic_Objectives": "Exfiltrate sensitive data and manipulate AI operations",
+      "TTPs_Employed": ["Prompt Injection", "Malicious Extensions"]
+    },
+    "Analyses": [
+      {
+        "Description": "Adversaries identify AI-driven workflows and integration points.",
+        "Detection": "Monitor for unusual access patterns to AI applications.",
+        "Remediation": "Implement strict access controls and monitoring.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about victim systems.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Host Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "Development of malicious Chrome extensions and prompt injection scripts.",
+        "Detection": "Analyze new extensions for malicious behavior.",
+        "Remediation": "Regularly audit and vet extensions before use.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating tools and scripts for attacks.",
+            "technique_id": "T1587.001",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "Deployment of malicious extensions and prompt injections.",
+        "Detection": "Monitor for installation of unauthorized extensions.",
+        "Remediation": "Educate users on risks of installing unverified extensions.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to victim systems.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Exploitation of AI workflows through context manipulation.",
+        "Detection": "Detect unusual script execution patterns.",
+        "Remediation": "Restrict script execution to trusted sources.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Running malicious code on victim systems.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using PowerShell for execution.",
+            "technique_id": "T1059.001",
+            "technique_name": "Command and Scripting Interpreter: PowerShell"
+          }
+        ],
+        "Techniques": ["T1059.001"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Data exfiltration and manipulation of AI behavior.",
+        "Detection": "Monitor for unusual data access and exfiltration patterns.",
+        "Remediation": "Implement data loss prevention measures.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from target systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting email data from target systems.",
+            "technique_id": "T1114",
+            "technique_name": "Email Collection"
+          }
+        ],
+        "Techniques": ["T1114"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of AI workflow vulnerabilities through context manipulation.",
+      "Exploits": ["Prompt Injection"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Malicious Chrome Extensions"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["AI Applications", "User Data"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["IBM"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["AI", "Chrome Extensions", "Prompt Injection", "Data Theft"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["ChatGPT", "DeepSeek", "IBM AI Coding Assistant"],
+      "Technologies": ["AI Workflows", "Probabilistic Decision-Making"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Use of Chrome extensions and code repositories to deliver attacks.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Prompt Injection"],
+      "Tools": ["Malicious Chrome Extensions"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-14T18:30:00Z",
+    "Title": "AI Workflow Exploitation via Malicious Chrome Extensions and Prompt Injections",
+    "Tools": ["Malicious Chrome Extensions", "ChatGPT", "DeepSeek", "IBM AI Coding Assistant"],
+    "Victim": {
+      "Access_Vectors": ["Chrome Extensions", "Code Repositories"],
+      "Data_Types_At_Risk": ["Chat Data", "Confidential Documents"],
+      "Description": "Users of AI applications like ChatGPT and IBM's AI coding assistant.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable to context manipulation",
+      "Targeted_Assets": ["AI Applications", "User Data"]
+    },
+    "diamond_model_summary": "The incident involves adversaries exploiting AI workflows through malicious Chrome extensions and prompt injections. The adversaries' capability includes the use of these extensions and prompt injection techniques to manipulate AI behavior and exfiltrate data. The infrastructure used involves Chrome extensions and code repositories, targeting users of AI applications like ChatGPT and IBM's AI coding assistant.",
+    "doc_summary": "Recent incidents highlight vulnerabilities in AI-driven workflows, where malicious Chrome extensions and prompt injections pose significant risks. Over 900,000 users were affected by extensions stealing ChatGPT and DeepSeek data. Researchers demonstrated how prompt injections could manipulate IBM's AI coding assistant to execute malware. These attacks exploit the context and integration points of AI systems, rather than the AI models themselves. The attack surface includes every input, output, and integration point the model touches. Traditional security measures are inadequate for AI-driven workflows, necessitating new tools like dynamic SaaS security platforms. Reco is an example of such a platform, providing real-time guardrails and visibility into AI usage across organizations.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:56.989481+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "dee8bfb552fa0d56bdb812254f7d12cc0c7e409a7c26990b9591c17a323b9b09",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain involves reconnaissance to identify AI-driven workflows, weaponization through the development of malicious extensions and prompt injections, delivery via deployment of these tools, and exploitation by manipulating AI workflows. Actions on objectives include data exfiltration and AI behavior manipulation. Traditional security measures are inadequate, highlighting the need for dynamic SaaS security platforms.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 85,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes tools like malicious Chrome extensions and techniques such as prompt injection. No specific hashes, IP addresses, or domains were identified. The focus is on the exploitation of AI workflows and context manipulation, which are challenging to detect and mitigate with traditional security measures.",
+    "relevance_score": 61,
+    "sequence": 19049,
+    "source": "https://thehackernews.com/2026/01/model-security-is-wrong-frame-real-risk.html",
+    "slug": "AI_Workflow_Exploitation_via_Malicious_Chrome_Extensions_and_Prompt_Inje-019049",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Unauthenticated remote attackers exploiting a logic flaw in PAN-OS GlobalProtect.",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of a logic flaw in PAN-OS GlobalProtect to cause a denial-of-service condition.",
+        "Detection": "",
+        "Remediation": "Upgrade to the nearest fixed PAN-OS maintenance release.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may perform DoS attacks to degrade or block the availability of services.",
+            "technique_id": "T1499",
+            "technique_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Techniques": ["T1499"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of a logic flaw in PAN-OS GlobalProtect to cause a denial-of-service condition.",
+      "Exploits": ["CVE-2026-0227"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["PAN-OS NGFW", "Prisma Access"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Palo Alto Networks"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["DoS", "vulnerability", "CVE-2026-0227"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["12.1.4", "11.2.10-h2", "10.2.18-h1"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["PAN-OS", "GlobalProtect"],
+      "Technologies": ["Next-Generation Firewall", "Prisma Access"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-0227"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Targeted PAN-OS next-generation firewalls and Prisma Access deployments with GlobalProtect enabled.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Upgrade to the nearest fixed PAN-OS maintenance release."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-0227"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-15T13:41:42Z",
+    "Title": "High-Severity DoS Vulnerability in PAN-OS GlobalProtect",
+    "Tools": ["PAN-OS", "GlobalProtect"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": [],
+      "Description": "Organizations using PAN-OS next-generation firewalls and Prisma Access with GlobalProtect.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": ["PAN-OS NGFW", "Prisma Access"]
+    },
+    "diamond_model_summary": "The incident involves a high-severity denial-of-service vulnerability in PAN-OS GlobalProtect, tracked as CVE-2026-0227. The adversary can exploit a logic flaw to cause a DoS condition, affecting PAN-OS next-generation firewalls and Prisma Access deployments. The vulnerability is due to improper checks in the GlobalProtect gateway and portal, mapping to CWE-754 and CAPEC-210. Palo Alto Networks recommends upgrading to the nearest fixed PAN-OS maintenance release to mitigate the risk.",
+    "doc_summary": "Palo Alto Networks has released security updates to address a high-severity denial-of-service (DoS) vulnerability in PAN-OS, tracked as CVE-2026-0227. This flaw affects both on-premises PAN-OS next-generation firewalls (NGFW) and Prisma Access deployments with GlobalProtect gateway or portal enabled. The vulnerability is caused by an improper check for unusual or exceptional conditions in the PAN-OS implementation of the GlobalProtect gateway and portal, mapping to CWE-754 and CAPEC-210. An unauthenticated remote attacker can exploit this logic flaw over the network to trigger a DoS condition, causing the targeted firewall to stop processing traffic and enter maintenance mode. Affected PAN-OS versions include 12.1.0–12.1.3, 11.2.0–11.2.10, 11.1.0–11.1.12, and 10.2.0–10.2.18. Palo Alto Networks recommends upgrading to the nearest fixed PAN-OS maintenance release. There are no workarounds or mitigations available, so organizations should prioritize patching to prevent attackers from abusing this DoS flaw.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:56.989283+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "f130b78e221acd04911e4ab61d62b856ac2bc0e0",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident involves the exploitation stage, where an unauthenticated remote attacker can exploit a logic flaw in PAN-OS GlobalProtect to cause a denial-of-service condition. This affects PAN-OS next-generation firewalls and Prisma Access deployments with GlobalProtect enabled. The vulnerability is tracked as CVE-2026-0227 and has a CVSS Base score of 8.7. Palo Alto Networks recommends upgrading to the nearest fixed PAN-OS maintenance release to prevent exploitation.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 63,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the TTPs, as the vulnerability CVE-2026-0227 is a logic flaw in PAN-OS GlobalProtect. No specific hashes, IP addresses, or domains are identified. The primary remediation is to upgrade to the nearest fixed PAN-OS maintenance release. This summary is a placeholder due to the lack of specific indicators.",
+    "relevance_score": 45,
+    "sequence": 19048,
+    "source": "https://gbhackers.com/palo-alto-dos-flaw/",
+    "slug": "High-Severity_DoS_Vulnerability_in_PAN-OS_GlobalProtect-019048",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in HPE Networking Instant On devices.",
+        "Detection": "",
+        "Remediation": "Upgrade to software version 3.3.2.0 or later.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for lateral movement and denial-of-service attacks.",
+        "Detection": "",
+        "Remediation": "Monitor network traffic for unusual patterns. • Implement network segmentation to limit exposure.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to avoid being detected.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may perform DoS attacks to degrade or block the availability of services.",
+            "technique_id": "T1499",
+            "technique_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Techniques": ["T1499"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of vulnerabilities in HPE Networking Instant On devices to expose VLAN data and cause denial-of-service.",
+      "Exploits": ["CVE-2025-37165", "CVE-2025-37166", "CVE-2023-52340", "CVE-2022-48839"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Instant On access points", "1930 switches"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["HPE"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["VLAN", "denial-of-service", "security patch"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["3.3.2.0"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["HPE Networking Instant On"],
+      "Technologies": ["IPv4", "IPv6"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-37165", "CVE-2025-37166", "CVE-2023-52340", "CVE-2022-48839"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "HPE Networking Instant On access points and 1930 switches running vulnerable software versions.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Ensure all devices are updated to the latest software version.",
+      "Conduct a thorough review of network configurations and access controls."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2025-37165", "CVE-2025-37166", "CVE-2023-52340", "CVE-2022-48839"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-15T13:41:02Z",
+    "Title": "HPE Networking Instant On Vulnerabilities Expose VLAN Data and Enable DoS Attacks",
+    "Tools": ["HPE Networking Instant On"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": ["VLAN configuration data"],
+      "Description": "Organizations using HPE Networking Instant On devices with vulnerable software versions.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": ["HPE Networking Instant On access points", "HPE 1930 switches"]
+    },
+    "diamond_model_summary": "The incident involves vulnerabilities in HPE Networking Instant On devices, specifically affecting VLAN data exposure and denial-of-service conditions. The adversary could exploit these vulnerabilities remotely without authentication, posing a high risk to network confidentiality and availability. The infrastructure includes HPE Instant On access points and 1930 switches running outdated software versions. Victims are organizations using these devices, with potential exposure of sensitive network configuration data.",
+    "doc_summary": "HPE has released security patches for high-severity vulnerabilities in HPE Networking Instant On devices, affecting Instant On access points and 1930 switches running software version 3.3.1.0 and below. The most critical issue, CVE-2025-37165, involves VLAN information exposure in router mode, allowing remote attackers to map internal segments. Another flaw, CVE-2025-37166, can cause denial-of-service conditions. Additional kernel-level vulnerabilities, CVE-2023-52340 and CVE-2022-48839, affect packet processing. These issues were discovered by Daniel J Blueman and Petr Chelmar. HPE advises upgrading to version 3.3.2.0 or later.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:56.989230+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "dadd65e7caea04b73eb1aac0eda4a838a757567a",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain involves exploitation of vulnerabilities in HPE Networking Instant On devices, leading to potential exposure of VLAN configuration data and denial-of-service conditions. The adversary can exploit these vulnerabilities remotely, without authentication, to gain initial access and perform actions on objectives such as lateral movement and service disruption. Remediation involves upgrading to the latest software version and monitoring network traffic for anomalies.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 66,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes vulnerabilities (CVE-2025-37165, CVE-2025-37166, CVE-2023-52340, CVE-2022-48839) as TTPs, which are challenging to change and require software updates. No specific hashes, IP addresses, or domains were identified, limiting the ability to detect and respond to these threats using traditional indicators. The focus should be on patching and monitoring network traffic for unusual patterns.",
+    "relevance_score": 43,
+    "sequence": 19047,
+    "source": "https://gbhackers.com/silent-aruba-data-exposure/",
+    "slug": "HPE_Networking_Instant_On_Vulnerabilities_Expose_VLAN_Data_and_Enable_Do-019047",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary exploits a logic flaw in Cal.com's JWT handling to gain unauthorized access.",
+      "Known_Campaigns": [],
+      "Motivation": "Unauthorized access and potential data theft",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Gain unauthorized access to user accounts",
+      "TTPs_Employed": ["Exploitation of authentication logic flaws"]
+    },
+    "Analyses": [
+      {
+        "Description": "Adversary identifies vulnerable Cal.com versions and targets known email addresses.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting email addresses to target.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of the JWT callback logic flaw to bypass authentication.",
+        "Detection": "",
+        "Remediation": "Upgrade to Cal.com version 6.0.7 or later • Implement strict input validation",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to credentials.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to gain access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Adversary gains full access to user accounts and associated data.",
+        "Detection": "",
+        "Remediation": "Rotate API tokens • Monitor for unauthorized access",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from compromised accounts.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing email data from compromised accounts.",
+            "technique_id": "T1114",
+            "technique_name": "Email Collection"
+          }
+        ],
+        "Techniques": ["T1114"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of JWT callback logic flaw to bypass authentication",
+      "Exploits": ["GHSA-7hg4-x4pr-3hrg"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["User accounts", "Booking data"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": ["session.update({ email: \"[email protected]\" })"],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["JWT", "authentication", "vulnerability", "account takeover"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["6.0.7"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Cal.com"],
+      "Technologies": ["NextAuth"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["GHSA-7hg4-x4pr-3hrg"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No specific infrastructure details detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Upgrade to Cal.com version 6.0.7 or later",
+      "Implement strict input validation",
+      "Rotate API tokens",
+      "Monitor for unauthorized access"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of authentication logic flaws"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-15T13:49:04Z",
+    "Title": "Critical Vulnerability in Cal.com Allows Account Takeover",
+    "Tools": ["Cal.com"],
+    "Victim": {
+      "Access_Vectors": ["API call session.update"],
+      "Data_Types_At_Risk": ["Personal information", "Business event types"],
+      "Description": "Users of Cal.com versions 3.1.6 through 6.0.6",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable due to logic flaw",
+      "Targeted_Assets": ["User accounts", "Booking and calendar data"]
+    },
+    "diamond_model_summary": "The incident involves a critical vulnerability in Cal.com, allowing adversaries to exploit a logic flaw in JWT handling to gain unauthorized access to user accounts. The adversary's capability is centered around exploiting this flaw, with the infrastructure being the vulnerable Cal.com versions. Victims are users of the affected versions, with potential data exposure including personal and business information.",
+    "doc_summary": "A critical vulnerability in Cal.com, an open-source scheduling platform, allows attackers to bypass authentication and gain full access to user accounts. The flaw, identified by GitHub researcher pedroccastro and tracked as GHSA-7hg4-x4pr-3hrg, affects versions 3.1.6 through 6.0.6. It stems from a logic flaw in a custom NextAuth JWT callback, which improperly trusts client-controlled input. Attackers can exploit this by invoking the API call session.update with a forged email, leading to account takeover. The issue has been patched in version 6.0.7. Users are advised to upgrade to mitigate the risk.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:56.989174+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "3b324c19f8cbcc2a164b796b818e294ebe8e5a97",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The adversary conducts reconnaissance by identifying vulnerable Cal.com versions and targeting known email addresses. Exploitation occurs through a logic flaw in JWT handling, allowing unauthorized access. Actions on objectives include accessing user accounts and associated data. Remediation involves upgrading to version 6.0.7 and implementing input validation.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 89,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is limited due to the lack of specific indicators such as hashes or IP addresses. The primary focus is on the TTPs employed, specifically the exploitation of a logic flaw in JWT handling. This summary highlights the need for strict input validation and monitoring for unauthorized access to mitigate similar threats.",
+    "relevance_score": 45,
+    "sequence": 19046,
+    "source": "https://gbhackers.com/cal-com-authentication-bypass/",
+    "slug": "Critical_Vulnerability_in_Cal.com_Allows_Account_Takeover-019046",
+    "shard": 6
+  },
+  {
+    "Adversary": {
       "Aliases": ["Storm-2470"],
       "Associated_Groups": ["Storm-2227", "Storm-1575", "Storm-1747"],
       "Description": "RedVDS was operated by a network of cybercriminals, including Storm-2470, providing infrastructure for fraud and cybercrime.",
@@ -100350,1370 +101742,6 @@
     "sequence": 18563,
     "source": "https://thehackernews.com/2025/12/zero-click-agentic-browser-attack-can.html",
     "slug": "Agentic_Browser_Attack_on_Perplexity_s_Comet_Browser-018563",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of the XXE vulnerability in Apache Tika.",
-        "Detection": "Monitor for unusual XML processing activities. • Check for access to sensitive files via XML entities.",
-        "Remediation": "Upgrade to Apache Tika tika-core version 3.2.2 or later. • Apply security patches promptly.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in an internet-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The vulnerability allows for XML External Entity injection, potentially leading to file access and remote code execution.",
-      "Exploits": ["CVE-2025-66516"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["tika-core", "tika-pdf-module", "tika-parsers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["XXE", "XML External Entity", "CVE-2025-66516", "CVE-2025-54988"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["tika-core version 3.2.2"],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Apache Tika"],
-      "Technologies": ["XML", "PDF"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-66516", "CVE-2025-54988"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["T1190"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-12-04T18:30:00Z",
-    "Title": "Critical XXE Vulnerability in Apache Tika",
-    "Tools": ["Apache Tika"],
-    "Victim": {
-      "Access_Vectors": ["XML processing"],
-      "Data_Types_At_Risk": ["File system access", "Remote code execution"],
-      "Description": "Users of Apache Tika across all platforms are at risk.",
-      "Geography": "",
-      "Impact_Severity": "Critical",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Apache Tika installations"]
-    },
-    "diamond_model_summary": "The incident involves a critical XML External Entity (XXE) vulnerability in Apache Tika, identified as CVE-2025-66516. This vulnerability allows attackers to perform XXE injection attacks, potentially leading to file access and remote code execution. The affected components include tika-core, tika-pdf-module, and tika-parsers. Users are advised to upgrade to the latest version to mitigate the risk.",
-    "doc_summary": "A critical security flaw has been disclosed in Apache Tika, identified as CVE-2025-66516, which could result in an XML external entity (XXE) injection attack. This vulnerability is rated 10.0 on the CVSS scale, indicating maximum severity. It affects the tika-core, tika-pdf-module, and tika-parsers modules across all platforms, allowing attackers to execute XXE injection via a crafted XFA file inside a PDF. The vulnerability is similar to CVE-2025-54988, which was patched in August 2025, but CVE-2025-66516 expands the scope of affected packages. Users are advised to upgrade to tika-core version 3.2.2 or later to mitigate the risk.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:20.148302+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "e6f3375aa48ab2b9872fb77462c4dc1a0cf2db317d9a00c48bff53d80caac8bf",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for this incident involves the exploitation of a critical XXE vulnerability in Apache Tika. The vulnerability allows attackers to perform XML External Entity injection, potentially leading to unauthorized file access and remote code execution. The primary stage affected is Exploitation, where the adversary leverages the vulnerability to gain access to the system.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the exploitation of a known vulnerability, CVE-2025-66516, in Apache Tika. The lack of specific indicators such as hashes, IP addresses, or domains makes detection challenging. The primary focus should be on patching the affected software to prevent exploitation.",
-    "relevance_score": 41,
-    "sequence": 18562,
-    "source": "https://thehackernews.com/2025/12/critical-xxe-bug-cve-2025-66516-cvss.html",
-    "slug": "Critical_XXE_Vulnerability_in_Apache_Tika-018562",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": ["Earth Lamia", "Jackpot Panda"],
-      "Description": "China-linked threat actors exploiting React2Shell vulnerability.",
-      "Known_Campaigns": [],
-      "Motivation": "Intelligence collection and exploitation of web application vulnerabilities.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Exploitation of web application vulnerabilities and intelligence collection.",
-      "TTPs_Employed": ["Exploitation of CVE-2025-55182"]
-    },
-    "Analyses": [
-      {
-        "Description": "Threat actors likely conducted reconnaissance to identify vulnerable targets.",
-        "Detection": "Monitor for unusual scanning activity targeting React and Next.js applications.",
-        "Remediation": "Implement network segmentation to limit exposure.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify potential targets.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for vulnerable systems.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Development of exploits for the React2Shell vulnerability.",
-        "Detection": "Monitor for the creation and distribution of new exploit code.",
-        "Remediation": "Apply security patches to vulnerable systems.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating exploits for vulnerabilities.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating exploits for vulnerabilities.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Exploit"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Delivery of exploits to vulnerable systems.",
-        "Detection": "Monitor for exploit attempts against public-facing applications.",
-        "Remediation": "Implement web application firewalls to block exploit attempts.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a system.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Exploitation of the React2Shell vulnerability for remote code execution.",
-        "Detection": "Monitor for unusual JavaScript execution on servers.",
-        "Remediation": "Apply security patches to vulnerable systems.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a system.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Execution of JavaScript code on the server.",
-            "technique_id": "T1059.007",
-            "technique_name": "JavaScript"
-          }
-        ],
-        "Techniques": ["T1059.007"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of insecure deserialization vulnerability in React Server Components.",
-      "Exploits": ["CVE-2025-55182"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Proof-of-concept exploits"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Web applications"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Amazon Web Services"],
-      "Countries": ["China"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["React2Shell", "CVE-2025-55182", "CVE-2025-66478", "Earth Lamia", "Jackpot Panda"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Financial Services", "Logistics", "Retail", "IT", "Education", "Government"],
-      "Software": ["React", "Next.js"],
-      "Technologies": ["React Server Components"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-55182"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "China-based infrastructure with shared anonymization.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2025-55182"],
-      "Tools": ["Proof-of-concept exploits"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Earth Lamia", "Jackpot Panda"],
-    "Timestamp": "2025-12-05T06:26:00Z",
-    "Title": "Exploitation of React2Shell Vulnerability by China-linked Threat Actors",
-    "Tools": ["Proof-of-concept exploits", "React", "Next.js"],
-    "Victim": {
-      "Access_Vectors": ["Remote execution"],
-      "Data_Types_At_Risk": ["Intelligence data"],
-      "Description": "Entities in financial services, logistics, retail, IT, universities, and government sectors.",
-      "Geography": "Latin America, Middle East, Southeast Asia, East Asia",
-      "Impact_Severity": "High",
-      "Industry": "Financial Services, Logistics, Retail, IT, Education, Government",
-      "Security_Posture": "Vulnerable to React2Shell",
-      "Targeted_Assets": ["Web applications"]
-    },
-    "diamond_model_summary": "The incident involves China-linked threat actors, Earth Lamia and Jackpot Panda, exploiting the React2Shell vulnerability (CVE-2025-55182) in React and Next.js. The adversaries are motivated by intelligence collection and exploitation of web application vulnerabilities. The infrastructure used is China-based with shared anonymization, complicating attribution. Victims span multiple sectors, including financial services, logistics, retail, IT, education, and government, across Latin America, the Middle East, and Southeast Asia.",
-    "doc_summary": "Multiple China-linked threat actors, including Earth Lamia and Jackpot Panda, began exploiting the React2Shell vulnerability (CVE-2025-55182) affecting React and Next.js shortly after its disclosure. This vulnerability, an insecure deserialization issue in the React Server Components 'Flight' protocol, allows remote execution of JavaScript code without authentication. The vulnerability affects several versions of the library, exposing thousands of projects. AWS observed exploitation attempts from China-based infrastructure, with many clusters using the same anonymization infrastructure. Lachlan Davidson discovered the vulnerability, and valid exploits have appeared on GitHub. AWS honeypots detected activity not attributed to known clusters, complicating attribution. The attacks involve public exploits, iterative testing, and real-time troubleshooting. Assetnote released a tool to check for vulnerability to React2Shell.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:20.148248+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "19887d68da6103627c3838d16cfce199",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with reconnaissance to identify vulnerable targets, followed by weaponization through the development of exploits for the React2Shell vulnerability. Delivery involves exploiting public-facing applications, leading to exploitation through remote code execution. The attack leverages public exploits and iterative testing, with AWS observing activity from China-based infrastructure. The exploitation stage is critical, as it allows unauthenticated remote execution of JavaScript code on servers.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 80,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of the React2Shell vulnerability (CVE-2025-55182) as a TTP, with public proof-of-concept exploits available. The infrastructure is China-based, with shared anonymization complicating attribution. The ease of exploitation and the widespread use of affected libraries increase the potential impact. Detection focuses on monitoring for unusual scanning and JavaScript execution, while remediation involves applying security patches and implementing web application firewalls.",
-    "relevance_score": 71,
-    "sequence": 18561,
-    "source": "https://www.bleepingcomputer.com/news/security/react2shell-critical-flaw-actively-exploited-in-china-linked-attacks/",
-    "slug": "Exploitation_of_React2Shell_Vulnerability_by_China-linked_Threat_Actors-018561",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of SNMP input validation flaw in Cacti",
-        "Detection": "Monitor logs for suspicious SNMP activity • Check for unusual POST requests to host.php",
-        "Remediation": "Upgrade to Cacti version 1.2.29 • Restrict access to authenticated Cacti accounts",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in an internet-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Establishing outbound connection via reverse shell",
-        "Detection": "Monitor for unexpected outbound connections • Inspect SNMP community strings for anomalies",
-        "Remediation": "Implement network segmentation to limit SNMP access • Use intrusion detection systems to monitor SNMP traffic",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of web protocols to communicate with compromised systems.",
-            "technique_id": "T1071.001",
-            "technique_name": "Application Layer Protocol: Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Execution of arbitrary commands on Cacti server",
-        "Detection": "Audit system logs for unauthorized command execution • Check for changes in monitoring data integrity",
-        "Remediation": "Regularly update and patch Cacti installations • Conduct security awareness training for administrators",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to avoid being detected.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Defense Evasion"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of command-line interfaces to execute commands.",
-            "technique_id": "T1059",
-            "technique_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Techniques": ["T1059"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of improper input validation in Cacti SNMP configuration",
-      "Exploits": ["CVE-2025-66399"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Cacti monitoring servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["SNMP", "remote code execution", "input validation"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["1.2.29"],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Cacti"],
-      "Technologies": ["SNMP"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-66399"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Cacti monitoring platform with vulnerable SNMP configuration",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of SNMP input validation flaw"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-12-05T08:36:44Z",
-    "Title": "Cacti SNMP Input Validation Flaw Allows Remote Code Execution",
-    "Tools": ["Cacti"],
-    "Victim": {
-      "Access_Vectors": ["Authenticated SNMP configuration"],
-      "Data_Types_At_Risk": ["Monitoring data", "System-level commands"],
-      "Description": "Organizations using Cacti versions up to 1.2.28",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Cacti monitoring servers"]
-    },
-    "diamond_model_summary": "The incident involves a vulnerability in the Cacti monitoring platform, specifically in the SNMP device configuration workflow. The adversary can exploit this flaw to execute arbitrary commands on the server. The capability involves improper input validation, allowing for remote code execution. The infrastructure affected includes Cacti servers running versions up to 1.2.28. Victims are organizations using these vulnerable versions, with potential impacts on monitoring data and system integrity.",
-    "doc_summary": "A critical security flaw in the Cacti monitoring platform, tracked as CVE-2025-66399, allows attackers to execute arbitrary commands on vulnerable servers. The flaw affects Cacti versions up to 1.2.28 and is fixed in version 1.2.29. The vulnerability arises from improper input validation in the SNMP device configuration workflow, where the snmp_community field is not effectively sanitized. This allows authenticated attackers to inject shell commands via specially crafted SNMP community strings. The flaw can lead to remote code execution, manipulation of monitoring data, unauthorized file writes, and complete server compromise. The issue is categorized under CWE-20: Improper Input Validation. Users are urged to upgrade to Cacti 1.2.29 and restrict access to authenticated accounts.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:20.148139+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "aee071ab5d1b4348dddcc1c32fb2982e7f0ec67e",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for this incident begins with the exploitation of a vulnerability in the Cacti SNMP configuration, allowing an attacker to gain initial access. The exploitation stage involves injecting malicious SNMP community strings to execute arbitrary commands. Command and control is established through outbound connections initiated by the injected payload. The final stage, actions on objectives, involves executing system-level commands, potentially compromising the entire server. Detection and remediation efforts focus on monitoring SNMP activity and upgrading to the patched version.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 83,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to exploiting SNMP input validation flaws. No specific hash values, IP addresses, or domain names are identified, but the use of SNMP community strings as a vector is a key indicator. Tools and techniques involve exploiting the vulnerability for remote code execution. The scoring reflects the absence of specific indicators, focusing instead on the broader TTPs employed in the attack.",
-    "relevance_score": 45,
-    "sequence": 18560,
-    "source": "https://gbhackers.com/cacti-command-injection-flaw/",
-    "slug": "Cacti_SNMP_Input_Validation_Flaw_Allows_Remote_Code_Execution-018560",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Crafting of malicious PDF files with embedded XFA components.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Adversaries may develop resources that can be used to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may develop malware to exploit vulnerabilities.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Capabilities: Malware"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Uploading of malicious PDF files to vulnerable systems.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Adversaries may use various methods to gain initial access to a network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may exploit vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Exploitation of XXE vulnerability in Apache Tika.",
-        "Detection": "",
-        "Remediation": "Upgrade Apache Tika core to version 3.2.2 or later. • Implement input validation and hardening for systems processing PDFs.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Adversaries may use various methods to gain initial access to a network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may exploit vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Access to local files and internal network resources.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Adversaries may collect data from a target network prior to exfiltration.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may stage collected data locally prior to exfiltration.",
-            "technique_id": "T1074.001",
-            "technique_name": "Data Staged: Local Data Staging"
-          }
-        ],
-        "Techniques": ["T1074.001"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of XXE vulnerability in Apache Tika to access sensitive data.",
-      "Exploits": ["CVE-2025-66516"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Apache"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["XXE", "CVE-2025-66516", "PDF", "XFA"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["3.2.2"],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Apache Tika"],
-      "Technologies": ["XML External Entity", "XML Forms Architecture"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-66516", "CVE-2025-54988"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Apache Tika integrated into document processing and content analysis pipelines.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Upgrade Apache Tika core to version 3.2.2 or later.",
-      "Review systems processing untrusted PDFs for additional hardening."
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["XXE Injection"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-12-05T12:36:41Z",
-    "Title": "Critical XXE Vulnerability in Apache Tika (CVE-2025-66516)",
-    "Tools": ["Apache Tika"],
-    "Victim": {
-      "Access_Vectors": ["File upload"],
-      "Data_Types_At_Risk": ["Local files", "Internal network resources", "Sensitive data"],
-      "Description": "Organizations using Apache Tika for document processing.",
-      "Geography": "",
-      "Impact_Severity": "Critical",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Servers running Apache Tika"]
-    },
-    "diamond_model_summary": "The incident involves a critical vulnerability in Apache Tika, identified as CVE-2025-66516, which allows attackers to exploit an XXE injection flaw by uploading malicious PDF files. The vulnerability affects multiple versions of Apache Tika core, parsers, and PDF parser module, commonly used in document processing pipelines. Organizations using these versions are at risk of data exposure and are advised to upgrade to version 3.2.2 or later.",
-    "doc_summary": "A critical vulnerability, CVE-2025-66516, has been disclosed in Apache Tika, affecting its core, parsers, and PDF parser module. This flaw, stemming from an XML External Entity (XXE) injection in handling XFA content in PDFs, allows attackers to access sensitive data on servers by uploading malicious PDFs. The vulnerability impacts versions from 1.13 through 3.2.1 of Tika core, and related modules, commonly used in content analysis and document processing pipelines. Organizations are advised to upgrade to Tika core version 3.2.2 or later to mitigate the risk. The issue is related to a previous vulnerability, CVE-2025-54988, but expands the scope of affected artifacts. Apache Tika is often integrated into file upload workflows and security tools, making this vulnerability particularly concerning for environments processing untrusted PDFs.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:20.148116+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "736aed57d6d05a0d439c2382c033f3fa0d579c29",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack chain begins with the weaponization of malicious PDF files containing XFA components, followed by their delivery to vulnerable systems running Apache Tika. Exploitation occurs through an XXE injection flaw, allowing attackers to access sensitive data. The primary remediation is upgrading Apache Tika core to version 3.2.2 or later and implementing input validation for systems processing PDFs.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the exploitation of a specific vulnerability, CVE-2025-66516, in Apache Tika. No specific hash values, IP addresses, or domain names are identified, making the primary focus on the TTPs related to XXE injection and the associated software versions. The remediation involves upgrading to a secure version of Apache Tika.",
-    "relevance_score": 45,
-    "sequence": 18559,
-    "source": "https://gbhackers.com/apache-tika-core-flaw-allows-attackers-to-exploit-systems-with-malicious-pdf-uploads/",
-    "slug": "Critical_XXE_Vulnerability_in_Apache_Tika__CVE-2025-66516_-018559",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "SAFA researchers targeted Avast Antivirus due to its widespread deployment and rich kernel attack surface.",
-      "Known_Campaigns": [],
-      "Motivation": "Exploit vulnerabilities for privilege escalation to SYSTEM.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Exploit kernel vulnerabilities for privilege escalation.",
-      "TTPs_Employed": ["Double-fetch issues", "IOCTL handling exploitation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of double-fetch issues in IOCTL handling to trigger heap overflows.",
-        "Detection": "Monitor for unusual IOCTL requests. • Audit logs for privilege escalation attempts.",
-        "Remediation": "Update to Avast Antivirus version 25.3. • Implement strict access controls on IOCTL handlers.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability to gain higher-level permissions.",
-            "technique_id": "T1068",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1068"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Privilege escalation to SYSTEM achieved through exploitation.",
-        "Detection": "Monitor for SYSTEM-level access attempts. • Audit logs for unusual privilege escalation activities.",
-        "Remediation": "Update to Avast Antivirus version 25.3. • Limit local privileges and enforce least privilege principle.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gain higher-level permissions.",
-            "tactic_id": "TA0004",
-            "tactic_name": "Privilege Escalation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability to gain higher-level permissions.",
-            "technique_id": "T1068",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1068"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of kernel heap overflow vulnerabilities in Avast Antivirus's aswSnx.sys driver.",
-      "Exploits": ["CVE-2025-13032"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["aswSnx.sys driver"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Avast"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["kernel heap overflow", "IOCTL handling", "privilege escalation", "sandbox manipulation"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Version 25.3"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Avast Antivirus"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-13032"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Avast Antivirus's aswSnx.sys driver with exposed IOCTL handlers under permissive ACLs.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Update to Avast Antivirus version 25.3.",
-      "Limit local privileges and enforce least privilege principle.",
-      "Audit logs for escalation attempts."
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of double-fetch issues", "IOCTL handling vulnerabilities"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-12-05T13:46:37Z",
-    "Title": "Kernel Heap Overflow Vulnerabilities in Avast Antivirus aswSnx.sys Driver",
-    "Tools": ["Avast Antivirus"],
-    "Victim": {
-      "Access_Vectors": ["Local"],
-      "Data_Types_At_Risk": ["System privileges"],
-      "Description": "Users of Avast Antivirus versions before 25.3 on Windows.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable",
-      "Targeted_Assets": ["Kernel components", "User-accessible drivers"]
-    },
-    "diamond_model_summary": "The incident involves SAFA researchers uncovering kernel heap overflow vulnerabilities in Avast Antivirus's aswSnx.sys driver, designated CVE-2025-13032. These vulnerabilities allow local attackers to trigger pool overflows for privilege escalation to SYSTEM. The attack requires sandbox manipulation to access the vulnerable IOCTL handlers, marking a reversal from typical sandbox escape scenarios. Avast addressed the issues in version 25.3.",
-    "doc_summary": "SAFA researchers identified four kernel heap overflow vulnerabilities in Avast Antivirus's aswSnx.sys driver, designated CVE-2025-13032, affecting versions before 25.3 on Windows. These vulnerabilities stem from double-fetch issues in IOCTL handling, allowing local attackers to trigger pool overflows for privilege escalation to SYSTEM. The vulnerabilities require sandbox manipulation to access the attack surface, marking a reversal from typical sandbox escape scenarios. SAFA targeted Avast due to its widespread deployment and rich kernel attack surface via user-accessible drivers, such as aswSnx, which exposes numerous IOCTL handlers under permissive ACLs. Reverse engineering revealed shared code across Gendigital products, potentially broadening impact. Manual auditing, combined with heuristics such as tracing ProbeForRead calls, quickly pinpointed flaws in IOCTL 0x82AC0204, which processes user-supplied UNICODE_STRING structures without properly capturing them in kernel memory. The driver fetches the Length field twice, once for allocation and again for copying, enabling attackers to alter it mid-operation for controlled heap overflows. Avast addressed the issues in version 25.3 by capturing structures to kernel memory, reusing initial lengths, adding size checks against fixed buffers, and validating pointers. CVSS v3.1 scores it at 9.9 (Critical) due to low complexity, low privileges needed, and full CIA impact via scope change.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:20.148090+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "e6d27a640878288bd8c8441fa276715b1cd2c884",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack chain involves exploiting double-fetch issues in IOCTL handling within Avast Antivirus's aswSnx.sys driver. This allows local attackers to trigger heap overflows and escalate privileges to SYSTEM. The vulnerabilities require sandbox manipulation to access the attack surface. Avast addressed these issues in version 25.3, mitigating the risk of exploitation.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 87,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to exploiting double-fetch issues in IOCTL handling, leading to kernel heap overflows. No specific hash values, IP addresses, or domain names were identified. The primary focus is on the exploitation techniques and the vulnerabilities in the Avast Antivirus driver.",
-    "relevance_score": 41,
-    "sequence": 18558,
-    "source": "https://gbhackers.com/avast-antivirus-sandbox-vulnerabilities/",
-    "slug": "Kernel_Heap_Overflow_Vulnerabilities_in_Avast_Antivirus_aswSnx.sys_Drive-018558",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Agenda"],
-      "Associated_Groups": [],
-      "Description": "The Qilin ransomware group, operating as a Ransomware-as-a-Service under the Agenda name, claimed responsibility for the attack.",
-      "Known_Campaigns": ["Qilin RaaS operations"],
-      "Motivation": "Financial gain through ransomware extortion.",
-      "Sophistication": "Moderate, leveraging RaaS model.",
-      "Strategic_Objectives": "Exfiltration of sensitive data and extortion.",
-      "TTPs_Employed": ["Data exfiltration", "Ransomware deployment"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Unauthorized access to Inotiv's systems was achieved.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary gained unauthorized access to Inotiv's systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary may have used valid accounts to gain access.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "Ransomware was installed on Inotiv's systems.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary installed ransomware to maintain access.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ransomware may have been set to execute on boot or logon.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Data exfiltration and encryption were performed.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary exfiltrated data from Inotiv's systems.",
-            "tactic_id": "TA0010",
-            "tactic_name": "Exfiltration"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Data was exfiltrated automatically by the ransomware.",
-            "technique_id": "T1020",
-            "technique_name": "Automated Exfiltration"
-          }
-        ],
-        "Techniques": ["T1020"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Qilin group utilized ransomware to encrypt and exfiltrate data.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Qilin ransomware"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Ransomware"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["networks", "systems", "databases"],
-      "Breach_Types": ["Ransomware"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Inotiv"],
-      "Countries": ["United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["ransomware", "data breach", "Qilin", "Inotiv", "SEC filing"],
-      "Malware_Families": ["Qilin ransomware"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Pharmaceutical"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The attack involved compromised networks and systems within Inotiv.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Data exfiltration", "Ransomware deployment"],
-      "Tools": ["Ransomware"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Qilin", "Agenda"],
-    "Timestamp": "2025-12-05T08:05:00Z",
-    "Title": "Inotiv Ransomware Attack by Qilin Group",
-    "Tools": ["Ransomware"],
-    "Victim": {
-      "Access_Vectors": ["Unauthorized access"],
-      "Data_Types_At_Risk": ["Personal information"],
-      "Description": "Inotiv, an Indiana-based pharmaceutical firm specializing in drug development and safety assessment.",
-      "Geography": "United States",
-      "Impact_Severity": "High",
-      "Industry": "Pharmaceutical",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Networks", "Systems", "Databases"]
-    },
-    "diamond_model_summary": "The Qilin ransomware group targeted Inotiv, a pharmaceutical firm, in August 2025. The attack involved unauthorized access to Inotiv's systems, leading to data exfiltration and encryption. The adversary's motivation was financial extortion, leveraging ransomware as a service. Inotiv's networks and systems were compromised, affecting personal data of thousands.",
-    "doc_summary": "In August 2025, the American pharmaceutical firm Inotiv, based in Indiana, experienced a ransomware attack attributed to the Qilin group. The attack led to the theft of personal information from 9,542 individuals and disrupted business operations by compromising networks and systems. Inotiv, a contract research organization specializing in drug development and safety assessment, reported the incident to the U.S. Securities and Exchange Commission. The Qilin ransomware group, known for its Ransomware-as-a-Service operation under the Agenda name, claimed responsibility and leaked data samples. The breach involved over 162,000 files totaling 176 GB. Inotiv has not disclosed the specific types of data stolen or attributed the attack to a specific cybercrime operation. The incident highlights the vulnerability of the pharmaceutical sector to ransomware attacks and the potential exposure of sensitive personal data.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:20.148028+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "243dc12439053b86d1d14e3cce6a3cd0",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack on Inotiv by the Qilin group followed a typical ransomware kill chain. Initial access was gained through unauthorized means, followed by the installation of ransomware. The adversary then exfiltrated data and encrypted systems, disrupting operations. The attack highlights the need for robust security measures in the pharmaceutical sector.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 69,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for the Inotiv incident involves limited indicators. The Qilin ransomware group used ransomware to exfiltrate and encrypt data. Specific hashes, IPs, or domains were not identified, limiting the ability to apply the Pyramid of Pain effectively. The incident underscores the challenge of detecting and responding to ransomware attacks.",
-    "relevance_score": 61,
-    "sequence": 18557,
-    "source": "https://www.bleepingcomputer.com/news/security/pharma-firm-inotiv-discloses-data-breach-after-ransomware-attack/",
-    "slug": "Inotiv_Ransomware_Attack_by_Qilin_Group-018557",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": ["Earth Lamia", "Jackpot Panda"],
-      "Description": "China-linked hacking groups exploiting React2Shell vulnerability.",
-      "Known_Campaigns": [],
-      "Motivation": "Exploitation of critical vulnerabilities for potential data theft or disruption.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Gain unauthorized access and execute remote code.",
-      "TTPs_Employed": ["Remote Code Execution"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of React2Shell vulnerability in React Server Components.",
-        "Detection": "Monitor HTTP requests for malicious patterns targeting React Server Function endpoints.",
-        "Remediation": "Apply patches to vulnerable React components immediately.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of React2Shell vulnerability in React Server Components.",
-      "Exploits": ["React2Shell"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Web Applications", "Online Platforms"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Cloudflare", "Amazon Web Services"],
-      "Countries": ["China"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["React2Shell", "remote code execution", "vulnerability", "Cloudflare", "React Server Components"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["React", "Next.js", "React Router", "Waku", "@parcel/rsc", "@vitejs/plugin-rsc", "RedwoodSDK"],
-      "Technologies": ["JavaScript", "Web Application Firewall"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-55182"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Cloudflare's Web Application Firewall and network infrastructure.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote Code Execution"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Earth Lamia", "Jackpot Panda"],
-    "Timestamp": "2025-12-05T08:53:00Z",
-    "Title": "Cloudflare Outage Due to Emergency Patch for React2Shell Vulnerability",
-    "Tools": ["React", "Next.js", "React Router", "Waku", "@parcel/rsc", "@vitejs/plugin-rsc", "RedwoodSDK"],
-    "Victim": {
-      "Access_Vectors": ["HTTP Requests"],
-      "Data_Types_At_Risk": ["Web Traffic", "User Data"],
-      "Description": "Websites and online platforms worldwide affected by Cloudflare outage.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched React components.",
-      "Targeted_Assets": ["Web Applications", "Online Platforms"]
-    },
-    "diamond_model_summary": "The incident involves China-linked hacking groups exploiting the React2Shell vulnerability in React Server Components. The adversaries, including Earth Lamia and Jackpot Panda, are motivated by the potential for unauthorized access and disruption. Cloudflare's infrastructure was impacted due to an emergency patch deployment, affecting global web platforms.",
-    "doc_summary": "Earlier today, a critical incident caused websites and online platforms worldwide to go down, returning a '500 Internal Server Error' message. The internet infrastructure company Cloudflare has blamed the incident on an emergency patch designed to address a critical remote code execution vulnerability in React Server Components, known as React2Shell. This vulnerability affects the React open-source JavaScript library and dependent frameworks such as Next.js, React Router, Waku, @parcel/rsc, @vitejs/plugin-rsc, and RedwoodSDK. The flaw allows unauthenticated attackers to gain remote code execution by sending maliciously crafted HTTP requests. Security researchers with Amazon Web Services reported that multiple China-linked hacking groups, including Earth Lamia and Jackpot Panda, began exploiting the flaw hours after its disclosure. The NHS England National CSOC warned of continued successful exploitation in the wild. Cloudflare's network was unavailable for several minutes due to a change in how its Web Application Firewall parses requests, which was deployed to mitigate the vulnerability.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:19.628576+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "d47b47f807335b388015bb63bd8fe212",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain involves the exploitation of the React2Shell vulnerability, allowing adversaries to gain initial access through remote code execution. The exploitation stage is critical, as it targets public-facing applications using malicious HTTP requests. Detection and remediation focus on monitoring HTTP traffic and applying patches to vulnerable components.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the TTPs employed by the adversaries, specifically the exploitation of the React2Shell vulnerability. No specific hashes, IPs, or domains were identified, but the focus is on the tools and techniques used to exploit the vulnerability. The scoring reflects the emphasis on TTPs and the need for robust detection and remediation strategies.",
-    "relevance_score": 73,
-    "sequence": 18556,
-    "source": "https://www.bleepingcomputer.com/news/security/cloudflare-blames-todays-outage-on-emergency-react2shell-patch/",
-    "slug": "Cloudflare_Outage_Due_to_Emergency_Patch_for_React2Shell_Vulnerability-018556",
     "shard": 6
   }
 ]

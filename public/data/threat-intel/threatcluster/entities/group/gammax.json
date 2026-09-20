@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "gammax",
+  "name": "gammax",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-18T17:52:03.000Z",
+  "lastSeen": "2026-09-18T17:52:03.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-18",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "premier-lighting-amp-controls-c634",
+      "title": "Premier Lighting &amp; Controls — claimed by gammax",
+      "pubDate": "2026-09-18T17:52:03.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "premier-lighting-amp-controls-c634",
+      "victim": "Premier Lighting &amp; Controls — claimed by gammax",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-18T17:52:03.000Z"
+    }
+  ]
+}

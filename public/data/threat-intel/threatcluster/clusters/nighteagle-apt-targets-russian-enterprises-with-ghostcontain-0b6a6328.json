@@ -1,11 +1,11 @@
 {
   "slug": "nighteagle-apt-targets-russian-enterprises-with-ghostcontain-0b6a6328",
-  "title": "NightEagle APT Targets Russian Enterprises with GhostContainer Backdoor",
+  "title": "NightEagle APT Targets Russian Enterprises with Advanced Malware",
   "link": "https://threatcluster.io/cluster/nighteagle-apt-targets-russian-enterprises-with-ghostcontain-0b6a6328?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/nighteagle-apt-targets-russian-enterprises-with-ghostcontain-0b6a6328",
   "pubDate": "2026-09-16T15:32:01.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
-  "description": "The NightEagle group APT-Q-95 has expanded its operations to target Russian enterprises, utilizing compromised valid credentials to access corporate VPNs.",
-  "sizeBytes": 154
+  "sourceCount": 11,
+  "categories": ["11 Sources"],
+  "description": "The NightEagle APT group APT-Q-95 has escalated its cyberattacks against Russian organizations, employing sophisticated techniques for persistence and lateral movement.",
+  "sizeBytes": 168
 }

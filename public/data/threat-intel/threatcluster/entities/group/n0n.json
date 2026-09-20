@@ -1,0 +1,219 @@
+{
+  "type": "group",
+  "slug": "n0n",
+  "name": "n0n",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 11,
+  "firstSeen": "2026-09-18T15:22:48.000Z",
+  "lastSeen": "2026-09-20T02:51:07.000Z",
+  "summary": "Ransomware group with 11 leak-site victims across 8 sectors and 8 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-18",
+      "count": 10
+    },
+    {
+      "date": "2026-09-20",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "fanatics-global-sports-commerce-platform-8512",
+      "title": "Fanatics (global sports commerce platform) — claimed by n0n",
+      "pubDate": "2026-09-20T02:51:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "inter-venezuela-s-largest-internet-provider-39cd",
+      "title": "Inter (Venezuela's largest internet provider) — claimed by n0n",
+      "pubDate": "2026-09-18T19:51:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "paypal-support-operations-transcom-worldwide-1d4d",
+      "title": "PayPal support operations (Transcom WorldWide) — claimed by n0n",
+      "pubDate": "2026-09-18T15:27:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ministry-of-education-argentina-fbeb",
+      "title": "Ministry of Education — Argentina — claimed by n0n",
+      "pubDate": "2026-09-18T15:26:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "argentem-creek-partners-investment-firm-6160",
+      "title": "Argentem Creek Partners (investment firm) — claimed by n0n",
+      "pubDate": "2026-09-18T15:26:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "astrazeneca-t-rkiye-e339",
+      "title": "AstraZeneca Türkiye — claimed by n0n",
+      "pubDate": "2026-09-18T15:25:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "stokr-digital-securities-platform-7c75",
+      "title": "STOKR (digital securities platform) — claimed by n0n",
+      "pubDate": "2026-09-18T15:25:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "konnatus-usucapi-o-legal-services-3905",
+      "title": "Konnatus (usucapião legal services) — claimed by n0n",
+      "pubDate": "2026-09-18T15:24:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "beli-teacher-fsc-education-centers-aws-f558",
+      "title": "BeLi Teacher / FSC education centers (AWS) — claimed by n0n",
+      "pubDate": "2026-09-18T15:23:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vietnamese-betting-operator-gc789-network-boundless-te-1a96",
+      "title": "Vietnamese betting operator (GC789 network / Boundless TE) — claimed by n0n",
+      "pubDate": "2026-09-18T15:23:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "united-federation-of-teachers-565d",
+      "title": "United Federation of Teachers — claimed by n0n",
+      "pubDate": "2026-09-18T15:22:48.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "fanatics-global-sports-commerce-platform-8512",
+      "victim": "Fanatics (global sports commerce platform) — claimed by n0n",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-20T02:51:07.000Z"
+    },
+    {
+      "id": "inter-venezuela-s-largest-internet-provider-39cd",
+      "victim": "Inter (Venezuela's largest internet provider) — claimed by n0n",
+      "sector": "Technology",
+      "country": "VE",
+      "pubDate": "2026-09-18T19:51:07.000Z"
+    },
+    {
+      "id": "paypal-support-operations-transcom-worldwide-1d4d",
+      "victim": "PayPal support operations (Transcom WorldWide) — claimed by n0n",
+      "sector": "Financial Services",
+      "country": "SE",
+      "pubDate": "2026-09-18T15:27:18.000Z"
+    },
+    {
+      "id": "ministry-of-education-argentina-fbeb",
+      "victim": "Ministry of Education — Argentina — claimed by n0n",
+      "sector": "Government & Defense",
+      "country": "AR",
+      "pubDate": "2026-09-18T15:26:43.000Z"
+    },
+    {
+      "id": "argentem-creek-partners-investment-firm-6160",
+      "victim": "Argentem Creek Partners (investment firm) — claimed by n0n",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-09-18T15:26:08.000Z"
+    },
+    {
+      "id": "astrazeneca-t-rkiye-e339",
+      "victim": "AstraZeneca Türkiye — claimed by n0n",
+      "sector": "Healthcare",
+      "country": "TR",
+      "pubDate": "2026-09-18T15:25:43.000Z"
+    },
+    {
+      "id": "stokr-digital-securities-platform-7c75",
+      "victim": "STOKR (digital securities platform) — claimed by n0n",
+      "sector": "Financial Services",
+      "country": "LU",
+      "pubDate": "2026-09-18T15:25:08.000Z"
+    },
+    {
+      "id": "konnatus-usucapi-o-legal-services-3905",
+      "victim": "Konnatus (usucapião legal services) — claimed by n0n",
+      "sector": "Professional Services",
+      "country": "BR",
+      "pubDate": "2026-09-18T15:24:33.000Z"
+    },
+    {
+      "id": "beli-teacher-fsc-education-centers-aws-f558",
+      "victim": "BeLi Teacher / FSC education centers (AWS) — claimed by n0n",
+      "sector": "Education",
+      "country": "VN",
+      "pubDate": "2026-09-18T15:23:59.000Z"
+    },
+    {
+      "id": "vietnamese-betting-operator-gc789-network-boundless-te-1a96",
+      "victim": "Vietnamese betting operator (GC789 network / Boundless TE) — claimed by n0n",
+      "sector": "Other",
+      "country": "VN",
+      "pubDate": "2026-09-18T15:23:23.000Z"
+    },
+    {
+      "id": "united-federation-of-teachers-565d",
+      "victim": "United Federation of Teachers — claimed by n0n",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-18T15:22:48.000Z"
+    }
+  ]
+}

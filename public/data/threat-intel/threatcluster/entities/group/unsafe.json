@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "unsafe",
+  "name": "unsafe",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-19T16:20:33.000Z",
+  "lastSeen": "2026-09-19T16:20:33.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-19",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "voltgames-io-79c2",
+      "title": "voltgames.io — claimed by unsafe",
+      "pubDate": "2026-09-19T16:20:33.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "voltgames-io-79c2",
+      "victim": "voltgames.io — claimed by unsafe",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-09-19T16:20:33.000Z"
+    }
+  ]
+}
