@@ -7,9 +7,9 @@
   "description": "Autonomous AI penetration testing agent",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-19T08:05:59Z",
+  "checkedAt": "2026-09-20T08:37:55Z",
   "pushedAt": "2026-08-13",
-  "daysIdle": 37,
+  "daysIdle": 38,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-19T08:05:59Z",
+      "checked_at": "2026-09-20T08:37:55Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-13",
-        "days_since_push": 37,
+        "days_since_push": 38,
         "total_commits": 704,
         "last100_span_days": 20,
         "last100_authors": 14,
         "releases": 1,
         "latest_release_at": "2026-08-13",
-        "days_since_release": 37,
-        "days_idle": 37,
+        "days_since_release": 38,
+        "days_idle": 38,
         "relocated": false
       },
       "identity": {

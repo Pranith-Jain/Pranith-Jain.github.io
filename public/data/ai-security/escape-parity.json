@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-19T10:52:56.458Z",
+  "checkedAt": "2026-09-20T11:16:56.763Z",
   "upstream": {
     "registryEntries": 0,
     "queuePending": 0,
@@ -31,5 +31,5 @@
   "onlyUpstream": [],
   "onlyLocal": [],
   "note": "Two-way parity report only — never auto-overwrites the curatorial seed. Merge drift via reviewed PR either direction.",
-  "builtAt": "2026-09-19T10:53:48.368Z"
+  "builtAt": "2026-09-20T11:17:49.231Z"
 }

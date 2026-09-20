@@ -1,8 +1,16 @@
 {
-  "updatedAt": "2026-09-19T10:53:48.464Z",
-  "total": 49,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 1 },
+  "updatedAt": "2026-09-20T11:17:49.325Z",
+  "total": 50,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 2 },
   "items": [
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "BragJack attacks hijack AI browser agents through malicious extensions",
+      "link": "https://www.bleepingcomputer.com/news/security/bragjack-attacks-hijack-ai-browser-agents-through-malicious-extensions/",
+      "pubDate": "Sat, 19 Sep 2026 10:56:31 -0400",
+      "source": "bleepingcomputer",
+      "description": "BragJack, a proof-of-concept attack from Forever Security's Gal Weizman, hijacks the AI assistants in Chrome, Edge, Opera Neon, Perplexity Comet, and Claude in Chrome using one malicious extension. The Prompt Forcing technique earned over $20,000 in bounties and two CVEs. [...]"
+    },
     {
       "id": "aHR0cHM6Ly91",
       "title": "A Vault with a Heap-View: The Uncomfortable Space Between AgentCore Harness and Identity",

@@ -7,9 +7,9 @@
   "description": "Autonomous AI pentesting agents — real-time reconnaissance, vulnerability detection, and exploitation orchestration. Go + TypeScript.",
   "homepage": "https://www.xalgorix.com",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-19T08:08:17Z",
-  "pushedAt": "2026-09-18",
-  "daysIdle": 1,
+  "checkedAt": "2026-09-20T08:39:48Z",
+  "pushedAt": "2026-09-20",
+  "daysIdle": 0,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-14"
     },
     "derived": {
-      "checked_at": "2026-09-19T08:08:17Z",
+      "checked_at": "2026-09-20T08:39:48Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-18",
-        "days_since_push": 1,
-        "total_commits": 1041,
-        "last100_span_days": 14,
+        "pushed_at": "2026-09-20",
+        "days_since_push": 0,
+        "total_commits": 1042,
+        "last100_span_days": 15,
         "last100_authors": 3,
         "releases": 100,
         "latest_release_at": "2026-09-18",
-        "days_since_release": 1,
-        "days_idle": 1,
+        "days_since_release": 2,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
