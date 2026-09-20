@@ -1,0 +1,78 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-19",
+  "riskOutlook": "High",
+  "executiveSummary": "Law enforcement, platforms, and election bodies undertook significant actions this period. The Manhattan District Attorney seized 12 domains tied to large-scale non-consensual deepfake sexual imagery (reportedly impacting more than 1,200 victims), marking a major crackdown on industrialized deepfake abuse. View Article Election-related risks are rising. Independent testing highlighted that major AI tools can still be maneuvered to generate false election content for the U.S. midterms, underscoring real-time misuse pathways. Source Separately, Brazil's top electoral court formalized deepfake definitions for political advertising ahead of October voting, signaling proactive governance. View Article Consumer fraud via voice cloning remains acute. The FBI reported persistent, large-scale impersonation scams with substantial losses, while local authorities in Texas warned of sophisticated emergency-call voice cloning. Security Advisory View Article On defenses and governance, Meta was directed by its Oversight Board to remove harmful deepfakes and bolster safeguards, while standards and provenance advanced through the EU's code of practice and expanded audio watermark verification support. View Article Source Supporting Report Overall, the threat environment is worsening given concurrent criminal exploitation, election disinformation risks, and high-velocity consumer fraud, despite promising advances in policy, platform enforcement, and provenance tooling.",
+  "keyFindings": [
+    {
+      "title": "Major criminal enforcement",
+      "summary": "Manhattan DA seized 12 AI deepfake pornography sites tied to over 1,200 victims. View Article"
+    },
+    {
+      "title": "Election risk pathways",
+      "summary": "Testing showed mainstream AI tools can generate convincing election falsehoods ahead of U.S. midterms. Source"
+    },
+    {
+      "title": "Platform governance",
+      "summary": "Meta ordered to remove harmful deepfakes and improve protections after oversight review. View Article"
+    },
+    {
+      "title": "Voice-cloning fraud",
+      "summary": "FBI warns impersonation scams remain widespread with large aggregate losses since 2025. Security Advisory"
+    },
+    {
+      "title": "Local emergency-call scams",
+      "summary": "Texas police report sophisticated AI-cloned voices used to coerce urgent payments. View Article"
+    },
+    {
+      "title": "Regulatory action",
+      "summary": "Brazil's electoral court defined deepfakes in political advertising before national elections. View Article"
+    },
+    {
+      "title": "Detection challenge",
+      "summary": "Research warns watermark-dependent audio deepfake detection can \"shortcut\" provenance, risking misses and false flags. Source"
+    },
+    {
+      "title": "Provenance progress",
+      "summary": "Providers expanded audio watermarking and public verification support for authenticity checks. Supporting Report"
+    },
+    {
+      "title": "Scale of fraud ads",
+      "summary": "Deepfake scam ads tracked by one firm reportedly surged from ~14,500 to 103,000+ per month in 2026. View Article"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [
+    "Law-enforcement disruption of deepfake exploitation: Domain seizures targeting NCII networks indicate growing prosecutorial focus on synthetic abuse infrastructure. View Article",
+    "Election integrity pressures: Tests show AI tools can produce election misinformation; regulators (e.g., Brazil) are preemptively defining political deepfakes. Source View Article",
+    "Voice cloning for fraud at scale: Emergency-call and transaction-redirection scams continue to proliferate. Security Advisory",
+    "Platform accountability: Oversight-driven removal and policy tightening on harmful deepfakes. View Article",
+    "Provenance advances vs. adversarial gaps: Expanded audio watermarking and verification tools arrive alongside research noting watermark \"shortcut\" risks. Supporting Report Source",
+    "Nation-state lures: High-targeting precision using deceptive documents (e.g., fake MRI scans) for surveillance. View Article",
+    "Ad ecosystem exploitation: Reported surge in deepfake scam ads signals persistent monetization via paid platforms. View Article"
+  ],
+  "geographicObservations": [
+    "United States: Major NCII enforcement (NYC), FBI impersonation scam advisory, local Texas voice-cloning fraud warnings, and election misinformation risks. Security Advisory",
+    "Brazil: Electoral court defined deepfakes in political advertising ahead of national elections. View Article",
+    "United Kingdom: Oversight-driven takedowns of political/hate-linked deepfakes on Meta platforms. View Article",
+    "European Union: Code of practice supporting AI-generated content labeling and detection. Source",
+    "Central Asia: Large-scale spoofed public-sector websites for fraud. View Article",
+    "United Arab Emirates: Public warning about increasingly convincing AI-powered deepfake and phishing threats. View Article",
+    "Multiple Countries: Nation-state targeting using deceptive documents; global AI misuse patterns reported by a major provider. View Article Threat Intelligence Report"
+  ],
+  "detectionDevelopments": [
+    "Law-enforcement domain seizures disrupting NCII deepfake sites. View Article",
+    "FBI PSA on impersonation scams, urging vigilance and reporting via official channels. Security Advisory",
+    "Meta Oversight Board-mandated removal of harmful deepfakes and safeguard improvements. View Article",
+    "Brazilian electoral court's formal definition of political deepfakes to guide campaign content. View Article",
+    "EU Code of Practice on AI-Generated Content for labeling and detection standards. Source",
+    "OpenAI expands audio watermarking and public verification tools. Supporting Report",
+    "NIST deepfake forensics initiatives emphasizing adversarially realistic evaluations. View Program Supporting Program",
+    "Adopt layered media-authentication: combine watermark/C2PA checks with signal-processing and model-based detectors. Analyst Recommendation",
+    "Implement out-of-band verification for financial transfers and urgent requests; require multi-person approval for wire changes. Analyst Recommendation",
+    "Establish family and organizational passphrases for emergency calls; discourage action based on voice alone. Analyst Recommendation",
+    "Election stakeholders: deploy pre-bunking, rapid-report channels to platforms, and provenance tracking for suspicious content. Analyst Recommendation",
+    "Trust & Safety teams: build fast takedown and ad-vetting workflows for deepfake scam content; monitor high-risk personas. Analyst Recommendation",
+    "Forensics labs: benchmark detectors against NIST scenarios; document operational degradation and confidence bounds. Analyst Recommendation"
+  ]
+}

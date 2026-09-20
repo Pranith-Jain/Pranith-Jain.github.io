@@ -1,0 +1,121 @@
+{
+  "type": "cyber",
+  "date": "2026-09-19",
+  "threatLevel": "",
+  "executiveSummary": "Multiple authoritative advisories confirm active targeting of industrial controllers and OT environments. U.S. agencies report Iranian-affiliated actors exploiting internet-exposed PLCs (Rockwell/Schneider/Siemens/Unitronics), manipulating logic and HMI displays across Water/Wastewater, Energy, and Government facilities. Security Advisory A separate joint advisory warns of AI-assisted reconnaissance and exploitation against Siemens S7-series PLCs with S7comm tooling, underscoring near-term risk to engineering workstations and controllers if segmentation and access controls are weak. Security Advisory High-impact vendor advisories affect core grid and plant controls: Hitachi Energy FACTS Control Platform (FCP) GWS web-layer flaws could enable unauthorized parameter changes impacting transmission stability; Mitsubishi Electric's CC-Link IE TSN protocol-level integrity issue has no fix and permits on-segment tampering/DoS; and GX Works3 authentication bypass enables covert PLC program modification. Security Advisory Security Advisory Security Advisory Perimeter device exploitation remains a primary ingress: pre-auth RCE in NetScaler ADC/Gateway (CVE-2026-8452) with public PoC, multiple KEV additions (Citrix, Cisco, Fortinet, Linux kernel), and active MikroTik RouterOS exploitation chains enabling full router takeover and lateral movement toward OT networks. Security Advisory KEV Update Advisory Additional OT-relevant risks include Danfoss iC7 industrial drives allowing unsigned applications/firmware uploads, and ransomware activity (Gunra) leveraging edge VPN/firewall appliances for enterprise compromise with potential IT-to-OT pivot. CISA Bulletin #StopRansomware Adversary use of compromised routers/IoT devices for covert networks (FSB Center 16; PRC-nexus Volt/Flax Typhoon) and pro-Russia hacktivist brute-forcing of VNC-exposed HMIs continue to threaten OT perimeters. Security Advisory Security Advisory Security Advisory",
+  "keyFindings": [
+    {
+      "title": "Active OT targeting",
+      "summary": "Confirmed PLC manipulation and HMI display tampering in U.S. critical infrastructure operations (WWS/Energy/Gov). Security Advisory"
+    },
+    {
+      "title": "AI-assisted PLC reconnaissance against Siemens S7 families increases risk to poo",
+      "summary": "AI-assisted PLC reconnaissance against Siemens S7 families increases risk to poorly segmented networks. Security Advisory"
+    },
+    {
+      "title": "Critical grid/plant control exposures",
+      "summary": "Hitachi Energy FCP (GWS), Mitsubishi CC-Link IE TSN (no fix), and GX Works3 authentication bypass enabling unauthorized logic changes. Hitachi Advisory Mitsubishi Protocol Advisory GX Works3 Advisory"
+    },
+    {
+      "title": "Perimeter exploitation vectors",
+      "summary": "NetScaler pre-auth RCE with PoC, Cisco/Check Point/Fortinet KEV updates, and MikroTik RouterOS active exploitation chains. NetScaler Advisory MikroTik Advisory"
+    },
+    {
+      "title": "Drive and EV/IIoT risks",
+      "summary": "Danfoss iC7 drives (unsigned code paths) and multiple OT-adjacent issues across AMI, OPC UA stacks, and industrial dashboards in recent CISA weekly bulletins. CISA Bulletin CISA Bulletin"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Mitsubishi, Hitachi, Danfoss, Siemens",
+        "label": "Priority Vendors"
+      },
+      {
+        "value": "Citrix, Cisco, MikroTik, Check Point",
+        "label": "Perimeter Exposure"
+      },
+      {
+        "value": "Water/Wastewater, Energy, Manufacturing",
+        "label": "Top Sectors Impacted"
+      },
+      {
+        "value": "Remove Internet Exposure • Patch Edge • Validate PLC Logic",
+        "label": "Immediate Actions"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Mitsubishi Electric (GX Works3, CC-Link IE TSN)",
+      "Hitachi Energy (FCP: SVC/STATCOM/SC)",
+      "Schneider Electric (Modicon M340, NetBotz, PowerChute)",
+      "ABB (Ability Edgenius)",
+      "Siemens (S7 family, TIA/STEP 7)",
+      "Citrix NetScaler",
+      "Cisco (ISE, SEG)",
+      "Check Point (Management RCE)",
+      "MikroTik RouterOS",
+      "Danfoss iC7 Drives",
+      "Advantech WISE-6610",
+      "OPC UA (Eclipse Milo/BaSyx)"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems",
+      "Energy / Electric Power",
+      "Critical Manufacturing",
+      "Transportation / Rail",
+      "Healthcare / MedTech",
+      "Telecom / ISP"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated APTs exploiting PLCs and HMI displays in U.S. CI (WWS/Energy/Gov). Security Advisory",
+        "Mirage Kitten (Iran) targeting aviation/fintech devs via trojanized coding challenges; robust multi-OS persistence and cloud-hosted C2. View Article",
+        "FSB Center 16 leveraging router hygiene weaknesses to access CI networks. Security Advisory",
+        "China-nexus covert networks of compromised SOHO/IoT devices to pre-position against CI. Security Advisory",
+        "Pro-Russia groups brute-force VNC to HMIs in WWS/Food/Energy, altering setpoints and suppressing alarms. Security Advisory",
+        "Gunra ransomware exploits edge appliances (Fortinet), exfiltrates Microsoft cloud data, encrypts Windows/Linux. #StopRansomware",
+        "APT36 (Transparent Tribe) USB/GitHub-C2 tooling; potential spread via removable media into sensitive enclaves. View Article"
+      ]
+    }
+  ],
+  "relevance": "Direct process risk: Confirmed PLC logic manipulation (WWS/Energy/Gov) and drives/controller exposures can alter setpoints, disable alarms, or trigger unsafe states. Supporting Report Edge-to-plant pathways: Active exploitation of NetScaler, MikroTik, Cisco, Check Point, and Linux kernel KEV items supports IT-to-OT pivots. KEV Update Supply/remote operations: EVSE/AMI/OPC UA and ICS toolchain issues broaden attack surface around plant perimeters and vendor remote access. CISA Bulletin",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Hitachi Energy FACTS Control Platform (FCP) GWS: auth bypass/replay, traversal, injection (CVSS up to 9.9). Security Advisory",
+        "Mitsubishi CC-Link IE TSN protocol integrity flaw (no fix): on-segment command tampering/DoS across broad device families. Security Advisory",
+        "Mitsubishi GX Works3 & Motion Control Settings: block-password bypass enables unauthorized program changes. Security Advisory",
+        "Schneider Modicon M340/X80 modules FTP DoS; patch and keep FTP disabled. Security Advisory",
+        "ABB Ability Edgenius (algif_aead LPE): patch to 3.2.4.1; restrict SSH/Cockpit. Security Advisory",
+        "NetScaler ADC/Gateway (CVE-2026-8452) pre-auth RCE with PoC; urgent patch & webshell hunt. JPCERT Advisory",
+        "KEV surge: Citrix, Cisco SEG/ISE, Fortinet, Chromium V8, GitLab, Linux kernel-prioritize exposed systems and check for pre-patch compromise. KEV (9/9) KEV (Linux)",
+        "Danfoss iC7 drives; Advantech WISE-6610; OPC UA/Milo; FUXA SSRF; EV/AMI/camera exposures-see CISA weekly rollups. Aug 24 Aug 17 Jul 20 Jul 13"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploitation of public-facing applications and edge devices (T1190) - NetScaler/Citrix, Cisco, Fortinet; router takeover for covert ingress. Router Hygiene",
+      "Valid Accounts (T1078) and MFA bypass via stolen credentials/app passwords (email platforms); token abuse in cloud identities.",
+      "Living-off-the-land tools: PowerShell/WMI, certutil, scheduled tasks; BOF/reflective loaders on Windows; GitHub-based C2 for APT36. View Article",
+      "ICS-specific write operations over S7comm/CIP/Modbus to alter logic/setpoints; alarm suppression at HMI.",
+      "Ransomware staging via edge VPNs, AD escalation, exfiltration to cloud storage (ChaCha20/RSA encryption). #StopRansomware"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078"
+    ]
+  },
+  "outlook72h": "Freeze and validate external exposure: confirm no PLC/HMI or engineering tools are reachable from the internet; close or broker any residual access immediately. Rapid patch cycle: NetScaler ADC/Gateway, MikroTik RouterOS, Cisco ISE/SEG, Check Point Management, Fortinet SSL-VPN; validate with compromise assessments per KEV guidance. OT integrity checks: compare PLC logic to golden baselines in critical processes; review recent downloads/online edits; verify HMI alarm states and historian data paths. Segment and monitor: ensure OT DMZ policy enforcement; deploy/retune ICS IDS for S7comm/CIP/Modbus write detections; alert on unusual TCP/102/502/44818. Backups & recovery: confirm offline, tested backups for HMIs/engineering workstations, PLC/drive configurations; stage recovery media. Brief operations and vendors: communicate active threats and change windows; coordinate vendor remote access via time-bound, recorded sessions with MFA.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-91843"
+  ]
+}
