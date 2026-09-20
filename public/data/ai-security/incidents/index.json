@@ -1,8 +1,62 @@
 {
-  "updatedAt": "2026-09-19T10:53:48.378Z",
+  "updatedAt": "2026-09-20T11:17:49.240Z",
   "source": "https://incidentdatabase.ai/rss.xml",
   "total": 100,
   "reports": [
+    {
+      "id": "7977",
+      "guid": "31a130a9-0913-5954-98bf-e280b7caa38c",
+      "title": "Former Costa Mesa Police Officer Pleads Guilty to Contacting His Mistress Thousands of Times Through Text, Phone Calls, and Social Media Messages, Including More than 100 Times in a Day, Illegally Accessing Confidential Law Enforcement Databases to Track Romantic Rivals, Ex-girlfriend, and Wife",
+      "link": "https://ocdistrictattorney.gov/press/former-orange-county-sheriffs-deputy-charged-with-possession-of-child-pornography-illegally-accessing-confidential-law-enforcement-database-to-look-up-romantic-rival-ex-girlfriend-and-vio-2/",
+      "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
+      "citeId": "1697",
+      "reportNum": "7977"
+    },
+    {
+      "id": "7978",
+      "guid": "a35b6124-0e8b-5b49-af26-66508effe1b6",
+      "title": "Sisters sue Española over traffic stop they say was illegal",
+      "link": "https://www.santafenewmexican.com/news/local_news/sisters-sue-espa-ola-over-traffic-stop-they-say-was-illegal/article_1c949c30-ae3e-11ee-ad85-f71a8c9ecb1e.html/",
+      "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
+      "citeId": "1698",
+      "reportNum": "7978"
+    },
+    {
+      "id": "7979",
+      "guid": "c2d53ffa-f063-5594-b135-6d14c7e489c9",
+      "title": "US woman falsely charged with bank theft sues for $10m over AI facial recognition",
+      "link": "https://www.theguardian.com/us-news/2026/sep/18/tennessee-woman-falsely-charged-bank-theft-lawsuit",
+      "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
+      "citeId": "1416",
+      "reportNum": "7979"
+    },
+    {
+      "id": "7975",
+      "guid": "48c9cfe7-989a-5a8f-ba89-57f0d1b09dcb",
+      "title": "Error by AI scribe during medical appointment leaves patient devastated",
+      "link": "https://www.abc.net.au/news/2026-08-14/ai-medical-scribe-error-leaves-patient-devastated/107031672",
+      "pubDate": "Fri, 18 Sep 2026 00:00:00 GMT",
+      "citeId": "1695",
+      "reportNum": "7975"
+    },
+    {
+      "id": "7976",
+      "guid": "8445bf48-36f8-5266-90f1-d1bb6ff5d328",
+      "title": "Vero Beach man arrested in explicit deepfake investigation; police fear more victims",
+      "link": "https://cbs12.com/news/local/vero-beach-man-arrested-in-ai-generated-sexual-image-investigation",
+      "pubDate": "Fri, 18 Sep 2026 00:00:00 GMT",
+      "citeId": "1696",
+      "reportNum": "7976"
+    },
+    {
+      "id": "7974",
+      "guid": "eaa1f629-a9d0-5b3e-b54d-89a8b83b95f8",
+      "title": "Smith v. Flock Safety, Memorandum of Opinion and Order",
+      "link": "https://cases.justia.com/federal/district-courts/ohio/ohndce/5%3A2023cv02198/301907/38/0.pdf?ts=1713283874",
+      "pubDate": "Thu, 17 Sep 2026 00:00:00 GMT",
+      "citeId": "1694",
+      "reportNum": "7974"
+    },
     {
       "id": "7954",
       "guid": "2e8bb95f-2b84-5336-b01f-f268b4605e62",
@@ -848,60 +902,6 @@
       "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
       "citeId": "1672",
       "reportNum": "7885"
-    },
-    {
-      "id": "7886",
-      "guid": "e8189db1-be4d-50f4-a405-dab5b981bbf2",
-      "title": "Gemini accused of 30,000-line code purge and fake recovery report",
-      "link": "https://www.theregister.com/ai-and-ml/2026/05/21/gemini-accused-of-30000-line-code-purge-and-fake-recovery-report/5244219",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1673",
-      "reportNum": "7886"
-    },
-    {
-      "id": "7887",
-      "guid": "627c24ab-377c-5971-8c5a-4ab08e070161",
-      "title": "Gemini allegedly broke production, then wrote itself the hero",
-      "link": "https://www.digitaltrends.com/computing/gemini-allegedly-broke-production-then-wrote-itself-the-hero/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1673",
-      "reportNum": "7887"
-    },
-    {
-      "id": "7888",
-      "guid": "397629a7-7d69-5249-b47a-a3b5ccdeac22",
-      "title": "Instinct’s powerful AI assistant is raising privacy and security concerns",
-      "link": "https://techcrunch.com/2026/08/24/instincts-powerful-ai-assistant-is-raising-privacy-and-security-concerns/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1674",
-      "reportNum": "7888"
-    },
-    {
-      "id": "7889",
-      "guid": "d994131c-1633-5f6b-bb54-cc8127db9fe6",
-      "title": "Is Instinct safe to use? Three things to know before you sign up",
-      "link": "https://us.norton.com/blog/ai/is-instinct-safe",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1675",
-      "reportNum": "7889"
-    },
-    {
-      "id": "7890",
-      "guid": "4d1cdaca-46c2-5619-8ee2-1f1c59a34e15",
-      "title": "An AI coding agent wiped a production database",
-      "link": "https://www.exemplar.dev/why-harness/reddit-database-wipe",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1676",
-      "reportNum": "7890"
-    },
-    {
-      "id": "7891",
-      "guid": "9dd4e085-9624-5dfe-a2ca-7fa954433807",
-      "title": "and just like that Opus 5 ultracode wipes the entire database",
-      "link": "https://www.reddit.com/r/Anthropic/comments/1v9iurd/and_just_like_that_opus_5_ultracode_wipes_the/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1676",
-      "reportNum": "7891"
     }
   ]
 }

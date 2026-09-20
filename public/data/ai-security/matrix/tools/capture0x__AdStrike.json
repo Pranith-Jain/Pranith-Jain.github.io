@@ -7,27 +7,27 @@
   "description": "AI-powered modular Active Directory red-team framework for authorized penetration testing, AD enumeration, attack-path analysis, Kerberos/ADCS workflows, reporting, operator automation, and MCP server integration.",
   "homepage": "https://adstrike.oxcapture.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-19T08:05:29Z",
+  "checkedAt": "2026-09-20T08:37:29Z",
   "pushedAt": "2026-06-11",
-  "daysIdle": 100,
+  "daysIdle": 101,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "agent", "repo": "capture0x/AdStrike", "scope": ["ad"], "added": "2026-09-12" },
     "derived": {
-      "checked_at": "2026-09-19T08:05:29Z",
+      "checked_at": "2026-09-20T08:37:29Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-06-11",
-        "days_since_push": 100,
+        "days_since_push": 101,
         "total_commits": 225,
         "last100_span_days": 26,
         "last100_authors": 1,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 100,
+        "days_idle": 101,
         "relocated": false
       },
       "identity": {

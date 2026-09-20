@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T10:53:48.437Z",
-  "total": 2180,
+  "updatedAt": "2026-09-20T11:17:49.299Z",
+  "total": 2181,
   "kev": 4,
   "vulns": [
     {
@@ -1572,6 +1572,22 @@
       "product": "berriai/litellm"
     },
     {
+      "id": "CVE-2025-6855",
+      "title": "A vulnerability, which was classified as critical, has been found in chatchat-space Langchain-Chatchat up to 0.3.1. This issue affects some unknown processing of the file /v1/file. The manipulation o…",
+      "sources": ["euvd"],
+      "severity": "5.1 (4.0)",
+      "cvssBase": 5.1,
+      "epss": 0.62,
+      "kev": false,
+      "kevSources": [],
+      "published": "Jun 29, 2025, 9:00:15 AM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-19478",
+      "aliases": ["PYSEC-2026-1512", "CVE-2025-6855", "GHSA-f823-phmg-x5fr"],
+      "packages": [],
+      "vendor": "chatchat-space",
+      "product": "Langchain-Chatchat"
+    },
+    {
       "id": "CVE-2026-19334",
       "title": "A flaw has been found in NightTrek Ollama-mcp up to 80cf2e17cfc144963a475b619093a2d13c13dbc9. This affects an unknown part of the file src/index.ts. This manipulation of the argument name/modelfile/s…",
       "sources": ["euvd"],
@@ -1730,22 +1746,6 @@
       "packages": [],
       "vendor": "berriai",
       "product": "LiteLLM"
-    },
-    {
-      "id": "CVE-2025-6855",
-      "title": "A vulnerability, which was classified as critical, has been found in chatchat-space Langchain-Chatchat up to 0.3.1. This issue affects some unknown processing of the file /v1/file. The manipulation o…",
-      "sources": ["euvd"],
-      "severity": "5.1 (4.0)",
-      "cvssBase": 5.1,
-      "epss": 0.59,
-      "kev": false,
-      "kevSources": [],
-      "published": "Jun 29, 2025, 9:00:15 AM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-19478",
-      "aliases": ["PYSEC-2026-1512", "CVE-2025-6855", "GHSA-f823-phmg-x5fr"],
-      "packages": [],
-      "vendor": "chatchat-space",
-      "product": "Langchain-Chatchat"
     },
     {
       "id": "CVE-2026-55574",
@@ -2068,6 +2068,22 @@
       "product": "langchain-ai/langchainjs"
     },
     {
+      "id": "CVE-2025-6853",
+      "title": "A vulnerability classified as critical has been found in chatchat-space Langchain-Chatchat up to 0.3.1. This affects the function upload_temp_docs of the file /knowledge_base/upload_temp_docs of the …",
+      "sources": ["euvd"],
+      "severity": "5.3 (4.0)",
+      "cvssBase": 5.3,
+      "epss": 0.55,
+      "kev": false,
+      "kevSources": [],
+      "published": "Jun 29, 2025, 7:31:05 AM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-19477",
+      "aliases": ["CVE-2025-6853", "PYSEC-2026-1513", "GHSA-qmgv-j263-qr33"],
+      "packages": [],
+      "vendor": "chatchat-space",
+      "product": "Langchain-Chatchat"
+    },
+    {
       "id": "CVE-2026-93436",
       "title": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0…",
       "sources": ["euvd"],
@@ -2130,6 +2146,22 @@
       "packages": [],
       "vendor": "vllm-project",
       "product": "vllm"
+    },
+    {
+      "id": "CVE-2025-6854",
+      "title": "A vulnerability classified as problematic was found in chatchat-space Langchain-Chatchat up to 0.3.1. This vulnerability affects unknown code of the file /v1/files?purpose=assistants. The manipulatio…",
+      "sources": ["euvd"],
+      "severity": "5.3 (4.0)",
+      "cvssBase": 5.3,
+      "epss": 0.54,
+      "kev": false,
+      "kevSources": [],
+      "published": "Jun 29, 2025, 8:31:04 AM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-19479",
+      "aliases": ["CVE-2025-6854", "PYSEC-2026-1511", "GHSA-8v8h-4pjx-rg73"],
+      "packages": [],
+      "vendor": "chatchat-space",
+      "product": "Langchain-Chatchat"
     },
     {
       "id": "CVE-2025-45150",
@@ -2372,38 +2404,6 @@
       "product": "vllm"
     },
     {
-      "id": "CVE-2025-6854",
-      "title": "A vulnerability classified as problematic was found in chatchat-space Langchain-Chatchat up to 0.3.1. This vulnerability affects unknown code of the file /v1/files?purpose=assistants. The manipulatio…",
-      "sources": ["euvd"],
-      "severity": "5.3 (4.0)",
-      "cvssBase": 5.3,
-      "epss": 0.51,
-      "kev": false,
-      "kevSources": [],
-      "published": "Jun 29, 2025, 8:31:04 AM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-19479",
-      "aliases": ["CVE-2025-6854", "PYSEC-2026-1511", "GHSA-8v8h-4pjx-rg73"],
-      "packages": [],
-      "vendor": "chatchat-space",
-      "product": "Langchain-Chatchat"
-    },
-    {
-      "id": "CVE-2025-6853",
-      "title": "A vulnerability classified as critical has been found in chatchat-space Langchain-Chatchat up to 0.3.1. This affects the function upload_temp_docs of the file /knowledge_base/upload_temp_docs of the …",
-      "sources": ["euvd"],
-      "severity": "5.3 (4.0)",
-      "cvssBase": 5.3,
-      "epss": 0.51,
-      "kev": false,
-      "kevSources": [],
-      "published": "Jun 29, 2025, 7:31:05 AM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-19477",
-      "aliases": ["CVE-2025-6853", "PYSEC-2026-1513", "GHSA-qmgv-j263-qr33"],
-      "packages": [],
-      "vendor": "chatchat-space",
-      "product": "Langchain-Chatchat"
-    },
-    {
       "id": "CVE-2025-6921",
       "title": "The huggingface/transformers library, versions prior to 4.53.0, is vulnerable to Regular Expression Denial of Service (ReDoS) in the AdamWeightDecay optimizer. The vulnerability arises from the _do_u…",
       "sources": ["euvd"],
@@ -2466,6 +2466,22 @@
       "packages": [],
       "vendor": "vllm-project",
       "product": "vllm"
+    },
+    {
+      "id": "CVE-2026-63646",
+      "title": "CordysCRM is an open source AI-powered customer relationship management system that supports private deployment. Prior to 1.7.2, GET /mcp/form/config/{formKey} calls McpController.getMcpField without…",
+      "sources": ["euvd"],
+      "severity": "6.9 (4.0)",
+      "cvssBase": 6.9,
+      "epss": 0.49,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 18, 2026, 7:52:06 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83442",
+      "aliases": ["CVE-2026-63646"],
+      "packages": [],
+      "vendor": "1Panel-dev",
+      "product": "CordysCRM"
     },
     {
       "id": "CVE-2025-30165",
@@ -2756,6 +2772,22 @@
       "product": "vllm"
     },
     {
+      "id": "CVE-2025-29770",
+      "title": "vLLM is a high-throughput and memory-efficient inference and serving engine for LLMs. The outlines library is one of the backends used by vLLM to support structured output (a.k.a. guided decoding). O…",
+      "sources": ["euvd", "nvd"],
+      "severity": "6.5 (3.1)",
+      "cvssBase": 6.5,
+      "epss": 0.46,
+      "kev": false,
+      "kevSources": [],
+      "published": "Mar 19, 2025, 3:31:00 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-6726",
+      "aliases": ["PYSEC-2025-223", "GHSA-mgrm-fgjv-mhv8", "CVE-2025-29770"],
+      "packages": [],
+      "vendor": "vllm-project",
+      "product": "vllm"
+    },
+    {
       "id": "CVE-2024-2103",
       "title": "Inclusion of undocumented features vulnerability accessible when logged on with a privileged access level on the following Schweitzer Engineering Laboratories relays could allow the relay to behave u…",
       "sources": ["euvd"],
@@ -2847,22 +2879,6 @@
       "published": "Jan 10, 2026, 6:39:02 AM",
       "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-1865",
       "aliases": ["CVE-2026-22773", "PYSEC-2026-143", "GHSA-grg2-63fw-f2qr"],
-      "packages": [],
-      "vendor": "vllm-project",
-      "product": "vllm"
-    },
-    {
-      "id": "CVE-2025-29770",
-      "title": "vLLM is a high-throughput and memory-efficient inference and serving engine for LLMs. The outlines library is one of the backends used by vLLM to support structured output (a.k.a. guided decoding). O…",
-      "sources": ["euvd", "nvd"],
-      "severity": "6.5 (3.1)",
-      "cvssBase": 6.5,
-      "epss": 0.45,
-      "kev": false,
-      "kevSources": [],
-      "published": "Mar 19, 2025, 3:31:00 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-6726",
-      "aliases": ["PYSEC-2025-223", "GHSA-mgrm-fgjv-mhv8", "CVE-2025-29770"],
       "packages": [],
       "vendor": "vllm-project",
       "product": "vllm"
@@ -3652,6 +3668,22 @@
       "product": "toon"
     },
     {
+      "id": "CVE-2026-92230",
+      "title": "Apache Karaf's XmlUtils cached XML parser/transformer factories in static ThreadLocal fields on long-lived container threads. Because a ThreadLocal value outlives the OSGi bundle that created it, rep…",
+      "sources": ["euvd"],
+      "severity": "7.5 (3.1)",
+      "cvssBase": 7.5,
+      "epss": 0.4,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 17, 2026, 6:38:29 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82394",
+      "aliases": ["GHSA-3c25-9cqf-vxfc", "CVE-2026-92230"],
+      "packages": [],
+      "vendor": "Apache Software Foundation",
+      "product": "Apache Karaf"
+    },
+    {
       "id": "CVE-2026-64684",
       "title": "RMCP is an official Rust SDK for the Model Context Protocol. Prior to 2.1.0, the rmcp crate's StreamableHttpClientTransport in crates/rmcp/src/transport/common/reqwest/streamable_http_client.rs build…",
       "sources": ["euvd"],
@@ -3682,6 +3714,22 @@
       "packages": [],
       "vendor": "n/a",
       "product": "n/a"
+    },
+    {
+      "id": "CVE-2026-71492",
+      "title": "Banks generates meaningful LLM prompts using a simple template language. Prior to version 2.4.5, DirectoryPromptRegistry.set() in src/banks/registries/directory.py interpolates attacker-controlled Pr…",
+      "sources": ["euvd"],
+      "severity": "6 (4.0)",
+      "cvssBase": 6,
+      "epss": 0.4,
+      "kev": false,
+      "kevSources": [],
+      "published": "Aug 20, 2026, 4:13:55 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-63414",
+      "aliases": ["PYSEC-2026-3810", "GHSA-x8wg-4xgc-vr54", "CVE-2026-71492"],
+      "packages": [],
+      "vendor": "masci",
+      "product": "banks"
     },
     {
       "id": "CVE-2026-12772",
@@ -3924,6 +3972,22 @@
       "product": "readest"
     },
     {
+      "id": "CVE-2026-93592",
+      "title": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative t…",
+      "sources": ["euvd"],
+      "severity": "8.7 (4.0)",
+      "cvssBase": 8.7,
+      "epss": 0.38,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 18, 2026, 1:20:05 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82911",
+      "aliases": ["CVE-2026-93592", "GHSA-c3vq-r33v-49cr"],
+      "packages": [],
+      "vendor": "vllm-project",
+      "product": "vllm"
+    },
+    {
       "id": "CVE-2026-59973",
       "title": "FrontMCP is a TypeScript-first framework for the Model Context Protocol (MCP). From mcp-from-openapi 2.3.0 until 2.5.0 and from frontmcp and @frontmcp/adapters 1.2.1 until 1.5.0, libs/adapters/src/op…",
       "sources": ["euvd"],
@@ -4034,22 +4098,6 @@
       "packages": [],
       "vendor": "stacklok",
       "product": "toolhive"
-    },
-    {
-      "id": "CVE-2026-82456",
-      "title": "argocd-mcp 0.8.0 binds its HTTP transport to every network interface and accepts MCP sessions without requiring caller credentials when ARGOCD_API_TOKEN is configured. Attackers who can reach the lis…",
-      "sources": ["euvd"],
-      "severity": "10 (4.0)",
-      "cvssBase": 10,
-      "epss": 0.37,
-      "kev": false,
-      "kevSources": [],
-      "published": "Aug 29, 2026, 1:47:57 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-68103",
-      "aliases": ["CVE-2026-82456", "GHSA-p2x5-x87w-v2xj"],
-      "packages": [],
-      "vendor": "argoproj-labs",
-      "product": "argocd-mcp"
     },
     {
       "id": "CVE-2026-85620",
@@ -4194,6 +4242,22 @@
       "packages": [],
       "vendor": "mervinpraison",
       "product": "PraisonAI"
+    },
+    {
+      "id": "CVE-2026-58197",
+      "title": "ToolHive is a utility designed to simplify the deployment and management of Model Context Protocol servers. Prior to ToolHive CLI 0.30.1 and ToolHive Studio 0.38.0, locally run MCP server containers …",
+      "sources": ["euvd"],
+      "severity": "8.8 (3.1)",
+      "cvssBase": 8.8,
+      "epss": 0.36,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 18, 2026, 4:34:55 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83167",
+      "aliases": ["GHSA-qg2g-g9w3-m5h8", "CVE-2026-58197"],
+      "packages": [],
+      "vendor": "stacklok",
+      "product": "toolhive"
     },
     {
       "id": "CVE-2025-45468",
@@ -4516,22 +4580,6 @@
       "product": "apify-mcp-server"
     },
     {
-      "id": "CVE-2026-81845",
-      "title": "A vulnerability has been found in arben-adm mcp-sequential-thinking up to 0.5.0. Impacted is the function import_session/export_session of the file mcp_sequential_thinking/server.py of the component …",
-      "sources": ["euvd"],
-      "severity": "5.3 (4.0)",
-      "cvssBase": 5.3,
-      "epss": 0.34,
-      "kev": false,
-      "kevSources": [],
-      "published": "Aug 27, 2026, 9:45:10 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-67291",
-      "aliases": ["CVE-2026-81845", "GHSA-j8g6-hw52-mhg7"],
-      "packages": [],
-      "vendor": "arben-adm",
-      "product": "mcp-sequential-thinking"
-    },
-    {
       "id": "CVE-2026-71486",
       "title": "vLLM is an inference and serving engine for large language models. Prior to 0.26.0, the /v1/completions/derender and /v1/chat/completions/derender endpoints accept caller-supplied GenerateResponse ob…",
       "sources": ["euvd"],
@@ -4852,22 +4900,6 @@
       "product": "TensorRT-LLM"
     },
     {
-      "id": "CVE-2026-71492",
-      "title": "Banks generates meaningful LLM prompts using a simple template language. Prior to version 2.4.5, DirectoryPromptRegistry.set() in src/banks/registries/directory.py interpolates attacker-controlled Pr…",
-      "sources": ["euvd"],
-      "severity": "6 (4.0)",
-      "cvssBase": 6,
-      "epss": 0.32,
-      "kev": false,
-      "kevSources": [],
-      "published": "Aug 20, 2026, 4:13:55 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-63414",
-      "aliases": ["PYSEC-2026-3810", "GHSA-x8wg-4xgc-vr54", "CVE-2026-71492"],
-      "packages": [],
-      "vendor": "masci",
-      "product": "banks"
-    },
-    {
       "id": "CVE-2026-73556",
       "title": "vLLM is an inference and serving engine for large language models. Prior to 0.26.0, the structured_outputs.regex parameter in vllm/v1/structured_output/backend_lm_format_enforcer.py is passed to lmfo…",
       "sources": ["euvd"],
@@ -4946,6 +4978,22 @@
       "packages": [],
       "vendor": "ollama",
       "product": "ollama/ollama"
+    },
+    {
+      "id": "CVE-2026-93189",
+      "title": "In the Linux kernel, the following vulnerability has been resolved: HID: core: quiesce input in hid_hw_stop() to prevent use-after-free A driver's probe calls hid_device_io_start() to enable input de…",
+      "sources": ["euvd"],
+      "severity": "8.8 (3.1)",
+      "cvssBase": 8.8,
+      "epss": 0.31,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 17, 2026, 4:12:14 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82297",
+      "aliases": ["GHSA-c7vq-j3hm-m6qq", "CVE-2026-93189"],
+      "packages": [],
+      "vendor": "Linux",
+      "product": "Linux"
     },
     {
       "id": "CVE-2026-19591",
@@ -6052,6 +6100,22 @@
       "product": "vllm"
     },
     {
+      "id": "CVE-2026-93840",
+      "title": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the …",
+      "sources": ["euvd"],
+      "severity": "6.3 (4.0)",
+      "cvssBase": 6.3,
+      "epss": 0.25,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 18, 2026, 7:06:06 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83284",
+      "aliases": ["GHSA-97fp-7cr2-23qc", "CVE-2026-93840"],
+      "packages": [],
+      "vendor": "vllm-project",
+      "product": "vllm"
+    },
+    {
       "id": "CVE-2026-73557",
       "title": "vLLM is an inference and serving engine for large language models. From 0.20.2rc0 until 0.26.0, safe_load_prompt_embeds in vllm/renderers/embed_utils.py uses torch.sparse.check_sparse_tensor_invarian…",
       "sources": ["euvd"],
@@ -6178,6 +6242,22 @@
       "packages": [],
       "vendor": "IBM",
       "product": "mcp-contextforge-gateway"
+    },
+    {
+      "id": "CVE-2026-93841",
+      "title": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabular…",
+      "sources": ["euvd"],
+      "severity": "6.3 (4.0)",
+      "cvssBase": 6.3,
+      "epss": 0.24,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 18, 2026, 7:06:06 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83285",
+      "aliases": ["GHSA-q9hm-g73w-q6wp", "CVE-2026-93841"],
+      "packages": [],
+      "vendor": "vllm-project",
+      "product": "vllm"
     },
     {
       "id": "CVE-2026-64865",
@@ -6756,22 +6836,6 @@
       "product": "dbt-mcp"
     },
     {
-      "id": "CVE-2026-75980",
-      "title": "The BetterDocs – AI Documentation, Knowledge Base, Docs, Wikis, FAQ with Chatbot plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Heading 'id' Attribute in Post Content in all ve…",
-      "sources": ["euvd"],
-      "severity": "6.4 (3.1)",
-      "cvssBase": 6.4,
-      "epss": 0.21,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 1, 2026, 5:30:41 AM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-68986",
-      "aliases": ["CVE-2026-75980", "GHSA-xx89-f47v-hmxp"],
-      "packages": [],
-      "vendor": "wpdevteam",
-      "product": "BetterDocs – AI Documentation, Knowledge Base, MCP Server, Docs, Wikis, FAQ & Chatbot"
-    },
-    {
       "id": "CVE-2026-41182",
       "title": "LangSmith Client SDKs provide SDK's for interacting with the LangSmith platform. Prior to version 0.5.19 of the JavaScript SDK and version 0.7.31 of the Python SDK, the LangSmith SDK's output redacti…",
       "sources": ["euvd"],
@@ -6802,6 +6866,22 @@
       "packages": [],
       "vendor": "langchain-ai",
       "product": "langchain-anthropic"
+    },
+    {
+      "id": "CVE-2026-77339",
+      "title": "Process Compose is a scheduler and orchestrator for non-containerized applications. Prior to 1.120.0, the MCP SSE listener in src/mcp/server.go accepts browser-origin requests to /sse and the returne…",
+      "sources": ["euvd"],
+      "severity": "5.1 (4.0)",
+      "cvssBase": 5.1,
+      "epss": 0.21,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 18, 2026, 4:37:19 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83168",
+      "aliases": ["GHSA-5gm3-9crp-6g3v", "CVE-2026-77339"],
+      "packages": [],
+      "vendor": "F1bonacc1",
+      "product": "process-compose"
     },
     {
       "id": "CVE-2026-27795",
@@ -6863,22 +6943,6 @@
       "published": "Sep 11, 2026, 7:45:20 PM",
       "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-76535",
       "aliases": ["GHSA-p59v-m859-4ppq", "CVE-2026-89623"],
-      "packages": [],
-      "vendor": "Linux",
-      "product": "Linux"
-    },
-    {
-      "id": "CVE-2026-93189",
-      "title": "In the Linux kernel, the following vulnerability has been resolved: HID: core: quiesce input in hid_hw_stop() to prevent use-after-free A driver's probe calls hid_device_io_start() to enable input de…",
-      "sources": ["euvd"],
-      "severity": "8.8 (3.1)",
-      "cvssBase": 8.8,
-      "epss": 0.2,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 17, 2026, 4:12:14 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82297",
-      "aliases": ["GHSA-c7vq-j3hm-m6qq", "CVE-2026-93189"],
       "packages": [],
       "vendor": "Linux",
       "product": "Linux"
@@ -7314,22 +7378,6 @@
       "packages": [],
       "vendor": "eat-pray-ai",
       "product": "yutu"
-    },
-    {
-      "id": "CVE-2026-92230",
-      "title": "Apache Karaf's XmlUtils cached XML parser/transformer factories in static ThreadLocal fields on long-lived container threads. Because a ThreadLocal value outlives the OSGi bundle that created it, rep…",
-      "sources": ["euvd"],
-      "severity": "7.5 (3.1)",
-      "cvssBase": 7.5,
-      "epss": 0.17,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 17, 2026, 6:38:29 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82394",
-      "aliases": ["GHSA-3c25-9cqf-vxfc", "CVE-2026-92230"],
-      "packages": [],
-      "vendor": "Apache Software Foundation",
-      "product": "Apache Karaf"
     },
     {
       "id": "CVE-2025-8709",
@@ -8116,6 +8164,22 @@
       "product": "n/a"
     },
     {
+      "id": "CVE-2026-27022",
+      "title": "@langchain/langgraph-checkpoint-redis is the Redis checkpoint and store implementation for LangGraph. A query injection vulnerability exists in the @langchain/langgraph-checkpoint-redis package's fil…",
+      "sources": ["euvd"],
+      "severity": "6.5 (3.1)",
+      "cvssBase": 6.5,
+      "epss": 0.0387,
+      "kev": false,
+      "kevSources": [],
+      "published": "Feb 20, 2026, 9:06:53 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-7790",
+      "aliases": ["CVE-2026-27022", "GHSA-5mx2-w598-339m"],
+      "packages": [],
+      "vendor": "langchain-ai",
+      "product": "langgraphjs"
+    },
+    {
       "id": "CVE-2023-29199",
       "title": "There exists a vulnerability in source code transformer (exception sanitization logic) of vm2 for versions up to 3.9.15, allowing attackers to bypass `handleException()` and leak unsanitized host exc…",
       "sources": ["euvd"],
@@ -8130,22 +8194,6 @@
       "packages": [],
       "vendor": "patriksimek",
       "product": "vm2"
-    },
-    {
-      "id": "CVE-2026-27022",
-      "title": "@langchain/langgraph-checkpoint-redis is the Redis checkpoint and store implementation for LangGraph. A query injection vulnerability exists in the @langchain/langgraph-checkpoint-redis package's fil…",
-      "sources": ["euvd"],
-      "severity": "6.5 (3.1)",
-      "cvssBase": 6.5,
-      "epss": 0.0373,
-      "kev": false,
-      "kevSources": [],
-      "published": "Feb 20, 2026, 9:06:53 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-7790",
-      "aliases": ["CVE-2026-27022", "GHSA-5mx2-w598-339m"],
-      "packages": [],
-      "vendor": "langchain-ai",
-      "product": "langgraphjs"
     },
     {
       "id": "CVE-2026-22778",
@@ -8724,6 +8772,22 @@
       "product": "n/a"
     },
     {
+      "id": "CVE-2026-82456",
+      "title": "argocd-mcp 0.8.0 binds its HTTP transport to every network interface and accepts MCP sessions without requiring caller credentials when ARGOCD_API_TOKEN is configured. Attackers who can reach the lis…",
+      "sources": ["euvd"],
+      "severity": "10 (4.0)",
+      "cvssBase": 10,
+      "epss": 0.0139,
+      "kev": false,
+      "kevSources": [],
+      "published": "Aug 29, 2026, 1:47:57 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-68103",
+      "aliases": ["CVE-2026-82456", "GHSA-p2x5-x87w-v2xj"],
+      "packages": [],
+      "vendor": "argoproj-labs",
+      "product": "argocd-mcp"
+    },
+    {
       "id": "CVE-2024-46946",
       "title": "langchain_experimental (aka LangChain Experimental) 0.1.17 through 0.3.0 for LangChain allows attackers to execute arbitrary code through sympy.sympify (which uses eval) in LLMSymbolicMathChain. LLMS…",
       "sources": ["euvd"],
@@ -9092,100 +9156,52 @@
       "product": "LiteLLM"
     },
     {
-      "id": "CVE-2026-58197",
-      "title": "ToolHive is a utility designed to simplify the deployment and management of Model Context Protocol servers. Prior to ToolHive CLI 0.30.1 and ToolHive Studio 0.38.0, locally run MCP server containers …",
-      "sources": ["euvd"],
-      "severity": "8.8 (3.1)",
-      "cvssBase": 8.8,
-      "epss": 0,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 18, 2026, 4:34:55 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83167",
-      "aliases": ["GHSA-qg2g-g9w3-m5h8", "CVE-2026-58197"],
-      "packages": [],
-      "vendor": "stacklok",
-      "product": "toolhive"
-    },
-    {
-      "id": "CVE-2026-93592",
-      "title": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative t…",
-      "sources": ["euvd"],
-      "severity": "8.7 (4.0)",
-      "cvssBase": 8.7,
-      "epss": 0,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 18, 2026, 1:20:05 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82911",
-      "aliases": ["CVE-2026-93592", "GHSA-c3vq-r33v-49cr"],
-      "packages": [],
-      "vendor": "vllm-project",
-      "product": "vllm"
-    },
-    {
-      "id": "CVE-2026-63646",
-      "title": "CordysCRM is an open source AI-powered customer relationship management system that supports private deployment. Prior to 1.7.2, GET /mcp/form/config/{formKey} calls McpController.getMcpField without…",
-      "sources": ["euvd"],
-      "severity": "6.9 (4.0)",
-      "cvssBase": 6.9,
-      "epss": 0,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 18, 2026, 7:52:06 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83442",
-      "aliases": ["CVE-2026-63646"],
-      "packages": [],
-      "vendor": "1Panel-dev",
-      "product": "CordysCRM"
-    },
-    {
-      "id": "CVE-2026-93841",
-      "title": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabular…",
-      "sources": ["euvd"],
-      "severity": "6.3 (4.0)",
-      "cvssBase": 6.3,
-      "epss": 0,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 18, 2026, 7:06:06 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83285",
-      "aliases": ["GHSA-q9hm-g73w-q6wp", "CVE-2026-93841"],
-      "packages": [],
-      "vendor": "vllm-project",
-      "product": "vllm"
-    },
-    {
-      "id": "CVE-2026-93840",
-      "title": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the …",
-      "sources": ["euvd"],
-      "severity": "6.3 (4.0)",
-      "cvssBase": 6.3,
-      "epss": 0,
-      "kev": false,
-      "kevSources": [],
-      "published": "Sep 18, 2026, 7:06:06 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83284",
-      "aliases": ["GHSA-97fp-7cr2-23qc", "CVE-2026-93840"],
-      "packages": [],
-      "vendor": "vllm-project",
-      "product": "vllm"
-    },
-    {
-      "id": "CVE-2026-77339",
-      "title": "Process Compose is a scheduler and orchestrator for non-containerized applications. Prior to 1.120.0, the MCP SSE listener in src/mcp/server.go accepts browser-origin requests to /sse and the returne…",
+      "id": "CVE-2026-93965",
+      "title": "A flaw has been found in aiyiyi121 SxDevOps 1.0/1.1. Affected is the function subprocess.Popen of the file backend/aiops/services.py of the component MCP STDIO Server Management. This manipulation of…",
       "sources": ["euvd"],
       "severity": "5.1 (4.0)",
       "cvssBase": 5.1,
       "epss": 0,
       "kev": false,
       "kevSources": [],
-      "published": "Sep 18, 2026, 4:37:19 PM",
-      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83168",
-      "aliases": ["GHSA-5gm3-9crp-6g3v", "CVE-2026-77339"],
+      "published": "Sep 20, 2026, 5:45:10 AM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83658",
+      "aliases": ["GHSA-4jm5-5g2j-mj84", "CVE-2026-93965"],
       "packages": [],
-      "vendor": "F1bonacc1",
-      "product": "process-compose"
+      "vendor": "aiyiyi121",
+      "product": "SxDevOps"
+    },
+    {
+      "id": "CVE-2026-93982",
+      "title": "OpenPanel through commit bad75bdd writes Model Context Protocol authentication tokens from URL query parameters to plaintext application logs without redaction. Attackers with access to application s…",
+      "sources": ["euvd"],
+      "severity": "4.8 (4.0)",
+      "cvssBase": 4.8,
+      "epss": 0,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 19, 2026, 11:53:34 AM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83587",
+      "aliases": ["CVE-2026-93982", "GHSA-xvpp-2hfw-c93c"],
+      "packages": [],
+      "vendor": "Openpanel-dev",
+      "product": "openpanel"
+    },
+    {
+      "id": "CVE-2026-93989",
+      "title": "vLLM through 0.29.0 fails to properly validate bad_words token indices against the model's generation output width in SamplingParams.update_from_tokenizer(). Attackers can supply out-of-bounds token …",
+      "sources": ["euvd"],
+      "severity": "2.3 (4.0)",
+      "cvssBase": 2.3,
+      "epss": 0,
+      "kev": false,
+      "kevSources": [],
+      "published": "Sep 19, 2026, 10:58:10 PM",
+      "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83617",
+      "aliases": ["GHSA-pc5q-2x89-w436", "CVE-2026-93989"],
+      "packages": [],
+      "vendor": "vllm-project",
+      "product": "vllm"
     },
     {
       "id": "CVE-2019-18386",

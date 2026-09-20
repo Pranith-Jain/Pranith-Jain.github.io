@@ -22,7 +22,7 @@
     ],
     "euvdId": "EUVD-2026-80986",
     "kevDateAdded": null,
-    "epssPercentile": 0.37579
+    "epssPercentile": 0.37593
   },
   "CVE-2026-84377": {
     "id": "CVE-2026-84377",
@@ -52,7 +52,7 @@
     ],
     "euvdId": "EUVD-2026-70236",
     "kevDateAdded": null,
-    "epssPercentile": 0.24371
+    "epssPercentile": 0.24382
   },
   "CVE-2026-59822": {
     "id": "CVE-2026-59822",
@@ -78,7 +78,7 @@
     ],
     "euvdId": "EUVD-2026-42359",
     "kevDateAdded": "2026-09-02",
-    "epssPercentile": 0.57224
+    "epssPercentile": 0.57257
   },
   "CVE-2026-37004": {
     "id": "CVE-2026-37004",
@@ -102,7 +102,7 @@
     ],
     "euvdId": "EUVD-2026-67271",
     "kevDateAdded": null,
-    "epssPercentile": 0.44727
+    "epssPercentile": 0.44755
   },
   "CVE-2026-47102": {
     "id": "CVE-2026-47102",
@@ -132,7 +132,7 @@
     ],
     "euvdId": "EUVD-2026-31345",
     "kevDateAdded": null,
-    "epssPercentile": 0.49835
+    "epssPercentile": 0.49877
   },
   "CVE-2026-47101": {
     "id": "CVE-2026-47101",
@@ -162,7 +162,7 @@
     ],
     "euvdId": "EUVD-2026-31346",
     "kevDateAdded": null,
-    "epssPercentile": 0.66388
+    "epssPercentile": 0.66422
   },
   "CVE-2026-30623": {
     "id": "CVE-2026-30623",
@@ -187,7 +187,7 @@
     ],
     "euvdId": "EUVD-2026-44846",
     "kevDateAdded": null,
-    "epssPercentile": 0.91829
+    "epssPercentile": 0.91835
   },
   "CVE-2026-12773": {
     "id": "CVE-2026-12773",
@@ -214,7 +214,7 @@
     ],
     "euvdId": "EUVD-2026-38139",
     "kevDateAdded": null,
-    "epssPercentile": 0.61761
+    "epssPercentile": 0.61801
   },
   "CVE-2026-35029": {
     "id": "CVE-2026-35029",
@@ -235,7 +235,7 @@
     "references": ["https://github.com/BerriAI/litellm/security/advisories/GHSA-53mr-6c8q-9789"],
     "euvdId": "EUVD-2026-19370",
     "kevDateAdded": null,
-    "epssPercentile": 0.98145
+    "epssPercentile": 0.98147
   },
   "CVE-2026-35030": {
     "id": "CVE-2026-35030",
@@ -256,7 +256,7 @@
     "references": ["https://github.com/BerriAI/litellm/security/advisories/GHSA-jjhc-v7c2-5hh6"],
     "euvdId": "EUVD-2026-19372",
     "kevDateAdded": null,
-    "epssPercentile": 0.4855
+    "epssPercentile": 0.48588
   },
   "CVE-2026-40217": {
     "id": "CVE-2026-40217",
@@ -277,7 +277,7 @@
     "references": ["https://www.x41-dsec.de/lab/advisories/x41-2026-001-litellm/"],
     "euvdId": "EUVD-2026-21376",
     "kevDateAdded": null,
-    "epssPercentile": 0.96563
+    "epssPercentile": 0.96568
   },
   "CVE-2026-42203": {
     "id": "CVE-2026-42203",
@@ -301,7 +301,7 @@
     ],
     "euvdId": "EUVD-2026-28502",
     "kevDateAdded": null,
-    "epssPercentile": 0.31212
+    "epssPercentile": 0.31233
   },
   "CVE-2026-42208": {
     "id": "CVE-2026-42208",
@@ -349,7 +349,7 @@
     ],
     "euvdId": "EUVD-2026-28507",
     "kevDateAdded": "2026-06-08",
-    "epssPercentile": 0.99671
+    "epssPercentile": 0.99672
   },
   "CVE-2026-49468": {
     "id": "CVE-2026-49468",
@@ -373,7 +373,7 @@
     ],
     "euvdId": "EUVD-2026-38361",
     "kevDateAdded": null,
-    "epssPercentile": 0.5556
+    "epssPercentile": 0.55595
   },
   "CVE-2026-59821": {
     "id": "CVE-2026-59821",
@@ -398,7 +398,7 @@
     ],
     "euvdId": "EUVD-2026-42350",
     "kevDateAdded": null,
-    "epssPercentile": 0.58217
+    "epssPercentile": 0.58252
   },
   "CVE-2026-59820": {
     "id": "CVE-2026-59820",
@@ -424,7 +424,7 @@
     ],
     "euvdId": "EUVD-2026-42357",
     "kevDateAdded": null,
-    "epssPercentile": 0.467
+    "epssPercentile": 0.46734
   },
   "CVE-2026-59819": {
     "id": "CVE-2026-59819",
@@ -449,7 +449,7 @@
     ],
     "euvdId": "EUVD-2026-42361",
     "kevDateAdded": null,
-    "epssPercentile": 0.46019
+    "epssPercentile": 0.46047
   },
   "CVE-2026-12795": {
     "id": "CVE-2026-12795",
@@ -476,7 +476,7 @@
     ],
     "euvdId": "EUVD-2026-38154",
     "kevDateAdded": null,
-    "epssPercentile": 0.54838
+    "epssPercentile": 0.54874
   },
   "CVE-2026-12770": {
     "id": "CVE-2026-12770",
@@ -505,7 +505,7 @@
     ],
     "euvdId": "EUVD-2026-38136",
     "kevDateAdded": null,
-    "epssPercentile": 0.4584
+    "epssPercentile": 0.45867
   },
   "CVE-2026-12796": {
     "id": "CVE-2026-12796",
@@ -532,7 +532,7 @@
     ],
     "euvdId": "EUVD-2026-38155",
     "kevDateAdded": null,
-    "epssPercentile": 0.45875
+    "epssPercentile": 0.45901
   },
   "CVE-2026-12772": {
     "id": "CVE-2026-12772",
@@ -559,7 +559,7 @@
     ],
     "euvdId": "EUVD-2026-38138",
     "kevDateAdded": null,
-    "epssPercentile": 0.33997
+    "epssPercentile": 0.34015
   },
   "CVE-2026-12798": {
     "id": "CVE-2026-12798",
@@ -586,7 +586,7 @@
     ],
     "euvdId": "EUVD-2026-38157",
     "kevDateAdded": null,
-    "epssPercentile": 0.33998
+    "epssPercentile": 0.34015
   },
   "CVE-2026-12799": {
     "id": "CVE-2026-12799",
@@ -613,7 +613,7 @@
     ],
     "euvdId": "EUVD-2026-38158",
     "kevDateAdded": null,
-    "epssPercentile": 0.36511
+    "epssPercentile": 0.36527
   },
   "CVE-2026-12797": {
     "id": "CVE-2026-12797",
@@ -640,7 +640,7 @@
     ],
     "euvdId": "EUVD-2026-38156",
     "kevDateAdded": null,
-    "epssPercentile": 0.33998
+    "epssPercentile": 0.34015
   },
   "CVE-2026-12771": {
     "id": "CVE-2026-12771",
@@ -667,7 +667,7 @@
     ],
     "euvdId": "EUVD-2026-38137",
     "kevDateAdded": null,
-    "epssPercentile": 0.36942
+    "epssPercentile": 0.36952
   },
   "CVE-2026-12774": {
     "id": "CVE-2026-12774",
@@ -694,7 +694,7 @@
     ],
     "euvdId": "EUVD-2026-38140",
     "kevDateAdded": null,
-    "epssPercentile": 0.33998
+    "epssPercentile": 0.34014
   },
   "CVE-2026-34936": {
     "id": "CVE-2026-34936",
@@ -715,7 +715,7 @@
     "references": ["https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-x6m9-gxvr-7jpv"],
     "euvdId": "EUVD-2026-18915",
     "kevDateAdded": null,
-    "epssPercentile": 0.27138
+    "epssPercentile": 0.27155
   },
   "CVE-2026-4993": {
     "id": "CVE-2026-4993",
@@ -741,7 +741,7 @@
     ],
     "euvdId": "EUVD-2026-16913",
     "kevDateAdded": null,
-    "epssPercentile": 0.04058
+    "epssPercentile": 0.04067
   },
   "CVE-2026-33634": {
     "id": "CVE-2026-33634",
@@ -771,7 +771,7 @@
     ],
     "euvdId": "EUVD-2026-14601",
     "kevDateAdded": "2026-03-26",
-    "epssPercentile": 0.9907
+    "epssPercentile": 0.99071
   },
   "CVE-2025-45809": {
     "id": "CVE-2025-45809",
@@ -795,7 +795,7 @@
     ],
     "euvdId": "EUVD-2025-19897",
     "kevDateAdded": null,
-    "epssPercentile": 0.17121
+    "epssPercentile": 0.17095
   },
   "CVE-2025-11203": {
     "id": "CVE-2025-11203",
@@ -819,7 +819,7 @@
     ],
     "euvdId": "EUVD-2025-36712",
     "kevDateAdded": null,
-    "epssPercentile": 0.3559
+    "epssPercentile": 0.35607
   },
   "CVE-2024-5751": {
     "id": "CVE-2024-5751",
@@ -840,7 +840,7 @@
     "references": ["https://huntr.com/bounties/ae623c2f-b64b-4245-9ed4-f13a0a5824ce"],
     "euvdId": "EUVD-2024-2057",
     "kevDateAdded": null,
-    "epssPercentile": 0.57572
+    "epssPercentile": 0.57608
   },
   "CVE-2025-0628": {
     "id": "CVE-2025-0628",
@@ -864,7 +864,7 @@
     ],
     "euvdId": "EUVD-2025-6827",
     "kevDateAdded": null,
-    "epssPercentile": 0.26562
+    "epssPercentile": 0.26578
   },
   "CVE-2024-8984": {
     "id": "CVE-2024-8984",
@@ -888,7 +888,7 @@
     ],
     "euvdId": "EUVD-2025-6882",
     "kevDateAdded": null,
-    "epssPercentile": 0.55825
+    "epssPercentile": 0.55859
   },
   "CVE-2024-6825": {
     "id": "CVE-2024-6825",
@@ -912,7 +912,7 @@
     ],
     "euvdId": "EUVD-2025-6976",
     "kevDateAdded": null,
-    "epssPercentile": 0.74993
+    "epssPercentile": 0.75018
   },
   "CVE-2024-5710": {
     "id": "CVE-2024-5710",
@@ -933,7 +933,7 @@
     "references": ["https://huntr.com/bounties/70897f59-a966-4d93-b71e-745e3da91970"],
     "euvdId": "EUVD-2024-2149",
     "kevDateAdded": null,
-    "epssPercentile": 0.34599
+    "epssPercentile": 0.34614
   },
   "CVE-2024-9606": {
     "id": "CVE-2024-9606",
@@ -957,7 +957,7 @@
     ],
     "euvdId": "EUVD-2025-6847",
     "kevDateAdded": null,
-    "epssPercentile": 0.53035
+    "epssPercentile": 0.53075
   },
   "CVE-2025-0330": {
     "id": "CVE-2025-0330",
@@ -978,7 +978,7 @@
     "references": ["https://huntr.com/bounties/661b388a-44d8-4ad5-862b-4dc5b80be30a"],
     "euvdId": "EUVD-2025-6833",
     "kevDateAdded": null,
-    "epssPercentile": 0.44625
+    "epssPercentile": 0.44652
   },
   "CVE-2024-10188": {
     "id": "CVE-2024-10188",
@@ -1002,7 +1002,7 @@
     ],
     "euvdId": "EUVD-2025-7124",
     "kevDateAdded": null,
-    "epssPercentile": 0.44757
+    "epssPercentile": 0.44784
   },
   "CVE-2024-4888": {
     "id": "CVE-2024-4888",
@@ -1023,7 +1023,7 @@
     "references": ["https://huntr.com/bounties/48461d89-cf13-4ad3-a43e-0d37da08fc6c"],
     "euvdId": "EUVD-2024-1906",
     "kevDateAdded": null,
-    "epssPercentile": 0.48224
+    "epssPercentile": 0.48261
   },
   "CVE-2024-6587": {
     "id": "CVE-2024-6587",
@@ -1047,7 +1047,7 @@
     ],
     "euvdId": "EUVD-2024-2785",
     "kevDateAdded": null,
-    "epssPercentile": 0.9837
+    "epssPercentile": 0.98373
   },
   "CVE-2024-4264": {
     "id": "CVE-2024-4264",
@@ -1068,7 +1068,7 @@
     "references": ["https://huntr.com/bounties/a3221b0c-6e25-4295-ab0f-042997e8fc61"],
     "euvdId": "EUVD-2024-1491",
     "kevDateAdded": null,
-    "epssPercentile": 0.576
+    "epssPercentile": 0.57636
   },
   "CVE-2024-5225": {
     "id": "CVE-2024-5225",
@@ -1089,7 +1089,7 @@
     "references": ["https://huntr.com/bounties/491e4884-0306-4cd4-8fe2-9a19de33bf5c"],
     "euvdId": "EUVD-2024-2064",
     "kevDateAdded": null,
-    "epssPercentile": 0.36688
+    "epssPercentile": 0.36698
   },
   "CVE-2024-4889": {
     "id": "CVE-2024-4889",
@@ -1110,7 +1110,7 @@
     "references": ["https://huntr.com/bounties/be3fda72-a65b-4993-9a0e-7e0f05db51f8"],
     "euvdId": "EUVD-2024-44458",
     "kevDateAdded": null,
-    "epssPercentile": 0.56887
+    "epssPercentile": 0.56921
   },
   "CVE-2024-4890": {
     "id": "CVE-2024-4890",
@@ -1131,7 +1131,7 @@
     "references": ["https://huntr.com/bounties/a4f6d357-5b44-4e00-9cac-f1cc351211d2"],
     "euvdId": "EUVD-2024-1982",
     "kevDateAdded": null,
-    "epssPercentile": 0.45369
+    "epssPercentile": 0.45392
   },
   "CVE-2024-2952": {
     "id": "CVE-2024-2952",
@@ -1155,7 +1155,34 @@
     ],
     "euvdId": "EUVD-2024-1088",
     "kevDateAdded": null,
-    "epssPercentile": 0.68422
+    "epssPercentile": 0.68454
+  },
+  "CVE-2026-93989": {
+    "id": "CVE-2026-93989",
+    "title": "vLLM through 0.29.0 fails to properly validate bad_words token indices against the model's generation output width in SamplingParams.update_from_tokenizer(). Attackers can supply out-of-bounds token …",
+    "sources": ["euvd"],
+    "severity": "2.3 (4.0)",
+    "cvssBase": 2.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 19, 2026, 10:58:10 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83617",
+    "aliases": ["GHSA-pc5q-2x89-w436", "CVE-2026-93989"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM through 0.29.0 fails to properly validate bad_words token indices against the model's generation output width in SamplingParams.update_from_tokenizer(). Attackers can supply out-of-bounds token indices that corrupt logits memory of concurrent requests, causing different in-flight HTTP requests to return incorrect tokens.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/48824",
+      "https://github.com/vllm-project/vllm/blob/98dff2a81d747d1dba01a47f939f48c3526d4206/vllm/v1/worker/gpu/sample/bad_words.py",
+      "https://github.com/vllm-project/vllm/blob/98dff2a81d747d1dba01a47f939f48c3526d4206/vllm/sampling_params.py#L694-L753",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-cross-request-logits-corruption-via-bad-words"
+    ],
+    "euvdId": "EUVD-2026-83617",
+    "kevDateAdded": null,
+    "epssPercentile": null
   },
   "CVE-2026-93841": {
     "id": "CVE-2026-93841",
@@ -1163,7 +1190,7 @@
     "sources": ["euvd"],
     "severity": "6.3 (4.0)",
     "cvssBase": 6.3,
-    "epss": 0,
+    "epss": 0.24,
     "kev": false,
     "kevSources": [],
     "published": "Sep 18, 2026, 7:06:06 PM",
@@ -1182,7 +1209,7 @@
     ],
     "euvdId": "EUVD-2026-83285",
     "kevDateAdded": null,
-    "epssPercentile": null
+    "epssPercentile": 0.15279
   },
   "CVE-2026-93840": {
     "id": "CVE-2026-93840",
@@ -1190,7 +1217,7 @@
     "sources": ["euvd"],
     "severity": "6.3 (4.0)",
     "cvssBase": 6.3,
-    "epss": 0,
+    "epss": 0.25,
     "kev": false,
     "kevSources": [],
     "published": "Sep 18, 2026, 7:06:06 PM",
@@ -1210,7 +1237,7 @@
     ],
     "euvdId": "EUVD-2026-83284",
     "kevDateAdded": null,
-    "epssPercentile": null
+    "epssPercentile": 0.16379
   },
   "CVE-2026-57173": {
     "id": "CVE-2026-57173",
@@ -1236,7 +1263,7 @@
     ],
     "euvdId": "EUVD-2026-80880",
     "kevDateAdded": null,
-    "epssPercentile": 0.50012
+    "epssPercentile": 0.50054
   },
   "CVE-2026-93592": {
     "id": "CVE-2026-93592",
@@ -1244,7 +1271,7 @@
     "sources": ["euvd"],
     "severity": "8.7 (4.0)",
     "cvssBase": 8.7,
-    "epss": 0,
+    "epss": 0.38,
     "kev": false,
     "kevSources": [],
     "published": "Sep 18, 2026, 1:20:05 PM",
@@ -1260,7 +1287,7 @@
     ],
     "euvdId": "EUVD-2026-82911",
     "kevDateAdded": null,
-    "epssPercentile": null
+    "epssPercentile": 0.31616
   },
   "CVE-2026-93436": {
     "id": "CVE-2026-93436",
@@ -1286,7 +1313,7 @@
     ],
     "euvdId": "EUVD-2026-82534",
     "kevDateAdded": null,
-    "epssPercentile": 0.44172
+    "epssPercentile": 0.44199
   },
   "CVE-2026-92220": {
     "id": "CVE-2026-92220",
@@ -1314,7 +1341,7 @@
     ],
     "euvdId": "EUVD-2026-80081",
     "kevDateAdded": null,
-    "epssPercentile": 0.43178
+    "epssPercentile": 0.43199
   },
   "CVE-2026-69147": {
     "id": "CVE-2026-69147",
@@ -1340,7 +1367,7 @@
     ],
     "euvdId": "EUVD-2026-80935",
     "kevDateAdded": null,
-    "epssPercentile": 0.391
+    "epssPercentile": 0.3912
   },
   "CVE-2026-92365": {
     "id": "CVE-2026-92365",
@@ -1368,7 +1395,7 @@
     ],
     "euvdId": "EUVD-2026-80771",
     "kevDateAdded": null,
-    "epssPercentile": 0.32584
+    "epssPercentile": 0.32602
   },
   "CVE-2026-48746": {
     "id": "CVE-2026-48746",
@@ -1393,7 +1420,7 @@
     ],
     "euvdId": "EUVD-2026-38401",
     "kevDateAdded": null,
-    "epssPercentile": 0.65496
+    "epssPercentile": 0.65531
   },
   "CVE-2026-90713": {
     "id": "CVE-2026-90713",
@@ -1423,7 +1450,7 @@
     ],
     "euvdId": "EUVD-2026-77463",
     "kevDateAdded": null,
-    "epssPercentile": 0.0483
+    "epssPercentile": 0.04834
   },
   "CVE-2026-90878": {
     "id": "CVE-2026-90878",
@@ -1452,7 +1479,7 @@
     ],
     "euvdId": "EUVD-2026-78268",
     "kevDateAdded": null,
-    "epssPercentile": 0.23191
+    "epssPercentile": 0.23204
   },
   "CVE-2026-90553": {
     "id": "CVE-2026-90553",
@@ -1476,7 +1503,7 @@
     ],
     "euvdId": "EUVD-2026-76871",
     "kevDateAdded": null,
-    "epssPercentile": 0.11168
+    "epssPercentile": 0.11149
   },
   "CVE-2026-90554": {
     "id": "CVE-2026-90554",
@@ -1500,7 +1527,7 @@
     ],
     "euvdId": "EUVD-2026-76872",
     "kevDateAdded": null,
-    "epssPercentile": 0.01551
+    "epssPercentile": 0.01552
   },
   "CVE-2026-90555": {
     "id": "CVE-2026-90555",
@@ -1524,7 +1551,7 @@
     ],
     "euvdId": "EUVD-2026-76873",
     "kevDateAdded": null,
-    "epssPercentile": 0.22189
+    "epssPercentile": 0.22193
   },
   "CVE-2026-41523": {
     "id": "CVE-2026-41523",
@@ -1549,7 +1576,7 @@
     ],
     "euvdId": "EUVD-2026-38406",
     "kevDateAdded": null,
-    "epssPercentile": 0.58513
+    "epssPercentile": 0.58548
   },
   "CVE-2026-78684": {
     "id": "CVE-2026-78684",
@@ -1574,7 +1601,7 @@
     ],
     "euvdId": "EUVD-2026-65457",
     "kevDateAdded": null,
-    "epssPercentile": 0.26071
+    "epssPercentile": 0.26084
   },
   "CVE-2026-37237": {
     "id": "CVE-2026-37237",
@@ -1599,7 +1626,7 @@
     ],
     "euvdId": "EUVD-2026-67775",
     "kevDateAdded": null,
-    "epssPercentile": 0.43841
+    "epssPercentile": 0.43871
   },
   "CVE-2026-7141": {
     "id": "CVE-2026-7141",
@@ -1627,7 +1654,7 @@
     ],
     "euvdId": "EUVD-2026-25892",
     "kevDateAdded": null,
-    "epssPercentile": 0.21682
+    "epssPercentile": 0.21686
   },
   "CVE-2026-34755": {
     "id": "CVE-2026-34755",
@@ -1648,7 +1675,7 @@
     "references": ["https://github.com/vllm-project/vllm/security/advisories/GHSA-pq5c-rjhq-qp7p"],
     "euvdId": "EUVD-2026-19350",
     "kevDateAdded": null,
-    "epssPercentile": 0.39405
+    "epssPercentile": 0.39424
   },
   "CVE-2026-34756": {
     "id": "CVE-2026-34756",
@@ -1673,7 +1700,7 @@
     ],
     "euvdId": "EUVD-2026-19351",
     "kevDateAdded": null,
-    "epssPercentile": 0.36076
+    "epssPercentile": 0.36089
   },
   "CVE-2026-73560": {
     "id": "CVE-2026-73560",
@@ -1699,7 +1726,7 @@
     ],
     "euvdId": "EUVD-2026-60377",
     "kevDateAdded": null,
-    "epssPercentile": 0.25111
+    "epssPercentile": 0.25119
   },
   "CVE-2026-71486": {
     "id": "CVE-2026-71486",
@@ -1725,7 +1752,7 @@
     ],
     "euvdId": "EUVD-2026-60376",
     "kevDateAdded": null,
-    "epssPercentile": 0.27734
+    "epssPercentile": 0.27754
   },
   "CVE-2026-73556": {
     "id": "CVE-2026-73556",
@@ -1751,7 +1778,7 @@
     ],
     "euvdId": "EUVD-2026-58063",
     "kevDateAdded": null,
-    "epssPercentile": 0.24587
+    "epssPercentile": 0.24596
   },
   "CVE-2026-73559": {
     "id": "CVE-2026-73559",
@@ -1777,7 +1804,7 @@
     ],
     "euvdId": "EUVD-2026-58067",
     "kevDateAdded": null,
-    "epssPercentile": 0.39928
+    "epssPercentile": 0.39953
   },
   "CVE-2026-73555": {
     "id": "CVE-2026-73555",
@@ -1803,7 +1830,7 @@
     ],
     "euvdId": "EUVD-2026-58053",
     "kevDateAdded": null,
-    "epssPercentile": 0.17469
+    "epssPercentile": 0.17451
   },
   "CVE-2026-73557": {
     "id": "CVE-2026-73557",
@@ -1829,7 +1856,7 @@
     ],
     "euvdId": "EUVD-2026-58064",
     "kevDateAdded": null,
-    "epssPercentile": 0.16871
+    "epssPercentile": 0.16843
   },
   "CVE-2026-73558": {
     "id": "CVE-2026-73558",
@@ -1856,7 +1883,7 @@
     ],
     "euvdId": "EUVD-2026-58066",
     "kevDateAdded": null,
-    "epssPercentile": 0.25894
+    "epssPercentile": 0.25904
   },
   "CVE-2026-27765": {
     "id": "CVE-2026-27765",
@@ -1902,7 +1929,7 @@
     ],
     "euvdId": "EUVD-2026-16478",
     "kevDateAdded": null,
-    "epssPercentile": 0.7013
+    "epssPercentile": 0.70161
   },
   "CVE-2026-5497": {
     "id": "CVE-2026-5497",
@@ -1926,7 +1953,7 @@
     ],
     "euvdId": "EUVD-2026-36217",
     "kevDateAdded": null,
-    "epssPercentile": 0.44118
+    "epssPercentile": 0.44146
   },
   "CVE-2026-56340": {
     "id": "CVE-2026-56340",
@@ -1950,7 +1977,7 @@
     ],
     "euvdId": "EUVD-2026-38129",
     "kevDateAdded": null,
-    "epssPercentile": 0.49384
+    "epssPercentile": 0.49425
   },
   "CVE-2026-22807": {
     "id": "CVE-2026-22807",
@@ -1976,7 +2003,7 @@
     ],
     "euvdId": "EUVD-2026-3678",
     "kevDateAdded": null,
-    "epssPercentile": 0.55962
+    "epssPercentile": 0.55995
   },
   "CVE-2026-24779": {
     "id": "CVE-2026-24779",
@@ -2001,7 +2028,7 @@
     ],
     "euvdId": "EUVD-2026-4711",
     "kevDateAdded": null,
-    "epssPercentile": 0.44845
+    "epssPercentile": 0.4487
   },
   "CVE-2026-25960": {
     "id": "CVE-2026-25960",
@@ -2027,7 +2054,7 @@
     ],
     "euvdId": "EUVD-2026-10356",
     "kevDateAdded": null,
-    "epssPercentile": 0.44544
+    "epssPercentile": 0.44571
   },
   "CVE-2026-22778": {
     "id": "CVE-2026-22778",
@@ -2053,7 +2080,7 @@
     ],
     "euvdId": "EUVD-2026-5277",
     "kevDateAdded": null,
-    "epssPercentile": 0.89289
+    "epssPercentile": 0.893
   },
   "CVE-2026-15574": {
     "id": "CVE-2026-15574",
@@ -2077,7 +2104,7 @@
     ],
     "euvdId": "EUVD-2026-43310",
     "kevDateAdded": null,
-    "epssPercentile": 0.37596
+    "epssPercentile": 0.37611
   },
   "CVE-2026-54234": {
     "id": "CVE-2026-54234",
@@ -2102,7 +2129,7 @@
     ],
     "euvdId": "EUVD-2026-41921",
     "kevDateAdded": null,
-    "epssPercentile": 0.48102
+    "epssPercentile": 0.48139
   },
   "CVE-2026-12491": {
     "id": "CVE-2026-12491",
@@ -2126,7 +2153,7 @@
     ],
     "euvdId": "EUVD-2026-37645",
     "kevDateAdded": null,
-    "epssPercentile": 0.1533
+    "epssPercentile": 0.15296
   },
   "CVE-2026-55574": {
     "id": "CVE-2026-55574",
@@ -2151,7 +2178,7 @@
     ],
     "euvdId": "EUVD-2026-41924",
     "kevDateAdded": null,
-    "epssPercentile": 0.46531
+    "epssPercentile": 0.46563
   },
   "CVE-2026-55514": {
     "id": "CVE-2026-55514",
@@ -2177,7 +2204,7 @@
     ],
     "euvdId": "EUVD-2026-41925",
     "kevDateAdded": null,
-    "epssPercentile": 0.5028
+    "epssPercentile": 0.50323
   },
   "CVE-2026-55646": {
     "id": "CVE-2026-55646",
@@ -2202,7 +2229,7 @@
     ],
     "euvdId": "EUVD-2026-41914",
     "kevDateAdded": null,
-    "epssPercentile": 0.43079
+    "epssPercentile": 0.43099
   },
   "CVE-2026-53923": {
     "id": "CVE-2026-53923",
@@ -2227,7 +2254,7 @@
     ],
     "euvdId": "EUVD-2026-38400",
     "kevDateAdded": null,
-    "epssPercentile": 0.4079
+    "epssPercentile": 0.40822
   },
   "CVE-2026-54232": {
     "id": "CVE-2026-54232",
@@ -2248,7 +2275,7 @@
     "references": ["https://github.com/vllm-project/vllm/security/advisories/GHSA-jrf6-vqxq-pjv2"],
     "euvdId": "EUVD-2026-38405",
     "kevDateAdded": null,
-    "epssPercentile": 0.45558
+    "epssPercentile": 0.45582
   },
   "CVE-2026-47155": {
     "id": "CVE-2026-47155",
@@ -2274,7 +2301,7 @@
     ],
     "euvdId": "EUVD-2026-38407",
     "kevDateAdded": null,
-    "epssPercentile": 0.16646
+    "epssPercentile": 0.16619
   },
   "CVE-2026-54236": {
     "id": "CVE-2026-54236",
@@ -2299,7 +2326,7 @@
     ],
     "euvdId": "EUVD-2026-38403",
     "kevDateAdded": null,
-    "epssPercentile": 0.58932
+    "epssPercentile": 0.5897
   },
   "CVE-2026-54235": {
     "id": "CVE-2026-54235",
@@ -2324,7 +2351,7 @@
     ],
     "euvdId": "EUVD-2026-38402",
     "kevDateAdded": null,
-    "epssPercentile": 0.38463
+    "epssPercentile": 0.38481
   },
   "CVE-2026-54233": {
     "id": "CVE-2026-54233",
@@ -2348,7 +2375,7 @@
     ],
     "euvdId": "EUVD-2026-38404",
     "kevDateAdded": null,
-    "epssPercentile": 0.36111
+    "epssPercentile": 0.36125
   },
   "CVE-2026-44223": {
     "id": "CVE-2026-44223",
@@ -2372,7 +2399,7 @@
     ],
     "euvdId": "EUVD-2026-29800",
     "kevDateAdded": null,
-    "epssPercentile": 0.30469
+    "epssPercentile": 0.30492
   },
   "CVE-2025-71379": {
     "id": "CVE-2025-71379",
@@ -2396,7 +2423,7 @@
     ],
     "euvdId": "EUVD-2025-210290",
     "kevDateAdded": null,
-    "epssPercentile": 0.40564
+    "epssPercentile": 0.40596
   },
   "CVE-2026-10813": {
     "id": "CVE-2026-10813",
@@ -2425,7 +2452,7 @@
     ],
     "euvdId": "EUVD-2026-34290",
     "kevDateAdded": null,
-    "epssPercentile": 0.00111
+    "epssPercentile": 0.00113
   },
   "CVE-2026-4944": {
     "id": "CVE-2026-4944",
@@ -2446,7 +2473,7 @@
     "references": ["https://huntr.com/bounties/97f706f7-a852-49b2-a4eb-76811e611daf"],
     "euvdId": "EUVD-2026-32979",
     "kevDateAdded": null,
-    "epssPercentile": 0.53302
+    "epssPercentile": 0.53342
   },
   "CVE-2026-5817": {
     "id": "CVE-2026-5817",
@@ -2467,7 +2494,7 @@
     "references": ["https://docs.docker.com/desktop/release-notes/#4680"],
     "euvdId": "EUVD-2026-31493",
     "kevDateAdded": null,
-    "epssPercentile": 0.13395
+    "epssPercentile": 0.13373
   },
   "CVE-2026-9540": {
     "id": "CVE-2026-9540",
@@ -2496,7 +2523,7 @@
     ],
     "euvdId": "EUVD-2026-31810",
     "kevDateAdded": null,
-    "epssPercentile": 0.36573
+    "epssPercentile": null
   },
   "CVE-2026-44222": {
     "id": "CVE-2026-44222",
@@ -3210,7 +3237,7 @@
     "sources": ["euvd", "nvd"],
     "severity": "6.5 (3.1)",
     "cvssBase": 6.5,
-    "epss": 0.45,
+    "epss": 0.46,
     "kev": false,
     "kevSources": [],
     "published": "Mar 19, 2025, 3:31:00 PM",
@@ -4222,7 +4249,7 @@
     "sources": ["euvd"],
     "severity": "6.5 (3.1)",
     "cvssBase": 6.5,
-    "epss": 0.0373,
+    "epss": 0.0387,
     "kev": false,
     "kevSources": [],
     "published": "Feb 20, 2026, 9:06:53 PM",
@@ -4708,7 +4735,7 @@
     "sources": ["euvd"],
     "severity": "5.1 (4.0)",
     "cvssBase": 5.1,
-    "epss": 0.59,
+    "epss": 0.62,
     "kev": false,
     "kevSources": [],
     "published": "Jun 29, 2025, 9:00:15 AM",
@@ -4734,7 +4761,7 @@
     "sources": ["euvd"],
     "severity": "5.3 (4.0)",
     "cvssBase": 5.3,
-    "epss": 0.51,
+    "epss": 0.54,
     "kev": false,
     "kevSources": [],
     "published": "Jun 29, 2025, 8:31:04 AM",
@@ -4760,7 +4787,7 @@
     "sources": ["euvd"],
     "severity": "5.3 (4.0)",
     "cvssBase": 5.3,
-    "epss": 0.51,
+    "epss": 0.55,
     "kev": false,
     "kevSources": [],
     "published": "Jun 29, 2025, 7:31:05 AM",
@@ -5492,6 +5519,80 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
+  "CVE-2026-93965": {
+    "id": "CVE-2026-93965",
+    "title": "A flaw has been found in aiyiyi121 SxDevOps 1.0/1.1. Affected is the function subprocess.Popen of the file backend/aiops/services.py of the component MCP STDIO Server Management. This manipulation of…",
+    "sources": ["euvd"],
+    "severity": "5.1 (4.0)",
+    "cvssBase": 5.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 20, 2026, 5:45:10 AM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83658",
+    "aliases": ["GHSA-4jm5-5g2j-mj84", "CVE-2026-93965"],
+    "packages": [],
+    "vendor": "aiyiyi121",
+    "product": "SxDevOps",
+    "description": "A flaw has been found in aiyiyi121 SxDevOps 1.0/1.1. Affected is the function subprocess.Popen of the file backend/aiops/services.py of the component MCP STDIO Server Management. This manipulation of the argument endpoint_or_command causes command injection. The attack may be initiated remotely. Patch name: 2b4bf8585c3e731e7a8af30801ea46680bc783f9. To fix this issue, it is recommended to deploy a patch. The vendor was contacted early, responded in a very professional manner and quickly released a fixed version of the affected product.",
+    "references": [
+      "https://vuldb.com/vuln/407924",
+      "https://vuldb.com/vuln/407924/cti",
+      "https://vuldb.com/cve/CVE-2026-93965",
+      "https://vuldb.com/submit/944376",
+      "https://github.com/aiyiyi121/sxdevops/issues/16",
+      "https://github.com/aiyiyi121/sxdevops/commit/2b4bf8585c3e731e7a8af30801ea46680bc783f9",
+      "https://github.com/aiyiyi121/sxdevops/"
+    ],
+    "euvdId": "EUVD-2026-83658",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-11918": {
+    "id": "CVE-2026-11918",
+    "title": "IBM ContextForge MCP Gateway <= v1.0.4 IBM mcp-context-forge could allow an authenticated user to bypass protection mechanisms due to incomplete recursive inspection of nested payload content.",
+    "sources": ["euvd"],
+    "severity": "5.4 (3.1)",
+    "cvssBase": 5.4,
+    "epss": 0.27,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 15, 2026, 5:28:57 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-78898",
+    "aliases": ["CVE-2026-11918", "GHSA-x4xw-xv9j-3c3q"],
+    "packages": [],
+    "vendor": "IBM",
+    "product": "ContextForge MCP Gateway",
+    "description": "IBM ContextForge MCP Gateway <= v1.0.4 IBM mcp-context-forge could allow an authenticated user to bypass protection mechanisms due to incomplete recursive inspection of nested payload content.",
+    "references": ["https://www.ibm.com/support/pages/node/7285720"],
+    "euvdId": "EUVD-2026-78898",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-93982": {
+    "id": "CVE-2026-93982",
+    "title": "OpenPanel through commit bad75bdd writes Model Context Protocol authentication tokens from URL query parameters to plaintext application logs without redaction. Attackers with access to application s…",
+    "sources": ["euvd"],
+    "severity": "4.8 (4.0)",
+    "cvssBase": 4.8,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 19, 2026, 11:53:34 AM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83587",
+    "aliases": ["CVE-2026-93982", "GHSA-xvpp-2hfw-c93c"],
+    "packages": [],
+    "vendor": "Openpanel-dev",
+    "product": "openpanel",
+    "description": "OpenPanel through commit bad75bdd writes Model Context Protocol authentication tokens from URL query parameters to plaintext application logs without redaction. Attackers with access to application stdout or centralized logging systems can capture base64-encoded credentials to replay MCP requests and access project analytics.",
+    "references": [
+      "https://github.com/Openpanel-dev/openpanel/security/advisories/GHSA-8wx6-g25r-2943",
+      "https://www.vulncheck.com/advisories/openpanel-mcp-authentication-token-in-query-parameter-logged-plaintext"
+    ],
+    "euvdId": "EUVD-2026-83587",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
   "CVE-2026-64684": {
     "id": "CVE-2026-64684",
     "title": "RMCP is an official Rust SDK for the Model Context Protocol. Prior to 2.1.0, the rmcp crate's StreamableHttpClientTransport in crates/rmcp/src/transport/common/reqwest/streamable_http_client.rs build…",
@@ -5524,7 +5625,7 @@
     "sources": ["euvd"],
     "severity": "6.9 (4.0)",
     "cvssBase": 6.9,
-    "epss": 0,
+    "epss": 0.49,
     "kev": false,
     "kevSources": [],
     "published": "Sep 18, 2026, 7:52:06 PM",
@@ -5550,7 +5651,7 @@
     "sources": ["euvd"],
     "severity": "8.8 (3.1)",
     "cvssBase": 8.8,
-    "epss": 0.2,
+    "epss": 0.31,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 4:12:14 PM",
@@ -5580,7 +5681,7 @@
     "sources": ["euvd"],
     "severity": "8.8 (3.1)",
     "cvssBase": 8.8,
-    "epss": 0,
+    "epss": 0.36,
     "kev": false,
     "kevSources": [],
     "published": "Sep 18, 2026, 4:34:55 PM",
@@ -5609,7 +5710,7 @@
     "sources": ["euvd"],
     "severity": "5.1 (4.0)",
     "cvssBase": 5.1,
-    "epss": 0,
+    "epss": 0.21,
     "kev": false,
     "kevSources": [],
     "published": "Sep 18, 2026, 4:37:19 PM",
@@ -6525,27 +6626,6 @@
       "https://github.com/mkreyman/mcp-memory-keeper/releases/tag/v0.13.0"
     ],
     "euvdId": "EUVD-2026-78828",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-11918": {
-    "id": "CVE-2026-11918",
-    "title": "IBM ContextForge MCP Gateway <= v1.0.4 IBM mcp-context-forge could allow an authenticated user to bypass protection mechanisms due to incomplete recursive inspection of nested payload content.",
-    "sources": ["euvd"],
-    "severity": "5.4 (3.1)",
-    "cvssBase": 5.4,
-    "epss": 0.27,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 15, 2026, 5:28:57 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-78898",
-    "aliases": ["CVE-2026-11918", "GHSA-x4xw-xv9j-3c3q"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "ContextForge MCP Gateway",
-    "description": "IBM ContextForge MCP Gateway <= v1.0.4 IBM mcp-context-forge could allow an authenticated user to bypass protection mechanisms due to incomplete recursive inspection of nested payload content.",
-    "references": ["https://www.ibm.com/support/pages/node/7285720"],
-    "euvdId": "EUVD-2026-78898",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -7791,7 +7871,7 @@
     "sources": ["euvd"],
     "severity": "10 (4.0)",
     "cvssBase": 10,
-    "epss": 0.37,
+    "epss": 0.0139,
     "kev": false,
     "kevSources": [],
     "published": "Aug 29, 2026, 1:47:57 PM",
@@ -7934,64 +8014,6 @@
       "https://github.com/samanhappy/mcphub/releases/tag/v1.0.31"
     ],
     "euvdId": "EUVD-2026-68688",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-75980": {
-    "id": "CVE-2026-75980",
-    "title": "The BetterDocs – AI Documentation, Knowledge Base, Docs, Wikis, FAQ with Chatbot plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Heading 'id' Attribute in Post Content in all ve…",
-    "sources": ["euvd"],
-    "severity": "6.4 (3.1)",
-    "cvssBase": 6.4,
-    "epss": 0.21,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 1, 2026, 5:30:41 AM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-68986",
-    "aliases": ["CVE-2026-75980", "GHSA-xx89-f47v-hmxp"],
-    "packages": [],
-    "vendor": "wpdevteam",
-    "product": "BetterDocs – AI Documentation, Knowledge Base, MCP Server, Docs, Wikis, FAQ & Chatbot",
-    "description": "The BetterDocs – AI Documentation, Knowledge Base, Docs, Wikis, FAQ with Chatbot plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Heading 'id' Attribute in Post Content in all versions up to, and including, 4.8.1 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with contributor-level access and above, to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. The exploit survives wp_kses_post because entity-encoded quotes in a heading id attribute are treated as a single legitimate attribute value at save time; the dangerous payload only materialises after process_content_for_toc() calls html_entity_decode() on the stored content and the broken id is extracted by a lazy regex before being echoed unescaped into the Table of Contents output.",
-    "references": [
-      "https://www.wordfence.com/threat-intel/vulnerabilities/id/d1305df9-5002-4352-875c-2dcba7b06c10?source=cve",
-      "https://plugins.trac.wordpress.org/browser/betterdocs/tags/4.8.1/includes/Utils/Node.php#L22",
-      "https://plugins.trac.wordpress.org/browser/betterdocs/tags/4.8.1/includes/Shortcodes/ToC.php#L75",
-      "https://plugins.trac.wordpress.org/browser/betterdocs/tags/4.8.1/includes/Shortcodes/ToC.php#L147",
-      "https://plugins.trac.wordpress.org/browser/betterdocs/tags/4.8.1/views/shortcodes/toc.php#L50",
-      "https://plugins.trac.wordpress.org/changeset?reponame=&old=3656697%40betterdocs&new=3656697%40betterdocs"
-    ],
-    "euvdId": "EUVD-2026-68986",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-81845": {
-    "id": "CVE-2026-81845",
-    "title": "A vulnerability has been found in arben-adm mcp-sequential-thinking up to 0.5.0. Impacted is the function import_session/export_session of the file mcp_sequential_thinking/server.py of the component …",
-    "sources": ["euvd"],
-    "severity": "5.3 (4.0)",
-    "cvssBase": 5.3,
-    "epss": 0.34,
-    "kev": false,
-    "kevSources": [],
-    "published": "Aug 27, 2026, 9:45:10 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-67291",
-    "aliases": ["CVE-2026-81845", "GHSA-j8g6-hw52-mhg7"],
-    "packages": [],
-    "vendor": "arben-adm",
-    "product": "mcp-sequential-thinking",
-    "description": "A vulnerability has been found in arben-adm mcp-sequential-thinking up to 0.5.0. Impacted is the function import_session/export_session of the file mcp_sequential_thinking/server.py of the component Import Session/Export Session. Such manipulation of the argument file_path leads to path traversal. It is possible to launch the attack remotely. The exploit has been disclosed to the public and may be used. Upgrading to version 0.6.0 is recommended to address this issue. The name of the patch is 2fad3ee8ab1d0868b6c1afb5895bc336a10e5267. Upgrading the affected component is recommended.",
-    "references": [
-      "https://vuldb.com/vuln/396171",
-      "https://vuldb.com/vuln/396171/cti",
-      "https://vuldb.com/cve/CVE-2026-81845",
-      "https://vuldb.com/submit/887254",
-      "https://github.com/arben-adm/mcp-sequential-thinking/issues/17",
-      "https://github.com/arben-adm/mcp-sequential-thinking/pull/18",
-      "https://github.com/arben-adm/mcp-sequential-thinking/commit/2fad3ee8ab1d0868b6c1afb5895bc336a10e5267",
-      "https://github.com/arben-adm/mcp-sequential-thinking/releases/tag/v0.6.0"
-    ],
-    "euvdId": "EUVD-2026-67291",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -8998,27 +9020,6 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
-  "CVE-2026-70331": {
-    "id": "CVE-2026-70331",
-    "title": "Improper neutralization of input used for llm prompting in Microsoft Edge for iOS allows an unauthorized attacker to perform spoofing over a network.",
-    "sources": ["euvd"],
-    "severity": "5.4 (3.1)",
-    "cvssBase": 5.4,
-    "epss": 0.29,
-    "kev": false,
-    "kevSources": [],
-    "published": "Aug 28, 2026, 5:41:29 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-67846",
-    "aliases": ["GHSA-wjm5-2899-cw52", "CVE-2026-70331"],
-    "packages": [],
-    "vendor": "Microsoft",
-    "product": "Microsoft Edge (Chromium-based)",
-    "description": "Improper neutralization of input used for llm prompting in Microsoft Edge for iOS allows an unauthorized attacker to perform spoofing over a network.",
-    "references": ["https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70331"],
-    "euvdId": "EUVD-2026-67846",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
   "CVE-2026-91935": {
     "id": "CVE-2026-91935",
     "title": "Flowise before 3.1.4 fails to validate baseURL parameters in chat-model nodes, allowing authenticated users to redirect requests to arbitrary hosts. Attackers with chatflows:create or chatflows:updat…",
@@ -9040,6 +9041,27 @@
       "https://www.vulncheck.com/advisories/flowise-before-3.1.4-ssrf-and-api-key-exfiltration-via-chat-model-nodes"
     ],
     "euvdId": "EUVD-2026-78793",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-70331": {
+    "id": "CVE-2026-70331",
+    "title": "Improper neutralization of input used for llm prompting in Microsoft Edge for iOS allows an unauthorized attacker to perform spoofing over a network.",
+    "sources": ["euvd"],
+    "severity": "5.4 (3.1)",
+    "cvssBase": 5.4,
+    "epss": 0.29,
+    "kev": false,
+    "kevSources": [],
+    "published": "Aug 28, 2026, 5:41:29 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-67846",
+    "aliases": ["GHSA-wjm5-2899-cw52", "CVE-2026-70331"],
+    "packages": [],
+    "vendor": "Microsoft",
+    "product": "Microsoft Edge (Chromium-based)",
+    "description": "Improper neutralization of input used for llm prompting in Microsoft Edge for iOS allows an unauthorized attacker to perform spoofing over a network.",
+    "references": ["https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70331"],
+    "euvdId": "EUVD-2026-67846",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -9682,7 +9704,7 @@
     "sources": ["euvd"],
     "severity": "6 (4.0)",
     "cvssBase": 6,
-    "epss": 0.32,
+    "epss": 0.4,
     "kev": false,
     "kevSources": [],
     "published": "Aug 20, 2026, 4:13:55 PM",
@@ -11039,7 +11061,7 @@
     "sources": ["euvd"],
     "severity": "7.5 (3.1)",
     "cvssBase": 7.5,
-    "epss": 0.17,
+    "epss": 0.4,
     "kev": false,
     "kevSources": [],
     "published": "Sep 17, 2026, 6:38:29 PM",

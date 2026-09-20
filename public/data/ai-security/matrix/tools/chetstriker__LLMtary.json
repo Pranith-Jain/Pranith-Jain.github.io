@@ -7,9 +7,9 @@
   "description": "Autonomous AI-powered penetration testing platform. LLM-driven recon, vulnerability analysis, and exploit validation for internal & external targets. Supports local AI (Ollama, LM Studio) and cloud models (Claude, GPT-4, Gemini). Linux · m…",
   "homepage": "https://www.llmtary.com",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-19T08:08:22Z",
+  "checkedAt": "2026-09-20T08:39:53Z",
   "pushedAt": "2026-04-11",
-  "daysIdle": 161,
+  "daysIdle": 162,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,25 +20,25 @@
       "added": "2026-09-14"
     },
     "derived": {
-      "checked_at": "2026-09-19T08:08:22Z",
+      "checked_at": "2026-09-20T08:39:53Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-04-11",
-        "days_since_push": 161,
+        "days_since_push": 162,
         "total_commits": 67,
         "last100_span_days": 68,
         "last100_authors": 1,
         "releases": 3,
         "latest_release_at": "2026-04-11",
-        "days_since_release": 161,
-        "days_idle": 161,
+        "days_since_release": 162,
+        "days_idle": 162,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "chetstriker/LLMtary",
         "stars": 37,
-        "forks": 10,
+        "forks": 11,
         "created_at": "2026-04-08",
         "is_fork": false,
         "contributors": 2,

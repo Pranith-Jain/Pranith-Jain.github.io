@@ -7,9 +7,9 @@
   "description": "Ares is an autonomous security operations platform where LLM-driven red and blue team agents operate against each other on live infrastructure, enabling realistic evaluation of attack and defense.",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-19T08:05:38Z",
-  "pushedAt": "2026-09-16",
-  "daysIdle": 3,
+  "checkedAt": "2026-09-20T08:37:36Z",
+  "pushedAt": "2026-09-20",
+  "daysIdle": 0,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-19T08:05:38Z",
+      "checked_at": "2026-09-20T08:37:36Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-16",
-        "days_since_push": 3,
-        "total_commits": 223,
-        "last100_span_days": 71,
+        "pushed_at": "2026-09-20",
+        "days_since_push": 0,
+        "total_commits": 225,
+        "last100_span_days": 82,
         "last100_authors": 3,
         "releases": 3,
         "latest_release_at": "2026-05-18",
-        "days_since_release": 124,
-        "days_idle": 3,
+        "days_since_release": 125,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
