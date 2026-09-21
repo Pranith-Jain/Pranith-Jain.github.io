@@ -160,7 +160,11 @@ const CHANNELS: ChannelSpec[] = [
   // CVE / vulnerability disclosure channels (verified 2026-05-12: each has
   // 40+ recent posts and a sub-day publish cadence). Classed as 'osint'
   // because they're disclosure intelligence rather than breaking news.
-  { handle: 'cve0day', name: 'CVE 0day', blurb: 'CVE / 0day disclosure firehose', topic: 'osint' },
+  // REMOVED 2026-09-21 (all serving 0 preview messages — dead or
+  // preview-disabled, verified live from a non-throttled probe):
+  //   - `cve0day` (was: CVE / 0day disclosure firehose)
+  //   - `CVEDetector` (was: CVE disclosure alerts)
+  // Do NOT re-add without a live t.me/s/ message check.
   { handle: 'cvenotify', name: 'CVE Notify', blurb: 'High-cadence CVE alerts (NVD-style)', topic: 'osint' },
   {
     handle: 'cvefeed',
@@ -171,7 +175,6 @@ const CHANNELS: ChannelSpec[] = [
   // CVE / breach community channels (verified 2026-09-12, t.me/s/ preview
   // message counts in parentheses). Classed as 'osint' — disclosure
   // intelligence rather than breaking news.
-  { handle: 'CVEDetector', name: 'CVE Monitor', blurb: 'CVE disclosure alerts (7 recent posts)', topic: 'osint' },
   {
     handle: 'CyberMonitum',
     name: 'Cyber Monitum',
@@ -248,7 +251,9 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'Brut Security breach/vuln news, French-language (19 recent posts)',
     topic: 'news',
   },
-  // News mirrors
+  // News mirrors (cyberscoop REMOVED 2026-09-21: t.me/s/ 302-redirects to a
+  // join page with 0 preview messages — preview-disabled; do not re-add
+  // without a live t.me/s/ message check).
   { handle: 'BleepingComputer', name: 'BleepingComputer', blurb: 'Breaking incident news', topic: 'news' },
   { handle: 'TheHackerNews', name: 'The Hacker News', blurb: 'Security news headlines', topic: 'news' },
   {
@@ -257,7 +262,6 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'High-volume security-news aggregator',
     topic: 'news',
   },
-  { handle: 'cyberscoop', name: 'CyberScoop', blurb: 'CyberScoop news + government-cyber coverage', topic: 'news' },
   // Bug-bounty / offensive research
   {
     handle: 'dailybountywriteup',

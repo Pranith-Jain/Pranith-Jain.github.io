@@ -48,10 +48,10 @@ const CHANNELS = [
     blurb: 'Real-time CTI feed — IOCs, threat reports, advisories',
     topic: 'osint',
   },
-  { handle: 'cve0day', name: 'CVE 0day', blurb: 'CVE / 0day disclosure firehose', topic: 'osint' },
+  // NOTE: cve0day + CVEDetector removed 2026-09-21 (0 preview messages —
+  // dead/preview-disabled). Do not re-add without a live t.me/s/ check.
   { handle: 'cvenotify', name: 'CVE Notify', blurb: 'High-cadence CVE alerts (NVD-style)', topic: 'osint' },
   { handle: 'cvefeed', name: 'CVE & Vulnerability RSS', blurb: 'CVE / vulnerability RSS aggregator', topic: 'osint' },
-  { handle: 'CVEDetector', name: 'CVE Monitor', blurb: 'CVE disclosure alerts', topic: 'osint' },
   { handle: 'CyberMonitum', name: 'Cyber Monitum', blurb: 'Threat-intel + cyber-sec digest', topic: 'osint' },
   { handle: 'DWI_CVE_Alerts', name: 'DWI CVE Alerts', blurb: 'Dark Web Informer CVE alerts', topic: 'osint' },
   {
@@ -95,7 +95,8 @@ const CHANNELS = [
     blurb: 'High-volume security-news aggregator',
     topic: 'news',
   },
-  { handle: 'cyberscoop', name: 'CyberScoop', blurb: 'CyberScoop news + government-cyber coverage', topic: 'news' },
+  // NOTE: cyberscoop removed 2026-09-21 (t.me/s/ 302s to a join page —
+  // preview-disabled). Do not re-add without a live t.me/s/ check.
   {
     handle: 'dailybountywriteup',
     name: 'Daily Bounty Writeup',
