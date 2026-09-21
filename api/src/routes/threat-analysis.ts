@@ -64,15 +64,17 @@ interface ThreatAnalysisRequest {
 const EVENT_SYSTEM = `You are a senior CTI analyst. Given a threat event, produce a concise intelligence assessment.
 Return ONLY valid JSON with these fields:
 {
-  "summary": "1-2 sentence executive summary",
+  "summary": "1-2 sentence executive summary — lead with what changed and why it matters now",
   "threat_level": "critical|high|medium|low",
   "confidence": "high|medium|low",
-  "impact": "Brief assessment of potential impact",
+  "impact": "Brief assessment of potential impact — name affected sectors/systems, not generic harm",
   "recommended_actions": ["action1", "action2"],
-  "related_ttps": ["MITRE TTP if identifiable, else null"],
-  "context": "1-2 sentences of geopolitical/cyber context",
+  "related_ttps": ["MITRE TTP as 'T####: name' if identifiable from the input, else null"],
+  "context": "1-2 sentences of geopolitical/cyber context — what campaign/actor trend this fits",
   "tweet": "A single tweet-ready line (max 280 chars) summarizing this threat for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
+Calibration: critical = active exploitation / widespread impact reported; high = credible imminent risk; medium = plausible but uncorroborated; low = informational. Confidence high only with multiple corroborating details in the input — default to medium on single-source input, low on thin input.
+Rules: NEVER invent IOCs, CVE IDs, or actor names — every entity must come from the input. If the input is thin, say so in the summary and set confidence low rather than padding.
 No markdown. No explanation outside the JSON.`;
 
 const COUNTRY_SYSTEM = `You are a senior geopolitical and cyber-threat intelligence analyst. Given a country and its recent threat events, produce a comprehensive threat profile.
@@ -80,15 +82,16 @@ Return ONLY valid JSON with these fields:
 {
   "country": "country name",
   "overall_threat_level": "critical|high|medium|low",
-  "executive_summary": "2-3 sentence overview of the threat landscape",
-  "cyber_threats": "Assessment of cyber threats targeting or originating from this country",
-  "geopolitical_risks": "Key geopolitical tensions and risks",
-  "key_actors": ["Notable threat actors or groups if relevant"],
-  "active_conflicts": ["Active conflicts or tensions"],
-  "recommended_posture": "Recommended security posture for organizations with exposure to this region",
+  "executive_summary": "2-3 sentence overview — lead with the direction of travel (escalating/stable/subsiding) and the top driver",
+  "cyber_threats": "Assessment of cyber threats targeting or originating from this country, grounded in the listed events",
+  "geopolitical_risks": "Key geopolitical tensions and risks evidenced by the events — label inference as inference",
+  "key_actors": ["Notable threat actors or groups named in the events"],
+  "active_conflicts": ["Active conflicts or tensions evidenced by the events"],
+  "recommended_posture": "Recommended security posture for organizations with exposure to this region — concrete controls first",
   "trend": "improving|stable|deteriorating",
   "tweet": "A single tweet-ready line (max 280 chars) summarizing this country's threat profile for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
+Calibration: deteriorating requires ≥2 events showing escalation; a single incident against a quiet baseline is stable, not deteriorating. key_actors/active_conflicts must come from the input — empty array beats invention. trend must agree with executive_summary.
 No markdown. No explanation outside the JSON.`;
 
 const INDICATOR_SYSTEM = `You are a threat intelligence analyst. Given an indicator (IP, domain, hash, URL), assess its threat context.
@@ -103,36 +106,39 @@ Return ONLY valid JSON with these fields:
   "recommendedActions": ["action1", "action2"],
   "tweet": "A single tweet-ready line (max 280 chars) summarizing this indicator assessment for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
+Rules: assess ONLY what the indicator string plus your reasoning support — no invented sightings. Unknown attribution stays null. Thin input → confidence low.
 No markdown. No explanation outside the JSON.`;
 
 const RESEARCH_SYSTEM = `You are a senior threat intelligence researcher analyzing a security research post or feed article. Produce a deep analytical assessment.
 Return ONLY valid JSON with these fields:
 {
-  "summary": "2-3 sentence executive summary of the research findings",
+  "summary": "2-3 sentence executive summary of the research findings — lead with the novel claim",
   "key_findings": ["finding1", "finding2", "finding3"],
   "threat_level": "critical|high|medium|low",
   "confidence": "high|medium|low",
-  "novelty": "Is this novel research or known TTPs? Explain briefly.",
+  "novelty": "Is this novel research or known TTPs? Name the prior art it extends or duplicates.",
   "affected_sectors": ["sector1", "sector2"],
   "indicators_of_compromise": ["ioc1", "ioc2"],
   "mitre_ttps": ["T####: description"],
-  "attribution": "Threat actor attribution if identifiable, else null",
+  "attribution": "Threat actor attribution if stated in the input with its basis, else null — never infer attribution from TTPs alone",
   "recommendations": ["recommendation1", "recommendation2"],
   "sources_cited": ["source1", "source2"],
-  "quality_assessment": "Assessment of the research quality — methodology, evidence, timeliness",
+  "quality_assessment": "Assessment of the research quality — methodology, evidence, timeliness. Flag single-source or vendor-marketing signals.",
   "tweet": "A single tweet-ready line (max 280 chars) summarizing this research for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
+Rules: every IOC/TTP/actor must be traceable to the input — no enrichment from training data. Thin input → confidence low + say what's missing.
 No markdown. No explanation outside the JSON.`;
 
 async function callAi(
   ai: Env['AI'],
   groqKey: string | undefined,
+  googleKey: string | undefined,
   nvidiaKey: string | undefined,
   system: string,
   user: string,
   maxTokens = 1500
 ): Promise<{ text: string; model: string }> {
-  // Shared multi-provider chain (Groq → Gemini → NVIDIA → Infron → Workers AI)
+  // Shared multi-provider chain (Gemini → Groq → NVIDIA → Workers AI)
   // with circuit-breaker + cooldown tracking, so this route inherits the same
   // resilience as every other AI surface instead of the old groq-only custom
   // chain (which 429'd into 500s whenever Groq's free tier throttled).
@@ -140,8 +146,7 @@ async function callAi(
     ai,
     { system, user, maxTokens, temperature: 0.2 },
     {
-      infronKey: undefined,
-      googleKey: undefined,
+      googleKey: googleKey,
       groqKey: groqKey,
       nvidiaKey: nvidiaKey as string | undefined,
       preferGroq: true,
@@ -305,7 +310,15 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
       /* cache miss — proceed */
     }
 
-    const { text, model } = await callAi(c.env.AI, c.env.GROQ_API_KEY, c.env.NVIDIA_API_KEY, system, user, maxTokens);
+    const { text, model } = await callAi(
+      c.env.AI,
+      c.env.GROQ_API_KEY,
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY,
+      system,
+      user,
+      maxTokens
+    );
 
     // Try to extract JSON from the response
     let analysis: unknown;

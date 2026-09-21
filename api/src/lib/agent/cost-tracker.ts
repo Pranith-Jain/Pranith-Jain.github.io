@@ -27,17 +27,17 @@ export interface InvestigationCost {
   byRole: Record<string, { tokens: number; cost: number }>;
 }
 
-/** Cost per 1K tokens (approximate, as of 2026-07). */
+/** Cost per 1K tokens (approximate, as of 2026-09). */
 const COST_PER_1K: Record<string, number> = {
-  'infron:sapiens/agnes-2.0-flash:free': 0,
-  'infron:deepseek/deepseek-v4-flash:free': 0,
-  'infron:meta/llama-3.2-11b-vision-instruct:free': 0,
   'groq:openai/gpt-oss-120b': 0.0006,
   'groq:openai/gpt-oss-20b': 0.0003,
   'groq:llama-3.3-70b-versatile': 0.00059,
   'groq:llama-3.1-8b-instant': 0.00005,
+  'gemini:gemini-3.8-flash': 0.0001,
+  'gemini:gemini-3.7-flash': 0.0001,
   'gemini:gemini-3.6-flash': 0.0001,
   'gemini:gemini-3.5-flash': 0.0001,
+  'gemini:gemini-3.5-flash-lite': 0.0001,
   'gemini:gemini-2.5-flash': 0.0001,
   'nvidia:meta/llama-3.3-70b-instruct': 0.0006,
   'nvidia:meta/llama-3.1-70b-instruct': 0.0006,

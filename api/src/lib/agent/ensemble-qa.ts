@@ -31,13 +31,12 @@ export async function ensembleVerifyReport(
   originalReport: string,
   steps: AgentStep[],
   opts: {
-    infronKey?: string;
     groqKey?: string;
     nvidiaKey?: string;
     googleKey?: string;
     recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
     /** Provider that generated the report — excluded so the judge differs from the generator. */
-    excludeProvider?: 'infron' | 'groq' | 'gemini' | 'nvidia';
+    excludeProvider?: 'groq' | 'gemini' | 'nvidia';
   }
 ): Promise<EnsembleQaResult> {
   const dataSummary = buildCompactSummary(steps);
@@ -59,16 +58,14 @@ Verify every claim in the report against the collected data. Flag hallucinations
   // number of configured keys — Gemini/Groq/NVIDIA — for stronger consensus).
   // Judge-independence: skip the provider that generated the report so no
   // model grades its own output.
-  const models: Array<{ provider: 'groq' | 'gemini' | 'nvidia' | 'infron'; label: string }> = [];
+  const models: Array<{ provider: 'groq' | 'gemini' | 'nvidia'; label: string }> = [];
   if (opts.googleKey && opts.excludeProvider !== 'gemini') models.push({ provider: 'gemini', label: 'gemini' });
   if (opts.groqKey && opts.excludeProvider !== 'groq') models.push({ provider: 'groq', label: 'groq' });
   if (opts.nvidiaKey && opts.excludeProvider !== 'nvidia') models.push({ provider: 'nvidia', label: 'nvidia' });
-  if (opts.infronKey && opts.excludeProvider !== 'infron') models.push({ provider: 'infron', label: 'infron' });
 
   const results = await Promise.allSettled(
     models.map(async (m) => {
       const result = await runCompletion(ai, input, {
-        infronKey: opts.infronKey,
         groqKey: opts.groqKey,
         nvidiaKey: opts.nvidiaKey,
         googleKey: opts.googleKey,

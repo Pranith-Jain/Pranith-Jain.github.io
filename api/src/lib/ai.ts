@@ -1,8 +1,9 @@
 import type { Env } from '../env';
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
-const GOOGLE_MODEL = 'gemini-3.6-flash';
-const GOOGLE_MODEL_FALLBACK = 'gemini-3.5-flash';
+// Free-tier chain (Sep 2026) — Pro models are paid-only, never list them here.
+const GOOGLE_MODEL = 'gemini-3.8-flash';
+const GOOGLE_MODEL_FALLBACK = 'gemini-3.7-flash';
 const GOOGLE_MODEL_LEGACY = 'gemini-2.5-flash';
 const GOOGLE_TIMEOUT_MS = 30_000;
 

@@ -1136,10 +1136,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         // JUDGE-INDEPENDENCE: extract the provider that generated the report and
         // exclude it from the QA provider chain so the judge is never the same
         // model as the generator. modelUsed is shaped "provider:model".
-        const generatorProvider = result.modelUsed.split(':')[0] as 'infron' | 'groq' | 'gemini' | 'nvidia' | undefined;
+        const generatorProvider = result.modelUsed.split(':')[0] as 'groq' | 'gemini' | 'nvidia' | undefined;
 
         const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, {
-          infronKey,
           groqKey,
           googleKey,
           nvidiaKey,
@@ -1238,9 +1237,8 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           const { report: correctedProse, actionCard: correctedCard } = splitSynthOutput(correctedText);
 
           // QA excludes the generator (judge independence)
-          const correctedProvider = correctedModel.split(':')[0] as 'infron' | 'groq' | 'gemini' | 'nvidia' | undefined;
+          const correctedProvider = correctedModel.split(':')[0] as 'groq' | 'gemini' | 'nvidia' | undefined;
           const qaNext = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
-            infronKey,
             groqKey,
             googleKey,
             nvidiaKey,
@@ -1349,7 +1347,6 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           state.report ?? result.report,
           state.steps,
           {
-            infronKey,
             groqKey,
             nvidiaKey,
             googleKey,

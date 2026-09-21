@@ -36,7 +36,7 @@ interface TrendCandidate {
 }
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
-const GOOGLE_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-2.5-flash'];
+const GOOGLE_MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-2.5-flash'];
 
 const CATEGORY_POOLS = [
   ['ransomware-evolution', 'supply-chain-attacks', 'mobile-threats'],

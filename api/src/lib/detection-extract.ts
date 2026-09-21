@@ -79,6 +79,10 @@ Return JSON with this exact structure:
 }
 
 Generate 3-8 SIEM rules, 3-5 monitoring categories, 3-6 CLI commands, and 2-4 limitations.
+Rules:
+- Every SIEM rule needs a concrete log source in the description (e.g. Sysmon Event ID 1, Zeek conn.log, M365 audit) and a query in Sigma or KQL dialect — mark which in the platform field. No generic "monitor for suspicious activity" rules.
+- CLI commands must be copy-paste runnable with the correct platform tag (windows/linux/macos/network/cloud).
+- Limitations must name what the detection CANNOT see (blind spots), not restate the rules.
 Output JSON only. No prose, no markdown fences.`;
 
 const RETRY_SYSTEM = `Return a JSON object with keys: siemRules (array of objects with title/description/severity), monitoringGuidance (array of objects with category/items), cliCommands (array of objects with purpose/command), detectionLimitations (array of strings).`;
@@ -119,7 +123,6 @@ async function tryExtract(system: string, input: string, env: Env): Promise<Dete
           temperature: 0.3,
         },
         {
-          infronKey: env.INFRON_API_KEY,
           googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
           groqKey: env.GROQ_API_KEY,
           nvidiaKey: env.NVIDIA_API_KEY as string | undefined,

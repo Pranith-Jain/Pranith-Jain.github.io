@@ -117,16 +117,10 @@ health.get('/api/v1/debug/llm', async (c) => {
   return c.json(
     {
       keys: {
-        infron: !!env.INFRON_API_KEY,
         nvidia: !!env.NVIDIA_API_KEY,
         groq: !!env.GROQ_API_KEY,
         google: !!env.GOOGLE_AI_STUDIO_API_KEY,
       },
-      infron: await testEndpoint('https://llm.onerouter.pro/v1/chat/completions', env.INFRON_API_KEY, {
-        model: 'sapiens/agnes-2.0-flash:free',
-        messages: [{ role: 'user', content: 'ping' }],
-        max_tokens: 5,
-      }),
       nvidia: await testEndpoint('https://integrate.api.nvidia.com/v1/chat/completions', env.NVIDIA_API_KEY, {
         ...ping,
         model: 'minimaxai/minimax-m2.7',
@@ -146,13 +140,13 @@ health.get('/api/v1/debug/llm', async (c) => {
         max_completion_tokens: 5,
       }),
       google: await testEndpoint(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=' +
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=' +
           env.GOOGLE_AI_STUDIO_API_KEY,
         env.GOOGLE_AI_STUDIO_API_KEY,
         { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
       ),
       googleMid: await testEndpoint(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=' +
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent?key=' +
           env.GOOGLE_AI_STUDIO_API_KEY,
         env.GOOGLE_AI_STUDIO_API_KEY,
         { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }

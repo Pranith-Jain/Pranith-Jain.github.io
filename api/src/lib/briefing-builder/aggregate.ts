@@ -443,7 +443,6 @@ export async function buildLlmExecutiveSummary(
           temperature: 0.3,
         },
         {
-          infronKey: env.INFRON_API_KEY,
           googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
           groqKey: env.GROQ_API_KEY,
           quality: true,

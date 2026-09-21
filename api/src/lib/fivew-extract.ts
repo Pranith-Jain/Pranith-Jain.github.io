@@ -71,8 +71,8 @@ async function tryExtract(system: string, input: string, env: Env): Promise<Five
     const r = await Promise.race([
       runCompletion(
         env.AI,
-        { system, user: `REPORT:\n\n${input}`, maxTokens: 350, temperature: 0.2 },
-        { infronKey: env.INFRON_API_KEY, googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
+        { system, user: `REPORT:\n\n${input}`, maxTokens: 700, temperature: 0.2 },
+        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
       ),
       timeout,
     ]);

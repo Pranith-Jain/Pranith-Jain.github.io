@@ -39,12 +39,16 @@ Return JSON with this exact structure:
 }
 
 Generate 3-6 key takeaways and 4-8 recommended actions. Be specific and actionable.
+Rules:
+- Every action names a concrete control (patch CVE-####, deploy hunt query for X, block Y at proxy) plus why it matters in the rationale — no generic "stay vigilant" items.
+- immediate = do in 24h (active exploitation / exposed); short-term = this sprint; long-term = strategic.
+- riskAssessment: severity + who is most exposed + timeframe, in 1-2 sentences.
 Output JSON only. No prose, no markdown fences.`;
 
 const RETRY_SYSTEM = `Return a JSON object with keys: keyTakeaways (array of strings), recommendedActions (array of objects with priority/action/rationale), riskAssessment (string).`;
 
 const TIMEOUT_MS = 22_000;
-const MAX_INPUT_CHARS = 4000;
+const MAX_INPUT_CHARS = 8000;
 
 export async function extractConclusion(text: string, summary: string, env: Env): Promise<Conclusion> {
   const input = text.length > MAX_INPUT_CHARS ? text.slice(0, MAX_INPUT_CHARS) + '\n…[truncated]' : text;
@@ -71,7 +75,7 @@ async function tryExtract(system: string, context: string, env: Env): Promise<Co
           maxTokens: 2000,
           temperature: 0.3,
         },
-        { infronKey: env.INFRON_API_KEY, googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
+        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
       ),
       timeout,
     ]);

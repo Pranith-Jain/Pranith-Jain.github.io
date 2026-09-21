@@ -3,13 +3,14 @@
  *
  * Given a collection of feed items (writeups, cybercrime, signals, etc.),
  * produces a concise analyst-grade summary covering:
- *   - Key themes and trends
- *   - Notable threat actors / campaigns
- *   - Critical CVEs or vulnerabilities
- *   - Recommended actions
+ *   - TL;DR + what's new vs background noise
+ *   - Key themes and trends (with item counts)
+ *   - Notable threat actors / campaigns / CVEs (evidence-linked)
+ *   - Severity + confidence calibration
+ *   - Prioritized defender actions
  *
  * Uses the shared LLM client with preferGroq: every AI summary runs on Groq's
- * openai/gpt-oss-120b (GPT) first, with Gemini → Workers AI as fallback.
+ * openai/gpt-oss-120b first, with Gemini → NVIDIA → Workers AI as fallback.
  * Gracefully degrades: on any failure returns null so the caller can skip
  * the summary card without blocking the page.
  */
@@ -45,14 +46,16 @@ export interface SummaryResult {
   };
 }
 
-const SYSTEM_PROMPT = `You are a senior cyber-threat-intelligence analyst who also writes compelling social media content. Given a list of security items from a specific feed surface, produce THREE outputs separated by lines containing ONLY the markers ---TWEET--- and ---LINKEDIN--- (in that order).
+const SYSTEM_PROMPT = `You are a senior cyber-threat-intelligence analyst briefing a SOC lead. Given a list of security items from a specific feed surface, produce THREE outputs separated by lines containing ONLY the markers ---TWEET--- and ---LINKEDIN--- (in that order).
 
-OUTPUT 1 — FULL SUMMARY (150-300 words):
-Structure:
-1. **Headline**: One or two punchy sentences capturing the most important development.
-2. **Key themes**: 2-4 bullet points (prefixed with "- ") of dominant trends.
-3. **Notable entities**: Specific threat actors, malware families, CVEs, or campaigns.
-4. **Analyst takeaway**: One actionable sentence for defenders.
+OUTPUT 1 — FULL SUMMARY (200-350 words):
+Structure it EXACTLY like this:
+1. **TL;DR**: One or two punchy sentences — the single most important development AND why it matters right now.
+2. **What's new**: 1-2 bullets (prefixed with "- ") on what actually changed in this cut vs background noise (new actor, new CVE, new campaign, escalation). If nothing is new, say so in one line and skip the bullets.
+3. **Key themes**: 2-4 bullets (prefixed with "- ") of dominant trends. Quantify each with an item count, e.g. "Ransomware dominates (7/22 items)". Order by prevalence.
+4. **Notable entities**: Specific threat actors, malware families, CVEs, or campaigns — each with a one-phrase evidence link, e.g. "CVE-2026-1234 (RCE in Edge, exploited in the wild per 3 items)". Group by type.
+5. **Severity & confidence**: One line, e.g. "Severity: HIGH — active exploitation reported. Confidence: medium — single-source reporting on attribution."
+6. **Analyst takeaway**: 1-2 prioritized defender actions, most urgent first. Name the control (patch, hunt query, block), not generic advice.
 
 OUTPUT 2 — TWEET (after ---TWEET---):
 A single tweet-ready line (max 280 chars) that a security professional would actually post. Include 1-3 relevant hashtags (#ThreatIntel, #CyberSecurity, #InfoSec, #CVE, etc). Make it punchy, specific, and jargon-light enough for a broad tech audience. No markdown formatting.
@@ -67,17 +70,17 @@ A LinkedIn post (300-600 chars, plus 3-5 hashtags) written for practitioners, us
 Rules for LinkedIn: NO URL in the body — the client adds it so the reader can move it to the first comment. No markdown headers, no **bold**, no asterisks. At most ONE emoji (🔴 ⚠️) — never decorative.
 
 Rules (all outputs):
-- Be specific and factual. Reference actual names, CVE IDs, and actors from the items.
-- Do not invent or speculate beyond what the items state.
-- Write like a human analyst, not a corporate release. Avoid filler phrases.
-- If the items are thin or low-signal, say so honestly rather than padding.
+- Be specific and factual. Reference actual names, CVE IDs, and actors from the items. NEVER invent IOCs, CVE IDs, actor names, or numbers — every entity must appear in the items above.
+- Calibrate: distinguish confirmed reporting ("3 items report X") from single-source claims ("one item claims X — uncorroborated").
+- Write like a human analyst, not a corporate release. Avoid filler phrases ("in today's evolving threat landscape", "robust", "leverage", "delve").
+- If the items are thin or low-signal, say so honestly in one line rather than padding.
 - Do not use markdown headers (#). Use bold (**) only in the full summary.
 - The tweet must stand alone and make sense without the full summary.
 - The LinkedIn post must read differently from the tweet — same substance, platform-native structure.
 
 ${UNTRUSTED_DATA_SYSTEM_NOTE}`;
 
-const MAX_BODY_CHARS = 12000;
+const MAX_BODY_CHARS = 14000;
 // Outer bound for the whole runCompletion chain (Groq → Gemini → NVIDIA →
 // Workers AI). Long enough that a slow-but-healthy Gemini/Groq fallback can
 // actually respond after a rate-limitted Groq (single Groq timeout is 15s,
@@ -90,21 +93,93 @@ const CALL_TIMEOUT_MS = 28_000;
 // first-party infra (no external rate quota), so it usually answers in 2-5s.
 const FALLBACK_TIMEOUT_MS = 12_000;
 
+const CVE_RE = /\bCVE-\d{4}-\d{4,}\b/i;
+// High-signal keywords for ranking feed items before the LLM cut.
+const SIGNAL_RE =
+  /\b(0-?day|rce|exploit|ransomware|breach|leak|c2|apt|lazarus|volt typhoon|lockbit|cl0p|kev|critical|cvss\s*9|cvss\s*10)\b/i;
+
+export function normalizeTitle(t: string): string {
+  return t
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+export function scoreItem(title: string, body: string): number {
+  const text = `${title} ${body}`;
+  let score = 0;
+  if (CVE_RE.test(text)) score += 3;
+  const signals = text.match(new RegExp(SIGNAL_RE.source, 'gi'));
+  if (signals) score += Math.min(signals.length, 3);
+  // Prefer items with substance — a title-only stub carries no signal.
+  if (body.trim().length > 120) score += 1;
+  return score;
+}
+
+export interface ShapedItem {
+  title: string;
+  body: string;
+  source?: string;
+  /** 0-based rank after signal sorting (0 = highest signal). */
+  rank: number;
+  /** Body char budget assigned by tier. */
+  budget: number;
+}
+
+export interface ShapedInput {
+  items: ShapedItem[];
+  /** Duplicates removed by title normalization. */
+  dupesRemoved: number;
+}
+
+/**
+ * Pure shaping pass shared by buildUserPrompt and unit tests:
+ * 1. Dedup by normalized title (same story syndicated across feeds).
+ * 2. Rank by threat signal so CVEs / active exploitation win the LLM budget.
+ * 3. Tiered body budgets: top-10 items get full context, the tail gets stubs.
+ */
+export function shapeItemsForPrompt(items: SummaryInput['items'], maxItems = 30): ShapedInput {
+  const seen = new Set<string>();
+  const deduped: SummaryInput['items'] = [];
+  for (const item of items) {
+    const key = normalizeTitle(item.title);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(item);
+  }
+  const dupesRemoved = items.length - deduped.length;
+  const shaped = deduped
+    .map((item, i) => ({ item, i, score: scoreItem(item.title, item.body) }))
+    .sort((a, b) => b.score - a.score || a.i - b.i)
+    .map(({ item }, rank) => ({
+      title: item.title,
+      body: item.body,
+      source: item.source,
+      rank,
+      // Single-report inputs (report-analyzer) get a deep-read budget so the
+      // summary sees the full attack chain, not a stub. Feed cuts stay
+      // tiered: top-10 get 600 chars, the tail gets 250.
+      budget: deduped.length === 1 ? 3500 : rank < 10 ? 600 : 250,
+    }))
+    .slice(0, maxItems);
+  return { items: shaped, dupesRemoved };
+}
+
 function buildUserPrompt(input: SummaryInput): string {
-  const items = input.items.slice(0, input.maxItems ?? 30);
+  const { items, dupesRemoved } = shapeItemsForPrompt(input.items, input.maxItems ?? 30);
   // Feed item title/body/source are attacker-authorable (feed authors). Fence
   // them as untrusted data so an embedded "ignore previous instructions" in a
   // feed title cannot steer the summary. Surface/date are app metadata.
   const itemLines: string[] = [];
   for (const item of items) {
     const src = item.source ? ` [${neutralizeUntrusted(item.source)}]` : '';
-    const body = neutralizeUntrusted(item.body.replace(/\s+/g, ' ').trim().slice(0, 300));
+    const body = neutralizeUntrusted(item.body.replace(/\s+/g, ' ').trim().slice(0, item.budget));
     itemLines.push(`- ${neutralizeUntrusted(item.title)}${src}: ${body}`);
   }
   const lines: string[] = [
     `Surface: ${input.surface}`,
     `Date: ${input.date}`,
-    `Items (${items.length} of ${input.items.length}):`,
+    `Items (${items.length} of ${input.items.length}${dupesRemoved > 0 ? `, ${dupesRemoved} duplicates removed` : ''}):`,
     '',
     fenceUntrusted(itemLines.join('\n'), 'FEED_ITEMS'),
   ];
@@ -135,15 +210,14 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           system: SYSTEM_PROMPT,
           user: userPrompt,
           // gpt-oss-120b is a reasoning model: max_completion_tokens must cover
-          // the internal reasoning trace AND the visible output. The prompt now
-          // asks for three outputs (full summary + tweet + LinkedIn post), so
-          // 800 starved the model into empty/truncated content (→ null → 503)
-          // and 1500 covered two outputs. 2000 gives headroom for three.
-          maxTokens: 2000,
+          // the internal reasoning trace AND the visible output. The prompt asks
+          // for three outputs (analyst summary + tweet + LinkedIn post), so
+          // 2400 gives headroom for the richer summary structure (TL;DR,
+          // entities with evidence, severity/confidence) plus the trace.
+          maxTokens: 2400,
           temperature: 0.3,
         },
         {
-          infronKey: env.INFRON_API_KEY,
           googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
           groqKey: env.GROQ_API_KEY,
           nvidiaKey: env.NVIDIA_API_KEY as string | undefined,
@@ -176,7 +250,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           setTimeout(() => reject(new Error('ai-summary fallback timeout')), FALLBACK_TIMEOUT_MS)
         );
         const fb = await Promise.race([
-          runWorkersAI(env.AI, { system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 2000, temperature: 0.3 }),
+          runWorkersAI(env.AI, { system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 2400, temperature: 0.3 }),
           fallbackTimeout,
         ]);
         const fbText = typeof fb.text === 'string' ? fb.text.trim() : '';
@@ -184,7 +258,10 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           text = fbText;
           modelUsed = `workers-ai:${fb.model.split('/').pop()}`;
         } else {
-          logError(`generateAiSummary[${input.surface}] fallback short output`, new Error(`${fbText.length} chars from ${fb.model}`));
+          logError(
+            `generateAiSummary[${input.surface}] fallback short output`,
+            new Error(`${fbText.length} chars from ${fb.model}`)
+          );
         }
       } catch (err) {
         logError(
