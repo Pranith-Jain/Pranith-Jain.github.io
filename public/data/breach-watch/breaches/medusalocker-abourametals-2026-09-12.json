@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-abourametals-2026-09-12",
+  "title": "Abourametals",
+  "group": "Medusalocker",
+  "discovered": "2026-09-12T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "United Arab Emirates",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/abourametals-medusalocker-2026-09",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["RecentBreaches.com"]
+}

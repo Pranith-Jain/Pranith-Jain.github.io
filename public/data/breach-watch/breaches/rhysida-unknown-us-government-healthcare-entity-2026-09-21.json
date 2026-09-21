@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-unknown-us-government-healthcare-entity-2026-09-21",
+  "title": "Unknown (US Government/Healthcare Entity)",
+  "group": "Rhysida",
+  "discovered": "2026-09-21T03:04:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/81e4c1a4-f656-4251-bb01-7e4b9131a6c4",
+  "groupAliases": [],
+  "activity": "Government / Healthcare",
+  "references": ["Darkfield"]
+}

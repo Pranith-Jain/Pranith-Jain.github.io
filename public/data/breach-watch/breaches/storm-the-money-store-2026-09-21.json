@@ -1,0 +1,15 @@
+{
+  "slug": "storm-the-money-store-2026-09-21",
+  "title": "The Money Store",
+  "group": "storm",
+  "discovered": "2026-09-21T10:16:12.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "FinTech | Florham Park, New Jersey, United States | The Money Store is a local mortgage lender based in Hamilton, NJ, specializing in home financing solutions. They offer a variety of loan products including home purchase, refinance, construction, renovation, and home equity loans to cater to diverse client needs. Their services are designed for individuals looking to buy, build, renovate, or refinance their homes. The company aims to simplify the home financing journey with a user-friendly application process and dedicated team support. \nThe company headquarters is located in 30B Vreeland Road, Suite 200, Florham Park, NJ 07932, United States.\n201-500 Employees\n | Deadline: 2026-10-07T07:49:02.000Z",
+  "source_url": "https://www.ransomlook.io/screenshots/storm/The Money Store.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

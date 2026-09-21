@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-newmantractor-com-2026-09-21",
+  "title": "newmantractor.com",
+  "group": "threeam",
+  "discovered": "2026-09-21T06:07:48.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Since 1976, Newman Tractor has been serving the heavy equipment industry both domestically, and internationally. Originally founded as a farm equipment business in Boone County, Kentucky, Newman Tractor has transformed into one of this country's m",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}
