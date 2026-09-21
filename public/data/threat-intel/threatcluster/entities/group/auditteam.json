@@ -4,10 +4,10 @@
   "name": "auditteam",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 5,
   "firstSeen": "2026-09-18T15:50:21.000Z",
-  "lastSeen": "2026-09-19T10:50:28.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 3 countries.",
+  "lastSeen": "2026-09-20T14:50:56.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 2 sectors and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-18",
@@ -16,9 +16,25 @@
     {
       "date": "2026-09-19",
       "count": 1
+    },
+    {
+      "date": "2026-09-20",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "tek-spb-c54c",
+      "title": "TEK SPB — claimed by auditteam",
+      "pubDate": "2026-09-20T14:50:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "st-co-96bb",
+      "title": "st***co — claimed by auditteam",
+      "pubDate": "2026-09-20T14:50:19.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "td-up-be63",
@@ -43,17 +59,31 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 2
+      "weight": 3
     },
     {
       "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 1
+      "weight": 2
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "tek-spb-c54c",
+      "victim": "TEK SPB — claimed by auditteam",
+      "sector": "Technology",
+      "country": "RU",
+      "pubDate": "2026-09-20T14:50:56.000Z"
+    },
+    {
+      "id": "st-co-96bb",
+      "victim": "st***co — claimed by auditteam",
+      "sector": "Not Found",
+      "country": "IT",
+      "pubDate": "2026-09-20T14:50:19.000Z"
+    },
     {
       "id": "td-up-be63",
       "victim": "td***up — claimed by auditteam",

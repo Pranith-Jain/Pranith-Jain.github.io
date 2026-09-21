@@ -2,6 +2,701 @@
   {
     "Adversary": {
       "Aliases": [],
+      "Associated_Groups": ["Tren de Aragua"],
+      "Description": "The Tren de Aragua gang is involved in ATM jackpotting attacks using Ploutus malware.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Steal cash from ATMs",
+      "TTPs_Employed": ["Physical access to ATMs", "Malware installation"]
+    },
+    "Analyses": [
+      {
+        "Description": "Adversaries identify vulnerable ATMs for physical access.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Identify vulnerable ATMs for attack.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Host Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "Preparation of Ploutus malware for installation on ATMs.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Developing or acquiring malware for use in operations.",
+            "technique_id": "T1587.001",
+            "technique_name": "Develop Capabilities: Malware"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "Physical access to ATMs to install malware.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a system or network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Gaining access through physical manipulation of hardware.",
+            "technique_id": "T1195.002",
+            "technique_name": "Supply Chain Compromise: Compromise Hardware Supply Chain"
+          }
+        ],
+        "Techniques": ["T1195.002"]
+      },
+      {
+        "Description": "Exploitation of XFS software layer to bypass bank authorization.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Running malicious code on a system.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting software vulnerabilities to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installation of Ploutus malware on ATM systems.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to a system.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Ensuring malware runs on system startup.",
+            "technique_id": "T1547.001",
+            "technique_name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder"
+          }
+        ],
+        "Techniques": ["T1547.001"]
+      },
+      {
+        "Description": "Issuing commands to ATMs to dispense cash.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols for command and control.",
+            "technique_id": "T1071.001",
+            "technique_name": "Application Layer Protocol: Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "Dispensing cash from ATMs without authorization.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Manipulating, interrupting, or destroying systems and data.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Encrypting data to disrupt operations.",
+            "technique_id": "T1486",
+            "technique_name": "Data Encrypted for Impact"
+          }
+        ],
+        "Techniques": ["T1486"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Bypassing bank authorization"],
+      "Description": "The adversary uses Ploutus malware to exploit ATM software vulnerabilities.",
+      "Exploits": ["Exploitation of XFS software layer"],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Ploutus"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Ploutus"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["ATMs"],
+      "Breach_Types": ["ATM jackpotting"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": ["United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["ATM jackpotting", "Ploutus malware", "FBI warning", "Tren de Aragua"],
+      "Malware_Families": ["Ploutus"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Financial"],
+      "Software": ["XFS"],
+      "Technologies": ["ATM systems"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "ATMs targeted for jackpotting attacks using physical access.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of XFS software layer"],
+      "Tools": ["Ploutus"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Tren de Aragua"],
+    "Timestamp": "2026-02-20T05:08:00Z",
+    "Title": "FBI Warns of Surge in ATM Jackpotting Attacks Using Ploutus Malware",
+    "Tools": ["Ploutus", "XFS"],
+    "Victim": {
+      "Access_Vectors": ["Physical access"],
+      "Data_Types_At_Risk": ["Cash"],
+      "Description": "Financial institutions and ATM operators in the United States.",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Financial",
+      "Security_Posture": "Vulnerable to physical and software exploitation",
+      "Targeted_Assets": ["ATMs"]
+    },
+    "diamond_model_summary": "The incident involves the Tren de Aragua gang using Ploutus malware to exploit ATM systems in the United States. The adversary gains physical access to ATMs, installs malware, and uses it to dispense cash without bank authorization. The capability involves exploiting the XFS software layer, and the infrastructure includes targeted ATMs. Victims are financial institutions in the United States, with significant financial losses reported.",
+    "doc_summary": "The FBI has issued a warning about a significant increase in ATM jackpotting attacks in the United States, resulting in over $20 million in losses last year. These attacks, often undetected by financial institutions, involve the use of Ploutus malware to exploit the eXtensions for Financial Services (XFS) software layer, allowing criminals to bypass bank authorization and dispense cash directly from ATMs. The attacks are linked to the Tren de Aragua gang, with 87 members charged by the U.S. Department of Justice. The FBI recommends auditing ATM systems for unauthorized removable storage use and unauthorized processes to defend against these attacks.",
+    "enrichment": null,
+    "id": "95a2796510f1890c7664854f91c03afd",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain: reconnaissance to identify vulnerable ATMs, weaponization of Ploutus malware, delivery through physical access, exploitation of the XFS software layer, installation of malware, command and control to issue cash dispensing commands, and actions on objectives resulting in unauthorized cash withdrawals. The FBI recommends auditing ATM systems for unauthorized access and processes to mitigate such attacks.",
+    "operational_tags": ["High Priority", "Supply Chain", "C2"],
+    "priority_score": 99,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of Ploutus malware (Tools) and the exploitation of the XFS software layer (TTPs). The adversary's ability to gain physical access to ATMs and install malware represents a significant challenge for detection and remediation. The FBI's recommendations focus on auditing ATM systems for unauthorized access and processes to detect and prevent such attacks.",
+    "relevance_score": 65,
+    "sequence": 19549,
+    "source": "https://www.bleepingcomputer.com/news/security/fbi-over-20-million-stolen-in-surge-of-atm-malware-attacks-in-2025/",
+    "slug": "FBI_Warns_of_Surge_in_ATM_Jackpotting_Attacks_Using_Ploutus_Malware-019549",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Cybercriminals exploiting ATM vulnerabilities",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Steal cash from ATMs",
+      "TTPs_Employed": ["Exploitation of ATM vulnerabilities", "Use of Ploutus malware"]
+    },
+    "Analyses": [
+      {
+        "Description": "Identifying vulnerable ATMs and obtaining generic keys",
+        "Detection": "Monitor for unusual access patterns to ATMs",
+        "Remediation": "Enhance physical security measures",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify vulnerable targets",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about ATM vulnerabilities",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Host Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "Developing or acquiring malware to exploit ATM vulnerabilities",
+        "Detection": "Analyze malware signatures",
+        "Remediation": "Update antivirus definitions",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Creating or acquiring tools and malware",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Developing malware like Ploutus",
+            "technique_id": "T1587.001",
+            "technique_name": "Develop Capabilities: Malware"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "Deploying malware onto ATMs",
+        "Detection": "Monitor for unauthorized access attempts",
+        "Remediation": "Implement access controls",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to ATM systems",
+            "tactic_id": "TA0007",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting ATM software vulnerabilities",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Exploiting ATM vulnerabilities to install malware",
+        "Detection": "Monitor for signs of exploitation",
+        "Remediation": "Patch software vulnerabilities",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities to gain access",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Executing malware on ATM systems",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installing malware on ATM systems",
+        "Detection": "Monitor for unauthorized software installations",
+        "Remediation": "Implement software allowlisting",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to ATM systems",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Ensuring malware persists on ATM systems",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "Using malware to control ATM operations",
+        "Detection": "Monitor for unusual command and control traffic",
+        "Remediation": "Block unauthorized network traffic",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Controlling ATM operations remotely",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Transferring tools to control ATMs",
+            "technique_id": "T1105",
+            "technique_name": "Ingress Tool Transfer"
+          }
+        ],
+        "Techniques": ["T1105"]
+      },
+      {
+        "Description": "Dispensing cash from ATMs using malware",
+        "Detection": "Monitor for unauthorized cash withdrawals",
+        "Remediation": "Implement transaction monitoring",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          { "tactic_description": "Collecting cash from ATMs", "tactic_id": "TA0009", "tactic_name": "Collection" }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using command-line to dispense cash",
+            "technique_id": "T1059.001",
+            "technique_name": "Command-Line Interface"
+          }
+        ],
+        "Techniques": ["T1059.001"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Bypassing ATM security controls"],
+      "Description": "Deployment of malware to exploit ATM vulnerabilities",
+      "Exploits": ["ATM hardware vulnerabilities", "Windows OS vulnerabilities"],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Ploutus"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Generic keys", "Ploutus malware"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["ATMs"],
+      "Breach_Types": ["ATM jackpotting"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": ["United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["ATM jackpotting", "FBI", "Ploutus", "XFS"],
+      "Malware_Families": ["Ploutus"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Financial Services"],
+      "Software": ["Windows"],
+      "Technologies": ["eXtensions for Financial Services"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["XFS"],
+      "Description": "ATMs across the United States",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of ATM vulnerabilities", "Use of Ploutus malware"],
+      "Tools": ["Ploutus"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Cybercriminals"],
+    "Timestamp": "2026-02-19T18:30:00Z",
+    "Title": "FBI Warns of Increased ATM Jackpotting Incidents in the United States",
+    "Tools": ["Generic keys", "Ploutus malware", "Ploutus", "Windows"],
+    "Victim": {
+      "Access_Vectors": ["Physical access", "Software vulnerabilities"],
+      "Data_Types_At_Risk": ["Cash"],
+      "Description": "ATMs targeted across the United States",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Financial Services",
+      "Security_Posture": "Vulnerable",
+      "Targeted_Assets": ["ATMs"]
+    },
+    "diamond_model_summary": "The ATM jackpotting incidents in the United States involve cybercriminals exploiting vulnerabilities in ATM systems. The adversaries use tools like generic keys and Ploutus malware to gain unauthorized access and dispense cash. The infrastructure targeted includes ATMs across the United States, primarily in the financial services sector. The victims are financial institutions that suffer financial losses due to these attacks.",
+    "doc_summary": "The U.S. Federal Bureau of Investigation (FBI) has issued a warning about a rise in ATM jackpotting incidents across the United States, resulting in over $20 million in losses in 2025. Since 2020, 1,900 incidents have been reported, with 700 occurring in the previous year. The U.S. Department of Justice reported a total loss of $40.73 million from jackpotting attacks since 2021. Threat actors exploit both physical and software vulnerabilities in ATMs, deploying malware like Ploutus to dispense cash without legitimate transactions. The attacks often involve unauthorized access using generic keys and malware deployment through hard drive manipulation. The malware interacts directly with ATM hardware, bypassing security controls and exploiting the Windows operating system. Ploutus, first observed in Mexico in 2013, exploits the eXtensions for Financial Services (XFS) to bypass bank authorization. The FBI recommends enhancing physical security, auditing devices, changing default credentials, and implementing allowlisting to mitigate risks.",
+    "enrichment": null,
+    "id": "ec8d213a0c9fd6797e4c7b02ad53e277f4a9382af8ea185c2d3b4d12ab0f23f9",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for ATM jackpotting involves several stages: reconnaissance to identify vulnerable ATMs, weaponization by developing or acquiring malware, delivery through physical access to ATMs, exploitation of software vulnerabilities, installation of malware, command and control to manage ATM operations, and actions on objectives to dispense cash. Each stage involves specific tactics and techniques, such as exploiting ATM vulnerabilities and using malware like Ploutus.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 95,
+    "pyramid_of_pain_summary": "The pyramid of pain for ATM jackpotting includes various indicators: hash values for malware detection, IP addresses for network monitoring, domain names for blocking malicious traffic, network host artifacts for identifying compromised systems, tools like Ploutus malware, and TTPs for understanding adversary behavior. These indicators help in detecting and mitigating ATM jackpotting attacks.",
+    "relevance_score": 73,
+    "sequence": 19548,
+    "source": "https://thehackernews.com/2026/02/fbi-reports-1900-atm-jackpotting.html",
+    "slug": "FBI_Warns_of_Increased_ATM_Jackpotting_Incidents_in_the_United_States-019548",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversaries are two former Google engineers and one of their husbands, all Iranian nationals, accused of trade secret theft.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain and potential support to unauthorized entities in Iran.",
+      "Sophistication": "Moderate, involving insider access and evasion techniques.",
+      "Strategic_Objectives": "Exfiltration of trade secrets for unauthorized use or sale.",
+      "TTPs_Employed": ["Insider Threat", "Data Exfiltration", "Obfuscation"]
+    },
+    "Analyses": [
+      {
+        "Description": "The adversaries used their positions within the companies to identify valuable trade secrets.",
+        "Detection": "Monitor for unusual access patterns to sensitive documents.",
+        "Remediation": "Implement strict access controls and monitoring for sensitive data.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about the victim's identity.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversaries exploited their insider access to obtain sensitive information.",
+        "Detection": "Monitor for unusual login activities from employees.",
+        "Remediation": "Regularly review and update access permissions.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Obtaining and abusing credentials to access systems.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of valid accounts to access systems.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversaries exfiltrated sensitive data to unauthorized locations.",
+        "Detection": "Monitor for large data transfers to external locations.",
+        "Remediation": "Implement data loss prevention (DLP) solutions.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Exfiltrating data from the victim's environment.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltrating data using automated tools.",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Manual screen photography", "Use of false affidavits"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of false affidavits", "Manual screen photography"],
+      "Description": "The adversaries leveraged their insider access to exfiltrate sensitive information.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Third-party communications platforms"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Use of third-party communication platforms for data transfer"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Unusual access patterns to sensitive documents",
+      "Large data transfers to external locations"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["trade secrets", "confidential documents"],
+      "Breach_Types": ["trade secret theft"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Google", "Company 2", "Company 3"],
+      "Countries": ["United States", "Iran"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["trade secret theft", "exfiltration", "insider threat"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": [],
+      "Technologies": ["Tensor processor", "cryptography"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The infrastructure involved personal devices and third-party communication platforms for data exfiltration.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Enhance access controls and monitoring", "Conduct regular security audits"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Insider Threat", "Data Exfiltration", "Obfuscation"],
+      "Tools": ["Third-party communications platforms"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [
+      "Data Loss Prevention (DLP) tools",
+      "Insider threat detection solutions"
+    ],
+    "Severity": "High",
+    "Threat_Actors": ["Samaneh Ghandali", "Soroor Ghandali", "Mohammadjavad Khosravi"],
+    "Timestamp": "2026-02-19T18:30:00Z",
+    "Title": "Trade Secret Theft from Google and Other Tech Firms by Former Employees",
+    "Tools": ["Third-party communications platforms"],
+    "Victim": {
+      "Access_Vectors": ["Insider access"],
+      "Data_Types_At_Risk": ["Processor security information", "Cryptography details"],
+      "Description": "Google and other unnamed technology companies were victims of trade secret theft.",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Compromised due to insider threat",
+      "Targeted_Assets": ["Trade secrets", "Confidential documents"]
+    },
+    "diamond_model_summary": "The incident involves insider threat actors who exploited their positions within Google and other tech firms to exfiltrate trade secrets. The adversaries, motivated by financial gain and potential geopolitical interests, used their insider access to gather and transfer sensitive information to unauthorized locations, including Iran. The infrastructure used for exfiltration included personal devices and third-party communication platforms. The victims, primarily in the technology sector, faced significant risks due to the exposure of confidential data related to processor security and cryptography.",
+    "doc_summary": "The incident involves two former Google engineers, Samaneh Ghandali and Soroor Ghandali, and Mohammadjavad Khosravi, accused of trade secret theft from Google and other tech firms. The defendants, Iranian nationals residing in San Jose, allegedly exfiltrated confidential information, including trade secrets related to processor security and cryptography, to unauthorized locations, including Iran. The U.S. Department of Justice charged them with conspiring to commit trade secret theft, obstruction of justice, and other related offenses. The trade secrets pertained to Google's Tensor processor for Pixel phones. The defendants allegedly used their employment to access and exfiltrate sensitive documents, which were then transferred to personal devices and third-party platforms. Google detected the activity and revoked access, leading to the defendants' arrest. If convicted, they face significant prison sentences and fines.",
+    "enrichment": { "processed_at": "2026-02-20T06:04:05.466040+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "0aee103fc0946e2ed140278d5e44d5e8beacbaf40f88faea08cdde0002b66473",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The adversaries conducted reconnaissance by leveraging their insider positions to identify valuable trade secrets. They exploited their access to exfiltrate sensitive information, using personal devices and third-party platforms for data transfer. The actions on objectives involved the unauthorized exfiltration of trade secrets to locations outside the United States, including Iran. Detection involved monitoring for unusual access patterns and large data transfers, while remediation focused on enhancing access controls and implementing data loss prevention solutions.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 79,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident highlights the challenges in detecting and responding to insider threats. The adversaries used personal devices and third-party platforms for data exfiltration, making it difficult to track and block. The lack of specific indicators such as IP addresses or domain names further complicates detection efforts. The focus should be on behavioral indicators and enhancing insider threat detection capabilities to mitigate similar risks in the future.",
+    "relevance_score": 69,
+    "sequence": 19547,
+    "source": "https://thehackernews.com/2026/02/three-former-google-engineers-indicted.html",
+    "slug": "Trade_Secret_Theft_from_Google_and_Other_Tech_Firms_by_Former_Employees-019547",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
       "Associated_Groups": [],
       "Description": "The adversary behind PromptSpy is leveraging generative AI to enhance malware persistence and control.",
       "Known_Campaigns": [],
@@ -101972,582 +102667,6 @@
     "sequence": 19056,
     "source": "https://www.bleepingcomputer.com/news/mobile/verizon-blames-nationwide-outage-on-a-software-issue/",
     "slug": "Verizon_Nationwide_Wireless_Outage_Due_to_Software_Issue-019056",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of the vulnerability in the Modular DS plugin to gain unauthorized admin access.",
-        "Detection": "Monitor server access logs for unauthorized admin logins. • Check for unusual activity in WordPress admin accounts.",
-        "Remediation": "Upgrade to Modular DS version 2.5.2 or later. • Regenerate all WordPress salts.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may use valid accounts to gain access to and execute commands within a network.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of a critical vulnerability in the Modular DS WordPress plugin to gain admin-level access.",
-      "Exploits": ["CVE-2026-23550"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["WordPress sites"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Patchstack"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2026-23550", "authentication bypass", "admin access"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["2.5.2"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Modular DS WordPress plugin"],
-      "Technologies": ["WordPress"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-23550"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2026-23550"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-15T15:49:00Z",
-    "Title": "Exploitation of Critical Flaw in Modular DS WordPress Plugin",
-    "Tools": ["Modular DS WordPress plugin"],
-    "Victim": {
-      "Access_Vectors": ["Remote"],
-      "Data_Types_At_Risk": ["Admin credentials"],
-      "Description": "Users of the Modular DS WordPress plugin, with over 40,000 installations.",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable",
-      "Targeted_Assets": ["WordPress sites"]
-    },
-    "diamond_model_summary": "The incident involves the exploitation of a critical vulnerability in the Modular DS WordPress plugin, allowing attackers to bypass authentication and gain admin-level access. The adversary's capability is demonstrated by exploiting CVE-2026-23550, affecting over 40,000 installations. The infrastructure and specific adversary details remain unknown, but the victim profile includes users of the vulnerable plugin. The incident underscores the importance of timely patching and monitoring for unauthorized access.",
-    "doc_summary": "Hackers are exploiting a critical flaw in the Modular DS WordPress plugin, tracked as CVE-2026-23550, affecting versions 2.5.1 and older. This vulnerability allows remote authentication bypass, granting admin-level access to attackers. The flaw is due to design and implementation issues, including accepting requests as trusted without cryptographic checks. Patchstack researchers detected the first attacks on January 13, 2026, and confirmed the flaw, prompting a vendor response. The vulnerability exposes sensitive routes and activates an admin login fallback mechanism. Users are advised to upgrade to version 2.5.2, which includes security improvements such as validated filter logic and a safe failure mode. The incident highlights the importance of timely updates and monitoring server access logs for suspicious activity.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:56.989328+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "ea5addcccec0ec1575e8712bea684422",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with the exploitation of a critical vulnerability in the Modular DS WordPress plugin, allowing attackers to bypass authentication and gain admin-level access. The exploitation stage is characterized by the use of valid accounts to execute commands within the network. Detection involves monitoring server access logs for unauthorized admin logins and checking for unusual activity in WordPress admin accounts. Remediation includes upgrading to the latest plugin version and regenerating WordPress salts. The incident highlights the need for vigilance in monitoring and updating software to prevent unauthorized access.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the TTPs, as the exploitation of CVE-2026-23550 is a critical aspect. No specific hashes, IP addresses, or domains were identified, limiting the ability to apply other indicators. The focus should be on understanding the exploitation technique and ensuring that systems are updated to mitigate the vulnerability. The lack of specific indicators highlights the challenge in detecting and responding to such attacks, emphasizing the need for robust monitoring and patch management practices.",
-    "relevance_score": 41,
-    "sequence": 19055,
-    "source": "https://www.bleepingcomputer.com/news/security/hackers-exploit-modular-ds-wordpress-plugin-flaw-for-admin-access/",
-    "slug": "Exploitation_of_Critical_Flaw_in_Modular_DS_WordPress_Plugin-019055",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential adversaries could exploit the misconfiguration to gain unauthorized access to AWS GitHub repositories.",
-      "Known_Campaigns": [],
-      "Motivation": "Supply chain attack",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Compromise AWS GitHub repositories to inject malicious code.",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries may have identified the misconfiguration in AWS CodeBuild CI pipelines.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify potential vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may gather information about victim hosts that can be used during targeting.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of regex misconfiguration to bypass actor ID filters.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Adversaries may attempt to gain an initial foothold within a network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may attempt to exploit a weakness in an Internet-facing computer or program using an exploit.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential for injecting malicious code into AWS GitHub repositories.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Adversaries may collect data of interest to the goals of their campaign.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may stage collected data in a central location or directory prior to exfiltration.",
-            "technique_id": "T1074",
-            "technique_name": "Data Staged"
-          }
-        ],
-        "Techniques": ["T1074"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of regex misconfiguration in AWS CodeBuild CI pipelines.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["GitHub repositories", "CI pipelines"],
-      "Breach_Types": ["Supply chain attack"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Amazon", "Wiz"],
-      "Countries": ["United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CodeBreach", "CI/CD pipeline", "regex misconfiguration"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["AWS CodeBuild", "GitHub"],
-      "Technologies": ["AWS JavaScript SDK"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "AWS CodeBuild CI pipelines and GitHub repositories.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-14T18:30:00Z",
-    "Title": "AWS CodeBuild Misconfiguration Exposes GitHub Repositories to Potential Takeover",
-    "Tools": ["AWS CodeBuild", "GitHub"],
-    "Victim": {
-      "Access_Vectors": ["GitHub actor ID", "CI pipeline triggers"],
-      "Data_Types_At_Risk": ["Source code", "Repository secrets"],
-      "Description": "AWS-managed GitHub repositories, including the AWS JavaScript SDK.",
-      "Geography": "United States",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Misconfigured",
-      "Targeted_Assets": ["GitHub repositories", "CI/CD pipelines"]
-    },
-    "diamond_model_summary": "The AWS CodeBuild misconfiguration incident involved potential adversaries exploiting a regex flaw in CI pipelines to gain unauthorized access to AWS GitHub repositories. The adversary's capability centered on exploiting the regex misconfiguration, while the infrastructure involved AWS CodeBuild and GitHub. The victims were AWS-managed GitHub repositories, with a high impact severity due to the risk of supply chain attacks.",
-    "doc_summary": "A critical misconfiguration in AWS CodeBuild allowed potential takeover of AWS GitHub repositories, including the AWS JavaScript SDK. The vulnerability, named CodeBreach by Wiz, was disclosed on August 25, 2025, and fixed by AWS in September 2025. The flaw involved a regex misconfiguration in CI pipelines, allowing unauthorized GitHub actor IDs to trigger builds and access privileged credentials. This posed a risk of supply chain attacks, as attackers could inject malicious code into repositories. AWS remediated the issue and implemented additional security measures. The incident highlights the importance of securing CI/CD environments against misconfigurations.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:56.989427+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "0368fbc1eb82f5ea8b98afb82e3005c4db66f62c97058cf464a255e3234ad32d",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for the AWS CodeBuild incident began with reconnaissance, where adversaries identified the regex misconfiguration. Exploitation occurred when the misconfiguration was used to bypass actor ID filters, potentially leading to actions on objectives, such as injecting malicious code into AWS GitHub repositories. The incident highlights the importance of securing CI/CD environments against misconfigurations.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 69,
-    "pyramid_of_pain_summary": "The AWS CodeBuild incident did not provide specific indicators such as hashes, IP addresses, or domains. The primary focus was on the regex misconfiguration in CI pipelines, which allowed unauthorized access to AWS GitHub repositories. This summary serves as a placeholder due to the lack of specific indicators, emphasizing the need for securing CI/CD environments against such vulnerabilities.",
-    "relevance_score": 49,
-    "sequence": 19054,
-    "source": "https://thehackernews.com/2026/01/aws-codebuild-misconfiguration-exposed.html",
-    "slug": "AWS_CodeBuild_Misconfiguration_Exposes_GitHub_Repositories_to_Potential_-019054",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Attackers exploiting Net-NTLMv1 vulnerabilities",
-      "Known_Campaigns": [],
-      "Motivation": "Credential theft and privilege escalation",
-      "Sophistication": "Moderate, leveraging known vulnerabilities",
-      "Strategic_Objectives": "Compromise Active Directory objects",
-      "TTPs_Employed": ["Known plaintext attack", "Authentication coercion"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Preparation of rainbow tables for Net-NTLMv1",
-        "Detection": "Monitor for unusual tool development activities",
-        "Remediation": "Regularly update and patch systems to prevent exploitation",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Creating tools or capabilities to exploit vulnerabilities",
-            "tactic_id": "T1587",
-            "tactic_name": "Develop Capabilities"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing malware to exploit vulnerabilities",
-            "technique_id": "T1587.001",
-            "technique_name": "Malware"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of Net-NTLMv1 vulnerabilities",
-        "Detection": "Monitor for unusual authentication attempts",
-        "Remediation": "Disable Net-NTLMv1 and enforce stronger authentication protocols",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities in remote services",
-            "tactic_id": "T1210",
-            "tactic_name": "Exploitation of Remote Services"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in remote services",
-            "technique_id": "T1210",
-            "technique_name": "Exploitation of Remote Services"
-          }
-        ],
-        "Techniques": ["T1210"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Privilege escalation using compromised credentials",
-        "Detection": "Monitor for unusual account activity",
-        "Remediation": "Implement multi-factor authentication and monitor account usage",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Using valid accounts to maintain access",
-            "tactic_id": "T1078",
-            "tactic_name": "Valid Accounts"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using domain accounts to maintain access",
-            "technique_id": "T1078.002",
-            "technique_name": "Domain Accounts"
-          }
-        ],
-        "Techniques": ["T1078.002"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of known plaintext attacks", "Authentication coercion"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Net-NTLMv1 protocol vulnerabilities",
-      "Exploits": ["Known plaintext attack on Net-NTLMv1"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Responder", "PetitPotam", "DFSCoerce", "rainbowcrack"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Event ID 4624 for Net-NTLMv1 usage"],
-    "Extracted_Entities": {
-      "Assets": ["Domain Controllers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": ["gsutil -m cp"],
-      "Companies": ["Mandiant", "Google Cloud"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Net-NTLMv1", "rainbow tables", "credential theft"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Net-NTLMv1", "Hashcat", "rainbowcrack"],
-      "Technologies": ["Active Directory"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Net-NTLMv1"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["Net-NTLMv1"],
-      "Description": "Use of compromised Active Directory environments",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Disable Net-NTLMv1", "Enforce NTLMv2"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": ["Net-NTLMv1 hashes"],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Known plaintext attack", "Authentication coercion"],
-      "Tools": ["rainbowcrack", "Responder", "PetitPotam"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [
-      "Monitor for Net-NTLMv1 usage",
-      "Implement stronger authentication protocols"
-    ],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-15T14:00:00Z",
-    "Title": "Mandiant Releases Net-NTLMv1 Rainbow Tables to Highlight Protocol Vulnerabilities",
-    "Tools": ["Responder", "PetitPotam", "DFSCoerce", "rainbowcrack", "Net-NTLMv1", "Hashcat"],
-    "Victim": {
-      "Access_Vectors": ["Network"],
-      "Data_Types_At_Risk": ["Credential hashes"],
-      "Description": "Organizations using outdated Net-NTLMv1 protocol",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Various",
-      "Security_Posture": "Vulnerable due to legacy protocols",
-      "Targeted_Assets": ["Active Directory objects"]
-    },
-    "diamond_model_summary": "The incident involves attackers exploiting the deprecated Net-NTLMv1 protocol to perform credential theft and privilege escalation. Mandiant's release of rainbow tables highlights the vulnerability of this protocol, which remains in use despite known security risks. Attackers leverage tools like Responder and PetitPotam to coerce authentication and obtain password hashes, which can be cracked using the released tables. The infrastructure targeted includes Active Directory environments, with the primary victims being organizations that have not yet migrated to more secure authentication protocols.",
-    "doc_summary": "Mandiant has publicly released a comprehensive dataset of Net-NTLMv1 rainbow tables to emphasize the need for migrating away from this outdated and insecure protocol. Despite being deprecated for over two decades, Net-NTLMv1 is still found in active environments, leaving organizations vulnerable to credential theft. The release aims to lower the barrier for security professionals to demonstrate the protocol's insecurity. The dataset allows for key recovery in under 12 hours using consumer hardware. The post details the generation of the tables, access to the dataset, and critical remediation steps to disable Net-NTLMv1 and prevent authentication coercion attacks. The initiative highlights the impact of combining Mandiant's expertise with Google Cloud's resources to eliminate entire classes of attacks.",
-    "enrichment": { "processed_at": "2026-02-18T00:30:39.549088+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "fcaf4d4c408485730e93a796635bd7aa",
-    "index": "data_cached_global_rss",
-    "kill_chain_summary": "The kill chain involves the exploitation of the Net-NTLMv1 protocol, starting with the weaponization of rainbow tables to crack password hashes. Attackers then exploit the protocol's vulnerabilities to obtain credentials, which are used for privilege escalation within Active Directory environments. The release of rainbow tables by Mandiant aims to demonstrate the insecurity of Net-NTLMv1 and encourage organizations to disable its use. The incident highlights the importance of migrating to more secure authentication protocols to prevent credential theft and privilege escalation.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 77,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of hash values (Net-NTLMv1 hashes) and tools (rainbowcrack, Responder) as key indicators of compromise. The release of rainbow tables by Mandiant provides defenders with the means to demonstrate the insecurity of Net-NTLMv1, making it easier to detect and remediate attacks. The incident underscores the need for organizations to monitor for the use of deprecated protocols and implement stronger authentication mechanisms to mitigate the risk of credential theft and privilege escalation.",
-    "relevance_score": 61,
-    "sequence": 19053,
-    "source": "https://cloud.google.com/blog/topics/threat-intelligence/net-ntlmv1-deprecation-rainbow-tables/",
-    "slug": "Mandiant_Releases_Net-NTLMv1_Rainbow_Tables_to_Highlight_Protocol_Vulner-019053",
     "shard": 5
   }
 ]

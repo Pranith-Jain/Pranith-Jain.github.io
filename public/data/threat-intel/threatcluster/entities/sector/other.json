@@ -4,21 +4,31 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-18T10:09:56.000Z",
-  "lastSeen": "2026-09-19T17:23:32.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 5 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-18T15:45:39.000Z",
+  "lastSeen": "2026-09-20T20:58:23.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-18",
-      "count": 4
+      "count": 2
     },
     {
       "date": "2026-09-19",
       "count": 2
+    },
+    {
+      "date": "2026-09-20",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "arsrenacer-com-be06",
+      "title": "arsrenacer.com — claimed by dragonforce",
+      "pubDate": "2026-09-20T20:58:23.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "francaretrad-83b0",
@@ -42,18 +52,6 @@
       "slug": "prefix-corp-bd97",
       "title": "Prefix Corp — claimed by securotrop",
       "pubDate": "2026-09-18T15:45:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "vietnamese-betting-operator-gc789-network-boundless-te-1a96",
-      "title": "Vietnamese betting operator (GC789 network / Boundless TE) — claimed by n0n",
-      "pubDate": "2026-09-18T15:23:23.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "grupo-juste-2ec4",
-      "title": "Grupo Juste — claimed by qilin",
-      "pubDate": "2026-09-18T10:09:56.000Z"
     }
   ],
   "relatedEntities": [
@@ -65,6 +63,12 @@
     },
     {
       "type": "group",
+      "slug": "dragonforce",
+      "name": "dragonforce",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "panzer",
       "name": "panzer",
       "weight": 1
@@ -73,18 +77,6 @@
       "type": "group",
       "slug": "securotrop",
       "name": "securotrop",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "n0n",
-      "name": "n0n",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
       "weight": 1
     }
   ],

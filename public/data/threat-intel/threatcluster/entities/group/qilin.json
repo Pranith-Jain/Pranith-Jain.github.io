@@ -5,109 +5,113 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 5,
-  "firstSeen": "2026-09-18T10:09:09.000Z",
-  "lastSeen": "2026-09-18T10:12:12.000Z",
+  "firstSeen": "2026-09-20T12:13:05.000Z",
+  "lastSeen": "2026-09-21T08:01:50.000Z",
   "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-18",
-      "count": 5
+      "date": "2026-09-20",
+      "count": 4
+    },
+    {
+      "date": "2026-09-21",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ascend-com-e8f3",
-      "title": "Ascend Com — claimed by qilin",
-      "pubDate": "2026-09-18T10:12:12.000Z"
+      "slug": "ikegami-tsushinki-company-limited-b095",
+      "title": "IKEGAMI TSUSHINKI COMPANY LIMITED — claimed by qilin",
+      "pubDate": "2026-09-21T08:01:50.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "ceres-tolvas-3835",
-      "title": "Ceres Tolvas — claimed by qilin",
-      "pubDate": "2026-09-18T10:11:27.000Z"
+      "slug": "zorlu-holding-b374",
+      "title": "Zorlu Holding — claimed by qilin",
+      "pubDate": "2026-09-20T12:15:03.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "futuro-forestal-004c",
-      "title": "Futuro Forestal — claimed by qilin",
-      "pubDate": "2026-09-18T10:10:42.000Z"
+      "slug": "shopdunk-eef4",
+      "title": "ShopDunk — claimed by qilin",
+      "pubDate": "2026-09-20T12:14:25.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "grupo-juste-2ec4",
-      "title": "Grupo Juste — claimed by qilin",
-      "pubDate": "2026-09-18T10:09:56.000Z"
+      "slug": "kmls-5fd0",
+      "title": "KMLS — claimed by qilin",
+      "pubDate": "2026-09-20T12:13:43.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "inland-and-offshore-contractors-e001",
-      "title": "Inland and Offshore Contractors — claimed by qilin",
-      "pubDate": "2026-09-18T10:09:09.000Z"
+      "slug": "touring-club-suisse-7cc8",
+      "title": "Touring Club Suisse — claimed by qilin",
+      "pubDate": "2026-09-20T12:13:05.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 2
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
+      "slug": "transportation",
+      "name": "Transportation",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "ascend-com-e8f3",
-      "victim": "Ascend Com — claimed by qilin",
-      "sector": "Technology",
-      "country": "SG",
-      "pubDate": "2026-09-18T10:12:12.000Z"
+      "id": "ikegami-tsushinki-company-limited-b095",
+      "victim": "IKEGAMI TSUSHINKI COMPANY LIMITED — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "JP",
+      "pubDate": "2026-09-21T08:01:50.000Z"
     },
     {
-      "id": "ceres-tolvas-3835",
-      "victim": "Ceres Tolvas — claimed by qilin",
-      "sector": "Agriculture and Food Production",
-      "country": "AR",
-      "pubDate": "2026-09-18T10:11:27.000Z"
+      "id": "zorlu-holding-b374",
+      "victim": "Zorlu Holding — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "TR",
+      "pubDate": "2026-09-20T12:15:03.000Z"
     },
     {
-      "id": "futuro-forestal-004c",
-      "victim": "Futuro Forestal — claimed by qilin",
-      "sector": "Agriculture and Food Production",
-      "country": "CL",
-      "pubDate": "2026-09-18T10:10:42.000Z"
+      "id": "shopdunk-eef4",
+      "victim": "ShopDunk — claimed by qilin",
+      "sector": "Retail & E-Commerce",
+      "country": "TH",
+      "pubDate": "2026-09-20T12:14:25.000Z"
     },
     {
-      "id": "grupo-juste-2ec4",
-      "victim": "Grupo Juste — claimed by qilin",
-      "sector": "Other",
-      "country": "MX",
-      "pubDate": "2026-09-18T10:09:56.000Z"
+      "id": "kmls-5fd0",
+      "victim": "KMLS — claimed by qilin",
+      "sector": "Not Found",
+      "country": "DE",
+      "pubDate": "2026-09-20T12:13:43.000Z"
     },
     {
-      "id": "inland-and-offshore-contractors-e001",
-      "victim": "Inland and Offshore Contractors — claimed by qilin",
-      "sector": "Energy & Utilities",
-      "country": "TT",
-      "pubDate": "2026-09-18T10:09:09.000Z"
+      "id": "touring-club-suisse-7cc8",
+      "victim": "Touring Club Suisse — claimed by qilin",
+      "sector": "Transportation",
+      "country": "CH",
+      "pubDate": "2026-09-20T12:13:05.000Z"
     }
   ]
 }

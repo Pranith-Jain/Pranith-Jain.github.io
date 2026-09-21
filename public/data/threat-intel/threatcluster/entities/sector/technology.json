@@ -4,14 +4,14 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-18T10:12:12.000Z",
-  "lastSeen": "2026-09-20T06:24:14.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 7 ransomware groups and 5 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-09-18T15:50:58.000Z",
+  "lastSeen": "2026-09-20T14:50:56.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 7 ransomware groups and 6 countries.",
   "frequency": [
     {
       "date": "2026-09-18",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2026-09-19",
@@ -19,10 +19,22 @@
     },
     {
       "date": "2026-09-20",
-      "count": 1
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "tek-spb-c54c",
+      "title": "TEK SPB — claimed by auditteam",
+      "pubDate": "2026-09-20T14:50:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "acilnet-com-4cf2",
+      "title": "acilnet.com — claimed by krybit",
+      "pubDate": "2026-09-20T14:11:58.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "towill-abdd",
@@ -58,15 +70,21 @@
       "slug": "kit-e-jp-6a5f",
       "title": "kit-e.jp — claimed by auditteam",
       "pubDate": "2026-09-18T15:50:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ascend-com-e8f3",
-      "title": "Ascend Com — claimed by qilin",
-      "pubDate": "2026-09-18T10:12:12.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "auditteam",
+      "name": "auditteam",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "bravox",
@@ -95,18 +113,6 @@
       "type": "group",
       "slug": "n0n",
       "name": "n0n",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "auditteam",
-      "name": "auditteam",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
       "weight": 1
     }
   ],

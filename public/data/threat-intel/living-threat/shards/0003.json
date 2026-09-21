@@ -3,6 +3,736 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary has republished malicious code into known versions of the Node-IPC package.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially political or financial gain",
+      "Sophistication": "Medium",
+      "Strategic_Objectives": "Exfiltrate developer and cloud secrets",
+      "TTPs_Employed": ["Obfuscation", "Data Exfiltration"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Malicious code was obfuscated and embedded in the Node-IPC package.",
+        "Detection": "Monitor for unusual obfuscation patterns in package code",
+        "Remediation": "Review and audit package code for obfuscation",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that adversaries use to avoid detection throughout their compromise.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may attempt to make an executable or file difficult to discover or analyze by encrypting, encoding, or otherwise obfuscating its contents.",
+            "technique_id": "T1027",
+            "technique_name": "Obfuscated Files or Information"
+          }
+        ],
+        "Techniques": ["T1027"]
+      },
+      {
+        "Description": "The malicious package was delivered through the NPM repository.",
+        "Detection": "Monitor NPM package installations for known malicious versions",
+        "Remediation": "Restrict installation of known malicious package versions",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that result in adversary-controlled code running on a local or remote system.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may exploit software vulnerabilities in client applications to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The package installs a backdoor on the host system.",
+        "Detection": "Monitor for unexpected script execution from Node-IPC",
+        "Remediation": "Implement application whitelisting to prevent unauthorized scripts",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that adversaries use to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may abuse command and script interpreters to execute commands, scripts, or binaries.",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "The package attempts to exfiltrate data to a command-and-control server.",
+        "Detection": "Monitor DNS requests for unusual patterns",
+        "Remediation": "Block known malicious domains and IPs",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that adversaries use to communicate with systems under their control within a victim network.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "The package exfiltrates developer and cloud secrets.",
+        "Detection": "Monitor for large data transfers to external servers",
+        "Remediation": "Implement data loss prevention solutions",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that adversaries use to steal data from your network.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may steal data by exfiltrating it over an existing command and control channel.",
+            "technique_id": "T1041",
+            "technique_name": "Exfiltration Over C2 Channel"
+          }
+        ],
+        "Techniques": ["T1041"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of obfuscation", "Data exfiltration attempts"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Obfuscation"],
+      "Description": "The adversary has the capability to obfuscate payloads and exfiltrate data.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Obfuscated stealer/backdoor"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Node-IPC"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual DNS requests", "Large outbound data transfers"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for known malicious Node-IPC versions",
+      "Detect obfuscated code patterns"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["developer secrets", "cloud secrets"],
+      "Breach_Types": ["Data Exfiltration"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Socket", "StepSecurity"],
+      "Countries": ["Russia", "Belarus"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["malicious activity", "obfuscated payload", "data exfiltration"],
+      "Malware_Families": ["stealer", "backdoor"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Software Development"],
+      "Software": ["Node-IPC"],
+      "Technologies": ["NPM"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["DNS"],
+      "Description": "The infrastructure includes a network endpoint selected via DNS/address logic for data exfiltration.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Audit all installed NPM packages", "Educate developers on supply chain risks"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Obfuscation", "Data Exfiltration"],
+      "Tools": ["Node-IPC"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Static code analysis tools", "Network traffic analysis tools"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-05-13T18:30:00Z",
+    "Title": "Malicious Activity Detected in Node-IPC NPM Package",
+    "Tools": ["Node-IPC"],
+    "Victim": {
+      "Access_Vectors": ["NPM package installation"],
+      "Data_Types_At_Risk": ["Local files", "Cloud secrets"],
+      "Description": "Developers using the Node-IPC package are at risk.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Software Development",
+      "Security_Posture": "Vulnerable due to package use",
+      "Targeted_Assets": ["Developer and cloud secrets"]
+    },
+    "diamond_model_summary": "The incident involves the republishing of malicious code into the Node-IPC package, affecting developers globally. The adversary's capability includes obfuscation and data exfiltration, targeting developer and cloud secrets. The infrastructure leverages DNS for data exfiltration, posing a high risk to the software development sector.",
+    "doc_summary": "Cybersecurity researchers have identified malicious activity in the Node-IPC NPM package, specifically in versions 9.1.6, 9.2.3, and 12.0.1. The package contains obfuscated stealer/backdoor behavior, which fingerprints the host environment, reads local files, compresses data, and attempts exfiltration through a network endpoint. The payload is triggered at runtime and targets developer and cloud secrets. This incident follows a previous event in March 2022, where the package was used for protest by overwriting files in Russia and Belarus. The current incident involves republishing malicious code rather than a typosquatting attempt.",
+    "enrichment": null,
+    "id": "958ff8fa0446dd7d46ba8b29298e40ac45e7942f70887dc1a03fbea91ad59c0c",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the weaponization of the Node-IPC package through obfuscation, followed by delivery via the NPM repository. Installation occurs when the package is required at runtime, leading to command and control through DNS-based exfiltration. The final objective is the exfiltration of developer and cloud secrets, highlighting the need for vigilant monitoring and remediation.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 97,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes obfuscated code patterns and DNS-based exfiltration techniques. While specific hashes, IPs, and domains are not identified, the use of obfuscation and data exfiltration tactics presents significant challenges for detection and response. The incident underscores the importance of monitoring for behavioral indicators and implementing robust security measures.",
+    "relevance_score": 49,
+    "sequence": 20545,
+    "source": "https://thehackernews.com/2026/05/stealer-backdoor-found-in-3-node-ipc.html",
+    "slug": "Malicious_Activity_Detected_in_Node-IPC_NPM_Package-020545",
+    "shard": 3
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "State-sponsored threat cluster targeting Southeast Asia",
+      "Known_Campaigns": ["Operation GriefLure"],
+      "Motivation": "Espionage",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Gain unauthorized access and conduct surveillance",
+      "TTPs_Employed": ["Spear-phishing", "Remote Access Trojan"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Creation of spear-phishing emails with RAR archive",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Develop capabilities to deliver payloads",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Spear-phishing emails with malicious attachments",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Delivery of RAR archive via spear-phishing",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gain access to victim systems",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Spear-phishing emails with malicious attachments",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Execution of remote access trojan on compromised hosts",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Execute malicious code on victim systems",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Execution of scripts and commands",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "Installation of remote access trojan",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintain access to victim systems",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Ensure persistence through system reboots",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "Establishing command and control with compromised hosts",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicate with compromised systems",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of application layer protocols for C2",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Credential harvesting and data exfiltration",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gather information from compromised systems",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Harvest credentials from systems",
+            "technique_id": "T1003",
+            "technique_name": "Credential Dumping"
+          }
+        ],
+        "Techniques": ["T1003"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Deployment of remote access trojan via spear-phishing",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Remote Access Trojan"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Remote Access Trojan"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Telecom infrastructure", "Healthcare systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": ["Vietnam", "Philippines"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Operation GriefLure", "Remote Access Trojan", "Spear-phishing"],
+      "Malware_Families": ["Remote Access Trojan"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Telecom", "Healthcare"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Use of spear-phishing emails and decoy documents",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Spear-phishing", "Credential Harvesting"],
+      "Tools": ["Remote Access Trojan"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Operation GriefLure"],
+    "Timestamp": "2026-05-13T18:30:00Z",
+    "Title": "Operation GriefLure Targets Vietnam and Philippines with Remote Access Trojan",
+    "Tools": ["Remote Access Trojan"],
+    "Victim": {
+      "Access_Vectors": ["Spear-phishing"],
+      "Data_Types_At_Risk": ["Credentials", "Sensitive files"],
+      "Description": "Targets in Vietnam's telecom and Philippines' healthcare sectors",
+      "Geography": "Vietnam, Philippines",
+      "Impact_Severity": "High",
+      "Industry": "Telecom, Healthcare",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Telecom infrastructure", "Healthcare systems"]
+    },
+    "diamond_model_summary": "Operation GriefLure is a state-sponsored cyber espionage campaign targeting Vietnam's telecom and the Philippines' healthcare sectors. The adversary uses spear-phishing emails to deliver a remote access trojan, leveraging decoy documents for legitimacy. The campaign aims to gain unauthorized access and conduct surveillance on compromised hosts.",
+    "doc_summary": "Operation GriefLure is a state-sponsored cyber espionage campaign targeting Vietnam's telecom and the Philippines' healthcare sectors. The attack involves spear-phishing emails distributing a RAR archive to deploy a remote access trojan. The malware is capable of process enumeration, screenshot capture, file and directory listing, credential harvesting, and file execution. The campaign uses credible decoy documents to enhance legitimacy and trust. The threat actors leverage these capabilities to gain unauthorized access and conduct surveillance on compromised hosts. The operation highlights the persistent threat of state-sponsored cyber activities in Southeast Asia, focusing on critical infrastructure sectors.",
+    "enrichment": null,
+    "id": "e8a90ac1dd7e7e2cb37ffe16ca92038b1253c53b4e4bc2268f4457ab7543911c",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with spear-phishing emails delivering a RAR archive containing a remote access trojan. The malware is executed on compromised hosts, establishing command and control. The adversary conducts credential harvesting and data exfiltration, leveraging decoy documents to enhance trust and legitimacy.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 83,
+    "pyramid_of_pain_summary": "Operation GriefLure employs spear-phishing emails and remote access trojans, making detection challenging. The use of decoy documents and legitimate-looking emails complicates identification. The campaign's reliance on common tools and techniques highlights the need for robust detection and response capabilities.",
+    "relevance_score": 57,
+    "sequence": 20544,
+    "source": "https://thehackernews.com/2026/05/threatsday-bulletin-pan-os-rce-mythos.html",
+    "slug": "Operation_GriefLure_Targets_Vietnam_and_Philippines_with_Remote_Access_T-020544",
+    "shard": 3
+  },
+  {
+    "Adversary": {
+      "Aliases": [
+        "FrostyNeighbor",
+        "PUSHCHA",
+        "Storm-0257",
+        "TA445",
+        "UAC-0057",
+        "Umbral Bison",
+        "UNC1151",
+        "White Lynx"
+      ],
+      "Associated_Groups": [],
+      "Description": "Ghostwriter is a Belarus-aligned threat group known for cyber espionage and influence operations, particularly targeting Ukraine.",
+      "Known_Campaigns": ["Spear-phishing campaign against Ukrainian government entities"],
+      "Motivation": "Cyber espionage and influence operations",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise and gather intelligence from Ukrainian governmental organizations",
+      "TTPs_Employed": ["Spear-phishing", "Exploitation of vulnerabilities", "Use of malware loaders"]
+    },
+    "Analyses": [
+      {
+        "Description": "Ghostwriter likely conducted reconnaissance to identify targets within Ukrainian governmental organizations.",
+        "Detection": "Monitor for unusual scanning activity targeting government networks.",
+        "Remediation": "Implement network segmentation to limit reconnaissance capabilities.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is actively scanning for vulnerabilities or information.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Ghostwriter weaponized spear-phishing emails with malicious PDFs impersonating Ukrtelecom.",
+        "Detection": "Analyze email attachments for known malicious signatures.",
+        "Remediation": "Educate users on recognizing phishing attempts.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to establish resources they can use to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is developing or acquiring malware for use in operations.",
+            "technique_id": "T1588.002",
+            "technique_name": "Malware"
+          }
+        ],
+        "Techniques": ["T1588.002"]
+      },
+      {
+        "Description": "Malicious PDFs were delivered via spear-phishing emails to Ukrainian government entities.",
+        "Detection": "Monitor email traffic for suspicious attachments.",
+        "Remediation": "Implement email filtering solutions to block malicious attachments.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is sending emails with malicious attachments to gain access.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in WinRAR and Roundcube to execute malicious payloads.",
+        "Detection": "Monitor for exploitation attempts against known vulnerabilities.",
+        "Remediation": "Apply patches for CVE-2023-38831 and CVE-2024-42009.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is exploiting a vulnerability in an internet-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "Installation of PicassoLoader and Cobalt Strike on compromised systems.",
+        "Detection": "Monitor for unusual JavaScript execution on endpoints.",
+        "Remediation": "Restrict execution of unauthorized scripts.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is using JavaScript for execution.",
+            "technique_id": "T1059.007",
+            "technique_name": "JavaScript"
+          }
+        ],
+        "Techniques": ["T1059.007"]
+      },
+      {
+        "Description": "Use of Cobalt Strike for command and control operations.",
+        "Detection": "Monitor network traffic for Cobalt Strike beaconing patterns.",
+        "Remediation": "Block known Cobalt Strike C2 infrastructure.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is using web protocols for command and control.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "Harvesting of email credentials and propagation of phishing messages.",
+        "Detection": "Monitor for unusual access patterns to email accounts.",
+        "Remediation": "Implement multi-factor authentication for email accounts.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is collecting email data.",
+            "technique_id": "T1114.002",
+            "technique_name": "Email Collection"
+          }
+        ],
+        "Techniques": ["T1114.002"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of dynamic CAPTCHA checks", "Geofencing to evade detection"],
+    "CVEs": ["CVE-2023-38831", "CVE-2024-42009"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Dynamic CAPTCHA checks", "Geofencing"],
+      "Description": "Ghostwriter employs spear-phishing, malware loaders, and exploits vulnerabilities to compromise targets.",
+      "Exploits": ["CVE-2023-38831", "CVE-2024-42009"],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["PicassoLoader", "Cobalt Strike"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["PicassoLoader", "Cobalt Strike", "njRAT"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual access patterns to email accounts"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for Cobalt Strike beaconing", "Detect unusual JavaScript execution"],
+    "Extracted_Entities": {
+      "Assets": ["Email accounts"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Ukrtelecom"],
+      "Countries": ["Ukraine", "Poland", "Lithuania"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["spear-phishing", "PicassoLoader", "Cobalt Strike"],
+      "Malware_Families": ["PicassoLoader", "Cobalt Strike"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government", "Military"],
+      "Software": ["WinRAR", "Roundcube"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2023-38831", "CVE-2024-42009"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Ghostwriter uses attacker-controlled infrastructure to manage and execute their campaigns.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Apply patches for known vulnerabilities",
+      "Implement multi-factor authentication"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Spear-phishing", "Exploitation of vulnerabilities", "Dynamic CAPTCHA checks", "Geofencing"],
+      "Tools": ["PicassoLoader", "Cobalt Strike"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Email filtering solutions"],
+    "Severity": "High",
+    "Threat_Actors": [
+      "Ghostwriter",
+      "FrostyNeighbor",
+      "PUSHCHA",
+      "Storm-0257",
+      "TA445",
+      "UAC-0057",
+      "Umbral Bison",
+      "UNC1151",
+      "White Lynx"
+    ],
+    "Timestamp": "2026-05-13T18:30:00Z",
+    "Title": "Ghostwriter's Spear-Phishing Campaign Against Ukrainian Government Entities",
+    "Tools": ["PicassoLoader", "Cobalt Strike", "njRAT", "WinRAR", "Roundcube"],
+    "Victim": {
+      "Access_Vectors": ["Spear-phishing emails"],
+      "Data_Types_At_Risk": ["Email credentials", "Sensitive governmental information"],
+      "Description": "Ukrainian governmental organizations targeted by Ghostwriter's spear-phishing campaign.",
+      "Geography": "Ukraine",
+      "Impact_Severity": "High",
+      "Industry": "Government",
+      "Security_Posture": "Targeted",
+      "Targeted_Assets": ["Email accounts", "Governmental data"]
+    },
+    "diamond_model_summary": "The Ghostwriter threat group, also known as FrostyNeighbor, has been conducting spear-phishing campaigns against Ukrainian governmental organizations. The group uses sophisticated techniques, including dynamic CAPTCHA checks and geofencing, to evade detection. Their primary objective is cyber espionage, targeting sensitive governmental data.",
+    "doc_summary": "The Belarus-aligned threat group Ghostwriter, also known as FrostyNeighbor, has been targeting Ukrainian governmental organizations since March 2026. The group has been active since 2016, engaging in cyber espionage and influence operations. Recent attacks involve spear-phishing campaigns using malicious PDFs impersonating Ukrtelecom to deliver a JavaScript version of PicassoLoader, which subsequently drops Cobalt Strike. The infection sequence includes geofencing checks to serve benign PDFs to non-Ukrainian IP addresses. Ghostwriter has previously exploited vulnerabilities such as CVE-2023-38831 in WinRAR and CVE-2024-42009 in Roundcube. The group's activities are primarily focused on military and governmental sectors in Ukraine, with broader targeting in Poland and Lithuania. ESET reports highlight Ghostwriter's operational maturity and adaptive tactics, including dynamic CAPTCHA checks and server-side victim validation.",
+    "enrichment": null,
+    "id": "47a09d0a3cc4cbe93b4f69711b986e9e6ee9628e830bef51b0f48f1dee624eed",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "Ghostwriter's attack chain involves reconnaissance to identify targets, weaponization of spear-phishing emails with malicious PDFs, delivery to Ukrainian government entities, exploitation of vulnerabilities in WinRAR and Roundcube, installation of PicassoLoader and Cobalt Strike, command and control operations, and actions on objectives such as harvesting email credentials.",
+    "operational_tags": ["High Priority", "C2", "CVE-linked"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes various indicators such as malware hashes (PicassoLoader, Cobalt Strike), IP addresses used for geofencing, and domain names impersonating Ukrtelecom. The use of dynamic CAPTCHA checks and geofencing adds complexity to detection and response efforts, highlighting the sophistication of Ghostwriter's tactics.",
+    "relevance_score": 94,
+    "sequence": 20543,
+    "source": "https://thehackernews.com/2026/05/ghostwriter-targets-ukrainian.html",
+    "slug": "Ghostwriter_s_Spear-Phishing_Campaign_Against_Ukrainian_Government_Entit-020543",
+    "shard": 3
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Threat actors quickly exploiting newly disclosed vulnerabilities.",
       "Known_Campaigns": [],
       "Motivation": "Opportunistic exploitation of newly disclosed vulnerabilities.",
@@ -103677,639 +104407,6 @@
     "sequence": 20047,
     "source": "https://thehackernews.com/2026/04/285-million-drift-hack-traced-to-six.html",
     "slug": "DPRK-Linked_UNC4736_Executes__285_Million_Heist_on_Solana-Based_Exchange-020047",
-    "shard": 3
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of CVE-2026-35616 to bypass API authentication and execute unauthorized code.",
-        "Detection": "Monitor for unusual API requests or unauthorized access attempts.",
-        "Remediation": "Apply the hotfix for FortiClient EMS versions 7.4.5 and 7.4.6.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in an Internet-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2026-35616", "CVE-2026-21643"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of a pre-authentication API access bypass vulnerability in FortiClient EMS.",
-      "Exploits": ["CVE-2026-35616"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": ["CVE-2026-35616"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual API requests or unauthorized access attempts."],
-    "Extracted_Entities": {
-      "Assets": ["FortiClient EMS"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Fortinet", "Defused Cyber"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2026-35616", "zero-day", "vulnerability", "exploitation", "hotfix"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Hotfix for FortiClient EMS 7.4.5 and 7.4.6"],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["FortiClient EMS"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-35616"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply the hotfix for FortiClient EMS versions 7.4.5 and 7.4.6 immediately."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2026-35616"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2026-04-04T18:30:00Z",
-    "Title": "Exploitation of CVE-2026-35616 in FortiClient EMS",
-    "Tools": ["FortiClient EMS"],
-    "Victim": {
-      "Access_Vectors": ["API"],
-      "Data_Types_At_Risk": [],
-      "Description": "Organizations using vulnerable versions of FortiClient EMS.",
-      "Geography": "",
-      "Impact_Severity": "Critical",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["FortiClient EMS"]
-    },
-    "diamond_model_summary": "The incident involves a critical vulnerability in FortiClient EMS, CVE-2026-35616, which allows unauthenticated attackers to bypass API access controls and execute unauthorized code. The vulnerability affects versions 7.4.5 through 7.4.6, with a hotfix available. The exploitation was observed in the wild, and Fortinet urges immediate application of the hotfix.",
-    "doc_summary": "Fortinet released out-of-band patches for a critical security flaw in FortiClient EMS, tracked as CVE-2026-35616, with a CVSS score of 9.1. This vulnerability allows unauthenticated attackers to bypass API access controls, leading to privilege escalation and unauthorized code execution. The flaw affects FortiClient EMS versions 7.4.5 through 7.4.6, with a hotfix available. Discovered by Simo Kohonen from Defused Cyber and Nguyen Duc Anh, the zero-day exploitation was observed by Defused Cyber and recorded by watchTowr on March 31, 2026. Fortinet urges customers to apply the hotfix immediately due to active exploitation in the wild. The incident follows another critical vulnerability, CVE-2026-21643, raising concerns about FortiClient EMS security.",
-    "enrichment": null,
-    "id": "ea48c77b90e90c857913de3538a19af28227e595c29082faa81dc7b5a54f52cb",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The exploitation of CVE-2026-35616 in FortiClient EMS represents a significant threat, allowing attackers to bypass API authentication and execute unauthorized code. The vulnerability was actively exploited in the wild, emphasizing the need for immediate remediation. Fortinet has released a hotfix to address the issue, urging affected users to apply it promptly.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 93,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of CVE-2026-35616, a zero-day vulnerability in FortiClient EMS. The lack of specific indicators such as hashes, IPs, or domains limits the ability to provide a detailed analysis. However, the critical nature of the vulnerability and its active exploitation highlight the need for immediate remediation.",
-    "relevance_score": 41,
-    "sequence": 20046,
-    "source": "https://thehackernews.com/2026/04/fortinet-patches-actively-exploited-cve.html",
-    "slug": "Exploitation_of_CVE-2026-35616_in_FortiClient_EMS-020046",
-    "shard": 3
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary used sock puppet accounts to upload malicious npm packages.",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially targeting cryptocurrency platforms.",
-      "Sophistication": "Moderate, with evolving tactics.",
-      "Strategic_Objectives": "Compromise digital assets and steal credentials.",
-      "TTPs_Employed": ["Redis RCE", "Docker escape", "Credential theft"]
-    },
-    "Analyses": [
-      {
-        "Description": "The adversary likely conducted reconnaissance to identify targets using Strapi CMS.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary gathers information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary gathers information about the victim's host.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "The adversary weaponized npm packages with malicious scripts.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary develops resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary develops capabilities to support operations.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Malicious npm packages were delivered via the npm registry.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary executes malicious code on victim systems.",
-            "tactic_id": "TA0007",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary exploits vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Exploitation occurred through the execution of postinstall scripts.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary executes malicious code on victim systems.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary uses JavaScript for execution.",
-            "technique_id": "T1059.007",
-            "technique_name": "Command and Scripting Interpreter: JavaScript"
-          }
-        ],
-        "Techniques": ["T1059.007"]
-      },
-      {
-        "Description": "Persistent implants were installed on victim systems.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary maintains access to victim systems.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary uses registry keys for persistence.",
-            "technique_id": "T1547.001",
-            "technique_name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder"
-          }
-        ],
-        "Techniques": ["T1547.001"]
-      },
-      {
-        "Description": "Reverse shells were used for command and control.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary communicates with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary uses web protocols for C2.",
-            "technique_id": "T1071.001",
-            "technique_name": "Application Layer Protocol: Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Credential theft and data collection were performed.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary collects data from victim systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary dumps credentials from victim systems.",
-            "technique_id": "T1003",
-            "technique_name": "Credential Dumping"
-          }
-        ],
-        "Techniques": ["T1003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The adversary leveraged npm packages to execute malicious scripts.",
-      "Exploits": ["Redis RCE", "PostgreSQL exploitation"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["Persistent implants"],
-      "Tools": ["Reverse shells"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Digital assets", "Credentials"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["SafeDep", "Group-IB"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Redis", "PostgreSQL", "reverse shells", "credential theft", "persistent implant"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Cryptocurrency"],
-      "Software": ["Strapi CMS", "npm"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Malicious npm packages uploaded to the npm registry.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Redis RCE", "Docker escape", "Credential theft"],
-      "Tools": ["Reverse shells"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-04-04T18:30:00Z",
-    "Title": "Malicious npm Packages Targeting Strapi CMS Plugins",
-    "Tools": ["Reverse shells", "Strapi CMS", "npm"],
-    "Victim": {
-      "Access_Vectors": ["npm package installation"],
-      "Data_Types_At_Risk": ["Credentials"],
-      "Description": "Developers using Strapi CMS plugins from npm.",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "Cryptocurrency",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Digital assets", "Credentials"]
-    },
-    "diamond_model_summary": "The incident involves adversaries using sock puppet accounts to upload malicious npm packages disguised as Strapi CMS plugins. These packages facilitate Redis and PostgreSQL exploitation, reverse shells, and credential theft, indicating a targeted attack against cryptocurrency platforms. The adversary's capability includes leveraging npm packages for malicious script execution, with infrastructure centered around the npm registry. Victims are developers using Strapi CMS plugins, with digital assets and credentials at risk.",
-    "doc_summary": "Cybersecurity researchers discovered 36 malicious packages in the npm registry disguised as Strapi CMS plugins. These packages facilitate Redis and PostgreSQL exploitation, deploy reverse shells, harvest credentials, and drop persistent implants. The packages, uploaded by sock puppet accounts, execute malicious code via the postinstall script hook during npm install. The campaign's payloads evolved from aggressive Redis RCE and Docker escape attempts to reconnaissance, data collection, and credential theft, suggesting a targeted attack against a cryptocurrency platform. The incident highlights the growing threat of supply chain attacks in the open-source ecosystem, as reported by Group-IB, emphasizing the risk of inherited access through trusted vendors and widely used libraries.",
-    "enrichment": null,
-    "id": "6c619c60f949c251cae21975d2d4982e99abf6b8c6c34c53de0e490949a09224",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack follows a structured kill chain: reconnaissance to identify targets using Strapi CMS, weaponization of npm packages with malicious scripts, delivery via the npm registry, exploitation through postinstall script execution, installation of persistent implants, command and control using reverse shells, and actions on objectives involving credential theft and data collection. The adversary's tactics evolved from aggressive exploitation attempts to more targeted credential theft, suggesting a focus on cryptocurrency platforms.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as Redis RCE, Docker escape, and credential theft, which are challenging for defenders to address. The use of reverse shells and persistent implants adds complexity to detection and remediation efforts. The absence of specific hash values, IP addresses, and domains limits the ability to apply traditional detection methods, emphasizing the need for behavioral analysis and monitoring of npm package installations.",
-    "relevance_score": 61,
-    "sequence": 20045,
-    "source": "https://thehackernews.com/2026/04/36-malicious-npm-packages-exploited.html",
-    "slug": "Malicious_npm_Packages_Targeting_Strapi_CMS_Plugins-020045",
-    "shard": 3
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Threat actors exploiting the TrueConf Client vulnerability.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential for arbitrary code execution and system takeover.",
-      "Sophistication": "",
-      "Strategic_Objectives": "Gain unauthorized access and control over systems.",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of the update mechanism to deliver malicious payloads.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to run malicious code.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in client software to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Exploitation of CVE-2026-3502 for arbitrary code execution.",
-        "Detection": "",
-        "Remediation": "Apply security patches provided by TrueConf. • Discontinue use of TrueConf Client if patches cannot be applied.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Installation of malicious payload via compromised update.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may establish persistence by executing malicious content triggered by system events.",
-            "technique_id": "T1546",
-            "technique_name": "Event Triggered Execution"
-          }
-        ],
-        "Techniques": ["T1546"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential for full system takeover and data exfiltration.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to avoid being detected.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Defense Evasion"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may delete or alter generated artifacts on a host system, including logs or captured files.",
-            "technique_id": "T1070",
-            "technique_name": "Indicator Removal on Host"
-          }
-        ],
-        "Techniques": ["T1070"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2026-3502"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of the TrueConf Client update mechanism.",
-      "Exploits": ["CVE-2026-3502"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["TrueConf Client software"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["TrueConf"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2026-3502", "CISA", "KEV catalog", "arbitrary code execution"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["TrueConf Client"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-3502"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Compromised update delivery path for TrueConf Client.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2026-04-03T10:49:09Z",
-    "Title": "Exploitation of CVE-2026-3502 in TrueConf Client",
-    "Tools": ["TrueConf Client"],
-    "Victim": {
-      "Access_Vectors": ["Software update mechanism"],
-      "Data_Types_At_Risk": ["Sensitive data"],
-      "Description": "Organizations using TrueConf Client software.",
-      "Geography": "",
-      "Impact_Severity": "Critical",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["TrueConf Client software"]
-    },
-    "diamond_model_summary": "The incident involves threat actors exploiting a critical vulnerability in the TrueConf Client, identified as CVE-2026-3502. This vulnerability allows for arbitrary code execution by intercepting the update delivery path. The adversary's capability includes exploiting the update mechanism to deliver malicious payloads. The infrastructure involves compromised update channels, and the victims are organizations using the TrueConf Client. The severity of the impact is critical, with potential for full system takeover.",
-    "doc_summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has added a critical security flaw affecting the TrueConf Client to its Known Exploited Vulnerabilities (KEV) catalog. The flaw, tracked as CVE-2026-3502, is a 'Download of Code Without Integrity Check' vulnerability (CWE-494). This vulnerability allows attackers to intercept or control the update delivery path, swapping legitimate updates for malicious payloads, leading to arbitrary code execution. CISA has issued guidelines for remediation, urging organizations to apply security patches or discontinue use if necessary. The flaw poses a significant threat to network defenders, with potential for full system takeover. The deadline for federal agencies to secure their systems is April 16, 2026, as per Binding Operational Directive (BOD) 22-01.",
-    "enrichment": null,
-    "id": "10c6964e3c1745a837ad9c314341429d8c26a4fb",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for this incident begins with the exploitation of the TrueConf Client's update mechanism, allowing threat actors to deliver malicious payloads. The exploitation stage involves CVE-2026-3502, leading to arbitrary code execution. Installation of the payload occurs via the compromised update, potentially resulting in full system takeover. The actions on objectives stage includes the possibility of data exfiltration and system control. CISA has issued remediation guidelines, emphasizing the need for immediate patching and potential discontinuation of the software.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 98,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of CVE-2026-3502, a critical vulnerability in the TrueConf Client. The lack of integrity checks in the update mechanism is a significant weakness, allowing threat actors to deliver malicious payloads. The absence of specific indicators such as hashes, IP addresses, or domains limits the ability to detect and respond to this threat. Organizations are urged to apply patches and follow CISA's remediation guidelines to mitigate the risk.",
-    "relevance_score": 47,
-    "sequence": 20044,
-    "source": "https://gbhackers.com/cisa-includes-trueconf-security-flaw-in-kev-catalog/",
-    "slug": "Exploitation_of_CVE-2026-3502_in_TrueConf_Client-020044",
     "shard": 3
   }
 ]

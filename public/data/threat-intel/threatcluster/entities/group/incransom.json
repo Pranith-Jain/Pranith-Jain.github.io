@@ -5,27 +5,27 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-18T12:42:19.000Z",
-  "lastSeen": "2026-09-18T12:42:56.000Z",
+  "firstSeen": "2026-09-21T00:34:36.000Z",
+  "lastSeen": "2026-09-21T00:35:05.000Z",
   "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-18",
+      "date": "2026-09-21",
       "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "www-roancampingholidays-com-f20d",
-      "title": "www.roancampingholidays.com — claimed by incransom",
-      "pubDate": "2026-09-18T12:42:56.000Z"
+      "slug": "second-house-114d",
+      "title": "SECOND HOUSE — claimed by incransom",
+      "pubDate": "2026-09-21T00:35:05.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "www-kendallhunt-com-383b",
-      "title": "www.kendallhunt.com — claimed by incransom",
-      "pubDate": "2026-09-18T12:42:19.000Z"
+      "slug": "maryann-kriger-b20b",
+      "title": "Maryann Kriger — claimed by incransom",
+      "pubDate": "2026-09-21T00:34:36.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,26 +37,26 @@
     },
     {
       "type": "sector",
-      "slug": "education",
-      "name": "Education",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "www-roancampingholidays-com-f20d",
-      "victim": "www.roancampingholidays.com — claimed by incransom",
+      "id": "second-house-114d",
+      "victim": "SECOND HOUSE — claimed by incransom",
       "sector": "Hospitality",
-      "country": "NL",
-      "pubDate": "2026-09-18T12:42:56.000Z"
+      "country": "ES",
+      "pubDate": "2026-09-21T00:35:05.000Z"
     },
     {
-      "id": "www-kendallhunt-com-383b",
-      "victim": "www.kendallhunt.com — claimed by incransom",
-      "sector": "Education",
+      "id": "maryann-kriger-b20b",
+      "victim": "Maryann Kriger — claimed by incransom",
+      "sector": "Not Found",
       "country": "US",
-      "pubDate": "2026-09-18T12:42:19.000Z"
+      "pubDate": "2026-09-21T00:34:36.000Z"
     }
   ]
 }

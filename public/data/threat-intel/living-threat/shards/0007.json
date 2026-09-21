@@ -2,6 +2,594 @@
   {
     "Adversary": {
       "Aliases": [],
+      "Associated_Groups": ["Earth Lamia", "Jackpot Panda"],
+      "Description": "China-linked hacking groups exploiting React2Shell vulnerability.",
+      "Known_Campaigns": [],
+      "Motivation": "Exploitation of critical vulnerabilities for remote code execution.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Gain unauthorized access to systems via React2Shell vulnerability.",
+      "TTPs_Employed": ["Remote code execution", "Exploitation of vulnerabilities"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of React2Shell vulnerability in React Server Components.",
+        "Detection": "Monitor HTTP requests for malicious patterns targeting React Server Function endpoints.",
+        "Remediation": "Apply patches to affected React versions and frameworks. • Implement additional security controls to detect and block malicious HTTP requests.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of React2Shell vulnerability in React Server Components.",
+      "Exploits": ["React2Shell"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor HTTP requests for patterns indicative of React2Shell exploitation."],
+    "Extracted_Entities": {
+      "Assets": ["Websites", "Online platforms"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Cloudflare", "Amazon Web Services"],
+      "Countries": ["China"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["React2Shell", "remote code execution", "vulnerability", "Cloudflare", "React Server Components"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["React", "Next.js"],
+      "Technologies": ["React Server Components", "Flight protocol"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-55182"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Cloudflare's infrastructure affected by emergency mitigations.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Review and update security policies to address vulnerabilities in third-party components.",
+      "Conduct a thorough security audit of affected systems."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["React2Shell"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Earth Lamia", "Jackpot Panda"],
+    "Timestamp": "2025-12-05T08:53:00Z",
+    "Title": "Cloudflare Outage Due to React2Shell Vulnerability Mitigation",
+    "Tools": ["React", "Next.js"],
+    "Victim": {
+      "Access_Vectors": ["HTTP traffic"],
+      "Data_Types_At_Risk": [],
+      "Description": "Cloudflare and its customers affected by the outage.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Mitigation in progress",
+      "Targeted_Assets": ["Websites", "Online platforms"]
+    },
+    "diamond_model_summary": "The incident involves China-linked hacking groups exploiting the React2Shell vulnerability in React Server Components. Cloudflare's infrastructure was affected due to emergency mitigations, impacting 28% of HTTP traffic. The adversaries' strategic objective was to gain unauthorized access through remote code execution.",
+    "doc_summary": "Cloudflare experienced a significant outage due to emergency mitigations for a critical remote code execution vulnerability in React Server Components, known as React2Shell. This vulnerability affects React and dependent frameworks like Next.js, allowing unauthenticated attackers to execute code remotely. The flaw impacts React versions 19.0 to 19.2.0. AWS reported exploitation by China-linked groups Earth Lamia and Jackpot Panda. NHS England CSOC warned of continued exploitation. The incident affected 28% of Cloudflare's HTTP traffic, but was not a direct cyber attack on Cloudflare. The vulnerability was found in the React Server Components 'Flight' protocol.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:20.148183+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "d7563df12937a077c5adcafc8c6c7f53",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain involves exploitation of the React2Shell vulnerability, allowing remote code execution in React and Next.js applications. The adversaries, identified as China-linked groups, targeted public-facing applications to gain initial access. Cloudflare's emergency mitigations inadvertently caused a significant outage.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 67,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the React2Shell vulnerability as a TTP, with no specific hashes, IPs, or domains identified. The focus is on detecting and mitigating the exploitation of this vulnerability in affected React versions and frameworks. The incident highlights the challenges of addressing zero-day vulnerabilities.",
+    "relevance_score": 61,
+    "sequence": 18565,
+    "source": "https://www.bleepingcomputer.com/news/security/cloudflare-blames-todays-outage-on-emergency-react2shell-patch/",
+    "slug": "Cloudflare_Outage_Due_to_React2Shell_Vulnerability_Mitigation-018565",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": ["Cl0p"],
+      "Associated_Groups": [],
+      "Description": "Clop ransomware actors targeted Barts Health NHS Trust.",
+      "Known_Campaigns": ["Clop ransomware campaign"],
+      "Motivation": "Financial gain through data theft and extortion.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Exfiltrate sensitive data for financial extortion.",
+      "TTPs_Employed": ["Exploitation of Oracle E-business Suite vulnerability"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of Oracle E-business Suite vulnerability CVE-2025-61882.",
+        "Detection": "Monitor for unusual access patterns to Oracle E-business Suite.",
+        "Remediation": "Apply patches for CVE-2025-61882 immediately.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in Oracle E-business Suite.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Data exfiltration and leak on dark web.",
+        "Detection": "Monitor for large data transfers to unknown external servers.",
+        "Remediation": "Implement data loss prevention (DLP) solutions.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to steal data.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Data exfiltration to dark web leak portal.",
+            "technique_id": "T1567",
+            "technique_name": "Exfiltration Over Web Service"
+          }
+        ],
+        "Techniques": ["T1567"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of Oracle E-business Suite vulnerability CVE-2025-61882.",
+      "Exploits": ["CVE-2025-61882"],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Clop"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Clop ransomware"],
+      "Zero_Days": ["CVE-2025-61882"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Invoices", "Personal data"],
+      "Breach_Types": ["Data theft", "Ransomware"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Barts Health NHS Trust", "Barking, Havering, and Redbridge University Hospitals NHS Trust"],
+      "Countries": ["United Kingdom"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Clop ransomware", "data breach", "dark web"],
+      "Malware_Families": ["Clop"],
+      "Malware_Filenames": [],
+      "Patches": ["CVE-2025-61882"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Healthcare"],
+      "Software": ["Oracle E-business Suite"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-61882"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Use of dark web leak portal for data dissemination.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of CVE-2025-61882"],
+      "Tools": ["Clop ransomware"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Clop", "Cl0p"],
+    "Timestamp": "2025-12-05T13:55:00Z",
+    "Title": "Clop Ransomware Attack on Barts Health NHS Trust",
+    "Tools": ["Clop ransomware", "Oracle E-business Suite"],
+    "Victim": {
+      "Access_Vectors": ["Vulnerability exploitation"],
+      "Data_Types_At_Risk": ["Invoices", "Personal data"],
+      "Description": "Barts Health NHS Trust, a major healthcare provider in England.",
+      "Geography": "England",
+      "Impact_Severity": "High",
+      "Industry": "Healthcare",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Oracle E-business Suite database"]
+    },
+    "diamond_model_summary": "The Clop ransomware group targeted Barts Health NHS Trust by exploiting a vulnerability in Oracle E-business Suite, CVE-2025-61882. The adversary's capability involved using Clop ransomware to exfiltrate sensitive data, which was then leaked on the dark web. The victim, Barts Health NHS Trust, is a major healthcare provider in England, indicating a high impact severity due to the exposure of personal data. The infrastructure used included a dark web leak portal for data dissemination.",
+    "doc_summary": "Barts Health NHS Trust, a major healthcare provider in England, was attacked by Clop ransomware actors who exploited a vulnerability in Oracle E-business Suite software, CVE-2025-61882. The attack resulted in the theft of invoices containing personal data of patients and former employees. The stolen data was leaked on the dark web. The incident was detected in November 2024, although the theft occurred in August 2024. Barts Health NHS Trust has informed the National Cyber Security Centre, the Metropolitan Police, and the Information Commissioner's Office. The attack did not impact electronic patient records or clinical systems. Barts Health NHS Trust is seeking a High Court order to prevent further dissemination of the data.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:20.148161+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "e3363501ed0b070f75aaee93bc98e63a",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack on Barts Health NHS Trust by Clop ransomware actors followed a structured kill chain. The adversaries exploited a vulnerability in Oracle E-business Suite (CVE-2025-61882) to gain initial access. The exploitation stage was critical, leading to data exfiltration and subsequent leakage on the dark web. The attack did not involve significant weaponization, delivery, installation, or command and control stages, focusing primarily on exploitation and actions on objectives.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 70,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the exploitation of a known vulnerability (CVE-2025-61882) and the use of Clop ransomware. The adversary's tactics involved data exfiltration and leakage on the dark web, which are challenging to detect and remediate. The lack of specific hash values, IP addresses, or domain names limits the ability to apply traditional detection methods, emphasizing the need for proactive vulnerability management and data protection strategies.",
+    "relevance_score": 63,
+    "sequence": 18564,
+    "source": "https://www.bleepingcomputer.com/news/security/barts-health-nhs-discloses-data-breach-after-oracle-zero-day-hack/",
+    "slug": "Clop_Ransomware_Attack_on_Barts_Health_NHS_Trust-018564",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary exploits the excessive agency of LLM-powered assistants in browsers.",
+      "Known_Campaigns": [],
+      "Motivation": "Data destruction and manipulation",
+      "Sophistication": "High",
+      "Strategic_Objectives": "To exploit AI browser assistants for unauthorized data manipulation",
+      "TTPs_Employed": ["Zero-click attacks", "Natural language manipulation"]
+    },
+    "Analyses": [
+      {
+        "Description": "The adversary identifies potential targets using AI browser assistants.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify potential targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about the victim's environment.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Host Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "Crafting emails with natural language instructions to manipulate AI browser assistants.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating tools or capabilities for operations.",
+            "technique_id": "T1588.002",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1588.002"]
+      },
+      {
+        "Description": "Sending crafted emails to the victim's inbox.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the victim's environment.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Delivering malicious content via email.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Exploiting the AI browser assistant's natural language processing capabilities.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Running malicious code on a victim's system.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Deleting files from Google Drive using AI browser assistant.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Manipulating, interrupting, or destroying systems and data.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Destroying data to impact availability.",
+            "technique_id": "T1485",
+            "technique_name": "Data Destruction"
+          }
+        ],
+        "Techniques": ["T1485"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Polite and sequential natural language instructions"],
+      "Description": "The attack leverages natural language processing and OAuth access to automate destructive actions.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["LLM-powered browser assistants"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Google Drive", "Gmail"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Perplexity", "Google", "Microsoft"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Agentic browser attack", "Zero-click", "LLM-powered assistants", "OAuth", "HashJack"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Comet v142.0.7444.60", "Edge 142.0.3595.94"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Comet Browser", "Gmail", "Google Drive"],
+      "Technologies": ["AI browser assistants", "Natural language processing"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["OAuth"],
+      "Description": "The attack utilizes AI browser assistants connected to Google services.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Zero-click attacks", "Natural language manipulation"],
+      "Tools": ["LLM-powered browser assistants"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-12-04T18:30:00Z",
+    "Title": "Agentic Browser Attack on Perplexity's Comet Browser",
+    "Tools": ["LLM-powered browser assistants", "Comet Browser", "Gmail", "Google Drive"],
+    "Victim": {
+      "Access_Vectors": ["Email", "Browser"],
+      "Data_Types_At_Risk": ["Files", "Emails"],
+      "Description": "Users of Perplexity's Comet browser with connected Google services.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable to natural language manipulation",
+      "Targeted_Assets": ["Google Drive", "Gmail"]
+    },
+    "diamond_model_summary": "The attack on Perplexity's Comet browser demonstrates the adversary's ability to exploit AI browser assistants by leveraging natural language processing and OAuth access. The capability involves using polite and sequential instructions to manipulate the assistant into performing unauthorized actions, such as deleting Google Drive files. The infrastructure relies on AI browser assistants connected to Google services, and the victims are users of these services. The attack highlights the need for securing AI models, agents, and connectors to prevent unauthorized data manipulation.",
+    "doc_summary": "A new agentic browser attack targets Perplexity's Comet browser, capable of turning innocuous emails into destructive actions that wipe Google Drive contents. The zero-click Google Drive Wiper technique exploits the browser's connection to services like Gmail and Google Drive, automating tasks by granting access to read emails and perform actions like deleting content. This behavior reflects excessive agency in LLM-powered assistants, where the LLM performs actions beyond the user's explicit request. An attacker can weaponize this behavior by sending a crafted email with natural language instructions to delete files. The attack highlights how sequencing and tone can nudge the LLM to comply with malicious instructions. To counter the threat, securing the model, agent, connectors, and instructions is advised. The disclosure comes as Cato Networks demonstrated another attack, HashJack, which hides rogue prompts in URLs to manipulate AI browser assistants.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:20.148273+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "2d441b512f39061fa561ada424db334ee8bbfcad517121b633e3ab9c75bd113e",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain, starting with reconnaissance to identify potential targets using AI browser assistants. Weaponization involves crafting emails with natural language instructions to manipulate the assistants. Delivery is achieved by sending these emails to the victim's inbox. Exploitation occurs when the AI assistant processes the instructions, leading to unauthorized actions on Google Drive. The attack culminates in the 'Actions on Objectives' stage, where files are deleted from Google Drive. The attack underscores the importance of securing AI browser assistants and their interactions with connected services.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 75,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the TTPs employed by the adversary, such as zero-click attacks and natural language manipulation. The attack does not rely on specific hash values, IP addresses, or domain names, making traditional detection methods less effective. Instead, the focus should be on understanding and mitigating the techniques used to manipulate AI browser assistants. This highlights the need for advanced detection and remediation strategies that address the unique challenges posed by AI-driven attacks.",
+    "relevance_score": 61,
+    "sequence": 18563,
+    "source": "https://thehackernews.com/2025/12/zero-click-agentic-browser-attack-can.html",
+    "slug": "Agentic_Browser_Attack_on_Perplexity_s_Comet_Browser-018563",
+    "shard": 7
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
       "Associated_Groups": [],
       "Description": "No significant information detected",
       "Known_Campaigns": [],
@@ -103050,761 +103638,6 @@
     "sequence": 18079,
     "source": "https://gbhackers.com/tarmageddon-security-flaw-in-rust-library/",
     "slug": "TARmageddon_Vulnerability_in_async-tar_and_tokio-tar_Libraries-018079",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Attackers exploiting argument injection vulnerabilities in AI-powered agents to achieve remote code execution.",
-      "Known_Campaigns": [],
-      "Motivation": "Compromise AI systems for unauthorized access and control.",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Gain unauthorized access to systems and execute arbitrary commands.",
-      "TTPs_Employed": ["Argument Injection", "Remote Code Execution"]
-    },
-    "Analyses": [
-      {
-        "Description": "Attackers identify AI-powered agents and their command execution capabilities.",
-        "Detection": "Monitor for unusual command execution patterns in AI agents.",
-        "Remediation": "Implement strict input validation for AI agent commands.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify potential targets and vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victim systems to identify vulnerabilities.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "Crafting malicious input to exploit argument injection vulnerabilities.",
-        "Detection": "Analyze command inputs for suspicious patterns or flags.",
-        "Remediation": "Use facades to separate user input and block flags.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating tools or scripts to exploit vulnerabilities.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Delivering the crafted input to the AI agent for execution.",
-        "Detection": "Log and review all command executions for anomalies.",
-        "Remediation": "Implement allowlists for command execution.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a system or network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols to deliver payloads.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Executing the malicious input to achieve remote code execution.",
-        "Detection": "Monitor for unauthorized command execution attempts.",
-        "Remediation": "Disable shell execution via shell=False.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Running malicious code on a system.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using command-line interfaces to execute commands.",
-            "technique_id": "T1059.001",
-            "technique_name": "Command and Scripting Interpreter: PowerShell"
-          }
-        ],
-        "Techniques": ["T1059.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of pre-approved system tools to bypass restrictions"],
-      "Description": "Exploitation of argument injection vulnerabilities in AI agents to execute arbitrary commands.",
-      "Exploits": ["Argument Injection"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["find", "grep", "git", "curl", "bash", "ripgrep", "fd"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unusual command execution patterns in AI agents.",
-      "Analyze command inputs for suspicious patterns or flags."
-    ],
-    "Extracted_Entities": {
-      "Assets": ["AI Agents", "System Tools"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": ["go test -exec", "git show", "rg --pre bash", "fd -x=python3"],
-      "Companies": [],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "AI-powered agents",
-        "argument injection",
-        "remote code execution",
-        "sandboxing",
-        "input validation"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["find", "grep", "git", "curl", "bash", "ripgrep", "fd"],
-      "Technologies": ["Docker", "WebAssembly"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Argument Injection"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "AI-powered agents using pre-approved system tools for task execution.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Implement strict input validation for AI agent commands.",
-      "Use facades to separate user input and block flags.",
-      "Implement allowlists for command execution."
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Argument Injection", "Remote Code Execution"],
-      "Tools": ["find", "grep", "git", "curl", "bash", "ripgrep", "fd"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [
-      "Audit command execution paths for argument injection opportunities.",
-      "Log all executions and flag suspicious sequences for review."
-    ],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-10-23T06:06:25Z",
-    "Title": "Argument Injection Vulnerability in AI-Powered Agents Leading to RCE",
-    "Tools": ["find", "grep", "git", "curl", "bash", "ripgrep", "fd"],
-    "Victim": {
-      "Access_Vectors": ["Command Line"],
-      "Data_Types_At_Risk": ["System Integrity", "Command Execution"],
-      "Description": "AI-powered agent systems vulnerable to argument injection attacks.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable to argument injection",
-      "Targeted_Assets": ["AI Agents", "System Tools"]
-    },
-    "diamond_model_summary": "The incident involves attackers exploiting argument injection vulnerabilities in AI-powered agents to achieve remote code execution. The adversary uses pre-approved system tools like find, grep, and git to bypass restrictions. The capability involves crafting malicious input to exploit these vulnerabilities. The infrastructure consists of AI agents using these tools for task execution. The victim is AI-powered agent systems vulnerable to such attacks, primarily in the technology sector.",
-    "doc_summary": "AI-powered agents are increasingly used for tasks like code analysis and file management. A vulnerability known as argument injection allows attackers to achieve remote code execution (RCE) by exploiting these capabilities. Attackers can inject malicious flags into pre-approved system tools like find, grep, and git, which are considered safe. This vulnerability is particularly dangerous as it can bypass sophisticated safety models, including human approval for risky commands. Experts recommend isolating AI agent operations using sandboxes like Docker or WebAssembly to prevent system compromise. Developers should implement strict input validation and maintain allowlists to mitigate this risk. Security engineers are advised to audit command execution paths and log all executions to detect suspicious sequences. The incident highlights the importance of input validation and isolation in securing AI agent command execution capabilities.",
-    "enrichment": { "processed_at": "2026-02-18T00:36:03.651653+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "714108a7374aae6c7bb230b03967c28bd32d66e7",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain begins with reconnaissance, where attackers identify AI-powered agents and their command execution capabilities. In the weaponization stage, they craft malicious input to exploit argument injection vulnerabilities. Delivery involves sending this input to the AI agent. Exploitation occurs when the input is executed, leading to remote code execution. The incident highlights the need for strict input validation and sandboxing to prevent such attacks.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 92,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes tools like find, grep, and git, which are used to exploit argument injection vulnerabilities. The TTPs involve argument injection and remote code execution. No specific hash values, IP addresses, or domain names are identified. The focus is on detecting and mitigating the use of these tools and techniques to prevent exploitation.",
-    "relevance_score": 63,
-    "sequence": 18078,
-    "source": "https://gbhackers.com/critical-argument-injection-flaw-in-ai-agents/",
-    "slug": "Argument_Injection_Vulnerability_in_AI-Powered_Agents_Leading_to_RCE-018078",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": ["COLDRIVER"],
-      "Description": "The campaign reflects a highly capable adversary with sophisticated planning and operational security.",
-      "Known_Campaigns": [],
-      "Motivation": "Targeting organizations involved in Ukraine's war relief efforts.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Disrupt and gather intelligence on Ukraine's war relief efforts.",
-      "TTPs_Employed": ["Spear-phishing", "Remote Access Trojan", "WebSocket C2"]
-    },
-    "Analyses": [
-      {
-        "Description": "The attackers likely gathered information on target organizations involved in Ukraine's war relief efforts.",
-        "Detection": "Monitor for unusual scanning activity targeting specific organizations.",
-        "Remediation": "Implement network segmentation and access controls to limit exposure.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is actively scanning for information about the target.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "The attackers weaponized a PDF document with an embedded link to a fake Zoom site.",
-        "Detection": "Scan email attachments for known malicious signatures.",
-        "Remediation": "Educate users on recognizing phishing attempts.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to establish resources they can use to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is sending a spear-phishing email with a malicious attachment.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Phishing emails were sent to targets, impersonating the Ukrainian President's Office.",
-        "Detection": "Monitor for emails from suspicious domains.",
-        "Remediation": "Implement email filtering and anti-phishing technologies.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is attempting to gain access to the network through phishing.",
-            "technique_id": "T1566",
-            "technique_name": "Phishing"
-          }
-        ],
-        "Techniques": ["T1566"]
-      },
-      {
-        "Description": "Victims were tricked into running a malicious PowerShell command.",
-        "Detection": "Monitor for unusual PowerShell activity.",
-        "Remediation": "Restrict PowerShell execution to trusted scripts.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to run malicious code.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using PowerShell to execute commands.",
-            "technique_id": "T1059.001",
-            "technique_name": "PowerShell"
-          }
-        ],
-        "Techniques": ["T1059.001"]
-      },
-      {
-        "Description": "A downloader was executed to retrieve a second-stage payload.",
-        "Detection": "Monitor for execution of unknown or suspicious files.",
-        "Remediation": "Use application whitelisting to prevent execution of unauthorized software.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is tricking users into executing malicious files.",
-            "technique_id": "T1204.002",
-            "technique_name": "User Execution: Malicious File"
-          }
-        ],
-        "Techniques": ["T1204.002"]
-      },
-      {
-        "Description": "The malware connected to a WebSocket server for command and control.",
-        "Detection": "Monitor for unusual WebSocket connections.",
-        "Remediation": "Block known malicious domains and IPs at the network perimeter.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using WebSocket for command and control.",
-            "technique_id": "T1071.001",
-            "technique_name": "Application Layer Protocol: WebSocket"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "The RAT enabled remote command execution and data exfiltration.",
-        "Detection": "Monitor for data exfiltration over C2 channels.",
-        "Remediation": "Implement data loss prevention solutions.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to steal data.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Data Exfiltration"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is exfiltrating data over the command and control channel.",
-            "technique_id": "T1041",
-            "technique_name": "Exfiltration Over C2 Channel"
-          }
-        ],
-        "Techniques": ["T1041"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Obfuscation", "Fake CAPTCHA"],
-      "Description": "The campaign used spear-phishing emails with a remote access trojan delivered via a fake Zoom site.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Remote Access Trojan"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["PowerShell", "WebSocket RAT"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Email accounts", "Sensitive documents"],
-      "Breach_Types": ["Spear-phishing"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["International Red Cross", "Norwegian Refugee Council", "UNICEF"],
-      "Countries": ["Ukraine", "India", "Italy", "Slovakia"],
-      "Domains": ["zoomconference.app", "goodhillsenterprise.com", "princess-mens.click"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["PhantomCaptcha", "spear-phishing", "remote access trojan", "WebSocket", "command-and-control"],
-      "Malware_Families": ["Remote Access Trojan"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": ["Fake Zoom site", "Fake Cloudflare CAPTCHA"],
-      "Sectors": ["Non-Profit", "Government"],
-      "Software": ["PowerShell"],
-      "Technologies": ["WebSocket", "PowerShell"],
-      "Threat_Infrastructure": ["wss://bsnowcommunications.com:80"],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["wss://bsnowcommunications.com:80"],
-      "Communication_Protocols": ["WebSocket"],
-      "Description": "The infrastructure included domains and servers used for phishing and command-and-control.",
-      "Domains": ["zoomconference.app", "goodhillsenterprise.com", "princess-mens.click"],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["zoomconference.app", "goodhillsenterprise.com", "princess-mens.click"],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Spear-phishing", "Remote Access Trojan", "WebSocket C2"],
-      "Tools": ["PowerShell", "WebSocket RAT"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["COLDRIVER"],
-    "Timestamp": "2025-10-21T18:30:00Z",
-    "Title": "PhantomCaptcha Spear-Phishing Campaign Targeting Ukraine War Relief Efforts",
-    "Tools": ["PowerShell", "WebSocket RAT"],
-    "Victim": {
-      "Access_Vectors": ["Phishing emails"],
-      "Data_Types_At_Risk": ["Reconnaissance data", "Sensitive communications"],
-      "Description": "Organizations involved in Ukraine's war relief efforts were targeted.",
-      "Geography": "Ukraine",
-      "Impact_Severity": "High",
-      "Industry": "Non-Profit",
-      "Security_Posture": "Targeted",
-      "Targeted_Assets": ["Email accounts", "Sensitive documents"]
-    },
-    "diamond_model_summary": "The PhantomCaptcha campaign demonstrates a highly capable adversary targeting Ukraine's war relief efforts. The adversary employed spear-phishing techniques, using a fake Zoom site to deliver a remote access trojan. The infrastructure included domains like zoomconference.app and goodhillsenterprise.com, with command-and-control facilitated via WebSocket. The campaign reflects sophisticated planning and operational security, with potential links to the Russia-linked COLDRIVER group.",
-    "doc_summary": "Cybersecurity researchers disclosed a spear-phishing campaign named PhantomCaptcha targeting organizations involved in Ukraine's war relief efforts. The attack, occurring on October 8, 2025, involved phishing emails impersonating the Ukrainian President's Office, delivering a remote access trojan via a fake Zoom site. The campaign targeted members of the International Red Cross, Norwegian Refugee Council, UNICEF Ukraine office, and Ukrainian regional government administrations. The attack used a WebSocket for command-and-control, with the final payload being a WebSocket RAT hosted on Russian infrastructure. The campaign's infrastructure included domains like zoomconference.app and goodhillsenterprise.com. The attack reflects sophisticated planning and operational security, with potential links to the Russia-linked COLDRIVER group.",
-    "enrichment": { "processed_at": "2026-02-18T00:36:03.651426+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "02b5c0fbad79af1eafc403a4a28404d351147e262a8c8e7c96649f82b9808801",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The PhantomCaptcha campaign followed a structured kill chain, beginning with reconnaissance on organizations involved in Ukraine's war relief efforts. Weaponization involved crafting a malicious PDF with a link to a fake Zoom site. Delivery was executed through spear-phishing emails impersonating the Ukrainian President's Office. Exploitation occurred when victims executed a malicious PowerShell command. Installation involved a downloader retrieving a second-stage payload. Command and control were maintained via a WebSocket connection, enabling actions on objectives such as remote command execution and data exfiltration.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The PhantomCaptcha campaign's pyramid of pain includes domain names like zoomconference.app and goodhillsenterprise.com, and the use of a WebSocket RAT for command and control. The campaign's sophistication is evident in its use of spear-phishing and fake CAPTCHA techniques, making detection and remediation challenging. The infrastructure's rapid takedown and compartmentalized nature reflect a high level of operational security, complicating attribution and response efforts.",
-    "relevance_score": 65,
-    "sequence": 18077,
-    "source": "https://thehackernews.com/2025/10/ukraine-aid-groups-targeted-through.html",
-    "slug": "PhantomCaptcha_Spear-Phishing_Campaign_Targeting_Ukraine_War_Relief_Effo-018077",
-    "shard": 7
-  },
-  {
-    "Adversary": {
-      "Aliases": [
-        "Boggy Serpens",
-        "Cobalt Ulster",
-        "Earth Vetala",
-        "Mango Sandstorm",
-        "Seedworm",
-        "Static Kitten",
-        "TA450",
-        "TEMP.Zagros",
-        "Yellow Nix"
-      ],
-      "Associated_Groups": ["Iran's Ministry of Intelligence and Security"],
-      "Description": "MuddyWater is an Iranian nation-state group affiliated with Iran's Ministry of Intelligence and Security (MOIS).",
-      "Known_Campaigns": ["Phoenix Backdoor Campaign"],
-      "Motivation": "Intelligence gathering",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Infiltrate high-value targets for intelligence gathering",
-      "TTPs_Employed": ["Phishing", "Backdoor deployment", "Credential stealing"]
-    },
-    "Analyses": [
-      {
-        "Description": "MuddyWater likely conducted reconnaissance to identify high-value targets in the MENA region.",
-        "Detection": "Monitor for unusual scanning activity targeting government networks.",
-        "Remediation": "Implement network segmentation to limit reconnaissance effectiveness.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is actively scanning for information about the target.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "MuddyWater weaponized Microsoft Word documents with malicious VBA code.",
-        "Detection": "Scan email attachments for known malicious signatures.",
-        "Remediation": "Educate users on the risks of enabling macros in email attachments.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to establish resources they can use to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is sending emails with malicious attachments to gain access.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Phishing emails were sent using a compromised email account to deliver the weaponized documents.",
-        "Detection": "Monitor for emails from known compromised accounts.",
-        "Remediation": "Implement email filtering to block phishing attempts.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is trying to trick users into revealing credentials or other sensitive information.",
-            "technique_id": "T1566",
-            "technique_name": "Phishing"
-          }
-        ],
-        "Techniques": ["T1566"]
-      },
-      {
-        "Description": "Users were tricked into enabling macros, allowing the execution of malicious VBA code.",
-        "Detection": "Monitor for macro execution in Microsoft Word documents.",
-        "Remediation": "Disable macros by default in Microsoft Office applications.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to run malicious code.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is exploiting a vulnerability to execute code on the target system.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "The Phoenix backdoor was installed via the FakeUpdate loader.",
-        "Detection": "Monitor for the creation of new startup items or scheduled tasks.",
-        "Remediation": "Regularly audit startup items and scheduled tasks for unauthorized entries.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is trying to execute code automatically when a user logs in.",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "The Phoenix backdoor communicated with a C2 server at 159.198.36.115.",
-        "Detection": "Monitor network traffic for connections to known C2 IP addresses.",
-        "Remediation": "Block known malicious IP addresses at the network perimeter.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using a common application layer protocol to communicate with a C2 server.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "MuddyWater aimed to gather intelligence from high-value targets.",
-        "Detection": "Monitor for unusual data collection activities on compromised systems.",
-        "Remediation": "Implement data loss prevention (DLP) solutions to monitor and block unauthorized data exfiltration.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is capturing screenshots of the target system.",
-            "technique_id": "T1113",
-            "technique_name": "Screen Capture"
-          }
-        ],
-        "Techniques": ["T1113"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [
-      "Use of legitimate services like NordVPN for stealth",
-      "Phishing emails with weaponized attachments"
-    ],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of legitimate services for stealth"],
-      "Description": "MuddyWater uses phishing emails to distribute the Phoenix backdoor, leveraging compromised email accounts and NordVPN.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Phoenix", "FakeUpdate"],
-      "Persistence_Mechanisms": ["Custom credential-stealing tools"],
-      "Tools": ["NordVPN", "PDQ", "Action1"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data transfer activities from government networks"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for connections to 159.198.36.115",
-      "Scan for Phoenix backdoor signatures"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Email accounts", "Government networks"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Group-IB"],
-      "Countries": ["Iran", "Middle East", "North Africa"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": ["Advanced Encryption Standard (AES)"],
-      "File_Hashes": [],
-      "IP_Addresses": ["159.198.36.115"],
-      "Keywords": ["MuddyWater", "Phoenix", "NordVPN", "FakeUpdate", "MOIS"],
-      "Malware_Families": ["Phoenix", "BugSleep"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Government", "Telecommunications"],
-      "Software": ["Microsoft Word", "Brave", "Google Chrome", "Microsoft Edge", "Opera"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["159.198.36.115"],
-      "Communication_Protocols": [],
-      "Description": "The campaign uses a C2 server and compromised email infrastructure to distribute malware.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": ["159.198.36.115"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Conduct a thorough investigation of compromised accounts",
-      "Enhance user awareness training on phishing threats"
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": ["159.198.36.115"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Phishing", "Backdoor deployment", "Credential stealing"],
-      "Tools": ["NordVPN", "PDQ", "Action1"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [
-      "Network traffic analysis tools",
-      "Email filtering solutions",
-      "Endpoint detection and response (EDR) tools"
-    ],
-    "Severity": "High",
-    "Threat_Actors": [
-      "MuddyWater",
-      "Boggy Serpens",
-      "Cobalt Ulster",
-      "Earth Vetala",
-      "Mango Sandstorm",
-      "Seedworm",
-      "Static Kitten",
-      "TA450",
-      "TEMP.Zagros",
-      "Yellow Nix"
-    ],
-    "Timestamp": "2025-10-21T18:30:00Z",
-    "Title": "MuddyWater Campaign Distributes Phoenix Backdoor in MENA Region",
-    "Tools": ["NordVPN", "PDQ", "Action1", "Microsoft Word", "Brave", "Google Chrome", "Microsoft Edge", "Opera"],
-    "Victim": {
-      "Access_Vectors": ["Phishing emails"],
-      "Data_Types_At_Risk": ["Sensitive government data", "Diplomatic communications"],
-      "Description": "Targets include government entities, embassies, and telecommunications firms in the MENA region.",
-      "Geography": "Middle East and North Africa",
-      "Impact_Severity": "High",
-      "Industry": "Government",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Email accounts", "Government networks"]
-    },
-    "diamond_model_summary": "The MuddyWater campaign is a sophisticated cyber operation attributed to an Iranian nation-state group. The adversary used compromised email accounts and NordVPN to distribute the Phoenix backdoor, targeting government entities in the MENA region. The campaign demonstrates advanced capabilities in integrating custom malware with legitimate tools for stealth and persistence.",
-    "doc_summary": "The Iranian nation-state group MuddyWater has launched a new campaign targeting over 100 government entities in the Middle East and North Africa (MENA) region. The campaign uses a compromised email account to distribute the Phoenix backdoor, leveraging NordVPN for access. The attack chain involves phishing emails with weaponized Microsoft Word documents that execute malicious VBA code to deploy the Phoenix backdoor. The campaign targets embassies, diplomatic missions, and telecommunications firms. MuddyWater, affiliated with Iran's Ministry of Intelligence and Security, uses a C2 server at 159.198.36.115 hosting remote monitoring tools and a credential stealer. The campaign demonstrates advanced integration of custom code with commercial tools for stealth and persistence.",
-    "enrichment": { "processed_at": "2026-02-18T00:36:03.651397+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "43cadf8be7443deef7ad1499b5c1d45ae733cf10aa9d0ca1c8d1e12e4c65d8f4",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The MuddyWater campaign follows a structured kill chain, starting with reconnaissance to identify high-value targets. Weaponization involved creating malicious Word documents, delivered via phishing emails. Exploitation occurred when users enabled macros, leading to the installation of the Phoenix backdoor. Command and control was established through a C2 server, enabling actions on objectives focused on intelligence gathering.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for the MuddyWater campaign includes IP addresses and tools as key indicators. The C2 server IP 159.198.36.115 and the use of NordVPN are significant for detection and response. The campaign's reliance on phishing and custom malware like Phoenix highlights the need for robust detection mechanisms to disrupt the adversary's operations.",
-    "relevance_score": 94,
-    "sequence": 18076,
-    "source": "https://thehackernews.com/2025/10/iran-linked-muddywater-targets-100.html",
-    "slug": "MuddyWater_Campaign_Distributes_Phoenix_Backdoor_in_MENA_Region-018076",
     "shard": 7
   }
 ]
