@@ -1,11 +1,43 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-20T09:56:39Z",
-  "syncedAt": "2026-09-20T09:56:39.292Z",
+  "generatedAt": "2026-09-21T10:59:30Z",
+  "syncedAt": "2026-09-21T10:59:30.357Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
   "count": 304,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "www-account-booking.com",
+      "confidence": "high",
+      "reason": "Malicious lookalike domain registered by attackers for phishing",
+      "first_seen": "2026-09-20T10:32:24.433292+00:00",
+      "last_seen": "2026-09-20T10:32:24.433292+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.bleepingcomputer.com",
+          "url": "https://www.bleepingcomputer.com/news/security/bookingcom-phishing-campaign-uses-sneaky-character-to-trick-you/",
+          "pub_date": "2026-09-20T10:32:24.433292+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "91.92.242.30",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as a known C2 IP address",
+      "first_seen": "2026-09-20T06:57:48+00:00",
+      "last_seen": "2026-09-20T06:57:48+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-ADIBIRZU-OPENCLAW-SECURITY-MONITOR&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-20T06:57:48+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "bfm-tv.net",
@@ -5007,38 +5039,6 @@
           "source": "Cybersecuritynews",
           "url": "https://cybersecuritynews.com/malware-as-a-service-adobe-themed-domain/",
           "pub_date": "2026-08-24T04:47:41+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "case-apple.com",
-      "confidence": "high",
-      "reason": "[article sweep] Used in phishing scams impersonating Apple",
-      "first_seen": "2026-08-21T14:51:21+00:00",
-      "last_seen": "2026-08-21T14:51:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Straitstimes",
-          "url": "https://www.straitstimes.com/singapore/apple-impersonation-scams-cost-spore-victims-at-least-195k-in-crypto-assets-within-2-weeks",
-          "pub_date": "2026-08-21T14:51:21+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "chat-apple.com",
-      "confidence": "high",
-      "reason": "[article sweep] Used in phishing scams impersonating Apple",
-      "first_seen": "2026-08-21T14:51:21+00:00",
-      "last_seen": "2026-08-21T14:51:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Straitstimes",
-          "url": "https://www.straitstimes.com/singapore/apple-impersonation-scams-cost-spore-victims-at-least-195k-in-crypto-assets-within-2-weeks",
-          "pub_date": "2026-08-21T14:51:21+00:00"
         }
       ]
     }

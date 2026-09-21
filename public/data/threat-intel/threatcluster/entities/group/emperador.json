@@ -4,17 +4,33 @@
   "name": "emperador",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 4,
   "firstSeen": "2026-09-19T07:50:51.000Z",
-  "lastSeen": "2026-09-19T15:50:53.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "lastSeen": "2026-09-20T15:51:17.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-19",
       "count": 2
+    },
+    {
+      "date": "2026-09-20",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "alabama-woman-s-health-care-2abb",
+      "title": "Alabama Woman's Health Care — claimed by emperador",
+      "pubDate": "2026-09-20T15:51:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "studio-notarile-associato-salvatore-costantino-e-anna-favarato-4e49",
+      "title": "Studio Notarile Associato Salvatore Costantino E Anna Favarato — claimed by emperador",
+      "pubDate": "2026-09-20T09:35:30.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "electrolux-b50b",
@@ -31,6 +47,18 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
       "weight": 1
@@ -44,6 +72,20 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "alabama-woman-s-health-care-2abb",
+      "victim": "Alabama Woman's Health Care — claimed by emperador",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-20T15:51:17.000Z"
+    },
+    {
+      "id": "studio-notarile-associato-salvatore-costantino-e-anna-favarato-4e49",
+      "victim": "Studio Notarile Associato Salvatore Costantino E Anna Favarato — claimed by emperador",
+      "sector": "Professional Services",
+      "country": "IT",
+      "pubDate": "2026-09-20T09:35:30.000Z"
+    },
     {
       "id": "electrolux-b50b",
       "victim": "Electrolux — claimed by emperador",

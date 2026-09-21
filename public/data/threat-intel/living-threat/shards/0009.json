@@ -3,6 +3,574 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary is a research team from Trail of Bits, demonstrating vulnerabilities in discontinued devices.",
+      "Known_Campaigns": [],
+      "Motivation": "To highlight security risks in end-of-life devices and promote further research.",
+      "Sophistication": "High, due to the use of innovative exploitation techniques.",
+      "Strategic_Objectives": "To raise awareness about IoT security lifecycle issues.",
+      "TTPs_Employed": ["Exploitation of UPnP vulnerabilities", "Firmware downgrade attacks"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of vulnerabilities in UPnP and firmware downgrade.",
+        "Detection": "Monitor for unusual UPnP traffic • Check for unauthorized firmware changes",
+        "Remediation": "Disable UPnP if not needed • Ensure firmware is up-to-date",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the device through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code on the device.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installation of persistent access through firmware manipulation.",
+        "Detection": "Monitor firmware versions for unauthorized changes",
+        "Remediation": "Implement strict firmware update policies",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access through firmware downgrade.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using firmware downgrade to maintain persistent access.",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Complete system compromise and persistent access achieved.",
+        "Detection": "Monitor for unauthorized firmware downgrades",
+        "Remediation": "Regularly audit device firmware integrity",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Evading security measures through firmware manipulation.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Removing traces of exploitation through firmware changes.",
+            "technique_id": "T1070",
+            "technique_name": "Indicator Removal on Host"
+          }
+        ],
+        "Techniques": ["T1070"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The research team demonstrated the ability to exploit vulnerabilities in outdated network devices.",
+      "Exploits": ["Authentication bypass", "Buffer overflow", "Command injection"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": ["Persistent access through firmware downgrade"],
+      "Tools": ["UART serial port access", "SPI flash chip programming equipment"],
+      "Zero_Days": ["Zero-day vulnerabilities in Netgear and BitDefender devices"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unauthorized firmware changes", "Check for unusual UPnP traffic"],
+    "Extracted_Entities": {
+      "Assets": ["Netgear WGR614v9 router", "BitDefender Box V1"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Netgear", "BitDefender", "Trail of Bits"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["zero-day vulnerabilities", "UPnP", "firmware downgrade", "IoT security"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Consumer Electronics"],
+      "Software": [],
+      "Technologies": ["Universal Plug-and-Play", "NVRAM", "SPI flash chip"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["authentication bypass", "buffer overflow", "command injection"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Universal Plug-and-Play (UPnP)"],
+      "Description": "The infrastructure involved outdated consumer network devices vulnerable to exploitation.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Regularly update device firmware", "Disable unnecessary services like UPnP"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of UPnP vulnerabilities", "Firmware downgrade attacks"],
+      "Tools": ["UART serial port access", "SPI flash chip programming equipment"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Firmware analysis tools", "Network traffic monitoring"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-07-31T08:05:34Z",
+    "Title": "Exploitation of Zero-Day Vulnerabilities in Discontinued Network Devices",
+    "Tools": ["UART serial port access", "SPI flash chip programming equipment"],
+    "Victim": {
+      "Access_Vectors": ["Local network access"],
+      "Data_Types_At_Risk": ["Network configurations", "Firmware integrity"],
+      "Description": "The victims are users of discontinued Netgear and BitDefender network devices.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Consumer Electronics",
+      "Security_Posture": "Vulnerable due to lack of updates",
+      "Targeted_Assets": ["Home network security devices"]
+    },
+    "diamond_model_summary": "The incident involves a research team from Trail of Bits exploiting vulnerabilities in discontinued network devices, specifically a Netgear router and a BitDefender Box. The adversary demonstrated high capability by using innovative techniques to exploit UPnP and firmware vulnerabilities, highlighting the risks of unsupported IoT devices.",
+    "doc_summary": "Cybersecurity researchers from Trail of Bits exploited critical zero-day vulnerabilities in two discontinued network security devices, a Netgear WGR614v9 router and a BitDefender Box V1, during DistrictCon's Junkyard competition. The devices, originally designed to protect home networks, were vulnerable due to lack of updates. The Netgear router was compromised using UPnP daemon vulnerabilities, including authentication bypass, buffer overflows, and command injection, achieving remote root access. The BitDefender Box was exploited through an unauthenticated firmware downgrade vulnerability, leading to system compromise. The research highlights persistent security risks in end-of-life IoT devices and emphasizes the importance of considering device security lifecycles.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.611036+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "295b178754e038d0e6dc2c49bdfd2f344a1ceb7f",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involved exploiting vulnerabilities in discontinued network devices, leading to initial access through UPnP and firmware downgrade vulnerabilities. The adversary achieved persistence by manipulating firmware, resulting in complete system compromise. The incident underscores the importance of maintaining updated firmware and disabling unnecessary services.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 79,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as exploitation of UPnP vulnerabilities and firmware downgrade attacks. Tools used include UART serial port access and SPI flash chip programming equipment. The incident highlights the challenges of securing end-of-life devices and the need for robust firmware update mechanisms.",
+    "relevance_score": 49,
+    "sequence": 17573,
+    "source": "https://gbhackers.com/researchers-exploit-0-day-flaws/",
+    "slug": "Exploitation_of_Zero-Day_Vulnerabilities_in_Discontinued_Network_Devices-017573",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No specific adversary information is available.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially to gain unauthorized access to system-level privileges.",
+      "Sophistication": "Requires local administrative privileges.",
+      "Strategic_Objectives": "Compromise system security at the firmware level.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of BIOS vulnerabilities to gain system-level privileges.",
+        "Detection": "Monitor BIOS firmware integrity • Check for unauthorized BIOS modifications",
+        "Remediation": "Apply BIOS updates • Restrict local administrative access",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the system through BIOS vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting BIOS vulnerabilities to escalate privileges.",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential access to sensitive SMRAM contents.",
+        "Detection": "Monitor access to SMRAM • Check for unauthorized data access",
+        "Remediation": "Apply BIOS updates • Implement strict access controls",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Accessing sensitive information in SMRAM.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Reading sensitive data from SMRAM.",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of BIOS vulnerabilities to execute arbitrary code.",
+      "Exploits": ["BIOS vulnerabilities in InsydeH2O firmware"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unauthorized access to SMRAM"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor BIOS firmware integrity", "Check for unauthorized BIOS modifications"],
+    "Extracted_Entities": {
+      "Assets": ["IdeaCentre AIO 3 series", "Yoga AIO models"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Lenovo"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["BIOS vulnerabilities", "System Management Mode", "SMRAM"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["BIOS updates for IdeaCentre and Yoga AIO models"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Consumer Electronics"],
+      "Software": ["InsydeH2O BIOS firmware"],
+      "Technologies": ["x86 processors"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": [
+        "CVE-2025-0001",
+        "CVE-2025-0002",
+        "CVE-2025-0003",
+        "CVE-2025-0004",
+        "CVE-2025-0005",
+        "CVE-2025-0006"
+      ]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No specific infrastructure information is available.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply BIOS updates", "Restrict local administrative access"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["BIOS integrity monitoring tools", "Firmware analysis tools"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-07-31T13:09:05Z",
+    "Title": "Critical BIOS Vulnerabilities in Lenovo Desktop Computers",
+    "Tools": ["InsydeH2O BIOS firmware"],
+    "Victim": {
+      "Access_Vectors": ["Local administrative privileges"],
+      "Data_Types_At_Risk": ["SMRAM contents"],
+      "Description": "Lenovo IdeaCentre and Yoga All-in-One desktop users.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Consumer Electronics",
+      "Security_Posture": "Vulnerable due to unpatched BIOS firmware.",
+      "Targeted_Assets": ["BIOS firmware", "System Management Mode"]
+    },
+    "diamond_model_summary": "The incident involves critical BIOS vulnerabilities in Lenovo's IdeaCentre and Yoga All-in-One desktop computers, discovered by the BINARLY Research team. The vulnerabilities affect the InsydeH2O BIOS firmware, targeting the System Management Mode (SMM) in x86 processors. Successful exploitation could allow attackers with local administrative privileges to execute arbitrary code with system-level privileges. Lenovo has released BIOS updates for affected models, urging users to update their firmware immediately.",
+    "doc_summary": "Security researchers have identified critical BIOS vulnerabilities in Lenovo's IdeaCentre and Yoga All-in-One desktop computers, potentially allowing attackers to execute arbitrary code at the firmware level. Disclosed through Lenovo Security Advisory LEN-201013 and Insyde Security Advisory INSYDE-SA-2025007, these vulnerabilities affect the InsydeH2O BIOS firmware. The BINARLY Research team discovered and reported six CVEs with CVSS scores from 6.0 to 8.2, targeting the System Management Mode (SMM) in x86 processors. Affected models include IdeaCentre AIO 3 series and various Yoga AIO models. Lenovo has released BIOS updates for IdeaCentre and scheduled updates for Yoga AIO models. Users are urged to update their BIOS firmware immediately.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.611012+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "3259f08e9dbd8e56371f008882fbe332a4c0cd47",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The incident involves the exploitation of BIOS vulnerabilities in Lenovo desktop computers, allowing attackers to gain system-level privileges. The vulnerabilities target the System Management Mode (SMM) in x86 processors, potentially allowing unauthorized access to sensitive SMRAM contents. Lenovo has released BIOS updates for affected models, urging users to update their firmware immediately. The incident highlights the importance of applying security patches and monitoring BIOS firmware integrity to prevent unauthorized access.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 74,
+    "pyramid_of_pain_summary": "The incident involves BIOS vulnerabilities in Lenovo desktop computers, with no specific indicators such as hash values, IP addresses, or domain names identified. The vulnerabilities target the System Management Mode (SMM) in x86 processors, potentially allowing unauthorized access to sensitive SMRAM contents. Lenovo has released BIOS updates for affected models, urging users to update their firmware immediately. The incident highlights the importance of applying security patches and monitoring BIOS firmware integrity to prevent unauthorized access.",
+    "relevance_score": 43,
+    "sequence": 17572,
+    "source": "https://gbhackers.com/lenovo-ideacentre-and-yoga-bios-flaws-allow-attackers-to-run-arbitrary-code/",
+    "slug": "Critical_BIOS_Vulnerabilities_in_Lenovo_Desktop_Computers-017572",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential attackers exploiting default credentials in Kubernetes Image Builder.",
+      "Known_Campaigns": [],
+      "Motivation": "Unauthorized access and potential control over Kubernetes clusters.",
+      "Sophistication": "Moderate, leveraging known vulnerabilities.",
+      "Strategic_Objectives": "Gain unauthorized access to Kubernetes clusters.",
+      "TTPs_Employed": ["Exploitation of default credentials"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of default credentials in Windows VM images.",
+        "Detection": "Monitor for unusual login activities on Windows nodes.",
+        "Remediation": "Rebuild images with updated credentials and disable default accounts.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a system or network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use of valid accounts to gain access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of default credentials for access"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of default credentials in Windows VM images.",
+      "Exploits": ["CVE-2025-7342"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for default credential usage", "Check image build versions"],
+    "Extracted_Entities": {
+      "Assets": ["Windows VM images"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-7342", "default credentials", "Windows nodes"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["v0.1.45"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Kubernetes Image Builder"],
+      "Technologies": ["Nutanix", "OVA"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-7342"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Kubernetes clusters utilizing vulnerable Windows VM images.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Rebuild images with secure credentials", "Implement continuous validation"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of default credentials"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Audit tools for image credentials", "Version control checks"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-07-22T07:26:23Z",
+    "Title": "Critical Vulnerability in Kubernetes Image Builder CVE-2025-7342",
+    "Tools": ["Kubernetes Image Builder"],
+    "Victim": {
+      "Access_Vectors": ["Network access to vulnerable nodes"],
+      "Data_Types_At_Risk": ["Cluster configurations", "Access credentials"],
+      "Description": "Kubernetes clusters deploying Windows nodes with vulnerable images.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "At risk due to default credentials",
+      "Targeted_Assets": ["Windows nodes in Kubernetes clusters"]
+    },
+    "diamond_model_summary": "The incident involves adversaries exploiting default credentials in Kubernetes Image Builder, specifically targeting Windows nodes. The capability is centered around exploiting CVE-2025-7342, affecting infrastructure in Kubernetes clusters. Victims are primarily in the technology sector, deploying vulnerable images.",
+    "doc_summary": "A critical vulnerability, CVE-2025-7342, in the Kubernetes Image Builder allows attackers to gain root access on Windows nodes by exploiting default credentials in virtual machine images. This flaw affects images built with Nutanix or OVA providers in versions v0.1.44 and earlier. The vulnerability arises from the failure to disable default Windows Administrator credentials when not explicitly overridden during the build process. As a result, clusters deploying Windows nodes from these unpatched images are at risk of unauthorized remote access. Operators should audit their images for embedded default credentials and rebuild affected Windows VM images using Image Builder release v0.1.45 or later. This incident highlights the importance of specifying strong, unique credentials during automated image creation and integrating continuous validation into provisioning pipelines. Organizations are encouraged to verify their image inventories, apply the updated builder release, and coordinate with security responders if any signs of exploitation are discovered.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:47.610985+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "25c1d7a8898094097f2b62d3eeda333c4da6bd0b",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis reveals exploitation of default credentials as the primary tactic, with initial access gained through valid accounts. Detection focuses on monitoring login activities, while remediation involves rebuilding images with secure credentials. Other stages show no significant activity.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 89,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies the exploitation of default credentials as a key TTP. No specific hash values, IP addresses, or domains were detected. The focus is on mitigating the use of default credentials and ensuring secure image builds to prevent unauthorized access.",
+    "relevance_score": 41,
+    "sequence": 17571,
+    "source": "https://gbhackers.com/kubernetes-image-builder-vulnerability/",
+    "slug": "Critical_Vulnerability_in_Kubernetes_Image_Builder_CVE-2025-7342-017571",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "A surveillance firm exploiting SS7 protocol vulnerabilities.",
       "Known_Campaigns": [],
       "Motivation": "Unauthorized tracking of mobile phone users' locations.",
@@ -97211,584 +97779,6 @@
     "sequence": 17075,
     "source": "https://gbhackers.com/cisa-warns-github-action-vulnerability/",
     "slug": "CISA_Alerts_on_Critical_Supply-Chain_Attack_via_GitHub_Action_CVE-2025-3-017075",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential skilled adversaries capable of exploiting the AnyDesk vulnerability for privilege escalation.",
-      "Known_Campaigns": [],
-      "Motivation": "Gaining unauthorized access and control over Windows systems.",
-      "Sophistication": "High, due to the complexity of the attack chain.",
-      "Strategic_Objectives": "Unauthorized access to sensitive system files and credentials.",
-      "TTPs_Employed": ["Privilege Escalation", "File Manipulation"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of AnyDesk's file handling mechanism.",
-        "Detection": "Monitor file operations in C:\\Windows\\Temp",
-        "Remediation": "Apply patches once available • Restrict access to AnyDesk",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain higher privileges.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to gain higher privileges.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Manipulation of file ownership to gain access to sensitive files.",
-        "Detection": "Monitor changes in file ownership",
-        "Remediation": "Regularly audit file permissions • Disable unnecessary services",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to valid accounts to escalate privileges.",
-            "tactic_id": "T1078",
-            "tactic_name": "Valid Accounts"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Gaining access to valid accounts to escalate privileges.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Extraction of credentials from sensitive system files.",
-        "Detection": "Monitor access to SAM, SYSTEM, and SECURITY files",
-        "Remediation": "Implement least privilege access • Regularly update and patch systems",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Extracting credentials from operating system and software.",
-            "tactic_id": "T1003",
-            "tactic_name": "Credential Dumping"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Extracting credentials from operating system and software.",
-            "technique_id": "T1003",
-            "technique_name": "Credential Dumping"
-          }
-        ],
-        "Techniques": ["T1003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Manipulation of file ownership", "Exploitation of file copy operations"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["File Ownership Manipulation"],
-      "Description": "Exploitation of AnyDesk's file handling mechanism to escalate privileges.",
-      "Exploits": ["CVE-2024-12754"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["AnyDesk"],
-      "Zero_Days": ["CVE-2024-12754"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor file operations in C:\\Windows\\Temp"],
-    "Extracted_Entities": {
-      "Assets": ["C:\\Windows\\Temp", "Volume Shadow Copies"],
-      "Breach_Types": ["Local Privilege Escalation"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["AnyDesk Software GmbH", "Trend Micro"],
-      "Countries": ["Germany"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-12754", "local privilege escalation", "Windows background images"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["AnyDesk"],
-      "Technologies": ["Windows"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-12754"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Exploitation occurs on Windows systems using AnyDesk.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches", "Restrict access to AnyDesk"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Privilege Escalation", "File Manipulation"],
-      "Tools": ["AnyDesk"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Security audits", "File monitoring tools"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-02-06T07:18:16Z",
-    "Title": "CVE-2024-12754: AnyDesk Vulnerability Leading to Local Privilege Escalation",
-    "Tools": ["AnyDesk"],
-    "Victim": {
-      "Access_Vectors": ["Remote Access"],
-      "Data_Types_At_Risk": ["System Files", "Credentials"],
-      "Description": "Users and administrators of AnyDesk on Windows systems.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Information Technology",
-      "Security_Posture": "Vulnerable due to unpatched software.",
-      "Targeted_Assets": ["Windows Systems", "AnyDesk Installations"]
-    },
-    "diamond_model_summary": "The incident involves a vulnerability in AnyDesk, identified as CVE-2024-12754, which allows for local privilege escalation on Windows systems. The adversary is potentially a skilled attacker capable of exploiting this vulnerability to gain unauthorized access to sensitive system files and credentials. The capability involves manipulating AnyDesk's file handling mechanism, while the infrastructure is primarily Windows systems using AnyDesk. Victims are users and administrators of AnyDesk, with a high impact severity due to the potential for unauthorized access and control.",
-    "doc_summary": "Cybersecurity experts are raising alarms over a newly discovered vulnerability in AnyDesk, identified as CVE-2024-12754, which could lead to local privilege escalation (LPE). This flaw, discovered by Naor Hodorov and coordinated by Trend Micro's Zero Day Initiative, allows attackers to exploit Windows background images to escalate permissions on Windows systems. The vulnerability lies in the way AnyDesk handles background images during remote sessions, allowing low-privileged users to manipulate file-copy operations to gain access to restricted files. The vulnerability was disclosed to AnyDesk Software GmbH on July 24, 2024, with public disclosure planned for December 19, 2024. Until a patch is released, users are advised to restrict access to AnyDesk installations, monitor the C:\\Windows\\Temp directory, and disable Volume Shadow Copies if not in use.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706506+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "3fa531f76b4889ae587699a6f977ed4be4df8c07",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis of the AnyDesk vulnerability CVE-2024-12754 reveals a sophisticated attack involving exploitation of file handling mechanisms for privilege escalation. The weaponization stage involves exploiting AnyDesk's file copy mechanism, while the exploitation stage focuses on manipulating file ownership to access sensitive files. Actions on objectives include extracting credentials from system files. Detection involves monitoring file operations and changes in file ownership, while remediation includes applying patches and restricting access to AnyDesk.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 77,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis for the AnyDesk vulnerability CVE-2024-12754 indicates a high level of difficulty for defenders due to the exploitation of file handling mechanisms and manipulation of file ownership. The primary indicators of compromise include the use of AnyDesk as a tool and the specific TTPs employed for privilege escalation. Detection involves monitoring file operations and changes in file ownership, while remediation includes applying patches and restricting access to AnyDesk. The overall impact is significant due to the potential for unauthorized access and control.",
-    "relevance_score": 45,
-    "sequence": 17074,
-    "source": "https://gbhackers.com/anydesk-flaw-allows-admin-access/",
-    "slug": "CVE-2024-12754__AnyDesk_Vulnerability_Leading_to_Local_Privilege_Escalat-017074",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential remote unauthenticated attackers exploiting vulnerabilities in Dell SCG.",
-      "Known_Campaigns": [],
-      "Motivation": "Data theft and unauthorized access",
-      "Sophistication": "Medium",
-      "Strategic_Objectives": "Exploitation of vulnerabilities for data breaches",
-      "TTPs_Employed": ["Man-in-the-middle attacks", "SQL injection"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in Dell SCG.",
-        "Detection": "Monitor for unusual access patterns • Check for known exploit signatures",
-        "Remediation": "Apply security patches • Update to latest software versions",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain unauthorized access.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in Dell SCG to gain access.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential data exfiltration and unauthorized access.",
-        "Detection": "Monitor data transfer volumes • Inspect outbound traffic for anomalies",
-        "Remediation": "Implement data loss prevention tools • Strengthen network monitoring",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Exfiltrating sensitive data from compromised systems.",
-            "tactic_id": "TA0010",
-            "tactic_name": "Exfiltration"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using compromised channels to exfiltrate data.",
-            "technique_id": "T1041",
-            "technique_name": "Exfiltration Over C2 Channel"
-          }
-        ],
-        "Techniques": ["T1041"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [
-      "Exploitation of known vulnerabilities",
-      "Unauthorized data access attempts"
-    ],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of cryptographic and SQL injection vulnerabilities in Dell SCG.",
-      "Exploits": [
-        "CVE-2023-23695",
-        "CVE-2025-26475",
-        "CVE-2024-47240",
-        "CVE-2024-47241",
-        "CVE-2024-29168",
-        "CVE-2024-29169"
-      ],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data transfer volumes", "Anomalous outbound traffic"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for known exploit signatures", "Inspect network traffic for anomalies"],
-    "Extracted_Entities": {
-      "Assets": ["Sensitive data", "Enterprise systems"],
-      "Breach_Types": ["Data breaches", "Unauthorized access"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Dell Technologies"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerabilities", "security alerts", "data breaches"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Security patches for Dell SCG"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Dell Secure Connect Gateway"],
-      "Technologies": ["cryptographic algorithms", "SQL injection"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": [
-        "CVE-2023-23695",
-        "CVE-2025-26475",
-        "CVE-2024-47240",
-        "CVE-2024-47241",
-        "CVE-2024-29168",
-        "CVE-2024-29169"
-      ]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Dell Secure Connect Gateway infrastructure targeted by vulnerabilities.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Regularly update software", "Implement robust access controls"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of vulnerabilities", "SQL injection"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Security patch management", "Vulnerability scanning tools"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-03-20T10:49:27Z",
-    "Title": "Dell Secure Connect Gateway Vulnerabilities and Mitigation Strategies",
-    "Tools": ["Dell Secure Connect Gateway"],
-    "Victim": {
-      "Access_Vectors": ["Remote exploitation"],
-      "Data_Types_At_Risk": ["Confidential information", "User credentials"],
-      "Description": "Users of Dell Secure Connect Gateway in enterprise environments.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to unpatched software",
-      "Targeted_Assets": ["Sensitive data", "Enterprise systems"]
-    },
-    "diamond_model_summary": "The incident involves potential remote unauthenticated attackers exploiting vulnerabilities in Dell Secure Connect Gateway. The adversary's capability includes exploiting cryptographic and SQL injection vulnerabilities. The infrastructure targeted is the Dell SCG, affecting users in enterprise environments. The victim profile includes technology sector enterprises globally, with high impact severity due to potential data breaches and unauthorized access.",
-    "doc_summary": "Dell has issued critical security alerts for vulnerabilities in its Secure Connect Gateway (SCG) products, posing risks such as data breaches and unauthorized access. Key vulnerabilities include CVE-2023-23695, a broken cryptographic algorithm, and CVE-2025-26475, an unvalidated Live-Restore setting. Other vulnerabilities like CVE-2024-47240 and CVE-2024-47241 involve incorrect permissions and improper certificate validation. SQL injection vulnerabilities CVE-2024-29168 and CVE-2024-29169 are also highlighted. Users are advised to update to the latest SCG versions and implement additional security measures. The vulnerabilities underscore the importance of timely software updates and security patches to protect sensitive data.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706481+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "5e82c84ab8fd3edcefd1a5231f616330e7379b06",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals significant activity in the exploitation and actions on objectives stages. Exploitation involves leveraging vulnerabilities in Dell SCG for unauthorized access, while actions on objectives focus on potential data exfiltration. Detection strategies include monitoring access patterns and data transfer volumes. Remediation involves applying security patches and strengthening network monitoring.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 74,
-    "pyramid_of_pain_summary": "The pyramid of pain analysis identifies several indicators of compromise, including vulnerabilities and potential exploitation techniques. While specific hash values, IP addresses, and domains are not detailed, the focus is on the tools and TTPs used in exploiting Dell SCG vulnerabilities. The analysis underscores the importance of timely patching and monitoring to mitigate risks.",
-    "relevance_score": 43,
-    "sequence": 17073,
-    "source": "https://gbhackers.com/dell-secure-connect-gateway-vulnerabilities/",
-    "slug": "Dell_Secure_Connect_Gateway_Vulnerabilities_and_Mitigation_Strategies-017073",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential remote attackers exploiting IBM AIX vulnerabilities",
-      "Known_Campaigns": [],
-      "Motivation": "Unauthorized access and control over affected systems",
-      "Sophistication": "Moderate, leveraging known vulnerabilities",
-      "Strategic_Objectives": "Compromise of systems running vulnerable AIX versions",
-      "TTPs_Employed": ["Exploitation of process control vulnerabilities"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of process control vulnerabilities in IBM AIX",
-        "Detection": "Monitor for unusual command execution on AIX systems",
-        "Remediation": "Apply IBM's APAR patches for affected AIX versions",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system through vulnerabilities",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute commands",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of vulnerabilities in IBM AIX for remote command execution",
-      "Exploits": ["CVE-2024-56346", "CVE-2024-56347"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual command execution"],
-    "Extracted_Entities": {
-      "Assets": ["AIX operating systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["IBM"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2024-56346", "CVE-2024-56347", "CWE-114", "APAR"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["APAR IJ53757", "APAR IJ53929", "APAR IJ53923", "APAR IJ53792"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["IBM AIX"],
-      "Technologies": ["SSL/TLS"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2024-56346", "CVE-2024-56347"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["SSL/TLS"],
-      "Description": "Targeted IBM AIX systems running vulnerable versions",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Regularly update systems with security patches"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of process control vulnerabilities"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Threat Intelligence Lookup"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-03-20T12:12:13Z",
-    "Title": "Critical Vulnerabilities in IBM AIX Allow Remote Command Execution",
-    "Tools": ["IBM AIX"],
-    "Victim": {
-      "Access_Vectors": ["Remote"],
-      "Data_Types_At_Risk": ["System integrity"],
-      "Description": "Organizations using IBM AIX versions 7.2 and 7.3",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable without patches",
-      "Targeted_Assets": ["AIX operating systems"]
-    },
-    "diamond_model_summary": "The incident involves remote attackers exploiting vulnerabilities in IBM AIX, specifically CVE-2024-56346 and CVE-2024-56347, to execute arbitrary commands. The adversary's capability is moderate, leveraging known vulnerabilities in the AIX operating system. The infrastructure targeted includes AIX systems running versions 7.2 and 7.3, with the victim being organizations in the technology sector globally. The attack highlights the importance of applying security patches promptly to mitigate risks.",
-    "doc_summary": "IBM has issued a critical security warning for vulnerabilities in its AIX operating system, specifically CVE-2024-56346 and CVE-2024-56347, affecting versions 7.2 and 7.3. These vulnerabilities, found in the nimesis NIM master service and nimsh service SSL/TLS protection mechanisms, allow remote attackers to execute arbitrary commands due to improper process controls, classified under CWE-114: Process Control. The CVSS Base Scores are 10 and 9.6, indicating high severity. IBM has provided fixes through APARs for different AIX versions, emphasizing the importance of regular system maintenance and prompt application of security patches to mitigate these risks. Users are advised to update their systems to safeguard against potential threats.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.706456+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "126534180a7812c61b634ffa7724fe639fdf380c",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack on IBM AIX systems follows a typical kill chain, with the exploitation stage being the most significant. Remote attackers exploit process control vulnerabilities (CVE-2024-56346 and CVE-2024-56347) to gain initial access and execute arbitrary commands. The exploitation is facilitated by improper process controls in the nimesis NIM master service and nimsh service SSL/TLS protection mechanisms. Detection involves monitoring for unusual command execution, and remediation requires applying IBM's APAR patches for affected AIX versions.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 87,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to the exploitation of process control vulnerabilities in IBM AIX. No specific hash values, IP addresses, or domain names are identified, but the tools and techniques used by attackers are critical. The vulnerabilities CVE-2024-56346 and CVE-2024-56347 represent significant pain points, as they allow remote command execution. The summary emphasizes the need for timely patching and monitoring of AIX systems to detect and prevent exploitation.",
-    "relevance_score": 41,
-    "sequence": 17072,
-    "source": "https://gbhackers.com/ibm-warns-of-aix-vulnerabilities/",
-    "slug": "Critical_Vulnerabilities_in_IBM_AIX_Allow_Remote_Command_Execution-017072",
     "shard": 9
   }
 ]

@@ -1,67 +1,10 @@
 {
   "sector": "financial",
   "title": "Financial sector brief",
-  "generatedAt": "2026-09-20",
-  "topCount": 8,
-  "preview": "CVE-2026-81578 (critical) leads with priority 91.",
-  "sizeBytes": 2825,
+  "generatedAt": "2026-09-21",
+  "topCount": 0,
+  "preview": "No KEV-flagged CVEs in the current window.",
+  "sizeBytes": 288,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
-  "topThreats": [
-    {
-      "cveId": "CVE-2026-81578",
-      "title": "An improper access control vulnerability exists in the web management interface of PaperCut MF and PaperCut NG. Under sp",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-65400",
-      "title": "An authentication issue was addressed with improved state management. This issue is fixed in macOS Golden Gate 27, macOS",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-82078",
-      "title": "An unsafe dynamic class loading vulnerability exists in the database connection utilities of PaperCut MF and PaperCut NG",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.1; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-20079",
-      "title": "A vulnerability in the web interface of Cisco Secure Firewall Management Center (FMC) Software could allow an unauthenti",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 10; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-53266",
-      "title": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: bridge: make ebt_snat ARP rewrite writab",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 8.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-20349",
-      "title": "A vulnerability in the Remote Access SSL VPN service for Cisco Secure Firewall Adaptive Security Appliance (ASA) Softwar",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 8.6; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2025-39682",
-      "title": "In the Linux kernel, the following vulnerability has been resolved:\n\ntls: fix handling of zero-length records on the rx_",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-20316",
-      "title": "A vulnerability in the web interface of Cisco Secure Firewall Management Center (FMC) Software could allow an unauthenti",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 5.3; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    }
-  ]
+  "topThreats": []
 }

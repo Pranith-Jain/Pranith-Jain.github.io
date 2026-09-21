@@ -1,6 +1,626 @@
 [
   {
     "Adversary": {
+      "Aliases": ["Gamaredon"],
+      "Associated_Groups": [],
+      "Description": "Gamaredon is a Russian APT group targeting Ukraine with spear-phishing campaigns.",
+      "Known_Campaigns": ["2025 spear-phishing campaigns against Ukraine"],
+      "Motivation": "Support Russian interests in the Ukraine conflict.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Exfiltration of sensitive information from Ukrainian targets.",
+      "TTPs_Employed": ["Spear-phishing", "HTML smuggling", "Exploitation of CVE-2025-8088"]
+    },
+    "Analyses": [
+      {
+        "Description": "Gamaredon likely conducted reconnaissance to identify Ukrainian targets.",
+        "Detection": "Monitor for unusual scanning activity targeting Ukrainian IP ranges.",
+        "Remediation": "Implement network segmentation and intrusion detection systems.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Actively scanning for vulnerabilities and information.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Gamaredon weaponized spear-phishing emails with malicious attachments.",
+        "Detection": "Analyze email attachments for known malware signatures.",
+        "Remediation": "Educate users on recognizing phishing attempts.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Developing or acquiring malware for operations.",
+            "technique_id": "T1588.002",
+            "technique_name": "Malware"
+          }
+        ],
+        "Techniques": ["T1588.002"]
+      },
+      {
+        "Description": "Spear-phishing emails delivered to Ukrainian targets.",
+        "Detection": "Monitor email traffic for suspicious attachments.",
+        "Remediation": "Implement email filtering and sandboxing solutions.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a network or system.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Delivering malicious attachments via email.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spear Phishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Exploitation of CVE-2025-8088 to execute malicious code.",
+        "Detection": "Monitor for exploitation attempts of CVE-2025-8088.",
+        "Remediation": "Apply patches for CVE-2025-8088.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code on a system.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installation of malicious HTA downloaders for persistence.",
+        "Detection": "Monitor changes to Windows Startup folders.",
+        "Remediation": "Restrict write access to startup folders.",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to a system.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using startup folders for persistence.",
+            "technique_id": "T1547.001",
+            "technique_name": "Registry Run Keys / Startup Folder"
+          }
+        ],
+        "Techniques": ["T1547.001"]
+      },
+      {
+        "Description": "Use of serverless platforms for command and control.",
+        "Detection": "Monitor for unusual outbound traffic to serverless platforms.",
+        "Remediation": "Implement network monitoring and anomaly detection.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web services for command and control.",
+            "technique_id": "T1102.001",
+            "technique_name": "Web Services"
+          }
+        ],
+        "Techniques": ["T1102.001"]
+      },
+      {
+        "Description": "Exfiltration of sensitive data using legitimate services.",
+        "Detection": "Monitor for data exfiltration to unusual destinations.",
+        "Remediation": "Implement data loss prevention solutions.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Exfiltrating data from a network.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltrating data over a command and control channel.",
+            "technique_id": "T1041",
+            "technique_name": "Exfiltration Over C2 Channel"
+          }
+        ],
+        "Techniques": ["T1041"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2025-8088"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of serverless worker platforms"],
+      "Description": "Gamaredon employs spear-phishing, HTML smuggling, and exploits vulnerabilities.",
+      "Exploits": ["CVE-2025-8088"],
+      "Lateral_Movement_Tools": ["PteroLNK", "PteroPaste"],
+      "Malware": ["PteroSand"],
+      "Persistence_Mechanisms": ["Malicious HTA downloaders in Windows Startup"],
+      "Tools": ["PteroSand", "PteroLNK", "PteroPaste", "PteroSetup"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Sensitive information", "Critical data"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["ESET"],
+      "Countries": ["Ukraine", "Russian Federation"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["spear-phishing", "HTML smuggling", "serverless platforms"],
+      "Malware_Families": ["PteroSand", "PteroLNK"],
+      "Malware_Filenames": [],
+      "Patches": ["CVE-2025-8088"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government", "Military"],
+      "Software": ["WinRAR"],
+      "Technologies": ["PowerShell", "VBScript"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-8088"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Gamaredon uses third-party services and serverless platforms for obfuscation.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Spear-phishing", "HTML smuggling", "Exploitation of CVE-2025-8088"],
+      "Tools": ["PteroSand", "PteroLNK", "PteroPaste", "PteroSetup"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Gamaredon"],
+    "Timestamp": "2026-06-28T18:30:00Z",
+    "Title": "Gamaredon APT's 2025 Cyber Campaign Against Ukraine",
+    "Tools": ["PteroSand", "PteroLNK", "PteroPaste", "PteroSetup", "WinRAR"],
+    "Victim": {
+      "Access_Vectors": ["Spear-phishing emails"],
+      "Data_Types_At_Risk": ["Sensitive information", "Critical data"],
+      "Description": "Ukrainian governmental and military institutions targeted by Gamaredon.",
+      "Geography": "Ukraine",
+      "Impact_Severity": "High",
+      "Industry": "Government",
+      "Security_Posture": "Targeted",
+      "Targeted_Assets": ["Sensitive information", "Critical data"]
+    },
+    "diamond_model_summary": "The Gamaredon APT group, attributed to the Russian Federation, conducted a series of spear-phishing campaigns against Ukrainian governmental and military institutions in 2025. The group's capabilities include the use of HTML smuggling, exploitation of CVE-2025-8088, and deployment of malware such as PteroSand and PteroLNK. Their infrastructure leverages third-party services and serverless platforms to obfuscate command and control activities. The victims are primarily within the government and military sectors in Ukraine, with the strategic objective of exfiltrating sensitive information to support Russian interests.",
+    "doc_summary": "In 2025, the Russian APT group Gamaredon intensified its cyber operations against Ukraine, focusing on governmental and military targets. ESET identified 35 spear-phishing campaigns using HTML smuggling and exploiting CVE-2025-8088. The group deployed malware like PteroSand and PteroLNK, leveraging tools such as PteroSetup for lateral movement. Gamaredon utilized third-party services for obfuscation, including tunnel services and serverless platforms. The campaign featured new PowerShell tools and relied on legitimate services for data exfiltration. The group's activities were aligned with Russian interests in the ongoing conflict with Ukraine.",
+    "enrichment": null,
+    "id": "9eaf1ecb1081054777085824a13b8cd3f07b2c996d108bd5a05473be13d2164e",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "Gamaredon's 2025 campaign against Ukraine followed a structured kill chain. Reconnaissance involved identifying Ukrainian targets, followed by weaponization of spear-phishing emails with malicious attachments. Delivery was executed via spear-phishing, leading to exploitation of CVE-2025-8088 for code execution. Installation involved placing malicious HTA downloaders in startup folders for persistence. Command and control were maintained using serverless platforms, while actions on objectives focused on exfiltrating sensitive data using legitimate services.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for Gamaredon's 2025 campaign includes various indicators. Hash values of malware like PteroSand and PteroLNK are at the base, while IP addresses and domain names used for command and control are more challenging to change. Network host artifacts, such as malicious HTA downloaders, and tools like PteroSetup and PowerShell scripts, are even more difficult to alter. The TTPs employed, including spear-phishing and HTML smuggling, represent the highest level of pain for the adversary to modify.",
+    "relevance_score": 77,
+    "sequence": 21041,
+    "source": "https://thehackernews.com/2026/06/gamaredon-expands-ukraine-attacks-with.html",
+    "slug": "Gamaredon_APT_s_2025_Cyber_Campaign_Against_Ukraine-021041",
+    "shard": 2
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential future adversaries leveraging quantum computing capabilities to decrypt harvested encrypted data.",
+      "Known_Campaigns": [],
+      "Motivation": "Access to sensitive data and credentials",
+      "Sophistication": "High, due to the requirement of quantum computing capabilities",
+      "Strategic_Objectives": "Decrypting encrypted data to access confidential information",
+      "TTPs_Employed": ["Harvest Now, Decrypt Later"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential future decryption of harvested encrypted data using quantum computing.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering encrypted data for future decryption.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting encrypted emails for future decryption.",
+            "technique_id": "T1114",
+            "technique_name": "Email Collection"
+          }
+        ],
+        "Techniques": ["T1114"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Future capability to decrypt public-key encrypted data using quantum computing.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Quantum Computers"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Credentials", "Session Tokens"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Keeper Security"],
+      "Countries": ["United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Quantum Computing", "Public-Key Cryptography", "Harvest Now, Decrypt Later"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Government"],
+      "Software": [],
+      "Technologies": ["Kyber Hybrid Key Encapsulation Mechanisms"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Potential infrastructure for storing and processing harvested encrypted data.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Harvest Now, Decrypt Later"],
+      "Tools": ["Quantum Computers"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-06-28T18:30:00Z",
+    "Title": "Quantum Computing Threat to Encrypted Data",
+    "Tools": ["Quantum Computers"],
+    "Victim": {
+      "Access_Vectors": ["Encrypted Traffic"],
+      "Data_Types_At_Risk": ["Credentials", "Session Tokens"],
+      "Description": "Organizations using public-key cryptography vulnerable to future quantum decryption.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Various",
+      "Security_Posture": "Potentially vulnerable to future quantum threats",
+      "Targeted_Assets": ["Credentials", "Encrypted Data"]
+    },
+    "diamond_model_summary": "The potential future threat involves adversaries using quantum computing to decrypt harvested encrypted data. The capability centers around quantum computers, which could break public-key cryptography. The infrastructure may involve storing encrypted data for future decryption. Victims are organizations using vulnerable cryptographic methods.",
+    "doc_summary": "Quantum computing poses a significant threat to current public-key cryptography, potentially compromising encrypted data such as credentials. The Global Risk Institute's report suggests a cryptographically relevant quantum computer may be available within 15 years. The 'Harvest Now, Decrypt Later' tactic involves capturing encrypted data now to decrypt it later with quantum computers. Government agencies like NSA and NIST are setting deadlines for transitioning to quantum-resistant cryptography. Organizations should prioritize migrating credentials due to their long confidentiality lifetime and potential exposure. Hybrid cryptography, combining classical and quantum-resistant algorithms, is recommended to protect against both current and future threats. The transition to quantum-resistant cryptography is a lengthy process, requiring crypto-agility and centralized cryptographic management.",
+    "enrichment": null,
+    "id": "ce4cc7693d2a89a51fb0da2a966899a304ce7f48f2672d1eff0f8e5328044faf",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain involves the potential future decryption of encrypted data using quantum computing. The 'Harvest Now, Decrypt Later' tactic is central, where encrypted data is collected now for future decryption. The focus is on the 'Actions on Objectives' stage, where adversaries aim to decrypt and access sensitive information once quantum capabilities are available.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 63,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this potential future threat is centered around the TTPs of 'Harvest Now, Decrypt Later'. No specific hashes, IPs, or domains are identified, but the focus is on the strategic use of quantum computing to decrypt data. The challenge lies in preparing defenses against a future capability that could render current cryptographic protections obsolete.",
+    "relevance_score": 41,
+    "sequence": 21040,
+    "source": "https://thehackernews.com/2026/06/why-post-quantum-cryptography-starts.html",
+    "slug": "Quantum_Computing_Threat_to_Encrypted_Data-021040",
+    "shard": 2
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": ["PirloTV"],
+      "Description": "The adversaries operated illegal streaming platforms for FIFA World Cup 2026 matches.",
+      "Known_Campaigns": ["Operation Offsides"],
+      "Motivation": "Financial gain through unauthorized streaming and potential data theft.",
+      "Sophistication": "Moderate, with ability to migrate domains and evade takedowns.",
+      "Strategic_Objectives": "Distribute unauthorized sports content and monetize through ads or data theft.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "Adversaries likely gathered information on broadcasting rights and potential domain targets.",
+        "Detection": "Monitor for unusual domain registration activities related to sports events.",
+        "Remediation": "Implement domain monitoring and alerting for suspicious registrations.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about victim organizations.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Illegal streaming domains delivered unauthorized content to users.",
+        "Detection": "Monitor network traffic for connections to known illegal streaming domains.",
+        "Remediation": "Block access to identified illegal streaming domains at the network level.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Delivering malicious content to victims.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Delivery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols to deliver content.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Adversaries achieved objectives by streaming unauthorized content and potentially collecting user data.",
+        "Detection": "Analyze traffic for signs of data exfiltration or unauthorized access.",
+        "Remediation": "Educate users on risks of accessing unauthorized streaming sites.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Manipulating, interrupting, or destroying systems and data.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Destroying data to impact operations.",
+            "technique_id": "T1485",
+            "technique_name": "Data Destruction"
+          }
+        ],
+        "Techniques": ["T1485"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Domain migration to evade takedowns"],
+      "Description": "The adversaries used web domains to stream unauthorized sports content.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["web domains"],
+      "Breach_Types": ["Intellectual Property Theft"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["FIFA", "beIN Media Group", "NBCUniversal", "ACE", "UFC", "Warner Bros"],
+      "Countries": ["United States", "Peru", "Bulgaria", "Croatia", "Romania", "Poland", "Colombia", "Mexico", "Spain"],
+      "Domains": ["pirlotv"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["illegal streaming", "FIFA World Cup", "Operation Offsides", "ICHIP Network", "PirloTV"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Media and Entertainment"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The infrastructure included nearly 400 web domains used for illegal streaming.",
+      "Domains": ["pirlotv"],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["pirlotv"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["PirloTV"],
+    "Timestamp": "2026-06-29T07:21:00Z",
+    "Title": "Seizure of Illegal Streaming Domains for FIFA World Cup 2026",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": ["Web domains"],
+      "Data_Types_At_Risk": ["Personal data", "Financial data"],
+      "Description": "Victims include legitimate broadcasters and consumers exposed to cyber threats.",
+      "Geography": "Global, with focus on Latin America, Spain, and the United States",
+      "Impact_Severity": "High",
+      "Industry": "Media and Entertainment",
+      "Security_Posture": "Compromised by unauthorized access",
+      "Targeted_Assets": ["Broadcasting rights", "Consumer data"]
+    },
+    "diamond_model_summary": "The incident involves adversaries operating illegal streaming platforms for FIFA World Cup 2026 matches. The adversaries, associated with PirloTV, aimed to distribute unauthorized sports content for financial gain. The infrastructure included nearly 400 web domains, primarily targeting viewers in Latin America, Spain, and the United States. Victims include legitimate broadcasters and consumers exposed to cyber threats.",
+    "doc_summary": "The U.S. Justice Department's Criminal Division seized nearly 400 web domains used for illegally streaming FIFA World Cup 2026 matches, violating U.S. copyright law. This action, part of Operation Offsides, was coordinated with international partners through the ICHIP Network, targeting servers and domains in Peru, Bulgaria, Croatia, Romania, Poland, and Colombia. The operation aimed to protect consumers and enforce intellectual property rights worldwide. The seized domains were identified with assistance from FIFA, beIN Media Group, NBCUniversal, ACE, UFC, and Warner Bros. These illegal streamers not only violated copyright laws but also exposed viewers to potential threats, including malware attacks and unsecure connections. The announcement followed the takedown of fake websites impersonating FIFA to sell fake tickets and hospitality packages. PirloTV, a major sports piracy ring, was linked to these activities, generating over 950 million visits annually, with significant traffic from Mexico, Colombia, Spain, and the United States.",
+    "enrichment": null,
+    "id": "a5369ef9bbe810730a0cc38a681bd2d6",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The adversaries conducted reconnaissance to gather information on broadcasting rights and potential domain targets. They delivered unauthorized content through illegal streaming domains, achieving their objectives by streaming unauthorized content and potentially collecting user data. The operation was part of a coordinated global effort to enforce intellectual property rights.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 83,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names as the primary indicator, with PirloTV being a significant entity. The adversaries' ability to migrate domains following takedowns indicates a moderate level of sophistication. The lack of specific IP addresses, hash values, or tools limits the detailed analysis of the adversaries' tactics and techniques.",
+    "relevance_score": 49,
+    "sequence": 21039,
+    "source": "https://www.bleepingcomputer.com/news/security/us-seizes-hundreds-of-fifa-world-cup-illegal-streaming-domains/",
+    "slug": "Seizure_of_Illegal_Streaming_Domains_for_FIFA_World_Cup_2026-021039",
+    "shard": 2
+  },
+  {
+    "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
       "Description": "Attackers leveraging AI to conduct business email compromise and phishing attacks.",
@@ -103790,736 +104410,6 @@
     "sequence": 20546,
     "source": "https://www.bleepingcomputer.com/news/security/18-year-old-nginx-vulnerability-allows-dos-potential-rce/",
     "slug": "Critical_Vulnerability_CVE-2026-42945_in_NGINX_Discovered_by_DepthFirst_-020546",
-    "shard": 2
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary has republished malicious code into known versions of the Node-IPC package.",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially political or financial gain",
-      "Sophistication": "Medium",
-      "Strategic_Objectives": "Exfiltrate developer and cloud secrets",
-      "TTPs_Employed": ["Obfuscation", "Data Exfiltration"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Malicious code was obfuscated and embedded in the Node-IPC package.",
-        "Detection": "Monitor for unusual obfuscation patterns in package code",
-        "Remediation": "Review and audit package code for obfuscation",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Techniques that adversaries use to avoid detection throughout their compromise.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Defense Evasion"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may attempt to make an executable or file difficult to discover or analyze by encrypting, encoding, or otherwise obfuscating its contents.",
-            "technique_id": "T1027",
-            "technique_name": "Obfuscated Files or Information"
-          }
-        ],
-        "Techniques": ["T1027"]
-      },
-      {
-        "Description": "The malicious package was delivered through the NPM repository.",
-        "Detection": "Monitor NPM package installations for known malicious versions",
-        "Remediation": "Restrict installation of known malicious package versions",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Techniques that result in adversary-controlled code running on a local or remote system.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may exploit software vulnerabilities in client applications to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "The package installs a backdoor on the host system.",
-        "Detection": "Monitor for unexpected script execution from Node-IPC",
-        "Remediation": "Implement application whitelisting to prevent unauthorized scripts",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Techniques that adversaries use to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may abuse command and script interpreters to execute commands, scripts, or binaries.",
-            "technique_id": "T1059",
-            "technique_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Techniques": ["T1059"]
-      },
-      {
-        "Description": "The package attempts to exfiltrate data to a command-and-control server.",
-        "Detection": "Monitor DNS requests for unusual patterns",
-        "Remediation": "Block known malicious domains and IPs",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Techniques that adversaries use to communicate with systems under their control within a victim network.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "The package exfiltrates developer and cloud secrets.",
-        "Detection": "Monitor for large data transfers to external servers",
-        "Remediation": "Implement data loss prevention solutions",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Techniques that adversaries use to steal data from your network.",
-            "tactic_id": "TA0010",
-            "tactic_name": "Exfiltration"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may steal data by exfiltrating it over an existing command and control channel.",
-            "technique_id": "T1041",
-            "technique_name": "Exfiltration Over C2 Channel"
-          }
-        ],
-        "Techniques": ["T1041"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of obfuscation", "Data exfiltration attempts"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Obfuscation"],
-      "Description": "The adversary has the capability to obfuscate payloads and exfiltrate data.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Obfuscated stealer/backdoor"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Node-IPC"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual DNS requests", "Large outbound data transfers"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for known malicious Node-IPC versions",
-      "Detect obfuscated code patterns"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["developer secrets", "cloud secrets"],
-      "Breach_Types": ["Data Exfiltration"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Socket", "StepSecurity"],
-      "Countries": ["Russia", "Belarus"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["malicious activity", "obfuscated payload", "data exfiltration"],
-      "Malware_Families": ["stealer", "backdoor"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Software Development"],
-      "Software": ["Node-IPC"],
-      "Technologies": ["NPM"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["DNS"],
-      "Description": "The infrastructure includes a network endpoint selected via DNS/address logic for data exfiltration.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Audit all installed NPM packages", "Educate developers on supply chain risks"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Obfuscation", "Data Exfiltration"],
-      "Tools": ["Node-IPC"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Static code analysis tools", "Network traffic analysis tools"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-05-13T18:30:00Z",
-    "Title": "Malicious Activity Detected in Node-IPC NPM Package",
-    "Tools": ["Node-IPC"],
-    "Victim": {
-      "Access_Vectors": ["NPM package installation"],
-      "Data_Types_At_Risk": ["Local files", "Cloud secrets"],
-      "Description": "Developers using the Node-IPC package are at risk.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Software Development",
-      "Security_Posture": "Vulnerable due to package use",
-      "Targeted_Assets": ["Developer and cloud secrets"]
-    },
-    "diamond_model_summary": "The incident involves the republishing of malicious code into the Node-IPC package, affecting developers globally. The adversary's capability includes obfuscation and data exfiltration, targeting developer and cloud secrets. The infrastructure leverages DNS for data exfiltration, posing a high risk to the software development sector.",
-    "doc_summary": "Cybersecurity researchers have identified malicious activity in the Node-IPC NPM package, specifically in versions 9.1.6, 9.2.3, and 12.0.1. The package contains obfuscated stealer/backdoor behavior, which fingerprints the host environment, reads local files, compresses data, and attempts exfiltration through a network endpoint. The payload is triggered at runtime and targets developer and cloud secrets. This incident follows a previous event in March 2022, where the package was used for protest by overwriting files in Russia and Belarus. The current incident involves republishing malicious code rather than a typosquatting attempt.",
-    "enrichment": null,
-    "id": "958ff8fa0446dd7d46ba8b29298e40ac45e7942f70887dc1a03fbea91ad59c0c",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with the weaponization of the Node-IPC package through obfuscation, followed by delivery via the NPM repository. Installation occurs when the package is required at runtime, leading to command and control through DNS-based exfiltration. The final objective is the exfiltration of developer and cloud secrets, highlighting the need for vigilant monitoring and remediation.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 97,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes obfuscated code patterns and DNS-based exfiltration techniques. While specific hashes, IPs, and domains are not identified, the use of obfuscation and data exfiltration tactics presents significant challenges for detection and response. The incident underscores the importance of monitoring for behavioral indicators and implementing robust security measures.",
-    "relevance_score": 49,
-    "sequence": 20545,
-    "source": "https://thehackernews.com/2026/05/stealer-backdoor-found-in-3-node-ipc.html",
-    "slug": "Malicious_Activity_Detected_in_Node-IPC_NPM_Package-020545",
-    "shard": 2
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "State-sponsored threat cluster targeting Southeast Asia",
-      "Known_Campaigns": ["Operation GriefLure"],
-      "Motivation": "Espionage",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Gain unauthorized access and conduct surveillance",
-      "TTPs_Employed": ["Spear-phishing", "Remote Access Trojan"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Creation of spear-phishing emails with RAR archive",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Develop capabilities to deliver payloads",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Spear-phishing emails with malicious attachments",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Delivery of RAR archive via spear-phishing",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gain access to victim systems",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Spear-phishing emails with malicious attachments",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Execution of remote access trojan on compromised hosts",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Execute malicious code on victim systems",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Execution of scripts and commands",
-            "technique_id": "T1059",
-            "technique_name": "Command and Scripting Interpreter"
-          }
-        ],
-        "Techniques": ["T1059"]
-      },
-      {
-        "Description": "Installation of remote access trojan",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintain access to victim systems",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Ensure persistence through system reboots",
-            "technique_id": "T1547",
-            "technique_name": "Boot or Logon Autostart Execution"
-          }
-        ],
-        "Techniques": ["T1547"]
-      },
-      {
-        "Description": "Establishing command and control with compromised hosts",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicate with compromised systems",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Use of application layer protocols for C2",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Credential harvesting and data exfiltration",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gather information from compromised systems",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Harvest credentials from systems",
-            "technique_id": "T1003",
-            "technique_name": "Credential Dumping"
-          }
-        ],
-        "Techniques": ["T1003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Deployment of remote access trojan via spear-phishing",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Remote Access Trojan"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Remote Access Trojan"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Telecom infrastructure", "Healthcare systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [],
-      "Countries": ["Vietnam", "Philippines"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Operation GriefLure", "Remote Access Trojan", "Spear-phishing"],
-      "Malware_Families": ["Remote Access Trojan"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Telecom", "Healthcare"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Use of spear-phishing emails and decoy documents",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Spear-phishing", "Credential Harvesting"],
-      "Tools": ["Remote Access Trojan"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Operation GriefLure"],
-    "Timestamp": "2026-05-13T18:30:00Z",
-    "Title": "Operation GriefLure Targets Vietnam and Philippines with Remote Access Trojan",
-    "Tools": ["Remote Access Trojan"],
-    "Victim": {
-      "Access_Vectors": ["Spear-phishing"],
-      "Data_Types_At_Risk": ["Credentials", "Sensitive files"],
-      "Description": "Targets in Vietnam's telecom and Philippines' healthcare sectors",
-      "Geography": "Vietnam, Philippines",
-      "Impact_Severity": "High",
-      "Industry": "Telecom, Healthcare",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Telecom infrastructure", "Healthcare systems"]
-    },
-    "diamond_model_summary": "Operation GriefLure is a state-sponsored cyber espionage campaign targeting Vietnam's telecom and the Philippines' healthcare sectors. The adversary uses spear-phishing emails to deliver a remote access trojan, leveraging decoy documents for legitimacy. The campaign aims to gain unauthorized access and conduct surveillance on compromised hosts.",
-    "doc_summary": "Operation GriefLure is a state-sponsored cyber espionage campaign targeting Vietnam's telecom and the Philippines' healthcare sectors. The attack involves spear-phishing emails distributing a RAR archive to deploy a remote access trojan. The malware is capable of process enumeration, screenshot capture, file and directory listing, credential harvesting, and file execution. The campaign uses credible decoy documents to enhance legitimacy and trust. The threat actors leverage these capabilities to gain unauthorized access and conduct surveillance on compromised hosts. The operation highlights the persistent threat of state-sponsored cyber activities in Southeast Asia, focusing on critical infrastructure sectors.",
-    "enrichment": null,
-    "id": "e8a90ac1dd7e7e2cb37ffe16ca92038b1253c53b4e4bc2268f4457ab7543911c",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with spear-phishing emails delivering a RAR archive containing a remote access trojan. The malware is executed on compromised hosts, establishing command and control. The adversary conducts credential harvesting and data exfiltration, leveraging decoy documents to enhance trust and legitimacy.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 83,
-    "pyramid_of_pain_summary": "Operation GriefLure employs spear-phishing emails and remote access trojans, making detection challenging. The use of decoy documents and legitimate-looking emails complicates identification. The campaign's reliance on common tools and techniques highlights the need for robust detection and response capabilities.",
-    "relevance_score": 57,
-    "sequence": 20544,
-    "source": "https://thehackernews.com/2026/05/threatsday-bulletin-pan-os-rce-mythos.html",
-    "slug": "Operation_GriefLure_Targets_Vietnam_and_Philippines_with_Remote_Access_T-020544",
-    "shard": 2
-  },
-  {
-    "Adversary": {
-      "Aliases": [
-        "FrostyNeighbor",
-        "PUSHCHA",
-        "Storm-0257",
-        "TA445",
-        "UAC-0057",
-        "Umbral Bison",
-        "UNC1151",
-        "White Lynx"
-      ],
-      "Associated_Groups": [],
-      "Description": "Ghostwriter is a Belarus-aligned threat group known for cyber espionage and influence operations, particularly targeting Ukraine.",
-      "Known_Campaigns": ["Spear-phishing campaign against Ukrainian government entities"],
-      "Motivation": "Cyber espionage and influence operations",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Compromise and gather intelligence from Ukrainian governmental organizations",
-      "TTPs_Employed": ["Spear-phishing", "Exploitation of vulnerabilities", "Use of malware loaders"]
-    },
-    "Analyses": [
-      {
-        "Description": "Ghostwriter likely conducted reconnaissance to identify targets within Ukrainian governmental organizations.",
-        "Detection": "Monitor for unusual scanning activity targeting government networks.",
-        "Remediation": "Implement network segmentation to limit reconnaissance capabilities.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is actively scanning for vulnerabilities or information.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Ghostwriter weaponized spear-phishing emails with malicious PDFs impersonating Ukrtelecom.",
-        "Detection": "Analyze email attachments for known malicious signatures.",
-        "Remediation": "Educate users on recognizing phishing attempts.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to establish resources they can use to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is developing or acquiring malware for use in operations.",
-            "technique_id": "T1588.002",
-            "technique_name": "Malware"
-          }
-        ],
-        "Techniques": ["T1588.002"]
-      },
-      {
-        "Description": "Malicious PDFs were delivered via spear-phishing emails to Ukrainian government entities.",
-        "Detection": "Monitor email traffic for suspicious attachments.",
-        "Remediation": "Implement email filtering solutions to block malicious attachments.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is sending emails with malicious attachments to gain access.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in WinRAR and Roundcube to execute malicious payloads.",
-        "Detection": "Monitor for exploitation attempts against known vulnerabilities.",
-        "Remediation": "Apply patches for CVE-2023-38831 and CVE-2024-42009.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is exploiting a vulnerability in an internet-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Installation of PicassoLoader and Cobalt Strike on compromised systems.",
-        "Detection": "Monitor for unusual JavaScript execution on endpoints.",
-        "Remediation": "Restrict execution of unauthorized scripts.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using JavaScript for execution.",
-            "technique_id": "T1059.007",
-            "technique_name": "JavaScript"
-          }
-        ],
-        "Techniques": ["T1059.007"]
-      },
-      {
-        "Description": "Use of Cobalt Strike for command and control operations.",
-        "Detection": "Monitor network traffic for Cobalt Strike beaconing patterns.",
-        "Remediation": "Block known Cobalt Strike C2 infrastructure.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using web protocols for command and control.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Harvesting of email credentials and propagation of phishing messages.",
-        "Detection": "Monitor for unusual access patterns to email accounts.",
-        "Remediation": "Implement multi-factor authentication for email accounts.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is collecting email data.",
-            "technique_id": "T1114.002",
-            "technique_name": "Email Collection"
-          }
-        ],
-        "Techniques": ["T1114.002"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of dynamic CAPTCHA checks", "Geofencing to evade detection"],
-    "CVEs": ["CVE-2023-38831", "CVE-2024-42009"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Dynamic CAPTCHA checks", "Geofencing"],
-      "Description": "Ghostwriter employs spear-phishing, malware loaders, and exploits vulnerabilities to compromise targets.",
-      "Exploits": ["CVE-2023-38831", "CVE-2024-42009"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["PicassoLoader", "Cobalt Strike"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["PicassoLoader", "Cobalt Strike", "njRAT"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual access patterns to email accounts"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for Cobalt Strike beaconing", "Detect unusual JavaScript execution"],
-    "Extracted_Entities": {
-      "Assets": ["Email accounts"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Ukrtelecom"],
-      "Countries": ["Ukraine", "Poland", "Lithuania"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["spear-phishing", "PicassoLoader", "Cobalt Strike"],
-      "Malware_Families": ["PicassoLoader", "Cobalt Strike"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Government", "Military"],
-      "Software": ["WinRAR", "Roundcube"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2023-38831", "CVE-2024-42009"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Ghostwriter uses attacker-controlled infrastructure to manage and execute their campaigns.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Apply patches for known vulnerabilities",
-      "Implement multi-factor authentication"
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Spear-phishing", "Exploitation of vulnerabilities", "Dynamic CAPTCHA checks", "Geofencing"],
-      "Tools": ["PicassoLoader", "Cobalt Strike"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Email filtering solutions"],
-    "Severity": "High",
-    "Threat_Actors": [
-      "Ghostwriter",
-      "FrostyNeighbor",
-      "PUSHCHA",
-      "Storm-0257",
-      "TA445",
-      "UAC-0057",
-      "Umbral Bison",
-      "UNC1151",
-      "White Lynx"
-    ],
-    "Timestamp": "2026-05-13T18:30:00Z",
-    "Title": "Ghostwriter's Spear-Phishing Campaign Against Ukrainian Government Entities",
-    "Tools": ["PicassoLoader", "Cobalt Strike", "njRAT", "WinRAR", "Roundcube"],
-    "Victim": {
-      "Access_Vectors": ["Spear-phishing emails"],
-      "Data_Types_At_Risk": ["Email credentials", "Sensitive governmental information"],
-      "Description": "Ukrainian governmental organizations targeted by Ghostwriter's spear-phishing campaign.",
-      "Geography": "Ukraine",
-      "Impact_Severity": "High",
-      "Industry": "Government",
-      "Security_Posture": "Targeted",
-      "Targeted_Assets": ["Email accounts", "Governmental data"]
-    },
-    "diamond_model_summary": "The Ghostwriter threat group, also known as FrostyNeighbor, has been conducting spear-phishing campaigns against Ukrainian governmental organizations. The group uses sophisticated techniques, including dynamic CAPTCHA checks and geofencing, to evade detection. Their primary objective is cyber espionage, targeting sensitive governmental data.",
-    "doc_summary": "The Belarus-aligned threat group Ghostwriter, also known as FrostyNeighbor, has been targeting Ukrainian governmental organizations since March 2026. The group has been active since 2016, engaging in cyber espionage and influence operations. Recent attacks involve spear-phishing campaigns using malicious PDFs impersonating Ukrtelecom to deliver a JavaScript version of PicassoLoader, which subsequently drops Cobalt Strike. The infection sequence includes geofencing checks to serve benign PDFs to non-Ukrainian IP addresses. Ghostwriter has previously exploited vulnerabilities such as CVE-2023-38831 in WinRAR and CVE-2024-42009 in Roundcube. The group's activities are primarily focused on military and governmental sectors in Ukraine, with broader targeting in Poland and Lithuania. ESET reports highlight Ghostwriter's operational maturity and adaptive tactics, including dynamic CAPTCHA checks and server-side victim validation.",
-    "enrichment": null,
-    "id": "47a09d0a3cc4cbe93b4f69711b986e9e6ee9628e830bef51b0f48f1dee624eed",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Ghostwriter's attack chain involves reconnaissance to identify targets, weaponization of spear-phishing emails with malicious PDFs, delivery to Ukrainian government entities, exploitation of vulnerabilities in WinRAR and Roundcube, installation of PicassoLoader and Cobalt Strike, command and control operations, and actions on objectives such as harvesting email credentials.",
-    "operational_tags": ["High Priority", "C2", "CVE-linked"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes various indicators such as malware hashes (PicassoLoader, Cobalt Strike), IP addresses used for geofencing, and domain names impersonating Ukrtelecom. The use of dynamic CAPTCHA checks and geofencing adds complexity to detection and response efforts, highlighting the sophistication of Ghostwriter's tactics.",
-    "relevance_score": 94,
-    "sequence": 20543,
-    "source": "https://thehackernews.com/2026/05/ghostwriter-targets-ukrainian.html",
-    "slug": "Ghostwriter_s_Spear-Phishing_Campaign_Against_Ukrainian_Government_Entit-020543",
     "shard": 2
   }
 ]

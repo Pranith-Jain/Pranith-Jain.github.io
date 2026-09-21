@@ -1,7 +1,7 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-20T09:56:50.766Z",
+  "syncedAt": "2026-09-21T10:59:31.923Z",
   "eventCount": 9,
   "events": [
     {
@@ -98,23 +98,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "42d3f8c0-a55f-5503-b6e2-21f2d157f7e6",
-      "info": "China-Aligned Hackers Exploit Tencent's Sogou Flaw for Backdoor Deployment",
-      "date": "2026-09-13",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789315018",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability"
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "1c54b5e9-dcda-5b67-8295-fadb01baea61",
       "info": "Iranian State Actors Deploy CHOSEN BRICK Spyware Against Dissidents",
       "date": "2026-09-15",
@@ -134,6 +117,25 @@
         "misp-galaxy:threat-actor=\"Volt Typhoon\"",
         "misp-galaxy:ransomware=\"Black Basta\"",
         "misp-galaxy:ransomware=\"Conti\"",
+        "misp-galaxy:ransomware=\"Lockbit\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "352caa2b-0722-5f7d-b849-ea4c9c72046b",
+      "info": "NightEagle APT Targets Russian Enterprises with Advanced Malware",
+      "date": "2026-09-16",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789576221",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
         "misp-galaxy:ransomware=\"Lockbit\""
       ],
       "orgc": "ThreatCluster"

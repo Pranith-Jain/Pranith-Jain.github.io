@@ -3,6 +3,723 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Threat actors leveraging ClickFix lures and decentralized infrastructure.",
+      "Known_Campaigns": ["PasteSwitch"],
+      "Motivation": "Financial gain through information theft and cryptocurrency targeting.",
+      "Sophistication": "High, due to use of decentralized infrastructure and blockchain technology.",
+      "Strategic_Objectives": "Compromise systems for data theft and financial exploitation.",
+      "TTPs_Employed": ["Decentralized C2", "Blockchain-based discovery", "Malware masquerading as legitimate software"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Malicious ads and ClickFix lures used to deliver malware.",
+        "Detection": "Monitor for unusual ad activity • Inspect downloaded files for malware signatures",
+        "Remediation": "Educate users on phishing and social engineering • Implement ad-blocking solutions",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary relies on a user to execute malicious content.",
+            "technique_id": "T1204",
+            "technique_name": "User Execution"
+          }
+        ],
+        "Techniques": ["T1204"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "ChainScript installed via malicious Windows installer.",
+        "Detection": "Monitor for new scheduled tasks • Check for unusual registry changes",
+        "Remediation": "Regularly audit scheduled tasks • Implement registry monitoring",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may abuse task scheduling functionality to execute programs at system startup or on a scheduled basis.",
+            "technique_id": "T1053.005",
+            "technique_name": "Scheduled Task/Job: Scheduled Task"
+          }
+        ],
+        "Techniques": ["T1053.005"]
+      },
+      {
+        "Description": "ChainScript uses WebSockets and Polygon smart contracts for C2.",
+        "Detection": "Monitor WebSocket traffic • Inspect smart contract interactions",
+        "Remediation": "Implement network segmentation • Use anomaly detection for network traffic",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection/network filtering by blending in with existing traffic.",
+            "technique_id": "T1071.001",
+            "technique_name": "Application Layer Protocol: Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "ChainScript enables remote access and data theft.",
+        "Detection": "Monitor for unusual file access • Detect unauthorized screen capture",
+        "Remediation": "Implement data loss prevention • Use endpoint protection solutions",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may attempt to capture the screen contents of a remote system.",
+            "technique_id": "T1113",
+            "technique_name": "Screen Capture"
+          }
+        ],
+        "Techniques": ["T1113"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of decentralized C2", "Masquerading as legitimate software"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Masquerading", "Decentralized C2"],
+      "Description": "ChainScript RAT with extensive remote access and data theft capabilities.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["ChainScript", "MacSync", "Atomic Stealer", "Amatera Stealer"],
+      "Persistence_Mechanisms": ["Scheduled Task", "Registry Run Key"],
+      "Tools": ["ChainScript", "MacSync", "Atomic Stealer", "Amatera Stealer"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual file access patterns", "Unauthorized screen capture"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for WebSocket traffic anomalies",
+      "Inspect smart contract interactions"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["Cryptocurrency wallets", "Personal data"],
+      "Command_Lines_Or_Scripts": ["msiexec.exe"],
+      "Companies": ["Blackpoint", "Hudson Rock", "ADAMnetworks", "Seqrite Labs", "Cato Networks"],
+      "Countries": [
+        "United States",
+        "United Kingdom",
+        "Germany",
+        "Japan",
+        "Canada",
+        "France",
+        "Singapore",
+        "Australia",
+        "India",
+        "Netherlands"
+      ],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["ChainScript", "ClickFix", "Polygon", "WebSocket", "PasteSwitch"],
+      "Malware_Families": ["ChainScript", "MacSync", "Atomic Stealer", "Amatera Stealer"],
+      "Malware_Filenames": ["ComponentTask33-4d14e6ac.msi"],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology", "Cryptocurrency"],
+      "Software": ["Spotify", "Zoom Workplace", "Microsoft Teams"],
+      "Technologies": ["Polygon smart contract", "WebSockets"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["WebSockets"],
+      "Description": "Decentralized infrastructure using Polygon smart contracts for C2 discovery.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Educate users on phishing",
+      "Implement ad-blocking solutions",
+      "Regularly audit scheduled tasks"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Decentralized C2", "Blockchain-based discovery", "Masquerading as legitimate software"],
+      "Tools": ["ChainScript", "MacSync", "Atomic Stealer", "Amatera Stealer"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [
+      "Network traffic analysis tools",
+      "Endpoint detection and response solutions"
+    ],
+    "Severity": "High",
+    "Threat_Actors": ["PasteSwitch"],
+    "Timestamp": "2026-09-20T18:30:00Z",
+    "Title": "ChainScript RAT Leveraged in ClickFix Campaign",
+    "Tools": [
+      "ChainScript",
+      "MacSync",
+      "Atomic Stealer",
+      "Amatera Stealer",
+      "Spotify",
+      "Zoom Workplace",
+      "Microsoft Teams"
+    ],
+    "Victim": {
+      "Access_Vectors": ["Malicious ads", "Fake software installers"],
+      "Data_Types_At_Risk": ["Cryptocurrency", "Personal information"],
+      "Description": "Targets include macOS and Windows users, particularly in tech and cryptocurrency sectors.",
+      "Geography": "United States, United Kingdom, Germany, Japan, Canada, France, Singapore, Australia, India, Netherlands",
+      "Impact_Severity": "High",
+      "Industry": "Technology, Cryptocurrency",
+      "Security_Posture": "Compromised via social engineering and trusted service exploitation.",
+      "Targeted_Assets": ["Cryptocurrency wallets", "Personal data"]
+    },
+    "diamond_model_summary": "The ChainScript RAT campaign demonstrates a sophisticated use of decentralized infrastructure and blockchain technology for command-and-control. The adversary employs ClickFix lures to deliver malware disguised as legitimate software, targeting technology and cryptocurrency sectors. The infrastructure leverages Polygon smart contracts for C2 discovery, complicating traditional detection methods. Victims are primarily located in countries with significant macOS enterprise use and active cryptocurrency communities.",
+    "doc_summary": "Threat actors are using ClickFix-like lures to distribute a new remote access trojan (RAT) called ChainScript. This malware masquerades as legitimate software like Spotify and Microsoft Teams. It uses a Polygon smart contract for command-and-control (C2) discovery, allowing infrastructure rotation. The attack begins with a ClickFix lure leading to a malicious Windows installer. ChainScript provides extensive remote access capabilities, including CMD and PowerShell interaction, file operations, and cryptocurrency wallet enumeration. The campaign also involves the compromise of HBO Max's Reddit account to distribute malware via malicious ads. The activity, named PasteSwitch, targets both Windows and macOS devices, delivering MacSync and Atomic Stealer on macOS, and Amatera Stealer on Windows. The campaign uses trusted services and large language models to bypass security measures.",
+    "enrichment": null,
+    "id": "5b62ce8df6dfa4f31b546c84425f9bd0209fe33d94778b46d9f99000d2904ad9",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the delivery of ClickFix lures leading to the execution of a malicious Windows installer. ChainScript is installed, establishing persistence through scheduled tasks and registry keys. The malware communicates with its C2 using WebSockets and Polygon smart contracts, allowing for infrastructure rotation. The RAT provides extensive remote access capabilities, enabling data theft and system control. The campaign also involves the compromise of a verified Reddit account to distribute malware via malicious ads.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 92,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes various indicators such as malware tools (ChainScript, MacSync, Atomic Stealer), decentralized C2 infrastructure using Polygon smart contracts, and specific TTPs like masquerading and decentralized command-and-control. These indicators present challenges for detection and response, as they involve sophisticated techniques that complicate traditional security measures. The use of blockchain technology for C2 discovery is particularly notable, as it allows for infrastructure rotation and evasion of takedown efforts.",
+    "relevance_score": 71,
+    "sequence": 22038,
+    "source": "https://thehackernews.com/2026/09/clickfix-lures-deploy-chainscript-rat.html",
+    "slug": "ChainScript_RAT_Leveraged_in_ClickFix_Campaign-022038",
+    "shard": 0
+  },
+  {
+    "Adversary": {
+      "Aliases": ["PUKCHONG", "Slow Pisces", "TraderTraitor", "UNC4899"],
+      "Associated_Groups": ["Lazarus Group"],
+      "Description": "Jade Sleet is a North Korean threat actor known for targeting cryptocurrency and blockchain sectors.",
+      "Known_Campaigns": ["KelpDAO LayerZero bridge attack", "Bybit cold wallet theft"],
+      "Motivation": "Financial gain through cryptocurrency theft",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise of cryptocurrency and blockchain-related organizations",
+      "TTPs_Employed": ["Social engineering", "Supply chain compromise", "Backdoor deployment"]
+    },
+    "Analyses": [
+      {
+        "Description": "Jade Sleet likely conducted reconnaissance to identify targets in the cryptocurrency and IT sectors.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to select targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Scanning for vulnerabilities and information.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Weaponized Terraform files were created to include malicious dependencies.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Developing resources to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Developing malicious software and tools.",
+            "technique_id": "T1587.001",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587.001"]
+      },
+      {
+        "Description": "Malicious Terraform files were delivered to developers via social engineering.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Delivering malicious files via email.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Exploitation of the developer's environment through malicious Terraform files.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          { "tactic_description": "Executing malicious code.", "tactic_id": "TA0002", "tactic_name": "Execution" }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installation of FLATROOF and ROOFDECK backdoors on compromised systems.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access to systems.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Ensuring malware runs on startup.",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "ROOFDECK backdoor established command and control channels.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using web protocols for C2 communication.",
+            "technique_id": "T1071.001",
+            "technique_name": "Web Protocols"
+          }
+        ],
+        "Techniques": ["T1071.001"]
+      },
+      {
+        "Description": "The attackers aimed to exfiltrate data and maintain long-term access.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from compromised systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Automatically exfiltrating data.",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Symbol and debug information stripping"],
+      "Description": "Jade Sleet employs sophisticated malware and social engineering tactics.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["FLATROOF", "ROOFDECK"],
+      "Persistence_Mechanisms": ["Backdoor installation"],
+      "Tools": ["Terraform", "Rust-based malware"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Developer endpoints"],
+      "Breach_Types": ["Supply chain compromise"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["SentinelOne", "GitHub"],
+      "Countries": ["India", "North Korea"],
+      "Domains": ["registry.hashicorp-aws.com"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["macOS backdoors", "social engineering", "supply chain compromise"],
+      "Malware_Families": ["FLATROOF", "ROOFDECK"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology", "Cryptocurrency"],
+      "Software": ["Terraform"],
+      "Technologies": ["Apple Silicon MacBook", "ARM-based systems"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The attack infrastructure includes malicious domains and backdoored Terraform builds.",
+      "Domains": ["registry.hashicorp-aws.com"],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["registry.hashicorp-aws.com"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Social engineering", "Supply chain compromise"],
+      "Tools": ["Terraform", "Rust-based malware"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Jade Sleet", "PUKCHONG", "Slow Pisces", "TraderTraitor", "UNC4899"],
+    "Timestamp": "2026-09-20T18:30:00Z",
+    "Title": "Jade Sleet Compromises Indian IT Services Firm Using macOS Backdoors",
+    "Tools": ["Terraform", "Rust-based malware"],
+    "Victim": {
+      "Access_Vectors": ["Social engineering", "Supply chain compromise"],
+      "Data_Types_At_Risk": ["Source code", "Cloud access"],
+      "Description": "An India-based IT services firm was compromised.",
+      "Geography": "India",
+      "Impact_Severity": "High",
+      "Industry": "Information Technology",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Developer endpoints", "Apple Silicon MacBook"]
+    },
+    "diamond_model_summary": "The incident involves the North Korean threat actor Jade Sleet, targeting an Indian IT services firm using macOS backdoors FLATROOF and ROOFDECK. The adversary's capability includes sophisticated malware and social engineering tactics, with infrastructure involving malicious domains and backdoored Terraform builds. The victim is an IT services firm in India, with high impact severity due to compromised developer endpoints.",
+    "doc_summary": "The North Korean threat actor Jade Sleet, also known as PUKCHONG, Slow Pisces, TraderTraitor, and UNC4899, has been linked to the compromise of an Indian IT services firm. The attack involved macOS backdoors FLATROOF and ROOFDECK, previously seen in the KelpDAO LayerZero bridge attack. Jade Sleet targets cryptocurrency and blockchain sectors, using social engineering tactics like job interview lures. The attack chain included weaponized Terraform files pointing to malicious domains, leading to the deployment of Rust-based malware on ARM-based macOS systems. The campaign highlights the vulnerability of developer endpoints in supply chain attacks.",
+    "enrichment": null,
+    "id": "7de86307010bfa2d691153644fa75cd9d0f0dfef92acf3a0430d9ab5d9347f19",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack follows a structured kill chain: reconnaissance to identify targets, weaponization of Terraform files, delivery via social engineering, exploitation of developer environments, installation of backdoors, command and control establishment, and actions on objectives including data exfiltration. The campaign highlights the vulnerability of developer endpoints in supply chain attacks.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 89,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names like registry.hashicorp-aws.com, tools such as Terraform and Rust-based malware, and TTPs involving social engineering and supply chain compromise. These indicators are crucial for detection and response, with domain names and tools being particularly challenging for adversaries to change.",
+    "relevance_score": 82,
+    "sequence": 22037,
+    "source": "https://thehackernews.com/2026/09/jade-sleet-linked-to-indian-it-provider.html",
+    "slug": "Jade_Sleet_Compromises_Indian_IT_Services_Firm_Using_macOS_Backdoors-022037",
+    "shard": 0
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Threat actors behind the 'indexed-btree' npm package campaign.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Bypass supply chain defenses and exfiltrate sensitive data.",
+      "TTPs_Employed": ["Impersonation of legitimate libraries", "Runtime execution of malicious code"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Malicious code embedded in the 'indexed-btree' package.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to victim systems through malicious npm packages.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Compromising npm packages to deliver malicious payloads.",
+            "technique_id": "T1195.002",
+            "technique_name": "Supply Chain Compromise: Compromise Software Dependencies and Development Tools"
+          }
+        ],
+        "Techniques": ["T1195.002"]
+      },
+      {
+        "Description": "Delivery of malicious package via npm.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code at runtime.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Executing code through exploitation of npm package functionality.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Exploitation of npm package functionality to execute malicious code.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code at runtime.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Executing code through exploitation of npm package functionality.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Installation of malware via npm package.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Maintaining access through installed npm package.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Modifying package code to execute malware.",
+            "technique_id": "T1546.004",
+            "technique_name": "Event Triggered Execution: Unix Shell Configuration Modification"
+          }
+        ],
+        "Techniques": ["T1546.004"]
+      },
+      {
+        "Description": "Use of Ethereum smart contract for C2 communication.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing C2 communication through Ethereum smart contract.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using Ethereum smart contract for C2.",
+            "technique_id": "T1102.003",
+            "technique_name": "Web Service: Bidirectional Communication"
+          }
+        ],
+        "Techniques": ["T1102.003"]
+      },
+      {
+        "Description": "Exfiltration of system details via Slack and Telegram.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Exfiltrating data through Slack and Telegram.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltrating data through established C2 channels.",
+            "technique_id": "T1041",
+            "technique_name": "Exfiltration Over C2 Channel"
+          }
+        ],
+        "Techniques": ["T1041"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Avoidance of installation scripts", "Obfuscation of malware loader"],
+      "Description": "Ability to bypass npm supply chain defenses and exfiltrate data.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["indexed-btree"],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Checkmarx", "GitHub"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": ["X25519", "AES"],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["npm", "malware", "supply chain", "Ethereum", "smart contract", "X25519", "AES"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Software Development"],
+      "Software": ["indexed-btree", "sorted-btree"],
+      "Technologies": ["Slack", "Telegram"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Slack", "Telegram", "Ethereum smart contract"],
+      "Description": "Use of Ethereum smart contract for C2 and Slack/Telegram for data exfiltration.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Supply Chain Compromise", "Runtime Execution", "Data Exfiltration"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-09-20T10:11:00Z",
+    "Title": "Malicious npm Package 'indexed-btree' Bypasses Supply Chain Defenses",
+    "Tools": ["indexed-btree", "sorted-btree"],
+    "Victim": {
+      "Access_Vectors": ["npm package installation"],
+      "Data_Types_At_Risk": ["System details", "Architecture", "Hostname", "CPU", "Memory", "Uptime"],
+      "Description": "Users and developers who downloaded the 'indexed-btree' package.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "Software Development",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Development environments", "Sensitive data"]
+    },
+    "diamond_model_summary": "The 'indexed-btree' npm package campaign demonstrates a sophisticated adversary capable of bypassing supply chain defenses by embedding malicious code in runtime functions. The adversary's infrastructure includes Ethereum smart contracts for C2 and Slack/Telegram for data exfiltration. Victims are primarily software developers using npm packages.",
+    "doc_summary": "An npm malware campaign involving the 'indexed-btree' package was discovered by Checkmarx researchers. The package impersonates the legitimate 'sorted-btree' library and has achieved 2 million weekly downloads. The malware avoids detection by hiding its loader in the BTree.prototype.set() method, executing at runtime. It collects system details and exfiltrates data via Slack and Telegram. The malware uses an Ethereum smart contract on the Sepolia test network for C2, employing X25519 key exchange to derive an AES key for decrypting a second-stage payload. GitHub announced new security measures in June 2026 to prevent such supply chain attacks. Checkmarx also identified nine additional npm packages linked to the operation, which have been removed. Developers are advised to use runtime behavioral analysis and rotate secrets if affected.",
+    "enrichment": null,
+    "id": "865639f86a9096a6a3a6bcb74de3a2d2",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with the weaponization of the 'indexed-btree' package, which impersonates a legitimate library. Delivery occurs through npm, with exploitation and installation achieved by executing malicious code at runtime. Command and control is maintained via Ethereum smart contracts, and data exfiltration occurs through Slack and Telegram.",
+    "operational_tags": ["High Priority", "Supply Chain"],
+    "priority_score": 85,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the 'indexed-btree' package hash, Ethereum smart contract C2 infrastructure, and Slack/Telegram communication protocols. These indicators are challenging to change, making them valuable for detection and response efforts. The adversary's use of runtime execution and obfuscation complicates detection.",
+    "relevance_score": 53,
+    "sequence": 22036,
+    "source": "https://www.bleepingcomputer.com/news/security/malicious-npm-packages-evade-install-script-defenses-at-runtime/",
+    "slug": "Malicious_npm_Package__indexed-btree__Bypasses_Supply_Chain_Defenses-022036",
+    "shard": 0
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "ShinyHunters is an extortion gang known for breaching and defacing sites.",
       "Known_Campaigns": [],
       "Motivation": "Retaliation and extortion",
@@ -104736,640 +105453,6 @@
     "sequence": 21540,
     "source": "https://thehackernews.com/2026/08/18-year-old-linux-sctp-flaw-could-let.html",
     "slug": "SCTPhantom__Use-After-Free_Vulnerability_in_Linux_SCTP-021540",
-    "shard": 0
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Storm-2755", "Payroll Pirates"],
-      "Associated_Groups": [],
-      "Description": "The adversary employs AitM techniques to hijack Microsoft 365 accounts, focusing on financial workflows.",
-      "Known_Campaigns": ["Storm-2755", "Payroll Pirates"],
-      "Motivation": "Financial gain through rerouting salary payments and accessing financial data.",
-      "Sophistication": "High, due to the use of advanced AitM techniques and residential proxies.",
-      "Strategic_Objectives": "Compromise financial workflows and reroute salary payments.",
-      "TTPs_Employed": ["Adversary-in-the-Middle", "Phishing", "Credential Harvesting"]
-    },
-    "Analyses": [
-      {
-        "Description": "The adversary identifies key personnel involved in financial workflows.",
-        "Detection": "Monitor for unusual access patterns to financial systems.",
-        "Remediation": "Implement strict access controls and monitoring for financial workflows.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify targets.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about key personnel.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Identity Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Phishing emails with voicemail themes are sent to targets.",
-        "Detection": "Use email filtering to detect phishing attempts.",
-        "Remediation": "Educate users on recognizing phishing emails.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to victim systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Sending phishing emails to deliver malicious content.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Victims are led to AitM decoy pages to capture credentials.",
-        "Detection": "Monitor for unusual login attempts and credential use.",
-        "Remediation": "Implement multi-factor authentication.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Stealing credentials to access systems.",
-            "tactic_id": "TA0006",
-            "tactic_name": "Credential Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Attempting to gain access by trying common passwords.",
-            "technique_id": "T1110.003",
-            "technique_name": "Password Spraying"
-          }
-        ],
-        "Techniques": ["T1110.003"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "The adversary uses residential proxies to maintain control.",
-        "Detection": "Monitor for traffic through known proxy services.",
-        "Remediation": "Block known proxy IP addresses.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using proxies to hide command and control traffic.",
-            "technique_id": "T1090.002",
-            "technique_name": "External Proxy"
-          }
-        ],
-        "Techniques": ["T1090.002"]
-      },
-      {
-        "Description": "The adversary collects emails related to financial workflows.",
-        "Detection": "Monitor for unusual email access patterns.",
-        "Remediation": "Restrict access to sensitive email accounts.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting emails from compromised accounts.",
-            "technique_id": "T1114.002",
-            "technique_name": "Email Collection"
-          }
-        ],
-        "Techniques": ["T1114.002"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of residential proxies", "Minimal post-compromise actions"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of residential proxies", "Minimal post-compromise actions"],
-      "Description": "The campaign uses AitM techniques, residential proxies, and a sophisticated redirection chain.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Microsoft Graph API", "Residential Proxies"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual email access patterns", "Use of residential proxies"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual login patterns", "Detect phishing email characteristics"],
-    "Extracted_Entities": {
-      "Assets": ["Microsoft 365 Accounts", "Financial Data"],
-      "Breach_Types": ["Credential Harvesting"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Arctic Wolf Labs", "Microsoft"],
-      "Countries": ["United States", "Canada", "Europe"],
-      "Domains": ["api.country[.]is"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Adversary-in-the-Middle", "Phishing", "Microsoft Graph API"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": ["AitM Decoy Pages"],
-      "Sectors": ["Healthcare", "Education", "Manufacturing", "Government", "Professional Services"],
-      "Software": ["Microsoft 365"],
-      "Technologies": ["Residential Proxies", "Google Meet", "Amazon S3"],
-      "Threat_Infrastructure": ["Residential Proxies"],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP", "HTTPS"],
-      "Description": "The infrastructure includes residential proxies and a redirection chain using Google and Amazon S3.",
-      "Domains": ["api.country[.]is"],
-      "Hosting_Providers": ["Amazon AWS"],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Enhance user training on phishing", "Implement multi-factor authentication"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["api.country[.]is"],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": ["Residential Proxies"],
-      "TTPs": ["Adversary-in-the-Middle", "Phishing"],
-      "Tools": ["Microsoft Graph API"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Email filtering solutions"],
-    "Severity": "High",
-    "Threat_Actors": ["Storm-2755", "Payroll Pirates"],
-    "Timestamp": "2026-08-06T18:30:00Z",
-    "Title": "Widespread Email-Driven Phishing Campaign Targeting Microsoft 365 Accounts",
-    "Tools": ["Microsoft Graph API", "Residential Proxies", "Microsoft 365"],
-    "Victim": {
-      "Access_Vectors": ["Phishing Emails"],
-      "Data_Types_At_Risk": ["Credentials", "Financial Emails"],
-      "Description": "Organizations across healthcare, education, manufacturing, government, and professional services sectors.",
-      "Geography": "United States, Canada, Europe",
-      "Impact_Severity": "High",
-      "Industry": "Healthcare, Education, Manufacturing, Government, Professional Services",
-      "Security_Posture": "Compromised",
-      "Targeted_Assets": ["Microsoft 365 Accounts", "Financial Data"]
-    },
-    "diamond_model_summary": "The adversary, identified as Storm-2755 and Payroll Pirates, employs AitM techniques to compromise Microsoft 365 accounts. They use residential proxies and a sophisticated redirection chain involving Google and Amazon S3 to bypass detection. The campaign targets key personnel in financial workflows across multiple sectors, aiming to reroute salary payments and access sensitive financial data.",
-    "doc_summary": "Cybersecurity researchers have identified a widespread email-driven phishing campaign using adversary-in-the-middle (AitM) techniques to compromise Microsoft 365 accounts. The campaign targets key personnel in financial workflows across sectors like healthcare, education, and government in the United States, Canada, and Europe. It employs residential proxies to disguise malicious sign-ins and uses a six-stage redirection chain involving Google and Amazon S3 to bypass filters. The threat actors, linked to the Payroll Pirates cluster, leverage the Microsoft Graph API to access sensitive financial data. Detection is challenging due to the use of rotating residential proxies and minimal post-compromise actions.",
-    "enrichment": null,
-    "id": "e7fa1f5e0b0290eb3e136585607c6ec4ff8d255410afed6031877a5ce61788eb",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with reconnaissance to identify key personnel in financial workflows. Phishing emails with voicemail themes are used for delivery, leading victims to AitM decoy pages that capture credentials. The adversary uses residential proxies for command and control, maintaining access to compromised accounts. Actions on objectives include collecting emails related to financial workflows, with minimal post-compromise actions to avoid detection.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names like api.country[.]is and the use of residential proxies as network host artifacts. The adversary employs tools like the Microsoft Graph API and techniques such as adversary-in-the-middle and phishing. These indicators are challenging to detect and disrupt, requiring advanced monitoring and detection capabilities.",
-    "relevance_score": 73,
-    "sequence": 21539,
-    "source": "https://thehackernews.com/2026/08/microsoft-365-aitm-phishing-hijacks.html",
-    "slug": "Widespread_Email-Driven_Phishing_Campaign_Targeting_Microsoft_365_Accoun-021539",
-    "shard": 0
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "HTTP Terminator scanned 30,000 websites for vulnerabilities.",
-        "Detection": "Monitor for unusual scanning activity on web servers.",
-        "Remediation": "Implement rate limiting and anomaly detection for scanning activities.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is actively scanning for vulnerabilities.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Development of new desynchronization techniques and RQP methods.",
-        "Detection": "Monitor for the creation of new tools or techniques targeting HTTP protocols.",
-        "Remediation": "Regularly update security tools to detect new attack vectors.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to establish resources they can use to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is developing capabilities to exploit vulnerabilities.",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of HTTP desynchronization vulnerabilities.",
-        "Detection": "Monitor for unusual HTTP traffic patterns indicative of desynchronization attacks.",
-        "Remediation": "Apply patches and updates to vulnerable web servers.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is exploiting a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential exposure of sensitive data through RQP.",
-        "Detection": "Monitor for unexpected data access patterns and anomalies in response handling.",
-        "Remediation": "Implement strict access controls and data encryption.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is staging data for exfiltration.",
-            "technique_id": "T1074",
-            "technique_name": "Data Staged"
-          }
-        ],
-        "Techniques": ["T1074"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2026-63078"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "HTTP Terminator AI system developed new HTTP desynchronization techniques and identified vulnerabilities.",
-      "Exploits": ["CVE-2026-63078"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["HTTP Terminator"],
-      "Zero_Days": ["CVE-2026-63078"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Web Servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["PortSwigger"],
-      "Countries": ["United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["HTTP Terminator", "desynchronization", "RQP", "zero-day"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Financial", "Government", "Security", "Aviation"],
-      "Software": ["Apache Traffic Server"],
-      "Technologies": ["HTTP/1.1"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-63078"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["HTTP/1.1"],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2026-63078"],
-      "Tools": ["HTTP Terminator"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-08-06T18:30:00Z",
-    "Title": "HTTP Terminator AI System Uncovers HTTP Desynchronization Techniques and Apache Traffic Server Zero-Day",
-    "Tools": ["HTTP Terminator", "Apache Traffic Server"],
-    "Victim": {
-      "Access_Vectors": ["HTTP Desynchronization"],
-      "Data_Types_At_Risk": ["Session Cookies", "API Keys"],
-      "Description": "Targets included banks, government infrastructure, security products, and an airport.",
-      "Geography": "United States",
-      "Impact_Severity": "High",
-      "Industry": "Financial, Government, Security, Aviation",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Web Servers"]
-    },
-    "diamond_model_summary": "The incident involves the discovery of new HTTP desynchronization techniques and a zero-day vulnerability in Apache Traffic Server by the AI-assisted HTTP Terminator system. The research targeted various sectors, including financial and government, identifying vulnerabilities in web servers. The adversary's capability includes exploiting HTTP protocol weaknesses, with potential impacts on data confidentiality.",
-    "doc_summary": "PortSwigger's HTTP Terminator, an AI-assisted research system developed by James Kettle, identified new HTTP desynchronization techniques and a zero-day vulnerability in Apache Traffic Server. The system tested 30,000 websites, finding 700 vulnerable targets, including banks and government infrastructure. The research introduced new desync triggers, a dual-matching Content-Length pattern, and a dangling-byte technique for response queue poisoning (RQP). Shared-Parser Confusion was also disclosed. The Apache Traffic Server zero-day, CVE-2026-63078, remains unverified in public records. PortSwigger recommends avoiding HTTP/1.1 upstream and allow-listing methods.",
-    "enrichment": null,
-    "id": "862642bee841f0265480a7c64a273d532a62d63a2cb440276aec2147ea8e19d9",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain involves reconnaissance through scanning 30,000 websites, weaponization by developing new desynchronization techniques, and exploitation of HTTP vulnerabilities. The actions on objectives stage includes potential data exposure through response queue poisoning. Detection and remediation focus on monitoring HTTP traffic and applying patches to vulnerable systems.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 86,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of HTTP Terminator as a tool, the exploitation of a zero-day vulnerability (CVE-2026-63078), and the targeting of HTTP/1.1 protocols. The lack of specific IP addresses or domain names limits the ability to track the adversary's infrastructure. The focus is on detecting unusual HTTP traffic patterns and applying security patches.",
-    "relevance_score": 51,
-    "sequence": 21538,
-    "source": "https://thehackernews.com/2026/08/ai-assisted-http-terminator-finds-novel.html",
-    "slug": "HTTP_Terminator_AI_System_Uncovers_HTTP_Desynchronization_Techniques_and-021538",
-    "shard": 0
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary exploits NAT vulnerabilities to manipulate connection states.",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially to intercept or manipulate network traffic.",
-      "Sophistication": "High, due to the requirement of privileged access and technical knowledge.",
-      "Strategic_Objectives": "To exploit NAT vulnerabilities for network traffic manipulation.",
-      "TTPs_Employed": ["NAT manipulation", "TCP session hijacking", "DNS spoofing"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of NAT vulnerabilities to manipulate connection states.",
-        "Detection": "Monitor for unusual NAT table entries. • Detect unauthorized changes to NAT mappings.",
-        "Remediation": "Apply patches for CVE-2026-56181 and CVE-2026-63913. • Separate untrusted workloads from trusted systems.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a system behind the same NAT.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using valid accounts to gain privileged access.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Manipulation of network traffic and DNS responses.",
-        "Detection": "Monitor for unexpected DNS responses. • Detect anomalies in TCP session states.",
-        "Remediation": "Encrypt internal network traffic. • Implement IP Source Guard.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Collecting network traffic data.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Intercepting network traffic.",
-            "technique_id": "T1040",
-            "technique_name": "Network Sniffing"
-          }
-        ],
-        "Techniques": ["T1040"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2026-56181", "CVE-2026-63913"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploits NAT vulnerabilities to manipulate network traffic.",
-      "Exploits": ["CVE-2026-56181", "CVE-2026-63913"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["NAT devices", "Network infrastructure"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft", "Synack"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["NatJack", "NAT", "TCP", "DNS", "Hyper-V", "Netfilter", "conntrack"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [
-        "5.10.259",
-        "5.15.210",
-        "6.1.176",
-        "6.6.143",
-        "6.12.93",
-        "6.18.35",
-        "7.0.12",
-        "7.1",
-        "Windows 11 24H2",
-        "25H2",
-        "26H1",
-        "Windows Server 2025"
-      ],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Windows", "Linux"],
-      "Technologies": ["NAT", "TCP", "DNS"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-56181", "CVE-2026-63913"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["TCP", "DNS"],
-      "Description": "NAT infrastructure vulnerable to manipulation.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["NAT manipulation", "TCP session hijacking", "DNS spoofing"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-08-06T18:30:00Z",
-    "Title": "NatJack Attack Class Exploits NAT Vulnerabilities",
-    "Tools": ["Windows", "Linux"],
-    "Victim": {
-      "Access_Vectors": ["Privileged access behind NAT"],
-      "Data_Types_At_Risk": ["Network traffic", "DNS queries"],
-      "Description": "Systems behind NAT infrastructure vulnerable to manipulation.",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "",
-      "Security_Posture": "Vulnerable due to NAT assumptions.",
-      "Targeted_Assets": ["NAT devices", "Network infrastructure"]
-    },
-    "diamond_model_summary": "The NatJack attack class represents a sophisticated adversary exploiting NAT vulnerabilities to manipulate network traffic. The adversary requires privileged access behind the same NAT as the victim, indicating a high level of sophistication. The capability involves exploiting specific CVEs in Windows and Linux NAT implementations. The infrastructure targeted includes NAT devices and network infrastructure, with the potential impact being high due to the manipulation of TCP sessions and DNS responses. Victims are systems behind vulnerable NAT infrastructure, with the attack requiring separation of untrusted workloads and encryption of internal traffic as mitigation measures.",
-    "doc_summary": "Security researcher Malcolm Stagg disclosed a new attack class called NatJack at Black Hat USA 2026. NatJack exploits NAT vulnerabilities to hijack TCP sessions, spoof DNS responses, and exhaust NAT tables. CVE-2026-56181 affects Windows NAT used by Hyper-V, while CVE-2026-63913 impacts Linux Netfilter conntrack. The attack requires privileged access behind the same NAT as the victim. Mitigation includes separating untrusted workloads, applying updates, and encrypting internal traffic. The research, conducted by SODIUM-24, challenges assumptions in NAT implementations. Synack confirmed the techniques against multiple vendors. Kernel.org and Microsoft issued fixes for specific flaws. The NDSS 2024 study highlighted similar NAT manipulation vulnerabilities.",
-    "enrichment": null,
-    "id": "db7fd783f4de3ba0565565c4711cd7e3c122ac45e93092d1bed50afcad9c2029",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The NatJack attack class follows a complex kill chain involving initial access through privileged accounts behind the same NAT, exploitation of NAT vulnerabilities to manipulate connection states, and actions on objectives such as network traffic manipulation and DNS spoofing. The attack requires sophisticated techniques to exploit specific CVEs in Windows and Linux NAT implementations. Detection involves monitoring for unusual NAT table entries and unauthorized changes to NAT mappings. Remediation includes applying patches, separating untrusted workloads, and encrypting internal traffic. The attack highlights the need for robust NAT security measures and awareness of potential vulnerabilities.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 76,
-    "pyramid_of_pain_summary": "The NatJack attack class presents significant challenges in detection and mitigation due to its exploitation of NAT vulnerabilities. The Pyramid of Pain indicates that the attack involves complex TTPs, including NAT manipulation, TCP session hijacking, and DNS spoofing. These techniques are difficult to detect and remediate, requiring advanced monitoring and security measures. The attack leverages specific CVEs, making it crucial to apply patches and updates promptly. The complexity of the attack underscores the importance of understanding NAT infrastructure vulnerabilities and implementing robust security practices to mitigate potential risks.",
-    "relevance_score": 47,
-    "sequence": 21537,
-    "source": "https://thehackernews.com/2026/08/new-natjack-attacks-hijack-tcp-sessions.html",
-    "slug": "NatJack_Attack_Class_Exploits_NAT_Vulnerabilities-021537",
     "shard": 0
   }
 ]

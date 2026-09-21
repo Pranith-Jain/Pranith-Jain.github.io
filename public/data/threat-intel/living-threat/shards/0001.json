@@ -1,6 +1,640 @@
 [
   {
     "Adversary": {
+      "Aliases": ["Storm-2755", "Payroll Pirates"],
+      "Associated_Groups": [],
+      "Description": "The adversary employs AitM techniques to hijack Microsoft 365 accounts, focusing on financial workflows.",
+      "Known_Campaigns": ["Storm-2755", "Payroll Pirates"],
+      "Motivation": "Financial gain through rerouting salary payments and accessing financial data.",
+      "Sophistication": "High, due to the use of advanced AitM techniques and residential proxies.",
+      "Strategic_Objectives": "Compromise financial workflows and reroute salary payments.",
+      "TTPs_Employed": ["Adversary-in-the-Middle", "Phishing", "Credential Harvesting"]
+    },
+    "Analyses": [
+      {
+        "Description": "The adversary identifies key personnel involved in financial workflows.",
+        "Detection": "Monitor for unusual access patterns to financial systems.",
+        "Remediation": "Implement strict access controls and monitoring for financial workflows.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about key personnel.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Phishing emails with voicemail themes are sent to targets.",
+        "Detection": "Use email filtering to detect phishing attempts.",
+        "Remediation": "Educate users on recognizing phishing emails.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to victim systems.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Sending phishing emails to deliver malicious content.",
+            "technique_id": "T1566.001",
+            "technique_name": "Spearphishing Attachment"
+          }
+        ],
+        "Techniques": ["T1566.001"]
+      },
+      {
+        "Description": "Victims are led to AitM decoy pages to capture credentials.",
+        "Detection": "Monitor for unusual login attempts and credential use.",
+        "Remediation": "Implement multi-factor authentication.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Stealing credentials to access systems.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Attempting to gain access by trying common passwords.",
+            "technique_id": "T1110.003",
+            "technique_name": "Password Spraying"
+          }
+        ],
+        "Techniques": ["T1110.003"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary uses residential proxies to maintain control.",
+        "Detection": "Monitor for traffic through known proxy services.",
+        "Remediation": "Block known proxy IP addresses.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicating with compromised systems.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using proxies to hide command and control traffic.",
+            "technique_id": "T1090.002",
+            "technique_name": "External Proxy"
+          }
+        ],
+        "Techniques": ["T1090.002"]
+      },
+      {
+        "Description": "The adversary collects emails related to financial workflows.",
+        "Detection": "Monitor for unusual email access patterns.",
+        "Remediation": "Restrict access to sensitive email accounts.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from compromised systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting emails from compromised accounts.",
+            "technique_id": "T1114.002",
+            "technique_name": "Email Collection"
+          }
+        ],
+        "Techniques": ["T1114.002"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of residential proxies", "Minimal post-compromise actions"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Use of residential proxies", "Minimal post-compromise actions"],
+      "Description": "The campaign uses AitM techniques, residential proxies, and a sophisticated redirection chain.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Microsoft Graph API", "Residential Proxies"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual email access patterns", "Use of residential proxies"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual login patterns", "Detect phishing email characteristics"],
+    "Extracted_Entities": {
+      "Assets": ["Microsoft 365 Accounts", "Financial Data"],
+      "Breach_Types": ["Credential Harvesting"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Arctic Wolf Labs", "Microsoft"],
+      "Countries": ["United States", "Canada", "Europe"],
+      "Domains": ["api.country[.]is"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["Adversary-in-the-Middle", "Phishing", "Microsoft Graph API"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": ["AitM Decoy Pages"],
+      "Sectors": ["Healthcare", "Education", "Manufacturing", "Government", "Professional Services"],
+      "Software": ["Microsoft 365"],
+      "Technologies": ["Residential Proxies", "Google Meet", "Amazon S3"],
+      "Threat_Infrastructure": ["Residential Proxies"],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["HTTP", "HTTPS"],
+      "Description": "The infrastructure includes residential proxies and a redirection chain using Google and Amazon S3.",
+      "Domains": ["api.country[.]is"],
+      "Hosting_Providers": ["Amazon AWS"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Enhance user training on phishing", "Implement multi-factor authentication"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["api.country[.]is"],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": ["Residential Proxies"],
+      "TTPs": ["Adversary-in-the-Middle", "Phishing"],
+      "Tools": ["Microsoft Graph API"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network traffic analysis tools", "Email filtering solutions"],
+    "Severity": "High",
+    "Threat_Actors": ["Storm-2755", "Payroll Pirates"],
+    "Timestamp": "2026-08-06T18:30:00Z",
+    "Title": "Widespread Email-Driven Phishing Campaign Targeting Microsoft 365 Accounts",
+    "Tools": ["Microsoft Graph API", "Residential Proxies", "Microsoft 365"],
+    "Victim": {
+      "Access_Vectors": ["Phishing Emails"],
+      "Data_Types_At_Risk": ["Credentials", "Financial Emails"],
+      "Description": "Organizations across healthcare, education, manufacturing, government, and professional services sectors.",
+      "Geography": "United States, Canada, Europe",
+      "Impact_Severity": "High",
+      "Industry": "Healthcare, Education, Manufacturing, Government, Professional Services",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Microsoft 365 Accounts", "Financial Data"]
+    },
+    "diamond_model_summary": "The adversary, identified as Storm-2755 and Payroll Pirates, employs AitM techniques to compromise Microsoft 365 accounts. They use residential proxies and a sophisticated redirection chain involving Google and Amazon S3 to bypass detection. The campaign targets key personnel in financial workflows across multiple sectors, aiming to reroute salary payments and access sensitive financial data.",
+    "doc_summary": "Cybersecurity researchers have identified a widespread email-driven phishing campaign using adversary-in-the-middle (AitM) techniques to compromise Microsoft 365 accounts. The campaign targets key personnel in financial workflows across sectors like healthcare, education, and government in the United States, Canada, and Europe. It employs residential proxies to disguise malicious sign-ins and uses a six-stage redirection chain involving Google and Amazon S3 to bypass filters. The threat actors, linked to the Payroll Pirates cluster, leverage the Microsoft Graph API to access sensitive financial data. Detection is challenging due to the use of rotating residential proxies and minimal post-compromise actions.",
+    "enrichment": null,
+    "id": "e7fa1f5e0b0290eb3e136585607c6ec4ff8d255410afed6031877a5ce61788eb",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with reconnaissance to identify key personnel in financial workflows. Phishing emails with voicemail themes are used for delivery, leading victims to AitM decoy pages that capture credentials. The adversary uses residential proxies for command and control, maintaining access to compromised accounts. Actions on objectives include collecting emails related to financial workflows, with minimal post-compromise actions to avoid detection.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 89,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names like api.country[.]is and the use of residential proxies as network host artifacts. The adversary employs tools like the Microsoft Graph API and techniques such as adversary-in-the-middle and phishing. These indicators are challenging to detect and disrupt, requiring advanced monitoring and detection capabilities.",
+    "relevance_score": 73,
+    "sequence": 21539,
+    "source": "https://thehackernews.com/2026/08/microsoft-365-aitm-phishing-hijacks.html",
+    "slug": "Widespread_Email-Driven_Phishing_Campaign_Targeting_Microsoft_365_Accoun-021539",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "HTTP Terminator scanned 30,000 websites for vulnerabilities.",
+        "Detection": "Monitor for unusual scanning activity on web servers.",
+        "Remediation": "Implement rate limiting and anomaly detection for scanning activities.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is actively scanning for vulnerabilities.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "Development of new desynchronization techniques and RQP methods.",
+        "Detection": "Monitor for the creation of new tools or techniques targeting HTTP protocols.",
+        "Remediation": "Regularly update security tools to detect new attack vectors.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to establish resources they can use to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is developing capabilities to exploit vulnerabilities.",
+            "technique_id": "T1587",
+            "technique_name": "Develop Capabilities"
+          }
+        ],
+        "Techniques": ["T1587"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of HTTP desynchronization vulnerabilities.",
+        "Detection": "Monitor for unusual HTTP traffic patterns indicative of desynchronization attacks.",
+        "Remediation": "Apply patches and updates to vulnerable web servers.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is exploiting a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential exposure of sensitive data through RQP.",
+        "Detection": "Monitor for unexpected data access patterns and anomalies in response handling.",
+        "Remediation": "Implement strict access controls and data encryption.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary is staging data for exfiltration.",
+            "technique_id": "T1074",
+            "technique_name": "Data Staged"
+          }
+        ],
+        "Techniques": ["T1074"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2026-63078"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "HTTP Terminator AI system developed new HTTP desynchronization techniques and identified vulnerabilities.",
+      "Exploits": ["CVE-2026-63078"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["HTTP Terminator"],
+      "Zero_Days": ["CVE-2026-63078"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Web Servers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["PortSwigger"],
+      "Countries": ["United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["HTTP Terminator", "desynchronization", "RQP", "zero-day"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Financial", "Government", "Security", "Aviation"],
+      "Software": ["Apache Traffic Server"],
+      "Technologies": ["HTTP/1.1"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-63078"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["HTTP/1.1"],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-63078"],
+      "Tools": ["HTTP Terminator"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-08-06T18:30:00Z",
+    "Title": "HTTP Terminator AI System Uncovers HTTP Desynchronization Techniques and Apache Traffic Server Zero-Day",
+    "Tools": ["HTTP Terminator", "Apache Traffic Server"],
+    "Victim": {
+      "Access_Vectors": ["HTTP Desynchronization"],
+      "Data_Types_At_Risk": ["Session Cookies", "API Keys"],
+      "Description": "Targets included banks, government infrastructure, security products, and an airport.",
+      "Geography": "United States",
+      "Impact_Severity": "High",
+      "Industry": "Financial, Government, Security, Aviation",
+      "Security_Posture": "",
+      "Targeted_Assets": ["Web Servers"]
+    },
+    "diamond_model_summary": "The incident involves the discovery of new HTTP desynchronization techniques and a zero-day vulnerability in Apache Traffic Server by the AI-assisted HTTP Terminator system. The research targeted various sectors, including financial and government, identifying vulnerabilities in web servers. The adversary's capability includes exploiting HTTP protocol weaknesses, with potential impacts on data confidentiality.",
+    "doc_summary": "PortSwigger's HTTP Terminator, an AI-assisted research system developed by James Kettle, identified new HTTP desynchronization techniques and a zero-day vulnerability in Apache Traffic Server. The system tested 30,000 websites, finding 700 vulnerable targets, including banks and government infrastructure. The research introduced new desync triggers, a dual-matching Content-Length pattern, and a dangling-byte technique for response queue poisoning (RQP). Shared-Parser Confusion was also disclosed. The Apache Traffic Server zero-day, CVE-2026-63078, remains unverified in public records. PortSwigger recommends avoiding HTTP/1.1 upstream and allow-listing methods.",
+    "enrichment": null,
+    "id": "862642bee841f0265480a7c64a273d532a62d63a2cb440276aec2147ea8e19d9",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain involves reconnaissance through scanning 30,000 websites, weaponization by developing new desynchronization techniques, and exploitation of HTTP vulnerabilities. The actions on objectives stage includes potential data exposure through response queue poisoning. Detection and remediation focus on monitoring HTTP traffic and applying patches to vulnerable systems.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 86,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of HTTP Terminator as a tool, the exploitation of a zero-day vulnerability (CVE-2026-63078), and the targeting of HTTP/1.1 protocols. The lack of specific IP addresses or domain names limits the ability to track the adversary's infrastructure. The focus is on detecting unusual HTTP traffic patterns and applying security patches.",
+    "relevance_score": 51,
+    "sequence": 21538,
+    "source": "https://thehackernews.com/2026/08/ai-assisted-http-terminator-finds-novel.html",
+    "slug": "HTTP_Terminator_AI_System_Uncovers_HTTP_Desynchronization_Techniques_and-021538",
+    "shard": 1
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The adversary exploits NAT vulnerabilities to manipulate connection states.",
+      "Known_Campaigns": [],
+      "Motivation": "Potentially to intercept or manipulate network traffic.",
+      "Sophistication": "High, due to the requirement of privileged access and technical knowledge.",
+      "Strategic_Objectives": "To exploit NAT vulnerabilities for network traffic manipulation.",
+      "TTPs_Employed": ["NAT manipulation", "TCP session hijacking", "DNS spoofing"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of NAT vulnerabilities to manipulate connection states.",
+        "Detection": "Monitor for unusual NAT table entries. • Detect unauthorized changes to NAT mappings.",
+        "Remediation": "Apply patches for CVE-2026-56181 and CVE-2026-63913. • Separate untrusted workloads from trusted systems.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to a system behind the same NAT.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to gain privileged access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Manipulation of network traffic and DNS responses.",
+        "Detection": "Monitor for unexpected DNS responses. • Detect anomalies in TCP session states.",
+        "Remediation": "Encrypt internal network traffic. • Implement IP Source Guard.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Collecting network traffic data.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Intercepting network traffic.",
+            "technique_id": "T1040",
+            "technique_name": "Network Sniffing"
+          }
+        ],
+        "Techniques": ["T1040"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": ["CVE-2026-56181", "CVE-2026-63913"],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploits NAT vulnerabilities to manipulate network traffic.",
+      "Exploits": ["CVE-2026-56181", "CVE-2026-63913"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["NAT devices", "Network infrastructure"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft", "Synack"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["NatJack", "NAT", "TCP", "DNS", "Hyper-V", "Netfilter", "conntrack"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [
+        "5.10.259",
+        "5.15.210",
+        "6.1.176",
+        "6.6.143",
+        "6.12.93",
+        "6.18.35",
+        "7.0.12",
+        "7.1",
+        "Windows 11 24H2",
+        "25H2",
+        "26H1",
+        "Windows Server 2025"
+      ],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["Windows", "Linux"],
+      "Technologies": ["NAT", "TCP", "DNS"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-56181", "CVE-2026-63913"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["TCP", "DNS"],
+      "Description": "NAT infrastructure vulnerable to manipulation.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["NAT manipulation", "TCP session hijacking", "DNS spoofing"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-08-06T18:30:00Z",
+    "Title": "NatJack Attack Class Exploits NAT Vulnerabilities",
+    "Tools": ["Windows", "Linux"],
+    "Victim": {
+      "Access_Vectors": ["Privileged access behind NAT"],
+      "Data_Types_At_Risk": ["Network traffic", "DNS queries"],
+      "Description": "Systems behind NAT infrastructure vulnerable to manipulation.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "",
+      "Security_Posture": "Vulnerable due to NAT assumptions.",
+      "Targeted_Assets": ["NAT devices", "Network infrastructure"]
+    },
+    "diamond_model_summary": "The NatJack attack class represents a sophisticated adversary exploiting NAT vulnerabilities to manipulate network traffic. The adversary requires privileged access behind the same NAT as the victim, indicating a high level of sophistication. The capability involves exploiting specific CVEs in Windows and Linux NAT implementations. The infrastructure targeted includes NAT devices and network infrastructure, with the potential impact being high due to the manipulation of TCP sessions and DNS responses. Victims are systems behind vulnerable NAT infrastructure, with the attack requiring separation of untrusted workloads and encryption of internal traffic as mitigation measures.",
+    "doc_summary": "Security researcher Malcolm Stagg disclosed a new attack class called NatJack at Black Hat USA 2026. NatJack exploits NAT vulnerabilities to hijack TCP sessions, spoof DNS responses, and exhaust NAT tables. CVE-2026-56181 affects Windows NAT used by Hyper-V, while CVE-2026-63913 impacts Linux Netfilter conntrack. The attack requires privileged access behind the same NAT as the victim. Mitigation includes separating untrusted workloads, applying updates, and encrypting internal traffic. The research, conducted by SODIUM-24, challenges assumptions in NAT implementations. Synack confirmed the techniques against multiple vendors. Kernel.org and Microsoft issued fixes for specific flaws. The NDSS 2024 study highlighted similar NAT manipulation vulnerabilities.",
+    "enrichment": null,
+    "id": "db7fd783f4de3ba0565565c4711cd7e3c122ac45e93092d1bed50afcad9c2029",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The NatJack attack class follows a complex kill chain involving initial access through privileged accounts behind the same NAT, exploitation of NAT vulnerabilities to manipulate connection states, and actions on objectives such as network traffic manipulation and DNS spoofing. The attack requires sophisticated techniques to exploit specific CVEs in Windows and Linux NAT implementations. Detection involves monitoring for unusual NAT table entries and unauthorized changes to NAT mappings. Remediation includes applying patches, separating untrusted workloads, and encrypting internal traffic. The attack highlights the need for robust NAT security measures and awareness of potential vulnerabilities.",
+    "operational_tags": ["High Priority", "CVE-linked"],
+    "priority_score": 76,
+    "pyramid_of_pain_summary": "The NatJack attack class presents significant challenges in detection and mitigation due to its exploitation of NAT vulnerabilities. The Pyramid of Pain indicates that the attack involves complex TTPs, including NAT manipulation, TCP session hijacking, and DNS spoofing. These techniques are difficult to detect and remediate, requiring advanced monitoring and security measures. The attack leverages specific CVEs, making it crucial to apply patches and updates promptly. The complexity of the attack underscores the importance of understanding NAT infrastructure vulnerabilities and implementing robust security practices to mitigate potential risks.",
+    "relevance_score": 47,
+    "sequence": 21537,
+    "source": "https://thehackernews.com/2026/08/new-natjack-attacks-hijack-tcp-sessions.html",
+    "slug": "NatJack_Attack_Class_Exploits_NAT_Vulnerabilities-021537",
+    "shard": 1
+  },
+  {
+    "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
       "Description": "Novee Security identified vulnerabilities in CI runners.",
@@ -104805,626 +105439,6 @@
     "sequence": 21042,
     "source": "https://thehackernews.com/2026/06/236000-dcloud-uni-app-sites-used-in.html",
     "slug": "DCloud_Investment_Scam_Infrastructure_Analysis-021042",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": ["Gamaredon"],
-      "Associated_Groups": [],
-      "Description": "Gamaredon is a Russian APT group targeting Ukraine with spear-phishing campaigns.",
-      "Known_Campaigns": ["2025 spear-phishing campaigns against Ukraine"],
-      "Motivation": "Support Russian interests in the Ukraine conflict.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Exfiltration of sensitive information from Ukrainian targets.",
-      "TTPs_Employed": ["Spear-phishing", "HTML smuggling", "Exploitation of CVE-2025-8088"]
-    },
-    "Analyses": [
-      {
-        "Description": "Gamaredon likely conducted reconnaissance to identify Ukrainian targets.",
-        "Detection": "Monitor for unusual scanning activity targeting Ukrainian IP ranges.",
-        "Remediation": "Implement network segmentation and intrusion detection systems.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Actively scanning for vulnerabilities and information.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Gamaredon weaponized spear-phishing emails with malicious attachments.",
-        "Detection": "Analyze email attachments for known malware signatures.",
-        "Remediation": "Educate users on recognizing phishing attempts.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing or acquiring malware for operations.",
-            "technique_id": "T1588.002",
-            "technique_name": "Malware"
-          }
-        ],
-        "Techniques": ["T1588.002"]
-      },
-      {
-        "Description": "Spear-phishing emails delivered to Ukrainian targets.",
-        "Detection": "Monitor email traffic for suspicious attachments.",
-        "Remediation": "Implement email filtering and sandboxing solutions.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to a network or system.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Delivering malicious attachments via email.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spear Phishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Exploitation of CVE-2025-8088 to execute malicious code.",
-        "Detection": "Monitor for exploitation attempts of CVE-2025-8088.",
-        "Remediation": "Apply patches for CVE-2025-8088.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Executing malicious code on a system.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Installation of malicious HTA downloaders for persistence.",
-        "Detection": "Monitor changes to Windows Startup folders.",
-        "Remediation": "Restrict write access to startup folders.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to a system.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using startup folders for persistence.",
-            "technique_id": "T1547.001",
-            "technique_name": "Registry Run Keys / Startup Folder"
-          }
-        ],
-        "Techniques": ["T1547.001"]
-      },
-      {
-        "Description": "Use of serverless platforms for command and control.",
-        "Detection": "Monitor for unusual outbound traffic to serverless platforms.",
-        "Remediation": "Implement network monitoring and anomaly detection.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web services for command and control.",
-            "technique_id": "T1102.001",
-            "technique_name": "Web Services"
-          }
-        ],
-        "Techniques": ["T1102.001"]
-      },
-      {
-        "Description": "Exfiltration of sensitive data using legitimate services.",
-        "Detection": "Monitor for data exfiltration to unusual destinations.",
-        "Remediation": "Implement data loss prevention solutions.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Exfiltrating data from a network.",
-            "tactic_id": "TA0010",
-            "tactic_name": "Exfiltration"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exfiltrating data over a command and control channel.",
-            "technique_id": "T1041",
-            "technique_name": "Exfiltration Over C2 Channel"
-          }
-        ],
-        "Techniques": ["T1041"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": ["CVE-2025-8088"],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of serverless worker platforms"],
-      "Description": "Gamaredon employs spear-phishing, HTML smuggling, and exploits vulnerabilities.",
-      "Exploits": ["CVE-2025-8088"],
-      "Lateral_Movement_Tools": ["PteroLNK", "PteroPaste"],
-      "Malware": ["PteroSand"],
-      "Persistence_Mechanisms": ["Malicious HTA downloaders in Windows Startup"],
-      "Tools": ["PteroSand", "PteroLNK", "PteroPaste", "PteroSetup"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Sensitive information", "Critical data"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["ESET"],
-      "Countries": ["Ukraine", "Russian Federation"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["spear-phishing", "HTML smuggling", "serverless platforms"],
-      "Malware_Families": ["PteroSand", "PteroLNK"],
-      "Malware_Filenames": [],
-      "Patches": ["CVE-2025-8088"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Government", "Military"],
-      "Software": ["WinRAR"],
-      "Technologies": ["PowerShell", "VBScript"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-8088"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Gamaredon uses third-party services and serverless platforms for obfuscation.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Spear-phishing", "HTML smuggling", "Exploitation of CVE-2025-8088"],
-      "Tools": ["PteroSand", "PteroLNK", "PteroPaste", "PteroSetup"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Gamaredon"],
-    "Timestamp": "2026-06-28T18:30:00Z",
-    "Title": "Gamaredon APT's 2025 Cyber Campaign Against Ukraine",
-    "Tools": ["PteroSand", "PteroLNK", "PteroPaste", "PteroSetup", "WinRAR"],
-    "Victim": {
-      "Access_Vectors": ["Spear-phishing emails"],
-      "Data_Types_At_Risk": ["Sensitive information", "Critical data"],
-      "Description": "Ukrainian governmental and military institutions targeted by Gamaredon.",
-      "Geography": "Ukraine",
-      "Impact_Severity": "High",
-      "Industry": "Government",
-      "Security_Posture": "Targeted",
-      "Targeted_Assets": ["Sensitive information", "Critical data"]
-    },
-    "diamond_model_summary": "The Gamaredon APT group, attributed to the Russian Federation, conducted a series of spear-phishing campaigns against Ukrainian governmental and military institutions in 2025. The group's capabilities include the use of HTML smuggling, exploitation of CVE-2025-8088, and deployment of malware such as PteroSand and PteroLNK. Their infrastructure leverages third-party services and serverless platforms to obfuscate command and control activities. The victims are primarily within the government and military sectors in Ukraine, with the strategic objective of exfiltrating sensitive information to support Russian interests.",
-    "doc_summary": "In 2025, the Russian APT group Gamaredon intensified its cyber operations against Ukraine, focusing on governmental and military targets. ESET identified 35 spear-phishing campaigns using HTML smuggling and exploiting CVE-2025-8088. The group deployed malware like PteroSand and PteroLNK, leveraging tools such as PteroSetup for lateral movement. Gamaredon utilized third-party services for obfuscation, including tunnel services and serverless platforms. The campaign featured new PowerShell tools and relied on legitimate services for data exfiltration. The group's activities were aligned with Russian interests in the ongoing conflict with Ukraine.",
-    "enrichment": null,
-    "id": "9eaf1ecb1081054777085824a13b8cd3f07b2c996d108bd5a05473be13d2164e",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Gamaredon's 2025 campaign against Ukraine followed a structured kill chain. Reconnaissance involved identifying Ukrainian targets, followed by weaponization of spear-phishing emails with malicious attachments. Delivery was executed via spear-phishing, leading to exploitation of CVE-2025-8088 for code execution. Installation involved placing malicious HTA downloaders in startup folders for persistence. Command and control were maintained using serverless platforms, while actions on objectives focused on exfiltrating sensitive data using legitimate services.",
-    "operational_tags": ["High Priority", "CVE-linked"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for Gamaredon's 2025 campaign includes various indicators. Hash values of malware like PteroSand and PteroLNK are at the base, while IP addresses and domain names used for command and control are more challenging to change. Network host artifacts, such as malicious HTA downloaders, and tools like PteroSetup and PowerShell scripts, are even more difficult to alter. The TTPs employed, including spear-phishing and HTML smuggling, represent the highest level of pain for the adversary to modify.",
-    "relevance_score": 77,
-    "sequence": 21041,
-    "source": "https://thehackernews.com/2026/06/gamaredon-expands-ukraine-attacks-with.html",
-    "slug": "Gamaredon_APT_s_2025_Cyber_Campaign_Against_Ukraine-021041",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential future adversaries leveraging quantum computing capabilities to decrypt harvested encrypted data.",
-      "Known_Campaigns": [],
-      "Motivation": "Access to sensitive data and credentials",
-      "Sophistication": "High, due to the requirement of quantum computing capabilities",
-      "Strategic_Objectives": "Decrypting encrypted data to access confidential information",
-      "TTPs_Employed": ["Harvest Now, Decrypt Later"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential future decryption of harvested encrypted data using quantum computing.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering encrypted data for future decryption.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting encrypted emails for future decryption.",
-            "technique_id": "T1114",
-            "technique_name": "Email Collection"
-          }
-        ],
-        "Techniques": ["T1114"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Future capability to decrypt public-key encrypted data using quantum computing.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Quantum Computers"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Credentials", "Session Tokens"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Keeper Security"],
-      "Countries": ["United States"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Quantum Computing", "Public-Key Cryptography", "Harvest Now, Decrypt Later"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Government"],
-      "Software": [],
-      "Technologies": ["Kyber Hybrid Key Encapsulation Mechanisms"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Potential infrastructure for storing and processing harvested encrypted data.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Harvest Now, Decrypt Later"],
-      "Tools": ["Quantum Computers"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-06-28T18:30:00Z",
-    "Title": "Quantum Computing Threat to Encrypted Data",
-    "Tools": ["Quantum Computers"],
-    "Victim": {
-      "Access_Vectors": ["Encrypted Traffic"],
-      "Data_Types_At_Risk": ["Credentials", "Session Tokens"],
-      "Description": "Organizations using public-key cryptography vulnerable to future quantum decryption.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Various",
-      "Security_Posture": "Potentially vulnerable to future quantum threats",
-      "Targeted_Assets": ["Credentials", "Encrypted Data"]
-    },
-    "diamond_model_summary": "The potential future threat involves adversaries using quantum computing to decrypt harvested encrypted data. The capability centers around quantum computers, which could break public-key cryptography. The infrastructure may involve storing encrypted data for future decryption. Victims are organizations using vulnerable cryptographic methods.",
-    "doc_summary": "Quantum computing poses a significant threat to current public-key cryptography, potentially compromising encrypted data such as credentials. The Global Risk Institute's report suggests a cryptographically relevant quantum computer may be available within 15 years. The 'Harvest Now, Decrypt Later' tactic involves capturing encrypted data now to decrypt it later with quantum computers. Government agencies like NSA and NIST are setting deadlines for transitioning to quantum-resistant cryptography. Organizations should prioritize migrating credentials due to their long confidentiality lifetime and potential exposure. Hybrid cryptography, combining classical and quantum-resistant algorithms, is recommended to protect against both current and future threats. The transition to quantum-resistant cryptography is a lengthy process, requiring crypto-agility and centralized cryptographic management.",
-    "enrichment": null,
-    "id": "ce4cc7693d2a89a51fb0da2a966899a304ce7f48f2672d1eff0f8e5328044faf",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain involves the potential future decryption of encrypted data using quantum computing. The 'Harvest Now, Decrypt Later' tactic is central, where encrypted data is collected now for future decryption. The focus is on the 'Actions on Objectives' stage, where adversaries aim to decrypt and access sensitive information once quantum capabilities are available.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 63,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this potential future threat is centered around the TTPs of 'Harvest Now, Decrypt Later'. No specific hashes, IPs, or domains are identified, but the focus is on the strategic use of quantum computing to decrypt data. The challenge lies in preparing defenses against a future capability that could render current cryptographic protections obsolete.",
-    "relevance_score": 41,
-    "sequence": 21040,
-    "source": "https://thehackernews.com/2026/06/why-post-quantum-cryptography-starts.html",
-    "slug": "Quantum_Computing_Threat_to_Encrypted_Data-021040",
-    "shard": 1
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": ["PirloTV"],
-      "Description": "The adversaries operated illegal streaming platforms for FIFA World Cup 2026 matches.",
-      "Known_Campaigns": ["Operation Offsides"],
-      "Motivation": "Financial gain through unauthorized streaming and potential data theft.",
-      "Sophistication": "Moderate, with ability to migrate domains and evade takedowns.",
-      "Strategic_Objectives": "Distribute unauthorized sports content and monetize through ads or data theft.",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries likely gathered information on broadcasting rights and potential domain targets.",
-        "Detection": "Monitor for unusual domain registration activities related to sports events.",
-        "Remediation": "Implement domain monitoring and alerting for suspicious registrations.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victim organizations.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Identity Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Illegal streaming domains delivered unauthorized content to users.",
-        "Detection": "Monitor network traffic for connections to known illegal streaming domains.",
-        "Remediation": "Block access to identified illegal streaming domains at the network level.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Delivering malicious content to victims.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Delivery"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols to deliver content.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Adversaries achieved objectives by streaming unauthorized content and potentially collecting user data.",
-        "Detection": "Analyze traffic for signs of data exfiltration or unauthorized access.",
-        "Remediation": "Educate users on risks of accessing unauthorized streaming sites.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Manipulating, interrupting, or destroying systems and data.",
-            "tactic_id": "TA0040",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Destroying data to impact operations.",
-            "technique_id": "T1485",
-            "technique_name": "Data Destruction"
-          }
-        ],
-        "Techniques": ["T1485"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Domain migration to evade takedowns"],
-      "Description": "The adversaries used web domains to stream unauthorized sports content.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["web domains"],
-      "Breach_Types": ["Intellectual Property Theft"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["FIFA", "beIN Media Group", "NBCUniversal", "ACE", "UFC", "Warner Bros"],
-      "Countries": ["United States", "Peru", "Bulgaria", "Croatia", "Romania", "Poland", "Colombia", "Mexico", "Spain"],
-      "Domains": ["pirlotv"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["illegal streaming", "FIFA World Cup", "Operation Offsides", "ICHIP Network", "PirloTV"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Media and Entertainment"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The infrastructure included nearly 400 web domains used for illegal streaming.",
-      "Domains": ["pirlotv"],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["pirlotv"],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["PirloTV"],
-    "Timestamp": "2026-06-29T07:21:00Z",
-    "Title": "Seizure of Illegal Streaming Domains for FIFA World Cup 2026",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": ["Web domains"],
-      "Data_Types_At_Risk": ["Personal data", "Financial data"],
-      "Description": "Victims include legitimate broadcasters and consumers exposed to cyber threats.",
-      "Geography": "Global, with focus on Latin America, Spain, and the United States",
-      "Impact_Severity": "High",
-      "Industry": "Media and Entertainment",
-      "Security_Posture": "Compromised by unauthorized access",
-      "Targeted_Assets": ["Broadcasting rights", "Consumer data"]
-    },
-    "diamond_model_summary": "The incident involves adversaries operating illegal streaming platforms for FIFA World Cup 2026 matches. The adversaries, associated with PirloTV, aimed to distribute unauthorized sports content for financial gain. The infrastructure included nearly 400 web domains, primarily targeting viewers in Latin America, Spain, and the United States. Victims include legitimate broadcasters and consumers exposed to cyber threats.",
-    "doc_summary": "The U.S. Justice Department's Criminal Division seized nearly 400 web domains used for illegally streaming FIFA World Cup 2026 matches, violating U.S. copyright law. This action, part of Operation Offsides, was coordinated with international partners through the ICHIP Network, targeting servers and domains in Peru, Bulgaria, Croatia, Romania, Poland, and Colombia. The operation aimed to protect consumers and enforce intellectual property rights worldwide. The seized domains were identified with assistance from FIFA, beIN Media Group, NBCUniversal, ACE, UFC, and Warner Bros. These illegal streamers not only violated copyright laws but also exposed viewers to potential threats, including malware attacks and unsecure connections. The announcement followed the takedown of fake websites impersonating FIFA to sell fake tickets and hospitality packages. PirloTV, a major sports piracy ring, was linked to these activities, generating over 950 million visits annually, with significant traffic from Mexico, Colombia, Spain, and the United States.",
-    "enrichment": null,
-    "id": "a5369ef9bbe810730a0cc38a681bd2d6",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The adversaries conducted reconnaissance to gather information on broadcasting rights and potential domain targets. They delivered unauthorized content through illegal streaming domains, achieving their objectives by streaming unauthorized content and potentially collecting user data. The operation was part of a coordinated global effort to enforce intellectual property rights.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 83,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes domain names as the primary indicator, with PirloTV being a significant entity. The adversaries' ability to migrate domains following takedowns indicates a moderate level of sophistication. The lack of specific IP addresses, hash values, or tools limits the detailed analysis of the adversaries' tactics and techniques.",
-    "relevance_score": 49,
-    "sequence": 21039,
-    "source": "https://www.bleepingcomputer.com/news/security/us-seizes-hundreds-of-fifa-world-cup-illegal-streaming-domains/",
-    "slug": "Seizure_of_Illegal_Streaming_Domains_for_FIFA_World_Cup_2026-021039",
     "shard": 1
   }
 ]

@@ -4,14 +4,14 @@
   "name": "n0n",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 11,
-  "firstSeen": "2026-09-18T15:22:48.000Z",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-18T15:26:08.000Z",
   "lastSeen": "2026-09-20T02:51:07.000Z",
-  "summary": "Ransomware group with 11 leak-site victims across 8 sectors and 8 countries.",
+  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-18",
-      "count": 10
+      "count": 4
     },
     {
       "date": "2026-09-20",
@@ -48,42 +48,6 @@
       "slug": "argentem-creek-partners-investment-firm-6160",
       "title": "Argentem Creek Partners (investment firm) — claimed by n0n",
       "pubDate": "2026-09-18T15:26:08.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "astrazeneca-t-rkiye-e339",
-      "title": "AstraZeneca Türkiye — claimed by n0n",
-      "pubDate": "2026-09-18T15:25:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "stokr-digital-securities-platform-7c75",
-      "title": "STOKR (digital securities platform) — claimed by n0n",
-      "pubDate": "2026-09-18T15:25:08.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "konnatus-usucapi-o-legal-services-3905",
-      "title": "Konnatus (usucapião legal services) — claimed by n0n",
-      "pubDate": "2026-09-18T15:24:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "beli-teacher-fsc-education-centers-aws-f558",
-      "title": "BeLi Teacher / FSC education centers (AWS) — claimed by n0n",
-      "pubDate": "2026-09-18T15:23:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "vietnamese-betting-operator-gc789-network-boundless-te-1a96",
-      "title": "Vietnamese betting operator (GC789 network / Boundless TE) — claimed by n0n",
-      "pubDate": "2026-09-18T15:23:23.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "united-federation-of-teachers-565d",
-      "title": "United Federation of Teachers — claimed by n0n",
-      "pubDate": "2026-09-18T15:22:48.000Z"
     }
   ],
   "relatedEntities": [
@@ -91,12 +55,6 @@
       "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "education",
-      "name": "Education",
       "weight": 2
     },
     {
@@ -115,24 +73,6 @@
       "type": "sector",
       "slug": "government-defense",
       "name": "Government & Defense",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
       "weight": 1
     }
   ],
@@ -172,48 +112,6 @@
       "sector": "Financial Services",
       "country": "US",
       "pubDate": "2026-09-18T15:26:08.000Z"
-    },
-    {
-      "id": "astrazeneca-t-rkiye-e339",
-      "victim": "AstraZeneca Türkiye — claimed by n0n",
-      "sector": "Healthcare",
-      "country": "TR",
-      "pubDate": "2026-09-18T15:25:43.000Z"
-    },
-    {
-      "id": "stokr-digital-securities-platform-7c75",
-      "victim": "STOKR (digital securities platform) — claimed by n0n",
-      "sector": "Financial Services",
-      "country": "LU",
-      "pubDate": "2026-09-18T15:25:08.000Z"
-    },
-    {
-      "id": "konnatus-usucapi-o-legal-services-3905",
-      "victim": "Konnatus (usucapião legal services) — claimed by n0n",
-      "sector": "Professional Services",
-      "country": "BR",
-      "pubDate": "2026-09-18T15:24:33.000Z"
-    },
-    {
-      "id": "beli-teacher-fsc-education-centers-aws-f558",
-      "victim": "BeLi Teacher / FSC education centers (AWS) — claimed by n0n",
-      "sector": "Education",
-      "country": "VN",
-      "pubDate": "2026-09-18T15:23:59.000Z"
-    },
-    {
-      "id": "vietnamese-betting-operator-gc789-network-boundless-te-1a96",
-      "victim": "Vietnamese betting operator (GC789 network / Boundless TE) — claimed by n0n",
-      "sector": "Other",
-      "country": "VN",
-      "pubDate": "2026-09-18T15:23:23.000Z"
-    },
-    {
-      "id": "united-federation-of-teachers-565d",
-      "victim": "United Federation of Teachers — claimed by n0n",
-      "sector": "Education",
-      "country": "US",
-      "pubDate": "2026-09-18T15:22:48.000Z"
     }
   ]
 }

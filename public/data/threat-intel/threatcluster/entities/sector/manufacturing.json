@@ -4,21 +4,47 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-18T07:51:54.000Z",
-  "lastSeen": "2026-09-19T15:50:53.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 3 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-09-18T17:52:03.000Z",
+  "lastSeen": "2026-09-21T08:01:50.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-09-18",
-      "count": 4
+      "count": 2
     },
     {
       "date": "2026-09-19",
       "count": 1
+    },
+    {
+      "date": "2026-09-20",
+      "count": 1
+    },
+    {
+      "date": "2026-09-21",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ikegami-tsushinki-company-limited-b095",
+      "title": "IKEGAMI TSUSHINKI COMPANY LIMITED — claimed by qilin",
+      "pubDate": "2026-09-21T08:01:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "newmantractor-com-d4fa",
+      "title": "newmantractor.com — claimed by threeam",
+      "pubDate": "2026-09-21T06:07:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "zorlu-holding-b374",
+      "title": "Zorlu Holding — claimed by qilin",
+      "pubDate": "2026-09-20T12:15:03.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "electrolux-b50b",
@@ -36,21 +62,21 @@
       "slug": "premier-lighting-amp-controls-c634",
       "title": "Premier Lighting &amp; Controls — claimed by gammax",
       "pubDate": "2026-09-18T17:52:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "anderson-industries-0d09",
-      "title": "Anderson Industries — claimed by akira",
-      "pubDate": "2026-09-18T13:24:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "american-casting-company-9a44",
-      "title": "American Casting Company — claimed by storm",
-      "pubDate": "2026-09-18T07:51:54.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "threeam",
+      "name": "threeam",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "emperador",
@@ -67,18 +93,6 @@
       "type": "group",
       "slug": "gammax",
       "name": "gammax",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "akira",
-      "name": "akira",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "storm",
       "weight": 1
     }
   ],

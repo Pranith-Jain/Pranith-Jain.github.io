@@ -4,17 +4,27 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 3,
   "firstSeen": "2026-09-18T21:48:40.000Z",
-  "lastSeen": "2026-09-18T21:49:22.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "lastSeen": "2026-09-21T06:10:58.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-18",
       "count": 2
+    },
+    {
+      "date": "2026-09-21",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "siinqeebank-com-b271",
+      "title": "siinqeebank.com — claimed by lockbit5",
+      "pubDate": "2026-09-21T06:10:58.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "hygear-com-1d04",
@@ -31,6 +41,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
       "weight": 1
@@ -44,6 +60,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "siinqeebank-com-b271",
+      "victim": "siinqeebank.com — claimed by lockbit5",
+      "sector": "Financial Services",
+      "country": "SO",
+      "pubDate": "2026-09-21T06:10:58.000Z"
+    },
     {
       "id": "hygear-com-1d04",
       "victim": "hygear.com — claimed by lockbit5",
