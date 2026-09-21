@@ -41,7 +41,7 @@ export interface CloudRefIndex {
   replicatedAt: string;
   counts: { domains: number; queries: number; providers: number };
   providerCounts: Record<string, number>;
-  srm: { title: string; description: string; stakeholders: string[]; domains: CloudSrmDomain[] };
+  srm: { title: string; description: string; stakeholders?: string[]; domains: CloudSrmDomain[] };
   queryIndex: CloudQueryIndexEntry[];
 }
 

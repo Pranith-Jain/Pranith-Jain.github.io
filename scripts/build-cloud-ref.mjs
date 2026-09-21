@@ -33,7 +33,7 @@ function main() {
   const queryIndex = [];
   for (const q of queries) {
     providerCounts[q.provider] = (providerCounts[q.provider] || 0) + 1;
-    writeFileSync(join(OUT, 'queries', `${q.id}.json`), JSON.stringify(q));
+    writeFileSync(join(OUT, 'queries', `${q.id}.json`), JSON.stringify(q, null, 2) + '\n');
     queryIndex.push({ id: q.id, name: q.name, provider: q.provider, mitre: q.mitre });
   }
 
@@ -53,7 +53,7 @@ function main() {
     queryIndex,
   };
 
-  writeFileSync(join(OUT, 'index.json'), JSON.stringify(index));
+  writeFileSync(join(OUT, 'index.json'), JSON.stringify(index, null, 2) + '\n');
   console.log(`✔ Built Cloud Ref manifest: ${srm.domains.length} SRM domains, ${queries.length} hunt queries`);
 }
 

@@ -14,7 +14,7 @@ interface CloudRefIndex {
   srm: {
     title: string;
     description: string;
-    stakeholders: string[];
+    stakeholders?: string[];
     domains: Array<{
       id: string;
       name: string;
@@ -170,7 +170,9 @@ export default function CloudReference() {
         {tab === 'srm' && (
           <>
             <p className="text-xs font-mono text-muted">
-              {index?.srm.description} Stakeholders: {index?.srm.stakeholders.join(', ')}.
+              {index?.srm.description}
+              {(index?.srm.stakeholders ?? []).length > 0 &&
+                ` Stakeholders: ${(index?.srm.stakeholders ?? []).join(', ')}.`}
             </p>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[720px] text-left text-sm border-collapse">
@@ -185,7 +187,7 @@ export default function CloudReference() {
                   </tr>
                 </thead>
                 <tbody>
-                  {index?.srm.domains.map((d) => (
+                  {(index?.srm.domains ?? []).map((d) => (
                     <tr key={d.id} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] align-top">
                       <td className="py-3 pr-4">
                         <div className="font-display font-semibold text-xs text-heading mb-0.5">{d.name}</div>

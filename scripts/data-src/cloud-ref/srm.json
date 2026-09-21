@@ -1,6 +1,7 @@
 {
   "name": "Cloud Shared Responsibility Matrix",
   "description": "Who secures what across AWS, Azure, GCP under IaaS / PaaS / SaaS. C = customer, P = provider, S = shared. Defaults: compute/storage/network = C for IaaS; most PaaS = S; SaaS = P (except data + identity + client side).",
+  "stakeholders": ["Customer", "Cloud provider", "Shared responsibility"],
   "domains": [
     {
       "domain": "Physical facilities & hardware",
