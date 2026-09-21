@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-50029",
+  "name": "GTG-50029",
+  "akas": "\"fafsearch\" operator; single French-speaking actor",
+  "brief": "A single-person operation that targeted European political parties, media outlets, think-tanks, and the SaaS providers used by these organizations, and built a mass doxxing/lookup platform (\"fafsearch\") loaded with tens of millions of rows including national health identifiers and justice-system-breach data. Used a custom Rust-based scanner (with proxy-based key rotation) to find exposed API keys, an AI-managed sub-agent framework for pre/post-auth reconnaissance, exploitation of an undocumented WordPress reinstall race condition (4 victim sites), webshells, a malicious must-use WordPress plugin for credential harvesting, backup poisoning for persistence, and a browser-exploitation C2 injected into a media outlet's reader-facing script. Anthropic: \"one of the clearest cases we have seen of AI-assisted software engineering applied directly to a mass attack on privacy—and the entire platform was created by just one person.\" 42 tracked targets, internal access to 14, 12–26GB exfiltrated. Anthropic",
+  "ttps": ["T1119", "T1505.003", "T1587", "T1588.006"],
+  "categories": ["LLM-aided development", "LLM-assisted vulnerability research", "LLM-directed Automated Collection"],
+  "reported": "Sep 2026",
+  "activity": "Feb 2026 – Jul 2026",
+  "table": "main",
+  "sizeBytes": 1009,
+  "ttpMd": "**LLM-aided development** T1587 - Develop Capabilities<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-directed Automated Collection** T1119 - Automated Collection<br><br>T1505.003 - Server Software Component: Web Shell"
+}

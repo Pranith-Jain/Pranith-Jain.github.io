@@ -1,0 +1,13 @@
+{
+  "slug": "cl-cri-1163",
+  "name": "CL-CRI-1163",
+  "akas": "Unit 42 cluster designation",
+  "brief": "Multi-stage network intrusion and data-exfiltration campaign against Brazilian financial institutions, sharing the self-hosted NextChat/Claude/GPT-4.1 troubleshooting TTP and infrastructure overlap with CL-CRI-1131 (see that row for shared technical detail). Unit 42",
+  "ttps": ["T1059", "T1566"],
+  "categories": ["LLM-enhanced scripting techniques", "LLM-supported social engineering"],
+  "reported": "Sep 2026",
+  "activity": "Initial access Feb 2026",
+  "table": "main",
+  "sizeBytes": 266,
+  "ttpMd": "**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter<br><br>**LLM-supported social engineering** T1566 - Phishing"
+}

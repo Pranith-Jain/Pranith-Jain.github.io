@@ -1,0 +1,13 @@
+{
+  "slug": "cl-cri-1131",
+  "name": "CL-CRI-1131",
+  "akas": "Unit 42 cluster designation; cross-referenced by CloudSEK as \"Operation Escaneo\"",
+  "brief": "Multi-stage network intrusion and data-exfiltration campaign against Mexican transport-ministry and Ecuadorian water-utility targets. Unit 42 found a self-hosted NextChat web UI exposed on attacker infrastructure (TCP port 3000) being used to query Claude and GPT-4.1 for \"troubleshooting issues faced by the attackers across their campaigns\" — evidenced by iteratively-versioned Go-based SOCKS5 proxy tooling (\"SockTz\" v1–v9). Infrastructure overlap (SOCKS5 relays) links this cluster to CL-CRI-1163. Other TTPs: living-off-the-land techniques, VSS manipulation, batch-script exfiltration, resume/job-themed phishing lures, custom RATs, dynamic-DNS C2, multi-SAN certificates. Unit 42",
+  "ttps": ["T1059", "T1566"],
+  "categories": ["LLM-enhanced scripting techniques", "LLM-supported social engineering"],
+  "reported": "Sep 2026",
+  "activity": "Apr 2026 (compromise); broader campaign Feb–Jun 2026",
+  "table": "main",
+  "sizeBytes": 685,
+  "ttpMd": "**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter (AI-assisted proxy-tool troubleshooting/iteration)<br><br>**LLM-supported social engineering** T1566 - Phishing"
+}

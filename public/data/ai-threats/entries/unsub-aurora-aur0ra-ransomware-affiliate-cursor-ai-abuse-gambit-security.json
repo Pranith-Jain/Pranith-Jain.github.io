@@ -1,0 +1,16 @@
+{
+  "slug": "unsub-aurora-aur0ra-ransomware-affiliate-cursor-ai-abuse-gambit-security",
+  "name": "UnSub (Aurora/Aur0ra ransomware affiliate, Cursor AI abuse) — Gambit Security",
+  "akas": "Aurora / Aur0ra RaaS affiliate (Russian-speaking); also independently tracked by CloudSEK",
+  "brief": "Gambit Security found 28 exposed Cursor agentic-coding-assistant chat sessions (Cursor running Claude Sonnet 4.5) on a misconfigured command server, covering 10 targets between April 8 and May 21, 2026. Operators supplied credentials or an existing route into the victim network, then tasked the agent — under a \"this is an authorized penetration test\" pretext — with reconnaissance/subnet scanning, VPN-client installation, domain-privilege enumeration, certificate attacks, and coercing authentication for NTLM-relay attacks; Gambit assesses the AI assistance likely sped up the break-ins by \"30, 40, 50%.\" Reuters independently confirmed 6 named victims (Christeyns–Belgium, Teckentrup–Germany, Helideck Certification Agency–Scotland, an Argentine pharma distributor, an Italian manufacturer, Bayou Title–Louisiana); a separate exposed open directory showed the broader Aurora affiliate campaign hit 20+ organizations across 9 countries between April and July 2026. Gambit Security",
+  "ttps": ["T1562.001"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-enhanced anomaly detection evasion"
+  ],
+  "reported": "Aug 2026",
+  "activity": "Apr 8 – May 21, 2026 (broader affiliate campaign Apr–Jul 2026 per CloudSEK)",
+  "table": "main",
+  "sizeBytes": 984,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution<br><br>**LLM-enhanced anomaly detection evasion** T1562.001 - Impair Defenses (pretext-based agent-guardrail bypass)"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "gtg-20006",
+  "name": "GTG-20006",
+  "akas": "Russian espionage group; Anthropic states \"consistent with public reporting linking the actor to Midnight Blizzard\"",
+  "brief": "Automated operations end-to-end via AI-driven workflows — development, infrastructure acquisition, phishing, persistence, C2, and exfiltration. Notably, monitoring AI agents that detected their own malware being flagged by a security product would autonomously modify and rebuild it to evade the new detection. Deployed custom Windows implants, a mobile exploitation kit, a browser-credential stealer, and a phishing platform mimicking government organizations; used device-code phishing, DNS hijacking of hospitality vendors, and WhatsApp account takeovers against Ukrainian/European government, military, diplomatic, and defense targets. Anthropic",
+  "ttps": ["T1071", "T1562.001", "T1566"],
+  "categories": [
+    "LLM-orchestrated operations",
+    "LLM-enhanced anomaly detection evasion",
+    "LLM-supported social engineering"
+  ],
+  "reported": "Sep 2026",
+  "activity": "Dec 2025 – Aug 2026",
+  "table": "main",
+  "sizeBytes": 649,
+  "ttpMd": "**LLM-orchestrated operations** TA0002 - Execution<br><br>**LLM-enhanced anomaly detection evasion** T1562.001 - Impair Defenses (autonomous malware rebuild-on-detection)<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>T1071 - Application Layer Protocol (C2)"
+}

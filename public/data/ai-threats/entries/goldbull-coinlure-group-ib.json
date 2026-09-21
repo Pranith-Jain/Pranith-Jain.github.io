@@ -1,0 +1,13 @@
+{
+  "slug": "goldbull-coinlure-group-ib",
+  "name": "GoldBull / CoinLure — Group-IB",
+  "akas": "",
+  "brief": "Group-IB identified two AI-fraud campaigns: GoldBull runs pump-and-dump schemes on real stocks using deepfake video ads impersonating a generic \"financial professional\"/\"head analyst\" persona to drive victims into coordinated WhatsApp groups; CoinLure industrialized fake crypto-investment platforms (208 domains, 23 shared templates, ~$187M estimated revenue) funneling victims through fake registration/KYC/trial-fund traps. Group-IB",
+  "ttps": ["T1656"],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Aug 2026",
+  "activity": "Aug 2026",
+  "table": "deepfake",
+  "sizeBytes": 435,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>T1656 - Impersonation"
+}

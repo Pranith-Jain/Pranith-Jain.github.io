@@ -1,0 +1,13 @@
+{
+  "slug": "ravine-castle",
+  "name": "RAVINE CASTLE",
+  "akas": "COULEE, APT24 (PRC-nexus, GTIG's new designation)",
+  "brief": "Used Gemini to research data-leak anonymization techniques for dissemination to journalists/influencers, to translate/summarize exfiltrated intelligence, and to research VMware vCenter SAML-bypass exploits and Rubeus/Kerberos Active Directory post-exploitation techniques. (GTIG also notes propaganda-generation use by this actor in the same report — flagged separately for the maintainer, see PR body.) GTIG",
+  "ttps": ["T1119", "T1587", "T1588.006"],
+  "categories": ["LLM-assisted vulnerability research", "LLM-aided development", "LLM-directed Automated Collection"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 408,
+  "ttpMd": "**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-aided development** T1587<br><br>**LLM-directed Automated Collection** T1119"
+}

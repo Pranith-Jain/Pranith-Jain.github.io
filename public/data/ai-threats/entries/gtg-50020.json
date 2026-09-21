@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-50020",
+  "name": "GTG-50020",
+  "akas": "Russian-speaking actor; unnamed",
+  "brief": "Pivoted from a hotel-booking/fintech intrusion campaign ($1.5–2.5M extortion demands, 26GB exfiltrated) to prompt-injecting an AI vendor's own evaluation sandbox to steal production API keys, hitting roughly 30 AI companies in a 4-day spree. Anthropic",
+  "ttps": ["T1585", "T1587", "T1657"],
+  "categories": ["LLM-advised resource development"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 251,
+  "ttpMd": "**LLM-advised resource development** T1587 / T1585<br><br>T1657 - Financial Theft<br><br>AI-vendor-sandbox prompt-injection for API-key theft (no single clean ATT&CK ID)"
+}
