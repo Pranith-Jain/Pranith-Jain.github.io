@@ -148,6 +148,7 @@ import { loadPcmIndex, getPcmDigest, getPcmLatest, filterPcmDigests } from '../p
 import { loadOssFeedsIndex, getOssFeedsByCategory, filterFeeds } from '../oss-feeds-manifest';
 // OpenSanctions
 import { opensanctionsSearch, opensanctionsEntity, opensanctionsStats } from '../opensanctions';
+import { opencveGetCve } from '../opencve';
 // OSINT manifest
 import { loadOsintIndex, listPortals, getPortal } from '../osint-manifest';
 // CTI bookmarks (Chick3nHawk01 collection, live/reference/missing tagged)
@@ -160,6 +161,9 @@ import { loadCarIndex, listCar, getCar } from '../car-manifest';
 import { loadCapecIndex, listCapec, getCapec } from '../capec-manifest';
 // HijackLibs (DLL sideloading catalog)
 import { loadHijacklibsIndex, listHijacklibs, getHijacklib } from '../hijacklibs-manifest';
+// VERIS taxonomy + MITRE Engage
+import { loadVerisIndex, listVeris, getVeris } from '../veris-manifest';
+import { loadEngageIndex, listEngage, getEngage } from '../engage-manifest';
 // Tools manifest
 import { loadToolsIndex, getTool, listTools } from '../tools-manifest';
 // Tor / darknet
@@ -173,6 +177,7 @@ type EnvWithAssets = {
   WHOXY_API_KEY?: string;
   TRUECALLER_API_KEY?: string;
   INTELX_API_KEY?: string;
+  OPENCVE_API_TOKEN?: string;
 };
 
 /**
@@ -2942,6 +2947,17 @@ export function bridgeMcpTools(
     execute: async () => opensanctionsStats(),
   });
 
+  // ── OpenCVE Cloud ────────────────────────────────────────────────
+  add({
+    name: 'opencve_get_cve',
+    description: 'Get an enriched CVE record from OpenCVE Cloud (needs OPENCVE_API_TOKEN).',
+    params: [{ name: 'cve_id', type: 'string', description: 'CVE ID, e.g. CVE-2024-3094', required: true }],
+    execute: async (args) => {
+      if (!env.OPENCVE_API_TOKEN) throw new Error('OPENCVE_API_TOKEN not configured');
+      return opencveGetCve(args.cve_id as string, { OPENCVE_API_TOKEN: env.OPENCVE_API_TOKEN });
+    },
+  });
+
   // ── OSINT portals ──────────────────────────────────────────────────
   add({
     name: 'osint_list_portals',
@@ -3144,6 +3160,64 @@ export function bridgeMcpTools(
       if (!assets) throw new Error('ASSETS binding unavailable');
       const idx = await loadHijacklibsIndex(assets);
       return getHijacklib(idx, args.slug as string);
+    },
+  });
+
+  // ── VERIS + Engage ────────────────────────────────────────────
+  add({
+    name: 'veris_list_fields',
+    description: 'List VERIS incident-taxonomy fields (actor/action/asset vocabulary).',
+    params: [
+      { name: 'section', type: 'string', description: 'Taxonomy section, e.g. action', required: false },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max fields (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadVerisIndex(assets);
+      return listVeris(idx, {
+        section: args.section as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'veris_get_field',
+    description: 'Get a specific VERIS taxonomy field by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Field slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadVerisIndex(assets);
+      return getVeris(idx, args.slug as string);
+    },
+  });
+  add({
+    name: 'engage_list',
+    description: 'List MITRE Engage adversary-engagement approaches by goal/phase.',
+    params: [
+      { name: 'goal', type: 'string', description: 'Goal, e.g. Collect', required: false },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max approaches (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadEngageIndex(assets);
+      return listEngage(idx, {
+        goal: args.goal as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'engage_get',
+    description: 'Get a specific Engage approach by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Approach slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadEngageIndex(assets);
+      return getEngage(idx, args.slug as string);
     },
   });
 

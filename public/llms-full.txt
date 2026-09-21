@@ -35,6 +35,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Malware Analyzer](https://pranithjain.qzz.io/dfir/malware-analyzer) (dfir): PE / ELF / Mach-O static analysis with import hashing + section entropy.
 - [Infostealer Log Parser](https://pranithjain.qzz.io/dfir/stealer-parser) (dfir): Parse RedLine / Raccoon / Vidar / LummaC stealer logs - credentials, system, browser data.
 - [Infostealer Intelligence](https://pranithjain.qzz.io/dfir/infostealer-intel) (dfir): Infostealer-specific intelligence dashboard - prevalent families, log types, and compromised credential tracking.
+- [MalAPI](https://pranithjain.qzz.io/dfir/malapi) (dfir): Windows APIs abused by attackers - attack categories, libraries, and MS docs links.
 - [Codec Hub](https://pranithjain.qzz.io/dfir/codec) (dfir): Decode and encode across base64, hex, URL, rot13, zlib, gzip with auto-detection.
 - [Hash Calculator](https://pranithjain.qzz.io/dfir/hash-calc) (dfir): MD5 - SHA1 - SHA256 - SHA512 - SSDEEP - TLSH - drag a file in.
 - [Timestamp Converter](https://pranithjain.qzz.io/dfir/timestamp) (dfir): Epoch - Windows FILETIME - Unix - human - bidirectional.
@@ -108,6 +109,9 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Threat Graph](https://pranithjain.qzz.io/dfir/threat-graph) (dfir): Indicator - relationship graph - visual pivot from any node.
 - [Detection Chokepoints](https://pranithjain.qzz.io/dfir/detection-chokepoints) (dfir): Invariant detection points - prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.
 - [IR Playbooks](https://pranithjain.qzz.io/dfir/ir-playbooks) (dfir): Step-by-step playbooks for common incident types.
+- [MITRE CAR](https://pranithjain.qzz.io/dfir/car) (dfir): Cyber Analytics Repository - validated detection analytics mapped to ATT&CK.
+- [MITRE CAPEC](https://pranithjain.qzz.io/dfir/capec) (dfir): Attack patterns - how weaknesses get exploited, with CWE and ATT&CK links.
+- [MITRE Engage](https://pranithjain.qzz.io/dfir/engage) (dfir): Adversary engagement - deception and denial approaches by goal and phase.
 - [TRACERULES](https://pranithjain.qzz.io/dfir/tracerules) (dfir): Trace a rule back to its source intel - coverage and lineage.
 - [SIEM Use-Case Library](https://pranithjain.qzz.io/dfir/siem-library) (dfir): 60 detection use-cases across 16 categories — KQL + SPL starter rules with MITRE mapping.
 - [Hunting Hypothesis Library](https://pranithjain.qzz.io/dfir/hunt-hypotheses) (dfir): 154 hunt hypotheses across 12 MITRE tactics — technique-driven, data-source-aware starter queries.
@@ -150,6 +154,9 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [One-Time Secret](https://pranithjain.qzz.io/dfir/one-time-secret) (dfir): Encrypted secret sharing - AES-GCM in-browser, burn after reading, zero-knowledge server.
 - [GRC Toolkit](https://pranithjain.qzz.io/dfir/grc) (dfir): Control mapping - risk register - vendor assessment.
 - [LOLBins](https://pranithjain.qzz.io/dfir/lolbins) (dfir): Living-off-the-land binaries - search by binary or behaviour.
+- [Living Off Trusted Sites](https://pranithjain.qzz.io/dfir/lots) (dfir): Legitimate domains abused for phishing, C2, exfiltration, and downloads.
+- [HijackLibs](https://pranithjain.qzz.io/dfir/hijacklibs) (dfir): DLL hijacking candidates - sideloading targets with vulnerable executables.
+- [VERIS Taxonomy](https://pranithjain.qzz.io/dfir/veris) (dfir): Incident taxonomy - Actor/Action/Asset/Attribute vocabulary for coding incidents.
 - [Data Classification](https://pranithjain.qzz.io/dfir/data-classification) (dfir): Tag data with sensitivity + handling requirements.
 - [Privacy Hub](https://pranithjain.qzz.io/dfir/privacy-hub) (dfir): GDPR / CCPA references, DPIA templates, privacy notice generator.
 - [DLP Scan](https://pranithjain.qzz.io/dfir/dlp-scan) (dfir): Data-loss-prevention scan for files + clipboard + screenshots.
@@ -289,6 +296,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [SecOps Tools](https://pranithjain.qzz.io/threatintel/osint/secops) (threatintel): SecOps tools catalog - SIEM, EDR, SOAR, log shippers.
 - [Threat Actor Monitor](https://pranithjain.qzz.io/threatintel/osint/threat-actor-monitor) (threatintel): Real-time APT monitoring across 30 OSINT feeds with MITRE ATT&CK + Kill Chain mapping.
 - [OSINT Portal Directory](https://pranithjain.qzz.io/threatintel/osint/directory) (threatintel): Curated directory of 40 OSINT portals and resources filtered by category.
+- [CTI Bookmarks](https://pranithjain.qzz.io/threatintel/cti-bookmarks) (threatintel): 387 curated CTI links across intel levels, tagged by platform integration status.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot - ask, pivot, summarize, draft.
 - [Entity Graph](https://pranithjain.qzz.io/threatintel/entity-graph) (threatintel): Interactive topology of CVEs, actors, IOCs, sectors, and techniques.
 - [Vera](https://pranithjain.qzz.io/threatintel/vera) (threatintel): Vera - AI-powered investigative assistant for threat intelligence workflows.
@@ -449,6 +457,9 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [dw_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the detection.wiki mirror: 15k rules, 218 techniques, 1,518 Windows providers, 426 Security-Auditing events, 17 platforms, 6 labs, and LRU body-cache info.
 - [email_check_registration](https://pranithjain.qzz.io/mcp) (mcp:other): Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.
 - [email_list_registration_platforms](https://pranithjain.qzz.io/mcp) (mcp:other): List all platforms available for email registration checking. Returns platform IDs, names, and categories.
+- [engage_get](https://pranithjain.qzz.io/mcp) (mcp:other): Return the details of a single Engage approach by slug: goal, phase, and matrix link. Use engage_list first to discover slugs.
+- [engage_list](https://pranithjain.qzz.io/mcp) (mcp:other): List MITRE Engage adversary-engagement approaches: deception/denial techniques organized by goal (Collect, Detect, Prevent, Direct, Disrupt, Reassure, Motivate, Elicit…) and phase (Prepare, Engage, Understand). Filter by goal, phase, or keyword.
+- [engage_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Engage matrix: phases, goals, approach count.
 - [enrich_actor](https://pranithjain.qzz.io/mcp) (mcp:actor): Get a threat actor profile. Returns aliases, country attribution, MITRE ATT&CK techniques, known campaigns, and associated malware families.
 - [escape_get](https://pranithjain.qzz.io/mcp) (mcp:other): Return one incident docket: assigned task, summary, 7-stage containment chain, absent guardrails, disputed figures, sources. Use escape_list first to discover ids.
 - [escape_list](https://pranithjain.qzz.io/mcp) (mcp:other): List AI agent containment-failure incidents (15-entry seed registry, CBS-scored). Filter by class (containment-breach/agent-hijack/supply-chain/tool-misuse/injection), severity, evidence tier, absent guardrail, autonomy, or keyword.
@@ -532,6 +543,7 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [notebook_list](https://pranithjain.qzz.io/mcp) (mcp:notebook): List investigation notebooks. Each notebook is a persistent investigation session with notes, IOCs, findings, and timeline entries stored in D1.
 - [notebook_update](https://pranithjain.qzz.io/mcp) (mcp:notebook): Update a notebook title, description, status, or severity.
 - [onion_lookup](https://pranithjain.qzz.io/mcp) (mcp:other): Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
+- [opencve_get_cve](https://pranithjain.qzz.io/mcp) (mcp:other): Get an enriched CVE record from OpenCVE Cloud: summary, CVSS v3.1/v4.0, severity, KEV flag, EPSS, vendors/products, CWE weaknesses, and references. Requires OPENCVE_API_TOKEN (free org token at app.opencve.io).
 - [opensanctions_entity](https://pranithjain.qzz.io/mcp) (mcp:other): Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match. Requires OPENSANCTIONS_API_KEY.
 - [opensanctions_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. Requires OPENSANCTIONS_API_KEY (free for public-interest work at opensanctions.org).
 - [opensanctions_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. Requires OPENSANCTIONS_API_KEY.
@@ -690,6 +702,9 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [velo_list_clients](https://pranithjain.qzz.io/mcp) (mcp:other): List Velociraptor-managed endpoints (hostname, OS, arch, labels, last-seen). Optional hostname search. Degrades gracefully when VELO_API_URL is not configured.
 - [velo_list_flows](https://pranithjain.qzz.io/mcp) (mcp:other): List recent collections (flows) on a managed endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.
 - [velo_list_hunts](https://pranithjain.qzz.io/mcp) (mcp:other): List recent Velociraptor hunts across the fleet — descriptions, states, completion counts.
+- [veris_get_field](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full enumerated values + human labels for a single VERIS taxonomy field. Use veris_list_fields first to discover slugs.
+- [veris_list_fields](https://pranithjain.qzz.io/mcp) (mcp:other): List VERIS incident-taxonomy fields: the standard vocabulary for describing who did what to which asset with what result (actor.external.motive, action.hacking.variety, asset.assets.variety…). Filter by section (action, actor, asset, attribute, victim, impact, timeline, discovery_method, …) or keyword.
+- [veris_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the VERIS taxonomy: field counts by section.
 - [virushee_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.
 - [watch_domain_ct](https://pranithjain.qzz.io/mcp) (mcp:domain): Add a domain to Certificate Transparency monitoring. Alerts on new subdomains, suspicious patterns, wildcard certs, and more. Uses crt.sh for unlimited free CT log queries.
 - [wayback_lookup](https://pranithjain.qzz.io/mcp) (mcp:domain): Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.

@@ -577,3 +577,43 @@ age, and package verdicts.
 
 **Data flow**: OSSF GitHub Commits API → Cache-API L1 + KV last-good fallback.
 No sync scripts needed — live data on each request with aggressive caching.
+
+## Bookmark-gap verticals — CTI Bookmarks, LOTS, MalAPI, CAR, CAPEC, HijackLibs, VERIS, Engage
+
+Eight read-only data verticals closing the
+`Chick3nHawk01/Open_Source-CTI-Tooling` bookmark gaps, all following the
+osint pattern (build script → `public/data/<name>/index.json` → manifest
+loader → edge routes → 3 MCP tools + agent-bridge mirror → SPA page).
+The bookmarks vertical tags every entry live/reference/missing against the
+platform map in `scripts/build-cti-bookmarks.mjs` — currently 0 missing.
+
+| Vertical        | Source                                      | Entries             | MCP tools         | Page                         |
+| --------------- | ------------------------------------------- | ------------------- | ----------------- | ---------------------------- |
+| `cti-bookmarks` | upstream bookmark HTML                      | 387 links, 30 cats  | `cti_bookmarks_*` | `/threatintel/cti-bookmarks` |
+| `lots`          | lots-project.com scrape                     | 175 trusted sites   | `lots_*`          | `/dfir/lots`                 |
+| `malapi`        | malapi.io scrape (370 detail pages)         | 369 APIs            | `malapi_*`        | `/dfir/malapi`               |
+| `car`           | mitre-attack/car shallow clone (Apache-2.0) | 102 analytics       | `car_*`           | `/dfir/car`                  |
+| `capec`         | mitre/cti sparse clone (STIX 2.0)           | 559 + 56 deprecated | `capec_*`         | `/dfir/capec`                |
+| `hijacklibs`    | hijacklibs.net/api JSON                     | 608 DLLs            | `hijacklibs_*`    | `/dfir/hijacklibs`           |
+| `veris`         | vz-risk/VERIS enums (CC BY-SA 4.0)          | 68 fields           | `veris_*`         | `/dfir/veris`                |
+| `engage`        | engage.mitre.org matrix tables              | 53 approaches       | `engage_*`        | `/dfir/engage`               |
+
+**Files**: `scripts/build-<name>-manifest.mjs` (each supports `--source` for
+offline/staging overrides; LOTS/MalAPI crawl politely at 3 concurrent +
+200ms), `worker/lib/<name>-manifest.ts` (+ `.test.ts`, + `api/` symlink),
+`api/src/routes/<name>-edge-tools.ts`, SPA pages in `src/pages/dfir/` (+
+`threatintel/CtiBookmarks.tsx`, `threatintel/RansomwareRecovery.tsx` for the
+ransomware RECOVERY tab wiring ID Ransomware → No More Ransom).
+
+**Weekly sync**: `.github/workflows/cti-verticals-sync.yml` (Mon 07:30 UTC,
+each step `continue-on-error`, PR + auto-merge + self-deploy). Loop template:
+`docs/loops/cti-verticals-sync.md` (count floors per vertical).
+
+**Companion integrations from the same audit**: `apivoid` (IP/domain, covers
+IPVoid+URLVoid which expose no own API) + `metadefender` (hash) providers in
+`api/src/providers/` (tier 2, `APIVOID_API_KEY` / `METADEFENDER_API_KEY`);
+`opencve` CVE route + `opencve_get_cve` tool (`OPENCVE_API_TOKEN`, Bearer org
+token, defensive v2 parse — live verification pending keys); FireHOL L1/L2/
+WebServer appended in `scripts/build-oss-feeds.mjs`; X-Force (EOL 2026),
+OnionTree (dead), Yeti (self-hosted) kept as `ExternalResources` reference
+entries only — no live integration is possible.

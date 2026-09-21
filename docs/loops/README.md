@@ -37,6 +37,7 @@ criteria to force success** — if stuck, the loop says to stop and report block
 | [D1 Migration Apply & Verify](d1-migration-apply-verify.md) | After adding a D1 migration                        | Live schema matches code reads/writes; remote applied only on confirm                   |
 | [Rebase Before Deploy](rebase-before-deploy.md)             | Right before deploying                             | Branch is on latest `origin/main` + `build:check` green                                 |
 | [PCMedicalist Sync](pcmedicalist-sync.md)                   | After adding a PCMedicalist feed digest/surface    | Slim manifest built, latest digest has posts + 9+ layers, deep-dive smoke returns items |
+| [CTI Verticals Sync](cti-verticals-sync.md)                 | After editing a bookmark-gap build script          | All 8 manifests meet count floors with <20% fetch failures                              |
 
 Each repo-specific template above encodes a documented operational lesson for this repo,
 so the agent inherits the footguns (dual-worker deploy, silent provider rot, sandbox-only

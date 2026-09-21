@@ -310,6 +310,16 @@ export interface Env {
   /** StalkPhish.io phishing-intel API token.
    *  Set via `wrangler secret put STALKPHISH_API_KEY`. Free tier at stalkphish.io (50 req/day). */
   STALKPHISH_API_KEY?: string;
+  /** APIVoid IP + domain reputation API key (NoVirusThanks).
+   *  Set via `wrangler secret put APIVOID_API_KEY`. Paid plans, 1 credit/call.
+   *  Successor to the URLVoid/IPVoid web checkers. */
+  APIVOID_API_KEY?: string;
+  /** MetaDefender Cloud multi-engine hash reputation API key (OPSWAT).
+   *  Set via `wrangler secret put METADEFENDER_API_KEY`. Free community key via OPSWAT account. */
+  METADEFENDER_API_KEY?: string;
+  /** OpenCVE Cloud organization API token (Bearer).
+   *  Set via `wrangler secret put OPENCVE_API_TOKEN`. Free org token at app.opencve.io. */
+  OPENCVE_API_TOKEN?: string;
   /** Truecaller reverse phone lookup API key.
    *  Set via `wrangler secret put TRUECALLER_API_KEY`. Free tier at truecaller.com. */
   TRUECALLER_API_KEY?: string;

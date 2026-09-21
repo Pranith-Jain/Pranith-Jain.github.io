@@ -1194,6 +1194,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'OsintDirectory',
         badge: 'new',
       },
+      {
+        path: '/threatintel/cti-bookmarks',
+        tabId: 'cti-bookmarks',
+        label: 'CTI Bookmarks',
+        desc: '387 curated CTI links across intel levels, tagged by platform integration status.',
+        compVar: 'CtiBookmarks',
+        badge: 'new',
+      },
     ],
   },
   {

@@ -1700,4 +1700,31 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Comprehensive 2026 guide to mastering Cyber Threat Intelligence - covers AI-driven defense, proactive threat hunting, CTI frameworks (Diamond Model, Kill Chain, ATT&CK), intelligence lifecycle, and practical tradecraft. Includes companion video walkthrough.',
   },
+  {
+    id: 'x-force-exchange',
+    name: 'IBM X-Force Exchange (archive)',
+    url: 'https://exchange.xforce.ibmcloud.com/',
+    kind: 'research',
+    tags: ['threat-intel'],
+    description:
+      'IBM threat-intel sharing platform (threat reports, collections). Reaching end-of-life in 2026 with paid-tier-only API — kept as a research archive reference, not a live feed. Migrate X-Force workflows to OTX / ThreatFox / Malpedia.',
+  },
+  {
+    id: 'onion-tree',
+    name: 'Onion Tree (archived directory)',
+    url: 'https://oniontree.org/',
+    kind: 'directory',
+    tags: ['darkweb', 'osint'],
+    description:
+      'Verified onion-service directory, unmaintained since 2022. Kept as a historical reference only — use dark.fail for uptime/phishing verification, Ahmia for hidden-service search, and OnionWatch for live monitoring.',
+  },
+  {
+    id: 'yeti-platform',
+    name: 'Yeti Threat Intel Platform (self-hosted)',
+    url: 'https://yeti-platform.io/',
+    kind: 'tool',
+    tags: ['threat-intel', 'dfir'],
+    description:
+      'Lightweight self-hosted TIP for IoC/TTP storage (Yeti). No SaaS API to integrate — run your own instance alongside MISP/OpenCTI; export via its API into StixBuilder for correlation here.',
+  },
 ];

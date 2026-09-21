@@ -66,6 +66,8 @@ import { virushee } from './virushee';
 import { dphish } from './dphish';
 import { destroylist } from './destroylist';
 import { stalkphish } from './stalkphish';
+import { apivoid } from './apivoid';
+import { metadefender } from './metadefender';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS, PROVIDER_TIER };
 
@@ -136,6 +138,8 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   dphish,
   destroylist,
   stalkphish,
+  apivoid,
+  metadefender,
 };
 
 /**
@@ -219,6 +223,8 @@ export const PROVIDER_LABELS: Record<string, string> = {
   dphish: 'dPhish',
   destroylist: 'Destroylist',
   stalkphish: 'StalkPhish',
+  apivoid: 'APIVoid',
+  metadefender: 'MetaDefender',
 };
 
 export function buildProviderEnv(env: {
@@ -248,6 +254,8 @@ export function buildProviderEnv(env: {
   FULLHUNT_API_KEY?: string;
   OPENSANCTIONS_API_KEY?: string;
   STALKPHISH_API_KEY?: string;
+  APIVOID_API_KEY?: string;
+  METADEFENDER_API_KEY?: string;
   ASSETS?: Fetcher;
 }): ProviderEnv {
   return {
@@ -277,6 +285,8 @@ export function buildProviderEnv(env: {
     FULLHUNT_API_KEY: env.FULLHUNT_API_KEY,
     OPENSANCTIONS_API_KEY: env.OPENSANCTIONS_API_KEY,
     STALKPHISH_API_KEY: env.STALKPHISH_API_KEY,
+    APIVOID_API_KEY: env.APIVOID_API_KEY,
+    METADEFENDER_API_KEY: env.METADEFENDER_API_KEY,
     ASSETS: env.ASSETS,
   };
 }

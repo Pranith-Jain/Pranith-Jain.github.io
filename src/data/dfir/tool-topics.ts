@@ -79,6 +79,17 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'EncodedCommand', href: '/dfir/powershell-deobf', blurb: 'Decode PowerShell -EncodedCommand payloads' },
   { term: 'LOLBin', href: '/dfir/lolbins', blurb: 'Browse Living-Off-the-Land Binary technique catalogue' },
   { term: 'LOLBAS', href: '/dfir/lolbins', blurb: 'Browse Living-Off-the-Land Binary technique catalogue' },
+  { term: 'LOTS', href: '/dfir/lots', blurb: 'Check trusted sites abused for phishing, C2, and exfiltration' },
+  { term: 'trusted sites', href: '/dfir/lots', blurb: 'Living Off Trusted Sites abused by attackers' },
+  { term: 'MalAPI', href: '/dfir/malapi', blurb: 'Look up Windows APIs abused by attackers' },
+  { term: 'WinAPI', href: '/dfir/malapi', blurb: 'Windows API abuse catalogue by attack category' },
+  { term: 'HijackLibs', href: '/dfir/hijacklibs', blurb: 'DLL hijacking candidates and vulnerable executables' },
+  { term: 'DLL sideloading', href: '/dfir/hijacklibs', blurb: 'Known DLL hijacking candidates (T1574.001)' },
+  { term: 'CAR', href: '/dfir/car', blurb: 'MITRE Cyber Analytics Repository detection ideas by technique' },
+  { term: 'CAPEC', href: '/dfir/capec', blurb: 'MITRE attack patterns with CWE and ATT&CK links' },
+  { term: 'VERIS', href: '/dfir/veris', blurb: 'Incident taxonomy vocabulary (Actor/Action/Asset/Attribute)' },
+  { term: 'Engage', href: '/dfir/engage', blurb: 'MITRE adversary engagement and deception approaches' },
+  { term: 'deception', href: '/dfir/engage', blurb: 'Denial and deception operations planning' },
 
   // Phishing + email
   { term: 'phishing', href: '/dfir/phishing', blurb: 'Analyse email headers + URL/IOC extraction from raw .eml' },

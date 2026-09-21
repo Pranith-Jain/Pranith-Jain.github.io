@@ -143,6 +143,26 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     known_bias:
       'Keyed plan window limits recall — a miss is unknown, not clean. OSINT-fed; short-lived campaigns may age out of range.',
   },
+  apivoid: {
+    id: 'apivoid',
+    name: 'APIVoid',
+    reliability: 'B',
+    category: 'primary',
+    description:
+      'Commercial IP + domain reputation (NoVirusThanks APIVoid) — 70-80 blocklist engines, risk score, proxy/VPN/Tor/hosting flags; successor to the URLVoid/IPVoid web checkers',
+    known_bias:
+      'Keyed credit-metered plan limits recall — a miss is unknown, not clean. Blocklist aggregation can lag fresh infrastructure.',
+  },
+  metadefender: {
+    id: 'metadefender',
+    name: 'MetaDefender',
+    reliability: 'B',
+    category: 'primary',
+    description:
+      'Multi-engine file reputation (OPSWAT MetaDefender Cloud) — AV verdict aggregation for hashes; free community key with daily limits',
+    known_bias:
+      'Keyed daily limits bound recall — a miss is unknown, not clean. Zero-day files may be unscanned (unknown, not benign).',
+  },
   'hudson-rock': {
     id: 'hudson-rock',
     name: 'Hudson Rock',

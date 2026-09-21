@@ -157,9 +157,9 @@
     }
   ],
   "statusCounts": {
-    "live": 235,
-    "reference": 143,
-    "missing": 9
+    "live": 241,
+    "reference": 146,
+    "missing": 0
   },
   "entries": [
     {
@@ -866,8 +866,8 @@
       "level": "Operational",
       "category": "IoC Feeds & Sharing",
       "description": "All-purposes Threat Exchange",
-      "status": "missing",
-      "platformRef": null,
+      "status": "reference",
+      "platformRef": "external-resources",
       "tags": ["operational", "ioc", "feeds", "sharing"]
     },
     {
@@ -1214,8 +1214,8 @@
       "level": "Tactical",
       "category": "Frameworks & Methodology",
       "description": "Denial & Deception Planning Framework",
-      "status": "missing",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "engage",
       "tags": ["tactical", "frameworks", "methodology"]
     },
     {
@@ -1310,8 +1310,8 @@
       "level": "Tactical",
       "category": "Frameworks & Methodology",
       "description": "Incident Taxonomy & Documentation",
-      "status": "missing",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "veris",
       "tags": ["tactical", "frameworks", "methodology"]
     },
     {
@@ -2582,8 +2582,8 @@
       "level": "Tools",
       "category": "IP, URL & Domain Analysis",
       "description": "All-purposes IP/Domain Lookups",
-      "status": "missing",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "apivoid",
       "tags": ["tools", "ip", "url", "domain", "analysis"]
     },
     {
@@ -2594,8 +2594,8 @@
       "level": "Tools",
       "category": "IP, URL & Domain Analysis",
       "description": "Website Reputation Checker",
-      "status": "missing",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "apivoid",
       "tags": ["tools", "ip", "url", "domain", "analysis"]
     },
     {
@@ -3194,8 +3194,8 @@
       "level": "Tools",
       "category": "File & Malware Analysis",
       "description": "Multi-Engine File Scanner",
-      "status": "missing",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "metadefender",
       "tags": ["tools", "file", "malware", "analysis"]
     },
     {
@@ -3590,8 +3590,8 @@
       "level": "Tools",
       "category": "Vulnerability & Exploit Intelligence",
       "description": "CVE Alerting by Vendor & Product",
-      "status": "missing",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "opencve",
       "tags": ["tools", "vulnerability", "exploit", "intelligence"]
     },
     {
@@ -3734,8 +3734,8 @@
       "level": "Tools",
       "category": "Dark Web & Exposure Monitoring",
       "description": "Verified Onion Service Directory",
-      "status": "missing",
-      "platformRef": null,
+      "status": "reference",
+      "platformRef": "external-resources",
       "tags": ["tools", "dark", "web", "exposure", "monitoring"]
     },
     {
@@ -4250,8 +4250,8 @@
       "level": "Tools",
       "category": "Threat Intelligence Platforms (TIPs)",
       "description": "Lightweight TIP for IoC & TTP Storage",
-      "status": "missing",
-      "platformRef": null,
+      "status": "reference",
+      "platformRef": "external-resources",
       "tags": ["tools", "threat", "intelligence", "platforms", "tips"]
     },
     {

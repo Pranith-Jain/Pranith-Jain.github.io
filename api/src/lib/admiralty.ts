@@ -47,6 +47,8 @@ const SOURCE_RELIABILITY: Partial<Record<ProviderId, Reliability>> = {
   dphish: 'B',
   destroylist: 'B',
   stalkphish: 'B',
+  apivoid: 'B',
+  metadefender: 'B',
 };
 
 /** Indicator-type baseline credibility — more persistent artifacts score higher. */

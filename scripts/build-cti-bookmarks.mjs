@@ -26,7 +26,7 @@ const LIVE_HOSTS = new Map(
     ['d3fend.mitre.org', 'd3fend'],
     ['car.mitre.org', 'car'],
     ['capec.mitre.org', 'capec'],
-    ['engage.mitre.org', null],
+    ['engage.mitre.org', 'engage'],
     ['mitre-attack.github.io', 'attack-navigator'],
     ['malpedia.caad.fkie.fraunhofer.de', 'malpedia'],
     ['apt.etda.or.th', 'etda-actors'],
@@ -45,7 +45,7 @@ const LIVE_HOSTS = new Map(
     ['bazaar.abuse.ch', 'malwarebazaar'],
     ['misp-project.org', 'misp'],
     ['otx.alienvault.com', 'otx'],
-    ['exchange.xforce.ibmcloud.com', null],
+    ['exchange.xforce.ibmcloud.com', 'reference'], // EOL 2026, paid-only API — archive link
     ['rules.emergingthreats.net', 'emerging-threats'],
     ['iplists.firehol.org', 'oss-feeds'],
     ['cinsarmy.com', 'cinsarmy'],
@@ -76,8 +76,8 @@ const LIVE_HOSTS = new Map(
     ['virustotal.com', 'virustotal'],
     ['urlscan.io', 'urlscan'],
     ['abuseipdb.com', 'abuseipdb'],
-    ['ipvoid.com', null], // missing
-    ['urlvoid.com', null], // missing
+    ['ipvoid.com', 'apivoid'], // no own API — covered by APIVoid IP reputation
+    ['urlvoid.com', 'apivoid'], // beta API moved to APIVoid domain reputation
     ['viz.greynoise.io', 'greynoise'],
     ['pulsedive.com', 'pulsedive'],
     ['opentip.kaspersky.com', 'kaspersky'],
@@ -113,7 +113,7 @@ const LIVE_HOSTS = new Map(
     ['hybrid-analysis.com', 'hybrid-analysis'],
     ['joesandbox.com', 'joesandbox'],
     ['analyze.intezer.com', 'intezer'],
-    ['metadefender.opswat.com', null],
+    ['metadefender.opswat.com', 'metadefender'],
     ['polyswarm.io', 'polyswarm'],
     ['malshare.com', 'malshare'],
     ['vx-underground.org', 'vx-underground'],
@@ -129,14 +129,14 @@ const LIVE_HOSTS = new Map(
     ['vuldb.com', 'vuldb'],
     ['osv.dev', 'osv'],
     ['zerodayinitiative.com', 'zdi'],
-    ['opencve.io', null], // missing
+    ['opencve.io', 'opencve'],
     ['seclists.org', 'seclists'],
     ['haveibeenpwned.com', 'hibp'],
     ['dehashed.com', 'dehash'],
     ['intelx.io', 'intelx'],
     ['leakix.net', 'leakix'],
     ['dark.fail', 'darkfail'],
-    ['oniontree.org', null], // missing (dead)
+    ['oniontree.org', 'reference'], // dead since 2022 — historical link
     ['ahmia.fi', 'ahmia'],
     ['torproject.org', 'tor'],
     ['tails.net', 'tails'],
@@ -153,7 +153,7 @@ const LIVE_HOSTS = new Map(
     ['filigran.io', 'opencti'],
     ['thehive-project.org', 'thehive'],
     ['strangebee.com', 'cortex'],
-    ['yeti-platform.io', null],
+    ['yeti-platform.io', 'reference'], // self-hosted TIP, no SaaS API
     ['cisa.gov', 'cisa-kev'],
     ['ncsc.gov.uk', 'ncsc'],
     ['enisa.europa.eu', 'enisa'],
@@ -161,7 +161,7 @@ const LIVE_HOSTS = new Map(
     ['cisecurity.org', 'cis'],
     ['owasp.org', 'owasp'],
     ['oasis-open.github.io', 'stix'],
-    ['verisframework.org', null], // missing — Phase 1
+    ['verisframework.org', 'veris'],
     ['nomoreransom.org', 'ransomware-hub'],
     ['id-ransomware.malwarehunterteam.com', 'ransomware-hub'],
     ['openphish.com', 'openphish'],
@@ -206,6 +206,10 @@ function platformStatusFor(url) {
   if (!host) return { status: 'reference', platformRef: null };
   for (const [key, ref] of LIVE_HOSTS) {
     if (host === key || host.endsWith(`.${key}`)) {
+      // null ref + explicit reference host = curated link surface only
+      // (ExternalResources / docs), no live data integration possible
+      // (dead upstream, EOL product, or self-hosted with no SaaS API).
+      if (ref === 'reference') return { status: 'reference', platformRef: 'external-resources' };
       return ref ? { status: 'live', platformRef: ref } : { status: 'missing', platformRef: null };
     }
   }

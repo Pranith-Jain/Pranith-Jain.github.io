@@ -149,6 +149,8 @@ const Malapi = lazy(() => import('./pages/dfir/Malapi'));
 const Car = lazy(() => import('./pages/dfir/Car'));
 const Capec = lazy(() => import('./pages/dfir/Capec'));
 const Hijacklibs = lazy(() => import('./pages/dfir/Hijacklibs'));
+const Veris = lazy(() => import('./pages/dfir/Veris'));
+const Engage = lazy(() => import('./pages/dfir/Engage'));
 const ReportHub = lazy(() => import('./pages/dfir/ReportHub'));
 const CtMonitor = lazy(() => import('./pages/dfir/CtMonitor'));
 const StealerParser = lazy(() => import('./pages/dfir/StealerParser'));
@@ -560,6 +562,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/car', Component: Car },
   { path: '/dfir/capec', Component: Capec },
   { path: '/dfir/hijacklibs', Component: Hijacklibs },
+  { path: '/dfir/veris', Component: Veris },
+  { path: '/dfir/engage', Component: Engage },
   { path: '/dfir/ct-monitor', Component: CtMonitor },
   { path: '/dfir/stealer-parser', Component: StealerParser },
   { path: '/dfir/threat-graph', Component: ThreatGraph },

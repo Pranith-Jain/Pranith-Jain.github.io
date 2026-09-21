@@ -1,0 +1,480 @@
+{
+  "source": "engage.mitre.org (MITRE Engage)",
+  "license": "upstream-collection (names only; descriptions link out to engage.mitre.org)",
+  "replicatedAt": "2026-09-21",
+  "count": 53,
+  "phases": ["Engage", "Prepare", "Understand"],
+  "goals": [
+    {
+      "name": "Collect",
+      "phase": "Engage",
+      "topGoal": "Expose"
+    },
+    {
+      "name": "Detect",
+      "phase": "Engage",
+      "topGoal": "Affect"
+    },
+    {
+      "name": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit"
+    },
+    {
+      "name": "Disrupt",
+      "phase": "Engage",
+      "topGoal": "Elicit"
+    },
+    {
+      "name": "Motivate",
+      "phase": "Engage",
+      "topGoal": ""
+    },
+    {
+      "name": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare"
+    },
+    {
+      "name": "Prevent",
+      "phase": "Engage",
+      "topGoal": "Affect"
+    },
+    {
+      "name": "Reassure",
+      "phase": "Engage",
+      "topGoal": ""
+    },
+    {
+      "name": "Understand",
+      "phase": "Understand",
+      "topGoal": "Understand"
+    }
+  ],
+  "approaches": [
+    {
+      "slug": "after-action-review",
+      "name": "After-Action Review",
+      "goal": "Understand",
+      "phase": "Understand",
+      "topGoal": "Understand",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "analyze",
+      "name": "Analyze",
+      "goal": "Understand",
+      "phase": "Understand",
+      "topGoal": "Understand",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "api-monitoring",
+      "name": "API Monitoring",
+      "goal": "Collect",
+      "phase": "Engage",
+      "topGoal": "Expose",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "application-diversity",
+      "name": "Application Diversity",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "application-diversity-2",
+      "name": "Application Diversity",
+      "goal": "Motivate",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "artifact-diversity",
+      "name": "Artifact Diversity",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "artifact-diversity-2",
+      "name": "Artifact Diversity",
+      "goal": "Motivate",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "attack-vector-migration",
+      "name": "Attack Vector Migration",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "baseline",
+      "name": "Baseline",
+      "goal": "Prevent",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "burn-in",
+      "name": "Burn-In",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "cyber-threat-intelligence",
+      "name": "Cyber Threat Intelligence",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "cyber-threat-intelligence-2",
+      "name": "Cyber Threat Intelligence",
+      "goal": "Understand",
+      "phase": "Understand",
+      "topGoal": "Understand",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "email-manipulation",
+      "name": "Email Manipulation",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "email-manipulation-2",
+      "name": "Email Manipulation",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "engagement-environment",
+      "name": "Engagement Environment",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "gating-criteria",
+      "name": "Gating Criteria",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "hardware-manipulation",
+      "name": "Hardware Manipulation",
+      "goal": "Prevent",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "information-manipulation",
+      "name": "Information Manipulation",
+      "goal": "Motivate",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "information-manipulation-2",
+      "name": "Information Manipulation",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "introduced-vulnerabilities",
+      "name": "Introduced Vulnerabilities",
+      "goal": "Detect",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "introduced-vulnerabilities-2",
+      "name": "Introduced Vulnerabilities",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "introduced-vulnerabilities-3",
+      "name": "Introduced Vulnerabilities",
+      "goal": "Motivate",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "isolation",
+      "name": "Isolation",
+      "goal": "Disrupt",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "isolation-2",
+      "name": "Isolation",
+      "goal": "Prevent",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "lures",
+      "name": "Lures",
+      "goal": "Detect",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "lures-2",
+      "name": "Lures",
+      "goal": "Disrupt",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "lures-3",
+      "name": "Lures",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "malware-detonation",
+      "name": "Malware Detonation",
+      "goal": "Detect",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "malware-detonation-2",
+      "name": "Malware Detonation",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "malware-detonation-3",
+      "name": "Malware Detonation",
+      "goal": "Motivate",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "network-analysis",
+      "name": "Network Analysis",
+      "goal": "Detect",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "network-diversity",
+      "name": "Network Diversity",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "network-diversity-2",
+      "name": "Network Diversity",
+      "goal": "Motivate",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "network-manipulation",
+      "name": "Network Manipulation",
+      "goal": "Disrupt",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "network-manipulation-2",
+      "name": "Network Manipulation",
+      "goal": "Prevent",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "network-manipulation-3",
+      "name": "Network Manipulation",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "network-monitoring",
+      "name": "Network Monitoring",
+      "goal": "Collect",
+      "phase": "Engage",
+      "topGoal": "Expose",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "operational-objective",
+      "name": "Operational Objective",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "peripheral-management",
+      "name": "Peripheral Management",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "peripheral-management-2",
+      "name": "Peripheral Management",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "persona-creation",
+      "name": "Persona Creation",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "personas",
+      "name": "Personas",
+      "goal": "Motivate",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "plan",
+      "name": "Plan",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "pocket-litter",
+      "name": "Pocket Litter",
+      "goal": "Reassure",
+      "phase": "Engage",
+      "topGoal": "",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "security-controls",
+      "name": "Security Controls",
+      "goal": "Prevent",
+      "phase": "Engage",
+      "topGoal": "Affect",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "security-controls-2",
+      "name": "Security Controls",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "software-manipulation",
+      "name": "Software Manipulation",
+      "goal": "Collect",
+      "phase": "Engage",
+      "topGoal": "Expose",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "software-manipulation-2",
+      "name": "Software Manipulation",
+      "goal": "Disrupt",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "software-manipulation-3",
+      "name": "Software Manipulation",
+      "goal": "Direct",
+      "phase": "Engage",
+      "topGoal": "Elicit",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "storyboarding",
+      "name": "Storyboarding",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "system-activity-monitoring",
+      "name": "System Activity Monitoring",
+      "goal": "Collect",
+      "phase": "Engage",
+      "topGoal": "Expose",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "threat-model",
+      "name": "Threat Model",
+      "goal": "Prepare",
+      "phase": "Prepare",
+      "topGoal": "Prepare",
+      "url": "https://engage.mitre.org/matrix/"
+    },
+    {
+      "slug": "threat-model-2",
+      "name": "Threat Model",
+      "goal": "Understand",
+      "phase": "Understand",
+      "topGoal": "Understand",
+      "url": "https://engage.mitre.org/matrix/"
+    }
+  ]
+}

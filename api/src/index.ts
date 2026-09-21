@@ -1089,6 +1089,8 @@ import { malapiRouter } from './routes/malapi-edge-tools';
 import { carRouter } from './routes/car-edge-tools';
 import { capecRouter } from './routes/capec-edge-tools';
 import { hijacklibsRouter } from './routes/hijacklibs-edge-tools';
+import { verisRouter } from './routes/veris-edge-tools';
+import { engageRouter } from './routes/engage-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
@@ -1102,6 +1104,7 @@ import { fullhuntRouter } from './routes/fullhunt';
 import { opensanctionsRouter } from './routes/opensanctions';
 import { cloakRouter } from './routes/cloak-edge-tools';
 import { dehashRouter } from './routes/dehash';
+import { opencveRouter } from './routes/opencve';
 import { darknetIntelRouter } from './routes/darknet-intel-tools';
 import { darkwebOsintRouter } from './routes/darkweb-osint';
 import { fbiWantedRouter } from './routes/fbi-wanted';
@@ -2178,6 +2181,14 @@ app.route('/api/v1', capecRouter);
 // Data ships in public/data/hijacklibs/ built by scripts/build-hijacklibs-manifest.mjs.
 app.route('/api/v1', hijacklibsRouter);
 
+// VERIS Framework — 68 incident-taxonomy fields (Actor/Action/Asset/Attribute).
+// Data ships in public/data/veris/ built by scripts/build-veris-manifest.mjs.
+app.route('/api/v1', verisRouter);
+
+// MITRE Engage — 53 adversary-engagement approaches across 9 goals.
+// Data ships in public/data/engage/ built by scripts/build-engage-manifest.mjs.
+app.route('/api/v1', engageRouter);
+
 // Reports & Reading Library — curated list of 28 security reports,
 // frameworks, standards, and learning resources. Data ships in
 // public/data/reports/ built by scripts/build-reports-manifest.mjs.
@@ -2248,6 +2259,11 @@ app.route('/api/v1', cloakRouter);
 // No API key required.
 // Endpoint: GET /api/v1/dehash?hash=
 app.route('/api/v1', dehashRouter);
+
+// OpenCVE Cloud — enriched CVE records (vendors, CVSS, KEV, EPSS, CWE).
+// Requires OPENCVE_API_TOKEN (free org token at app.opencve.io).
+// Endpoint: GET /api/v1/opencve/cve/:id
+app.route('/api/v1', opencveRouter);
 
 // Darknet Intel Tools — GreyNoise, Pulsedive, Vulners, IntelX, AbuseIPDB,
 // deep ransomware, HIBP, abuse.ch, OTX, Hybrid Analysis.

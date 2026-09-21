@@ -207,6 +207,7 @@ import {
 } from './lib/webamon-campaigns';
 import { fullhuntDomainDetails, fullhuntSubdomains } from './lib/fullhunt';
 import { opensanctionsSearch, opensanctionsEntity, opensanctionsStats } from './lib/opensanctions';
+import { opencveGetCve } from './lib/opencve';
 import { dehashLookup } from './lib/dehash';
 import { fbiWantedSearch, fbiWantedList } from './lib/fbi-wanted';
 import { interpolSearch, interpolNoticeDetail } from './lib/interpol';
@@ -225,6 +226,8 @@ import { loadMalapiIndex, listMalapi, getMalapi, malapiCacheStats } from './lib/
 import { loadCarIndex, listCar, getCar, carCacheStats } from './lib/car-manifest';
 import { loadCapecIndex, listCapec, getCapec, capecCacheStats } from './lib/capec-manifest';
 import { loadHijacklibsIndex, listHijacklibs, getHijacklib, hijacklibsCacheStats } from './lib/hijacklibs-manifest';
+import { loadVerisIndex, listVeris, getVeris, verisCacheStats } from './lib/veris-manifest';
+import { loadEngageIndex, listEngage, getEngage, engageCacheStats } from './lib/engage-manifest';
 import {
   loadReportsIndex,
   listReports,
@@ -3329,6 +3332,132 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── VERIS Framework tools ───────────────────────────────────
+      // 68 incident-taxonomy fields (Actor/Action/Asset/Attribute + more).
+      // Data ships in public/data/veris/ built by
+      // scripts/build-veris-manifest.mjs.
+
+      this.tools(
+        'veris_list_fields',
+        'List VERIS incident-taxonomy fields: the standard vocabulary for describing who did what to which asset with what result (actor.external.motive, action.hacking.variety, asset.assets.variety…). Filter by section (action, actor, asset, attribute, victim, impact, timeline, discovery_method, …) or keyword.',
+        {
+          section: z.string().optional().describe('Filter by taxonomy section, e.g. "action", "actor", "asset"'),
+          keyword: z.string().optional().describe('Search keyword in path/values/labels'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ section, keyword, limit }) => {
+          const idx = await loadVerisIndex(ASSETS);
+          const fields = listVeris(idx, { section, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: fields.length,
+            sections: idx.sections,
+            fields,
+          });
+        }
+      );
+
+      this.tools(
+        'veris_get_field',
+        'Return the full enumerated values + human labels for a single VERIS taxonomy field. Use veris_list_fields first to discover slugs.',
+        {
+          slug: z.string().describe('Field slug, e.g. "action-hacking-variety". Get these from veris_list_fields.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadVerisIndex(ASSETS);
+          const field = getVeris(idx, slug);
+          if (!field) {
+            return untrustedToolResult({
+              error: 'veris_not_found',
+              slug,
+              hint: 'Call veris_list_fields to see available slugs.',
+            });
+          }
+          return untrustedToolResult(field);
+        }
+      );
+
+      this.tools(
+        'veris_stats',
+        'Return cache + manifest stats for the VERIS taxonomy: field counts by section.',
+        {},
+        async () => {
+          const idx = await loadVerisIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            sections: idx.sections,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: verisCacheStats(),
+          });
+        }
+      );
+
+      // ── MITRE Engage tools ──────────────────────────────────────
+      // 53 adversary-engagement approaches across 9 goals.
+      // Data ships in public/data/engage/ built by
+      // scripts/build-engage-manifest.mjs.
+
+      this.tools(
+        'engage_list',
+        'List MITRE Engage adversary-engagement approaches: deception/denial techniques organized by goal (Collect, Detect, Prevent, Direct, Disrupt, Reassure, Motivate, Elicit…) and phase (Prepare, Engage, Understand). Filter by goal, phase, or keyword.',
+        {
+          goal: z.string().optional().describe('Filter by goal, e.g. "Collect", "Disrupt", "Elicit"'),
+          phase: z.string().optional().describe('Filter by phase: Prepare, Engage, Understand'),
+          keyword: z.string().optional().describe('Search keyword in name/goal/phase'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ goal, phase, keyword, limit }) => {
+          const idx = await loadEngageIndex(ASSETS);
+          const approaches = listEngage(idx, { goal, phase, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: approaches.length,
+            phases: idx.phases,
+            goals: idx.goals,
+            approaches,
+          });
+        }
+      );
+
+      this.tools(
+        'engage_get',
+        'Return the details of a single Engage approach by slug: goal, phase, and matrix link. Use engage_list first to discover slugs.',
+        {
+          slug: z.string().describe('Approach slug, e.g. "lures", "personas". Get these from engage_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadEngageIndex(ASSETS);
+          const approach = getEngage(idx, slug);
+          if (!approach) {
+            return untrustedToolResult({
+              error: 'engage_not_found',
+              slug,
+              hint: 'Call engage_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(approach);
+        }
+      );
+
+      this.tools(
+        'engage_stats',
+        'Return cache + manifest stats for the Engage matrix: phases, goals, approach count.',
+        {},
+        async () => {
+          const idx = await loadEngageIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            phases: idx.phases,
+            goals: idx.goals,
+            source: idx.source,
+            replicatedAt: idx.replicatedAt,
+            cache: engageCacheStats(),
+          });
+        }
+      );
+
       // ── Active Campaigns tools ──────────────────────────────────
       // Curated directory of currently active threat campaigns. Data
       // ships in public/data/campaigns/ built by scripts/build-campaigns-manifest.mjs.
@@ -5623,6 +5752,23 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         {},
         async () => {
           const r = await opensanctionsStats(this.env as { OPENSANCTIONS_API_KEY?: string });
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── OpenCVE Cloud — enriched CVE records ────────────────────
+      // Requires OPENCVE_API_TOKEN (free org token at app.opencve.io).
+      this.tools(
+        'opencve_get_cve',
+        'Get an enriched CVE record from OpenCVE Cloud: summary, CVSS v3.1/v4.0, severity, KEV flag, EPSS, vendors/products, CWE weaknesses, and references. Requires OPENCVE_API_TOKEN (free org token at app.opencve.io).',
+        {
+          cve_id: z
+            .string()
+            .regex(/^CVE-\d{4}-\d{4,}$/i, 'Must look like CVE-2024-3094')
+            .describe('CVE ID, e.g. "CVE-2024-3094".'),
+        },
+        async ({ cve_id }) => {
+          const r = await opencveGetCve(cve_id, this.env as { OPENCVE_API_TOKEN?: string });
           return untrustedToolResult(r);
         }
       );

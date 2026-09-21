@@ -66,7 +66,9 @@ export type ProviderId =
   | 'virushee'
   | 'dphish'
   | 'destroylist'
-  | 'stalkphish';
+  | 'stalkphish'
+  | 'apivoid'
+  | 'metadefender';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -165,6 +167,15 @@ export interface ProviderEnv {
    *  Free plan is 50 req/day over a 4h window; the provider degrades to
    *  'unsupported' when unset. */
   STALKPHISH_API_KEY?: string;
+  /** APIVoid API key (NoVirusThanks, paid plans, 1 credit/call).
+   *  Powers the `apivoid` IP + domain reputation provider; degrades to
+   *  'unsupported' when unset. Successor to the URLVoid/IPVoid web
+   *  checkers, neither of which exposes its own API. */
+  APIVOID_API_KEY?: string;
+  /** MetaDefender Cloud API key (free community key via OPSWAT account,
+   *  daily limits). Powers the `metadefender` hash reputation provider;
+   *  degrades to 'unsupported' when unset. */
+  METADEFENDER_API_KEY?: string;
   /** Static ASSETS binding (Worker) — used by the `dphish` provider to read
    *  the replicated dPhish indicator manifest (public/data/threat-intel/dphish/)
    *  with zero network egress. Optional so provider unit tests compile without
@@ -247,6 +258,8 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   dphish: ['ipv4', 'ipv6', 'domain', 'url'],
   destroylist: ['domain', 'url'],
   stalkphish: ['url', 'domain', 'ipv4'],
+  apivoid: ['ipv4', 'ipv6', 'domain', 'url'],
+  metadefender: ['hash'],
 };
 
 /**
@@ -327,4 +340,8 @@ export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
   // returns no actionable signal, and repeat checks are absorbed by the
   // route's Cache API fronting.
   stalkphish: 2,
+  // Tier 2: keyed + credit-metered (APIVoid 1 credit/call, MetaDefender
+  // daily community limits). Same gating as stalkphish.
+  apivoid: 2,
+  metadefender: 2,
 };

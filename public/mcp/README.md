@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**384 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**391 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (270)
+### other (277)
 
 - `ai_advisories` - AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.
 - `ai_research` - AI security research feed — Hacktron, Palo Alto Unit42, Cloud Security Alliance, BleepingComputer AI-filtered items with links back upstream.
@@ -118,6 +118,9 @@
 - `dw_stats` - Return cache + manifest stats for the detection.wiki mirror: 15k rules, 218 techniques, 1,518 Windows providers, 426 Security-Auditing events, 17 platforms, 6 labs, and LRU body-cache info.
 - `email_check_registration` - Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.
 - `email_list_registration_platforms` - List all platforms available for email registration checking. Returns platform IDs, names, and categories.
+- `engage_get` - Return the details of a single Engage approach by slug: goal, phase, and matrix link. Use engage_list first to discover slugs.
+- `engage_list` - List MITRE Engage adversary-engagement approaches: deception/denial techniques organized by goal (Collect, Detect, Prevent, Direct, Disrupt, Reassure, Motivate, Elicit…) and phase (Prepare, Engage, Understand). Filter by goal, phase, or keyword.
+- `engage_stats` - Return cache + manifest stats for the Engage matrix: phases, goals, approach count.
 - `escape_get` - Return one incident docket: assigned task, summary, 7-stage containment chain, absent guardrails, disputed figures, sources. Use escape_list first to discover ids.
 - `escape_list` - List AI agent containment-failure incidents (15-entry seed registry, CBS-scored). Filter by class (containment-breach/agent-hijack/supply-chain/tool-misuse/injection), severity, evidence tier, absent guardrail, autonomy, or keyword.
 - `escape_stats` - Registry stats (entries, Tier A, eval-env breaches, autonomous count, median dwell, most-absent guardrail, days-since clock inputs), per-guardrail absent counts, month timeline buckets, and the 10 guardrail definitions + provenance trackers.
@@ -160,6 +163,7 @@
 - `malapi_stats` - Return cache + manifest stats for the MalAPI catalog: total APIs and attack categories.
 - `mozilla_tls_scan` - Scan a domain's security posture using the Mozilla Observatory (successor to the retired TLS Observatory). Returns grade (A+ through F) and test counts. No API key required.
 - `onion_lookup` - Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
+- `opencve_get_cve` - Get an enriched CVE record from OpenCVE Cloud: summary, CVSS v3.1/v4.0, severity, KEV flag, EPSS, vendors/products, CWE weaknesses, and references. Requires OPENCVE_API_TOKEN (free org token at app.opencve.io).
 - `opensanctions_entity` - Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match. Requires OPENSANCTIONS_API_KEY.
 - `opensanctions_search` - Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. Requires OPENSANCTIONS_API_KEY (free for public-interest work at opensanctions.org).
 - `opensanctions_stats` - Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. Requires OPENSANCTIONS_API_KEY.
@@ -263,6 +267,9 @@
 - `velo_list_clients` - List Velociraptor-managed endpoints (hostname, OS, arch, labels, last-seen). Optional hostname search. Degrades gracefully when VELO_API_URL is not configured.
 - `velo_list_flows` - List recent collections (flows) on a managed endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.
 - `velo_list_hunts` - List recent Velociraptor hunts across the fleet — descriptions, states, completion counts.
+- `veris_get_field` - Return the full enumerated values + human labels for a single VERIS taxonomy field. Use veris_list_fields first to discover slugs.
+- `veris_list_fields` - List VERIS incident-taxonomy fields: the standard vocabulary for describing who did what to which asset with what result (actor.external.motive, action.hacking.variety, asset.assets.variety…). Filter by section (action, actor, asset, attribute, victim, impact, timeline, discovery_method, …) or keyword.
+- `veris_stats` - Return cache + manifest stats for the VERIS taxonomy: field counts by section.
 - `virushee_check` - Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.
 - `wdtb_get_brief` - Return the full Webamon Daily Threat Brief for a given date. Includes estate stats, KPIs (new domains, takedowns, infra changes), notable movements (growth/takedown/rotation/lure-refresh), campaigns worth a look, and emerging clusters. Use wdtb_list_briefs to discover dates.
 - `wdtb_latest` - Return the most recent Webamon Daily Threat Brief. Includes estate stats, KPIs, notable movements, campaigns, and emerging clusters.
