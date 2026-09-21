@@ -328,6 +328,56 @@ export interface TelegramFeedItem {
   views?: string;
 }
 
+/** Fingerprint for cross-channel duplicate detection: lowercase alphanumeric
+ *  fold of the first 200 chars. Two items are duplicates when they share a
+ *  fingerprint (same syndicated copy) — the longer text wins (more complete).
+ *  Short stubs (<30 chars after folding) never fuzzy-match: generic one-liner
+ *  reactions ("🔥", "+1") from different channels about different stories
+ *  must not merge. Exact permalink matches always merge regardless of text. */
+export function fingerprintItemText(text: string): string | null {
+  const folded = text
+    .toLowerCase()
+    .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 200);
+  return folded.length >= 30 ? folded : null;
+}
+
+/** Drop duplicate feed items: same permalink, or same text fingerprint across
+ *  channels (syndicated copies). Returns the deduped list + removal count. */
+export function dedupeFeedItems(items: TelegramFeedItem[]): { items: TelegramFeedItem[]; removed: number } {
+  const seenPermalinks = new Set<string>();
+  const seenPrints = new Map<string, number>();
+  const out: TelegramFeedItem[] = [];
+  let removed = 0;
+  for (const item of items) {
+    if (seenPermalinks.has(item.permalink)) {
+      removed += 1;
+      continue;
+    }
+    const print = fingerprintItemText(item.text);
+    if (print !== null) {
+      const prevIdx = seenPrints.get(print);
+      if (prevIdx !== undefined) {
+        // Duplicate syndicated copy — keep the longer (more complete) text.
+        if (item.text.length > out[prevIdx]!.text.length) {
+          seenPermalinks.delete(out[prevIdx]!.permalink);
+          seenPermalinks.add(item.permalink);
+          out[prevIdx] = item;
+        }
+        removed += 1;
+        continue;
+      }
+      seenPrints.set(print, out.length);
+    }
+    seenPermalinks.add(item.permalink);
+    out.push(item);
+  }
+  return { items: out, removed };
+}
+
 export interface ChannelQuality {
   /** 0-100. Combined score; higher = healthier signal-to-noise. */
   score: number;
@@ -355,6 +405,9 @@ export interface TelegramFeedResponse {
     quality?: ChannelQuality;
   }[];
   items: TelegramFeedItem[];
+  /** Cross-channel/permalink duplicates collapsed before sort. Optional so
+   *  older cached payloads (built before dedup) still typecheck. */
+  duplicates_removed?: number;
   warnings: string[];
 }
 
@@ -947,7 +1000,11 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
     try {
       const map = await getBotChannelMap(kv);
       const knownHandles = new Set(queue.map((c) => c.handle.toLowerCase()));
-      for (const [handle, _chatId] of map) {
+      for (const [rawHandle, _chatId] of map) {
+        // Case-insensitive compare: bot-map keys keep the channel's display
+        // case (e.g. `FBI_Watchdog`) while the queue set is lowercased — a
+        // raw compare re-added the whole channel as a `[Bot]` duplicate.
+        const handle = rawHandle.toLowerCase();
         if (knownHandles.has(handle)) continue;
         const botMsgs = await fetchFromBotApiCache(kv, handle);
         if (!botMsgs || botMsgs.length === 0) continue;
@@ -981,12 +1038,16 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
     }
   }
 
-  allItems.sort((a, b) => b.datetime.localeCompare(a.datetime));
+  // De-duplicate: same permalink served twice (preview pinned-replay) or the
+  // same syndicated copy cross-posted across channels. Longer text wins.
+  const { items: dedupedItems, removed: duplicatesRemoved } = dedupeFeedItems(allItems);
+  dedupedItems.sort((a, b) => b.datetime.localeCompare(a.datetime));
 
   return {
     generated_at: new Date().toISOString(),
     channels: channelStatus.sort((a, b) => a.name.localeCompare(b.name)),
-    items: allItems,
+    items: dedupedItems,
+    duplicates_removed: duplicatesRemoved,
     warnings,
   };
 }
