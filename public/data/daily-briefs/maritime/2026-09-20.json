@@ -1,0 +1,200 @@
+{
+  "type": "maritime",
+  "date": "2026-09-20",
+  "threatLevel": "Unknown",
+  "executiveSummary": "The collected reporting indicates elevated maritime cyber risk this week driven by confirmed cyber disruptions to port operations in Malaysia and credible investigations of cyber compromise on multiple oil tankers bound for the United States. A new U.S. Maritime Administration advisory highlights systemic risks from foreign-manufactured port equipment and logistics platforms, underscoring potential exposure paths into port OT and logistics data environments. Overall maritime cyber threat level is assessed as HIGH (confidence: high).",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": ""
+      },
+      {
+        "value": "4",
+        "label": ""
+      },
+      {
+        "value": "3",
+        "label": ""
+      },
+      {
+        "value": "3",
+        "label": ""
+      },
+      {
+        "value": "0",
+        "label": ""
+      },
+      {
+        "value": "0",
+        "label": ""
+      },
+      {
+        "value": "1",
+        "label": ""
+      },
+      {
+        "value": "2",
+        "label": ""
+      },
+      {
+        "value": "0",
+        "label": ""
+      },
+      {
+        "value": "3",
+        "label": ""
+      }
+    ],
+    "vendors": [
+      "Port technologies: Ship-to-shore cranes, scanning systems, and logistics platforms (e.g., LOGINK) cited in MARAD advisory as potential risk vectors. Government Advisory",
+      "Vessel environments: Shipboard IT networks with potential adjacency to engine-related systems; specific vendor technologies not named in reporting."
+    ],
+    "sectors": [
+      "Container ports and terminals (operational disruption reported at PTP)",
+      "Oil and gas shipping (two US-bound oil tankers with confirmed malicious activity)"
+    ]
+  },
+  "keyFindings": [
+    "Confirmed malicious cyber activity on at least two foreign-flagged oil tankers prompted U.S. Coast Guard and FBI boardings; impacts to onboard networks were verified, with potential implications for communications and engine-related systems. Confidence: high-to-medium. View Article Supporting Report",
+    "A cyberattack halted terminal operations for several hours at Port of Tanjung Pelepas, Malaysia; operations resumed progressively but vessel delays were possible. Confidence: high. View Article",
+    "MARAD issued a global advisory on risks from foreign-manufactured port equipment, logistics platforms, and remote-service pathways (e.g., ship-to-shore cranes, LOGINK, certain scanning systems), urging segmentation, access control, patching, and backup resilience. Confidence: high. Government Advisory"
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "Cyber boardings of US-bound oil tankers after confirmed malicious activity",
+      "severity": "monitor",
+      "text": "Assessment: Multiagency teams (U.S. Coast Guard, FBI) boarded at least two foreign-flagged oil tankers in August 2026 after confirmed malicious activity on vessel networks. One vessel was publicly linked to a Liberian-flagged crude tanker reportedly near the Strait of Gibraltar; attribution remains unconfirmed. Maritime domain: Tankers / Blue-water shipping Affected systems: Shipboard IT; potential adjacency to engine-related systems; navigation impact possible but unconfirmed. Threat actors: Unattributed (\"foreign cyber actors\") Operational impact: Security inspections, potential voyage delays; safety impact possible if propulsion/engine control affected.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/5c61bfec835a790e350f06cffc8f8021",
+          "label": "Associated Press"
+        },
+        {
+          "url": "https://therecord.media/oil-tanker-cyberattack-coast-guard-fbi",
+          "label": "Recorded Future News"
+        }
+      ],
+      "items": [
+        "Assessment: Multiagency teams (U.S. Coast Guard, FBI) boarded at least two foreign-flagged oil tankers in August 2026 after confirmed malicious activity on vessel networks. One vessel was publicly linked to a Liberian-flagged crude tanker reportedly near the Strait of Gibraltar; attribution remains unconfirmed.",
+        "Maritime domain: Tankers / Blue-water shipping",
+        "Affected systems: Shipboard IT; potential adjacency to engine-related systems; navigation impact possible but unconfirmed.",
+        "Threat actors: Unattributed (\"foreign cyber actors\")",
+        "Operational impact: Security inspections, potential voyage delays; safety impact possible if propulsion/engine control affected."
+      ]
+    },
+    {
+      "title": "Cyberattack halted operations at Port of Tanjung Pelepas (Malaysia)",
+      "severity": "monitor",
+      "text": "Assessment: A cyberattack paused terminal operations for several hours; the operator reported restored systems with progressive resumption and potential vessel delays. Maritime domain: Port / Terminal operations Affected systems: Not specified (terminal operations impacted) Navigation impact: None reported Safety impact: Possible; Supply chain impact: Confirmed",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://theloadstar.com/cyber-attack-halts-operations-at-malaysias-tanjung-pelepas-port/",
+          "label": "The Loadstar"
+        }
+      ],
+      "items": [
+        "Assessment: A cyberattack paused terminal operations for several hours; the operator reported restored systems with progressive resumption and potential vessel delays.",
+        "Maritime domain: Port / Terminal operations",
+        "Affected systems: Not specified (terminal operations impacted)",
+        "Navigation impact: None reported",
+        "Safety impact: Possible; Supply chain impact: Confirmed"
+      ]
+    },
+    {
+      "title": "MARAD 2026-007 advisory on foreign-manufactured port equipment and logistics platforms",
+      "severity": "monitor",
+      "text": "Assessment: MARAD warns of cyber and data-security risks from certain foreign-manufactured port equipment and platforms (e.g., ship-to-shore cranes, scanning systems, LOGINK), highlighting remote-service and data-exposure pathways. Maritime domain: Ports / Terminals / Logistics Navigation impact: None indicated Safety impact: Possible via OT disruption",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "U.S. Maritime Administration"
+        }
+      ],
+      "items": [
+        "Assessment: MARAD warns of cyber and data-security risks from certain foreign-manufactured port equipment and platforms (e.g., ship-to-shore cranes, scanning systems, LOGINK), highlighting remote-service and data-exposure pathways.",
+        "Maritime domain: Ports / Terminals / Logistics",
+        "Navigation impact: None indicated",
+        "Safety impact: Possible via OT disruption"
+      ]
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "Cyber boardings of US-bound oil tankers after confirmed malicious activity",
+      "severity": "monitor",
+      "text": "Assessment: Multiagency teams (U.S. Coast Guard, FBI) boarded at least two foreign-flagged oil tankers in August 2026 after confirmed malicious activity on vessel networks. One vessel was publicly linked to a Liberian-flagged crude tanker reportedly near the Strait of Gibraltar; attribution remains unconfirmed. Maritime domain: Tankers / Blue-water shipping Affected systems: Shipboard IT; potential adjacency to engine-related systems; navigation impact possible but unconfirmed. Threat actors: Unattributed (\"foreign cyber actors\") Operational impact: Security inspections, potential voyage delays; safety impact possible if propulsion/engine control affected.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/5c61bfec835a790e350f06cffc8f8021",
+          "label": "Associated Press"
+        },
+        {
+          "url": "https://therecord.media/oil-tanker-cyberattack-coast-guard-fbi",
+          "label": "Recorded Future News"
+        }
+      ],
+      "items": [
+        "Assessment: Multiagency teams (U.S. Coast Guard, FBI) boarded at least two foreign-flagged oil tankers in August 2026 after confirmed malicious activity on vessel networks. One vessel was publicly linked to a Liberian-flagged crude tanker reportedly near the Strait of Gibraltar; attribution remains unconfirmed.",
+        "Maritime domain: Tankers / Blue-water shipping",
+        "Affected systems: Shipboard IT; potential adjacency to engine-related systems; navigation impact possible but unconfirmed.",
+        "Threat actors: Unattributed (\"foreign cyber actors\")",
+        "Operational impact: Security inspections, potential voyage delays; safety impact possible if propulsion/engine control affected."
+      ]
+    },
+    {
+      "title": "Cyberattack halted operations at Port of Tanjung Pelepas (Malaysia)",
+      "severity": "monitor",
+      "text": "Assessment: A cyberattack paused terminal operations for several hours; the operator reported restored systems with progressive resumption and potential vessel delays. Maritime domain: Port / Terminal operations Affected systems: Not specified (terminal operations impacted) Navigation impact: None reported Safety impact: Possible; Supply chain impact: Confirmed",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://theloadstar.com/cyber-attack-halts-operations-at-malaysias-tanjung-pelepas-port/",
+          "label": "The Loadstar"
+        }
+      ],
+      "items": [
+        "Assessment: A cyberattack paused terminal operations for several hours; the operator reported restored systems with progressive resumption and potential vessel delays.",
+        "Maritime domain: Port / Terminal operations",
+        "Affected systems: Not specified (terminal operations impacted)",
+        "Navigation impact: None reported",
+        "Safety impact: Possible; Supply chain impact: Confirmed"
+      ]
+    },
+    {
+      "title": "MARAD 2026-007 advisory on foreign-manufactured port equipment and logistics platforms",
+      "severity": "monitor",
+      "text": "Assessment: MARAD warns of cyber and data-security risks from certain foreign-manufactured port equipment and platforms (e.g., ship-to-shore cranes, scanning systems, LOGINK), highlighting remote-service and data-exposure pathways. Maritime domain: Ports / Terminals / Logistics Navigation impact: None indicated Safety impact: Possible via OT disruption",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "U.S. Maritime Administration"
+        }
+      ],
+      "items": [
+        "Assessment: MARAD warns of cyber and data-security risks from certain foreign-manufactured port equipment and platforms (e.g., ship-to-shore cranes, scanning systems, LOGINK), highlighting remote-service and data-exposure pathways.",
+        "Maritime domain: Ports / Terminals / Logistics",
+        "Navigation impact: None indicated",
+        "Safety impact: Possible via OT disruption"
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "Observed behaviors (plain language, not formally mapped): Unauthorized access to vessel networks; investigation for potential impact on engine-related subsystems; potential lateral movement from IT to OT cannot be confirmed from public reporting.",
+      "Port risk pathways: Remote service access to cranes/port equipment; logistics data aggregation platforms as exposure surfaces; recommended segmentation and access control to mitigate systemic risk (per MARAD advisory). Government Advisory"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for further official details or advisories stemming from the tanker boardings; follow-on inspections or operational advisories are plausible. Confidence: medium. View Article Ports operating foreign-manufactured cranes, scanning systems, or logistics platforms should anticipate increased governance reviews and potential vendor-control directives following the MARAD advisory. Confidence: high. Government Advisory Immediate risk of widespread navigation manipulation remains unsubstantiated in current reporting; maintain vigilance for anomalies while prioritizing remote-access hardening and boundary monitoring. Confidence: medium.",
+  "relatedCves": []
+}

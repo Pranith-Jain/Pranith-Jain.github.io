@@ -1,0 +1,61 @@
+{
+  "type": "cyber",
+  "date": "2026-09-20",
+  "threatLevel": "",
+  "executiveSummary": "",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "Escalate events (this brief)"
+      },
+      {
+        "value": "",
+        "label": "Actively exploited items"
+      },
+      {
+        "value": "8+",
+        "label": "OT vendor advisories"
+      },
+      {
+        "value": "",
+        "label": "Perimeter/edge device issues"
+      },
+      {
+        "value": "",
+        "label": "KEV additions impacting CI/OT"
+      },
+      {
+        "value": "",
+        "label": "Perimeter exposure risk"
+      },
+      {
+        "value": "",
+        "label": "OT vendor advisory urgency"
+      },
+      {
+        "value": "",
+        "label": "IT-to-OT pivot vectors"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "relevance": "",
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "",
+  "relatedCves": [
+    "CVE-2026-76460",
+    "CVE-2026-8452",
+    "CVE-2026-40854"
+  ]
+}

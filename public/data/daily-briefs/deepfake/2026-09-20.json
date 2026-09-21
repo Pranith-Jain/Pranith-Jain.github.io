@@ -1,0 +1,82 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-20",
+  "riskOutlook": "",
+  "executiveSummary": "This period saw severe legal- and safety-impacting abuses of synthetic media. A New Mexico murder appeal was corrupted by fabricated AI-generated police testimony, prompting sanctions and case reassignment by the state's highest court View Article . Prosecutors in New York seized 12 domains involved in large-scale non-consensual deepfake pornography with more than 1,200 victims View Article , while Wired reported over 100 European politicians targeted by explicit deepfake sites View Article . In Michigan, a former doctor was sentenced in a case involving AI-generated pornography depicting nude children View Article . Financial and impersonation fraud risks intensified. The U.S. Treasury urged stronger reporting by banks amid nearly $12.7 billion in cyber scam losses View Article . The FBI/IC3 warned of scammers posing as law enforcement on video calls-often aided by AI-citing nearly 61,000 complaints and over $1.6 billion in losses Security Advisory . State-linked operators also misused a frontier AI model to support operations against government and defense personnel View Article . Separately, U.S. authorities disrupted the Xinbi Guarantee marketplace enabling scams, laundering, trafficking, and access to deepfake services, seizing $52.8 million and removing Telegram channels View Article . Defensive and policy moves continued. NIST finalized guidance to protect identity tokens and assertions View Article . OpenAI released a public verification tool for C2PA metadata and SynthID watermarks in supported images and audio View Article , building on earlier content-provenance advances Supporting Report . Platform governance and election safeguards also evolved via Meta Oversight Board enforcement in the UK View Article and Brazil's electoral court defining \"deepfake\" in political advertising View Article . Overall, the threat environment is assessed as worsening due to the volume and gravity of high-urgency incidents affecting courts, public safety, politics, and financial systems, despite notable enforcement and provenance advances.",
+  "keyFindings": [
+    {
+      "title": "The integrity of judicial proceedings was compromised by fabricated AI-generated",
+      "summary": "The integrity of judicial proceedings was compromised by fabricated AI-generated police testimony in a New Mexico murder appeal. View Article"
+    },
+    {
+      "title": "New York authorities seized 12 domains hosting non-consensual deepfake pornograp",
+      "summary": "New York authorities seized 12 domains hosting non-consensual deepfake pornography tied to more than 1,200 victims, signaling active disruption of synthetic sexual exploitation. View Article"
+    },
+    {
+      "title": "Over 100 European politicians were reportedly targeted by explicit deepfake site",
+      "summary": "Over 100 European politicians were reportedly targeted by explicit deepfake sites, elevating risks to reputations and democratic processes. View Article"
+    },
+    {
+      "title": "The FBI/IC3 reported widespread government-impersonation video scams-often AI-en",
+      "summary": "The FBI/IC3 reported widespread government-impersonation video scams-often AI-enabled-leading to nearly 61,000 complaints and over $1.6B in losses. Security Advisory"
+    },
+    {
+      "title": "FinCEN urged banks to enhance reporting and detection amid nearly $12.7B in U.S.",
+      "summary": "FinCEN urged banks to enhance reporting and detection amid nearly $12.7B in U.S. cyber scam losses, indicating persistent financial exposure. View Article"
+    },
+    {
+      "title": "U.S. authorities dismantled elements of the Xinbi Guarantee marketplace enabling",
+      "summary": "U.S. authorities dismantled elements of the Xinbi Guarantee marketplace enabling fraud, laundering, trafficking, and access to deepfake services, seizing $52.8M. View Article"
+    },
+    {
+      "title": "State-linked operators misused a frontier AI model to target government, intelli",
+      "summary": "State-linked operators misused a frontier AI model to target government, intelligence, diplomatic, and defense personnel; the provider disrupted activity and shared intelligence. View Article"
+    },
+    {
+      "title": "OpenAI's verification tool and watermarking support expanded practical provenanc",
+      "summary": "OpenAI's verification tool and watermarking support expanded practical provenance checks for supported images and audio. View Article"
+    },
+    {
+      "title": "Brazil's electoral court set a clearer operational definition for deepfakes in p",
+      "summary": "Brazil's electoral court set a clearer operational definition for deepfakes in political ads following recent misuse. View Article"
+    },
+    {
+      "title": "A Michigan case underscored the severe child-safety risk of AI-generated child s",
+      "summary": "A Michigan case underscored the severe child-safety risk of AI-generated child sexual abuse material, culminating in a prison sentence. View Article"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [
+    "Non-consensual sexual deepfakes at scale, including targeted harassment of public figures and mass victimization ecosystems disrupted by law enforcement. View Article Supporting Report",
+    "AI-enabled impersonation fraud via video and voice cloning targeting consumers and public trust in government communication. Security Advisory",
+    "State-linked misuse of frontier models for cyber operations against high-value government and defense targets. View Article",
+    "Continued government and platform actions against crime-enabling infrastructure offering deepfake services. View Article",
+    "Provenance and authenticity advances: public verification of watermark/metadata for supported OpenAI-generated content; ongoing C2PA ecosystem developments. View Article Standards Update",
+    "Regulatory and policy guardrails: Brazil's electoral court deepfake definition for political ads; UK Meta Oversight Board intervention on harmful deepfakes. View Article View Article",
+    "Research directions: temporal-coherence analysis for audio deepfake detection offers promising defense avenues. View Article"
+  ],
+  "geographicObservations": [
+    "United States: Court integrity incident (NM), AI-generated CSAM case (MI), Manhattan deepfake site seizures (NY), FBI/IC3 impersonation warning (US-wide), Treasury scam warning (US-wide), real-estate voice-cloning loss (MI), local voice-cloning scams (Dallas, TX). Source Source Advisory",
+    "Europe: More than 100 politicians reportedly targeted by explicit deepfake sites. Source",
+    "Brazil: Electoral court deepfake standard for political advertising. Source",
+    "China/SE Asia-linked: Disruption of Xinbi Guarantee marketplace and official Chinese warnings on AI misuse risks. Source Source",
+    "Multiple countries: State-linked misuse of a frontier AI model against government and defense sectors. Source"
+  ],
+  "detectionDevelopments": [
+    "Manhattan DA seized 12 domains tied to deepfake pornography; ongoing investigation. View Article",
+    "U.S. sanctions and seizures targeted the Xinbi Guarantee marketplace and associated Telegram channels. View Article",
+    "FBI/IC3 issued a PSA on AI-aided government impersonation fraud via video calls. Security Advisory",
+    "FinCEN urged banks to enhance reporting and detection of cyber scams. View Article",
+    "NIST finalized guidance for protecting online identity tokens and assertions. View Article",
+    "NIST released a meta-framework on interoperable traceability and provenance. View Article",
+    "OpenAI launched public verification for C2PA/SynthID signals; expanded watermarking to supported audio. View Article Supporting Report",
+    "Meta Oversight Board ordered stronger action on harmful deepfakes. View Article",
+    "Research proposed temporal-coherence features for audio deepfake detection. View Article",
+    "Identity and communications verification: Enforce out-of-band callbacks using pre-registered numbers for any payment, credentials, or sensitive data requests. Require multi-person approvals for wire changes. Analyst Recommendation",
+    "Judicial and legal workflows: Implement attestations on AI assistance; require verifiable citations and primary-record cross-checks for evidence and testimony. Analyst Recommendation",
+    "Provenance by default: Integrate C2PA metadata checks and vendor verification APIs into newsroom, platform, and enterprise media-intake pipelines; log provenance results. Analyst Recommendation",
+    "Threat monitoring: Track domain churn and rehosting patterns after law-enforcement takedowns; monitor escrow/reputation markers in crime forums. Analyst Recommendation",
+    "Voice/video risk controls: Introduce \"safe words\" or challenge-response for high-risk transactions; apply liveness and temporal-inconsistency analysis where feasible. Analyst Recommendation",
+    "Incident response playbooks: Include synthetic-media triage steps (hashing vs. generative indicators, EXIF/C2PA checks, known model artifacts). Analyst Recommendation"
+  ]
+}
