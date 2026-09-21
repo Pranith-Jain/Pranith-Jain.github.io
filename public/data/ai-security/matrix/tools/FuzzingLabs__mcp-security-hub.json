@@ -7,9 +7,9 @@
   "description": "A growing collection of MCP servers bringing offensive security tools to AI assistants. Nmap, Ghidra, Nuclei, SQLMap, Hashcat and more.",
   "homepage": "https://fuzzinglabs.github.io/mcp-security-hub/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-20T08:39:56Z",
+  "checkedAt": "2026-09-21T09:01:18Z",
   "pushedAt": "2026-04-08",
-  "daysIdle": 165,
+  "daysIdle": 166,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-14"
     },
     "derived": {
-      "checked_at": "2026-09-20T08:39:56Z",
+      "checked_at": "2026-09-21T09:01:18Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-04-08",
-        "days_since_push": 165,
+        "days_since_push": 166,
         "total_commits": 61,
         "last100_span_days": 87,
         "last100_authors": 8,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 165,
+        "days_idle": 166,
         "relocated": false
       },
       "identity": {

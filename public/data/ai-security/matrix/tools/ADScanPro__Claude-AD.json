@@ -7,27 +7,27 @@
   "description": "Active Directory pentest methodology for Claude Code: skills, agents and slash commands for internal AD red-team work (Kerberoasting, ADCS ESC1-17, DCSync, ACL abuse, NTLM relay, delegation), with per-technique OPSEC/telemetry notes. Drive…",
   "homepage": "https://adscanpro.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-20T08:39:21Z",
+  "checkedAt": "2026-09-21T09:00:45Z",
   "pushedAt": "2026-08-24",
-  "daysIdle": 27,
+  "daysIdle": 28,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "skill", "repo": "ADScanPro/Claude-AD", "scope": ["ad"], "added": "2026-09-12" },
     "derived": {
-      "checked_at": "2026-09-20T08:39:21Z",
+      "checked_at": "2026-09-21T09:00:45Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-24",
-        "days_since_push": 27,
+        "days_since_push": 28,
         "total_commits": 2,
         "last100_span_days": 0,
         "last100_authors": 1,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 27,
+        "days_idle": 28,
         "relocated": false
       },
       "identity": {

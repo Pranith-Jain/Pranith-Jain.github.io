@@ -7,27 +7,27 @@
   "description": "A Model Context Protocol (MCP) server to converse with data in Bloodhound",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-20T08:38:18Z",
+  "checkedAt": "2026-09-21T08:59:45Z",
   "pushedAt": "2026-08-19",
-  "daysIdle": 32,
+  "daysIdle": 33,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
     "entry": { "category": "mcp", "repo": "mwnickerson/bloodhound_mcp", "scope": ["ad"], "added": "2026-09-12" },
     "derived": {
-      "checked_at": "2026-09-20T08:38:18Z",
+      "checked_at": "2026-09-21T08:59:45Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-19",
-        "days_since_push": 32,
+        "days_since_push": 33,
         "total_commits": 94,
         "last100_span_days": 515,
         "last100_authors": 5,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 32,
+        "days_idle": 33,
         "relocated": false
       },
       "identity": {

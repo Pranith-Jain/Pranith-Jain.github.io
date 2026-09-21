@@ -1,8 +1,16 @@
 {
-  "updatedAt": "2026-09-20T11:17:49.325Z",
-  "total": 50,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 2 },
+  "updatedAt": "2026-09-21T12:43:11.377Z",
+  "total": 51,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 2 },
   "items": [
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Researchers escape OpenAI Codex sandbox to run commands on host",
+      "link": "https://www.bleepingcomputer.com/news/security/researchers-escape-openai-codex-sandbox-to-run-commands-on-host/",
+      "pubDate": "Sun, 20 Sep 2026 08:00:00 -0400",
+      "source": "bleepingcomputer",
+      "description": "Researchers escaped OpenAI's Codex sandbox two ways, one running commands on a developer's machine from its most locked-down mode. OpenAI has patched both. [...]"
+    },
     {
       "id": "aHR0cHM6Ly93",
       "title": "BragJack attacks hijack AI browser agents through malicious extensions",
@@ -18,14 +26,6 @@
       "pubDate": "Fri, 18 Sep 2026 10:00:36 +0000",
       "source": "unit42",
       "description": "Analysis of how default configurations in AWS AgentCore Harness allow prompt injection to exfiltrate credentials, and key steps to secure your agents. The post A Vault with a Heap-View: The Uncomfortable Space Between AgentCore Harness and Identity appeared first on Unit 42 ."
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "OpenAI details more cases of AI agents taking unauthorized actions",
-      "link": "https://www.bleepingcomputer.com/news/security/openai-details-more-cases-of-ai-agents-taking-unauthorized-actions/",
-      "pubDate": "Thu, 17 Sep 2026 14:55:12 -0400",
-      "source": "bleepingcomputer",
-      "description": "OpenAI has presented new examples of what they call \"AI model misalignment\" from the past six months, including unauthorized file uploads, following self-generated instructions, hiding mistakes, and leveraging exposed API keys. [...]"
     },
     {
       "id": "aHR0cHM6Ly93",
@@ -58,6 +58,14 @@
       "pubDate": "Wed, 02 Sep 2026 10:00:46 +0000",
       "source": "unit42",
       "description": "Using autonomous AI agents, an attacker breached an enterprise network in a matter of hours. Understand how to address and defend against agentic attacks. The post An AI-Assisted Cyber Attack: Inside a Unit 42 Investigation appeared first on Unit 42 ."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "The Human-Machine Partnership: Architectures for Reliable AI",
+      "link": "https://cloudsecurityalliance.org/articles/the-human-machine-partnership-architectures-for-reliable-ai",
+      "pubDate": "Tue, 01 Sep 2026 16:39:12 -0700",
+      "source": "csa",
+      "description": "&amp;nbsp; Agentic AI for balancing speed, resilience and human authority in automation. Part I: Never Put All Your Eggs In One Basket The Human-In-The-Loop (HITL) concept went through its own history of becoming a milestone for humanity: from the human in the role of a controller to supervisor to model trainer, the human has lately been assigned the role of an ethical or legal safeguard and in its most recent job description it is a collaborator and system governor [Figure 1]. Figur..."
     },
     {
       "id": "aHR0cHM6Ly91",

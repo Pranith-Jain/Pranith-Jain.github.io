@@ -7,9 +7,9 @@
   "description": "Scan MCP servers for potential threats & security findings.",
   "homepage": "https://blogs.cisco.com/ai/securing-the-ai-agent-supply-chain-with-ciscos-open-source-mcp-scanner",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-20T08:40:24Z",
+  "checkedAt": "2026-09-21T09:01:47Z",
   "pushedAt": "2026-09-19",
-  "daysIdle": 1,
+  "daysIdle": 2,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-14"
     },
     "derived": {
-      "checked_at": "2026-09-20T08:40:24Z",
+      "checked_at": "2026-09-21T09:01:47Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-19",
-        "days_since_push": 1,
+        "days_since_push": 2,
         "total_commits": 135,
         "last100_span_days": 331,
         "last100_authors": 24,
         "releases": 48,
         "latest_release_at": "2026-08-28",
-        "days_since_release": 23,
-        "days_idle": 1,
+        "days_since_release": 24,
+        "days_idle": 2,
         "relocated": false
       },
       "identity": {

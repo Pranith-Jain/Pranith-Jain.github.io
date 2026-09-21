@@ -7,27 +7,27 @@
   "description": "A Python pickling decompiler and static analyzer",
   "homepage": null,
   "added": "2026-09-13",
-  "checkedAt": "2026-09-20T08:39:26Z",
+  "checkedAt": "2026-09-21T09:00:50Z",
   "pushedAt": "2026-09-19",
-  "daysIdle": 1,
+  "daysIdle": 2,
   "archived": false,
   "license": "LGPL-3.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "trailofbits/fickling", "scope": ["modfile"], "added": "2026-09-13" },
     "derived": {
-      "checked_at": "2026-09-20T08:39:26Z",
+      "checked_at": "2026-09-21T09:00:50Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-19",
-        "days_since_push": 1,
+        "days_since_push": 2,
         "total_commits": 505,
         "last100_span_days": 205,
         "last100_authors": 5,
         "releases": 21,
         "latest_release_at": "2026-06-26",
-        "days_since_release": 86,
-        "days_idle": 1,
+        "days_since_release": 87,
+        "days_idle": 2,
         "relocated": false
       },
       "identity": {
