@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-southeastern-conference-2026-09-21",
-  "title": "Southeastern Conference",
-  "group": "nightspire",
-  "discovered": "2026-09-21T03:28:05.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "United States",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/de3ccae5-4cc9-47e1-a171-acda69a4e14d",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Sports/Education",
-  "references": ["Darkfield"]
-}
+{"slug":"nightspire-southeastern-conference-2026-09-21","title":"Southeastern Conference","group":"nightspire","discovered":"2026-09-21T03:28:05.000Z","category":"ransomware","severity":"high","country":"United States","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/de3ccae5-4cc9-47e1-a171-acda69a4e14d","groupAliases":["NIGHT SPIRE"],"activity":"Sports/Education","references":["Darkfield"]}

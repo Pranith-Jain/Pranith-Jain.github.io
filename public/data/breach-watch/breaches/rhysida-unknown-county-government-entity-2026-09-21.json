@@ -1,15 +1,1 @@
-{
-  "slug": "rhysida-unknown-county-government-entity-2026-09-21",
-  "title": "Unknown (County/Government entity)",
-  "group": "Rhysida",
-  "discovered": "2026-09-21T03:04:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/215991fa-5b17-4aa5-8f0b-effbdc4b4925",
-  "groupAliases": [],
-  "activity": "Government/Healthcare",
-  "references": ["Darkfield"]
-}
+{"slug":"rhysida-unknown-county-government-entity-2026-09-21","title":"Unknown (County/Government entity)","group":"Rhysida","discovered":"2026-09-21T03:04:57.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/215991fa-5b17-4aa5-8f0b-effbdc4b4925","groupAliases":[],"activity":"Government/Healthcare","references":["Darkfield"]}

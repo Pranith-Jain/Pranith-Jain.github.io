@@ -1,15 +1,1 @@
-{
-  "slug": "inc-ransom-maryann-kriger-2026-09-21",
-  "title": "Maryann Kriger",
-  "group": "INC Ransom",
-  "discovered": "2026-09-21T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "United States",
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/maryann-kriger-incransom-2026-09",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"inc-ransom-maryann-kriger-2026-09-21","title":"Maryann Kriger","group":"INC Ransom","discovered":"2026-09-21T00:00:00.000Z","category":"data_breach","severity":"high","country":"United States","sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/maryann-kriger-incransom-2026-09","groupAliases":[],"activity":"Not Found","references":["RecentBreaches.com"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "3am-newmantractor-com-2026-09-21",
-  "title": "newmantractor.com",
-  "group": "3am",
-  "discovered": "2026-09-21T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/newmantractor-com-3am-2026-09",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"3am-newmantractor-com-2026-09-21","title":"newmantractor.com","group":"3am","discovered":"2026-09-21T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/newmantractor-com-3am-2026-09","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}

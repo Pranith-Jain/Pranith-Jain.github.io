@@ -1,15 +1,1 @@
-{
-  "slug": "storm-manroc-developments-2026-09-21",
-  "title": "Manroc Developments",
-  "group": "storm",
-  "discovered": "2026-09-21T10:16:10.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Manufacturing | Manitouwadge, Ontario, Canada | Manroc Developments Inc. is a leading full-service mining contractor specializing in the Alimak Raise Mining process, with over 30 years of experience in the industry. The company serves the international mining community, having completed over 70 projects across four continents and driven more than 65,000 lateral development meters. Headquartered in Manitouwadge, Ontario, Manroc is committed to building long-term relationships with clients by delivering on promises and ensuring project success through experienced personnel. They also offer a comprehensive training program to support career development in the mining sector. \nThe company headquarters is located in 7 Black Road, Manitouwadge, ON P0T 2C0, Canada. 201-500 Employees\n | Deadline: 2026-10-06T07:18:52.000Z",
-  "source_url": "https://www.ransomlook.io/screenshots/storm/Manroc Developments.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"storm-manroc-developments-2026-09-21","title":"Manroc Developments","group":"storm","discovered":"2026-09-21T10:16:10.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Manufacturing | Manitouwadge, Ontario, Canada | Manroc Developments Inc. is a leading full-service mining contractor specializing in the Alimak Raise Mining process, with over 30 years of experience in the industry. The company serves the international mining community, having completed over 70 projects across four continents and driven more than 65,000 lateral development meters. Headquartered in Manitouwadge, Ontario, Manroc is committed to building long-term relationships with clients by delivering on promises and ensuring project success through experienced personnel. They also offer a comprehensive training program to support career development in the mining sector. \nThe company headquarters is located in 7 Black Road, Manitouwadge, ON P0T 2C0, Canada. 201-500 Employees\n | Deadline: 2026-10-06T07:18:52.000Z","source_url":"https://www.ransomlook.io/screenshots/storm/Manroc Developments.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

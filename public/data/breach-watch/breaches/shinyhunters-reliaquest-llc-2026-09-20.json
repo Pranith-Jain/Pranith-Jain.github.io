@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-reliaquest-llc-2026-09-20",
-  "title": "ReliaQuest, LLC",
-  "group": "shinyhunters",
-  "discovered": "2026-09-20T21:18:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion/view/reliaquest",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"shinyhunters-reliaquest-llc-2026-09-20","title":"ReliaQuest, LLC","group":"shinyhunters","discovered":"2026-09-20T21:18:51.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://shnyhntww34phqoa6dcgnvps2yu7dlwzmy5lkvejwjdo6z7bmgshzayd.onion/view/reliaquest","groupAliases":[],"activity":null,"references":["CTI.FYI"]}
