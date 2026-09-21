@@ -7,27 +7,27 @@
   "description": "Offensive security framework for AI agent infrastructure - recon, credential looting, model exfiltration, poisoning, and attack-path analysis across MCP, A2A, gateways, and AI services. BloodHound for the agentic stack.",
   "homepage": "https://agenthound.io",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-20T08:40:27Z",
+  "checkedAt": "2026-09-21T09:01:51Z",
   "pushedAt": "2026-09-12",
-  "daysIdle": 8,
+  "daysIdle": 9,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "adithyan-ak/AgentHound", "scope": ["agentic"], "added": "2026-09-14" },
     "derived": {
-      "checked_at": "2026-09-20T08:40:27Z",
+      "checked_at": "2026-09-21T09:01:51Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-12",
-        "days_since_push": 8,
+        "days_since_push": 9,
         "total_commits": 453,
         "last100_span_days": 46,
         "last100_authors": 3,
         "releases": 3,
         "latest_release_at": "2026-08-23",
-        "days_since_release": 28,
-        "days_idle": 8,
+        "days_since_release": 29,
+        "days_idle": 9,
         "relocated": false
       },
       "identity": {

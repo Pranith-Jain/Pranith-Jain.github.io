@@ -7,27 +7,27 @@
   "description": "Zero shot vulnerability discovery using LLMs",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-20T08:38:30Z",
+  "checkedAt": "2026-09-21T08:59:56Z",
   "pushedAt": "2025-02-06",
-  "daysIdle": 591,
+  "daysIdle": 592,
   "archived": false,
   "license": "AGPL-3.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "protectai/vulnhuntr", "scope": ["code"], "added": "2026-09-12" },
     "derived": {
-      "checked_at": "2026-09-20T08:38:30Z",
+      "checked_at": "2026-09-21T08:59:56Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-02-06",
-        "days_since_push": 591,
+        "days_since_push": 592,
         "total_commits": 46,
         "last100_span_days": 110,
         "last100_authors": 6,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 591,
+        "days_idle": 592,
         "relocated": false
       },
       "identity": {

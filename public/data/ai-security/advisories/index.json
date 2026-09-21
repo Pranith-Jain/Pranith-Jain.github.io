@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-20T11:17:49.324Z",
+  "updatedAt": "2026-09-21T12:43:11.376Z",
   "total": 126,
   "bySource": {
     "ghsa": 60,
@@ -18,6 +18,26 @@
     "exploitdb": 2
   },
   "items": [
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.30.0: [Build] Fix DeepGEMM CUDA 12.9 release builds (#57554)",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
+      "updated": "2026-09-21T06:14:34Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-typesafe==0.0.1a3",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-typesafe%3D%3D0.0.1a3",
+      "updated": "2026-09-20T18:54:55Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
     {
       "id": "aHR0cHM6Ly9n",
       "title": "v1.103.0-rc.1",
@@ -244,26 +264,6 @@
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.0-dev.1",
       "updated": "2026-09-16T02:56:03Z",
       "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.29.1rc0",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0",
-      "updated": "2026-09-12T18:42:01Z",
-      "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-core==1.6.3",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.3",
-      "updated": "2026-09-11T17:38:04Z",
-      "source": "langchain",
       "kind": "release",
       "cves": [],
       "description": ""

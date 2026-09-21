@@ -7,9 +7,9 @@
   "description": "This repository is a curated collection of skills, plugins, and automation pipelines designed for Claude Code — Anthropic's CLI for AI-assisted software engineering. It was built by the engineering and security engineering teams at Phoenix…",
   "homepage": null,
   "added": "2026-09-14",
-  "checkedAt": "2026-09-20T08:40:59Z",
-  "pushedAt": "2026-09-11",
-  "daysIdle": 9,
+  "checkedAt": "2026-09-21T09:02:22Z",
+  "pushedAt": "2026-09-21",
+  "daysIdle": 0,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-14"
     },
     "derived": {
-      "checked_at": "2026-09-20T08:40:59Z",
+      "checked_at": "2026-09-21T09:02:22Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-11",
-        "days_since_push": 9,
+        "pushed_at": "2026-09-21",
+        "days_since_push": 0,
         "total_commits": 33,
         "last100_span_days": 187,
         "last100_authors": 1,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 9,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
