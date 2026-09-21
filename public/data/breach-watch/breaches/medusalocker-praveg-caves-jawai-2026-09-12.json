@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-praveg-caves-jawai-2026-09-12",
+  "title": "Praveg Caves Jawai",
+  "group": "Medusalocker",
+  "discovered": "2026-09-12T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "India",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/praveg-caves-jawai-medusalocker-2026-09",
+  "groupAliases": [],
+  "activity": "Hospitality",
+  "references": ["RecentBreaches.com"]
+}

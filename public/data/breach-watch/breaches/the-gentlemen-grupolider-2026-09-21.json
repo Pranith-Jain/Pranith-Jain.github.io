@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-grupolider-2026-09-21",
+  "title": "Grupolider",
+  "group": "The Gentlemen",
+  "discovered": "2026-09-21T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/grupolider-thegentlemen-2026-09",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit-siinqeebank-com-2026-09-21",
+  "title": "siinqeebank.com",
+  "group": "LockBit",
+  "discovered": "2026-09-21T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/siinqeebank-com-lockbit-2026-09",
+  "groupAliases": ["LockBit 3.0", "LockBit Black", "LockBit Green", "ABCD ransomware"],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}
