@@ -1344,7 +1344,7 @@ export const HUB_META: readonly HubMeta[] = [
       {
         path: '/dfir/attack-navigator',
         tabId: 'attack-navigator',
-        label: 'ATT&CK Navigator',
+        label: 'MITRE ATT&CK Navigator',
         desc: 'Layered ATT&CK matrix - coverage heatmap, gap analysis.',
         compVar: 'AttackNavigator',
         keywords: ['mitre', 'att&ck', 'matrix', 'technique', 'coverage', 'heatmap'],
