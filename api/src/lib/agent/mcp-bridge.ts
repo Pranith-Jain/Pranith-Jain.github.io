@@ -150,6 +150,16 @@ import { loadOssFeedsIndex, getOssFeedsByCategory, filterFeeds } from '../oss-fe
 import { opensanctionsSearch, opensanctionsEntity, opensanctionsStats } from '../opensanctions';
 // OSINT manifest
 import { loadOsintIndex, listPortals, getPortal } from '../osint-manifest';
+// CTI bookmarks (Chick3nHawk01 collection, live/reference/missing tagged)
+import { loadCtiBookmarksIndex, listBookmarks, getBookmark } from '../cti-bookmarks-manifest';
+// LOTS + MalAPI (mr.d0x catalogs)
+import { loadLotsIndex, listLots, getLots } from '../lots-manifest';
+import { loadMalapiIndex, listMalapi, getMalapi } from '../malapi-manifest';
+// MITRE CAR + CAPEC
+import { loadCarIndex, listCar, getCar } from '../car-manifest';
+import { loadCapecIndex, listCapec, getCapec } from '../capec-manifest';
+// HijackLibs (DLL sideloading catalog)
+import { loadHijacklibsIndex, listHijacklibs, getHijacklib } from '../hijacklibs-manifest';
 // Tools manifest
 import { loadToolsIndex, getTool, listTools } from '../tools-manifest';
 // Tor / darknet
@@ -2951,6 +2961,189 @@ export function bridgeMcpTools(
       if (!assets) throw new Error('ASSETS binding unavailable');
       const idx = await loadOsintIndex(assets);
       return getPortal(idx, args.slug as string);
+    },
+  });
+
+  // ── CTI bookmarks ─────────────────────────────────────────────────
+  add({
+    name: 'cti_bookmarks_list',
+    description: 'List curated CTI bookmarks (links, tools, feeds, frameworks) with live/reference/missing status.',
+    params: [
+      { name: 'level', type: 'string', description: 'Operational, Tactical, Strategic, or Tools', required: false },
+      { name: 'status', type: 'string', description: 'live, reference, or missing', required: false },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max bookmarks (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCtiBookmarksIndex(assets);
+      return listBookmarks(idx, {
+        level: args.level as string | undefined,
+        status: args.status as 'live' | 'reference' | 'missing' | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'cti_bookmarks_get',
+    description: 'Get a specific CTI bookmark by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Bookmark slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCtiBookmarksIndex(assets);
+      return getBookmark(idx, args.slug as string);
+    },
+  });
+
+  // ── LOTS + MalAPI ─────────────────────────────────────────────
+  add({
+    name: 'lots_list',
+    description: 'List Living Off Trusted Sites (domains abused for phishing/C2/exfil).',
+    params: [
+      { name: 'tag', type: 'string', description: 'Phishing, C&C, Download, or Exfiltration', required: false },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max sites (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadLotsIndex(assets);
+      return listLots(idx, {
+        tag: args.tag as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'lots_get',
+    description: 'Get a specific LOTS site by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Site slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadLotsIndex(assets);
+      return getLots(idx, args.slug as string);
+    },
+  });
+  add({
+    name: 'malapi_list',
+    description: 'List Windows APIs abused by attackers (MalAPI.io catalog).',
+    params: [
+      { name: 'category', type: 'string', description: 'Attack category, e.g. Injection', required: false },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max APIs (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadMalapiIndex(assets);
+      return listMalapi(idx, {
+        category: args.category as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'malapi_get',
+    description: 'Get a specific Windows API by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'API slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadMalapiIndex(assets);
+      return getMalapi(idx, args.slug as string);
+    },
+  });
+
+  // ── MITRE CAR + CAPEC ─────────────────────────────────────────
+  add({
+    name: 'car_list',
+    description: 'List MITRE CAR analytics mapped to ATT&CK techniques.',
+    params: [
+      { name: 'technique', type: 'string', description: 'ATT&CK technique ID, e.g. T1059', required: false },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max analytics (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCarIndex(assets);
+      return listCar(idx, {
+        technique: args.technique as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'car_get',
+    description: 'Get a specific CAR analytic by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Analytic slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCarIndex(assets);
+      return getCar(idx, args.slug as string);
+    },
+  });
+  add({
+    name: 'capec_list',
+    description: 'List MITRE CAPEC attack patterns with CWE/ATT&CK links.',
+    params: [
+      { name: 'cwe', type: 'string', description: 'CWE ID, e.g. CWE-79', required: false },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max patterns (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCapecIndex(assets);
+      return listCapec(idx, {
+        cwe: args.cwe as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'capec_get',
+    description: 'Get a specific CAPEC attack pattern by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Pattern slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCapecIndex(assets);
+      return getCapec(idx, args.slug as string);
+    },
+  });
+
+  // ── HijackLibs ────────────────────────────────────────────────
+  add({
+    name: 'hijacklibs_list',
+    description: 'List HijackLibs DLL hijacking candidates (T1574.001).',
+    params: [
+      {
+        name: 'type',
+        type: 'string',
+        description: 'Sideloading, Phantom, Search Order, Environment Variable',
+        required: false,
+      },
+      { name: 'keyword', type: 'string', description: 'Search keyword', required: false },
+      { name: 'limit', type: 'number', description: 'Max DLLs (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadHijacklibsIndex(assets);
+      return listHijacklibs(idx, {
+        type: args.type as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+  add({
+    name: 'hijacklibs_get',
+    description: 'Get a specific HijackLibs DLL by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'DLL slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadHijacklibsIndex(assets);
+      return getHijacklib(idx, args.slug as string);
     },
   });
 

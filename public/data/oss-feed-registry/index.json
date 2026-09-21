@@ -2,16 +2,16 @@
   "source": "Bert-JanP/Open-Source-Threat-Intel-Feeds",
   "sourceUrl": "https://github.com/Bert-JanP/Open-Source-Threat-Intel-Feeds",
   "license": "BSD-3-Clause",
-  "replicatedAt": "2026-07-21",
-  "lastSyncedAt": "2026-07-21T17:40:21.743Z",
+  "replicatedAt": "2026-09-21",
+  "lastSyncedAt": "2026-09-21T06:11:18.909Z",
   "counts": {
-    "total": 145,
+    "total": 154,
     "byCategory": {
-      "DNS": 16,
-      "IP": 76,
-      "MD5": 11,
-      "SHA1": 4,
-      "SHA256": 7,
+      "DNS": 17,
+      "IP": 81,
+      "MD5": 12,
+      "SHA1": 5,
+      "SHA256": 8,
       "SSL": 1,
       "URL": 23,
       "CVEID": 4,
@@ -19,14 +19,14 @@
       "JA3": 1,
       "NamePipe": 1
     },
-    "byStatus": { "Active": 111, "Offline": 34 }
+    "byStatus": { "Active": 120, "Offline": 34 }
   },
   "categories": [
-    { "category": "DNS", "count": 16, "slug": "dns" },
-    { "category": "IP", "count": 76, "slug": "ip" },
-    { "category": "MD5", "count": 11, "slug": "md5" },
-    { "category": "SHA1", "count": 4, "slug": "sha1" },
-    { "category": "SHA256", "count": 7, "slug": "sha256" },
+    { "category": "DNS", "count": 17, "slug": "dns" },
+    { "category": "IP", "count": 81, "slug": "ip" },
+    { "category": "MD5", "count": 12, "slug": "md5" },
+    { "category": "SHA1", "count": 5, "slug": "sha1" },
+    { "category": "SHA256", "count": 8, "slug": "sha256" },
     { "category": "SSL", "count": 1, "slug": "ssl" },
     { "category": "URL", "count": 23, "slug": "url" },
     { "category": "CVEID", "count": 4, "slug": "cveid" },
@@ -576,8 +576,62 @@
     },
     {
       "vendor": "ThreatCluster",
-      "description": "High-confidence malicious domains extracted from threat intel reports as they are published",
+      "description": "High-confidence malicious domains from the last 30 days",
       "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence malicious IPs (IPv4, IPv6) from the last 30 days",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence file hashes from the last 30 days (MD5, SHA-1, SHA-256)",
+      "category": "MD5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence file hashes from the last 30 days (MD5, SHA-1, SHA-256)",
+      "category": "SHA1",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence file hashes from the last 30 days (MD5, SHA-1, SHA-256)",
+      "category": "SHA256",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "SiberKapan",
+      "description": "Free IP blocklist sourced from a self-operated honeypot network, FortiGate and nginx sensors, focused on threats targ…",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "SiberKapan",
+      "description": "Phishing domain feed detected via own honeypot network and CT-log (Certificate Transparency) monitoring.",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "FireHOL",
+      "description": "FireHOL Level 1 IPSET — aggregated IP blocklist (Spamhaus DROP/EDROP, DShield, Feodo, fullbogons, CINS).",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "FireHOL",
+      "description": "FireHOL Level 2 IPSET — extended IP blocklist (adds brute-force and attack trackers).",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "FireHOL",
+      "description": "FireHOL Web Server IPSET — IPs reported for web-server attacks in the last 30 days.",
+      "category": "IP",
       "feedStatus": "Active"
     }
   ]

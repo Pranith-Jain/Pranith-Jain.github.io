@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**366 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**384 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (252)
+### other (270)
 
 - `ai_advisories` - AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.
 - `ai_research` - AI security research feed — Hacktron, Palo Alto Unit42, Cloud Security Alliance, BleepingComputer AI-filtered items with links back upstream.
@@ -37,8 +37,17 @@
 - `campaigns_get` - Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.
 - `campaigns_list` - List currently active threat campaigns from the curated tracker. Filter by status (active, dormant, concluded), category (ransomware, apt, malware, phishing, c2, supply-chain, cyber-espionage, hacktivism, other), or keyword.
 - `campaigns_stats` - Return cache + manifest stats for the Active Campaigns tracker: total campaigns, active vs dormant/concluded breakdown, categories, and index cache status.
+- `capec_get` - Return the full details of a single CAPEC attack pattern by slug: abstraction, likelihood, severity, prerequisites, CWE/ATT&CK links. Use capec_list first to discover slugs.
+- `capec_list` - List MITRE CAPEC attack patterns: how adversaries exploit weaknesses, with CWE and ATT&CK links. Filter by abstraction (Meta, Standard, Detailed), status, domain, CWE ID, technique ID, or keyword.
+- `capec_stats` - Return cache + manifest stats for the CAPEC directory: totals by abstraction and status.
+- `car_get` - Return the full details of a single CAR analytic by slug: ATT&CK coverage, D3FEND mappings, and implementation names. Use car_list first to discover slugs.
+- `car_list` - List MITRE Cyber Analytics Repository (CAR) analytics: validated detection ideas mapped to ATT&CK techniques. Filter by technique ID (e.g. "T1059"), platform, or keyword.
+- `car_stats` - Return cache + manifest stats for the CAR directory: total analytics and covered technique count.
 - `cerast_domain_search` - Search Cerast Intelligence for exposed paths and misconfigurations on observed domains. Returns domain, path, category, impact level, OpenPageRank score, version, and first-seen date. Useful for discovering staging/dev environments, exposed admin panels, and misconfigured endpoints.
 - `convert_sigma_rule` - Convert a Sigma rule to Splunk SPL or Microsoft Sentinel KQL. Handles field modifiers (contains/startswith/endswith/re/null), multi-value lists, N-of expansions, and optional field-name mapping.
+- `cti_bookmarks_get` - Return the full details of a single CTI bookmark by slug. Use cti_bookmarks_list first to discover slugs.
+- `cti_bookmarks_list` - List curated CTI bookmarks (threat intel links, tools, feeds, frameworks). Filter by level (Operational, Tactical, Strategic, Tools), category, integration status (live, reference, missing), or keyword.
+- `cti_bookmarks_stats` - Return cache + manifest stats for the CTI Bookmarks directory: totals by level and integration status (live/reference/missing gap counts).
 - `cyber_news` - Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.
 - `db_get_brief` - Return the full daily intelligence brief for a given type and date. Includes executive summary, key findings, events/incidents, and structured data. Use db_list_briefs to discover available dates.
 - `db_list_briefs` - List available daily intelligence briefs by type (cyber, deepfake, disaster). Returns dates and metadata. Use db_get_brief to retrieve the full brief body.
@@ -134,12 +143,21 @@
 - `get_threat_pulse` - Get a global threat overview — top active threat actors, trending malware families, most exploited CVEs, and geopolitical cyber events from the past week.
 - `get_trending_iocs` - Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.
 - `heatwave_lookup` - Check a SENDING domain against the Validity Heatwave cold-email blocklist (keyless). Returns listed status (warming/active/pre-warming), stage, relative score band, observation ages, DNS answer, and related listed domains. Warming ≠ phishing; not-listed ≠ clean. Never apply to URL/content/DKIM verdicts.
+- `hijacklibs_get` - Return the full details of a single HijackLibs DLL by slug: vulnerable executables, expected locations, CVE. Use hijacklibs_list first to discover slugs.
+- `hijacklibs_list` - List HijackLibs DLL hijacking candidates: DLLs abusable for sideloading/phantom/search-order/environment-variable hijacking (T1574.001). Filter by hijack type, vendor, CVE presence, or keyword.
+- `hijacklibs_stats` - Return cache + manifest stats for the HijackLibs directory: totals by hijack type and CVE count.
 - `intelx_phonebook` - IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term (name, domain, keyword). Requires INTELX_API_KEY (paid).
 - `intelx_search` - Search IntelligenceX for leaked data, paste sites, breach archives, and dark-web content. Supports emails, domains, URLs, BTC addresses, IBANs, credit cards, phone numbers. Requires INTELX_API_KEY (paid).
 - `interpol_notice_detail` - Get details of a specific INTERPOL Red Notice by entity ID. Returns full charge info, arrest warrant details, and physical description. No API key required.
 - `interpol_search` - Search INTERPOL Red Notices for wanted persons by name, forename, or nationality. Returns entity IDs, charges, and issuing countries. No API key required.
 - `lookup_cisa_kev` - Search the CISA Known Exploited Vulnerabilities (KEV) catalog. Filter by CVE ID, vendor, product, keyword, recency (days), or ransomware-only. Returns matching KEV entries with date_added, due_date, and ransomware status. The full catalog has 1,200+ actively-exploited vulnerabilities.
 - `lookup_mitre` - Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.
+- `lots_get` - Return the full details of a single LOTS site by slug, including abuse description. Use lots_list first to discover slugs.
+- `lots_list` - List Living Off Trusted Sites (LOTS): legitimate domains attackers abuse for phishing, C2, exfiltration, or downloads. Filter by tag (Phishing, C&C, Download, Exfiltration), provider, or keyword.
+- `lots_stats` - Return cache + manifest stats for the LOTS directory: total sites and per-tag counts.
+- `malapi_get` - Return the full details of a single Windows API by slug: description, library, attack categories, and Microsoft docs link. Use malapi_list first to discover slugs.
+- `malapi_list` - List Windows APIs abused by attackers (MalAPI.io catalog). Filter by attack category (Enumeration, Injection, Evasion, Spying, Internet, Anti-Debugging, Ransomware, Helper), DLL library, or keyword.
+- `malapi_stats` - Return cache + manifest stats for the MalAPI catalog: total APIs and attack categories.
 - `mozilla_tls_scan` - Scan a domain's security posture using the Mozilla Observatory (successor to the retired TLS Observatory). Returns grade (A+ through F) and test counts. No API key required.
 - `onion_lookup` - Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
 - `opensanctions_entity` - Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match. Requires OPENSANCTIONS_API_KEY.

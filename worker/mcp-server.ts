@@ -214,6 +214,18 @@ import { mozillaTlsScan } from './lib/mozilla-tls';
 import { virusheeCheck } from './lib/virushee';
 import { loadOsintIndex, listPortals, getPortal, osintCacheStats, type OsintCategory } from './lib/osint-manifest';
 import {
+  loadCtiBookmarksIndex,
+  listBookmarks,
+  getBookmark,
+  ctiBookmarksCacheStats,
+  type CtiBookmarkStatus,
+} from './lib/cti-bookmarks-manifest';
+import { loadLotsIndex, listLots, getLots, lotsCacheStats } from './lib/lots-manifest';
+import { loadMalapiIndex, listMalapi, getMalapi, malapiCacheStats } from './lib/malapi-manifest';
+import { loadCarIndex, listCar, getCar, carCacheStats } from './lib/car-manifest';
+import { loadCapecIndex, listCapec, getCapec, capecCacheStats } from './lib/capec-manifest';
+import { loadHijacklibsIndex, listHijacklibs, getHijacklib, hijacklibsCacheStats } from './lib/hijacklibs-manifest';
+import {
   loadReportsIndex,
   listReports,
   getReport,
@@ -1946,7 +1958,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           const idx = await loadAnarchyIndex(ASSETS);
           const sims = similarAnarchyCourses(idx, id, limit ?? 4);
           if (sims.length === 0)
-            return untrustedToolResult({ error: `anarchy course not found: ${id}`, hint: 'Call anarchy_list_courses to see available IDs.' });
+            return untrustedToolResult({
+              error: `anarchy course not found: ${id}`,
+              hint: 'Call anarchy_list_courses to see available IDs.',
+            });
           return untrustedToolResult({
             id,
             returned: sims.length,
@@ -2906,6 +2921,410 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             license: idx.license,
             replicatedAt: idx.replicatedAt,
             cache: osintCacheStats(),
+          });
+        }
+      );
+
+      // ── CTI Bookmarks tools ─────────────────────────────────────
+      // 387 curated CTI links (Operational/Tactical/Strategic/Tools) from
+      // Chick3nHawk01/Open_Source-CTI-Tooling. Each entry is tagged
+      // live/reference/missing against this platform's integrations.
+      // Data ships in public/data/cti-bookmarks/ built by
+      // scripts/build-cti-bookmarks.mjs.
+
+      this.tools(
+        'cti_bookmarks_list',
+        'List curated CTI bookmarks (threat intel links, tools, feeds, frameworks). Filter by level (Operational, Tactical, Strategic, Tools), category, integration status (live, reference, missing), or keyword.',
+        {
+          level: z.string().optional().describe('Filter by intel level: Operational, Tactical, Strategic, Tools'),
+          category: z.string().optional().describe('Filter by category, e.g. "IoC Feeds & Sharing"'),
+          status: z.enum(['live', 'reference', 'missing']).optional().describe('Filter by platform integration status'),
+          keyword: z.string().optional().describe('Search keyword in name/description/host/tags'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ level, category, status, keyword, limit }) => {
+          const idx = await loadCtiBookmarksIndex(ASSETS);
+          const bookmarks = listBookmarks(idx, {
+            level,
+            category,
+            status: status as CtiBookmarkStatus | undefined,
+            keyword,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: bookmarks.length,
+            source: idx.source,
+            replicatedAt: idx.replicatedAt,
+            statusCounts: idx.statusCounts,
+            bookmarks,
+          });
+        }
+      );
+
+      this.tools(
+        'cti_bookmarks_get',
+        'Return the full details of a single CTI bookmark by slug. Use cti_bookmarks_list first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Bookmark slug, e.g. "threatfox", "lolbas", "malapi-io". Get these from cti_bookmarks_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadCtiBookmarksIndex(ASSETS);
+          const bookmark = getBookmark(idx, slug);
+          if (!bookmark) {
+            return untrustedToolResult({
+              error: 'bookmark_not_found',
+              slug,
+              hint: 'Call cti_bookmarks_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(bookmark);
+        }
+      );
+
+      this.tools(
+        'cti_bookmarks_stats',
+        'Return cache + manifest stats for the CTI Bookmarks directory: totals by level and integration status (live/reference/missing gap counts).',
+        {},
+        async () => {
+          const idx = await loadCtiBookmarksIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            levels: idx.levels,
+            categories: idx.categories,
+            statusCounts: idx.statusCounts,
+            source: idx.source,
+            replicatedAt: idx.replicatedAt,
+            cache: ctiBookmarksCacheStats(),
+          });
+        }
+      );
+
+      // ── LOTS Project tools ──────────────────────────────────────
+      // 175 trusted sites abusable for phishing/C2/exfil/download.
+      // Data ships in public/data/lots/ built by
+      // scripts/build-lots-manifest.mjs.
+
+      this.tools(
+        'lots_list',
+        'List Living Off Trusted Sites (LOTS): legitimate domains attackers abuse for phishing, C2, exfiltration, or downloads. Filter by tag (Phishing, C&C, Download, Exfiltration), provider, or keyword.',
+        {
+          tag: z.string().optional().describe('Filter by abuse tag: Phishing, C&C, Download, Exfiltration'),
+          provider: z.string().optional().describe('Filter by service provider, e.g. "Microsoft", "Google"'),
+          keyword: z.string().optional().describe('Search keyword in website/provider/description'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ tag, provider, keyword, limit }) => {
+          const idx = await loadLotsIndex(ASSETS);
+          const sites = listLots(idx, { tag, provider, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: sites.length,
+            tags: idx.tags,
+            tagCounts: idx.tagCounts,
+            sites,
+          });
+        }
+      );
+
+      this.tools(
+        'lots_get',
+        'Return the full details of a single LOTS site by slug, including abuse description. Use lots_list first to discover slugs.',
+        {
+          slug: z.string().describe('Site slug, e.g. "github-com", "discord-com". Get these from lots_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadLotsIndex(ASSETS);
+          const site = getLots(idx, slug);
+          if (!site) {
+            return untrustedToolResult({
+              error: 'lots_not_found',
+              slug,
+              hint: 'Call lots_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(site);
+        }
+      );
+
+      this.tools(
+        'lots_stats',
+        'Return cache + manifest stats for the LOTS directory: total sites and per-tag counts.',
+        {},
+        async () => {
+          const idx = await loadLotsIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            tags: idx.tags,
+            tagCounts: idx.tagCounts,
+            source: idx.source,
+            replicatedAt: idx.replicatedAt,
+            cache: lotsCacheStats(),
+          });
+        }
+      );
+
+      // ── MalAPI.io tools ─────────────────────────────────────────
+      // 370 Windows APIs abused by attackers, with library, attack
+      // categories, and MS docs links. Data ships in
+      // public/data/malapi/ built by scripts/build-malapi-manifest.mjs.
+
+      this.tools(
+        'malapi_list',
+        'List Windows APIs abused by attackers (MalAPI.io catalog). Filter by attack category (Enumeration, Injection, Evasion, Spying, Internet, Anti-Debugging, Ransomware, Helper), DLL library, or keyword.',
+        {
+          category: z.string().optional().describe('Filter by attack category, e.g. "Injection"'),
+          library: z.string().optional().describe('Filter by DLL, e.g. "Kernel32.dll"'),
+          keyword: z.string().optional().describe('Search keyword in name/description/attacks'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ category, library, keyword, limit }) => {
+          const idx = await loadMalapiIndex(ASSETS);
+          const apis = listMalapi(idx, { category, library, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: apis.length,
+            categories: idx.categories,
+            apis,
+          });
+        }
+      );
+
+      this.tools(
+        'malapi_get',
+        'Return the full details of a single Windows API by slug: description, library, attack categories, and Microsoft docs link. Use malapi_list first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('API slug, e.g. "process32first", "createremotethread". Get these from malapi_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadMalapiIndex(ASSETS);
+          const api = getMalapi(idx, slug);
+          if (!api) {
+            return untrustedToolResult({
+              error: 'malapi_not_found',
+              slug,
+              hint: 'Call malapi_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(api);
+        }
+      );
+
+      this.tools(
+        'malapi_stats',
+        'Return cache + manifest stats for the MalAPI catalog: total APIs and attack categories.',
+        {},
+        async () => {
+          const idx = await loadMalapiIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            categories: idx.categories,
+            source: idx.source,
+            replicatedAt: idx.replicatedAt,
+            cache: malapiCacheStats(),
+          });
+        }
+      );
+
+      // ── MITRE CAR tools ─────────────────────────────────────────
+      // 102 cyber analytics with ATT&CK coverage + D3FEND mappings.
+      // Data ships in public/data/car/ built by
+      // scripts/build-car-manifest.mjs.
+
+      this.tools(
+        'car_list',
+        'List MITRE Cyber Analytics Repository (CAR) analytics: validated detection ideas mapped to ATT&CK techniques. Filter by technique ID (e.g. "T1059"), platform, or keyword.',
+        {
+          technique: z.string().optional().describe('Filter by ATT&CK technique ID, e.g. "T1059", "T1547.001"'),
+          platform: z.string().optional().describe('Filter by platform, e.g. "Windows", "Linux"'),
+          keyword: z.string().optional().describe('Search keyword in title/description/techniques'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ technique, platform, keyword, limit }) => {
+          const idx = await loadCarIndex(ASSETS);
+          const analytics = listCar(idx, { technique, platform, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: analytics.length,
+            techniqueCount: idx.techniqueCount,
+            analytics,
+          });
+        }
+      );
+
+      this.tools(
+        'car_get',
+        'Return the full details of a single CAR analytic by slug: ATT&CK coverage, D3FEND mappings, and implementation names. Use car_list first to discover slugs.',
+        {
+          slug: z.string().describe('Analytic slug, e.g. "car-2013-01-002". Get these from car_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadCarIndex(ASSETS);
+          const analytic = getCar(idx, slug);
+          if (!analytic) {
+            return untrustedToolResult({
+              error: 'car_not_found',
+              slug,
+              hint: 'Call car_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(analytic);
+        }
+      );
+
+      this.tools(
+        'car_stats',
+        'Return cache + manifest stats for the CAR directory: total analytics and covered technique count.',
+        {},
+        async () => {
+          const idx = await loadCarIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            techniqueCount: idx.techniqueCount,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: carCacheStats(),
+          });
+        }
+      );
+
+      // ── MITRE CAPEC tools ───────────────────────────────────────
+      // 559 attack patterns with CWE/ATT&CK cross-references.
+      // Data ships in public/data/capec/ built by
+      // scripts/build-capec-manifest.mjs.
+
+      this.tools(
+        'capec_list',
+        'List MITRE CAPEC attack patterns: how adversaries exploit weaknesses, with CWE and ATT&CK links. Filter by abstraction (Meta, Standard, Detailed), status, domain, CWE ID, technique ID, or keyword.',
+        {
+          abstraction: z.string().optional().describe('Filter by abstraction: Meta, Standard, Detailed'),
+          status: z.string().optional().describe('Filter by status: Stable, Draft, Deprecated'),
+          domain: z.string().optional().describe('Filter by domain, e.g. "Software", "Hardware"'),
+          cwe: z.string().optional().describe('Filter by CWE ID, e.g. "CWE-79"'),
+          technique: z.string().optional().describe('Filter by ATT&CK technique ID, e.g. "T1498"'),
+          keyword: z.string().optional().describe('Search keyword in name/description/CWE'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ abstraction, status, domain, cwe, technique, keyword, limit }) => {
+          const idx = await loadCapecIndex(ASSETS);
+          const patterns = listCapec(idx, { abstraction, status, domain, cwe, technique, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: patterns.length,
+            byAbstraction: idx.byAbstraction,
+            byStatus: idx.byStatus,
+            patterns,
+          });
+        }
+      );
+
+      this.tools(
+        'capec_get',
+        'Return the full details of a single CAPEC attack pattern by slug: abstraction, likelihood, severity, prerequisites, CWE/ATT&CK links. Use capec_list first to discover slugs.',
+        {
+          slug: z.string().describe('Pattern slug, e.g. "capec-87", "capec-125". Get these from capec_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadCapecIndex(ASSETS);
+          const pattern = getCapec(idx, slug);
+          if (!pattern) {
+            return untrustedToolResult({
+              error: 'capec_not_found',
+              slug,
+              hint: 'Call capec_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(pattern);
+        }
+      );
+
+      this.tools(
+        'capec_stats',
+        'Return cache + manifest stats for the CAPEC directory: totals by abstraction and status.',
+        {},
+        async () => {
+          const idx = await loadCapecIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            byAbstraction: idx.byAbstraction,
+            byStatus: idx.byStatus,
+            source: idx.source,
+            replicatedAt: idx.replicatedAt,
+            cache: capecCacheStats(),
+          });
+        }
+      );
+
+      // ── HijackLibs tools ────────────────────────────────────────
+      // 608 DLL hijacking candidates with vulnerable executables.
+      // Data ships in public/data/hijacklibs/ built by
+      // scripts/build-hijacklibs-manifest.mjs.
+
+      this.tools(
+        'hijacklibs_list',
+        'List HijackLibs DLL hijacking candidates: DLLs abusable for sideloading/phantom/search-order/environment-variable hijacking (T1574.001). Filter by hijack type, vendor, CVE presence, or keyword.',
+        {
+          type: z
+            .string()
+            .optional()
+            .describe('Filter by hijack type: Sideloading, Phantom, Search Order, Environment Variable'),
+          vendor: z.string().optional().describe('Filter by DLL vendor'),
+          cveOnly: z.boolean().optional().describe('Only entries with a known CVE'),
+          keyword: z.string().optional().describe('Search keyword in DLL name/vendor/description'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ type, vendor, cveOnly, keyword, limit }) => {
+          const idx = await loadHijacklibsIndex(ASSETS);
+          const dlls = listHijacklibs(idx, { type, vendor, cveOnly, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: dlls.length,
+            hijackTypes: idx.hijackTypes,
+            typeCounts: idx.typeCounts,
+            dlls,
+          });
+        }
+      );
+
+      this.tools(
+        'hijacklibs_get',
+        'Return the full details of a single HijackLibs DLL by slug: vulnerable executables, expected locations, CVE. Use hijacklibs_list first to discover slugs.',
+        {
+          slug: z.string().describe('DLL slug, e.g. "version-dll". Get these from hijacklibs_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadHijacklibsIndex(ASSETS);
+          const dll = getHijacklib(idx, slug);
+          if (!dll) {
+            return untrustedToolResult({
+              error: 'hijacklib_not_found',
+              slug,
+              hint: 'Call hijacklibs_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(dll);
+        }
+      );
+
+      this.tools(
+        'hijacklibs_stats',
+        'Return cache + manifest stats for the HijackLibs directory: totals by hijack type and CVE count.',
+        {},
+        async () => {
+          const idx = await loadHijacklibsIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            hijackTypes: idx.hijackTypes,
+            typeCounts: idx.typeCounts,
+            withCve: idx.withCve,
+            source: idx.source,
+            replicatedAt: idx.replicatedAt,
+            cache: hijacklibsCacheStats(),
           });
         }
       );

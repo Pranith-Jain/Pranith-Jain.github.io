@@ -9,19 +9,21 @@ const RansomReport = lazy(() => import('./RansomReport'));
 const RansomwareActivity = lazy(() => import('./RansomwareActivity'));
 const RansomwareMap = lazy(() => import('./RansomwareMap'));
 const Ransomwhere = lazy(() => import('./Ransomwhere'));
+const RansomwareRecovery = lazy(() => import('./RansomwareRecovery'));
 
-type TabId = 'report' | 'activity' | 'map' | 'ransomwhere';
+type TabId = 'report' | 'activity' | 'map' | 'ransomwhere' | 'recovery';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'report', label: 'RANSOM REPORT', desc: 'Ransomware group and victim reporting' },
   { id: 'activity', label: 'ACTIVITY', desc: 'Recent ransomware activity and trends' },
   { id: 'map', label: 'MAP', desc: 'Geographic map of ransomware victims' },
   { id: 'ransomwhere', label: 'RANSOMWHERE', desc: 'Ransomware payment tracking via Ransomwhere' },
+  { id: 'recovery', label: 'RECOVERY', desc: 'Family identification, free decryptors, and payment legality' },
 ];
 
 export default function RansomwareHub(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const validTabs = new Set<TabId>(['report', 'activity', 'map', 'ransomwhere']);
+  const validTabs = new Set<TabId>(['report', 'activity', 'map', 'ransomwhere', 'recovery']);
   const tabParam = searchParams.get('tab') as TabId | null;
   const [activeTab, setActiveTab] = useState<TabId>(tabParam && validTabs.has(tabParam) ? tabParam : 'report');
 
@@ -76,6 +78,7 @@ export default function RansomwareHub(): JSX.Element {
           {activeTab === 'activity' && <RansomwareActivity embedded />}
           {activeTab === 'map' && <RansomwareMap embedded />}
           {activeTab === 'ransomwhere' && <Ransomwhere embedded />}
+          {activeTab === 'recovery' && <RansomwareRecovery embedded />}
         </Suspense>
       </div>
     </DataPageLayout>

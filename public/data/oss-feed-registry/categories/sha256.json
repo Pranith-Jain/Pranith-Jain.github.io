@@ -1,6 +1,6 @@
 {
   "category": "SHA256",
-  "count": 7,
+  "count": 8,
   "feeds": [
     {
       "vendor": "Abuse.ch",
@@ -49,6 +49,13 @@
       "description": "IOC List SHA256",
       "category": "SHA256",
       "url": "https://www.botvrij.eu/data/ioclist.sha256",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence file hashes from the last 30 days (MD5, SHA-1, SHA-256)",
+      "category": "SHA256",
+      "url": "https://threatcluster.io/api/iocs/public/hashes.txt",
       "feedStatus": "Active"
     }
   ]

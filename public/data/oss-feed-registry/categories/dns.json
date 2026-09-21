@@ -1,6 +1,6 @@
 {
   "category": "DNS",
-  "count": 16,
+  "count": 17,
   "feeds": [
     {
       "vendor": "Abuse.ch",
@@ -109,9 +109,16 @@
     },
     {
       "vendor": "ThreatCluster",
-      "description": "High-confidence malicious domains extracted from threat intel reports as they are published",
+      "description": "High-confidence malicious domains from the last 30 days",
       "category": "DNS",
-      "url": "https://threatcluster.io/api/iocs/public/feed.txt",
+      "url": "https://threatcluster.io/api/iocs/public/domains.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "SiberKapan",
+      "description": "Phishing domain feed detected via own honeypot network and CT-log (Certificate Transparency) monitoring.",
+      "category": "DNS",
+      "url": "https://siberkapan.org/domains/siberkapan/txt",
       "feedStatus": "Active"
     }
   ]

@@ -57,6 +57,35 @@ for (let i = 1; i < lines.length; i++) {
 const byCategory = {};
 const byStatus = {};
 
+// Curated extras not present in the upstream CSV (verified live lists).
+const EXTRA_FEEDS = [
+  {
+    vendor: 'FireHOL',
+    description: 'FireHOL Level 1 IPSET — aggregated IP blocklist (Spamhaus DROP/EDROP, DShield, Feodo, fullbogons, CINS).',
+    category: 'IP',
+    url: 'https://iplists.firehol.org/files/firehol_level1.netset',
+    feedStatus: 'Active',
+  },
+  {
+    vendor: 'FireHOL',
+    description: 'FireHOL Level 2 IPSET — extended IP blocklist (adds brute-force and attack trackers).',
+    category: 'IP',
+    url: 'https://iplists.firehol.org/files/firehol_level2.netset',
+    feedStatus: 'Active',
+  },
+  {
+    vendor: 'FireHOL',
+    description: 'FireHOL Web Server IPSET — IPs reported for web-server attacks in the last 30 days.',
+    category: 'IP',
+    url: 'https://iplists.firehol.org/files/firehol_webserver.netset',
+    feedStatus: 'Active',
+  },
+];
+
+for (const extra of EXTRA_FEEDS) {
+  if (!feeds.some((f) => f.url === extra.url)) feeds.push(extra);
+}
+
 for (const feed of feeds) {
   const cat = feed.category || 'Other';
   if (!byCategory[cat]) byCategory[cat] = [];

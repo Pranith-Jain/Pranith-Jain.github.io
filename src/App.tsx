@@ -144,6 +144,11 @@ const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
 const KillChain = lazy(() => import('./pages/dfir/KillChain'));
 const Diamond = lazy(() => import('./pages/dfir/Diamond'));
 const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
+const Lots = lazy(() => import('./pages/dfir/Lots'));
+const Malapi = lazy(() => import('./pages/dfir/Malapi'));
+const Car = lazy(() => import('./pages/dfir/Car'));
+const Capec = lazy(() => import('./pages/dfir/Capec'));
+const Hijacklibs = lazy(() => import('./pages/dfir/Hijacklibs'));
 const ReportHub = lazy(() => import('./pages/dfir/ReportHub'));
 const CtMonitor = lazy(() => import('./pages/dfir/CtMonitor'));
 const StealerParser = lazy(() => import('./pages/dfir/StealerParser'));
@@ -238,6 +243,7 @@ const CuratedToolbox = lazy(() => import('./pages/threatintel/CuratedToolbox'));
 const CuratedCerts = lazy(() => import('./pages/threatintel/CuratedCerts'));
 const ToolsDirectory = lazy(() => import('./pages/threatintel/ToolsDirectory'));
 const OsintDirectory = lazy(() => import('./pages/threatintel/OsintDirectory'));
+const CtiBookmarks = lazy(() => import('./pages/threatintel/CtiBookmarks'));
 const ReportsLibrary = lazy(() => import('./pages/threatintel/ReportsLibrary'));
 const CveIntel = lazy(() => import('./pages/threatintel/CveIntel'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
@@ -549,6 +555,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/diamond', Component: Diamond },
   { path: '/dfir/osint-mapper', Component: OsintMapper },
   { path: '/dfir/lolbins', Component: Lolbins },
+  { path: '/dfir/lots', Component: Lots },
+  { path: '/dfir/malapi', Component: Malapi },
+  { path: '/dfir/car', Component: Car },
+  { path: '/dfir/capec', Component: Capec },
+  { path: '/dfir/hijacklibs', Component: Hijacklibs },
   { path: '/dfir/ct-monitor', Component: CtMonitor },
   { path: '/dfir/stealer-parser', Component: StealerParser },
   { path: '/dfir/threat-graph', Component: ThreatGraph },
@@ -728,6 +739,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/osint/secops', Component: SecopsCatalog },
   { path: '/threatintel/osint/threat-actor-monitor', Component: ThreatActorMonitor },
   { path: '/threatintel/osint/directory', Component: OsintDirectory },
+  { path: '/threatintel/cti-bookmarks', Component: CtiBookmarks },
   { path: '/threatintel/research-hub/research', Component: Research },
   { path: '/threatintel/research-hub/redhunt-labs', Component: RedHuntLabsResearch },
   { path: '/threatintel/research-hub/reports', Component: Reports },

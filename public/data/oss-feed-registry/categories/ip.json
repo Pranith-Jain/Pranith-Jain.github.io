@@ -1,6 +1,6 @@
 {
   "category": "IP",
-  "count": 76,
+  "count": 81,
   "feeds": [
     {
       "vendor": "Abuse.ch",
@@ -532,6 +532,41 @@
       "description": "Don't Route Or Peer Lists (DROP)",
       "category": "IP",
       "url": "https://www.spamhaus.org/drop/drop_v4.json",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence malicious IPs (IPv4, IPv6) from the last 30 days",
+      "category": "IP",
+      "url": "https://threatcluster.io/api/iocs/public/ips.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "SiberKapan",
+      "description": "Free IP blocklist sourced from a self-operated honeypot network, FortiGate and nginx sensors, focused on threats targeting Turkish infrastructure. Official MISP default feed provider.",
+      "category": "IP",
+      "url": "https://siberkapan.org/api/v1/list/txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "FireHOL",
+      "description": "FireHOL Level 1 IPSET — aggregated IP blocklist (Spamhaus DROP/EDROP, DShield, Feodo, fullbogons, CINS).",
+      "category": "IP",
+      "url": "https://iplists.firehol.org/files/firehol_level1.netset",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "FireHOL",
+      "description": "FireHOL Level 2 IPSET — extended IP blocklist (adds brute-force and attack trackers).",
+      "category": "IP",
+      "url": "https://iplists.firehol.org/files/firehol_level2.netset",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "FireHOL",
+      "description": "FireHOL Web Server IPSET — IPs reported for web-server attacks in the last 30 days.",
+      "category": "IP",
+      "url": "https://iplists.firehol.org/files/firehol_webserver.netset",
       "feedStatus": "Active"
     }
   ]

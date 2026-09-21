@@ -1,6 +1,6 @@
 {
   "category": "SHA1",
-  "count": 4,
+  "count": 5,
   "feeds": [
     {
       "vendor": "Abuse.ch",
@@ -28,6 +28,13 @@
       "description": "SHA File Hash Blocklist SHA hashes of files known or linked with malware execution",
       "category": "SHA1",
       "url": "https://threatview.io/Downloads/SHA-HASH-FEED.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence file hashes from the last 30 days (MD5, SHA-1, SHA-256)",
+      "category": "SHA1",
+      "url": "https://threatcluster.io/api/iocs/public/hashes.txt",
       "feedStatus": "Active"
     }
   ]

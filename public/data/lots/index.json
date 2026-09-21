@@ -1,0 +1,1415 @@
+{
+  "source": "lots-project.com (mr.d0x)",
+  "license": "upstream-collection (links + summaries only; no vendored content)",
+  "replicatedAt": "2026-09-21",
+  "count": 175,
+  "tags": ["C&C", "Download", "Exfiltration", "Phishing"],
+  "tagCounts": {
+    "Phishing": 145,
+    "C&C": 75,
+    "Download": 100,
+    "Exfiltration": 64
+  },
+  "entries": [
+    {
+      "slug": "raw-githubusercontent-com",
+      "website": "raw.githubusercontent.com",
+      "provider": "Github",
+      "tags": ["Phishing", "C&C", "Download"],
+      "description": "Attackers can phish users with a raw.githubusercontent.com link that downloads malware. Malware was seen using raw.githubusercontent.com to host malicious C&C commands which the malware will periodically fetch. Malware can fetch additional tools from raw.githubusercontent.com.",
+      "url": "https://lots-project.com/site/7261772e67697468756275736572636f6e74656e742e636f6d"
+    },
+    {
+      "slug": "github-com",
+      "website": "github.com",
+      "provider": "Github",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can host malware on Github.com and send phishing emails to have users download the malware. Another way is to fork a legitimate project, and add malware to it and then phish users to download the trojanized project. Attackers can host malicious files on github.com and when needed, the files can be downloaded.",
+      "url": "https://lots-project.com/site/6769746875622e636f6d"
+    },
+    {
+      "slug": "1drv-ms",
+      "website": "1drv.ms",
+      "provider": "Microsoft",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/316472762e6d73"
+    },
+    {
+      "slug": "1drv-com",
+      "website": "1drv.com",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers create a shareable link for OneDrive files which use the 1drv.ms domain. The download link for the file is hosted on *.1drv.com. The link is then utilized to phish users and have them download malware. Attackers can upload files onto OneDrive and use the generated 1drv.com links to download the additional tools.",
+      "url": "https://lots-project.com/site/316472762e636f6d"
+    },
+    {
+      "slug": "docs-google-com",
+      "website": "docs.google.com",
+      "provider": "Google",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can embed malicious links into documents on docs.google.com and then share them to phish users. Attackers use docs.google.com to upload commands and have the malware fetch them. GC2 is an open-source tool that utilizes docs.google.com for C&C purposes.",
+      "url": "https://lots-project.com/site/646f63732e676f6f676c652e636f6d"
+    },
+    {
+      "slug": "drive-google-com",
+      "website": "drive.google.com",
+      "provider": "Google",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers have hosted malware on drive.google.com and utilized the sharing capabilities and phish users to download it. Attackers have used drive.google.com for C&C by retrieving files with commands to be executed. An example of a malware that uses drive.google.com as C&C is SysJoker. drive.google.com can be used to store exfiltrated files on there. GC2 is an open-source tool that utilizes drive.google.com for exfiltration. drive.google.com creates shared links for files which enables attackers to download additional tools.",
+      "url": "https://lots-project.com/site/64726976652e676f6f676c652e636f6d"
+    },
+    {
+      "slug": "azurewebsites-net",
+      "website": "*.azurewebsites.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Azure web applications allows users to create a customized subdomain on azurewebsites.net. Attackers abuse this functionality by hosting phishing websites using the azurewebsites.net domain. Malware such as Almaq have used Azure web applications as their C&C servers. Attackers can create web applications with upload functionalities hosted on *.azurewebsites.net and exfiltrate data on there. Attackers can host malicious tools on applications hosted on *.azurewebsites.net and download them when needed.",
+      "url": "https://lots-project.com/site/2a2e617a75726577656273697465732e6e6574"
+    },
+    {
+      "slug": "dropbox-com",
+      "website": "dropbox.com",
+      "provider": "Dropbox",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers have used dropbox.com to store malicious files and then share them with targets. Attackers can also have users redirected to malicious domains via links embedded in certain file types such as PDF. Dropbox has been used by attackers as C&C servers. The open source tool DBC2 (DropBoxC2) can be used to utilize DropBox as a C&C server. dropbox.com can be used to store exfiltrated files on there. dropbox.com creates shared links for files which enables attackers to store tools there and download them when required.",
+      "url": "https://lots-project.com/site/64726f70626f782e636f6d"
+    },
+    {
+      "slug": "mega-nz",
+      "website": "mega.nz",
+      "provider": "Mega Limited",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers have used mega.nz to store malicious files and then share them with targets. mega.nz can be used to store exfiltrated files on there. mega.nz creates shared links for files which enables attackers to store tools there and download them when required.",
+      "url": "https://lots-project.com/site/6d6567612e6e7a"
+    },
+    {
+      "slug": "pcloud-com",
+      "website": "pcloud.com",
+      "provider": "pCloud",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can used pcloud.com to store malicious files and then share them with targets. pcloud.com can be used to store exfiltrated files on there. Tools can be stored on pcloud.com and downloaded when required.",
+      "url": "https://lots-project.com/site/70636c6f75642e636f6d"
+    },
+    {
+      "slug": "amazonaws-com",
+      "website": "*.amazonaws.com",
+      "provider": "Amazon Web Services",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers can use *.amazonaws.com to host their phishing websites. The Pareto Botnet was found using *.amazonaws.com as their C&C servers. Attackers can create web applications with upload functionalities hosted on *.amazonaws.com and exfiltrate data on there. Alternatively, attackers can use *.s3.amazonaws.com as storage and upload exfiltrated files there. Malicious tools can be stored on *.amazonaws.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e616d617a6f6e6177732e636f6d"
+    },
+    {
+      "slug": "twitter-com",
+      "website": "*.twitter.com",
+      "provider": "Twitter",
+      "tags": ["C&C"],
+      "description": "twitter.com can be used by attackers as C&C by publishing commands via tweets or direct messages. Twittor is an open-source tool that utilizes Twitter&#039;s direct message functionality for C&C. Twitter&#039;s mobile subdomain can also be used therefore monitor all subdomains of twitter.com",
+      "url": "https://lots-project.com/site/2a2e747769747465722e636f6d"
+    },
+    {
+      "slug": "web-core-windows-net",
+      "website": "*.web.core.windows.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers have the ability to choose a customized subdomain on web.core.windows.net. Attackers abuse this functionality by hosting phishing websites using the web.core.windows.net subdomain. *.web.core.windows.net can be used as C&C servers. Attackers can upload exfiltrated data onto applications hosted on *.web.core.windows.net Malicious tools can be stored on *.web.core.windows.net and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e7765622e636f72652e77696e646f77732e6e6574"
+    },
+    {
+      "slug": "blob-core-windows-net",
+      "website": "*.blob.core.windows.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers have the ability to choose a customized subdomain on blob.core.windows.net for blob storage. Attackers abuse this functionality by hosting .html files using the blob.core.windows.net subdomain and therefore creating fake login pages that capture credentials. Attackers can upload exfiltrated data onto applications hosted on *.blob.core.windows.net Malicious tools can be stored on *.blob.core.windows.net and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e626c6f622e636f72652e77696e646f77732e6e6574"
+    },
+    {
+      "slug": "box-com",
+      "website": "*.box.com",
+      "provider": "Box",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers have used *.box.com to store malicious files and then share them with targets. *.box.com can be used to store exfiltrated files on there. *.box.com creates shared links for files which enables attackers to store tools there and download them when required.",
+      "url": "https://lots-project.com/site/2a2e626f782e636f6d"
+    },
+    {
+      "slug": "sites-google-com",
+      "website": "sites.google.com",
+      "provider": "Google",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/73697465732e676f6f676c652e636f6d"
+    },
+    {
+      "slug": "cloudfront-net",
+      "website": "*.cloudfront.net",
+      "provider": "Amazon Web Services",
+      "tags": ["Phishing", "C&C", "Download"],
+      "description": "Attackers can use *.cloudfront.net to host their phishing websites. Subdomains of cloudfront.net have been used as C&C servers by ransomware. Malicious tools can be stored on *.cloudfront.net and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e636c6f756466726f6e742e6e6574"
+    },
+    {
+      "slug": "bitbucket-io",
+      "website": "bitbucket.io",
+      "provider": "Atlassian",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/6269746275636b65742e696f"
+    },
+    {
+      "slug": "bitbucket-org",
+      "website": "bitbucket.org",
+      "provider": "Atlassian",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers can host malware on bitbucket.org and send phishing emails to have users download the malware. bitbucket.org can be used to host C&C commands and have malware periodically fetch them. Attackers can push data onto bitbucket.org repositories. Attackers can host malicious files on bitbucket.org and when needed, the files can be downloaded.",
+      "url": "https://lots-project.com/site/6269746275636b65742e6f7267"
+    },
+    {
+      "slug": "firebasestorage-googleapis-com",
+      "website": "firebasestorage.googleapis.com",
+      "provider": "Google",
+      "tags": ["Phishing", "Exfiltration", "C&C", "Download"],
+      "description": "Attackers can use firebasestorage.googleapis.com to host their phishing websites. Attackers can use firebasestorage.googleapis.com as their C&C server. Attackers can push data onto firebasestorage.googleapis.com storage. The file types that can be pushed are restricted. Attackers can host malicious files on firebasestorage.googleapis.com and when needed, the files can be downloaded.",
+      "url": "https://lots-project.com/site/666972656261736573746f726167652e676f6f676c65617069732e636f6d"
+    },
+    {
+      "slug": "storage-googleapis-com",
+      "website": "storage.googleapis.com",
+      "provider": "Google",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers can use storage.googleapis.com to host their phishing websites. Attackers can use storage.googleapis.com as their C&C server. Attackers can push data onto storage.googleapis.com storage. Attackers can host malicious files on storage.googleapis.com and when needed, the files can be downloaded.",
+      "url": "https://lots-project.com/site/73746f726167652e676f6f676c65617069732e636f6d"
+    },
+    {
+      "slug": "herokuapp-com",
+      "website": "*.herokuapp.com",
+      "provider": "Heroku",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers can use a customized subdomain of herokuapp.com to host their phishing websites. Attackers can use a customized subdomain of herokuapp.com as their C&C server. Attackers can add upload functionalities hosted on *.herokuapp.com and exfiltrate data on there. Malicious tools can be stored on *.herokuapp.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e6865726f6b756170702e636f6d"
+    },
+    {
+      "slug": "zendesk-com",
+      "website": "*.zendesk.com",
+      "provider": "Zendesk",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use a customized subdomain of zendesk.com to host their phishing websites. Malicious tools can be stored on *.zendesk.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e7a656e6465736b2e636f6d"
+    },
+    {
+      "slug": "cloudwaysapps-com",
+      "website": "*.cloudwaysapps.com",
+      "provider": "Cloudways",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers can use a subdomain of cloudwaysapps.com to host their phishing websites. Attackers can use a subdomain of cloudwaysapps.com as their C&C server. Attackers can add upload functionalities hosted on *.cloudwaysapps.com and exfiltrate data on there. Malicious tools can be stored on *.cloudwaysapps.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e636c6f756477617973617070732e636f6d"
+    },
+    {
+      "slug": "netlify-app",
+      "website": "*.netlify.app",
+      "provider": "Netlify",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e6e65746c6966792e617070"
+    },
+    {
+      "slug": "cloudapp-azure-com",
+      "website": "*.cloudapp.azure.com",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers can use a customized subdomain of cloudapp.azure.com to host their phishing websites. Attackers can use a customized subdomain of cloudapp.azure.com as their C&C server. Attackers can add upload functionalities hosted on *.cloudapp.azure.com and exfiltrate data on there. Malicious tools can be stored on *.cloudapp.azure.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e636c6f75646170702e617a7572652e636f6d"
+    },
+    {
+      "slug": "cloudapp-net",
+      "website": "*.cloudapp.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Attackers can use a customized subdomain of cloudapp.net to host their phishing websites. Attackers can use a customized subdomain of cloudapp.net as their C&C server. Attackers can add upload functionalities hosted on *.cloudapp.net and exfiltrate data on there. Malicious tools can be stored on *.cloudapp.net and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e636c6f75646170702e6e6574"
+    },
+    {
+      "slug": "gitlab-com",
+      "website": "gitlab.com",
+      "provider": "GitLab",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can host malware on gitlab.com and send phishing emails to have users download the malware. Another way is to fork a legitimate project, and add malware to it and then phish users to download the trojanized project. Attackers can host malicious files on gitlab.com and when needed, the files can be downloaded.",
+      "url": "https://lots-project.com/site/6769746c61622e636f6d"
+    },
+    {
+      "slug": "filetransfer-io",
+      "website": "filetransfer.io",
+      "provider": "Filetransfer.io",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can upload malicious files and share them to targets via FileTransfer.io&#039;s email servers. filetransfer.io asks for a sender email before sharing the files which allows the attacker to enter a fake email and therefore the files appear to be shared from the fake email. Attackers can upload data to filetransfer.io and share the link to themselves to download the exfiltrated data. Requires GUI access. Attackers can keep their tools stored on filetrasnfer.io and when required, use the custom link to download. Requires GUI access.",
+      "url": "https://lots-project.com/site/66696c657472616e736665722e696f"
+    },
+    {
+      "slug": "sendspace-com",
+      "website": "*.sendspace.com",
+      "provider": "Sendspace",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can upload malicious files and share them to targets via SendSpace&#039;s email servers. sendspace.com asks for a sender email before sharing the files which allows the attacker to enter a fake email and therefore the files appear to be shared from the fake email. Alternatively, an attacker can grab the direct download link and share it with targets using alternative methods. Attackers can upload data to sendspace.com and share the link to themselves to download the exfiltrated data. Requires GUI access. Attackers can keep their tools stored on sendspace.com and when required, use th",
+      "url": "https://lots-project.com/site/2a2e73656e6473706163652e636f6d"
+    },
+    {
+      "slug": "wetransfer-com",
+      "website": "wetransfer.com",
+      "provider": "WeTransfer B.V",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can upload malicious files and share them to targets via WeTransfer&#039;s email servers. wetransfer.com validates the sender email before using it. Attackers can upload data to wetransfer.com and share the link to themselves to download the exfiltrated data. Requires GUI access. Attackers can keep their tools stored on wetransfer.com and when required, use the custom link to download.",
+      "url": "https://lots-project.com/site/77657472616e736665722e636f6d"
+    },
+    {
+      "slug": "cdn-fbsbx-com",
+      "website": "cdn.fbsbx.com",
+      "provider": "Facebook",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/63646e2e66627362782e636f6d"
+    },
+    {
+      "slug": "mediafire-com",
+      "website": "mediafire.com",
+      "provider": "Mediafire",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can upload malicious files and share the link with targets. Attackers can upload data to mediafire.com and share the link to themselves to download the exfiltrated data. Attackers can keep their tools stored on mediafire.com and when required, use the custom link to download.",
+      "url": "https://lots-project.com/site/6d65646961666972652e636f6d"
+    },
+    {
+      "slug": "cdn-discordapp-com",
+      "website": "cdn.discordapp.com",
+      "provider": "Discord",
+      "tags": ["Phishing", "Download"],
+      "description": "An attacker can upload malicious files on Discord and share the download link with targets. Attackers can keep their tools stored on cdn.discordapp.com and when required, use the custom link to download.",
+      "url": "https://lots-project.com/site/63646e2e646973636f72646170702e636f6d"
+    },
+    {
+      "slug": "workers-dev",
+      "website": "*.workers.dev",
+      "provider": "Cloudflare",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "Cloudflare Workers can be used to host phishing websites. Cloudflare Workers can be used as C&C servers. Attackers can add upload functionalities hosted on *.workers.dev and exfiltrate data on there. Malicious tools can be stored on *.workers.dev and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e776f726b6572732e646576"
+    },
+    {
+      "slug": "slack-files-com",
+      "website": "slack-files.com",
+      "provider": "Slack",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/736c61636b2d66696c65732e636f6d"
+    },
+    {
+      "slug": "youtube-com",
+      "website": "youtube.com",
+      "provider": "Google",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use Youtube&#039;s redirect functionality to hide their URL. Youtube attempts to mitigate abuse by adding a splash screen which warns the user about the redirection to the external domain. Youtube has been used as a C&C center by placing commands in the description of the videos and having malware fetch them.",
+      "url": "https://lots-project.com/site/796f75747562652e636f6d"
+    },
+    {
+      "slug": "reddit-com",
+      "website": "reddit.com",
+      "provider": "Reddit",
+      "tags": ["C&C"],
+      "description": "Attackers have used Reddit as an intermediary C&C server by creating posts with a title that contain a list of the real C&C servers and having the malware reach out and fetch the IPs.",
+      "url": "https://lots-project.com/site/7265646469742e636f6d"
+    },
+    {
+      "slug": "pastebin-com",
+      "website": "pastebin.com",
+      "provider": "Pastebin",
+      "tags": ["Download", "Exfiltration", "C&C"],
+      "description": "Pastebin can be used for C&C purposes. The attacker will place the commands in Pastebin and have the malware fetch the commands. Attackers will upload sensitive data onto Pastebin and share the link with themselves for later access. Attackers upload the source code of tools onto Pastebin and download them when necessary.",
+      "url": "https://lots-project.com/site/706173746562696e2e636f6d"
+    },
+    {
+      "slug": "sharepoint-com",
+      "website": "*.sharepoint.com",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers host phishing websites on a sharepoint.com subdomain and redirect users to malicious websites. Alternatively, they can host malicious documents that can be downloaded. Malicious tools can be stored on *.sharepoint.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e7368617265706f696e742e636f6d"
+    },
+    {
+      "slug": "onedrive-live-com",
+      "website": "onedrive.live.com",
+      "provider": "Microsoft",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/6f6e6564726976652e6c6976652e636f6d"
+    },
+    {
+      "slug": "app-milanote-com",
+      "website": "app.milanote.com",
+      "provider": "Milanote",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/6170702e6d696c616e6f74652e636f6d"
+    },
+    {
+      "slug": "appspot-com",
+      "website": "*.appspot.com",
+      "provider": "Google",
+      "tags": ["Phishing", "Download", "C&C"],
+      "description": "Attackers can use a subdomain of appspot.com to host their phishing websites. Attackers can utilize *.appspot.com for C&C purposes. Malicious tools can be stored on *.appspot.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e61707073706f742e636f6d"
+    },
+    {
+      "slug": "wordpress-com",
+      "website": "*.wordpress.com",
+      "provider": "Wordpress Foundation",
+      "tags": ["Phishing", "Download", "C&C", "Exfiltration"],
+      "description": "Attackers can use a customized subdomain of wordpress.com to host their phishing websites. Attackers have previously used Wordpress as a C&C server. Attackers can upload exfiltrated data onto applications hosted on *.wordpress.com. Malicious tools can be stored on *.wordpress.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e776f726470726573732e636f6d"
+    },
+    {
+      "slug": "azureedge-net",
+      "website": "*.azureedge.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a customized subdomain of azureedge.net to host their phishing websites. Attackers have previously used *.azureedge.net as a C&C server.",
+      "url": "https://lots-project.com/site/2a2e617a757265656467652e6e6574"
+    },
+    {
+      "slug": "tumblr-com",
+      "website": "*.tumblr.com",
+      "provider": "Tumblr",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers have previously setup tumblr.com subdomains that redirect to malicious domains. Attackers can utilize *.tumblr.com for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e74756d626c722e636f6d"
+    },
+    {
+      "slug": "backblazeb2-com",
+      "website": "*.backblazeb2.com",
+      "provider": "BackBlaze",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers have used *.backblazeb2.com to store malicious files and then share them with targets. backblazeb2.com can be used to store exfiltrated files on there. backblazeb2.com creates shared links for files which enables attackers to store tools there and download them when required.",
+      "url": "https://lots-project.com/site/2a2e6261636b626c617a6562322e636f6d"
+    },
+    {
+      "slug": "blogspot-com",
+      "website": "*.blogspot.com",
+      "provider": "Google",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a customized subdomain of blogspot.com to host their phishing website. Attackers can utilize *.blogspot.com for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e626c6f6773706f742e636f6d"
+    },
+    {
+      "slug": "translate-goog",
+      "website": "*.translate.goog",
+      "provider": "Google",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use Google Translate to masquerade their domain for phishing purposes. The attacker&#039;s domain will be transformed to the following format: attacker-site-tld.translate.goog. Attackers can upload files onto their malicious domain, masquerade it with Google Translate and then when required, use the *.translate.goog link to download the tool.",
+      "url": "https://lots-project.com/site/2a2e7472616e736c6174652e676f6f67"
+    },
+    {
+      "slug": "googleusercontent-com",
+      "website": "*.googleusercontent.com",
+      "provider": "Google",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a customized subdomain of googleusercontent.com to host their phishing website. Attackers can utilize *.googleusercontent.com for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e676f6f676c6575736572636f6e74656e742e636f6d"
+    },
+    {
+      "slug": "typeform-com",
+      "website": "*.typeform.com",
+      "provider": "Typeform",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e74797065666f726d2e636f6d"
+    },
+    {
+      "slug": "github-io",
+      "website": "*.github.io",
+      "provider": "Github",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e6769746875622e696f"
+    },
+    {
+      "slug": "web-app",
+      "website": "*.web.app",
+      "provider": "Google",
+      "tags": ["Phishing"],
+      "description": "Phishing Attackers can utilize *.web.app for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e7765622e617070"
+    },
+    {
+      "slug": "firebaseapp-com",
+      "website": "*.firebaseapp.com",
+      "provider": "Google",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a customized subdomain of firebaseapp.com to host their phishing website. Attackers can utilize *.firebaseapp.com for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e66697265626173656170702e636f6d"
+    },
+    {
+      "slug": "webflow-io",
+      "website": "*.webflow.io",
+      "provider": "Webflow",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e776562666c6f772e696f"
+    },
+    {
+      "slug": "icloud-com",
+      "website": "icloud.com",
+      "provider": "Apple",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers have used icloud.com to store malicious files and then share them with targets. Attackers can use iCloud to exfiltrate and store data. Attackers can upload tools onto an iCloud account and use the link to download these tools when required.",
+      "url": "https://lots-project.com/site/69636c6f75642e636f6d"
+    },
+    {
+      "slug": "duckdns-org",
+      "website": "*.duckdns.org",
+      "provider": "DuckDNS",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers use the Dynamic DNS service DuckDNS for phishing purposes. New Norman Cryptominer used DuckDNS as a C&C server.",
+      "url": "https://lots-project.com/site/2a2e6475636b646e732e6f7267"
+    },
+    {
+      "slug": "pages-dev",
+      "website": "*.pages.dev",
+      "provider": "Cloudflare",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e70616765732e646576"
+    },
+    {
+      "slug": "googleweblight-com",
+      "website": "googleweblight.com",
+      "provider": "Google",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers use googleweblight.com to redirect targets to a malicious domain. Attackers can use googleweblight.com to masquerade a direct download link.",
+      "url": "https://lots-project.com/site/676f6f676c657765626c696768742e636f6d"
+    },
+    {
+      "slug": "forms-office-com",
+      "website": "forms.office.com",
+      "provider": "Microsoft",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/666f726d732e6f66666963652e636f6d"
+    },
+    {
+      "slug": "sway-office-com",
+      "website": "sway.office.com",
+      "provider": "Microsoft",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/737761792e6f66666963652e636f6d"
+    },
+    {
+      "slug": "discord-com",
+      "website": "discord.com",
+      "provider": "Discord",
+      "tags": ["C&C", "Exfiltration"],
+      "description": "Discord chat bot APIs have been used for command and control. Data can be exfiltrated onto Discord private servers and channels.",
+      "url": "https://lots-project.com/site/646973636f72642e636f6d"
+    },
+    {
+      "slug": "slack-com",
+      "website": "slack.com",
+      "provider": "Slack",
+      "tags": ["C&C"],
+      "description": "There are several open source tools that allow the usage of Slack as a C&C server.",
+      "url": "https://lots-project.com/site/736c61636b2e636f6d"
+    },
+    {
+      "slug": "api-telegram-org",
+      "website": "api.telegram.org",
+      "provider": "Telegram",
+      "tags": ["C&C", "Exfiltration"],
+      "description": "Telegram is being increasingly used as a C&C server by attackers. CheckPoint reported that a Remote Access Trojan, ToxicEye, used Telegram for C&C. One additional benefit of using Telegram as a C&C server is it allows attackers to use their mobile device to access infected machines. Data can be exfiltrated onto Telegram by using a bot controlled by the attacker and sending it the data as a private message. This was demonstrated by SecurityBoulevard.",
+      "url": "https://lots-project.com/site/6170692e74656c656772616d2e6f7267"
+    },
+    {
+      "slug": "gofile-io",
+      "website": "*.gofile.io",
+      "provider": "Gofile",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Malicious files can be uploaded on gofile.io and then have the direct link shared with targets in phishing attacks. Attackers can upload data to gofile.io and share the link to themselves to download the exfiltrated data. Attackers can keep their tools stored on gofile.io and when required, use the direct download link to fetch the tools.",
+      "url": "https://lots-project.com/site/2a2e676f66696c652e696f"
+    },
+    {
+      "slug": "instagram-com",
+      "website": "*.instagram.com",
+      "provider": "Facebook",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use the l.instagram.com subdomain to redirect users to an external URL. Although Instagram scans the URL (which can be bypassed by using a URL shortening service) and includes a time-based token to reduce the chances of abuse. The Instagram API can be used to make Instagram a C&C server. An open source tool \"Social-media-c2\" uses the like functionality on Instagram to send commands to infected machines.",
+      "url": "https://lots-project.com/site/2a2e696e7374616772616d2e636f6d"
+    },
+    {
+      "slug": "facebook-com",
+      "website": "facebook.com",
+      "provider": "Facebook",
+      "tags": ["C&C"],
+      "description": "Facebook can be used as a C&C server by attackers by publishing posts that contain commands and then having the infected machines fetch them.",
+      "url": "https://lots-project.com/site/66616365626f6f6b2e636f6d"
+    },
+    {
+      "slug": "glitch-me",
+      "website": "*.glitch.me",
+      "provider": "Glitch",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use a customized subdomain of glitch.me to host their phishing websites. Malicious tools can be stored on *.glitch.me and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e676c697463682e6d65"
+    },
+    {
+      "slug": "bit-ly",
+      "website": "bit.ly",
+      "provider": "Bitly Inc.",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the URL shortener, bit.ly, to masquerade their domain name and send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/6269742e6c79"
+    },
+    {
+      "slug": "trycloudflare-com",
+      "website": "*.trycloudflare.com",
+      "provider": "Cloudflare",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the try.cloudflare.com service to get a subdomain on *.trycloudflare.com. The service works similarly to Ngrok and allows attackers to expose a local web server to the internet. Attackers abuse this functionality to expose malicious servers on a *.trycloudflare.com subdomain. Malicious tools can be stored on an attacker&#039;s local web server. The local web server is then exposed to the internet on a *.trycloudflare.com subdomain and when the tools are needed, the link is used to download the tools.",
+      "url": "https://lots-project.com/site/2a2e747279636c6f7564666c6172652e636f6d"
+    },
+    {
+      "slug": "beautiful-ai",
+      "website": "beautiful.ai",
+      "provider": "Beautiful.ai",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/62656175746966756c2e6169"
+    },
+    {
+      "slug": "siasky-net",
+      "website": "siasky.net",
+      "provider": "Siasky",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Attackers can upload malicious files to siasky.net and then share the direct download link with targets. Attackers can upload data to siasky.net and share the link to themselves to download the exfiltrated data. Attackers can keep their tools stored on siasky.net and when required, use the direct download link to fetch the tools.",
+      "url": "https://lots-project.com/site/736961736b792e6e6574"
+    },
+    {
+      "slug": "clickfunnels-com",
+      "website": "*.clickfunnels.com",
+      "provider": "ClickFunnels",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e636c69636b66756e6e656c732e636f6d"
+    },
+    {
+      "slug": "docusign-com",
+      "website": "*.docusign.com",
+      "provider": "DocuSign",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e646f63757369676e2e636f6d"
+    },
+    {
+      "slug": "digitaloceanspaces-com",
+      "website": "*.digitaloceanspaces.com",
+      "provider": "DigitalOcean",
+      "tags": ["Phishing", "Download", "Exfiltration", "C&C"],
+      "description": "DigitalOcean allows users to create a customized subdomain on digitaloceanspaces.com. Attackers abuse this functionality by hosting phishing websites. *.digitaloceanspaces.com subdomains can be used as C&C servers. Attackers can upload exfiltrated data onto applications hosted on *.digitaloceanspaces.com Attackers can host malicious tools on *.digitaloceanspaces.com and download them when required.",
+      "url": "https://lots-project.com/site/2a2e6469676974616c6f6365616e7370616365732e636f6d"
+    },
+    {
+      "slug": "godaddysites-com",
+      "website": "*.godaddysites.com",
+      "provider": "GoDaddy",
+      "tags": ["Phishing", "C&C"],
+      "description": "GoDaddy allows users to create a customized subdomain on godaddysites.com. Attackers abuse this functionality by hosting phishing websites. *.godaddysites.com subdomains can be used as C&C servers.",
+      "url": "https://lots-project.com/site/2a2e676f646164647973697465732e636f6d"
+    },
+    {
+      "slug": "weebly-com",
+      "website": "*.weebly.com",
+      "provider": "Weebly",
+      "tags": ["Phishing", "C&C"],
+      "description": "Weebly allows users to create a customized subdomain on weebly.com. Attackers abuse this functionality by hosting phishing websites. Attackers can use *.weebly.com and C&C servers.",
+      "url": "https://lots-project.com/site/2a2e776565626c792e636f6d"
+    },
+    {
+      "slug": "www-canva-com",
+      "website": "www.canva.com",
+      "provider": "Canva",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/7777772e63616e76612e636f6d"
+    },
+    {
+      "slug": "t-co",
+      "website": "t.co",
+      "provider": "Twitter",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use Twitter&#039;s short URL to masquerade their domain name and then send the shortened link to their targets. Twitter attempts to prevent abuse of their shortened URL by scanning domains being shortened. Twitter&#039;s shortened URL, t.co, can be used for C&C purposes.",
+      "url": "https://lots-project.com/site/742e636f"
+    },
+    {
+      "slug": "mybluemix-net",
+      "website": "*.mybluemix.net",
+      "provider": "IBM",
+      "tags": ["Phishing", "Download", "C&C"],
+      "description": "Attackers can use *.mybluemix.net to host their phishing websites. They can be used for credential harvesting or redirecting users to a malicious websites. Attackers can use *.mybluemix.net for C&C purposes. Malicious tools can be stored on *.mybluemix.net and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e6d79626c75656d69782e6e6574"
+    },
+    {
+      "slug": "appdomain-cloud",
+      "website": "appdomain.cloud",
+      "provider": "IBM",
+      "tags": ["Phishing", "Download", "C&C", "Exfiltration"],
+      "description": "Attackers can use a *.appdomain.cloud subdomain to host their phishing websites. They can be used for credential harvesting or redirecting users to a malicious websites. Attackers can use *.appdomain.cloud for C&C purposes. Attackers can use *.appdomain.cloud as storage and upload exfiltrated files there. Malicious tools can be stored on *.appdomain.cloud and downloaded when required.",
+      "url": "https://lots-project.com/site/617070646f6d61696e2e636c6f7564"
+    },
+    {
+      "slug": "archive-org",
+      "website": "archive.org",
+      "provider": "Archive.org",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can create a phishing website and then use archive.org to hide their domain. Malicious tools can be uploaded on archive.org and then downloaded when needed.",
+      "url": "https://lots-project.com/site/617263686976652e6f7267"
+    },
+    {
+      "slug": "spark-adobe-com",
+      "website": "spark.adobe.com",
+      "provider": "Adobe",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use spark.adobe.com to create websites with embedded links that redirect target users to malicious websites. Attackers can use spark.adobe.com for C&C purposes.",
+      "url": "https://lots-project.com/site/737061726b2e61646f62652e636f6d"
+    },
+    {
+      "slug": "atlassian-net",
+      "website": "*.atlassian.net",
+      "provider": "Atlassian",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a *.atlassian.net subdomain that contains embedded links to redirect users to malicious websites. Attackers can use *.atlassian.net for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e61746c61737369616e2e6e6574"
+    },
+    {
+      "slug": "dogechain-info",
+      "website": "dogechain.info",
+      "provider": "Dogechain.info",
+      "tags": ["C&C"],
+      "description": "The Doki malware has abused dogechain.info API for C&C purposes.",
+      "url": "https://lots-project.com/site/646f6765636861696e2e696e666f"
+    },
+    {
+      "slug": "paste-ee",
+      "website": "paste.ee",
+      "provider": "Paste.ee",
+      "tags": ["C&C", "Exfiltration", "Download"],
+      "description": "Paste.ee can be used for C&C purposes. The attacker can place the commands in Paste.ee and have the malware fetch the commands. Attackers will upload sensitive data onto Paste.ee and share the link with themselves for later access. Attackers upload the source code of tools onto Paste.ee and download them when necessary.",
+      "url": "https://lots-project.com/site/70617374652e6565"
+    },
+    {
+      "slug": "gitee-com",
+      "website": "gitee.com",
+      "provider": "Gitee.com",
+      "tags": ["C&C", "Download"],
+      "description": "Similiar to Github, Gitee.com can have files uploaded with commands and have the malware fetch those commands. Attackers upload tools onto Gitee.com and download them when needed.",
+      "url": "https://lots-project.com/site/67697465652e636f6d"
+    },
+    {
+      "slug": "rf-gd",
+      "website": "*.rf.gd",
+      "provider": "InfinityFree",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a *.rf.gd subdomain to host their phishing websites. Attackers can use *.rf.gd for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e72662e6764"
+    },
+    {
+      "slug": "viewer-joomag-com",
+      "website": "viewer.joomag.com",
+      "provider": "Joomag",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/7669657765722e6a6f6f6d61672e636f6d"
+    },
+    {
+      "slug": "my-visme-co",
+      "website": "my.visme.co",
+      "provider": "Visme",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/6d792e7669736d652e636f"
+    },
+    {
+      "slug": "archive-ph",
+      "website": "archive.ph",
+      "provider": "Archive.ph",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can create a phishing website and then use archive.ph to hide their domain. Malicious tools can be uploaded on archive.ph and then downloaded when needed.",
+      "url": "https://lots-project.com/site/617263686976652e7068"
+    },
+    {
+      "slug": "docsend-com",
+      "website": "docsend.com",
+      "provider": "Docsend",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/646f6373656e642e636f6d"
+    },
+    {
+      "slug": "nimbusweb-me",
+      "website": "*.nimbusweb.me",
+      "provider": "Nimbus Note",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e6e696d6275737765622e6d65"
+    },
+    {
+      "slug": "oraclecloud-com",
+      "website": "*.oraclecloud.com",
+      "provider": "Oracle",
+      "tags": ["Phishing", "Exfiltration", "Download", "C&C"],
+      "description": "Attackers can use a *.oraclecloud.com subdomain to host their phishing websites. Attackers can use *.oraclecloud.com for C&C purposes. Attackers can use Oracle Object Storage to upload exfiltrated files there. Attackers can store malicious tools on Oracle Object Storage and download them when needed.",
+      "url": "https://lots-project.com/site/2a2e6f7261636c65636c6f75642e636f6d"
+    },
+    {
+      "slug": "azurefd-net",
+      "website": "*.azurefd.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a subdomain from Azure Front Door (*.azurefd.net) to host their phishing websites. Attackers can use *.azurefd.net for C&C purposes.",
+      "url": "https://lots-project.com/site/2a2e617a75726566642e6e6574"
+    },
+    {
+      "slug": "parg-co",
+      "website": "parg.co",
+      "provider": "Parg.co",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the URL shortener, parg.co, to masquerade their domain name and send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/706172672e636f"
+    },
+    {
+      "slug": "ngrok-io",
+      "website": "*.ngrok.io",
+      "provider": "Ngrok",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use a subdomain hosted on *.ngrok.io to host their phishing website. Attackers can use *.ngrok.io for C&C purposes. Attackers can upload files on websites hosted on *.ngrok.io. Malicious tools can be stored on an attacker&#039;s domain and then have it hidden behind *.ngrok.io and used to download files when needed.",
+      "url": "https://lots-project.com/site/2a2e6e67726f6b2e696f"
+    },
+    {
+      "slug": "codepen-io",
+      "website": "codepen.io",
+      "provider": "CodePen",
+      "tags": ["C&C", "Download"],
+      "description": "Attackers can use codepen.io to execute JavaScript and establish a websocket connection to a remote C&C server. An example is available thanks to @fkadibs: https://codepen.io/fkadibs/pen/KKvrZGq Attackers can use codepen.io to download malicious tools. Although the attacker cannot download binaries directly, one method of doing so is by first base64 encoding the binary then adding it to the HTML section of a pen and then downloading decoding the binary.",
+      "url": "https://lots-project.com/site/636f646570656e2e696f"
+    },
+    {
+      "slug": "pastetext-net",
+      "website": "pastetext.net",
+      "provider": "Pastetext.net",
+      "tags": ["Download"],
+      "description": "Attackers upload the source code of tools onto pastetext.net and download them when necessary.",
+      "url": "https://lots-project.com/site/7061737465746578742e6e6574"
+    },
+    {
+      "slug": "notion-so",
+      "website": "notion.so",
+      "provider": "Notion.so",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use notion.so to share files with embedded malicious links or documents Attackers can use notion.so for C&C purposes. OffensiveNotion is an open-source tool that utilizes notion.so for C&C. Attackers can use notion.so for to exfiltrate data. OffensiveNotion is an open-source tool that can use notion.so to exfiltrate data. Attackers can use notion.so for to download files. OffensiveNotion is an open-source tool that can use notion.so to download files.",
+      "url": "https://lots-project.com/site/6e6f74696f6e2e736f"
+    },
+    {
+      "slug": "wixsite-com",
+      "website": "*.wixsite.com",
+      "provider": "Wix",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e776978736974652e636f6d"
+    },
+    {
+      "slug": "attachment-outlook-live-net",
+      "website": "attachment.outlook.live.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can compose an email, attach a file and use the direct download link to phish users. The caveat with using this method is the phishing link expires in approximately 15 minutes. Attackers can compose an email, attach file(s) to exfiltrate and send the download link to themselves. This method is not ideal for large files due to the file size restriction in place. Attackers can compose an email on Outlook and attach a file and then use the file&#039;s download link to directly download the file. Restricted file types would first need to have their file extension modified (e.g. mimikatz.",
+      "url": "https://lots-project.com/site/6174746163686d656e742e6f75746c6f6f6b2e6c6976652e6e6574"
+    },
+    {
+      "slug": "attachments-office-net",
+      "website": "attachments.office.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can compose an email, attach a file and use the direct download link to phish users. The caveat with using this method is the phishing link expires in approximately 15 minutes. Attackers can compose an email, attach file(s) to exfiltrate and send the download link to themselves. This method is not ideal for large files due to the file size restriction in place. Attackers can compose an email on O365 and attach a file and then use the file&#039;s download link to directly download the file. Restricted file types would first need to have their file extension modified (e.g. mimikatz.exe",
+      "url": "https://lots-project.com/site/6174746163686d656e74732e6f66666963652e6e6574"
+    },
+    {
+      "slug": "lnkd-in",
+      "website": "lnkd.in",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use LinkedIn&#039;s short URL to masquerade their domain name and then send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/6c6e6b642e696e"
+    },
+    {
+      "slug": "myportfolio-com",
+      "website": "*.myportfolio.com",
+      "provider": "Adobe",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e6d79706f7274666f6c696f2e636f6d"
+    },
+    {
+      "slug": "notion-site",
+      "website": "*.notion.site",
+      "provider": "Notion.so",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can host a malicious file onto their notion page, make it public, and then share the download link of the file to target users. Note that Notion restricts certain file types. Attackers can host a malicious file onto their notion page, make it public, and then use the download link to drop files onto a target machine.",
+      "url": "https://lots-project.com/site/2a2e6e6f74696f6e2e73697465"
+    },
+    {
+      "slug": "wasabisys-com",
+      "website": "*.wasabisys.com",
+      "provider": "Wasabi Technologies",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use *.wasabisys.com to host phishing templates. Attackers can use *.wasabisys.com for C&C purposes. Wasabisys&#039; S3 storage capabilities can be used to store exfiltrated files on there. Malicious tools can be stored on *.wasabisys.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e7761736162697379732e636f6d"
+    },
+    {
+      "slug": "rebrand-ly",
+      "website": "rebrand.ly",
+      "provider": "Rebrandly",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the URL shortener, rebrand.ly, to masquerade their domain name and send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/72656272616e642e6c79"
+    },
+    {
+      "slug": "rb-gy",
+      "website": "rb.gy",
+      "provider": "Rebrandly",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the URL shortener, rb.gy, to masquerade their domain name and send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/72622e6779"
+    },
+    {
+      "slug": "genius-com",
+      "website": "genius.com",
+      "provider": "Genius",
+      "tags": ["C&C"],
+      "description": "Attackers are using genius.com for C&C purposes by posting commands in the biography section of user profiles.",
+      "url": "https://lots-project.com/site/67656e6975732e636f6d"
+    },
+    {
+      "slug": "inmotionhosting-com",
+      "website": "inmotionhosting.com",
+      "provider": "InMotion Hosting",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use *.inmotionhosting.com to host phishing websites. Attackers can use servers hosted on *.inmotionhosting.com for C&C purposes. Attackers can create web applications with upload functionalities hosted on *.inmotionhosting.com and exfiltrate data on there. Attackers can host malicious tools on applications hosted on *.inmotionhosting.com and download them when needed.",
+      "url": "https://lots-project.com/site/696e6d6f74696f6e686f7374696e672e636f6d"
+    },
+    {
+      "slug": "stonly-com",
+      "website": "stonly.com",
+      "provider": "Stonly",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/73746f6e6c792e636f6d"
+    },
+    {
+      "slug": "csb-app",
+      "website": "*.csb.app",
+      "provider": "CodeSandbox",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e6373622e617070"
+    },
+    {
+      "slug": "codesandbox-io",
+      "website": "*.codesandbox.io",
+      "provider": "CodeSandbox",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e636f646573616e64626f782e696f"
+    },
+    {
+      "slug": "000webhostapp-com",
+      "website": "*.000webhostapp.com",
+      "provider": "Hostinger",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use *.000webhostapp.com to host phishing websites. Attackers have used *.000webhostapp.com domains for C&C purposes. Attackers can exfiltrate files onto *.000webhostapp.com via file manager capabilities. Malicious tools can be stored on *.000webhostapp.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e303030776562686f73746170702e636f6d"
+    },
+    {
+      "slug": "hostingerapp-com",
+      "website": "*.hostingerapp.com",
+      "provider": "Hostinger",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use *.hostingerapp.com to host phishing websites. Attackers have used *.hostingerapp.com domains for C&C purposes. Attackers can exfiltrate files onto *.hostingerapp.com via file manager capabilities. Malicious tools can be stored on *.hostingerapp.com and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e686f7374696e6765726170702e636f6d"
+    },
+    {
+      "slug": "feedproxy-google-com",
+      "website": "feedproxy.google.com",
+      "provider": "Google",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/6665656470726f78792e676f6f676c652e636f6d"
+    },
+    {
+      "slug": "pagecloud-com",
+      "website": "*.pagecloud.com",
+      "provider": "PageCloud",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e70616765636c6f75642e636f6d"
+    },
+    {
+      "slug": "format-com",
+      "website": "*.format.com",
+      "provider": "Format",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e666f726d61742e636f6d"
+    },
+    {
+      "slug": "s-id",
+      "website": "s.id",
+      "provider": "s.id",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the URL shortener, s.id, to masquerade their domain name and send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/732e6964"
+    },
+    {
+      "slug": "doc-clickup-com",
+      "website": "doc.clickup.com",
+      "provider": "ClickUp",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/646f632e636c69636b75702e636f6d"
+    },
+    {
+      "slug": "ufile-io",
+      "website": "ufile.io",
+      "provider": "Ufile",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Malicious files can be uploaded on ufile.io and then have the direct link shared with targets in phishing attacks. Attackers can upload data to ufile.io and share the link to themselves to download the exfiltrated data. Attackers can keep their tools stored on ufile.io and when required, use the direct download link to fetch the tools.",
+      "url": "https://lots-project.com/site/7566696c652e696f"
+    },
+    {
+      "slug": "onenoteonlinesync-onenote-com",
+      "website": "onenoteonlinesync.onenote.com",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can insert an attachment on a OneNote Notebook and then use the attachment&#039;s direct download link to phish users. Attackers can insert files they wish to exfiltrate on a OneNote Notebook and send the direct download link to themselves. This method is not ideal for large files due to the file size restriction in place. Attackers can insert an attachment on a OneNote Notebook and then use the attachment&#039;s download link to directly download the file.",
+      "url": "https://lots-project.com/site/6f6e656e6f74656f6e6c696e6573796e632e6f6e656e6f74652e636f6d"
+    },
+    {
+      "slug": "12ft-io",
+      "website": "12ft.io",
+      "provider": "12ft.io",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/313266742e696f"
+    },
+    {
+      "slug": "doubleclick-net",
+      "website": "*.doubleclick.net",
+      "provider": "Google",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use *.doubleclick.net to redirect targets to a malicious domain. Attackers can use *.doubleclick.net to masquerade a direct download link.",
+      "url": "https://lots-project.com/site/2a2e646f75626c65636c69636b2e6e6574"
+    },
+    {
+      "slug": "t-m1-email-samsung-com",
+      "website": "t.m1.email.samsung.com",
+      "provider": "Samsung",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use t.m1.email.samsung.com to redirect targets to a malicious domain. The format of the link would be as follows: https://t.m1.email.samsung.com/r/?id=hdbbbab34,71b0ad58,6b55baa5&p1=[phishing-link] Attackers can use t.m1.email.samsung.com to masquerade a direct download link.",
+      "url": "https://lots-project.com/site/742e6d312e656d61696c2e73616d73756e672e636f6d"
+    },
+    {
+      "slug": "repl-co",
+      "website": "*.repl.co",
+      "provider": "Replit",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use *.repl.co to host their phishing websites. Attackers can use a customized subdomain of repl.co as their C&C server. Attackers can add upload functionalities hosted on *.repl.co and exfiltrate data on there. Attackers can host their malicious tools on an external provider and then use *.repl.co to fetch the files.",
+      "url": "https://lots-project.com/site/2a2e7265706c2e636f"
+    },
+    {
+      "slug": "teletype-in",
+      "website": "teletype.in",
+      "provider": "Teletype",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/74656c65747970652e696e"
+    },
+    {
+      "slug": "easywp-com",
+      "website": "*.easywp.com",
+      "provider": "EasyWP",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e6561737977702e636f6d"
+    },
+    {
+      "slug": "telegra-ph",
+      "website": "telegra.ph",
+      "provider": "Telegraph",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/74656c656772612e7068"
+    },
+    {
+      "slug": "filebin-net",
+      "website": "filebin.net",
+      "provider": "Filebin",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Attackers can upload malicious files to filebin.net and share the direct download link to users. Attackers can upload data to filebin.net and share the link to themselves to download the exfiltrated data. Requires GUI access. Attackers can keep their tools stored on filebin.net and when required, use the custom link to download.",
+      "url": "https://lots-project.com/site/66696c6562696e2e6e6574"
+    },
+    {
+      "slug": "fyi-to",
+      "website": "*.fyi.to",
+      "provider": "FYI.to",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e6679692e746f"
+    },
+    {
+      "slug": "nt-embluemail-com",
+      "website": "nt.embluemail.com",
+      "provider": "emBlue",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use nt.embluemail.com&#039;s open redirect to redirect users to malicious domains. Attackers can use nt.embluemail.com&#039;s open redirect to masquerade their malicious download link.",
+      "url": "https://lots-project.com/site/6e742e656d626c75656d61696c2e636f6d"
+    },
+    {
+      "slug": "transfer-sh",
+      "website": "transfer.sh",
+      "provider": "Transfer.sh",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Attackers can upload malicious files to transfer.sh and share the direct download link to users. Attackers can exfiltrate data using transfer.sh either using the command line or through uploading files and sharing the link to themselves to download the exfiltrated data. Attackers can keep their tools stored on transfer.sh and when required, use the custom link to download.",
+      "url": "https://lots-project.com/site/7472616e736665722e7368"
+    },
+    {
+      "slug": "ct-sendgrid-net",
+      "website": "ct.sendgrid.net",
+      "provider": "SendGrid",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use ct.sendgrid.net&#039;s open redirect to redirect users to malicious domains. Attackers can use ct.sendgrid.net&#039;s open redirect to masquerade their malicious download link.",
+      "url": "https://lots-project.com/site/63742e73656e64677269642e6e6574"
+    },
+    {
+      "slug": "nethunt-com",
+      "website": "nethunt.com",
+      "provider": "NetHunt",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/6e657468756e742e636f6d"
+    },
+    {
+      "slug": "trello-com",
+      "website": "trello.com",
+      "provider": "Trello",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can upload malicious files to Trello, make it public, and share the direct download link of the file with target users. More information: https://twitter.com/_theVIVI/status/1483957453578510344 Attackers can upload files to Trello and share the direct download link to themselves to download the exfiltrated data. Attackers can upload malicious files to Trello and use the direct download link to drop files on a target machine.",
+      "url": "https://lots-project.com/site/7472656c6c6f2e636f6d"
+    },
+    {
+      "slug": "evernote-com",
+      "website": "evernote.com",
+      "provider": "Evernote",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Attackers can upload malicious files to evernote and share the direct download link of the file with target users. Attackers can upload files to Evernote and share the direct download link to themselves to download the exfiltrated data. Attackers can upload malicious files to Evernote and use the direct download link to drop files on a target machine.",
+      "url": "https://lots-project.com/site/657665726e6f74652e636f6d"
+    },
+    {
+      "slug": "track-adform-net",
+      "website": "track.adform.net",
+      "provider": "Adform",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use track.adform.net&#039;s open redirect to redirect users to malicious domains. Example: https://track.adform.net/C/?bn=35405429;cpdir=https://mrd0x.com Attackers can use track.adform.net&#039;s open redirect to masquerade their malicious download link.",
+      "url": "https://lots-project.com/site/747261636b2e6164666f726d2e6e6574"
+    },
+    {
+      "slug": "xiti-com",
+      "website": "*.xiti.com",
+      "provider": "Xiti",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use *.xiti.com&#039;s open redirect to redirect users to malicious domains. Example: http://logi103.xiti.com/go.click?xts=410711&s2=20&p=booklet_radon&clic=T&type=click&url=https://mrd0x.com Attackers can use *.xiti.com&#039;s open redirect to masquerade their malicious download link.",
+      "url": "https://lots-project.com/site/2a2e786974692e636f6d"
+    },
+    {
+      "slug": "wtools-io",
+      "website": "wtools.io",
+      "provider": "WTOOLS",
+      "tags": ["Download"],
+      "description": "Attackers can host their malicious code on wtools.io and when needed, the code can be downloaded.",
+      "url": "https://lots-project.com/site/77746f6f6c732e696f"
+    },
+    {
+      "slug": "i-imgur-com",
+      "website": "i.imgur.com",
+      "provider": "Imgur",
+      "tags": ["Download"],
+      "description": "Attackers can embed their malicious payload in image files and upload them onto Imgur. When the payload is required, the image is downloaded and the payload is extracted.",
+      "url": "https://lots-project.com/site/692e696d6775722e636f6d"
+    },
+    {
+      "slug": "workflowy-com",
+      "website": "workflowy.com",
+      "provider": "WorkFlowy",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/776f726b666c6f77792e636f6d"
+    },
+    {
+      "slug": "mybluehost-me",
+      "website": "*.mybluehost.me",
+      "provider": "Bluehost",
+      "tags": ["Phishing", "C&C", "Download", "Exfiltration"],
+      "description": "Attackers can use a customized subdomain of mybluehost.me to host their phishing websites. Attackers can use a customized subdomain of mybluehost.me as their C&C server. Attackers can add upload functionalities hosted on *.mybluehost.me and exfiltrate data on there. Malicious tools can be stored on *.mybluehost.me and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e6d79626c7565686f73742e6d65"
+    },
+    {
+      "slug": "ondigitalocean-app",
+      "website": "*.ondigitalocean.app",
+      "provider": "DigitalOcean",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a customized subdomain of ondigitalocean.app to host their phishing websites. Attackers can use a customized subdomain of ondigitalocean.app as their C&C server.",
+      "url": "https://lots-project.com/site/2a2e6f6e6469676974616c6f6365616e2e617070"
+    },
+    {
+      "slug": "axshare-com",
+      "website": "*.axshare.com",
+      "provider": "Axure",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a customized subdomain of axshare.com to host their phishing websites. Attackers can use a customized subdomain of axshare.com as their C&C server.",
+      "url": "https://lots-project.com/site/2a2e617873686172652e636f6d"
+    },
+    {
+      "slug": "rentry-co",
+      "website": "rentry.co",
+      "provider": "Rentry.co",
+      "tags": ["Exfiltration", "C&C", "Download"],
+      "description": "rentry.co can be used for C&C purposes. The attacker will place commands on a rentry paste and have the malware fetch the commands. Attackers will paste sensitive data onto rentry.co and share the link with themselves for later access. Attackers upload the source code of tools onto rentry.co and download them when necessary.",
+      "url": "https://lots-project.com/site/72656e7472792e636f"
+    },
+    {
+      "slug": "zerobin-net",
+      "website": "zerobin.net",
+      "provider": "ZeroBin",
+      "tags": ["Exfiltration", "C&C", "Download"],
+      "description": "zerobin.net can be used for C&C purposes. The attacker will place commands on a zerobin paste and have the malware fetch the commands. Attackers will upload sensitive files onto zerobin.net and share the link with themselves for later access. Attackers upload the source code of tools onto zerobin.net and download them when necessary.",
+      "url": "https://lots-project.com/site/7a65726f62696e2e6e6574"
+    },
+    {
+      "slug": "textbin-net",
+      "website": "textbin.net",
+      "provider": "TextBin",
+      "tags": ["Exfiltration", "C&C", "Download"],
+      "description": "textbin.net can be used for C&C purposes. The attacker will place commands on a textbin paste and have the malware fetch the commands. Attackers will paste sensitive data onto textbin.net and share the link with themselves for later access. Attackers upload the source code of tools onto textbin.net and download them when necessary.",
+      "url": "https://lots-project.com/site/7465787462696e2e6e6574"
+    },
+    {
+      "slug": "ideone-com",
+      "website": "ideone.com",
+      "provider": "Ideone.com",
+      "tags": ["Exfiltration", "C&C", "Download"],
+      "description": "Commands can be entered on ideone.com and have malware fetch them. Attackers will paste sensitive data onto ideone.com and share the link with themselves for later access. Attackers can upload the source code of tools onto ideone.com and download them when necessary.",
+      "url": "https://lots-project.com/site/6964656f6e652e636f6d"
+    },
+    {
+      "slug": "4sync-com",
+      "website": "4sync.com",
+      "provider": "4Sync",
+      "tags": ["Download"],
+      "description": "Malicious tools can be stored on 4sync.com and downloaded when required.",
+      "url": "https://lots-project.com/site/3473796e632e636f6d"
+    },
+    {
+      "slug": "pastebin-pl",
+      "website": "pastebin.pl",
+      "provider": "Pastebin.pl",
+      "tags": ["Exfiltration", "C&C", "Download"],
+      "description": "Commands can be entered on pastebin.pl and have malware fetch them. Attackers will paste sensitive data onto pastebin.pl and share the link with themselves for later access. Attackers can upload the source code of tools onto pastebin.pl and download them when necessary.",
+      "url": "https://lots-project.com/site/706173746562696e2e706c"
+    },
+    {
+      "slug": "www-uplooder-net",
+      "website": "www.uplooder.net",
+      "provider": "Uplooder",
+      "tags": ["Phishing", "Download", "Exfiltration"],
+      "description": "Attackers can upload malicious files on uplooder and share the download link with target users. Attackers can upload data to uplooder and share the link to themselves to download the exfiltrated data. Attackers can keep their tools stored on uplooder and when required, use the direct download link to fetch the tools.",
+      "url": "https://lots-project.com/site/7777772e75706c6f6f6465722e6e6574"
+    },
+    {
+      "slug": "graph-microsoft-com",
+      "website": "graph.microsoft.com",
+      "provider": "Microsoft",
+      "tags": ["C&C", "Exfiltration"],
+      "description": "Attackers can use the Microsoft Graph API for C&C communications. AzureOutlookC2 is an open-source tool that utilizes Microsoft Graph API for C&C. Attackers can use the Microsoft Graph API for data exfiltration. AzureOutlookC2 is an open-source tool that utilizes Microsoft Graph API for exfiltration.",
+      "url": "https://lots-project.com/site/67726170682e6d6963726f736f66742e636f6d"
+    },
+    {
+      "slug": "pastie-org",
+      "website": "pastie.org",
+      "provider": "Pastie.org",
+      "tags": ["Exfiltration", "C&C", "Download"],
+      "description": "pastie.org can be used for C&C purposes. The attacker will place commands on a pastie and have the malware fetch the commands. Attackers will paste sensitive data onto pastie.org and share the link with themselves for later access. Attackers upload the source code of tools onto pastie.org and download them when necessary.",
+      "url": "https://lots-project.com/site/7061737469652e6f7267"
+    },
+    {
+      "slug": "slab-com",
+      "website": "*.slab.com",
+      "provider": "Slab",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e736c61622e636f6d"
+    },
+    {
+      "slug": "dropmark-com",
+      "website": "*.dropmark.com",
+      "provider": "Dropmark",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e64726f706d61726b2e636f6d"
+    },
+    {
+      "slug": "filecloudonline-com",
+      "website": "filecloudonline.com",
+      "provider": "FileCloud",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use a customized subdomain of filecloudonline.com to share malicious files with target users. Attackers can keep their tools stored on filecloudonline.com and when required, use the custom link to download. Requires GUI access.",
+      "url": "https://lots-project.com/site/66696c65636c6f75646f6e6c696e652e636f6d"
+    },
+    {
+      "slug": "tinyurl-com",
+      "website": "tinyurl.com",
+      "provider": "TinyURL",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the URL shortener, tinyurl.com, to masquerade their domain name and send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/74696e7975726c2e636f6d"
+    },
+    {
+      "slug": "azurestaticapps-net",
+      "website": "*.azurestaticapps.net",
+      "provider": "Microsoft",
+      "tags": ["Phishing", "C&C", "Download"],
+      "description": "Attackers can use a customized subdomain of azurestaticapps.net to host static phishing content. Attackers can use a customized subdomain of azurestaticapps.net as their C&C server. Attackers can host malicious files on a customized domain of azurestaticapps.net and when needed, the files can be downloaded.",
+      "url": "https://lots-project.com/site/2a2e617a757265737461746963617070732e6e6574"
+    },
+    {
+      "slug": "termbin-com",
+      "website": "termbin.com",
+      "provider": "Termbin",
+      "tags": ["C&C", "Exfiltration", "Download"],
+      "description": "termbin.com can be used for C&C purposes. The attacker will place commands on a pastie and have the malware fetch the commands. Attackers will paste sensitive data onto termbin.com and share the link with themselves for later access. Attackers upload the source code of tools onto termbin.com and download them when necessary.",
+      "url": "https://lots-project.com/site/7465726d62696e2e636f6d"
+    },
+    {
+      "slug": "sprunge-us",
+      "website": "sprunge.us",
+      "provider": "Sprunge",
+      "tags": ["C&C", "Exfiltration", "Download"],
+      "description": "sprunge.us can be used for C&C purposes. The attacker will place commands on a pastie and have the malware fetch the commands. Attackers will paste sensitive data onto sprunge.us and share the link with themselves for later access. Attackers upload the source code of tools onto sprunge.us and download them when necessary.",
+      "url": "https://lots-project.com/site/737072756e67652e7573"
+    },
+    {
+      "slug": "plesk-page",
+      "website": "*.plesk.page",
+      "provider": "Plesk",
+      "tags": ["Phishing", "C&C", "Exfiltration", "Download"],
+      "description": "Attackers can use a customized subdomain of plesk.page to host their phishing websites. Attackers can use a customized subdomain of plesk.page as their C&C server. Attackers can add upload functionalities hosted on *.mybluehost.me and exfiltrate data on there. Malicious tools can be stored on *.plesk.page and downloaded when required.",
+      "url": "https://lots-project.com/site/2a2e706c65736b2e70616765"
+    },
+    {
+      "slug": "cutt-ly",
+      "website": "cutt.ly",
+      "provider": "Cutt.ly",
+      "tags": ["Phishing", "Download"],
+      "description": "Attackers can use the URL shortener, tinyurl.com, to masquerade their domain name and send the shortened link to their targets. Malicious tools can be stored on an attacker&#039;s domain and then have the URL shortened. When the tools are needed, the shortened URL is used to download the tools.",
+      "url": "https://lots-project.com/site/637574742e6c79"
+    },
+    {
+      "slug": "on-aws",
+      "website": "*.on.aws",
+      "provider": "Amazon",
+      "tags": ["C&C"],
+      "description": "Attackers can use a customized subdomain of on.aws as their C&C server.",
+      "url": "https://lots-project.com/site/2a2e6f6e2e617773"
+    },
+    {
+      "slug": "mystrikingly-com",
+      "website": "*.mystrikingly.com",
+      "provider": "Strikingly",
+      "tags": ["Phishing", "C&C"],
+      "description": "Attackers can use a customized subdomain of mystrikingly.com to host their phishing landing page. Attackers can use a customized subdomain of mystrikingly.com as their C&C server.",
+      "url": "https://lots-project.com/site/2a2e6d79737472696b696e676c792e636f6d"
+    },
+    {
+      "slug": "www-surveycake-com",
+      "website": "www.surveycake.com",
+      "provider": "SurveyCake",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/7777772e73757276657963616b652e636f6d"
+    },
+    {
+      "slug": "anonfiles-com",
+      "website": "anonfiles.com",
+      "provider": "Anonfiles",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Malicious files can be uploaded on anonfiles.com and then have the direct link shared with targets in phishing attacks. Attackers can upload data to anonfiles.com and share the link to themselves to download the exfiltrated data. Attackers can keep their tools stored on anonfiles.com and when required, use the direct download link to fetch the tools.",
+      "url": "https://lots-project.com/site/616e6f6e66696c65732e636f6d"
+    },
+    {
+      "slug": "linodeobjects-com",
+      "website": "*.linodeobjects.com",
+      "provider": "Linode",
+      "tags": ["Phishing", "Exfiltration", "Download"],
+      "description": "Attackers can use a customized subdomain of linodeobjects.com to host their phishing landing page. Attackers can exfiltrate files to their Linode Objects storage Attackers can keep their tools stored on Linode Objects storage and when required, download the tools.",
+      "url": "https://lots-project.com/site/2a2e6c696e6f64656f626a656374732e636f6d"
+    },
+    {
+      "slug": "express-adobe-com",
+      "website": "express.adobe.com",
+      "provider": "Adobe",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/657870726573732e61646f62652e636f6d"
+    },
+    {
+      "slug": "fleek-co",
+      "website": "*.fleek.co",
+      "provider": "Fleek",
+      "tags": ["Phishing"],
+      "description": "Phishing",
+      "url": "https://lots-project.com/site/2a2e666c65656b2e636f"
+    },
+    {
+      "slug": "localhost-run",
+      "website": "localhost.run",
+      "provider": "Localhost.run",
+      "tags": ["C&C"],
+      "description": "Attackers can use localhost.run to communicate with their C2 servers.",
+      "url": "https://lots-project.com/site/6c6f63616c686f73742e72756e"
+    },
+    {
+      "slug": "requestbin-net",
+      "website": "*.requestbin.net",
+      "provider": "RequestBin",
+      "tags": ["C&C"],
+      "description": "Attackers can use a customized subdomain of requestbin.net to send commands.",
+      "url": "https://lots-project.com/site/2a2e7265717565737462696e2e6e6574"
+    },
+    {
+      "slug": "clbin-com",
+      "website": "clbin.com",
+      "provider": "Clbin",
+      "tags": ["C&C", "Exfiltration", "Download"],
+      "description": "clbin.com be used for C&C purposes. The attacker will place commands on a textbin paste and have the malware fetch the commands. Attackers will paste sensitive data onto clbin.com and share the link with themselves for later access. Attackers upload the source code of tools onto clbin.com and download them when requried.",
+      "url": "https://lots-project.com/site/636c62696e2e636f6d"
+    },
+    {
+      "slug": "ix-io",
+      "website": "ix.io",
+      "provider": "Ix.io",
+      "tags": ["C&C", "Exfiltration", "Download"],
+      "description": "ix.io be used for C&C purposes. The attacker will place commands on a textbin paste and have the malware fetch the commands. Attackers will paste sensitive data onto ix.io and share the link with themselves for later access. Attackers upload the source code of tools onto ix.io and download them when required.",
+      "url": "https://lots-project.com/site/69782e696f"
+    }
+  ]
+}

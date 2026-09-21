@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 366 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 384 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,7 +16,7 @@
       "listChanged": false
     }
   },
-  "toolCount": 366,
+  "toolCount": 384,
   "generatedAt": "2026-09-18T12:09:50+05:30",
   "tools": [
     {
@@ -150,6 +150,36 @@
       "category": "other"
     },
     {
+      "name": "capec_get",
+      "description": "Return the full details of a single CAPEC attack pattern by slug: abstraction, likelihood, severity, prerequisites, CWE/ATT&CK links. Use capec_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "capec_list",
+      "description": "List MITRE CAPEC attack patterns: how adversaries exploit weaknesses, with CWE and ATT&CK links. Filter by abstraction (Meta, Standard, Detailed), status, domain, CWE ID, technique ID, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "capec_stats",
+      "description": "Return cache + manifest stats for the CAPEC directory: totals by abstraction and status.",
+      "category": "other"
+    },
+    {
+      "name": "car_get",
+      "description": "Return the full details of a single CAR analytic by slug: ATT&CK coverage, D3FEND mappings, and implementation names. Use car_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "car_list",
+      "description": "List MITRE Cyber Analytics Repository (CAR) analytics: validated detection ideas mapped to ATT&CK techniques. Filter by technique ID (e.g. \"T1059\"), platform, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "car_stats",
+      "description": "Return cache + manifest stats for the CAR directory: total analytics and covered technique count.",
+      "category": "other"
+    },
+    {
       "name": "cerast_domain_search",
       "description": "Search Cerast Intelligence for exposed paths and misconfigurations on observed domains. Returns domain, path, category, impact level, OpenPageRank score, version, and first-seen date. Useful for discovering staging/dev environments, exposed admin panels, and misconfigured endpoints.",
       "category": "other"
@@ -173,6 +203,21 @@
       "name": "correlate_iocs",
       "description": "Search correlated IOCs. Find relationships between indicators — shared infrastructure, overlapping campaigns, and linked threat actors.",
       "category": "ioc"
+    },
+    {
+      "name": "cti_bookmarks_get",
+      "description": "Return the full details of a single CTI bookmark by slug. Use cti_bookmarks_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "cti_bookmarks_list",
+      "description": "List curated CTI bookmarks (threat intel links, tools, feeds, frameworks). Filter by level (Operational, Tactical, Strategic, Tools), category, integration status (live, reference, missing), or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "cti_bookmarks_stats",
+      "description": "Return cache + manifest stats for the CTI Bookmarks directory: totals by level and integration status (live/reference/missing gap counts).",
+      "category": "other"
     },
     {
       "name": "cve_health",
@@ -740,6 +785,21 @@
       "category": "other"
     },
     {
+      "name": "hijacklibs_get",
+      "description": "Return the full details of a single HijackLibs DLL by slug: vulnerable executables, expected locations, CVE. Use hijacklibs_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "hijacklibs_list",
+      "description": "List HijackLibs DLL hijacking candidates: DLLs abusable for sideloading/phantom/search-order/environment-variable hijacking (T1574.001). Filter by hijack type, vendor, CVE presence, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "hijacklibs_stats",
+      "description": "Return cache + manifest stats for the HijackLibs directory: totals by hijack type and CVE count.",
+      "category": "other"
+    },
+    {
       "name": "hr_account",
       "description": "Check Hudson Rock Cavalier API account status, permissions, and quota. Use to verify the API key is valid.",
       "category": "hudson"
@@ -857,6 +917,36 @@
     {
       "name": "lookup_mitre",
       "description": "Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.",
+      "category": "other"
+    },
+    {
+      "name": "lots_get",
+      "description": "Return the full details of a single LOTS site by slug, including abuse description. Use lots_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "lots_list",
+      "description": "List Living Off Trusted Sites (LOTS): legitimate domains attackers abuse for phishing, C2, exfiltration, or downloads. Filter by tag (Phishing, C&C, Download, Exfiltration), provider, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "lots_stats",
+      "description": "Return cache + manifest stats for the LOTS directory: total sites and per-tag counts.",
+      "category": "other"
+    },
+    {
+      "name": "malapi_get",
+      "description": "Return the full details of a single Windows API by slug: description, library, attack categories, and Microsoft docs link. Use malapi_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "malapi_list",
+      "description": "List Windows APIs abused by attackers (MalAPI.io catalog). Filter by attack category (Enumeration, Injection, Evasion, Spying, Internet, Anti-Debugging, Ransomware, Helper), DLL library, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "malapi_stats",
+      "description": "Return cache + manifest stats for the MalAPI catalog: total APIs and attack categories.",
       "category": "other"
     },
     {

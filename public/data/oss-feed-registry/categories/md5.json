@@ -1,6 +1,6 @@
 {
   "category": "MD5",
-  "count": 11,
+  "count": 12,
   "feeds": [
     {
       "vendor": "Abuse.ch",
@@ -77,6 +77,13 @@
       "description": "MD5 Hash Blocklist: MD5 hashes of malicious files or associated with - malware, ransomware, hack tools, bots etc.",
       "category": "MD5",
       "url": "https://threatview.io/Downloads/MD5-HASH-ALL.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence file hashes from the last 30 days (MD5, SHA-1, SHA-256)",
+      "category": "MD5",
+      "url": "https://threatcluster.io/api/iocs/public/hashes.txt",
       "feedStatus": "Active"
     }
   ]

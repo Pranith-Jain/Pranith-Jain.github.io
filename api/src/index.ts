@@ -1083,6 +1083,12 @@ import { pcmedicalistRouter } from './routes/pcmedicalist';
 import { sigBaseRouter } from './routes/sigbase-edge-tools';
 import { breachWatchRouter } from './routes/breach-watch-edge-tools';
 import { osintRouter } from './routes/osint-edge-tools';
+import { ctiBookmarksRouter } from './routes/cti-bookmarks-edge-tools';
+import { lotsRouter } from './routes/lots-edge-tools';
+import { malapiRouter } from './routes/malapi-edge-tools';
+import { carRouter } from './routes/car-edge-tools';
+import { capecRouter } from './routes/capec-edge-tools';
+import { hijacklibsRouter } from './routes/hijacklibs-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
@@ -2146,6 +2152,31 @@ app.route('/api/v1', breachWatchRouter);
 // OSINT Portal Directory — curated list of 40 free/paid OSINT portals.
 // Data ships in public/data/osint/ built by scripts/build-osint-manifest.mjs.
 app.route('/api/v1', osintRouter);
+
+// CTI Bookmarks — 387 curated CTI links (Operational/Tactical/Strategic/Tools)
+// from Chick3nHawk01/Open_Source-CTI-Tooling, each tagged live/reference/missing.
+// Data ships in public/data/cti-bookmarks/ built by scripts/build-cti-bookmarks.mjs.
+app.route('/api/v1', ctiBookmarksRouter);
+
+// LOTS Project — 175 trusted sites abusable for phishing/C2/exfiltration.
+// Data ships in public/data/lots/ built by scripts/build-lots-manifest.mjs.
+app.route('/api/v1', lotsRouter);
+
+// MalAPI.io — 370 Windows APIs abused by attackers, by category + library.
+// Data ships in public/data/malapi/ built by scripts/build-malapi-manifest.mjs.
+app.route('/api/v1', malapiRouter);
+
+// MITRE CAR — 102 cyber analytics with ATT&CK coverage + D3FEND mappings.
+// Data ships in public/data/car/ built by scripts/build-car-manifest.mjs.
+app.route('/api/v1', carRouter);
+
+// MITRE CAPEC — 559 attack patterns with CWE/ATT&CK cross-references.
+// Data ships in public/data/capec/ built by scripts/build-capec-manifest.mjs.
+app.route('/api/v1', capecRouter);
+
+// HijackLibs — 608 DLL hijacking candidates with vulnerable executables.
+// Data ships in public/data/hijacklibs/ built by scripts/build-hijacklibs-manifest.mjs.
+app.route('/api/v1', hijacklibsRouter);
 
 // Reports & Reading Library — curated list of 28 security reports,
 // frameworks, standards, and learning resources. Data ships in

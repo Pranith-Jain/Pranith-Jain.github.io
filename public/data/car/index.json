@@ -1,0 +1,3328 @@
+{
+  "source": "github.com/mitre-attack/car",
+  "license": "Apache-2.0",
+  "replicatedAt": "2026-09-21",
+  "count": 102,
+  "techniqueCount": 122,
+  "entries": [
+    {
+      "slug": "car-2013-01-002",
+      "carId": "CAR-2013-01-002",
+      "title": "Autorun Differences",
+      "description": "The Sysinternals tool [Autoruns](../sensors/autoruns) checks the registry and file system for known identify persistence mechanisms. It will output any tools identified, including built-in or added-on Microsoft functionality and third party software. Many of these locations are known by adversaries and used to obtain [Persistence](https://attack.mitre.org/tactics/TA0003). Running Autoruns periodically in an environment makes it possible to collect and monitor its output for differences, which may include the removal or addition of persistent tools. Depending on the persistence mechanism and location, legitimate software may be more likely to make changes than an adversary tool. Thus, this analytic may result in significant noise in a highly dynamic environment. While Autoruns is a convenie",
+      "domain": "Analytic, Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness", "TTP"],
+      "techniques": [
+        {
+          "technique": "T1543",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1543.003"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1053",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1053.005"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1547",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1547.001", "T1547.010", "T1547.004"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1574",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1574.007", "T1574.008", "T1574.009", "T1574.010", "T1574.011"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1546",
+          "tactics": ["TA0004", "TA0003"],
+          "subtechniques": ["T1546.001", "T1546.003", "T1546.008", "T1546.010"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1112",
+          "tactics": ["TA0003", "TA0002"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1037",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1037.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": [
+        "T1543",
+        "T1543.003",
+        "T1053",
+        "T1053.005",
+        "T1547",
+        "T1547.001",
+        "T1547.010",
+        "T1547.004",
+        "T1574",
+        "T1574.007",
+        "T1574.008",
+        "T1574.009",
+        "T1574.010",
+        "T1574.011",
+        "T1546",
+        "T1546.001",
+        "T1546.003",
+        "T1546.008",
+        "T1546.010",
+        "T1112",
+        "T1037",
+        "T1037.001"
+      ],
+      "d3fend": [
+        {
+          "id": "D3-SICA",
+          "label": "System Init Config Analysis"
+        }
+      ],
+      "implementations": [],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-01-002"
+    },
+    {
+      "slug": "car-2013-01-003",
+      "carId": "CAR-2013-01-003",
+      "title": "SMB Events Monitoring",
+      "description": "[Server Message Block](https://en.wikipedia.org/wiki/Server_Message Block) (SMB) is used by Windows to allow for file, pipe, and printer sharing over port 445/tcp. It allows for enumerating, and reading from and writing to file shares for a remote computer. Although it is heavily used by Windows servers for legitimate purposes and by users for file and printer sharing, many adversaries also use SMB to achieve [Lateral Movement](https://attack.mitre.org/tactics/TA0008). Looking at this activity more closely to obtain an adequate sense of situational awareness may make it possible to detect adversaries moving between hosts in a way that deviates from normal activity. Because SMB traffic is heavy in many environments, this analytic may be difficult to turn into something that can be used to q",
+      "domain": "Network",
+      "platforms": ["N/A"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1039",
+          "tactics": ["TA0009"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1039", "T1021", "T1021.002"],
+      "d3fend": [
+        {
+          "id": "D3-IPCTA",
+          "label": "IPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-01-003"
+    },
+    {
+      "slug": "car-2013-02-003",
+      "carId": "CAR-2013-02-003",
+      "title": "Processes Spawning cmd.exe",
+      "description": "The Windows [Command Prompt](https://en.wikipedia.org/wiki/cmd.exe) (`cmd.exe`) is a utility that provides a command line interface to Windows operating systems. It provides the ability to run additional programs and also has several built-in commands such as `dir`, `copy`, `mkdir`, and `type`, as well as batch scripts (`.bat`). Typically, when a user runs a command prompt, the parent process is `explorer.exe` or another instance of the prompt. There may be automated programs, logon scripts, or administrative tools that launch instances of the command prompt in order to run scripts or other built-in commands. Spawning the process `cmd.exe` from certain parents may be more indicative of malice. For example, if Adobe Reader or Outlook launches a command shell, this may suggest that a malicio",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1059",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1059.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1059", "T1059.003"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-02-003"
+    },
+    {
+      "slug": "car-2013-02-008",
+      "carId": "CAR-2013-02-008",
+      "title": "Simultaneous Logins on a Host",
+      "description": "Multiple users logged into a single machine at the same time, or even within the same hour, do not typically occur in networks we have observed. Logon events are Windows Event Code 4624 for Windows Vista and above, 518 for pre-Vista. Logoff events are 4634 for Windows Vista and above, 538 for pre-Vista. Logon types 2, 3, 9 and 10 are of interest. For more details see the Logon Types table on Microsoft's [Audit Logon Events](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc787567(v=ws.10)) page.",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1078",
+          "tactics": ["TA0001"],
+          "subtechniques": ["T1078.002", "T1078.003"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1078", "T1078.002", "T1078.003"],
+      "d3fend": [
+        {
+          "id": "D3-ANET",
+          "label": "Authentication Event Thresholding"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-02-008"
+    },
+    {
+      "slug": "car-2013-02-012",
+      "carId": "CAR-2013-02-012",
+      "title": "User Logged in to Multiple Hosts",
+      "description": "Most users use only one or two machines during the normal course of business. User accounts that log in to multiple machines, especially over a short period of time, may be compromised. Remote logins among multiple machines may be an indicator of [Lateral Movement](https://attack.mitre.org/tactics/TA0008). Certain users will likely appear as being logged into several machines and may need to be \"whitelisted.\" Such users would include network admins or user names that are common to many hosts. ### Output Description User Name, Machines logged into, the earliest and latest times in which users were logged into the host, the type of logon, and logon ID.",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1078",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1078.002", "T1078.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1078", "T1078.002", "T1078.003"],
+      "d3fend": [
+        {
+          "id": "D3-ANET",
+          "label": "Authentication Event Thresholding"
+        }
+      ],
+      "implementations": [],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-02-012"
+    },
+    {
+      "slug": "car-2013-03-001",
+      "carId": "CAR-2013-03-001",
+      "title": "Reg.exe called from Command Shell",
+      "description": "Registry modifications are often essential in establishing persistence via known Windows mechanisms. Many legitimate modifications are done graphically via `regedit.exe` or by using the corresponding channels, or even calling the Registry APIs directly. The built-in utility `reg.exe` provides a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface) to the registry, so that queries and modifications can be performed from a shell, such as `cmd.exe`. When a user is responsible for these actions, the parent of `cmd.exe` will likely be `explorer.exe`. Occasionally, power users and administrators write scripts that do this behavior as well, but likely from a different process tree. These background scripts must be learned so they can be tuned out accordingly. ### Output D",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1012",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1112",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1547",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1547.001"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1574",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1574.011"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1012", "T1112", "T1547", "T1547.001", "T1574", "T1574.011"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "DNIF"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-03-001"
+    },
+    {
+      "slug": "car-2013-04-002",
+      "carId": "CAR-2013-04-002",
+      "title": "Quick execution of a series of suspicious commands",
+      "description": "Certain commands are frequently used by malicious actors and infrequently used by normal users. By looking for execution of these commands in short periods of time, we can not only see when a malicious user was on the system but also get an idea of what they were doing. Commands of interest: - arp.exe - at.exe - attrib.exe - cscript.exe - dsquery.exe - hostname.exe - ipconfig.exe - mimikatz.exe - nbstat.exe - net.exe - netsh.exe - nslookup.exe - ping.exe - quser.exe - qwinsta.exe - reg.exe - runas.exe - sc.exe - schtasks.exe - ssh.exe - systeminfo.exe - taskkill.exe - telnet.exe - tracert.exe - wscript.exe - xcopy.exe ### Output Description The host on which the commands were executed, the time of execution, and what commands were executed",
+      "domain": "Analytic, Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1087",
+          "tactics": ["TA0007"],
+          "subtechniques": ["T1087.001", "T1087.002"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.002"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1069",
+          "tactics": ["TA0007"],
+          "subtechniques": ["T1069.001", "T1069.002"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1057",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.002"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1543",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1543.003"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1112",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1574",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1574.011"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1018",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1569",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1569.002"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1053",
+          "tactics": ["TA0003", "TA0004", "TA0002"],
+          "subtechniques": ["T1053.002", "T1053.005"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1029",
+          "tactics": ["TA0010"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1033",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1007",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1082",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1049",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1016",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1010",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1518",
+          "tactics": ["TA0007"],
+          "subtechniques": ["T1518.001"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1046",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1562",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1562.001", "T1562.006"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1098",
+          "tactics": ["TA0006"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1059",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1059.005"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1012",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": [
+        "T1087",
+        "T1087.001",
+        "T1087.002",
+        "T1003",
+        "T1003.002",
+        "T1069",
+        "T1069.001",
+        "T1069.002",
+        "T1057",
+        "T1021",
+        "T1021.002",
+        "T1543",
+        "T1543.003",
+        "T1112",
+        "T1574",
+        "T1574.011",
+        "T1018",
+        "T1569",
+        "T1569.002",
+        "T1053",
+        "T1053.002",
+        "T1053.005",
+        "T1029",
+        "T1033",
+        "T1007",
+        "T1082",
+        "T1049",
+        "T1016",
+        "T1010",
+        "T1518",
+        "T1518.001",
+        "T1046",
+        "T1562",
+        "T1562.001",
+        "T1562.006",
+        "T1098",
+        "T1059",
+        "T1059.005",
+        "T1012"
+      ],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Sigma", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-04-002"
+    },
+    {
+      "slug": "car-2013-05-002",
+      "carId": "CAR-2013-05-002",
+      "title": "Suspicious Run Locations",
+      "description": "In Windows, files should never execute out of certain directory locations. Any of these locations may exist for a variety of reasons, and executables may be present in the directory but should not execute. As a result, some defenders make the mistake of ignoring these directories and assuming that a process will never run from one. There are known TTPs that have taken advantage of this fact to go undetected. This fact should inform defenders to monitor these directories more closely, knowing that they should never contain running processes. Monitors the directories - `*:\\RECYCLER` - `*:\\SystemVolumeInformation` - `%systemroot%\\Tasks` - `%systemroot%\\debug`",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1036",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1036"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "DNIF", "Sigma", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-05-002"
+    },
+    {
+      "slug": "car-2013-05-003",
+      "carId": "CAR-2013-05-003",
+      "title": "SMB Write Request",
+      "description": "As described in [CAR-2013-01-003](../CAR-2013-01-003), SMB provides a means of remotely managing a file system. Adversaries often use SMB to move laterally to a host. SMB is commonly used to upload files. It may be used for staging in [Exfiltration](https://attack.mitre.org/tactics/TA0010) or as a [Lateral Movement](https://attack.mitre.org/tactics/TA0008) technique. Unlike SMB Reads, SMB Write requests typically require an additional level of access, resulting in less activity. Focusing on SMB Write activity narrows the field to find techniques that actively change remote hosts, instead of passively reading files.",
+      "domain": "Host, Network",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Situational Awareness", "TTP"],
+      "techniques": [
+        {
+          "technique": "T1570",
+          "tactics": ["TA0008"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.002"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1078",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1078.002", "T1078.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1570", "T1021", "T1021.002", "T1078", "T1078.002", "T1078.003"],
+      "d3fend": [
+        {
+          "id": "D3-IPCTA",
+          "label": "IPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-05-003"
+    },
+    {
+      "slug": "car-2013-05-004",
+      "carId": "CAR-2013-05-004",
+      "title": "Execution with AT",
+      "description": "In order to gain [persistence](https://attack.mitre.org/tactics/TA0003/), [privilege escalation](https://attack.mitre.org/tactics/TA0004/), or [remote execution](https://attack.mitre.org/tactics/TA0002/), an adversary may use the Windows built-in command AT (at.exe) to [schedule a command](https://attack.mitre.org/techniques/T1053/002) to be run at a specified time, date, and even host. This method has been used by adversaries and administrators alike. Its use may lead to detection of compromised hosts and compromised users if it is used to move laterally. The built-in Windows tool schtasks.exe ([CAR-2013-08-001](../CAR-2013-08-001)) offers greater flexibility when creating, modifying, and enumerating tasks. For these reasons, schtasks.exe is more commonly used by administrators, tools/scr",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1053",
+          "tactics": ["TA0002", "TA0003", "TA0004"],
+          "subtechniques": ["T1053.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1053", "T1053.002"],
+      "d3fend": [
+        {
+          "id": "D3-SJA",
+          "label": "Scheduled Job Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Splunk", "EQL", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-05-004"
+    },
+    {
+      "slug": "car-2013-05-005",
+      "carId": "CAR-2013-05-005",
+      "title": "SMB Copy and Execution",
+      "description": "An adversary needs to gain access to other hosts to move throughout an environment. In many cases, this is a twofold process. First, a file is remotely written to a host via an SMB share (detected by [CAR-2013-05-003](../CAR-2013-05-003)). Then, a variety of [Execution](https://attack.mitre.org/tactics/TA0002) techniques can be used to remotely establish execution of the file or script. To detect this behavior, look for files that are written to a host over SMB and then later run directly as a process or in the command line arguments. SMB File Writes and Remote Execution may happen normally in an environment, but the combination of the two behaviors is less frequent and more likely to indicate adversarial activity. This can possibly extend to more copy protocols in order to widen its reach",
+      "domain": "Host, Network",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.002"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1078",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1078.002", "T1078.003"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1570",
+          "tactics": ["TA0008"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1021", "T1021.002", "T1078", "T1078.002", "T1078.003", "T1570"],
+      "d3fend": [
+        {
+          "id": "D3-IPCTA",
+          "label": "IPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-05-005"
+    },
+    {
+      "slug": "car-2013-05-009",
+      "carId": "CAR-2013-05-009",
+      "title": "Running executables with same hash and different names",
+      "description": "Executables are generally not renamed, thus a given hash of an executable should only have ever one name. Identifying instances where multiple process names share the same hash may find cases where tools are copied by attackers to different folders or hosts to [avoid detection](https://attack.mitre.org/tactics/TA0005). Although this analytic was initially based on MD5 hashes, it is equally applicable to any hashing convention. ### Output Description A list of hashes and the different executables associated with each one",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1036",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1036.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1036", "T1036.003"],
+      "d3fend": [
+        {
+          "id": "D3-SBV",
+          "label": "Service Binary Verification"
+        },
+        {
+          "id": "D3-SFA",
+          "label": "System File Analysis"
+        }
+      ],
+      "implementations": [
+        "Basic Query",
+        "Sigma/Sysmon",
+        "Sigma (renamed powershell)",
+        "Sigma (renamed paexec)",
+        "DNIF",
+        "LogPoint"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-05-009"
+    },
+    {
+      "slug": "car-2013-07-001",
+      "carId": "CAR-2013-07-001",
+      "title": "Suspicious Arguments",
+      "description": "Malicious actors may rename built-in commands or external tools, such as those provided by SysInternals, to better [blend in](https://attack.mitre.org/tactics/TA0005) with the environment. In those cases, the file path name is arbitrary and may blend in well with the background. If the arguments are closely inspected, it may be possible to infer what tools are running and understand what an adversary is doing. When any legitimate software shares the same command lines, it must be whitelisted according to the expected parameters. Any tool of interest with commonly known command line usage can be detecting by command line analysis. Known substrings of command lines include - PuTTY - port forwarding `-R * -pw` - secure copy (scp) `-pw * * *@*` - mimikatz `sekurlsa::` - RAR `* -hp *` - Archive",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.001"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1105",
+          "tactics": ["TA0011", "TA0008"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1003", "T1003.001", "T1021", "T1105"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "splunk", "EQL", "splunk", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-07-001"
+    },
+    {
+      "slug": "car-2013-07-002",
+      "carId": "CAR-2013-07-002",
+      "title": "RDP Connection Detection",
+      "description": "The [Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001) (RDP), built in to Microsoft operating systems, allows a user to remotely log in to the desktop of another host. It allows for interactive access of the running windows, and forwards key presses, mouse clicks, etc. Network administrators, power users, and end-users may use RDP for day-to-day operations. From an adversary's perspective, RDP provides a means to [laterally move](https://attack.mitre.org/tactics/TA0008) to a new host. Determining which RDP connections correspond to adversary activity can be a difficult problem in highly dynamic environments, but will be useful in identifying the scope of a compromise. Remote Desktop can be detected in several ways - Network connections to port 3389/tcp (assuming use o",
+      "domain": "Analytic, Network",
+      "platforms": [],
+      "analyticTypes": ["Situational Awareness", "TTP"],
+      "techniques": [
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.001"],
+          "coverage": "Medium"
+        }
+      ],
+      "techniqueIds": ["T1021", "T1021.001"],
+      "d3fend": [
+        {
+          "id": "D3-RTSD",
+          "label": "Remote Terminal Session Detection"
+        }
+      ],
+      "implementations": ["pseudocode", "Sigma (Localhost Login)"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-07-002"
+    },
+    {
+      "slug": "car-2013-07-005",
+      "carId": "CAR-2013-07-005",
+      "title": "Command Line Usage of Archiving Software",
+      "description": "Before [exfiltrating data](https://attack.mitre.org/tactics/TA0010) that an adversary has [collected](https://attack.mitre.org/tactics/TA0009), it is very likely that a [compressed archive](https://attack.mitre.org/techniques/T1560) will be created, so that transfer times are minimized and fewer files are transmitted. There is variety between the tools used to compress data, but the command line usage and context of archiving tools, such as ZIP, RAR, and 7ZIP, should be monitored. In addition to looking for RAR or 7z program names, command line usage of 7Zip or RAR can be detected with the flag usage of \"`\\* a \\*`\". This is helpful, as adversaries may change program names.",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1560",
+          "tactics": ["TA0010"],
+          "subtechniques": ["T1560.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1560", "T1560.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-07-005"
+    },
+    {
+      "slug": "car-2013-08-001",
+      "carId": "CAR-2013-08-001",
+      "title": "Execution with schtasks",
+      "description": "The Windows built-in tool `schtasks.exe` provides the creation, modification, and running of [scheduled tasks](https://attack.mitre.org/techniques/T1053) on a local or remote computer. It is provided as a more flexible alternative to `at.exe`, described in [CAR-2013-05-004](../CAR-2013-05-004). Although used by adversaries, the tool is also legitimately used by administrators, scripts, and software configurations. The scheduled tasks tool can be used to gain [Persistence](https://attack.mitre.org/tactics/TA0003) and can be used in combination with a [Lateral Movement](https://attack.mitre.org/tactics/TA0008) technique to remotely gain [execution](https://attack.mitre.org/tactics/TA0002). Additionally, the command has parameters to specify the user and password responsible for creating the ",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1053",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1053.005"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1053", "T1053.005"],
+      "d3fend": [
+        {
+          "id": "D3-SJA",
+          "label": "Scheduled Job Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-08-001"
+    },
+    {
+      "slug": "car-2013-09-003",
+      "carId": "CAR-2013-09-003",
+      "title": "SMB Session Setups",
+      "description": "Account usage within SMB can be used to identify compromised credentials, and the hosts accessed with them. This analytic monitors SMB activity that deals with user activity rather than file activity.",
+      "domain": "Network",
+      "platforms": [],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1187",
+          "tactics": ["TA0006"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1187"],
+      "d3fend": [
+        {
+          "id": "D3-IPCTA",
+          "label": "IPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-09-003"
+    },
+    {
+      "slug": "car-2013-09-005",
+      "carId": "CAR-2013-09-005",
+      "title": "Service Outlier Executables",
+      "description": "New executables that are started as a service are suspicious. This analytic looks for anomalous service executables.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Detection"],
+      "techniques": [
+        {
+          "technique": "T1543",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1543.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1543", "T1543.003"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Sigma (Windows Event Log)", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-09-005"
+    },
+    {
+      "slug": "car-2013-10-001",
+      "carId": "CAR-2013-10-001",
+      "title": "User Login Activity Monitoring",
+      "description": "Monitoring logon and logoff events for hosts on the network is very important for situational awareness. This information can be used as an indicator of unusual activity as well as to corroborate activity seen elsewhere. Could be applied to a number of different types of monitoring depending on what information is desired. Some use cases include monitoring for all remote connections and building login timelines for users. Logon events are Windows Event Code 4624 for Windows Vista and above, 518 for pre-Vista. Logoff events are 4634 for Windows Vista and above, 538 for pre-Vista. ### Output Description The time of login events for distinct users on individual systems",
+      "domain": "Host, Network",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.001"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1078",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1078.002", "T1078.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1021", "T1021.001", "T1078", "T1078.002", "T1078.003"],
+      "d3fend": [
+        {
+          "id": "D3-ANET",
+          "label": "Authentication Event Thresholding"
+        }
+      ],
+      "implementations": [
+        "Account Logon with Filtering",
+        "Account Logon with Filtering",
+        "Account Logon with Filtering"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-10-001"
+    },
+    {
+      "slug": "car-2013-10-002",
+      "carId": "CAR-2013-10-002",
+      "title": "DLL Injection via Load Library",
+      "description": "Microsoft Windows allows for processes to remotely create threads within other processes of the same privilege level. This functionality is provided via the Windows API [CreateRemoteThread](https://msdn.microsoft.com/en-us/library/windows/desktop/ms682437.aspx). Both Windows and third-party software use this ability for legitimate purposes. For example, the Windows process [csrss.exe](https://en.wikipedia.org/wiki/Client/Server_Runtime_Subsystem) creates threads in programs to send signals to registered callback routines. Both adversaries and host-based security software use this functionality to [inject DLLs](https://attack.mitre.org/techniques/T1055), but for very different purposes. An adversary is likely to inject into a program to [evade defenses](https://attack.mitre.org/tactics/TA00",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1055",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1055.001"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1548",
+          "tactics": ["TA0004"],
+          "subtechniques": ["T1548.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1055", "T1055.001", "T1548", "T1548.002"],
+      "d3fend": [
+        {
+          "id": "D3-SCA",
+          "label": "System Call Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2013-10-002"
+    },
+    {
+      "slug": "car-2014-02-001",
+      "carId": "CAR-2014-02-001",
+      "title": "Service Binary Modifications",
+      "description": "Adversaries may modify the binary file for an existing service to achieve [Persistence](https://attack.mitre.org/tactics/TA0003) while potentially [evading defenses](https://attack.mitre.org/tactics/TA0005). If a newly created or modified runs as a service, it may indicate APT activity. However, services are frequently installed by legitimate software. A well-tuned baseline is essential to differentiating between benign and malicious service modifications. ### Output Description The Service Name and approximate time in which changes occurred on each host",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness", "TTP"],
+      "techniques": [
+        {
+          "technique": "T1543",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1543.003"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1574",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1574.010"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1569",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1569.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1543", "T1543.003", "T1574", "T1574.010", "T1569", "T1569.002"],
+      "d3fend": [
+        {
+          "id": "D3-SBV",
+          "label": "Service Binary Verification"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-02-001"
+    },
+    {
+      "slug": "car-2014-03-001",
+      "carId": "CAR-2014-03-001",
+      "title": "SMB Write Request - NamedPipes",
+      "description": "An SMB write can be an indicator of lateral movement, especially when combined with other information such as execution of that written file. Named pipes are a subset of SMB write requests. Named pipes such as msftewds may not be alarming; however others, such as lsarpc, may. Monitoring SMB write requests still creates some noise, particulary with named pipes. As a result, SMB is now split between writing named pipes and writing other files.",
+      "domain": "Host, Network",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1570",
+          "tactics": ["TA0008"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1570"],
+      "d3fend": [
+        {
+          "id": "D3-IPCTA",
+          "label": "IPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-03-001"
+    },
+    {
+      "slug": "car-2014-03-005",
+      "carId": "CAR-2014-03-005",
+      "title": "Remotely Launched Executables via Services",
+      "description": "There are several ways to cause code to [execute](https://attack.mitre.org/tactics/TA0002) on a remote host. One of the most common methods is via the Windows [Service Control Manager](https://en.wikipedia.org/wiki/Service_Control_Manager) (SCM), which allows authorized users to remotely create and modify services. Several tools, such as [PsExec](https://attack.mitre.org/software/S0029), use this functionality. When a client remotely communicates with the Service Control Manager, there are two observable behaviors. First, the client connects to the [RPC Endpoint Mapper](../CAR-2014-05-001) over 135/tcp. This handles authentication, and tells the client what port the endpoint—in this case the SCM—is listening on. Then, the client connects directly to the listening port on `services.exe`. If",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1543",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1543.003"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1569",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1569.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1543", "T1543.003", "T1569", "T1569.002"],
+      "d3fend": [
+        {
+          "id": "D3-RTA",
+          "label": "RPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-03-005"
+    },
+    {
+      "slug": "car-2014-03-006",
+      "carId": "CAR-2014-03-006",
+      "title": "RunDLL32.exe monitoring",
+      "description": "Adversaries may find it necessary to use [Dyanamic-link Libraries](https://msdn.microsoft.com/en-us/library/windows/desktop/ms682589.aspx) (DLLs) to [evade defenses](https://attack.mitre.org/tactics/TA0005). One way these DLLs can be \"executed\" is through the use of the built-in Windows utility [RunDLL32](https://attack.mitre.org/techniques/T1218.011), which allows a user to execute code in a DLL, providing the name and optional arguments to an exported entry point. Windows uses RunDll32 legitimately in its normal operation, but with a proper baseline and understanding of the environment, monitoring its usage could be fruitful.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1218",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1218.011"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1218", "T1218.011"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-03-006"
+    },
+    {
+      "slug": "car-2014-04-003",
+      "carId": "CAR-2014-04-003",
+      "title": "Powershell Execution",
+      "description": "[PowerShell](https://attack.mitre.org/techniques/T1059/001/) is a scripting environment included with Windows that is used by both attackers and administrators. Execution of PowerShell scripts in most Windows versions is opaque and not typically secured by antivirus which makes using PowerShell an easy way to circumvent security measures. This analytic detects execution of PowerShell scripts. Powershell can be used to hide monitored command line execution such as: - `net use` - `sc start`",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1059",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1059.001"],
+          "coverage": "High"
+        },
+        {
+          "technique": "T1059",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1059.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1059", "T1059.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Splunk", "EQL", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-04-003"
+    },
+    {
+      "slug": "car-2014-05-001",
+      "carId": "CAR-2014-05-001",
+      "title": "RPC Activity",
+      "description": "Microsoft Windows uses its implementation of [Distributed Computing Environment/Remote Procedure Call](https://en.wikipedia.org/wiki/DCE/RPC) (DCE/RPC), which it calls [Microsoft RPC](https://en.wikipedia.org/wiki/Microsoft_RPC), to call certain APIs remotely. A Remote Procedure Call is initiated by communicating to the RPC Endpoint Mapper, which exists as the Windows service RpcEptMapper and listens on the port 135/tcp. The endpoint mapper resolves a requested endpoint/interface and responds to the client with the port that the service is listening on. Since the RPC endpoints are assigned ports when the services start, these ports are dynamically assigned from 49152 to 65535. The connection to the endpoint mapper then terminates and the client program can communicate directly with the req",
+      "domain": "Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP", "Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.002", "T1021.003", "T1021.006"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1021", "T1021.002", "T1021.003", "T1021.006"],
+      "d3fend": [
+        {
+          "id": "D3-RTA",
+          "label": "RPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-05-001"
+    },
+    {
+      "slug": "car-2014-05-002",
+      "carId": "CAR-2014-05-002",
+      "title": "Services launching Cmd",
+      "description": "Windows runs the [Service Control Manager](https://en.wikipedia.org/wiki/Service_Control_Manager) (SCM) within the process `services.exe`. Windows launches services as independent processes or DLL loads within a [svchost.exe](https://en.wikipedia.org/wiki/svchost.exe) group. To be a legitimate service, a process (or DLL) must have the appropriate service entry point [SvcMain](https://msdn.microsoft.com/en-us/library/windows/desktop/ms687414.aspx). If an application does not have the entry point, then it will timeout (default is 30 seconds) and the process will be killed. To survive the timeout, [adversaries and red teams](https://www.operationblockbuster.com/wp-content/uploads/2016/02/Operation-Blockbuster-RAT-and-Staging-Report.pdf) can create services that direct to `cmd.exe` with the fl",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1543",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1543.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1543", "T1543.003"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Splunk", "EQL", "DNIF", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-05-002"
+    },
+    {
+      "slug": "car-2014-07-001",
+      "carId": "CAR-2014-07-001",
+      "title": "Service Search Path Interception",
+      "description": "According to [ATT&CK](https://attack.mitre.org/), an adversary may [escalate privileges](https://attack.mitre.org/tactics/TA0004) by [intercepting the search path](https://attack.mitre.org/techniques/T1579/009) for legitimately installed services. As a result, Windows will launch the target executable instead of the desired binary and command line. This can be done when there are spaces in the binary path and the path is unquoted. Search path interception should never happen legitimately and will likely be the result of an adversary abusing a system misconfiguration. With a few regular expressions, it is possible to identify the execution of services with intercepted search paths.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1574",
+          "tactics": ["TA0004", "TA0003"],
+          "subtechniques": ["T1574.009"],
+          "coverage": "High"
+        }
+      ],
+      "techniqueIds": ["T1574", "T1574.009"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-07-001"
+    },
+    {
+      "slug": "car-2014-11-002",
+      "carId": "CAR-2014-11-002",
+      "title": "Outlier Parents of Cmd",
+      "description": "Many programs create command prompts as part of their normal operation including malware used by attackers. This analytic attempts to identify suspicious programs spawning `cmd.exe` by looking for programs that do not normally create `cmd.exe`. While this analytic does not take the user into account, doing so could generate further interesting results. It is very common for some programs to spawn cmd.exe as a subprocess, for example to run batch files or windows commands. However many process don’t routinely launch a command prompt – for example Microsoft Outlook. A command prompt being launched from a process that normally doesn’t launch command prompts could be the result of malicious code being injected into that process, or of an attacker replacing a legitimate program with a malicious",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Anomaly", "TTP"],
+      "techniques": [
+        {
+          "technique": "T1059",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1059.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1059", "T1059.003"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-11-002"
+    },
+    {
+      "slug": "car-2014-11-003",
+      "carId": "CAR-2014-11-003",
+      "title": "Debuggers for Accessibility Applications",
+      "description": "The Windows Registry location `HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options` allows for parameters to be set for applications during execution. One feature used by malicious actors is the \"Debugger\" option. When a key has this value enabled, a Debugging command line can be specified. Windows will launch the Debugging command line, and pass the original command line in as an argument. Adversaries can set a Debugger for [Accessibility Applications](https://attack.mitre.org/techniques/T1546/008). The analytic looks for the original command line as an argument to the Debugger. When the strings \"sethc.exe\", \"utilman.exe\", \"osk.exe\", \"narrator.exe\", and \"Magnify.exe\" are detected in the arguments, but not as the main executable, it is very likely that a Debugger",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1546",
+          "tactics": ["TA0004", "TA0003"],
+          "subtechniques": ["T1546.008"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1546", "T1546.008"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-11-003"
+    },
+    {
+      "slug": "car-2014-11-004",
+      "carId": "CAR-2014-11-004",
+      "title": "Remote PowerShell Sessions",
+      "description": "According to [ATT&CK](https://attack.mitre.org/), [PowerShell](https://attack.mitre.org/techniques/T1059/001) can be used over WinRM to remotely run commands on a host. When a remote PowerShell session starts, svchost.exe executes wsmprovhost.exe For this to work, certain registry keys must be set, and the WinRM service must be enabled. The PowerShell command `Enter-PSSession -ComputerName \\<RemoteHost\\>` creates a remote PowerShell session.",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1059",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1059.001"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.006"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1059", "T1059.001", "T1021", "T1021.006"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "EQL", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-11-004"
+    },
+    {
+      "slug": "car-2014-11-005",
+      "carId": "CAR-2014-11-005",
+      "title": "Remote Registry",
+      "description": "An adversary can remotely [manipulate the registry](https://attack.mitre.org/techniques/T1112) of another machine if the RemoteRegistry service is enabled and valid credentials are obtained. While the registry is remotely accessed, it can be used to prepare a [Lateral Movement](https://attack.mitre.org/tactics/TA0008) technique, [discover](https://attack.mitre.org/tactics/TA0007) the configuration of a host, achieve [Persistence](https://attack.mitre.org/tactics/TA0003), or anything that aids an adversary in achieving the mission. Like most ATT&CK techniques, this behavior can be used legitimately, and the reliability of an analytic depends on the proper identification of the pre-existing legitimate behaviors. Although this behavior is disabled in many Windows configurations, it is possibl",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1112",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1112"],
+      "d3fend": [
+        {
+          "id": "D3-IPCTA",
+          "label": "IPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-11-005"
+    },
+    {
+      "slug": "car-2014-11-006",
+      "carId": "CAR-2014-11-006",
+      "title": "Windows Remote Management (WinRM)",
+      "description": "When a [Windows Remote Management](https://attack.mitre.org/techniques/T1021/006) connection is opened, the client sends HTTP requests to port 5985 for HTTP or 5986 for HTTPS on the target host. Each HTTP(S) request to the URI \"/wsman\" is called, and other information is set in the headers. Depending on the operation, the HTTP method may vary (i.e., GET, POST, etc.). This analytic would detect Remote PowerShell, as well as other communications that rely on WinRM. Additionally, it outputs the executable on the client host, the connection information, and the hostname of the target host.",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.006"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1021", "T1021.006"],
+      "d3fend": [
+        {
+          "id": "D3-ANAA",
+          "label": "Administrative Network Activity Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-11-006"
+    },
+    {
+      "slug": "car-2014-11-007",
+      "carId": "CAR-2014-11-007",
+      "title": "Remote Windows Management Instrumentation (WMI) over RPC",
+      "description": "As described in ATT&CK, an adversary can use [Windows Management Instrumentation](https://attack.mitre.org/techniques/T1047) (WMI) to view or manipulate objects on a remote host. It can be used to remotely edit configuration, start services, query files, and anything that can be done with a WMI class. When remote WMI requests are over RPC ([CAR-2014-05-001](../CAR-2014-05-001)), it connects to a DCOM interface within the RPC group netsvcs. To detect this activity, a sensor is needed at the network level that can decode RPC traffic or on the host where the communication can be detected more natively, such as [Event Tracing for Windows](https://msdn.microsoft.com/en-us/library/windows/desktop/bb968803.aspx). Using wireshark/tshark decoders, the WMI interfaces can be extracted so that WMI act",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1047",
+          "tactics": ["TA0002"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1047"],
+      "d3fend": [
+        {
+          "id": "D3-RTA",
+          "label": "RPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-11-007"
+    },
+    {
+      "slug": "car-2014-11-008",
+      "carId": "CAR-2014-11-008",
+      "title": "Command Launched from WinLogon",
+      "description": "An adversary can use [accessibility features](https://attack.mitre.org/techniques/T1546/008) (Ease of Access), such as StickyKeys or Utilman, to launch a command shell from the logon screen and gain SYSTEM access. Since an adversary does not have physical access to the machine, this technique must be run within [Remote Desktop](https://attack.mitre.org/techniques/T1021/001). To prevent an adversary from getting to the login screen without first authenticating, Network-Level Authentication (NLA) must be enabled. If a debugger is set up for one of the accessibility features, then it will intercept the process launch of the feature and instead execute a new command line. This analytic looks for instances of `cmd.exe` or `powershell.exe` launched directly from the logon process, `winlogon.exe`",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1546",
+          "tactics": ["TA0004", "TA0003"],
+          "subtechniques": ["T1546.008"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1546", "T1546.008"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Splunk", "EQL", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-11-008"
+    },
+    {
+      "slug": "car-2014-12-001",
+      "carId": "CAR-2014-12-001",
+      "title": "Remotely Launched Executables via WMI",
+      "description": "Adversaries can use [Windows Management Instrumentation (WMI)](https://attack.mitre.org/techniques/T1047) to move laterally by launching executables remotely. For adversaries to achieve this, they must open a WMI connection to a remote host. This RPC activity is currently detected by [CAR-2014-11-007](../CAR-2014-11-007). After the WMI connection has been initialized, a process can be remotely launched using the command: `wmic /node:\"<hostname>\" process call create \"<command line>\"`, which is detected via [CAR-2016-03-002](../CAR-2016-03-002). This leaves artifacts at both a network (RPC) and process (command line) level. When wmic.exe (or the schtasks API) is used to remotely create processes, Windows uses RPC (135/tcp) to communicate with the the remote machine. After RPC authenticates, ",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1047",
+          "tactics": ["TA0002"],
+          "subtechniques": [],
+          "coverage": "High"
+        }
+      ],
+      "techniqueIds": ["T1047"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2014-12-001"
+    },
+    {
+      "slug": "car-2015-04-001",
+      "carId": "CAR-2015-04-001",
+      "title": "Remotely Scheduled Tasks via AT",
+      "description": "When AT.exe is used to remotely [schedule tasks](https://attack.mitre.org/techniques/T1053), Windows uses named pipes over [SMB](https://en.wikipedia.org/wiki/Server_Message_Block) to communicate with the API on the remote machine. After authentication over SMB, the Named Pipe \"ATSVC\" is opened, over which the JobAdd function is called. On the remote host, the job files are created by the Task Scheduler and follow the convention `C:\\Windows\\System32\\AT<job\\_id>`. Unlike [CAR-2013-05-004](../CAR-2013-05-004), this analytic specifically focuses on uses of AT that can be detected between hosts, indicating remotely gained [execution](https://attack.mitre.org/tactics/TA0002). This pipe activity could be discovered with a network decoder, such as that in wireshark, that can inspect SMB traffic t",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1053",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1053.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1053", "T1053.002"],
+      "d3fend": [
+        {
+          "id": "D3-IPCTA",
+          "label": "IPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2015-04-001"
+    },
+    {
+      "slug": "car-2015-04-002",
+      "carId": "CAR-2015-04-002",
+      "title": "Remotely Scheduled Tasks via Schtasks",
+      "description": "An adversary can [move laterally](https://attack.mitre.org/tactics/TA0008) using the `schtasks` command to remotely [schedule tasks/jobs](https://attack.mitre.org/techniques/T1053). Although these events can be detected with command line analytics [CAR-2013-08-001](../CAR-2013-08-001), it is possible for an adversary to use the API directly, via the Task Scheduler GUI or with a scripting language such as [PowerShell](https://attack.mitre.org/techniques/T1059/001). In this cases, an additional source of data becomes necessary to detect adversarial behavior. When scheduled tasks are created remotely, Windows uses RPC (135/tcp) to communicate with the Task Scheduler on the remote machine. Once an RPC connection is established ([CAR-2014-05-001](../CAR-2014-05-001)), the client communicates wi",
+      "domain": "Host, Network",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1053",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1053.005"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1053", "T1053.005"],
+      "d3fend": [
+        {
+          "id": "D3-RTA",
+          "label": "RPC Traffic Analysis"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2015-04-002"
+    },
+    {
+      "slug": "car-2015-07-001",
+      "carId": "CAR-2015-07-001",
+      "title": "All Logins Since Last Boot",
+      "description": "Once a credential dumper like [mimikatz](https://attack.mitre.org/software/S0002) runs, every user logged on since boot is potentially compromised, because the credentials were accessed via the memory of `lsass.exe`. When such an event occurs, this analytic will give the forensic context to identify compromised users. Those users could potentially be used in later events for additional logons. The time field indicates the first and last time a system reported a user logged into a given system. This means that activity could be intermittent between the times given and should not be considered a duration. ### Output Description A list of hostnames and the users that had been logged into the system at some point after to the system's last restart.",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [],
+      "techniqueIds": [],
+      "d3fend": [],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2015-07-001"
+    },
+    {
+      "slug": "car-2016-03-001",
+      "carId": "CAR-2016-03-001",
+      "title": "Host Discovery Commands",
+      "description": "When entering on a host for the first time, an adversary may try to [discover](https://attack.mitre.org/tactics/TA0007) information about the host. There are several built-in Windows commands that can be used to learn about the software configurations, active users, administrators, and networking configuration. These commands should be monitored to identify when an adversary is learning information about the system and environment. The information returned may impact choices an adversary can make when [establishing persistence](https://attack.mitre.org/tactics/TA0003), [escalating privileges](https://attack.mitre.org/tactics/TA0004), or [moving laterally](https://attack.mitre.org/tactics/TA0008). Because these commands are built in, they may be run frequently by power users or even by norm",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1087",
+          "tactics": ["TA0007"],
+          "subtechniques": ["T1087.001", "T1087.002"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1069",
+          "tactics": ["TA0007"],
+          "subtechniques": ["T1069.001", "T1069.002"],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1016",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1082",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1033",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1057",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1007",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": [
+        "T1087",
+        "T1087.001",
+        "T1087.002",
+        "T1069",
+        "T1069.001",
+        "T1069.002",
+        "T1016",
+        "T1082",
+        "T1033",
+        "T1057",
+        "T1007"
+      ],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Splunk", "EQL", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2016-03-001"
+    },
+    {
+      "slug": "car-2016-03-002",
+      "carId": "CAR-2016-03-002",
+      "title": "Create Remote Process via WMIC",
+      "description": "Adversaries may use [Windows Management Instrumentation](https://attack.mitre.org/techniques/T1047) (WMI) to move laterally, by launching executables remotely.The analytic [CAR-2014-12-001](../CAR-2014-12-001) describes how to detect these processes with network traffic monitoring and process monitoring on the target host. However, if the command line utility `wmic.exe` is used on the source host, then it can additionally be detected on an analytic. The command line on the source host is constructed into something like `wmic.exe /node:\"\\<hostname\\>\" process call create \"\\<command line\\>\"`. It is possible to also connect via IP address, in which case the string `\"\\<hostname\\>\"` would instead look like `IP Address`. Although this analytic was created after [CAR-2014-12-001](../CAR-2014-12-00",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1047",
+          "tactics": ["TA0002"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1047"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["pseudocode", "Splunk", "EQL", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2016-03-002"
+    },
+    {
+      "slug": "car-2016-04-002",
+      "carId": "CAR-2016-04-002",
+      "title": "User Activity from Clearing Event Logs",
+      "description": "It is unlikely that event log data would be cleared during normal operations, and it is likely that malicious attackers may try to cover their tracks by clearing an event log. When an event log gets cleared, it is suspicious. 1. This is often done using `wevtutil`, a legitimate tool provided by Microsoft. This action interferes with event collection and notification, and may lead to a security event going undetected, thereby potentially leading to further compromise of the network. 2. Alerting when a `Clear Event Log` is generated could point to this intruder technique. Centrally collecting events has the added benefit of making it much harder for attackers to cover their tracks. Event Forwarding permits sources to forward multiple copies of a collected event to multiple collectors, thus e",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Anomaly"],
+      "techniques": [
+        {
+          "technique": "T1070",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1070.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1070", "T1070.001"],
+      "d3fend": [
+        {
+          "id": "D3-RTA",
+          "label": "RPC Traffic Analysis"
+        }
+      ],
+      "implementations": [
+        "PseudoCode for dedicated EventID EventLog deletion",
+        "Sigma rule (System log)",
+        "Sigma rule (Security log)",
+        "LogPoint version of the above pseudocode.",
+        "Splunk search - Detecting log clearing with wevtutil"
+      ],
+      "references": ["https://ptylu.github.io/content/report/report.html?report=26"],
+      "url": "https://car.mitre.org/analytics/CAR-2016-04-002"
+    },
+    {
+      "slug": "car-2016-04-003",
+      "carId": "CAR-2016-04-003",
+      "title": "User Activity from Stopping Windows Defensive Services",
+      "description": "Spyware and malware remain a serious problem and Microsoft developed security services, Windows Defender and Windows Firewall, to combat this threat. In the event Windows Defender or Windows Firewall is turned off, administrators should correct the issue immediately to prevent the possibility of infection or further infection and investigate to determine if caused by crash or user manipulation. Stopping services events are Windows Event Code 7036.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1562",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1562.001"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1562", "T1562.001"],
+      "d3fend": [
+        {
+          "id": "D3-SDM",
+          "label": "System Daemon Monitoring"
+        }
+      ],
+      "implementations": ["pseudocode", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2016-04-003"
+    },
+    {
+      "slug": "car-2016-04-004",
+      "carId": "CAR-2016-04-004",
+      "title": "Successful Local Account Login",
+      "description": "The successful use of [Pass The Hash](https://attack.mitre.org/techniques/T1550/002/) for lateral movement between workstations would trigger event ID 4624, with an event level of Information, from the security log. This behavior would be a LogonType of 3 using NTLM authentication where it is not a domain logon and not the ANONYMOUS LOGON account.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1550",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1550.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1550", "T1550.002"],
+      "d3fend": [
+        {
+          "id": "D3-LAM",
+          "label": "Local Account Monitoring"
+        }
+      ],
+      "implementations": ["pseudocode"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2016-04-004"
+    },
+    {
+      "slug": "car-2016-04-005",
+      "carId": "CAR-2016-04-005",
+      "title": "Remote Desktop Logon",
+      "description": "A remote desktop logon, through [RDP](https://attack.mitre.org/techniques/T1021/001), may be typical of a system administrator or IT support, but only from select workstations. Monitoring remote desktop logons and comparing to known/approved originating systems can detect lateral movement of an adversary.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1021",
+          "tactics": ["TA0008"],
+          "subtechniques": ["T1021.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1021", "T1021.001"],
+      "d3fend": [
+        {
+          "id": "D3-RTSD",
+          "label": "Remote Terminal Session Detection"
+        }
+      ],
+      "implementations": ["pseudocode", "Sigma", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2016-04-005"
+    },
+    {
+      "slug": "car-2019-04-001",
+      "carId": "CAR-2019-04-001",
+      "title": "UAC Bypass",
+      "description": "Bypassing user account control (UAC Bypass) is generally done by piggybacking on a system process that has auto-escalate privileges. This analytic looks to detect those cases as described by the open-source [UACME](https://github.com/hfiref0x/UACME) tool.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1548",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1548.002"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1548", "T1548.002"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["splunk", "pseudocode", "Sigma/Sysmon (Eventvwr)", "Sigma/Sysmon (sdclt)", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2019-04-001"
+    },
+    {
+      "slug": "car-2019-04-002",
+      "carId": "CAR-2019-04-002",
+      "title": "Generic Regsvr32",
+      "description": "Regsvr32 can be used to execute arbitrary code in the context of a Windows signed binary, which can be used to bypass application whitelisting. This analytic looks for suspicious usage of the tool. It's not likely that you'll get millions of hits, but it does occur during normal activity so some form of baselining would be necessary for this to be an alerting analytic. Alternatively, it can be used for hunt by looking for new or anomalous DLLs manually.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1218",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1218.010"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1218", "T1218.010"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": [
+        "Main Pattern",
+        "Main Pattern - pseudocode",
+        "New items since last month",
+        "Spawning child processes",
+        "Spawning child processes - pseudocode",
+        "Loading unsigned images",
+        "Loading unsigned images - pseudocode"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2019-04-002"
+    },
+    {
+      "slug": "car-2019-04-003",
+      "carId": "CAR-2019-04-003",
+      "title": "Squiblydoo",
+      "description": "Squiblydoo is a specific usage of regsvr32.dll to load a COM scriptlet directly from the internet and execute it in a way that bypasses application whitelisting. It can be seen by looking for regsvr32.exe executions that load the scrobj.dll (which execute the COM scriptlet) or, if that is too noisy, those that also load content directly via HTTP or HTTPS. Squiblydoo was first written up by Casey Smith at Red Canary, though that blog post is no longer accessible.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1218",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1218.010"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1218", "T1218.010"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["splunk", "EQL", "psuedocode", "LogPoint"],
+      "references": [
+        "As usual, credit to Roberto Rodriguez and the [ThreatHunter Playbook](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/playbooks/platforms/windows/05_defense_evasion/regsvr32/variants/bypass_whitelisting_regsvr32.md)."
+      ],
+      "url": "https://car.mitre.org/analytics/CAR-2019-04-003"
+    },
+    {
+      "slug": "car-2019-04-004",
+      "carId": "CAR-2019-04-004",
+      "title": "Credential Dumping via Mimikatz",
+      "description": "Credential dumpers like Mimikatz can be loaded into memory and from there read data from another processes. This analytic looks for instances where processes are requesting specific permissions to read parts of the LSASS process in order to detect when credential dumping is occurring. One weakness is that all current implementations are “overtuned” to look for common access patterns used by Mimikatz. *This requires information about process access, e.g. Sysmon Event ID 10. That currently doesn’t have a CAR data model mapping, since we currently lack any open/access actions for Processes. If this changes, we will update the data model requirements.*",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.001"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1003", "T1003.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Common Mimikatz GrantedAccess Patterns", "Outliers", "LogPoint"],
+      "references": [
+        "Credit to [Cyb3rWard0g](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/playbooks/windows/06_credential_access/credential_dumping_T1003/credentials_from_memory/mimikatz_logonpasswords.md), dim0x69 (blog.3or.de), and Mark Russinovich for providing much of the information used to construct these analytics."
+      ],
+      "url": "https://car.mitre.org/analytics/CAR-2019-04-004"
+    },
+    {
+      "slug": "car-2019-07-001",
+      "carId": "CAR-2019-07-001",
+      "title": "Access Permission Modification",
+      "description": "Adversaries sometimes modify object access rights at the operating system level. There are varying motivations behind this action - they may not want some files/objects to be changed on systems for persistence reasons and therefore provide admin only rights; also, they may want files to be accessible with lower levels of permissions. Note - this analytic references file permissions, which are not currently in the CAR data model.",
+      "domain": "Host",
+      "platforms": ["Windows", "Linux", "macOS"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1222",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1222.001", "T1222.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1222", "T1222.001", "T1222.002"],
+      "d3fend": [
+        {
+          "id": "D3-SFA",
+          "label": "System File Analysis"
+        }
+      ],
+      "implementations": ["Windows - Pseudocode", "Windows - Splunk", "Linux - Pseudocode", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2019-07-001"
+    },
+    {
+      "slug": "car-2019-07-002",
+      "carId": "CAR-2019-07-002",
+      "title": "Lsass Process Dump via Procdump",
+      "description": "[ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump) is a sysinternal command-line utility whose primary purpose is monitoring an application for CPU spikes and generating crash dumps during a spike that an administrator or developer can use to determine the cause of the spike. ProcDump may be used to dump the memory space of lsass.exe to disk for processing with a credential access tool such as Mimikatz. This is performed by launching procdump.exe as a privileged user with command line options indicating that lsass.exe should be dumped to a file with an arbitrary name. Note - the CAR data model currently does not support process access actions, so the pseudocode implementation is based around process creates.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.001"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1003", "T1003.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Procdump - Process Create",
+        "Procdump - Process Create",
+        "Procdump - Process Create",
+        "Procdump - Process Access",
+        "Procdump - Process Access",
+        "LogPoint"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2019-07-002"
+    },
+    {
+      "slug": "car-2019-08-001",
+      "carId": "CAR-2019-08-001",
+      "title": "Credential Dumping via Windows Task Manager",
+      "description": "The Windows Task Manager may be used to dump the memory space of `lsass.exe` to disk for processing with a credential access tool such as Mimikatz. This is performed by launching Task Manager as a privileged user, selecting `lsass.exe`, and clicking \"Create dump file\". This saves a dump file to disk with a deterministic name that includes the name of the process being dumped. This requires filesystem data to determine whether files have been created.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.001"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1003", "T1003.001"],
+      "d3fend": [
+        {
+          "id": "D3-FCA",
+          "label": "File Creation Analysis"
+        }
+      ],
+      "implementations": ["Procdump - File Create", "Procdump - File Create", "Procdump - File Create", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2019-08-001"
+    },
+    {
+      "slug": "car-2019-08-002",
+      "carId": "CAR-2019-08-002",
+      "title": "Active Directory Dumping via NTDSUtil",
+      "description": "The NTDSUtil tool may be used to dump a Microsoft Active Directory database to disk for processing with a credential access tool such as Mimikatz. This is performed by launching `ntdsutil.exe` as a privileged user with command line arguments indicating that media should be created for offline Active Directory installation and specifying a folder path. This process will create a copy of the Active Directory database, `ntds.dit`, to the specified folder path. This requires filesystem data to determine whether files have been created.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.003"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1003", "T1003.003"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["NTDSUtil - File Create", "NTDSUtil - File Create", "NTDSUtil - File Create", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2019-08-002"
+    },
+    {
+      "slug": "car-2020-04-001",
+      "carId": "CAR-2020-04-001",
+      "title": "Shadow Copy Deletion",
+      "description": "This analytic has been deprecated in favor of [CAR-2021-01-009](/analytics/CAR-2021-01-009), which covers the same technique with some additional detections.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [],
+      "techniqueIds": [],
+      "d3fend": [],
+      "implementations": [],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-04-001"
+    },
+    {
+      "slug": "car-2020-05-001",
+      "carId": "CAR-2020-05-001",
+      "title": "MiniDump of LSASS",
+      "description": "This analytic detects the minidump variant of credential dumping where a process opens lsass.exe in order to extract credentials using the Win32 API call [MiniDumpWriteDump](https://docs.microsoft.com/en-us/windows/win32/api/minidumpapiset/nf-minidumpapiset-minidumpwritedump). Tools like [SafetyKatz](https://github.com/GhostPack/SafetyKatz), [SafetyDump](https://github.com/m0rv4i/SafetyDump), and [Outflank-Dumpert](https://github.com/outflanknl/Dumpert) default to this variant and may be detected by this analytic, though keep in mind that not all options for using those tools will result in this specific behavior. The analytic is based on a [Sigma analytic](https://github.com/NVISO-BE/sigma-public/blob/master/rules/windows/sysmon/sysmon_lsass_memdump.yml) contributed by Samir Bousseaden an",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.003"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1003", "T1003.003"],
+      "d3fend": [
+        {
+          "id": "D3-SCA",
+          "label": "System Call Analysis"
+        }
+      ],
+      "implementations": ["Lsass Process Access", "LogPoint"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-05-001"
+    },
+    {
+      "slug": "car-2020-05-003",
+      "carId": "CAR-2020-05-003",
+      "title": "Rare LolBAS Command Lines",
+      "description": "[LoLBAS](https://lolbas-project.github.io/) are binaries and scripts that are built in to Windows, frequently are signed by Microsoft, and may be used by an attacker. Some LoLBAS are used very rarely and it might be possible to alert every time they're used (this would depend on your environment), but many others are very common and can't be simply alerted on. This analytic takes all instances of LoLBAS execution and then looks for instances of command lines that are not normal in the environment. This can detect attackers (which will tend to need the binaries for something different than normal usage) but will also tend to have false positives. The analytic needs to be tuned. The `1.5` in the query is the number of standard deviations away to look. It can be tuned up to filter out more no",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1012",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1112",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1547",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1547.001"],
+          "coverage": "Low"
+        },
+        {
+          "technique": "T1574",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1574.011"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1012", "T1112", "T1547", "T1547.001", "T1574", "T1574.011"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["LolBAS Rare Commands", "LolBAS Rare Commands"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-05-003"
+    },
+    {
+      "slug": "car-2020-08-001",
+      "carId": "CAR-2020-08-001",
+      "title": "NTFS Alternate Data Stream Execution - System Utilities",
+      "description": "NTFS Alternate Data Streams (ADSs) may be used by adversaries as a means of evading security tools by storing malicious data or binaries in file attribute metadata. ADSs are also powerful because they can be directly executed by various Windows tools; accordingly, this analytic looks at common ways of executing ADSs using system utilities such as powershell.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1564",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1564.004"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1564", "T1564.004"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "NTFS ADS - pseudocode",
+        "NTFS ADS - powershell",
+        "NTFS ADS - wmic",
+        "NTFS ADS - rundll32",
+        "NTFS ADS - wscript/cscript"
+      ],
+      "references": [
+        "Oddvar Moe has created an excellent NTFS ADS execution reference [here on github](https://gist.github.com/api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f), which was used as the basis for many of these analytics.",
+        "The [LOLBAS project](https://lolbas-project.github.io/) is an amazing resource for anything LOLBAS."
+      ],
+      "url": "https://car.mitre.org/analytics/CAR-2020-08-001"
+    },
+    {
+      "slug": "car-2020-08-002",
+      "carId": "CAR-2020-08-002",
+      "title": "NTFS Alternate Data Stream Execution - LOLBAS",
+      "description": "NTFS Alternate Data Streams (ADSs) may be used by adversaries as a means of evading security tools by storing malicious data or binaries in file attribute metadata. ADSs are also powerful because their contents can be directly executed by various Windows tools; accordingly, this analytic looks at common ways of executing ADSs using Living off the Land Binaries and Scripts (LOLBAS).",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1564",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1564.004"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1564", "T1564.004"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "NTFS ADS - pseudocode",
+        "NTFS ADS - control",
+        "NTFS ADS - appvlp",
+        "NTFS ADS - cmd",
+        "NTFS ADS - ftp",
+        "NTFS ADS - bash",
+        "NTFS ADS - mavinject",
+        "NTFS ADS - bitsadmin"
+      ],
+      "references": [
+        "The [LOLBAS project](https://lolbas-project.github.io/) is an amazing resource and was used as the basis for many of these analytics.",
+        "Oddvar Moe has created an excellent NTFS ADS execution reference [here on github](https://gist.github.com/api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f)."
+      ],
+      "url": "https://car.mitre.org/analytics/CAR-2020-08-002"
+    },
+    {
+      "slug": "car-2020-09-001",
+      "carId": "CAR-2020-09-001",
+      "title": "Scheduled Task - FileAccess",
+      "description": "In order to gain persistence, privilege escalation, or remote execution, an adversary may use the Windows Task Scheduler to schedule a command to be run at a specified time, date, and even host. Task Scheduler stores tasks as files in two locations - C:\\Windows\\Tasks (legacy) or C:\\Windows\\System32\\Tasks. Accordingly, this analytic looks for the creation of task files in these two locations.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1053",
+          "tactics": ["TA0002", "TA0003", "TA0004"],
+          "subtechniques": ["T1053.005"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1053", "T1053.005"],
+      "d3fend": [
+        {
+          "id": "D3-FCA",
+          "label": "File Creation Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - Windows task file creation",
+        "Splunk search - Windows task file creation",
+        "LogPoint search - Windows task file creation"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-09-001"
+    },
+    {
+      "slug": "car-2020-09-002",
+      "carId": "CAR-2020-09-002",
+      "title": "Component Object Model Hijacking",
+      "description": "Adversaries may establish persistence or escalate privileges by executing malicious content triggered by hijacked references to Component Object Model (COM) objects. This is typically done by replacing COM object registry entries under the HKEY_CURRENT_USER\\Software\\Classes\\CLSID or HKEY_LOCAL_MACHINE\\SOFTWARE\\Classes\\CLSID keys. Accordingly, this analytic looks for any changes under these keys.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1546",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1546.015"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1546", "T1546.015"],
+      "d3fend": [
+        {
+          "id": "D3-SICA",
+          "label": "System Init Config Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - COM object registry entry modification",
+        "Splunk search - COM object registry entry modification",
+        "LogPoint search - COM object registry entry modification"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-09-002"
+    },
+    {
+      "slug": "car-2020-09-003",
+      "carId": "CAR-2020-09-003",
+      "title": "Indicator Blocking - Driver Unloaded",
+      "description": "Adversaries may attempt to evade system defenses by unloading minifilter drivers used by host-based sensors such as Sysmon through the use of the fltmc command-line utility. Accordingly, this analytic looks for command-line invocations of this utility when used to unload minifilter drivers.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1562",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1562.006"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1562", "T1562.006"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - fltmc invocation",
+        "Splunk search - fltmc invocation",
+        "LogPoint search - fltmc invocation"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-09-003"
+    },
+    {
+      "slug": "car-2020-09-004",
+      "carId": "CAR-2020-09-004",
+      "title": "Credentials in Files & Registry",
+      "description": "Adversaries may search the Windows Registry on compromised systems for insecurely stored credentials for credential access. This can be accomplished using the query functionality of the reg.exe system utility, by looking for keys and values that contain strings such as \"password\". In addition, adversaries may use toolkits such as [PowerSploit](https://powersploit.readthedocs.io/en/latest/) in order to dump credentials from various applications such as IIS.Accordingly, this analytic looks for invocations of reg.exe in this capacity as well as that of several powersploit modules with similar functionality.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1552",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1552.001", "T1552.002"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1552", "T1552.001", "T1552.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - reg.exe password search & powersploit modules",
+        "Splunk Search - reg.exe password search & powersploit modules",
+        "LogPoint search - reg.exe password search & powersploit modules"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-09-004"
+    },
+    {
+      "slug": "car-2020-09-005",
+      "carId": "CAR-2020-09-005",
+      "title": "AppInit DLLs",
+      "description": "Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppInit DLLs loaded into processes. Dynamic-link libraries (DLLs) that are specified in the AppInit_DLLs value in the Registry keys `HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows` or `HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Windows` are loaded by user32.dll into every process that loads user32.dll. These values can be abused to obtain elevated privileges by causing a malicious DLL to be loaded and run in the context of separate processes. Accordingly, this analytic looks for modifications to these registry keys that may be indicative of this type of abuse.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1546",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1546.010"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1546", "T1546.010"],
+      "d3fend": [
+        {
+          "id": "D3-SICA",
+          "label": "System Init Config Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - AppInit DLL registry modification",
+        "Splunk search - AppInit DLL registry modification",
+        "LogPoint search - AppInit DLL registry modification"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-09-005"
+    },
+    {
+      "slug": "car-2020-11-001",
+      "carId": "CAR-2020-11-001",
+      "title": "Boot or Logon Initialization Scripts",
+      "description": "Adversaries may schedule software to run whenever a user logs into the system; this is done to establish persistence and sometimes for lateral movement. This trigger is established through the registry key HKEY_CURRENT_USER\\Environment*UserInitMprLogonScript*. This signature looks edits to existing keys or creation of new keys in that path. Users purposefully adding benign scripts to this path will result in false positives; that case is rare, however. There are other ways of running a script at startup or login that are not covered in this signature. Note that this signature overlaps with the Windows Sysinternals Autoruns tool, which would also show changes to this registry path.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1037",
+          "tactics": ["TA0003", "TA0008"],
+          "subtechniques": ["T1037.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1037", "T1037.001"],
+      "d3fend": [
+        {
+          "id": "D3-SICA",
+          "label": "System Init Config Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - logon run script key added to registry using reg.exe on commandline, or new logon scipt keys in registry from any source.",
+        "Splunk Search -- logon scripts",
+        "LogPoint Search -- logon scripts"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-001"
+    },
+    {
+      "slug": "car-2020-11-002",
+      "carId": "CAR-2020-11-002",
+      "title": "Local Network Sniffing",
+      "description": "Adversaries may use a variety of tools to gain visibility on the current status of things on the network: which processes are listening on which ports, which services are running on other hosts, etc. This analytic looks for the names of the most common network sniffing tools. While this may be noisy on networks where sysadmins are using any of these tools on a regular basis, in most networks their use is noteworthy.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1040",
+          "tactics": ["TA0006", "TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1040"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - commands containing known network sniffing application names",
+        "Splunk Search - common network traffic sniffing apps being run",
+        "LogPoint Search - common network traffic sniffing apps being run"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-002"
+    },
+    {
+      "slug": "car-2020-11-003",
+      "carId": "CAR-2020-11-003",
+      "title": "DLL Injection with Mavinject",
+      "description": "Injecting a malicious DLL into a process is a common adversary TTP. Although the ways of doing this are numerous, mavinject.exe is a commonly used tool for doing so because it roles up many of the necessary steps into one, and is available within Windows. Attackers may rename the executable, so we also use the common argument \"INJECTRUNNING\" as a related signature here. Whitelisting certain applications may be necessary to reduce noise for this analytic.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1055",
+          "tactics": ["TA0004", "TA0005"],
+          "subtechniques": ["T1055.001"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1055", "T1055.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - mavinject process and its common argument",
+        "Splunk Search - mavinject",
+        "LogPoint Search - mavinject"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-003"
+    },
+    {
+      "slug": "car-2020-11-004",
+      "carId": "CAR-2020-11-004",
+      "title": "Processes Started From Irregular Parent",
+      "description": "Adversaries may start legitimate processes and then use their memory space to run malicious code. This analytic looks for common Windows processes that have been abused this way in the past; when the processes are started for this purpose they may not have the standard parent that we would expect. This list is not exhaustive, and it is possible for cyber actors to avoid this discepency. These signatures only work if Sysmon reports the parent process, which may not always be the case if the parent dies before sysmon processes the event.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1055",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1055.012"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1055", "T1055.012"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - common processes that do not have the correct parent",
+        "Splunk Search - parent/child mismatch",
+        "LogPoint Search - parent/child mismatch"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-004"
+    },
+    {
+      "slug": "car-2020-11-005",
+      "carId": "CAR-2020-11-005",
+      "title": "Clear Powershell Console Command History",
+      "description": "Adversaries may attempt to conceal their tracks by deleting the history of commands run within the Powershell console, or turning off history saving to begin with. This analytic looks for several commands that would do this. This does not capture the event if it is done within the console itself; only commandline-based commands are detected. Note that the command to remove the history file directly may very a bit if the history file is not saved in the default path on a particular system.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1070",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1070.003"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1070", "T1070.003"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - clear or disable Powershell console history via commandline",
+        "Splunk Search - clear command history via Powershell",
+        "LogPoint Search - clear command history via Powershell"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-005"
+    },
+    {
+      "slug": "car-2020-11-006",
+      "carId": "CAR-2020-11-006",
+      "title": "Local Permission Group Discovery",
+      "description": "Cyber actors frequently enumerate local or domain permissions groups. The net utility is usually used for this purpose. This analytic looks for any instances of net.exe, which is not normally used for benign purposes, although system administrator actions may trigger false positives.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1069",
+          "tactics": ["TA0007"],
+          "subtechniques": ["T1069.001", "T1069.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1069", "T1069.001", "T1069.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - net.exe instances",
+        "Splunk Search - net.exe instances",
+        "LogPoint Search - net.exe instances"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-006"
+    },
+    {
+      "slug": "car-2020-11-007",
+      "carId": "CAR-2020-11-007",
+      "title": "Network Share Connection Removal",
+      "description": "Adversaries may use network shares to exfliltrate date; they will then remove the shares to cover their tracks. This analytic looks for the removal of network shares via commandline, which is otherwise a rare event.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1070",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1070.005"],
+          "coverage": "High"
+        }
+      ],
+      "techniqueIds": ["T1070", "T1070.005"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - network shares being removed via the command line",
+        "Splunk Search - delete network shares",
+        "LogPoint Search - delete network shares"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-007"
+    },
+    {
+      "slug": "car-2020-11-008",
+      "carId": "CAR-2020-11-008",
+      "title": "MSBuild and msxsl",
+      "description": "Trusted developer utilities such as MSBuild may be leveraged to run malicious code with elevated privileges. This analytic looks for any instances of msbuild.exe, which will execute any C# code placed within a given XML document; and msxsl.exe, which processes xsl transformation specifications for XML files and will execute a variaty of scripting languages contained within the XSL file. Both of these executables are rarely used outside of Visual Studio.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1127",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1127.001"],
+          "coverage": "High"
+        }
+      ],
+      "techniqueIds": ["T1127", "T1127.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode - msbuild", "Splunk Search - msbuild", "LogPoint Search - msbuild"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-008"
+    },
+    {
+      "slug": "car-2020-11-009",
+      "carId": "CAR-2020-11-009",
+      "title": "Compiled HTML Access",
+      "description": "Adversaries may hide malicious code in .chm compiled HTML files. When these files are read, Windows uses the HTML help executable named hh.exe, which is the signature for this analytic.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1218",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1218.001"],
+          "coverage": "High"
+        }
+      ],
+      "techniqueIds": ["T1218", "T1218.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode - instances of hh.exe", "Splunk Search - hh.exe", "LogPoint Search - hh.exe"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-009"
+    },
+    {
+      "slug": "car-2020-11-010",
+      "carId": "CAR-2020-11-010",
+      "title": "CMSTP",
+      "description": "CMSTP.exe is the Microsoft Connection Manager Profile Installer, which can be leveraged to setup listeners that will receive and install malware from remote sources in trusted fashion. When CMSTP.exe is seen in combination with an external connection, it is a good indication of this TTP.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1218",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1218.003"],
+          "coverage": "High"
+        }
+      ],
+      "techniqueIds": ["T1218", "T1218.003"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode - CMSTP", "Splunk Search - CMSTP", "LogPoint Search - CMSTP"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-010"
+    },
+    {
+      "slug": "car-2020-11-011",
+      "carId": "CAR-2020-11-011",
+      "title": "Registry Edit from Screensaver",
+      "description": "Adversaries may use screensaver files to run malicious code. This analytic triggers on suspicious edits to the screensaver registry keys, which dictate which .scr file the screensaver runs.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1546",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1546.002"],
+          "coverage": "High"
+        }
+      ],
+      "techniqueIds": ["T1546", "T1546.002"],
+      "d3fend": [
+        {
+          "id": "D3-USICA",
+          "label": "User Session Init Config Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode - Screensaver", "Splunk Search - Screensaver", "LogPoint Search - Screensaver"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2020-11-011"
+    },
+    {
+      "slug": "car-2021-01-001",
+      "carId": "CAR-2021-01-001",
+      "title": "Identifying Port Scanning Activity",
+      "description": "After compromising an initial machine, adversaries commonly attempt to laterally move across the network. The first step to attempt the lateral movement often involves conducting host identification, port and service scans on the internal network via the compromised machine using tools such as Nmap, Cobalt Strike, etc.",
+      "domain": "Network",
+      "platforms": ["Windows", "Linux"],
+      "analyticTypes": ["Situational Awareness"],
+      "techniques": [
+        {
+          "technique": "T1046",
+          "tactics": ["TA0007"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1046"],
+      "d3fend": [
+        {
+          "id": "D3-CAA",
+          "label": "Connection Attempt Analysis"
+        }
+      ],
+      "implementations": ["Splunk search - Identifying Internal hosts and services for lateral movement"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-001"
+    },
+    {
+      "slug": "car-2021-01-002",
+      "carId": "CAR-2021-01-002",
+      "title": "Unusually Long Command Line Strings",
+      "description": "Often, after a threat actor gains access to a system, they will attempt to run some kind of malware to further infect the victim machine. These malware often have long command line strings, which could be a possible indicator of attack. Here, we use sysmon and Splunk to first find the average command string length and search for command strings that stretch over multiple lines, thus identifying anomalies and possibly malicious commands.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Anomaly"],
+      "techniques": [
+        {
+          "technique": "T1059",
+          "tactics": ["TA0002"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1059"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Splunk search - Identifying possible malware activity via unusually long command line strings"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-002"
+    },
+    {
+      "slug": "car-2021-01-003",
+      "carId": "CAR-2021-01-003",
+      "title": "Clearing Windows Logs with Wevtutil",
+      "description": "In an attempt to clear traces after compromising a machine, threat actors often try to clear Windows Event logs. This is often done using “wevtutil”, a legitimate tool provided by Microsoft. This action interferes with event collection and notification, and may lead to a security event going undetected, thereby potentially leading to further compromise of the network.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1070",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1070.001"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1070", "T1070.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Splunk search - Detecting log clearing with wevtutil"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-003"
+    },
+    {
+      "slug": "car-2021-01-004",
+      "carId": "CAR-2021-01-004",
+      "title": "Unusual Child Process for Spoolsv.Exe or Connhost.Exe",
+      "description": "After gaining initial access to a system, threat actors attempt to escalate privileges as they may be operating within a lower privileged process which does not allow them to access protected information or carry out tasks which require higher permissions. A common way of escalating privileges in a system is by externally invoking and exploiting spoolsv or connhost executables, both of which are legitimate Windows applications. This query searches for an invocation of either of these executables by a user, thus alerting us of any potentially malicious activity.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["Anomaly"],
+      "techniques": [
+        {
+          "technique": "T1068",
+          "tactics": ["TA0004"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1068"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Splunk search - Unusual Child Process For Spoolsv.exe Or Connhost.exe"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-004"
+    },
+    {
+      "slug": "car-2021-01-006",
+      "carId": "CAR-2021-01-006",
+      "title": "Unusual Child Process spawned using DDE exploit",
+      "description": "Adversaries may use Windows Dynamic Data Exchange (DDE) to execute arbitrary commands. DDE is a client-server protocol for one-time and/or continuous inter-process communication (IPC) between applications. Once a link is established, applications can autonomously exchange transactions consisting of strings, warm data links (notifications when a data item changes), hot data links (duplications of changes to a data item), and requests for command execution.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1559",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1559.002"],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1559", "T1559.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Splunk search - Unusual Child Process spawned using DDE exploit",
+        "Splunk search - Unusual Child Process spawned using DDE exploit"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-006"
+    },
+    {
+      "slug": "car-2021-01-007",
+      "carId": "CAR-2021-01-007",
+      "title": "Detecting Tampering of Windows Defender Command Prompt",
+      "description": "In an attempt to avoid detection after compromising a machine, threat actors often try to disable Windows Defender. This is often done using “sc” [service control], a legitimate tool provided by Microsoft for managing services. This action interferes with event detection and may lead to a security event going undetected, thereby potentially leading to further compromise of the network.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1562",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1562.001"],
+          "coverage": "Medium"
+        }
+      ],
+      "techniqueIds": ["T1562", "T1562.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Splunk search - Detecting Tampering of Windows Defender Command Prompt",
+        "Splunk search - Detecting Tampering of Windows Defender Command Prompt"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-007"
+    },
+    {
+      "slug": "car-2021-01-008",
+      "carId": "CAR-2021-01-008",
+      "title": "Disable UAC",
+      "description": "Threat actors often, after compromising a machine, try to disable User Access Control (UAC) to escalate privileges. This is often done by changing the registry key for system policies using “reg.exe”, a legitimate tool provided by Microsoft for modifying the registry via command prompt or scripts. This action interferes with UAC and may enable a threat actor to escalate privileges on the compromised system, thereby allowing further exploitation of the system.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1548",
+          "tactics": ["TA0004"],
+          "subtechniques": ["T1548.002"],
+          "coverage": "Medium"
+        }
+      ],
+      "techniqueIds": ["T1548", "T1548.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Detect disabling of UAC via reg.exe", "Detect disabling of UAC via reg.exe"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-008"
+    },
+    {
+      "slug": "car-2021-01-009",
+      "carId": "CAR-2021-01-009",
+      "title": "Detecting Shadow Copy Deletion or Resize",
+      "description": "After compromising a network of systems, threat actors often try to delete/resize Shadow Copy in an attempt to prevent administrators from restoring the systems to versions present before the attack. This is often done via vssadmin, a legitimate Windows tool to interact with shadow copies. This action is often employed by ransomware, may lead to a failure in recovering systems after an attack. The pseudo code detection focus on Windows Security and Sysmon process creation (4688 and 1). The use of wmic to delete shadow copy generates WMI-Activity Operationnal 5857 event and could generate 5858 (if the operation fails). These 2 EventIDs could be interesting when attackers use wmic without process creation and/or for forensics.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1490",
+          "tactics": ["TA0040"],
+          "subtechniques": [],
+          "coverage": "Low"
+        }
+      ],
+      "techniqueIds": ["T1490"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Splunk Search - Detecting Shadow Copy Deletion or Resize",
+        "Elastic Search - Detecting Shadow Copy Deletion or Resize",
+        "LogPoint Search - Detecting Shadow Copy Deletion or Resize"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-01-009"
+    },
+    {
+      "slug": "car-2021-02-001",
+      "carId": "CAR-2021-02-001",
+      "title": "Webshell-Indicative Process Tree",
+      "description": "A web shell is a web script placed on an openly accessible web server to allow an adversary to use the server as a gatway in a network. As the shell operates, commands will be issued from within the web application into the broader server operating system. This analytic looks for host enumeration executables initiated by any web service that would not normally be executed within that environment.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1505",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1505.003"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1505", "T1505.003"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - Look for suspicious process tree beginning with web service",
+        "Splunk Search - webshell-indicative process tree"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-02-001"
+    },
+    {
+      "slug": "car-2021-02-002",
+      "carId": "CAR-2021-02-002",
+      "title": "Get System Elevation",
+      "description": "Cyber actors frequently escalate to the SYSTEM account after gaining entry to a Windows host, to enable them to carry out various attacks more effectively. Tools such as Meterpreter, Cobalt Strike, and Empire carry out automated steps to \"Get System\", which is the same as switching over to the System user account. Most of these tools utilize multiple techniques to try and attain SYSTEM: in the first technique, they create a named pipe and connects an instance of cmd.exe to it, which allows them to impersonate the security context of cmd.exe, which is SYSTEM. In the second technique, a malicious DLL is injected into a process that is running as SYSTEM; the injected DLL steals the SYSTEM token and applies it where necessary to escalate privileges. This analytic looks for both of these techni",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1548",
+          "tactics": ["TA0004", "TA0005"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1548"],
+      "d3fend": [
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - Meterpreter and Cobalt Strike",
+        "Splunk Search - Meterpreter and Cobalt Strike",
+        "Pseudocode - Empire and PoshC2",
+        "Splunk Search - Empire and PoshC2"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-02-002"
+    },
+    {
+      "slug": "car-2021-04-001",
+      "carId": "CAR-2021-04-001",
+      "title": "Common Windows Process Masquerading",
+      "description": "[Masquerading (T1036)](https://attack.mitre.org/techniques/T1036/) is defined by ATT&CK as follows: \"Masquerading occurs when the name or location of an object, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation. This may include manipulating file metadata, tricking users into misidentifying the file type, and giving legitimate task or service names.\" Malware authors often use this technique to hide malicious executables behind legitimate Windows executable names (e.g. `lsass.exe`, `svchost.exe`, etc). There are several sub-techniques, but this analytic focuses on [Match Legitimate Name or Location](https://attack.mitre.org/techniques/T1036/005/) only. **Analytic Methodology** With process monitoring, hunt for processes matching these criteri",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1036",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1036.005"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1036", "T1036.005"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Pseudocode - Common Windows Process Masquerading",
+        "Splunk Search - Common Windows Process Masquerading"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-04-001"
+    },
+    {
+      "slug": "car-2021-05-001",
+      "carId": "CAR-2021-05-001",
+      "title": "Attempt To Add Certificate To Untrusted Store",
+      "description": "Adversaries may add their own root certificate to the certificate store, to cause the web browser to trust that certificate and not display a security warning when it encounters the previously unseen certificate. This action may be the precursor to malicious activity.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1553",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1553.004"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1553", "T1553.004"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Splunk code", "Pseudocode – detect attempts to add a certificate to a certificate store"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-001"
+    },
+    {
+      "slug": "car-2021-05-002",
+      "carId": "CAR-2021-05-002",
+      "title": "Batch File Write to System32",
+      "description": "While batch files are not inherently malicious, it is uncommon to see them created after OS installation, especially in the Windows directory. This analytic looks for the suspicious activity of a batch file being created within the C:\\Windows\\System32 directory tree. There will be only occasional false positives due to administrator actions.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1204",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1204.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1204", "T1204.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – Batch file created in the Windows system32 directory tree", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-002"
+    },
+    {
+      "slug": "car-2021-05-003",
+      "carId": "CAR-2021-05-003",
+      "title": "BCDEdit Failure Recovery Modification",
+      "description": "This search looks for flags passed to bcdedit.exe modifications to the built-in Windows error recovery boot configurations. This is typically used by ransomware to prevent recovery.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1490",
+          "tactics": ["TA0040"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1490"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        },
+        {
+          "id": "D3-PLA",
+          "label": "Process Lineage Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – detect attempts to add a certificate to a certificate store", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-003"
+    },
+    {
+      "slug": "car-2021-05-004",
+      "carId": "CAR-2021-05-004",
+      "title": "BITS Job Persistence",
+      "description": "The following query identifies Microsoft Background Intelligent Transfer Service utility `bitsadmin.exe` scheduling a BITS job to persist on an endpoint. The query identifies the parameters used to create, resume or add a file to a BITS job. Typically seen combined in a oneliner or ran in sequence. If identified, review the BITS job created and capture any files written to disk. It is possible for BITS to be used to upload files and this may require further network data analysis to identify. You can use `bitsadmin /list /verbose` to list out the jobs during investigation.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1197",
+          "tactics": ["TA0005", "TA0003"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1197"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – detect a BITS job being scheduled", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-004"
+    },
+    {
+      "slug": "car-2021-05-005",
+      "carId": "CAR-2021-05-005",
+      "title": "BITSAdmin Download File",
+      "description": "The following query identifies Microsoft Background Intelligent Transfer Service utility `bitsadmin.exe` using the `transfer` parameter to download a remote object. In addition, look for `download` or `upload` on the command-line, the switches are not required to perform a transfer. Capture any files downloaded. Review the reputation of the IP or domain used. Typically once executed, a follow on command will be used to execute the dropped file. Note that the network connection or file modification events related will not spawn or create from `bitsadmin.exe`, but the artifacts will appear in a parallel process of `svchost.exe` with a command-line similar to `svchost.exe -k netsvcs -s BITS`. It's important to review all parallel and child processes to capture any behaviors and artifacts. In ",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1197",
+          "tactics": ["TA0005", "TA0003"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        },
+        {
+          "technique": "T1105",
+          "tactics": ["TA0011"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1197", "T1105"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – detect BITS transfer jobs", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-005"
+    },
+    {
+      "slug": "car-2021-05-006",
+      "carId": "CAR-2021-05-006",
+      "title": "CertUtil Download With URLCache and Split Arguments",
+      "description": "Certutil.exe may download a file from a remote destination using `-urlcache`. This behavior does require a URL to be passed on the command-line. In addition, `-f` (force) and `-split` (Split embedded ASN.1 elements, and save to files) will be used. It is not entirely common for `certutil.exe` to contact public IP space. However, it is uncommon for `certutil.exe` to write files to world writeable paths.\\ During triage, capture any files on disk and review. Review the reputation of the remote IP or domain in question.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1105",
+          "tactics": ["TA0011"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1105"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – CertUtil download", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-006"
+    },
+    {
+      "slug": "car-2021-05-007",
+      "carId": "CAR-2021-05-007",
+      "title": "CertUtil Download With VerifyCtl and Split Arguments",
+      "description": "Certutil.exe may download a file from a remote destination using `-VerifyCtl`. This behavior does require a URL to be passed on the command-line. In addition, `-f` (force) and `-split` (Split embedded ASN.1 elements, and save to files) will be used. It is not entirely common for `certutil.exe` to contact public IP space. \\ During triage, capture any files on disk and review. Review the reputation of the remote IP or domain in question. Using `-VerifyCtl`, the file will either be written to the current working directory or `%APPDATA%\\..\\LocalLow\\Microsoft\\CryptnetUrlCache\\Content\\<hash>`.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1105",
+          "tactics": ["TA0011"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1105"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – CertUtil download with VerifyCtl", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-007"
+    },
+    {
+      "slug": "car-2021-05-008",
+      "carId": "CAR-2021-05-008",
+      "title": "Certutil exe certificate extraction",
+      "description": "This search looks for arguments to certutil.exe indicating the manipulation or extraction of Certificate. This certificate can then be used to sign new authentication tokens specially inside Federated environments such as Windows ADFS.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1606",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1606.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1606", "T1606.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – CertUtil certificate extraction", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-008"
+    },
+    {
+      "slug": "car-2021-05-009",
+      "carId": "CAR-2021-05-009",
+      "title": "CertUtil With Decode Argument",
+      "description": "CertUtil.exe may be used to `encode` and `decode` a file, including PE and script code. Encoding will convert a file to base64 with `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----` tags. Malicious usage will include decoding a encoded file that was downloaded. Once decoded, it will be loaded by a parallel process. Note that there are two additional command switches that may be used - `encodehex` and `decodehex`. Similarly, the file will be encoded in HEX and later decoded for further execution. During triage, identify the source of the file being decoded. Review its contents or execution behavior for further analysis.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1140",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1140"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – CertUtil with Decode Argument", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-009"
+    },
+    {
+      "slug": "car-2021-05-010",
+      "carId": "CAR-2021-05-010",
+      "title": "Create local admin accounts using net exe",
+      "description": "This search looks for the creation of local administrator accounts using net.exe.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1136",
+          "tactics": ["TA0003"],
+          "subtechniques": ["T1136.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1136", "T1136.001"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – CertUtil certificate extraction", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-010"
+    },
+    {
+      "slug": "car-2021-05-011",
+      "carId": "CAR-2021-05-011",
+      "title": "Create Remote Thread into LSASS",
+      "description": "Actors may create a remote thread into the LSASS service as part of a workflow to dump credentials.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1003",
+          "tactics": ["TA0006"],
+          "subtechniques": ["T1003.001"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1003", "T1003.001"],
+      "d3fend": [
+        {
+          "id": "D3-SCA",
+          "label": "System Call Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – Remote thread creation into LSASS", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-011"
+    },
+    {
+      "slug": "car-2021-05-012",
+      "carId": "CAR-2021-05-012",
+      "title": "Create Service In Suspicious File Path",
+      "description": "This detection is to identify a creation of \"user mode service\" where the service file path is located in non-common service folder in windows.",
+      "domain": "Analytic",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1569",
+          "tactics": ["TA0002"],
+          "subtechniques": ["T1569.001", "T1569.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1569", "T1569.001", "T1569.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": ["Pseudocode – Service in Suspicious File Path", "Splunk code"],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-05-012"
+    },
+    {
+      "slug": "car-2021-11-001",
+      "carId": "CAR-2021-11-001",
+      "title": "Registry Edit with Creation of SafeDllSearchMode Key Set to 0",
+      "description": "Detection of creation of registry key HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\SafeDllSearchMode. The key SafeDllSearchMode, if set to 0, will block the Windows mechanism for the search DLL order and adversaries may execute their own malicious dll.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1574",
+          "tactics": ["TA0003", "TA0004", "TA0005"],
+          "subtechniques": ["T1574.001"],
+          "coverage": "Medium"
+        },
+        {
+          "technique": "T1112",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Medium"
+        }
+      ],
+      "techniqueIds": ["T1574", "T1574.001", "T1112"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Creation of SafeDllSearchMode",
+        "Splunk Search - Creation of SafeDllSearchMode",
+        "Elastic Search - Creation of SafeDllSearchMode",
+        "LogPoint Search - Creation of SafeDllSearchMode"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-11-001"
+    },
+    {
+      "slug": "car-2021-11-002",
+      "carId": "CAR-2021-11-002",
+      "title": "Registry Edit with Modification of Userinit, Shell or Notify",
+      "description": "Detection of modification of the registry key values of `Notify`, `Userinit`, and `Shell` located in `HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\` and `HKEY_LOCAL_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\`. When a user logs on, the Registry key values of `Notify`, `Userinit` and `Shell` are used to load dedicated Windows component. Attackers may insert malicious payload following the legitimate value to launch a malicious payload.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1547",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1547.004"],
+          "coverage": "Medium"
+        },
+        {
+          "technique": "T1112",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Medium"
+        }
+      ],
+      "techniqueIds": ["T1547", "T1547.004", "T1112"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Userinit/Shell/Notify Registry Modifications",
+        "Splunk Search - Modification of Userinit, Shell or Notify",
+        "Elastic Search - Modification of Userinit, Shell or Notify",
+        "LogPoint Search - Modification of Userinit, Shell or Notify"
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-11-002"
+    },
+    {
+      "slug": "car-2021-12-001",
+      "carId": "CAR-2021-12-001",
+      "title": "Scheduled Task Creation or Modification Containing Suspicious Scripts, Extensions or User Writable Paths",
+      "description": "Detection of the creation or modification of Scheduled Tasks with a suspicious script, extension or user writable path. Attackers may create or modify Scheduled Tasks for the persistent execution of malicious code. This detection focuses at the same time on EventIDs 4688 and 1 with process creation (SCHTASKS) and EventID 4698, 4702 for Scheduled Task creation/modification event log.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1053",
+          "tactics": ["TA0002", "TA0003", "TA0004"],
+          "subtechniques": ["T1053.005"],
+          "coverage": "Medium"
+        }
+      ],
+      "techniqueIds": ["T1053", "T1053.005"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Creation of Suspicious Scheduled Tasks",
+        "Splunk Search - Scheduled Task creation or modification containing suspicious script, extension or user writable path.",
+        "Elastic Search - Scheduled Task creation or modification containing suspicious script, extension or user writable path.",
+        "LogPoint Search - Scheduled Task creation or modification containing suspicious script, extension or user writable path."
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-12-001"
+    },
+    {
+      "slug": "car-2021-12-002",
+      "carId": "CAR-2021-12-002",
+      "title": "Modification of Default Startup Folder in the Registry Key 'Common Startup'",
+      "description": "Detection of the modification of the registry key `Common Startup` located in `HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\\` and `HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\\`. When a user logs on, any files located in the Startup Folder are launched. Attackers may modify these folders with other files in order to evade detection set on these default folders. This detection focuses on EventIDs 4688 and 1 for process creation and EventID 4657 for the modification of the Registry Keys.",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1547",
+          "tactics": ["TA0003", "TA0004"],
+          "subtechniques": ["T1547.001"],
+          "coverage": "Medium"
+        },
+        {
+          "technique": "T1112",
+          "tactics": ["TA0005"],
+          "subtechniques": [],
+          "coverage": "Medium"
+        }
+      ],
+      "techniqueIds": ["T1547", "T1547.001", "T1112"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Common Startup Registry Key Modification",
+        "Splunk Search - Modification of default Startup Folder in the Registry Key \"Common Startup\"",
+        "Elastic Search - Modification of default Startup Folder in the Registry Key \"Common Startup\"",
+        "LogPoint Search - Modification of default Startup Folder in the Registry Key \"Common Startup\""
+      ],
+      "references": [],
+      "url": "https://car.mitre.org/analytics/CAR-2021-12-002"
+    },
+    {
+      "slug": "car-2022-03-001",
+      "carId": "CAR-2022-03-001",
+      "title": "Disable Windows Event Logging",
+      "description": "Adversaries may disable Windows event logging to limit data that can be leveraged for detections and audits. Windows event logs record user and system activity such as login attempts, process creation, and much more. This data is used by security tools and analysts to generate detections. There are different ways to perform this attack. 1. The first one is to create the Registry Key `HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\MiniNt`. This action will not generate Security EventLog 4657 or Sysmon EventLog 13 because the value of the key remains empty. However, if an attacker uses powershell to perform this attack (and not cmd), a Security EventLog 4663 will be generated (but 4663 generates a lot of noise). 2. The second way is to disable the service EventLog (display name Windows ",
+      "domain": "Host",
+      "platforms": ["Windows"],
+      "analyticTypes": ["TTP"],
+      "techniques": [
+        {
+          "technique": "T1562",
+          "tactics": ["TA0005"],
+          "subtechniques": ["T1562.002"],
+          "coverage": "Moderate"
+        }
+      ],
+      "techniqueIds": ["T1562", "T1562.002"],
+      "d3fend": [
+        {
+          "id": "D3-PSA",
+          "label": "Process Spawn Analysis"
+        }
+      ],
+      "implementations": [
+        "Detection of Disable Windows Event Logging",
+        "Detection of Disable Windows Event Logging",
+        "Detection of Disable Windows Event Logging"
+      ],
+      "references": ["https://ptylu.github.io/content/report/report.html?report=25"],
+      "url": "https://car.mitre.org/analytics/CAR-2022-03-001"
+    }
+  ]
+}
