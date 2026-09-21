@@ -163,7 +163,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Linux IR Triage](https://pranithjain.qzz.io/dfir/linux-triage) (dfir): Bash one-liners for live Linux incident response.
 - [GRC Checklists](https://pranithjain.qzz.io/dfir/grc-checklists) (dfir): Control checklists for NIST CSF, ISO 27001, SOC 2, PCI DSS v4, DPDP 2023, CERT-In, SEBI — plus cross-framework mapper.
 - [Post-Quantum Cryptography](https://pranithjain.qzz.io/dfir/pqc) (dfir): Algorithm profiles, HNDL threat model, crypto-class readiness assessment, and migration checklist.
-- [ATT&CK Navigator](https://pranithjain.qzz.io/dfir/attack-navigator) (dfir): Layered ATT&CK matrix - coverage heatmap, gap analysis.
+- [MITRE ATT&CK Navigator](https://pranithjain.qzz.io/dfir/attack-navigator) (dfir): Layered ATT&CK matrix - coverage heatmap, gap analysis.
 - [Cyber Kill Chain](https://pranithjain.qzz.io/dfir/kill-chain) (dfir): Lockheed Martin 7-phase kill chain with ATT&CK cross-links.
 - [Diamond Model](https://pranithjain.qzz.io/dfir/diamond) (dfir): Adversary - capability - infrastructure - victim - reference.
 - [OWASP Top 10](https://pranithjain.qzz.io/dfir/owasp) (dfir): Web 2021 - API 2023 - LLM 2025 reference + checklist.
