@@ -4,25 +4,45 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-09-18T15:50:58.000Z",
-  "lastSeen": "2026-09-20T14:50:56.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 7 ransomware groups and 6 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-09-20T06:24:14.000Z",
+  "lastSeen": "2026-09-21T19:23:38.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 6 ransomware groups and 6 countries.",
   "frequency": [
-    {
-      "date": "2026-09-18",
-      "count": 3
-    },
-    {
-      "date": "2026-09-19",
-      "count": 2
-    },
     {
       "date": "2026-09-20",
       "count": 3
+    },
+    {
+      "date": "2026-09-21",
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "kyyba-com-4077",
+      "title": "kyyba.com — claimed by unsafe",
+      "pubDate": "2026-09-21T19:23:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "telrad-networks-8af8",
+      "title": "Telrad Networks — claimed by qilin",
+      "pubDate": "2026-09-21T17:22:14.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hyvision-system-inc-b17c",
+      "title": "HyVision System. Inc — claimed by metaencryptor",
+      "pubDate": "2026-09-21T13:05:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "visual-intelligence-inc-cc59",
+      "title": "Visual Intelligence, Inc. — claimed by metaencryptor",
+      "pubDate": "2026-09-21T13:04:07.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "tek-spb-c54c",
@@ -40,44 +60,32 @@
       "slug": "towill-abdd",
       "title": "TOWILL — claimed by bravox",
       "pubDate": "2026-09-20T06:24:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "schneider-s-computing-1764",
-      "title": "Schneider’s Computing — claimed by arcusmedia",
-      "pubDate": "2026-09-19T16:53:54.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "voltgames-io-79c2",
-      "title": "voltgames.io — claimed by unsafe",
-      "pubDate": "2026-09-19T16:20:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "quest-group-a302",
-      "title": "Quest Group — claimed by anubis",
-      "pubDate": "2026-09-18T23:55:10.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "inter-venezuela-s-largest-internet-provider-39cd",
-      "title": "Inter (Venezuela's largest internet provider) — claimed by n0n",
-      "pubDate": "2026-09-18T19:51:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "kit-e-jp-6a5f",
-      "title": "kit-e.jp — claimed by auditteam",
-      "pubDate": "2026-09-18T15:50:58.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "unsafe",
+      "name": "unsafe",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "auditteam",
       "name": "auditteam",
-      "weight": 2
+      "weight": 1
     },
     {
       "type": "group",
@@ -89,30 +97,6 @@
       "type": "group",
       "slug": "bravox",
       "name": "bravox",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "arcusmedia",
-      "name": "arcusmedia",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "unsafe",
-      "name": "unsafe",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "anubis",
-      "name": "anubis",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "n0n",
-      "name": "n0n",
       "weight": 1
     }
   ],

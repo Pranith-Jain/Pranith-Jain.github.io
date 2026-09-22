@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-18T23:55:10.000Z",
-  "lastSeen": "2026-09-18T23:55:10.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "firstSeen": "2026-09-21T18:22:50.000Z",
+  "lastSeen": "2026-09-21T18:22:50.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
-      "date": "2026-09-18",
+      "date": "2026-09-21",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "quest-group-a302",
-      "title": "Quest Group — claimed by anubis",
-      "pubDate": "2026-09-18T23:55:10.000Z"
+      "slug": "summa-gold-7ca6",
+      "title": "Summa Gold — claimed by anubis",
+      "pubDate": "2026-09-21T18:22:50.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "quest-group-a302",
-      "victim": "Quest Group — claimed by anubis",
-      "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-09-18T23:55:10.000Z"
+      "id": "summa-gold-7ca6",
+      "victim": "Summa Gold — claimed by anubis",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-21T18:22:50.000Z"
     }
   ]
 }

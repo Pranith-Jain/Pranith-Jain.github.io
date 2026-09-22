@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-in-hpe-aruba-edgeconnect-sd-wan-exp-dbdfde3d",
+  "title": "Critical Vulnerabilities in HPE Aruba EdgeConnect SD-WAN Exploitable",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-hpe-aruba-edgeconnect-sd-wan-exp-dbdfde3d?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-hpe-aruba-edgeconnect-sd-wan-exp-dbdfde3d",
+  "pubDate": "2026-09-16T17:47:12.000Z",
+  "sourceCount": 5,
+  "categories": ["5 Sources"],
+  "description": "HPE Networking has disclosed critical vulnerabilities in its EdgeConnect SD-WAN Gateways and Orchestrator, with CVSS scores up to 9.9.",
+  "sizeBytes": 134
+}

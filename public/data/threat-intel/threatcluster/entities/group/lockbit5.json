@@ -4,15 +4,11 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-18T21:48:40.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-21T06:10:58.000Z",
   "lastSeen": "2026-09-21T06:10:58.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-18",
-      "count": 2
-    },
     {
       "date": "2026-09-21",
       "count": 1
@@ -24,18 +20,6 @@
       "slug": "siinqeebank-com-b271",
       "title": "siinqeebank.com — claimed by lockbit5",
       "pubDate": "2026-09-21T06:10:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hygear-com-1d04",
-      "title": "hygear.com — claimed by lockbit5",
-      "pubDate": "2026-09-18T21:49:22.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "forus-cl-12f4",
-      "title": "forus.cl — claimed by lockbit5",
-      "pubDate": "2026-09-18T21:48:40.000Z"
     }
   ],
   "relatedEntities": [
@@ -43,18 +27,6 @@
       "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
       "weight": 1
     }
   ],
@@ -66,20 +38,6 @@
       "sector": "Financial Services",
       "country": "SO",
       "pubDate": "2026-09-21T06:10:58.000Z"
-    },
-    {
-      "id": "hygear-com-1d04",
-      "victim": "hygear.com — claimed by lockbit5",
-      "sector": "Healthcare",
-      "country": "DE",
-      "pubDate": "2026-09-18T21:49:22.000Z"
-    },
-    {
-      "id": "forus-cl-12f4",
-      "victim": "forus.cl — claimed by lockbit5",
-      "sector": "Professional Services",
-      "country": "CL",
-      "pubDate": "2026-09-18T21:48:40.000Z"
     }
   ]
 }

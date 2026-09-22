@@ -4,17 +4,33 @@
   "name": "nightspire",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 3,
   "firstSeen": "2026-09-20T06:40:26.000Z",
-  "lastSeen": "2026-09-20T06:40:26.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-21T18:43:28.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-20",
       "count": 1
+    },
+    {
+      "date": "2026-09-21",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "360-consulenza-s-r-l-6bb3",
+      "title": "360 Consulenza S.r.l. — claimed by nightspire",
+      "pubDate": "2026-09-21T18:43:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "spo-schools-464c",
+      "title": "Spo**** Schools — claimed by nightspire",
+      "pubDate": "2026-09-21T18:43:08.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "great-bay-bio-a128",
@@ -25,6 +41,18 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
       "weight": 1
@@ -32,6 +60,20 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "360-consulenza-s-r-l-6bb3",
+      "victim": "360 Consulenza S.r.l. — claimed by nightspire",
+      "sector": "Professional Services",
+      "country": "IT",
+      "pubDate": "2026-09-21T18:43:28.000Z"
+    },
+    {
+      "id": "spo-schools-464c",
+      "victim": "Spo**** Schools — claimed by nightspire",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-21T18:43:08.000Z"
+    },
     {
       "id": "great-bay-bio-a128",
       "victim": "Great Bay Bio — claimed by nightspire",
