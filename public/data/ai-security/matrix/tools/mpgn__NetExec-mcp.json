@@ -7,27 +7,27 @@
   "description": "NetExec MCP",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-21T08:59:48Z",
+  "checkedAt": "2026-09-22T08:35:26Z",
   "pushedAt": "2026-08-31",
-  "daysIdle": 15,
+  "daysIdle": 16,
   "archived": false,
   "license": "BSD-2-Clause",
   "upstream": {
     "entry": { "category": "mcp", "repo": "mpgn/NetExec-mcp", "scope": ["ad", "network"], "added": "2026-09-12" },
     "derived": {
-      "checked_at": "2026-09-21T08:59:48Z",
+      "checked_at": "2026-09-22T08:35:26Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-31",
-        "days_since_push": 21,
+        "days_since_push": 22,
         "total_commits": 23,
         "last100_span_days": 45,
         "last100_authors": 1,
         "releases": 4,
         "latest_release_at": "2026-09-06",
-        "days_since_release": 15,
-        "days_idle": 15,
+        "days_since_release": 16,
+        "days_idle": 16,
         "relocated": false
       },
       "identity": {

@@ -7,27 +7,27 @@
   "description": "Helping Ethical Hackers use LLMs in 50 Lines of Code or less..",
   "homepage": "https://hackingbuddy.ai/",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-21T08:58:52Z",
+  "checkedAt": "2026-09-22T08:34:36Z",
   "pushedAt": "2026-09-13",
-  "daysIdle": 8,
+  "daysIdle": 9,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "agent", "repo": "ipa-lab/hackingBuddyGPT", "scope": ["network"], "added": "2026-09-12" },
     "derived": {
-      "checked_at": "2026-09-21T08:58:52Z",
+      "checked_at": "2026-09-22T08:34:36Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-13",
-        "days_since_push": 8,
+        "days_since_push": 9,
         "total_commits": 889,
         "last100_span_days": 374,
         "last100_authors": 3,
         "releases": 5,
         "latest_release_at": "2025-08-27",
-        "days_since_release": 390,
-        "days_idle": 8,
+        "days_since_release": 391,
+        "days_idle": 9,
         "relocated": false
       },
       "identity": {

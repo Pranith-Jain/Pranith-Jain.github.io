@@ -7,27 +7,27 @@
   "description": "Sage is a virtual Mythic agent that that uses an AI agentic system to operate Mythic and Mythic agents running on compromised hosts.",
   "homepage": null,
   "added": "2026-09-16",
-  "checkedAt": "2026-09-21T09:02:25Z",
+  "checkedAt": "2026-09-22T08:37:50Z",
   "pushedAt": "2026-08-26",
-  "daysIdle": 26,
+  "daysIdle": 27,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
     "entry": { "category": "agent", "repo": "MythicAgents/Sage", "scope": ["redteam", "ad"], "added": "2026-09-16" },
     "derived": {
-      "checked_at": "2026-09-21T09:02:25Z",
+      "checked_at": "2026-09-22T08:37:50Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-26",
-        "days_since_push": 26,
+        "days_since_push": 27,
         "total_commits": 232,
         "last100_span_days": 45,
         "last100_authors": 1,
         "releases": 2,
         "latest_release_at": "2026-08-26",
-        "days_since_release": 26,
-        "days_idle": 26,
+        "days_since_release": 27,
+        "days_idle": 27,
         "relocated": false
       },
       "identity": {

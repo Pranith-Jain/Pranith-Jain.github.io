@@ -7,27 +7,27 @@
   "description": "Security scanner detecting Python Pickle files performing suspicious actions",
   "homepage": null,
   "added": "2026-09-14",
-  "checkedAt": "2026-09-21T09:01:55Z",
+  "checkedAt": "2026-09-22T08:37:23Z",
   "pushedAt": "2026-09-01",
-  "daysIdle": 20,
+  "daysIdle": 21,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "scanner", "repo": "mmaitre314/picklescan", "scope": ["modfile"], "added": "2026-09-14" },
     "derived": {
-      "checked_at": "2026-09-21T09:01:55Z",
+      "checked_at": "2026-09-22T08:37:23Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-01",
-        "days_since_push": 20,
+        "days_since_push": 21,
         "total_commits": 121,
         "last100_span_days": 1431,
         "last100_authors": 8,
         "releases": 40,
         "latest_release_at": "2026-07-01",
-        "days_since_release": 82,
-        "days_idle": 20,
+        "days_since_release": 83,
+        "days_idle": 21,
         "relocated": false
       },
       "identity": {

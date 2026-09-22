@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-21T12:43:11.377Z",
-  "total": 51,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 2 },
+  "updatedAt": "2026-09-22T11:32:00.014Z",
+  "total": 50,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 2 },
   "items": [
     {
       "id": "aHR0cHM6Ly93",
@@ -65,7 +65,7 @@
       "link": "https://cloudsecurityalliance.org/articles/the-human-machine-partnership-architectures-for-reliable-ai",
       "pubDate": "Tue, 01 Sep 2026 16:39:12 -0700",
       "source": "csa",
-      "description": "&amp;nbsp; Agentic AI for balancing speed, resilience and human authority in automation. Part I: Never Put All Your Eggs In One Basket The Human-In-The-Loop (HITL) concept went through its own history of becoming a milestone for humanity: from the human in the role of a controller to supervisor to model trainer, the human has lately been assigned the role of an ethical or legal safeguard and in its most recent job description it is a collaborator and system governor [Figure 1]. Figur..."
+      "description": "&amp;nbsp; Agentic AI for balancing speed, resilience and human authority in automation. Part I: Never Put All Your Eggs In One Basket The Human-In-The-Loop (HITL) concept went through its own history of becoming a milestone for humanity: from the human in the role of a controller to supervisor to model trainer, the human has lately been assigned the role of an ethical or legal safeguard and in its most recent job description it is a collaborator and system governor [Figure 1]. Figu..."
     },
     {
       "id": "aHR0cHM6Ly91",
@@ -130,14 +130,6 @@
       "pubDate": "Tue, 18 Aug 2026 14:12:20 -0700",
       "source": "csa",
       "description": "An organization may pass its annual cloud security audit with every control in place. Yet days later, a misconfigured storage bucket, an overly permissive IAM policy, or an insecure firewall rule can alter its security posture. The audit report remains unchanged, but the environment no longer reflects what was assessed. This is the challenge with point-in-time audits. They verify security at a single point in time, while dynamic cloud environments require continuous validation. The focu..."
-    },
-    {
-      "id": "aHR0cHM6Ly9j",
-      "title": "We Asked an AI Agent to Close a Linear Ticket. It Dropped a Production Table.",
-      "link": "https://cloudsecurityalliance.org/articles/we-asked-an-ai-agent-to-close-a-linear-ticket-it-dropped-a-production-table",
-      "pubDate": "Tue, 18 Aug 2026 14:11:56 -0700",
-      "source": "csa",
-      "description": "Originally published by Eve Security. A developer opens Cursor, points it at a Linear ticket, and asks it to implement the fix. Cursor loads&amp;nbsp;ticket-work, a small skill that standardizes how the agent pulls context from Linear and closes tickets. It’s the kind of utility a team writes once and then forgets about. The agent reads the ticket and loads the skill. A few tool calls later, the&amp;nbsp;insurance_claims&amp;nbsp;table is gone. Unconfined agent drop — after “Implement RND-1277,”"
     },
     {
       "id": "aHR0cHM6Ly93",
