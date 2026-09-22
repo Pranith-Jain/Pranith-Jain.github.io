@@ -1,5 +1,21 @@
 [
   {
+    "id": "CIAD-2026-0044",
+    "published_at": "2026-09-09",
+    "severity": "high",
+    "cves": [
+      "CVE-2026-81963",
+      "CVE-2026-85880"
+    ],
+    "products_affected": [
+      "Microsoft Windows Microsoft Office Microsoft Dynamics SQL Server Extended Security Updates (ESU) for legacy Microsoft products Azure Apps Developer Tools Open Source Software Server Software"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products that could allow an attacker to gain elevated privileges, obtain sensitive information, execute arbitrary code remotely, bypass security restrictions, conduct spoofing attacks, perform tampering of data or system processes, or cause denial-of-service (DoS) conditions. CVE-2026-81963",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0044",
+    "summary": "HIGH severity · 2 CVEs · affects 1 product",
+    "indexed_at": "2026-09-22T10:00:39.177Z"
+  },
+  {
     "id": "CIAD-2026-0041",
     "published_at": "2026-08-19",
     "severity": "critical",
@@ -247,6 +263,17 @@
     "indexed_at": "2026-08-25T05:15:12.051Z"
   },
   {
+    "id": "CIAD-2026-0020",
+    "published_at": "2026-04-26",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [],
+    "description": "Recent developments in frontier Artificial Intelligence (AI) systems indicate a significant increase in cyber capability maturity. Reported capabilities include the ability to autonomously discover security vulnerabilities in widely used software, analyse source code, plan and chain together multi stage attacks, and carry out simulations of compromising enterprise networks from end to end. These activities can be performed at a speed and scale that previously required teams of skilled human experts. Emerging frontier AI models could demonstrate cyber capabilities such as: Large-scale software analysis for identification of known and zero-day vulnerabilities across extensive codebases. Accelerated exploit development, including proof-of-concept generation for newly disclosed vulnerabilities",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0020",
+    "summary": "HIGH severity",
+    "indexed_at": "2026-09-22T09:58:47.460Z"
+  },
+  {
     "id": "CIAD-2026-0019",
     "published_at": "2026-04-23",
     "severity": "high",
@@ -258,6 +285,51 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0019",
     "summary": "HIGH severity · affects 1 product",
     "indexed_at": "2026-08-25T05:15:00.381Z"
+  },
+  {
+    "id": "CIAD-2026-0017",
+    "published_at": "2026-04-15",
+    "severity": "high",
+    "cves": [],
+    "products_affected": [
+      "Microsoft Windows Microsoft Office Microsoft Dynamics Developer Tools SQL Server System Center Extended Security Updates (ESU) for legacy Microsoft products Azure"
+    ],
+    "description": "Multiple vulnerabilities have been reported in Microsoft products that could allow an attacker to gain elevated privileges, obtain sensitive information, execute arbitrary code remotely, bypass security restrictions, conduct spoofing attacks, perform tampering of data or system processes, or cause denial-of-service (DoS) conditions.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0017",
+    "summary": "HIGH severity · affects 1 product",
+    "indexed_at": "2026-09-22T09:58:33.640Z"
+  },
+  {
+    "id": "CIAD-2026-0016",
+    "published_at": "2026-04-14",
+    "severity": "critical",
+    "cves": [
+      "CVE-2025-42899",
+      "CVE-2025-64775",
+      "CVE-2026-0512",
+      "CVE-2026-24318",
+      "CVE-2026-27672",
+      "CVE-2026-27673",
+      "CVE-2026-27674",
+      "CVE-2026-27675",
+      "CVE-2026-27676",
+      "CVE-2026-27677",
+      "CVE-2026-27678",
+      "CVE-2026-27679",
+      "CVE-2026-27680",
+      "CVE-2026-27681",
+      "CVE-2026-27683",
+      "CVE-2026-34256",
+      "CVE-2026-34257",
+      "CVE-2026-34261",
+      "CVE-2026-34262",
+      "CVE-2026-34264"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; Details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0016",
+    "summary": "CRITICAL severity · 20 CVEs",
+    "indexed_at": "2026-09-22T09:58:31.249Z"
   },
   {
     "id": "CIAD-2026-0015",
@@ -294,7 +366,35 @@
     "description": "Multiple vulnerabilities have been reported in Microsoft Products, which could allow an attacker to gain elevated privileges, obtain sensitive information, conduct remote code execution attacks, bypass security restrictions, conduct spoofing attacks, or cause denial of service conditions.",
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0011",
     "summary": "HIGH severity · affects 1 product",
-    "indexed_at": "2026-09-15T10:20:59.250Z"
+    "indexed_at": "2026-09-22T10:02:54.944Z"
+  },
+  {
+    "id": "CIAD-2026-0012",
+    "published_at": "2026-03-11",
+    "severity": "critical",
+    "cves": [
+      "CVE-2019-17571",
+      "CVE-2025-9230",
+      "CVE-2025-9232",
+      "CVE-2026-0489",
+      "CVE-2026-24309",
+      "CVE-2026-24310",
+      "CVE-2026-24311",
+      "CVE-2026-24313",
+      "CVE-2026-24316",
+      "CVE-2026-24317",
+      "CVE-2026-27684",
+      "CVE-2026-27685",
+      "CVE-2026-27686",
+      "CVE-2026-27687",
+      "CVE-2026-27688",
+      "CVE-2026-27689"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; Details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0012",
+    "summary": "CRITICAL severity · 16 CVEs",
+    "indexed_at": "2026-09-22T09:58:17.093Z"
   },
   {
     "id": "CIAD-2026-0010",
@@ -453,6 +553,37 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0002",
     "summary": "HIGH severity · 1 CVE · affects 1 product",
     "indexed_at": "2026-08-25T05:13:01.030Z"
+  },
+  {
+    "id": "CIAD-2026-0001",
+    "published_at": "2026-01-13",
+    "severity": "high",
+    "cves": [
+      "CVE-2026-0491",
+      "CVE-2026-0492",
+      "CVE-2026-0493",
+      "CVE-2026-0494",
+      "CVE-2026-0495",
+      "CVE-2026-0496",
+      "CVE-2026-0497",
+      "CVE-2026-0498",
+      "CVE-2026-0499",
+      "CVE-2026-0500",
+      "CVE-2026-0501",
+      "CVE-2026-0503",
+      "CVE-2026-0504",
+      "CVE-2026-0506",
+      "CVE-2026-0507",
+      "CVE-2026-0510",
+      "CVE-2026-0511",
+      "CVE-2026-0513",
+      "CVE-2026-0514"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; Details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0001",
+    "summary": "HIGH severity · 19 CVEs",
+    "indexed_at": "2026-09-22T09:58:00.104Z"
   },
   {
     "id": "CIAD-2025-0055",
@@ -707,7 +838,7 @@
     "description": "Multiple vulnerabilities have been reported in SAP products; details of which are provided below:",
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0042",
     "summary": "HIGH severity · 20 CVEs",
-    "indexed_at": "2026-08-25T05:11:44.910Z"
+    "indexed_at": "2026-09-22T10:02:39.429Z"
   },
   {
     "id": "CIAD-2025-0041",
@@ -889,6 +1020,45 @@
     "indexed_at": "2026-06-22T11:45:05.851Z"
   },
   {
+    "id": "CIAD-2025-0029",
+    "published_at": "2025-09-09",
+    "severity": "critical",
+    "cves": [
+      "CVE-2023-27500",
+      "CVE-2023-5072",
+      "CVE-2024-13009",
+      "CVE-2025-22228",
+      "CVE-2025-27428",
+      "CVE-2025-42911",
+      "CVE-2025-42912",
+      "CVE-2025-42913",
+      "CVE-2025-42914",
+      "CVE-2025-42915",
+      "CVE-2025-42916",
+      "CVE-2025-42917",
+      "CVE-2025-42918",
+      "CVE-2025-42920",
+      "CVE-2025-42922",
+      "CVE-2025-42923",
+      "CVE-2025-42925",
+      "CVE-2025-42926",
+      "CVE-2025-42927",
+      "CVE-2025-42929",
+      "CVE-2025-42930",
+      "CVE-2025-42933",
+      "CVE-2025-42938",
+      "CVE-2025-42941",
+      "CVE-2025-42944",
+      "CVE-2025-42958",
+      "CVE-2025-42961"
+    ],
+    "products_affected": [],
+    "description": "Multiple vulnerabilities have been reported in SAP products; details of which are provided below:",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0029",
+    "summary": "CRITICAL severity · 27 CVEs",
+    "indexed_at": "2026-09-22T09:56:46.041Z"
+  },
+  {
     "id": "CIAD-2025-0028",
     "published_at": "2025-08-18",
     "severity": "high",
@@ -1042,6 +1212,24 @@
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0017",
     "summary": "CRITICAL severity · 23 CVEs",
     "indexed_at": "2026-08-25T05:09:12.475Z"
+  },
+  {
+    "id": "CIAD-2025-0016",
+    "published_at": "2025-04-25",
+    "severity": "high",
+    "cves": [
+      "CVE-2019-10172",
+      "CVE-2021-33813",
+      "CVE-2024-57699",
+      "CVE-2025-24970"
+    ],
+    "products_affected": [
+      "Bamboo Data Center and Server Confluence Data Center and Server Jira Data Center and Server Jira Service Management Data Center and Server"
+    ],
+    "description": "Atlassian products are used by software development teams, IT operations, project management professionals and business teams. Some of the products in the Atlassian suite include Jira, Confluence, Trello and Bamboo.",
+    "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2025-0016",
+    "summary": "HIGH severity · 4 CVEs · affects 1 product",
+    "indexed_at": "2026-09-22T09:55:44.294Z"
   },
   {
     "id": "CIAD-2025-0015",
@@ -1521,7 +1709,7 @@
     "description": "Multiple vulnerabilities have been reported in Adobe products which could be exploited by an attacker to bypass security restrictions, execute arbitrary code, gain elevated privileges, cause memory leaks and cause denial-of-service condition on the target system.",
     "detail_url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2024-0040",
     "summary": "CRITICAL severity · 72 CVEs",
-    "indexed_at": "2026-08-25T05:18:07.786Z"
+    "indexed_at": "2026-09-22T10:02:41.323Z"
   },
   {
     "id": "CIAD-2024-0035",
