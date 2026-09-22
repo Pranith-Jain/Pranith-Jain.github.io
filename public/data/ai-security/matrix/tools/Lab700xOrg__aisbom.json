@@ -7,27 +7,27 @@
   "description": "Static security scanner for ML model files — detects pickle bombs, Keras Lambda RCE and GGUF template injection, and generates CycloneDX / SPDX AI-BOMs (AIBOM) as EU AI Act, CRA and FDA §524B evidence.",
   "homepage": "https://www.aisbom.io/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-21T09:01:57Z",
+  "checkedAt": "2026-09-22T08:37:25Z",
   "pushedAt": "2026-09-19",
-  "daysIdle": 2,
+  "daysIdle": 3,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "Lab700xOrg/aisbom", "scope": ["modfile"], "added": "2026-09-14" },
     "derived": {
-      "checked_at": "2026-09-21T09:01:57Z",
+      "checked_at": "2026-09-22T08:37:25Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-19",
-        "days_since_push": 2,
+        "days_since_push": 3,
         "total_commits": 220,
         "last100_span_days": 140,
         "last100_authors": 2,
         "releases": 52,
         "latest_release_at": "2026-09-14",
-        "days_since_release": 7,
-        "days_idle": 2,
+        "days_since_release": 8,
+        "days_idle": 3,
         "relocated": false
       },
       "identity": {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T12:43:11.376Z",
+  "updatedAt": "2026-09-22T11:32:00.013Z",
   "total": 126,
   "bySource": {
     "ghsa": 60,
@@ -20,9 +20,9 @@
   "items": [
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v0.30.0: [Build] Fix DeepGEMM CUDA 12.9 release builds (#57554)",
+      "title": "v0.30.0",
       "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
-      "updated": "2026-09-21T06:14:34Z",
+      "updated": "2026-09-22T05:20:54Z",
       "source": "vllm",
       "kind": "release",
       "cves": [],
@@ -30,9 +30,49 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "langchain-typesafe==0.0.1a3",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-typesafe%3D%3D0.0.1a3",
-      "updated": "2026-09-20T18:54:55Z",
+      "title": "langchain-fireworks==1.6.2",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.6.2",
+      "updated": "2026-09-22T04:44:05Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-deepseek==1.1.1",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-deepseek%3D%3D1.1.1",
+      "updated": "2026-09-22T04:30:12Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-openrouter==0.2.9",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openrouter%3D%3D0.2.9",
+      "updated": "2026-09-22T04:16:13Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-openai==1.6.3",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.3",
+      "updated": "2026-09-21T18:32:46Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-core==1.6.4",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.4",
+      "updated": "2026-09-21T15:51:24Z",
       "source": "langchain",
       "kind": "release",
       "cves": [],
@@ -90,16 +130,6 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "langchain==1.4.2",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.2",
-      "updated": "2026-09-18T17:31:27Z",
-      "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "v1.103.0-dev.2",
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.0-dev.2",
       "updated": "2026-09-18T02:42:04Z",
@@ -130,30 +160,10 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "langchain-typesafe==0.0.1a2",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-typesafe%3D%3D0.0.1a2",
-      "updated": "2026-09-17T22:24:59Z",
-      "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "v0.34.2-rc3",
       "link": "https://github.com/ollama/ollama/releases/tag/v0.34.2-rc3",
       "updated": "2026-09-17T18:49:24Z",
       "source": "ollama",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-typesafe==0.0.1a1",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-typesafe%3D%3D0.0.1a1",
-      "updated": "2026-09-17T18:07:14Z",
-      "source": "langchain",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -224,16 +234,6 @@
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.102.0-rc.2",
       "updated": "2026-09-16T20:29:51Z",
       "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain==1.4.1",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.1",
-      "updated": "2026-09-16T17:07:04Z",
-      "source": "langchain",
       "kind": "release",
       "cves": [],
       "description": ""

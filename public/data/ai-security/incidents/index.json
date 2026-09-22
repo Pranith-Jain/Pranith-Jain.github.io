@@ -1,8 +1,17 @@
 {
-  "updatedAt": "2026-09-21T12:43:11.293Z",
+  "updatedAt": "2026-09-22T11:31:59.918Z",
   "source": "https://incidentdatabase.ai/rss.xml",
   "total": 100,
   "reports": [
+    {
+      "id": "ZDA4MDc0YmMt",
+      "guid": "d08074bc-161c-58ee-b084-9fdaf0fd504a",
+      "title": "No title",
+      "link": "",
+      "pubDate": "Mon, 21 Sep 2026 12:22:47 GMT",
+      "citeId": null,
+      "reportNum": null
+    },
     {
       "id": "7977",
       "guid": "31a130a9-0913-5954-98bf-e280b7caa38c",
@@ -29,6 +38,42 @@
       "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
       "citeId": "1416",
       "reportNum": "7979"
+    },
+    {
+      "id": "7980",
+      "guid": "ae77425c-e723-532b-9cb2-8a5c27e8eb41",
+      "title": "Images of Trump kissing Natalie Harp went viral. They’re AI-generated fakes.",
+      "link": "https://www.washingtonpost.com/business/2026/09/19/images-trump-kissing-natalie-harp-went-viral-theyre-ai-generated-fakes/",
+      "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
+      "citeId": "1699",
+      "reportNum": "7980"
+    },
+    {
+      "id": "7981",
+      "guid": "8482bf71-d4bf-52ca-8495-e23cb4aee05d",
+      "title": "Gemini Hacked Three Companies in First Known Breakout by Google’s AI",
+      "link": "https://www.wsj.com/tech/ai/gemini-hacked-three-companies-in-first-known-breakout-by-googles-ai-5c0baba2",
+      "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
+      "citeId": "1700",
+      "reportNum": "7981"
+    },
+    {
+      "id": "7982",
+      "guid": "b2ab7550-bc01-5c2d-8dc5-856a351c70f1",
+      "title": "Exclusive: US military had close call after using AI for false intelligence report, sources say",
+      "link": "https://edition.cnn.com/2026/09/18/politics/us-military-ai-false-intelligence-china-ship",
+      "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
+      "citeId": "1701",
+      "reportNum": "7982"
+    },
+    {
+      "id": "7983",
+      "guid": "0cbdd812-b2be-5bf1-af3f-2d970254be65",
+      "title": "Russia Aims to Inject Chaos Into Elections, U.S. Intelligence Finds",
+      "link": "https://www.nytimes.com/2026/09/18/us/politics/russia-election-disinformation-us-intelligence.html",
+      "pubDate": "Sat, 19 Sep 2026 00:00:00 GMT",
+      "citeId": "1702",
+      "reportNum": "7983"
     },
     {
       "id": "7975",
@@ -857,51 +902,6 @@
       "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
       "citeId": "1670",
       "reportNum": "7880"
-    },
-    {
-      "id": "7881",
-      "guid": "a6027fbc-f5af-51d4-ab37-d86e0512037c",
-      "title": "Attackers Use LLM Agent for Post-Exploitation After Marimo CVE-2026-39987 Exploit",
-      "link": "https://thehackernews.com/2026/05/attackers-use-llm-agent-for-post.html",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1670",
-      "reportNum": "7881"
-    },
-    {
-      "id": "7882",
-      "guid": "187bde9b-8f71-5f05-b11b-affce87b5e27",
-      "title": "The Warning Was in the Manual: GPT-5.6 Sol and the Deleted Database",
-      "link": "https://paddo.dev/blog/the-warning-was-in-the-manual/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1672",
-      "reportNum": "7882"
-    },
-    {
-      "id": "7883",
-      "guid": "ef19210b-790d-5d46-a0ee-5d3d4fd681be",
-      "title": "OpenAI’s new flagship model deletes files on its own, people keep warning",
-      "link": "https://techcrunch.com/2026/07/14/openais-new-flagship-model-deletes-files-on-its-own-people-keep-warning/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1672",
-      "reportNum": "7883"
-    },
-    {
-      "id": "7884",
-      "guid": "bb77abea-3ba2-5f16-969a-c599dc9a0b82",
-      "title": "OpenAI admits GPT-5.6 occasionally deletes files – but it's an 'honest mistake'",
-      "link": "https://www.theregister.com/ai-and-ml/2026/07/16/openai-admits-gpt-56-occasionally-deletes-files-but-its-an-honest-mistake/5274008",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1672",
-      "reportNum": "7884"
-    },
-    {
-      "id": "7885",
-      "guid": "132d946b-3b65-5f78-a272-371d8387d590",
-      "title": "OpenAI’s GPT-5.6 Sol users report missing files, deleted databases: Here’s what we know",
-      "link": "https://indianexpress.com/article/technology/artificial-intelligence/openai-gpt-5-6-sol-ai-users-missing-files-10787913/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1672",
-      "reportNum": "7885"
     }
   ]
 }

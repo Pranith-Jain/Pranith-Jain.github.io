@@ -7,9 +7,9 @@
   "description": "Agentic LLM Vulnerability Scanner / AI red teaming kit 🧪",
   "homepage": "https://agentic-security.vercel.app",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-21T09:01:38Z",
+  "checkedAt": "2026-09-22T08:37:08Z",
   "pushedAt": "2026-09-11",
-  "daysIdle": 10,
+  "daysIdle": 11,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -20,25 +20,25 @@
       "added": "2026-09-14"
     },
     "derived": {
-      "checked_at": "2026-09-21T09:01:38Z",
+      "checked_at": "2026-09-22T08:37:08Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-11",
-        "days_since_push": 10,
+        "days_since_push": 11,
         "total_commits": 746,
         "last100_span_days": 120,
         "last100_authors": 17,
         "releases": 19,
         "latest_release_at": "2026-06-03",
-        "days_since_release": 110,
-        "days_idle": 10,
+        "days_since_release": 111,
+        "days_idle": 11,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "msoedov/agentic_security",
         "stars": 2004,
-        "forks": 289,
+        "forks": 290,
         "created_at": "2024-04-11",
         "is_fork": false,
         "contributors": 35,

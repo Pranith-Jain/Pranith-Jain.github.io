@@ -7,27 +7,27 @@
   "description": "BloodHound-MCP-AI is integration that connects BloodHound with AI through Model Context Protocol, allowing security professionals to analyze Active Directory attack paths using natural language instead of complex Cypher queries.",
   "homepage": "https://www.MORDAVID.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-21T08:59:43Z",
+  "checkedAt": "2026-09-22T08:35:22Z",
   "pushedAt": "2025-06-02",
-  "daysIdle": 476,
+  "daysIdle": 477,
   "archived": false,
   "license": null,
   "upstream": {
     "entry": { "category": "mcp", "repo": "MorDavid/BloodHound-MCP-AI", "scope": ["ad"], "added": "2026-09-12" },
     "derived": {
-      "checked_at": "2026-09-21T08:59:43Z",
+      "checked_at": "2026-09-22T08:35:22Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-06-02",
-        "days_since_push": 476,
+        "days_since_push": 477,
         "total_commits": 9,
         "last100_span_days": 59,
         "last100_authors": 1,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 476,
+        "days_idle": 477,
         "relocated": false
       },
       "identity": {

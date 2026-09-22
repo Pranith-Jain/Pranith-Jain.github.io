@@ -7,27 +7,27 @@
   "description": "MCP Server for Metasploit",
   "homepage": null,
   "added": "2026-09-14",
-  "checkedAt": "2026-09-21T09:01:20Z",
+  "checkedAt": "2026-09-22T08:36:51Z",
   "pushedAt": "2026-02-05",
-  "daysIdle": 228,
+  "daysIdle": 229,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
     "entry": { "category": "mcp", "repo": "GH05TCREW/MetasploitMCP", "scope": ["network"], "added": "2026-09-14" },
     "derived": {
-      "checked_at": "2026-09-21T09:01:20Z",
+      "checked_at": "2026-09-22T08:36:51Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-02-05",
-        "days_since_push": 228,
+        "days_since_push": 229,
         "total_commits": 34,
         "last100_span_days": 298,
         "last100_authors": 5,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 228,
+        "days_idle": 229,
         "relocated": false
       },
       "identity": {
