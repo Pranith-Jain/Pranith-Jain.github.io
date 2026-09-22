@@ -1,0 +1,131 @@
+{
+  "type": "cyber",
+  "date": "2026-09-21",
+  "threatLevel": "",
+  "executiveSummary": "Overall OT Cyber Threat Level: HIGH Multiple high-risk, OT-relevant advisories and active exploitation reports require immediate attention across energy, water/wastewater, transportation, and manufacturing environments. Pre-authentication gateway RCEs, perimeter device compromises, and direct PLC targeting elevate the likelihood of IT-to-OT pivot and potential process disruption over the next 72 hours. Direct PLC targeting: US agencies report active, AI-assisted exploitation attempts against Siemens S7 PLC families (S7-200/300/400/1200/1500); immediate removal of internet exposure and S7comm monitoring is advised. Security Advisory Iranian-affiliated actors have exploited internet-exposed PLCs from Rockwell, Schneider, and Siemens, manipulating logic and HMIs; several incidents caused operational disruption. Security Advisory NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) with public PoC threatens remote access perimeters used by many CI operators-patch/harden now and hunt for web shells. Security Advisory MikroTik RouterOS exploited (\"MikroTrick\") for unauthenticated SSH and full device takeover; patch to fixed long-term/stable versions, restrict management, and audit for rogue users/scripts. Security Advisory Hitachi Energy FACTS Control Platform (FCP) vulnerabilities in grid stability systems (STATCOM/SVC, series capacitors) could enable remote manipulation; isolate/segment and apply vendor mitigations. ICS Advisory Active exploitation on Linux kernels (KEV) and exploited Cisco ISE NAC flaw reinforce urgency to patch core platforms that mediate identity and edge control. Alert View Article",
+  "keyFindings": [
+    {
+      "title": "Nation-state and hacktivist activity against OT continues",
+      "summary": "targeting of PLCs (Siemens, Rockwell, Schneider) and opportunistic HMI/VNC abuse has produced real operational impacts in critical sectors. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Perimeter devices remain high-value ingress points",
+      "summary": "NetScaler ADC/Gateway pre-auth RCE (public PoC) and MikroTik RouterOS exploited chains facilitate stealthy IT-to-OT pivots. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Grid-relevant ICS vulnerabilities (Hitachi Energy FCP) could affect voltage/reac",
+      "summary": "Grid-relevant ICS vulnerabilities (Hitachi Energy FCP) could affect voltage/reactive power controls if exploited; isolation and authentication hardening are priority. ICS Advisory"
+    },
+    {
+      "title": "Ransomware tradecraft evolves",
+      "summary": "Gunra RaaS and domain-wide GPO weaponization show rapid escalation paths from edge compromise to enterprise paralysis, with risk to any domain-joined OT workstations. Security Advisory View Article"
+    },
+    {
+      "title": "Active Linux kernel exploitation (KEV) and a CVSS 10 Cisco ISE flaw under exploi",
+      "summary": "Active Linux kernel exploitation (KEV) and a CVSS 10 Cisco ISE flaw under exploitation increase the likelihood of identity edge and kernel-level escalations in mixed IT/OT estates. Alert View Article"
+    },
+    {
+      "title": "EV charging and rail technologies show exploitable conditions (remote code execu",
+      "summary": "EV charging and rail technologies show exploitable conditions (remote code execution, unauth control) that could impact transportation and power distribution ecosystems. Vuln Summary Vuln Summary"
+    }
+  ],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 PLCs (200/300/400/1200/1500), Rockwell/Schneider PLCs and HMIs, Hitachi Energy FACTS Control Platform (GWS), NetScaler ADC/Gateway, MikroTik RouterOS, Cisco Identity Services Engine (ISE), OPC UA (Eclipse Milo), EV charging (EVbee, Autel), Frauscher FDS 102, Linux kernel (various distributions)."
+    ],
+    "sectors": [
+      "Energy (generation/transmission and grid stability), Water and Wastewater Systems, Transportation (EV charging, rail), Telecommunications, Critical Manufacturing, and Government Facilities supporting CI operations."
+    ]
+  },
+  "topThreats": [
+    {
+      "title": "Active targeting of Siemens S7 PLCs (AI-assisted scripts)",
+      "action": "",
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-231a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Iranian-affiliated exploitation of PLCs (Rockwell/Schneider/Siemens)",
+      "action": "",
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452)",
+      "action": "",
+      "sources": [
+        {
+          "url": "https://www.jpcert.or.jp/at/2026/at260024.html",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "MikroTik RouterOS actively exploited (\"MikroTrick\")",
+      "action": "",
+      "sources": [
+        {
+          "url": "https://cert.pl/en/posts/2026/09/vulnerabilities-in-mikrotik-routeros-actively-exploited/",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Hitachi Energy FACTS Control Platform (FCP) flaws in grid stability",
+      "action": "",
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-260-03",
+          "label": "ICS Advisory"
+        }
+      ]
+    }
+  ],
+  "threatActors": [],
+  "relevance": "Highest immediate OT risk vectors: internet-exposed PLCs/HMIs, pre-auth gateway RCEs (NetScaler), and exploited perimeter routers (MikroTik) that enable rapid IT-to-OT pivots. Energy grid exposure: Hitachi Energy FACTS Control Platform vulnerabilities could affect voltage/reactive power if reachable. Transportation: EV charging (EVbee/Autel) and rail detection (Frauscher) vulnerabilities increase likelihood of localized service impact if unsegmented. Sector targeting: Water/Wastewater and Energy face persistent hacktivist/state activity against HMIs/PLCs and weak remote access services.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452): patch now; hunt for web shells. Security Advisory",
+        "Cisco ISE critical flaw under active exploitation (CVE-2026-76460): restrict management plane; reimage if compromised. View Article",
+        "MikroTik RouterOS KEV additions (active exploitation): patch and remove WAN management exposure. Alert",
+        "Linux kernel (multiple KEV CVEs): prioritize kernel updates/live-patch on gateways/servers. Alert",
+        "Hitachi Energy FACTS Control Platform (FCP) GWS: auth bypass, traversal, query injection-segment and apply mitigations. ICS Advisory",
+        "Eclipse Milo (OPC UA) authorization bypass/DoS across versions-update stacks and harden endpoint policies. Vuln Summary",
+        "EV charging (EVbee/Autel) and railway detection (Frauscher) flaws-restrict OCPP/brokers, enforce TLS/mTLS, patch firmware. Vuln Summary Vuln Summary"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial access via perimeter devices (T1190), exploitation of public-facing applications and pre-auth RCE on gateways.",
+      "Valid accounts and LOTL: VPN credential abuse, Impacket lateral movement (T1021), WinRM/PowerShell (T1059), GPO/GPT manipulation.",
+      "Protocol abuse: S7comm unauthorized PUT/GET; ENIP/Modbus logic downloads; VNC brute force and HMI tampering.",
+      "Exfiltration via cloud storage and DNS/HTTPS covert channels; MQTT/Matrix C2 over commonly allowed egress."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1021",
+      "T1059"
+    ]
+  },
+  "outlook72h": "Expect opportunistic probing of NetScaler ADC and MikroTik infrastructure to continue; complete patching and access restrictions within 72 hours. Increase detections for S7comm/ENIP mode changes and off-hours PLC write attempts; conduct targeted hunts on internet-exposed asset inventory. Validate backup/restoration for HMI/PLC projects and domain controllers; prepare containment steps for ransomware or policy-abuse scenarios. Engage vendors for ICS patch windows (Hitachi Energy FCP, OPC UA stacks) and deploy interim network compensating controls where patching is deferred.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-76460",
+    "CVE-2026-13348",
+    "CVE-2026-40854"
+  ]
+}

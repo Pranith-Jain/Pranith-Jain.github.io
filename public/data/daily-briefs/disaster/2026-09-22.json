@@ -1,0 +1,135 @@
+{
+  "type": "disaster",
+  "date": "2026-09-22",
+  "overallThreat": "",
+  "executiveSummary": "Catastrophic flash flooding in Nepal continues to drive the global risk picture, with authorities confirming 1,403 fatalities and 6,150 missing amid ongoing recovery operations at hydropower infrastructure. View Article Severe flash flooding across the Navajo Nation (U.S. Southwest) resulted in three deaths, evacuations, and road washouts isolating households and necessitating shelter and relief deliveries. View Article Monsoon flooding and landslides across northern and central Vietnam left at least four dead and inundated more than 16,000 homes; evacuations and transport disruption persist. View Article Typhoon-driven flooding in southeast China prompted mass movement, with nearly 600,000 people evacuated in Fujian amid widespread county-level impacts. View Article Hurricane Lowell caused major disruption in Hawaii, including blocked roads and roughly 30,000 power outages across islands, with localized evacuations reported. View Article Secondary but notable U.S. events include fatal flash flooding at the Grand Canyon (three deaths), regional water rescues and commuter disruption from mid-Atlantic/northeast floods, and California wildfire evacuations affecting ~900 residents. Source Source Source",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "5",
+        "label": "ESCALATE events"
+      },
+      {
+        "value": "5",
+        "label": "MONITOR events"
+      },
+      {
+        "value": "4+",
+        "label": "Countries with priority impacts"
+      },
+      {
+        "value": "600k+",
+        "label": "Evacuations (China, Fujian)"
+      },
+      {
+        "value": "16,000+",
+        "label": "Homes inundated (Vietnam)"
+      },
+      {
+        "value": "30,000",
+        "label": "Customers without power (Hawaii)"
+      },
+      {
+        "value": "1,403",
+        "label": "Confirmed fatalities (Nepal)"
+      },
+      {
+        "value": "6,150",
+        "label": "People missing (Nepal)"
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "title": "Nepal's flash floods constitute the deadliest active event this week, with confi",
+      "summary": "Nepal's flash floods constitute the deadliest active event this week, with confirmed fatalities surpassing 1,400 and thousands still missing, requiring prolonged recovery and family assistance. View Article"
+    },
+    {
+      "title": "Navajo Nation flooding created acute life-safety risks, resulting in three death",
+      "summary": "Navajo Nation flooding created acute life-safety risks, resulting in three deaths, evacuations, isolated communities, and urgent shelter and road repair needs. View Article"
+    },
+    {
+      "title": "Vietnam's floods and landslides affected transport and housing at scale, with 16",
+      "summary": "Vietnam's floods and landslides affected transport and housing at scale, with 16,000+ homes inundated and multiple provinces under strain. View Article"
+    },
+    {
+      "title": "China's southeast saw pre-emptive mass evacuations near coastal and flood-prone ",
+      "summary": "China's southeast saw pre-emptive mass evacuations near coastal and flood-prone areas, reducing immediate casualties but signaling extensive asset protection and relief requirements. View Article"
+    },
+    {
+      "title": "Hurricane Lowell's impacts in Hawaii included widespread outages and blocked tra",
+      "summary": "Hurricane Lowell's impacts in Hawaii included widespread outages and blocked transport routes, complicating response and restoration timelines. View Article"
+    },
+    {
+      "title": "Additional U.S. hazards",
+      "summary": "Grand Canyon flash flooding raised the death toll to three; mid-Atlantic/northeast floods prompted rescues; California's Lucas Fire forced ~900 evacuations. View Article Supporting Report"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Nepal | Catastrophic Flash Floods",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/4a985b913c81092d7af892a576b0b7f0",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "U.S. | Navajo Nation Flash Flooding",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/1c2b6b513bc4920618a0b040d0478950",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Vietnam | Northern & Central Floods/Landslides",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/9e3f3d0af82b62c50b475c88bce3be79",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "China | Typhoon-Driven Mass Evacuations",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/sep/07/typhoon-saudel-mass-evacuations-south-east-china-weather-tracker",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Hawaii (USA) | Hurricane Lowell Impacts",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/9/9/torrential-rains-winds-from-hurricane-lowell-leaves-30000-without-power",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Nepal: Continued search and recovery with difficult terrain access; risk of localized slope instability near damaged hydropower works remains elevated. (Operational caution) Vietnam: Residual river flooding and sporadic landslides possible where soils are saturated; expect rolling transport disruption and debris management needs. (High uncertainty by micro-basin) Navajo Nation (U.S.): Short-notice flash flooding remains possible in storm-favored corridors; prioritize readiness for rapid road closures and shelter activation. (Readiness posture) Hawaii: Gradual utility restoration and debris clearance likely; watch for localized heavy showers complicating work zones. (Recovery operations) China (SE): Post-evacuation returns should be staged with floodplain safety checks and essential service verification. (Phased re-entry) Note: Outlook reflects seasonal patterns and current impact profiles; it is not a deterministic weather forecast.",
+  "regionalTrends": [
+    "South and Southeast Asia: Late-monsoon flooding and landslides remain seasonally elevated, with saturated soils increasing secondary hazard risk (landslips, prolonged inundation).",
+    "Western Pacific: Typhoon-related coastal evacuations and riverine flooding are likely to recur, with rapid shifts in impact footprints across adjacent provinces.",
+    "U.S. Southwest and Intermountain West: Short-fuse flash flood risks persist where terrain funnels runoff (canyons, arroyos), amplifying life-safety concerns. Supporting Report",
+    "Hawaii and Central Pacific: Post-tropical recovery operations may be prolonged by debris clearance and utility restoration in affected islands. Source",
+    "U.S. West: Wildfire evacuations continue episodically where fuels and winds align; public land closures disrupt access and recreation. Source"
+  ]
+}
