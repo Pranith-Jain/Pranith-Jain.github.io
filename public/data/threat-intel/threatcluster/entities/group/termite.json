@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "termite",
+  "name": "termite",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-22T01:44:58.000Z",
+  "lastSeen": "2026-09-22T02:45:36.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-22",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "sealcon-014a",
+      "title": "Sealcon — claimed by termite",
+      "pubDate": "2026-09-22T02:45:36.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "truamerica-multifamily-94ae",
+      "title": "TruAmerica Multifamily — claimed by termite",
+      "pubDate": "2026-09-22T01:45:30.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "thelender-ed01",
+      "title": "theLender — claimed by termite",
+      "pubDate": "2026-09-22T01:44:58.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "sealcon-014a",
+      "victim": "Sealcon — claimed by termite",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-22T02:45:36.000Z"
+    },
+    {
+      "id": "truamerica-multifamily-94ae",
+      "victim": "TruAmerica Multifamily — claimed by termite",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-22T01:45:30.000Z"
+    },
+    {
+      "id": "thelender-ed01",
+      "victim": "theLender — claimed by termite",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-09-22T01:44:58.000Z"
+    }
+  ]
+}

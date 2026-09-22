@@ -5,44 +5,44 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-19T17:24:22.000Z",
-  "lastSeen": "2026-09-20T14:21:12.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "firstSeen": "2026-09-20T14:21:12.000Z",
+  "lastSeen": "2026-09-21T15:12:20.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-19",
+      "date": "2026-09-20",
       "count": 1
     },
     {
-      "date": "2026-09-20",
+      "date": "2026-09-21",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "siddhi-green-excellence-pvt-ltd-db10",
-      "title": "Siddhi Green Excellence Pvt. Ltd — claimed by orova",
-      "pubDate": "2026-09-20T14:21:12.000Z"
+      "slug": "u-s-electrical-services-and-wiedenbach-brown-ec26",
+      "title": "U.S. Electrical Services and Wiedenbach Brown — claimed by moneymessage",
+      "pubDate": "2026-09-21T15:12:20.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "heolis-ee11",
-      "title": "HEOLIS — claimed by zawoo",
-      "pubDate": "2026-09-19T17:24:22.000Z"
+      "slug": "siddhi-green-excellence-pvt-ltd-db10",
+      "title": "Siddhi Green Excellence Pvt. Ltd — claimed by orova",
+      "pubDate": "2026-09-20T14:21:12.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "orova",
-      "name": "orova",
+      "slug": "moneymessage",
+      "name": "moneymessage",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "zawoo",
-      "name": "zawoo",
+      "slug": "orova",
+      "name": "orova",
       "weight": 1
     }
   ],

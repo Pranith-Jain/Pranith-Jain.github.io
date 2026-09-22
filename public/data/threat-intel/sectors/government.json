@@ -1,10 +1,67 @@
 {
   "sector": "government",
   "title": "Government sector brief",
-  "generatedAt": "2026-09-21",
-  "topCount": 0,
-  "preview": "No KEV-flagged CVEs in the current window.",
-  "sizeBytes": 290,
+  "generatedAt": "2026-09-22",
+  "topCount": 8,
+  "preview": "CVE-2026-65400 (critical) leads with priority 89.",
+  "sizeBytes": 2824,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
-  "topThreats": []
+  "topThreats": [
+    {
+      "cveId": "CVE-2026-65400",
+      "title": "An authentication issue was addressed with improved state management. This issue is fixed in macOS Golden Gate 27, macOS",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2024-40766",
+      "title": "An improper access control vulnerability has been identified in the SonicWall SonicOS management access, potentially lea",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-20079",
+      "title": "A vulnerability in the web interface of Cisco Secure Firewall Management Center (FMC) Software could allow an unauthenti",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 10; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-87491",
+      "title": "Out of bounds write in V8 in Google Chrome prior to 153.0.8010.36 allowed a remote attacker to execute arbitrary code in",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-85046",
+      "title": "Type confusion in V8 in Google Chrome prior to 152.0.7977.82 allowed a remote attacker to execute arbitrary code inside ",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-7273",
+      "title": "A stack-based buffer overflow vulnerability in the CGI program of Zyxel GS1900-48HPv2 firmware versions through 2.90(ABT",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2023-43000",
+      "title": "A use-after-free issue was addressed with improved memory management. This issue is fixed in macOS Ventura 13.5, iOS 16.",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-53266",
+      "title": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: bridge: make ebt_snat ARP rewrite writab",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    }
+  ]
 }

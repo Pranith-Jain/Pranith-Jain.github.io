@@ -4,114 +4,57 @@
   "name": "n0n",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-18T15:26:08.000Z",
-  "lastSeen": "2026-09-20T02:51:07.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 4 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-20T02:51:07.000Z",
+  "lastSeen": "2026-09-22T01:51:38.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-18",
-      "count": 4
+      "date": "2026-09-20",
+      "count": 1
     },
     {
-      "date": "2026-09-20",
+      "date": "2026-09-22",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "finsoft-kolibri-retail-back-office-software-ddb3",
+      "title": "FinSoft (Kolibri retail back-office software) — claimed by n0n",
+      "pubDate": "2026-09-22T01:51:38.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "fanatics-global-sports-commerce-platform-8512",
       "title": "Fanatics (global sports commerce platform) — claimed by n0n",
       "pubDate": "2026-09-20T02:51:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "inter-venezuela-s-largest-internet-provider-39cd",
-      "title": "Inter (Venezuela's largest internet provider) — claimed by n0n",
-      "pubDate": "2026-09-18T19:51:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "paypal-support-operations-transcom-worldwide-1d4d",
-      "title": "PayPal support operations (Transcom WorldWide) — claimed by n0n",
-      "pubDate": "2026-09-18T15:27:18.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ministry-of-education-argentina-fbeb",
-      "title": "Ministry of Education — Argentina — claimed by n0n",
-      "pubDate": "2026-09-18T15:26:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "argentem-creek-partners-investment-firm-6160",
-      "title": "Argentem Creek Partners (investment firm) — claimed by n0n",
-      "pubDate": "2026-09-18T15:26:08.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 2
-    },
-    {
-      "type": "sector",
       "slug": "retail-e-commerce",
       "name": "Retail & E-Commerce",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
-      "weight": 1
+      "weight": 2
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "finsoft-kolibri-retail-back-office-software-ddb3",
+      "victim": "FinSoft (Kolibri retail back-office software) — claimed by n0n",
+      "sector": "Retail & E-Commerce",
+      "country": "UZ",
+      "pubDate": "2026-09-22T01:51:38.000Z"
+    },
     {
       "id": "fanatics-global-sports-commerce-platform-8512",
       "victim": "Fanatics (global sports commerce platform) — claimed by n0n",
       "sector": "Retail & E-Commerce",
       "country": "US",
       "pubDate": "2026-09-20T02:51:07.000Z"
-    },
-    {
-      "id": "inter-venezuela-s-largest-internet-provider-39cd",
-      "victim": "Inter (Venezuela's largest internet provider) — claimed by n0n",
-      "sector": "Technology",
-      "country": "VE",
-      "pubDate": "2026-09-18T19:51:07.000Z"
-    },
-    {
-      "id": "paypal-support-operations-transcom-worldwide-1d4d",
-      "victim": "PayPal support operations (Transcom WorldWide) — claimed by n0n",
-      "sector": "Financial Services",
-      "country": "SE",
-      "pubDate": "2026-09-18T15:27:18.000Z"
-    },
-    {
-      "id": "ministry-of-education-argentina-fbeb",
-      "victim": "Ministry of Education — Argentina — claimed by n0n",
-      "sector": "Government & Defense",
-      "country": "AR",
-      "pubDate": "2026-09-18T15:26:43.000Z"
-    },
-    {
-      "id": "argentem-creek-partners-investment-firm-6160",
-      "victim": "Argentem Creek Partners (investment firm) — claimed by n0n",
-      "sector": "Financial Services",
-      "country": "US",
-      "pubDate": "2026-09-18T15:26:08.000Z"
     }
   ]
 }

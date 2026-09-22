@@ -4,34 +4,28 @@
   "name": "play",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-18T20:43:11.000Z",
-  "lastSeen": "2026-09-18T20:44:20.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-21T22:16:19.000Z",
+  "lastSeen": "2026-09-21T22:16:54.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-18",
-      "count": 3
+      "date": "2026-09-21",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "vista-plastic-solutions-d4c5",
-      "title": "Vista Plastic Solutions — claimed by play",
-      "pubDate": "2026-09-18T20:44:20.000Z"
+      "slug": "metallco-91e8",
+      "title": "Metallco — claimed by play",
+      "pubDate": "2026-09-21T22:16:54.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "inglewood-golf-47af",
-      "title": "Inglewood Golf — claimed by play",
-      "pubDate": "2026-09-18T20:43:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "barrett-mahony-consulting-engineers-654c",
-      "title": "Barrett Mahony Consulting Engineers — claimed by play",
-      "pubDate": "2026-09-18T20:43:11.000Z"
+      "slug": "hurley-6c8c",
+      "title": "Hurley — claimed by play",
+      "pubDate": "2026-09-21T22:16:19.000Z"
     }
   ],
   "relatedEntities": [
@@ -43,39 +37,26 @@
     },
     {
       "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "other",
+      "name": "Other",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "vista-plastic-solutions-d4c5",
-      "victim": "Vista Plastic Solutions — claimed by play",
+      "id": "metallco-91e8",
+      "victim": "Metallco — claimed by play",
       "sector": "Manufacturing",
-      "country": "CA",
-      "pubDate": "2026-09-18T20:44:20.000Z"
+      "country": "BR",
+      "pubDate": "2026-09-21T22:16:54.000Z"
     },
     {
-      "id": "inglewood-golf-47af",
-      "victim": "Inglewood Golf — claimed by play",
-      "sector": "Hospitality",
-      "country": "CA",
-      "pubDate": "2026-09-18T20:43:47.000Z"
-    },
-    {
-      "id": "barrett-mahony-consulting-engineers-654c",
-      "victim": "Barrett Mahony Consulting Engineers — claimed by play",
-      "sector": "Professional Services",
-      "country": "IE",
-      "pubDate": "2026-09-18T20:43:11.000Z"
+      "id": "hurley-6c8c",
+      "victim": "Hurley — claimed by play",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-09-21T22:16:19.000Z"
     }
   ]
 }

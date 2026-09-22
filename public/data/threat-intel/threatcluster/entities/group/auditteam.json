@@ -4,19 +4,11 @@
   "name": "auditteam",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-18T15:50:21.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-20T14:50:19.000Z",
   "lastSeen": "2026-09-20T14:50:56.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 2 sectors and 3 countries.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-09-18",
-      "count": 2
-    },
-    {
-      "date": "2026-09-19",
-      "count": 1
-    },
     {
       "date": "2026-09-20",
       "count": 2
@@ -34,38 +26,20 @@
       "slug": "st-co-96bb",
       "title": "st***co — claimed by auditteam",
       "pubDate": "2026-09-20T14:50:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "td-up-be63",
-      "title": "td***up — claimed by auditteam",
-      "pubDate": "2026-09-19T10:50:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "kit-e-jp-6a5f",
-      "title": "kit-e.jp — claimed by auditteam",
-      "pubDate": "2026-09-18T15:50:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "paid-victim-192eb2b6ad7b98d9-5852",
-      "title": "Paid Victim 192EB2B6AD7B98D9 — claimed by auditteam",
-      "pubDate": "2026-09-18T15:50:21.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 3
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 2
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
@@ -83,27 +57,6 @@
       "sector": "Not Found",
       "country": "IT",
       "pubDate": "2026-09-20T14:50:19.000Z"
-    },
-    {
-      "id": "td-up-be63",
-      "victim": "td***up — claimed by auditteam",
-      "sector": "Not Found",
-      "country": "IT",
-      "pubDate": "2026-09-19T10:50:28.000Z"
-    },
-    {
-      "id": "kit-e-jp-6a5f",
-      "victim": "kit-e.jp — claimed by auditteam",
-      "sector": "Technology",
-      "country": "JP",
-      "pubDate": "2026-09-18T15:50:58.000Z"
-    },
-    {
-      "id": "paid-victim-192eb2b6ad7b98d9-5852",
-      "victim": "Paid Victim 192EB2B6AD7B98D9 — claimed by auditteam",
-      "sector": "Not Found",
-      "country": "RU",
-      "pubDate": "2026-09-18T15:50:21.000Z"
     }
   ]
 }

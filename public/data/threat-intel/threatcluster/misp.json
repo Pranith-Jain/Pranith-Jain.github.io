@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-21T10:59:31.923Z",
-  "eventCount": 9,
+  "syncedAt": "2026-09-22T10:11:44.668Z",
+  "eventCount": 7,
   "events": [
     {
       "uuid": "c3fe4803-f7f9-5795-81c2-d11f0ee11611",
@@ -24,23 +24,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "7fb152ac-1e3f-50c8-a3bd-703cef7ec47f",
-      "info": "Critical Zero-Day Vulnerability in Cisco Secure Email Gateway Exploited",
-      "date": "2026-09-14",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1789408447",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:ransomware",
-        "type:vulnerability",
-        "misp-galaxy:ransomware=\"Conti\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "22b843e4-f5e4-5d06-9778-3927873531d4",
       "info": "Critical WSO2 API Manager Vulnerability Under Active Exploitation",
       "date": "2026-09-16",
@@ -51,49 +34,12 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "d4e49acc-37d7-590f-ba19-005aa9114353",
-      "info": "Red Heron Exploits Gitea RCE Flaw in Multinational Campaign",
-      "date": "2026-09-14",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1789408446",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability"
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "d8c1498b-8e76-525e-8a75-27a52d57424a",
-      "info": "AI-Driven Cyber Attacks Targeting Critical Infrastructure and Data Security",
-      "date": "2026-09-14",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789401743",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "23fc7acd-2005-5972-bb94-8c886afcc70a",
       "info": "Critical Vulnerability in Issabel Framework Allows Remote Code Execution",
       "date": "2026-09-16",
       "analysis": "2",
       "threat_level_id": "2",
       "timestamp": "1789580008",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "dd8ce36f-96f8-5dd3-91a9-f1a48824e6b4",
-      "info": "Critical RCE Vulnerability in n8n Disclosed (CVE-2025-68613)",
-      "date": "2026-09-14",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789408446",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
@@ -138,6 +84,26 @@
         "type:vulnerability",
         "misp-galaxy:ransomware=\"Lockbit\""
       ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "712ecff1-4fd3-50ef-a9b4-69ccb7dc53f8",
+      "info": "EU Parliament Calls for Stronger Response to Russian Hybrid Attacks",
+      "date": "2026-09-16",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789576223",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "0a8fe55c-1015-5d3b-a543-2b3a9b226fb4",
+      "info": "APT36 Launches Operation RapidRust with New Rust Malware Tools",
+      "date": "2026-09-18",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1789750528",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
       "orgc": "ThreatCluster"
     }
   ]

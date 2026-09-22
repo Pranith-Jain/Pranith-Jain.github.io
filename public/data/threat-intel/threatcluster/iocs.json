@@ -1,11 +1,485 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-21T10:59:30Z",
-  "syncedAt": "2026-09-21T10:59:30.357Z",
+  "generatedAt": "2026-09-22T10:11:41Z",
+  "syncedAt": "2026-09-22T10:11:41.751Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 304,
+  "count": 329,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "bedotiq.net",
+      "confidence": "high",
+      "reason": "Identified as a C2 server used by the malware",
+      "first_seen": "2026-09-21T23:31:21+00:00",
+      "last_seen": "2026-09-21T23:31:21+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Hackread",
+          "url": "https://hackread.com/clickfix-chainscript-rat-fake-spotify-teams-installers/",
+          "pub_date": "2026-09-21T23:31:21+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "shift-api-control.com",
+      "confidence": "high",
+      "reason": "Identified as a C2 server used by the malware",
+      "first_seen": "2026-09-21T23:31:21+00:00",
+      "last_seen": "2026-09-21T23:31:21+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Hackread",
+          "url": "https://hackread.com/clickfix-chainscript-rat-fake-spotify-teams-installers/",
+          "pub_date": "2026-09-21T23:31:21+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "jppost-hi.top",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as a FAKESPY host in a VirusTotal lookup",
+      "first_seen": "2026-09-21T21:06:21+00:00",
+      "last_seen": "2026-09-21T21:06:21+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:2316822026530859145&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-21T21:06:21+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "it.api.npmjs.org",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T21:03:59.851622+00:00",
+      "last_seen": "2026-09-21T21:03:59.851622+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "research.jfrog.com",
+          "url": "https://research.jfrog.com/post/equation-of-compromise/",
+          "pub_date": "2026-09-21T21:03:59.851622+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "phones.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T21:03:59.851622+00:00",
+      "last_seen": "2026-09-21T21:03:59.851622+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "research.jfrog.com",
+          "url": "https://research.jfrog.com/post/equation-of-compromise/",
+          "pub_date": "2026-09-21T21:03:59.851622+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "repositories.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T21:03:59.851622+00:00",
+      "last_seen": "2026-09-21T21:03:59.851622+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "research.jfrog.com",
+          "url": "https://research.jfrog.com/post/equation-of-compromise/",
+          "pub_date": "2026-09-21T21:03:59.851622+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "api.telegram.org.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T18:33:44+00:00",
+      "last_seen": "2026-09-21T18:33:44+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "News.Ycombinator",
+          "url": "https://safedep.io/mathmain-encrypted-loader/",
+          "pub_date": "2026-09-21T18:33:44+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "diffiehellman.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T18:33:44+00:00",
+      "last_seen": "2026-09-21T18:33:44+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "News.Ycombinator",
+          "url": "https://safedep.io/mathmain-encrypted-loader/",
+          "pub_date": "2026-09-21T18:33:44+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "ethers.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T18:33:44+00:00",
+      "last_seen": "2026-09-21T18:33:44+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "News.Ycombinator",
+          "url": "https://safedep.io/mathmain-encrypted-loader/",
+          "pub_date": "2026-09-21T18:33:44+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "execsync.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T18:33:44+00:00",
+      "last_seen": "2026-09-21T18:33:44+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "News.Ycombinator",
+          "url": "https://safedep.io/mathmain-encrypted-loader/",
+          "pub_date": "2026-09-21T18:33:44+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "fs.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T18:33:44+00:00",
+      "last_seen": "2026-09-21T18:33:44+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "News.Ycombinator",
+          "url": "https://safedep.io/mathmain-encrypted-loader/",
+          "pub_date": "2026-09-21T18:33:44+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "graph.js.it",
+      "confidence": "high",
+      "reason": "Domain with suspicious TLD likely registered by attacker for malicious purposes",
+      "first_seen": "2026-09-21T18:33:44+00:00",
+      "last_seen": "2026-09-21T18:33:44+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "News.Ycombinator",
+          "url": "https://safedep.io/mathmain-encrypted-loader/",
+          "pub_date": "2026-09-21T18:33:44+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "analysis-id-lfg.info",
+      "confidence": "high",
+      "reason": "Listed as a C2 domain for ErrTraffic malware",
+      "first_seen": "2026-09-21T18:01:30.115223+00:00",
+      "last_seen": "2026-09-21T18:01:30.115223+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.sekoia.com",
+          "url": "https://www.sekoia.com/blog/exvicy-a-copycat-of-the-errtraffic-malware-distribution-framework",
+          "pub_date": "2026-09-21T18:01:30.115223+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude.ai.download-app.us",
+      "confidence": "high",
+      "reason": "Redirects users to malicious content.",
+      "first_seen": "2026-09-21T15:38:12.879049+00:00",
+      "last_seen": "2026-09-21T15:38:12.879049+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.huntress.com",
+          "url": "https://www.huntress.com/blog/fakeagent-claude-desktop-malvertising-ends-in-dotnet-rat",
+          "pub_date": "2026-09-21T15:38:12.879049+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "attachmentsharingdrive.xyz",
+      "confidence": "high",
+      "reason": "Domain used as C2 infrastructure in the campaign",
+      "first_seen": "2026-09-21T14:20:02+00:00",
+      "last_seen": "2026-09-21T15:00:57.908655+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.securonix.com",
+          "url": "https://www.securonix.com/blog/task-stomp-powershell-backdoor-document-theft-remote-access",
+          "pub_date": "2026-09-21T15:00:57.908655+00:00"
+        },
+        {
+          "source": "Thehackernews",
+          "url": "https://thehackernews.com/2026/09/taskstomp-powershell-backdoor-steals.html",
+          "pub_date": "2026-09-21T14:20:02+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "corecloudfileshare.xyz",
+      "confidence": "high",
+      "reason": "Domain used as C2 infrastructure in the campaign",
+      "first_seen": "2026-09-21T14:20:02+00:00",
+      "last_seen": "2026-09-21T15:00:57.908655+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.securonix.com",
+          "url": "https://www.securonix.com/blog/task-stomp-powershell-backdoor-document-theft-remote-access",
+          "pub_date": "2026-09-21T15:00:57.908655+00:00"
+        },
+        {
+          "source": "Thehackernews",
+          "url": "https://thehackernews.com/2026/09/taskstomp-powershell-backdoor-steals.html",
+          "pub_date": "2026-09-21T14:20:02+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "votesmith2026.co",
+      "confidence": "high",
+      "reason": "Described as a slightly altered URL used in malicious election scams",
+      "first_seen": "2026-09-21T12:05:07.773455+00:00",
+      "last_seen": "2026-09-21T12:05:07.773455+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.doppel.com",
+          "url": "https://www.doppel.com/blog/voter-election-scam",
+          "pub_date": "2026-09-21T12:05:07.773455+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "domain.com.evil.com",
+      "confidence": "high",
+      "reason": "[article sweep] Example of a domain used in CORS misconfiguration testing",
+      "first_seen": "2026-09-21T12:00:24+00:00",
+      "last_seen": "2026-09-21T12:00:24+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-SANTANDERSECURITYRESEARCH-CORSAIR_SCAN&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-21T12:00:24+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "drivinguber.com",
+      "confidence": "high",
+      "reason": "Used as a primary health probe in the malware's execution pipeline",
+      "first_seen": "2026-09-21T11:02:59.974624+00:00",
+      "last_seen": "2026-09-21T11:02:59.974624+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.seqrite.com",
+          "url": "https://www.seqrite.com/blog/macsync-the-evasive-macos-stealer-exploiting-clickfix-lures/",
+          "pub_date": "2026-09-21T11:02:59.974624+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "newsinweb.com",
+      "confidence": "high",
+      "reason": "Used in fallback rotation for C2 communication",
+      "first_seen": "2026-09-21T11:02:59.974624+00:00",
+      "last_seen": "2026-09-21T11:02:59.974624+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.seqrite.com",
+          "url": "https://www.seqrite.com/blog/macsync-the-evasive-macos-stealer-exploiting-clickfix-lures/",
+          "pub_date": "2026-09-21T11:02:59.974624+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "mpasvw.com",
+      "confidence": "high",
+      "reason": "Used for data exfiltration in the article",
+      "first_seen": "2026-09-21T11:02:57.464783+00:00",
+      "last_seen": "2026-09-21T11:02:57.464783+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "adamnet.works",
+          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
+          "pub_date": "2026-09-21T11:02:57.464783+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "176.53.159.66",
+      "confidence": "high",
+      "reason": "Used for malicious delivery and teardown operations",
+      "first_seen": "2026-09-21T11:02:57.464783+00:00",
+      "last_seen": "2026-09-21T11:02:57.464783+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "adamnet.works",
+          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
+          "pub_date": "2026-09-21T11:02:57.464783+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.94.47.204",
+      "confidence": "high",
+      "reason": "Used for malicious task service enrollment",
+      "first_seen": "2026-09-21T11:02:57.464783+00:00",
+      "last_seen": "2026-09-21T11:02:57.464783+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "adamnet.works",
+          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
+          "pub_date": "2026-09-21T11:02:57.464783+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "62.60.226.69",
+      "confidence": "high",
+      "reason": "Used as a provisioning cluster for malicious operations",
+      "first_seen": "2026-09-21T11:02:57.464783+00:00",
+      "last_seen": "2026-09-21T11:02:57.464783+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "adamnet.works",
+          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
+          "pub_date": "2026-09-21T11:02:57.464783+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "our-link.burpcollaborator.net",
+      "confidence": "high",
+      "reason": "[article sweep] Used in a Log4Shell exploit example",
+      "first_seen": "2026-09-21T06:52:33+00:00",
+      "last_seen": "2026-09-21T06:52:33+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-TWSEPTIAN-SPRING-BOOT-LOG4J-CVE-2021-44228-DOCKER-LAB&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-21T06:52:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "goorkan.info",
+      "confidence": "high",
+      "reason": "[article sweep] Website promoting a campaign against enemies of Iran's regime",
+      "first_seen": "2026-09-21T04:54:33+00:00",
+      "last_seen": "2026-09-21T04:54:33+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Nypost",
+          "url": "https://nypost.com/2026/09/20/us-news/los-angeles-405-freeway-sign-hacked-with-threats-targeting-iranian-dissidents/",
+          "pub_date": "2026-09-21T04:54:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "loader.app",
+      "confidence": "high",
+      "reason": "[article sweep] Used as a payload host in a malware campaign",
+      "first_seen": "2026-09-21T04:20:50+00:00",
+      "last_seen": "2026-09-21T04:20:50+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Hackernoon",
+          "url": "https://hackernoon.com/downloading-zoom-or-brave-could-be-new-mac-malware-sonoma-in-disguise",
+          "pub_date": "2026-09-21T04:20:50+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "streamyardinstaller.app",
+      "confidence": "high",
+      "reason": "[article sweep] Used as a fake installer in a malware campaign",
+      "first_seen": "2026-09-21T04:20:50+00:00",
+      "last_seen": "2026-09-21T04:20:50+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Hackernoon",
+          "url": "https://hackernoon.com/downloading-zoom-or-brave-could-be-new-mac-malware-sonoma-in-disguise",
+          "pub_date": "2026-09-21T04:20:50+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "toria.app",
+      "confidence": "high",
+      "reason": "[article sweep] Used in a malware campaign as a payload host",
+      "first_seen": "2026-09-21T04:20:50+00:00",
+      "last_seen": "2026-09-21T04:20:50+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Hackernoon",
+          "url": "https://hackernoon.com/downloading-zoom-or-brave-could-be-new-mac-malware-sonoma-in-disguise",
+          "pub_date": "2026-09-21T04:20:50+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "www-account-booking.com",
@@ -1143,70 +1617,6 @@
           "source": "Socprime",
           "url": "https://socprime.com/active-threats/rustgate-a-drone-swarm-lure-points-to-potential-defence-sector-targeting/",
           "pub_date": "2026-09-16T14:15:51+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "mpasvw.com",
-      "confidence": "high",
-      "reason": "Used for data exfiltration in the article",
-      "first_seen": "2026-09-16T11:35:24.102374+00:00",
-      "last_seen": "2026-09-16T11:35:24.102374+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "adamnet.works",
-          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
-          "pub_date": "2026-09-16T11:35:24.102374+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "176.53.159.66",
-      "confidence": "high",
-      "reason": "Used for malicious delivery and teardown operations",
-      "first_seen": "2026-09-16T11:35:24.102374+00:00",
-      "last_seen": "2026-09-16T11:35:24.102374+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "adamnet.works",
-          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
-          "pub_date": "2026-09-16T11:35:24.102374+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "45.94.47.204",
-      "confidence": "high",
-      "reason": "Used for malicious task service enrollment",
-      "first_seen": "2026-09-16T11:35:24.102374+00:00",
-      "last_seen": "2026-09-16T11:35:24.102374+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "adamnet.works",
-          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
-          "pub_date": "2026-09-16T11:35:24.102374+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "62.60.226.69",
-      "confidence": "high",
-      "reason": "Used as a provisioning cluster for malicious operations",
-      "first_seen": "2026-09-16T11:35:24.102374+00:00",
-      "last_seen": "2026-09-16T11:35:24.102374+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "adamnet.works",
-          "url": "https://adamnet.works/blog/hbo-max-ads-exposed-the-pasteswitch-clickfix-operation/index.html",
-          "pub_date": "2026-09-16T11:35:24.102374+00:00"
         }
       ]
     },
