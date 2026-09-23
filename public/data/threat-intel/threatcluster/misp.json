@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-22T10:11:44.668Z",
-  "eventCount": 7,
+  "syncedAt": "2026-09-23T10:12:48.003Z",
+  "eventCount": 9,
   "events": [
     {
       "uuid": "c3fe4803-f7f9-5795-81c2-d11f0ee11611",
@@ -24,13 +24,50 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "22b843e4-f5e4-5d06-9778-3927873531d4",
-      "info": "Critical WSO2 API Manager Vulnerability Under Active Exploitation",
-      "date": "2026-09-16",
+      "uuid": "f86480c2-ed01-5608-9226-6b4e13becc73",
+      "info": "Massive Network of AI Proxy Servers Used for Malicious Activities Uncovered",
+      "date": "2026-09-23",
       "analysis": "2",
       "threat_level_id": "1",
-      "timestamp": "1789546980",
+      "timestamp": "1790148435",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "3d22ecef-a756-5061-9b21-bb6a21e9173a",
+      "info": "Critical RCE Vulnerability in F5 BIG-IP APM Exploited in the Wild",
+      "date": "2026-09-22",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1790112347",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "8294acbe-7d8b-5074-b29a-e686d5f96153",
+      "info": "Chinese Hackers Exploit Zyxel Switch Vulnerability CVE-2026-7273",
+      "date": "2026-09-22",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1790067199",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:malware",
+        "type:vulnerability"
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "289c6ece-0e9a-5216-b9cc-614ff85ef209",
+      "info": "Critical CVE-2026-93952 Vulnerability in VeloCloud Orchestrator Actively Exploited",
+      "date": "2026-09-22",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1790090936",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -41,30 +78,6 @@
       "threat_level_id": "2",
       "timestamp": "1789580008",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "1c54b5e9-dcda-5b67-8295-fadb01baea61",
-      "info": "Iranian State Actors Deploy CHOSEN BRICK Spyware Against Dissidents",
-      "date": "2026-09-15",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789486505",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:ransomware",
-        "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"Kimsuky\"",
-        "misp-galaxy:threat-actor=\"Lazarus Group\"",
-        "misp-galaxy:threat-actor=\"Volt Typhoon\"",
-        "misp-galaxy:ransomware=\"Black Basta\"",
-        "misp-galaxy:ransomware=\"Conti\"",
-        "misp-galaxy:ransomware=\"Lockbit\""
-      ],
       "orgc": "ThreatCluster"
     },
     {

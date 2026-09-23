@@ -4,14 +4,14 @@
   "name": "metaencryptor",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-21T13:04:07.000Z",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-21T13:07:23.000Z",
   "lastSeen": "2026-09-21T22:14:32.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 3 sectors and 3 countries.",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-21",
-      "count": 6
+      "count": 3
     }
   ],
   "recentActivity": [
@@ -32,24 +32,6 @@
       "slug": "bruker-corporation-fb23",
       "title": "Bruker Corporation — claimed by metaencryptor",
       "pubDate": "2026-09-21T13:07:23.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "flex-ltd-63a9",
-      "title": "Flex Ltd — claimed by metaencryptor",
-      "pubDate": "2026-09-21T13:06:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hyvision-system-inc-b17c",
-      "title": "HyVision System. Inc — claimed by metaencryptor",
-      "pubDate": "2026-09-21T13:05:38.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "visual-intelligence-inc-cc59",
-      "title": "Visual Intelligence, Inc. — claimed by metaencryptor",
-      "pubDate": "2026-09-21T13:04:07.000Z"
     }
   ],
   "relatedEntities": [
@@ -57,12 +39,6 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
       "weight": 2
     },
     {
@@ -94,27 +70,6 @@
       "sector": "Manufacturing",
       "country": "US",
       "pubDate": "2026-09-21T13:07:23.000Z"
-    },
-    {
-      "id": "flex-ltd-63a9",
-      "victim": "Flex Ltd — claimed by metaencryptor",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-21T13:06:25.000Z"
-    },
-    {
-      "id": "hyvision-system-inc-b17c",
-      "victim": "HyVision System. Inc — claimed by metaencryptor",
-      "sector": "Technology",
-      "country": "KR",
-      "pubDate": "2026-09-21T13:05:38.000Z"
-    },
-    {
-      "id": "visual-intelligence-inc-cc59",
-      "victim": "Visual Intelligence, Inc. — claimed by metaencryptor",
-      "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-09-21T13:04:07.000Z"
     }
   ]
 }

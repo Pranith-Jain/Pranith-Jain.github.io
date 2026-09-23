@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/critical-local-privilege-escalation-vulnerabilities-in-biost-5ae124c7?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/critical-local-privilege-escalation-vulnerabilities-in-biost-5ae124c7",
   "pubDate": "2026-09-21T09:59:06.000Z",
-  "sourceCount": 12,
-  "categories": ["12 Sources"],
+  "sourceCount": 14,
+  "categories": ["14 Sources"],
   "description": "Three critical vulnerabilities have been disclosed in BioStar products, all published on September 21, 2026. CVE-2026-94128 affects BioStar VIVID LED DJ, CVE-2026-94142 impacts the BioStar Temperature…",
   "sizeBytes": 201
 }

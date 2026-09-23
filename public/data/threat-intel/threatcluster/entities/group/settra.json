@@ -1,0 +1,132 @@
+{
+  "type": "group",
+  "slug": "settra",
+  "name": "settra",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 6,
+  "firstSeen": "2026-09-22T16:49:34.000Z",
+  "lastSeen": "2026-09-22T16:52:53.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 5 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-22",
+      "count": 6
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "universalautogroup-com-178a",
+      "title": "universalautogroup.com — claimed by settra",
+      "pubDate": "2026-09-22T16:52:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "namtheun2-com-b67c",
+      "title": "namtheun2.com — claimed by settra",
+      "pubDate": "2026-09-22T16:52:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lakebeverage-com-17eb",
+      "title": "lakebeverage.com — claimed by settra",
+      "pubDate": "2026-09-22T16:51:44.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "quantummarketing-group-com-6ea3",
+      "title": "quantummarketing-group.com — claimed by settra",
+      "pubDate": "2026-09-22T16:50:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "moscone-com-c810",
+      "title": "moscone.com — claimed by settra",
+      "pubDate": "2026-09-22T16:50:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gregjoneslaw-com-b90b",
+      "title": "gregjoneslaw.com — claimed by settra",
+      "pubDate": "2026-09-22T16:49:34.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "universalautogroup-com-178a",
+      "victim": "universalautogroup.com — claimed by settra",
+      "sector": "Transportation",
+      "country": "US",
+      "pubDate": "2026-09-22T16:52:53.000Z"
+    },
+    {
+      "id": "namtheun2-com-b67c",
+      "victim": "namtheun2.com — claimed by settra",
+      "sector": "Energy & Utilities",
+      "country": "LA",
+      "pubDate": "2026-09-22T16:52:19.000Z"
+    },
+    {
+      "id": "lakebeverage-com-17eb",
+      "victim": "lakebeverage.com — claimed by settra",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-22T16:51:44.000Z"
+    },
+    {
+      "id": "quantummarketing-group-com-6ea3",
+      "victim": "quantummarketing-group.com — claimed by settra",
+      "sector": "Professional Services",
+      "country": "DE",
+      "pubDate": "2026-09-22T16:50:49.000Z"
+    },
+    {
+      "id": "moscone-com-c810",
+      "victim": "moscone.com — claimed by settra",
+      "sector": "Hospitality",
+      "country": "US",
+      "pubDate": "2026-09-22T16:50:08.000Z"
+    },
+    {
+      "id": "gregjoneslaw-com-b90b",
+      "victim": "gregjoneslaw.com — claimed by settra",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-22T16:49:34.000Z"
+    }
+  ]
+}

@@ -4,25 +4,37 @@
   "name": "shinyhunters",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-20T00:15:13.000Z",
-  "lastSeen": "2026-09-20T00:15:13.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-22T18:51:02.000Z",
+  "lastSeen": "2026-09-22T22:42:24.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-20",
-      "count": 1
+      "date": "2026-09-22",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "note-to-cl0p-bff1",
-      "title": "Note to Cl0p-_- — claimed by shinyhunters",
-      "pubDate": "2026-09-20T00:15:13.000Z"
+      "slug": "fresenius-medical-care-0dd1",
+      "title": "Fresenius Medical Care — claimed by shinyhunters",
+      "pubDate": "2026-09-22T22:42:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "psa-read-this-now-70fa",
+      "title": "PSA - READ THIS NOW — claimed by shinyhunters",
+      "pubDate": "2026-09-22T18:51:02.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
     {
       "type": "sector",
       "slug": "not-found",
@@ -33,11 +45,18 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "note-to-cl0p-bff1",
-      "victim": "Note to Cl0p-_- — claimed by shinyhunters",
+      "id": "fresenius-medical-care-0dd1",
+      "victim": "Fresenius Medical Care — claimed by shinyhunters",
+      "sector": "Healthcare",
+      "country": "DE",
+      "pubDate": "2026-09-22T22:42:24.000Z"
+    },
+    {
+      "id": "psa-read-this-now-70fa",
+      "victim": "PSA - READ THIS NOW — claimed by shinyhunters",
       "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-09-20T00:15:13.000Z"
+      "pubDate": "2026-09-22T18:51:02.000Z"
     }
   ]
 }

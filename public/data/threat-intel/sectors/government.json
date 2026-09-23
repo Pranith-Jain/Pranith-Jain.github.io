@@ -1,15 +1,15 @@
 {
   "sector": "government",
   "title": "Government sector brief",
-  "generatedAt": "2026-09-22",
+  "generatedAt": "2026-09-23",
   "topCount": 8,
-  "preview": "CVE-2026-65400 (critical) leads with priority 89.",
+  "preview": "CVE-2026-85102 (critical) leads with priority 90.",
   "sizeBytes": 2824,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
     {
-      "cveId": "CVE-2026-65400",
-      "title": "An authentication issue was addressed with improved state management. This issue is fixed in macOS Golden Gate 27, macOS",
+      "cveId": "CVE-2026-85102",
+      "title": "Improper certificate trust validation during VPN negotiation in Check Point Quantum Security Gateway may allow an unauth",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."

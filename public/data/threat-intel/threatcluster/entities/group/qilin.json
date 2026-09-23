@@ -4,76 +4,52 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-20T12:13:05.000Z",
-  "lastSeen": "2026-09-21T17:22:14.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 5 sectors and 6 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-21T17:22:14.000Z",
+  "lastSeen": "2026-09-22T13:23:32.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-20",
-      "count": 4
+      "date": "2026-09-21",
+      "count": 1
     },
     {
-      "date": "2026-09-21",
-      "count": 2
+      "date": "2026-09-22",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "the-fifty-50-421c",
+      "title": "The Fifty/50 — claimed by qilin",
+      "pubDate": "2026-09-22T13:23:32.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "textile-city-db08",
+      "title": "Textile City — claimed by qilin",
+      "pubDate": "2026-09-22T11:12:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "columbus-informatica-41d1",
+      "title": "Columbus Informatica — claimed by qilin",
+      "pubDate": "2026-09-22T10:18:01.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "telrad-networks-8af8",
       "title": "Telrad Networks — claimed by qilin",
       "pubDate": "2026-09-21T17:22:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ikegami-tsushinki-company-limited-b095",
-      "title": "IKEGAMI TSUSHINKI COMPANY LIMITED — claimed by qilin",
-      "pubDate": "2026-09-21T08:01:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "zorlu-holding-b374",
-      "title": "Zorlu Holding — claimed by qilin",
-      "pubDate": "2026-09-20T12:15:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "shopdunk-eef4",
-      "title": "ShopDunk — claimed by qilin",
-      "pubDate": "2026-09-20T12:14:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "kmls-5fd0",
-      "title": "KMLS — claimed by qilin",
-      "pubDate": "2026-09-20T12:13:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "touring-club-suisse-7cc8",
-      "title": "Touring Club Suisse — claimed by qilin",
-      "pubDate": "2026-09-20T12:13:05.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
-    },
-    {
-      "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
+      "weight": 2
     },
     {
       "type": "sector",
@@ -83,54 +59,40 @@
     },
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "the-fifty-50-421c",
+      "victim": "The Fifty/50 — claimed by qilin",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-22T13:23:32.000Z"
+    },
+    {
+      "id": "textile-city-db08",
+      "victim": "Textile City — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "CA",
+      "pubDate": "2026-09-22T11:12:13.000Z"
+    },
+    {
+      "id": "columbus-informatica-41d1",
+      "victim": "Columbus Informatica — claimed by qilin",
+      "sector": "Technology",
+      "country": "IT",
+      "pubDate": "2026-09-22T10:18:01.000Z"
+    },
+    {
       "id": "telrad-networks-8af8",
       "victim": "Telrad Networks — claimed by qilin",
       "sector": "Technology",
       "country": "IL",
       "pubDate": "2026-09-21T17:22:14.000Z"
-    },
-    {
-      "id": "ikegami-tsushinki-company-limited-b095",
-      "victim": "IKEGAMI TSUSHINKI COMPANY LIMITED — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "JP",
-      "pubDate": "2026-09-21T08:01:50.000Z"
-    },
-    {
-      "id": "zorlu-holding-b374",
-      "victim": "Zorlu Holding — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "TR",
-      "pubDate": "2026-09-20T12:15:03.000Z"
-    },
-    {
-      "id": "shopdunk-eef4",
-      "victim": "ShopDunk — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "TH",
-      "pubDate": "2026-09-20T12:14:25.000Z"
-    },
-    {
-      "id": "kmls-5fd0",
-      "victim": "KMLS — claimed by qilin",
-      "sector": "Not Found",
-      "country": "DE",
-      "pubDate": "2026-09-20T12:13:43.000Z"
-    },
-    {
-      "id": "touring-club-suisse-7cc8",
-      "victim": "Touring Club Suisse — claimed by qilin",
-      "sector": "Transportation",
-      "country": "CH",
-      "pubDate": "2026-09-20T12:13:05.000Z"
     }
   ]
 }

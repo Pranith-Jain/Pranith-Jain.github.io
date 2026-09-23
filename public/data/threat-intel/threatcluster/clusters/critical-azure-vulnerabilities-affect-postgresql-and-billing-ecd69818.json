@@ -1,0 +1,11 @@
+{
+  "slug": "critical-azure-vulnerabilities-affect-postgresql-and-billing-ecd69818",
+  "title": "Critical Azure Vulnerabilities Affect PostgreSQL and Billing Systems",
+  "link": "https://threatcluster.io/cluster/critical-azure-vulnerabilities-affect-postgresql-and-billing-ecd69818?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-azure-vulnerabilities-affect-postgresql-and-billing-ecd69818",
+  "pubDate": "2026-09-18T16:33:19.000Z",
+  "sourceCount": 6,
+  "categories": ["6 Sources"],
+  "description": "On September 18, 2026, Microsoft Azure disclosed two critical vulnerabilities: CVE-2026-85878, an Improper Authorization flaw in Azure Database for PostgreSQL with a CVSS score of 9.9, and CVE-2026-62…",
+  "sizeBytes": 201
+}

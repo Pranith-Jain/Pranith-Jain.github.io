@@ -4,25 +4,73 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-09-20T00:15:13.000Z",
-  "lastSeen": "2026-09-22T01:45:30.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 8 ransomware groups and 3 countries.",
+  "mentionCount": 10,
+  "firstSeen": "2026-09-21T17:52:29.000Z",
+  "lastSeen": "2026-09-23T07:41:04.000Z",
+  "summary": "Sector hit by 10 leak-site victims across 8 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-20",
-      "count": 4
-    },
-    {
       "date": "2026-09-21",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2026-09-22",
-      "count": 1
+      "count": 7
+    },
+    {
+      "date": "2026-09-23",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "aokkef-aecd",
+      "title": "Aokkef — claimed by medusalocker",
+      "pubDate": "2026-09-23T07:41:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "w-b-96dd",
+      "title": "W... B... — claimed by silentransomgroup",
+      "pubDate": "2026-09-23T00:22:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "b-3383",
+      "title": "B... — claimed by silentransomgroup",
+      "pubDate": "2026-09-22T19:30:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "w-338f",
+      "title": "W... — claimed by silentransomgroup",
+      "pubDate": "2026-09-22T19:29:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "psa-read-this-now-70fa",
+      "title": "PSA - READ THIS NOW — claimed by shinyhunters",
+      "pubDate": "2026-09-22T18:51:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gotthelf-2f9c",
+      "title": "GOTTHELF — claimed by booba project",
+      "pubDate": "2026-09-22T14:50:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tdmi-d9d8",
+      "title": "TDMI — claimed by akira",
+      "pubDate": "2026-09-22T13:28:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-fifty-50-421c",
+      "title": "The Fifty/50 — claimed by qilin",
+      "pubDate": "2026-09-22T13:23:32.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "truamerica-multifamily-94ae",
@@ -34,79 +82,37 @@
       "slug": "kjla-2805",
       "title": "Kjla — claimed by global secret group",
       "pubDate": "2026-09-21T17:52:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gomomentum-com-72df",
-      "title": "Gomomentum.com — claimed by endzone",
-      "pubDate": "2026-09-21T09:20:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "maryann-kriger-b20b",
-      "title": "Maryann Kriger — claimed by incransom",
-      "pubDate": "2026-09-21T00:34:36.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "st-co-96bb",
-      "title": "st***co — claimed by auditteam",
-      "pubDate": "2026-09-20T14:50:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "euramex-management-group-7a36",
-      "title": "Euramex Management Group — claimed by orova",
-      "pubDate": "2026-09-20T13:51:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "kmls-5fd0",
-      "title": "KMLS — claimed by qilin",
-      "pubDate": "2026-09-20T12:13:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "note-to-cl0p-bff1",
-      "title": "Note to Cl0p-_- — claimed by shinyhunters",
-      "pubDate": "2026-09-20T00:15:13.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "termite",
-      "name": "termite",
+      "slug": "silentransomgroup",
+      "name": "silentransomgroup",
+      "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "medusalocker",
+      "name": "medusalocker",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "global-secret-group",
-      "name": "global secret group",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "endzone",
-      "name": "endzone",
+      "slug": "booba-project",
+      "name": "booba project",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "auditteam",
-      "name": "auditteam",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "orova",
-      "name": "orova",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     },
     {
@@ -117,8 +123,14 @@
     },
     {
       "type": "group",
-      "slug": "shinyhunters",
-      "name": "shinyhunters",
+      "slug": "termite",
+      "name": "termite",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "global-secret-group",
+      "name": "global secret group",
       "weight": 1
     }
   ],

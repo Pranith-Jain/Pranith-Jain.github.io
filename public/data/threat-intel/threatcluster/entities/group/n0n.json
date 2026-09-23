@@ -5,56 +5,58 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-20T02:51:07.000Z",
-  "lastSeen": "2026-09-22T01:51:38.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 2 countries.",
+  "firstSeen": "2026-09-22T01:51:38.000Z",
+  "lastSeen": "2026-09-22T17:22:04.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-20",
-      "count": 1
-    },
-    {
       "date": "2026-09-22",
-      "count": 1
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "finsoft-kolibri-retail-back-office-software-ddb3",
-      "title": "FinSoft (Kolibri retail back-office software) — claimed by n0n",
-      "pubDate": "2026-09-22T01:51:38.000Z"
+      "slug": "africa-tech-it-services-document-processing-efe1",
+      "title": "AFRICA-TECH (IT services / document processing) — claimed by n0n",
+      "pubDate": "2026-09-22T17:22:04.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "fanatics-global-sports-commerce-platform-8512",
-      "title": "Fanatics (global sports commerce platform) — claimed by n0n",
-      "pubDate": "2026-09-20T02:51:07.000Z"
+      "slug": "finsoft-kolibri-retail-back-office-software-ddb3",
+      "title": "FinSoft (Kolibri retail back-office software) — claimed by n0n",
+      "pubDate": "2026-09-22T01:51:38.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "retail-e-commerce",
       "name": "Retail & E-Commerce",
-      "weight": 2
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "africa-tech-it-services-document-processing-efe1",
+      "victim": "AFRICA-TECH (IT services / document processing) — claimed by n0n",
+      "sector": "Technology",
+      "country": "ML",
+      "pubDate": "2026-09-22T17:22:04.000Z"
+    },
     {
       "id": "finsoft-kolibri-retail-back-office-software-ddb3",
       "victim": "FinSoft (Kolibri retail back-office software) — claimed by n0n",
       "sector": "Retail & E-Commerce",
       "country": "UZ",
       "pubDate": "2026-09-22T01:51:38.000Z"
-    },
-    {
-      "id": "fanatics-global-sports-commerce-platform-8512",
-      "victim": "Fanatics (global sports commerce platform) — claimed by n0n",
-      "sector": "Retail & E-Commerce",
-      "country": "US",
-      "pubDate": "2026-09-20T02:51:07.000Z"
     }
   ]
 }

@@ -4,40 +4,72 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-21T12:24:42.000Z",
-  "lastSeen": "2026-09-21T12:24:42.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-22T12:52:00.000Z",
+  "lastSeen": "2026-09-22T13:29:07.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-21",
-      "count": 1
+      "date": "2026-09-22",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "prestige-management-6244",
-      "title": "Prestige Management — claimed by akira",
-      "pubDate": "2026-09-21T12:24:42.000Z"
+      "slug": "coe-press-equipment-e3fb",
+      "title": "Coe Press Equipment — claimed by akira",
+      "pubDate": "2026-09-22T13:29:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tdmi-d9d8",
+      "title": "TDMI — claimed by akira",
+      "pubDate": "2026-09-22T13:28:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "di-c-s-el-s-r-l-7015",
+      "title": "DI.C.S.EL. S.R.L. — claimed by akira",
+      "pubDate": "2026-09-22T12:52:00.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "prestige-management-6244",
-      "victim": "Prestige Management — claimed by akira",
-      "sector": "Professional Services",
+      "id": "coe-press-equipment-e3fb",
+      "victim": "Coe Press Equipment — claimed by akira",
+      "sector": "Manufacturing",
       "country": "US",
-      "pubDate": "2026-09-21T12:24:42.000Z"
+      "pubDate": "2026-09-22T13:29:07.000Z"
+    },
+    {
+      "id": "tdmi-d9d8",
+      "victim": "TDMI — claimed by akira",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-22T13:28:48.000Z"
+    },
+    {
+      "id": "di-c-s-el-s-r-l-7015",
+      "victim": "DI.C.S.EL. S.R.L. — claimed by akira",
+      "sector": "Manufacturing",
+      "country": "IT",
+      "pubDate": "2026-09-22T12:52:00.000Z"
     }
   ]
 }
