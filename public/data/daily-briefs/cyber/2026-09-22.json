@@ -1,0 +1,120 @@
+{
+  "type": "cyber",
+  "date": "2026-09-22",
+  "threatLevel": "",
+  "executiveSummary": "Multiple high-impact, OT-relevant advisories and actively exploited vulnerabilities are in play this week. Adversaries continue to target edge infrastructure, remote access, and industrial control protocols to establish footholds and enable potential disruption. Priority action is required on internet-exposed routers/switches, ICS protocol endpoints (OPC UA, CC-Link IE TSN, S7comm), and grid, water/wastewater, and transportation support systems. Active nation-state and hacktivist activity against OT/ICS: pro-Russia groups opportunistically brute-force exposed VNC to HMIs/SCADA causing loss of view and parameter tampering; separate U.S. advisories warn of Iranian-affiliated actors modifying PLC logic and of AI-assisted reconnaissance against Siemens S7 PLCs. CISA Advisory CISA Advisory CISA Advisory Grid stability risk: Hitachi Energy FACTS Control Platform (FCP) GWS component has multiple critical flaws enabling unauthorized parameter changes; patching and strict isolation are required. CISA ICS Advisory Industrial protocol exposures: CC-Link IE TSN weakness (no vendor fix) can allow I/O tampering/DoS on the same segment; Eclipse Milo OPC UA server vulnerabilities allow auth bypass, info disclosure, and DoS-patch and harden immediately. CISA ICS Advisory CISA Bulletin Edge device exploitation continues: MikroTik RouterOS exploit chain is being used in the wild; Zyxel GS1900 switches are in CISA KEV for active exploitation; Cisco Secure Email Gateway SQLi is actively exploited. CERT Polska CISA KEV CISA KEV Energy/transport OT-adjacent: EV charging, ActiveMQ brokers, Danfoss iC7 drives, rail diagnostics FDS 102, and FreeRTOS/Mongoose library issues feature in recent CISA bulletins; segment networks, patch fast, and apply compensating controls. CISA Bulletin CISA Bulletin",
+  "keyFindings": [
+    {
+      "title": "OT-targeting campaigns (Russian hacktivists, Iranian-affiliated APT) are causing",
+      "summary": "OT-targeting campaigns (Russian hacktivists, Iranian-affiliated APT) are causing real operational impacts via exposed services (VNC) and PLC logic manipulation; immediate exposure reduction and credential hygiene are mandatory. View Advisory"
+    },
+    {
+      "title": "FACTS/STATCOM environments",
+      "summary": "Hitachi Energy FCP GWS critical vulns (SQLi, path traversal, auth bypass) risk grid voltage/reactive power control integrity. Security Advisory"
+    },
+    {
+      "title": "Industrial protocol stack risk",
+      "summary": "CC-Link IE TSN protocol issue has no fix-rely on segmentation, port security, and anomaly detection. Vendor Advisory"
+    },
+    {
+      "title": "OPC UA/ICS messaging",
+      "summary": "Eclipse Milo server flaws enable unauthorized actions and DoS across water, energy, manufacturing OPC UA deployments-update and harden policies now. CISA Bulletin"
+    },
+    {
+      "title": "Edge/perimeter device exploitation wave (MikroTik, Zyxel, Cisco) continues to pr",
+      "summary": "Edge/perimeter device exploitation wave (MikroTik, Zyxel, Cisco) continues to provide entry and lateral paths toward OT; prioritize KEV items and CERT Polska guidance. View Article CISA KEV"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "43",
+        "label": "Decisioned Events",
+        "trend": "14 Escalate • 24 Monitor • 5 Ignore"
+      },
+      {
+        "value": "9",
+        "label": "Actively Exploited / KEV",
+        "trend": "Zyxel, MikroTik, Cisco SEG, Linux kernel, GitLab, Chrome, MikroTik KEV, Cisco ISE, Zimbra"
+      },
+      {
+        "value": "20+",
+        "label": "OT/ICS Vendors & Protocols",
+        "trend": "Siemens, Hitachi Energy, Schneider, Mitsubishi, Danfoss, OPC UA, CC-Link IE TSN, EVSE"
+      },
+      {
+        "value": "6",
+        "label": "Sectors with Elevated Risk",
+        "trend": "Water/Wastewater • Energy • Rail • Manufacturing • Transportation • Healthcare"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7-200/300/400/1200/1500",
+      "Hitachi Energy FACTS (FCP GWS)",
+      "Schneider Electric (Modicon M340, NetBotz)",
+      "Mitsubishi Electric (CC-Link IE TSN, GX Works3)",
+      "Danfoss iC7 Drives",
+      "Eclipse Milo (OPC UA)",
+      "MikroTik RouterOS",
+      "Zyxel GS1900",
+      "Citrix NetScaler ADC/Gateway",
+      "EVSE (Autel MaxiCharger)",
+      "Frauscher FDS 102",
+      "ABB/Hitachi Energy"
+    ],
+    "sectors": [
+      "Water & Wastewater Systems (exposed VNC to HMIs; OPC UA servers; PLC targeting) Energy & Electric Power (FACTS/STATCOM; Danfoss drives; OPC UA; router exploitation) Transportation (EV charging OCPP; rail diagnostics FDS 102; network edge) Manufacturing (S7 PLCs; GPO weaponization in enterprise AD; supply-chain exposure) Healthcare/Facilities (NetBotz environmental monitoring; UPS management)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Pro-Russia hacktivist crews (CARR, NoName057(16), Sector16, Z-Pentest) opportunistically brute-force VNC to manipulate HMIs/SCADA. View Advisory",
+        "Iranian-affiliated actors exploit internet-exposed PLCs (Rockwell/Schneider/Siemens), alter logic and alarm/shutdown routines. View Advisory",
+        "China-nexus activity uses covert SOHO/IoT botnets to route operations and pre-position in critical environments (Volt/Flax Typhoon). View Advisory",
+        "APT campaigns against enterprise perimeters (Zimbra CVE-2025-66376 phishing; Mirage Kitten dev-tool lures) threaten supply-chain ingress toward OT. View Advisory Kaspersky"
+      ]
+    }
+  ],
+  "relevance": "Why this matters now Multiple advisories describe active, repeatable intrusion paths that cross the IT/OT boundary: exposed VNC, compromised routers/switches, vulnerable email gateways, and analytics platforms. Industrial protocol exposure (OPC UA, CC-Link IE TSN, S7comm) elevates the blast radius if adversaries gain a foothold-enabling loss of view/control or unauthorized parameter changes. Grid, water/wastewater, and transport EVSE dependencies are directly affected by current vulnerability sets. Most at-risk environments Operators with internet-exposed HMIs/SCADA remote access (VNC/RDP/VPN) or weak MFA/allowlists. Enterprises relying on MikroTik/Zyxel/Cisco edge devices with delayed patching or default management exposure. Sites using Eclipse Milo OPC UA servers, Hitachi Energy FACTS FCP, Danfoss iC7 drives, or CC-Link IE TSN on flat L2 segments.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Hitachi Energy FACTS Control Platform GWS (SQLi, path traversal, auth bypass; CVEs incl. CVE-2024-4872/3980/3982/7940/7941). ICS Advisory",
+        "Mitsubishi CC-Link IE TSN protocol weakness (CVE-2026-13584) - no fix, enforce network controls. ICS Advisory",
+        "Eclipse Milo OPC UA server 0.6.0-1.1.4 - multiple auth/DoS/info disclosure issues. CISA Bulletin",
+        "Danfoss iC7-Automation/Marine/Hybrid GR3 - unsigned app/EEPROM/firmware update exposure (service/debug paths). CISA Bulletin",
+        "EVSE/Transport: Autel MaxiCharger AC Elite Home OCPP/WebSockets unauth RCE. CISA Bulletin",
+        "Rail: Frauscher FDS 102 web interface issues allowing info leakage/session hijack/potential RCE. CISA Bulletin",
+        "MikroTik RouterOS multi-CVE set incl. KEV items (auth bypass, file R/W, TLS/SSH signature acceptance, btest DoS). CERT Polska",
+        "Zyxel GS1900 buffer overflow (CVE-2026-7273) - KEV active exploitation. CISA KEV",
+        "NetScaler ADC/Gateway SAML pre-auth RCE (CVE-2026-8452) - PoC public, no exploitation confirmed as of notice. JPCERT/CC"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial Access: Exploitation of public-facing apps (Citrix NetScaler CVE-2026-8452 PoC; Zimbra CVE-2025-66376) and edge/KEV devices (Zyxel/MikroTik/Cisco SEG). Supporting Report CISA KEV",
+      "Lateral Movement: Abuse of VNC/RDP/WinRM; rdp2tcp; Impacket atexec; VPN portals; identity abuse in Entra ID/OAuth (CISA red team lessons). CISA Advisory",
+      "Command & Control: MQTT/Matrix (Toy Ghouls); covert SOHO/IoT proxies (China-nexus); reverse tunnels; Azure/Cloudflare fronting (Mirage Kitten). Kaspersky CISA Advisory",
+      "Impact: Loss of view and parameter manipulation (VNC HMIs); potential grid instability (FACTS); PLC logic alteration (Iranian-affiliated APT). CISA Advisory ICS Advisory"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Expect continued scanning/exploitation attempts for Zyxel GS1900 and MikroTik RouterOS; validate remediation and monitor for persistence. Watch for opportunistic VNC brute forcing against HMIs/SCADA; preempt with exposure reviews and lockouts. Accelerate OPC UA server and FACTS FCP patch windows; implement compensating controls where immediate patching is not possible. Monitor Zimbra/NetScaler perimeters for post-PoC copycat exploitation; tighten WAF and log review.",
+  "relatedCves": [
+    "CVE-2025-66376",
+    "CVE-2024-4872",
+    "CVE-2026-13584",
+    "CVE-2026-7273",
+    "CVE-2026-8452",
+    "CVE-2026-76461",
+    "CVE-2026-72898",
+    "CVE-2026-40854"
+  ]
+}
