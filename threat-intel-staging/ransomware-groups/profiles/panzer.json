@@ -1,7 +1,7 @@
 {
   "slug": "panzer",
   "name": "panzer",
-  "fetchedAt": "2026-09-16T11:54:04.019Z",
+  "fetchedAt": "2026-09-23T11:55:34.746Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "Panzer",
           "version": 3,
           "available": true,
-          "updated": "2026-09-16 11:03:07.813",
+          "updated": "2026-09-23 11:26:33.084",
           "chat": false,
           "fs": false
         },
@@ -20,8 +20,8 @@
           "fqdn": "34enzhp4pkfrj5bnmede23wk2io2a44nj23ldwvv3stkaewurup7svad.onion",
           "title": "Panzer | Cloud . festina-group",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 10:00:41.324",
+          "available": true,
+          "updated": "2026-09-23 11:36:16.326",
           "chat": false,
           "fs": true
         },
@@ -30,7 +30,7 @@
           "title": "Panzer | Cloud . surakarta-unv",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 09:14:01.920",
+          "updated": "2026-09-23 10:28:35.491",
           "chat": false,
           "fs": true
         },
@@ -39,7 +39,7 @@
           "title": "Panzer | Cloud . daily-trust",
           "version": 3,
           "available": true,
-          "updated": "2026-09-16 11:05:00.825",
+          "updated": "2026-09-23 11:34:47.152",
           "chat": false,
           "fs": true
         },
@@ -47,8 +47,8 @@
           "fqdn": "qxstd6r6zkzgoolpdqsdxf4lq6rhukgpngwrgbejyyioqy2kwbkxpiyd.onion",
           "title": "Panzer | Cloud . siamoil",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 08:40:05.290",
+          "available": true,
+          "updated": "2026-09-23 11:34:37.765",
           "chat": false,
           "fs": true
         },
@@ -56,8 +56,8 @@
           "fqdn": "uchhaxue34fz6r2nyrvatxynponoe7wy6ffhwwigpfbz5zgz24w5b6id.onion",
           "title": "Panzer | Cloud . Alpine Company",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 09:13:12.816",
+          "available": true,
+          "updated": "2026-09-23 11:25:16.739",
           "chat": false,
           "fs": true
         },
@@ -66,7 +66,7 @@
           "title": "Panzer | Cloud . SAGASTA",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 08:00:19.621",
+          "updated": "2026-09-22 23:01:39.771",
           "chat": false,
           "fs": true
         },
@@ -75,7 +75,7 @@
           "title": "Panzer | Cloud . doimocucine",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 10:18:44.243",
+          "updated": "2026-09-23 05:16:59.397",
           "chat": false,
           "fs": true
         },
@@ -83,8 +83,8 @@
           "fqdn": "mbqq27t4idm3im2wqtb2sziynr4gtatqbeozrrvkdy7pco4ah3roxfyd.onion",
           "title": "Panzer | Cloud . Castilla la mancha",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-16 11:02:28.090",
+          "available": false,
+          "updated": "2026-09-23 09:05:25.127",
           "chat": false,
           "fs": true
         },
@@ -93,7 +93,7 @@
           "title": "Panzer | Cloud . dlenc",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 08:06:52.965",
+          "updated": "2026-09-23 07:11:32.809",
           "chat": false,
           "fs": true
         },
@@ -101,8 +101,8 @@
           "fqdn": "aket65o2xznczt5ef4xtlo46g6lv5nlebjpsjrl3ihrvq3pmysekhhyd.onion",
           "title": "Panzer | Cloud . Nteitalia",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 09:23:34.470",
+          "available": true,
+          "updated": "2026-09-23 11:26:03.476",
           "chat": false,
           "fs": true
         },
@@ -111,7 +111,7 @@
           "title": "Panzer | Cloud . Frisian",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 06:01:38.525",
+          "updated": "2026-09-23 10:15:46.979",
           "chat": false,
           "fs": true
         }

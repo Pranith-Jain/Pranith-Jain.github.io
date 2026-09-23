@@ -2,9 +2,9 @@
   "source": "Ransomlook.io + ransomware.live (merged, clearnet aggregation — no Tor egress)",
   "sourceUrl": "https://www.ransomlook.io/",
   "license": "reference/directory use — per-group blurbs via Ransomlook meta (attributed) or computed",
-  "syncedAt": "2026-09-16T11:53:55.482Z",
-  "builtAt": "2026-09-16T11:54:08.607Z",
-  "counts": { "groups": 623, "sites_up": 19, "active_week": 44, "profiled": 34, "with_activity": 371 },
+  "syncedAt": "2026-09-23T11:55:26.841Z",
+  "builtAt": "2026-09-23T11:55:39.833Z",
+  "counts": { "groups": 625, "sites_up": 32, "active_week": 47, "profiled": 46, "with_activity": 373 },
   "groups": [
     {
       "slug": "0apt",
@@ -61,15 +61,16 @@
     {
       "slug": "3am",
       "name": "3am",
-      "victims_7d": 0,
-      "victims_total": 0,
-      "last_seen": null,
-      "origins": [],
+      "victims_7d": 1,
+      "victims_total": 1,
+      "last_seen": "2026-09-21T02:35:11.000Z",
+      "origins": ["ransomlook"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "No victim claims in the current activity window."
+      "blurb": "1 victim in the last 7d across 1 tracker.",
+      "shard": 2
     },
     {
       "slug": "8base",
@@ -165,13 +166,13 @@
     {
       "slug": "akira",
       "name": "akira",
-      "victims_7d": 14,
-      "victims_total": 1626,
-      "last_seen": "2026-09-15T17:37:19.000Z",
+      "victims_7d": 22,
+      "victims_total": 1637,
+      "last_seen": "2026-09-22T15:35:23.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
-      "mirrors": 3,
-      "up_mirrors": 1,
+      "mirrors": 4,
+      "up_mirrors": 3,
       "has_profile": true,
       "blurb": "Akira is a ransomware group first observed in March 2023, targeting both Windows and Linux environments, with a particular focus on corporate networks and VMware ESXi servers. The group employs a dou…",
       "shard": 0
@@ -270,15 +271,15 @@
     {
       "slug": "anubis",
       "name": "anubis",
-      "victims_7d": 2,
-      "victims_total": 112,
-      "last_seen": "2026-09-15T02:30:11.000Z",
+      "victims_7d": 6,
+      "victims_total": 117,
+      "last_seen": "2026-09-22T22:24:10.904Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
+      "online": false,
+      "mirrors": 3,
       "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "2 victims in the last 7d across 2 trackers.",
+      "has_profile": true,
+      "blurb": "Anubis is a financially motivated cybercrime group primarily known for its banking trojan operations but also linked to ransomware activity targeting corporate networks. First identified in 2016 and …",
       "shard": 1
     },
     {
@@ -349,16 +350,16 @@
     {
       "slug": "arcusmedia",
       "name": "arcus media",
-      "victims_7d": 2,
-      "victims_total": 111,
-      "last_seen": "2026-09-15T17:37:20.000Z",
+      "victims_7d": 8,
+      "victims_total": 119,
+      "last_seen": "2026-09-23T12:52:49.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "2 victims in the last 7d across 2 trackers.",
-      "shard": 2
+      "online": true,
+      "mirrors": 1,
+      "up_mirrors": 1,
+      "has_profile": true,
+      "blurb": "Arcus Media first emerged in May 2024 and operates as a Ransomware-as-a-Service (RaaS) with a double-extortion model—encrypting data and threatening to leak it if the ransom isn't paid. The group lev…",
+      "shard": 0
     },
     {
       "slug": "argonautsgroup",
@@ -428,22 +429,22 @@
     {
       "slug": "auditteam",
       "name": "audit team",
-      "victims_7d": 20,
-      "victims_total": 49,
-      "last_seen": "2026-09-14T13:39:47.000Z",
+      "victims_7d": 25,
+      "victims_total": 72,
+      "last_seen": "2026-09-22T16:27:22.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": false,
+      "online": true,
       "mirrors": 2,
-      "up_mirrors": 0,
+      "up_mirrors": 1,
       "has_profile": true,
-      "blurb": "20 victims in the last 7d across 2 trackers.",
+      "blurb": "25 victims in the last 7d across 2 trackers.",
       "shard": 0
     },
     {
       "slug": "aurora",
       "name": "aurora",
       "victims_7d": 0,
-      "victims_total": 44,
+      "victims_total": 40,
       "last_seen": "2026-09-07T16:33:17.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
@@ -638,7 +639,7 @@
     {
       "slug": "barracuda",
       "name": "barracuda",
-      "victims_7d": 1,
+      "victims_7d": 0,
       "victims_total": 9,
       "last_seen": "2026-09-13T09:20:21.439Z",
       "origins": ["ransomwarelive"],
@@ -646,8 +647,7 @@
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "1 victim in the last 7d across 1 tracker.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "bavacai",
@@ -665,7 +665,7 @@
     {
       "slug": "beast",
       "name": "beast",
-      "victims_7d": 2,
+      "victims_7d": 0,
       "victims_total": 74,
       "last_seen": "2026-09-10T22:46:51.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
@@ -673,8 +673,7 @@
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "2 victims in the last 7d across 2 trackers.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 2 trackers."
     },
     {
       "slug": "belsengroup",
@@ -875,14 +874,14 @@
       "slug": "blacklocks",
       "name": "blacklocks",
       "victims_7d": 0,
-      "victims_total": 2,
-      "last_seen": "2026-09-06T23:43:20.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 1,
+      "last_seen": "2026-09-05T06:33:13.855Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "blackmatter",
@@ -900,16 +899,16 @@
     {
       "slug": "blacknevas",
       "name": "black nevas",
-      "victims_7d": 14,
-      "victims_total": 60,
-      "last_seen": "2026-09-09T12:34:41.000Z",
+      "victims_7d": 2,
+      "victims_total": 62,
+      "last_seen": "2026-09-17T01:41:16.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": false,
       "mirrors": 1,
       "up_mirrors": 0,
       "has_profile": true,
       "blurb": "BlackNevas ransomware — also referred to as “Trial Recovery” — was first observed in November 2024. It is a direct derivative of the Trigona ransomware family and continues the lineage's focus on ext…",
-      "shard": 0
+      "shard": 2
     },
     {
       "slug": "blackout",
@@ -1019,14 +1018,14 @@
       "slug": "blackx",
       "name": "black x",
       "victims_7d": 0,
-      "victims_total": 12,
+      "victims_total": 11,
       "last_seen": "2026-09-01T12:10:28.233Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "bluebox",
@@ -1096,16 +1095,16 @@
     {
       "slug": "boobateam",
       "name": "booba team",
-      "victims_7d": 2,
-      "victims_total": 2,
-      "last_seen": "2026-09-14T15:39:44.000Z",
+      "victims_7d": 6,
+      "victims_total": 8,
+      "last_seen": "2026-09-23T12:52:54.000Z",
       "origins": ["ransomlook"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "2 victims in the last 7d across 1 tracker.",
-      "shard": 2
+      "online": true,
+      "mirrors": 4,
+      "up_mirrors": 1,
+      "has_profile": true,
+      "blurb": "6 victims in the last 7d across 1 tracker.",
+      "shard": 1
     },
     {
       "slug": "bqtlock",
@@ -1136,28 +1135,30 @@
     {
       "slug": "braincipher",
       "name": "brain cipher",
-      "victims_7d": 0,
-      "victims_total": 85,
-      "last_seen": "2026-08-31T22:28:45.000Z",
+      "victims_7d": 6,
+      "victims_total": 83,
+      "last_seen": "2026-09-17T18:37:00.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "online": true,
+      "mirrors": 58,
+      "up_mirrors": 16,
+      "has_profile": true,
+      "blurb": "Brain Cipher ransomware surfaced in mid-2024, rapidly gaining notoriety after a high-impact attack on Indonesia’s National Data Center, which disrupted over 160 government services including immigrat…",
+      "shard": 1
     },
     {
       "slug": "bravox",
       "name": "bravox",
-      "victims_7d": 0,
-      "victims_total": 29,
-      "last_seen": "2026-09-01T16:29:54.000Z",
+      "victims_7d": 2,
+      "victims_total": 30,
+      "last_seen": "2026-09-20T08:41:18.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "2 victims in the last 7d across 2 trackers.",
+      "shard": 2
     },
     {
       "slug": "brotherhood",
@@ -1279,16 +1280,16 @@
     {
       "slug": "chaos",
       "name": "chaos",
-      "victims_7d": 8,
-      "victims_total": 97,
-      "last_seen": "2026-09-14T16:49:51.000Z",
+      "victims_7d": 2,
+      "victims_total": 98,
+      "last_seen": "2026-09-17T20:42:10.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": false,
       "mirrors": 12,
       "up_mirrors": 0,
       "has_profile": true,
       "blurb": "Chaos is a rapidly evolving Ransomware-as-a-Service (RaaS) group first observed in early 2025. It is considered distinct and unaffiliated with the Chaos Ransomware Builder that originated around 2021…",
-      "shard": 0
+      "shard": 2
     },
     {
       "slug": "cheers",
@@ -1423,7 +1424,7 @@
     {
       "slug": "clop",
       "name": "clop",
-      "victims_7d": 4,
+      "victims_7d": 0,
       "victims_total": 1344,
       "last_seen": "2026-09-10T10:22:39.757Z",
       "origins": ["ransomlook", "ransomwarelive"],
@@ -1432,7 +1433,7 @@
       "up_mirrors": 0,
       "has_profile": true,
       "blurb": "Clop is a ransomware which uses the .clop extension after having encrypted the victim's files. Another unique characteristic belonging with Clop is in the string: \"Dont Worry C|0P\" included into the …",
-      "shard": 1
+      "shard": 3
     },
     {
       "slug": "cloptorrents",
@@ -1464,14 +1465,14 @@
       "slug": "coinbasecartel",
       "name": "coinbase cartel",
       "victims_7d": 0,
-      "victims_total": 207,
-      "last_seen": "2026-08-31T00:30:08.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 206,
+      "last_seen": "2026-08-23T21:26:15.633Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "colossus",
@@ -1580,15 +1581,16 @@
     {
       "slug": "cry0",
       "name": "cry0",
-      "victims_7d": 0,
-      "victims_total": 2,
-      "last_seen": "2026-08-06T10:23:53.002Z",
-      "origins": ["ransomwarelive"],
+      "victims_7d": 2,
+      "victims_total": 4,
+      "last_seen": "2026-09-19T17:35:48.000Z",
+      "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "blurb": "2 victims in the last 7d across 2 trackers.",
+      "shard": 2
     },
     {
       "slug": "cryakl",
@@ -1685,14 +1687,14 @@
       "slug": "crypto24",
       "name": "crypto24",
       "victims_7d": 0,
-      "victims_total": 48,
-      "last_seen": "2026-08-31T13:38:32.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 47,
+      "last_seen": "2026-08-31T08:26:46.766Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "cryptransomware",
@@ -1970,7 +1972,7 @@
     {
       "slug": "darkproject",
       "name": "dark project",
-      "victims_7d": 4,
+      "victims_7d": 0,
       "victims_total": 35,
       "last_seen": "2026-09-15T17:37:28.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
@@ -1978,8 +1980,8 @@
       "mirrors": 9,
       "up_mirrors": 2,
       "has_profile": true,
-      "blurb": "4 victims in the last 7d across 2 trackers.",
-      "shard": 1
+      "blurb": "0 victims in the last 7d across 2 trackers.",
+      "shard": 3
     },
     {
       "slug": "darkrace",
@@ -2141,14 +2143,14 @@
       "slug": "deadlock",
       "name": "deadlock",
       "victims_7d": 0,
-      "victims_total": 102,
-      "last_seen": "2026-09-01T21:35:09.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 101,
+      "last_seen": "2026-08-24T21:21:27.834Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "deathgrip",
@@ -2270,8 +2272,8 @@
     {
       "slug": "direwolf",
       "name": "direwolf",
-      "victims_7d": 6,
-      "victims_total": 157,
+      "victims_7d": 0,
+      "victims_total": 145,
       "last_seen": "2026-09-14T17:44:07.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
@@ -2279,7 +2281,7 @@
       "up_mirrors": 1,
       "has_profile": true,
       "blurb": "Dire Wolf is a recently emerged double-extortion ransomware group that first appeared around May 2025. It is a crypto-ransomware and data broker targeting industries like manufacturing and technology…",
-      "shard": 0
+      "shard": 3
     },
     {
       "slug": "dispossessor",
@@ -2324,8 +2326,8 @@
       "slug": "doommageddon",
       "name": "doommageddon",
       "victims_7d": 2,
-      "victims_total": 12,
-      "last_seen": "2026-09-13T06:44:50.000Z",
+      "victims_total": 14,
+      "last_seen": "2026-09-21T11:41:18.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
@@ -2350,16 +2352,16 @@
     {
       "slug": "dragonforce",
       "name": "dragonforce",
-      "victims_7d": 6,
-      "victims_total": 657,
-      "last_seen": "2026-09-16T06:35:31.000Z",
+      "victims_7d": 2,
+      "victims_total": 656,
+      "last_seen": "2026-09-21T00:41:37.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 21,
       "up_mirrors": 1,
       "has_profile": true,
       "blurb": "DragonForce is a ransomware-as-a-service (RaaS) group first identified in late 2023. Originally linked to hacktivist activity, the group pivoted to financially motivated operations by early 2024. Sin…",
-      "shard": 0
+      "shard": 2
     },
     {
       "slug": "dunghill",
@@ -2378,15 +2380,15 @@
       "slug": "dysphor1a",
       "name": "dysphor1a",
       "victims_7d": 0,
-      "victims_total": 14,
-      "last_seen": "2026-09-06T20:42:48.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 11,
+      "last_seen": "2026-09-06T17:50:31.300Z",
+      "origins": ["ransomwarelive"],
       "online": true,
       "mirrors": 2,
       "up_mirrors": 1,
       "has_profile": true,
-      "blurb": "0 victims in the last 7d across 2 trackers.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 1 tracker.",
+      "shard": 3
     },
     {
       "slug": "ech0raix",
@@ -2404,16 +2406,16 @@
     {
       "slug": "eclipse",
       "name": "eclipse",
-      "victims_7d": 4,
-      "victims_total": 15,
+      "victims_7d": 0,
+      "victims_total": 14,
       "last_seen": "2026-09-14T18:41:58.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": false,
       "mirrors": 2,
       "up_mirrors": 0,
       "has_profile": true,
-      "blurb": "4 victims in the last 7d across 2 trackers.",
-      "shard": 1
+      "blurb": "0 victims in the last 7d across 2 trackers.",
+      "shard": 3
     },
     {
       "slug": "egregor",
@@ -2483,7 +2485,7 @@
     {
       "slug": "embargo",
       "name": "embargo",
-      "victims_7d": 2,
+      "victims_7d": 0,
       "victims_total": 42,
       "last_seen": "2026-09-10T03:38:33.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
@@ -2491,21 +2493,20 @@
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "2 victims in the last 7d across 2 trackers.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 2 trackers."
     },
     {
       "slug": "emperador",
       "name": "emperador",
-      "victims_7d": 8,
-      "victims_total": 25,
-      "last_seen": "2026-09-13T13:51:22.518Z",
+      "victims_7d": 16,
+      "victims_total": 40,
+      "last_seen": "2026-09-23T09:20:59.298Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": false,
+      "online": true,
       "mirrors": 1,
-      "up_mirrors": 0,
+      "up_mirrors": 1,
       "has_profile": true,
-      "blurb": "8 victims in the last 7d across 2 trackers.",
+      "blurb": "16 victims in the last 7d across 2 trackers.",
       "shard": 0
     },
     {
@@ -2546,6 +2547,20 @@
       "up_mirrors": 0,
       "has_profile": false,
       "blurb": "No victim claims in the current activity window."
+    },
+    {
+      "slug": "endzone",
+      "name": "endzone",
+      "victims_7d": 5,
+      "victims_total": 5,
+      "last_seen": "2026-09-21T09:20:55.521Z",
+      "origins": ["ransomlook", "ransomwarelive"],
+      "online": true,
+      "mirrors": 1,
+      "up_mirrors": 1,
+      "has_profile": true,
+      "blurb": "5 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "entropy",
@@ -2616,7 +2631,7 @@
       "slug": "everest",
       "name": "everest",
       "victims_7d": 0,
-      "victims_total": 406,
+      "victims_total": 402,
       "last_seen": "2026-09-07T17:26:34.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": false,
@@ -2624,7 +2639,7 @@
       "up_mirrors": 0,
       "has_profile": true,
       "blurb": "Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cr…",
-      "shard": 2
+      "shard": 3
     },
     {
       "slug": "evolution",
@@ -2695,14 +2710,14 @@
       "slug": "falcon",
       "name": "falcon",
       "victims_7d": 0,
-      "victims_total": 4,
-      "last_seen": "2026-08-31T17:24:56.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 3,
+      "last_seen": "2026-08-31T15:22:09.014Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "farattack",
@@ -2876,16 +2891,15 @@
     {
       "slug": "fulcrumsec",
       "name": "fulcrumsec",
-      "victims_7d": 2,
-      "victims_total": 29,
+      "victims_7d": 0,
+      "victims_total": 28,
       "last_seen": "2026-09-11T12:40:23.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "2 victims in the last 7d across 2 trackers.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 2 trackers."
     },
     {
       "slug": "funksec",
@@ -2929,15 +2943,16 @@
     {
       "slug": "gammax",
       "name": "gammax",
-      "victims_7d": 0,
-      "victims_total": 4,
-      "last_seen": "2026-08-06T16:51:04.697Z",
-      "origins": ["ransomwarelive"],
+      "victims_7d": 2,
+      "victims_total": 6,
+      "last_seen": "2026-09-18T19:40:53.000Z",
+      "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "blurb": "2 victims in the last 7d across 2 trackers.",
+      "shard": 2
     },
     {
       "slug": "gandcrab",
@@ -2994,7 +3009,7 @@
     {
       "slug": "genesis",
       "name": "genesis",
-      "victims_7d": 4,
+      "victims_7d": 0,
       "victims_total": 119,
       "last_seen": "2026-09-15T00:40:01.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
@@ -3003,7 +3018,7 @@
       "up_mirrors": 1,
       "has_profile": true,
       "blurb": "Financial interests only. <br/> We do not provide or work with affiliate programs, no collaborations either. <br/> The requested payment must be made within a specified time frame, otherwise the pric…",
-      "shard": 1
+      "shard": 3
     },
     {
       "slug": "ghost",
@@ -3021,7 +3036,7 @@
     {
       "slug": "global",
       "name": "global",
-      "victims_7d": 2,
+      "victims_7d": 0,
       "victims_total": 40,
       "last_seen": "2026-09-12T09:58:39.563Z",
       "origins": ["ransomwarelive"],
@@ -3029,19 +3044,18 @@
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "2 victims in the last 7d across 1 tracker.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "globalsecretgroup",
       "name": "global secret group",
       "victims_7d": 4,
-      "victims_total": 50,
-      "last_seen": "2026-09-11T00:43:25.000Z",
+      "victims_total": 52,
+      "last_seen": "2026-09-21T19:46:27.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 6,
-      "up_mirrors": 1,
+      "up_mirrors": 2,
       "has_profile": true,
       "blurb": "4 victims in the last 7d across 2 trackers.",
       "shard": 1
@@ -3387,7 +3401,7 @@
     {
       "slug": "iah647",
       "name": "iah647",
-      "victims_7d": 1,
+      "victims_7d": 0,
       "victims_total": 1,
       "last_seen": "2026-09-15T11:39:16.000Z",
       "origins": ["ransomlook"],
@@ -3395,8 +3409,7 @@
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "1 victim in the last 7d across 1 tracker.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "icarus",
@@ -3440,15 +3453,15 @@
     {
       "slug": "incransom",
       "name": "inc ransom",
-      "victims_7d": 6,
-      "victims_total": 954,
-      "last_seen": "2026-09-10T17:41:23.000Z",
+      "victims_7d": 20,
+      "victims_total": 960,
+      "last_seen": "2026-09-21T15:30:56.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": true,
-      "mirrors": 10,
-      "up_mirrors": 1,
+      "online": false,
+      "mirrors": 12,
+      "up_mirrors": 0,
       "has_profile": true,
-      "blurb": "6 victims in the last 7d across 2 trackers.",
+      "blurb": "20 victims in the last 7d across 2 trackers.",
       "shard": 0
     },
     {
@@ -3480,30 +3493,30 @@
     {
       "slug": "insomnia",
       "name": "insomnia",
-      "victims_7d": 6,
-      "victims_total": 59,
+      "victims_7d": 0,
+      "victims_total": 56,
       "last_seen": "2026-09-15T19:25:43.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 2,
       "up_mirrors": 1,
       "has_profile": true,
-      "blurb": "6 victims in the last 7d across 2 trackers.",
-      "shard": 1
+      "blurb": "0 victims in the last 7d across 2 trackers.",
+      "shard": 3
     },
     {
       "slug": "interlock",
       "name": "interlock",
-      "victims_7d": 4,
-      "victims_total": 130,
+      "victims_7d": 0,
+      "victims_total": 129,
       "last_seen": "2026-09-15T20:33:22.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 183,
       "up_mirrors": 11,
       "has_profile": true,
-      "blurb": "4 victims in the last 7d across 2 trackers.",
-      "shard": 1
+      "blurb": "0 victims in the last 7d across 2 trackers.",
+      "shard": 3
     },
     {
       "slug": "invaderx",
@@ -3638,15 +3651,16 @@
     {
       "slug": "kairos",
       "name": "kairos",
-      "victims_7d": 0,
-      "victims_total": 96,
-      "last_seen": "2026-09-02T16:42:05.000Z",
+      "victims_7d": 4,
+      "victims_total": 99,
+      "last_seen": "2026-09-22T18:34:09.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
+      "online": false,
+      "mirrors": 12,
       "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "has_profile": true,
+      "blurb": "4 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "karakurt",
@@ -3704,7 +3718,7 @@
       "slug": "kazu",
       "name": "kazu",
       "victims_7d": 0,
-      "victims_total": 38,
+      "victims_total": 34,
       "last_seen": "2026-09-07T08:43:38.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": false,
@@ -3712,7 +3726,7 @@
       "up_mirrors": 0,
       "has_profile": true,
       "blurb": "0 victims in the last 7d across 2 trackers.",
-      "shard": 2
+      "shard": 3
     },
     {
       "slug": "kelvinsecurity",
@@ -3756,15 +3770,16 @@
     {
       "slug": "killsec",
       "name": "killsec",
-      "victims_7d": 0,
-      "victims_total": 285,
-      "last_seen": "2026-08-23T16:20:54.578Z",
+      "victims_7d": 1,
+      "victims_total": 286,
+      "last_seen": "2026-09-18T02:02:22.189Z",
       "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "blurb": "1 victim in the last 7d across 1 tracker.",
+      "shard": 2
     },
     {
       "slug": "killsec3",
@@ -3834,16 +3849,16 @@
     {
       "slug": "krybit",
       "name": "krybit",
-      "victims_7d": 26,
-      "victims_total": 176,
-      "last_seen": "2026-09-13T14:48:38.000Z",
+      "victims_7d": 6,
+      "victims_total": 166,
+      "last_seen": "2026-09-20T16:37:21.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": false,
+      "online": true,
       "mirrors": 4,
-      "up_mirrors": 0,
+      "up_mirrors": 1,
       "has_profile": true,
-      "blurb": "26 victims in the last 7d across 2 trackers.",
-      "shard": 0
+      "blurb": "6 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "krypt",
@@ -4030,28 +4045,29 @@
     {
       "slug": "leakeddata",
       "name": "leakeddata",
-      "victims_7d": 0,
-      "victims_total": 9,
-      "last_seen": "2026-09-03T22:33:33.000Z",
+      "victims_7d": 7,
+      "victims_total": 7,
+      "last_seen": "2026-09-23T00:47:34.000Z",
       "origins": ["ransomlook"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "online": true,
+      "mirrors": 2,
+      "up_mirrors": 2,
+      "has_profile": true,
+      "blurb": "7 victims in the last 7d across 1 tracker.",
+      "shard": 0
     },
     {
       "slug": "leaknet",
       "name": "leaknet",
       "victims_7d": 0,
-      "victims_total": 1,
-      "last_seen": "2026-09-06T01:41:57.000Z",
-      "origins": ["ransomlook"],
+      "victims_total": 0,
+      "last_seen": null,
+      "origins": [],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "blurb": "No victim claims in the current activity window."
     },
     {
       "slug": "lgroup",
@@ -4134,15 +4150,15 @@
     {
       "slug": "lockbit5",
       "name": "lockbit5",
-      "victims_7d": 10,
-      "victims_total": 379,
-      "last_seen": "2026-09-14T18:42:25.000Z",
+      "victims_7d": 7,
+      "victims_total": 377,
+      "last_seen": "2026-09-22T23:45:15.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
-      "mirrors": 6,
-      "up_mirrors": 1,
+      "mirrors": 31,
+      "up_mirrors": 5,
       "has_profile": true,
-      "blurb": "10 victims in the last 7d across 2 trackers.",
+      "blurb": "7 victims in the last 7d across 2 trackers.",
       "shard": 0
     },
     {
@@ -4409,14 +4425,14 @@
       "slug": "majinahanashi",
       "name": "majinahanashi",
       "victims_7d": 0,
-      "victims_total": 23,
-      "last_seen": "2026-09-01T10:44:44.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 22,
+      "last_seen": "2026-09-01T08:50:54.179Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "makop",
@@ -4617,14 +4633,14 @@
       "slug": "meowciety403",
       "name": "meowciety403",
       "victims_7d": 0,
-      "victims_total": 1,
-      "last_seen": "2026-09-02T16:42:30.000Z",
-      "origins": ["ransomlook"],
+      "victims_total": 0,
+      "last_seen": null,
+      "origins": [],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "blurb": "No victim claims in the current activity window."
     },
     {
       "slug": "mespinoza",
@@ -4642,16 +4658,16 @@
     {
       "slug": "metaencryptor",
       "name": "metaencryptor",
-      "victims_7d": 2,
-      "victims_total": 44,
-      "last_seen": "2026-09-15T11:59:46.342Z",
+      "victims_7d": 9,
+      "victims_total": 53,
+      "last_seen": "2026-09-21T22:14:32.083Z",
       "origins": ["ransomwarelive"],
       "online": false,
       "mirrors": 2,
       "up_mirrors": 0,
       "has_profile": true,
       "blurb": "We are a group of young people who identify themselves as specialists in the field of network security with at least 15 years of experience. This blog and this work are ONLY commercial use, besides n…",
-      "shard": 1
+      "shard": 0
     },
     {
       "slug": "midas",
@@ -4786,15 +4802,16 @@
     {
       "slug": "moneymessage",
       "name": "money message",
-      "victims_7d": 0,
-      "victims_total": 35,
-      "last_seen": "2026-08-28T13:28:58.906Z",
-      "origins": ["ransomwarelive"],
+      "victims_7d": 2,
+      "victims_total": 37,
+      "last_seen": "2026-09-21T16:33:28.000Z",
+      "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "blurb": "2 victims in the last 7d across 2 trackers.",
+      "shard": 2
     },
     {
       "slug": "monolock",
@@ -4953,6 +4970,20 @@
       "blurb": "No victim claims in the current activity window."
     },
     {
+      "slug": "n0n",
+      "name": "n0n",
+      "victims_7d": 22,
+      "victims_total": 22,
+      "last_seen": "2026-09-22T17:22:04.310Z",
+      "origins": ["ransomlook", "ransomwarelive"],
+      "online": true,
+      "mirrors": 1,
+      "up_mirrors": 1,
+      "has_profile": true,
+      "blurb": "22 victims in the last 7d across 2 trackers.",
+      "shard": 0
+    },
+    {
       "slug": "n3tworm",
       "name": "n3tworm",
       "victims_7d": 0,
@@ -5098,16 +5129,16 @@
     {
       "slug": "nightspire",
       "name": "nightspire",
-      "victims_7d": 8,
-      "victims_total": 333,
-      "last_seen": "2026-09-12T07:42:53.000Z",
+      "victims_7d": 6,
+      "victims_total": 336,
+      "last_seen": "2026-09-21T20:43:14.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": true,
+      "online": false,
       "mirrors": 8,
-      "up_mirrors": 1,
+      "up_mirrors": 0,
       "has_profile": true,
-      "blurb": "8 victims in the last 7d across 2 trackers.",
-      "shard": 0
+      "blurb": "6 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "nitrogen",
@@ -5307,15 +5338,16 @@
     {
       "slug": "orova",
       "name": "orova",
-      "victims_7d": 0,
-      "victims_total": 47,
-      "last_seen": "2026-08-31T19:30:42.000Z",
+      "victims_7d": 4,
+      "victims_total": 49,
+      "last_seen": "2026-09-20T16:37:48.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "4 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "osiris",
@@ -5372,15 +5404,15 @@
     {
       "slug": "panzer",
       "name": "panzer",
-      "victims_7d": 11,
-      "victims_total": 37,
-      "last_seen": "2026-09-15T18:26:46.000Z",
+      "victims_7d": 10,
+      "victims_total": 43,
+      "last_seen": "2026-09-21T15:31:27.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 12,
-      "up_mirrors": 3,
+      "up_mirrors": 6,
       "has_profile": true,
-      "blurb": "11 victims in the last 7d across 2 trackers.",
+      "blurb": "10 victims in the last 7d across 2 trackers.",
       "shard": 0
     },
     {
@@ -5452,28 +5484,27 @@
       "slug": "payoutsking",
       "name": "payoutsking",
       "victims_7d": 0,
-      "victims_total": 111,
+      "victims_total": 110,
       "last_seen": "2026-09-02T10:27:51.839Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "pear",
       "name": "pear",
-      "victims_7d": 2,
-      "victims_total": 123,
+      "victims_7d": 0,
+      "victims_total": 120,
       "last_seen": "2026-09-11T15:43:42.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "2 victims in the last 7d across 2 trackers.",
-      "shard": 2
+      "blurb": "0 victims in the last 7d across 2 trackers."
     },
     {
       "slug": "petya",
@@ -5556,16 +5587,16 @@
     {
       "slug": "play",
       "name": "play",
-      "victims_7d": 4,
-      "victims_total": 1320,
-      "last_seen": "2026-09-10T21:44:13.000Z",
+      "victims_7d": 10,
+      "victims_total": 1326,
+      "last_seen": "2026-09-21T23:42:08.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 32,
-      "up_mirrors": 5,
+      "up_mirrors": 1,
       "has_profile": true,
       "blurb": "Ransomware <br/> <br/>",
-      "shard": 1
+      "shard": 0
     },
     {
       "slug": "playboy",
@@ -5713,13 +5744,13 @@
     {
       "slug": "qilin",
       "name": "qilin",
-      "victims_7d": 38,
-      "victims_total": 2324,
-      "last_seen": "2026-09-16T06:36:03.000Z",
+      "victims_7d": 45,
+      "victims_total": 2352,
+      "last_seen": "2026-09-23T13:43:29.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 640,
-      "up_mirrors": 1,
+      "up_mirrors": 3,
       "has_profile": true,
       "blurb": "Aka Agenda",
       "shard": 0
@@ -6026,15 +6057,15 @@
     {
       "slug": "ransomhouse",
       "name": "ransomhouse",
-      "victims_7d": 3,
-      "victims_total": 211,
-      "last_seen": "2026-09-15T17:38:04.000Z",
+      "victims_7d": 4,
+      "victims_total": 213,
+      "last_seen": "2026-09-17T19:40:27.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "3 victims in the last 7d across 2 trackers.",
+      "blurb": "4 victims in the last 7d across 2 trackers.",
       "shard": 1
     },
     {
@@ -6209,15 +6240,15 @@
     {
       "slug": "rhysida",
       "name": "rhysida",
-      "victims_7d": 6,
-      "victims_total": 293,
-      "last_seen": "2026-09-12T15:39:31.000Z",
+      "victims_7d": 4,
+      "victims_total": 296,
+      "last_seen": "2026-09-19T17:36:30.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 7,
       "up_mirrors": 4,
       "has_profile": true,
-      "blurb": "6 victims in the last 7d across 2 trackers.",
+      "blurb": "4 victims in the last 7d across 2 trackers.",
       "shard": 1
     },
     {
@@ -6366,7 +6397,7 @@
     {
       "slug": "safepay",
       "name": "safepay",
-      "victims_7d": 20,
+      "victims_7d": 0,
       "victims_total": 589,
       "last_seen": "2026-09-15T21:35:53.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
@@ -6374,8 +6405,8 @@
       "mirrors": 13,
       "up_mirrors": 0,
       "has_profile": true,
-      "blurb": "20 victims in the last 7d across 2 trackers.",
-      "shard": 0
+      "blurb": "0 victims in the last 7d across 2 trackers.",
+      "shard": 3
     },
     {
       "slug": "samsam",
@@ -6471,15 +6502,16 @@
     {
       "slug": "secp0",
       "name": "secp0",
-      "victims_7d": 0,
-      "victims_total": 6,
-      "last_seen": "2026-04-29T23:51:34.438Z",
-      "origins": ["ransomwarelive"],
+      "victims_7d": 2,
+      "victims_total": 8,
+      "last_seen": "2026-09-22T05:43:26.000Z",
+      "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "blurb": "2 victims in the last 7d across 2 trackers.",
+      "shard": 2
     },
     {
       "slug": "section9",
@@ -6498,8 +6530,8 @@
       "slug": "securotrop",
       "name": "securotrop",
       "victims_7d": 2,
-      "victims_total": 44,
-      "last_seen": "2026-09-12T08:45:42.000Z",
+      "victims_total": 46,
+      "last_seen": "2026-09-18T18:40:30.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
@@ -6537,15 +6569,16 @@
     {
       "slug": "settra",
       "name": "settra",
-      "victims_7d": 0,
-      "victims_total": 64,
-      "last_seen": "2026-09-03T16:59:44.086Z",
+      "victims_7d": 12,
+      "victims_total": 76,
+      "last_seen": "2026-09-22T16:52:53.151Z",
       "origins": ["ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "online": true,
+      "mirrors": 5,
+      "up_mirrors": 1,
+      "has_profile": true,
+      "blurb": "12 victims in the last 7d across 1 tracker.",
+      "shard": 0
     },
     {
       "slug": "sevyware",
@@ -6589,15 +6622,15 @@
     {
       "slug": "shadowbyt3",
       "name": "shadowbyt3$",
-      "victims_7d": 2,
-      "victims_total": 21,
-      "last_seen": "2026-09-15T00:23:37.508Z",
+      "victims_7d": 1,
+      "victims_total": 22,
+      "last_seen": "2026-09-16T21:53:11.343Z",
       "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "2 victims in the last 7d across 1 tracker.",
+      "blurb": "1 victim in the last 7d across 1 tracker.",
       "shard": 2
     },
     {
@@ -6629,16 +6662,16 @@
     {
       "slug": "shinyhunters",
       "name": "shinyhunters",
-      "victims_7d": 2,
-      "victims_total": 163,
-      "last_seen": "2026-09-13T15:47:35.000Z",
+      "victims_7d": 8,
+      "victims_total": 168,
+      "last_seen": "2026-09-23T03:45:53.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 8,
-      "up_mirrors": 3,
+      "up_mirrors": 4,
       "has_profile": true,
-      "blurb": "2 victims in the last 7d across 2 trackers.",
-      "shard": 1
+      "blurb": "8 victims in the last 7d across 2 trackers.",
+      "shard": 0
     },
     {
       "slug": "sicari",
@@ -6813,14 +6846,14 @@
       "slug": "spacebears",
       "name": "space bears",
       "victims_7d": 0,
-      "victims_total": 160,
-      "last_seen": "2026-09-05T12:37:01.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 156,
+      "last_seen": "2026-09-05T04:29:03.242Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "sparta",
@@ -6864,15 +6897,16 @@
     {
       "slug": "spirals",
       "name": "spirals",
-      "victims_7d": 0,
-      "victims_total": 0,
-      "last_seen": null,
-      "origins": [],
+      "victims_7d": 3,
+      "victims_total": 8,
+      "last_seen": "2026-09-18T20:24:29.068Z",
+      "origins": ["ransomlook", "ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "No victim claims in the current activity window."
+      "blurb": "3 victims in the last 7d across 2 trackers.",
+      "shard": 2
     },
     {
       "slug": "spirigatito",
@@ -6929,15 +6963,15 @@
     {
       "slug": "storm",
       "name": "storm",
-      "victims_7d": 7,
-      "victims_total": 100,
-      "last_seen": "2026-09-15T10:47:23.874Z",
+      "victims_7d": 16,
+      "victims_total": 116,
+      "last_seen": "2026-09-21T11:31:54.260Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": false,
+      "online": true,
       "mirrors": 1,
-      "up_mirrors": 0,
+      "up_mirrors": 1,
       "has_profile": true,
-      "blurb": "7 victims in the last 7d across 2 trackers.",
+      "blurb": "16 victims in the last 7d across 2 trackers.",
       "shard": 0
     },
     {
@@ -7125,15 +7159,16 @@
     {
       "slug": "termite",
       "name": "termite",
-      "victims_7d": 0,
-      "victims_total": 49,
-      "last_seen": "2026-08-22T05:45:30.571Z",
-      "origins": ["ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "victims_7d": 6,
+      "victims_total": 55,
+      "last_seen": "2026-09-22T15:36:11.000Z",
+      "origins": ["ransomlook", "ransomwarelive"],
+      "online": true,
+      "mirrors": 5,
+      "up_mirrors": 1,
+      "has_profile": true,
+      "blurb": "6 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "thanos",
@@ -7151,15 +7186,15 @@
     {
       "slug": "thegentlemen",
       "name": "the gentlemen",
-      "victims_7d": 64,
-      "victims_total": 928,
-      "last_seen": "2026-09-15T07:17:26.442Z",
+      "victims_7d": 19,
+      "victims_total": 937,
+      "last_seen": "2026-09-21T20:29:08.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": false,
       "mirrors": 2,
       "up_mirrors": 0,
       "has_profile": true,
-      "blurb": "64 victims in the last 7d across 2 trackers.",
+      "blurb": "19 victims in the last 7d across 2 trackers.",
       "shard": 0
     },
     {
@@ -7243,15 +7278,16 @@
     {
       "slug": "titan",
       "name": "titan",
-      "victims_7d": 0,
-      "victims_total": 24,
-      "last_seen": "2026-08-20T16:58:09.992Z",
-      "origins": ["ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "0 victims in the last 7d across 1 tracker."
+      "victims_7d": 4,
+      "victims_total": 28,
+      "last_seen": "2026-09-22T21:34:41.000Z",
+      "origins": ["ransomlook", "ransomwarelive"],
+      "online": true,
+      "mirrors": 3,
+      "up_mirrors": 2,
+      "has_profile": true,
+      "blurb": "4 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "tommyleaks",
@@ -7309,14 +7345,14 @@
       "slug": "tridentlocker",
       "name": "tridentlocker",
       "victims_7d": 0,
-      "victims_total": 18,
-      "last_seen": "2026-09-04T16:48:25.000Z",
-      "origins": ["ransomlook", "ransomwarelive"],
+      "victims_total": 17,
+      "last_seen": "2026-09-04T14:04:00.266Z",
+      "origins": ["ransomwarelive"],
       "online": null,
       "mirrors": 0,
       "up_mirrors": 0,
       "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "blurb": "0 victims in the last 7d across 1 tracker."
     },
     {
       "slug": "trigona",
@@ -7478,12 +7514,12 @@
       "slug": "unsafe",
       "name": "unsafe",
       "victims_7d": 4,
-      "victims_total": 26,
-      "last_seen": "2026-09-14T21:49:34.000Z",
+      "victims_total": 30,
+      "last_seen": "2026-09-21T23:42:13.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": false,
+      "online": true,
       "mirrors": 1,
-      "up_mirrors": 0,
+      "up_mirrors": 1,
       "has_profile": true,
       "blurb": "4 victims in the last 7d across 2 trackers.",
       "shard": 1
@@ -7595,16 +7631,16 @@
     {
       "slug": "vexy",
       "name": "vexy",
-      "victims_7d": 4,
-      "victims_total": 14,
-      "last_seen": "2026-09-15T21:36:00.000Z",
+      "victims_7d": 2,
+      "victims_total": 8,
+      "last_seen": "2026-09-19T09:50:19.000Z",
       "origins": ["ransomlook"],
       "online": false,
       "mirrors": 1,
       "up_mirrors": 0,
       "has_profile": true,
-      "blurb": "4 victims in the last 7d across 1 tracker.",
-      "shard": 1
+      "blurb": "2 victims in the last 7d across 1 tracker.",
+      "shard": 2
     },
     {
       "slug": "vfokx",
@@ -7713,15 +7749,15 @@
     {
       "slug": "wallstreet",
       "name": "wallstreet",
-      "victims_7d": 6,
-      "victims_total": 23,
-      "last_seen": "2026-09-10T16:36:45.000Z",
+      "victims_7d": 4,
+      "victims_total": 22,
+      "last_seen": "2026-09-16T18:43:47.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
       "online": true,
       "mirrors": 2,
       "up_mirrors": 1,
       "has_profile": true,
-      "blurb": "6 victims in the last 7d across 2 trackers.",
+      "blurb": "4 victims in the last 7d across 2 trackers.",
       "shard": 1
     },
     {
@@ -8000,15 +8036,16 @@
     {
       "slug": "zawoo",
       "name": "zawoo",
-      "victims_7d": 0,
-      "victims_total": 22,
-      "last_seen": "2026-08-31T16:32:15.000Z",
+      "victims_7d": 6,
+      "victims_total": 25,
+      "last_seen": "2026-09-19T20:45:42.000Z",
       "origins": ["ransomlook", "ransomwarelive"],
-      "online": null,
-      "mirrors": 0,
-      "up_mirrors": 0,
-      "has_profile": false,
-      "blurb": "0 victims in the last 7d across 2 trackers."
+      "online": true,
+      "mirrors": 1,
+      "up_mirrors": 1,
+      "has_profile": true,
+      "blurb": "6 victims in the last 7d across 2 trackers.",
+      "shard": 1
     },
     {
       "slug": "zeon",
@@ -8156,16 +8193,16 @@
   ],
   "recent": [
     "qilin",
-    "dragonforce",
-    "vexy",
-    "safepay",
-    "interlock",
-    "insomnia",
-    "panzer",
-    "ransomhouse",
-    "darkproject",
+    "boobateam",
     "arcusmedia",
-    "akira",
-    "metaencryptor"
+    "emperador",
+    "shinyhunters",
+    "leakeddata",
+    "lockbit5",
+    "anubis",
+    "titan",
+    "kairos",
+    "n0n",
+    "settra"
   ]
 }

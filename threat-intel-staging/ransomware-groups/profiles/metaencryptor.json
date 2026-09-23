@@ -1,7 +1,7 @@
 {
   "slug": "metaencryptor",
   "name": "metaencryptor",
-  "fetchedAt": "2026-09-12T06:13:00.052Z",
+  "fetchedAt": "2026-09-23T11:55:34.866Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "Metaencryptor::Home",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 01:00:45.391",
+          "updated": "2026-09-23 01:00:07.599",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "Metaencryptor::Home",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 10:00:07.932",
+          "updated": "2026-09-23 05:00:10.223",
           "chat": false,
           "fs": false
         }
