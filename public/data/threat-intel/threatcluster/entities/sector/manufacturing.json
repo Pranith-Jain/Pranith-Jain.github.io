@@ -5,24 +5,44 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 10,
-  "firstSeen": "2026-09-20T12:15:03.000Z",
-  "lastSeen": "2026-09-22T02:45:36.000Z",
-  "summary": "Sector hit by 10 leak-site victims across 7 ransomware groups and 4 countries.",
+  "firstSeen": "2026-09-21T13:07:23.000Z",
+  "lastSeen": "2026-09-22T15:45:48.000Z",
+  "summary": "Sector hit by 10 leak-site victims across 8 ransomware groups and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-20",
-      "count": 1
-    },
-    {
       "date": "2026-09-21",
-      "count": 8
+      "count": 5
     },
     {
       "date": "2026-09-22",
-      "count": 1
+      "count": 5
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "krapf-group-8797",
+      "title": "Krapf Group — claimed by kairos",
+      "pubDate": "2026-09-22T15:45:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "coe-press-equipment-e3fb",
+      "title": "Coe Press Equipment — claimed by akira",
+      "pubDate": "2026-09-22T13:29:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "di-c-s-el-s-r-l-7015",
+      "title": "DI.C.S.EL. S.R.L. — claimed by akira",
+      "pubDate": "2026-09-22T12:52:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "textile-city-db08",
+      "title": "Textile City — claimed by qilin",
+      "pubDate": "2026-09-22T11:12:13.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "sealcon-014a",
@@ -58,44 +78,32 @@
       "slug": "bruker-corporation-fb23",
       "title": "Bruker Corporation — claimed by metaencryptor",
       "pubDate": "2026-09-21T13:07:23.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "flex-ltd-63a9",
-      "title": "Flex Ltd — claimed by metaencryptor",
-      "pubDate": "2026-09-21T13:06:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ikegami-tsushinki-company-limited-b095",
-      "title": "IKEGAMI TSUSHINKI COMPANY LIMITED — claimed by qilin",
-      "pubDate": "2026-09-21T08:01:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "newmantractor-com-d4fa",
-      "title": "newmantractor.com — claimed by threeam",
-      "pubDate": "2026-09-21T06:07:48.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "zorlu-holding-b374",
-      "title": "Zorlu Holding — claimed by qilin",
-      "pubDate": "2026-09-20T12:15:03.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "akira",
+      "name": "akira",
+      "weight": 2
+    },
+    {
+      "type": "group",
       "slug": "metaencryptor",
       "name": "metaencryptor",
-      "weight": 3
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "kairos",
+      "name": "kairos",
+      "weight": 1
     },
     {
       "type": "group",
       "slug": "qilin",
       "name": "qilin",
-      "weight": 2
+      "weight": 1
     },
     {
       "type": "group",
@@ -119,12 +127,6 @@
       "type": "group",
       "slug": "global-secret-group",
       "name": "global secret group",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "threeam",
-      "name": "threeam",
       "weight": 1
     }
   ],

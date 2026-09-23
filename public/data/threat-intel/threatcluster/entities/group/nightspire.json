@@ -4,15 +4,11 @@
   "name": "nightspire",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-20T06:40:26.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-21T18:43:08.000Z",
   "lastSeen": "2026-09-21T18:43:28.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-09-20",
-      "count": 1
-    },
     {
       "date": "2026-09-21",
       "count": 2
@@ -30,12 +26,6 @@
       "slug": "spo-schools-464c",
       "title": "Spo**** Schools — claimed by nightspire",
       "pubDate": "2026-09-21T18:43:08.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "great-bay-bio-a128",
-      "title": "Great Bay Bio — claimed by nightspire",
-      "pubDate": "2026-09-20T06:40:26.000Z"
     }
   ],
   "relatedEntities": [
@@ -49,12 +39,6 @@
       "type": "sector",
       "slug": "education",
       "name": "Education",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
       "weight": 1
     }
   ],
@@ -73,13 +57,6 @@
       "sector": "Education",
       "country": "US",
       "pubDate": "2026-09-21T18:43:08.000Z"
-    },
-    {
-      "id": "great-bay-bio-a128",
-      "victim": "Great Bay Bio — claimed by nightspire",
-      "sector": "Healthcare",
-      "country": "HK",
-      "pubDate": "2026-09-20T06:40:26.000Z"
     }
   ]
 }

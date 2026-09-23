@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "medusalocker",
+  "name": "medusalocker",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-23T07:39:33.000Z",
+  "lastSeen": "2026-09-23T07:41:04.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-23",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "aokkef-aecd",
+      "title": "Aokkef — claimed by medusalocker",
+      "pubDate": "2026-09-23T07:41:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "seznam-d81d",
+      "title": "Seznam — claimed by medusalocker",
+      "pubDate": "2026-09-23T07:40:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "abv-63c1",
+      "title": "Abv — claimed by medusalocker",
+      "pubDate": "2026-09-23T07:39:33.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "aokkef-aecd",
+      "victim": "Aokkef — claimed by medusalocker",
+      "sector": "Not Found",
+      "country": "FR",
+      "pubDate": "2026-09-23T07:41:04.000Z"
+    },
+    {
+      "id": "seznam-d81d",
+      "victim": "Seznam — claimed by medusalocker",
+      "sector": "Technology",
+      "country": "CZ",
+      "pubDate": "2026-09-23T07:40:37.000Z"
+    },
+    {
+      "id": "abv-63c1",
+      "victim": "Abv — claimed by medusalocker",
+      "sector": "Other",
+      "country": "BG",
+      "pubDate": "2026-09-23T07:39:33.000Z"
+    }
+  ]
+}

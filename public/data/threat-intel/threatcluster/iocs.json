@@ -1,11 +1,272 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-22T10:11:41Z",
-  "syncedAt": "2026-09-22T10:11:41.751Z",
+  "generatedAt": "2026-09-23T10:12:46Z",
+  "syncedAt": "2026-09-23T10:12:46.722Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 329,
+  "count": 344,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "techroboticslabmade.com",
+      "confidence": "high",
+      "reason": "Listed as Central C2 / MailVault platform",
+      "first_seen": "2026-09-22T23:35:45.683500+00:00",
+      "last_seen": "2026-09-22T23:35:45.683500+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "abnormal.ai",
+          "url": "https://abnormal.ai/blog/eviltokens-oauth-device-codes-bec-operations",
+          "pub_date": "2026-09-22T23:35:45.6835+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "goorkan.info",
+      "confidence": "high",
+      "reason": "Domain promoted by hacked traffic sign, linked to a campaign targeting Iranian dissidents, suggesting attacker control.",
+      "first_seen": "2026-09-21T04:54:33+00:00",
+      "last_seen": "2026-09-22T17:02:08.153305+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.aol.com",
+          "url": "https://www.aol.com/articles/iranian-dissidents-claim-chilling-sign-212251000.html",
+          "pub_date": "2026-09-22T17:02:08.153305+00:00"
+        },
+        {
+          "source": "Nypost",
+          "url": "https://nypost.com/2026/09/20/us-news/los-angeles-405-freeway-sign-hacked-with-threats-targeting-iranian-dissidents/",
+          "pub_date": "2026-09-21T04:54:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "crownsmark.uk",
+      "confidence": "high",
+      "reason": "Domain used in a scam email, likely attacker-controlled.",
+      "first_seen": "2026-09-22T16:06:06.732366+00:00",
+      "last_seen": "2026-09-22T16:06:06.732366+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.systemscloud.co.uk",
+          "url": "https://www.systemscloud.co.uk/post/the-trademark-scam-email-targeting-uk-business-owners-what-to-look-for",
+          "pub_date": "2026-09-22T16:06:06.732366+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "gocommunity.io",
+      "confidence": "high",
+      "reason": "[article sweep] Used to distribute Go malware via Terraform providers and Go Modules.",
+      "first_seen": "2026-09-22T15:17:55+00:00",
+      "last_seen": "2026-09-22T15:17:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Aikido.Dev",
+          "url": "https://www.aikido.dev/blog/graphalgo-terraform-go-modules",
+          "pub_date": "2026-09-22T15:17:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "gogets.dev",
+      "confidence": "high",
+      "reason": "[article sweep] Used to distribute Go malware via Go Modules.",
+      "first_seen": "2026-09-22T15:17:55+00:00",
+      "last_seen": "2026-09-22T15:17:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Aikido.Dev",
+          "url": "https://www.aikido.dev/blog/graphalgo-terraform-go-modules",
+          "pub_date": "2026-09-22T15:17:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "istatlmenus.com",
+      "confidence": "high",
+      "reason": "Domain used as traffic director in a malicious campaign, controlled by attackers",
+      "first_seen": "2026-09-22T08:37:39.780623+00:00",
+      "last_seen": "2026-09-22T08:37:39.780623+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.diariobitcoin.com",
+          "url": "https://www.diariobitcoin.com/estafas/repositorios-falsos-de-lastpass-distribuyen-el-infostealer-rapuncel-en-github/",
+          "pub_date": "2026-09-22T08:37:39.780623+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "aodintech.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used as C2 infrastructure for malware",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "bur.thedynamicleap.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used for telemetry exfiltration by malware",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "cdn-store.aodintech.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used as a CDN for malware distribution",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "euads-o.api.leiniao.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used as a C2 server for malware",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "event-api.aodintech.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used for telemetry exfiltration by malware",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "ota.triplesai.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used for OTA updates in a malware campaign.",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "pb-api.aodintech.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used as a C2 server in a malware campaign.",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "pioneerss.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used as a C2 server in a malware campaign.",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "sta.smartinnovate.net",
+      "confidence": "high",
+      "reason": "[article sweep] Used as a C2 server in a malware campaign.",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "store-api.aodintech.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used for app distribution in a malware campaign.",
+      "first_seen": "2026-09-22T04:55:20+00:00",
+      "last_seen": "2026-09-22T04:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-KAVAN00-ANDROID-PROJECTOR-C2-MALWARE&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-22T04:55:20+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "bedotiq.net",
@@ -418,22 +679,6 @@
     },
     {
       "type": "domain",
-      "value": "goorkan.info",
-      "confidence": "high",
-      "reason": "[article sweep] Website promoting a campaign against enemies of Iran's regime",
-      "first_seen": "2026-09-21T04:54:33+00:00",
-      "last_seen": "2026-09-21T04:54:33+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Nypost",
-          "url": "https://nypost.com/2026/09/20/us-news/los-angeles-405-freeway-sign-hacked-with-threats-targeting-iranian-dissidents/",
-          "pub_date": "2026-09-21T04:54:33+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
       "value": "loader.app",
       "confidence": "high",
       "reason": "[article sweep] Used as a payload host in a malware campaign",
@@ -509,6 +754,22 @@
           "source": "Sploitus",
           "url": "https://sploitus.com/exploit?id=KITPLOIT:TOOLS-GITHUB-ADIBIRZU-OPENCLAW-SECURITY-MONITOR&utm_source=rss&utm_medium=rss",
           "pub_date": "2026-09-20T06:57:48+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "rce.ee",
+      "confidence": "high",
+      "reason": "Domain used to proxy an instance for exploit demonstration, suggesting attacker control",
+      "first_seen": "2026-09-18T19:12:10+00:00",
+      "last_seen": "2026-09-18T19:12:10+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Thenewstack",
+          "url": "https://thenewstack.io/claude-exploits-openai-forum/",
+          "pub_date": "2026-09-18T19:12:10+00:00"
         }
       ]
     },
@@ -5433,22 +5694,6 @@
           "source": "socket.dev",
           "url": "https://socket.dev/blog/firefox-crypto-wallet-theft",
           "pub_date": "2026-08-24T15:33:04.063145+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "acrobatreaderonline.com",
-      "confidence": "high",
-      "reason": "[article sweep] Used as a malicious site impersonating Adobe Acrobat Reader.",
-      "first_seen": "2026-08-24T04:47:41+00:00",
-      "last_seen": "2026-08-24T04:47:41+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cybersecuritynews",
-          "url": "https://cybersecuritynews.com/malware-as-a-service-adobe-themed-domain/",
-          "pub_date": "2026-08-24T04:47:41+00:00"
         }
       ]
     }

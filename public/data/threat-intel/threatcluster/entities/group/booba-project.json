@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "booba-project",
+  "name": "booba project",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-22T14:50:26.000Z",
+  "lastSeen": "2026-09-22T14:50:47.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-22",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "tulare-western-high-school-d466",
+      "title": "Tulare Western High School — claimed by booba project",
+      "pubDate": "2026-09-22T14:50:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gotthelf-2f9c",
+      "title": "GOTTHELF — claimed by booba project",
+      "pubDate": "2026-09-22T14:50:26.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "tulare-western-high-school-d466",
+      "victim": "Tulare Western High School — claimed by booba project",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-22T14:50:47.000Z"
+    },
+    {
+      "id": "gotthelf-2f9c",
+      "victim": "GOTTHELF — claimed by booba project",
+      "sector": "Not Found",
+      "country": "MD",
+      "pubDate": "2026-09-22T14:50:26.000Z"
+    }
+  ]
+}

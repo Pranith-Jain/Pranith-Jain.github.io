@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-20T12:13:05.000Z",
-  "lastSeen": "2026-09-20T12:13:05.000Z",
+  "firstSeen": "2026-09-22T16:52:53.000Z",
+  "lastSeen": "2026-09-22T16:52:53.000Z",
   "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-20",
+      "date": "2026-09-22",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "touring-club-suisse-7cc8",
-      "title": "Touring Club Suisse — claimed by qilin",
-      "pubDate": "2026-09-20T12:13:05.000Z"
+      "slug": "universalautogroup-com-178a",
+      "title": "universalautogroup.com — claimed by settra",
+      "pubDate": "2026-09-22T16:52:53.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "settra",
+      "name": "settra",
       "weight": 1
     }
   ],

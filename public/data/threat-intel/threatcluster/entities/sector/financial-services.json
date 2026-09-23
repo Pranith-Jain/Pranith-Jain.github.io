@@ -4,15 +4,11 @@
   "name": "Financial Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-21T06:10:58.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-22T01:44:58.000Z",
   "lastSeen": "2026-09-22T01:44:58.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-21",
-      "count": 2
-    },
     {
       "date": "2026-09-22",
       "count": 1
@@ -24,18 +20,6 @@
       "slug": "thelender-ed01",
       "title": "theLender — claimed by termite",
       "pubDate": "2026-09-22T01:44:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "the-money-store-852d",
-      "title": "The Money Store — claimed by storm",
-      "pubDate": "2026-09-21T11:31:54.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "siinqeebank-com-b271",
-      "title": "siinqeebank.com — claimed by lockbit5",
-      "pubDate": "2026-09-21T06:10:58.000Z"
     }
   ],
   "relatedEntities": [
@@ -43,18 +27,6 @@
       "type": "group",
       "slug": "termite",
       "name": "termite",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "storm",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "lockbit5",
-      "name": "lockbit5",
       "weight": 1
     }
   ],
