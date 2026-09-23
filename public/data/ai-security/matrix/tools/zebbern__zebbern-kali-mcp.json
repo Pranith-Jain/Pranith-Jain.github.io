@@ -7,9 +7,9 @@
   "description": "MCP server for Kali Linux penetration testing - 121 tools for AI-assisted security testing - Giving Agents access to full pentesting tools",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-22T08:35:30Z",
+  "checkedAt": "2026-09-23T08:38:15Z",
   "pushedAt": "2026-09-05",
-  "daysIdle": 17,
+  "daysIdle": 18,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-22T08:35:30Z",
+      "checked_at": "2026-09-23T08:38:15Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-05",
-        "days_since_push": 17,
+        "days_since_push": 18,
         "total_commits": 113,
         "last100_span_days": 174,
         "last100_authors": 2,
         "releases": 1,
         "latest_release_at": "2026-08-28",
-        "days_since_release": 25,
-        "days_idle": 17,
+        "days_since_release": 26,
+        "days_idle": 18,
         "relocated": false
       },
       "identity": {

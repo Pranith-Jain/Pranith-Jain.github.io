@@ -7,9 +7,9 @@
   "description": "An AI red-team agent for authorized labs and web app pentesting workflows. Turns Claude Code / OpenCode / Codex into a structured recon → test → exploit → report workflow, with containerized tools and resumable state.",
   "homepage": "https://github.com/NeoTheCapt/RedteamAgent#quick-start",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-22T08:34:46Z",
+  "checkedAt": "2026-09-23T08:37:12Z",
   "pushedAt": "2026-08-02",
-  "daysIdle": 51,
+  "daysIdle": 52,
   "archived": false,
   "license": null,
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-22T08:34:46Z",
+      "checked_at": "2026-09-23T08:37:12Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-02",
-        "days_since_push": 51,
+        "days_since_push": 52,
         "total_commits": 866,
         "last100_span_days": 12,
         "last100_authors": 1,
         "releases": 2,
         "latest_release_at": "2026-05-06",
-        "days_since_release": 139,
-        "days_idle": 51,
+        "days_since_release": 140,
+        "days_idle": 52,
         "relocated": false
       },
       "identity": {

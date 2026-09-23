@@ -7,27 +7,27 @@
   "description": "a CLI that provides a generic automation layer for assessing the security of ML models",
   "homepage": null,
   "added": "2026-09-13",
-  "checkedAt": "2026-09-22T08:36:10Z",
+  "checkedAt": "2026-09-23T08:39:06Z",
   "pushedAt": "2025-07-18",
-  "daysIdle": 431,
+  "daysIdle": 432,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "scanner", "repo": "Azure/counterfit", "scope": ["llm"], "added": "2026-09-13" },
     "derived": {
-      "checked_at": "2026-09-22T08:36:10Z",
+      "checked_at": "2026-09-23T08:39:06Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-07-18",
-        "days_since_push": 431,
+        "days_since_push": 432,
         "total_commits": 64,
         "last100_span_days": 1315,
         "last100_authors": 9,
         "releases": 2,
         "latest_release_at": "2022-11-14",
-        "days_since_release": 1408,
-        "days_idle": 431,
+        "days_since_release": 1409,
+        "days_idle": 432,
         "relocated": false
       },
       "identity": {

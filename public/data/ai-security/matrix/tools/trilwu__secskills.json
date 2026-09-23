@@ -7,27 +7,27 @@
   "description": "Transform Claude Code into your personal security engineer",
   "homepage": "https://trilwu.github.io/secskills/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-22T08:37:45Z",
+  "checkedAt": "2026-09-23T08:41:20Z",
   "pushedAt": "2026-09-04",
-  "daysIdle": 18,
+  "daysIdle": 19,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "skill", "repo": "trilwu/secskills", "scope": ["redteam", "code"], "added": "2026-09-14" },
     "derived": {
-      "checked_at": "2026-09-22T08:37:45Z",
+      "checked_at": "2026-09-23T08:41:20Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-04",
-        "days_since_push": 18,
+        "days_since_push": 19,
         "total_commits": 70,
         "last100_span_days": 266,
         "last100_authors": 1,
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 18,
+        "days_idle": 19,
         "relocated": false
       },
       "identity": {

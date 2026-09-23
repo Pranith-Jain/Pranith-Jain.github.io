@@ -1,23 +1,23 @@
 {
-  "updatedAt": "2026-09-22T11:32:00.014Z",
-  "total": 50,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 2 },
+  "updatedAt": "2026-09-23T11:30:07.346Z",
+  "total": 51,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 2 },
   "items": [
     {
       "id": "aHR0cHM6Ly93",
-      "title": "Researchers escape OpenAI Codex sandbox to run commands on host",
-      "link": "https://www.bleepingcomputer.com/news/security/researchers-escape-openai-codex-sandbox-to-run-commands-on-host/",
-      "pubDate": "Sun, 20 Sep 2026 08:00:00 -0400",
+      "title": "New ClosedQuorum Windows malware uses AI for attack decisions",
+      "link": "https://www.bleepingcomputer.com/news/security/new-closedquorum-windows-malware-uses-ai-for-attack-decisions/",
+      "pubDate": "Tue, 22 Sep 2026 14:04:39 -0400",
       "source": "bleepingcomputer",
-      "description": "Researchers escaped OpenAI's Codex sandbox two ways, one running commands on a developer's machine from its most locked-down mode. OpenAI has patched both. [...]"
+      "description": "A new Windows malware named ClosedQuorum uses Google Gemini, DeepSeek, Qwen, and Mistral AI models to autonomously determine the actions to take during post-compromise stages of an attack. [...]"
     },
     {
       "id": "aHR0cHM6Ly93",
-      "title": "BragJack attacks hijack AI browser agents through malicious extensions",
-      "link": "https://www.bleepingcomputer.com/news/security/bragjack-attacks-hijack-ai-browser-agents-through-malicious-extensions/",
-      "pubDate": "Sat, 19 Sep 2026 10:56:31 -0400",
+      "title": "Reducing shadow IT visibility gaps with Wazuh",
+      "link": "https://www.bleepingcomputer.com/news/security/reducing-shadow-it-visibility-gaps-with-wazuh/",
+      "pubDate": "Tue, 22 Sep 2026 13:17:41 -0400",
       "source": "bleepingcomputer",
-      "description": "BragJack, a proof-of-concept attack from Forever Security's Gal Weizman, hijacks the AI assistants in Chrome, Edge, Opera Neon, Perplexity Comet, and Claude in Chrome using one malicious extension. The Prompt Forcing technique earned over $20,000 in bounties and two CVEs. [...]"
+      "description": "Shadow IT can leave security teams unaware of unmanaged endpoints, unauthorized software, and other assets that fall outside existing monitoring. Wazuh explains how endpoint inventory, agentless monitoring, and centralized analysis can help organizations identify and reduce these visibility gaps. [...]"
     },
     {
       "id": "aHR0cHM6Ly91",
@@ -82,6 +82,14 @@
       "pubDate": "Thu, 27 Aug 2026 23:31:24 -0700",
       "source": "csa",
       "description": "I recently wrote about the mess that is watermarking AI-generated text and how Anthropic's move to add watermarks (in response to the EU AI Act's transparency rules) raises more questions than it answers. If you haven't read that blog, the short version is this: telling AI content apart from human content is getting harder every day – AI is a tool that should be used much in the same way that you use a calculator to do long division, and slapping a watermark on it doesn't change that. B..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "A New Security Challenge: The Curious Case of Prompt Language Analysis",
+      "link": "https://cloudsecurityalliance.org/articles/a-new-security-challenge-the-curious-case-of-prompt-language-analysis",
+      "pubDate": "Wed, 26 Aug 2026 15:13:42 -0700",
+      "source": "csa",
+      "description": "&amp;nbsp; Why prompt analysis is emerging as a key AI security challenge If securing AI has been one of the defining cybersecurity conversations of the past year, prompt analysis is quickly becoming one of its most interesting frontiers. Security leaders are under pressure to understand how AI is being used across the business. In some organizations, that means governing employee use of chatbots. In others, it means overseeing copilots embedded into SaaS platforms, monitoring coding assis..."
     },
     {
       "id": "aHR0cHM6Ly9j",

@@ -7,9 +7,9 @@
   "description": "MCP configuration to connect AI agent to a Linux machine.",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-22T08:35:17Z",
+  "checkedAt": "2026-09-23T08:37:56Z",
   "pushedAt": "2026-03-17",
-  "daysIdle": 189,
+  "daysIdle": 190,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-12"
     },
     "derived": {
-      "checked_at": "2026-09-22T08:35:17Z",
+      "checked_at": "2026-09-23T08:37:56Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-03-17",
-        "days_since_push": 189,
+        "days_since_push": 190,
         "total_commits": 47,
         "last100_span_days": 344,
         "last100_authors": 4,
         "releases": 1,
         "latest_release_at": "2025-04-08",
-        "days_since_release": 532,
-        "days_idle": 189,
+        "days_since_release": 533,
+        "days_idle": 190,
         "relocated": false
       },
       "identity": {

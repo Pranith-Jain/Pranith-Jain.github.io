@@ -7,9 +7,9 @@
   "description": "Cybersecurity skills for AI coding agents (Claude Code, Cursor, Codex)",
   "homepage": null,
   "added": "2026-09-14",
-  "checkedAt": "2026-09-22T08:37:40Z",
+  "checkedAt": "2026-09-23T08:41:13Z",
   "pushedAt": "2026-05-27",
-  "daysIdle": 118,
+  "daysIdle": 119,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -20,19 +20,19 @@
       "added": "2026-09-14"
     },
     "derived": {
-      "checked_at": "2026-09-22T08:37:40Z",
+      "checked_at": "2026-09-23T08:41:13Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-05-27",
-        "days_since_push": 118,
+        "days_since_push": 119,
         "total_commits": 51,
         "last100_span_days": 75,
         "last100_authors": 2,
         "releases": 6,
         "latest_release_at": "2026-05-27",
-        "days_since_release": 118,
-        "days_idle": 118,
+        "days_since_release": 119,
+        "days_idle": 119,
         "relocated": false
       },
       "identity": {
