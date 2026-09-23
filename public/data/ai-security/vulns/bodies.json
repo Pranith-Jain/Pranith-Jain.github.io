@@ -22,7 +22,7 @@
     ],
     "euvdId": "EUVD-2026-80986",
     "kevDateAdded": null,
-    "epssPercentile": 0.37483
+    "epssPercentile": 0.37603
   },
   "CVE-2026-84377": {
     "id": "CVE-2026-84377",
@@ -52,7 +52,7 @@
     ],
     "euvdId": "EUVD-2026-70236",
     "kevDateAdded": null,
-    "epssPercentile": 0.24309
+    "epssPercentile": 0.24395
   },
   "CVE-2026-59822": {
     "id": "CVE-2026-59822",
@@ -78,7 +78,7 @@
     ],
     "euvdId": "EUVD-2026-42359",
     "kevDateAdded": "2026-09-02",
-    "epssPercentile": 0.56786
+    "epssPercentile": 0.5728
   },
   "CVE-2026-37004": {
     "id": "CVE-2026-37004",
@@ -102,7 +102,7 @@
     ],
     "euvdId": "EUVD-2026-67271",
     "kevDateAdded": null,
-    "epssPercentile": 0.44539
+    "epssPercentile": 0.44769
   },
   "CVE-2026-47102": {
     "id": "CVE-2026-47102",
@@ -132,7 +132,7 @@
     ],
     "euvdId": "EUVD-2026-31345",
     "kevDateAdded": null,
-    "epssPercentile": 0.49539
+    "epssPercentile": 0.49903
   },
   "CVE-2026-47101": {
     "id": "CVE-2026-47101",
@@ -162,7 +162,7 @@
     ],
     "euvdId": "EUVD-2026-31346",
     "kevDateAdded": null,
-    "epssPercentile": 0.65966
+    "epssPercentile": 0.66445
   },
   "CVE-2026-30623": {
     "id": "CVE-2026-30623",
@@ -187,7 +187,7 @@
     ],
     "euvdId": "EUVD-2026-44846",
     "kevDateAdded": null,
-    "epssPercentile": 0.91888
+    "epssPercentile": 0.91842
   },
   "CVE-2026-12773": {
     "id": "CVE-2026-12773",
@@ -214,7 +214,7 @@
     ],
     "euvdId": "EUVD-2026-38139",
     "kevDateAdded": null,
-    "epssPercentile": 0.61321
+    "epssPercentile": 0.61831
   },
   "CVE-2026-35029": {
     "id": "CVE-2026-35029",
@@ -235,7 +235,7 @@
     "references": ["https://github.com/BerriAI/litellm/security/advisories/GHSA-53mr-6c8q-9789"],
     "euvdId": "EUVD-2026-19370",
     "kevDateAdded": null,
-    "epssPercentile": 0.98191
+    "epssPercentile": 0.98149
   },
   "CVE-2026-35030": {
     "id": "CVE-2026-35030",
@@ -256,7 +256,7 @@
     "references": ["https://github.com/BerriAI/litellm/security/advisories/GHSA-jjhc-v7c2-5hh6"],
     "euvdId": "EUVD-2026-19372",
     "kevDateAdded": null,
-    "epssPercentile": 0.48304
+    "epssPercentile": 0.48621
   },
   "CVE-2026-40217": {
     "id": "CVE-2026-40217",
@@ -277,7 +277,7 @@
     "references": ["https://www.x41-dsec.de/lab/advisories/x41-2026-001-litellm/"],
     "euvdId": "EUVD-2026-21376",
     "kevDateAdded": null,
-    "epssPercentile": 0.96629
+    "epssPercentile": 0.96571
   },
   "CVE-2026-42203": {
     "id": "CVE-2026-42203",
@@ -301,7 +301,7 @@
     ],
     "euvdId": "EUVD-2026-28502",
     "kevDateAdded": null,
-    "epssPercentile": 0.31099
+    "epssPercentile": 0.31248
   },
   "CVE-2026-42208": {
     "id": "CVE-2026-42208",
@@ -325,7 +325,7 @@
     ],
     "euvdId": "EUVD-2026-28503",
     "kevDateAdded": "2026-05-08",
-    "epssPercentile": 0.99782
+    "epssPercentile": 0.99777
   },
   "CVE-2026-42271": {
     "id": "CVE-2026-42271",
@@ -349,7 +349,7 @@
     ],
     "euvdId": "EUVD-2026-28507",
     "kevDateAdded": "2026-06-08",
-    "epssPercentile": 0.99681
+    "epssPercentile": 0.99672
   },
   "CVE-2026-49468": {
     "id": "CVE-2026-49468",
@@ -373,7 +373,7 @@
     ],
     "euvdId": "EUVD-2026-38361",
     "kevDateAdded": null,
-    "epssPercentile": 0.55173
+    "epssPercentile": 0.55617
   },
   "CVE-2026-59821": {
     "id": "CVE-2026-59821",
@@ -398,7 +398,7 @@
     ],
     "euvdId": "EUVD-2026-42350",
     "kevDateAdded": null,
-    "epssPercentile": 0.57764
+    "epssPercentile": 0.58269
   },
   "CVE-2026-59820": {
     "id": "CVE-2026-59820",
@@ -424,7 +424,7 @@
     ],
     "euvdId": "EUVD-2026-42357",
     "kevDateAdded": null,
-    "epssPercentile": 0.46483
+    "epssPercentile": 0.46751
   },
   "CVE-2026-59819": {
     "id": "CVE-2026-59819",
@@ -449,7 +449,7 @@
     ],
     "euvdId": "EUVD-2026-42361",
     "kevDateAdded": null,
-    "epssPercentile": 0.45803
+    "epssPercentile": 0.46057
   },
   "CVE-2026-12795": {
     "id": "CVE-2026-12795",
@@ -476,7 +476,7 @@
     ],
     "euvdId": "EUVD-2026-38154",
     "kevDateAdded": null,
-    "epssPercentile": 0.54451
+    "epssPercentile": 0.54895
   },
   "CVE-2026-12770": {
     "id": "CVE-2026-12770",
@@ -505,7 +505,7 @@
     ],
     "euvdId": "EUVD-2026-38136",
     "kevDateAdded": null,
-    "epssPercentile": 0.4563
+    "epssPercentile": 0.45879
   },
   "CVE-2026-12796": {
     "id": "CVE-2026-12796",
@@ -532,7 +532,7 @@
     ],
     "euvdId": "EUVD-2026-38155",
     "kevDateAdded": null,
-    "epssPercentile": 0.45663
+    "epssPercentile": 0.45914
   },
   "CVE-2026-12772": {
     "id": "CVE-2026-12772",
@@ -559,7 +559,7 @@
     ],
     "euvdId": "EUVD-2026-38138",
     "kevDateAdded": null,
-    "epssPercentile": 0.33927
+    "epssPercentile": 0.34029
   },
   "CVE-2026-12798": {
     "id": "CVE-2026-12798",
@@ -586,7 +586,7 @@
     ],
     "euvdId": "EUVD-2026-38157",
     "kevDateAdded": null,
-    "epssPercentile": 0.33927
+    "epssPercentile": 0.34029
   },
   "CVE-2026-12799": {
     "id": "CVE-2026-12799",
@@ -613,7 +613,7 @@
     ],
     "euvdId": "EUVD-2026-38158",
     "kevDateAdded": null,
-    "epssPercentile": 0.36412
+    "epssPercentile": 0.36536
   },
   "CVE-2026-12797": {
     "id": "CVE-2026-12797",
@@ -640,7 +640,7 @@
     ],
     "euvdId": "EUVD-2026-38156",
     "kevDateAdded": null,
-    "epssPercentile": 0.33926
+    "epssPercentile": 0.34029
   },
   "CVE-2026-12771": {
     "id": "CVE-2026-12771",
@@ -667,7 +667,7 @@
     ],
     "euvdId": "EUVD-2026-38137",
     "kevDateAdded": null,
-    "epssPercentile": 0.36838
+    "epssPercentile": 0.36959
   },
   "CVE-2026-12774": {
     "id": "CVE-2026-12774",
@@ -694,7 +694,7 @@
     ],
     "euvdId": "EUVD-2026-38140",
     "kevDateAdded": null,
-    "epssPercentile": 0.33926
+    "epssPercentile": 0.34029
   },
   "CVE-2026-34936": {
     "id": "CVE-2026-34936",
@@ -715,7 +715,7 @@
     "references": ["https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-x6m9-gxvr-7jpv"],
     "euvdId": "EUVD-2026-18915",
     "kevDateAdded": null,
-    "epssPercentile": 0.27078
+    "epssPercentile": 0.27175
   },
   "CVE-2026-4993": {
     "id": "CVE-2026-4993",
@@ -741,7 +741,7 @@
     ],
     "euvdId": "EUVD-2026-16913",
     "kevDateAdded": null,
-    "epssPercentile": 0.04036
+    "epssPercentile": 0.04049
   },
   "CVE-2026-33634": {
     "id": "CVE-2026-33634",
@@ -771,7 +771,7 @@
     ],
     "euvdId": "EUVD-2026-14601",
     "kevDateAdded": "2026-03-26",
-    "epssPercentile": 0.99095
+    "epssPercentile": 0.99072
   },
   "CVE-2025-45809": {
     "id": "CVE-2025-45809",
@@ -795,7 +795,7 @@
     ],
     "euvdId": "EUVD-2025-19897",
     "kevDateAdded": null,
-    "epssPercentile": 0.17042
+    "epssPercentile": 0.17065
   },
   "CVE-2025-11203": {
     "id": "CVE-2025-11203",
@@ -819,7 +819,7 @@
     ],
     "euvdId": "EUVD-2025-36712",
     "kevDateAdded": null,
-    "epssPercentile": 0.35501
+    "epssPercentile": 0.35623
   },
   "CVE-2024-5751": {
     "id": "CVE-2024-5751",
@@ -840,7 +840,7 @@
     "references": ["https://huntr.com/bounties/ae623c2f-b64b-4245-9ed4-f13a0a5824ce"],
     "euvdId": "EUVD-2024-2057",
     "kevDateAdded": null,
-    "epssPercentile": 0.57143
+    "epssPercentile": 0.57633
   },
   "CVE-2025-0628": {
     "id": "CVE-2025-0628",
@@ -864,7 +864,7 @@
     ],
     "euvdId": "EUVD-2025-6827",
     "kevDateAdded": null,
-    "epssPercentile": 0.27198
+    "epssPercentile": 0.273
   },
   "CVE-2024-8984": {
     "id": "CVE-2024-8984",
@@ -888,7 +888,7 @@
     ],
     "euvdId": "EUVD-2025-6882",
     "kevDateAdded": null,
-    "epssPercentile": 0.55875
+    "epssPercentile": 0.5633
   },
   "CVE-2024-6825": {
     "id": "CVE-2024-6825",
@@ -912,7 +912,7 @@
     ],
     "euvdId": "EUVD-2025-6976",
     "kevDateAdded": null,
-    "epssPercentile": 0.75079
+    "epssPercentile": 0.75468
   },
   "CVE-2024-5710": {
     "id": "CVE-2024-5710",
@@ -933,7 +933,7 @@
     "references": ["https://huntr.com/bounties/70897f59-a966-4d93-b71e-745e3da91970"],
     "euvdId": "EUVD-2024-2149",
     "kevDateAdded": null,
-    "epssPercentile": 0.3453
+    "epssPercentile": 0.34629
   },
   "CVE-2024-9606": {
     "id": "CVE-2024-9606",
@@ -957,7 +957,7 @@
     ],
     "euvdId": "EUVD-2025-6847",
     "kevDateAdded": null,
-    "epssPercentile": 0.53068
+    "epssPercentile": 0.53517
   },
   "CVE-2025-0330": {
     "id": "CVE-2025-0330",
@@ -978,7 +978,7 @@
     "references": ["https://huntr.com/bounties/661b388a-44d8-4ad5-862b-4dc5b80be30a"],
     "euvdId": "EUVD-2025-6833",
     "kevDateAdded": null,
-    "epssPercentile": 0.44924
+    "epssPercentile": 0.45156
   },
   "CVE-2024-10188": {
     "id": "CVE-2024-10188",
@@ -1002,7 +1002,7 @@
     ],
     "euvdId": "EUVD-2025-7124",
     "kevDateAdded": null,
-    "epssPercentile": 0.45065
+    "epssPercentile": 0.45312
   },
   "CVE-2024-4888": {
     "id": "CVE-2024-4888",
@@ -1023,7 +1023,7 @@
     "references": ["https://huntr.com/bounties/48461d89-cf13-4ad3-a43e-0d37da08fc6c"],
     "euvdId": "EUVD-2024-1906",
     "kevDateAdded": null,
-    "epssPercentile": 0.47975
+    "epssPercentile": 0.48286
   },
   "CVE-2024-6587": {
     "id": "CVE-2024-6587",
@@ -1047,7 +1047,7 @@
     ],
     "euvdId": "EUVD-2024-2785",
     "kevDateAdded": null,
-    "epssPercentile": 0.98417
+    "epssPercentile": 0.98375
   },
   "CVE-2024-4264": {
     "id": "CVE-2024-4264",
@@ -1068,7 +1068,7 @@
     "references": ["https://huntr.com/bounties/a3221b0c-6e25-4295-ab0f-042997e8fc61"],
     "euvdId": "EUVD-2024-1491",
     "kevDateAdded": null,
-    "epssPercentile": 0.5717
+    "epssPercentile": 0.5766
   },
   "CVE-2024-5225": {
     "id": "CVE-2024-5225",
@@ -1089,7 +1089,7 @@
     "references": ["https://huntr.com/bounties/491e4884-0306-4cd4-8fe2-9a19de33bf5c"],
     "euvdId": "EUVD-2024-2064",
     "kevDateAdded": null,
-    "epssPercentile": 0.36585
+    "epssPercentile": 0.36707
   },
   "CVE-2024-4889": {
     "id": "CVE-2024-4889",
@@ -1110,7 +1110,7 @@
     "references": ["https://huntr.com/bounties/be3fda72-a65b-4993-9a0e-7e0f05db51f8"],
     "euvdId": "EUVD-2024-44458",
     "kevDateAdded": null,
-    "epssPercentile": 0.56479
+    "epssPercentile": 0.56945
   },
   "CVE-2024-4890": {
     "id": "CVE-2024-4890",
@@ -1131,7 +1131,7 @@
     "references": ["https://huntr.com/bounties/a4f6d357-5b44-4e00-9cac-f1cc351211d2"],
     "euvdId": "EUVD-2024-1982",
     "kevDateAdded": null,
-    "epssPercentile": 0.45149
+    "epssPercentile": 0.45405
   },
   "CVE-2024-2952": {
     "id": "CVE-2024-2952",
@@ -1155,139 +1155,7 @@
     ],
     "euvdId": "EUVD-2024-1088",
     "kevDateAdded": null,
-    "epssPercentile": 0.67991
-  },
-  "CVE-2026-93436": {
-    "id": "CVE-2026-93436",
-    "title": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0.54,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 17, 2026, 10:15:31 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82534",
-    "aliases": ["CVE-2026-93436", "GHSA-jh5x-pggf-m4cr"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0 to exhaust decode-worker memory without bound until the worker restarts.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/55677",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/push_worker.py#L162-L181",
-      "https://github.com/vllm-project/vllm",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-memory-exhaustion-via-rejected-requests"
-    ],
-    "euvdId": "EUVD-2026-82534",
-    "kevDateAdded": null,
-    "epssPercentile": 0.44013
-  },
-  "CVE-2026-94627": {
-    "id": "CVE-2026-94627",
-    "title": "vLLM Mooncake connector through 0.29.0 fails to properly manage GPU KV cache block ownership when concurrent child requests share a single transfer ID in prefill/decode disaggregated deployments. Att…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 21, 2026, 10:04:16 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84221",
-    "aliases": ["GHSA-pjfg-w894-9457", "CVE-2026-94627"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM Mooncake connector through 0.29.0 fails to properly manage GPU KV cache block ownership when concurrent child requests share a single transfer ID in prefill/decode disaggregated deployments. Attackers can trigger GPU memory exhaustion by submitting completion requests with multiple prompts, causing orphaned KV cache blocks to accumulate until process restart and eventually preventing legitimate requests from executing.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/49796",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/mooncake_connector.py#L1978-L1989",
-      "https://github.com/vllm-project/vllm",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-gpu-kv-cache-leak-via-mooncake-transfer-id-collision"
-    ],
-    "euvdId": "EUVD-2026-84221",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-94626": {
-    "id": "CVE-2026-94626",
-    "title": "vLLM through 0.29.0 fails to validate the tp_size parameter in kv_transfer_params on OpenAI-compatible completion endpoints, allowing attackers to allocate unbounded memory. Attackers can supply arbi…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 21, 2026, 10:04:15 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84220",
-    "aliases": ["CVE-2026-94626", "GHSA-hq63-vm56-2666"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM through 0.29.0 fails to validate the tp_size parameter in kv_transfer_params on OpenAI-compatible completion endpoints, allowing attackers to allocate unbounded memory. Attackers can supply arbitrary tp_size values in prefill/decode disaggregated deployments to exhaust memory and trigger kernel OOM-kill of the decode worker process.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/51137",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/utils.py#L569-L573",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/metadata.py#L277",
-      "https://github.com/vllm-project/vllm",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-memory-exhaustion-via-unvalidated-nixl-tp-size"
-    ],
-    "euvdId": "EUVD-2026-84220",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-94625": {
-    "id": "CVE-2026-94625",
-    "title": "vLLM through 0.29.0 contains a resource exhaustion vulnerability in MooncakeConnector where rejected prefill requests create ownerless transfer placeholders that are never reclaimed. Attackers can se…",
-    "sources": ["euvd"],
-    "severity": "6.9 (4.0)",
-    "cvssBase": 6.9,
-    "epss": 0,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 21, 2026, 10:04:14 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84219",
-    "aliases": ["CVE-2026-94625", "GHSA-9p52-m77h-4wq5"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM through 0.29.0 contains a resource exhaustion vulnerability in MooncakeConnector where rejected prefill requests create ownerless transfer placeholders that are never reclaimed. Attackers can send rejected requests to exhaust sender task pools, causing valid requests to be delayed by up to 480 seconds while health checks continue returning success.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/51236",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/mooncake_connector.py#L1234-L1242",
-      "https://github.com/vllm-project/vllm",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-resource-exhaustion-via-ownerless-mooncake-transfer-placeholders"
-    ],
-    "euvdId": "EUVD-2026-84219",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-94624": {
-    "id": "CVE-2026-94624",
-    "title": "vLLM through 0.29.0 contains a denial of service vulnerability in P2P KV offloading when OffloadingConnector is configured with TieringOffloadingSpec and a peer-to-peer secondary tier. Attackers can …",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 21, 2026, 10:04:13 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84218",
-    "aliases": ["CVE-2026-94624", "GHSA-8qpc-6rxx-4pxf"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM through 0.29.0 contains a denial of service vulnerability in P2P KV offloading when OffloadingConnector is configured with TieringOffloadingSpec and a peer-to-peer secondary tier. Attackers can supply arbitrary remote host and port values in kv_transfer_params to create unreachable peer sessions that retain ZeroMQ sockets until the context quota is exhausted, causing an uncaught ZMQError that crashes EngineCore and stops all inference.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/51504",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/kv_offload/tiering/p2p/control/zmq.py#L240-L260",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/kv_offload/tiering/p2p/manager.py#L667-L677",
-      "https://github.com/vllm-project/vllm",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-denial-of-service-via-unbounded-p2p-kv-offloading-sessions"
-    ],
-    "euvdId": "EUVD-2026-84218",
-    "kevDateAdded": null,
-    "epssPercentile": null
+    "epssPercentile": 0.68474
   },
   "CVE-2026-94623": {
     "id": "CVE-2026-94623",
@@ -1295,7 +1163,7 @@
     "sources": ["euvd"],
     "severity": "8.7 (4.0)",
     "cvssBase": 8.7,
-    "epss": 0,
+    "epss": 0.45,
     "kev": false,
     "kevSources": [],
     "published": "Sep 21, 2026, 10:04:12 PM",
@@ -1313,88 +1181,7 @@
     ],
     "euvdId": "EUVD-2026-84217",
     "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-94622": {
-    "id": "CVE-2026-94622",
-    "title": "vLLM versions through 0.29.0 contain a denial of service vulnerability in the NIXL connector's metadata handling for prefill/decode disaggregated deployments. Attackers can send requests with incompl…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 21, 2026, 10:04:10 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84216",
-    "aliases": ["GHSA-4h5x-w852-6g2x", "CVE-2026-94622"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM versions through 0.29.0 contain a denial of service vulnerability in the NIXL connector's metadata handling for prefill/decode disaggregated deployments. Attackers can send requests with incomplete kv_transfer_params dictionary entries to trigger an uncaught KeyError in EngineCore scheduling, causing the decode engine to terminate and making all routed requests fail until manual restart.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/54807",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/metadata.py#L294-L312",
-      "https://github.com/vllm-project/vllm",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-denial-of-service-via-incomplete-nixl-kv-transfer-metadata"
-    ],
-    "euvdId": "EUVD-2026-84216",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-93841": {
-    "id": "CVE-2026-93841",
-    "title": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabular…",
-    "sources": ["euvd"],
-    "severity": "6.3 (4.0)",
-    "cvssBase": 6.3,
-    "epss": 0.24,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 18, 2026, 7:06:06 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83285",
-    "aliases": ["GHSA-q9hm-g73w-q6wp", "CVE-2026-93841"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabulary size. Attackers can submit multimodal audio requests with tokens equal to vocabulary size, causing out-of-bounds writes that corrupt concurrent requests' sampler state and alter repetition penalty behavior.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/49081",
-      "https://github.com/vllm-project/vllm",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/worker/gpu/sample/penalties.py#L241-L255",
-      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/worker/gpu/sample/penalties.py#L33-L37",
-      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-adjacent-request-sampler-state-corruption-via-unvalidated-prompt-token-ids"
-    ],
-    "euvdId": "EUVD-2026-83285",
-    "kevDateAdded": null,
-    "epssPercentile": 0.15239
-  },
-  "CVE-2026-93840": {
-    "id": "CVE-2026-93840",
-    "title": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the …",
-    "sources": ["euvd"],
-    "severity": "6.3 (4.0)",
-    "cvssBase": 6.3,
-    "epss": 0.25,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 18, 2026, 7:06:06 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83284",
-    "aliases": ["GHSA-97fp-7cr2-23qc", "CVE-2026-93840"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the output vocabulary that pass validation, causing LogitBiasState to corrupt GPU logits state and allow concurrent requests to sample tokens outside their allowlists.",
-    "references": [
-      "https://github.com/vllm-project/vllm/pull/49080",
-      "https://github.com/vllm-project/vllm",
-      "https://github.com/vllm-project/vllm/commit/5b0e5b69ac1a3884a6479c9537789c95263cc804",
-      "https://github.com/vllm-project/vllm/blob/v0.28.0/vllm/sampling_params.py#L881-L903",
-      "https://github.com/vllm-project/vllm/blob/v0.28.0/vllm/v1/worker/gpu/sample/logit_bias.py#L179-L191",
-      "https://www.vulncheck.com/advisories/vllm-before-0.29.0-cross-request-logits-corruption-via-allowed-token-ids"
-    ],
-    "euvdId": "EUVD-2026-83284",
-    "kevDateAdded": null,
-    "epssPercentile": 0.16332
+    "epssPercentile": 0.38198
   },
   "CVE-2026-93989": {
     "id": "CVE-2026-93989",
@@ -1421,111 +1208,7 @@
     ],
     "euvdId": "EUVD-2026-83617",
     "kevDateAdded": null,
-    "epssPercentile": 0.10334
-  },
-  "CVE-2026-57173": {
-    "id": "CVE-2026-57173",
-    "title": "vLLM is an inference and serving engine for large language models. Prior to 0.24.0, the input_audio handling path for /v1/chat/completions calls AudioMediaIO.load_bytes or AudioMediaIO.load_file with…",
-    "sources": ["euvd"],
-    "severity": "6.5 (3.1)",
-    "cvssBase": 6.5,
-    "epss": 0.66,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 16, 2026, 4:34:39 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80880",
-    "aliases": ["CVE-2026-57173", "GHSA-hcwq-8wjf-3gcr"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM is an inference and serving engine for large language models. Prior to 0.24.0, the input_audio handling path for /v1/chat/completions calls AudioMediaIO.load_bytes or AudioMediaIO.load_file without passing VLLM_MAX_AUDIO_DECODE_DURATION_S to the shared audio decoder. An unauthenticated client can therefore submit a small compressed audio input that expands into a very large float32 PCM allocation, bypassing the duration guard already used by /v1/audio/transcriptions and causing an out-of-memory worker crash. Inline data URLs reach this path without being bounded by VLLM_AUDIO_FETCH_TIMEOUT. The issue affects deployments serving an audio-capable model, and authentication changes only the deployment-specific reachability. This issue is fixed in version 0.24.0.",
-    "references": [
-      "https://github.com/vllm-project/vllm/security/advisories/GHSA-hcwq-8wjf-3gcr",
-      "https://github.com/vllm-project/vllm/pull/45908",
-      "https://github.com/vllm-project/vllm/commit/3d20275bb4d434f53055c3c0b645fd8bb072965e",
-      "https://github.com/vllm-project/vllm/releases/tag/v0.24.0"
-    ],
-    "euvdId": "EUVD-2026-80880",
-    "kevDateAdded": null,
-    "epssPercentile": 0.4971
-  },
-  "CVE-2026-93592": {
-    "id": "CVE-2026-93592",
-    "title": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative t…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0.38,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 18, 2026, 1:20:05 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82911",
-    "aliases": ["CVE-2026-93592", "GHSA-c3vq-r33v-49cr"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative token IDs. A single request with a negative token ID triggers a CUDA device-side assertion that poisons the GPU context, causing all subsequent requests to fail until the process restarts.",
-    "references": [
-      "https://github.com/vllm-project/vllm/security/advisories/GHSA-25q3-v2hm-8vpf",
-      "https://www.vulncheck.com/advisories/vllm-before-0.28.0-denial-of-service-via-negative-token-id"
-    ],
-    "euvdId": "EUVD-2026-82911",
-    "kevDateAdded": null,
-    "epssPercentile": 0.31492
-  },
-  "CVE-2026-92220": {
-    "id": "CVE-2026-92220",
-    "title": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_messa…",
-    "sources": ["euvd"],
-    "severity": "6.9 (4.0)",
-    "cvssBase": 6.9,
-    "epss": 0.52,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 16, 2026, 2:15:10 AM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80081",
-    "aliases": ["CVE-2026-92220", "GHSA-72xc-v4m3-9r7g"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_message of the file vllm/distributed/kv_transfer/kv_connector/v1/moriio/moriio_connector.py of the component MoRIIO Acknowledgement Handler. Performing a manipulation of the argument request_id/kv_transfer_params results in resource consumption. It is possible to initiate the attack remotely. The project was informed of the problem early through a pull request but has not reacted yet.",
-    "references": [
-      "https://vuldb.com/vuln/404470",
-      "https://vuldb.com/vuln/404470/cti",
-      "https://vuldb.com/cve/CVE-2026-92220",
-      "https://vuldb.com/submit/934149",
-      "https://github.com/vllm-project/vllm/pull/50674",
-      "https://github.com/vllm-project/vllm/"
-    ],
-    "euvdId": "EUVD-2026-80081",
-    "kevDateAdded": null,
-    "epssPercentile": 0.43047
-  },
-  "CVE-2026-69147": {
-    "id": "CVE-2026-69147",
-    "title": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, an…",
-    "sources": ["euvd"],
-    "severity": "6.5 (3.1)",
-    "cvssBase": 6.5,
-    "epss": 0.46,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 16, 2026, 5:49:20 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80935",
-    "aliases": ["GHSA-8pw2-6jv3-mj5j", "CVE-2026-69147"],
-    "packages": [],
-    "vendor": "vllm-project",
-    "product": "vllm",
-    "description": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, and MediaConnector.fetch_video forwards that choice to VideoMediaIO even when startup configuration selected a software decoder. The engine's _reserve_mm_ipc_gpu_memory logic budgets decoder memory only from static configuration, so the request-selected VIDEO_LOADER_REGISTRY backend can create a CUDA context, decoder surfaces, and decoded-frame allocations that were not removed from the engine's KV-cache budget. An attacker able to submit video requests to a video-capable GPU deployment with PyNvVideoCodec installed can exhaust shared GPU memory, causing request failures, worker crashes, or denial of service. The first release containing the fix is version 0.28.0.",
-    "references": [
-      "https://github.com/vllm-project/vllm/security/advisories/GHSA-8pw2-6jv3-mj5j",
-      "https://github.com/vllm-project/vllm/pull/47259",
-      "https://github.com/vllm-project/vllm/commit/283893c72292ede38d277e3cd2b9b64c3e4f1dda",
-      "https://github.com/vllm-project/vllm/commit/ba22152096b2484faa3579624a253d54804d876d"
-    ],
-    "euvdId": "EUVD-2026-80935",
-    "kevDateAdded": null,
-    "epssPercentile": 0.39005
+    "epssPercentile": 0.10339
   },
   "CVE-2026-92365": {
     "id": "CVE-2026-92365",
@@ -1553,7 +1236,324 @@
     ],
     "euvdId": "EUVD-2026-80771",
     "kevDateAdded": null,
-    "epssPercentile": 0.32489
+    "epssPercentile": 0.32616
+  },
+  "CVE-2026-94624": {
+    "id": "CVE-2026-94624",
+    "title": "vLLM through 0.29.0 contains a denial of service vulnerability in P2P KV offloading when OffloadingConnector is configured with TieringOffloadingSpec and a peer-to-peer secondary tier. Attackers can …",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0.45,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 21, 2026, 10:04:13 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84218",
+    "aliases": ["CVE-2026-94624", "GHSA-8qpc-6rxx-4pxf"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM through 0.29.0 contains a denial of service vulnerability in P2P KV offloading when OffloadingConnector is configured with TieringOffloadingSpec and a peer-to-peer secondary tier. Attackers can supply arbitrary remote host and port values in kv_transfer_params to create unreachable peer sessions that retain ZeroMQ sockets until the context quota is exhausted, causing an uncaught ZMQError that crashes EngineCore and stops all inference.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/51504",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/kv_offload/tiering/p2p/control/zmq.py#L240-L260",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/kv_offload/tiering/p2p/manager.py#L667-L677",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-denial-of-service-via-unbounded-p2p-kv-offloading-sessions"
+    ],
+    "euvdId": "EUVD-2026-84218",
+    "kevDateAdded": null,
+    "epssPercentile": 0.38198
+  },
+  "CVE-2026-94622": {
+    "id": "CVE-2026-94622",
+    "title": "vLLM versions through 0.29.0 contain a denial of service vulnerability in the NIXL connector's metadata handling for prefill/decode disaggregated deployments. Attackers can send requests with incompl…",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0.45,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 21, 2026, 10:04:10 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84216",
+    "aliases": ["GHSA-4h5x-w852-6g2x", "CVE-2026-94622"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM versions through 0.29.0 contain a denial of service vulnerability in the NIXL connector's metadata handling for prefill/decode disaggregated deployments. Attackers can send requests with incomplete kv_transfer_params dictionary entries to trigger an uncaught KeyError in EngineCore scheduling, causing the decode engine to terminate and making all routed requests fail until manual restart.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/54807",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/metadata.py#L294-L312",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-denial-of-service-via-incomplete-nixl-kv-transfer-metadata"
+    ],
+    "euvdId": "EUVD-2026-84216",
+    "kevDateAdded": null,
+    "epssPercentile": 0.38198
+  },
+  "CVE-2026-94627": {
+    "id": "CVE-2026-94627",
+    "title": "vLLM Mooncake connector through 0.29.0 fails to properly manage GPU KV cache block ownership when concurrent child requests share a single transfer ID in prefill/decode disaggregated deployments. Att…",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0.45,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 21, 2026, 10:04:16 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84221",
+    "aliases": ["GHSA-pjfg-w894-9457", "CVE-2026-94627"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM Mooncake connector through 0.29.0 fails to properly manage GPU KV cache block ownership when concurrent child requests share a single transfer ID in prefill/decode disaggregated deployments. Attackers can trigger GPU memory exhaustion by submitting completion requests with multiple prompts, causing orphaned KV cache blocks to accumulate until process restart and eventually preventing legitimate requests from executing.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/49796",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/mooncake_connector.py#L1978-L1989",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-gpu-kv-cache-leak-via-mooncake-transfer-id-collision"
+    ],
+    "euvdId": "EUVD-2026-84221",
+    "kevDateAdded": null,
+    "epssPercentile": 0.38197
+  },
+  "CVE-2026-93436": {
+    "id": "CVE-2026-93436",
+    "title": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0…",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0.54,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 17, 2026, 10:15:31 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82534",
+    "aliases": ["CVE-2026-93436", "GHSA-jh5x-pggf-m4cr"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM through 0.29.0 fails to properly clean up decode-side metadata for rejected inference requests in prefill/decode disaggregated deployments. Remote attackers can submit requests with max_tokens=0 to exhaust decode-worker memory without bound until the worker restarts.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/55677",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/push_worker.py#L162-L181",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-memory-exhaustion-via-rejected-requests"
+    ],
+    "euvdId": "EUVD-2026-82534",
+    "kevDateAdded": null,
+    "epssPercentile": 0.44214
+  },
+  "CVE-2026-94626": {
+    "id": "CVE-2026-94626",
+    "title": "vLLM through 0.29.0 fails to validate the tp_size parameter in kv_transfer_params on OpenAI-compatible completion endpoints, allowing attackers to allocate unbounded memory. Attackers can supply arbi…",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0.45,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 21, 2026, 10:04:15 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84220",
+    "aliases": ["CVE-2026-94626", "GHSA-hq63-vm56-2666"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM through 0.29.0 fails to validate the tp_size parameter in kv_transfer_params on OpenAI-compatible completion endpoints, allowing attackers to allocate unbounded memory. Attackers can supply arbitrary tp_size values in prefill/decode disaggregated deployments to exhaust memory and trigger kernel OOM-kill of the decode worker process.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/51137",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/utils.py#L569-L573",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/nixl/metadata.py#L277",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-memory-exhaustion-via-unvalidated-nixl-tp-size"
+    ],
+    "euvdId": "EUVD-2026-84220",
+    "kevDateAdded": null,
+    "epssPercentile": 0.38197
+  },
+  "CVE-2026-94625": {
+    "id": "CVE-2026-94625",
+    "title": "vLLM through 0.29.0 contains a resource exhaustion vulnerability in MooncakeConnector where rejected prefill requests create ownerless transfer placeholders that are never reclaimed. Attackers can se…",
+    "sources": ["euvd"],
+    "severity": "6.9 (4.0)",
+    "cvssBase": 6.9,
+    "epss": 0.3,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 21, 2026, 10:04:14 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84219",
+    "aliases": ["CVE-2026-94625", "GHSA-9p52-m77h-4wq5"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM through 0.29.0 contains a resource exhaustion vulnerability in MooncakeConnector where rejected prefill requests create ownerless transfer placeholders that are never reclaimed. Attackers can send rejected requests to exhaust sender task pools, causing valid requests to be delayed by up to 480 seconds while health checks continue returning success.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/51236",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/mooncake_connector.py#L1234-L1242",
+      "https://github.com/vllm-project/vllm",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-resource-exhaustion-via-ownerless-mooncake-transfer-placeholders"
+    ],
+    "euvdId": "EUVD-2026-84219",
+    "kevDateAdded": null,
+    "epssPercentile": 0.23043
+  },
+  "CVE-2026-93841": {
+    "id": "CVE-2026-93841",
+    "title": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabular…",
+    "sources": ["euvd"],
+    "severity": "6.3 (4.0)",
+    "cvssBase": 6.3,
+    "epss": 0.24,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 18, 2026, 7:06:06 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83285",
+    "aliases": ["GHSA-q9hm-g73w-q6wp", "CVE-2026-93841"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM through 0.29.0 contains a memory corruption vulnerability in the Triton _bincount_kernel where prompt token IDs index the penalty prompt-presence bitset without bounds checking against vocabulary size. Attackers can submit multimodal audio requests with tokens equal to vocabulary size, causing out-of-bounds writes that corrupt concurrent requests' sampler state and alter repetition penalty behavior.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/49081",
+      "https://github.com/vllm-project/vllm",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/worker/gpu/sample/penalties.py#L241-L255",
+      "https://github.com/vllm-project/vllm/blob/v0.29.0/vllm/v1/worker/gpu/sample/penalties.py#L33-L37",
+      "https://www.vulncheck.com/advisories/vllm-through-0.29.0-adjacent-request-sampler-state-corruption-via-unvalidated-prompt-token-ids"
+    ],
+    "euvdId": "EUVD-2026-83285",
+    "kevDateAdded": null,
+    "epssPercentile": 0.1525
+  },
+  "CVE-2026-93840": {
+    "id": "CVE-2026-93840",
+    "title": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the …",
+    "sources": ["euvd"],
+    "severity": "6.3 (4.0)",
+    "cvssBase": 6.3,
+    "epss": 0.25,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 18, 2026, 7:06:06 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83284",
+    "aliases": ["GHSA-97fp-7cr2-23qc", "CVE-2026-93840"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM before 0.29.0 validates allowed_token_ids against tokenizer length instead of model output logits width in SamplingParams._validate_allowed_token_ids(). Attackers can supply token IDs above the output vocabulary that pass validation, causing LogitBiasState to corrupt GPU logits state and allow concurrent requests to sample tokens outside their allowlists.",
+    "references": [
+      "https://github.com/vllm-project/vllm/pull/49080",
+      "https://github.com/vllm-project/vllm",
+      "https://github.com/vllm-project/vllm/commit/5b0e5b69ac1a3884a6479c9537789c95263cc804",
+      "https://github.com/vllm-project/vllm/blob/v0.28.0/vllm/sampling_params.py#L881-L903",
+      "https://github.com/vllm-project/vllm/blob/v0.28.0/vllm/v1/worker/gpu/sample/logit_bias.py#L179-L191",
+      "https://www.vulncheck.com/advisories/vllm-before-0.29.0-cross-request-logits-corruption-via-allowed-token-ids"
+    ],
+    "euvdId": "EUVD-2026-83284",
+    "kevDateAdded": null,
+    "epssPercentile": 0.16353
+  },
+  "CVE-2026-57173": {
+    "id": "CVE-2026-57173",
+    "title": "vLLM is an inference and serving engine for large language models. Prior to 0.24.0, the input_audio handling path for /v1/chat/completions calls AudioMediaIO.load_bytes or AudioMediaIO.load_file with…",
+    "sources": ["euvd"],
+    "severity": "6.5 (3.1)",
+    "cvssBase": 6.5,
+    "epss": 0.66,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 16, 2026, 4:34:39 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80880",
+    "aliases": ["CVE-2026-57173", "GHSA-hcwq-8wjf-3gcr"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM is an inference and serving engine for large language models. Prior to 0.24.0, the input_audio handling path for /v1/chat/completions calls AudioMediaIO.load_bytes or AudioMediaIO.load_file without passing VLLM_MAX_AUDIO_DECODE_DURATION_S to the shared audio decoder. An unauthenticated client can therefore submit a small compressed audio input that expands into a very large float32 PCM allocation, bypassing the duration guard already used by /v1/audio/transcriptions and causing an out-of-memory worker crash. Inline data URLs reach this path without being bounded by VLLM_AUDIO_FETCH_TIMEOUT. The issue affects deployments serving an audio-capable model, and authentication changes only the deployment-specific reachability. This issue is fixed in version 0.24.0.",
+    "references": [
+      "https://github.com/vllm-project/vllm/security/advisories/GHSA-hcwq-8wjf-3gcr",
+      "https://github.com/vllm-project/vllm/pull/45908",
+      "https://github.com/vllm-project/vllm/commit/3d20275bb4d434f53055c3c0b645fd8bb072965e",
+      "https://github.com/vllm-project/vllm/releases/tag/v0.24.0"
+    ],
+    "euvdId": "EUVD-2026-80880",
+    "kevDateAdded": null,
+    "epssPercentile": 0.50078
+  },
+  "CVE-2026-93592": {
+    "id": "CVE-2026-93592",
+    "title": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative t…",
+    "sources": ["euvd"],
+    "severity": "8.7 (4.0)",
+    "cvssBase": 8.7,
+    "epss": 0.38,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 18, 2026, 1:20:05 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-82911",
+    "aliases": ["CVE-2026-93592", "GHSA-c3vq-r33v-49cr"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM versions before 0.28.0 fail to validate the lower bound of token IDs in the /v1/embeddings and /pooling endpoints, allowing unauthenticated attackers to crash the engine by submitting negative token IDs. A single request with a negative token ID triggers a CUDA device-side assertion that poisons the GPU context, causing all subsequent requests to fail until the process restarts.",
+    "references": [
+      "https://github.com/vllm-project/vllm/security/advisories/GHSA-25q3-v2hm-8vpf",
+      "https://www.vulncheck.com/advisories/vllm-before-0.28.0-denial-of-service-via-negative-token-id"
+    ],
+    "euvdId": "EUVD-2026-82911",
+    "kevDateAdded": null,
+    "epssPercentile": 0.31629
+  },
+  "CVE-2026-92220": {
+    "id": "CVE-2026-92220",
+    "title": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_messa…",
+    "sources": ["euvd"],
+    "severity": "6.9 (4.0)",
+    "cvssBase": 6.9,
+    "epss": 0.52,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 16, 2026, 2:15:10 AM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80081",
+    "aliases": ["CVE-2026-92220", "GHSA-72xc-v4m3-9r7g"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "A vulnerability was found in vllm-project vLLM 0.26.0/0.27.0. Affected is the function MoRIIOConnectorScheduler.request_finished/MoRIIOConnectorWorker.get_finished/MoRIIOWrapper._handle_release_message of the file vllm/distributed/kv_transfer/kv_connector/v1/moriio/moriio_connector.py of the component MoRIIO Acknowledgement Handler. Performing a manipulation of the argument request_id/kv_transfer_params results in resource consumption. It is possible to initiate the attack remotely. The project was informed of the problem early through a pull request but has not reacted yet.",
+    "references": [
+      "https://vuldb.com/vuln/404470",
+      "https://vuldb.com/vuln/404470/cti",
+      "https://vuldb.com/cve/CVE-2026-92220",
+      "https://vuldb.com/submit/934149",
+      "https://github.com/vllm-project/vllm/pull/50674",
+      "https://github.com/vllm-project/vllm/"
+    ],
+    "euvdId": "EUVD-2026-80081",
+    "kevDateAdded": null,
+    "epssPercentile": 0.43217
+  },
+  "CVE-2026-69147": {
+    "id": "CVE-2026-69147",
+    "title": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, an…",
+    "sources": ["euvd"],
+    "severity": "6.5 (3.1)",
+    "cvssBase": 6.5,
+    "epss": 0.46,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 16, 2026, 5:49:20 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-80935",
+    "aliases": ["GHSA-8pw2-6jv3-mj5j", "CVE-2026-69147"],
+    "packages": [],
+    "vendor": "vllm-project",
+    "product": "vllm",
+    "description": "vLLM is an inference and serving engine for large language models. Prior to 0.28.0, request bodies for Chat Completions and Responses can set media_io_kwargs.video.video_backend to pynvvideocodec, and MediaConnector.fetch_video forwards that choice to VideoMediaIO even when startup configuration selected a software decoder. The engine's _reserve_mm_ipc_gpu_memory logic budgets decoder memory only from static configuration, so the request-selected VIDEO_LOADER_REGISTRY backend can create a CUDA context, decoder surfaces, and decoded-frame allocations that were not removed from the engine's KV-cache budget. An attacker able to submit video requests to a video-capable GPU deployment with PyNvVideoCodec installed can exhaust shared GPU memory, causing request failures, worker crashes, or denial of service. The first release containing the fix is version 0.28.0.",
+    "references": [
+      "https://github.com/vllm-project/vllm/security/advisories/GHSA-8pw2-6jv3-mj5j",
+      "https://github.com/vllm-project/vllm/pull/47259",
+      "https://github.com/vllm-project/vllm/commit/283893c72292ede38d277e3cd2b9b64c3e4f1dda",
+      "https://github.com/vllm-project/vllm/commit/ba22152096b2484faa3579624a253d54804d876d"
+    ],
+    "euvdId": "EUVD-2026-80935",
+    "kevDateAdded": null,
+    "epssPercentile": 0.39131
   },
   "CVE-2026-48746": {
     "id": "CVE-2026-48746",
@@ -1578,7 +1578,7 @@
     ],
     "euvdId": "EUVD-2026-38401",
     "kevDateAdded": null,
-    "epssPercentile": 0.65082
+    "epssPercentile": 0.65554
   },
   "CVE-2026-90713": {
     "id": "CVE-2026-90713",
@@ -1608,7 +1608,7 @@
     ],
     "euvdId": "EUVD-2026-77463",
     "kevDateAdded": null,
-    "epssPercentile": 0.0481
+    "epssPercentile": 0.04822
   },
   "CVE-2026-90878": {
     "id": "CVE-2026-90878",
@@ -1637,7 +1637,7 @@
     ],
     "euvdId": "EUVD-2026-78268",
     "kevDateAdded": null,
-    "epssPercentile": 0.23157
+    "epssPercentile": 0.23216
   },
   "CVE-2026-90553": {
     "id": "CVE-2026-90553",
@@ -1661,7 +1661,7 @@
     ],
     "euvdId": "EUVD-2026-76871",
     "kevDateAdded": null,
-    "epssPercentile": 0.11118
+    "epssPercentile": 0.1111
   },
   "CVE-2026-90554": {
     "id": "CVE-2026-90554",
@@ -1685,7 +1685,7 @@
     ],
     "euvdId": "EUVD-2026-76872",
     "kevDateAdded": null,
-    "epssPercentile": 0.01548
+    "epssPercentile": 0.01547
   },
   "CVE-2026-90555": {
     "id": "CVE-2026-90555",
@@ -1709,7 +1709,7 @@
     ],
     "euvdId": "EUVD-2026-76873",
     "kevDateAdded": null,
-    "epssPercentile": 0.22153
+    "epssPercentile": 0.222
   },
   "CVE-2026-41523": {
     "id": "CVE-2026-41523",
@@ -1734,7 +1734,7 @@
     ],
     "euvdId": "EUVD-2026-38406",
     "kevDateAdded": null,
-    "epssPercentile": 0.58034
+    "epssPercentile": 0.58567
   },
   "CVE-2026-78684": {
     "id": "CVE-2026-78684",
@@ -1759,7 +1759,7 @@
     ],
     "euvdId": "EUVD-2026-65457",
     "kevDateAdded": null,
-    "epssPercentile": 0.26012
+    "epssPercentile": 0.26097
   },
   "CVE-2026-37237": {
     "id": "CVE-2026-37237",
@@ -1784,7 +1784,7 @@
     ],
     "euvdId": "EUVD-2026-67775",
     "kevDateAdded": null,
-    "epssPercentile": 0.43689
+    "epssPercentile": 0.43887
   },
   "CVE-2026-7141": {
     "id": "CVE-2026-7141",
@@ -1812,7 +1812,7 @@
     ],
     "euvdId": "EUVD-2026-25892",
     "kevDateAdded": null,
-    "epssPercentile": 0.21645
+    "epssPercentile": 0.21689
   },
   "CVE-2026-34755": {
     "id": "CVE-2026-34755",
@@ -1833,7 +1833,7 @@
     "references": ["https://github.com/vllm-project/vllm/security/advisories/GHSA-pq5c-rjhq-qp7p"],
     "euvdId": "EUVD-2026-19350",
     "kevDateAdded": null,
-    "epssPercentile": 0.39315
+    "epssPercentile": 0.39438
   },
   "CVE-2026-34756": {
     "id": "CVE-2026-34756",
@@ -1858,7 +1858,7 @@
     ],
     "euvdId": "EUVD-2026-19351",
     "kevDateAdded": null,
-    "epssPercentile": 0.35979
+    "epssPercentile": 0.36101
   },
   "CVE-2026-73560": {
     "id": "CVE-2026-73560",
@@ -1884,7 +1884,7 @@
     ],
     "euvdId": "EUVD-2026-60377",
     "kevDateAdded": null,
-    "epssPercentile": 0.25042
+    "epssPercentile": 0.2513
   },
   "CVE-2026-71486": {
     "id": "CVE-2026-71486",
@@ -1910,7 +1910,7 @@
     ],
     "euvdId": "EUVD-2026-60376",
     "kevDateAdded": null,
-    "epssPercentile": 0.27663
+    "epssPercentile": 0.27765
   },
   "CVE-2026-73556": {
     "id": "CVE-2026-73556",
@@ -1936,7 +1936,7 @@
     ],
     "euvdId": "EUVD-2026-58063",
     "kevDateAdded": null,
-    "epssPercentile": 0.24524
+    "epssPercentile": 0.24611
   },
   "CVE-2026-73559": {
     "id": "CVE-2026-73559",
@@ -1962,7 +1962,7 @@
     ],
     "euvdId": "EUVD-2026-58067",
     "kevDateAdded": null,
-    "epssPercentile": 0.39839
+    "epssPercentile": 0.39965
   },
   "CVE-2026-73555": {
     "id": "CVE-2026-73555",
@@ -1988,7 +1988,7 @@
     ],
     "euvdId": "EUVD-2026-58053",
     "kevDateAdded": null,
-    "epssPercentile": 0.17387
+    "epssPercentile": 0.17408
   },
   "CVE-2026-73557": {
     "id": "CVE-2026-73557",
@@ -2014,7 +2014,7 @@
     ],
     "euvdId": "EUVD-2026-58064",
     "kevDateAdded": null,
-    "epssPercentile": 0.16791
+    "epssPercentile": 0.16822
   },
   "CVE-2026-73558": {
     "id": "CVE-2026-73558",
@@ -2041,7 +2041,7 @@
     ],
     "euvdId": "EUVD-2026-58066",
     "kevDateAdded": null,
-    "epssPercentile": 0.25835
+    "epssPercentile": 0.25919
   },
   "CVE-2026-27765": {
     "id": "CVE-2026-27765",
@@ -2087,7 +2087,7 @@
     ],
     "euvdId": "EUVD-2026-16478",
     "kevDateAdded": null,
-    "epssPercentile": 0.69748
+    "epssPercentile": 0.7018
   },
   "CVE-2026-5497": {
     "id": "CVE-2026-5497",
@@ -2111,7 +2111,7 @@
     ],
     "euvdId": "EUVD-2026-36217",
     "kevDateAdded": null,
-    "epssPercentile": 0.43963
+    "epssPercentile": 0.44161
   },
   "CVE-2026-56340": {
     "id": "CVE-2026-56340",
@@ -2135,7 +2135,7 @@
     ],
     "euvdId": "EUVD-2026-38129",
     "kevDateAdded": null,
-    "epssPercentile": 0.49104
+    "epssPercentile": 0.49451
   },
   "CVE-2026-22807": {
     "id": "CVE-2026-22807",
@@ -2161,7 +2161,7 @@
     ],
     "euvdId": "EUVD-2026-3678",
     "kevDateAdded": null,
-    "epssPercentile": 0.55576
+    "epssPercentile": 0.56016
   },
   "CVE-2026-24779": {
     "id": "CVE-2026-24779",
@@ -2186,7 +2186,7 @@
     ],
     "euvdId": "EUVD-2026-4711",
     "kevDateAdded": null,
-    "epssPercentile": 0.44653
+    "epssPercentile": 0.44884
   },
   "CVE-2026-25960": {
     "id": "CVE-2026-25960",
@@ -2212,7 +2212,7 @@
     ],
     "euvdId": "EUVD-2026-10356",
     "kevDateAdded": null,
-    "epssPercentile": 0.44365
+    "epssPercentile": 0.44584
   },
   "CVE-2026-22778": {
     "id": "CVE-2026-22778",
@@ -2238,7 +2238,7 @@
     ],
     "euvdId": "EUVD-2026-5277",
     "kevDateAdded": null,
-    "epssPercentile": 0.89587
+    "epssPercentile": 0.89551
   },
   "CVE-2026-15574": {
     "id": "CVE-2026-15574",
@@ -2262,7 +2262,7 @@
     ],
     "euvdId": "EUVD-2026-43310",
     "kevDateAdded": null,
-    "epssPercentile": 0.37501
+    "epssPercentile": 0.37621
   },
   "CVE-2026-54234": {
     "id": "CVE-2026-54234",
@@ -2287,7 +2287,7 @@
     ],
     "euvdId": "EUVD-2026-41921",
     "kevDateAdded": null,
-    "epssPercentile": 0.47859
+    "epssPercentile": 0.48164
   },
   "CVE-2026-12491": {
     "id": "CVE-2026-12491",
@@ -2311,7 +2311,7 @@
     ],
     "euvdId": "EUVD-2026-37645",
     "kevDateAdded": null,
-    "epssPercentile": 0.15255
+    "epssPercentile": 0.15266
   },
   "CVE-2026-55574": {
     "id": "CVE-2026-55574",
@@ -2336,7 +2336,7 @@
     ],
     "euvdId": "EUVD-2026-41924",
     "kevDateAdded": null,
-    "epssPercentile": 0.46318
+    "epssPercentile": 0.46582
   },
   "CVE-2026-55514": {
     "id": "CVE-2026-55514",
@@ -2362,7 +2362,7 @@
     ],
     "euvdId": "EUVD-2026-41925",
     "kevDateAdded": null,
-    "epssPercentile": 0.49974
+    "epssPercentile": 0.50346
   },
   "CVE-2026-55646": {
     "id": "CVE-2026-55646",
@@ -2387,7 +2387,7 @@
     ],
     "euvdId": "EUVD-2026-41914",
     "kevDateAdded": null,
-    "epssPercentile": 0.42947
+    "epssPercentile": 0.43117
   },
   "CVE-2026-53923": {
     "id": "CVE-2026-53923",
@@ -2412,7 +2412,7 @@
     ],
     "euvdId": "EUVD-2026-38400",
     "kevDateAdded": null,
-    "epssPercentile": 0.40714
+    "epssPercentile": 0.40841
   },
   "CVE-2026-54232": {
     "id": "CVE-2026-54232",
@@ -2433,7 +2433,7 @@
     "references": ["https://github.com/vllm-project/vllm/security/advisories/GHSA-jrf6-vqxq-pjv2"],
     "euvdId": "EUVD-2026-38405",
     "kevDateAdded": null,
-    "epssPercentile": 0.4534
+    "epssPercentile": 0.45591
   },
   "CVE-2026-47155": {
     "id": "CVE-2026-47155",
@@ -2459,7 +2459,7 @@
     ],
     "euvdId": "EUVD-2026-38407",
     "kevDateAdded": null,
-    "epssPercentile": 0.16574
+    "epssPercentile": 0.16596
   },
   "CVE-2026-54236": {
     "id": "CVE-2026-54236",
@@ -2484,7 +2484,7 @@
     ],
     "euvdId": "EUVD-2026-38403",
     "kevDateAdded": null,
-    "epssPercentile": 0.58445
+    "epssPercentile": 0.58991
   },
   "CVE-2026-54235": {
     "id": "CVE-2026-54235",
@@ -2509,7 +2509,7 @@
     ],
     "euvdId": "EUVD-2026-38402",
     "kevDateAdded": null,
-    "epssPercentile": 0.38365
+    "epssPercentile": 0.38487
   },
   "CVE-2026-54233": {
     "id": "CVE-2026-54233",
@@ -5677,18 +5677,879 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
+  "CVE-2026-19202": {
+    "id": "CVE-2026-19202",
+    "title": "A caching flaw in the toolbox-core package of the mcp-toolbox-sdk-python SDK causes the same Google ID token to be cached and reused across different audiences. If an application uses the SDK to auth…",
+    "sources": ["euvd"],
+    "severity": "9.1 (4.0)",
+    "cvssBase": 9.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 9:48:26 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84951",
+    "aliases": ["GHSA-jcjp-gr26-563j", "CVE-2026-19202"],
+    "packages": [],
+    "vendor": "Google",
+    "product": "mcp-toolbox-sdk-python",
+    "description": "A caching flaw in the toolbox-core package of the mcp-toolbox-sdk-python SDK causes the same Google ID token to be cached and reused across different audiences. If an application uses the SDK to authenticate to two or more different audiences within the same process, the module-level token cache fails to key its cached tokens by the requested audience. Consequently, a valid, unexpired token minted for a sensitive service (Service A) can be retrieved from the cache and sent to a secondary service (Service B). An attacker who operates, compromises, or monitors traffic to Service B can capture this token and replay it to impersonate the victim application against Service A.",
+    "references": ["https://github.com/googleapis/mcp-toolbox-sdk-python/pull/675"],
+    "euvdId": "EUVD-2026-84951",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77249": {
+    "id": "CVE-2026-77249",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, JiraUserMixin._lookup_user_by_permissions uses the module-level requests.get func…",
+    "sources": ["euvd"],
+    "severity": "5.3 (3.1)",
+    "cvssBase": 5.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:47:01 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84759",
+    "aliases": ["GHSA-v9m3-wfh8-5646", "CVE-2026-77249"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, JiraUserMixin._lookup_user_by_permissions uses the module-level requests.get function instead of the fetcher's protected session. A caller-controlled public Jira URL can redirect that unhooked request to an internal address, bypassing the redirect checks added for CVE-2026-27826. The advisory traces the vulnerable input and processing flow through JiraUserMixin._lookup_user_by_permissions, requests.get, self.jira._session.get, and _make_ssrf_safe_hook, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-v9m3-wfh8-5646",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84759",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77256": {
+    "id": "CVE-2026-77256",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the plaintext OAuth fallback file containing refresh and access tokens is written…",
+    "sources": ["euvd"],
+    "severity": "8.3 (4.0)",
+    "cvssBase": 8.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:48:58 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84761",
+    "aliases": ["CVE-2026-77256"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the plaintext OAuth fallback file containing refresh and access tokens is written with permissions inherited from the process umask. Under common or permissive configurations, other local users can read the backup and retain Atlassian access through the refresh token. The advisory traces the vulnerable input and processing flow through OAuthConfig._save_tokens_to_file, refresh_token, access_token, and umask, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-76pr-5669-3xf5",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84761",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77266": {
+    "id": "CVE-2026-77266",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, upload_attachment accepts absolute paths and traversal sequences without constrai…",
+    "sources": ["euvd"],
+    "severity": "6.5 (3.1)",
+    "cvssBase": 6.5,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:30:58 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84747",
+    "aliases": ["CVE-2026-77266", "GHSA-mfv2-4wvm-9pgp"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, upload_attachment accepts absolute paths and traversal sequences without constraining the resolved path to the server workspace. An MCP caller with attachment access can read a chosen server-local file and exfiltrate it through Jira or Confluence. The advisory traces the vulnerable input and processing flow through upload_attachment, file_path, and path traversal, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-mfv2-4wvm-9pgp",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84747",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-95660": {
+    "id": "CVE-2026-95660",
+    "title": "A security flaw has been discovered in Moonshot AI Kimi Code up to 0.31.0. The affected element is an unknown function of the file agent-core-v2/src/agent/mcp/config-loader.ts of the component MCP Co…",
+    "sources": ["euvd"],
+    "severity": "5.3 (4.0)",
+    "cvssBase": 5.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:00:11 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84628",
+    "aliases": ["CVE-2026-95660", "GHSA-jp7p-97jq-v89h"],
+    "packages": [],
+    "vendor": "MoonshotAI",
+    "product": "Kimi Code",
+    "description": "A security flaw has been discovered in Moonshot AI Kimi Code up to 0.31.0. The affected element is an unknown function of the file agent-core-v2/src/agent/mcp/config-loader.ts of the component MCP Configuration Loader. The manipulation results in os command injection. The attack may be launched remotely. The exploit has been released to the public and may be used for attacks. Upgrading to version 0.31.1 is sufficient to fix this issue. It is recommended to upgrade the affected component. Beyond the trust prompt, the fix resolves fd/stty binaries to absolute paths specifically \"so untrusted workspaces cannot plant bare-name executables before confirmation,\" fixing a secondary $PATH path-planting vector alongside the primary untrusted-.mcp.json auto-spawn.",
+    "references": [
+      "https://vuldb.com/vuln/408415",
+      "https://vuldb.com/vuln/408415/cti",
+      "https://vuldb.com/cve/CVE-2026-95660",
+      "https://vuldb.com/submit/897071",
+      "https://docs.google.com/document/d/1GPDw0UzUkgfXRkWEDqCIanKDq3Tpvllyf08O-0eLyoQ/edit?usp=sharing",
+      "https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%400.31.1"
+    ],
+    "euvdId": "EUVD-2026-84628",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77254": {
+    "id": "CVE-2026-77254",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, requests to the HTTP MCP endpoint without a per-user identity are allowed to reac…",
+    "sources": ["euvd"],
+    "severity": "9.1 (3.1)",
+    "cvssBase": 9.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:11:44 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84743",
+    "aliases": ["CVE-2026-77254"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, requests to the HTTP MCP endpoint without a per-user identity are allowed to reach tool handlers, which then use globally configured Jira or Confluence credentials. A network caller can perform operations with the operator account's permissions unless the deployment has an independent authentication boundary. The advisory traces the vulnerable input and processing flow through streamable-http, UserTokenMiddleware, _get_fetcher, and global credentials, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-vc8m-84rp-53hx",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84743",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77243": {
+    "id": "CVE-2026-77243",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, ENABLED_TOOLS and TOOLSETS are applied when tools are listed but are not rechecke…",
+    "sources": ["euvd"],
+    "severity": "8.8 (3.1)",
+    "cvssBase": 8.8,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:57:26 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84626",
+    "aliases": ["CVE-2026-77243", "GHSA-3r68-hf9h-887v"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, ENABLED_TOOLS and TOOLSETS are applied when tools are listed but are not rechecked when a tools/call request is dispatched. A client that knows a hidden tool name can directly invoke excluded read, write, or delete tools despite the operator's configured least-privilege restrictions. The advisory traces the vulnerable input and processing flow through ENABLED_TOOLS, TOOLSETS, tools/list, tools/call, and _call_tool_mcp, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-3r68-hf9h-887v",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84626",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77247": {
+    "id": "CVE-2026-77247",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, Jira and Confluence upload tools interpret caller-controlled path arguments on th…",
+    "sources": ["euvd"],
+    "severity": "8.3 (4.0)",
+    "cvssBase": 8.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:34:32 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84752",
+    "aliases": ["CVE-2026-77247", "GHSA-f6pj-qv47-g96w"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, Jira and Confluence upload tools interpret caller-controlled path arguments on the MCP server and open those files before sending them as attachments. In remote or multi-user deployments, a permitted client can disclose host files without shell or direct filesystem access. The advisory traces the vulnerable input and processing flow through AttachmentsMixin.upload_attachment, AttachmentsMixin.upload_attachments, file_path, file_paths, and jira update_issue, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-f6pj-qv47-g96w",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84752",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77246": {
+    "id": "CVE-2026-77246",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, an HTTP transport deployment with READ_ONLY_MODE=false accepts a request without …",
+    "sources": ["euvd"],
+    "severity": "7.4 (3.1)",
+    "cvssBase": 7.4,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:51:54 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84771",
+    "aliases": ["CVE-2026-77246", "GHSA-wv8v-v4c5-v75j"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, an HTTP transport deployment with READ_ONLY_MODE=false accepts a request without an Authorization identity and permits attacker-controlled Atlassian service headers, including X-Atlassian-Confluence-Url, to select a public attacker hostname or one allowed by MCP_ALLOWED_URL_DOMAINS. A caller can then invoke confluence_upload_attachment or the Jira attachment variant in src/mcp_atlassian/jira/attachments.py with a server-local file_path and cause the MCP process to send the file to the selected attachment endpoint. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-wv8v-v4c5-v75j",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84771",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77248": {
+    "id": "CVE-2026-77248",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the streamable HTTP transport accepts requests without a user identity and falls …",
+    "sources": ["euvd"],
+    "severity": "8.6 (3.1)",
+    "cvssBase": 8.6,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:49:57 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84763",
+    "aliases": ["CVE-2026-77248", "GHSA-cc5h-2pwp-pvcc"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the streamable HTTP transport accepts requests without a user identity and falls back to operator credentials, while upload_attachment accepts an unrestricted file_path. An unauthenticated network caller can read files available to the MCP process, upload them to an attacker-selected Jira issue or Confluence page, and retrieve the contents. The advisory traces the vulnerable input and processing flow through streamable-http, UserTokenMiddleware, upload_attachment, file_path, and _get_fetcher, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-cc5h-2pwp-pvcc",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84763",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77253": {
+    "id": "CVE-2026-77253",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, Jira and Confluence attachment upload tools accept arbitrary local filesystem pat…",
+    "sources": ["euvd"],
+    "severity": "7.1 (3.1)",
+    "cvssBase": 7.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:10:31 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84742",
+    "aliases": ["GHSA-vc25-24vv-fxxm", "CVE-2026-77253"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, Jira and Confluence attachment upload tools accept arbitrary local filesystem paths and send the selected bytes to Atlassian. In HTTP or multi-user deployments, a caller can cross the client-to-server filesystem boundary and disclose configuration, credentials, mounted secrets, or other files readable by the MCP process. The advisory traces the vulnerable input and processing flow through jira_upload_attachment, confluence_upload_attachment, file_path, and server-local filesystem, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-vc25-24vv-fxxm",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84742",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77242": {
+    "id": "CVE-2026-77242",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, validate_url_for_ssrf checks a hostname's resolved addresses, but Requests and ur…",
+    "sources": ["euvd"],
+    "severity": "7.5 (3.1)",
+    "cvssBase": 7.5,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:58:41 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84627",
+    "aliases": ["CVE-2026-77242"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, validate_url_for_ssrf checks a hostname's resolved addresses, but Requests and urllib3 resolve the hostname again when connecting. A caller can use a short-lived DNS answer that is public during validation and private during connection, preserving unauthenticated access to internal or metadata endpoints despite the earlier CVE-2026-27826 remediation. The advisory traces the vulnerable input and processing flow through validate_url_for_ssrf, _check_dns_resolution, socket.getaddrinfo, and _make_ssrf_safe_hook, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-72fm-whvq-jghf",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84627",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77259": {
+    "id": "CVE-2026-77259",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, confluence_upload_attachment opens a caller-selected server-local file without ch…",
+    "sources": ["euvd"],
+    "severity": "7.7 (3.1)",
+    "cvssBase": 7.7,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:45:48 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84758",
+    "aliases": ["CVE-2026-77259", "GHSA-6cr4-ccf3-x7h4"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, confluence_upload_attachment opens a caller-selected server-local file without checking that the resolved path remains in the workspace. A caller can upload environment files, credentials, or other readable host data to a Confluence page and retrieve it through Atlassian. The advisory traces the vulnerable input and processing flow through confluence_upload_attachment, file_path, and open(file_path, \"rb\"), which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-6cr4-ccf3-x7h4",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84758",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77268": {
+    "id": "CVE-2026-77268",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the OAuth fallback token directory and JSON file are created without explicit own…",
+    "sources": ["euvd"],
+    "severity": "5.5 (3.1)",
+    "cvssBase": 5.5,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:44:46 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84757",
+    "aliases": ["CVE-2026-77268", "GHSA-4596-2p6p-28cv"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the OAuth fallback token directory and JSON file are created without explicit owner-only modes. Local users or processes with access through the resulting group or world permission bits can read access and refresh tokens and reuse the associated Atlassian session. The advisory traces the vulnerable input and processing flow through ~/.mcp-atlassian, oauth-<client_id>.json, access_token, and refresh_token, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-4596-2p6p-28cv",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84757",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77250": {
+    "id": "CVE-2026-77250",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, OAuthConfig writes a plaintext fallback file containing access and refresh tokens…",
+    "sources": ["euvd"],
+    "severity": "6.1 (3.1)",
+    "cvssBase": 6.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:51:02 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84619",
+    "aliases": ["GHSA-g5xv-mhgm-v5f6", "CVE-2026-77250"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, OAuthConfig writes a plaintext fallback file containing access and refresh tokens under the user's .mcp-atlassian directory using process-default permissions. On systems with a permissive umask, same-group or other local users and processes can read the persisted tokens and reuse the associated Atlassian access. The advisory traces the vulnerable input and processing flow through OAuthConfig._save_tokens, ~/.mcp-atlassian/oauth-<client_id>.json, access_token, and refresh_token, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-g5xv-mhgm-v5f6",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84619",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77270": {
+    "id": "CVE-2026-77270",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the Jira and Confluence attachment upload tools treat caller-controlled file_path…",
+    "sources": ["euvd"],
+    "severity": "6.5 (3.1)",
+    "cvssBase": 6.5,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:46:30 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84605",
+    "aliases": ["CVE-2026-77270", "GHSA-f26r-j276-ggg4"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the Jira and Confluence attachment upload tools treat caller-controlled file_path values as trusted server-local paths. The server opens the selected file and uploads it to an Atlassian issue or page, allowing an MCP caller with upload access to disclose any file readable by the server process. The advisory traces the vulnerable input and processing flow through confluence_upload_attachment, jira_upload_attachment, file_path, and open(file_path, \"rb\"), which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-f26r-j276-ggg4",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84605",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77272": {
+    "id": "CVE-2026-77272",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the OAuth error query parameter is passed to CallbackHandler._send_response in oa…",
+    "sources": ["euvd"],
+    "severity": "5.4 (3.1)",
+    "cvssBase": 5.4,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:33:18 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84749",
+    "aliases": ["CVE-2026-77272", "GHSA-g2r2-3j32-j27x"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the OAuth error query parameter is passed to CallbackHandler._send_response in oauth_setup.py and interpolated into an HTML page without escaping. A crafted authorization callback can inject markup or script that executes in the browser of a user completing the OAuth flow. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-g2r2-3j32-j27x",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84749",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77274": {
+    "id": "CVE-2026-77274",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, validate_url_for_ssrf has a backslash authority confusion because it interprets t…",
+    "sources": ["euvd"],
+    "severity": "8.8 (4.0)",
+    "cvssBase": 8.8,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:36:49 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84649",
+    "aliases": ["CVE-2026-77274", "GHSA-hgcf-4mq8-5266"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, validate_url_for_ssrf has a backslash authority confusion because it interprets the authority differently from the Requests connection layer in the header-based Jira and Confluence URL authentication flow. A crafted URL can validate as an external hostname while the HTTP client connects to an internal host, permitting server-side requests to protected network resources. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-hgcf-4mq8-5266",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84649",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77269": {
+    "id": "CVE-2026-77269",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the remediation for CVE-2026-27825 protects download destinations but does not co…",
+    "sources": ["euvd"],
+    "severity": "6.5 (3.1)",
+    "cvssBase": 6.5,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:32:14 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84748",
+    "aliases": ["GHSA-h7wj-5v37-59r2", "CVE-2026-77269"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the remediation for CVE-2026-27825 protects download destinations but does not constrain source paths used by attachment uploads. A caller can provide an absolute or traversal file_path and cause the server to upload the selected local file. The advisory traces the vulnerable input and processing flow through upload_attachment, file_path, and CVE-2026-27825, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-h7wj-5v37-59r2",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84748",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77255": {
+    "id": "CVE-2026-77255",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the Jira update_issue attachments argument is converted into local paths and rout…",
+    "sources": ["euvd"],
+    "severity": "8.6 (3.1)",
+    "cvssBase": 8.6,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:29:20 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84746",
+    "aliases": ["CVE-2026-77255", "GHSA-2xj6-xx86-cwwc"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the Jira update_issue attachments argument is converted into local paths and routed to the attachment upload implementation without workspace validation. A caller can make the MCP server read arbitrary local files and attach them to a Jira issue, using the server as a confused deputy to exfiltrate the contents. The advisory traces the vulnerable input and processing flow through jira update_issue, attachments, upload_attachment, and file_path, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-2xj6-xx86-cwwc",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84746",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77262": {
+    "id": "CVE-2026-77262",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, confluence_upload_attachment accepts an attacker-controlled file_path and does no…",
+    "sources": ["euvd"],
+    "severity": "8.6 (3.1)",
+    "cvssBase": 8.6,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:13:10 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84744",
+    "aliases": ["CVE-2026-77262", "GHSA-p6hp-93wp-fh6p"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, confluence_upload_attachment accepts an attacker-controlled file_path and does not apply the path restriction added for the earlier download vulnerability. A caller can traverse outside the workspace and upload arbitrary server-readable files to Confluence. The advisory traces the vulnerable input and processing flow through confluence_upload_attachment, file_path, and CVE-2026-27825, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-p6hp-93wp-fh6p",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84744",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77257": {
+    "id": "CVE-2026-77257",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, HTTP-exposed Jira and Confluence upload tools pass a caller-provided file_path to…",
+    "sources": ["euvd"],
+    "severity": "8.3 (4.0)",
+    "cvssBase": 8.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:08:48 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84741",
+    "aliases": ["CVE-2026-77257", "GHSA-mrq8-fv7v-hhjg"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, HTTP-exposed Jira and Confluence upload tools pass a caller-provided file_path to local file operations without restricting it to the workspace. A remote MCP caller with tool access can cause the server to read sensitive local files and upload them as Atlassian attachments. The advisory traces the vulnerable input and processing flow through streamable-http, upload_attachment, and file_path, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-mrq8-fv7v-hhjg",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84741",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77261": {
+    "id": "CVE-2026-77261",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, _make_ssrf_safe_hook is omitted from JiraFetcher and ConfluenceFetcher sessions c…",
+    "sources": ["euvd"],
+    "severity": "7.1 (3.1)",
+    "cvssBase": 7.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:06:20 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84631",
+    "aliases": ["GHSA-6529-c226-h328", "CVE-2026-77261"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, _make_ssrf_safe_hook is omitted from JiraFetcher and ConfluenceFetcher sessions created through the basic-auth and oauth_pat branches. If an attacker-controlled or compromised configured Atlassian instance returns a redirect to an internal address, those sessions can follow the redirect without revalidating its destination. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-6529-c226-h328",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84631",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77260": {
+    "id": "CVE-2026-77260",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the Confluence and Jira upload_attachment implementations accept an unconstrained…",
+    "sources": ["euvd"],
+    "severity": "8.3 (4.0)",
+    "cvssBase": 8.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:03:03 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84630",
+    "aliases": ["CVE-2026-77260", "GHSA-f4p7-qx46-wc5j"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the Confluence and Jira upload_attachment implementations accept an unconstrained file_path and open the referenced server-local file. A permitted MCP caller can upload sensitive host files to an Atlassian destination and then retrieve their contents. The advisory traces the vulnerable input and processing flow through upload_attachment, file_path, and CVE-2026-27825, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-f4p7-qx46-wc5j",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84630",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77271": {
+    "id": "CVE-2026-77271",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, validate_safe_path defaults its base directory to os.getcwd(), and affected Confl…",
+    "sources": ["euvd"],
+    "severity": "8.3 (4.0)",
+    "cvssBase": 8.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 6:00:33 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84629",
+    "aliases": ["CVE-2026-77271", "GHSA-6vmq-24h2-pj7j"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, validate_safe_path defaults its base directory to os.getcwd(), and affected Confluence attachment call sites omit base_dir, allowing attacker-selected writes within the working directory. This Python module overwrite can provide code execution when the application later imports the modified module, bypassing the remediation tracked as CVE-2026-27825. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-6vmq-24h2-pj7j",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84629",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77251": {
+    "id": "CVE-2026-77251",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, Jira search accepts a forbidden project clause because it checks only for the pre…",
+    "sources": ["euvd"],
+    "severity": "8.3 (4.0)",
+    "cvssBase": 8.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:55:37 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84625",
+    "aliases": ["GHSA-w66g-j6c4-hcfc", "CVE-2026-77251"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, Jira search accepts a forbidden project clause because it checks only for the presence of project syntax, Confluence search uses an incomplete case-sensitive space check, and Jira board APIs omit project-filter enforcement. These paths expose issues, boards, or pages outside JIRA_PROJECTS_FILTER or CONFLUENCE_SPACES_FILTER when the operator credentials have broader access. The advisory traces the vulnerable input and processing flow through jira_search, confluence_search, get_board_issues, get_agile_boards, JIRA_PROJECTS_FILTER, and CONFLUENCE_SPACES_FILTER, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-w66g-j6c4-hcfc",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84625",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77252": {
+    "id": "CVE-2026-77252",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, caller-supplied projects_filter and spaces_filter arguments can replace administr…",
+    "sources": ["euvd"],
+    "severity": "6.5 (3.1)",
+    "cvssBase": 6.5,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:54:02 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84623",
+    "aliases": ["CVE-2026-77252"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, caller-supplied projects_filter and spaces_filter arguments can replace administrator-configured allowlists, and caller-provided project or space clauses can suppress the configured restriction. A caller can search projects or spaces outside the intended boundary when the configured Atlassian credentials can access them. The advisory traces the vulnerable input and processing flow through JIRA_PROJECTS_FILTER, CONFLUENCE_SPACES_FILTER, projects_filter, spaces_filter, SearchMixin.search_issues, and SearchMixin.search, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-rqwg-9346-fjjv",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84623",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77267": {
+    "id": "CVE-2026-77267",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the X-Atlassian-Jira-Url and X-Atlassian-Confluence-Url headers are processed by …",
+    "sources": ["euvd"],
+    "severity": "8.3 (4.0)",
+    "cvssBase": 8.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:52:25 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84621",
+    "aliases": ["CVE-2026-77267", "GHSA-5wf4-jqxh-8gm3"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the X-Atlassian-Jira-Url and X-Atlassian-Confluence-Url headers are processed by _process_authentication_headers and used to construct Atlassian fetchers without calling validate_url_for_ssrf. A caller who can set these headers can supply an internal or metadata-service URL and cause the server to send requests to that destination, bypassing the incomplete CVE-2026-27826 remediation. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-5wf4-jqxh-8gm3",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84621",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77244": {
+    "id": "CVE-2026-77244",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the HTTP transport accepts requests without a verified user identity and downstre…",
+    "sources": ["euvd"],
+    "severity": "10 (3.1)",
+    "cvssBase": 10,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:49:38 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84607",
+    "aliases": ["CVE-2026-77244", "GHSA-wrhw-j3f9-8vc6"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, the HTTP transport accepts requests without a verified user identity and downstream fetcher construction falls back to the operator's globally configured Jira or Confluence credentials. A network client that can reach the MCP endpoint can invoke Atlassian tools as the operator, including read and write operations available to that account. The advisory traces the vulnerable input and processing flow through UserTokenMiddleware, AtlassianOpaqueTokenVerifier, _get_fetcher, and streamable-http, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-wrhw-j3f9-8vc6",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84607",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77265": {
+    "id": "CVE-2026-77265",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, header-supplied Jira or Confluence URLs are resolved and validated before the HTT…",
+    "sources": ["euvd"],
+    "severity": "5.9 (3.1)",
+    "cvssBase": 5.9,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:47:58 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84606",
+    "aliases": ["GHSA-49xv-9743-pw8w", "CVE-2026-77265"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, header-supplied Jira or Confluence URLs are resolved and validated before the HTTP client resolves the hostname again for the connection. An unauthenticated caller can use a DNS-rebinding hostname that returns a public address during validation and an internal address during connection, causing requests to internal or metadata services. The advisory traces the vulnerable input and processing flow through X-Atlassian-Jira-Url, X-Atlassian-Confluence-Url, validate_url_for_ssrf, and DNS rebinding, which identify the affected entry points, controls, and code paths. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-49xv-9743-pw8w",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84606",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-77258": {
+    "id": "CVE-2026-77258",
+    "title": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, upload_attachment in src/mcp_atlassian/confluence/attachments.py accepts a caller…",
+    "sources": ["euvd"],
+    "severity": "7.7 (3.1)",
+    "cvssBase": 7.7,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 5:39:28 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84650",
+    "aliases": ["GHSA-93xw-j965-9mx3", "CVE-2026-77258"],
+    "packages": [],
+    "vendor": "sooperset",
+    "product": "mcp-atlassian",
+    "description": "MCP Atlassian is a Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Prior to 0.22.0, upload_attachment in src/mcp_atlassian/confluence/attachments.py accepts a caller-controlled file_path and opens the selected server-local file without restricting it to the workspace. A permitted Confluence MCP caller can upload the file as an attachment and disclose data readable by the server process. This issue is fixed in version 0.22.0.",
+    "references": [
+      "https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-93xw-j965-9mx3",
+      "https://github.com/sooperset/mcp-atlassian/pull/1448",
+      "https://github.com/sooperset/mcp-atlassian/commit/b041733473f95119dd539542a43c280737a8e460",
+      "https://github.com/sooperset/mcp-atlassian/releases/tag/v0.22.0"
+    ],
+    "euvdId": "EUVD-2026-84650",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-94037": {
+    "id": "CVE-2026-94037",
+    "title": "A weakness has been identified in 00Kisumi00 mcp-file-analyzer up to 84740852f0cf0cf5db4781b1ca6d7c6a6d210405. This affects the function ControlFlowNode of the file main.py of the component analyze_c…",
+    "sources": ["euvd"],
+    "severity": "5.3 (4.0)",
+    "cvssBase": 5.3,
+    "epss": 0.33,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 20, 2026, 4:15:10 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83753",
+    "aliases": ["CVE-2026-94037", "GHSA-882h-38q7-cgpc"],
+    "packages": [],
+    "vendor": "00Kisumi00",
+    "product": "mcp-file-analyzer",
+    "description": "A weakness has been identified in 00Kisumi00 mcp-file-analyzer up to 84740852f0cf0cf5db4781b1ca6d7c6a6d210405. This affects the function ControlFlowNode of the file main.py of the component analyze_csv_data MCP tool. This manipulation of the argument filename causes path traversal. Remote exploitation of the attack is possible. The exploit has been made available to the public and could be used for attacks. This product follows a rolling release approach for continuous delivery, so version details for affected or updated releases are not provided. The project was informed of the problem early through an issue report but has not responded yet.",
+    "references": [
+      "https://vuldb.com/vuln/407966",
+      "https://vuldb.com/vuln/407966/cti",
+      "https://vuldb.com/cve/CVE-2026-94037",
+      "https://vuldb.com/submit/947720",
+      "https://github.com/00Kisumi00/mcp-file-analyzer/issues/1",
+      "https://github.com/00Kisumi00/mcp-file-analyzer/"
+    ],
+    "euvdId": "EUVD-2026-83753",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-94047": {
+    "id": "CVE-2026-94047",
+    "title": "A security vulnerability has been detected in samanhappy MCPHub up to 1.0.32. The impacted element is the function importTemplate of the file src/services/templateService.ts of the component Template…",
+    "sources": ["euvd"],
+    "severity": "5.3 (4.0)",
+    "cvssBase": 5.3,
+    "epss": 0.41,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 20, 2026, 7:00:13 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83781",
+    "aliases": ["CVE-2026-94047", "GHSA-2xcr-p42x-hfx6"],
+    "packages": [],
+    "vendor": "MCPHub",
+    "product": "MCPHub",
+    "description": "A security vulnerability has been detected in samanhappy MCPHub up to 1.0.32. The impacted element is the function importTemplate of the file src/services/templateService.ts of the component Template Import Endpoint. The manipulation leads to improper privilege management. Remote exploitation of the attack is possible. The exploit has been disclosed publicly and may be used. Upgrading to version 1.0.33 is sufficient to resolve this issue. The identifier of the patch is 18a4467bc4ec6390b1f841d8a468a37e9922f837. It is advisable to upgrade the affected component.",
+    "references": [
+      "https://vuldb.com/vuln/407976",
+      "https://vuldb.com/vuln/407976/cti",
+      "https://vuldb.com/cve/CVE-2026-94047",
+      "https://vuldb.com/submit/949562",
+      "https://github.com/samanhappy/mcphub/issues/1094",
+      "https://github.com/samanhappy/mcphub/pull/1096",
+      "https://github.com/samanhappy/mcphub/commit/18a4467bc4ec6390b1f841d8a468a37e9922f837",
+      "https://github.com/samanhappy/mcphub/releases/tag/v1.0.33"
+    ],
+    "euvdId": "EUVD-2026-83781",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
   "CVE-2026-61647": {
     "id": "CVE-2026-61647",
     "title": "NotebookLM MCP is an MCP server and HTTP service for interacting with Google NotebookLM and exporting generated content to local vault directories. Versions 1.6.0 through 2.0.2 contain a path travers…",
     "sources": ["euvd"],
     "severity": "7.1 (4.0)",
     "cvssBase": 7.1,
-    "epss": 0,
+    "epss": 0.32,
     "kev": false,
     "kevSources": [],
     "published": "Sep 21, 2026, 9:00:58 PM",
     "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84173",
-    "aliases": ["CVE-2026-61647"],
+    "aliases": ["CVE-2026-61647", "GHSA-jjhp-8crj-mppq"],
     "packages": [],
     "vendor": "roomi-fields",
     "product": "notebooklm-mcp",
@@ -5704,7 +6565,7 @@
     "sources": ["euvd"],
     "severity": "10 (3.1)",
     "cvssBase": 10,
-    "epss": 0,
+    "epss": 0.0105,
     "kev": false,
     "kevSources": [],
     "published": "Sep 21, 2026, 8:45:14 PM",
@@ -5723,18 +6584,66 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
+  "CVE-2026-77518": {
+    "id": "CVE-2026-77518",
+    "title": "MaxKB is an open-source AI assistant for enterprise. In 2.10.2-lts and earlier, a normal workspace user who knows another user's active MCP tool_id in the same workspace can retrieve the hidden tool …",
+    "sources": ["euvd"],
+    "severity": "5 (3.1)",
+    "cvssBase": 5,
+    "epss": 0.2,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 21, 2026, 8:36:26 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84154",
+    "aliases": ["CVE-2026-77518"],
+    "packages": [],
+    "vendor": "1Panel-dev",
+    "product": "MaxKB",
+    "description": "MaxKB is an open-source AI assistant for enterprise. In 2.10.2-lts and earlier, a normal workspace user who knows another user's active MCP tool_id in the same workspace can retrieve the hidden tool through the tool-detail route because it does not apply the per-resource authorization used by the list route. The response includes Tool.code, which may contain MCP server configuration and headers, and an attacker who can create or edit an attacker-owned workflow can place the same foreign mcp_tool_id in a workflow mcp-node so workflow debug uses the owner's MCP configuration without verifying permission to use that tool. No fixed version is available as of this review.",
+    "references": ["https://github.com/1Panel-dev/MaxKB/security/advisories/GHSA-x65c-w438-c58f"],
+    "euvdId": "EUVD-2026-84154",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-89420": {
+    "id": "CVE-2026-89420",
+    "title": "Improper Validation of Specified Quantity in Input in ZenHive mpp allows a client holding an open payment channel to obtain paid resources without being charged. MPP.Session.Actions.accept_voucher/3 …",
+    "sources": ["euvd"],
+    "severity": "7.1 (4.0)",
+    "cvssBase": 7.1,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 11:16:29 AM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84360",
+    "aliases": ["GHSA-96m7-5wfv-978m", "CVE-2026-89420"],
+    "packages": [],
+    "vendor": "ZenHive",
+    "product": "mpp",
+    "description": "Improper Validation of Specified Quantity in Input in ZenHive mpp allows a client holding an open payment channel to obtain paid resources without being charged. MPP.Session.Actions.accept_voucher/3 in lib/mpp/session/actions.ex treats a voucher whose cumulativeAmount equals the channel's already-accepted cumulative amount as an idempotent success, returning the channel unchanged without calling maybe_spend/2. The credential verifies, the protected resource is served, and spent and units stay where they were. Because the server issues a fresh challenge per request and the credential replay store keys on challenge id and payload, the same signed voucher can be re-presented under every new challenge, so one paid voucher yields an unbounded number of paid units. The path is reachable from any method built on MPP.Session.Method through the Plug, MCP, JSON-RPC and WebSocket transports. This issue affects mpp: from 0.14.0 before 0.16.2.",
+    "references": [
+      "https://github.com/ZenHive/mpp/security/advisories/GHSA-8c63-r789-xrrf",
+      "https://cna.erlef.org/cves/CVE-2026-89420.html",
+      "https://osv.dev/vulnerability/EEF-CVE-2026-89420",
+      "https://github.com/ZenHive/mpp/commit/82df569c898be1137189e3648e1edb4af6363651",
+      "https://github.com/ZenHive/mpp/commit/7270edc1dcfb58250cc5ee812876609206564165"
+    ],
+    "euvdId": "EUVD-2026-84360",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
   "CVE-2026-61612": {
     "id": "CVE-2026-61612",
     "title": "CKAN MCP Server is a tool for querying CKAN open data portals. Prior to version 0.4.108, the SSRF guard `validateServerUrl` (added for CVE-2026-33060, extended for CVE-2026-53509) validates only the …",
     "sources": ["euvd"],
     "severity": "5.7 (3.1)",
     "cvssBase": 5.7,
-    "epss": 0,
+    "epss": 0.22,
     "kev": false,
     "kevSources": [],
     "published": "Sep 21, 2026, 5:37:17 PM",
     "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84031",
-    "aliases": ["CVE-2026-61612"],
+    "aliases": ["GHSA-798p-78g2-v556", "CVE-2026-61612"],
     "packages": [],
     "vendor": "ondata",
     "product": "ckan-mcp-server",
@@ -5756,7 +6665,7 @@
     "sources": ["euvd"],
     "severity": "5.4 (3.1)",
     "cvssBase": 5.4,
-    "epss": 0,
+    "epss": 0.2,
     "kev": false,
     "kevSources": [],
     "published": "Sep 21, 2026, 8:40:44 PM",
@@ -5771,34 +6680,13 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
-  "CVE-2026-77518": {
-    "id": "CVE-2026-77518",
-    "title": "MaxKB is an open-source AI assistant for enterprise. In 2.10.2-lts and earlier, a normal workspace user who knows another user's active MCP tool_id in the same workspace can retrieve the hidden tool …",
-    "sources": ["euvd"],
-    "severity": "5 (3.1)",
-    "cvssBase": 5,
-    "epss": 0,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 21, 2026, 8:36:26 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84154",
-    "aliases": ["CVE-2026-77518"],
-    "packages": [],
-    "vendor": "1Panel-dev",
-    "product": "MaxKB",
-    "description": "MaxKB is an open-source AI assistant for enterprise. In 2.10.2-lts and earlier, a normal workspace user who knows another user's active MCP tool_id in the same workspace can retrieve the hidden tool through the tool-detail route because it does not apply the per-resource authorization used by the list route. The response includes Tool.code, which may contain MCP server configuration and headers, and an attacker who can create or edit an attacker-owned workflow can place the same foreign mcp_tool_id in a workflow mcp-node so workflow debug uses the owner's MCP configuration without verifying permission to use that tool. No fixed version is available as of this review.",
-    "references": ["https://github.com/1Panel-dev/MaxKB/security/advisories/GHSA-x65c-w438-c58f"],
-    "euvdId": "EUVD-2026-84154",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
   "CVE-2026-77519": {
     "id": "CVE-2026-77519",
     "title": "MaxKB is an open-source AI assistant for enterprise. In 2.10.2-lts and earlier, the /chat/api/mcp authentication path looks up an ApplicationApiKey using only its secret and active status, without en…",
     "sources": ["euvd"],
     "severity": "5.4 (3.1)",
     "cvssBase": 5.4,
-    "epss": 0,
+    "epss": 0.2,
     "kev": false,
     "kevSources": [],
     "published": "Sep 21, 2026, 8:26:27 PM",
@@ -5985,7 +6873,7 @@
     "sources": ["euvd"],
     "severity": "8.4 (3.1)",
     "cvssBase": 8.4,
-    "epss": 0,
+    "epss": 0.42,
     "kev": false,
     "kevSources": [],
     "published": "Sep 21, 2026, 2:09:30 PM",
@@ -6054,64 +6942,6 @@
       "https://git.kernel.org/stable/c/db2333f88729c8aae062cb171ed058725ff5c901"
     ],
     "euvdId": "EUVD-2026-76534",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-94047": {
-    "id": "CVE-2026-94047",
-    "title": "A security vulnerability has been detected in samanhappy MCPHub up to 1.0.32. The impacted element is the function importTemplate of the file src/services/templateService.ts of the component Template…",
-    "sources": ["euvd"],
-    "severity": "5.3 (4.0)",
-    "cvssBase": 5.3,
-    "epss": 0.41,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 20, 2026, 7:00:13 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83781",
-    "aliases": ["CVE-2026-94047", "GHSA-2xcr-p42x-hfx6"],
-    "packages": [],
-    "vendor": "MCPHub",
-    "product": "MCPHub",
-    "description": "A security vulnerability has been detected in samanhappy MCPHub up to 1.0.32. The impacted element is the function importTemplate of the file src/services/templateService.ts of the component Template Import Endpoint. The manipulation leads to improper privilege management. Remote exploitation of the attack is possible. The exploit has been disclosed publicly and may be used. Upgrading to version 1.0.33 is sufficient to resolve this issue. The identifier of the patch is 18a4467bc4ec6390b1f841d8a468a37e9922f837. It is advisable to upgrade the affected component.",
-    "references": [
-      "https://vuldb.com/vuln/407976",
-      "https://vuldb.com/vuln/407976/cti",
-      "https://vuldb.com/cve/CVE-2026-94047",
-      "https://vuldb.com/submit/949562",
-      "https://github.com/samanhappy/mcphub/issues/1094",
-      "https://github.com/samanhappy/mcphub/pull/1096",
-      "https://github.com/samanhappy/mcphub/commit/18a4467bc4ec6390b1f841d8a468a37e9922f837",
-      "https://github.com/samanhappy/mcphub/releases/tag/v1.0.33"
-    ],
-    "euvdId": "EUVD-2026-83781",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-94037": {
-    "id": "CVE-2026-94037",
-    "title": "A weakness has been identified in 00Kisumi00 mcp-file-analyzer up to 84740852f0cf0cf5db4781b1ca6d7c6a6d210405. This affects the function ControlFlowNode of the file main.py of the component analyze_c…",
-    "sources": ["euvd"],
-    "severity": "5.3 (4.0)",
-    "cvssBase": 5.3,
-    "epss": 0.33,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 20, 2026, 4:15:10 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83753",
-    "aliases": ["CVE-2026-94037", "GHSA-882h-38q7-cgpc"],
-    "packages": [],
-    "vendor": "00Kisumi00",
-    "product": "mcp-file-analyzer",
-    "description": "A weakness has been identified in 00Kisumi00 mcp-file-analyzer up to 84740852f0cf0cf5db4781b1ca6d7c6a6d210405. This affects the function ControlFlowNode of the file main.py of the component analyze_csv_data MCP tool. This manipulation of the argument filename causes path traversal. Remote exploitation of the attack is possible. The exploit has been made available to the public and could be used for attacks. This product follows a rolling release approach for continuous delivery, so version details for affected or updated releases are not provided. The project was informed of the problem early through an issue report but has not responded yet.",
-    "references": [
-      "https://vuldb.com/vuln/407966",
-      "https://vuldb.com/vuln/407966/cti",
-      "https://vuldb.com/cve/CVE-2026-94037",
-      "https://vuldb.com/submit/947720",
-      "https://github.com/00Kisumi00/mcp-file-analyzer/issues/1",
-      "https://github.com/00Kisumi00/mcp-file-analyzer/"
-    ],
-    "euvdId": "EUVD-2026-83753",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -6922,7 +7752,7 @@
     "sources": ["euvd"],
     "severity": "10 (3.1)",
     "cvssBase": 10,
-    "epss": 0.83,
+    "epss": 0.011399999999999999,
     "kev": false,
     "kevSources": [],
     "published": "Sep 15, 2026, 4:47:41 PM",
@@ -7431,788 +8261,30 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
-  "CVE-2026-85606": {
-    "id": "CVE-2026-85606",
-    "title": "firecrawl-mcp-server 3.20.2 contains an arbitrary local file read vulnerability in the firecrawl_parse tool that accepts unconstrained filePath arguments without directory containment validation. Att…",
+  "CVE-2026-85709": {
+    "id": "CVE-2026-85709",
+    "title": "LightRAG provides simple and fast retrieval-augmented generation. Prior to 1.5.5, the LightRAG API server returns raw Python exception text from error handlers in document_routes.py, graph_routes.py,…",
     "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0.7,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 2:32:08 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71222",
-    "aliases": ["GHSA-q267-2jg6-m7vc", "CVE-2026-85606"],
-    "packages": [],
-    "vendor": "firecrawl",
-    "product": "firecrawl-mcp-server",
-    "description": "firecrawl-mcp-server 3.20.2 contains an arbitrary local file read vulnerability in the firecrawl_parse tool that accepts unconstrained filePath arguments without directory containment validation. Attackers can supply absolute paths or directory traversal sequences to read sensitive files like credentials and environment variables, which are then uploaded and returned to the model context.",
-    "references": [
-      "https://github.com/firecrawl/firecrawl-mcp-server/issues/306",
-      "https://github.com/firecrawl/firecrawl-mcp-server",
-      "https://github.com/firecrawl/firecrawl-mcp-server/blob/v3.24.1/src/index.ts",
-      "https://www.vulncheck.com/advisories/firecrawl-mcp-server-3.20.2-arbitrary-local-file-read-via-filepath"
-    ],
-    "euvdId": "EUVD-2026-71222",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85661": {
-    "id": "CVE-2026-85661",
-    "title": "excel-mcp-server 0.1.8 fails to enforce path confinement in stdio mode when EXCEL_FILES_PATH is unset, allowing attackers to read and write arbitrary files. Attackers can supply unchecked file paths …",
-    "sources": ["euvd"],
-    "severity": "9.3 (4.0)",
-    "cvssBase": 9.3,
-    "epss": 0.44,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 2:32:18 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71117",
-    "aliases": ["GHSA-xv88-r947-5c3v", "CVE-2026-85661"],
-    "packages": [],
-    "vendor": "haris-musa",
-    "product": "excel-mcp-server",
-    "description": "excel-mcp-server 0.1.8 fails to enforce path confinement in stdio mode when EXCEL_FILES_PATH is unset, allowing attackers to read and write arbitrary files. Attackers can supply unchecked file paths to read and write tools to access any file accessible to the process.",
-    "references": [
-      "https://github.com/haris-musa/excel-mcp-server/issues/149",
-      "https://github.com/haris-musa/excel-mcp-server",
-      "https://github.com/haris-musa/excel-mcp-server/blob/v0.1.8/src/excel_mcp/server.py",
-      "https://github.com/haris-musa/excel-mcp-server/blob/v0.1.8/src/excel_mcp/validation.py",
-      "https://www.vulncheck.com/advisories/excel-mcp-server-0.1.8-arbitrary-file-read-write-via-stdio-mode"
-    ],
-    "euvdId": "EUVD-2026-71117",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85666": {
-    "id": "CVE-2026-85666",
-    "title": "OGX (formerly Llama Stack, affected at commit fbe8e0f) contains an unauthenticated server-side request forgery vulnerability in the OpenAI-compatible POST /v1/responses endpoint. MCP tool definitions…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0.42,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 2:32:22 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71122",
-    "aliases": ["CVE-2026-85666", "GHSA-9mg6-c5wp-2g44"],
-    "packages": [],
-    "vendor": "ogx-ai",
-    "product": "ogx",
-    "description": "OGX (formerly Llama Stack, affected at commit fbe8e0f) contains an unauthenticated server-side request forgery vulnerability in the OpenAI-compatible POST /v1/responses endpoint. MCP tool definitions accept a server_url parameter (along with headers and authorization values) that is fetched server-side without destination validation; the existing validate_url_not_private() guard used for other URL inputs is not applied to server_url. On the default starter configuration, which runs without authentication, a remote unauthenticated attacker can cause the server to open connections to arbitrary internal addresses (including cloud metadata endpoints such as http://169.254.169.254/) and forward attacker-supplied headers and bearer tokens to those destinations.",
-    "references": [
-      "https://github.com/ogx-ai/ogx/issues/6287",
-      "https://github.com/ogx-ai/ogx",
-      "https://github.com/ogx-ai/ogx/blob/v1.3.1/src/ogx/providers/utils/tools/mcp.py",
-      "https://www.vulncheck.com/advisories/ogx-1.3.1-server-side-request-forgery-via-mcp-tool-server-url"
-    ],
-    "euvdId": "EUVD-2026-71122",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-57124": {
-    "id": "CVE-2026-57124",
-    "title": "PraisonAI is a multi-agent teams system. Prior to 4.6.59, the default UI host applications expose POST /api/mcp/connect without mandatory authentication and accept caller-controlled command and args …",
-    "sources": ["euvd"],
-    "severity": "9.8 (3.1)",
-    "cvssBase": 9.8,
-    "epss": 0.64,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 14, 2026, 3:04:54 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-77598",
-    "aliases": ["CVE-2026-57124", "PYSEC-2026-3517", "GHSA-p75f-6fp4-p57w"],
-    "packages": [],
-    "vendor": "mervinpraison",
-    "product": "PraisonAI",
-    "description": "PraisonAI is a multi-agent teams system. Prior to 4.6.59, the default UI host applications expose POST /api/mcp/connect without mandatory authentication and accept caller-controlled command and args values that PraisonAIUI passes to StdioMCPClient to start a local process. Because the UI commands bind to 0.0.0.0 by default, a reachable unauthenticated client can execute commands as the UI service account even when the MCP handshake later fails. This vulnerability is fixed in 4.6.59.",
-    "references": [
-      "https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-p75f-6fp4-p57w",
-      "https://github.com/MervinPraison/PraisonAI/commit/2adfe7e8323f6deec66925cf15a885b6238895e9",
-      "https://github.com/MervinPraison/PraisonAI/releases/tag/v4.6.59"
-    ],
-    "euvdId": "EUVD-2026-77598",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-53708": {
-    "id": "CVE-2026-53708",
-    "title": "ContextForge is an AI gateway, registry, and proxy that provides centralized discovery, guardrails, and management for MCP, A2A, and REST or gRPC APIs. Prior to 1.0.3, the /admin/gateways/test call s…",
-    "sources": ["euvd"],
-    "severity": "6.6 (3.1)",
-    "cvssBase": 6.6,
-    "epss": 0.28,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 14, 2026, 3:56:53 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-77591",
-    "aliases": ["CVE-2026-53708", "PYSEC-2026-3684", "GHSA-9hgc-g3w5-67cm"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "mcp-contextforge-gateway",
-    "description": "ContextForge is an AI gateway, registry, and proxy that provides centralized discovery, guardrails, and management for MCP, A2A, and REST or gRPC APIs. Prior to 1.0.3, the /admin/gateways/test call site in mcpgateway/admin.py calls validate_gateway_test_url() in mcpgateway/common/validators.py to resolve and reject private, loopback, link-local, and cloud-metadata addresses, but ResilientHttpClient later resolves the original hostname again without binding the validated address. When MCPGATEWAY_ADMIN_API_ENABLED is enabled, an attacker with a database-backed role containing explicit gateways.read permission can use DNS rebinding to return a public address during validation and a private or metadata address during connection, bypassing ssrf_blocked_networks and ssrf_dns_fail_closed because those controls apply only to the validation-time result. The endpoint's allow_admin_bypass=False setting means a bootstrap-only virtual platform-admin identity without a database role is not sufficient. Successful exploitation can reach internal services and cloud metadata, expose cloud credentials, access internal APIs, or probe internal network ports. This issue is fixed in version 1.0.3.",
-    "references": [
-      "https://github.com/IBM/mcp-context-forge/security/advisories/GHSA-9hgc-g3w5-67cm",
-      "https://github.com/IBM/mcp-context-forge/commit/fba11a99babd80779fa05510b35fb6a153bbacaf",
-      "https://github.com/IBM/mcp-context-forge/releases/tag/v1.0.3"
-    ],
-    "euvdId": "EUVD-2026-77591",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-38924": {
-    "id": "CVE-2026-38924",
-    "title": "In Oraios AI Serena before 1.0.0, the listen address of the MCP server in HTTP mode is 0.0.0.0. NOTE: the Supplier observed that 0.0.0.0 was a \"potential security hazard\" but the Serena documentation…",
-    "sources": ["euvd"],
-    "severity": "2.9 (3.1)",
-    "cvssBase": 2.9,
-    "epss": 0.12,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 14, 2026, 12:00:00 AM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-77175",
-    "aliases": ["GHSA-gx4x-gc82-v87q", "CVE-2026-38924"],
-    "packages": [],
-    "vendor": "oraios",
-    "product": "serena",
-    "description": "In Oraios AI Serena before 1.0.0, the listen address of the MCP server in HTTP mode is 0.0.0.0. NOTE: the Supplier observed that 0.0.0.0 was a \"potential security hazard\" but the Serena documentation, at the time of the issue report proposing 127.0.0.1 instead of 0.0.0.0, recommended \"use a sandboxed environment for running Serena.\"",
-    "references": [
-      "https://github.com/oraios/serena/commit/b00ae292ac2d49947506886f44eb1cad7b7d7cd1",
-      "https://github.com/oraios/serena/security/advisories/GHSA-m922-r24v-6wff",
-      "https://dash.security/blog/cve-2026-38924-unauthenticated-rce-in-the-serena-mcp-server",
-      "https://github.com/oraios/serena/compare/v0.1.4...v1.0.0",
-      "https://github.com/oraios/serena/commit/a7af5c1f8a9ea27102eac9e72f64dd97dbfefff3"
-    ],
-    "euvdId": "EUVD-2026-77175",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-53937": {
-    "id": "CVE-2026-53937",
-    "title": "MCP Kotlin SDK is the Kotlin Multiplatform software development kit for the Model Context Protocol. In versions 0.7.0 through 0.12.0, `ReadBuffer.append` in `kotlin-sdk-core/src/commonMain/kotlin/io/…",
-    "sources": ["euvd"],
-    "severity": "6.2 (3.1)",
-    "cvssBase": 6.2,
-    "epss": 0.19,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 8, 2026, 11:21:46 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-74297",
-    "aliases": ["CVE-2026-53937"],
-    "packages": [],
-    "vendor": "modelcontextprotocol",
-    "product": "io.modelcontextprotocol:kotlin-sdk-core",
-    "description": "MCP Kotlin SDK is the Kotlin Multiplatform software development kit for the Model Context Protocol. In versions 0.7.0 through 0.12.0, `ReadBuffer.append` in `kotlin-sdk-core/src/commonMain/kotlin/io/modelcontextprotocol/kotlin/sdk/shared/ReadBuffer.kt` writes every chunk of bytes received from the stdio transport into a `kotlinx.io.Buffer` with no size cap. Frames are extracted from that buffer only when a `\\n` (0x0a) byte is observed. A peer that streams bytes without ever sending a newline causes the internal buffer to grow indefinitely until the JVM (or the surrounding host process) is OOM-killed. The leak is amplified by `StdioServerTransport` and `StdioClientTransport`, which both queue raw chunks through a `kotlinx.coroutines.channels.Channel<ByteArray>(Channel.UNLIMITED)` and then call `readBuffer.append(chunk)` without backpressure or size guard. This is a remote-pre-auth denial of service whenever an SDK stdio server's stdin is fed by an untrusted or attacker-controlled producer (for example: a host program that exec's the MCP server as a subprocess and pipes through bytes received from a network peer, or a sidecar wrapper that proxies bytes from an HTTP endpoint to the stdio transport). Version 0.13.0 fixes the issue.",
-    "references": [
-      "https://github.com/modelcontextprotocol/kotlin-sdk/security/advisories/GHSA-74gp-qhv5-v493",
-      "https://github.com/modelcontextprotocol/kotlin-sdk/commit/6e6f80512fb8fcc9f3c031cfd693ccbcf9c4aaab",
-      "https://github.com/modelcontextprotocol/kotlin-sdk/blob/6d5bac1/kotlin-sdk-core/src/commonMain/kotlin/io/modelcontextprotocol/kotlin/sdk/shared/ReadBuffer.kt",
-      "https://github.com/modelcontextprotocol/kotlin-sdk/releases/tag/0.13.0"
-    ],
-    "euvdId": "EUVD-2026-74297",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-89623": {
-    "id": "CVE-2026-89623",
-    "title": "In the Linux kernel, the following vulnerability has been resolved: HID: mcp2221: stop device IO before hid_hw_stop Quiesce device IO at the start of the devm cleanup callback mcp2221_hid_unregister(…",
-    "sources": ["euvd"],
-    "severity": "0",
-    "cvssBase": 0,
-    "epss": 0.21,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 11, 2026, 7:45:20 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-76535",
-    "aliases": ["GHSA-p59v-m859-4ppq", "CVE-2026-89623"],
-    "packages": [],
-    "vendor": "Linux",
-    "product": "Linux",
-    "description": "In the Linux kernel, the following vulnerability has been resolved: HID: mcp2221: stop device IO before hid_hw_stop Quiesce device IO at the start of the devm cleanup callback mcp2221_hid_unregister() so that incoming HID reports cannot race with hardware teardown during probe failure or device removal, addressing a potential use-after-free. Guard the call to hid_device_io_stop() with io_started. On normal removal hid_device_remove() has already cleared io_started before the devres group is released, so an unconditional call would otherwise hit the !io_started path and emit a spurious \"io already stopped\" warning on every removal. The guard preserves the probe-failure balancing, where io_started is still set after hid_device_io_start(), while staying silent on the normal removal path.",
-    "references": [
-      "https://git.kernel.org/stable/c/85d963499f1feeea287c0a37c3eac3fc1898eca9",
-      "https://git.kernel.org/stable/c/0ae90a19e6b5a8557d25d95facb7e01c9c07af38",
-      "https://git.kernel.org/stable/c/c99ba6c234d4d537c317336376b78c088174034a",
-      "https://git.kernel.org/stable/c/2eda1513f573945c1e3a0090341f3d28740463b1",
-      "https://git.kernel.org/stable/c/dca151633c0fde90935311c60e7cfc064aa56134"
-    ],
-    "euvdId": "EUVD-2026-76535",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-89621": {
-    "id": "CVE-2026-89621",
-    "title": "In the Linux kernel, the following vulnerability has been resolved: HID: mcp2221: validate report size in mcp2221_raw_event() mcp2221_raw_event() never validates the size of incoming HID reports. In …",
-    "sources": ["euvd"],
-    "severity": "0",
-    "cvssBase": 0,
-    "epss": 0.22,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 11, 2026, 7:45:19 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-76533",
-    "aliases": ["CVE-2026-89621", "GHSA-55hm-qvfp-55mj"],
-    "packages": [],
-    "vendor": "Linux",
-    "product": "Linux",
-    "description": "In the Linux kernel, the following vulnerability has been resolved: HID: mcp2221: validate report size in mcp2221_raw_event() mcp2221_raw_event() never validates the size of incoming HID reports. In the MCP2221_I2C_GET_DATA path it trusts the device-supplied data[3] as the copy length without checking that 4 + data[3] bytes actually exist in the received report. A malicious or misbehaving USB device can send a short report with a large data[3], causing the memcpy to read past the valid report data in the HID transfer buffer and leak uninitialized kernel memory back to userspace through the I2C/SMBus read path. Add a minimum size check at entry and validate that the source range fits within the received report before the copy.",
-    "references": [
-      "https://git.kernel.org/stable/c/cb38b1f149b7143355b37e86c841acf0076e5c2a",
-      "https://git.kernel.org/stable/c/b2c67dc0e30c308647bbd9b9e5d69a44c9d2733d",
-      "https://git.kernel.org/stable/c/fffcfa367072628c3144cca17d2a3c3c9e50c057",
-      "https://git.kernel.org/stable/c/c1c508e8923911cb458234997e55b7a4b9aa066f",
-      "https://git.kernel.org/stable/c/bdc6a3af0dd734a326acdb7d6401a3b6a9f4f149",
-      "https://git.kernel.org/stable/c/127de5919820f88a9d55e8371ad4ac49f625f4c5",
-      "https://git.kernel.org/stable/c/7c18fb36708a97ff6772825cc087b6d537bbf0d5",
-      "https://git.kernel.org/stable/c/2c9a6998c19503626c57a2267bf279e204113079"
-    ],
-    "euvdId": "EUVD-2026-76533",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-89596": {
-    "id": "CVE-2026-89596",
-    "title": "In the Linux kernel, the following vulnerability has been resolved: forcedeth: fix off-by-one when saving/restoring non-PCI config space nv_suspend() and nv_resume() walk the non-PCI configuration sp…",
-    "sources": ["euvd"],
-    "severity": "7.1 (3.1)",
-    "cvssBase": 7.1,
-    "epss": 0.17,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 11, 2026, 7:44:58 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-76508",
-    "aliases": ["GHSA-2x8h-gf2x-f48m", "CVE-2026-89596"],
-    "packages": [],
-    "vendor": "Linux",
-    "product": "Linux",
-    "description": "In the Linux kernel, the following vulnerability has been resolved: forcedeth: fix off-by-one when saving/restoring non-PCI config space nv_suspend() and nv_resume() walk the non-PCI configuration space with for (i = 0; i <= np->register_size/sizeof(u32); i++) which runs one iteration too many. saved_config_space is declared as u32 saved_config_space[NV_PCI_REGSZ_MAX/4]; and NV_PCI_REGSZ_VER3 is equal to NV_PCI_REGSZ_MAX (0x604), so on a VER3 device register_size/sizeof(u32) is exactly the array length and the last iteration addresses one element past the end. The element it lands on is np->name_rx[0..3]: saved_config_space[] is followed immediately by char name_rx[IFNAMSIZ + 3], and char needs no padding. Nothing observable is corrupted by that, because nv_request_irq() rewrites name_rx with sprintf() before it is ever passed to request_irq(). The bug is the out-of-bounds access itself, which UBSAN reports and which CONFIG_UBSAN_TRAP=y turns into a trap that aborts the running kernel code, plus an MMIO read and, on resume, an MMIO writel() to base + 0x604, one dword past the range the driver mapped: np->base = ioremap(addr, np->register_size); VER1 and VER2 devices stay inside the array, but they too get the stray read and the stray write one dword past their own window. Caught by UBSAN on an Apple Macmini3,1 (MCP79) during a deep S3 cycle. The splat below is trimmed: the build path in the file name, the CPU and taint lines, the Workqueue line, the \"?\" hint frames, and the frames below device_suspend are all cut. The kernel was tainted, with an out-of-tree nouveau and CPU_OUT_OF_SPEC; forcedeth itself was the stock module. UBSAN: array-index-out-of-bounds in drivers/net/ethernet/nvidia/forcedeth.c:6225:25 index 385 is out of range for type 'u32 [385]' Call Trace: dump_stack_lvl+0x5d/0x80 ubsan_epilogue+0x5/0x2b __ubsan_handle_out_of_bounds.cold+0x54/0x59 __this_module+0xe398c/0xe9010 [forcedeth] pci_pm_suspend+0x80/0x170 dpm_run_callback+0x51/0x160 device_suspend+…",
-    "references": [
-      "https://git.kernel.org/stable/c/effd589568b2c4399894a23000286210c60af6d7",
-      "https://git.kernel.org/stable/c/702aa4a44c87026b97b1da5c5ca80e1fa8a9875a",
-      "https://git.kernel.org/stable/c/fc71c6c3d3e3bb17474dcd1162aea6783a452a64",
-      "https://git.kernel.org/stable/c/c4d5953582463f45e48b14ef9815e5fb636f7e1f",
-      "https://git.kernel.org/stable/c/9379f8527ca60d92715c90b32f1b477de9ec32cb",
-      "https://git.kernel.org/stable/c/0c3f4544ff3873594c8af1b907b4ac4e6d5ce005",
-      "https://git.kernel.org/stable/c/c4f196bfeedd71e56aba4b63bd8f919edb2f7056",
-      "https://git.kernel.org/stable/c/9393f1d656a79693e0c123ff7bc7c5c0f708046d"
-    ],
-    "euvdId": "EUVD-2026-76508",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-90898": {
-    "id": "CVE-2026-90898",
-    "title": "Bifrost registers MCP clients through its management API. A stdio client is a command plus args. Bifrost starts that program in the gateway the moment the client is added. No MCP handshake required. …",
-    "sources": ["euvd"],
-    "severity": "9.8 (3.1)",
-    "cvssBase": 9.8,
-    "epss": 0.34,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 14, 2026, 10:18:53 AM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-77357",
-    "aliases": ["GHSA-gqjq-cgxr-8c7c", "CVE-2026-90898"],
-    "packages": [],
-    "vendor": "brokercap",
-    "product": "Bifrost",
-    "description": "Bifrost registers MCP clients through its management API. A stdio client is a command plus args. Bifrost starts that program in the gateway the moment the client is added. No MCP handshake required. The default is governance.auth_config.is_enabled=false. Auth off means every caller is a local admin. One unauthenticated POST /api/mcp/client is enough to run a program as the Bifrost process user (appuser on the official image). transports/v2.1.0 refuses an unauthenticated stdio registration with 403. transports/v2.0.0 still allows it.",
-    "references": [
-      "https://github.com/maximhq/bifrost/pull/6757",
-      "https://github.com/maximhq/bifrost/commit/12e170352bd25eab1ae9ba16611f1797d1fd8fdc",
-      "https://github.com/maximhq/bifrost/releases/tag/transports/v2.1.0",
-      "https://github.com/maximhq/bifrost"
-    ],
-    "euvdId": "EUVD-2026-77357",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-81941": {
-    "id": "CVE-2026-81941",
-    "title": "IBM Langflow OSS 1.0.0 through 1.11.5 allows an authenticated non-administrative user could execute arbitrary operating system commands on the server at the privilege level of the application process…",
-    "sources": ["euvd"],
-    "severity": "8.8 (3.1)",
-    "cvssBase": 8.8,
-    "epss": 0.76,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 10, 2026, 9:32:36 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75780",
-    "aliases": ["GHSA-m5q4-pf3r-r78g", "CVE-2026-81941"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "Langflow OSS",
-    "description": "IBM Langflow OSS 1.0.0 through 1.11.5 allows an authenticated non-administrative user could execute arbitrary operating system commands on the server at the privilege level of the application process by constructing a flow with an MCP Tools component configured to use a local stdio subprocess transport. This bypasses both the LANGFLOW_CUSTOM_COMPONENT_ADMIN_ONLY and LANGFLOW_BLOCK_CODE_INTERPRETER_COMPONENTS server-side controls intended to prevent exactly this class of access. Successful exploitation could lead to arbitrary command execution, sensitive data exposure (including credentials from the process environment), file system modification, and lateral movement to services reachable from the server.",
-    "references": ["https://www.ibm.com/support/pages/node/7286666"],
-    "euvdId": "EUVD-2026-75780",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-78575": {
-    "id": "CVE-2026-78575",
-    "title": "IBM Langflow OSS 1.0.0 through 1.11.5 could allow a remote authenticated attacker to execute arbitrary commands due to improper validation of command-line arguments in the MCP stdio server configurat…",
-    "sources": ["euvd"],
-    "severity": "8.8 (3.1)",
-    "cvssBase": 8.8,
-    "epss": 0.52,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 10, 2026, 9:41:54 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75796",
-    "aliases": ["GHSA-gcjr-xxm4-x2j5", "CVE-2026-78575"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "Langflow OSS",
-    "description": "IBM Langflow OSS 1.0.0 through 1.11.5 could allow a remote authenticated attacker to execute arbitrary commands due to improper validation of command-line arguments in the MCP stdio server configuration.",
-    "references": ["https://www.ibm.com/support/pages/node/7286666"],
-    "euvdId": "EUVD-2026-75796",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85025": {
-    "id": "CVE-2026-85025",
-    "title": "IBM Langflow OSS 1.0.0 through 1.11.5 Langflow could allow an unauthenticated attacker to execute arbitrary code and access or modify chat sessions through publicly shared MCP project endpoints due t…",
-    "sources": ["euvd"],
-    "severity": "9.8 (3.1)",
-    "cvssBase": 9.8,
-    "epss": 0.43,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 10, 2026, 8:58:37 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75748",
-    "aliases": ["CVE-2026-85025", "GHSA-j9vg-5378-pr5p"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "Langflow OSS",
-    "description": "IBM Langflow OSS 1.0.0 through 1.11.5 Langflow could allow an unauthenticated attacker to execute arbitrary code and access or modify chat sessions through publicly shared MCP project endpoints due to improper enforcement of public-flow security restrictions and session isolation controls.",
-    "references": ["https://www.ibm.com/support/pages/node/7286666"],
-    "euvdId": "EUVD-2026-75748",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-78573": {
-    "id": "CVE-2026-78573",
-    "title": "IBM ContextForge MCP Gateway 1.0.0 through 1.0.7 could allow a remote attacker to gain administrative access due to the use of default credentials.",
-    "sources": ["euvd"],
-    "severity": "9.8 (3.1)",
-    "cvssBase": 9.8,
-    "epss": 0.39,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 10, 2026, 9:42:36 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75798",
-    "aliases": ["CVE-2026-78573", "GHSA-87q9-x2gp-qchr"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "ContextForge MCP Gateway",
-    "description": "IBM ContextForge MCP Gateway 1.0.0 through 1.0.7 could allow a remote attacker to gain administrative access due to the use of default credentials.",
-    "references": ["https://www.ibm.com/support/pages/node/7286834"],
-    "euvdId": "EUVD-2026-75798",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-88938": {
-    "id": "CVE-2026-88938",
-    "title": "knowns through 0.33.0 fails to confine the path argument of the code.find MCP tool to the project root, allowing AI agent sessions to read source files anywhere on the host. Attackers can supply abso…",
-    "sources": ["euvd"],
-    "severity": "7.1 (4.0)",
-    "cvssBase": 7.1,
-    "epss": 0.33,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 10, 2026, 3:28:53 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75581",
-    "aliases": ["GHSA-629c-j52g-h978", "CVE-2026-88938"],
-    "packages": [],
-    "vendor": "knowns-dev",
-    "product": "knowns",
-    "description": "knowns through 0.33.0 fails to confine the path argument of the code.find MCP tool to the project root, allowing AI agent sessions to read source files anywhere on the host. Attackers can supply absolute paths or relative traversal sequences to the path argument and retrieve full file contents from outside the intended project directory.",
-    "references": [
-      "https://github.com/knowns-dev/knowns/security/advisories/GHSA-5cj9-fcqq-g2h7",
-      "https://github.com/knowns-dev/knowns/blob/v0.33.0/internal/mcp/handlers/code.go#L873-L902",
-      "https://github.com/knowns-dev/knowns/blob/v0.33.0/internal/mcp/handlers/code.go#L1293-L1354",
-      "https://www.vulncheck.com/advisories/knowns-through-0.33.0-path-traversal-via-code-find-mcp-tool"
-    ],
-    "euvdId": "EUVD-2026-75581",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-86439": {
-    "id": "CVE-2026-86439",
-    "title": "knowns versions before 0.30.0 fail to validate filesystem paths in MCP tool arguments, allowing attackers to read, create, overwrite and delete files outside the project directory. Attackers can supp…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0.75,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 7, 2026, 11:03:16 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-72555",
-    "aliases": ["CVE-2026-86439", "GHSA-qjrq-cvv4-3g9w"],
-    "packages": [],
-    "vendor": "knowns-dev",
-    "product": "knowns",
-    "description": "knowns versions before 0.30.0 fail to validate filesystem paths in MCP tool arguments, allowing attackers to read, create, overwrite and delete files outside the project directory. Attackers can supply path arguments containing directory traversal sequences to access arbitrary Markdown files accessible to the server process.",
-    "references": [
-      "https://github.com/knowns-dev/knowns/security/advisories/GHSA-9gfj-28hw-jchp",
-      "https://github.com/knowns-dev/knowns/blob/v0.29.1/internal/storage/doc_store.go#L124-L129",
-      "https://github.com/knowns-dev/knowns/blob/v0.29.1/internal/storage/memory_store.go#L203-L211",
-      "https://github.com/knowns-dev/knowns/commit/09c5a96fd5817b941dc86669278c1a17db10ed4e",
-      "https://github.com/knowns-dev/knowns/releases/tag/v0.30.0",
-      "https://www.vulncheck.com/advisories/knowns-before-0.30.0-path-traversal-via-mcp-doc-and-memory-tools"
-    ],
-    "euvdId": "EUVD-2026-72555",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-87913": {
-    "id": "CVE-2026-87913",
-    "title": "A missing S3 bucket ownership verification in the AWS Security Agent MCP server before 0.2.0 version might allow remote attackers to obtain the private source archive of a scanned workspace, includin…",
-    "sources": ["euvd"],
-    "severity": "5.1 (4.0)",
-    "cvssBase": 5.1,
-    "epss": 0.25,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 10, 2026, 3:43:11 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75571",
-    "aliases": ["CVE-2026-87913"],
-    "packages": [],
-    "vendor": "aws",
-    "product": "AWS Security Agent MCP server",
-    "description": "A missing S3 bucket ownership verification in the AWS Security Agent MCP server before 0.2.0 version might allow remote attackers to obtain the private source archive of a scanned workspace, including credentials and infrastructure state contained in that archive, via a pre-registered storage bucket whose name is derived from a publicly known account identifier. To remediate this issue, users should upgrade to version 0.2.0. Users should also verify that the scan output bucket in their account is owned by their own account, because upgrading does not release a bucket name that a third party has already registered.",
-    "references": [
-      "https://pypi.org/project/awslabs.security-agent-mcp-server/0.2.0/?refid=d8ec3b19-0f37-4f8c-8c12-189f913e205c",
-      "https://aws.amazon.com/security/security-bulletins/2026-105-aws/",
-      "https://github.com/awslabs/mcp/security/advisories/GHSA-3jxw-vj8m-8x77"
-    ],
-    "euvdId": "EUVD-2026-75571",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-16481": {
-    "id": "CVE-2026-16481",
-    "title": "A Server-Side Request Forgery (SSRF) and credential exfiltration vulnerability exists in the cloud-healthcare-fhir-fetch-page tool of googleapis/mcp-toolbox. The tool takes an unvalidated pageURL par…",
-    "sources": ["euvd"],
-    "severity": "6 (4.0)",
-    "cvssBase": 6,
-    "epss": 0.22,
-    "kev": false,
-    "kevSources": [],
-    "published": "Jul 27, 2026, 7:13:29 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-49407",
-    "aliases": ["GHSA-qr8r-mqp7-36xx", "CVE-2026-16481"],
-    "packages": [],
-    "vendor": "Google",
-    "product": "MCP Toolbox for Databases (googleapis/mcp-toolbox)",
-    "description": "A Server-Side Request Forgery (SSRF) and credential exfiltration vulnerability exists in the cloud-healthcare-fhir-fetch-page tool of googleapis/mcp-toolbox. The tool takes an unvalidated pageURL parameter from the client and issues an HTTP GET request to it using an authenticated client. The underlying transport automatically attaches an Authorization: Bearer header to every outbound request regardless of the destination host. An attacker can supply an arbitrary external URL to the pageURL parameter (either directly via the tool execution payload or implicitly via data-driven pagination tracking loops), leading Toolbox into sending its OAuth/service-account access token to an attacker-controlled listener. Depending on the configuration, this leaks either the end-user's token or the broader service-account access token (ADC), potentially exposing Protected Health Information (PHI) and secondary Google Cloud Platform services.",
-    "references": ["https://github.com/googleapis/mcp-toolbox/pull/3453"],
-    "euvdId": "EUVD-2026-49407",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-18486": {
-    "id": "CVE-2026-18486",
-    "title": "IBM ContextForge MCP Gateway <= v1.0.7 MCP Context Forge could allow a remote authenticated attacker to obtain sensitive credentials and escalate privileges due to improper validation of jq filters.",
-    "sources": ["euvd"],
-    "severity": "8.8 (3.1)",
-    "cvssBase": 8.8,
-    "epss": 0.33,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 4:24:45 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71605",
-    "aliases": ["GHSA-2hj7-884r-x6jr", "CVE-2026-18486"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "ContextForge MCP Gateway",
-    "description": "IBM ContextForge MCP Gateway <= v1.0.7 MCP Context Forge could allow a remote authenticated attacker to obtain sensitive credentials and escalate privileges due to improper validation of jq filters.",
-    "references": ["https://www.ibm.com/support/pages/node/7286052"],
-    "euvdId": "EUVD-2026-71605",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-86122": {
-    "id": "CVE-2026-86122",
-    "title": "Rowboat through 0.9.1 fails to validate custom MCP server and webhook URLs, allowing authenticated users to configure arbitrary destinations. Attackers can point these URLs at internal services and c…",
-    "sources": ["euvd"],
-    "severity": "5.3 (4.0)",
+    "severity": "5.3 (3.1)",
     "cvssBase": 5.3,
-    "epss": 0.23,
+    "epss": 0,
     "kev": false,
     "kevSources": [],
-    "published": "Sep 5, 2026, 9:59:10 AM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71954",
-    "aliases": ["CVE-2026-86122", "GHSA-jmxm-qmrf-xrpp"],
+    "published": "Sep 22, 2026, 4:13:53 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84545",
+    "aliases": ["GHSA-hrmj-7rvj-4hg8", "CVE-2026-85709"],
     "packages": [],
-    "vendor": "rowboatlabs",
-    "product": "rowboat",
-    "description": "Rowboat through 0.9.1 fails to validate custom MCP server and webhook URLs, allowing authenticated users to configure arbitrary destinations. Attackers can point these URLs at internal services and cloud metadata endpoints to perform server-side request forgery and enumerate internal network topology.",
+    "vendor": "HKUDS",
+    "product": "LightRAG",
+    "description": "LightRAG provides simple and fast retrieval-augmented generation. Prior to 1.5.5, the LightRAG API server returns raw Python exception text from error handlers in document_routes.py, graph_routes.py, query_routes.py, ollama_api.py, and lightrag_server.py. The detail=str(e), detail=str(exc), and equivalent formatted-message paths expose server filesystem paths, database host, port, user, and database names, language-model provider diagnostics, configuration details, and Python library internals to a network client that can trigger an error. The default unauthenticated configuration makes those responses reachable without credentials, and URI-configured backends can disclose connection strings containing credentials depending on the underlying driver error. This issue is fixed in version 1.5.5.",
     "references": [
-      "https://github.com/rowboatlabs/rowboat/issues/621",
-      "https://github.com/rowboatlabs/rowboat/blob/v0.9.1/apps/rowboat/src/application/use-cases/projects/add-custom-mcp-server.use-case.ts",
-      "https://github.com/rowboatlabs/rowboat/blob/v0.9.1/apps/rowboat/src/application/lib/agents-runtime/agent-tools.ts",
-      "https://github.com/rowboatlabs/rowboat",
-      "https://www.vulncheck.com/advisories/rowboat-through-0.9.1-server-side-request-forgery-via-custom-mcp-server"
+      "https://github.com/HKUDS/LightRAG/security/advisories/GHSA-hrmj-7rvj-4hg8",
+      "https://github.com/HKUDS/LightRAG/pull/3422",
+      "https://github.com/HKUDS/LightRAG/commit/4d90a0eb35d40b45f3a9045e308ec126897a3364",
+      "https://github.com/HKUDS/LightRAG/commit/dcab315d7dc1eea682e9b2c4fcb1b06474484c47",
+      "https://github.com/HKUDS/LightRAG/releases/tag/v1.5.5"
     ],
-    "euvdId": "EUVD-2026-71954",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-87911": {
-    "id": "CVE-2026-87911",
-    "title": "An OS command injection weakness in the read-only enforcement of the SQL validation component in Amazon awslabs postgres-mcp-server before 1.1.7 might allow an unauthenticated actor to execute operat…",
-    "sources": ["euvd"],
-    "severity": "9 (4.0)",
-    "cvssBase": 9,
-    "epss": 0.99,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 9, 2026, 7:35:46 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75127",
-    "aliases": ["CVE-2026-87911"],
-    "packages": [],
-    "vendor": "aws",
-    "product": "AWS Labs postgres MCP Server",
-    "description": "An OS command injection weakness in the read-only enforcement of the SQL validation component in Amazon awslabs postgres-mcp-server before 1.1.7 might allow an unauthenticated actor to execute operating system commands on the host of a self-managed PostgreSQL server by placing a crafted COPY ... TO PROGRAM statement into content that is processed when an authenticated user interacts with the MCP server in its default read-only mode. To remediate this issue, users should upgrade to version 1.1.7 or later.",
-    "references": [
-      "https://pypi.org/project/awslabs.postgres-mcp-server/1.1.7/",
-      "https://aws.amazon.com/security/security-bulletins/2026-104-aws/",
-      "https://github.com/awslabs/mcp/security/advisories/GHSA-fph8-pg5w-78fv"
-    ],
-    "euvdId": "EUVD-2026-75127",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85788": {
-    "id": "CVE-2026-85788",
-    "title": "Incomplete list of disallowed inputs in the mutable SQL detector component in Amazon awslabs mysql-mcp-server might allow context-dependent actors to bypass the read-only enforcement gate and reach f…",
-    "sources": ["euvd"],
-    "severity": "5.7 (4.0)",
-    "cvssBase": 5.7,
-    "epss": 0.13,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 9, 2026, 4:24:59 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-75104",
-    "aliases": ["CVE-2026-85788"],
-    "packages": [],
-    "vendor": "aws",
-    "product": "AWS Labs MySQL MCP Server",
-    "description": "Incomplete list of disallowed inputs in the mutable SQL detector component in Amazon awslabs mysql-mcp-server might allow context-dependent actors to bypass the read-only enforcement gate and reach file-read and file-write SQL sinks via SQL inline comments that the regex engine does not treat as whitespace. To remediate this issue, users should upgrade to version 1.0.23.",
-    "references": [
-      "https://aws.amazon.com/security/security-bulletins/2026-103-aws/",
-      "https://github.com/awslabs/mcp/releases?page=2#release-2026.07.20260702161703",
-      "https://github.com/awslabs/mcp/security/advisories/GHSA-x25m-ph3m-3r9q"
-    ],
-    "euvdId": "EUVD-2026-75104",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85626": {
-    "id": "CVE-2026-85626",
-    "title": "git-mcp-server 2.15.1 contains an argument injection vulnerability in the ref and object parameters of git_log, git_diff, and git_show tools that lack leading-dash validation. Attackers can inject gi…",
-    "sources": ["euvd"],
-    "severity": "8.7 (4.0)",
-    "cvssBase": 8.7,
-    "epss": 0.27,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 2:32:16 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71233",
-    "aliases": ["GHSA-p58h-f635-vjjm", "CVE-2026-85626"],
-    "packages": [],
-    "vendor": "sigmade",
-    "product": "git-mcp-server",
-    "description": "git-mcp-server 2.15.1 contains an argument injection vulnerability in the ref and object parameters of git_log, git_diff, and git_show tools that lack leading-dash validation. Attackers can inject git command-line options like --output= to write files outside the repository to arbitrary paths accessible by the process.",
-    "references": [
-      "https://github.com/cyanheads/git-mcp-server/issues/53",
-      "https://github.com/cyanheads/git-mcp-server",
-      "https://github.com/cyanheads/git-mcp-server/blob/v2.15.3/src/services/git/providers/cli/operations/commits/log.ts",
-      "https://github.com/cyanheads/git-mcp-server/blob/v2.15.3/src/services/git/providers/cli/utils/command-builder.ts",
-      "https://www.vulncheck.com/advisories/git-mcp-server-2.15.1-argument-injection-via-git-ref-parameters"
-    ],
-    "euvdId": "EUVD-2026-71233",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-9186": {
-    "id": "CVE-2026-9186",
-    "title": "IBM Langflow OSS 1.0.0 through 1.11.2 allows remote authenticated attackers to bypass localhost-only MCP configuration installation by spoofing X-Forwarded-For: 127.0.0.1 header, enabling arbitrary w…",
-    "sources": ["euvd"],
-    "severity": "6.5 (3.1)",
-    "cvssBase": 6.5,
-    "epss": 0.27,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 2:23:20 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71215",
-    "aliases": ["GHSA-gqfh-c8pj-64mr", "CVE-2026-9186"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "Langflow OSS",
-    "description": "IBM Langflow OSS 1.0.0 through 1.11.2 allows remote authenticated attackers to bypass localhost-only MCP configuration installation by spoofing X-Forwarded-For: 127.0.0.1 header, enabling arbitrary writes to IDE config files (~/.cursor/mcp.json, etc.).",
-    "references": ["https://www.ibm.com/support/pages/node/7285646"],
-    "euvdId": "EUVD-2026-71215",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85787": {
-    "id": "CVE-2026-85787",
-    "title": "An incomplete list of disallowed inputs in the SQL validation component in Amazon awslabs postgres-mcp-server before version 1.1.7 might allow an unauthenticated actor to modify data beyond the read-…",
-    "sources": ["euvd"],
-    "severity": "7.1 (4.0)",
-    "cvssBase": 7.1,
-    "epss": 0.2,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 8:03:58 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71748",
-    "aliases": ["CVE-2026-85787", "GHSA-f4f4-39r8-8gj4"],
-    "packages": [],
-    "vendor": "Amazon",
-    "product": "postgres-mcp-server",
-    "description": "An incomplete list of disallowed inputs in the SQL validation component in Amazon awslabs postgres-mcp-server before version 1.1.7 might allow an unauthenticated actor to modify data beyond the read-only scope by placing crafted SQL into the content that is submitted when an authenticated user interacts with the MCP server. To remediate this issue, users should upgrade to version 1.1.7 or above.",
-    "references": [
-      "https://pypi.org/project/awslabs.postgres-mcp-server/1.1.7/",
-      "https://aws.amazon.com/security/security-bulletins/2026-101-aws/"
-    ],
-    "euvdId": "EUVD-2026-71748",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-77698": {
-    "id": "CVE-2026-77698",
-    "title": "Zohocorp ManageEngine Endpoint Central versions before 11.5.2605.01 are vulnerable to local privilege escalation due to Agent upgrade.",
-    "sources": ["euvd"],
-    "severity": "5.7 (3.1)",
-    "cvssBase": 5.7,
-    "epss": 0.23,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 7, 2026, 9:51:04 AM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-72325",
-    "aliases": ["GHSA-mx2j-mcp4-jc4g", "CVE-2026-77698"],
-    "packages": [],
-    "vendor": "Zohocorp",
-    "product": "ManageEngine Endpoint Central",
-    "description": "Zohocorp ManageEngine Endpoint Central versions before 11.5.2605.01 are vulnerable to local privilege escalation due to Agent upgrade.",
-    "references": [
-      "https://www.manageengine.com/products/desktop-central/help/cve/agent-upgrade-privilege-escalation.html"
-    ],
-    "euvdId": "EUVD-2026-72325",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85654": {
-    "id": "CVE-2026-85654",
-    "title": "Improper neutralization of special elements used in a template engine in the CDK generator in Amazon awslabs.dynamodb-mcp-server before 2.1.6 might allow a context-dependent actor to execute arbitrar…",
-    "sources": ["euvd"],
-    "severity": "7.1 (4.0)",
-    "cvssBase": 7.1,
-    "epss": 0.14,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 5:05:09 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71635",
-    "aliases": ["CVE-2026-85654", "GHSA-hh4r-pcm9-jh93"],
-    "packages": [],
-    "vendor": "Amazon",
-    "product": "awslabs.dynamodb-mcp-server",
-    "description": "Improper neutralization of special elements used in a template engine in the CDK generator in Amazon awslabs.dynamodb-mcp-server before 2.1.6 might allow a context-dependent actor to execute arbitrary code on the host that deploys the generated application via crafted table, index, or attribute names in a data model file.",
-    "references": [
-      "https://pypi.org/project/awslabs.dynamodb-mcp-server/2.1.6/",
-      "https://aws.amazon.com/security/security-bulletins/2026-097-aws/"
-    ],
-    "euvdId": "EUVD-2026-71635",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-77822": {
-    "id": "CVE-2026-77822",
-    "title": "IBM ContextForge MCP Gateway could allow a remote authenticated attacker to obtain sensitive information due to server-side request forgery via DNS rebinding.",
-    "sources": ["euvd"],
-    "severity": "8.2 (3.1)",
-    "cvssBase": 8.2,
-    "epss": 0.21,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 3:15:35 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71256",
-    "aliases": ["GHSA-2pmv-2qcc-jcgq", "CVE-2026-77822"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "ContextForge MCP Gateway",
-    "description": "IBM ContextForge MCP Gateway could allow a remote authenticated attacker to obtain sensitive information due to server-side request forgery via DNS rebinding.",
-    "references": ["https://www.ibm.com/support/pages/node/7286055"],
-    "euvdId": "EUVD-2026-71256",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-18905": {
-    "id": "CVE-2026-18905",
-    "title": "IBM ContextForge MCP Gateway (`mcp-contextforge-gateway`) <= v1.0.6 MCP Context Forge could allow a remote authenticated attacker to obtain sensitive information due to a DNS rebinding vulnerability …",
-    "sources": ["euvd"],
-    "severity": "7.7 (3.1)",
-    "cvssBase": 7.7,
-    "epss": 0.34,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 3:56:28 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71315",
-    "aliases": ["GHSA-p4cr-j9h3-9c8p", "CVE-2026-18905"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "ContextForge MCP Gateway (`mcp-contextforge-gateway`)",
-    "description": "IBM ContextForge MCP Gateway (`mcp-contextforge-gateway`) <= v1.0.6 MCP Context Forge could allow a remote authenticated attacker to obtain sensitive information due to a DNS rebinding vulnerability during tool invocation.",
-    "references": ["https://www.ibm.com/support/pages/node/7286053"],
-    "euvdId": "EUVD-2026-71315",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-85660": {
-    "id": "CVE-2026-85660",
-    "title": "cli-mcp-server 0.2.5 contains a command allowlist bypass vulnerability in the _validate_command_with_operators function when ALLOW_SHELL_OPERATORS is enabled. Attackers can use shell command substitu…",
-    "sources": ["euvd"],
-    "severity": "9.2 (4.0)",
-    "cvssBase": 9.2,
-    "epss": 0.47,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 2:32:18 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71116",
-    "aliases": ["CVE-2026-85660", "GHSA-wfpw-4v5h-6h32"],
-    "packages": [],
-    "vendor": "MladenSU",
-    "product": "cli-mcp-server",
-    "description": "cli-mcp-server 0.2.5 contains a command allowlist bypass vulnerability in the _validate_command_with_operators function when ALLOW_SHELL_OPERATORS is enabled. Attackers can use shell command substitution syntax like $(...) or backticks to execute non-allowlisted commands that bypass the ALLOWED_COMMANDS validation check.",
-    "references": [
-      "https://github.com/MladenSU/cli-mcp-server/issues/17",
-      "https://github.com/MladenSU/cli-mcp-server",
-      "https://github.com/MladenSU/cli-mcp-server/blob/main/src/cli_mcp_server/server.py",
-      "https://www.vulncheck.com/advisories/cli-mcp-server-0.2.5-command-allowlist-bypass-via-shell-substitution"
-    ],
-    "euvdId": "EUVD-2026-71116",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-18489": {
-    "id": "CVE-2026-18489",
-    "title": "IBM ContextForge MCP Gateway - Translate utility <= 1.0.8 MCP Context Forge could allow a remote attacker to obtain sensitive information from other sessions due to exposure of data elements to the w…",
-    "sources": ["euvd"],
-    "severity": "7.4 (3.1)",
-    "cvssBase": 7.4,
-    "epss": 0.26,
-    "kev": false,
-    "kevSources": [],
-    "published": "Sep 4, 2026, 4:23:08 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-71604",
-    "aliases": ["CVE-2026-18489", "GHSA-x9rc-p36x-296j"],
-    "packages": [],
-    "vendor": "IBM",
-    "product": "ContextForge MCP Gateway - Translate utility",
-    "description": "IBM ContextForge MCP Gateway - Translate utility <= 1.0.8 MCP Context Forge could allow a remote attacker to obtain sensitive information from other sessions due to exposure of data elements to the wrong session.",
-    "references": ["https://www.ibm.com/support/pages/node/7286056"],
-    "euvdId": "EUVD-2026-71604",
+    "euvdId": "EUVD-2026-84545",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -9216,6 +9288,57 @@
       "https://github.com/ollama/ollama/compare/v0.1.46...v0.1.47"
     ],
     "euvdId": "EUVD-2024-2532",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-84301": {
+    "id": "CVE-2026-84301",
+    "title": "FastGPT is an open-source LLM platform for building AI applications on a knowledge base. Prior to 4.15.2, the safe Axios request interceptor in packages/service/common/api/axios.ts validates a hostna…",
+    "sources": ["euvd"],
+    "severity": "6.3 (3.1)",
+    "cvssBase": 6.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 4:50:19 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84559",
+    "aliases": ["CVE-2026-84301"],
+    "packages": [],
+    "vendor": "labring",
+    "product": "FastGPT",
+    "description": "FastGPT is an open-source LLM platform for building AI applications on a knowledge base. Prior to 4.15.2, the safe Axios request interceptor in packages/service/common/api/axios.ts validates a hostname with isInternalAddress() before a later HTTP connection performs an independent DNS lookup, creating a DNS rebinding window, allowing an attacker-controlled hostname to resolve publicly during the check and to a loopback, private, link-local, or metadata address during connection. An authenticated attacker who can supply a URL to a safe-Axios-backed HTTP tool, workflow HTTP node, external file fetch, or other server-side integration can use this time-of-check/time-of-use gap to reach services that direct private-address inputs would block. The same independent re-resolution occurs after manual redirect hops because each redirect target is checked before a separate connection lookup. This issue is fixed in version 4.15.2.",
+    "references": [
+      "https://github.com/labring/FastGPT/security/advisories/GHSA-6jwp-qf29-hpj9",
+      "https://github.com/labring/FastGPT/pull/7261",
+      "https://github.com/labring/FastGPT/commit/0a38565c9d1f790045636bd9d55f8d2296c938c7",
+      "https://github.com/labring/FastGPT/releases/tag/v4.15.2"
+    ],
+    "euvdId": "EUVD-2026-84559",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-56681": {
+    "id": "CVE-2026-56681",
+    "title": "9Router is an AI router & token saver. Prior to 0.5.6, 9Router deployments that allow requests to reach Next.js without the sanitizing custom-server.js wrapper trust the client-supplied X-9r-Real-Ip …",
+    "sources": ["euvd"],
+    "severity": "7.3 (3.1)",
+    "cvssBase": 7.3,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 4:02:25 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84541",
+    "aliases": ["CVE-2026-56681", "GHSA-5mj8-gf6m-fhw8"],
+    "packages": [],
+    "vendor": "decolua",
+    "product": "9router",
+    "description": "9Router is an AI router & token saver. Prior to 0.5.6, 9Router deployments that allow requests to reach Next.js without the sanitizing custom-server.js wrapper trust the client-supplied X-9r-Real-Ip header in src/dashboardGuard.js when isLocalRequest decides whether canAccessPublicLlmApi may skip API-key validation for /api/v1/* routes. A remote unauthenticated attacker can set X-9r-Real-Ip to 127.0.0.1 and be classified as a local client, including on the verified GET /api/v1/models route. This permits unauthorized use of the instance owner's configured LLM providers, consumption of paid credits, and enumeration of configured providers and models. This issue is fixed in version 0.5.6.",
+    "references": [
+      "https://github.com/decolua/9router/security/advisories/GHSA-5mj8-gf6m-fhw8",
+      "https://github.com/decolua/9router/commit/efd20be8d81ef2e256a7037f3aa78e6b567b5fd3",
+      "https://github.com/decolua/9router/releases/tag/v0.5.6"
+    ],
+    "euvdId": "EUVD-2026-84541",
     "kevDateAdded": null,
     "epssPercentile": null
   },
@@ -11231,54 +11354,6 @@
     "kevDateAdded": null,
     "epssPercentile": null
   },
-  "CVE-2026-24229": {
-    "id": "CVE-2026-24229",
-    "title": "NVIDIA TensorRT-LLM for Linux contains a vulnerability in the disaggregated orchestrator component, where an attacker could read, write, or delete internal cluster state by sending requests to the Fa…",
-    "sources": ["euvd"],
-    "severity": "7.3 (3.1)",
-    "cvssBase": 7.3,
-    "epss": 0.16,
-    "kev": false,
-    "kevSources": [],
-    "published": "Jul 14, 2026, 8:04:13 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-44460",
-    "aliases": ["GHSA-6297-xg77-3cg9", "CVE-2026-24229"],
-    "packages": [],
-    "vendor": "NVIDIA",
-    "product": "TensorRT-LLM",
-    "description": "NVIDIA TensorRT-LLM for Linux contains a vulnerability in the disaggregated orchestrator component, where an attacker could read, write, or delete internal cluster state by sending requests to the FastAPI server. A successful exploit of this vulnerability might lead to information disclosure, data tampering, and denial of service.",
-    "references": [
-      "https://nvd.nist.gov/vuln/detail/CVE-2026-24229",
-      "https://www.cve.org/CVERecord?id=CVE-2026-24229"
-    ],
-    "euvdId": "EUVD-2026-44460",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
-  "CVE-2026-24220": {
-    "id": "CVE-2026-24220",
-    "title": "NVIDIA TensorRT-LLM for any platform contains a vulnerability in visual gen server, where an attacker could cause an unsafe deserialization by unauthorized zeroMQ deserialization. A successful exploi…",
-    "sources": ["euvd"],
-    "severity": "6.4 (3.1)",
-    "cvssBase": 6.4,
-    "epss": 0.32,
-    "kev": false,
-    "kevSources": [],
-    "published": "Jul 14, 2026, 8:05:36 PM",
-    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-44462",
-    "aliases": ["GHSA-6f54-qhg5-fhhf", "CVE-2026-24220"],
-    "packages": [],
-    "vendor": "NVIDIA",
-    "product": "TensorRT-LLM",
-    "description": "NVIDIA TensorRT-LLM for any platform contains a vulnerability in visual gen server, where an attacker could cause an unsafe deserialization by unauthorized zeroMQ deserialization. A successful exploit of this vulnerability might lead to code execution.",
-    "references": [
-      "https://nvd.nist.gov/vuln/detail/CVE-2026-24220",
-      "https://www.cve.org/CVERecord?id=CVE-2026-24220"
-    ],
-    "euvdId": "EUVD-2026-44462",
-    "kevDateAdded": null,
-    "epssPercentile": null
-  },
   "CVE-2026-92230": {
     "id": "CVE-2026-92230",
     "title": "Apache Karaf's XmlUtils cached XML parser/transformer factories in static ThreadLocal fields on long-lived container threads. Because a ThreadLocal value outlives the OSGi bundle that created it, rep…",
@@ -13235,7 +13310,7 @@
     "sources": ["euvd"],
     "severity": null,
     "cvssBase": null,
-    "epss": 0.0109,
+    "epss": 0.0128,
     "kev": false,
     "kevSources": [],
     "published": "Jun 30, 2017, 2:35:00 AM",
@@ -13256,7 +13331,7 @@
     "sources": ["euvd"],
     "severity": null,
     "cvssBase": null,
-    "epss": 0.0208,
+    "epss": 0.020099999999999996,
     "kev": false,
     "kevSources": [],
     "published": "May 18, 2017, 3:00:00 PM",
@@ -13506,6 +13581,30 @@
       "https://github.com/deepset-ai/haystack/releases/tag/v2.3.1"
     ],
     "euvdId": "EUVD-2024-2367",
+    "kevDateAdded": null,
+    "epssPercentile": null
+  },
+  "CVE-2026-93088": {
+    "id": "CVE-2026-93088",
+    "title": "SGLang's multimodal generation runtime is vulnerable to unauthenticated arbitrary code execution because the disaggregated-diffusion orchestrator's DiffusionServer binds an unauthenticated ZeroMQ ROU…",
+    "sources": ["euvd"],
+    "severity": "9.8 (3.1)",
+    "cvssBase": 9.8,
+    "epss": 0,
+    "kev": false,
+    "kevSources": [],
+    "published": "Sep 22, 2026, 2:07:45 PM",
+    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-84408",
+    "aliases": ["CVE-2026-93088", "GHSA-xv76-mrpv-26pg"],
+    "packages": [],
+    "vendor": "sgl-project",
+    "product": "sglang",
+    "description": "SGLang's multimodal generation runtime is vulnerable to unauthenticated arbitrary code execution because the disaggregated-diffusion orchestrator's DiffusionServer binds an unauthenticated ZeroMQ ROUTER socket to a network interface and passes the final frame of received multipart messages directly to pickle.loads() before any validation occurs.",
+    "references": [
+      "https://hacchoomiso.github.io/blog/SGLang/CVE-2026-93088/",
+      "https://github.com/sgl-project/sglang/blob/main/python/sglang/multimodal_gen/runtime/disaggregation/orchestrator.py"
+    ],
+    "euvdId": "EUVD-2026-84408",
     "kevDateAdded": null,
     "epssPercentile": null
   },
