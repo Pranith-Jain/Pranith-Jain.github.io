@@ -7,27 +7,33 @@
   "description": "a security scanner for custom LLM applications",
   "homepage": null,
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:31Z",
+  "checkedAt": "2026-09-24T08:31:22Z",
   "pushedAt": "2025-12-01",
-  "daysIdle": 296,
+  "daysIdle": 297,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "utkusen/promptmap", "scope": ["llm"], "added": "2026-09-14" },
+    "written": {
+      "description": "Runs a second model whose only job is to read the target's replies and rule on whether an injection actually worked. Point it at your own system prompt, or at an HTTP endpoint you know nothing about."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:31Z",
+      "checked_at": "2026-09-24T08:31:22Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-12-01",
-        "days_since_push": 296,
+        "days_since_push": 297,
         "total_commits": 42,
         "last100_span_days": 870,
         "last100_authors": 5,
+        "last_commit_sha": "432e072",
+        "last_commit_message": "New jailbreak rules",
+        "last_commit_at": "2025-12-01",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 296,
+        "days_idle": 297,
         "relocated": false
       },
       "identity": {
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

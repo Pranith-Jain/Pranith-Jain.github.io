@@ -3,36 +3,42 @@
   "repo": "mwnickerson/bloodhound_mcp",
   "category": "mcp",
   "scope": ["ad"],
-  "stars": 134,
+  "stars": 135,
   "description": "A Model Context Protocol (MCP) server to converse with data in Bloodhound",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:38:05Z",
+  "checkedAt": "2026-09-24T08:29:46Z",
   "pushedAt": "2026-08-19",
-  "daysIdle": 35,
+  "daysIdle": 36,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
     "entry": { "category": "mcp", "repo": "mwnickerson/bloodhound_mcp", "scope": ["ad"], "added": "2026-09-12" },
+    "written": {
+      "description": "Keeps the tool surface deliberately small, a handful of composite calls plus reference material the model loads only when it needs it, and ships a system prompt with rules about what the graph does and does not prove. Reaches Entra as well as on-premises."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:38:05Z",
+      "checked_at": "2026-09-24T08:29:46Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-19",
-        "days_since_push": 35,
+        "days_since_push": 36,
         "total_commits": 94,
         "last100_span_days": 515,
         "last100_authors": 5,
+        "last_commit_sha": "cdb1709",
+        "last_commit_message": "Merge pull request #25 from kyleavery/master\n\nAdd installable console entry point",
+        "last_commit_at": "2026-08-19",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 35,
+        "days_idle": 36,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "mwnickerson/bloodhound_mcp",
-        "stars": 134,
+        "stars": 135,
         "forks": 28,
         "created_at": "2025-03-22",
         "is_fork": false,
@@ -63,14 +69,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

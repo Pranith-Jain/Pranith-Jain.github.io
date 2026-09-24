@@ -3,37 +3,43 @@
   "repo": "protectai/vulnhuntr",
   "category": "scanner",
   "scope": ["code"],
-  "stars": 2778,
+  "stars": 2776,
   "description": "Zero shot vulnerability discovery using LLMs",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:38:19Z",
+  "checkedAt": "2026-09-24T08:29:56Z",
   "pushedAt": "2025-02-06",
-  "daysIdle": 594,
+  "daysIdle": 595,
   "archived": false,
   "license": "AGPL-3.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "protectai/vulnhuntr", "scope": ["code"], "added": "2026-09-12" },
+    "written": {
+      "description": "Reads a Python codebase and asks a model to trace user input through to dangerous sinks, reporting the call chain behind each bug it claims. It applies no rules or patterns; the model is the whole analysis."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:38:19Z",
+      "checked_at": "2026-09-24T08:29:56Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-02-06",
-        "days_since_push": 594,
+        "days_since_push": 595,
         "total_commits": 46,
         "last100_span_days": 110,
         "last100_authors": 6,
+        "last_commit_sha": "ead88c5",
+        "last_commit_message": "Merge pull request #31 from protectai/unredact-vulns\n\nUnredact vulns in readme",
+        "last_commit_at": "2025-02-06",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 594,
+        "days_idle": 595,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "protectai/vulnhuntr",
-        "stars": 2778,
-        "forks": 321,
+        "stars": 2776,
+        "forks": 320,
         "created_at": "2024-10-15",
         "is_fork": false,
         "contributors": 6,
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

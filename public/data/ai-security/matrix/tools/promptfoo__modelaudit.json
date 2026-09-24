@@ -7,27 +7,33 @@
   "description": "Security scanner for AI/ML model files. Detects malicious code, backdoors, and vulnerabilities before deployment",
   "homepage": "https://www.promptfoo.dev/docs/model-audit/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:57Z",
+  "checkedAt": "2026-09-24T08:31:38Z",
   "pushedAt": "2026-09-20",
-  "daysIdle": 3,
+  "daysIdle": 4,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "scanner", "repo": "promptfoo/modelaudit", "scope": ["modfile"], "added": "2026-09-14" },
+    "written": {
+      "description": "Covers the widest range of model formats of any of these, emits SARIF for a CI gate, and says plainly where its own analysis was bounded rather than reporting clean."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:57Z",
+      "checked_at": "2026-09-24T08:31:38Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-20",
-        "days_since_push": 3,
+        "days_since_push": 4,
         "total_commits": 1658,
         "last100_span_days": 84,
         "last100_authors": 8,
+        "last_commit_sha": "fafb9fb",
+        "last_commit_message": "fix(docker): upgrade vulnerable runtime Debian packages (#1849)",
+        "last_commit_at": "2026-09-16",
         "releases": 42,
         "latest_release_at": "2026-07-22",
-        "days_since_release": 63,
-        "days_idle": 3,
+        "days_since_release": 64,
+        "days_idle": 4,
         "relocated": false
       },
       "identity": {
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": false,
-        "phones_home": true,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": true, "opaque": false, "host_access": false }
     }
   }
 }

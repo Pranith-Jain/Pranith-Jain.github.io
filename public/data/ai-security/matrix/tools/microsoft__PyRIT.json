@@ -3,37 +3,43 @@
   "repo": "microsoft/PyRIT",
   "category": "scanner",
   "scope": ["llm"],
-  "stars": 4531,
+  "stars": 4536,
   "description": "The Python Risk Identification Tool for generative AI (PyRIT) is an open source framework built to empower security professionals and engineers to proactively identify risks in generative AI systems.",
   "homepage": "https://microsoft.github.io/PyRIT/",
   "added": "2026-09-13",
-  "checkedAt": "2026-09-23T08:38:41Z",
-  "pushedAt": "2026-09-23",
+  "checkedAt": "2026-09-24T08:30:12Z",
+  "pushedAt": "2026-09-24",
   "daysIdle": 0,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "scanner", "repo": "microsoft/PyRIT", "scope": ["llm"], "added": "2026-09-13" },
+    "written": {
+      "description": "A library for assembling your own attack rather than a fixed suite: you compose an orchestrator from targets, converters and scorers, and it runs the conversation for you."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:38:41Z",
+      "checked_at": "2026-09-24T08:30:12Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-23",
+        "pushed_at": "2026-09-24",
         "days_since_push": 0,
-        "total_commits": 2036,
-        "last100_span_days": 12,
+        "total_commits": 2057,
+        "last100_span_days": 10,
         "last100_authors": 32,
+        "last_commit_sha": "47c6151",
+        "last_commit_message": "FEAT Add dataset summary API (#2762)\n\nCo-authored-by: Roman Lutz <romanlutz13@gmail.com>\nCo-authored-by: Copilot App <223556219+Copilot@users.noreply.github.com>",
+        "last_commit_at": "2026-09-24",
         "releases": 24,
         "latest_release_at": "2026-09-04",
-        "days_since_release": 19,
+        "days_since_release": 20,
         "days_idle": 0,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "microsoft/PyRIT",
-        "stars": 4531,
-        "forks": 905,
+        "stars": 4536,
+        "forks": 906,
         "created_at": "2023-12-12",
         "is_fork": false,
         "contributors": 100,
@@ -44,9 +50,9 @@
       },
       "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": null, "conflict": null },
       "shape": {
-        "loc": 488574,
-        "code_files": 1758,
-        "files": 3044,
+        "loc": 501661,
+        "code_files": 1799,
+        "files": 3090,
         "has_ci": true,
         "has_tests": true,
         "has_dockerfile": true,
@@ -60,13 +66,11 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": false,
-        "install": true,
-        "phones_home": true,
-        "opaque": true
+      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": true },
+      "risk_where": {
+        "host_access": ".devcontainer/docker-compose.yml:20",
+        "install": ".devcontainer/Dockerfile:57",
+        "phones_home": "pyrit/converter/audio_white_noise_converter.py:46"
       }
     }
   }

@@ -7,33 +7,39 @@
   "description": "A Python pickling decompiler and static analyzer",
   "homepage": null,
   "added": "2026-09-13",
-  "checkedAt": "2026-09-23T08:39:25Z",
+  "checkedAt": "2026-09-24T08:30:42Z",
   "pushedAt": "2026-09-19",
-  "daysIdle": 4,
+  "daysIdle": 5,
   "archived": false,
   "license": "LGPL-3.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "trailofbits/fickling", "scope": ["modfile"], "added": "2026-09-13" },
+    "written": {
+      "description": "Decompiles pickle bytecode back into readable Python, and will rewrite or build one too. The same tool that tells you a model file is malicious is the one that shows you how such a file is made."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:39:25Z",
+      "checked_at": "2026-09-24T08:30:42Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-19",
-        "days_since_push": 4,
+        "days_since_push": 5,
         "total_commits": 505,
         "last100_span_days": 205,
         "last100_authors": 5,
+        "last_commit_sha": "854c99a",
+        "last_commit_message": "Bump the all group with 3 updates (#316)\n\nBumps the all group with 3 updates: [ruff](https://github.com/astral-sh/ruff), [ty](https://github.com/astral-sh/ty) and [huggingface-hub](https://github.com/huggingface/huggingface_hub).\n\n\nUpdates `ruff` from 0.15.22 to 0.16.0\n- [Release notes](https://github.com/astral-sh/ruff/releases)\n- [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)\n- [Commits](https://github.com/astral-sh/ruff/compare/0.15.22...0.16.0)\n\nUpdates `ty` from 0.0.63 to 0.0.65\n- [Release notes](https://github.com/astral-sh/ty/releases)\n- [Changelog](https://github.com/astral-sh/ty/blob/main/CHANGELOG.md)\n- [Commits](https://github.com/astral-sh/ty/compare/0.0.63...0.0.65)\n\nUpdates `huggingface-hub` from 1.24.0 to 1.25.1\n- [Release notes](https://github.com/huggingface/huggingface_hub/releases)\n- [Commits](https://github.com/huggingface/huggingface_hub/compare/v1.24.0...v1.25.1)\n\n---\nupdated-dependencies:\n- dependency-name: ruff\n  dependency-version: 0.16.0\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n  dependency-group: all\n- dependency-name: ty\n  dependency-version: 0.0.65\n  dependency-type: direct:production\n  update-type: version-update:semver-patch\n  dependency-group: all\n- dependency-name: huggingface-hub\n  dependency-version: 1.25.1\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n  dependency-group: all\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+        "last_commit_at": "2026-08-13",
         "releases": 21,
         "latest_release_at": "2026-06-26",
-        "days_since_release": 89,
-        "days_idle": 4,
+        "days_since_release": 90,
+        "days_idle": 5,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "trailofbits/fickling",
         "stars": 670,
-        "forks": 77,
+        "forks": 78,
         "created_at": "2021-01-21",
         "is_fork": false,
         "contributors": 23,
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": true,
-        "install": true,
-        "phones_home": false,
-        "opaque": true
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

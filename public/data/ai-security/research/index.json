@@ -1,23 +1,23 @@
 {
-  "updatedAt": "2026-09-23T11:30:07.346Z",
+  "updatedAt": "2026-09-24T11:40:53.610Z",
   "total": 51,
   "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 2 },
   "items": [
     {
       "id": "aHR0cHM6Ly93",
-      "title": "New ClosedQuorum Windows malware uses AI for attack decisions",
-      "link": "https://www.bleepingcomputer.com/news/security/new-closedquorum-windows-malware-uses-ai-for-attack-decisions/",
-      "pubDate": "Tue, 22 Sep 2026 14:04:39 -0400",
+      "title": "OpenAI hacked Australian Medicare govt site, probed data providers",
+      "link": "https://www.bleepingcomputer.com/news/security/openai-hacked-australian-medicare-govt-site-probed-data-providers/",
+      "pubDate": "Thu, 24 Sep 2026 05:38:53 -0400",
       "source": "bleepingcomputer",
-      "description": "A new Windows malware named ClosedQuorum uses Google Gemini, DeepSeek, Qwen, and Mistral AI models to autonomously determine the actions to take during post-compromise stages of an attack. [...]"
+      "description": "OpenAI agents targeted public data providers in multiple countries, probing some for vulnerabilities and exploiting a security weakness in an Australian government portal while performing information-retrieval tasks as part of a research project. [...]"
     },
     {
       "id": "aHR0cHM6Ly93",
-      "title": "Reducing shadow IT visibility gaps with Wazuh",
-      "link": "https://www.bleepingcomputer.com/news/security/reducing-shadow-it-visibility-gaps-with-wazuh/",
-      "pubDate": "Tue, 22 Sep 2026 13:17:41 -0400",
+      "title": "Malicious AI agents steal 600K credit cards, infect 100+ sites with skimmers",
+      "link": "https://www.bleepingcomputer.com/news/security/malicious-ai-agents-steal-600k-credit-cards-infect-100-plus-sites-with-skimmers/",
+      "pubDate": "Wed, 23 Sep 2026 12:20:54 -0400",
       "source": "bleepingcomputer",
-      "description": "Shadow IT can leave security teams unaware of unmanaged endpoints, unauthorized software, and other assets that fall outside existing monitoring. Wazuh explains how endpoint inventory, agentless monitoring, and centralized analysis can help organizations identify and reduce these visibility gaps. [...]"
+      "description": "A financially motivated threat actor is using open-source AI agent frameworks to attack hundreds of online retailers at scale, stealing more than 600,000 credit card records. [...]"
     },
     {
       "id": "aHR0cHM6Ly91",
@@ -85,6 +85,14 @@
     },
     {
       "id": "aHR0cHM6Ly9j",
+      "title": "Lessons Learned on Securing Multi-Agent Systems: NIST Agent Security RFI",
+      "link": "https://cloudsecurityalliance.org/articles/lessons-learned-on-securing-multi-agent-systems-nist-agent-security-rfi",
+      "pubDate": "Wed, 26 Aug 2026 15:16:11 -0700",
+      "source": "csa",
+      "description": "Five practical security lessons distilled from public responses on how increasingly autonomous agents change trust, authority, observability, and system assurance. In January 2026, the National Institute of Standards and Technology (NIST) Center for AI Standards and Innovation issued a Request for Information (RFI) on Security Considerations for Artificial Intelligence Agents, seeking input on security risks, mitigations, measurement, evaluation, and the secure adoption of AI agent syste..."
+    },
+    {
+      "id": "aHR0cHM6Ly9j",
       "title": "A New Security Challenge: The Curious Case of Prompt Language Analysis",
       "link": "https://cloudsecurityalliance.org/articles/a-new-security-challenge-the-curious-case-of-prompt-language-analysis",
       "pubDate": "Wed, 26 Aug 2026 15:13:42 -0700",
@@ -130,14 +138,6 @@
       "pubDate": "Tue, 18 Aug 2026 14:13:22 -0700",
       "source": "csa",
       "description": "A Q&amp;amp;A about the EU AI Act with Schellman CEO Avani Desai on risk classification, AI literacy, and the August 2 deadline Schellman CEO, Avani Desai, recently joined a DataCamp panel webinar, \"Deadline Approaching: EU AI Act Compliance for High-Risk AI Systems\", alongside Jessica Eaves Mathews (Managing Attorney at Leverage Legal Group) and Jason M. Loring (Partner at Jones Walker, co-chair of its Privacy, Data Strategy and AI team). The panel broke down what the EU AI Act requires, h..."
-    },
-    {
-      "id": "aHR0cHM6Ly9j",
-      "title": "Why Cloud Security Requires More Than Point-in-Time Audits",
-      "link": "https://cloudsecurityalliance.org/articles/why-cloud-security-requires-more-than-point-in-time-audits",
-      "pubDate": "Tue, 18 Aug 2026 14:12:20 -0700",
-      "source": "csa",
-      "description": "An organization may pass its annual cloud security audit with every control in place. Yet days later, a misconfigured storage bucket, an overly permissive IAM policy, or an insecure firewall rule can alter its security posture. The audit report remains unchanged, but the environment no longer reflects what was assessed. This is the challenge with point-in-time audits. They verify security at a single point in time, while dynamic cloud environments require continuous validation. The focu..."
     },
     {
       "id": "aHR0cHM6Ly93",

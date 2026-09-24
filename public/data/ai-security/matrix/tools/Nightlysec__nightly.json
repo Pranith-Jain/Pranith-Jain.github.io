@@ -7,9 +7,9 @@
   "description": "Autonomous AI penetration testing agent",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:37Z",
+  "checkedAt": "2026-09-24T08:29:28Z",
   "pushedAt": "2026-08-13",
-  "daysIdle": 41,
+  "daysIdle": 42,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["webapp", "api", "code"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "Runs inside CI on a pull request and blocks the merge when it can validate a bug, rather than being driven from a terminal against a live target."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:37Z",
+      "checked_at": "2026-09-24T08:29:28Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-13",
-        "days_since_push": 41,
+        "days_since_push": 42,
         "total_commits": 704,
         "last100_span_days": 20,
         "last100_authors": 14,
+        "last_commit_sha": "08dea78",
+        "last_commit_message": "fix(ci): lowercase the GHCR image owner segment\n\ndocker-sandbox.yml's first run on v0.1.0 failed: \"repository name\nmust be lowercase\" — github.repository_owner returns the org's\ncanonical-cased login (Nightlysec), but Docker repo names must be\nall-lowercase. Portable tr-based lowercasing instead of bash 4's\n${var,,} since that's not guaranteed everywhere.",
+        "last_commit_at": "2026-08-13",
         "releases": 1,
         "latest_release_at": "2026-08-13",
-        "days_since_release": 41,
-        "days_idle": 41,
+        "days_since_release": 42,
+        "days_idle": 42,
         "relocated": false
       },
       "identity": {
@@ -82,14 +88,7 @@
         "manifests": ["containers/Dockerfile"]
       },
       "rebadge": [{ "repo": "usestrix/strix", "shared_files": 118, "overlap": 0.3554 }],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": true,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

@@ -7,9 +7,9 @@
   "description": "Scan MCP servers for potential threats & security findings.",
   "homepage": "https://blogs.cisco.com/ai/securing-the-ai-agent-supply-chain-with-ciscos-open-source-mcp-scanner",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:38Z",
+  "checkedAt": "2026-09-24T08:31:27Z",
   "pushedAt": "2026-09-19",
-  "daysIdle": 4,
+  "daysIdle": 5,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["agentic"],
       "added": "2026-09-14"
     },
+    "written": {
+      "description": "Judges an MCP server's tool definitions three ways, by YARA rule, by hosted inspection API and by asking a model, so a poisoned tool description has to clear more than one kind of reader."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:38Z",
+      "checked_at": "2026-09-24T08:31:27Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-19",
-        "days_since_push": 4,
+        "days_since_push": 5,
         "total_commits": 135,
         "last100_span_days": 331,
         "last100_authors": 24,
+        "last_commit_sha": "9e47aab",
+        "last_commit_message": "fix: use MCP-registered tool names across languages (#209)\n\n* fix: use MCP-registered tool names across languages\n\nParse Go mcp.Tool{Name: \"...\"} composite literals (keyed_element/Name),\nprefer explicit registration names over handler symbols, and default tools\nto bare method names instead of class-qualified labels so Python, Go, and\nRust reports align (e.g. execute_shell_command).\n\nCo-authored-by: Cursor <cursoragent@cursor.com>\n\n* Fix nested decoy handlers in TS/JS registration object parsing\n\nInspect only direct descriptor fields when extracting handlers from object\narguments, unwrap inline functions without descending into nested schema\nobjects, and prefer explicit positional handlers over object-derived ones.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>\n\n* Rename nested decoy fixtures to match argument order\n\nSuffixes now reflect whether the schema decoy appears before or after the\nreal positional handler in server.tool() calls.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>\n\n---------\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "last_commit_at": "2026-09-19",
         "releases": 48,
         "latest_release_at": "2026-08-28",
-        "days_since_release": 26,
-        "days_idle": 4,
+        "days_since_release": 27,
+        "days_idle": 5,
         "relocated": false
       },
       "identity": {
@@ -65,14 +71,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

@@ -3,37 +3,43 @@
   "repo": "PortSwigger/mcp-server",
   "category": "mcp",
   "scope": ["webapp", "api"],
-  "stars": 1182,
+  "stars": 1184,
   "description": "MCP Server for Burp",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:52Z",
+  "checkedAt": "2026-09-24T08:29:37Z",
   "pushedAt": "2026-09-18",
-  "daysIdle": 5,
+  "daysIdle": 6,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
     "entry": { "category": "mcp", "repo": "PortSwigger/mcp-server", "scope": ["webapp", "api"], "added": "2026-09-12" },
+    "written": {
+      "description": "A Burp Suite extension that opens the running instance to an AI client, so a model can work through the proxy history and replay requests from the session you already have."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:52Z",
+      "checked_at": "2026-09-24T08:29:37Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-18",
-        "days_since_push": 5,
+        "days_since_push": 6,
         "total_commits": 57,
         "last100_span_days": 497,
         "last100_authors": 14,
+        "last_commit_sha": "642e6fa",
+        "last_commit_message": "Preserve valid JSON when truncating history items (#115)\n\nFixes #114 by truncating history string values before JSON serialization, preserving valid bounded JSON across all affected history tools. Includes focused invariant coverage and live verification in Burp Suite.",
+        "last_commit_at": "2026-08-12",
         "releases": 1,
         "latest_release_at": "2026-05-26",
-        "days_since_release": 120,
-        "days_idle": 5,
+        "days_since_release": 121,
+        "days_idle": 6,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "PortSwigger/mcp-server",
-        "stars": 1182,
-        "forks": 194,
+        "stars": 1184,
+        "forks": 195,
         "created_at": "2025-04-02",
         "is_fork": false,
         "contributors": 14,
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": true,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": true, "host_access": false }
     }
   }
 }

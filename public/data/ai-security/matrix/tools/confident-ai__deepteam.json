@@ -3,13 +3,13 @@
   "repo": "confident-ai/deepteam",
   "category": "scanner",
   "scope": ["llm", "agentic"],
-  "stars": 2933,
+  "stars": 2941,
   "description": "DeepTeam is a framework to red team LLMs and AI agents.",
   "homepage": "https://trydeepteam.com",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:21Z",
+  "checkedAt": "2026-09-24T08:31:16Z",
   "pushedAt": "2026-09-21",
-  "daysIdle": 2,
+  "daysIdle": 3,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -19,26 +19,32 @@
       "scope": ["llm", "agentic"],
       "added": "2026-09-14"
     },
+    "written": {
+      "description": "Simulates jailbreaks and injection against an application you have already built, then ships the guardrail that blocks what it found, so the test and the defence come from the same vocabulary."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:21Z",
+      "checked_at": "2026-09-24T08:31:16Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-21",
-        "days_since_push": 2,
+        "days_since_push": 3,
         "total_commits": 1191,
         "last100_span_days": 124,
         "last100_authors": 5,
+        "last_commit_sha": "2fd3445",
+        "last_commit_message": "Merge pull request #269 from A-Vamshi/main\n\nUpdate framework pull endpoint and add pull, upload methods to custom vulnerability",
+        "last_commit_at": "2026-09-21",
         "releases": 3,
         "latest_release_at": "2025-11-12",
-        "days_since_release": 315,
-        "days_idle": 2,
+        "days_since_release": 316,
+        "days_idle": 3,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "confident-ai/deepteam",
-        "stars": 2933,
-        "forks": 480,
+        "stars": 2941,
+        "forks": 483,
         "created_at": "2025-03-05",
         "is_fork": false,
         "contributors": 27,
@@ -68,14 +74,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": true,
-        "phones_home": true,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": true, "opaque": false, "host_access": false }
     }
   }
 }

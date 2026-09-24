@@ -7,9 +7,9 @@
   "description": "Offensive security toolkit for Claude Code covering red team, exploit dev, AD attacks, EDR bypass, mobile pentest",
   "homepage": null,
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:41:16Z",
+  "checkedAt": "2026-09-24T08:31:48Z",
   "pushedAt": "2026-09-21",
-  "daysIdle": 2,
+  "daysIdle": 3,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["redteam", "ad"],
       "added": "2026-09-14"
     },
+    "written": {
+      "description": "Organises its skills along the kill chain and adds a dispatcher that loads at the start of every session, so the scope check and the OPSEC note happen whether or not you remember to ask."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:41:16Z",
+      "checked_at": "2026-09-24T08:31:48Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-21",
-        "days_since_push": 2,
+        "days_since_push": 3,
         "total_commits": 79,
         "last100_span_days": 125,
         "last100_authors": 3,
+        "last_commit_sha": "f4bb7f7",
+        "last_commit_message": "merge(social-engineering-depth): human-layer SE reference + v1.12.1\n\nSecond-pass Claude-Red supplement: adds initial-access/references/social-engineering.md\n(pretexting/vishing-TOAD/smishing/help-desk+MFA social attacks, ATT&CK + detection +\nhard authorization gate). Repo was otherwise unchanged since v1.11.0; offensive-netexec\nredundant. 824 tests, 7 gates.",
+        "last_commit_at": "2026-09-21",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 2,
+        "days_idle": 3,
         "relocated": false
       },
       "identity": {
@@ -68,14 +74,7 @@
         "manifests": [".devcontainer/Dockerfile", "skills/network-attack/scripts/mitm6_relay_launcher.sh"]
       },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

@@ -1,8 +1,7 @@
 {
-  "updatedAt": "2026-09-23T11:30:07.345Z",
-  "total": 127,
+  "updatedAt": "2026-09-24T11:40:53.609Z",
+  "total": 126,
   "bySource": {
-    "cvelistV5": 1,
     "ghsa": 60,
     "garak": 5,
     "pyrit": 5,
@@ -21,11 +20,61 @@
   "items": [
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "2 changes (1 new | 1 updated):",
-      "link": "https://github.com/CVEProject/cvelistV5/commit/60c25a70e4dfe6e5f84c8e672305cda2a8b6b14c",
-      "updated": "2026-09-23T09:54:00Z",
-      "source": "cvelistV5",
-      "kind": "cve",
+      "title": "langchain-openai==1.6.6",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.6",
+      "updated": "2026-09-24T11:31:33Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.34.4",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.4",
+      "updated": "2026-09-24T04:45:43Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.101.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.2",
+      "updated": "2026-09-24T00:17:20Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.34.4-rc1: mlxrunner: Update XGrammar to 0.2.7 for structured outputs",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.4-rc1",
+      "updated": "2026-09-23T23:36:46Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-anthropic==1.7.4",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-anthropic%3D%3D1.7.4",
+      "updated": "2026-09-23T17:56:05Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-openai==1.6.5",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.5",
+      "updated": "2026-09-23T15:31:54Z",
+      "source": "langchain",
+      "kind": "release",
       "cves": [],
       "description": ""
     },
@@ -45,16 +94,6 @@
       "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.1rc0",
       "updated": "2026-09-23T08:06:15Z",
       "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.99.3",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.99.3",
-      "updated": "2026-09-23T07:10:52Z",
-      "source": "litellm",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -101,9 +140,9 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v0.34.4",
+      "title": "v0.34.4-rc0: mlx: speed up Qwen 3.8 prompt processing (#18550)",
       "link": "https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0",
-      "updated": "2026-09-23T02:24:43Z",
+      "updated": "2026-09-23T00:53:23Z",
       "source": "ollama",
       "kind": "release",
       "cves": [],
@@ -114,16 +153,6 @@
       "title": "langchain-openai==1.6.4",
       "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.4",
       "updated": "2026-09-22T22:37:11Z",
-      "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-anthropic==1.7.3",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-anthropic%3D%3D1.7.3",
-      "updated": "2026-09-22T22:08:15Z",
       "source": "langchain",
       "kind": "release",
       "cves": [],
@@ -145,26 +174,6 @@
       "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
       "updated": "2026-09-22T05:20:54Z",
       "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-fireworks==1.6.2",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.6.2",
-      "updated": "2026-09-22T04:44:05Z",
-      "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-deepseek==1.1.1",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-deepseek%3D%3D1.1.1",
-      "updated": "2026-09-22T04:30:12Z",
-      "source": "langchain",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -201,30 +210,10 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v0.34.3-rc0",
-      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.3-rc0",
-      "updated": "2026-09-18T21:10:53Z",
-      "source": "ollama",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "0.123.1",
       "link": "https://github.com/promptfoo/promptfoo/releases/tag/0.123.1",
       "updated": "2026-09-18T01:07:54Z",
       "source": "promptfoo",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.34.2",
-      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.2",
-      "updated": "2026-09-17T23:04:24Z",
-      "source": "ollama",
       "kind": "release",
       "cves": [],
       "description": ""

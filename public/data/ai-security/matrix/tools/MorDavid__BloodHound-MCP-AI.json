@@ -7,27 +7,33 @@
   "description": "BloodHound-MCP-AI is integration that connects BloodHound with AI through Model Context Protocol, allowing security professionals to analyze Active Directory attack paths using natural language instead of complex Cypher queries.",
   "homepage": "https://www.MORDAVID.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:38:02Z",
+  "checkedAt": "2026-09-24T08:29:44Z",
   "pushedAt": "2025-06-02",
-  "daysIdle": 478,
+  "daysIdle": 479,
   "archived": false,
   "license": null,
   "upstream": {
     "entry": { "category": "mcp", "repo": "MorDavid/BloodHound-MCP-AI", "scope": ["ad"], "added": "2026-09-12" },
+    "written": {
+      "description": "Turns BloodHound's own Cypher query library into one MCP tool per query, so you ask for an attack path in English and the server runs a query someone already wrote and tested."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:38:02Z",
+      "checked_at": "2026-09-24T08:29:44Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-06-02",
-        "days_since_push": 478,
+        "days_since_push": 479,
         "total_commits": 9,
         "last100_span_days": 59,
         "last100_authors": 1,
+        "last_commit_sha": "1eb21b0",
+        "last_commit_message": "Update README.md",
+        "last_commit_at": "2025-06-02",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 478,
+        "days_idle": 479,
         "relocated": false
       },
       "identity": {
@@ -63,14 +69,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": true, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

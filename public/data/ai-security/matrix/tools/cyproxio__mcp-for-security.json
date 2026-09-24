@@ -7,9 +7,9 @@
   "description": "MCP for Security: A collection of Model Context Protocol servers for popular security tools like SQLMap, FFUF, NMAP, Masscan and more. Integrate security testing and penetration testing into AI workflows.",
   "homepage": "https://cyprox.io",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:59Z",
+  "checkedAt": "2026-09-24T08:29:42Z",
   "pushedAt": "2026-03-30",
-  "daysIdle": 177,
+  "daysIdle": 178,
   "archived": true,
   "license": "MIT",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["webapp", "network", "recon"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "One MCP server per security tool, each a thin wrapper over that binary's flags. Development has moved to a successor project under a different name."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:59Z",
+      "checked_at": "2026-09-24T08:29:42Z",
       "cloned": true,
       "alive": {
         "archived": true,
         "pushed_at": "2026-03-30",
-        "days_since_push": 177,
+        "days_since_push": 178,
         "total_commits": 71,
         "last100_span_days": 361,
         "last100_authors": 4,
+        "last_commit_sha": "51dd537",
+        "last_commit_message": "deprecate: migrate to Bolt\n\nThis repository is no longer actively maintained. All tools have been\nmigrated to cyberstrikeus/bolt. Updated README with deprecation notice\nand removed stale sections.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>",
+        "last_commit_at": "2026-03-30",
         "releases": 1,
         "latest_release_at": "2025-07-02",
-        "days_since_release": 448,
-        "days_idle": 177,
+        "days_since_release": 449,
+        "days_idle": 178,
         "relocated": false
       },
       "identity": {
@@ -92,14 +98,7 @@
         ]
       },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

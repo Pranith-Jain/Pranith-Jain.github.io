@@ -3,37 +3,43 @@
   "repo": "mrexodia/ida-pro-mcp",
   "category": "mcp",
   "scope": ["binary"],
-  "stars": 12277,
+  "stars": 12297,
   "description": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
   "homepage": "https://plugins.hex-rays.com/mrexodia/ida-pro-mcp",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:42Z",
+  "checkedAt": "2026-09-24T08:29:30Z",
   "pushedAt": "2026-09-22",
-  "daysIdle": 1,
+  "daysIdle": 2,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "mcp", "repo": "mrexodia/ida-pro-mcp", "scope": ["binary"], "added": "2026-09-12" },
+    "written": {
+      "description": "Exposes an open IDA Pro database to an LLM client, so you ask about a binary in chat instead of clicking through the GUI: rename functions, read decompiled code, chase cross-references."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:42Z",
+      "checked_at": "2026-09-24T08:29:30Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-22",
-        "days_since_push": 1,
+        "days_since_push": 2,
         "total_commits": 598,
         "last100_span_days": 135,
         "last100_authors": 30,
+        "last_commit_sha": "fab3505",
+        "last_commit_message": "Merge pull request #540 from VecSzn/fix/find-immediate-high-bit\n\nfind/insn_query: match sign-extended immediates",
+        "last_commit_at": "2026-09-22",
         "releases": 3,
         "latest_release_at": "2025-10-06",
-        "days_since_release": 352,
-        "days_idle": 1,
+        "days_since_release": 353,
+        "days_idle": 2,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "mrexodia/ida-pro-mcp",
-        "stars": 12277,
-        "forks": 1451,
+        "stars": 12297,
+        "forks": 1457,
         "created_at": "2025-03-25",
         "is_fork": false,
         "contributors": 83,
@@ -70,14 +76,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

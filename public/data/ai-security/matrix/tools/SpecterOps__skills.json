@@ -3,13 +3,13 @@
   "repo": "SpecterOps/skills",
   "category": "skill",
   "scope": ["ad", "binary", "code", "entra", "network", "recon", "redteam", "social", "webapp"],
-  "stars": 665,
+  "stars": 669,
   "description": "A marketplace for LLM skills",
   "homepage": null,
   "added": "2026-09-13",
-  "checkedAt": "2026-09-23T08:39:21Z",
-  "pushedAt": "2026-09-03",
-  "daysIdle": 20,
+  "checkedAt": "2026-09-24T08:30:39Z",
+  "pushedAt": "2026-09-23",
+  "daysIdle": 1,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -19,26 +19,32 @@
       "scope": ["ad", "binary", "code", "entra", "network", "recon", "redteam", "social", "webapp"],
       "added": "2026-09-13"
     },
+    "written": {
+      "description": "Packages SpecterOps' own engagement workflow as installable plugins, including the wiring that lets an agent drive BloodHound and Ghostwriter. It assumes you already run those."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:39:21Z",
+      "checked_at": "2026-09-24T08:30:39Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-03",
-        "days_since_push": 20,
+        "pushed_at": "2026-09-23",
+        "days_since_push": 1,
         "total_commits": 62,
         "last100_span_days": 107,
         "last100_authors": 7,
+        "last_commit_sha": "e655f93",
+        "last_commit_message": "chore: cleanup",
+        "last_commit_at": "2026-09-03",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 20,
+        "days_idle": 1,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "SpecterOps/skills",
-        "stars": 665,
-        "forks": 74,
+        "stars": 669,
+        "forks": 75,
         "created_at": "2026-02-11",
         "is_fork": false,
         "contributors": 7,
@@ -65,14 +71,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": true,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

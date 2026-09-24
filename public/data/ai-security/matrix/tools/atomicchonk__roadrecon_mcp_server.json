@@ -7,9 +7,9 @@
   "description": "Claude MCP server to perform analysis on ROADrecon data",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:38:12Z",
+  "checkedAt": "2026-09-24T08:29:51Z",
   "pushedAt": "2025-03-30",
-  "daysIdle": 542,
+  "daysIdle": 543,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["entra", "cloud"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "Reads a running ROADrecon instance so a model can question the Entra tenant it already collected, with prompt templates for the analyses people usually run over that data."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:38:12Z",
+      "checked_at": "2026-09-24T08:29:51Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-03-30",
-        "days_since_push": 542,
+        "days_since_push": 543,
         "total_commits": 9,
         "last100_span_days": 1,
         "last100_authors": 1,
+        "last_commit_sha": "cd59d3c",
+        "last_commit_message": "Modified default caps.html file path to C:\\Temp with override option",
+        "last_commit_at": "2025-03-30",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 542,
+        "days_idle": 543,
         "relocated": false
       },
       "identity": {
@@ -65,14 +71,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

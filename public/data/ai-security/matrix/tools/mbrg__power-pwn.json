@@ -3,37 +3,43 @@
   "repo": "mbrg/power-pwn",
   "category": "scanner",
   "scope": ["cloud", "llm"],
-  "stars": 1246,
+  "stars": 1247,
   "description": "An offensive/defense security toolset for discovery, recon and ethical assessment of AI Agents",
   "homepage": "https://zenity.io/zenity-security-assessment-hub",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:34Z",
+  "checkedAt": "2026-09-24T08:31:24Z",
   "pushedAt": "2025-12-21",
-  "daysIdle": 276,
+  "daysIdle": 277,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "scanner", "repo": "mbrg/power-pwn", "scope": ["cloud", "llm"], "added": "2026-09-14" },
+    "written": {
+      "description": "Works the Microsoft 365 side of the problem: Power Platform flows, Copilot Studio bots left open to anonymous users, and the agents a tenant has published without noticing."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:34Z",
+      "checked_at": "2026-09-24T08:31:24Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-12-21",
-        "days_since_push": 276,
+        "days_since_push": 277,
         "total_commits": 333,
         "last100_span_days": 468,
         "last100_authors": 8,
+        "last_commit_sha": "8845680",
+        "last_commit_message": "Merge pull request #132 from mbrg/131-update-readme-file\n\ni131 - minor readme update",
+        "last_commit_at": "2025-12-21",
         "releases": 12,
         "latest_release_at": "2025-12-10",
-        "days_since_release": 287,
-        "days_idle": 276,
+        "days_since_release": 288,
+        "days_idle": 277,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "mbrg/power-pwn",
-        "stars": 1246,
-        "forks": 136,
+        "stars": 1247,
+        "forks": 135,
         "created_at": "2022-06-14",
         "is_fork": false,
         "contributors": 10,
@@ -81,14 +87,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }
