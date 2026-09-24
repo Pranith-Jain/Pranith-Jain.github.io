@@ -1,0 +1,11 @@
+{
+  "slug": "over-100000-wordpress-sites-vulnerable-to-remote-code-execut-b4cfbb13",
+  "title": "Over 100,000 WordPress Sites Vulnerable to Remote Code Execution",
+  "link": "https://threatcluster.io/cluster/over-100000-wordpress-sites-vulnerable-to-remote-code-execut-b4cfbb13?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/over-100000-wordpress-sites-vulnerable-to-remote-code-execut-b4cfbb13",
+  "pubDate": "2026-09-17T22:21:21.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "A critical vulnerability affecting the Tutor LMS plugin allows for remote code execution on over 100,000 WordPress sites. The vulnerability stems from insecure handling of user input in the plugin's w…",
+  "sizeBytes": 201
+}

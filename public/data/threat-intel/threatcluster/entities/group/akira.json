@@ -5,33 +5,33 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 3,
-  "firstSeen": "2026-09-22T12:52:00.000Z",
-  "lastSeen": "2026-09-22T13:29:07.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
+  "firstSeen": "2026-09-23T12:23:15.000Z",
+  "lastSeen": "2026-09-23T13:24:53.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 0 countries.",
   "frequency": [
     {
-      "date": "2026-09-22",
+      "date": "2026-09-23",
       "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "coe-press-equipment-e3fb",
-      "title": "Coe Press Equipment — claimed by akira",
-      "pubDate": "2026-09-22T13:29:07.000Z"
+      "slug": "urban-engineering-9aca",
+      "title": "Urban Engineering — claimed by akira",
+      "pubDate": "2026-09-23T13:24:53.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "tdmi-d9d8",
-      "title": "TDMI — claimed by akira",
-      "pubDate": "2026-09-22T13:28:48.000Z"
+      "slug": "hit-dd-957e",
+      "title": "HIT dd — claimed by akira",
+      "pubDate": "2026-09-23T12:23:35.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "di-c-s-el-s-r-l-7015",
-      "title": "DI.C.S.EL. S.R.L. — claimed by akira",
-      "pubDate": "2026-09-22T12:52:00.000Z"
+      "slug": "apex-litigation-support-096a",
+      "title": "Apex Litigation Support — claimed by akira",
+      "pubDate": "2026-09-23T12:23:15.000Z"
     }
   ],
   "relatedEntities": [
@@ -39,37 +39,43 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 2
+      "weight": 1
     },
     {
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
       "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "coe-press-equipment-e3fb",
-      "victim": "Coe Press Equipment — claimed by akira",
+      "id": "urban-engineering-9aca",
+      "victim": "Urban Engineering — claimed by akira",
       "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-22T13:29:07.000Z"
+      "country": null,
+      "pubDate": "2026-09-23T13:24:53.000Z"
     },
     {
-      "id": "tdmi-d9d8",
-      "victim": "TDMI — claimed by akira",
+      "id": "hit-dd-957e",
+      "victim": "HIT dd — claimed by akira",
       "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-09-22T13:28:48.000Z"
+      "pubDate": "2026-09-23T12:23:35.000Z"
     },
     {
-      "id": "di-c-s-el-s-r-l-7015",
-      "victim": "DI.C.S.EL. S.R.L. — claimed by akira",
-      "sector": "Manufacturing",
-      "country": "IT",
-      "pubDate": "2026-09-22T12:52:00.000Z"
+      "id": "apex-litigation-support-096a",
+      "victim": "Apex Litigation Support — claimed by akira",
+      "sector": "Professional Services",
+      "country": null,
+      "pubDate": "2026-09-23T12:23:15.000Z"
     }
   ]
 }

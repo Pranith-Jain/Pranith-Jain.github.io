@@ -1,11 +1,208 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-23T10:12:46Z",
-  "syncedAt": "2026-09-23T10:12:46.722Z",
+  "generatedAt": "2026-09-24T10:23:01Z",
+  "syncedAt": "2026-09-24T10:23:02.097Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
   "count": 344,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "cacheoutattack.com",
+      "confidence": "high",
+      "reason": "Domain associated with a specific attack technique",
+      "first_seen": "2026-09-24T04:31:27.990972+00:00",
+      "last_seen": "2026-09-24T04:31:27.990972+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "en.wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Transient_execution_CPU_vulnerability",
+          "pub_date": "2026-09-24T04:31:27.990972+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "indirector.cpusec.org",
+      "confidence": "high",
+      "reason": "Domain associated with a specific attack technique",
+      "first_seen": "2026-09-24T04:31:27.990972+00:00",
+      "last_seen": "2026-09-24T04:31:27.990972+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "en.wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Transient_execution_CPU_vulnerability",
+          "pub_date": "2026-09-24T04:31:27.990972+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "lviattack.eu",
+      "confidence": "high",
+      "reason": "Domain associated with a specific attack technique",
+      "first_seen": "2026-09-24T04:31:27.990972+00:00",
+      "last_seen": "2026-09-24T04:31:27.990972+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "en.wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Transient_execution_CPU_vulnerability",
+          "pub_date": "2026-09-24T04:31:27.990972+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "mdsattacks.com",
+      "confidence": "high",
+      "reason": "Domain associated with a specific attack technique",
+      "first_seen": "2026-09-24T04:31:27.990972+00:00",
+      "last_seen": "2026-09-24T04:31:27.990972+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "en.wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Transient_execution_CPU_vulnerability",
+          "pub_date": "2026-09-24T04:31:27.990972+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "meltdownattack.com",
+      "confidence": "high",
+      "reason": "Domain associated with a specific attack technique",
+      "first_seen": "2026-09-24T04:31:27.990972+00:00",
+      "last_seen": "2026-09-24T04:31:27.990972+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "en.wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Transient_execution_CPU_vulnerability",
+          "pub_date": "2026-09-24T04:31:27.990972+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "zombieloadattack.com",
+      "confidence": "high",
+      "reason": "Domain associated with a specific attack technique",
+      "first_seen": "2026-09-24T04:31:27.990972+00:00",
+      "last_seen": "2026-09-24T04:31:27.990972+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "en.wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Transient_execution_CPU_vulnerability",
+          "pub_date": "2026-09-24T04:31:27.990972+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "gocommunity.io",
+      "confidence": "high",
+      "reason": "Domain used to distribute Go malware via Terraform providers and Go Modules",
+      "first_seen": "2026-09-22T15:17:55+00:00",
+      "last_seen": "2026-09-23T18:07:17+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "Thehackernews",
+          "url": "https://thehackernews.com/2026/09/attackers-use-malicious-terraform.html",
+          "pub_date": "2026-09-23T18:07:17+00:00"
+        },
+        {
+          "source": "Aikido.Dev",
+          "url": "https://www.aikido.dev/blog/graphalgo-terraform-go-modules",
+          "pub_date": "2026-09-22T15:17:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "evilcorp.co.uk",
+      "confidence": "high",
+      "reason": "[article sweep] Used in an example of a scan target, indicating attacker infrastructure",
+      "first_seen": "2026-09-23T16:55:18+00:00",
+      "last_seen": "2026-09-23T16:55:18+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:7160620916719256541&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-23T16:55:18+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "tradeyourevents.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used in phishing emails impersonating Xero",
+      "first_seen": "2026-09-23T15:27:39+00:00",
+      "last_seen": "2026-09-23T15:27:39+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Central.Xero",
+          "url": "https://central.xero.com/s/article/Security-noticeboard",
+          "pub_date": "2026-09-23T15:27:39+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "xerocareers.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used in a fake job offer scam email",
+      "first_seen": "2026-09-23T15:27:39+00:00",
+      "last_seen": "2026-09-23T15:27:39+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Central.Xero",
+          "url": "https://central.xero.com/s/article/Security-noticeboard",
+          "pub_date": "2026-09-23T15:27:39+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "b.filename.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used in an example of data exfiltration via DNS requests",
+      "first_seen": "2026-09-23T12:02:01+00:00",
+      "last_seen": "2026-09-23T12:02:01+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:1913984219067314417&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-23T12:02:01+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "filename.com",
+      "confidence": "high",
+      "reason": "[article sweep] Used in an example of data exfiltration via DNS requests",
+      "first_seen": "2026-09-23T12:02:01+00:00",
+      "last_seen": "2026-09-23T12:02:01+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Sploitus",
+          "url": "https://sploitus.com/exploit?id=KITPLOIT:1913984219067314417&utm_source=rss&utm_medium=rss",
+          "pub_date": "2026-09-23T12:02:01+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "techroboticslabmade.com",
@@ -61,25 +258,9 @@
     },
     {
       "type": "domain",
-      "value": "gocommunity.io",
-      "confidence": "high",
-      "reason": "[article sweep] Used to distribute Go malware via Terraform providers and Go Modules.",
-      "first_seen": "2026-09-22T15:17:55+00:00",
-      "last_seen": "2026-09-22T15:17:55+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Aikido.Dev",
-          "url": "https://www.aikido.dev/blog/graphalgo-terraform-go-modules",
-          "pub_date": "2026-09-22T15:17:55+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
       "value": "gogets.dev",
       "confidence": "high",
-      "reason": "[article sweep] Used to distribute Go malware via Go Modules.",
+      "reason": "Domain used to distribute Go malware via Go Modules",
       "first_seen": "2026-09-22T15:17:55+00:00",
       "last_seen": "2026-09-22T15:17:55+00:00",
       "source_count": 1,
@@ -5518,182 +5699,6 @@
           "source": "Techtimes",
           "url": "https://www.techtimes.com/articles/325482/20260825/attackers-exploit-wordpress-sso-plugin-six-paid-editions-were-never-any-vulnerability-database.htm",
           "pub_date": "2026-08-25T15:50:04+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "ver.bandhiem.com",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as part of a malicious infrastructure cluster",
-      "first_seen": "2026-08-25T09:20:02+00:00",
-      "last_seen": "2026-08-25T09:20:02+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Hackernoon",
-          "url": "https://hackernoon.com/mirage2fa-hijacks-companies-microsoft-365-sessions-with-over-4k-victims-in-the-us",
-          "pub_date": "2026-08-25T09:20:02+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "expedia-careers.com",
-      "confidence": "high",
-      "reason": "Domain follows the pattern of brand-impersonating recruitment domains used by attackers.",
-      "first_seen": "2026-08-24T20:20:29+00:00",
-      "last_seen": "2026-08-24T20:20:29+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zimperium",
-          "url": "https://zimperium.com/blog/extended-rapid-response-zimperium-identifies-recruittrap-recruit-scams-are-targeting-enterprise-credentials-on-mobile",
-          "pub_date": "2026-08-24T20:20:29+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "insulet-careers.com",
-      "confidence": "high",
-      "reason": "Domain follows the pattern of brand-impersonating recruitment domains used by attackers.",
-      "first_seen": "2026-08-24T20:20:29+00:00",
-      "last_seen": "2026-08-24T20:20:29+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zimperium",
-          "url": "https://zimperium.com/blog/extended-rapid-response-zimperium-identifies-recruittrap-recruit-scams-are-targeting-enterprise-credentials-on-mobile",
-          "pub_date": "2026-08-24T20:20:29+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "mondial-relay-global.com",
-      "confidence": "high",
-      "reason": "Domain follows the pattern of brand-impersonating recruitment domains used by attackers.",
-      "first_seen": "2026-08-24T20:20:29+00:00",
-      "last_seen": "2026-08-24T20:20:29+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zimperium",
-          "url": "https://zimperium.com/blog/extended-rapid-response-zimperium-identifies-recruittrap-recruit-scams-are-targeting-enterprise-credentials-on-mobile",
-          "pub_date": "2026-08-24T20:20:29+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "xmtrading-global.com",
-      "confidence": "high",
-      "reason": "Domain follows the pattern of brand-impersonating recruitment domains used by attackers.",
-      "first_seen": "2026-08-24T20:20:29+00:00",
-      "last_seen": "2026-08-24T20:20:29+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Zimperium",
-          "url": "https://zimperium.com/blog/extended-rapid-response-zimperium-identifies-recruittrap-recruit-scams-are-targeting-enterprise-credentials-on-mobile",
-          "pub_date": "2026-08-24T20:20:29+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "browser-app.com",
-      "confidence": "high",
-      "reason": "[article sweep] Domain used in a malicious browser extension campaign",
-      "first_seen": "2026-08-24T15:33:04.063145+00:00",
-      "last_seen": "2026-08-24T15:33:04.063145+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "socket.dev",
-          "url": "https://socket.dev/blog/firefox-crypto-wallet-theft",
-          "pub_date": "2026-08-24T15:33:04.063145+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "browsify.co",
-      "confidence": "high",
-      "reason": "[article sweep] Domain used in a malicious browser extension campaign",
-      "first_seen": "2026-08-24T15:33:04.063145+00:00",
-      "last_seen": "2026-08-24T15:33:04.063145+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "socket.dev",
-          "url": "https://socket.dev/blog/firefox-crypto-wallet-theft",
-          "pub_date": "2026-08-24T15:33:04.063145+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "cleankits.co",
-      "confidence": "high",
-      "reason": "[article sweep] Associated with malicious Firefox extensions",
-      "first_seen": "2026-08-24T15:33:04.063145+00:00",
-      "last_seen": "2026-08-24T15:33:04.063145+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "socket.dev",
-          "url": "https://socket.dev/blog/firefox-crypto-wallet-theft",
-          "pub_date": "2026-08-24T15:33:04.063145+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "devplugs.co",
-      "confidence": "high",
-      "reason": "[article sweep] Associated with malicious activity in Firefox extensions",
-      "first_seen": "2026-08-24T15:33:04.063145+00:00",
-      "last_seen": "2026-08-24T15:33:04.063145+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "socket.dev",
-          "url": "https://socket.dev/blog/firefox-crypto-wallet-theft",
-          "pub_date": "2026-08-24T15:33:04.063145+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "extlab.co",
-      "confidence": "high",
-      "reason": "[article sweep] Associated with malicious Firefox extensions",
-      "first_seen": "2026-08-24T15:33:04.063145+00:00",
-      "last_seen": "2026-08-24T15:33:04.063145+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "socket.dev",
-          "url": "https://socket.dev/blog/firefox-crypto-wallet-theft",
-          "pub_date": "2026-08-24T15:33:04.063145+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "extlab.org",
-      "confidence": "high",
-      "reason": "[article sweep] Associated with malicious Firefox extensions",
-      "first_seen": "2026-08-24T15:33:04.063145+00:00",
-      "last_seen": "2026-08-24T15:33:04.063145+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "socket.dev",
-          "url": "https://socket.dev/blog/firefox-crypto-wallet-theft",
-          "pub_date": "2026-08-24T15:33:04.063145+00:00"
         }
       ]
     }

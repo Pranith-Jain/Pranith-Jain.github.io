@@ -4,111 +4,103 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 9,
-  "firstSeen": "2026-09-21T18:43:28.000Z",
-  "lastSeen": "2026-09-22T22:52:34.000Z",
-  "summary": "Sector hit by 9 leak-site victims across 6 ransomware groups and 3 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-09-22T22:52:34.000Z",
+  "lastSeen": "2026-09-24T01:21:36.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 6 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-21",
-      "count": 2
+      "date": "2026-09-22",
+      "count": 1
     },
     {
-      "date": "2026-09-22",
-      "count": 7
+      "date": "2026-09-23",
+      "count": 5
+    },
+    {
+      "date": "2026-09-24",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "eteam-a1e1",
+      "title": "eTeam — claimed by endzone",
+      "pubDate": "2026-09-24T01:21:36.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "legis-2f62",
+      "title": "Legis — claimed by rhysida",
+      "pubDate": "2026-09-23T16:22:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kirkland-and-ellis-llp-7ca5",
+      "title": "KIRKLAND-AND-ELLIS.LLP — claimed by clop",
+      "pubDate": "2026-09-23T14:34:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kss-architects-llp-3cfe",
+      "title": "KSS-ARCHITECTS-LLP — claimed by clop",
+      "pubDate": "2026-09-23T14:30:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lemon-law-5b77",
+      "title": "Lemon Law — claimed by incransom",
+      "pubDate": "2026-09-23T12:47:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "apex-litigation-support-096a",
+      "title": "Apex Litigation Support — claimed by akira",
+      "pubDate": "2026-09-23T12:23:15.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "clark-hill-85e0",
       "title": "Clark Hill — claimed by silentransomgroup",
       "pubDate": "2026-09-22T22:52:34.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gaedke-amp-partner-steuerberatung-7c60",
-      "title": "Gaedke &amp; Partner Steuerberatung — claimed by anubis",
-      "pubDate": "2026-09-22T22:24:10.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cozen-o-connor-201f",
-      "title": "Cozen O'Connor — claimed by silentransomgroup",
-      "pubDate": "2026-09-22T19:29:26.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "quantummarketing-group-com-6ea3",
-      "title": "quantummarketing-group.com — claimed by settra",
-      "pubDate": "2026-09-22T16:50:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gregjoneslaw-com-b90b",
-      "title": "gregjoneslaw.com — claimed by settra",
-      "pubDate": "2026-09-22T16:49:34.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "pr-it-ab22",
-      "title": "Pr***IT — claimed by auditteam",
-      "pubDate": "2026-09-22T11:50:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "nai-earle-furman-c29b",
-      "title": "NAI Earle Furman — claimed by secp0",
-      "pubDate": "2026-09-22T03:38:30.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hogan-lovells-cadwalader-0522",
-      "title": "Hogan Lovells Cadwalader — claimed by silentransomgroup",
-      "pubDate": "2026-09-21T21:55:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "360-consulenza-s-r-l-6bb3",
-      "title": "360 Consulenza S.r.l. — claimed by nightspire",
-      "pubDate": "2026-09-21T18:43:28.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "silentransomgroup",
-      "name": "silentransomgroup",
-      "weight": 3
-    },
-    {
-      "type": "group",
-      "slug": "settra",
-      "name": "settra",
+      "slug": "clop",
+      "name": "clop",
       "weight": 2
     },
     {
       "type": "group",
-      "slug": "anubis",
-      "name": "anubis",
+      "slug": "endzone",
+      "name": "endzone",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "auditteam",
-      "name": "auditteam",
+      "slug": "rhysida",
+      "name": "rhysida",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "secp0",
-      "name": "secp0",
+      "slug": "incransom",
+      "name": "incransom",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "nightspire",
-      "name": "nightspire",
+      "slug": "akira",
+      "name": "akira",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "silentransomgroup",
+      "name": "silentransomgroup",
       "weight": 1
     }
   ],

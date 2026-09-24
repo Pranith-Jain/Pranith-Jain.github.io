@@ -4,42 +4,48 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-22T01:51:38.000Z",
-  "lastSeen": "2026-09-22T16:51:44.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-23T14:29:44.000Z",
+  "lastSeen": "2026-09-23T14:42:56.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 1 ransomware group and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-22",
-      "count": 2
+      "date": "2026-09-23",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "lakebeverage-com-17eb",
-      "title": "lakebeverage.com — claimed by settra",
-      "pubDate": "2026-09-22T16:51:44.000Z"
+      "slug": "aldogroup-com-aldoshoes-com-bdbc",
+      "title": "ALDOGROUP.COM(ALDOSHOES.COM) — claimed by clop",
+      "pubDate": "2026-09-23T14:42:56.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "finsoft-kolibri-retail-back-office-software-ddb3",
-      "title": "FinSoft (Kolibri retail back-office software) — claimed by n0n",
-      "pubDate": "2026-09-22T01:51:38.000Z"
+      "slug": "brillonconsumer-com-brillonconsumer-com-9ba4",
+      "title": "BRILLONCONSUMER.COM(BRILLONCONSUMER.COM) — claimed by clop",
+      "pubDate": "2026-09-23T14:42:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "suunto-cn-suunto-com-b48f",
+      "title": "SUUNTO.CN(SUUNTO.COM) — claimed by clop",
+      "pubDate": "2026-09-23T14:41:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "elandretail-com-kmall24-com-034a",
+      "title": "ELANDRETAIL.COM-KMALL24.COM — claimed by clop",
+      "pubDate": "2026-09-23T14:29:44.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "settra",
-      "name": "settra",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "n0n",
-      "name": "n0n",
-      "weight": 1
+      "slug": "clop",
+      "name": "clop",
+      "weight": 4
     }
   ],
   "mitreTechniques": []

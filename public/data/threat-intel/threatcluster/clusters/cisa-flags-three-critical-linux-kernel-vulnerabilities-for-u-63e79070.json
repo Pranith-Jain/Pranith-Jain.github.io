@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/cisa-flags-three-critical-linux-kernel-vulnerabilities-for-u-63e79070?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/cisa-flags-three-critical-linux-kernel-vulnerabilities-for-u-63e79070",
   "pubDate": "2026-09-19T12:04:54.000Z",
-  "sourceCount": 18,
-  "categories": ["18 Sources"],
+  "sourceCount": 19,
+  "categories": ["19 Sources"],
   "description": "The U.S. Cybersecurity and Infrastructure Security Agency CISA has flagged three Linux kernel vulnerabilities as actively exploited, requiring federal agencies to patch them by September 21, 2026.",
   "sizeBytes": 196
 }
