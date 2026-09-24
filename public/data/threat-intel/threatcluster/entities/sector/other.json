@@ -4,45 +4,93 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-21T22:16:19.000Z",
-  "lastSeen": "2026-09-23T07:39:33.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-09-23T07:39:33.000Z",
+  "lastSeen": "2026-09-24T02:21:19.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 5 ransomware groups and 6 countries.",
   "frequency": [
     {
-      "date": "2026-09-21",
-      "count": 1
+      "date": "2026-09-23",
+      "count": 6
     },
     {
-      "date": "2026-09-23",
+      "date": "2026-09-24",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "abv-63c1",
-      "title": "Abv — claimed by medusalocker",
-      "pubDate": "2026-09-23T07:39:33.000Z"
+      "slug": "solucioning-s-a-9cd8",
+      "title": "Solucioning S.A. — claimed by barracuda",
+      "pubDate": "2026-09-24T02:21:19.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "hurley-6c8c",
-      "title": "Hurley — claimed by play",
-      "pubDate": "2026-09-21T22:16:19.000Z"
+      "slug": "vestfrostsolutions-com-4315",
+      "title": "vestfrostsolutions.com — claimed by settra",
+      "pubDate": "2026-09-23T16:23:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dad-co-th-b6d1",
+      "title": "DAD-CO.TH — claimed by clop",
+      "pubDate": "2026-09-23T14:40:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hodero-holdings-ltd-ba87",
+      "title": "HODERO-HOLDINGS-LTD — claimed by clop",
+      "pubDate": "2026-09-23T14:39:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cccm-bc-ca-4972",
+      "title": "CCCM-BC.CA — claimed by clop",
+      "pubDate": "2026-09-23T14:38:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cosef-consorzio-di-sviluppo-economico-del-friuli-5222",
+      "title": "COSEF - Consorzio di Sviluppo Economico del Friuli — claimed by booba project",
+      "pubDate": "2026-09-23T10:21:32.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "abv-63c1",
+      "title": "Abv — claimed by medusalocker",
+      "pubDate": "2026-09-23T07:39:33.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "medusalocker",
-      "name": "medusalocker",
+      "slug": "clop",
+      "name": "clop",
+      "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "barracuda",
+      "name": "barracuda",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "play",
-      "name": "play",
+      "slug": "settra",
+      "name": "settra",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "booba-project",
+      "name": "booba project",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "medusalocker",
+      "name": "medusalocker",
       "weight": 1
     }
   ],

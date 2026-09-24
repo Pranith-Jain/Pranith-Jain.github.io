@@ -4,37 +4,25 @@
   "name": "shinyhunters",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-22T18:51:02.000Z",
-  "lastSeen": "2026-09-22T22:42:24.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-24T08:44:48.000Z",
+  "lastSeen": "2026-09-24T08:44:48.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
-      "date": "2026-09-22",
-      "count": 2
+      "date": "2026-09-24",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "fresenius-medical-care-0dd1",
-      "title": "Fresenius Medical Care — claimed by shinyhunters",
-      "pubDate": "2026-09-22T22:42:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "psa-read-this-now-70fa",
-      "title": "PSA - READ THIS NOW — claimed by shinyhunters",
-      "pubDate": "2026-09-22T18:51:02.000Z"
+      "slug": "final-statement-re-psa-9366",
+      "title": "Final statement re PSA — claimed by shinyhunters",
+      "pubDate": "2026-09-24T08:44:48.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
     {
       "type": "sector",
       "slug": "not-found",
@@ -45,18 +33,11 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "fresenius-medical-care-0dd1",
-      "victim": "Fresenius Medical Care — claimed by shinyhunters",
-      "sector": "Healthcare",
-      "country": "DE",
-      "pubDate": "2026-09-22T22:42:24.000Z"
-    },
-    {
-      "id": "psa-read-this-now-70fa",
-      "victim": "PSA - READ THIS NOW — claimed by shinyhunters",
+      "id": "final-statement-re-psa-9366",
+      "victim": "Final statement re PSA — claimed by shinyhunters",
       "sector": "Not Found",
       "country": null,
-      "pubDate": "2026-09-22T18:51:02.000Z"
+      "pubDate": "2026-09-24T08:44:48.000Z"
     }
   ]
 }

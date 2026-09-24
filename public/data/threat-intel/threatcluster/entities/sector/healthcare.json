@@ -4,63 +4,29 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-21T13:08:14.000Z",
-  "lastSeen": "2026-09-22T22:42:24.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-23T10:20:50.000Z",
+  "lastSeen": "2026-09-23T10:20:50.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 0 countries.",
   "frequency": [
     {
-      "date": "2026-09-21",
+      "date": "2026-09-23",
       "count": 1
-    },
-    {
-      "date": "2026-09-22",
-      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "fresenius-medical-care-0dd1",
-      "title": "Fresenius Medical Care — claimed by shinyhunters",
-      "pubDate": "2026-09-22T22:42:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "grupo-hospifar-s-r-l-b8cf",
-      "title": "Grupo Hospifar S.R.L. — claimed by titan",
-      "pubDate": "2026-09-22T19:55:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sherman-chan-dds-inc-a39f",
-      "title": "Sherman Chan, DDS, Inc. — claimed by titan",
-      "pubDate": "2026-09-22T19:54:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hudson-md-group-llc-93f8",
-      "title": "Hudson MD Group, LLC — claimed by metaencryptor",
-      "pubDate": "2026-09-21T13:08:14.000Z"
+      "slug": "smart-eye-care-c064",
+      "title": "Smart Eye Care — claimed by booba project",
+      "pubDate": "2026-09-23T10:20:50.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "titan",
-      "name": "titan",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "shinyhunters",
-      "name": "shinyhunters",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "metaencryptor",
-      "name": "metaencryptor",
+      "slug": "booba-project",
+      "name": "booba project",
       "weight": 1
     }
   ],

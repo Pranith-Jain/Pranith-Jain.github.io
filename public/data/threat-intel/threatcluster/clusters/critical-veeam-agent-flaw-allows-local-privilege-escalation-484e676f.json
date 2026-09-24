@@ -1,0 +1,11 @@
+{
+  "slug": "critical-veeam-agent-flaw-allows-local-privilege-escalation-484e676f",
+  "title": "Critical Veeam Agent Flaw Allows Local Privilege Escalation",
+  "link": "https://threatcluster.io/cluster/critical-veeam-agent-flaw-allows-local-privilege-escalation-484e676f?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-veeam-agent-flaw-allows-local-privilege-escalation-484e676f",
+  "pubDate": "2026-09-23T14:24:05.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "A critical vulnerability in Veeam Agent for Windows, tracked as CVE-2026-32996, allows local users to escalate privileges to SYSTEM.",
+  "sizeBytes": 132
+}

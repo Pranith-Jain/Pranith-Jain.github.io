@@ -1,0 +1,11 @@
+{
+  "slug": "critical-suricata-flaws-allow-network-crashes-8037ba82",
+  "title": "Critical Suricata Flaws Allow Network Crashes",
+  "link": "https://threatcluster.io/cluster/critical-suricata-flaws-allow-network-crashes-8037ba82?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-suricata-flaws-allow-network-crashes-8037ba82",
+  "pubDate": "2026-09-20T15:17:33.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "On September 20, 2026, the OISF released Suricata 8.0.7 to address two critical vulnerabilities, CVE-2026-94084 and CVE-2026-94083, both with a CVSS score of 9.4.",
+  "sizeBytes": 162
+}

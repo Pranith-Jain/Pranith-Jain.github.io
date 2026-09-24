@@ -4,25 +4,57 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 10,
-  "firstSeen": "2026-09-21T17:52:29.000Z",
-  "lastSeen": "2026-09-23T07:41:04.000Z",
-  "summary": "Sector hit by 10 leak-site victims across 8 ransomware groups and 3 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-09-23T00:22:21.000Z",
+  "lastSeen": "2026-09-24T08:44:48.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 6 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-21",
-      "count": 1
-    },
-    {
-      "date": "2026-09-22",
+      "date": "2026-09-23",
       "count": 7
     },
     {
-      "date": "2026-09-23",
-      "count": 2
+      "date": "2026-09-24",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "final-statement-re-psa-9366",
+      "title": "Final statement re PSA — claimed by shinyhunters",
+      "pubDate": "2026-09-24T08:44:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "abtach-ltd-2c57",
+      "title": "Abtach Ltd. — claimed by barracuda",
+      "pubDate": "2026-09-23T19:20:51.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "saul-org-uk-2975",
+      "title": "SAUL-ORG.UK — claimed by clop",
+      "pubDate": "2026-09-23T14:36:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cced-com-om-15b9",
+      "title": "CCED-COM.OM — claimed by clop",
+      "pubDate": "2026-09-23T14:36:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "palig-com-2093",
+      "title": "PALIG.COM — claimed by clop",
+      "pubDate": "2026-09-23T14:33:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hit-dd-957e",
+      "title": "HIT dd — claimed by akira",
+      "pubDate": "2026-09-23T12:23:35.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "aokkef-aecd",
@@ -34,68 +66,14 @@
       "slug": "w-b-96dd",
       "title": "W... B... — claimed by silentransomgroup",
       "pubDate": "2026-09-23T00:22:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "b-3383",
-      "title": "B... — claimed by silentransomgroup",
-      "pubDate": "2026-09-22T19:30:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "w-338f",
-      "title": "W... — claimed by silentransomgroup",
-      "pubDate": "2026-09-22T19:29:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "psa-read-this-now-70fa",
-      "title": "PSA - READ THIS NOW — claimed by shinyhunters",
-      "pubDate": "2026-09-22T18:51:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gotthelf-2f9c",
-      "title": "GOTTHELF — claimed by booba project",
-      "pubDate": "2026-09-22T14:50:26.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tdmi-d9d8",
-      "title": "TDMI — claimed by akira",
-      "pubDate": "2026-09-22T13:28:48.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "the-fifty-50-421c",
-      "title": "The Fifty/50 — claimed by qilin",
-      "pubDate": "2026-09-22T13:23:32.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "truamerica-multifamily-94ae",
-      "title": "TruAmerica Multifamily — claimed by termite",
-      "pubDate": "2026-09-22T01:45:30.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "kjla-2805",
-      "title": "Kjla — claimed by global secret group",
-      "pubDate": "2026-09-21T17:52:29.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "silentransomgroup",
-      "name": "silentransomgroup",
+      "slug": "clop",
+      "name": "clop",
       "weight": 3
-    },
-    {
-      "type": "group",
-      "slug": "medusalocker",
-      "name": "medusalocker",
-      "weight": 1
     },
     {
       "type": "group",
@@ -105,8 +83,8 @@
     },
     {
       "type": "group",
-      "slug": "booba-project",
-      "name": "booba project",
+      "slug": "barracuda",
+      "name": "barracuda",
       "weight": 1
     },
     {
@@ -117,20 +95,14 @@
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "medusalocker",
+      "name": "medusalocker",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "termite",
-      "name": "termite",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "global-secret-group",
-      "name": "global secret group",
+      "slug": "silentransomgroup",
+      "name": "silentransomgroup",
       "weight": 1
     }
   ],

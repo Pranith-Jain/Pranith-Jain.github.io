@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "spirals",
+  "name": "spirals",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-23T15:53:48.000Z",
+  "lastSeen": "2026-09-23T15:53:48.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-23",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "asyad-group-6a4b",
+      "title": "ASYAD GROUP — claimed by spirals",
+      "pubDate": "2026-09-23T15:53:48.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "asyad-group-6a4b",
+      "victim": "ASYAD GROUP — claimed by spirals",
+      "sector": "Transportation",
+      "country": "OM",
+      "pubDate": "2026-09-23T15:53:48.000Z"
+    }
+  ]
+}

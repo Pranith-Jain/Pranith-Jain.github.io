@@ -4,18 +4,14 @@
   "name": "silentransomgroup",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-21T21:55:47.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-22T22:52:34.000Z",
   "lastSeen": "2026-09-23T00:22:21.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 2 sectors and 1 country.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-21",
-      "count": 1
-    },
-    {
       "date": "2026-09-22",
-      "count": 4
+      "count": 1
     },
     {
       "date": "2026-09-23",
@@ -34,30 +30,6 @@
       "slug": "clark-hill-85e0",
       "title": "Clark Hill — claimed by silentransomgroup",
       "pubDate": "2026-09-22T22:52:34.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "b-3383",
-      "title": "B... — claimed by silentransomgroup",
-      "pubDate": "2026-09-22T19:30:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cozen-o-connor-201f",
-      "title": "Cozen O'Connor — claimed by silentransomgroup",
-      "pubDate": "2026-09-22T19:29:26.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "w-338f",
-      "title": "W... — claimed by silentransomgroup",
-      "pubDate": "2026-09-22T19:29:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hogan-lovells-cadwalader-0522",
-      "title": "Hogan Lovells Cadwalader — claimed by silentransomgroup",
-      "pubDate": "2026-09-21T21:55:47.000Z"
     }
   ],
   "relatedEntities": [
@@ -65,13 +37,13 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 3
+      "weight": 1
     },
     {
       "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
-      "weight": 3
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
@@ -89,34 +61,6 @@
       "sector": "Professional Services",
       "country": "US",
       "pubDate": "2026-09-22T22:52:34.000Z"
-    },
-    {
-      "id": "b-3383",
-      "victim": "B... — claimed by silentransomgroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-09-22T19:30:50.000Z"
-    },
-    {
-      "id": "cozen-o-connor-201f",
-      "victim": "Cozen O'Connor — claimed by silentransomgroup",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-22T19:29:26.000Z"
-    },
-    {
-      "id": "w-338f",
-      "victim": "W... — claimed by silentransomgroup",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-09-22T19:29:02.000Z"
-    },
-    {
-      "id": "hogan-lovells-cadwalader-0522",
-      "victim": "Hogan Lovells Cadwalader — claimed by silentransomgroup",
-      "sector": "Professional Services",
-      "country": null,
-      "pubDate": "2026-09-21T21:55:47.000Z"
     }
   ]
 }

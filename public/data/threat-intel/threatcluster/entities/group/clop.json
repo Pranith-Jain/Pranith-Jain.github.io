@@ -1,0 +1,311 @@
+{
+  "type": "group",
+  "slug": "clop",
+  "name": "clop",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 23,
+  "firstSeen": "2026-09-23T14:28:12.000Z",
+  "lastSeen": "2026-09-23T14:42:56.000Z",
+  "summary": "Ransomware group with 23 leak-site victims across 9 sectors and 12 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-23",
+      "count": 23
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "aldogroup-com-aldoshoes-com-bdbc",
+      "title": "ALDOGROUP.COM(ALDOSHOES.COM) — claimed by clop",
+      "pubDate": "2026-09-23T14:42:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "brillonconsumer-com-brillonconsumer-com-9ba4",
+      "title": "BRILLONCONSUMER.COM(BRILLONCONSUMER.COM) — claimed by clop",
+      "pubDate": "2026-09-23T14:42:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "suunto-cn-suunto-com-b48f",
+      "title": "SUUNTO.CN(SUUNTO.COM) — claimed by clop",
+      "pubDate": "2026-09-23T14:41:43.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "smapcenter-uah-edu-7af9",
+      "title": "SMAPCENTER-UAH.EDU — claimed by clop",
+      "pubDate": "2026-09-23T14:41:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dad-co-th-b6d1",
+      "title": "DAD-CO.TH — claimed by clop",
+      "pubDate": "2026-09-23T14:40:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cloud-clearwaygroup-com-7614",
+      "title": "CLOUD-CLEARWAYGROUP.COM — claimed by clop",
+      "pubDate": "2026-09-23T14:39:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hodero-holdings-ltd-ba87",
+      "title": "HODERO-HOLDINGS-LTD — claimed by clop",
+      "pubDate": "2026-09-23T14:39:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kvheli-wordpress-com-f353",
+      "title": "KVHELI-WORDPRESS.COM — claimed by clop",
+      "pubDate": "2026-09-23T14:38:45.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cccm-bc-ca-4972",
+      "title": "CCCM-BC.CA — claimed by clop",
+      "pubDate": "2026-09-23T14:38:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "brinks-co-nz-766f",
+      "title": "BRINKS-CO.NZ — claimed by clop",
+      "pubDate": "2026-09-23T14:37:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "saul-org-uk-2975",
+      "title": "SAUL-ORG.UK — claimed by clop",
+      "pubDate": "2026-09-23T14:36:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cced-com-om-15b9",
+      "title": "CCED-COM.OM — claimed by clop",
+      "pubDate": "2026-09-23T14:36:13.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 4
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 4
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "aldogroup-com-aldoshoes-com-bdbc",
+      "victim": "ALDOGROUP.COM(ALDOSHOES.COM) — claimed by clop",
+      "sector": "Retail & E-Commerce",
+      "country": "CA",
+      "pubDate": "2026-09-23T14:42:56.000Z"
+    },
+    {
+      "id": "brillonconsumer-com-brillonconsumer-com-9ba4",
+      "victim": "BRILLONCONSUMER.COM(BRILLONCONSUMER.COM) — claimed by clop",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-23T14:42:19.000Z"
+    },
+    {
+      "id": "suunto-cn-suunto-com-b48f",
+      "victim": "SUUNTO.CN(SUUNTO.COM) — claimed by clop",
+      "sector": "Retail & E-Commerce",
+      "country": "FI",
+      "pubDate": "2026-09-23T14:41:43.000Z"
+    },
+    {
+      "id": "smapcenter-uah-edu-7af9",
+      "victim": "SMAPCENTER-UAH.EDU — claimed by clop",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-09-23T14:41:08.000Z"
+    },
+    {
+      "id": "dad-co-th-b6d1",
+      "victim": "DAD-CO.TH — claimed by clop",
+      "sector": "Other",
+      "country": "TH",
+      "pubDate": "2026-09-23T14:40:33.000Z"
+    },
+    {
+      "id": "cloud-clearwaygroup-com-7614",
+      "victim": "CLOUD-CLEARWAYGROUP.COM — claimed by clop",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-23T14:39:55.000Z"
+    },
+    {
+      "id": "hodero-holdings-ltd-ba87",
+      "victim": "HODERO-HOLDINGS-LTD — claimed by clop",
+      "sector": "Other",
+      "country": null,
+      "pubDate": "2026-09-23T14:39:18.000Z"
+    },
+    {
+      "id": "kvheli-wordpress-com-f353",
+      "victim": "KVHELI-WORDPRESS.COM — claimed by clop",
+      "sector": "Technology",
+      "country": "GE",
+      "pubDate": "2026-09-23T14:38:45.000Z"
+    },
+    {
+      "id": "cccm-bc-ca-4972",
+      "victim": "CCCM-BC.CA — claimed by clop",
+      "sector": "Other",
+      "country": "CA",
+      "pubDate": "2026-09-23T14:38:07.000Z"
+    },
+    {
+      "id": "brinks-co-nz-766f",
+      "victim": "BRINKS-CO.NZ — claimed by clop",
+      "sector": "Transportation",
+      "country": "NZ",
+      "pubDate": "2026-09-23T14:37:31.000Z"
+    },
+    {
+      "id": "saul-org-uk-2975",
+      "victim": "SAUL-ORG.UK — claimed by clop",
+      "sector": "Not Found",
+      "country": "GB",
+      "pubDate": "2026-09-23T14:36:48.000Z"
+    },
+    {
+      "id": "cced-com-om-15b9",
+      "victim": "CCED-COM.OM — claimed by clop",
+      "sector": "Not Found",
+      "country": "OM",
+      "pubDate": "2026-09-23T14:36:13.000Z"
+    },
+    {
+      "id": "infinigate-ch-infinigate-co-uk-cee1",
+      "victim": "INFINIGATE.CH(INFINIGATE.CO.UK) — claimed by clop",
+      "sector": "Technology",
+      "country": "GB",
+      "pubDate": "2026-09-23T14:35:37.000Z"
+    },
+    {
+      "id": "sweetlake-land-and-oil-co-inc-4502",
+      "victim": "SWEETLAKE-LAND-AND-OIL-CO-INC — claimed by clop",
+      "sector": "Energy & Utilities",
+      "country": null,
+      "pubDate": "2026-09-23T14:34:58.000Z"
+    },
+    {
+      "id": "kirkland-and-ellis-llp-7ca5",
+      "victim": "KIRKLAND-AND-ELLIS.LLP — claimed by clop",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-23T14:34:17.000Z"
+    },
+    {
+      "id": "palig-com-2093",
+      "victim": "PALIG.COM — claimed by clop",
+      "sector": "Not Found",
+      "country": "CZ",
+      "pubDate": "2026-09-23T14:33:39.000Z"
+    },
+    {
+      "id": "columbiabank-com-umpquabank-com-baff",
+      "victim": "COLUMBIABANK.COM(UMPQUABANK.COM) — claimed by clop",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-09-23T14:33:01.000Z"
+    },
+    {
+      "id": "unisalle-edu-co-9501",
+      "victim": "UNISALLE-EDU.CO — claimed by clop",
+      "sector": "Education",
+      "country": "CO",
+      "pubDate": "2026-09-23T14:32:17.000Z"
+    },
+    {
+      "id": "valley-truck-and-tractor-c001",
+      "victim": "VALLEY-TRUCK-AND-TRACTOR — claimed by clop",
+      "sector": "Transportation",
+      "country": null,
+      "pubDate": "2026-09-23T14:31:35.000Z"
+    },
+    {
+      "id": "kss-architects-llp-3cfe",
+      "victim": "KSS-ARCHITECTS-LLP — claimed by clop",
+      "sector": "Professional Services",
+      "country": null,
+      "pubDate": "2026-09-23T14:30:41.000Z"
+    },
+    {
+      "id": "elandretail-com-kmall24-com-034a",
+      "victim": "ELANDRETAIL.COM-KMALL24.COM — claimed by clop",
+      "sector": "Retail & E-Commerce",
+      "country": "KR",
+      "pubDate": "2026-09-23T14:29:44.000Z"
+    },
+    {
+      "id": "transport-nsw-gov-au-0a7d",
+      "victim": "TRANSPORT-NSW.GOV.AU — claimed by clop",
+      "sector": "Transportation",
+      "country": "AU",
+      "pubDate": "2026-09-23T14:28:59.000Z"
+    },
+    {
+      "id": "amey-co-uk-4290",
+      "victim": "AMEY-CO.UK — claimed by clop",
+      "sector": "Transportation",
+      "country": "GB",
+      "pubDate": "2026-09-23T14:28:12.000Z"
+    }
+  ]
+}
