@@ -1,0 +1,148 @@
+{
+  "type": "cyber",
+  "date": "2026-09-23",
+  "threatLevel": "",
+  "executiveSummary": "OT/ICS risk is elevated this cycle due to concurrent, actively exploited perimeter device vulnerabilities and a joint U.S. government warning about active probing and read/write attempts against Siemens S7 PLCs. Immediate focus is required on perimeter hardening, rapid patching of edge/management systems, and validation of IT-to-OT segmentation. Active campaign against Siemens S7 PLC families (S7-200/300/400/1200/1500) using S7comm over TCP/102 elevates risk of operational disruption in Energy, Water/Wastewater, and Critical Manufacturing. Security Advisory MikroTik RouterOS \"MikroTrick\" chain enables unauthenticated SSH console access; exploitation observed in the wild. These routers often sit on OT perimeters. Patch immediately and hunt for \"user -2\" and \"ops\" artifacts. Supporting Report WNC T-Mobile 5G Box IDU CPE: unauthenticated command injection and credential disclosure enable remote root takeover of site links used by OT. Vendor firmware 1.1.0.651412 fixes multiple CVEs. Security Advisory Check Point Security Management Server zero-day (CVE-2026-93616) exploited in targeted attacks; concurrent VPN certificate validation flaw (CVE-2026-85102). Compromise could alter firewall policy protecting ICS networks. View Article Advantech industrial gateways: critical unauthenticated command paths and management bypasses across EKI and WISE lines pose immediate OT disruption risk; public exploits exist for WISE-6610. CISA Bulletin Supporting Bulletin Additional actively exploited perimeters: Cisco Secure Email Gateway SQLi to RCE, Zyxel GS1900 switch overflow, and Linux kernel EoP added to CISA KEV-all provide credible pivot paths toward OT if boundaries are weak. View Advisory CISA Alert Siemens Industrial Edge Management (CVE-2026-18963, CVSS 9.1) allows unauthenticated account takeover of edge management; critical for manufacturing environments-patch and restrict exposure. ICS Advisory CISA red-team findings at a Water/Wastewater entity highlight AD/Entra ID weaknesses (ADCS ESC1, DCSync, SCCM pivots) enabling IT-to-OT movement without direct internet egress. Security Advisory Policy shift: Austria's new NIS2 law (NISG 2026) establishes the BCS and mandates cooperation with active government scans of \"essential entities\"-operators should prep processes and segmentation. View Article",
+  "keyFindings": [
+    {
+      "title": "Threat actors are actively scanning and attempting S7comm read/write operations ",
+      "summary": "Threat actors are actively scanning and attempting S7comm read/write operations against Siemens S7 PLCs; remove internet exposure and monitor TCP/102 immediately. Security Advisory"
+    },
+    {
+      "title": "Perimeter router/CPE vulnerabilities (MikroTik \"MikroTrick\", WNC T-Mobile 5G Box",
+      "summary": "Perimeter router/CPE vulnerabilities (MikroTik \"MikroTrick\", WNC T-Mobile 5G Box IDU) are being exploited to obtain unauthenticated admin access and pivot inward. View Report Security Advisory"
+    },
+    {
+      "title": "Check Point Security Management Server zero-day (CVE-2026-93616) exploited; atta",
+      "summary": "Check Point Security Management Server zero-day (CVE-2026-93616) exploited; attackers also probed VPN certificate validation flaw (CVE-2026-85102); policy tampering could expose OT conduits. View Article"
+    },
+    {
+      "title": "Advantech EKI and WISE OT gateways have multiple critical RCE/management-bypass ",
+      "summary": "Advantech EKI and WISE OT gateways have multiple critical RCE/management-bypass issues; public exploits exist for WISE-6610. CISA Bulletin CISA Bulletin"
+    },
+    {
+      "title": "Siemens Industrial Edge Management authentication bypass (CVE-2026-18963, CVSS 9",
+      "summary": "Siemens Industrial Edge Management authentication bypass (CVE-2026-18963, CVSS 9.1) risks remote takeover of edge deployments-patch and restrict admin panes. ICS Advisory"
+    },
+    {
+      "title": "Actively exploited enterprise apps at many CI operators (SharePoint, Linux kerne",
+      "summary": "Actively exploited enterprise apps at many CI operators (SharePoint, Linux kernel, email gateways, Zyxel GS1900) provide reliable initial access for lateral movement. CERT-FR Alert CISA KEV"
+    },
+    {
+      "title": "CISA red-team at a Water/Wastewater entity reached full domain compromise via AD",
+      "summary": "CISA red-team at a Water/Wastewater entity reached full domain compromise via ADCS ESC1, SCCM pivoting, and DCSync-underscoring IT-to-OT boundary weaknesses. Security Advisory"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "",
+        "label": "Escalate Events"
+      },
+      {
+        "value": "",
+        "label": "Actively Exploited Items"
+      },
+      {
+        "value": "",
+        "label": "OT/IIoT Issues Spotlighted"
+      },
+      {
+        "value": "",
+        "label": "Affected Vendors (Notable)"
+      },
+      {
+        "value": "",
+        "label": "Sectors with Elevated Risk"
+      },
+      {
+        "value": "",
+        "label": "Priority Patches (72h)"
+      },
+      {
+        "value": "",
+        "label": "Observed OT-Relevant TTPs"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7 PLCs; Siemens Industrial Edge Management Advantech EKI gateways; Advantech WISE-6610 LoRaWAN gateways MikroTik RouterOS; WNC T-Mobile 5G Box IDU Check Point Security Management Server; VPN (Spark) Cisco Secure Email Gateway; Zyxel GS1900 switches Autonomy Logic OpenPLC Runtime v3 Microsoft SharePoint; Windows (ALPC, Update stack); Exchange; RDP Adobe Acrobat/Reader; WordPress Core Eclipse Arrowhead, Eclipse Ditto (IIoT) AVEVA Pipeline Integrity Monitor; eProsima Fast DDS (ROS2) F5 BIG-IP APM; Arista VeloCloud Orchestrator"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems Energy Critical Manufacturing Transportation Systems Healthcare (enterprise perimeters and gateways)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "WaterPlum (North Korea) targeted developers via malicious npm/VS Code projects, with large-scale theft and potential employer network pivot risk. View Article",
+        "NightEagle (APT-Q-95) leveraged valid VPN creds, Exchange CVE-2020-0688, tunneling tools, and BlueKeep for domain dominance-patterns that can reach OT if segmentation is weak. Incident Report",
+        "\"MovieReaper\" modular framework distributed via compromised torrents shows strong persistence and C2 design; block IoCs and P2P in enterprise. Research",
+        "Macfinger \"ClickFix\" campaign targets macOS for credential theft; block listed IOCs and enforce macOS EDR controls. Analyst Diary"
+      ]
+    }
+  ],
+  "relevance": "This cycle features multiple direct OT risks: an active PLC-targeting campaign against Siemens S7 families; critical vulnerabilities in industrial gateways (Advantech EKI/WISE) and edge management (Siemens IEM); and widespread exploitation of network appliances and enterprise platforms that commonly sit on or protect OT perimeters. Combined with CISA red-team findings at a Water/Wastewater entity, defenders should assume that perimeter compromise can translate into credible IT-to-OT lateral movement without overt internet egress from OT zones. Controls should emphasize segmentation, strict jump-hosting, identity hardening, and rapid patching of edge and management planes.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Siemens Industrial Edge Management (CVE-2026-18963, CVSS 9.1) - unauthenticated remote account takeover. ICS Advisory",
+        "OpenPLC Runtime v3 (CVE-2026-88020) - XSS enabling session hijack and operator action manipulation; upgrade to v4 and isolate UIs. ICS Advisory",
+        "Advantech EKI gateways - unauth RCE, missing auth on management (TCP/5058), weak firmware validation. CISA Bulletin",
+        "Advantech WISE-6610 - public exploits for two command injections; update to 1.2.4_20260821. CISA Bulletin",
+        "Eclipse Arrowhead / Ditto (IIoT) - authz bypass and SSRF/policy injection risks across local clouds/Thing models. CISA Bulletin",
+        "Cisco Secure Email Gateway (CVE-2026-76461) - actively exploited SQLi to root RCE via crafted emails. JPCERT/CC",
+        "Microsoft SharePoint RCEs (CVE-2026-50522, CVE-2026-58644) - actively exploited; patch and rotate secrets as needed. CERT-FR Alert",
+        "Zyxel GS1900 switch overflow (CVE-2026-7273) - KEV-listed exploitation; remove public exposure and update firmware. CISA Alert",
+        "Linux kernel EoP (CVE-2025-39682) - KEV-listed exploitation; critical for OT-adjacent Linux hosts and jump servers. CISA Alert"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploit Public-Facing Application (T1190): Check Point Mgmt Server, SharePoint, Cisco SEG, Advantech gateways",
+      "Valid Accounts (T1078) and External Remote Services (T1133): VPN abuse and password resets; NightEagle use of valid VPN credentials",
+      "Abuse of Public/Trusted Services (T1102/T1090): Microsoft dev tunnels, rdp2tcp, port proxies",
+      "Credential Dumping (T1003.006 DCSync) and AD CS abuse (T1553.004): CISA red-team findings",
+      "Command and Scripting Interpreter (T1059), Ingress Tool Transfer (T1105): enterprise backdoors and loaders",
+      "ICS ATT&CK: Program Download (T0807), Modify Program (T0843), and Abuse of Native Device Protocols (S7comm) during PLC targeting"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1133",
+      "T1102",
+      "T1090",
+      "T1003.006",
+      "T1553.004",
+      "T1059",
+      "T1105",
+      "T0807",
+      "T0843"
+    ]
+  },
+  "outlook72h": "Patch/mitigate: Check Point Mgmt Server and VPN; Siemens IEM; Advantech EKI/WISE; MikroTik RouterOS; WNC 5G CPE; SharePoint; Zyxel GS1900; Linux kernel on OT-adjacent hosts. Containment: Remove internet exposure for PLCs and OT gateways; restrict management planes to jump hosts and allowlisted subnets. Hunt tasks: S7comm unauthorized writes; RouterOS \"-2/ops\" artifacts; Check Point anomalous web-service writes/policy changes; Cisco SEG email-triggered RCE activity; Zyxel unexpected logins/config changes. Identity hardening: Enforce MFA everywhere; review ADCS templates and privileged groups; monitor for DCSync and unusual Kerberos activity. Segmentation assurance: Validate IT-to-OT firewall rules, deny-by-default conduits, and absence of unintended pathways introduced by recent changes.",
+  "relatedCves": [
+    "CVE-2026-40854",
+    "CVE-2026-93616",
+    "CVE-2026-85102",
+    "CVE-2026-18963",
+    "CVE-2020-0688",
+    "CVE-2026-88020",
+    "CVE-2026-76461",
+    "CVE-2026-50522",
+    "CVE-2026-58644",
+    "CVE-2026-7273",
+    "CVE-2025-39682",
+    "CVE-2026-87902",
+    "CVE-2026-7848"
+  ]
+}

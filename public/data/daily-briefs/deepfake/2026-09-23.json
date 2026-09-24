@@ -1,0 +1,569 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-23",
+  "riskOutlook": "Worsening",
+  "executiveSummary": "This period saw disruptive law-enforcement and platform actions against AI-enabled criminal operations alongside continued large-scale fraud and impersonation campaigns. Microsoft and UK authorities dismantled the \"EvilTokens\" phishing-as-a-service platform, which reportedly compromised more than 12,000 Microsoft accounts across over 10,000 organizations, with two suspects arrested in the UK. View Article Supporting Report U.S. authorities also moved against illicit marketplaces and abuse infrastructure, including sanctions and seizures linked to a platform selling deepfake technology among broader cybercrime services, and domain seizures targeting non-consensual synthetic sexual content sites. View Article Supporting Report Operationally, AI-assisted financial fraud continues at scale, with over one million AI-tailored invoice scam emails observed by Microsoft researchers, and U.S. Treasury and FinCEN urging financial institutions to improve reporting and detection for cyber-enabled scams. View Article Supporting Report Voice cloning remains a frontline threat, with police dismantling an extortion ring in Greece and a reported $66,000 real-estate loss in Michigan tied to voice impersonation and spoofing tradecraft. View Article Supporting Report Election and platform governance advanced with Brazil's electoral authority establishing deepfake criteria for the 2026 cycle, Meta ordered to remove specific deepfakes in the UK, and Anthropic reporting the disruption of a Malaysia-focused manipulation campaign. View Article Supporting Report Supporting Report Defensive posture also benefited from updated NIST guidance and forensic initiatives. Security Advisory Supporting Report Overall, the threat environment is assessed as worsening due to concurrent growth in AI-enabled phishing, voice-clone extortion, executive impersonation, and cross-border manipulation, despite notable enforcement successes. Source Source",
+  "keyFindings": [
+    {
+      "title": "AI-enabled phishing platform \"EvilTokens\" reportedly compromised 12,000+ Microso",
+      "summary": "AI-enabled phishing platform \"EvilTokens\" reportedly compromised 12,000+ Microsoft accounts across 10,000+ organizations before a Microsoft-backed takedown and UK arrests. View Article Supporting Report"
+    },
+    {
+      "title": "U.S. authorities disrupted an illicit marketplace that offered deepfake tech amo",
+      "summary": "U.S. authorities disrupted an illicit marketplace that offered deepfake tech among cybercrime services, seizing wallets and Telegram infrastructure. View Article"
+    },
+    {
+      "title": "Over one million AI-tailored invoice scam emails were observed, elevating execut",
+      "summary": "Over one million AI-tailored invoice scam emails were observed, elevating executive impersonation and payment fraud risks. View Article"
+    },
+    {
+      "title": "U.S. Treasury and FinCEN urged banks to improve reporting and detection for larg",
+      "summary": "U.S. Treasury and FinCEN urged banks to improve reporting and detection for large-scale cyber-enabled scams. View Article"
+    },
+    {
+      "title": "Anthropic reported disrupting a Malaysia-focused influence operation using AI-su",
+      "summary": "Anthropic reported disrupting a Malaysia-focused influence operation using AI-supported tactics to target voters. View Article"
+    },
+    {
+      "title": "Authorities in New York seized 12 domains publishing and selling non-consensual ",
+      "summary": "Authorities in New York seized 12 domains publishing and selling non-consensual celebrity deepfakes. View Article"
+    },
+    {
+      "title": "Greek police dismantled a fraud ring using AI voice cloning for extortion involv",
+      "summary": "Greek police dismantled a fraud ring using AI voice cloning for extortion involving \"relative-in-distress\" schemes. View Article"
+    },
+    {
+      "title": "Brazil's electoral authority formalized deepfake identification criteria and ele",
+      "summary": "Brazil's electoral authority formalized deepfake identification criteria and election rules for synthetic content. View Article"
+    },
+    {
+      "title": "Reported Michigan real-estate fraud combined voice cloning with email and caller",
+      "summary": "Reported Michigan real-estate fraud combined voice cloning with email and caller-ID spoofing for a $66,000 loss. View Article"
+    }
+  ],
+  "incidents": [
+    {
+      "title": "Microsoft-backed takedown of \"EvilTokens\" PhaaS after 12,000+ Microsoft accounts compromised",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "A phishing-as-a-service platform, \"EvilTokens,\" used AI to customize lures and analyze inboxes, reportedly compromising over 12,000 Microsoft accounts across more than 10,000 organizations before Microsoft-led disruption. UK authorities arrested two suspects linked to the platform.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/eviltokens-phaas-disrupted-after-compromising-12-000-microsoft-accounts/amp/",
+          "label": "View Article"
+        },
+        {
+          "url": "https://therecord.media/two-arrested-in-uk-after-microsoft-takedown-eviltokens",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "U.S. disrupts illicit marketplace offering deepfake tools among cybercrime services",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "U.S. authorities sanctioned and disrupted an illicit marketplace that facilitated cybercrime, including sales of deepfake technology, and seized related wallets and Telegram infrastructure.",
+      "sources": [
+        {
+          "url": "https://therecord.media/us-disrupts-xinbi-guarantee-marketplace-cybercrime",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "AI-tailored invoice scams scale executive impersonation and payment fraud",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "Microsoft researchers observed more than one million AI-tailored invoice scam emails impersonating executives to solicit fraudulent payments.",
+      "sources": [
+        {
+          "url": "https://therecord.media/invoice-scam-emails-new-features-microsoft-researchers",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Treasury and FinCEN urge enhanced reporting for large-scale cyber-enabled scams",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "U.S. Treasury and FinCEN warned financial institutions about extensive scam ecosystems exploiting emerging technologies, urging improved reporting and detection.",
+      "sources": [
+        {
+          "url": "https://therecord.media/treasury-urges-banks-report-cyber-scams",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Anthropic disrupts Malaysia-focused election manipulation operation",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "A coordinated operation used fake social accounts, a fabricated news site, and defamation content to target voters; Anthropic reported disrupting the activity.",
+      "sources": [
+        {
+          "url": "https://www.channelnewsasia.com/asia/anthropic-disrupt-malaysia-election-manipulation-operation-6377936",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "WaterPlum scheme: Job-seeker deception tied to AI/blockchain employer impersonation",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "A multinational advisory described a large campaign posing as AI or blockchain companies to deceive job seekers, leading to device compromise, credential theft, and cryptocurrency losses.",
+      "sources": [
+        {
+          "url": "https://therecord.media/north-korean-hackers-infect-thousands-of-devices-waterplum-scheme",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "New York seizes 12 domains tied to non-consensual celebrity deepfakes",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "Prosecutors seized a dozen domains used to publish and sell celebrity deepfake content, signaling strengthened enforcement against non-consensual synthetic sexual imagery infrastructure.",
+      "sources": [
+        {
+          "url": "https://www.wired.com/story/new-york-seizes-a-dozen-celebrity-deepfake-websites/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Meta ordered to remove deepfakes; safeguards ruled inadequate in UK case",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "Meta was ordered to remove specific harmful deepfakes, including political and identity-targeted content, amid criticism that platform safeguards and labeling were inadequate.",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/technology/2026/sep/17/meta-ordered-remove-deepfakes-oversight-board-inadequate-safeguards",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Police in Greece bust organized ring using AI voice cloning for cash extortion",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "An organized fraud ring used AI-cloned voices to impersonate victims' relatives, coercing cash handovers before police dismantled the operation.",
+      "sources": [
+        {
+          "url": "https://www.euronews.com/my-europe/2026/09/18/greece-police-bust-gang-using-ai-to-clone-relatives-voices-for-cash",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "FBI IC3 reporting confirms material losses from AI-enabled scams including voice cloning",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "FBI data documents significant victim losses tied to AI-enabled scams, including voice cloning, impacting individuals, families, and businesses.",
+      "sources": [
+        {
+          "url": "https://www.fbi.gov/file-repository/2025_ic3report.pdf",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Brazil's electoral authority sets deepfake criteria and election rules for 2026",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "Brazil's electoral authority established binding criteria for identifying deepfakes and clarified election rules regarding synthetic content.",
+      "sources": [
+        {
+          "url": "https://www.tse.jus.br/comunicacao/noticias/2026/Setembro/tse-fixa-tese-sobre-deepfake-e-delimita-regra-para-as-eleicoes-2026",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Michigan real-estate voice-clone scam leads to reported $66,000 loss",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "Homebuyers reportedly lost $66,000 after scammers impersonated a trusted mortgage contact using voice cloning, spoofed email, and caller-ID deception.",
+      "sources": [
+        {
+          "url": "https://www.resemble.ai/resources/the-deepfake-watchlist-week-of-september-11-17-2026",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Audio deepfake detection via temporal coherence analysis (research preprint)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "Proposed method aims to detect AI-generated audio by analyzing temporal coherence, potentially aiding identification of voice-cloning artifacts.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2609.09489",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Iran-linked operation used fake MRI documents to deliver malware",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "Campaign delivered malware and stole credentials using fabricated MRI scan results to build trust with targets.",
+      "sources": [
+        {
+          "url": "https://therecord.media/iran-cyber-spies-use-fake-mri-scans-as-lure",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "EU guidance clarifies transparency obligations for AI-generated/manipulated content",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "NIST updates forensic initiative to evaluate deepfake detection tools under real-world conditions",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.nist.gov/programs-projects/guardians-forensic-evidence",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Garland, TX police warn of increasingly sophisticated AI scams",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.nbcdfw.com/news/local/ai-scams-sophisticated-garland-police-warn/4078933/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Anthropic report: AI-enabled operations expand reach against gov/defense/corporate targets",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://cyberscoop.com/anthropic-report-ai-enabled-cyber-attacks/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "UK Electoral Commission flags gaps in readiness for deepfake-related election threats",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.electoralcommission.org.uk/cy/node/33666",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "BRICS-related synthetic political imagery amplified before fact-checks",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.resemble.ai/resources/the-deepfake-watchlist-week-of-september-11-17-2026",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "NIST issues guidance to protect online identity and access tokens",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.nist.gov/news-events/news/2026/09/nist-finalizes-guidelines-protecting-online-identity-and-access-tokens",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "NIST OpenMFC: Operational benchmark environment for media forensics tools",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://mfc.nist.gov/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Dallas-area case: AI-cloned child's voice used in emergency extortion attempt",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.axios.com/local/dallas/2026/09/18/scammers-ai-voice-cloning",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Corporate",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/eviltokens-phaas-disrupted-after-compromising-12-000-microsoft-accounts/amp/",
+          "label": "Source"
+        },
+        {
+          "url": "https://therecord.media/invoice-scam-emails-new-features-microsoft-researchers",
+          "label": "Source"
+        },
+        {
+          "url": "https://therecord.media/north-korean-hackers-infect-thousands-of-devices-waterplum-scheme",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Finance",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://therecord.media/treasury-urges-banks-report-cyber-scams",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Government",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.channelnewsasia.com/asia/anthropic-disrupt-malaysia-election-manipulation-operation-6377936",
+          "label": "Source"
+        },
+        {
+          "url": "https://www.tse.jus.br/comunicacao/noticias/2026/Setembro/tse-fixa-tese-sobre-deepfake-e-delimita-regra-para-as-eleicoes-2026",
+          "label": "Source"
+        },
+        {
+          "url": "https://www.electoralcommission.org.uk/cy/node/33666",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Media/Platforms",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/technology/2026/sep/17/meta-ordered-remove-deepfakes-oversight-board-inadequate-safeguards",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Public",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.euronews.com/my-europe/2026/09/18/greece-police-bust-gang-using-ai-to-clone-relatives-voices-for-cash",
+          "label": "Source"
+        },
+        {
+          "url": "https://www.resemble.ai/resources/the-deepfake-watchlist-week-of-september-11-17-2026",
+          "label": "Source"
+        },
+        {
+          "url": "https://www.wired.com/story/new-york-seizes-a-dozen-celebrity-deepfake-websites/",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Law Enforcement",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.nist.gov/programs-projects/guardians-forensic-evidence",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "For Investigators",
+      "badges": [
+        "Analyst Recommendation",
+        "Analyst Recommendation",
+        "Analyst Recommendation"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    },
+    {
+      "title": "For Organizations",
+      "badges": [
+        "Analyst Recommendation",
+        "Analyst Recommendation",
+        "Analyst Recommendation"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    },
+    {
+      "title": "For News and Public-Safety Organizations",
+      "badges": [
+        "Analyst Recommendation",
+        "Analyst Recommendation"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    },
+    {
+      "title": "For Legal and Policy Professionals",
+      "badges": [
+        "Analyst Recommendation",
+        "Analyst Recommendation"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    }
+  ],
+  "emergingTrends": [
+    "AI-enabled phishing and PhaaS ecosystems that automate lure customization and inbox analysis. Source",
+    "Voice cloning leveraged for extortion and personal impersonation, from organized rings to local cases. Source",
+    "Executive impersonation and AI-tailored invoice fraud at scale targeting enterprise payment workflows. Source",
+    "Marketplace and domain infrastructure disruptions targeting deepfake tool sellers and abusive content distributors. Source , Source",
+    "Election-related governance advances including formal deepfake criteria and platform takedown pressures. Source , Source",
+    "Deepfake detection and provenance initiatives progressing (NIST evaluations, EU transparency guidance). Source , Source",
+    "Job-seeker deception via fake AI/blockchain employers used as initial-access vectors. Source"
+  ],
+  "geographicObservations": [
+    "United Kingdom: Takedown and arrests linked to \"EvilTokens\" AI-enabled phishing platform. Source",
+    "United States: Treasury/FinCEN scam warning; NY domain seizures targeting celebrity deepfakes; local police warnings in Texas; national FBI loss reporting. Source , Source , Source , Source",
+    "Brazil: Electoral authority issued deepfake identification criteria for the 2026 elections. Source",
+    "Malaysia: Influence operation disrupted targeting voters with AI-supported deception. Source",
+    "Greece: Organized voice-clone extortion ring dismantled. Source",
+    "European Union: AI transparency guidance issued for synthetic content handling. Source",
+    "Michigan, USA: Real-estate voice-clone fraud with reported $66,000 loss. Source",
+    "Dallas-Fort Worth, USA: Emergency extortion attempts using AI-cloned voices reported; local warnings issued. Source , Source"
+  ],
+  "detectionDevelopments": [
+    "Microsoft-led takedown and UK arrests disrupted an AI-enabled phishing platform. View Article",
+    "U.S. sanctions, wallet seizures, and Telegram disruptions targeted a marketplace offering deepfake technology. View Article",
+    "New York prosecutors seized 12 domains hosting non-consensual deepfakes. View Article",
+    "Meta ordered to remove harmful deepfakes; platform safeguards scrutinized. View Article",
+    "Brazil formalized deepfake criteria for elections. View Article",
+    "NIST advanced forensic evaluation and benchmarking for deepfake detection tools (Guardians, OpenMFC). View Article , View Article",
+    "NIST finalized guidelines to protect online identity and access tokens. Security Advisory",
+    "EU issued guidance on transparency obligations for AI-generated content. View Article",
+    "Email/BEC: Enforce mandatory out-of-band verification for payment changes; implement VIP impersonation detection and mailbox-rule anomaly alerts. Analyst Recommendation",
+    "Voice-clone defense: Establish family/exec passphrases and callback policies; use verified contact directories and warn staff against acting on caller-ID alone. Analyst Recommendation",
+    "Payments: Require multi-person approvals, positive pay, and hold periods for first-time beneficiaries; log and review wire instruction changes. Analyst Recommendation",
+    "Recruiting security: Vet employer domains, use secure file exchange for candidate tests, and sandbox all attachments. Analyst Recommendation",
+    "Provenance: Pilot C2PA-signing for official media; preserve originals to retain watermark/provenance signals for forensic analysis. Analyst Recommendation",
+    "Forensics: Validate detection tools against NIST benchmarks; document tool versions/parameters in case files. Analyst Recommendation",
+    "Election readiness: Pre-establish rapid triage cells, platform liaisons, and legal review for suspected deepfakes consistent with national criteria. Analyst Recommendation"
+  ]
+}
