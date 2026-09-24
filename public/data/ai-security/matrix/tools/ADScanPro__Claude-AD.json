@@ -3,37 +3,43 @@
   "repo": "ADScanPro/Claude-AD",
   "category": "skill",
   "scope": ["ad"],
-  "stars": 203,
+  "stars": 204,
   "description": "Active Directory pentest methodology for Claude Code: skills, agents and slash commands for internal AD red-team work (Kerberoasting, ADCS ESC1-17, DCSync, ACL abuse, NTLM relay, delegation), with per-technique OPSEC/telemetry notes. Drive…",
   "homepage": "https://adscanpro.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:39:18Z",
+  "checkedAt": "2026-09-24T08:30:37Z",
   "pushedAt": "2026-08-24",
-  "daysIdle": 30,
+  "daysIdle": 31,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "skill", "repo": "ADScanPro/Claude-AD", "scope": ["ad"], "added": "2026-09-12" },
+    "written": {
+      "description": "Walks an internal AD engagement technique by technique, each step naming the command to run and the telemetry it leaves behind. It ships no code of its own and drives tools you already have installed."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:39:18Z",
+      "checked_at": "2026-09-24T08:30:37Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-24",
-        "days_since_push": 30,
+        "days_since_push": 31,
         "total_commits": 2,
         "last100_span_days": 0,
         "last100_authors": 1,
+        "last_commit_sha": "73efec5",
+        "last_commit_message": "Remove internal SEO setup notes from the public repo\n\nSETUP-GITHUB.md was an internal discoverability checklist (topic strategy,\nbrand image specs), not user-facing content. Keep it out of the public tree.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+        "last_commit_at": "2026-08-24",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 30,
+        "days_idle": 31,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "ADScanPro/Claude-AD",
-        "stars": 203,
-        "forks": 32,
+        "stars": 204,
+        "forks": 33,
         "created_at": "2026-08-24",
         "is_fork": false,
         "contributors": 1,
@@ -77,14 +83,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

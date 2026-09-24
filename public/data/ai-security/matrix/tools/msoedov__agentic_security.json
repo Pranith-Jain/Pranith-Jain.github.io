@@ -7,9 +7,9 @@
   "description": "Agentic LLM Vulnerability Scanner / AI red teaming kit 🧪",
   "homepage": "https://agentic-security.vercel.app",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:27Z",
+  "checkedAt": "2026-09-24T08:31:19Z",
   "pushedAt": "2026-09-22",
-  "daysIdle": 1,
+  "daysIdle": 2,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["llm", "agentic"],
       "added": "2026-09-14"
     },
+    "written": {
+      "description": "Probes across text, images and audio rather than prompts alone, and uses reinforcement learning to adapt a multi-step attack as the model's defences respond."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:27Z",
+      "checked_at": "2026-09-24T08:31:19Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-22",
-        "days_since_push": 1,
+        "days_since_push": 2,
         "total_commits": 751,
         "last100_span_days": 131,
         "last100_authors": 18,
+        "last_commit_sha": "b9755a9",
+        "last_commit_message": "Merge pull request #349 from msoedov/fix/pre-commit-pyupgrade\n\nfix: ci poetry venv and pre-commit pyupgrade",
+        "last_commit_at": "2026-09-22",
         "releases": 19,
         "latest_release_at": "2026-06-03",
-        "days_since_release": 112,
-        "days_idle": 1,
+        "days_since_release": 113,
+        "days_idle": 2,
         "relocated": false
       },
       "identity": {
@@ -80,14 +86,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": true,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": true, "opaque": false, "host_access": false }
     }
   }
 }

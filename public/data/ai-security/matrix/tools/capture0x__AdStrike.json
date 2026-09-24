@@ -7,27 +7,33 @@
   "description": "AI-powered modular Active Directory red-team framework for authorized penetration testing, AD enumeration, attack-path analysis, Kerberos/ADCS workflows, reporting, operator automation, and MCP server integration.",
   "homepage": "https://adstrike.oxcapture.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:08Z",
+  "checkedAt": "2026-09-24T08:29:14Z",
   "pushedAt": "2026-06-11",
-  "daysIdle": 104,
+  "daysIdle": 105,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "agent", "repo": "capture0x/AdStrike", "scope": ["ad"], "added": "2026-09-12" },
+    "written": {
+      "description": "A menu-driven Active Directory framework that carries credentials and Kerberos state in one session across its modules. It also serves those modules over MCP, so an editor's model can drive them instead."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:08Z",
+      "checked_at": "2026-09-24T08:29:14Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-06-11",
-        "days_since_push": 104,
+        "days_since_push": 105,
         "total_commits": 225,
         "last100_span_days": 26,
         "last100_authors": 1,
+        "last_commit_sha": "75d43aa",
+        "last_commit_message": "Update helpers.py",
+        "last_commit_at": "2026-06-11",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 104,
+        "days_idle": 105,
         "relocated": false
       },
       "identity": {
@@ -79,14 +85,7 @@
       },
       "substrate": { "bundled": ["seclists"], "manifests": ["install.sh"] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": true, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

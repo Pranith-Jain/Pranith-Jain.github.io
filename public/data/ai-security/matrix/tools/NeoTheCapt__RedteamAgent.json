@@ -7,9 +7,9 @@
   "description": "An AI red-team agent for authorized labs and web app pentesting workflows. Turns Claude Code / OpenCode / Codex into a structured recon → test → exploit → report workflow, with containerized tools and resumable state.",
   "homepage": "https://github.com/NeoTheCapt/RedteamAgent#quick-start",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:12Z",
+  "checkedAt": "2026-09-24T08:29:17Z",
   "pushedAt": "2026-08-02",
-  "daysIdle": 52,
+  "daysIdle": 53,
   "archived": false,
   "license": null,
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["webapp", "redteam"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "Turns a coding CLI you already use into a five-phase lab workflow with eight specialist subagents, running every tool in Docker and keeping the run resumable."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:12Z",
+      "checked_at": "2026-09-24T08:29:17Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-02",
-        "days_since_push": 52,
+        "days_since_push": 53,
         "total_commits": 866,
         "last100_span_days": 12,
         "last100_authors": 1,
+        "last_commit_sha": "2e60476",
+        "last_commit_message": "Merge pull request #33 from NeoTheCapt/dev\n\nFix audit agent bugs and improve report handling",
+        "last_commit_at": "2026-05-10",
         "releases": 2,
         "latest_release_at": "2026-05-06",
-        "days_since_release": 140,
-        "days_idle": 52,
+        "days_since_release": 141,
+        "days_idle": 53,
         "relocated": false
       },
       "identity": {
@@ -100,14 +106,7 @@
         "manifests": ["agent/docker/kali-redteam/Dockerfile", "agent/docker/redteam-allinone/Dockerfile"]
       },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": true,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": true, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

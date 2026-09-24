@@ -7,9 +7,9 @@
   "description": "open-source pentest management built to be operated by an AI agent",
   "homepage": "https://cspf-founder.github.io/red-clippy/",
   "added": "2026-09-15",
-  "checkedAt": "2026-09-23T08:40:08Z",
+  "checkedAt": "2026-09-24T08:31:04Z",
   "pushedAt": "2026-09-01",
-  "daysIdle": 22,
+  "daysIdle": 23,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["redteam", "logging"],
       "added": "2026-09-15"
     },
+    "written": {
+      "description": "Holds the engagement record an agent loses when its context fills: the scope, which methodology phases have been covered, and findings with the evidence behind them. The agent tests; this remembers."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:08Z",
+      "checked_at": "2026-09-24T08:31:04Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-01",
-        "days_since_push": 22,
+        "days_since_push": 23,
         "total_commits": 5,
         "last100_span_days": 10,
         "last100_authors": 1,
+        "last_commit_sha": "4c5da2c",
+        "last_commit_message": "rename the documentation demo org to XYZ Example Corp",
+        "last_commit_at": "2026-09-01",
         "releases": 1,
         "latest_release_at": "2026-08-27",
-        "days_since_release": 27,
-        "days_idle": 22,
+        "days_since_release": 28,
+        "days_idle": 23,
         "relocated": false
       },
       "identity": {
@@ -76,14 +82,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

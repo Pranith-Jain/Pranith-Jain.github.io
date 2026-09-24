@@ -7,27 +7,33 @@
   "description": "Security scanner detecting Python Pickle files performing suspicious actions",
   "homepage": null,
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:48Z",
-  "pushedAt": "2026-09-01",
-  "daysIdle": 22,
+  "checkedAt": "2026-09-24T08:31:32Z",
+  "pushedAt": "2026-09-23",
+  "daysIdle": 1,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "scanner", "repo": "mmaitre314/picklescan", "scope": ["modfile"], "added": "2026-09-14" },
+    "written": {
+      "description": "Scans a pickle for the dangerous imports it would execute on load, and will fetch one straight from Hugging Face, a URL or an archive rather than making you download it first."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:48Z",
+      "checked_at": "2026-09-24T08:31:32Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-01",
-        "days_since_push": 22,
+        "pushed_at": "2026-09-23",
+        "days_since_push": 1,
         "total_commits": 121,
         "last100_span_days": 1431,
         "last100_authors": 8,
+        "last_commit_sha": "5e7ab22",
+        "last_commit_message": "Fix substring matching in three block-list entries (#78)\n\nThree `_unsafe_globals` entries used a bare string where every other entry uses a\nset:\n\n    \"functools\": \"partial\"\n    \"torch._inductor.codecache\": \"compile_file\"\n    \"torch.serialization\": \"load\"\n\nThe classification check is `g.name in unsafe_filter`. Against a set that is an\nexact-membership test, but against a string it is a SUBSTRING test, so any global\nwhose name happens to be a substring of the entry was flagged Dangerous:\n`functools.art`, `functools.a` and `torch.serialization.oa` all reported as\ndangerous imports. It also silently narrowed detection in the other direction,\nsince a longer name containing the entry (e.g. `functools.partialmethod`) does not\nmatch.\n\nNo real attribute of these modules is currently a substring of the block-listed\nname, so the practical false-positive impact today is nil -- but picklescan runs in\nthe Hugging Face Hub pipeline, where an over-broad match flags real models rather\nthan merely emitting a noisy warning, and the behavior is fragile against any\nfuture edit to these entries.\n\nWrapping the three values in sets makes them exact matches, consistent with the\nrest of the block-list.\n\nTests added:\n- test_unsafe_globals_entries_are_wildcard_or_collection asserts no entry is a bare\n  string, guarding the whole class of bug rather than these three instances.\n- test_unsafe_globals_exact_name_match_only asserts substrings are not flagged.\n- test_unsafe_globals_still_flag_exact_names asserts the real names remain\n  Dangerous, so the fix cannot weaken detection.\n\nThe first two fail before the fix and pass after; the third passes both before and\nafter. Full suite green (34 passed); black and flake8 clean under the pinned\nversions in requirements.txt.\n\n\nClaude-Session: https://claude.ai/code/session_011Q48Mxq5eCscgh1BNb43LS\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+        "last_commit_at": "2026-09-01",
         "releases": 40,
         "latest_release_at": "2026-07-01",
-        "days_since_release": 84,
-        "days_idle": 22,
+        "days_since_release": 85,
+        "days_idle": 1,
         "relocated": false
       },
       "identity": {
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

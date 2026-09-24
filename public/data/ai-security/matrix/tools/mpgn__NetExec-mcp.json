@@ -3,36 +3,42 @@
   "repo": "mpgn/NetExec-mcp",
   "category": "mcp",
   "scope": ["ad", "network"],
-  "stars": 80,
+  "stars": 81,
   "description": "NetExec MCP",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:38:08Z",
+  "checkedAt": "2026-09-24T08:29:48Z",
   "pushedAt": "2026-08-31",
-  "daysIdle": 17,
+  "daysIdle": 18,
   "archived": false,
   "license": "BSD-2-Clause",
   "upstream": {
     "entry": { "category": "mcp", "repo": "mpgn/NetExec-mcp", "scope": ["ad", "network"], "added": "2026-09-12" },
+    "written": {
+      "description": "Wraps the NetExec CLI as a subprocess and nothing more, across every protocol it speaks. Discovery meta-tools keep its 128 calls out of the model's context until it asks for them."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:38:08Z",
+      "checked_at": "2026-09-24T08:29:48Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-31",
-        "days_since_push": 23,
+        "days_since_push": 24,
         "total_commits": 23,
         "last100_span_days": 45,
         "last100_authors": 1,
+        "last_commit_sha": "ac292e3",
+        "last_commit_message": "release 1.0.3",
+        "last_commit_at": "2026-08-31",
         "releases": 4,
         "latest_release_at": "2026-09-06",
-        "days_since_release": 17,
-        "days_idle": 17,
+        "days_since_release": 18,
+        "days_idle": 18,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "mpgn/NetExec-mcp",
-        "stars": 80,
+        "stars": 81,
         "forks": 6,
         "created_at": "2026-07-17",
         "is_fork": false,
@@ -63,14 +69,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

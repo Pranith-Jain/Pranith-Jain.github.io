@@ -7,27 +7,33 @@
   "description": "Sage is a virtual Mythic agent that that uses an AI agentic system to operate Mythic and Mythic agents running on compromised hosts.",
   "homepage": null,
   "added": "2026-09-16",
-  "checkedAt": "2026-09-23T08:41:28Z",
+  "checkedAt": "2026-09-24T08:31:55Z",
   "pushedAt": "2026-08-26",
-  "daysIdle": 28,
+  "daysIdle": 29,
   "archived": false,
   "license": "GPL-3.0",
   "upstream": {
     "entry": { "category": "agent", "repo": "MythicAgents/Sage", "scope": ["redteam", "ad"], "added": "2026-09-16" },
+    "written": {
+      "description": "Installs into a Mythic C2 server and operates it from the inside, reasoning over the live callbacks and the BloodHound graph to issue Mythic tasks. It never touches the target itself."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:41:28Z",
+      "checked_at": "2026-09-24T08:31:55Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-26",
-        "days_since_push": 28,
+        "days_since_push": 29,
         "total_commits": 232,
         "last100_span_days": 45,
         "last100_authors": 1,
+        "last_commit_sha": "a8533ca",
+        "last_commit_message": "fix: Clarify documentation regarding Docker qualification and tree ancestry for v0.1.0-beta",
+        "last_commit_at": "2026-08-26",
         "releases": 2,
         "latest_release_at": "2026-08-26",
-        "days_since_release": 28,
-        "days_idle": 28,
+        "days_since_release": 29,
+        "days_idle": 29,
         "relocated": false
       },
       "identity": {
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

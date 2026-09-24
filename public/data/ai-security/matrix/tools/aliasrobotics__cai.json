@@ -7,9 +7,9 @@
   "description": "Cybersecurity AI (CAI), the framework for AI Security",
   "homepage": "https://aliasrobotics.com/cybersecuritysuperintelligence.php",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:36:18Z",
+  "checkedAt": "2026-09-24T08:28:50Z",
   "pushedAt": "2026-08-22",
-  "daysIdle": 32,
+  "daysIdle": 33,
   "archived": true,
   "license": "MIT",
   "upstream": {
@@ -19,26 +19,32 @@
       "scope": ["network", "webapp", "recon"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "The reference framework behind a body of published AI offensive-security research, kept as its final source tree. Its capabilities moved on to a commercial successor."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:36:18Z",
+      "checked_at": "2026-09-24T08:28:50Z",
       "cloned": true,
       "alive": {
         "archived": true,
         "pushed_at": "2026-08-22",
-        "days_since_push": 32,
+        "days_since_push": 33,
         "total_commits": 1,
         "last100_span_days": null,
         "last100_authors": null,
+        "last_commit_sha": "6dc7925",
+        "last_commit_message": "CAI v1.1.5 — final archival snapshot\n\nCybersecurity AI (CAI) is archived. This single commit consolidates the\ncomplete final state of the project: every file of the last release, the\nfull documentation set, benchmarks, examples and research material.\n\nCAI was developed by Alias Robotics between March 2025 and August 2026,\nacross 1,078 commits from 103 authors, and co-funded by the European\nInnovation Council Accelerator project RIS (GA 101161136) under the\nHORIZON-EIC-2023-ACCELERATOR-01 call. It established Cybersecurity AI as\na research domain, producing 18 papers, 30+ CVEs and #1 rankings in\ninternational security competitions.\n\nThe incremental history is not browsable in this snapshot. The published\n0.3.9-0.5.10 releases remain on PyPI, and the 275 issues and 195 pull\nrequests remain public on GitHub.\n\nWork continues in Cybersecurity Superintelligence (CSI):\nhttps://aliasrobotics.com/cybersecuritysuperintelligence.php",
+        "last_commit_at": "2026-08-22",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 32,
+        "days_idle": 33,
         "relocated": { "notice": "this repository is archived", "target": null }
       },
       "identity": {
         "canonical_repo": "aliasrobotics/cai",
         "stars": 9833,
-        "forks": 1483,
+        "forks": 1482,
         "created_at": "2025-03-31",
         "is_fork": false,
         "contributors": 1,
@@ -76,14 +82,7 @@
         ]
       },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": false, "opaque": false, "host_access": true }
     }
   }
 }

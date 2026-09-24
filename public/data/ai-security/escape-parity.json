@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-23T11:29:05.746Z",
+  "checkedAt": "2026-09-24T11:39:52.330Z",
   "upstream": {
     "registryEntries": 0,
     "queuePending": 0,
-    "embeddedIds": 19,
+    "embeddedIds": 22,
     "ids": [
       "CB-2025-0001",
       "CB-2025-0002",
@@ -23,13 +23,16 @@
       "CB-2026-0016",
       "CB-2026-0017",
       "CB-2026-0018",
-      "CB-2026-0019"
+      "CB-2026-0019",
+      "CB-2026-0020",
+      "CB-2026-0021",
+      "CB-2026-0022"
     ]
   },
   "local": { "entries": 19, "version": "v0.1", "compiled": "2026-09-18" },
-  "drift": false,
-  "onlyUpstream": [],
+  "drift": true,
+  "onlyUpstream": ["CB-2026-0020", "CB-2026-0021", "CB-2026-0022"],
   "onlyLocal": [],
   "note": "Two-way parity report only — never auto-overwrites the curatorial seed. Merge drift via reviewed PR either direction.",
-  "builtAt": "2026-09-23T11:30:07.252Z"
+  "builtAt": "2026-09-24T11:40:53.512Z"
 }

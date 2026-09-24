@@ -7,9 +7,9 @@
   "description": "Autonomous AI-powered penetration testing platform. LLM-driven recon, vulnerability analysis, and exploit validation for internal & external targets. Supports local AI (Ollama, LM Studio) and cloud models (Claude, GPT-4, Gemini). Linux · m…",
   "homepage": "https://www.llmtary.com",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:39:58Z",
+  "checkedAt": "2026-09-24T08:30:57Z",
   "pushedAt": "2026-04-11",
-  "daysIdle": 165,
+  "daysIdle": 166,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["recon", "webapp"],
       "added": "2026-09-14"
     },
+    "written": {
+      "description": "A Flutter desktop application that can run the whole engagement against a model on your own GPU, feeding each phase's findings into the next phase's prompt."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:39:58Z",
+      "checked_at": "2026-09-24T08:30:57Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-04-11",
-        "days_since_push": 165,
+        "days_since_push": 166,
         "total_commits": 67,
         "last100_span_days": 68,
         "last100_authors": 1,
+        "last_commit_sha": "92fa022",
+        "last_commit_message": "Virtual hostname context injection - when recon discovers hostnames on a target (from SSL certificate SANs, HTTP redirects, or DNS enumeration) that won't resolve via public DNS, the exploit loop now automatically injects them into the LLM's prompt with per-tool guidance on using Host headers and --resolve flags. This lets the app test virtual-hosted services without modifying the system hosts file, which is particularly useful for HackTheBox/CTF machines and external assessments where internal hostnames appear in certificates.",
+        "last_commit_at": "2026-04-11",
         "releases": 3,
         "latest_release_at": "2026-04-11",
-        "days_since_release": 165,
-        "days_idle": 165,
+        "days_since_release": 166,
+        "days_idle": 166,
         "relocated": false
       },
       "identity": {
@@ -86,14 +92,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": false,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

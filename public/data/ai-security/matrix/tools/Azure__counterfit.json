@@ -7,27 +7,33 @@
   "description": "a CLI that provides a generic automation layer for assessing the security of ML models",
   "homepage": null,
   "added": "2026-09-13",
-  "checkedAt": "2026-09-23T08:39:06Z",
+  "checkedAt": "2026-09-24T08:30:32Z",
   "pushedAt": "2025-07-18",
-  "daysIdle": 432,
+  "daysIdle": 433,
   "archived": false,
   "license": "MIT",
   "upstream": {
     "entry": { "category": "scanner", "repo": "Azure/counterfit", "scope": ["llm"], "added": "2026-09-13" },
+    "written": {
+      "description": "Brings the established adversarial machine-learning frameworks under one CLI and points them at a model you nominate. Its subject is classic ML, not language models."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:39:06Z",
+      "checked_at": "2026-09-24T08:30:32Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-07-18",
-        "days_since_push": 432,
+        "days_since_push": 433,
         "total_commits": 64,
         "last100_span_days": 1315,
         "last100_authors": 9,
+        "last_commit_sha": "c00edbf",
+        "last_commit_message": "Update maintainer list",
+        "last_commit_at": "2025-07-16",
         "releases": 2,
         "latest_release_at": "2022-11-14",
-        "days_since_release": 1409,
-        "days_idle": 432,
+        "days_since_release": 1410,
+        "days_idle": 433,
         "relocated": false
       },
       "identity": {
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": false,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

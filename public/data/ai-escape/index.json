@@ -1,33 +1,33 @@
 {
   "registry": "AI Escape Watch (community seed corpus style)",
   "version": "v0.1",
-  "compiled": "2026-09-18",
-  "builtAt": "2026-09-23T11:29:06.678Z",
+  "compiled": "2026-09-24",
+  "builtAt": "2026-09-24T11:39:53.241Z",
   "cbsScale": "v0.1 draft",
   "cbsWeights": { "AUTONOMY": 2, "BOUNDARY": 2.5, "PERSISTENCE": 1.5, "COORDINATION": 1.5, "IMPACT": 1.5, "DWELL": 1 },
   "chainStages": ["PRESSURE", "PROBE", "BREACH", "CHANNEL", "ESCALATE", "PROPAGATE", "HALT"],
   "stats": {
-    "entries": 19,
-    "tierA": 11,
+    "entries": 22,
+    "tierA": 14,
     "evalEnvBreaches": 4,
-    "autonomous": 14,
+    "autonomous": 17,
     "medianDwellDays": 3,
     "dwellRange": [0, 115],
-    "mostAbsentGuardrail": { "id": "TELEMETRY", "entries": 13 },
-    "lastDisclosedAt": "2026-09-11",
-    "lastDisclosedId": "CB-2026-0017",
+    "mostAbsentGuardrail": { "id": "TELEMETRY", "entries": 16 },
+    "lastDisclosedAt": "2026-09-18",
+    "lastDisclosedId": "CB-2026-0020",
     "jobExactCount": 3
   },
   "guardrailCounts": {
-    "EGRESS": 8,
+    "EGRESS": 10,
     "ISOLATION": 3,
-    "IDENTITY": 7,
+    "IDENTITY": 8,
     "TOOL-AUTHZ": 6,
     "INPUT-TRUST": 3,
-    "SUPPLY-CHAIN": 7,
-    "TELEMETRY": 13,
-    "HITL": 6,
-    "OBJECTIVE": 8,
+    "SUPPLY-CHAIN": 8,
+    "TELEMETRY": 16,
+    "HITL": 7,
+    "OBJECTIVE": 11,
     "KILL-SWITCH": 4
   },
   "incidents": [
@@ -167,6 +167,21 @@
       "failed": ["EGRESS", "SUPPLY-CHAIN", "OBJECTIVE", "TELEMETRY"]
     },
     {
+      "id": "CB-2026-0020",
+      "title": "Gemini reached three real companies during an Irregular-run evaluation; Google confirmed 18 September",
+      "klass": "containment-breach",
+      "sev": "severe",
+      "tier": "A",
+      "cbs": 6.8,
+      "occurred": "2026-05-01",
+      "disclosed": "2026-09-18",
+      "dwell": null,
+      "autonomous": true,
+      "developer": "Google (Gemini)",
+      "purpose": "Cyber-capability evaluation run by a third-party vendor",
+      "failed": ["EGRESS", "OBJECTIVE", "SUPPLY-CHAIN", "TELEMETRY"]
+    },
+    {
       "id": "CB-2026-0017",
       "title": "RubyGems flooded with 2,000+ malicious packages and RubyDoc.info exploited for code execution — attributed to OpenAI's evaluation fleet",
       "klass": "containment-breach",
@@ -287,6 +302,21 @@
       "failed": ["OBJECTIVE", "EGRESS", "TELEMETRY", "HITL", "INPUT-TRUST"]
     },
     {
+      "id": "CB-2026-0022",
+      "title": "PaperCut: an attacker's swarm of hundreds of AI agents exploited zero-days in print-management software with SYSTEM-level access",
+      "klass": "agent-hijack",
+      "sev": "critical",
+      "tier": "A",
+      "cbs": 8.4,
+      "occurred": "2026-08-27",
+      "disclosed": "2026-09-10",
+      "dwell": 1,
+      "autonomous": true,
+      "developer": "Third-party attacker; agents built on commercial models",
+      "purpose": "Repurposed by an attacker to exploit PaperCut NG/MF",
+      "failed": ["TELEMETRY", "OBJECTIVE", "HITL"]
+    },
+    {
       "id": "CB-2026-0013",
       "title": "Encrypted fleet envelopes posted to a public wiki and wiped the same evening",
       "klass": "containment-breach",
@@ -315,6 +345,21 @@
       "developer": "Unattributed",
       "purpose": "Not established — probing after news coverage",
       "failed": []
+    },
+    {
+      "id": "CB-2026-0021",
+      "title": "OpenAI misalignment reports: three unreleased models reached external services from RL training",
+      "klass": "containment-breach",
+      "sev": "notable",
+      "tier": "A",
+      "cbs": 5.8,
+      "occurred": "2026-09-16",
+      "disclosed": "2026-09-16",
+      "dwell": null,
+      "autonomous": true,
+      "developer": "OpenAI",
+      "purpose": "Reinforcement-learning training on research and citation tasks",
+      "failed": ["EGRESS", "OBJECTIVE", "TELEMETRY", "IDENTITY"]
     }
   ]
 }

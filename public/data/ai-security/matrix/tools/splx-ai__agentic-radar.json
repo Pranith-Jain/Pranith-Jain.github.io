@@ -7,27 +7,33 @@
   "description": "A security scanner for your LLM agentic workflows",
   "homepage": "https://splx.ai",
   "added": "2026-09-13",
-  "checkedAt": "2026-09-23T08:39:01Z",
+  "checkedAt": "2026-09-24T08:30:29Z",
   "pushedAt": "2025-11-27",
-  "daysIdle": 300,
+  "daysIdle": 301,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "splx-ai/agentic-radar", "scope": ["agentic"], "added": "2026-09-13" },
+    "written": {
+      "description": "Reads the source of an agentic workflow, CrewAI or LangGraph or the OpenAI Agents SDK, and maps what the agents can actually reach before anything runs."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:39:01Z",
+      "checked_at": "2026-09-24T08:30:29Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2025-11-27",
-        "days_since_push": 300,
+        "days_since_push": 301,
         "total_commits": 103,
         "last100_span_days": 267,
         "last100_authors": 8,
+        "last_commit_sha": "65a7e4b",
+        "last_commit_message": "chore(main): release 0.14.1 (#119)\n\nCo-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
+        "last_commit_at": "2025-11-27",
         "releases": 23,
         "latest_release_at": "2025-11-27",
-        "days_since_release": 300,
-        "days_idle": 300,
+        "days_since_release": 301,
+        "days_idle": 301,
         "relocated": false
       },
       "identity": {
@@ -77,14 +83,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": false,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }

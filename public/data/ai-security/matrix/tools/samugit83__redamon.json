@@ -3,13 +3,13 @@
   "repo": "samugit83/redamon",
   "category": "agent",
   "scope": ["redteam", "ad", "network", "recon"],
-  "stars": 2564,
+  "stars": 2578,
   "description": "An AI-powered agentic red team framework that automates offensive security operations, from reconnaissance to exploitation to post-exploitation, with zero human intervention.",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:36:44Z",
+  "checkedAt": "2026-09-24T08:29:02Z",
   "pushedAt": "2026-09-22",
-  "daysIdle": 1,
+  "daysIdle": 2,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -19,25 +19,31 @@
       "scope": ["redteam", "ad", "network", "recon"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "Chains recon, exploitation and post-exploitation, then carries a finding further than a report: it writes the fix and opens a pull request on your repository."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:36:44Z",
+      "checked_at": "2026-09-24T08:29:02Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-22",
-        "days_since_push": 1,
+        "days_since_push": 2,
         "total_commits": 1160,
         "last100_span_days": 9,
         "last100_authors": 3,
+        "last_commit_sha": "24e9bd1",
+        "last_commit_message": "feat(recon): wildcard entries in the Domain-batch target list\n\nA Domain batch could only ever scan hostnames you already knew: subdomain\ndiscovery was force-disabled for the whole run, because a bare root yields\nprefixes ['.'] and parse_target treats a '.'-only list as NOT filtered mode,\nwhich would have silently enumerated a domain meant to be probed at the apex.\n\n`*.example.com` (or `*example.com`) now makes that ONE group run the same full\ndiscovery a Single Domain project runs, while every other line in the list is\nstill scanned exactly as written. The decision is per group, carried as a '*'\nsentinel beside the existing '.', and the run-wide force-off narrows to \"no\ngroup asked to enumerate\". Listing the bare domain next to the wildcard also\nscans the apex - that is what the preview's new Root checkbox writes, since\nroot inclusion has never been a field.\n\nA wildcard must name a registrable domain: the batch grouping rule is\nlast-two-labels, so `*.co.uk` would enumerate a public suffix. It is refused\nusing the curated list origin_discovery already owns for the same reason.\n\nScope became editable after creation in the project form only. It stays\ncreate_only over MCP because that one flag also governs whether a parsed Rules\nof Engagement document may write a field, and an untrusted document must never\nre-point the platform's targets.\n\nFixes found while reviewing and running this end to end:\n\n- A host listed beside a wildcard was re-resolved only when discovery returned\n  nothing at all, so when enumeration succeeded but missed it, that host\n  reached the scan file with no DNS and no IP: present, and invisible to every\n  later phase.\n- A crt.sh non-200 produced no log line whatsoever. requests does not raise on\n  5xx and the branch had no else, so a 502 - which crt.sh returns regularly -\n  read exactly like \"this domain has no certificates\".\n- A discovered hostname could drag the scanner inward. Enumeration adopts the\n  target owner's DNS, and `localhost.<domain> -> 127.0.0.1` is a real, common\n  record; nothing downstream re-checked, so it was scanned. Discovered names\n  resolving to loopback, link-local, unspecified or multicast are now dropped\n  and logged. Private ranges are deliberately kept, because internal estates\n  are a supported target, as are the apex and anything the operator typed.\n\nAlso carries an unrelated in-flight change to the MCP scope checklist\n(ScopeChecklist, scopeCopy, ReconLogsDrawer) committed together at the\nmaintainer's request.\n\nVerified end to end against vendor-published test targets: one enumerating\ngroup and two literal groups in a single run, with `subdomain_discovery` in\nmodules_executed for the wildcard group only, the apex resolved and present,\nand Domain.wildcard_mode set on the enumerated domain alone.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>",
+        "last_commit_at": "2026-09-22",
         "releases": 16,
         "latest_release_at": "2026-09-11",
-        "days_since_release": 12,
-        "days_idle": 1,
+        "days_since_release": 13,
+        "days_idle": 2,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "samugit83/redamon",
-        "stars": 2564,
+        "stars": 2578,
         "forks": 534,
         "created_at": "2025-12-29",
         "is_fork": false,
@@ -95,14 +101,7 @@
         "manifests": ["mcp/kali-sandbox/Dockerfile", "mcp/kali-sandbox/entrypoint.sh"]
       },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": true,
-        "opaque": true
-      }
+      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": true }
     }
   }
 }

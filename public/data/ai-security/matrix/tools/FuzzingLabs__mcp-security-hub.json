@@ -7,9 +7,9 @@
   "description": "A growing collection of MCP servers bringing offensive security tools to AI assistants. Nmap, Ghidra, Nuclei, SQLMap, Hashcat and more.",
   "homepage": "https://fuzzinglabs.github.io/mcp-security-hub/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-23T08:40:02Z",
+  "checkedAt": "2026-09-24T08:31:00Z",
   "pushedAt": "2026-04-08",
-  "daysIdle": 168,
+  "daysIdle": 169,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -19,20 +19,26 @@
       "scope": ["network", "webapp", "binary"],
       "added": "2026-09-14"
     },
+    "written": {
+      "description": "One hardened container per tool, brought up with Compose, so a job runs only the servers it needs instead of one process holding everything."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:40:02Z",
+      "checked_at": "2026-09-24T08:31:00Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-04-08",
-        "days_since_push": 168,
+        "days_since_push": 169,
         "total_commits": 61,
         "last100_span_days": 87,
         "last100_authors": 8,
+        "last_commit_sha": "b680074",
+        "last_commit_message": "Merge pull request #26 from FuzzingLabs/feat/go-fuzzing-mcp-tools\n\nfeat: add Go fuzzing MCP pipeline (4 tools)",
+        "last_commit_at": "2026-04-08",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 168,
+        "days_idle": 169,
         "relocated": false
       },
       "identity": {
@@ -108,14 +114,7 @@
         ]
       },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": false, "opaque": false, "host_access": true }
     }
   }
 }

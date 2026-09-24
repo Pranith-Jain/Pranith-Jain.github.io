@@ -3,12 +3,12 @@
   "repo": "berylliumsec/nebula",
   "category": "agent",
   "scope": ["network", "recon"],
-  "stars": 1110,
+  "stars": 1113,
   "description": "AI-powered penetration testing assistant for automating recon, note-taking, and vulnerability analysis.",
   "homepage": "https://www.berylliumsec.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:01Z",
-  "pushedAt": "2026-09-23",
+  "checkedAt": "2026-09-24T08:29:07Z",
+  "pushedAt": "2026-09-24",
   "daysIdle": 0,
   "archived": false,
   "license": "BSD-2-Clause",
@@ -19,25 +19,31 @@
       "scope": ["network", "recon"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "A desktop workspace holding the terminal, notes, findings and report in one place, with an approval pause between what the model proposes and what actually runs."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:01Z",
+      "checked_at": "2026-09-24T08:29:07Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-23",
+        "pushed_at": "2026-09-24",
         "days_since_push": 0,
-        "total_commits": 1237,
-        "last100_span_days": 2,
+        "total_commits": 1263,
+        "last100_span_days": 3,
         "last100_authors": 2,
+        "last_commit_sha": "e7d821e",
+        "last_commit_message": "Merge pull request #557 from berylliumsec/codex/agent-file-provenance\n\nAdd actor-scoped workspace provenance for hooks",
+        "last_commit_at": "2026-09-24",
         "releases": 66,
         "latest_release_at": "2026-07-22",
-        "days_since_release": 63,
+        "days_since_release": 64,
         "days_idle": 0,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "berylliumsec/nebula",
-        "stars": 1110,
+        "stars": 1113,
         "forks": 169,
         "created_at": "2023-09-30",
         "is_fork": false,
@@ -65,9 +71,9 @@
       },
       "licence": { "file": "BSD-2", "api_spdx": "BSD-2-Clause", "readme_claim": null, "conflict": null },
       "shape": {
-        "loc": 349065,
-        "code_files": 802,
-        "files": 1157,
+        "loc": 352796,
+        "code_files": 820,
+        "files": 1181,
         "has_ci": true,
         "has_tests": true,
         "has_dockerfile": true,
@@ -81,14 +87,8 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": false,
-        "phones_home": true,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": true, "opaque": false, "host_access": false },
+      "risk_where": { "phones_home": "scripts/build_nebula_core.py:208" }
     }
   }
 }

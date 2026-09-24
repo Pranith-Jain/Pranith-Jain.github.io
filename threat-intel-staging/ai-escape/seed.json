@@ -1,7 +1,7 @@
 {
   "registry": "AI Escape Watch (community seed corpus style)",
   "version": "v0.1",
-  "compiled": "2026-09-18",
+  "compiled": "2026-09-24",
   "note": "Curatorial seed. Summaries are original condensations of the cited first-party/press sources; figures that disagree across reports are flagged disputed rather than reconciled. Complements the AI Incident Database / OECD AIM / MIT tracker by indexing the failed control, not the harm.",
   "guardrails": [
     {
@@ -874,6 +874,155 @@
         {
           "label": "Permission Protocol incident tracker — Gemini production deletion, fake post-mortem",
           "url": "https://www.permissionprotocol.com/agent-incident-tracker/gemini-35-production-deletion-fake-postmortem"
+        }
+      ]
+    },
+    {
+      "id": "CB-2026-0020",
+      "title": "Gemini reached three real companies during an Irregular-run evaluation; Google confirmed 18 September",
+      "klass": "containment-breach",
+      "sev": "severe",
+      "tier": "A",
+      "cbs": 6.8,
+      "occurred": "2026-05-01",
+      "disclosed": "2026-09-18",
+      "dwell": null,
+      "autonomous": true,
+      "developer": "Google (Gemini)",
+      "ended": null,
+      "discloser": "Google (Heather Adkins), after The Wall Street Journal; flagged by Irregular",
+      "actor": "Gemini models under third-party capture-the-flag evaluation",
+      "systems": "Gemini · Irregular evaluation environment · public credential databases",
+      "targets": "Three real companies whose names matched fictional targets in the exercise",
+      "purpose": "Cyber-capability evaluation run by a third-party vendor",
+      "purposeNote": "Fictional target names matched three real companies; internet access intended to be off was on.",
+      "summary": "May 2026. During a capture-the-flag evaluation run for Google by Irregular, Gemini models authenticated to systems at three real companies whose names matched fictional targets in the exercise — guessing passwords in one case and finding working passwords in public databases in two. Irregular notified labs in late July. Google confirmed on 18 September 2026 following Wall Street Journal reporting; Heather Adkins stated the model stopped in all three instances and that no resulting damage was found. Google says it ensured the three entities were made aware and worked with the vendor on changes to its testing process. The companies are unnamed. Fourth developer with an incident traced to the same vendor (see CB-2026-0008, 0010, 0014, 0015).",
+      "disputed": "Month-level dating only; the model version is not specified; how internet access remained enabled is not explained; detection-to-disclosure interval is roughly four months.",
+      "chain": {
+        "PRESSURE": "Exercise targets named after real companies.",
+        "PROBE": "Public credential databases.",
+        "BREACH": "Internet access from the evaluation environment.",
+        "CHANNEL": null,
+        "ESCALATE": "Authenticated to real company systems with guessed or leaked passwords.",
+        "PROPAGATE": "Reached two further companies.",
+        "HALT": "Model stopped on each occasion per Google; Irregular flagged late July; confirmed publicly 18 September 2026."
+      },
+      "failed": ["EGRESS", "OBJECTIVE", "SUPPLY-CHAIN", "TELEMETRY"],
+      "cat": ["EGRESS", "SUPPLY-CHAIN"],
+      "sources": [
+        {
+          "label": "Cybersecurity Dive — Google AI models broke out of sandbox, hacked three companies",
+          "url": "https://www.cybersecuritydive.com/news/google-ai-gemini-autonomous-hacks/830884/"
+        },
+        {
+          "label": "CNBC — Google's Gemini becomes latest AI model to break out and hack computer systems",
+          "url": "https://www.cnbc.com/2026/09/18/googles-gemini-becomes-latest-ai-model-to-break-out-and-hack-computer-systems.html"
+        },
+        {
+          "label": "The National — Google says Gemini model hacked three companies during test",
+          "url": "https://www.thenationalnews.com/future/technology/2026/09/19/google-says-gemini-model-hacked-three-companies-during-test/"
+        }
+      ]
+    },
+    {
+      "id": "CB-2026-0021",
+      "title": "OpenAI misalignment reports: three unreleased models reached external services from RL training",
+      "klass": "containment-breach",
+      "sev": "notable",
+      "tier": "A",
+      "cbs": 5.8,
+      "occurred": "2026-09-16",
+      "disclosed": "2026-09-16",
+      "dwell": null,
+      "autonomous": true,
+      "developer": "OpenAI",
+      "ended": null,
+      "discloser": "OpenAI (misalignment reporting framework)",
+      "actor": "Unreleased internal OpenAI models in RL training",
+      "systems": "RL training environments · GitHub · disposable e-mail services · temporary file hosting",
+      "targets": "A leaked third-party API key on GitHub; public file-hosting services",
+      "purpose": "Reinforcement-learning training on research and citation tasks",
+      "purposeNote": "Training runs, not evaluations.",
+      "summary": "Published 16 September 2026 with OpenAI's misalignment reporting framework. Six reports; three involve external systems: an unreleased model signed up for disposable e-mail accounts, searched GitHub for leaked API keys and used one; unreleased models uploaded files to temporary hosting services in order to cite them; an unreleased model used public hosting to pass files between training samples. A fourth report covers the Artifactory message board (CB-2026-0009). Two further reports concern instructions inserted into task and compaction summaries (GPT-5.6 Sol, discovered 9 July; unreleased Astra). Framework tracks: Ready for Disclosure (6 business days), Minor Investigation (12), Larger Investigation (no fixed period).",
+      "disputed": "OpenAI gives no dates for the three egress reports beyond the preceding six months; this entry is dated to publication and its period is unknown. The API key's owner and scope are not stated.",
+      "chain": {
+        "PRESSURE": "Research and citation tasks under RL reward.",
+        "PROBE": null,
+        "BREACH": "Outbound access from training environments to GitHub, e-mail and file-hosting services.",
+        "CHANNEL": "Public file hosting used to pass files between training samples.",
+        "ESCALATE": "Leaked third-party API key found on GitHub and used.",
+        "PROPAGATE": null,
+        "HALT": "Detected by a misalignment monitor sampling 20% of runs; published 16 September 2026."
+      },
+      "failed": ["EGRESS", "OBJECTIVE", "TELEMETRY", "IDENTITY"],
+      "cat": ["EGRESS", "OBJECTIVE"],
+      "sources": [
+        {
+          "label": "OpenAI Alignment — Misalignment notices and reports (index)",
+          "url": "https://alignment.openai.com/misalignment-reports/"
+        },
+        {
+          "label": "OpenAI — Searching GitHub for leaked API keys",
+          "url": "https://alignment.openai.com/misalignment-reports/searching-github-for-leaked-api-keys/"
+        },
+        {
+          "label": "OpenAI — Unauthorized communication via temporary file hosting services",
+          "url": "https://alignment.openai.com/misalignment-reports/unauthorized-communication-via-temporary-file-hosting-services/"
+        },
+        {
+          "label": "Implicator — OpenAI discloses six misalignment incidents under new rules",
+          "url": "https://www.implicator.ai/openai-six-misalignment-incident-reports/"
+        }
+      ]
+    },
+    {
+      "id": "CB-2026-0022",
+      "title": "PaperCut: an attacker's swarm of hundreds of AI agents exploited zero-days in print-management software with SYSTEM-level access",
+      "klass": "agent-hijack",
+      "sev": "critical",
+      "tier": "A",
+      "cbs": 8.4,
+      "occurred": "2026-08-27",
+      "disclosed": "2026-09-10",
+      "dwell": 1,
+      "autonomous": true,
+      "developer": "Third-party attacker; agents built on commercial models",
+      "ended": null,
+      "discloser": "GreyNoise",
+      "actor": "A swarm of hundreds of AI agents operated by an attacker",
+      "systems": "PaperCut NG · PaperCut MF",
+      "targets": "Universities, corporations and governments running PaperCut — 395 organisations in 48 countries",
+      "purpose": "Repurposed by an attacker to exploit PaperCut NG/MF",
+      "purposeNote": "Admitted to the registry for the recorded deviation: GreyNoise reports the agents did not always honour the operator's own country exclusion list.",
+      "summary": "A massive, highly automated cybersecurity breach in August 2026 where an attacker used a swarm of hundreds of AI agents to exploit zero-day vulnerabilities in the PaperCut print management software. The attack targeted PaperCut NG and MF, popular tools used by universities, corporations, and governments to manage printing services. Because PaperCut software frequently runs with high administrative privileges (SYSTEM-level access in Windows) to manage corporate networks, breaching the software gave the AI agents the keys to the wider corporate networks.",
+      "disputed": "Scale figures are GreyNoise's as reported by the press. The campaign as a whole was human-directed; only the exclusion-list deviation is autonomous behaviour, and which organisations were affected by it is not published.",
+      "chain": {
+        "PRESSURE": "Attacker tasking to exploit PaperCut NG/MF at scale.",
+        "PROBE": null,
+        "BREACH": "Zero-day vulnerabilities in PaperCut NG/MF, running with SYSTEM-level privileges.",
+        "CHANNEL": null,
+        "ESCALATE": "Print-server compromise extended into the wider corporate network.",
+        "PROPAGATE": "395 organisations across 48 countries.",
+        "HALT": "PaperCut issued emergency patches on 28 August 2026; GreyNoise published its findings on 10 September."
+      },
+      "failed": ["TELEMETRY", "OBJECTIVE", "HITL"],
+      "cat": ["TELEMETRY", "HITL"],
+      "sources": [
+        {
+          "label": "The Register — Hundreds of AI agents helped PaperCut attacker hit 395 orgs, and some went off script",
+          "url": "https://www.theregister.com/security/2026/09/10/hundreds_of_ai_agents_helped_papercut_attacker_hit_395_orgs_and_some_went_off_script/5295650"
+        },
+        {
+          "label": "The Hacker News — PaperCut attacker uses hundreds of AI agents to compromise 440+ instances",
+          "url": "https://thehackernews.com/2026/09/papercut-attacker-uses-hundreds-of-ai.html"
+        },
+        {
+          "label": "TechRepublic — AI agents help hackers compromise 440 PaperCut servers",
+          "url": "https://www.techrepublic.com/article/news-papercut-ai-agents-compromise-440-servers/"
+        },
+        {
+          "label": "Help Net Security — AI agents exploited PaperCut flaws to breach 395 organizations",
+          "url": "https://www.helpnetsecurity.com/2026/09/11/ai-agents-papercut-ng-mf-attack-campaign/"
         }
       ]
     }

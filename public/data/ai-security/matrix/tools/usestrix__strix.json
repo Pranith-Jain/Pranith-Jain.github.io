@@ -3,12 +3,12 @@
   "repo": "usestrix/strix",
   "category": "agent",
   "scope": ["webapp", "api", "code"],
-  "stars": 64264,
+  "stars": 64451,
   "description": "Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
   "homepage": "https://strix.ai",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:36:01Z",
-  "pushedAt": "2026-09-23",
+  "checkedAt": "2026-09-24T08:28:40Z",
+  "pushedAt": "2026-09-24",
   "daysIdle": 0,
   "archived": false,
   "license": "Apache-2.0",
@@ -19,26 +19,32 @@
       "scope": ["webapp", "api", "code"],
       "added": "2026-09-12"
     },
+    "written": {
+      "description": "Drives a live pentest against a running web app or API, choosing each probe from what the last one returned, then reports what it found."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:36:01Z",
+      "checked_at": "2026-09-24T08:28:40Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-23",
+        "pushed_at": "2026-09-24",
         "days_since_push": 0,
-        "total_commits": 816,
-        "last100_span_days": 40,
+        "total_commits": 818,
+        "last100_span_days": 41,
         "last100_authors": 9,
+        "last_commit_sha": "ae38fe7",
+        "last_commit_message": "Fill in blank tool-call ids so strict providers accept the history (#1355)",
+        "last_commit_at": "2026-09-24",
         "releases": 29,
         "latest_release_at": "2026-09-05",
-        "days_since_release": 18,
+        "days_since_release": 19,
         "days_idle": 0,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "usestrix/strix",
-        "stars": 64264,
-        "forks": 7025,
+        "stars": 64451,
+        "forks": 7054,
         "created_at": "2025-08-05",
         "is_fork": false,
         "contributors": 71,
@@ -70,9 +76,9 @@
       },
       "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": null, "conflict": null },
       "shape": {
-        "loc": 95635,
-        "code_files": 352,
-        "files": 510,
+        "loc": 96814,
+        "code_files": 354,
+        "files": 512,
         "has_ci": true,
         "has_tests": true,
         "has_dockerfile": true,
@@ -103,14 +109,8 @@
         "manifests": ["containers/Dockerfile"]
       },
       "rebadge": [{ "repo": "Nightlysec/nightly", "shared_files": 118, "overlap": 0.3554 }],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": true,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": false },
+      "risk_where": { "install": "README.md:85", "phones_home": "strix/report/state.py:25" }
     }
   }
 }

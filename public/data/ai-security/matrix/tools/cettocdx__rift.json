@@ -7,27 +7,33 @@
   "description": "RIFT - Autonomous AI Penetration Testing Agent",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-23T08:37:23Z",
+  "checkedAt": "2026-09-24T08:29:23Z",
   "pushedAt": "2026-09-19",
-  "daysIdle": 4,
+  "daysIdle": 5,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
     "entry": { "category": "agent", "repo": "cettocdx/rift", "scope": ["webapp", "network"], "added": "2026-09-12" },
+    "written": {
+      "description": "Takes a target and an objective in plain language, then plans and runs the whole job inside a sandbox. A second mode answers questions about a finding without acting on it."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:37:23Z",
+      "checked_at": "2026-09-24T08:29:23Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-19",
-        "days_since_push": 4,
+        "days_since_push": 5,
         "total_commits": 855,
         "last100_span_days": 98,
         "last100_authors": 3,
+        "last_commit_sha": "6f342c9",
+        "last_commit_message": "Hack Workbench: auto-continue past time limit so runs are not cut off",
+        "last_commit_at": "2026-09-17",
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 4,
+        "days_idle": 5,
         "relocated": false
       },
       "identity": {
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": true,
-        "credentials": true,
-        "install": true,
-        "phones_home": true,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": false }
     }
   }
 }

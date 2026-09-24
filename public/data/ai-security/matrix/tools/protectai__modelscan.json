@@ -3,36 +3,42 @@
   "repo": "protectai/modelscan",
   "category": "scanner",
   "scope": ["modfile"],
-  "stars": 775,
+  "stars": 774,
   "description": "Protection against Model Serialization Attacks",
   "homepage": "http://modelscan.ai",
   "added": "2026-09-13",
-  "checkedAt": "2026-09-23T08:39:14Z",
+  "checkedAt": "2026-09-24T08:30:34Z",
   "pushedAt": "2026-02-18",
-  "daysIdle": 217,
+  "daysIdle": 218,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
     "entry": { "category": "scanner", "repo": "protectai/modelscan", "scope": ["modfile"], "added": "2026-09-13" },
+    "written": {
+      "description": "Reads a saved model file and reports the unsafe calls hiding in it, across pickle, HDF5 and SavedModel, so a download from a public registry can be checked before anything loads it."
+    },
     "derived": {
-      "checked_at": "2026-09-23T08:39:14Z",
+      "checked_at": "2026-09-24T08:30:34Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-02-18",
-        "days_since_push": 217,
+        "days_since_push": 218,
         "total_commits": 192,
         "last100_span_days": 631,
         "last100_authors": 12,
+        "last_commit_sha": "61fcec9",
+        "last_commit_message": "Remove unnecessary setuptools dependency pin (#332)\n\nCo-authored-by: Aditya Borikar <adborikar@paloaltonetworks.com>",
+        "last_commit_at": "2026-02-18",
         "releases": 28,
         "latest_release_at": "2026-02-18",
-        "days_since_release": 217,
-        "days_idle": 217,
+        "days_since_release": 218,
+        "days_idle": 218,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "protectai/modelscan",
-        "stars": 775,
+        "stars": 774,
         "forks": 167,
         "created_at": "2023-07-25",
         "is_fork": false,
@@ -60,14 +66,7 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": {
-        "binaries": false,
-        "privilege": false,
-        "credentials": true,
-        "install": false,
-        "phones_home": false,
-        "opaque": false
-      }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
     }
   }
 }
