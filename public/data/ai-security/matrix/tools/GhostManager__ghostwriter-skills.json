@@ -1,0 +1,77 @@
+{
+  "slug": "GhostManager__ghostwriter-skills",
+  "repo": "GhostManager/ghostwriter-skills",
+  "category": "skill",
+  "scope": ["reporting"],
+  "stars": 6,
+  "description": "Agent skills for Ghostwriter",
+  "homepage": null,
+  "added": "2026-09-23",
+  "checkedAt": "2026-09-25T08:53:04Z",
+  "pushedAt": "2026-09-18",
+  "daysIdle": 7,
+  "archived": false,
+  "license": "BSD-3-Clause",
+  "upstream": {
+    "entry": {
+      "category": "skill",
+      "repo": "GhostManager/ghostwriter-skills",
+      "scope": ["reporting"],
+      "added": "2026-09-23"
+    },
+    "written": {
+      "description": "Works on the report an engagement ends in, inside Ghostwriter: it turns a sample Word report into a Ghostwriter template, drafts an executive summary traced back to the findings, and grades whether a finding or report is ready for final delivery. It runs offline on exported report data, or reads a live Ghostwriter over its GraphQL API."
+    },
+    "derived": {
+      "checked_at": "2026-09-25T08:53:04Z",
+      "cloned": true,
+      "alive": {
+        "archived": false,
+        "pushed_at": "2026-09-18",
+        "days_since_push": 7,
+        "total_commits": 6,
+        "last100_span_days": 10,
+        "last100_authors": 1,
+        "last_commit_sha": "b8c5ea5",
+        "last_commit_message": "Cleaned up CHANGELOG",
+        "last_commit_at": "2026-09-18",
+        "releases": 0,
+        "latest_release_at": null,
+        "days_since_release": null,
+        "days_idle": 7,
+        "relocated": false
+      },
+      "identity": {
+        "canonical_repo": "GhostManager/ghostwriter-skills",
+        "stars": 6,
+        "forks": 0,
+        "created_at": "2026-09-03",
+        "is_fork": false,
+        "contributors": 1,
+        "top_contributor_share": 1,
+        "homepage": null,
+        "description": "Agent skills for Ghostwriter",
+        "topics": null
+      },
+      "licence": { "file": "BSD-2", "api_spdx": "BSD-3-Clause", "readme_claim": null, "conflict": null },
+      "shape": {
+        "loc": 4216,
+        "code_files": 14,
+        "files": 45,
+        "has_ci": true,
+        "has_tests": true,
+        "has_dockerfile": false,
+        "has_lockfile": false,
+        "ai_layer": null,
+        "providers": null,
+        "mcp_server": null,
+        "tool_defs": null,
+        "readme_tool_claim": null,
+        "evidence": null
+      },
+      "substrate": { "bundled": [], "manifests": [] },
+      "rebadge": null,
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-24T11:39:52.330Z",
+  "checkedAt": "2026-09-25T11:45:38.411Z",
   "upstream": {
     "registryEntries": 0,
     "queuePending": 0,
@@ -29,10 +29,10 @@
       "CB-2026-0022"
     ]
   },
-  "local": { "entries": 19, "version": "v0.1", "compiled": "2026-09-18" },
-  "drift": true,
-  "onlyUpstream": ["CB-2026-0020", "CB-2026-0021", "CB-2026-0022"],
+  "local": { "entries": 22, "version": "v0.1", "compiled": "2026-09-24" },
+  "drift": false,
+  "onlyUpstream": [],
   "onlyLocal": [],
   "note": "Two-way parity report only — never auto-overwrites the curatorial seed. Merge drift via reviewed PR either direction.",
-  "builtAt": "2026-09-24T11:40:53.512Z"
+  "builtAt": "2026-09-25T11:46:39.778Z"
 }

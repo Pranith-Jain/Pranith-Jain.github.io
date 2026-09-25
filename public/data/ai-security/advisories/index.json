@@ -1,7 +1,8 @@
 {
-  "updatedAt": "2026-09-24T11:40:53.609Z",
-  "total": 126,
+  "updatedAt": "2026-09-25T11:46:39.878Z",
+  "total": 127,
   "bySource": {
+    "cvelistV5": 1,
     "ghsa": 60,
     "garak": 5,
     "pyrit": 5,
@@ -20,6 +21,76 @@
   "items": [
     {
       "id": "aHR0cHM6Ly9n",
+      "title": "v1.104.0-dev.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.104.0-dev.2",
+      "updated": "2026-09-25T06:38:48Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.100.3",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.100.3",
+      "updated": "2026-09-25T06:21:39Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.99.4",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.99.4",
+      "updated": "2026-09-25T06:20:07Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.98.1",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.98.1",
+      "updated": "2026-09-25T06:20:07Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "1 changes (1 new | 0 updated):",
+      "link": "https://github.com/CVEProject/cvelistV5/commit/a00cf8c92ce412a75c3ca71c4a84eda0c023a2ae",
+      "updated": "2026-09-25T04:52:21Z",
+      "source": "cvelistV5",
+      "kind": "cve",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.40.0",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.40.0-rc0",
+      "updated": "2026-09-25T03:31:52Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-core==1.6.5",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.5",
+      "updated": "2026-09-24T18:11:24Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
       "title": "langchain-openai==1.6.6",
       "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.6",
       "updated": "2026-09-24T11:31:33Z",
@@ -34,16 +105,6 @@
       "link": "https://github.com/ollama/ollama/releases/tag/v0.34.4",
       "updated": "2026-09-24T04:45:43Z",
       "source": "ollama",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.101.2",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.2",
-      "updated": "2026-09-24T00:17:20Z",
-      "source": "litellm",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -100,36 +161,6 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v1.102.1",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.102.1",
-      "updated": "2026-09-23T06:12:28Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.101.1",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.1",
-      "updated": "2026-09-23T06:12:25Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.100.2",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.100.2",
-      "updated": "2026-09-23T06:12:15Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "v1.104.0-dev.1",
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.104.0-dev.1",
       "updated": "2026-09-23T03:24:12Z",
@@ -144,16 +175,6 @@
       "link": "https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0",
       "updated": "2026-09-23T00:53:23Z",
       "source": "ollama",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-openai==1.6.4",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.4",
-      "updated": "2026-09-22T22:37:11Z",
-      "source": "langchain",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -184,16 +205,6 @@
       "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openrouter%3D%3D0.2.9",
       "updated": "2026-09-22T04:16:13Z",
       "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.34.3-rc1",
-      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.3-rc1",
-      "updated": "2026-09-19T00:15:35Z",
-      "source": "ollama",
       "kind": "release",
       "cves": [],
       "description": ""
