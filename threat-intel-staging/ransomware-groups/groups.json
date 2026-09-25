@@ -1,6 +1,6 @@
 {
-  "syncedAt": "2026-09-16T11:53:55.482Z",
-  "count": 623,
+  "syncedAt": "2026-09-23T11:55:26.841Z",
+  "count": 625,
   "groups": [
     {
       "name": "0apt",
@@ -779,6 +779,10 @@
       "slug": "endurance"
     },
     {
+      "name": "endzone",
+      "slug": "endzone"
+    },
+    {
       "name": "entropy",
       "slug": "entropy"
     },
@@ -1513,6 +1517,10 @@
     {
       "name": "mydecryptor",
       "slug": "mydecryptor"
+    },
+    {
+      "name": "n0n",
+      "slug": "n0n"
     },
     {
       "name": "n3tworm",

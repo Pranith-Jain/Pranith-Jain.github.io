@@ -1,7 +1,7 @@
 {
   "slug": "lockbit5",
   "name": "lockbit5",
-  "fetchedAt": "2026-09-16T11:54:04.574Z",
+  "fetchedAt": "2026-09-23T11:55:39.351Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 08:39:27.694",
+          "updated": "2026-09-23 06:34:29.047",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "LockBit 5.0 Blog",
           "version": 3,
           "available": true,
-          "updated": "2026-09-16 11:03:10.088",
+          "updated": "2026-09-23 11:02:27.217",
           "chat": false,
           "fs": false
         },
@@ -29,17 +29,17 @@
           "fqdn": "lockbitsuppyx2jegaoyiw44ica5vdho63m5ijjlmfb7omq3tfr3qhyd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 08:12:51.940",
+          "available": true,
+          "updated": "2026-09-23 11:04:17.549",
           "chat": true,
           "fs": false
         },
         {
           "fqdn": "lockbitfss2w7co3ij6am6wox4xcurtgwukunx3yubcoe5cbxiqakxqd.onion",
-          "title": "LockBit File Share",
+          "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 03:26:15.412",
+          "updated": "2026-09-22 21:34:53.442",
           "chat": false,
           "fs": true
         },
@@ -48,7 +48,7 @@
           "title": "LockBit File Share",
           "version": 3,
           "available": false,
-          "updated": "2026-09-11 01:00:07.049",
+          "updated": "2026-09-23 06:31:59.841",
           "chat": false,
           "fs": true
         },
@@ -57,9 +57,234 @@
           "title": "LockBit File Share",
           "version": 3,
           "available": false,
-          "updated": "2026-09-10 21:00:07.076",
+          "updated": "2026-09-23 08:00:43.800",
           "chat": false,
           "fs": true
+        },
+        {
+          "fqdn": "lockbit7z2jwcskxpbokpemdxmltipntwlkmidcll2qirbu7ykg46eyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 22:30:28.516",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z2mmiz3ryxafn5kapbvbbiywsxwovasfkgf5dqqp5kxlajad.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:04:52.555",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z2og4jlsmdy7dzty3g42eu3gh2sx2b6ywtvhrjtss7li4fyd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 06:10:03.897",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z355oalq4hiy5p7de64l6rsqutwlvydqje56uvevcc57r6qd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:33:24.740",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z36ynytxwjzuoao46ck7b3753gpedary3qvuizn3iczhe4id.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:26:32.002",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z37ntefjdbjextn6tmdkry4j546ejnru5cejeguitiopvhad.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:00:55.384",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z3azdoxdpqxzliszutufbc2fldagztdu47xyucp25p4xtqad.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:31:43.987",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z3ddvg5vuez2vznt73ljqgwx5tnuqaa2ye7lns742yiv2zyd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:09:48.229",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z3hv7ev5knxbrhsvv2mmu2rddwqizdz4vwfvxt5izrq6zqqd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 07:01:26.725",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z3ujnkhxwahhjduh5me2updvzxewhhc5qvk2snxezoi5drad.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:33:26.306",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z4bsm63m3dagp5xglyacr4z4bwytkvkkwtn6enmuo5fi5iyd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:02:55.989",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z4cgxvictidwfxpuiov4scdw34nxotmbdjyxpkvkg34mykyd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:20:36.935",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z4k5zer5fbqi2vdq5sx2vuggatwyqvoodrkhubxftyrvncid.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 06:34:58.610",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z4ndl6thsct34yd47jrzdkpnfg3acfvpacuccb45pnars2ad.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:29:20.726",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z55tuwaflw2c7torcryobdvhkcgvivhflyndyvcrexafssad.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 01:01:23.646",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z57mkicfkuq44j6yrpu5finwvjllczkkp2uvdedsdonjztyd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:03:04.244",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z5ehshj6gzpetw5kso3onts6ty7wrnneya5u4aj3vzkeoaqd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:01:07.195",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z5hwf6ywfuzipoa42tjlmal3x5suuccngsamsgklww2xgyqd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:11:28.551",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z5ltrhzv46lsg447o3cx2637dloc3qt4ugd3gr2xdkkkeayd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 22:05:03.293",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z6choojah4ipvdpzzfzxxchjbecnmtn4povk6ifdvx2dpnid.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 00:00:45.432",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z6dqziutocr43onmvpth32njp4abfocfauk2belljjpobxyd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:16:04.987",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z6f3gu6rjvrysn5gjbsqj3hk3bvsg64ns6pjldqr2xhvhsyd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 20:32:19.793",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z6qinyhhmibvycu5kwmcvgrbpvtztkvvmdce5zwtucaeyrqd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 23:00:48.186",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbit7z6rzyojiye437jp744d4uwtff7aq7df7gh2jvwqtv525c4yd.onion",
+          "title": "LockBit - Leaked",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 22:01:33.954",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lockbitsuppyx2jegaoyiw44ica5vdho63m5ijjlmfb7omq3tfr3qhyd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:01:45.491",
+          "chat": true,
+          "fs": false
         }
       ]
     },

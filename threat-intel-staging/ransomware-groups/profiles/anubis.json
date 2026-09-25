@@ -1,0 +1,41 @@
+{
+  "slug": "anubis",
+  "name": "anubis",
+  "fetchedAt": "2026-09-23T11:55:38.508Z",
+  "profiles": [
+    {
+      "captcha": true,
+      "meta": "Anubis is a financially motivated cybercrime group primarily known for its banking trojan operations but also linked to ransomware activity targeting corporate networks. First identified in 2016 and evolving over time, Anubis ransomware attacks have targeted Windows systems, often deployed after initial compromises by the Anubis banking malware or other access vectors such as phishing, malicious email attachments, or exploitation of unpatched vulnerabilities. The group’s ransomware encrypts files using strong symmetric encryption algorithms, appending distinctive extensions and delivering ransom notes with payment instructions via Tor. Anubis has targeted multiple sectors worldwide, including finance, retail, and government, often combining ransomware with credential theft and data exfiltration to maximize pressure on victims. Its infrastructure and tactics overlap with other financially motivated actors, suggesting possible affiliate or shared tool usage within broader cybercriminal ecosystems.",
+      "locations": [
+        {
+          "fqdn": "om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion",
+          "title": "Anubis blog",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 12:00:04.813",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "anubisyfkh5rixydjpoo3jqucauajz2juybrbtuglcppjj2y3eg3y6ad.onion",
+          "title": "Anubis blog",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 01:00:05.045",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:36:21.208",
+          "chat": true,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

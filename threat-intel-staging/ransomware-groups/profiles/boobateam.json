@@ -1,0 +1,50 @@
+{
+  "slug": "boobateam",
+  "name": "booba team",
+  "fetchedAt": "2026-09-23T11:55:35.547Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "eazk7las3xsvsyxgww3jgzammqjevso2ydnmlopdhl3u2muyrmmilrqd.onion",
+          "title": "Booba Chat",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:26:13.534",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "7t3zi3e7ki6iseun77ofqtr6wmbpgnpc2ada6gstcxp54lw6q2zb7jad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:33:00.985",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "7t3zi3e7ki6iseun77ofqtr6wmbpgnpc2ada6gstcxp54lw6q2zb7jad.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:33:01.597",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "d77tnb4bkmj3e366msrzllnwsi2t5e54e4yqh7zm7y5hlfwugnwzswad.onion",
+          "title": "Booba Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-14 05:06:28.220",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}
