@@ -289,16 +289,16 @@ export default function XLive(): JSX.Element {
             </a>{' '}
             (chronological permalink stream from ~30 monitored accounts) with{' '}
             <a
-              href="https://github.com/FixTweet/FxTwitter"
+              href="https://github.com/FxEmbed/FxEmbed"
               target="_blank"
               rel="noopener noreferrer"
               className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
-              fxtwitter
+              FxEmbed
             </a>{' '}
-            (per-status enrichment for full text, author, media, engagement). This is the only free path that delivers{' '}
-            <em>recent</em> X content - X gates anonymous timeline access, but per-tweet embed previews stay open
-            because Discord/Slack/Telegram link cards depend on them.
+            (API v2 per-status enrichment for full text, author, media, engagement). This is the only free path that
+            delivers <em>recent</em> X content - X gates anonymous timeline access, but per-tweet embed previews stay
+            open because Discord/Slack/Telegram link cards depend on them.
           </span>
           <span className="block text-mini font-mono text-slate-500 mt-2">
             <strong>Coverage caveat:</strong> only tweets that TweetFeed surfaces (researcher-posted IOCs). Prose-only
