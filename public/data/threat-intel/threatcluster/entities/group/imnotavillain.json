@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "imnotavillain",
+  "name": "imnotavillain",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-24T13:21:32.000Z",
+  "lastSeen": "2026-09-24T13:22:27.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-24",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "revolut-dedb",
+      "title": "Revolut — claimed by imnotavillain",
+      "pubDate": "2026-09-24T13:22:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "italy-4220",
+      "title": "Italy — claimed by imnotavillain",
+      "pubDate": "2026-09-24T13:21:32.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "revolut-dedb",
+      "victim": "Revolut — claimed by imnotavillain",
+      "sector": "Financial Services",
+      "country": "GB",
+      "pubDate": "2026-09-24T13:22:27.000Z"
+    },
+    {
+      "id": "italy-4220",
+      "victim": "Italy — claimed by imnotavillain",
+      "sector": "Government & Defense",
+      "country": "IT",
+      "pubDate": "2026-09-24T13:21:32.000Z"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T10:23:51.357Z",
+  "generatedAt": "2026-09-25T10:23:15.827Z",
   "source": "https://detection.wiki",
   "description": "Detection rule and event catalog — 15,957 rules from Sigma, Elastic, Splunk, Kusto, YARA-L, Panther, Sublime mapped to MITRE ATT&CK",
   "stats": {

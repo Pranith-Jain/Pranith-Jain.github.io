@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "n0n",
+  "name": "n0n",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-25T03:21:46.000Z",
+  "lastSeen": "2026-09-25T03:21:46.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-25",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "tapclicks-marketing-analytics-platform-9138",
+      "title": "TapClicks (marketing analytics platform) — claimed by n0n",
+      "pubDate": "2026-09-25T03:21:46.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "tapclicks-marketing-analytics-platform-9138",
+      "victim": "TapClicks (marketing analytics platform) — claimed by n0n",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-25T03:21:46.000Z"
+    }
+  ]
+}

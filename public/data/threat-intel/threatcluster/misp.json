@@ -1,7 +1,7 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-24T10:23:02.429Z",
+  "syncedAt": "2026-09-25T10:22:35.927Z",
   "eventCount": 8,
   "events": [
     {
@@ -22,6 +22,16 @@
       "threat_level_id": "1",
       "timestamp": "1790148435",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "1deab8fe-06da-5d1c-a0a5-fcc860f1f402",
+      "info": "Critical WordPress Vulnerability CVE-2026-87902 Exploited Within Hours of Disclosure",
+      "date": "2026-09-24",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1790250928",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -52,22 +62,30 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "b84ca52d-a8b5-5c81-b4d7-d27e8d236cf3",
+      "info": "Critical RCE Vulnerability Discovered in TACACS+ Protocol",
+      "date": "2026-09-25",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1790313761",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"Salt Typhoon\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "b8d0805c-f12d-5fd2-ac30-598dad801c9e",
       "info": "North Korean Hackers Deploy Mac Backdoors via Fake Job Tests Targeting IT Firms",
       "date": "2026-09-22",
       "analysis": "2",
       "threat_level_id": "2",
       "timestamp": "1790094546",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "0a8fe55c-1015-5d3b-a543-2b3a9b226fb4",
-      "info": "APT36 Launches Operation RapidRust with New Rust Malware Tools",
-      "date": "2026-09-18",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789750528",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
       "orgc": "ThreatCluster"
     },
@@ -79,23 +97,6 @@
       "threat_level_id": "2",
       "timestamp": "1789747049",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "1c1389b3-d371-546e-944e-3c4f7d22d42b",
-      "info": "Surge in Blockchain Dead Drops Driven by AI Models",
-      "date": "2026-09-17",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1789662621",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability"
-      ],
       "orgc": "ThreatCluster"
     }
   ]

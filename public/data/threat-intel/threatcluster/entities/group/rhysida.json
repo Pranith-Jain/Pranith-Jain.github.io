@@ -4,17 +4,27 @@
   "name": "rhysida",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-23T16:22:15.000Z",
-  "lastSeen": "2026-09-23T16:22:15.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "lastSeen": "2026-09-24T18:01:29.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 0 countries.",
   "frequency": [
     {
       "date": "2026-09-23",
       "count": 1
+    },
+    {
+      "date": "2026-09-24",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "nead-pro-731b",
+      "title": "NEAD Pro — claimed by rhysida",
+      "pubDate": "2026-09-24T18:01:29.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "legis-2f62",
@@ -25,6 +35,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
       "weight": 1
@@ -32,6 +48,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "nead-pro-731b",
+      "victim": "NEAD Pro — claimed by rhysida",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-24T18:01:29.000Z"
+    },
     {
       "id": "legis-2f62",
       "victim": "Legis — claimed by rhysida",
