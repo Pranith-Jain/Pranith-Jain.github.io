@@ -138,6 +138,22 @@ const SOURCES: RssSource[] = [
     upstream: 'https://www.volexity.com/feed/',
     displayLink: 'https://www.volexity.com/blog/',
   },
+  {
+    id: 'huntbase',
+    name: 'Huntbase Hub',
+    author: 'hub.huntbase.io',
+    accent: 'amber',
+    upstream: 'https://hub.huntbase.io/feed.xml',
+    displayLink: 'https://hub.huntbase.io/',
+  },
+  {
+    id: 'malbearlabs',
+    name: 'Malbear Labs',
+    author: 'malbearlabs.com',
+    accent: 'emerald',
+    upstream: 'https://malbearlabs.com/feed.xml',
+    displayLink: 'https://malbearlabs.com/',
+  },
 ];
 
 const SOURCE_BY_ID: Record<string, RssSource> = Object.fromEntries(SOURCES.map((s) => [s.id, s]));
