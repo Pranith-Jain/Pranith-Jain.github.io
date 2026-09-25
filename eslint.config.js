@@ -161,6 +161,7 @@ export default tseslint.config(
       'src/components/dfir/osint/IdentifierGraph.tsx',
       'src/pages/dfir/ReportAnalyzer.tsx',
       'src/pages/threatintel/KnowledgeGraph.tsx',
+      'src/components/flowviz/FlowVizCanvas.tsx',
       'src/components/dfir/RelationshipGraph.tsx',
     ],
     rules: {

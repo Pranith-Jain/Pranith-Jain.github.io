@@ -1,0 +1,20 @@
+[
+  {
+    "id": "rule-certutil-download",
+    "category": "technique-grounding",
+    "pattern": "certutil download behavior maps to T1105 Ingress Tool Transfer, not T1059 Command and Scripting Interpreter, unless the excerpt shows script execution",
+    "status": "active"
+  },
+  {
+    "id": "rule-cve-parent-technique",
+    "category": "exploit-mapping",
+    "pattern": "CVE exploitation without variant-level evidence uses the parent technique (e.g. T1190), never a guessed sub-technique",
+    "status": "active"
+  },
+  {
+    "id": "rule-no-fabricated-commands",
+    "category": "provenance",
+    "pattern": "command_lines must be quoted verbatim from the source; narrative reports yield empty component sets with lower confidence",
+    "status": "active"
+  }
+]

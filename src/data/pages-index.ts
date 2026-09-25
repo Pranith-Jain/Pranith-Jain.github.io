@@ -1289,6 +1289,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/procedure-extract',
+    label: 'Procedure Extraction',
+    description: 'Threat report to reviewed x-procedure STIX bundles with Attack-Flow sequencing.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/evtx',
     label: 'EVTX Parser',
     description: 'Windows EVTX parser - filter by channel, event id, and time range.',
@@ -4349,6 +4356,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/research-hub/attack-flow',
     label: 'Attack Flow',
     description: 'Attack flow library.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/flowviz',
+    label: 'FlowViz',
+    description: 'AI attack-flow visualizer - report URL or text to ATT&CK graph with PNG, STIX, and .afb export.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },

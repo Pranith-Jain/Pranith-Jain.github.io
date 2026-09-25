@@ -139,6 +139,7 @@ const ROUTES = [
   '/threatintel/research-hub/ai',
   '/threatintel/research-hub/agentic',
   '/threatintel/research-hub/attack-flow',
+  '/threatintel/flowviz',
   '/threatintel/research-hub/knowledge',
   '/threatintel/research-hub/post',
   '/threatintel/research-hub/redhunt',
@@ -219,6 +220,7 @@ const ROUTES = [
   // ── DFIR: binary / log analyzers (5) — 0 API calls ────────────
   '/dfir/web-log',
   '/dfir/prefetch',
+  '/dfir/procedure-extract',
   '/dfir/powershell-deobf',
 
   // ── DFIR: detection & analysis (8) — 0 API calls ──────────────

@@ -231,6 +231,8 @@ import {
   reportToMarkdown as nhiReportMarkdown,
   catalogSummary as nhiCatalog,
 } from './lib/nhi-scan';
+import { loadFlowvizTechniques, filterFlowvizTechniques } from './lib/flowviz-manifest';
+import { loadProcedureRules, relevantRules } from './lib/procedure-manifest';
 import {
   listCampaigns as webamonListCampaigns,
   getCampaignStats as webamonGetCampaignStats,
@@ -4666,6 +4668,103 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             });
           }
           return untrustedToolResult(actor);
+        }
+      );
+
+      // ── FlowViz attack-flow visualization (edge port, MIT) ──────────
+      // Technique search + graph validation run fully on the edge (ASSETS +
+      // pure functions). Analysis/assistant calls need the platform LLM
+      // chain — use the REST routes POST /api/v1/flowviz/analyze and
+      // POST /api/v1/flowviz/assistant for those.
+
+      this.tools(
+        'flowviz_list_techniques',
+        'Search the FlowViz ATT&CK technique index (MITRE enterprise techniques with tactic names) used for attack-flow action nodes and autocomplete. Filter by keyword (id or name) and/or tactic id (e.g. TA0001). Upstream: davidljohnson/flowviz (MIT).',
+        {
+          q: z.string().optional().describe('Substring match against technique id or name, e.g. "phish", "T1078"'),
+          tactic: z.string().optional().describe('Tactic id filter, e.g. "TA0001" (Initial Access)'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max techniques to return (default 50)'),
+        },
+        async ({ q, tactic, limit }) => {
+          const all = await loadFlowvizTechniques(ASSETS);
+          const techniques = filterFlowvizTechniques(all, { q, tactic, limit: limit ?? 50 });
+          return untrustedToolResult({
+            source: 'FlowViz (edge port) — upstream davidljohnson/flowviz (MIT); ATT&CK® © MITRE',
+            total: all.length,
+            returned: techniques.length,
+            techniques,
+          });
+        }
+      );
+
+      this.tools(
+        'flowviz_validate_graph',
+        'Validate a FlowViz attack-flow graph ({nodes[], edges[]}) structurally: node types, technique-id shape, dangling edges, source-excerpt grounding. Returns errors + warnings without calling any LLM.',
+        {
+          graph: z
+            .record(z.string(), z.unknown())
+            .describe('Graph object with nodes[] and edges[] arrays (FlowViz/analysisPrompt schema)'),
+        },
+        async ({ graph }) => {
+          const rec = (graph ?? {}) as { nodes?: unknown[]; edges?: unknown[] };
+          const nodes = Array.isArray(rec.nodes) ? rec.nodes : [];
+          const edges = Array.isArray(rec.edges) ? rec.edges : [];
+          const errors: string[] = [];
+          const warnings: string[] = [];
+          if (!Array.isArray(rec.nodes)) errors.push('nodes-missing');
+          if (!Array.isArray(rec.edges)) errors.push('edges-missing');
+          const ids = new Set<string>();
+          const NODE_TYPES = ['action', 'tool', 'malware', 'asset', 'infrastructure', 'url', 'vulnerability', 'AND_operator', 'OR_operator'];
+          for (const n of nodes.slice(0, 500)) {
+            const o = (n ?? {}) as Record<string, unknown>;
+            const id = typeof o.id === 'string' ? o.id : '';
+            const type = typeof o.type === 'string' ? o.type : '';
+            if (!id) errors.push('node-missing-id');
+            else if (ids.has(id)) errors.push(`duplicate-node-id:${id}`);
+            else ids.add(id);
+            if (!NODE_TYPES.includes(type)) errors.push(`bad-node-type:${id || '?'}:${type || '?'}`);
+            const data = o.data as Record<string, unknown> | undefined;
+            if (!data || typeof data !== 'object') errors.push(`node-missing-data:${id || '?'}`);
+            const tid = data && typeof data.technique_id === 'string' ? data.technique_id : '';
+            if (type === 'action' && tid && !/^T\d{4}(\.\d{3})?$/.test(tid)) errors.push(`bad-technique-id:${id}:${tid}`);
+          }
+          for (const e of edges.slice(0, 1000)) {
+            const o = (e ?? {}) as Record<string, unknown>;
+            const s = typeof o.source === 'string' ? o.source : '';
+            const t = typeof o.target === 'string' ? o.target : '';
+            if (!s || !t) errors.push('edge-missing-endpoints');
+            else {
+              if (!ids.has(s)) errors.push(`edge-dangling-source:${s}`);
+              if (!ids.has(t)) errors.push(`edge-dangling-target:${t}`);
+            }
+          }
+          return untrustedToolResult({ ok: errors.length === 0, nodeCount: nodes.length, edgeCount: edges.length, errors: errors.slice(0, 50), warnings });
+        }
+      );
+
+      // ── Procedure extraction (edge port, Apache-2.0 design) ──────────
+      // Learned-rules read path. Job submit/review need an admin session —
+      // use POST /api/v1/procedures/jobs and /review for those.
+
+      this.tools(
+        'proc_list_rules',
+        'List learned procedure-extraction rules (analyst corrections promoted to guardrails): technique-grounding, exploit-mapping, provenance. Optionally rank by relevance to a report excerpt. Upstream design: netandneedle/procedure-extraction-pipeline (Apache-2.0).',
+        {
+          reportExcerpt: z.string().optional().describe('Report text (up to ~10k chars) to rank rules against by keyword overlap'),
+          limit: z.number().int().min(1).max(50).optional().describe('Max rules to return (default 10)'),
+        },
+        async ({ reportExcerpt, limit }) => {
+          const rules = await loadProcedureRules(ASSETS);
+          const picked =
+            reportExcerpt && reportExcerpt.trim()
+              ? relevantRules(rules, reportExcerpt.slice(0, 10000), limit ?? 10)
+              : rules.slice(0, limit ?? 10);
+          return untrustedToolResult({
+            source: 'Procedure extraction (edge port) — upstream netandneedle/procedure-extraction-pipeline (Apache-2.0)',
+            total: rules.length,
+            returned: picked.length,
+            rules: picked,
+          });
         }
       );
 

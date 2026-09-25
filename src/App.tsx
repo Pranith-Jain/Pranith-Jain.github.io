@@ -205,6 +205,7 @@ const SqliteExplorer = lazy(() => import('./pages/dfir/SqliteExplorer'));
 const IosBackupExplorer = lazy(() => import('./pages/dfir/IosBackupExplorer'));
 const WebLogAnalyzer = lazy(() => import('./pages/dfir/WebLogAnalyzer'));
 const PrefetchAnalyzer = lazy(() => import('./pages/dfir/PrefetchAnalyzer'));
+const ProcedureExtract = lazy(() => import('./pages/dfir/ProcedureExtract'));
 const SubdomainTakeover = lazy(() => import('./pages/dfir/SubdomainTakeover'));
 
 const AiSuite = lazy(() => import('./pages/dfir/AiSuite'));
@@ -284,6 +285,7 @@ const DestroylistFeeds = lazy(() => import('./pages/threatintel/Destroylist'));
 const LivingThreatFeeds = lazy(() => import('./pages/threatintel/LivingThreat'));
 const MalwareAnalyzerFeeds = lazy(() => import('./pages/threatintel/MalwareAnalyzer'));
 const ThreatClusterEntities = lazy(() => import('./pages/threatintel/ThreatClusterEntities'));
+const FlowViz = lazy(() => import('./pages/threatintel/FlowViz'));
 
 const GithubAdvisories = lazy(() => import('./pages/threatintel/GithubAdvisories'));
 const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulse'));
@@ -761,6 +763,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/research-hub/volexity', Component: VolexityThreatIntel },
   { path: '/threatintel/research-hub/post', Component: ResearchPostPage },
   { path: '/threatintel/research-hub/attack-flow', Component: AttackFlowLibrary },
+  { path: '/threatintel/flowviz', Component: FlowViz },
+  { path: '/dfir/procedure-extract', Component: ProcedureExtract },
   { path: '/threatintel/research-hub/knowledge', Component: KnowledgeGraph },
   { path: '/threatintel/research-hub/ach', Component: ACH },
   { path: '/threatintel/research-hub/library', Component: ReportsLibrary },

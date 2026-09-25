@@ -1,0 +1,1 @@
+../../../worker/lib/procedure-manifest.ts

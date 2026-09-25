@@ -336,6 +336,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PrefetchAnalyzer',
       },
       {
+        path: '/dfir/procedure-extract',
+        tabId: 'procedure-extract',
+        label: 'Procedure Extraction',
+        desc: 'Threat report → reviewed x-procedure STIX bundles with Attack-Flow sequencing.',
+        compVar: 'ProcedureExtract',
+      },
+      {
         path: '/dfir/winreg',
         tabId: 'winreg',
         label: 'Windows Registry Artifacts Reference',

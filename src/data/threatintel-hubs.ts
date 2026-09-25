@@ -859,13 +859,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'ThreatSignalRss',
       },
       {
-        path: '/threatintel/detection-wiki',
-        tabId: 'wiki',
-        label: 'Detection Wiki',
-        desc: '15,957 rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs.',
-        compVar: 'DetectionWiki',
-      },
-      {
         path: '/threatintel/cairn',
         tabId: 'cairn',
         label: 'CAIRN AI-Malware Rules',
@@ -957,6 +950,13 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Attack Flow Library',
         desc: 'ATT&CK attack-flow library with reusable patterns.',
         compVar: 'AttackFlowLibrary',
+      },
+      {
+        path: '/threatintel/flowviz',
+        tabId: 'flowviz',
+        label: 'FlowViz',
+        desc: 'AI attack-flow visualizer: report URL/text → ATT&CK graph with PNG/STIX/.afb export.',
+        compVar: 'FlowViz',
       },
 
       {

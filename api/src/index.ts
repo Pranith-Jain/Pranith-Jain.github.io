@@ -1129,6 +1129,8 @@ import { sampleSubmissionRouter } from './routes/sample-submission';
 import { cloudRefRouter } from './routes/cloud-ref-edge-tools';
 import { pqcRouter } from './routes/pqc-edge-tools';
 import { detectionWikiRouter } from './routes/detection-wiki-edge-tools';
+import { flowvizRouter } from './routes/flowviz';
+import { proceduresRouter } from './routes/procedures';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -2334,7 +2336,12 @@ app.route('/api/v1', toolChainRouter);
 
 // ── Knowledge Graph (TI data → ReactFlow visualization) ──
 import { knowledgeGraphRouter } from './routes/knowledge-graph';
-app.route('/api/v1', knowledgeGraphRouter); // ── CTI Collector (VHunt-inspired IOC fusion + AI prediction + mutation) ──
+app.route('/api/v1', knowledgeGraphRouter);
+// ── FlowViz (edge port of davidljohnson/flowviz, MIT) + Procedure extraction
+// (edge port of netandneedle/procedure-extraction-pipeline, Apache-2.0) ──
+app.route('/api/v1', flowvizRouter);
+app.route('/api/v1', proceduresRouter);
+// ── CTI Collector (VHunt-inspired IOC fusion + AI prediction + mutation) ──
 import {
   ctiCollectHandler,
   ctiStatsHandler,
