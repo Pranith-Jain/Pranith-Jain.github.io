@@ -14,18 +14,18 @@ import { readLastGood, writeLastGood } from '../lib/lastgood';
  *      x.com status IDs from cybersec accounts.
  *
  *   2. For each unique status ID in the window, hit api.fxtwitter.com
- *      to fetch the full tweet (text, author, media, engagement counts,
- *      timestamp). fxtwitter is the Discord/Telegram link-preview proxy
- *      Twitter keeps alive for embed previews — per-tweet enrichment is
- *      free, no auth, and stable.
+ *      API v2 (`/2/status/:id`) to fetch the full tweet (text, author,
+ *      media, engagement counts, timestamp). FxEmbed (fxtwitter) is the
+ *      Discord/Telegram link-preview proxy Twitter keeps alive for embed
+ *      previews — per-tweet enrichment is free, no auth, and stable.
  *
  *   3. Sort chronologically, return as JSON.
  *
  * Why this works when "X live tweets" otherwise doesn't (as of 2026-05):
  *   - X's anonymous profile timeline returns `profile_best_highlights`,
  *     NOT chronological. There's no public path to recent tweets.
- *   - But fxtwitter per-status JSON IS unrestricted — Twitter has to keep
- *     it alive so embed previews work everywhere.
+ *   - But FxEmbed API v2 per-status JSON IS unrestricted — Twitter has to
+ *     keep it alive so embed previews work everywhere.
  *   - TweetFeed gives us a free, fresh source of status IDs to enrich.
  *
  * Limitations:
@@ -41,7 +41,10 @@ import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 const TWEETFEED_URL = 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv';
 const TWEETFEED_WEEK_URL = 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv';
-const FXTWITTER_BASE = 'https://api.fxtwitter.com/i/status/';
+// FxEmbed API v2 — legacy `/i/status/:id` (v1) still responds but is
+// unversioned and may be retired; v2 returns `{ code, status, ... }`
+// instead of `{ code, message, tweet }`. See https://docs.fxembed.com/api/introduction/
+const FXTWITTER_BASE = 'https://api.fxtwitter.com/2/status/';
 const FETCH_TIMEOUT = 12_000;
 const FEED_CACHE_TTL = 600;
 const WEEK_CACHE_TTL = 3600;
@@ -59,8 +62,10 @@ interface FxTweet {
   author?: { screen_name?: string; name?: string; avatar_url?: string };
   replies?: number;
   retweets?: number;
+  /** API v2 renamed `retweets` → `reposts`. Either may appear. */
+  reposts?: number;
   likes?: number;
-  views?: number;
+  views?: number | null;
   bookmarks?: number;
   quotes?: number;
   created_at?: string;
@@ -71,6 +76,9 @@ interface FxTweet {
 
 interface FxResponse {
   code?: number;
+  /** API v2 payload key. */
+  status?: FxTweet;
+  /** Legacy v1 payload key (`/i/status/:id`). Kept for backward compat. */
   tweet?: FxTweet;
   message?: string;
 }
@@ -170,7 +178,7 @@ async function fetchTweetFeed(): Promise<string> {
 }
 
 /**
- * Fetch one tweet from fxtwitter with edge caching. fxtwitter's responses
+ * Fetch one tweet from FxEmbed API v2 with edge caching. Responses
  * are stable per-status (tweet content rarely changes after posting), so
  * a 6h TTL is safe and dramatically reduces subrequest pressure on
  * repeated visits.
@@ -188,7 +196,14 @@ async function fetchFxTweet(statusId: string): Promise<FxTweet | null> {
     } as RequestInit);
     if (!res.ok) return null;
     const body = (await res.json()) as FxResponse;
-    return body.tweet ?? null;
+    // v2 nests under `status`; legacy v1 nested under `tweet`.
+    const raw = body.status ?? body.tweet ?? null;
+    if (!raw) return null;
+    // Normalize the v1→v2 rename so downstream code has one shape.
+    if (raw.reposts !== undefined && raw.retweets === undefined) {
+      raw.retweets = raw.reposts;
+    }
+    return raw;
   } catch (_catchErr) {
     logError('fetchFxTweet failed', _catchErr);
     return null;
