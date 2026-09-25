@@ -35,6 +35,7 @@ export const CTI_CLAIM_HANDLES: string[] = [
   'alphahunt_io',
   'CTI__Updates',
   'spchainattack',
+  'CyberPulse56',
 ];
 
 /** Vendor labs, researchers and news accounts fetched directly (not claim feeds). */

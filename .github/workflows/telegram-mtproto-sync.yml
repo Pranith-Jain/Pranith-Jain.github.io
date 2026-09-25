@@ -1,0 +1,58 @@
+name: Telegram MTProto Sidecar Sync
+
+on:
+  schedule:
+    # Every 6 hours — breach channels post a few times a day; 4 syncs/day
+    # keeps the hub fresh without hammering MTProto (FloodWait risk).
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no KV writes)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: telegram-mtproto-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Sync preview-dark channels via MTProto
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-fund || npm install --no-fund
+      - name: Check secrets
+        id: secrets
+        env:
+          TG_SESSION: ${{ secrets.TG_SESSION }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: |
+          if [ -z "$TG_SESSION" ] || [ -z "$CF_API_TOKEN" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::TG_SESSION/CF_API_TOKEN not set — skipping (see docs/telegram-mtproto-sidecar.md)"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Sync channels to KV bot-posts
+        if: steps.secrets.outputs.present == 'true'
+        env:
+          TG_API_ID: ${{ secrets.TG_API_ID }}
+          TG_API_HASH: ${{ secrets.TG_API_HASH }}
+          TG_SESSION: ${{ secrets.TG_SESSION }}
+          TG_CHANNELS: breachdetect
+          TG_HISTORY_LIMIT: '40'
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_KV_NAMESPACE_ID: ${{ secrets.CF_KV_NAMESPACE_ID }}
+          DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '0' }}
+        run: node scripts/sync-telegram-mtproto.mjs

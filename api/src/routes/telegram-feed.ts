@@ -109,6 +109,14 @@ interface ChannelSpec {
  * preview-disabled, do not add to the preview-based firehose; ransomware.live
  * coverage already comes via the PRO API + posts.json dump).
  *
+ * 2026-09-25 re-probe: `breachdetect` is REAL (27k subs, same crew as
+ * CyberMonitum) but STILL serves 0 preview messages (302 → join page;
+ * siblings CVEDetector/CyberMonitum served 20/20 the same minute). It
+ * stays out of CHANNELS below — instead it syncs via the MTProto
+ * sidecar (scripts/sync-telegram-mtproto.mjs → KV `tg:bot-posts:*`,
+ * docs/telegram-mtproto-sidecar.md), which renders as `[Bot]
+ * breachdetect` with no code change here.
+ *
  * Carding-specific channels were INTENTIONALLY skipped. Public carding
  * channels on Telegram are almost exclusively vendor channels promoting
  * stolen-card sales, not defensive research. Surfacing them on a security
