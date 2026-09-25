@@ -46,11 +46,7 @@ import {
   FLOWVIZ_DEFAULT_SYSTEM,
   FLOWVIZ_MAX_ARTICLE_CHARS,
 } from '../lib/flowviz-prompt';
-import {
-  flowvizSecureFetch,
-  parseFlowvizJson,
-  validateFlowvizGraph,
-} from '../lib/flowviz-validate';
+import { flowvizSecureFetch, parseFlowvizJson, validateFlowvizGraph } from '../lib/flowviz-validate';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../lib/prompt-fence';
 
@@ -98,7 +94,14 @@ export function extractArticleLite(html: string): { title: string; text: string 
   const articleMatch = cleaned.match(/<article(?:\s[^>]*)?>([\s\S]{500,}?)<\/article\s*>/i);
   const scope = articleMatch?.[1] ?? cleaned;
   const paragraphs = [...scope.matchAll(/<p[^>]*>([\s\S]{40,8000}?)<\/p\s*>/gi)]
-    .map((m) => decodeEntities(m[1]!.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()))
+    .map((m) =>
+      decodeEntities(
+        m[1]!
+          .replace(/<[^>]*>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+      )
+    )
     .filter((p) => p.length >= 40);
   if (paragraphs.length === 0) {
     const fallback = decodeEntities(
@@ -143,10 +146,24 @@ flowvizRouter.get('/flowviz/', async (c) => {
       source_url: SOURCE_URL,
       license: LICENSE,
       techniqueCount: all.length,
-      nodeTypes: ['action', 'tool', 'malware', 'asset', 'infrastructure', 'url', 'vulnerability', 'AND_operator', 'OR_operator'],
+      nodeTypes: [
+        'action',
+        'tool',
+        'malware',
+        'asset',
+        'infrastructure',
+        'url',
+        'vulnerability',
+        'AND_operator',
+        'OR_operator',
+      ],
       edgeLabels: ['Uses', 'Targets', 'Communicates with', 'Connects to', 'Affects', 'Leads to'],
       exports: ['png', 'stix21', 'afb', 'flowviz-json'],
-      notes: 'Ollama provider is self-host-only and not available on the edge. Analysis runs through the platform LLM chain.',
+      models: {
+        auto: 'Default platform chain (best available).',
+        oss: 'Open-weights only: Groq gpt-oss, then Workers AI Llama 3.3. No Ollama needed — pass {"model":"oss"}.',
+      },
+      notes: 'Analysis runs through the platform LLM chain; pick model=oss for open-weights only.',
     });
   } catch (e) {
     logError('flowviz index failed', e);
@@ -208,13 +225,78 @@ interface AnalyzeBody {
   text?: string;
   url?: string;
   system?: string;
+  /** 'auto' (default full chain) or 'oss' (open-weights only: gpt-oss → Llama). */
+  model?: string;
 }
 
-async function resolveAnalyzeText(c: { env: Env }, body: AnalyzeBody): Promise<{ text: string; title?: string } | { error: Response }> {
+/** Normalize the model selector. Pure. */
+export function normalizeFlowvizModel(v: unknown): 'auto' | 'oss' {
+  return v === 'oss' ? 'oss' : 'auto';
+}
+
+/**
+ * LLM call honoring the model selector. 'oss' pins open-weights only:
+ * Groq gpt-oss (exclusive, no fall-through into proprietary models),
+ * then Workers AI Llama 3.3 directly. Throws when the whole OSS path
+ * is unavailable — callers surface that honestly instead of silently
+ * swapping in a proprietary model.
+ */
+async function runFlowvizLlm(
+  env: Env,
+  system: string,
+  user: string,
+  model: 'auto' | 'oss',
+  role: string,
+  maxTokens: number,
+  temperature: number
+): Promise<{ text: string; modelUsed: string }> {
+  if (model === 'oss') {
+    try {
+      return await runCompletion(
+        env.AI,
+        { system, user, maxTokens, temperature },
+        { role, preferProvider: 'groq', exclusiveProvider: true, groqKey: env.GROQ_API_KEY ?? '' }
+      );
+    } catch (e) {
+      logError('flowviz oss groq failed, trying Workers AI Llama', e);
+    }
+    const res = (await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: user },
+      ],
+      max_tokens: maxTokens,
+      temperature,
+    })) as { response?: string };
+    const text = res?.response ?? '';
+    if (!text.trim()) throw new Error('oss-llama-empty');
+    return { text, modelUsed: 'workers-ai:llama-3.3-70b' };
+  }
+  return runCompletion(env.AI, { system, user, maxTokens, temperature }, { role });
+}
+
+interface ResolvedText {
+  text: string;
+  title?: string;
+  /** Diagnostics for the 400 path: what the caller actually sent. */
+  textLen: number;
+  urlHost: string | null;
+  extractedLen: number | null;
+}
+
+async function resolveAnalyzeText(c: { env: Env }, body: AnalyzeBody): Promise<ResolvedText | { error: Response }> {
   const text = typeof body.text === 'string' ? body.text.slice(0, MAX_INPUT_CHARS).trim() : '';
-  if (text.length >= 200) return { text };
   const url = typeof body.url === 'string' ? body.url.trim().slice(0, MAX_URL_CHARS) : '';
-  if (!url) return { text: '' };
+  const diag = { textLen: text.length, urlHost: null as string | null, extractedLen: null as number | null };
+  if (text.length >= 200) return { text, ...diag };
+  if (!url) return { text: '', ...diag };
+  let host: string | null = null;
+  try {
+    host = new URL(url).hostname;
+  } catch {
+    /* validateFlowvizUrl-equivalent message comes from fetch-article; here mark unknown host */
+  }
+  diag.urlHost = host;
   let res: Response;
   try {
     res = await flowvizSecureFetch(url, { maxBytes: 5_000_000, timeoutMs: 15000, accept: 'text/html' });
@@ -224,20 +306,30 @@ async function resolveAnalyzeText(c: { env: Env }, body: AnalyzeBody): Promise<{
   }
   const html = await res.text().catch(() => '');
   const { title, text: extracted } = extractArticleLite(html);
-  return { text: extracted, title };
+  diag.extractedLen = extracted.length;
+  return { text: extracted, title, ...diag };
 }
 
-async function runFlowvizAnalysis(env: Env, text: string, system?: string) {
+/** Human-readable 400 that says what was received, not just the rule. */
+function shortInputMessage(r: ResolvedText): string {
+  const parts = [`got text=${r.textLen} chars`];
+  if (r.urlHost)
+    parts.push(`fetched ${r.urlHost} but extracted only ${r.extractedLen ?? 0} chars (paywall or JS-rendered page?)`);
+  else if (r.textLen === 0) parts.push('no usable {text} or {url}');
+  return `Provide {text} (≥200 chars) or {url} of an HTML article — ${parts.join('; ')}`;
+}
+
+async function runFlowvizAnalysis(env: Env, text: string, opts: { system?: string; model?: 'auto' | 'oss' } = {}) {
   const prompt = buildFlowvizAnalysisPrompt({ text });
-  const out = await runCompletion(
-    env.AI,
-    {
-      system: `${FLOWVIZ_DEFAULT_SYSTEM} ${UNTRUSTED_DATA_SYSTEM_NOTE}`,
-      user: `${fenceUntrusted('ARTICLE', text)}\n\n${prompt}`,
-      maxTokens: 8000,
-      temperature: 0.1,
-    },
-    { role: 'flowviz-analyze', ...(system ? {} : {}) }
+  const systemBase = opts.system?.trim() ? opts.system.trim().slice(0, 2000) : FLOWVIZ_DEFAULT_SYSTEM;
+  const out = await runFlowvizLlm(
+    env,
+    `${systemBase} ${UNTRUSTED_DATA_SYSTEM_NOTE}`,
+    `${fenceUntrusted('ARTICLE', text)}\n\n${prompt}`,
+    opts.model ?? 'auto',
+    'flowviz-analyze',
+    8000,
+    0.1
   );
   const parsed = parseFlowvizJson(out.text);
   const graph = (parsed && typeof parsed === 'object' ? parsed : { nodes: [], edges: [] }) as {
@@ -252,7 +344,8 @@ flowvizRouter.post('/flowviz/analyze', async (c) => {
   const parsed = await safeJsonBody<AnalyzeBody>(c, { maxBytes: 128 * 1024 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  let resolved: { text: string; title?: string };
+  const model = normalizeFlowvizModel(body.model);
+  let resolved: ResolvedText;
   try {
     const r = await resolveAnalyzeText(c, body);
     if ('error' in r) return r.error;
@@ -261,9 +354,12 @@ flowvizRouter.post('/flowviz/analyze', async (c) => {
     logError('flowviz analyze resolve failed', e);
     return badGateway(c, 'Article fetch failed');
   }
-  if (resolved.text.length < 200) return badRequest(c, 'Provide {text} (≥200 chars) or {url} of an HTML article');
+  if (resolved.text.length < 200) return badRequest(c, shortInputMessage(resolved));
   try {
-    const { graph, validation, modelUsed } = await runFlowvizAnalysis(c.env, resolved.text, body.system);
+    const { graph, validation, modelUsed } = await runFlowvizAnalysis(c.env, resolved.text, {
+      system: body.system,
+      model,
+    });
     return c.json(
       { ...graph, validation, modelUsed, title: resolved.title, source: SOURCE, source_url: SOURCE_URL },
       200,
@@ -279,9 +375,10 @@ flowvizRouter.post('/flowviz/analyze-stream', async (c) => {
   const parsed = await safeJsonBody<AnalyzeBody>(c, { maxBytes: 128 * 1024 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
+  const model = normalizeFlowvizModel(body.model);
   return sseStream(async (write) => {
     write('progress', { stage: 'resolving-input' });
-    let resolved: { text: string; title?: string };
+    let resolved: ResolvedText;
     try {
       const r = await resolveAnalyzeText(c, body);
       if ('error' in r) {
@@ -294,12 +391,15 @@ flowvizRouter.post('/flowviz/analyze-stream', async (c) => {
       return;
     }
     if (resolved.text.length < 200) {
-      write('error', { message: 'Provide {text} (≥200 chars) or {url} of an HTML article' });
+      write('error', { message: shortInputMessage(resolved) });
       return;
     }
-    write('progress', { stage: 'analyzing', chars: resolved.text.length, title: resolved.title });
+    write('progress', { stage: 'analyzing', chars: resolved.text.length, title: resolved.title, model });
     try {
-      const { graph, validation, modelUsed } = await runFlowvizAnalysis(c.env, resolved.text, body.system);
+      const { graph, validation, modelUsed } = await runFlowvizAnalysis(c.env, resolved.text, {
+        system: body.system,
+        model,
+      });
       write('progress', { stage: 'validating', nodes: validation.nodeCount, edges: validation.edgeCount });
       write('done', { ...graph, validation, modelUsed, title: resolved.title, source: SOURCE });
     } catch (e) {
@@ -316,14 +416,20 @@ flowvizRouter.post('/flowviz/assistant', async (c) => {
     messages?: Array<{ role?: string; content?: string }>;
     contexts?: Array<{ kind: string; name: string; id: string }>;
     sourceText?: string;
+    model?: string;
   }>(c, { maxBytes: 1024 * 1024 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
+  const model = normalizeFlowvizModel(body.model);
   const graph = body.graph && Array.isArray(body.graph.nodes) && Array.isArray(body.graph.edges) ? body.graph : null;
   if (!graph) return badRequest(c, 'Provide {graph: {nodes[], edges[]}}');
-  if (graph.nodes!.length > 500 || graph.edges!.length > 1000) return badRequest(c, 'Graph too large (500 nodes / 1000 edges max)');
-  const lastUser = [...(body.messages ?? [])].reverse().find((m) => m.role === 'user' && m.content)?.content?.slice(0, 8000)
-    ?? (typeof body.prompt === 'string' ? body.prompt.slice(0, 8000) : '');
+  if (graph.nodes!.length > 500 || graph.edges!.length > 1000)
+    return badRequest(c, 'Graph too large (500 nodes / 1000 edges max)');
+  const lastUser =
+    [...(body.messages ?? [])]
+      .reverse()
+      .find((m) => m.role === 'user' && m.content)
+      ?.content?.slice(0, 8000) ?? (typeof body.prompt === 'string' ? body.prompt.slice(0, 8000) : '');
   if (!lastUser.trim()) return badRequest(c, 'Provide {prompt} or {messages} with a user turn');
   try {
     const system = buildFlowvizAssistantPrompt({
@@ -331,11 +437,7 @@ flowvizRouter.post('/flowviz/assistant', async (c) => {
       contexts: body.contexts?.slice(0, 50),
       sourceText: typeof body.sourceText === 'string' ? body.sourceText.slice(0, 30000) : undefined,
     });
-    const out = await runCompletion(
-      c.env.AI,
-      { system, user: lastUser, maxTokens: 4000, temperature: 0.2 },
-      { role: 'flowviz-assistant' }
-    );
+    const out = await runFlowvizLlm(c.env, system, lastUser, model, 'flowviz-assistant', 4000, 0.2);
     const parsed = parseFlowvizJson(out.text) as { message?: unknown; ops?: unknown } | null;
     return c.json(
       {

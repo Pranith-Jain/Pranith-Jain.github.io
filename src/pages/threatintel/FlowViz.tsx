@@ -46,6 +46,7 @@ interface AnalyzeResponse {
 
 function FlowVizInner(): JSX.Element {
   const [mode, setMode] = useState<'text' | 'url'>('url');
+  const [model, setModel] = useState<'auto' | 'oss'>('auto');
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
   const [stage, setStage] = useState('');
@@ -76,7 +77,7 @@ function FlowVizInner(): JSX.Element {
     setEdges([]);
     setValidation(null);
     try {
-      const body = mode === 'url' ? { url: v } : { text: v };
+      const body = mode === 'url' ? { url: v, model } : { text: v, model };
       const r = await fetch('/api/v1/flowviz/analyze', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -96,7 +97,7 @@ function FlowVizInner(): JSX.Element {
     } finally {
       setBusy(false);
     }
-  }, [input, mode]);
+  }, [input, mode, model]);
 
   const exportPng = useCallback(async () => {
     try {
@@ -138,6 +139,20 @@ function FlowVizInner(): JSX.Element {
           placeholder={mode === 'url' ? 'https://example.com/threat-report…' : 'Paste report text (≥200 chars)…'}
           className="flex-1 min-w-52 rounded-lg border border-line bg-surface px-3 py-2 text-sm"
         />
+        <div
+          className="flex rounded-lg border border-line overflow-hidden"
+          title="Auto = best available model. Open-weights = gpt-oss → Llama, no API key needed beyond the platform."
+        >
+          {(['auto', 'oss'] as const).map((m) => (
+            <button
+              key={m}
+              onClick={() => setModel(m)}
+              className={`px-3 py-1.5 text-xs font-mono uppercase ${model === m ? 'bg-brand-500/20 text-brand-600' : 'text-muted'}`}
+            >
+              {m === 'auto' ? 'Auto' : 'OSS'}
+            </button>
+          ))}
+        </div>
         <button
           onClick={analyze}
           disabled={busy}
@@ -145,7 +160,11 @@ function FlowVizInner(): JSX.Element {
         >
           {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Analyze'}
         </button>
-        <button onClick={() => setShowSaved((s) => !s)} className="rounded-lg border border-line px-3 py-2 text-sm" title="Saved flows">
+        <button
+          onClick={() => setShowSaved((s) => !s)}
+          className="rounded-lg border border-line px-3 py-2 text-sm"
+          title="Saved flows"
+        >
           <FolderOpen className="h-4 w-4" />
         </button>
       </div>
@@ -153,7 +172,10 @@ function FlowVizInner(): JSX.Element {
       {stage && <p className="mb-2 text-xs font-mono text-muted">{stage}</p>}
       {error && (
         <p className="mb-2 flex items-center gap-2 rounded-lg border border-rose-500/40 bg-rose-500/5 px-3 py-2 text-sm text-rose-600">
-          <AlertTriangle className="h-4 w-4" /> {error} <button onClick={() => setError(null)} className="ml-auto"><X className="h-4 w-4" /></button>
+          <AlertTriangle className="h-4 w-4" /> {error}{' '}
+          <button onClick={() => setError(null)} className="ml-auto">
+            <X className="h-4 w-4" />
+          </button>
         </p>
       )}
       {validation && (
@@ -180,8 +202,16 @@ function FlowVizInner(): JSX.Element {
               >
                 {f.title}
               </button>
-              <span className="text-xs text-muted">{f.nodes.length}n/{f.edges.length}e</span>
-              <button className="ml-auto text-rose-500" onClick={() => { deleteSavedFlow(f.id); setSaved(listSavedFlows()); }}>
+              <span className="text-xs text-muted">
+                {f.nodes.length}n/{f.edges.length}e
+              </span>
+              <button
+                className="ml-auto text-rose-500"
+                onClick={() => {
+                  deleteSavedFlow(f.id);
+                  setSaved(listSavedFlows());
+                }}
+              >
                 <Trash2 className="h-4 w-4" />
               </button>
             </div>
@@ -241,13 +271,18 @@ function FlowVizInner(): JSX.Element {
           <div className="w-full rounded-lg border border-line bg-surface p-3 text-sm">
             <div className="flex items-center gap-2">
               <strong>{String((selected.data as Record<string, unknown>)?.name ?? selected.id)}</strong>
-              <span className="text-xs font-mono text-muted">{String((selected.data as Record<string, unknown>)?.type ?? selected.type)}</span>
-              <button className="ml-auto" onClick={() => setSelected(null)}><X className="h-4 w-4" /></button>
+              <span className="text-xs font-mono text-muted">
+                {String((selected.data as Record<string, unknown>)?.type ?? selected.type)}
+              </span>
+              <button className="ml-auto" onClick={() => setSelected(null)}>
+                <X className="h-4 w-4" />
+              </button>
             </div>
             <p className="mt-1 text-muted">{String((selected.data as Record<string, unknown>)?.description ?? '')}</p>
             {String((selected.data as Record<string, unknown>)?.technique_id ?? '') && (
               <p className="mt-1 font-mono text-xs">
-                {(selected.data as Record<string, unknown>).technique_id as string} · {(selected.data as Record<string, unknown>).tactic_name as string}
+                {(selected.data as Record<string, unknown>).technique_id as string} ·{' '}
+                {(selected.data as Record<string, unknown>).tactic_name as string}
                 {' · '}
                 <a
                   className="underline"
@@ -260,7 +295,9 @@ function FlowVizInner(): JSX.Element {
               </p>
             )}
             {Boolean((selected.data as Record<string, unknown>)?.command_line) && (
-              <pre className="mt-1 overflow-x-auto rounded bg-black/30 p-2 font-mono text-xs">{String((selected.data as Record<string, unknown>).command_line)}</pre>
+              <pre className="mt-1 overflow-x-auto rounded bg-black/30 p-2 font-mono text-xs">
+                {String((selected.data as Record<string, unknown>).command_line)}
+              </pre>
             )}
             {Boolean((selected.data as Record<string, unknown>)?.source_excerpt) && (
               <blockquote className="mt-1 border-l-2 border-line pl-2 text-xs italic text-muted">
@@ -271,8 +308,12 @@ function FlowVizInner(): JSX.Element {
         )}
       </div>
       <p className="mt-4 text-xs text-muted">
-        Upstream: <a className="underline" href="https://github.com/davidljohnson/flowviz">davidljohnson/flowviz</a> (MIT) ·
-        ATT&CK® © The MITRE Corporation · Ollama/local models are self-host-only and not available on the edge.
+        Upstream:{' '}
+        <a className="underline" href="https://github.com/davidljohnson/flowviz">
+          davidljohnson/flowviz
+        </a>{' '}
+        (MIT) · ATT&CK® © The MITRE Corporation · OSS mode runs open-weights models (Groq gpt-oss → Workers AI Llama)
+        instead of a local Ollama setup.
       </p>
     </DataPageLayout>
   );

