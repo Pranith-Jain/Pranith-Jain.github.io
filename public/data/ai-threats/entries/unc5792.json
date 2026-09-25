@@ -1,0 +1,13 @@
+{
+  "slug": "unc5792",
+  "name": "UNC5792",
+  "akas": "Russia-based (GTIG)",
+  "brief": "Integrated AI models into automated monitoring bots analyzing Telegram channels for information of interest to Russian authorities (security threats, extremist content); experimented with AI for API-key integration, message classification (suspicious vs. neutral), and generating structured intelligence reports. GTIG",
+  "ttps": ["T1119", "T1593"],
+  "categories": ["LLM-directed Automated Collection", "LLM-informed reconnaissance"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 317,
+  "ttpMd": "**LLM-directed Automated Collection** T1119 - Automated Collection<br><br>**LLM-informed reconnaissance** T1593 - Search Open Websites/Domains"
+}

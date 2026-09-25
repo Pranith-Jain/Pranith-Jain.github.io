@@ -1,0 +1,13 @@
+{
+  "slug": "unc6508",
+  "name": "UNC6508",
+  "akas": "PRC-nexus (GTIG); originally disclosed in GTIG's June 2026 AI Threat Tracker edition, reiterated/extended here",
+  "brief": "Compromises cloud environments to deploy local, open-weight LLM infrastructure — avoiding commercial AI API monitoring while co-opting victim compute resources — and separately targets proprietary AI research (academic/medical/military) and researches AI-model vulnerabilities. GTIG",
+  "ttps": ["T1584", "T1588.006"],
+  "categories": ["LLM-advised resource development", "LLM-assisted vulnerability research"],
+  "reported": "Sep 2026",
+  "activity": "Unknown (multi-year campaign per GTIG)",
+  "table": "main",
+  "sizeBytes": 282,
+  "ttpMd": "**LLM-advised resource development** T1584 - Compromise Infrastructure<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities"
+}

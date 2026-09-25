@@ -1,0 +1,17 @@
+{
+  "slug": "sandworm-relic",
+  "name": "SANDWORM RELIC",
+  "akas": "FROZENBARENTS, SANDWORM, APT44 (Russian, GTIG's new designation; targets Ukraine)",
+  "brief": "AI-themed phishing domains; Gemini-written/refined asynchronous Python password-spraying scripts; endpoint-fingerprinting scripts; proxy-based C2 obfuscation; local projects integrating directly with the Gemini API. GTIG",
+  "ttps": ["T1059", "T1562.001", "T1566"],
+  "categories": [
+    "LLM-enhanced scripting techniques",
+    "LLM-supported social engineering",
+    "LLM-enhanced anomaly detection evasion"
+  ],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 220,
+  "ttpMd": "**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-enhanced anomaly detection evasion** T1562.001 - Impair Defenses"
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-50021",
+  "name": "GTG-50021",
+  "akas": "Fraudulent AI reseller, alias \"kl1zy\" (Russian/Ukrainian)",
+  "brief": "Sold fake \"discounted Claude access\" that silently proxied victims to a different, cheaper model while installing a credential harvester on the buyer's machine. Anthropic",
+  "ttps": ["T1005", "T1587"],
+  "categories": ["LLM-advised resource development"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 170,
+  "ttpMd": "**LLM-advised resource development** T1587<br><br>T1005 - Data from Local System (credential harvester)"
+}

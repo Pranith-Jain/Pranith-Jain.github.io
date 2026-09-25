@@ -1,0 +1,18 @@
+{
+  "slug": "shinyhunters",
+  "name": "ShinyHunters",
+  "akas": "GTG-50014 (Anthropic); UNC6240 (GTIG); operator aliases MeowSHA / frkoo / blazespider",
+  "brief": "Reported independently by two AI vendors in the same cycle. Anthropic (GTG-50014): multiple ShinyHunters-affiliate operators decompiled 1.8M Android APKs via TruffleHog on a 10-node AWS EC2 fleet to scan for secrets; harvested GitHub PATs; reused stolen AI API keys for follow-on attacks; dumped 2,100+ Azure AD tokens across 40+ tenants in ~34 hours; compromised a SaaS supply-chain reaching ~200 downstream customers; ran a pay-or-leak extortion operation and a carding storefront (\"Soraki\") impersonating French national police branding. GTIG (UNC6240): used Claude-code prompts to write complex obfuscated code bypassing Cloudflare guardrails/perimeter defenses, and integrated Claude Code with custom MCP tools to parse and analyze exfiltrated directories for extortion targeting. Anthropic · GTIG",
+  "ttps": ["T1195", "T1562.001", "T1585", "T1587", "T1657"],
+  "categories": [
+    "LLM-aided development",
+    "LLM-advised resource development",
+    "LLM-enhanced extortion/negotiation",
+    "LLM-enhanced anomaly detection evasion"
+  ],
+  "reported": "Sep 2026",
+  "activity": "Feb 2026 – Jun 2026",
+  "table": "main",
+  "sizeBytes": 802,
+  "ttpMd": "**LLM-aided development** T1587 - Develop Capabilities<br><br>**LLM-advised resource development** T1587 / T1585<br><br>T1195 - Supply Chain Compromise<br><br>**LLM-enhanced extortion/negotiation** T1657 - Financial Theft<br><br>**LLM-enhanced anomaly detection evasion** T1562.001 - Impair Defenses (guardrail/WAF bypass)"
+}
