@@ -109,7 +109,13 @@ export function parseHeatwavePage(domain: string, text: string): HeatwaveResult 
   // Require the echo so homepage-style tables can't false-positive.
   const listedRe = new RegExp(`Listed\\s+(Warming|Active|Pre-warming)\\s+${domain.replace(/\./g, '\\.')}\\b`, 'i');
   const listedMatch = listedRe.exec(text);
-  const notListed = /Not currently listed/i.test(text) && /not on the Heatwave Domain Blocklist/i.test(text);
+  // Not-listed disclaimer wording changed 2026-09: the old "... is not on
+  // the Heatwave Domain Blocklist" sentence became "Heatwave did not return
+  // a current blocklist entry for this exact domain." Accept either.
+  const notListed =
+    /Not currently listed/i.test(text) &&
+    (/not on the Heatwave Domain Blocklist/i.test(text) ||
+      /did not return a current blocklist entry/i.test(text));
 
   const related = parseRelated(text);
 

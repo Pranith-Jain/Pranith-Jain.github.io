@@ -41,6 +41,15 @@ const NOT_LISTED = [
   'dockexample.com Active 58 / 100 2026-08-17',
 ].join(' ');
 
+// Disclaimer reworded upstream ~2026-09 (verified live 2026-09-25):
+// "Heatwave did not return a current blocklist entry for this exact domain."
+const NOT_LISTED_V2 = [
+  'Check domain Enter a domain, such as example.com . Do not enter a URL, email address, or IP address.',
+  'Not currently listed qubitcapital.com Heatwave did not return a current blocklist entry for this exact domain.',
+  'A “not currently listed” result is not a certification that the domain, its messages, or its sending practices are legitimate, solicited, safe, or reputable.',
+  'Lookups are exact-match; a subdomain of a listed host is not itself listed.',
+].join(' ');
+
 describe('normalizeHeatwaveDomain', () => {
   it('reduces URLs, emails and case to a bare domain', () => {
     expect(normalizeHeatwaveDomain('https://Mail.Example.COM/x')).toBe('mail.example.com');
@@ -91,6 +100,12 @@ describe('parseHeatwavePage', () => {
     expect(r?.status).toBe('not-listed');
     expect(r?.related).toHaveLength(3);
     expect(r?.related[2]).toMatchObject({ domain: 'dockexample.com', classification: 'Active', score: 58 });
+  });
+
+  it('parses the reworded not-listed disclaimer (2026-09)', () => {
+    const r = parseHeatwavePage('qubitcapital.com', NOT_LISTED_V2);
+    expect(r?.listed).toBe(false);
+    expect(r?.status).toBe('not-listed');
   });
 
   it('requires the queried domain echo — foreign tables do not false-positive', () => {
