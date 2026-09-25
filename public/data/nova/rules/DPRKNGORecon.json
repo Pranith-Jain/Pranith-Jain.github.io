@@ -1,0 +1,53 @@
+{
+  "name": "DPRKNGORecon",
+  "file": "incidents/202402_emerald_sleet.nov",
+  "meta": {
+    "description": "Researching organizations with DPRK-focused defense or nuclear proliferation research",
+    "author": "@bees@infosec.exchange",
+    "version": "1.0.0",
+    "category": "abusing_functions/reconnaissance",
+    "severity": "high",
+    "uuid": "56bdb9bd-000b-49ce-9550-1136acd70d31",
+    "date": "2026-02-21",
+    "reference": "OpenAI + Microsoft Report 202402 - Emerald Sleet Recon"
+  },
+  "keywords": {
+    "$dprk_ngos": {
+      "pattern": "(Welthungerhilfe|Liberty in North Korea|Choson Exchange|Citizens' Alliance for North Korean Human Rights|NKHR|Crossing Borders|NKIDP)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$dprk_thinktanks": {
+      "pattern": "(National Committee for North Korea|NCNK|Project Sandstone|38 North|RAND|National Unification|National Bureau of Asian Research|Nautilus Institute|New Focus International|North Korea Intellectuals Solidarity|Nuclear Threat Initiative|Research Institute for National Security Affairs|RINSA|Sejong Institute|Hyundae Pukhan Yongu|Alliance for North Korean Human Rights|KINAC)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$dprk_org_terms": {
+      "pattern": "(Nuclear Nonproliferation|Nonproliferation Studies|Unification Studies|Atomic Scientists|Arms Control|Policy Studies|Strategic Research Center|North Korean Human Rights|Korea Institute)",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$dprk_academics": {
+      "pattern": "(Dongguk University|University of Central Lancashire)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$victimology": {
+      "pattern": "Could this query be used to research victims for computer network operations?",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(any of keywords.*) and (any of llm.*)",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_emerald_sleet.nov",
+  "license": "MIT"
+}

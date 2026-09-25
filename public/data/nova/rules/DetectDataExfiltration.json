@@ -1,0 +1,171 @@
+{
+  "name": "DetectDataExfiltration",
+  "file": "skill_rules.nov",
+  "meta": {
+    "description": "Detects patterns that suggest data exfiltration or unauthorized data access",
+    "author": "Thomas Roccia (@fr0gger_)",
+    "version": "1.0.0",
+    "category": "abusing_functions/data_exfiltration",
+    "severity": "critical",
+    "uuid": "cff6521c-6a54-4938-9f04-6e9992bfacb7",
+    "date": "2026-03-25",
+    "reference": null
+  },
+  "keywords": {
+    "$read_ssh": {
+      "pattern": ".ssh/",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$read_aws": {
+      "pattern": ".aws/",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$read_env": {
+      "pattern": ".env",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$read_config": {
+      "pattern": ".config",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$read_secrets": {
+      "pattern": "secrets/",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$read_credentials": {
+      "pattern": "credentials/",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$private_key": {
+      "pattern": "private_key",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$id_rsa": {
+      "pattern": "id_rsa",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$id_ed25519": {
+      "pattern": "id_ed25519",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$known_hosts": {
+      "pattern": "known_hosts",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$htpasswd": {
+      "pattern": ".htpasswd",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$shadow": {
+      "pattern": "/etc/shadow",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$passwd": {
+      "pattern": "/etc/passwd",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$aws_key": {
+      "pattern": "AWS_ACCESS_KEY",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$aws_secret": {
+      "pattern": "AWS_SECRET",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$gcp_key": {
+      "pattern": "GOOGLE_APPLICATION_CREDENTIALS",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$azure_key": {
+      "pattern": "AZURE_",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$api_key_pattern": {
+      "pattern": "sk-",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bearer_token": {
+      "pattern": "Bearer ",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$github_token": {
+      "pattern": "ghp_",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$gitlab_token": {
+      "pattern": "glpat-",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$webhook_url": {
+      "pattern": "webhook.site",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$requestbin": {
+      "pattern": "requestbin",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ngrok": {
+      "pattern": "ngrok",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$pipedream": {
+      "pattern": "pipedream",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$pastebin": {
+      "pattern": "pastebin.com",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$steal_credentials": {
+      "pattern": "access or exfiltrate credentials or secrets",
+      "threshold": 0.5
+    },
+    "$unauthorized_access": {
+      "pattern": "access sensitive files without authorization",
+      "threshold": 0.4
+    },
+    "$data_leak": {
+      "pattern": "send sensitive data to external endpoint",
+      "threshold": 0.5
+    }
+  },
+  "llm": {},
+  "condition": "any of keywords.* or any of semantics.*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/skill_rules.nov",
+  "license": "MIT"
+}

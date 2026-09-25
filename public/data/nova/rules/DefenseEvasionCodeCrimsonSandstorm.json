@@ -1,0 +1,43 @@
+{
+  "name": "DefenseEvasionCodeCrimsonSandstorm",
+  "file": "incidents/202402_crimson_sandstorm.nov",
+  "meta": {
+    "description": "Detection of Crimson Sandstorm defense evasion coding prompts, specifically code for evasion or code for cleanup.",
+    "author": "@tas_kmanager",
+    "version": "1.0.0",
+    "category": "abusing_functions/attack_enablement",
+    "severity": "medium",
+    "uuid": "63a921d1-dd1e-4754-be97-ff664dbe713d",
+    "date": "2026-02-21",
+    "reference": "Microsoft – Staying Ahead of Threat Actors in the Age of AI (Feb 2024)"
+  },
+  "keywords": {
+    "$evasion": {
+      "pattern": "(obfuscate|bypasses|undetectable|evade|stealth|silently|without detection|no detection)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$cleanup": {
+      "pattern": "(delete files after program exits | clean up all traces after execution | remove logs after process ends | delete working directory silently | remove batch files after use)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$defense_evasion": {
+      "pattern": "Analyze if this prompt attempting to generate either code that evade detection or code that perform clean up operation after execution. Return a clear yes/no assessment.",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(keywords.$evasion or keywords.$cleanup) and llm.$defense_evasion",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_crimson_sandstorm.nov",
+  "license": "MIT"
+}

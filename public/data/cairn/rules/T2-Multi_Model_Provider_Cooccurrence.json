@@ -1,0 +1,77 @@
+{
+  "name": "T2-Multi_Model_Provider_Cooccurrence",
+  "tier": "T2",
+  "confidence": 80,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "multi_model_cooccurrence",
+  "description": "Two or more distinct LLM provider API domains in the same binary — characteristic of multi-model orchestrators and operator-grade implants cycling across providers",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$openai",
+      "pattern": "api.openai.com",
+      "nocase": true
+    },
+    {
+      "id": "$anthropic",
+      "pattern": "api.anthropic.com",
+      "nocase": true
+    },
+    {
+      "id": "$gemini",
+      "pattern": "generativelanguage.googleapis.com",
+      "nocase": true
+    },
+    {
+      "id": "$deepseek",
+      "pattern": "api.deepseek.com",
+      "nocase": true
+    },
+    {
+      "id": "$mistral",
+      "pattern": "api.mistral.ai",
+      "nocase": true
+    },
+    {
+      "id": "$openrouter",
+      "pattern": "openrouter.ai",
+      "nocase": true
+    },
+    {
+      "id": "$groq",
+      "pattern": "api.groq.com",
+      "nocase": true
+    },
+    {
+      "id": "$together",
+      "pattern": "api.together.xyz",
+      "nocase": true
+    },
+    {
+      "id": "$cohere",
+      "pattern": "api.cohere.ai",
+      "nocase": true
+    },
+    {
+      "id": "$bigmodel",
+      "pattern": "open.bigmodel.cn",
+      "nocase": true
+    },
+    {
+      "id": "$moonshot",
+      "pattern": "api.moonshot.cn",
+      "nocase": true
+    },
+    {
+      "id": "$dashscope",
+      "pattern": "dashscope.aliyuncs.com",
+      "nocase": true
+    }
+  ],
+  "condition": "2 of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

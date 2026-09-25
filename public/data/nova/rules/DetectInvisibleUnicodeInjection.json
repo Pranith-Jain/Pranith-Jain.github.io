@@ -1,0 +1,47 @@
+{
+  "name": "DetectInvisibleUnicodeInjection",
+  "file": "hidden_unicode.nov",
+  "meta": {
+    "description": "Detects Unicode Tags Block and zero-width/invisible Unicode characters used to hide or smuggle prompt instructions",
+    "author": "@fr0gger_, Marco Pedrinazzi (@pedrinazziM)",
+    "version": "1.1.1",
+    "category": "suspicious_patterns/unicode_tricks",
+    "severity": "high",
+    "uuid": "cc812696-259d-45d1-a46c-a37f07bb0739",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$unicode_tags_block": {
+      "pattern": "[\\U000E0000-\\U000E007F]{3,}",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$zero_width_present": {
+      "pattern": "[\\u200B-\\u200F\\u2060\\u2063\\uFEFF\\u00AD\\u034F\\u180E]",
+      "isRegex": true,
+      "caseSensitive": true
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$llm_invisible_prompt": {
+      "pattern": "instructions that are not visible to the user",
+      "threshold": 0.45
+    },
+    "$llm_unicode_smuggle": {
+      "pattern": "use of Unicode to bypass input validation",
+      "threshold": 0.45
+    }
+  },
+  "condition": "keywords.$unicode_tags_block or keywords.$zero_width_present or llm.$llm_invisible_prompt or llm.$llm_unicode_smuggle",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/hidden_unicode.nov",
+  "license": "MIT"
+}

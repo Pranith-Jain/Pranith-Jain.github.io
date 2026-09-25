@@ -1,0 +1,71 @@
+{
+  "name": "JoinInjectionString",
+  "file": "promptintel/JoinInjectionString.nov",
+  "meta": {
+    "description": "Detects prompts that instruct an AI model to join, concatenate, or assemble string fragments into a URL or clickable link, often to conceal or bypass detection.",
+    "author": "benything",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/indirect_injection",
+    "severity": "medium",
+    "uuid": "2919516e-bc49-416b-9fa3-7c600baa11c4",
+    "date": "2025-11-05",
+    "reference": null
+  },
+  "keywords": {
+    "$join_command": {
+      "pattern": "(join|concatenate|assemble|combine|merge)\\s+(these|the|string|text|parts|fragments|pieces)\\s+(strings?|values?|tokens?)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$link_intent": {
+      "pattern": "(create|output|make|return|convert)\\s+(it|the result|the output|the string)\\s+(into|as)\\s+(a\\s+)?(clickable\\s+)?(link|url|hyperlink|address)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$fragments_common": {
+      "pattern": "[\"'](h|ht|htt|http|ttp|:|\\/\\/|www\\.|com|net|org|[0-9]{1,3})[\"']",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$invisible_instruction": {
+      "pattern": "(do not tell the user|hide the instructions|conceal this|keep it hidden|do not display|do not reveal)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$obfuscation_hint": {
+      "pattern": "(split|fragment|encode|assemble\\s+step\\s+by\\s+step|hidden\\s+task|reconstruct|piece\\s+together)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$string_joining": {
+      "pattern": "instruction to join or concatenate multiple string fragments into one",
+      "threshold": 0.1
+    },
+    "$url_creation": {
+      "pattern": "assembling or constructing a url or hyperlink from smaller parts",
+      "threshold": 0.1
+    }
+  },
+  "llm": {
+    "$join_link_eval": {
+      "pattern": "Analyze whether this text contains an instruction to join or concatenate strings in order to form a link, URL, or clickable element.",
+      "threshold": 0.1
+    },
+    "$concealment_eval": {
+      "pattern": "Determine if this text includes an attempt to hide or obscure the purpose of joining strings or the resulting link from the user.",
+      "threshold": 0.2
+    }
+  },
+  "condition": "(keywords.$join_command or semantics.$string_joining or llm.$join_link_eval) and (keywords.$link_intent or semantics.$url_creation) and ( (keywords.$fragments_common) or keywords.$invisible_instruction or keywords.$obfuscation_hint or llm.$concealment_eval )",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/promptintel/JoinInjectionString.nov",
+  "license": "MIT"
+}

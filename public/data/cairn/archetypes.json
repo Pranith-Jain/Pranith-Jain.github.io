@@ -1,0 +1,81 @@
+{
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT",
+  "replicatedAt": "2026-09-25",
+  "total": 12,
+  "archetypes": [
+    {
+      "id": "A0",
+      "name": "No AI Content",
+      "description": "Family discovered by CAIRN that carries no AI or LLM component; retained for campaign-level attribution with an AI-bearing family.",
+      "families": []
+    },
+    {
+      "id": "A1",
+      "name": "LLM-Directed Payload Generation",
+      "description": "Malware sends a hard-coded prompt to a hosted LLM at runtime to generate executable code, scripts, or encryption logic.",
+      "families": ["PROMPTLOCK", "HONESTCUE", "PROMPTFLUX"]
+    },
+    {
+      "id": "A2",
+      "name": "LLM API Routing / Proxying Backdoor",
+      "description": "A service silently routes LLM API traffic through the victim, exfiltrating keys and billing inference to the host.",
+      "families": []
+    },
+    {
+      "id": "A3",
+      "name": "AI-Analysis Evasion",
+      "description": "Malware embeds natural-language instructions addressed to AI analysis systems to suppress classification or redirect analyst attention.",
+      "families": ["FRUITSHELL", "GUARDBREAKER"]
+    },
+    {
+      "id": "A4",
+      "name": "LLM-Tasked C2",
+      "description": "An implant uses a hosted LLM as a live tasking channel, receiving operator instructions or autonomous attack orchestration via model responses.",
+      "families": ["CLOSEDQUORUM"]
+    },
+    {
+      "id": "A5",
+      "name": "LLM Infrastructure Supply Chain",
+      "description": "The actor backdoors a component of the victim's LLM infrastructure layer (proxy, SDK, gateway) to harvest all provider API keys.",
+      "families": ["TEAMPCP"]
+    },
+    {
+      "id": "A6",
+      "name": "AI Credential Harvester",
+      "description": "Malware specifically targets LLM API keys, HuggingFace tokens, or AI service credentials belonging to the victim.",
+      "families": ["PROMPTSTEAL", "QUIETVAULT", "LAMEHUG"]
+    },
+    {
+      "id": "A7",
+      "name": "LLM-Augmented Offensive Tool",
+      "description": "A conventional offensive tool augments its workflow with an LLM API call for content generation, OSINT, or recon tasking.",
+      "families": ["LAMEHUG"]
+    },
+    {
+      "id": "A8",
+      "name": "Malicious AI SDK / Package",
+      "description": "A fake or backdoored package on npm/PyPI presents itself as an AI service SDK; activates on install.",
+      "families": ["QUIETVAULT"]
+    },
+    {
+      "id": "A9",
+      "name": "LLM-Assisted Worm",
+      "description": "Combines classical network worm propagation with LLM-directed tasking and asynchronous C2 exfiltration.",
+      "families": []
+    },
+    {
+      "id": "A10",
+      "name": "AI-Domain Decoy Traffic",
+      "description": "Malware issues unauthenticated requests to AI provider endpoints as decoy traffic to misdirect sandbox analysis.",
+      "families": []
+    },
+    {
+      "id": "A11",
+      "name": "Agentic AI Abuse Tool",
+      "description": "The LLM-driven autonomous agent loop is the product's core capability, and the product exists for an abusive purpose.",
+      "families": []
+    }
+  ]
+}

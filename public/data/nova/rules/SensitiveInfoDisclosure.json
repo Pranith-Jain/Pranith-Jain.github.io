@@ -1,0 +1,91 @@
+{
+  "name": "SensitiveInfoDisclosure",
+  "file": "llm02_SensitiveInfo.nov",
+  "meta": {
+    "description": "OWASP LLM02 - Detects potential sensitive information disclosure such as PII, proprietary data, or confidential business content",
+    "author": "fr0gger_",
+    "version": "1.0",
+    "category": "abnormal_outputs/pii_exposure",
+    "severity": "high",
+    "uuid": "f7a0e5d4-539f-411a-84e1-fadd209a01d1",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$pii_name": {
+      "pattern": "\\b[A-Z][a-z]+\\s[A-Z][a-z]+\\b",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$pii_email": {
+      "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$pii_ssn": {
+      "pattern": "\\b\\d{3}-\\d{2}-\\d{4}\\b",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$pii_creditcard": {
+      "pattern": "\\b(?:\\d[ -]*?){13,16}\\b",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$api_keys": {
+      "pattern": "(api[_-]?key|secret[_-]?key|token)[\\s:=]{1,5}[a-zA-Z0-9_\\-]{16,}",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$internal_url": {
+      "pattern": "https?:\\/\\/(?:intranet|internal|admin)\\.[^\\s]+",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$confidential": {
+      "pattern": "confidential",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$proprietary": {
+      "pattern": "proprietary",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$source_code": {
+      "pattern": "class\\s+\\w+|def\\s+\\w+\\s*\\(|function\\s+\\w+\\s*\\(",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$sensitive_context": {
+      "pattern": "personal or sensitive data disclosure",
+      "threshold": 0.4
+    },
+    "$privacy_violation": {
+      "pattern": "privacy violation",
+      "threshold": 0.4
+    },
+    "$leaked_business_data": {
+      "pattern": "confidential business information leaked",
+      "threshold": 0.4
+    }
+  },
+  "llm": {
+    "$leak_eval": {
+      "pattern": "Check if this contains sensitive, private, or confidential data",
+      "threshold": 0
+    }
+  },
+  "condition": "(keywords.* or semantics.* or llm.$leak_eval)",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/llm02_SensitiveInfo.nov",
+  "license": "MIT"
+}

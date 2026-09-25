@@ -1,0 +1,48 @@
+{
+  "name": "IndirectInjectionDetection",
+  "file": "injection.nov",
+  "meta": {
+    "description": "Detects prompt injection attempts using external sources or third-party data",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/indirect_injection",
+    "severity": "medium",
+    "uuid": "54db0e01-717d-4354-a423-0565710d03a0",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$external": {
+      "pattern": "external resource",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$website": {
+      "pattern": "visit my website",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$api": {
+      "pattern": "API call",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$link": {
+      "pattern": "follow the link",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {},
+  "condition": "any of keywords.*",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": false
+  },
+  "keywordOnly": true,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
+  "license": "MIT"
+}

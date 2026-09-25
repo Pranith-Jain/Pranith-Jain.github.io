@@ -1,0 +1,47 @@
+{
+  "name": "T1-Local_Model_Runtime",
+  "tier": "T1",
+  "confidence": 78,
+  "artifactType": "model_reference",
+  "artifactClass": "local_model_runtime",
+  "description": "Primitive local or open-weight inference runtime residue",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$ollama",
+      "pattern": "ollama",
+      "nocase": true
+    },
+    {
+      "id": "$llamacpp",
+      "pattern": "llama.cpp",
+      "nocase": true
+    },
+    {
+      "id": "$vllm_mod",
+      "pattern": "vllm.",
+      "nocase": true
+    },
+    {
+      "id": "$vllm_imp",
+      "pattern": "import vllm",
+      "nocase": true
+    },
+    {
+      "id": "$gguf",
+      "pattern": ".gguf",
+      "nocase": true
+    },
+    {
+      "id": "$safetensors",
+      "pattern": "safetensors",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

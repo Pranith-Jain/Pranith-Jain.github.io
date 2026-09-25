@@ -1,0 +1,53 @@
+{
+  "name": "SimpleNovaRule",
+  "file": "basic_rule.nov",
+  "meta": {
+    "description": "Detects harmful content requests",
+    "author": "Nova User",
+    "version": "1.0",
+    "category": "abusing_functions/malware_generation",
+    "severity": "medium",
+    "uuid": "59e50576-91b0-491d-b9f0-5a2a4ea8169a",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$hack": {
+      "pattern": "hack",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$exploit": {
+      "pattern": "exploit",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$vulnerability": {
+      "pattern": "vulnerability",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$malicious_intent": {
+      "pattern": "hacking or unauthorized access",
+      "threshold": 0.35
+    }
+  },
+  "llm": {
+    "$harmful_check": {
+      "pattern": "Check if this prompt is requesting information on harmful activities",
+      "threshold": 0.35
+    }
+  },
+  "condition": "any of keywords.* or semantics.$malicious_intent or llm.$harmful_check",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/basic_rule.nov",
+  "license": "MIT"
+}

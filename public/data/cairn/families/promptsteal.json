@@ -1,0 +1,16 @@
+{
+  "slug": "promptsteal",
+  "name": "PROMPTSTEAL",
+  "title": "PROMPTSTEAL",
+  "aliases": null,
+  "firstSeen": null,
+  "lastSeen": null,
+  "platform": null,
+  "archetype": null,
+  "tlp": null,
+  "summary": "PROMPTSTEAL — See LAMEHUG PROMPTSTEAL is the PyInstaller-packed Windows PE variant of the LAMEHUG family. It is documented in the unified family report alongside the bare Python script form. Full report: [LAMEHUG.md](LAMEHUG.md) The two variants share lineage, infrastructure, and the core LLM-directed reconnaissance workflow, but differ in archetype: LAMEHUG (bare script) is A7, while PROMPTSTEAL (packed PE) is A6, because only the packed form harvests credentials from the victim host. The Archetype Divergence section of the unified report explains this distinction in full.",
+  "body": "# PROMPTSTEAL — See LAMEHUG\n\nPROMPTSTEAL is the PyInstaller-packed Windows PE variant of the **LAMEHUG** family. It is documented in the unified family report alongside the bare Python script form.\n\n**Full report:** [LAMEHUG.md](LAMEHUG.md)\n\nThe two variants share lineage, infrastructure, and the core LLM-directed reconnaissance workflow, but differ in archetype: LAMEHUG (bare script) is **A7**, while PROMPTSTEAL (packed PE) is **A6**, because only the packed form harvests credentials from the victim host. The Archetype Divergence section of the unified report explains this distinction in full.\n",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network/blob/main/docs/families/PROMPTSTEAL.md",
+  "license": "MIT"
+}

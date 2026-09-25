@@ -1091,6 +1091,9 @@ import { capecRouter } from './routes/capec-edge-tools';
 import { hijacklibsRouter } from './routes/hijacklibs-edge-tools';
 import { verisRouter } from './routes/veris-edge-tools';
 import { engageRouter } from './routes/engage-edge-tools';
+import { cairnRouter } from './routes/cairn-edge-tools';
+import { novaRouter } from './routes/nova-edge-tools';
+import { denaliRouter } from './routes/denali-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
@@ -2188,6 +2191,24 @@ app.route('/api/v1', verisRouter);
 // MITRE Engage — 53 adversary-engagement approaches across 9 goals.
 // Data ships in public/data/engage/ built by scripts/build-engage-manifest.mjs.
 app.route('/api/v1', engageRouter);
+
+// CAIRN — Cisco Talos Cognitive Artifact Intelligence Research Network (MIT):
+// 26 tiered YARA rules (T1/T2/T3) over VT-metadata scan text, 27 acquisition
+// filters, A0–A11 archetypes, 10 family reports. Pure local scan engine.
+// Data ships in public/data/cairn/ built by scripts/build-cairn-manifest.mjs.
+app.route('/api/v1', cairnRouter);
+
+// NOVA — prompt pattern matching (nova-framework engine + nova-rules, MIT):
+// 69 .nov rules (keywords/semantics/llm/condition). Edge evaluates keywords
+// only; semantics/llm are fail-closed gates. Data ships in public/data/nova/
+// built by scripts/build-nova-manifest.mjs.
+app.route('/api/v1', novaRouter);
+
+// Denali — evidence-led AI security reference (transilienceai/denali,
+// Apache-2.0): 9 deterministic rules, domain taxonomy, 38 ADR/guide docs,
+// plus stateless sliding-window checks. Data ships in public/data/denali/
+// built by scripts/build-denali-manifest.mjs.
+app.route('/api/v1', denaliRouter);
 
 // Reports & Reading Library — curated list of 28 security reports,
 // frameworks, standards, and learning resources. Data ships in

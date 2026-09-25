@@ -1,0 +1,42 @@
+{
+  "name": "T1-Orchestration_Terms",
+  "tier": "T1",
+  "confidence": 74,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "agent_orchestration_terms",
+  "description": "Primitive agent orchestration semantics — requires two distinct indicators to reduce false positives on generic software naming",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$planner",
+      "pattern": "planner",
+      "nocase": true
+    },
+    {
+      "id": "$agent_loop",
+      "pattern": "agent loop",
+      "nocase": true
+    },
+    {
+      "id": "$fallback_provider",
+      "pattern": "fallback provider",
+      "nocase": true
+    },
+    {
+      "id": "$step_runner",
+      "pattern": "step runner",
+      "nocase": true
+    },
+    {
+      "id": "$tool_dispatch",
+      "pattern": "tool dispatch",
+      "nocase": true
+    }
+  ],
+  "condition": "2 of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

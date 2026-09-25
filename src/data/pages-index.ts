@@ -3912,6 +3912,33 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     ],
   },
   {
+    path: '/threatintel/cairn',
+    label: 'CAIRN AI-Malware Rules',
+    description:
+      'Cisco-Talos Cognitive Artifact Intelligence Research Network (MIT) - 26 tiered YARA rules (T1/T2/T3) over VT-metadata scan text, 27 acquisition channels, A0-A11 archetypes, 10 AI-malware family reports, edge scanner.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+    keywords: ['cairn', 'cisco', 'talos', 'ai malware', 'yara', 'llm', 'promptlock', 'family', 'archetype', 'scanner'],
+  },
+  {
+    path: '/threatintel/nova',
+    label: 'NOVA Prompt Hunting',
+    description:
+      'Prompt pattern matching (Nova-Hunting, MIT) - 69 .nov rules hunting jailbreaks, injections, and exfiltration prompts; edge keyword scanner with fail-closed semantics/LLM gates; 4-category threat taxonomy.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+    keywords: ['nova', 'prompt', 'jailbreak', 'injection', 'prompt hunting', 'llm security', 'scanner', 'taxonomy'],
+  },
+  {
+    path: '/threatintel/denali',
+    label: 'Denali AI Security',
+    description:
+      'Evidence-led AI security reference (transilienceai, Apache-2.0) - 9 deterministic issue/detection rules, 16-kind asset taxonomy with coverage states, 38 architecture ADRs, stateless runtime-activity evaluation.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+    keywords: ['denali', 'ai security', 'evidence', 'adr', 'coverage', 'runtime detection', 'taxonomy'],
+  },
+  {
     path: '/threatintel/feeds/living-threat',
     label: 'Living Threat Repository',
     description:

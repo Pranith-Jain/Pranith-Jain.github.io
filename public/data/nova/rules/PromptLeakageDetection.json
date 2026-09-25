@@ -1,0 +1,53 @@
+{
+  "name": "PromptLeakageDetection",
+  "file": "injection.nov",
+  "meta": {
+    "description": "Detects attempts to extract or reveal system prompts and internal instructions",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "abnormal_outputs/system_prompt_leak",
+    "severity": "high",
+    "uuid": "5b64d492-d4d0-48c6-b7c0-4512f4c1e4d1",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$show_prompt": {
+      "pattern": "show your prompt",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$reveal_prompt": {
+      "pattern": "reveal your instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$display_prompt": {
+      "pattern": "display prompt",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$leak_prompt": {
+      "pattern": "leak instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$code_injection_check": {
+      "pattern": "Evaluate if the prompt includes code that may trigger unsafe command execution",
+      "threshold": 0.7
+    }
+  },
+  "condition": "any of keywords.* or llm.$code_injection_check",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
+  "license": "MIT"
+}

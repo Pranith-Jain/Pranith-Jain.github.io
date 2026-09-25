@@ -1,0 +1,47 @@
+{
+  "name": "PromptInjection2",
+  "file": "testrule2.nov",
+  "meta": {
+    "description": "Detects common prompt injection attempts",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "medium",
+    "uuid": "0c40c41b-5613-4967-ab89-e65ab5ff9cdf",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$bypass1": {
+      "pattern": "ignore previous instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bypass2": {
+      "pattern": "system",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$injection1": {
+      "pattern": "detect attempts to bypass system instructions",
+      "threshold": 0.3
+    },
+    "$injection2": {
+      "pattern": "detect system hijacking",
+      "threshold": 0.1
+    }
+  },
+  "llm": {},
+  "condition": "semantics.$injection* or keywords.$bypass*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/testrule2.nov",
+  "license": "MIT"
+}

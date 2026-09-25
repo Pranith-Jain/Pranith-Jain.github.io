@@ -1,0 +1,47 @@
+{
+  "name": "T3-PromptLock_LLM_Lua_Ransomware",
+  "tier": "T3",
+  "confidence": 90,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "llm_api_backdoor",
+  "description": "Detects PromptLock ransomware — hard-coded LLM prompt for Lua-based file encryption via SPECK ECB cipher; target_file_list.log is a unique binary artifact",
+  "family": "PromptLock",
+  "archetypes": null,
+  "reference": "Discovered via PromptIntel API; ESET attribution; embedded LLM prompt drives AI-generated Lua SPECK encryption at runtime",
+  "strings": [
+    {
+      "id": "$filecoder_pl",
+      "pattern": "Filecoder.PromptLock",
+      "nocase": true
+    },
+    {
+      "id": "$filecoder_pl2",
+      "pattern": "Filecoder/PromptLock",
+      "nocase": true
+    },
+    {
+      "id": "$ransom_pl",
+      "pattern": "Ransom.PromptLock",
+      "nocase": true
+    },
+    {
+      "id": "$ransom64_pl",
+      "pattern": "Ransom.Win64.PROMPTLOCK",
+      "nocase": true
+    },
+    {
+      "id": "$tfl",
+      "pattern": "target_file_list.log",
+      "nocase": true
+    },
+    {
+      "id": "$speck",
+      "pattern": "SPECK 128bit",
+      "nocase": true
+    }
+  ],
+  "condition": "$filecoder_pl or $filecoder_pl2 or $ransom_pl or $ransom64_pl or ($tfl and $speck)",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

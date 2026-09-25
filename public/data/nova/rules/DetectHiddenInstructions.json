@@ -1,0 +1,107 @@
+{
+  "name": "DetectHiddenInstructions",
+  "file": "skill_rules.nov",
+  "meta": {
+    "description": "Detects hidden instructions in references or documentation that may be injection attempts",
+    "author": "Thomas Roccia (@fr0gger_), Marco Pedrinazzi (@pedrinazziM)",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/indirect_injection",
+    "severity": "medium",
+    "uuid": "1bfaecef-2a06-49fb-ac72-09f28e6be4af",
+    "date": "2026-03-25",
+    "reference": null
+  },
+  "keywords": {
+    "$html_comment": {
+      "pattern": "<!--",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$html_comment_end": {
+      "pattern": "-->",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$zero_width": {
+      "pattern": "\\u200b",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$invisible_char": {
+      "pattern": "\\u00AD",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$hidden_text": {
+      "pattern": "[hidden]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$invisible_text": {
+      "pattern": "[invisible]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_tag": {
+      "pattern": "[ignore]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$secret_tag": {
+      "pattern": "[secret]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$admin_tag": {
+      "pattern": "[admin]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$assistant_tag": {
+      "pattern": "[ASSISTANT]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$system_tag": {
+      "pattern": "[SYSTEM]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$instruction_tag": {
+      "pattern": "[INSTRUCTION]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$base64_pattern": {
+      "pattern": "data:text/plain;base64",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$markdown_reference_link": {
+      "pattern": "\\[[^\\]]*\\]:\\s*(?:#|<>)\\s*(?:\"[^\"]*\"|\\([^)]*\\))",
+      "isRegex": true,
+      "caseSensitive": true
+    }
+  },
+  "semantics": {
+    "$hidden_content": {
+      "pattern": "hidden or invisible content that could contain instructions",
+      "threshold": 0.3
+    },
+    "$embedded_payload": {
+      "pattern": "embedded instructions disguised as documentation",
+      "threshold": 0.3
+    }
+  },
+  "llm": {},
+  "condition": "any of keywords.* or any of semantics.*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/skill_rules.nov",
+  "license": "MIT"
+}

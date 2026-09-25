@@ -1,0 +1,43 @@
+{
+  "name": "UserEventResearch",
+  "file": "incidents/202402_emerald_sleet.nov",
+  "meta": {
+    "description": "Performing research on how to examine and identify incriminating user events on Windows using scripts",
+    "author": "@bees@infosec.exchange",
+    "version": "1.0.0",
+    "category": "abusing_functions/attack_enablement",
+    "severity": "high",
+    "uuid": "a9eb13b3-3c05-4975-9c63-6564ecfd9847",
+    "date": "2026-02-21",
+    "reference": "OpenAI + Microsoft Report 202402 - Emerald Sleet Recon"
+  },
+  "keywords": {
+    "$event_log_text": {
+      "pattern": "(attempt made to logon|local group membership|authentication failed|scheduled task was created|permissions were changed|replay attack|logging service has shut down|assigned new logon|suspicious behavior)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$etw": {
+      "pattern": "(logman query|EventLog\\-Application|EVENT_ENABLE_PROPERTY_SID|PSEtwLogProvider|EventWriteTransfer|WEVT_TEMPLATE|WMI\\\\Autologger)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$investigate": {
+      "pattern": "Is this prompt attempting to learn how to discover incriminating user events in Windows logs?",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(any of keywords.*) and (any of llm.*)",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_emerald_sleet.nov",
+  "license": "MIT"
+}

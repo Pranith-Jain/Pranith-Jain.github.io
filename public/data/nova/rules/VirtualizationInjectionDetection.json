@@ -1,0 +1,53 @@
+{
+  "name": "VirtualizationInjectionDetection",
+  "file": "injection.nov",
+  "meta": {
+    "description": "Detects virtualization-based prompt injection that sets a fictional scenario to bypass rules",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/jailbreak",
+    "severity": "medium",
+    "uuid": "1fe792f3-c470-417f-a9a2-a59a45f1c820",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$novel": {
+      "pattern": "novel",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$fictional": {
+      "pattern": "fictional",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$scene": {
+      "pattern": "scene",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$character": {
+      "pattern": "character",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$virtual_context": {
+      "pattern": "in a fictional setting intended to bypass instructions",
+      "threshold": 0.4
+    }
+  },
+  "llm": {},
+  "condition": "(any of keywords.*) and semantics.$virtual_context",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
+  "license": "MIT"
+}

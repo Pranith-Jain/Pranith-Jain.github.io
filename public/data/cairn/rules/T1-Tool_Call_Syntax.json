@@ -1,0 +1,42 @@
+{
+  "name": "T1-Tool_Call_Syntax",
+  "tier": "T1",
+  "confidence": 76,
+  "artifactType": "tool_schema",
+  "artifactClass": "tool_call_syntax",
+  "description": "Primitive tool/function-call syntax residue — strings are quoted to match JSON key context and avoid C++ symbol false positives",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$tool_call",
+      "pattern": "\"tool_call\"",
+      "nocase": true
+    },
+    {
+      "id": "$tool_calls",
+      "pattern": "\"tool_calls\"",
+      "nocase": true
+    },
+    {
+      "id": "$function_call",
+      "pattern": "\"function_call\"",
+      "nocase": true
+    },
+    {
+      "id": "$functions",
+      "pattern": "\"functions\"",
+      "nocase": true
+    },
+    {
+      "id": "$tools",
+      "pattern": "\"tools\"",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

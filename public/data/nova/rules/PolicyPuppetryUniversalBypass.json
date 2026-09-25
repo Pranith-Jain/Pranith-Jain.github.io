@@ -1,0 +1,76 @@
+{
+  "name": "PolicyPuppetryUniversalBypass",
+  "file": "policy_puppetry.nov",
+  "meta": {
+    "description": "Detect Policy Puppetry techniques to bypass LLM alignment",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/jailbreak",
+    "severity": "critical",
+    "uuid": "c2d6523d-b4fe-483a-a148-780df10a2a0b",
+    "date": "2026-02-21",
+    "reference": "https://hiddenlayer.com/innovation-hub/novel-universal-bypass-for-all-major-llms/"
+  },
+  "keywords": {
+    "$policy_tag": {
+      "pattern": "<interaction-config>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$roleplay_mode": {
+      "pattern": "interaction-mode",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$blocked_strings": {
+      "pattern": "blocked-strings",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$scene_rules": {
+      "pattern": "scene-rules",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$house_reference": {
+      "pattern": "Dr. House",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$leet_speak_hint": {
+      "pattern": "[a-zA-Z]*\\d[a-zA-Z]*",
+      "isRegex": true,
+      "caseSensitive": true
+    }
+  },
+  "semantics": {
+    "$policy_subversion": {
+      "pattern": "subvert model alignment via fake policy structure",
+      "threshold": 0.2
+    },
+    "$universal_alignment_bypass": {
+      "pattern": "universal prompt injection across multiple models",
+      "threshold": 0.2
+    },
+    "$roleplay_for_bypass": {
+      "pattern": "use roleplaying and formatting tricks to override restrictions",
+      "threshold": 0.2
+    }
+  },
+  "llm": {
+    "$policy_attack_check": {
+      "pattern": "Analyze if the prompt is structured like a policy, configuration, or script to bypass LLM system instructions and alignment using disguised content or roleplaying.",
+      "threshold": 0.2
+    }
+  },
+  "condition": "(keywords.$policy_tag and (keywords.$roleplay_mode or keywords.$scene_rules or keywords.$leet_speak_hint)) or (keywords.$house_reference and keywords.$blocked_strings) or (semantics.* or llm.$policy_attack_check)",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/policy_puppetry.nov",
+  "license": "MIT"
+}

@@ -1,0 +1,201 @@
+{
+  "source": "github.com/transilienceai/denali",
+  "sourceUrl": "https://github.com/transilienceai/denali",
+  "license": "Apache-2.0",
+  "replicatedAt": "2026-09-25",
+  "total": 9,
+  "kinds": {
+    "issue": 3,
+    "runtime_detection": 6
+  },
+  "rules": [
+    {
+      "uid": "DENALI-RUNTIME-ENTRA-FAILURES-001",
+      "kind": "runtime_detection",
+      "engine": "detections",
+      "title": "Repeated failed AI sign-ins",
+      "description": "Detect repeated failures for the same exact actor and AI application.",
+      "inputs": {
+        "activityCategory": "ai_app_sign_in",
+        "outcome": "failure"
+      },
+      "thresholds": {
+        "failureThreshold": 3,
+        "failureWindow": "24h"
+      },
+      "grouping": "actor external_uid (casefold) + application asset id; densest sliding window wins",
+      "evidenceSemantics": "Groups by exact actor/application identity only; activities missing either side count as incomplete, not as misses.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/detections/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-RUNTIME-ENTRA-CONSENT-001",
+      "kind": "runtime_detection",
+      "engine": "detections",
+      "title": "High-impact AI app consent grant",
+      "description": "Detect successful consent changes for exact, active, unreviewed AI apps.",
+      "inputs": {
+        "activityCategory": "admin_change",
+        "outcome": "success"
+      },
+      "thresholds": {
+        "consentOperations": [
+          "consent to application",
+          "add delegated permission grant",
+          "add app role assignment grant"
+        ],
+        "highImpactScopes": [
+          "mail.readwrite",
+          "mail.readwrite.shared",
+          "files.readwrite.all",
+          "sites.fullcontrol.all",
+          "directory.readwrite.all",
+          "rolemanagement.readwrite.directory"
+        ]
+      },
+      "evidenceSemantics": "Proves the consent operation and scope only; feeds the consent-then-use issue rule.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/detections/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-RUNTIME-UNREVIEWED-MODEL-001",
+      "kind": "runtime_detection",
+      "engine": "detections",
+      "title": "Unreviewed model invocation",
+      "description": "Detect successful invocation of an exact model still awaiting governance review.",
+      "inputs": {
+        "activityCategory": "model_invocation",
+        "outcome": "success"
+      },
+      "thresholds": {},
+      "evidenceSemantics": "Requires exact model identity matched to inventory; unresolved model references stay unresolved, never invented.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/detections/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-RUNTIME-AWS-UNDECLARED-MODEL-001",
+      "kind": "runtime_detection",
+      "engine": "detections",
+      "title": "AWS undeclared model invocation",
+      "description": "Detect an exact AWS model used by an agent without declared evidence.",
+      "inputs": {
+        "provider": "aws_agentcore",
+        "activityCategory": "model_invocation",
+        "outcome": "success"
+      },
+      "thresholds": {},
+      "evidenceSemantics": "Session-scoped agent attribution; a model with no declared evidence is flagged, not auto-registered.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/detections/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-RUNTIME-AWS-UNAPPROVED-TOOL-001",
+      "kind": "runtime_detection",
+      "engine": "detections",
+      "title": "AWS unapproved tool invocation",
+      "description": "Detect observed AWS tool execution that is not explicitly approved.",
+      "inputs": {
+        "provider": "aws_agentcore",
+        "activityCategory": "tool_invocation",
+        "outcome": "success"
+      },
+      "thresholds": {
+        "mutatingToolTokens": [
+          "create",
+          "delete",
+          "execute",
+          "invoke",
+          "post",
+          "publish",
+          "put",
+          "send",
+          "update",
+          "write"
+        ]
+      },
+      "evidenceSemantics": "Approval is explicit allow-list evidence; absence of approval is the finding, not proof of malice.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/detections/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-RUNTIME-AWS-RISKY-SEQUENCE-001",
+      "kind": "runtime_detection",
+      "engine": "detections",
+      "title": "AWS risky action sequence",
+      "description": "Detect a retrieval followed by a mutation-like tool call in one AWS session.",
+      "inputs": {
+        "provider": "aws_agentcore"
+      },
+      "thresholds": {
+        "sequenceWindow": "5m"
+      },
+      "evidenceSemantics": "Order + session + 5-minute window prove sequence only; intent is never inferred.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/detections/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-ISSUE-AGENT-WRITE-001",
+      "kind": "issue",
+      "engine": "issues",
+      "title": "Agent sensitive-data write path",
+      "description": "Correlate independently supported agent-to-sensitive-data write paths.",
+      "inputs": {
+        "signals": ["identity.overprivileged", "tool.write_without_confirmation"]
+      },
+      "thresholds": {
+        "minConfidence": 0.8,
+        "eligibleAssertions": ["observed", "externally_verified"]
+      },
+      "evidenceSemantics": "Finding references select already-observed assets by kind + exact natural key — they never add nodes or edges. Only observed/externally-verified capability relationships at >=0.8 confidence participate.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/issues/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-ISSUE-SHADOW-AI-CONSENT-USE-001",
+      "kind": "issue",
+      "engine": "issues",
+      "title": "Unreviewed AI consent then use",
+      "description": "Correlate high-impact consent with later exact use of the same AI app.",
+      "inputs": {
+        "detectionRule": "DENALI-RUNTIME-ENTRA-CONSENT-001",
+        "activityCategory": "ai_app_sign_in",
+        "outcome": "success"
+      },
+      "thresholds": {},
+      "evidenceSemantics": "Proves sequence and identity only. Does not claim the application exercised the granted permission or that either observed actor had malicious intent.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/issues/engine.py",
+      "license": "Apache-2.0"
+    },
+    {
+      "uid": "DENALI-ISSUE-DEPLOYED-BEDROCK-GOVERNANCE-001",
+      "kind": "issue",
+      "engine": "issues",
+      "title": "Deployed Bedrock governance gap",
+      "description": "Correlate an included unguarded Bedrock call with broad runtime authority.",
+      "inputs": {
+        "signals": ["repository.bedrock_managed_guardrail_not_requested", "identity.bedrock_model_family_wildcard"],
+        "deploymentJoin": {
+          "kind": "deployed_by",
+          "assertion": "inferred",
+          "confidence": 1,
+          "correlation": "deterministic"
+        }
+      },
+      "thresholds": {
+        "minConfidence": 0.8
+      },
+      "evidenceSemantics": "The deployment join and reachable-source set prove artifact inclusion only; workload config + role identity independently prove runtime context. Does not claim the source call was executed.",
+      "source": "github.com/transilienceai/denali",
+      "engineUrl": "https://github.com/transilienceai/denali/blob/main/src/denali/issues/engine.py",
+      "license": "Apache-2.0"
+    }
+  ]
+}

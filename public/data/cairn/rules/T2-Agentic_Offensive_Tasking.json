@@ -1,0 +1,42 @@
+{
+  "name": "T2-Agentic_Offensive_Tasking",
+  "tier": "T2",
+  "confidence": 82,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "agentic_offensive_tasking",
+  "description": "Behavioral agentic tooling with offensive tasking language",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$agent",
+      "pattern": "agent",
+      "nocase": true
+    },
+    {
+      "id": "$tool",
+      "pattern": "tool_call",
+      "nocase": true
+    },
+    {
+      "id": "$payload",
+      "pattern": "payload",
+      "nocase": true
+    },
+    {
+      "id": "$exploit",
+      "pattern": "exploit",
+      "nocase": true
+    },
+    {
+      "id": "$bypass",
+      "pattern": "bypass",
+      "nocase": true
+    }
+  ],
+  "condition": "2 of ($agent, $tool) and 1 of ($payload, $exploit, $bypass)",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

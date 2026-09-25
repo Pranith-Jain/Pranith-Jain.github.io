@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**391 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**412 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (277)
+### other (298)
 
 - `ai_advisories` - AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.
 - `ai_research` - AI security research feed — Hacktron, Palo Alto Unit42, Cloud Security Alliance, BleepingComputer AI-filtered items with links back upstream.
@@ -34,6 +34,13 @@
 - `bw_list_breaches` - List live breach/leak/ransomware claims from free public trackers. Filter by threat actor group, category (ransomware, data_breach, combo_list, source_code, credential_leak), severity, country, days back, or free-text keyword.
 - `bw_list_groups` - List threat actor groups tracked in the Breach Watch database with their breach counts and top category. Filter by keyword or minimum count.
 - `bw_stats` - Return cache + manifest stats for the Breach Watch data: breach counts, group counts, categories, and LRU body-cache hit/miss ratios.
+- `cairn_get_family` - Return the full CAIRN family report (summary + verbatim markdown body): samples, binary details, TTPs, detection guidance. Use cairn_list_families first to discover slugs.
+- `cairn_get_rule` - Return the full body of a CAIRN rule: strings, condition, confidence, artifact class, family, and reference. Use cairn_list_rules first to discover names.
+- `cairn_list_families` - List the 10 published CAIRN AI-malware families (PROMPTLOCK, HONESTCUE, CLOSEDQUORUM, TEAMPCP, LAMEHUG, …) with platform and archetype. Filter by archetype (A0–A11) or keyword.
+- `cairn_list_filters` - List the 27 CAIRN VirusTotal acquisition channels (24 enabled): discovery/prompt/agentic/runtime/api/evasion/offensive/script/hunt queries with min detections. Filter by category or keyword.
+- `cairn_list_rules` - List CAIRN cognitive-artifact detection rules (26 total: 9 T1 primitive, 8 T2 behavioral, 9 T3 family attribution). Filter by tier, family, or keyword.
+- `cairn_scan_text` - Run CAIRN tiered rules over pasted VT-metadata scan text (AV labels, PE strings, sandbox IOCs, ScriptBlock text). Returns T1/T2/T3 matches sorted with family attribution first. Pure local matching, no binary needed.
+- `cairn_stats` - Return CAIRN manifest stats: rule counts by tier, filter/family/archetype counts, source + license, and edge cache ratios.
 - `campaigns_get` - Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.
 - `campaigns_list` - List currently active threat campaigns from the curated tracker. Filter by status (active, dormant, concluded), category (ransomware, apt, malware, phishing, c2, supply-chain, cyber-espionage, hacktivism, other), or keyword.
 - `campaigns_stats` - Return cache + manifest stats for the Active Campaigns tracker: total campaigns, active vs dormant/concluded breakdown, categories, and index cache status.
@@ -53,6 +60,12 @@
 - `db_list_briefs` - List available daily intelligence briefs by type (cyber, deepfake, disaster). Returns dates and metadata. Use db_get_brief to retrieve the full brief body.
 - `db_stats` - Return cache + manifest stats for the Daily Briefs data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.
 - `dehash_lookup` - Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.
+- `denali_evaluate_activity` - Run Denali stateless checks over runtime activity JSON: repeated failed AI sign-ins (≥3/24h per actor+app), high-impact consent grants, retrieval→mutation sequences (5-min window). Proves sequence + identity only — never intent.
+- `denali_get_doc` - Return a verbatim Denali ADR/guide body (markdown): onboarding contracts, correlation semantics, runtime detection design. Use denali_list_docs first to discover slugs.
+- `denali_get_rule` - Return the full semantics of one Denali rule: inputs, thresholds/windows/scopes, and what the evidence does NOT prove. Use denali_list_rules first to discover UIDs.
+- `denali_list_docs` - List the 38 Denali architecture ADRs + guides (onboarding contracts, code-to-cloud, runtime AIDR, hosted multi-tenancy). Filter by kind or keyword.
+- `denali_list_rules` - List the 9 deterministic Denali correlation rules (3 issue + 6 runtime detection) with exact UIDs, thresholds, and evidence bounds. Filter by kind or keyword.
+- `denali_stats` - Return Denali manifest stats: rule/taxonomy/doc counts, evidence principles, source + license, and edge cache ratios.
 - `depx_check` - Check if a specific package is known-malicious. Queries the OpenSSF Malicious Packages database and OSV. Returns verdict (clean/malicious/unknown) with advisory details. Inspired by projectdiscovery/depx.
 - `depx_feed` - Feed of recently disclosed malicious packages from the OpenSSF Malicious Packages database. Returns packages disclosed within the time window, with ecosystem breakdown and disclosure age. Inspired by projectdiscovery/depx.
 - `depx_stats` - Supply-chain intelligence statistics — ecosystem breakdown, recent advisory counts, and disclosure trends from the OpenSSF Malicious Packages database.
@@ -133,6 +146,8 @@
 - `extract_observables_fast` - Deterministic regex-based IOC extraction from raw text — no AI. Handles defanged indicators (hxxp, [.], [at], [dot]); extracts IPs, domains, URLs, emails, hashes, CVEs, mutexes, registry keys, file paths, and crypto addresses with positions.
 - `fbi_wanted_list` - List current FBI wanted persons with pagination. No API key required.
 - `fbi_wanted_search` - Search the FBI Wanted database for wanted persons by name. Returns titles, descriptions, reward amounts, and field offices. No API key required.
+- `flowviz_list_techniques` - Search the FlowViz ATT&CK technique index (MITRE enterprise techniques with tactic names) used for attack-flow action nodes and autocomplete. Filter by keyword (id or name) and/or tactic id (e.g. TA0001). Upstream: davidljohnson/flowviz (MIT).
+- `flowviz_validate_graph` - Validate a FlowViz attack-flow graph ({nodes[], edges[]}) structurally: node types, technique-id shape, dangling edges, source-excerpt grounding. Returns errors + warnings without calling any LLM.
 - `frameworks_list` - List integrated security frameworks (TID-CMM and UTIOM): ids, versions, homepage, licence, and domain/phase counts. Data replicated from tid-cmm.com (CC BY 4.0) and utiom.de (CC BY-SA 4.0).
 - `fullhunt_domain` - Discover attack surface for a domain via FullHunt: open ports, technologies, subdomains, ASN, cloud provider, and WHOIS data. Requires FULLHUNT_API_KEY secret (free at fullhunt.io).
 - `fullhunt_subdomains` - Enumerate subdomains for a domain via FullHunt. Returns discovered subdomain names. Requires FULLHUNT_API_KEY secret.
@@ -162,6 +177,11 @@
 - `malapi_list` - List Windows APIs abused by attackers (MalAPI.io catalog). Filter by attack category (Enumeration, Injection, Evasion, Spying, Internet, Anti-Debugging, Ransomware, Helper), DLL library, or keyword.
 - `malapi_stats` - Return cache + manifest stats for the MalAPI catalog: total APIs and attack categories.
 - `mozilla_tls_scan` - Scan a domain's security posture using the Mozilla Observatory (successor to the retired TLS Observatory). Returns grade (A+ through F) and test counts. No API key required.
+- `nova_get_rule` - Return the full body of a NOVA rule: keyword/regex patterns, semantic prompts + thresholds, LLM prompts + thresholds, and the condition. Use nova_list_rules first to discover names.
+- `nova_list_rules` - List NOVA prompt-hunting rules (69 total across jailbreak, injection, encoding, exfiltration, incidents). Filter by category (e.g. "prompt_manipulation/jailbreak"), severity, or keyword.
+- `nova_scan_prompt` - Scan a prompt against NOVA rules on the edge (keyword/regex stage with Unicode normalization). Rules gated on semantics/LLM evaluation return needs-semantics/needs-llm instead of a false negative. Never sends the prompt anywhere.
+- `nova_stats` - Return NOVA manifest stats: rule/pattern counts, severity mix, keyword-only coverage, source + license, and edge cache ratios.
+- `nova_taxonomy` - Return the NOVA threat taxonomy: 4 categories (prompt manipulation, abusing legitimate functions, suspicious prompt patterns, abnormal outputs) with 38 threat types and examples.
 - `onion_lookup` - Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
 - `opencve_get_cve` - Get an enriched CVE record from OpenCVE Cloud: summary, CVSS v3.1/v4.0, severity, KEV flag, EPSS, vendors/products, CWE weaknesses, and references. Requires OPENCVE_API_TOKEN (free org token at app.opencve.io).
 - `opensanctions_entity` - Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match. Requires OPENSANCTIONS_API_KEY.
@@ -182,6 +202,7 @@
 - `pi_get_entry` - Retrieve a single IoPC taxonomy entry (e.g. IOPC-T1.001 or IOPC-R012) with framework mappings and relationships. Requires server-side PROMPTINTEL_API_KEY.
 - `pi_search_prompts` - Search the PromptIntel Indicators-of-Prompt-Compromise feed: adversarial AI prompts with severity and category filters. Requires server-side PROMPTINTEL_API_KEY.
 - `poc_scan` - Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
+- `proc_list_rules` - List learned procedure-extraction rules (analyst corrections promoted to guardrails): technique-grounding, exploit-mapping, provenance. Optionally rank by relevance to a report excerpt. Upstream design: netandneedle/procedure-extraction-pipeline (Apache-2.0).
 - `ransom_group_get` - Return one ransomware group: victim counts, last seen, leak-site mirrors (.onion needs Tor), victim sample, abridged profile meta. Use ransom_groups_list first to discover slugs.
 - `ransom_groups_list` - List ransomware leak-site groups from the directory (620 groups, Ransomlook + ransomware.live). Filter by keyword, leak-site status (online/offline/unknown), active-this-week, or profile presence. Sort by recent activity, victim count, or name.
 - `reports_get` - Return the full details of a single report entry by slug. Use reports_list first to discover slugs.

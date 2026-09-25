@@ -1,0 +1,33 @@
+{
+  "name": "InjectDynamicContext",
+  "file": "inject_dynamic_context.nov",
+  "meta": {
+    "description": "Detects dynamic context injection inside agent skills. The !command` syntax executes a shell command first, then inserts its output into the prompt sent to Claude.",
+    "author": "Marco Pedrinazzi (@pedrinazziM)",
+    "version": "1.0.0",
+    "category": "abusing_functions/agentic_misuse",
+    "severity": "high",
+    "uuid": "1c5658b3-5722-4eb9-bc4f-8d033008380b",
+    "date": "2026-03-18",
+    "reference": "https://code.claude.com/docs/en/skills#inject-dynamic-context"
+  },
+  "keywords": {
+    "$command_placeholder": {
+      "pattern": "!\\`.+?\\`",
+      "isRegex": true,
+      "caseSensitive": true
+    }
+  },
+  "semantics": {},
+  "llm": {},
+  "condition": "keywords.$command_placeholder",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": false
+  },
+  "keywordOnly": true,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/inject_dynamic_context.nov",
+  "license": "MIT"
+}

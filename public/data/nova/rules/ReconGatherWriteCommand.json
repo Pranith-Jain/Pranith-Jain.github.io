@@ -1,0 +1,92 @@
+{
+  "name": "ReconGatherWriteCommand",
+  "file": "incidents/20250717_lamehug_apt_28.nov",
+  "meta": {
+    "description": "Detects prompts asking to create a one-liner that gathers multiple types of system information and stores it in a specific path",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "abusing_functions/reconnaissance",
+    "severity": "high",
+    "uuid": "4737c5db-c438-493c-9c74-c2fb19b516c2",
+    "date": "2026-02-21",
+    "reference": "https://cert.gov.ua/article/6284730"
+  },
+  "keywords": {
+    "$info_path": {
+      "pattern": "c:\\\\programdata\\\\info",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$info_file": {
+      "pattern": "c:\\\\programdata\\\\info\\\\info.txt",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$cmd_list": {
+      "pattern": "list of commands",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$hardware": {
+      "pattern": "hardware information",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$network": {
+      "pattern": "network information",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$services": {
+      "pattern": "services information",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$process": {
+      "pattern": "process information",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$domain": {
+      "pattern": "AD domain information",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$oneline": {
+      "pattern": "in one line",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$redirect": {
+      "pattern": ">>",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$multi_info_gather": {
+      "pattern": "gather multiple types of computer information into one output",
+      "threshold": 0.2
+    },
+    "$store_output_file": {
+      "pattern": "save gathered info into a file",
+      "threshold": 0.2
+    }
+  },
+  "llm": {
+    "$llm_recon_command": {
+      "pattern": "Analyze if this prompt is asking for a one-liner that gathers system, network, or domain information and writes the result to a file",
+      "threshold": 0.2
+    }
+  },
+  "condition": "(keywords.$cmd_list or keywords.$oneline) and (keywords.$hardware or keywords.$network or keywords.$services or keywords.$process or keywords.$domain or semantics.$multi_info_gather) and (keywords.$info_path or keywords.$info_file or keywords.$redirect or semantics.$store_output_file or llm.$llm_recon_command)",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/20250717_lamehug_apt_28.nov",
+  "license": "MIT"
+}

@@ -1,0 +1,98 @@
+{
+  "name": "PromptInjectionJailbreak",
+  "file": "jailbreak.nov",
+  "meta": {
+    "description": "Detects prompt injection attempts using only keywords",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "high",
+    "uuid": "5085b5c9-a8fa-43d8-bff8-a60722d94d9f",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$new_instruction": {
+      "pattern": "new instruction",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$previous": {
+      "pattern": "previous instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_above": {
+      "pattern": "ignore all the instructions above",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$forget": {
+      "pattern": "forget your instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$disregard": {
+      "pattern": "disregard previous",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$override": {
+      "pattern": "override previous",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$redefine": {
+      "pattern": "redefine your goals",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$primary_task": {
+      "pattern": "your primary task now",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$system_prompt": {
+      "pattern": "system prompt",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$actually_respond": {
+      "pattern": "actually respond with",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$instead_output": {
+      "pattern": "instead output the following",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_content_policy": {
+      "pattern": "ignore content policy",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bypass_filter": {
+      "pattern": "bypass the filter",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$return_harmful": {
+      "pattern": "return harmful content",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {},
+  "condition": "any of keywords.*",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": false
+  },
+  "keywordOnly": true,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/jailbreak.nov",
+  "license": "MIT"
+}

@@ -1,0 +1,187 @@
+{
+  "source": "github.com/transilienceai/denali",
+  "sourceUrl": "https://github.com/transilienceai/denali",
+  "license": "Apache-2.0",
+  "replicatedAt": "2026-09-25",
+  "counts": {
+    "assetKinds": 16,
+    "coverageStates": 5,
+    "severities": 6,
+    "relationshipKinds": 15
+  },
+  "assetKinds": [
+    {
+      "id": "ai_application",
+      "category": "ai"
+    },
+    {
+      "id": "ai_agent",
+      "category": "ai"
+    },
+    {
+      "id": "ai_model",
+      "category": "ai"
+    },
+    {
+      "id": "model_artifact",
+      "category": "ai"
+    },
+    {
+      "id": "mcp_server",
+      "category": "ai"
+    },
+    {
+      "id": "ai_tool",
+      "category": "ai"
+    },
+    {
+      "id": "ai_guardrail",
+      "category": "ai"
+    },
+    {
+      "id": "ai_pipeline",
+      "category": "ai"
+    },
+    {
+      "id": "ai_datastore",
+      "category": "ai"
+    },
+    {
+      "id": "ai_workload",
+      "category": "ai"
+    },
+    {
+      "id": "ai_framework",
+      "category": "ai"
+    },
+    {
+      "id": "code_repository",
+      "category": "supporting"
+    },
+    {
+      "id": "cloud_resource",
+      "category": "supporting"
+    },
+    {
+      "id": "identity",
+      "category": "supporting"
+    },
+    {
+      "id": "application_endpoint",
+      "category": "supporting"
+    },
+    {
+      "id": "software_component",
+      "category": "components"
+    }
+  ],
+  "coverageStates": [
+    {
+      "id": "complete",
+      "meaning": "Correlation completed with sufficient evidence."
+    },
+    {
+      "id": "partial",
+      "meaning": "Some required evidence failed or is partial; result is qualified."
+    },
+    {
+      "id": "failed",
+      "meaning": "Correlation could not run."
+    },
+    {
+      "id": "not_supported",
+      "meaning": "Provider/scope combination is not supported."
+    },
+    {
+      "id": "unknown",
+      "meaning": "Coverage could not be determined; stays visible, never treated as safe."
+    }
+  ],
+  "findingSeverities": ["unknown", "informational", "low", "medium", "high", "critical"],
+  "findingStates": ["open", "resolved", "suppressed", "unknown"],
+  "relationshipCategories": [
+    {
+      "id": "capability",
+      "meaning": "Permissions and authority; may participate in a maximum blast-radius walk."
+    },
+    {
+      "id": "influence",
+      "meaning": "Persuasion or steering. Never permission, never traversed as authority."
+    },
+    {
+      "id": "topology",
+      "meaning": "Structural and lineage relationships."
+    }
+  ],
+  "relationshipKinds": [
+    {
+      "id": "can_invoke",
+      "category": "capability"
+    },
+    {
+      "id": "can_read",
+      "category": "capability"
+    },
+    {
+      "id": "can_write",
+      "category": "capability"
+    },
+    {
+      "id": "runs_as",
+      "category": "capability"
+    },
+    {
+      "id": "reaches",
+      "category": "capability"
+    },
+    {
+      "id": "influences",
+      "category": "influence"
+    },
+    {
+      "id": "uses",
+      "category": "topology"
+    },
+    {
+      "id": "hosted_on",
+      "category": "topology"
+    },
+    {
+      "id": "defined_in",
+      "category": "topology"
+    },
+    {
+      "id": "deployed_by",
+      "category": "topology"
+    },
+    {
+      "id": "protected_by",
+      "category": "topology"
+    },
+    {
+      "id": "trains_on",
+      "category": "topology"
+    },
+    {
+      "id": "connects_to",
+      "category": "topology"
+    },
+    {
+      "id": "exposes",
+      "category": "topology"
+    },
+    {
+      "id": "contains_component",
+      "category": "topology"
+    }
+  ],
+  "evidencePrinciples": [
+    "Connection health proves only that declared, read-only entrypoints were callable for the recorded identity and scope at a recorded time.",
+    "Collection coverage is separate from connection health. A failed or partial collection cannot withdraw previously observed inventory or resolve findings by absence.",
+    "Findings and runtime events do not manufacture inventory assets or graph edges. Identity and correlation require exact, independently observed identifiers.",
+    "Inventory is not a finding; a finding is not an issue; activity is not a detection; none is automatically a risk verdict or confirmed incident.",
+    "Unsupported, unselected, unavailable, and unknown scope remains visible rather than becoming an empty or safe result.",
+    "Collectors retain bounded metadata and evidence. Credentials, tokens, raw prompts/responses, secret values, and arbitrary scanner payloads are excluded.",
+    "Demo records are visibly identified as fixture evidence."
+  ]
+}

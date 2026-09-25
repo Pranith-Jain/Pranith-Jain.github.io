@@ -1,0 +1,62 @@
+{
+  "name": "MultimodalInjection",
+  "file": "llm01_promptinject.nov",
+  "meta": {
+    "description": "Detects multimodal prompt injection attempts",
+    "author": "@fr0gger_",
+    "version": "1.0",
+    "category": "suspicious_patterns/cross_modal",
+    "severity": "high",
+    "uuid": "520b23d8-54c0-4ade-b8a7-cdc1a90c0def",
+    "date": "2026-02-21",
+    "reference": "LLM01:2025 Prompt Injection"
+  },
+  "keywords": {
+    "$image_process": {
+      "pattern": "process (this|the) image|analyze (this|the) image|look at (this|the) image",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$hidden_content": {
+      "pattern": "hidden (text|content|message|instruction)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$watermark": {
+      "pattern": "watermark|embedded text|text in image",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$multimodal": {
+      "pattern": "multimodal|cross-modal|multiple formats",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$hidden_in_media": {
+      "pattern": "instructions hidden in the image",
+      "threshold": 0.4
+    },
+    "$cross_modal_attack": {
+      "pattern": "combine text and image instructions",
+      "threshold": 0.4
+    }
+  },
+  "llm": {
+    "$image_injection": {
+      "pattern": "Does this prompt involve processing images that might contain hidden instructions or malicious content?",
+      "threshold": 0.3
+    }
+  },
+  "condition": "(keywords.$image_process and (keywords.$hidden_content or keywords.$watermark)) or keywords.$multimodal or semantics.$hidden_in_media or semantics.$cross_modal_attack or llm.$image_injection",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/llm01_promptinject.nov",
+  "license": "MIT"
+}

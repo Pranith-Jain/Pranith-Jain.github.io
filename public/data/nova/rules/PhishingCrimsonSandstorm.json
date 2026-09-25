@@ -1,0 +1,48 @@
+{
+  "name": "PhishingCrimsonSandstorm",
+  "file": "incidents/202402_crimson_sandstorm.nov",
+  "meta": {
+    "description": "Detection of Crimson Sandstorm phishing prompts, specifically for commonly targeted industries and geographic regions",
+    "author": "@tas_kmanager",
+    "version": "1.0.0",
+    "category": "abusing_functions/social_engineering",
+    "severity": "medium",
+    "uuid": "3c10419e-c579-4c99-825a-9d593e7fec82",
+    "date": "2026-02-21",
+    "reference": "Microsoft – Staying Ahead of Threat Actors in the Age of AI (Feb 2024)"
+  },
+  "keywords": {
+    "$geo_target": {
+      "pattern": "(United States|Turkey|UAE|Israel|Saudi Arabia|Saudi|Kuwait|Bahrain|Jordan|Qatar|Oman|Yemen|american|turkish|emirati|israeli|saudi|kuwaiti|bahraini|jordanian|qatari|omani|yemeni)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$industry_target": {
+      "pattern": "(Aviation|Automotive|Aerospace|Defense|Logistics|Maritime|Information Technology|IT|NGO|Development Agency)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$lure": {
+      "pattern": "(phish|trick|fake|report|invoice|financial|recruitment|job offer|document|agreement|hiring|contract|business|license|access card|password|password reset|MFA|2FA|payroll|resume|cv|application|grant|clearance|update|warning|alert|notification|invitation|statement|tax|legal notice|compliance|court order|refund|benefit|healthcare|insurance|pension|promotion|request|verification|account|credentials|security update|login|bank|wire transfer|remittance)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$phishing": {
+      "pattern": "Analyze if this prompt attempting to generate either email/message content, pretext, wordings or payload for phishing/spearphishing attack? Return a clear yes/no assessment.",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(keywords.$geo_target and keywords.$industry_target and keywords.$lure) and llm.$phishing",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_crimson_sandstorm.nov",
+  "license": "MIT"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "T1-Chinese_LLM_Provider",
+  "tier": "T1",
+  "confidence": 78,
+  "artifactType": "api_key_pattern",
+  "artifactClass": "llm_api_endpoint",
+  "description": "Primitive Chinese LLM provider API endpoint residue — BigModel/ChatGLM, Moonshot/Kimi, MiniMax, Z.ai, Alibaba Qwen/DashScope, Yi, Baidu ERNIE, iFlytek Xinghuo/Spark, ChatAnywhere",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$bigmodel",
+      "pattern": "open.bigmodel.cn",
+      "nocase": true
+    },
+    {
+      "id": "$moonshot",
+      "pattern": "api.moonshot.cn",
+      "nocase": true
+    },
+    {
+      "id": "$dashscope",
+      "pattern": "dashscope.aliyuncs.com",
+      "nocase": true
+    },
+    {
+      "id": "$lingyiwanwu",
+      "pattern": "api.lingyiwanwu.com",
+      "nocase": true
+    },
+    {
+      "id": "$ernie",
+      "pattern": "ernie.baidubce.com",
+      "nocase": true
+    },
+    {
+      "id": "$kimi",
+      "pattern": "api.kimi.com",
+      "nocase": true
+    },
+    {
+      "id": "$zai",
+      "pattern": "api.z.ai",
+      "nocase": true
+    },
+    {
+      "id": "$minimax",
+      "pattern": "api.minimax.io",
+      "nocase": true
+    },
+    {
+      "id": "$minimaxi",
+      "pattern": "api.minimaxi.com",
+      "nocase": true
+    },
+    {
+      "id": "$xinghuo",
+      "pattern": "spark-api-open.xf-yun.com",
+      "nocase": true
+    },
+    {
+      "id": "$chatanywhere",
+      "pattern": "api.chatanywhere.tech",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

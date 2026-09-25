@@ -1,0 +1,37 @@
+{
+  "name": "T3-GUARDBREAKER_VBS_Anti_AI_Guardrail_Trigger",
+  "tier": "T3",
+  "confidence": 90,
+  "artifactType": "ai_analysis_evasion",
+  "artifactClass": "prompt_injection_anti_re",
+  "description": "GUARDBREAKER — UAC-0099 VBS downloader with adversarial WMD text to trigger AI safety refusals",
+  "family": "GUARDBREAKER",
+  "archetypes": "A3",
+  "reference": "ESET @ESETresearch 2026-08-27",
+  "strings": [
+    {
+      "id": "$av_honolulu",
+      "pattern": "Honolulu",
+      "nocase": true
+    },
+    {
+      "id": "$av_holulu",
+      "pattern": "Holulu",
+      "nocase": true
+    },
+    {
+      "id": "$av_admi",
+      "pattern": "Agent.ADMI",
+      "nocase": true
+    },
+    {
+      "id": "$infra_imgurl",
+      "pattern": "imageurlgenerator",
+      "nocase": true
+    }
+  ],
+  "condition": "1 of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

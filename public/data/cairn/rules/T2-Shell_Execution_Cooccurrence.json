@@ -1,0 +1,52 @@
+{
+  "name": "T2-Shell_Execution_Cooccurrence",
+  "tier": "T2",
+  "confidence": 86,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "shell_execution_cooccurrence",
+  "description": "Behavioral shell execution and reverse-shell stream co-occurrence",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$tcp",
+      "pattern": "System.Net.Sockets.TcpClient",
+      "nocase": true
+    },
+    {
+      "id": "$stream_writer",
+      "pattern": "IO.StreamWriter",
+      "nocase": true
+    },
+    {
+      "id": "$stream_reader",
+      "pattern": "IO.StreamReader",
+      "nocase": true
+    },
+    {
+      "id": "$invoke_expression",
+      "pattern": "Invoke-Expression",
+      "nocase": true
+    },
+    {
+      "id": "$out_string",
+      "pattern": "Out-String",
+      "nocase": true
+    },
+    {
+      "id": "$connected_loop",
+      "pattern": ".Connected",
+      "nocase": true
+    },
+    {
+      "id": "$autoflush",
+      "pattern": ".AutoFlush",
+      "nocase": true
+    }
+  ],
+  "condition": "4 of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

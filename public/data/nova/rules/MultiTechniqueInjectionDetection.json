@@ -1,0 +1,53 @@
+{
+  "name": "MultiTechniqueInjectionDetection",
+  "file": "injection.nov",
+  "meta": {
+    "description": "Detects prompt injection attempts using multiple techniques in a single prompt",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "high",
+    "uuid": "2a657f39-bc3e-4812-aad2-cd1e884d0561",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$encoded": {
+      "pattern": "encoded instruction",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$payload": {
+      "pattern": "payload split",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$indirect": {
+      "pattern": "external resource",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$code": {
+      "pattern": "execute code",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$multi_tech": {
+      "pattern": "using multiple methods to modify the model's behavior",
+      "threshold": 0.4
+    }
+  },
+  "llm": {},
+  "condition": "any of keywords.* or semantics.$multi_tech",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
+  "license": "MIT"
+}
