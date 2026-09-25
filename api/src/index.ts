@@ -19,6 +19,7 @@ import {
 import { phishingAnalyzeHandler } from './routes/phishing';
 import { urlRiskAnalyzeHandler } from './routes/url-risk';
 import { exposureScanHandler } from './routes/exposure';
+import { exposureCheckHandler } from './routes/exposure-check';
 import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
 import { ctiParseHandler } from './routes/cti';
@@ -1334,6 +1335,7 @@ app.get('/api/v1/stix/fetch', stixFetchHandler);
 app.get('/api/v1/cert-search', certSearchHandler);
 app.get('/api/v1/web-scan', webScanHandler);
 app.get('/api/v1/exposure/scan', exposureScanHandler);
+app.get('/api/v1/exposure/check', exposureCheckHandler);
 app.get('/api/v1/host', hostIntelHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
 app.get('/api/v1/builtwith', builtwithHandler);
