@@ -1,18 +1,19 @@
 {
   "slug": "unc1069",
   "name": "UNC1069",
-  "akas": "MASAN, CryptoCore (DPRK; BlueNoroff/Lazarus-adjacent)",
-  "brief": "Used Gemini for cryptocurrency research and reconnaissance on where victims' wallet application data is stored, generated multilingual lures, and attempted crypto-theft code. Separately used AI-generated deepfake images/video (including a deepfaked crypto-company CEO on a Zoom call) to lure victims into installing the BIGMACHO backdoor disguised as a Zoom SDK. GTIG (see also the deepfake table below)",
-  "ttps": ["T1566", "T1587", "T1593", "T1656"],
+  "akas": "MASAN, CryptoCore (DPRK; BlueNoroff/Lazarus-adjacent); MIDNIGHT NEPTUNE (GTIG’s Sep 2026 designation)",
+  "brief": "Used Gemini for cryptocurrency research and reconnaissance on where victims' wallet application data is stored, generated multilingual lures, and attempted crypto-theft code. Separately used AI-generated deepfake images/video (including a deepfaked crypto-company CEO on a Zoom call) to lure victims into installing the BIGMACHO backdoor disguised as a Zoom SDK. GTIG (see also the deepfake table below) [Update 2026-09] As \"MIDNIGHT NEPTUNE,\" increasingly integrated AI across the operational lifecycle: AI-crafted social-engineering personas and technical-troubleshooting lures targeting crypto orgs; DeepSeek-Coder-assisted development of cross-platform Python RATs (persistence, process injection, fileless execution, C2); LLM-drafted Bash scripts for lateral movement; and poisoned internal repository configurations with altered Claude CLI hooks to deploy the SOMBERMEME backdoor on developer interaction. GTIG",
+  "ttps": ["T1059", "T1566", "T1587", "T1593", "T1656"],
   "categories": [
     "LLM-informed reconnaissance",
     "LLM-supported social engineering",
     "LLM-aided development",
-    "DeepFake for Impersonation"
+    "DeepFake for Impersonation",
+    "LLM-embedded malware (runtime generation)"
   ],
-  "reported": "Nov 2025",
+  "reported": "Nov 2025 (updated Sep 2026)",
   "activity": "2025",
   "table": "main",
-  "sizeBytes": 403,
-  "ttpMd": "**LLM-informed reconnaissance** T1593 - Search Open Websites/Domains<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-aided development** T1587 - Develop Capabilities<br><br>**DeepFake for Impersonation** T1656 - Impersonation"
+  "sizeBytes": 916,
+  "ttpMd": "**LLM-informed reconnaissance** T1593 - Search Open Websites/Domains<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-aided development** T1587 - Develop Capabilities<br><br>**DeepFake for Impersonation** T1656 - Impersonation<br><br>**LLM-embedded malware (runtime generation)** T1059 - Command and Scripting Interpreter (SOMBERMEME backdoor via poisoned Claude CLI hooks)"
 }

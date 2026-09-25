@@ -1,7 +1,7 @@
 {
   "slug": "krybit",
   "name": "krybit",
-  "fetchedAt": "2026-09-16T11:54:03.071Z",
+  "fetchedAt": "2026-09-23T11:55:37.073Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 04:05:00.677",
+          "updated": "2026-09-23 00:31:55.296",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 06:01:47.344",
+          "updated": "2026-09-23 10:03:35.229",
           "chat": false,
           "fs": false
         },
@@ -29,8 +29,8 @@
           "fqdn": "krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 05:04:40.453",
+          "available": true,
+          "updated": "2026-09-23 11:26:44.874",
           "chat": false,
           "fs": false
         },
@@ -39,7 +39,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 10:00:41.513",
+          "updated": "2026-09-23 10:40:11.861",
           "chat": false,
           "fs": false
         }

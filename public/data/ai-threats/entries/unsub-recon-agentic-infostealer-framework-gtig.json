@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-recon-agentic-infostealer-framework-gtig",
+  "name": "UnSub (\"Recon\" agentic infostealer framework) — GTIG",
+  "akas": "Unnamed",
+  "brief": "An exposed C2 server hosted an automated reconnaissance and credential-management framework dubbed \"Recon,\" with agentic config files (AGENTS.md, KNOWLEDGE.md) managing over 23,800 harvested secrets including cloud and AI API keys — which GTIG frames as a transition from passive, endpoint-focused infostealers to offensive agentic harvesting. GTIG",
+  "ttps": ["T1119"],
+  "categories": ["LLM-directed Automated Collection", "LLM-orchestrated operations"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 348,
+  "ttpMd": "**LLM-directed Automated Collection** T1119 - Automated Collection<br><br>**LLM-orchestrated operations** TA0002 - Execution"
+}

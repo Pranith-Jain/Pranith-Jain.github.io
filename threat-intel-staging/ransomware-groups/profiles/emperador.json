@@ -1,7 +1,7 @@
 {
   "slug": "emperador",
   "name": "emperador",
-  "fetchedAt": "2026-09-16T11:54:04.751Z",
+  "fetchedAt": "2026-09-23T11:55:34.188Z",
   "profiles": [
     {
       "captcha": false,
@@ -11,8 +11,8 @@
           "fqdn": "emprdr4p7iwlhpky33tswt3k2qdeljyjcdpoysabudmmrz4z32laexad.onion",
           "title": "EMPERADOR",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 08:00:24.009",
+          "available": true,
+          "updated": "2026-09-23 11:26:26.671",
           "chat": false,
           "fs": false
         }

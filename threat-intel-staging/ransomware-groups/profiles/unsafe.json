@@ -1,7 +1,7 @@
 {
   "slug": "unsafe",
   "name": "unsafe",
-  "fetchedAt": "2026-09-16T11:54:06.485Z",
+  "fetchedAt": "2026-09-23T11:55:38.652Z",
   "profiles": [
     {
       "captcha": false,
@@ -11,8 +11,8 @@
           "fqdn": "unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion",
           "title": "UnSafe",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 09:02:16.902",
+          "available": true,
+          "updated": "2026-09-23 11:35:04.934",
           "chat": false,
           "fs": false
         }

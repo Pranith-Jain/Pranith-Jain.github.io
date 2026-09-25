@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-dprk-gtig",
+  "name": "Multiple UnSub (DPRK) — GTIG",
+  "akas": "Unnamed DPRK clusters",
+  "brief": "Bulk LLM API account registration via hijacked accounts for resource procurement; aerospace/defense target profiling via LLM prompts; fabricated resumes and recruiter personas supporting IT-worker fraud; phishing/payload-delivery technique analysis. GTIG",
+  "ttps": ["T1566", "T1585", "T1591"],
+  "categories": ["LLM-advised resource development", "LLM-informed reconnaissance", "LLM-supported social engineering"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 254,
+  "ttpMd": "**LLM-advised resource development** T1585 - Establish Accounts<br><br>**LLM-informed reconnaissance** T1591 - Gather Victim Org Information<br><br>**LLM-supported social engineering** T1566 - Phishing"
+}

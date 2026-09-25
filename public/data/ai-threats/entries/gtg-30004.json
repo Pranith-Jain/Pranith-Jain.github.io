@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-30004",
+  "name": "GTG-30004",
+  "akas": "Iran-nexus; unnamed",
+  "brief": "OSINT identity-profiling of Israeli/Jewish-diaspora individuals, combined with a modification/obfuscation pipeline for the NanoDump credential-dumping malware. Anthropic",
+  "ttps": ["T1027", "T1589"],
+  "categories": ["LLM-informed reconnaissance", "LLM-enhanced scripting techniques"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 169,
+  "ttpMd": "**LLM-informed reconnaissance** T1589 - Gather Victim Identity Information<br><br>**LLM-enhanced scripting techniques** T1027 - Obfuscated Files/Information"
+}

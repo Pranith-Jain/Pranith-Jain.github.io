@@ -1,7 +1,7 @@
 {
   "slug": "akira",
   "name": "akira",
-  "fetchedAt": "2026-09-16T11:54:03.568Z",
+  "fetchedAt": "2026-09-23T11:55:33.895Z",
   "profiles": [
     {
       "captcha": false,
@@ -11,8 +11,8 @@
           "fqdn": "akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 06:00:52.220",
+          "available": true,
+          "updated": "2026-09-23 11:03:49.010",
           "chat": false,
           "fs": false
         },
@@ -20,8 +20,8 @@
           "fqdn": "akiralkzxzq2dsrzsrvbr2xgbbu2wgsmxryd4csgfameg52n7efvr2id.onion",
           "title": "/",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 03:07:42.065",
+          "available": true,
+          "updated": "2026-09-23 11:34:48.300",
           "chat": true,
           "fs": false
         },
@@ -30,9 +30,18 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-16 11:03:01.053",
+          "updated": "2026-09-23 11:01:05.413",
           "chat": false,
           "fs": false
+        },
+        {
+          "fqdn": "3i7uisihrgv3v7kjafmhahhcmtjfepckhw5vournekuamhbt37liplid.onion",
+          "title": null,
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-18 16:46:04.488645",
+          "chat": false,
+          "fs": true
         }
       ]
     },

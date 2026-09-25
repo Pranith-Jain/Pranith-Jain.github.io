@@ -1,13 +1,18 @@
 {
   "slug": "apt42",
   "name": "APT42",
-  "akas": "Charming Kitten, Mint Sandstorm, TA453, Yellow Garuda (Iran, IRGC)",
-  "brief": "Used Gemini's text generation/editing to craft phishing material impersonating think-tank staff and for translation/geopolitical research; notably attempted to build a \"Data Processing Agent\" converting natural-language requests into SQL queries to mine sensitive personal data. GTIG",
-  "ttps": ["T1213", "T1566", "T1591"],
-  "categories": ["LLM-supported social engineering", "LLM-informed reconnaissance", "LLM-enhanced data manipulation"],
-  "reported": "Nov 2025",
+  "akas": "Charming Kitten, Mint Sandstorm, TA453, Yellow Garuda (Iran, IRGC); CALANQUE ION (GTIG’s Sep 2026 designation)",
+  "brief": "Used Gemini's text generation/editing to craft phishing material impersonating think-tank staff and for translation/geopolitical research; notably attempted to build a \"Data Processing Agent\" converting natural-language requests into SQL queries to mine sensitive personal data. GTIG [Update 2026-09] As \"CALANQUE ION,\" continued leveraging Gemini to augment reconnaissance and targeted social engineering, and expanded AI usage to develop tactical infrastructure and attempt reverse-engineering of proprietary software licensing algorithms to bypass security controls/EDR. GTIG",
+  "ttps": ["T1213", "T1566", "T1587.004", "T1591"],
+  "categories": [
+    "LLM-supported social engineering",
+    "LLM-informed reconnaissance",
+    "LLM-enhanced data manipulation",
+    "LLM-assisted vulnerability research"
+  ],
+  "reported": "Nov 2025 (updated Sep 2026)",
   "activity": "Unknown",
   "table": "main",
-  "sizeBytes": 283,
-  "ttpMd": "**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-informed reconnaissance** T1591 - Gather Victim Org Information<br><br>**LLM-enhanced data manipulation** T1213 - Data from Information Repositories (NL-to-SQL agent)"
+  "sizeBytes": 578,
+  "ttpMd": "**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-informed reconnaissance** T1591 - Gather Victim Org Information<br><br>**LLM-enhanced data manipulation** T1213 - Data from Information Repositories (NL-to-SQL agent)<br><br>**LLM-assisted vulnerability research** T1587.004 - Develop Capabilities: Exploits (licensing/EDR reverse-engineering attempts)"
 }

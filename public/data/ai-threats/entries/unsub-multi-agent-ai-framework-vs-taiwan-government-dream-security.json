@@ -1,0 +1,17 @@
+{
+  "slug": "unsub-multi-agent-ai-framework-vs-taiwan-government-dream-security",
+  "name": "UnSub (multi-agent AI framework vs. Taiwan government) — Dream Security",
+  "akas": "\"Chinese-language operator\" per linguistic analysis only (Simplified/Traditional Chinese code-switching); no confirmed nation-state or named APT/UNC attribution",
+  "brief": "Dream Security recovered a ~160MB/1,395-file operational workspace revealing a multi-agent AI framework built on the open-source Hermes (Nous Research) and \"OpenClaw\" agent frameworks, running up to 8 concurrent sub-agents, a documented Bayesian two-layer probabilistic decision engine for exploit-chain scoring, autonomous \"Learning Cycles\" (v1–v5) pulling CVEs/PoCs from GitHub, multi-agent self-correction that removed 7 false positives, and Tesseract OCR for CAPTCHA solving — across 12 attack waves in a government-portal → nuclear-safety-agency → energy-sector targeting chain. Dream Security's own post withholds the victim country; Financial Times first named Taiwan, independently corroborated by The Register, CNN, Taipei Times, Dark Reading, CyberScoop, and others. Dream Security",
+  "ttps": ["T1587", "T1588.006"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-assisted vulnerability research",
+    "LLM-aided development"
+  ],
+  "reported": "Aug 2026",
+  "activity": "Jul 1–4, 2026",
+  "table": "main",
+  "sizeBytes": 791,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution / full kill-chain<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-aided development** T1587 - Develop Capabilities"
+}

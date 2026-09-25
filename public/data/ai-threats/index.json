@@ -2,9 +2,9 @@
   "source": "Cybershujin Threat Actors' Use of Artificial Intelligence tracker",
   "sourceUrl": "https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/",
   "license": "MIT",
-  "replicatedAt": "2026-09-14",
-  "lastSyncedAt": "2026-09-14T13:14:03.314Z",
-  "counts": { "total": 94, "main": 82, "deepfake": 12 },
+  "replicatedAt": "2026-09-21",
+  "lastSyncedAt": "2026-09-21T13:12:56.894Z",
+  "counts": { "total": 119, "main": 105, "deepfake": 14 },
   "stixAvailable": true,
   "threatIndex": [
     {
@@ -46,18 +46,19 @@
     {
       "slug": "apt42",
       "name": "APT42",
-      "akas": "Charming Kitten, Mint Sandstorm, TA453, Yellow Garuda (Iran, IRGC)",
+      "akas": "Charming Kitten, Mint Sandstorm, TA453, Yellow Garuda (Iran, IRGC); CALANQUE ION (GTIG’s Sep 2026 designation)",
       "brief": "Used Gemini's text generation/editing to craft phishing material impersonating think-tank staff and for translation/geopolitical research; notably attempted to build a \"Data Processing Agent\" converting natural-language requests into SQL…",
-      "ttps": ["T1213", "T1566", "T1591"],
+      "ttps": ["T1213", "T1566", "T1587.004", "T1591"],
       "categories": [
         "LLM-supported social engineering",
         "LLM-informed reconnaissance",
-        "LLM-enhanced data manipulation"
+        "LLM-enhanced data manipulation",
+        "LLM-assisted vulnerability research"
       ],
-      "reported": "Nov 2025",
+      "reported": "Nov 2025 (updated Sep 2026)",
       "activity": "Unknown",
       "table": "main",
-      "sizeBytes": 283
+      "sizeBytes": 578
     },
     {
       "slug": "apt43",
@@ -180,6 +181,30 @@
       "activity": "Unknown",
       "table": "main",
       "sizeBytes": 886
+    },
+    {
+      "slug": "cl-cri-1131",
+      "name": "CL-CRI-1131",
+      "akas": "Unit 42 cluster designation; cross-referenced by CloudSEK as \"Operation Escaneo\"",
+      "brief": "Multi-stage network intrusion and data-exfiltration campaign against Mexican transport-ministry and Ecuadorian water-utility targets. Unit 42 found a self-hosted NextChat web UI exposed on attacker infrastructure (TCP port 3000) being us…",
+      "ttps": ["T1059", "T1566"],
+      "categories": ["LLM-enhanced scripting techniques", "LLM-supported social engineering"],
+      "reported": "Sep 2026",
+      "activity": "Apr 2026 (compromise); broader campaign Feb–Jun 2026",
+      "table": "main",
+      "sizeBytes": 685
+    },
+    {
+      "slug": "cl-cri-1163",
+      "name": "CL-CRI-1163",
+      "akas": "Unit 42 cluster designation",
+      "brief": "Multi-stage network intrusion and data-exfiltration campaign against Brazilian financial institutions, sharing the self-hosted NextChat/Claude/GPT-4.1 troubleshooting TTP and infrastructure overlap with CL-CRI-1131 (see that row for shar…",
+      "ttps": ["T1059", "T1566"],
+      "categories": ["LLM-enhanced scripting techniques", "LLM-supported social engineering"],
+      "reported": "Sep 2026",
+      "activity": "Initial access Feb 2026",
+      "table": "main",
+      "sizeBytes": 266
     },
     {
       "slug": "coral-sleet",
@@ -311,6 +336,35 @@
       "sizeBytes": 267
     },
     {
+      "slug": "goldbull-coinlure-group-ib",
+      "name": "GoldBull / CoinLure — Group-IB",
+      "akas": "",
+      "brief": "Group-IB identified two AI-fraud campaigns: GoldBull runs pump-and-dump schemes on real stocks using deepfake video ads impersonating a generic \"financial professional\"/\"head analyst\" persona to drive victims into coordinated WhatsApp gr…",
+      "ttps": ["T1656"],
+      "categories": ["DeepFake for Impersonation"],
+      "reported": "Aug 2026",
+      "activity": "Aug 2026",
+      "table": "deepfake",
+      "sizeBytes": 435
+    },
+    {
+      "slug": "gtg-10007",
+      "name": "GTG-10007",
+      "akas": "Chinese exploit-foundry cluster (Anthropic designation); two Hunan-based operators, one a former Sangfor intern",
+      "brief": "Anthropic disrupted an operation in which the actor built autonomous agent-swarm workflows directing Claude to conduct vulnerability and exploit research \"agentically around the clock.\" A binary reverse-engineering/decompilation loop pro…",
+      "ttps": ["T1587", "T1588.006", "T1592"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-assisted vulnerability research",
+        "LLM-aided development",
+        "LLM-informed reconnaissance"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Dec 2025 – Aug 2026",
+      "table": "main",
+      "sizeBytes": 810
+    },
+    {
       "slug": "gtg-1002",
       "name": "GTG-1002",
       "akas": "Chinese state-sponsored (Anthropic designation); MITRE ATT&CK Campaign C0062",
@@ -329,6 +383,22 @@
       "sizeBytes": 578
     },
     {
+      "slug": "gtg-20006",
+      "name": "GTG-20006",
+      "akas": "Russian espionage group; Anthropic states \"consistent with public reporting linking the actor to Midnight Blizzard\"",
+      "brief": "Automated operations end-to-end via AI-driven workflows — development, infrastructure acquisition, phishing, persistence, C2, and exfiltration. Notably, monitoring AI agents that detected their own malware being flagged by a security pro…",
+      "ttps": ["T1071", "T1562.001", "T1566"],
+      "categories": [
+        "LLM-orchestrated operations",
+        "LLM-enhanced anomaly detection evasion",
+        "LLM-supported social engineering"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Dec 2025 – Aug 2026",
+      "table": "main",
+      "sizeBytes": 649
+    },
+    {
       "slug": "gtg-2002",
       "name": "GTG-2002",
       "akas": "\"vibe hacking\" data-extortion actor (Anthropic)",
@@ -344,6 +414,70 @@
       "activity": "Unknown",
       "table": "main",
       "sizeBytes": 410
+    },
+    {
+      "slug": "gtg-30004",
+      "name": "GTG-30004",
+      "akas": "Iran-nexus; unnamed",
+      "brief": "OSINT identity-profiling of Israeli/Jewish-diaspora individuals, combined with a modification/obfuscation pipeline for the NanoDump credential-dumping malware. Anthropic",
+      "ttps": ["T1027", "T1589"],
+      "categories": ["LLM-informed reconnaissance", "LLM-enhanced scripting techniques"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 169
+    },
+    {
+      "slug": "gtg-30005",
+      "name": "GTG-30005",
+      "akas": "Iran-nexus; unnamed",
+      "brief": "Military reconnaissance and targeting-handbook compilation against US naval forces. Anthropic",
+      "ttps": ["T1590", "T1592"],
+      "categories": ["LLM-informed reconnaissance"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 93
+    },
+    {
+      "slug": "gtg-50020",
+      "name": "GTG-50020",
+      "akas": "Russian-speaking actor; unnamed",
+      "brief": "Pivoted from a hotel-booking/fintech intrusion campaign ($1.5–2.5M extortion demands, 26GB exfiltrated) to prompt-injecting an AI vendor's own evaluation sandbox to steal production API keys, hitting roughly 30 AI companies in a 4-day sp…",
+      "ttps": ["T1585", "T1587", "T1657"],
+      "categories": ["LLM-advised resource development"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 251
+    },
+    {
+      "slug": "gtg-50021",
+      "name": "GTG-50021",
+      "akas": "Fraudulent AI reseller, alias \"kl1zy\" (Russian/Ukrainian)",
+      "brief": "Sold fake \"discounted Claude access\" that silently proxied victims to a different, cheaper model while installing a credential harvester on the buyer's machine. Anthropic",
+      "ttps": ["T1005", "T1587"],
+      "categories": ["LLM-advised resource development"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 170
+    },
+    {
+      "slug": "gtg-50029",
+      "name": "GTG-50029",
+      "akas": "\"fafsearch\" operator; single French-speaking actor",
+      "brief": "A single-person operation that targeted European political parties, media outlets, think-tanks, and the SaaS providers used by these organizations, and built a mass doxxing/lookup platform (\"fafsearch\") loaded with tens of millions of ro…",
+      "ttps": ["T1119", "T1505.003", "T1587", "T1588.006"],
+      "categories": [
+        "LLM-aided development",
+        "LLM-assisted vulnerability research",
+        "LLM-directed Automated Collection"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Feb 2026 – Jul 2026",
+      "table": "main",
+      "sizeBytes": 1009
     },
     {
       "slug": "gtg-5004",
@@ -594,6 +728,22 @@
       "sizeBytes": 412
     },
     {
+      "slug": "multiple-unsub-dprk-gtig",
+      "name": "Multiple UnSub (DPRK) — GTIG",
+      "akas": "Unnamed DPRK clusters",
+      "brief": "Bulk LLM API account registration via hijacked accounts for resource procurement; aerospace/defense target profiling via LLM prompts; fabricated resumes and recruiter personas supporting IT-worker fraud; phishing/payload-delivery techniq…",
+      "ttps": ["T1566", "T1585", "T1591"],
+      "categories": [
+        "LLM-advised resource development",
+        "LLM-informed reconnaissance",
+        "LLM-supported social engineering"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 254
+    },
+    {
       "slug": "multiple-unsub-north-korea-us-national-security-advisor",
       "name": "Multiple Unsub North Korea - US National Security Advisor",
       "akas": "N/A",
@@ -666,6 +816,22 @@
       "sizeBytes": 296
     },
     {
+      "slug": "ravine-castle",
+      "name": "RAVINE CASTLE",
+      "akas": "COULEE, APT24 (PRC-nexus, GTIG's new designation)",
+      "brief": "Used Gemini to research data-leak anonymization techniques for dissemination to journalists/influencers, to translate/summarize exfiltrated intelligence, and to research VMware vCenter SAML-bypass exploits and Rubeus/Kerberos Active Dire…",
+      "ttps": ["T1119", "T1587", "T1588.006"],
+      "categories": [
+        "LLM-assisted vulnerability research",
+        "LLM-aided development",
+        "LLM-directed Automated Collection"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 408
+    },
+    {
       "slug": "revengehotels",
       "name": "RevengeHotels",
       "akas": "TA558 (Kaspersky)",
@@ -690,6 +856,22 @@
       "sizeBytes": 469
     },
     {
+      "slug": "sandworm-relic",
+      "name": "SANDWORM RELIC",
+      "akas": "FROZENBARENTS, SANDWORM, APT44 (Russian, GTIG's new designation; targets Ukraine)",
+      "brief": "AI-themed phishing domains; Gemini-written/refined asynchronous Python password-spraying scripts; endpoint-fingerprinting scripts; proxy-based C2 obfuscation; local projects integrating directly with the Gemini API. GTIG",
+      "ttps": ["T1059", "T1562.001", "T1566"],
+      "categories": [
+        "LLM-enhanced scripting techniques",
+        "LLM-supported social engineering",
+        "LLM-enhanced anomaly detection evasion"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 220
+    },
+    {
       "slug": "sapphire-sleet",
       "name": "Sapphire Sleet",
       "akas": "DPRK (crypto-theft / fake-recruiter cluster)",
@@ -712,6 +894,23 @@
       "activity": "Unknown",
       "table": "main",
       "sizeBytes": 533
+    },
+    {
+      "slug": "shinyhunters",
+      "name": "ShinyHunters",
+      "akas": "GTG-50014 (Anthropic); UNC6240 (GTIG); operator aliases MeowSHA / frkoo / blazespider",
+      "brief": "Reported independently by two AI vendors in the same cycle. Anthropic (GTG-50014): multiple ShinyHunters-affiliate operators decompiled 1.8M Android APKs via TruffleHog on a 10-node AWS EC2 fleet to scan for secrets; harvested GitHub PAT…",
+      "ttps": ["T1195", "T1562.001", "T1585", "T1587", "T1657"],
+      "categories": [
+        "LLM-aided development",
+        "LLM-advised resource development",
+        "LLM-enhanced extortion/negotiation",
+        "LLM-enhanced anomaly detection evasion"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Feb 2026 – Jun 2026",
+      "table": "main",
+      "sizeBytes": 802
     },
     {
       "slug": "sodium",
@@ -797,16 +996,33 @@
       "sizeBytes": 434
     },
     {
+      "slug": "taiwan-voice-cloning-romance-scam-ring-57-indicted-unnamed-group",
+      "name": "Taiwan voice-cloning romance-scam ring (57 indicted, unnamed group)",
+      "akas": "",
+      "brief": "Taipei prosecutors indicted 57 people in a romance-scam ring operating since 2022 that used custom AI voice-changing software — trained on 22 female employees' voices — to let male scammers impersonate women in phone calls with victims r…",
+      "ttps": [],
+      "categories": ["DeepFake for Impersonation"],
+      "reported": "Sep 2026",
+      "activity": "Since 2022",
+      "table": "deepfake",
+      "sizeBytes": 351
+    },
+    {
       "slug": "temp-hex",
       "name": "Temp.HEX",
-      "akas": "PRC (Mustang Panda / TA416 reporting overlap)",
-      "brief": "Misused Gemini and other AI tools to compile detailed dossiers on specific individuals (including targets in Pakistan) and collect operational and structural data on separatist organizations in multiple countries. GTIG",
-      "ttps": ["T1589", "T1591"],
-      "categories": ["LLM-informed reconnaissance"],
-      "reported": "Feb 2026",
+      "akas": "PRC (Mustang Panda / TA416 reporting overlap); BASIN CASTLE (GTIG’s Sep 2026 designation, formerly BASIN)",
+      "brief": "Misused Gemini and other AI tools to compile detailed dossiers on specific individuals (including targets in Pakistan) and collect operational and structural data on separatist organizations in multiple countries. GTIG [Update 2026-09] A…",
+      "ttps": ["T1027", "T1059.001", "T1566.001", "T1589", "T1591"],
+      "categories": [
+        "LLM-informed reconnaissance",
+        "LLM-supported social engineering",
+        "LLM-enhanced anomaly detection evasion",
+        "LLM-enhanced scripting techniques"
+      ],
+      "reported": "Feb 2026 (updated Sep 2026)",
       "activity": "Unknown",
       "table": "main",
-      "sizeBytes": 218
+      "sizeBytes": 555
     },
     {
       "slug": "temp-zagros",
@@ -835,19 +1051,20 @@
     {
       "slug": "unc1069",
       "name": "UNC1069",
-      "akas": "MASAN, CryptoCore (DPRK; BlueNoroff/Lazarus-adjacent)",
+      "akas": "MASAN, CryptoCore (DPRK; BlueNoroff/Lazarus-adjacent); MIDNIGHT NEPTUNE (GTIG’s Sep 2026 designation)",
       "brief": "Used Gemini for cryptocurrency research and reconnaissance on where victims' wallet application data is stored, generated multilingual lures, and attempted crypto-theft code. Separately used AI-generated deepfake images/video (including …",
-      "ttps": ["T1566", "T1587", "T1593", "T1656"],
+      "ttps": ["T1059", "T1566", "T1587", "T1593", "T1656"],
       "categories": [
         "LLM-informed reconnaissance",
         "LLM-supported social engineering",
         "LLM-aided development",
-        "DeepFake for Impersonation"
+        "DeepFake for Impersonation",
+        "LLM-embedded malware (runtime generation)"
       ],
-      "reported": "Nov 2025",
+      "reported": "Nov 2025 (updated Sep 2026)",
       "activity": "2025",
       "table": "main",
-      "sizeBytes": 403
+      "sizeBytes": 916
     },
     {
       "slug": "unc1069-masan",
@@ -922,6 +1139,18 @@
       "sizeBytes": 260
     },
     {
+      "slug": "unc5792",
+      "name": "UNC5792",
+      "akas": "Russia-based (GTIG)",
+      "brief": "Integrated AI models into automated monitoring bots analyzing Telegram channels for information of interest to Russian authorities (security threats, extremist content); experimented with AI for API-key integration, message classificatio…",
+      "ttps": ["T1119", "T1593"],
+      "categories": ["LLM-directed Automated Collection", "LLM-informed reconnaissance"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 317
+    },
+    {
       "slug": "unc6201",
       "name": "UNC6201",
       "akas": "PRC-nexus (GTIG)",
@@ -944,6 +1173,30 @@
       "activity": "Q4 2025 (Oct-Dec 2025)",
       "table": "main",
       "sizeBytes": 230
+    },
+    {
+      "slug": "unc6508",
+      "name": "UNC6508",
+      "akas": "PRC-nexus (GTIG); originally disclosed in GTIG's June 2026 AI Threat Tracker edition, reiterated/extended here",
+      "brief": "Compromises cloud environments to deploy local, open-weight LLM infrastructure — avoiding commercial AI API monitoring while co-opting victim compute resources — and separately targets proprietary AI research (academic/medical/military) …",
+      "ttps": ["T1584", "T1588.006"],
+      "categories": ["LLM-advised resource development", "LLM-assisted vulnerability research"],
+      "reported": "Sep 2026",
+      "activity": "Unknown (multi-year campaign per GTIG)",
+      "table": "main",
+      "sizeBytes": 282
+    },
+    {
+      "slug": "unc6780",
+      "name": "UNC6780",
+      "akas": "\"TeamPCP\" (GTIG)",
+      "brief": "Large-scale open-source-software supply-chain compromise (PyPI/npm/Docker Hub) deploying \"DUSTMAKER\" malware: extracts OIDC tokens from CI/CD (GitHub Actions) to publish trojanized packages carrying valid signed attestations specifically…",
+      "ttps": ["T1027", "T1195", "T1562.001"],
+      "categories": ["LLM-enhanced anomaly detection evasion", "LLM-optimized payload crafting"],
+      "reported": "Sep 2026",
+      "activity": "Since Mar 2026",
+      "table": "main",
+      "sizeBytes": 693
     },
     {
       "slug": "unc795",
@@ -1006,6 +1259,46 @@
       "sizeBytes": 228
     },
     {
+      "slug": "unsub-recon-agentic-infostealer-framework-gtig",
+      "name": "UnSub (\"Recon\" agentic infostealer framework) — GTIG",
+      "akas": "Unnamed",
+      "brief": "An exposed C2 server hosted an automated reconnaissance and credential-management framework dubbed \"Recon,\" with agentic config files (AGENTS.md, KNOWLEDGE.md) managing over 23,800 harvested secrets including cloud and AI API keys — whic…",
+      "ttps": ["T1119"],
+      "categories": ["LLM-directed Automated Collection", "LLM-orchestrated operations"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 348
+    },
+    {
+      "slug": "unsub-10-hour-autonomous-agentic-ransomware-attack-unit-42",
+      "name": "UnSub (10-hour autonomous agentic ransomware attack) — Unit 42",
+      "akas": "Unnamed; Unit 42 discloses no victim identity, sector, or cluster ID",
+      "brief": "Unit 42 incident-response case: \"a human attacker used frontier AI to breach an enterprise network autonomously.\" A recon agent mapped internal microservices; sub-agents scraped code repositories for hardcoded tokens/passwords; an agent …",
+      "ttps": ["T1119", "T1657"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-enhanced extortion/negotiation",
+        "LLM-directed Automated Collection"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Unknown (single 10-hour incident, no calendar dates given)",
+      "table": "main",
+      "sizeBytes": 954
+    },
+    {
+      "slug": "unsub-ai-assisted-exploitation-pipeline-cc-switch-phalanx-shai-hulud-gtig",
+      "name": "UnSub (AI-assisted exploitation pipeline: CC Switch/Phalanx/Shai-Hulud) — GTIG",
+      "akas": "PRC-nexus; unnamed",
+      "brief": "Used a tool called \"CC Switch\" to multiplex queries across Claude, Gemini, and Codex for exploit-script writing, phishing-lure generation, and debugging — chained with Burp Suite (manual recon), \"Phalanx\" (an autonomous exploitation fram…",
+      "ttps": ["T1588.006"],
+      "categories": ["LLM-orchestrated operations", "LLM-assisted vulnerability research"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 342
+    },
+    {
       "slug": "unsub-ai-developed-zero-day-gtig",
       "name": "UnSub (AI-developed zero-day) — GTIG",
       "akas": "UnSub (cybercrime)",
@@ -1018,6 +1311,33 @@
       "sizeBytes": 416
     },
     {
+      "slug": "unsub-attempted-agentic-pentest-framework-gtig",
+      "name": "UnSub (attempted agentic pentest framework) — GTIG",
+      "akas": "PRC-nexus; unnamed",
+      "brief": "Used Gemini in an attempt to design a dynamic, automated penetration-testing agent (port scanning/service discovery). GTIG: \"this activity was limited to attempts to build the framework,\" and Google disabled the associated assets before …",
+      "ttps": ["T1595"],
+      "categories": ["LLM-assisted vulnerability research"],
+      "reported": "Sep 2026",
+      "activity": "Unknown (disrupted pre-operational)",
+      "table": "main",
+      "sizeBytes": 269
+    },
+    {
+      "slug": "unsub-aurora-aur0ra-ransomware-affiliate-cursor-ai-abuse-gambit-security",
+      "name": "UnSub (Aurora/Aur0ra ransomware affiliate, Cursor AI abuse) — Gambit Security",
+      "akas": "Aurora / Aur0ra RaaS affiliate (Russian-speaking); also independently tracked by CloudSEK",
+      "brief": "Gambit Security found 28 exposed Cursor agentic-coding-assistant chat sessions (Cursor running Claude Sonnet 4.5) on a misconfigured command server, covering 10 targets between April 8 and May 21, 2026. Operators supplied credentials or …",
+      "ttps": ["T1562.001"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-enhanced anomaly detection evasion"
+      ],
+      "reported": "Aug 2026",
+      "activity": "Apr 8 – May 21, 2026 (broader affiliate campaign Apr–Jul 2026 per CloudSEK)",
+      "table": "main",
+      "sizeBytes": 984
+    },
+    {
       "slug": "unsub-autonomous-ai-agent-framework-hugging-face",
       "name": "UnSub (autonomous AI agent framework) — Hugging Face",
       "akas": "UnSub",
@@ -1028,6 +1348,18 @@
       "activity": "Jul 2026",
       "table": "main",
       "sizeBytes": 1180
+    },
+    {
+      "slug": "unsub-autonomous-credential-theft-framework-gtig",
+      "name": "UnSub (autonomous credential-theft framework) — GTIG",
+      "akas": "Financially motivated; unnamed",
+      "brief": "Compromised an organization's cloud infrastructure to deploy an autonomous, multi-agent attack framework — using an AI coding chatbot, a prompt, and a set of agent instructions to plan, build, and execute a mass credential-harvesting cam…",
+      "ttps": ["T1119"],
+      "categories": ["LLM-orchestrated operations", "LLM-directed Automated Collection"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 450
     },
     {
       "slug": "unsub-china-nexus-cloud-intrusion-gtig",
@@ -1135,6 +1467,22 @@
       "activity": "Nov 2025 – Feb 2026",
       "table": "main",
       "sizeBytes": 2638
+    },
+    {
+      "slug": "unsub-multi-agent-ai-framework-vs-taiwan-government-dream-security",
+      "name": "UnSub (multi-agent AI framework vs. Taiwan government) — Dream Security",
+      "akas": "\"Chinese-language operator\" per linguistic analysis only (Simplified/Traditional Chinese code-switching); no confirmed nation-state or named APT/UNC attribution",
+      "brief": "Dream Security recovered a ~160MB/1,395-file operational workspace revealing a multi-agent AI framework built on the open-source Hermes (Nous Research) and \"OpenClaw\" agent frameworks, running up to 8 concurrent sub-agents, a documented …",
+      "ttps": ["T1587", "T1588.006"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-assisted vulnerability research",
+        "LLM-aided development"
+      ],
+      "reported": "Aug 2026",
+      "activity": "Jul 1–4, 2026",
+      "table": "main",
+      "sizeBytes": 791
     },
     {
       "slug": "unsub-possibly-earth-lamia-trend-micro",

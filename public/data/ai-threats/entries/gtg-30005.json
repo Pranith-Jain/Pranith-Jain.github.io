@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-30005",
+  "name": "GTG-30005",
+  "akas": "Iran-nexus; unnamed",
+  "brief": "Military reconnaissance and targeting-handbook compilation against US naval forces. Anthropic",
+  "ttps": ["T1590", "T1592"],
+  "categories": ["LLM-informed reconnaissance"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 93,
+  "ttpMd": "**LLM-informed reconnaissance** T1592 / T1590 - Gather Victim Org/Network Information"
+}

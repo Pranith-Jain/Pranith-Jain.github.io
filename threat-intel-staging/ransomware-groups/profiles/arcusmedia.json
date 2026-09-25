@@ -1,0 +1,23 @@
+{
+  "slug": "arcusmedia",
+  "name": "arcus media",
+  "fetchedAt": "2026-09-23T11:55:34.923Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "Arcus Media first emerged in May 2024 and operates as a Ransomware-as-a-Service (RaaS) with a double-extortion model—encrypting data and threatening to leak it if the ransom isn't paid. The group leverages advanced capabilities including selective encryption (partial encryption of large files with the ChaCha20 cipher and RSA‑2048 key protection), privilege escalation, disabling recovery mechanisms, and terminating critical services like SQL servers and email clients to maximize disruption and thwart defense. Initial access comes through phishing, credential theft, or exploitation of vulnerabilities, with lateral movement facilitated by tools like Mimikatz and Cobalt Strike. Since its debut, Arcus Media has — by mid‑2025 — been linked to 50+ confirmed attacks, spanning industries such as business services, retail, media, healthcare, and manufacturing across the Americas, Europe, and Asia. Victims include high-profile targets like Braz Assessoria Contábil and FILSCAP.",
+      "locations": [
+        {
+          "fqdn": "arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion",
+          "title": "A r c u s",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:37:48.957",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

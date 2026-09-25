@@ -1,0 +1,536 @@
+{
+  "slug": "braincipher",
+  "name": "brain cipher",
+  "fetchedAt": "2026-09-23T11:55:37.585Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "Brain Cipher ransomware surfaced in mid-2024, rapidly gaining notoriety after a high-impact attack on Indonesia’s National Data Center, which disrupted over 160 government services including immigration systems. The group operates with a double-extortion model, encrypting data using a LockBit 3.0-based payload (Salsa20/RSA hybrid) and threatening leaks via a Tor-hosted portal. Distinct behaviors include encrypting both file contents and filenames, and customizing encrypted file names with appended random extensions. Initial access methods include phishing and purchases from initial-access brokers. Ransom demands have ranged from tens of thousands up to $8 million USD, though victims have sometimes been offered decryption keys without payment. Victims span sectors such as government, healthcare, education, media, and manufacturing across Southeast Asia, Europe, and the Americas.",
+      "locations": [
+        {
+          "fqdn": "mybmtbgd7aprdnw2ekxht5qap5daam2wch25coqerrq2zdioanob34ad.onion",
+          "title": "Brain Cipher Client Area",
+          "version": 3,
+          "available": false,
+          "updated": "2024-07-07 15:04:33.075735",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "vkvsgl7lhipjirmz6j5ubp3w3bwvxgcdbpi3fsbqngfynetqtw4w5hyd.onion",
+          "title": "Brain Cipher Dataleak",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:25:54.302",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "cuuhrxbg52c5agytmtjpwfu7mrs4xtaitc4mukkiy2kqdxeqbcmuhaid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2024-12-11 12:22:32.499920",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "p6wmotxzvg34tdmpwm4beqgrcyp5iys43snkccsahnw74la3k3xx6pad.onion",
+          "title": "BrainCipher Client Area",
+          "version": 3,
+          "available": false,
+          "updated": "2025-02-25 02:40:22.179",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "brain4zoadgr6clxecixffvxjsw43cflyprnpfeak72nfh664kqqriyd.onion",
+          "title": "BrainCipher Client Area",
+          "version": 3,
+          "available": false,
+          "updated": "2025-10-03 21:17:23.967",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "4ldgw2wuidqu5ef3rzx4byonf3y7rdnh43jiw2z4sbtjiwic6gkov7yd.onion",
+          "title": "Brain Cipher FileSharing",
+          "version": 3,
+          "available": false,
+          "updated": "2025-11-12 09:02:47.504",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "4ldgw2wuidqu5ef3rzx4byonf3y7rdnh43jiw2z4sbtjiwic6gkov7yd.onion",
+          "title": "Not Found",
+          "version": 3,
+          "available": false,
+          "updated": "2025-11-12 10:03:54.157",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zktnif5vckhmz5tyrukp5bamatbfhkxjnb23rspsanyzywcrx3bvtqad.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:02:14.266",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "yt7beb7fj6xbh4dndrlyvl3gn4ck36qn2oqheiqjs4bp3wspj3wgpcad.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:03:54.957",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "i6b4r6blgmm3r62zj42qxn6bvcbcrslcg6b6uwqws6xhnxz2howbhkid.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:36:38.409",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "pzghjpkm2liszmvjsttflp475zqxgrywjhr7xagc4bqfb2a7aw3qysyd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:23:59.208",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "5v6tgs5xyuvl7kpg5b26e54kddlxdvktep2qmglawrohksv3qjwvw7qd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:26:25.905",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lhdv4ydjx5idzvntdrmcbwsh3dhdi3ww5hoz3ws2d5q5jlfewdacx4qd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:29:38.965",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "oe7kcuvnulmdzir6zkewv5p353kc7qjf5tyqxfxabhzsm26pji44elqd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:33:58.085",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zv27q4tjvqxelm2imgztfg7gtl3v56oqabe77hiufqoqilis2dgcdsad.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:14:54.876",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "ubetdhmgnry4jk7ya7gh7p4hm4c3c57srkw62oc6hjmvvvkrqeybjjid.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:35:40.261",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "ixvarmokkir6t6fzpn7prussp3ulys66aeivrhcvrmfowqi2gi2fgryd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:10:09.367",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "tahr6kwobsi7fj5j3hoyzxr34ipyiyuv2svhteht5td4etq23bcx7tyd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 22:08:35.991",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "ncyg34lipi3w2u7yvxl3swr6wj6lsoeix3grrdsn6nmcv4r7vntanoid.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:05:15.729",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "bgpeqy3d5svuikeaueitix6zosg3pzekw77viulnucsiqsn4sjr65iyd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 22:16:45.185",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "as7fbsjvifse52ek5qnptfgvkduvvnl56adb3jjgk6k3p7bisipvotyd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:34:37.896",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "xangddavm54rgsju7iceahxztbqrcflzunffwbaswwhhftieygc4j3ad.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:20:25.854",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "q226mkoikzgyu33jin7ox3qo6tea7yhlgz52p5lslpj73edtocsz4wqd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:32:20.205",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "hdgfvxxkepllbvqvk7vrudgwq55tg4joo4xpajaa3nv5gzpake66bnid.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:00:20.133",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "jgkgqztfmwk53wlttsjo6i3nmwtzoch2oi2bocqzb4zmp6kfspuiaead.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:21:52.541",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "braincgksuixxkpkme7zlpkh7u47oryxx574d74ws4eal4t2mxyahbqd.onion",
+          "title": "BrainCipher Client Area",
+          "version": 3,
+          "available": false,
+          "updated": "2025-11-12 09:02:57.249",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "zke5xim35cfolmq2h5i5sfmcoxr4pbpkfjwtq5lf6o4zo7avfcvnb5qd.onion",
+          "title": "BrainCipher Storage",
+          "version": 3,
+          "available": false,
+          "updated": "2026-01-01 23:30:46.410",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "3frnhzcnlkjnw5q3tm6elzizinm2k3bmrtf2xwqjzpcxzeqwn2tv6wyd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:00:06.329",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "6ft2dfh26wm3w44orpjcgviutvfp25ez2iyh5ego5egvfmifrws7vvqd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:00:05.827",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zijgmuqjzb6dc7pofxhtaiz36qqyg35lhutybmzaz6whzgei2casjgid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 07:00:06.187",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "inzk64xcf3sm6qzkehmio7piwhkslhnab3rlviniyg7alcgsxvy7kcyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 09:36:10.283",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "upiqcdsgvh6v5owteasjzyxbj2xug574dj4fctthehd7zjq7wmuxbwqd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:34:40.022",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "psv5ejeysrncs6ltu4pkjyazswcmw3atmxi4eg44a6luudin5ufchcqd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 08:00:06.136",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "lhsxojxowgtwdqlryl72d2v5cpgqv3sll4d47yyqdisersigvfbl5uid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 09:13:56.150",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "mejouwrwja4iou7myj34rqi7cixyhn7vsa42e2n2dhxzc5mmkiaki3yd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:24:39.674",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "3fg2gfwrdks46drwvejpgpak5klrflclsjjo35dxtqfk3poeez6oezad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-22 21:30:14.066",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "emdnfl2fv32jhssxcbxlo6dzg2at4d7qbw2md6inz63qzdfgyln5cwyd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:00:06.335",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "a4vbe7yp4kluped6khuhpr5nmzshiimx2jt5j22ozriiq6ngsm3fcpyd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:00:06.402",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "x3nb7qcygpem2j5xzstyzdtgzofzkwkx4eko3ug4r73i6uhcgvyffjyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 08:03:08.708",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "pcmhzcqprvp3zyiez5tphrjzjqiydaod76idk6k66usmdyvdcb72l4id.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 08:19:50.196",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "7ept6u4u3bczpq5sagycyd2mapv47ctkehzzc3ybugs7vtjl23i52gid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:30:16.983",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "gkwqyosd75hpu72jfalfo7xepdebl5p5rhorbxzfwswyg53jckg7wxad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 09:13:25.631",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zztabnlnggxpbeiyvpievqtxl6te4amttfobwusmgo2l3hcabfpcgyad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 09:00:05.543",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "cjuogz6kvmozrapbw6cgf3ovfxgxe2fy3ajlgxm53w3xjve5x5sichyd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:27:31.444",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "h4zmek6bf3lebauy7dtyxmui67n6ro5t4zdrooddpw3kyfktg2nmhgid.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:28:28.208",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "dkeqrg3fxrijolpgpbsmk6eacare4bg5awrracxdiestki2onyz5bnyd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:27:03.974",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "kxlw35vctxgbmwtz6474xwtkm2kywifg4efs6ixmvgdgbgi2uaurenid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:28:31.745",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "guonv3yxlb5t7mptz2cwxsqrsnmsocrufkz3z3nvuv45h66submxe4yd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:37:46.758",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zfpcqpp6kfe5wl72b2cfb5qbp4kkzi4oj6if4r226idr3efvtocgd6id.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:15:25.289",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "hv5on6i3k3g24qtu3ac6vtbrcgl2imz3sasakhfslhbnbqbcri73mqad.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:36:24.579",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "urvvoj7wlkh476p2tgntzez3nuke2ylfdkekpnkajxfz43o7jqkokeyd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:34:35.592",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "nxetaioe4eelwhdwagi3ikv6ee6tttwvnqikalgkrslz7bwvuwqzdeqd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:03:20.493",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "aj3ocrawf43r6u5miezvmzh5sjtuv2rx6na3tm26fao3laobu5unfhyd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:34:13.681",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "7n4vqiaqxenaqy4t47ayqvurbmg6vfg2ir7iobwjazwizjncwyt7jhad.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:36:21.217",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "rpoeu7zimfpwxbwmjmjyprqaprtvkj3ykfczhbc4x3voydopffn337id.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 08:02:17.336",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "alkkq3vhb7epl3jh6qzutj2vyyfdgvs2nukw5hwdsijl5la3jrinrryd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:14:11.556",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "ltxnzpfvmr3c3rcbw5x4q2ejy6fmbp7kc35oql3gooyydg7belfmnyad.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-23 11:00:06.331",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "6ft2dfh26wm3w44orpjcgviutvfp25ez2iyh5ego5egvfmifrws7vvqd.",
+          "title": null,
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-17 20:19:42.084598",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

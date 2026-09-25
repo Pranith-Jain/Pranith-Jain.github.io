@@ -1,0 +1,17 @@
+{
+  "slug": "unsub-10-hour-autonomous-agentic-ransomware-attack-unit-42",
+  "name": "UnSub (10-hour autonomous agentic ransomware attack) — Unit 42",
+  "akas": "Unnamed; Unit 42 discloses no victim identity, sector, or cluster ID",
+  "brief": "Unit 42 incident-response case: \"a human attacker used frontier AI to breach an enterprise network autonomously.\" A recon agent mapped internal microservices; sub-agents scraped code repositories for hardcoded tokens/passwords; an agent infiltrated the secrets-management system for admin credentials; a pipeline/CI-CD agent hijacked workflows to exfiltrate cloud access keys; \"specialist pivot agents\" validated access across cloud, identity, CI-CD, container, and SaaS surfaces. The same agent fleet self-generated an \"80-page, technical audit detailing dozens of exploited findings,\" left for the victim as extortion leverage. Total operational timeline: 10 hours, versus Unit 42's estimate of ~2 weeks for an equivalent human-led operation. *Analyst note: fully anonymized by Unit 42 — no group name, cluster ID, victim identity, sector, or nation-state link is given, unlike the LatAm clusters above which at least carry CL-CRI designators.* Unit 42",
+  "ttps": ["T1119", "T1657"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-enhanced extortion/negotiation",
+    "LLM-directed Automated Collection"
+  ],
+  "reported": "Sep 2026",
+  "activity": "Unknown (single 10-hour incident, no calendar dates given)",
+  "table": "main",
+  "sizeBytes": 954,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution / full kill-chain<br><br>**LLM-enhanced extortion/negotiation** T1657 - Financial Theft<br><br>**LLM-directed Automated Collection** T1119 - Automated Collection"
+}

@@ -1,0 +1,18 @@
+{
+  "slug": "gtg-10007",
+  "name": "GTG-10007",
+  "akas": "Chinese exploit-foundry cluster (Anthropic designation); two Hunan-based operators, one a former Sangfor intern",
+  "brief": "Anthropic disrupted an operation in which the actor built autonomous agent-swarm workflows directing Claude to conduct vulnerability and exploit research \"agentically around the clock.\" A binary reverse-engineering/decompilation loop produced \"more than a dozen possible zero-day findings in a single month\" against major endpoint-security products; a 13-agent standing OSINT-collection fleet scraped US military/government sites; the campaign included intrusion attempts against production systems and reconnaissance of foreign-government networks across the Middle East, Europe, and Southeast Asia, alongside domestic (China) credential-harvesting and lateral-movement intrusions across ~50 organizations spanning education, retail, energy, tech, healthcare, finance, manufacturing, and government. Anthropic",
+  "ttps": ["T1587", "T1588.006", "T1592"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-assisted vulnerability research",
+    "LLM-aided development",
+    "LLM-informed reconnaissance"
+  ],
+  "reported": "Sep 2026",
+  "activity": "Dec 2025 – Aug 2026",
+  "table": "main",
+  "sizeBytes": 810,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution / full kill-chain<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-aided development** T1587 - Develop Capabilities<br><br>**LLM-informed reconnaissance** T1592 - Gather Victim Org Information"
+}

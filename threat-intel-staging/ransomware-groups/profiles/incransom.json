@@ -1,7 +1,7 @@
 {
   "slug": "incransom",
   "name": "inc ransom",
-  "fetchedAt": "2026-09-16T11:54:05.960Z",
+  "fetchedAt": "2026-09-23T11:55:33.205Z",
   "profiles": [
     {
       "captcha": false,
@@ -39,7 +39,7 @@
           "title": "Disclosures",
           "version": 3,
           "available": false,
-          "updated": "2026-09-16 07:04:13.498",
+          "updated": "2026-09-23 01:00:06.573",
           "chat": false,
           "fs": false
         },
@@ -54,10 +54,10 @@
         },
         {
           "fqdn": "incpaykabjqc2mtdxq6c23nqh4x6m5dkps5fr6vgdkgzp5njssx6qkid.onion",
-          "title": "NULL",
+          "title": "Login page",
           "version": 3,
           "available": false,
-          "updated": "2026-09-15 23:09:54.033",
+          "updated": "2026-09-23 00:17:23.802",
           "chat": true,
           "fs": false
         },
@@ -65,8 +65,8 @@
           "fqdn": "incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion",
           "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-16 11:00:05.310",
+          "available": false,
+          "updated": "2026-09-23 07:01:46.639",
           "chat": false,
           "fs": false
         },
@@ -96,6 +96,24 @@
           "updated": "2024-12-11 09:59:47.665742",
           "chat": false,
           "fs": false
+        },
+        {
+          "fqdn": "incblog4uttkxd6b4grii6k2qcj2tn5k37seep5xto3dlghyqla7u7qd.onion",
+          "title": "INC | Blog",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:39:59.696",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "incs3epmz6eeyq7yo4lqdrxutfwtwgltkck3vp2xvs3ueoy4njiowqqd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-23 10:44:07.913",
+          "chat": false,
+          "fs": true
         }
       ]
     },

@@ -1,91 +1,614 @@
 {
-  "arcusmedia": {
-    "slug": "arcusmedia",
-    "name": "arcus media",
-    "victims_7d": 2,
-    "victims_total": 111,
-    "last_seen": "2026-09-15T17:37:20.000Z",
+  "spirals": {
+    "slug": "spirals",
+    "name": "spirals",
+    "victims_7d": 3,
+    "victims_total": 8,
+    "last_seen": "2026-09-18T20:24:29.068Z",
     "origins": ["ransomlook", "ransomwarelive"],
     "online": null,
     "mirrors": 0,
     "up_mirrors": 0,
     "has_profile": false,
-    "blurb": "2 victims in the last 7d across 2 trackers.",
+    "blurb": "3 victims in the last 7d across 2 trackers.",
     "meta": null,
     "meta_source": null,
     "mirrors_detail": [],
     "victims_sample": [
       {
-        "victim": "Asada Sarapiqu",
-        "discovered": "2026-09-15T17:37:20.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/http://arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion/?p=807"
-      }
-    ],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/arcus%20media",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "beast": {
-    "slug": "beast",
-    "name": "beast",
-    "victims_7d": 2,
-    "victims_total": 74,
-    "last_seen": "2026-09-10T22:46:51.000Z",
-    "origins": ["ransomlook", "ransomwarelive"],
-    "online": null,
-    "mirrors": 0,
-    "up_mirrors": 0,
-    "has_profile": false,
-    "blurb": "2 victims in the last 7d across 2 trackers.",
-    "meta": null,
-    "meta_source": null,
-    "mirrors_detail": [],
-    "victims_sample": [
-      {
-        "victim": "M800 and CINNOX",
-        "discovered": "2026-09-10T22:46:51.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/card/m800_and_cinnox"
-      }
-    ],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/beast",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "boobateam": {
-    "slug": "boobateam",
-    "name": "booba team",
-    "victims_7d": 2,
-    "victims_total": 2,
-    "last_seen": "2026-09-14T15:39:44.000Z",
-    "origins": ["ransomlook"],
-    "online": null,
-    "mirrors": 0,
-    "up_mirrors": 0,
-    "has_profile": false,
-    "blurb": "2 victims in the last 7d across 1 tracker.",
-    "meta": null,
-    "meta_source": null,
-    "mirrors_detail": [],
-    "victims_sample": [
-      {
-        "victim": "Mestechkin Law Group P.C.",
-        "discovered": "2026-09-14T15:39:44.000Z",
+        "victim": "ANYTHINGIT",
+        "discovered": "2026-09-18T16:19:58.000Z",
         "origin": "ransomlook",
         "source_url": "https://www.ransomlook.io/recent"
       },
       {
-        "victim": "Atlas Ocean Voyages",
-        "discovered": "2026-09-14T14:44:34.000Z",
+        "victim": "DCI EDGE",
+        "discovered": "2026-09-14T14:32:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "NCG Medical",
+        "discovered": "2026-09-14T14:30:33.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "P&A Group",
+        "discovered": "2026-09-14T14:28:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "BHS Connect",
+        "discovered": "2026-09-14T14:27:28.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "PHARMASAVE",
+        "discovered": "2026-09-14T14:24:41.000Z",
         "origin": "ransomlook",
         "source_url": "https://www.ransomlook.io/recent"
       }
     ],
     "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/booba%20team",
+      "ransomlook": "https://www.ransomlook.io/api/group/spirals",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "blacknevas": {
+    "slug": "blacknevas",
+    "name": "black nevas",
+    "victims_7d": 2,
+    "victims_total": 62,
+    "last_seen": "2026-09-17T01:41:16.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": false,
+    "mirrors": 1,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "BlackNevas ransomware — also referred to as “Trial Recovery” — was first observed in November 2024. It is a direct derivative of the Trigona ransomware family and continues the lineage's focus on ext…",
+    "meta": "BlackNevas ransomware — also referred to as “Trial Recovery” — was first observed in November 2024. It is a direct derivative of the Trigona ransomware family and continues the lineage's focus on extortion over public shaming. BlackNevas operators support a double-extortion model, encrypting files using AES-256 with RSA-4112-protected keys, and appending the .-encrypted or .ENCRYPTED file extension to affected files. Hybrid payloads are available for Windows, Linux, NAS, and VMware ESXi platforms.\r<br/>\r<br/>While BlackNevas does not host its own data leak site, it reportedly collaborates with other ransomware groups for data publication — known partners include Kill Security, Hunters International, DragonForce, Blackout, Embargo Team, and Mad Liberator. The group has predominantly targeted large enterprises in sectors such as finance, telecommunications, manufacturing, healthcare, and legal. Initial access is commonly achieved via phishing or exploitation of vulnerabilities, with lateral movement facilitated through SMB enumeration and optional LAN-wide propagation.",
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 08:29:14.326",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Optimum First Mortgage (Pear's acting group's promotional blog)",
+        "discovered": "2026-09-17T01:41:16.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/d7ba2a3f-0d92-4bc9-b30d-6f0edbeaf54b"
+      },
+      {
+        "victim": "PROMOSFERA S.r.l.",
+        "discovered": "2026-09-09T12:34:41.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/4401a68f-4fb6-4e94-a6af-c9d26c8a9c2a"
+      },
+      {
+        "victim": "Cash and carry - COSAEN GRUP",
+        "discovered": "2026-09-09T12:34:40.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/a2282bbe-c123-400e-80d8-20375985e520"
+      },
+      {
+        "victim": "Abans Group",
+        "discovered": "2026-09-09T12:34:39.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/21316412-7321-43e4-bd3a-6f7ef5811446"
+      },
+      {
+        "victim": "Arkın Group / Arkın Casino, The Arkın Colony, The Arkın Iskele, and Arkın Palm Beach",
+        "discovered": "2026-09-09T12:34:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/281c9c40-9afe-413a-af7e-9cf7c3fdf3c0"
+      },
+      {
+        "victim": "L'azurde",
+        "discovered": "2026-09-09T12:34:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/adf52520-5448-4c49-8e3a-5488d52cf81c"
+      },
+      {
+        "victim": "Speed Group",
+        "discovered": "2026-09-09T12:34:36.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/9f3aadba-9ad7-40ec-92c9-8a42c918d76a"
+      },
+      {
+        "victim": "OTEGROUP",
+        "discovered": "2026-09-09T12:34:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/f8830413-b940-4d3e-899c-7deb7cc7816e"
+      },
+      {
+        "victim": "ASCOM S.p.A. ascom-italy.it serviced by an IT company Emilcom S.r.l. www.emilcom.it",
+        "discovered": "2026-09-09T12:34:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/ce0e49bd-ae59-477d-abf8-af67fe2a29c0"
+      },
+      {
+        "victim": "COMPUTER COUNTRY AND NETWORKS",
+        "discovered": "2026-09-09T12:34:34.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/80fc5086-bf81-4cb1-beb4-ddf5c5b598d9"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/black%20nevas",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "chaos": {
+    "slug": "chaos",
+    "name": "chaos",
+    "victims_7d": 2,
+    "victims_total": 98,
+    "last_seen": "2026-09-17T20:42:10.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": false,
+    "mirrors": 12,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "Chaos is a rapidly evolving Ransomware-as-a-Service (RaaS) group first observed in early 2025. It is considered distinct and unaffiliated with the Chaos Ransomware Builder that originated around 2021…",
+    "meta": "Chaos is a rapidly evolving Ransomware-as-a-Service (RaaS) group first observed in early 2025. It is considered distinct and unaffiliated with the Chaos Ransomware Builder that originated around 2021. Known for highly aggressive double-extortion operations, Chaos targets organizations across multiple platforms—Windows, ESXi, Linux, and NAS—with fast, configurable encryption mechanisms and optional partial-file targeting for stealth. Attackers gain access through vulnerabilities, phishing, or brokered credentials, then encrypt files while threatening to leak or destroy stolen data. Notable incidents include the breach of Optima Tax Relief, in which the group exfiltrated 69 GB of sensitive data before encrypting systems.",
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "hptqq2o2qjva7lcaaq67w36jihzivkaitkexorauw7b2yul2z6zozpqd.onion",
+        "title": "CHAOS",
+        "available": false,
+        "updated": "2026-09-16 06:02:19.770",
+        "version": 3
+      },
+      {
+        "fqdn": "httj32vkww42kq3kjbsbuuv2izalkvswuyf5hepdodakrjq42ploe6ad.onion",
+        "title": "Index of /",
+        "available": false,
+        "updated": "2025-07-02 04:14:00.086",
+        "version": 3
+      },
+      {
+        "fqdn": "2yxf2ald2c67twt4663piypum2fu6yt4su453naxsdiilpd4m7pgu6qd.onion",
+        "title": "Index of /",
+        "available": false,
+        "updated": "2025-07-02 04:14:05.087",
+        "version": 3
+      },
+      {
+        "fqdn": "k6wtpxwq72gpeil5hqofae7yhbtxphbkyoe2g7rwmpx5sadc4sgsfvid.onion",
+        "title": "Index of /",
+        "available": false,
+        "updated": "2025-06-09 16:02:46.452",
+        "version": 3
+      },
+      {
+        "fqdn": "qf4p6ul3g7wyvynkxawlu7ganvgbk44myl35jqfa3aroass33dbvmdyd.onion",
+        "title": "Index of /goosehead/",
+        "available": false,
+        "updated": "2026-09-16 10:01:07.898",
+        "version": 3
+      },
+      {
+        "fqdn": "cdgi6zjox6zr5epk7k5rg673qduxy7dlkk7ws3n4vusspr5bmhx24aqd.onion",
+        "title": "CHAOS",
+        "available": false,
+        "updated": "2026-06-16 08:11:19.414",
+        "version": 3
+      },
+      {
+        "fqdn": "bna6mhximutqknymisjbp277swmhf7gocambh6y62qmdtup34unjs7yd.onion",
+        "title": "Index of /",
+        "available": false,
+        "updated": "2025-07-02 04:01:20.460",
+        "version": 3
+      },
+      {
+        "fqdn": "een55qvybeygshxbblvfevk6uzcs6lhpj6num7ymbpw7z6cehozszlad.onion",
+        "title": "Index of /",
+        "available": false,
+        "updated": "2025-07-02 05:02:50.179",
+        "version": 3
+      },
+      {
+        "fqdn": "s2godak5cr4bflmcmiqjgow2b7clgs7szgf4h3ofqn7lyh6mdpvei5yd.onion",
+        "title": null,
+        "available": false,
+        "updated": "2025-09-30 22:33:16.305870",
+        "version": 3
+      },
+      {
+        "fqdn": "hptqq2o2qjva7lcaaq67w36jihzivkaitkexorauw7b2yul2z6zozpqd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-09-16 04:16:29.064",
+        "version": 3
+      },
+      {
+        "fqdn": "qf4p6ul3g7wyvynkxawlu7ganvgbk44myl35jqfa3aroass33dbvmdyd.onion",
+        "title": "403 Forbidden",
+        "available": false,
+        "updated": "2026-09-16 10:20:11.907",
+        "version": 3
+      },
+      {
+        "fqdn": "myz2p6mzvbawxggfmakgwshq3ohfk37zmgwjbft7ssggbf2tokonecad.onion",
+        "title": "403 Forbidden",
+        "available": false,
+        "updated": "2026-09-16 10:21:59.339",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "expresspros.com",
+        "discovered": "2026-09-17T20:42:10.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/mFUAsV9Nk0iS2j0zwsyTIswYOdzplru9/expresspros-com"
+      },
+      {
+        "victim": "glasfloss.com",
+        "discovered": "2026-09-14T16:49:51.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/pAbOCSoJdOztVDgF8uBcq7FY0fsqN6J4/glasfloss-com"
+      },
+      {
+        "victim": "steelhausinc.com",
+        "discovered": "2026-09-14T16:49:50.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/sZnWPIpfhHl0hrPEjKO92RbmEwS5hdiG/steelhausinc-com"
+      },
+      {
+        "victim": "mankatoclinic.com",
+        "discovered": "2026-09-10T19:42:38.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/Rct2l4z0PDB9rUIwh31yc0cSk5utsqfl/mankatoclinic-com"
+      },
+      {
+        "victim": "artiflexmfg.com",
+        "discovered": "2026-09-10T19:42:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/PzfXqKW5FK3vzC3lKchrNzIU8vn32VKA/artiflexmfg-com"
+      },
+      {
+        "victim": "copeplastics.com",
+        "discovered": "2026-09-09T00:39:52.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/8q2RrLiN6uJyo3CWGnW7QE1SXOQCfPCb/copeplastics-com"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/chaos",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "dragonforce": {
+    "slug": "dragonforce",
+    "name": "dragonforce",
+    "victims_7d": 2,
+    "victims_total": 656,
+    "last_seen": "2026-09-21T00:41:37.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 21,
+    "up_mirrors": 1,
+    "has_profile": true,
+    "blurb": "DragonForce is a ransomware-as-a-service (RaaS) group first identified in late 2023. Originally linked to hacktivist activity, the group pivoted to financially motivated operations by early 2024. Sin…",
+    "meta": "DragonForce is a ransomware-as-a-service (RaaS) group first identified in late 2023. Originally linked to hacktivist activity, the group pivoted to financially motivated operations by early 2024. Since then, it has accelerated into a highly organized cartel-like network, providing customizable payloads to affiliates, a sophisticated affiliate portal, and shared infrastructure for leak sites and campaigns. The group has targeted a wide range of sectors globally, including major UK retailers such as M&S, Harrods, and Co-op, along with organizations in government, logistics, and manufacturing. Its operations are known for strategic branding flexibility, enabling affiliates to operate under their own labels using DragonForce’s backend services.",
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion",
+        "title": "DragonForce | Migration completed",
+        "available": false,
+        "updated": "2026-09-16 10:01:14.470",
+        "version": 3
+      },
+      {
+        "fqdn": "3pktcrcbmssvrnwe5skburdwe2h3v6ibdnn5kbjqihsg6eu6s6b7ryqd.onion",
+        "title": "DragonForce | Migration completed",
+        "available": true,
+        "updated": "2026-09-16 11:05:20.812",
+        "version": 3
+      },
+      {
+        "fqdn": "dragonforxxbp3awc7mzs5dkswrua3znqyx5roefmi4smjrsdi22xwqd.onion",
+        "title": "DragonForce | Leaks",
+        "available": false,
+        "updated": "2026-08-29 21:07:59.674",
+        "version": 3
+      },
+      {
+        "fqdn": "zsglo7t7osxyk3vcl7zxzup7hs4ir52sntteymmw63zvoxzcqytlw7qd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:32:44.521937",
+        "version": 3
+      },
+      {
+        "fqdn": "6dgi54prfmpuuolutr4hl3akasxbx4o34g5y2bj4blrvzzkjemhxenad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:33:05.748977",
+        "version": 3
+      },
+      {
+        "fqdn": "eogeko3sdn66gb7vjpwpmlmmmzfx7umtwaugpf5l6tb5jveolfydnuad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:33:21.220495",
+        "version": 3
+      },
+      {
+        "fqdn": "ewrxgpvv7wsrqq7itfwg5jr7lkc6zzknndmru5su2ugrowxo3wwy5yad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:33:44.873252",
+        "version": 3
+      },
+      {
+        "fqdn": "3ro23rujyigqrlrwk3e4keh3a3i6ntgrm3f42tbiqtf7vke47c6a6ayd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:34:00.106559",
+        "version": 3
+      },
+      {
+        "fqdn": "jziu7k7uee467r2wt66ndrwymmw7tsmqgcqi7aemcaxraqmaf2hdm3yd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:34:17.534128",
+        "version": 3
+      },
+      {
+        "fqdn": "2yczff6zyiey3gkgl5anwejktdp73abxbzbnvwobmrwkwgf3hudpyvyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:34:36.504737",
+        "version": 3
+      },
+      {
+        "fqdn": "bpoowhokr3vi32l3t4mjdtdxfrfpigwachopk5ojwmgxihnojhsawuyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:34:53.926330",
+        "version": 3
+      },
+      {
+        "fqdn": "dbvczza7nhwdb5kdvkzjtkrcvwnrt5viw7mihutueprvajy7rxhwq6id.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:35:08.919003",
+        "version": 3
+      },
+      {
+        "fqdn": "xtcwd3xmxpggtizn7kmwwqeizexflkkyqsytg2kauccau6ddsfa4gfyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:35:21.638928",
+        "version": 3
+      },
+      {
+        "fqdn": "4wcrfql53ljekid3sn66z6swjot725muveddq77utxltaelw64eikfid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:35:36.886208",
+        "version": 3
+      },
+      {
+        "fqdn": "73h3lxn24kuayyfkn4t6ij7e67jklo24vqzqdhpts3ygmim7hu6u6aid.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:35:53.441956",
+        "version": 3
+      },
+      {
+        "fqdn": "nwtetzmrqhxieetg5lvth7szzvg35gfrqt23ly46vku56oo7pkueswyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2024-10-03 16:36:08.082893",
+        "version": 3
+      },
+      {
+        "fqdn": "dszmdx3jr7vggdaf2c5k4qunt4mxclelhgbtjlgewlkmlnfpsnsg3sad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-04-27 18:11:00.350",
+        "version": 3
+      },
+      {
+        "fqdn": "fsguestuctexqqaoxuahuydfa6ovxuhtng66pgyr5gqcrsi7qgchpkad.onion",
+        "title": "",
+        "available": false,
+        "updated": "2026-08-29 21:01:07.586",
+        "version": 3
+      },
+      {
+        "fqdn": "dragongoztkdfmnd7jkchznd3fvkpdmeh4vhbt6p3usrlsoy5dw2bhyd.onion",
+        "title": "",
+        "available": false,
+        "updated": "2025-10-13 15:09:00.404173",
+        "version": 3
+      },
+      { "fqdn": "dragongo.org", "title": "", "available": false, "updated": "2025-11-14 10:13:37.545", "version": 0 },
+      {
+        "fqdn": "xjhmtitnrdrgzw4vmsghirdoo2fk35a3tzj4enlmah4pvehdspydsiyd.onion",
+        "title": "DragonForce | Blog",
+        "available": false,
+        "updated": "2026-09-16 09:12:35.817",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "arsrenacer.com",
+        "discovered": "2026-09-21T00:41:37.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Community Property Management",
+        "discovered": "2026-09-16T06:35:31.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Owen Leigh Optometry",
+        "discovered": "2026-09-16T06:35:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Medical Department Store",
+        "discovered": "2026-09-11T16:41:04.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/dragonforce",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "vexy": {
+    "slug": "vexy",
+    "name": "vexy",
+    "victims_7d": 2,
+    "victims_total": 8,
+    "last_seen": "2026-09-19T09:50:19.000Z",
+    "origins": ["ransomlook"],
+    "online": false,
+    "mirrors": 1,
+    "up_mirrors": 0,
+    "has_profile": true,
+    "blurb": "2 victims in the last 7d across 1 tracker.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "vexytsr3chimdz6siwaqi2lvxxwfkxvffkpwyanr2llequ2hkm56jvqd.onion",
+        "title": "Vexy Ransomware | Blog",
+        "available": false,
+        "updated": "2026-09-16 08:00:07.161",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "Quy Nhon University",
+        "discovered": "2026-09-19T09:50:19.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "STP Fashion Lab",
+        "discovered": "2026-09-17T12:44:20.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Hashimoto Jimuki",
+        "discovered": "2026-09-15T21:36:00.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Strad Solutions",
+        "discovered": "2026-09-13T12:42:35.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "i2k2 Networks",
+        "discovered": "2026-09-10T23:43:42.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "Logar Network Solutions",
+        "discovered": "2026-09-09T18:40:32.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "United Group",
+        "discovered": "2026-09-07T19:36:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
+      {
+        "victim": "LIBRERIA SANTA FE A P S SRL",
+        "discovered": "2026-09-07T11:39:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/vexy",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "bravox": {
+    "slug": "bravox",
+    "name": "bravox",
+    "victims_7d": 2,
+    "victims_total": 30,
+    "last_seen": "2026-09-20T08:41:18.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": null,
+    "mirrors": 0,
+    "up_mirrors": 0,
+    "has_profile": false,
+    "blurb": "2 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": null,
+    "mirrors_detail": [],
+    "victims_sample": [
+      {
+        "victim": "TOWILL 🇺🇸",
+        "discovered": "2026-09-20T08:41:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/blog/0b9cd65a-d90a-4a98-9cb8-4f3289fecdb8"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/bravox",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "cry0": {
+    "slug": "cry0",
+    "name": "cry0",
+    "victims_7d": 2,
+    "victims_total": 4,
+    "last_seen": "2026-09-19T17:35:48.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": null,
+    "mirrors": 0,
+    "up_mirrors": 0,
+    "has_profile": false,
+    "blurb": "2 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": null,
+    "mirrors_detail": [],
+    "victims_sample": [
+      {
+        "victim": "Young Injury Law",
+        "discovered": "2026-09-19T17:35:48.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/cry0",
       "ransomware_live": "https://www.ransomware.live/"
     }
   },
@@ -93,8 +616,8 @@
     "slug": "doommageddon",
     "name": "doommageddon",
     "victims_7d": 2,
-    "victims_total": 12,
-    "last_seen": "2026-09-13T06:44:50.000Z",
+    "victims_total": 14,
+    "last_seen": "2026-09-21T11:41:18.000Z",
     "origins": ["ransomlook", "ransomwarelive"],
     "online": null,
     "mirrors": 0,
@@ -105,6 +628,12 @@
     "meta_source": null,
     "mirrors_detail": [],
     "victims_sample": [
+      {
+        "victim": "Charlottesville Police Department",
+        "discovered": "2026-09-21T11:41:18.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/victim/charlottesville-police-department"
+      },
       {
         "victim": "INCOR Group",
         "discovered": "2026-09-13T06:44:50.000Z",
@@ -117,12 +646,12 @@
       "ransomware_live": "https://www.ransomware.live/"
     }
   },
-  "embargo": {
-    "slug": "embargo",
-    "name": "embargo",
+  "gammax": {
+    "slug": "gammax",
+    "name": "gammax",
     "victims_7d": 2,
-    "victims_total": 42,
-    "last_seen": "2026-09-10T03:38:33.000Z",
+    "victims_total": 6,
+    "last_seen": "2026-09-18T19:40:53.000Z",
     "origins": ["ransomlook", "ransomwarelive"],
     "online": null,
     "mirrors": 0,
@@ -134,23 +663,23 @@
     "mirrors_detail": [],
     "victims_sample": [
       {
-        "victim": "gardensalive.com, bitsandpieces.com, iselinursery.local, weeksroses.org, esm.local",
-        "discovered": "2026-09-10T03:38:33.000Z",
+        "victim": "Premier Lighting & Controls",
+        "discovered": "2026-09-18T19:40:53.000Z",
         "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/#/post/b44446de-514b-4c36-a5b2-8f893733fc3d"
+        "source_url": "https://www.ransomlook.io/post/HGvxCUBphjeJKnWK1EVU0CE0x7gVH6YJ"
       }
     ],
     "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/embargo",
+      "ransomlook": "https://www.ransomlook.io/api/group/gammax",
       "ransomware_live": "https://www.ransomware.live/"
     }
   },
-  "fulcrumsec": {
-    "slug": "fulcrumsec",
-    "name": "fulcrumsec",
+  "moneymessage": {
+    "slug": "moneymessage",
+    "name": "money message",
     "victims_7d": 2,
-    "victims_total": 29,
-    "last_seen": "2026-09-11T12:40:23.000Z",
+    "victims_total": 37,
+    "last_seen": "2026-09-21T16:33:28.000Z",
     "origins": ["ransomlook", "ransomwarelive"],
     "online": null,
     "mirrors": 0,
@@ -162,50 +691,23 @@
     "mirrors_detail": [],
     "victims_sample": [
       {
-        "victim": "Dustin Group",
-        "discovered": "2026-09-11T12:40:23.000Z",
+        "victim": "U.S. Electrical Services and Wiedenbach Brown",
+        "discovered": "2026-09-21T16:33:28.000Z",
         "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/dustin/"
-      },
-      {
-        "victim": "Manchester Airports Group",
-        "discovered": "2026-09-01T12:46:01.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/mag/"
+        "source_url": "https://www.ransomlook.io/news.php?id=1"
       }
     ],
     "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/fulcrumsec",
+      "ransomlook": "https://www.ransomlook.io/api/group/money%20message",
       "ransomware_live": "https://www.ransomware.live/"
     }
   },
-  "global": {
-    "slug": "global",
-    "name": "global",
+  "secp0": {
+    "slug": "secp0",
+    "name": "secp0",
     "victims_7d": 2,
-    "victims_total": 40,
-    "last_seen": "2026-09-12T09:58:39.563Z",
-    "origins": ["ransomwarelive"],
-    "online": null,
-    "mirrors": 0,
-    "up_mirrors": 0,
-    "has_profile": false,
-    "blurb": "2 victims in the last 7d across 1 tracker.",
-    "meta": null,
-    "meta_source": null,
-    "mirrors_detail": [],
-    "victims_sample": [],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/global",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "pear": {
-    "slug": "pear",
-    "name": "pear",
-    "victims_7d": 2,
-    "victims_total": 123,
-    "last_seen": "2026-09-11T15:43:42.000Z",
+    "victims_total": 8,
+    "last_seen": "2026-09-22T05:43:26.000Z",
     "origins": ["ransomlook", "ransomwarelive"],
     "online": null,
     "mirrors": 0,
@@ -217,32 +719,14 @@
     "mirrors_detail": [],
     "victims_sample": [
       {
-        "victim": "Foss Inc.",
-        "discovered": "2026-09-11T15:43:42.000Z",
+        "victim": "Leak: NAI Earle Furman",
+        "discovered": "2026-09-22T05:43:26.000Z",
         "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/Companies/fossinc"
-      },
-      {
-        "victim": "Kovo Healthtech Corp",
-        "discovered": "2026-09-04T12:37:52.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/Companies/kovoplus"
-      },
-      {
-        "victim": "EdgeChem Jamaica Limited",
-        "discovered": "2026-09-03T14:38:22.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/Companies/edgechem"
-      },
-      {
-        "victim": "Next Level Medical, LLC",
-        "discovered": "2026-09-02T13:41:47.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/Companies/nextlevelurgentcare"
+        "source_url": "https://www.ransomlook.io/post/8629429a76e88003/index.html"
       }
     ],
     "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/pear",
+      "ransomlook": "https://www.ransomlook.io/api/group/secp0",
       "ransomware_live": "https://www.ransomware.live/"
     }
   },
@@ -250,8 +734,8 @@
     "slug": "securotrop",
     "name": "securotrop",
     "victims_7d": 2,
-    "victims_total": 44,
-    "last_seen": "2026-09-12T08:45:42.000Z",
+    "victims_total": 46,
+    "last_seen": "2026-09-18T18:40:30.000Z",
     "origins": ["ransomlook", "ransomwarelive"],
     "online": null,
     "mirrors": 0,
@@ -262,6 +746,12 @@
     "meta_source": null,
     "mirrors_detail": [],
     "victims_sample": [
+      {
+        "victim": "Prefix Corp",
+        "discovered": "2026-09-18T18:40:30.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/recent"
+      },
       {
         "victim": "Shelco Filters",
         "discovered": "2026-09-12T08:45:42.000Z",
@@ -274,54 +764,12 @@
       "ransomware_live": "https://www.ransomware.live/"
     }
   },
-  "shadowbyt3": {
-    "slug": "shadowbyt3",
-    "name": "shadowbyt3$",
-    "victims_7d": 2,
-    "victims_total": 21,
-    "last_seen": "2026-09-15T00:23:37.508Z",
-    "origins": ["ransomwarelive"],
-    "online": null,
-    "mirrors": 0,
-    "up_mirrors": 0,
-    "has_profile": false,
-    "blurb": "2 victims in the last 7d across 1 tracker.",
-    "meta": null,
-    "meta_source": null,
-    "mirrors_detail": [],
-    "victims_sample": [],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/shadowbyt3%24",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "barracuda": {
-    "slug": "barracuda",
-    "name": "barracuda",
-    "victims_7d": 1,
-    "victims_total": 9,
-    "last_seen": "2026-09-13T09:20:21.439Z",
-    "origins": ["ransomwarelive"],
-    "online": null,
-    "mirrors": 0,
-    "up_mirrors": 0,
-    "has_profile": false,
-    "blurb": "1 victim in the last 7d across 1 tracker.",
-    "meta": null,
-    "meta_source": null,
-    "mirrors_detail": [],
-    "victims_sample": [],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/barracuda",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "iah647": {
-    "slug": "iah647",
-    "name": "iah647",
+  "3am": {
+    "slug": "3am",
+    "name": "3am",
     "victims_7d": 1,
     "victims_total": 1,
-    "last_seen": "2026-09-15T11:39:16.000Z",
+    "last_seen": "2026-09-21T02:35:11.000Z",
     "origins": ["ransomlook"],
     "online": null,
     "mirrors": 0,
@@ -333,14 +781,56 @@
     "mirrors_detail": [],
     "victims_sample": [
       {
-        "victim": "veritiv",
-        "discovered": "2026-09-15T11:39:16.000Z",
+        "victim": "newmantractor.com",
+        "discovered": "2026-09-21T02:35:11.000Z",
         "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/a/veritiv/"
+        "source_url": "https://www.ransomlook.io/recent"
       }
     ],
     "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/iah647",
+      "ransomlook": "https://www.ransomlook.io/api/group/3am",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "killsec": {
+    "slug": "killsec",
+    "name": "killsec",
+    "victims_7d": 1,
+    "victims_total": 286,
+    "last_seen": "2026-09-18T02:02:22.189Z",
+    "origins": ["ransomwarelive"],
+    "online": null,
+    "mirrors": 0,
+    "up_mirrors": 0,
+    "has_profile": false,
+    "blurb": "1 victim in the last 7d across 1 tracker.",
+    "meta": null,
+    "meta_source": null,
+    "mirrors_detail": [],
+    "victims_sample": [],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/killsec",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  },
+  "shadowbyt3": {
+    "slug": "shadowbyt3",
+    "name": "shadowbyt3$",
+    "victims_7d": 1,
+    "victims_total": 22,
+    "last_seen": "2026-09-16T21:53:11.343Z",
+    "origins": ["ransomwarelive"],
+    "online": null,
+    "mirrors": 0,
+    "up_mirrors": 0,
+    "has_profile": false,
+    "blurb": "1 victim in the last 7d across 1 tracker.",
+    "meta": null,
+    "meta_source": null,
+    "mirrors_detail": [],
+    "victims_sample": [],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/shadowbyt3%24",
       "ransomware_live": "https://www.ransomware.live/"
     }
   },
@@ -348,7 +838,7 @@
     "slug": "aurora",
     "name": "aurora",
     "victims_7d": 0,
-    "victims_total": 44,
+    "victims_total": 40,
     "last_seen": "2026-09-07T16:33:17.000Z",
     "origins": ["ransomlook", "ransomwarelive"],
     "online": true,
@@ -393,293 +883,10 @@
         "discovered": "2026-09-07T16:33:16.000Z",
         "origin": "ransomlook",
         "source_url": "https://www.ransomlook.io/blog/jinny-beauty-supply-4926057b"
-      },
-      {
-        "victim": "Metrea LLC/Commuter Air Technology, Inc.",
-        "discovered": "2026-09-05T12:36:16.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/blog/metrea-llc-77f4beea"
-      },
-      {
-        "victim": "EDIF S.p.A.",
-        "discovered": "2026-09-04T15:06:11.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/blog/edif-spa-privateonlyaccess"
-      },
-      {
-        "victim": "Chip 1 Exchange",
-        "discovered": "2026-09-02T09:38:44.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/blog/chip-1-exchange-13b819b4"
-      },
-      {
-        "victim": "Ishbia & Gagleard, P.C.",
-        "discovered": "2026-08-31T15:45:10.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/blog/ishbia-gagleard-pc-cbdf52c6"
       }
     ],
     "source_urls": {
       "ransomlook": "https://www.ransomlook.io/api/group/aurora",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "dysphor1a": {
-    "slug": "dysphor1a",
-    "name": "dysphor1a",
-    "victims_7d": 0,
-    "victims_total": 14,
-    "last_seen": "2026-09-06T20:42:48.000Z",
-    "origins": ["ransomlook", "ransomwarelive"],
-    "online": true,
-    "mirrors": 2,
-    "up_mirrors": 1,
-    "has_profile": true,
-    "blurb": "0 victims in the last 7d across 2 trackers.",
-    "meta": null,
-    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
-    "mirrors_detail": [
-      {
-        "fqdn": "y3maveiwszbnrziufbbberx74cvrdcsf72nxzuqxzv7ppdmmqzffazid.onion",
-        "title": "DYSPHOR1A Ransomware Group",
-        "available": false,
-        "updated": "2026-09-09 00:01:05.211",
-        "version": 3
-      },
-      {
-        "fqdn": "normalhunters0x.surge.sh",
-        "title": "project not found",
-        "available": true,
-        "updated": "2026-09-12 06:11:26.980",
-        "version": 0
-      }
-    ],
-    "victims_sample": [
-      {
-        "victim": "RTAD GOV MM",
-        "discovered": "2026-09-06T20:42:48.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "CitizensPay",
-        "discovered": "2026-09-05T18:44:45.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "MBT Telecom",
-        "discovered": "2026-09-04T19:30:54.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      }
-    ],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/dysphor1a",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "everest": {
-    "slug": "everest",
-    "name": "everest",
-    "victims_7d": 0,
-    "victims_total": 406,
-    "last_seen": "2026-09-07T17:26:34.000Z",
-    "origins": ["ransomlook", "ransomwarelive"],
-    "online": false,
-    "mirrors": 7,
-    "up_mirrors": 0,
-    "has_profile": true,
-    "blurb": "Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cr…",
-    "meta": "Everest is a ransomware group active since at least December 2020, known for its double-extortion tactics. The group initially operated as a typical ransomware outfit, encrypting files with strong cryptography and appending victim-specific extensions, but later shifted toward pure data extortion—threatening to sell or release stolen data without necessarily deploying encryption. Everest targets a wide range of sectors, including government, healthcare, manufacturing, and IT services, with confirmed victims in North America, Europe, and Asia. Initial access vectors include exploitation of vulnerable public-facing applications, phishing campaigns, and credential theft for remote access services. The group maintains a Tor-based leak site to publish stolen information and advertise access to compromised networks.",
-    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
-    "mirrors_detail": [
-      {
-        "fqdn": "ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
-        "title": "",
-        "available": false,
-        "updated": "2026-09-11 21:02:02.327",
-        "version": 3
-      },
-      {
-        "fqdn": "ransomoefralti2zh5nrv7iqybp3d5b4a2eeecz5yjosp7ggbepj7iyd.onion",
-        "title": "Everest Group",
-        "available": false,
-        "updated": "2025-01-20 07:32:07.300",
-        "version": 3
-      },
-      {
-        "fqdn": "2vqamwfdpis5rkjtpkutigykp56n6hkxfurm6qukdxp6uz5uff5kkaid.onion",
-        "title": "Index of /",
-        "available": false,
-        "updated": "2025-03-25 08:15:49.198",
-        "version": 0
-      },
-      {
-        "fqdn": "bifpwatchoxp7tsb2kpes37b23ogjrb2kj4wgr7yncf4hhgsfahu7jad.onion",
-        "title": "404 Not Found",
-        "available": false,
-        "updated": "2025-02-02 17:00:04.724",
-        "version": 3
-      },
-      {
-        "fqdn": "aihvh6j6fbkfjyc6jqbsh2ed4s3rym2v2pu6kd3z3exdso2xc2qwcuqd.onion",
-        "title": "Index of /",
-        "available": false,
-        "updated": "2025-03-25 08:09:30.324",
-        "version": 3
-      },
-      {
-        "fqdn": "gxp6yt3wdj7yky27j37jfrrbkuy24n2zo5uxyuoy23uf76d6m2gnfpid.onion",
-        "title": "Everest",
-        "available": false,
-        "updated": "2025-10-20 13:07:16.588",
-        "version": 3
-      },
-      {
-        "fqdn": "everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
-        "title": "Everest",
-        "available": false,
-        "updated": "2026-09-12 00:08:26.930",
-        "version": 3
-      }
-    ],
-    "victims_sample": [
-      {
-        "victim": "GGS",
-        "discovered": "2026-09-07T17:26:34.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/news/ggs"
-      },
-      {
-        "victim": "KÖRBER",
-        "discovered": "2026-09-07T17:26:34.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/news/korber"
-      },
-      {
-        "victim": "GENESILICO",
-        "discovered": "2026-09-07T17:26:33.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/news/genesilico"
-      },
-      {
-        "victim": "Negotiation Rules",
-        "discovered": "2026-09-04T18:32:31.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/news/negotiation-rules"
-      },
-      {
-        "victim": "Rise UP",
-        "discovered": "2026-09-01T04:41:45.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/news/rise-up"
-      },
-      {
-        "victim": "VIVOTEK",
-        "discovered": "2026-09-01T04:41:44.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/news/vivotek"
-      },
-      {
-        "victim": "Italtel Peru",
-        "discovered": "2026-09-01T04:41:43.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/news/italtel-peru"
-      }
-    ],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/everest",
-      "ransomware_live": "https://www.ransomware.live/"
-    }
-  },
-  "kazu": {
-    "slug": "kazu",
-    "name": "kazu",
-    "victims_7d": 0,
-    "victims_total": 38,
-    "last_seen": "2026-09-07T08:43:38.000Z",
-    "origins": ["ransomlook", "ransomwarelive"],
-    "online": false,
-    "mirrors": 1,
-    "up_mirrors": 0,
-    "has_profile": true,
-    "blurb": "0 victims in the last 7d across 2 trackers.",
-    "meta": null,
-    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
-    "mirrors_detail": [
-      {
-        "fqdn": "6czlbd2jfiy6765fbnbnzuwuqocg57ebvp3tbm35kib425k4qnmiiiqd.onion",
-        "title": "KAZU",
-        "available": false,
-        "updated": "2026-09-11 21:03:45.163",
-        "version": 3
-      }
-    ],
-    "victims_sample": [
-      {
-        "victim": "MSM Unify: Global Education Platform - CA",
-        "discovered": "2026-09-07T08:43:38.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "Statistics South Africa – Official National Data and Insights Portal",
-        "discovered": "2026-09-07T08:43:37.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "Gauteng City Region Academy (GCRA)",
-        "discovered": "2026-09-07T08:43:37.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "HealthDaq",
-        "discovered": "2026-09-07T08:43:36.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "Health Time",
-        "discovered": "2026-09-07T08:43:35.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "Natclar (S.G. Natclar S.A.C.)",
-        "discovered": "2026-09-07T08:43:34.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "Gauteng Provincial Government",
-        "discovered": "2026-09-07T08:43:33.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "ConsultorioMovil: Telemedicine and Healthcare System",
-        "discovered": "2026-09-07T08:43:32.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "Meducar: Telemedicine and Patient Management System",
-        "discovered": "2026-09-07T08:43:31.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      },
-      {
-        "victim": "Centro Médico Especializado OSI:  Healthcare Solutions",
-        "discovered": "2026-09-07T08:43:30.000Z",
-        "origin": "ransomlook",
-        "source_url": "https://www.ransomlook.io/recent"
-      }
-    ],
-    "source_urls": {
-      "ransomlook": "https://www.ransomlook.io/api/group/kazu",
       "ransomware_live": "https://www.ransomware.live/"
     }
   }
