@@ -94,4 +94,43 @@ describe('exposure check route', () => {
       expect(r.status).toBe(400);
     }
   });
+
+  it('serves heatwave from the shared route cache without live fetch', async () => {
+    const cache = (caches as unknown as { default: Cache }).default;
+    await cache.put(
+      new Request(RANSOMWARE_RECENT_CACHE_KEY),
+      new Response(JSON.stringify({ victims: [] }), {
+        status: 200,
+        headers: { 'cache-control': 'public, max-age=3600' },
+      })
+    );
+    await cache.put(
+      new Request('https://heatwave-cache.internal/v1?domain=cached.example'),
+      new Response(
+        JSON.stringify({
+          domain: 'cached.example',
+          listed: false,
+          status: 'not-listed',
+          stage: null,
+          score: null,
+          observation_age: null,
+          dns_answer: null,
+          related: [],
+          checked_at: '2026-09-25T00:00:00.000Z',
+        }),
+        { status: 200, headers: { 'cache-control': 'public, max-age=86400' } }
+      )
+    );
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+
+    const r = await req(setup(), '/api/v1/exposure/check?domain=cached.example', makeEnv());
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as {
+      sections: { heatwave: { status: string; listed: boolean | null } };
+    };
+    expect(body.sections.heatwave.status).toBe('ok');
+    expect(body.sections.heatwave.listed).toBe(false);
+    // No live upstream fetch — served from the shared cache.
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
 });

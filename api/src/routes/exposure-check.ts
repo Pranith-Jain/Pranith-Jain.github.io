@@ -3,11 +3,12 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, serviceUnavailable } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
+import { readLastGood } from '../lib/lastgood';
 import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { dphish } from '../providers/dphish';
 import { destroylist } from '../providers/destroylist';
 import type { ProviderEnv } from '../providers/types';
-import { heatwaveLookup, normalizeHeatwaveDomain } from '../lib/heatwave';
+import { heatwaveLookup, normalizeHeatwaveDomain, type HeatwaveResult } from '../lib/heatwave';
 import { victimMatchesDomain } from '../lib/watch-engine';
 
 /**
@@ -73,14 +74,33 @@ export async function exposureCheckHandler(c: Context<{ Bindings: Env }>): Promi
           return { status: 'unavailable', hits: [] };
         }
       })(),
-      // 2. Heatwave sender-domain blocklist (live, own 24h cache inside lib path).
+      // 2. Heatwave sender-domain blocklist. Read through the dedicated
+      // route's 24h edge cache first (same cache key as heatwave.ts), then
+      // live, then the KV last-good — upstream is 100 lookups/day/IP and
+      // often unreachable from edge egress, so a fresh fetch per exposure
+      // check would both burn budget and flap. Read-only: never writes KV
+      // (writes stay in the heatwave route handler).
       (async () => {
         try {
+          const hwCacheKey = new Request(
+            `https://heatwave-cache.internal/v1?domain=${encodeURIComponent(domain)}`
+          );
+          const hit = await safeNullLog('cache-match-exposure-heatwave', cache.match(hwCacheKey));
+          if (hit) {
+            const body = (await hit.json()) as HeatwaveResult;
+            if (body && body.domain === domain) return { status: 'ok' as SectionStatus, result: body };
+          }
           const r = await heatwaveLookup(domain);
-          if (!r) return { status: 'unavailable' as SectionStatus, result: null as typeof r };
-          return { status: 'ok' as SectionStatus, result: r };
+          if (r) return { status: 'ok' as SectionStatus, result: r };
+          const lastGood = await safeNullLog(
+            'cache-read-exposure-heatwave-lastgood',
+            readLastGood<HeatwaveResult>(c.env, `heatwave:lastgood:${domain}`, { keyPrefix: '' })
+          );
+          if (lastGood && lastGood.domain === domain)
+            return { status: 'ok' as SectionStatus, result: lastGood };
+          return { status: 'unavailable' as SectionStatus, result: null as HeatwaveResult | null };
         } catch {
-          return { status: 'unavailable' as SectionStatus, result: null };
+          return { status: 'unavailable' as SectionStatus, result: null as HeatwaveResult | null };
         }
       })(),
       // 3+4. Local-manifest providers (zero egress on hit).
