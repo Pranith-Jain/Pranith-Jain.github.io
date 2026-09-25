@@ -1,7 +1,7 @@
 {
   "source": "github.com/SCStelz/security-investigator",
   "license": "MIT",
-  "replicatedAt": "2026-09-14",
+  "replicatedAt": "2026-09-21",
   "counts": {
     "skills": 28,
     "queries": 62,
@@ -366,7 +366,7 @@
       ],
       "hasAssets": false,
       "hasSvgWidgets": false,
-      "sizeBytes": 34157
+      "sizeBytes": 50995
     },
     {
       "slug": "ioc-investigation",
