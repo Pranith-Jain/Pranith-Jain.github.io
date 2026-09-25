@@ -1,0 +1,48 @@
+{
+  "type": "cyber",
+  "date": "2026-09-25",
+  "threatLevel": "",
+  "executiveSummary": "",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "ESC 8 / MON 15 / IGN 17",
+        "label": "Events by Decision"
+      },
+      {
+        "value": "7+",
+        "label": "Actively Exploited Items"
+      },
+      {
+        "value": "10+",
+        "label": "New/Notable OT/Edge CVEs"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "relevance": "",
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "",
+  "relatedCves": [
+    "CVE-2026-94127",
+    "CVE-2026-67279",
+    "CVE-2026-86060",
+    "CVE-2026-76461",
+    "CVE-2026-7273",
+    "CVE-2026-92419"
+  ]
+}

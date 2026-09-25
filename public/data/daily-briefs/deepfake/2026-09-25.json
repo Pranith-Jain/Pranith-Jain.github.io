@@ -1,0 +1,75 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-25",
+  "riskOutlook": "",
+  "executiveSummary": "This period saw multiple high-impact criminal and enforcement developments. Microsoft and partners disrupted the EvilTokens phishing-as-a-service platform after it reportedly compromised more than 12,000 Microsoft accounts across over 10,000 organizations, demonstrating AI-enhanced phishing and BEC at scale Source . Separately, a regulator-notified breach in Spain was described as the first known \"agentic AI\" data breach, where an AI agent allegedly chained intrusion steps autonomously-an escalation in AI-enabled offensive capability View Article . Law enforcement pursued large-scale actions against nonconsensual deepfake pornography networks, including a Manhattan operation seizing 12 domains affecting more than 1,200 victims Source , and a DOJ seizure of cross-border deepfake sites under the TAKE IT DOWN Act View Article . Courts also imposed a lengthy sentence in a case involving AI-generated CSAM, underscoring prosecutorial momentum Source . Defensive and policy signals include Anthropic's rollout of Content Credentials and text marking Source , media-industry provenance/detection collaborations View Article , and Android protections against AI deepfake scam calls Source . Governments signaled potential cross-border AI incident notification mechanisms Source . Overall, the threat environment appears to be worsening: large-scale AI-enabled phishing and BEC, the emergence of agentic AI in breaches, and persistent deepfake abuse outweigh incremental defensive gains and policy proposals Supporting Report .",
+  "keyFindings": [
+    {
+      "title": "AI-enhanced phishing platform EvilTokens reportedly compromised 12,000+ Microsof",
+      "summary": "AI-enhanced phishing platform EvilTokens reportedly compromised 12,000+ Microsoft accounts across 10,000+ organizations before disruption by Microsoft and partners. View Article"
+    },
+    {
+      "title": "A Spanish regulator was notified of a first-known \"agentic AI\" data breach in wh",
+      "summary": "A Spanish regulator was notified of a first-known \"agentic AI\" data breach in which an AI agent allegedly chained intrusion steps autonomously. Source"
+    },
+    {
+      "title": "Manhattan prosecutors seized 12 deepfake porn domains tied to more than 1,200 vi",
+      "summary": "Manhattan prosecutors seized 12 deepfake porn domains tied to more than 1,200 victims, signaling intensified action against commercialized abuse infrastructure. View Article"
+    },
+    {
+      "title": "DOJ seized cross-border deepfake sites under the TAKE IT DOWN Act, highlighting ",
+      "summary": "DOJ seized cross-border deepfake sites under the TAKE IT DOWN Act, highlighting global reach and new legal tools against synthetic sexual exploitation. Source"
+    },
+    {
+      "title": "A defendant received a lengthy prison sentence in an AI-generated CSAM case, rei",
+      "summary": "A defendant received a lengthy prison sentence in an AI-generated CSAM case, reinforcing prosecutorial prioritization of AI-enabled exploitation. View Article"
+    },
+    {
+      "title": "Anthropic introduced Content Credentials and text marking for AI-generated outpu",
+      "summary": "Anthropic introduced Content Credentials and text marking for AI-generated outputs, indicating growing adoption of provenance controls. Source"
+    },
+    {
+      "title": "Reuters, Sony, and Kinetiq demonstrated end-to-end provenance with watermarking ",
+      "summary": "Reuters, Sony, and Kinetiq demonstrated end-to-end provenance with watermarking across the content lifecycle, supporting detection and trust. View Article"
+    },
+    {
+      "title": "Android added protections against AI deepfake scam calls, scaling consumer defen",
+      "summary": "Android added protections against AI deepfake scam calls, scaling consumer defense against voice-cloning and spoofed caller-ID. Source"
+    },
+    {
+      "title": "US-China discussions on an AI incident notification mechanism signal potential n",
+      "summary": "US-China discussions on an AI incident notification mechanism signal potential new channels for high-impact AI event reporting. Source"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [
+    "AI-enhanced phishing and BEC: At-scale compromise and mailbox analysis indicate adversaries increasingly automate social engineering and target selection. View Article",
+    "Agentic AI in offensive operations: Reported autonomous chaining of intrusion steps marks a potential shift in attack speed and sophistication. Source",
+    "Infrastructure-level enforcement against deepfake abuse: Domain seizures and arrests targeting nonconsensual pornography networks are increasing. Source",
+    "Consumer-targeted voice cloning scams: \"Family emergency\" vishing tactics continue to surface in local jurisdictions. View Article",
+    "Provenance and watermarking momentum: Platform marking, newsroom toolboxes, and camera-to-distribution provenance demos reflect maturing defenses. Source",
+    "Policy signaling: Potential bilateral AI-incident notification channels suggest future frameworks for cross-border risk communication. Source"
+  ],
+  "geographicObservations": [
+    "Spain: Regulator-notified \"agentic AI\" breach.",
+    "United States: EvilTokens impact; DOJ CSAM sentencing; Manhattan domain seizures; Android protections rollout coverage; Dallas voice-cloning scam.",
+    "Italy and France: Jurisdictions implicated in DOJ deepfake site seizures.",
+    "Germany: Verification toolbox announcement by Fraunhofer IDMT.",
+    "United Kingdom: Policy initiative on child safety and harmful image sharing noted. View Article",
+    "United States and China: Exploration of bilateral AI incident notification mechanism.",
+    "Global: Corporate-targeted phishing/BEC campaign impacts and media-industry provenance initiatives."
+  ],
+  "detectionDevelopments": [
+    "Microsoft and partners disrupted the EvilTokens platform after widespread compromises. Source",
+    "Domain seizures and legal actions against deepfake porn networks by Manhattan prosecutors and DOJ. Source",
+    "Android introduced protections aimed at identifying potential AI deepfake scam calls for end users. Source",
+    "Anthropic deployed Content Credentials and text marking to support provenance and authenticity signals. Source",
+    "Media-industry demonstrations of camera-origin provenance and persistent watermarking by Reuters, Sony, and Kinetiq; Fraunhofer verification toolbox showcased. Source",
+    "Email/BEC Defense: Enforce phishing-resistant MFA; monitor OAuth grants and token issuance; block legacy auth; implement conditional access and anomaly-based session revocation. [Analyst Recommendation]",
+    "Mailbox Forensics: Hunt for conversation hijacking, auto-forwarding, mailbox rules, and vendor bank detail changes; verify out-of-band prior to payment changes. [Analyst Recommendation]",
+    "Agentic AI Threats: Add detections for autonomous task schedulers, unusual API automation bursts, and cross-service orchestration patterns at machine speed. [Analyst Recommendation]",
+    "Media Provenance: Adopt C2PA/Content Credentials where available; archive original capture metadata; preserve watermark chains through production/distribution. [Analyst Recommendation]",
+    "Voice Scam Mitigation: Train staff and families on \"safe words,\" callback verification, and delaying transfers; telecoms should flag high-risk call patterns. [Analyst Recommendation]",
+    "Legal Readiness: Update evidence handling SOPs for AI-generated media, including prompt logs, generation artifacts, and model/version capture. [Analyst Recommendation]"
+  ]
+}
