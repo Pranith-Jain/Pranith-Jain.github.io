@@ -44,7 +44,8 @@
     "test:cert-in": "node --test scripts/cert-in-diff.test.mjs",
     "test:dphish": "node --test scripts/sync-dphish.test.mjs",
     "test:mtproto": "node --test scripts/sync-telegram-mtproto.test.mjs",
-    "test:scripts": "npm run test:mcp && npm run test:cert-in && npm run test:dphish && npm run test:prompt-eval && npm run test:mtproto",
+    "test:cairn": "node --test scripts/build-cairn-manifest.test.mjs",
+    "test:scripts": "npm run test:mcp && npm run test:cert-in && npm run test:dphish && npm run test:prompt-eval && npm run test:mtproto && npm run test:cairn",
     "prompt:eval": "node scripts/prompt-eval.mjs",
     "prompt:eval:live": "USE_LLM=true node scripts/prompt-eval.mjs",
     "test:prompt-eval": "node --test scripts/prompt-eval.test.mjs"
