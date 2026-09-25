@@ -1,8 +1,134 @@
 {
-  "updatedAt": "2026-09-24T11:40:53.521Z",
+  "updatedAt": "2026-09-25T11:46:39.788Z",
   "source": "https://incidentdatabase.ai/rss.xml",
   "total": 100,
   "reports": [
+    {
+      "id": "7990",
+      "guid": "43b6c75b-179d-5058-abbb-24cdd36fe0d8",
+      "title": "OpenAI’s A.I. Tried to Breach 4 Other Targets, Without Prompting",
+      "link": "https://www.nytimes.com/2026/09/23/technology/openai-ai-breach-australia.html",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1707",
+      "reportNum": "7990"
+    },
+    {
+      "id": "7991",
+      "guid": "44432056-ea75-5783-a486-8f5c3da4e888",
+      "title": "Press conference - New York",
+      "link": "https://www.pm.gov.au/media/press-conference-new-york",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1707",
+      "reportNum": "7991"
+    },
+    {
+      "id": "7992",
+      "guid": "c5c9030d-6e3b-59c0-9e05-039201afefd0",
+      "title": "Early rogue AI agent activity and attempts to hack found on urlquery.net",
+      "link": "https://transluce.org/agent-activity",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1707",
+      "reportNum": "7992"
+    },
+    {
+      "id": "7993",
+      "guid": "a1bb84ee-218a-5b1f-b326-dfbc10abfcda",
+      "title": "OpenAI hacked Medicare portal, Prime Minister Anthony Albanese says",
+      "link": "https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1707",
+      "reportNum": "7993"
+    },
+    {
+      "id": "7994",
+      "guid": "253a237d-16f4-55ba-9fce-422ec54841cf",
+      "title": "Stanford Used A.I. to Swap Black Student for Hispanic Student in a Photo",
+      "link": "https://www.nytimes.com/2026/09/22/us/stanford-photo-swap-black-hispanic-student.html",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1708",
+      "reportNum": "7994"
+    },
+    {
+      "id": "7995",
+      "guid": "b446d39a-02d3-5658-9042-f4c51466d6e4",
+      "title": "Stanford R&DE Uses AI to Race Swap Students for Advertising",
+      "link": "https://stanfordreview.org/stanford-r-de-uses-ai-to-race-swap-students-for-advertising/",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1708",
+      "reportNum": "7995"
+    },
+    {
+      "id": "7996",
+      "guid": "a537a401-5680-5c0c-a960-7186775d09d7",
+      "title": "University confirms use of AI-edited photo amid controversy",
+      "link": "https://stanforddaily.com/2026/09/23/university-confirms-ai-edited-photo/",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1708",
+      "reportNum": "7996"
+    },
+    {
+      "id": "7997",
+      "guid": "26e5d7f6-c966-5637-97bb-0fba76570d79",
+      "title": "Stanford violated its AI policy by turning a Hispanic student into a fake Black woman in ad",
+      "link": "https://www.sfchronicle.com/bayarea/article/stanford-ai-policy-student-photo-race-swapping-22444142.php",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1708",
+      "reportNum": "7997"
+    },
+    {
+      "id": "7998",
+      "guid": "4d9e4f89-3f2b-50ee-bc95-0e5fb41a0283",
+      "title": "Data Center Is Fined $1.1 Million for Operating 62 Power Generators",
+      "link": "https://www.nytimes.com/2026/09/23/nyregion/data-center-pollution-new-jersey.html",
+      "pubDate": "Thu, 24 Sep 2026 00:00:00 GMT",
+      "citeId": "1709",
+      "reportNum": "7998"
+    },
+    {
+      "id": "7985",
+      "guid": "08aed3fa-3149-574f-b3ce-fefef80d4950",
+      "title": "'I'm going to shoot you': 2 men held at gunpoint before deputies realize their mistake, victims say",
+      "link": "https://abc13.com/post/cypress-neighborhood-arrest-men-wrongfully-arrested-harris-county-sheriffs-office-investigation-deputies-wrong-suspects/13614720/",
+      "pubDate": "Wed, 23 Sep 2026 00:00:00 GMT",
+      "citeId": "1703",
+      "reportNum": "7985"
+    },
+    {
+      "id": "7986",
+      "guid": "f98bdb4d-7c8b-581f-ac21-14725e144fc3",
+      "title": "KAKE NEWS INVESTIGATES: Duplicate license plate numbers lead to dangerous situations for some Kansas drivers",
+      "link": "https://www.kake.com/news/kake-news-investigates-duplicate-license-plate-numbers-lead-to-dangerous-situations-for-some-kansas-drivers/article_1e517042-6b10-53ad-8cea-7f4abfc430ed.html",
+      "pubDate": "Wed, 23 Sep 2026 00:00:00 GMT",
+      "citeId": "1704",
+      "reportNum": "7986"
+    },
+    {
+      "id": "7987",
+      "guid": "94f91cef-31d8-5248-bc48-2483f71bfa9b",
+      "title": "Kansas police chief used Flock license plate cameras 164 times to track ex-girlfriend",
+      "link": "https://www.kansas.com/news/politics-government/article291059560.html",
+      "pubDate": "Wed, 23 Sep 2026 00:00:00 GMT",
+      "citeId": "1705",
+      "reportNum": "7987"
+    },
+    {
+      "id": "7988",
+      "guid": "b38c3f28-c4b2-56fc-8f41-067144b1ff7f",
+      "title": "Second member of the Milwaukee Police Department charged with misuse of license plate reader system",
+      "link": "https://www.wpr.org/news/member-milwaukee-police-department-misuse-of-license-plate-reader-system",
+      "pubDate": "Wed, 23 Sep 2026 00:00:00 GMT",
+      "citeId": "1706",
+      "reportNum": "7988"
+    },
+    {
+      "id": "7989",
+      "guid": "1101a111-6129-5ae3-8ce2-c715aff181a6",
+      "title": "Criminal Complaint: State of Wisconsin v. Tehrangi N. Chapman",
+      "link": "https://mkepdpio.org/wp-content/uploads/2026/07/Criminal-Complaint_1-Chapman-Tehrangi-N-2026CF003239-Chapman-Tehrangi-N_30216526_1.pdf",
+      "pubDate": "Wed, 23 Sep 2026 00:00:00 GMT",
+      "citeId": "1706",
+      "reportNum": "7989"
+    },
     {
       "id": "ZDA4MDc0YmMt",
       "guid": "d08074bc-161c-58ee-b084-9fdaf0fd504a",
@@ -776,132 +902,6 @@
       "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
       "citeId": null,
       "reportNum": null
-    },
-    {
-      "id": "N2Q0ODU4OWYt",
-      "guid": "7d48589f-564d-5ec2-833f-15b56f0d8a3a",
-      "title": "A Hacking Tool Built With A.I. Can Breach Phones Without a Click",
-      "link": "https://www.nytimes.com/2026/09/08/us/politics/calif-ai-worm-wechat-hack.html",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": null,
-      "reportNum": null
-    },
-    {
-      "id": "7922",
-      "guid": "2ebfdf99-5bdb-51e1-8ae4-4841bfc8a2f3",
-      "title": "DC court faults lawyers for Deutsche Bank subsidiary over AI hallucination",
-      "link": "https://www.reuters.com/legal/legalindustry/dc-court-faults-lawyers-deutsche-bank-subsidiary-over-ai-hallucination-2026-09-03/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1682",
-      "reportNum": "7922"
-    },
-    {
-      "id": "7923",
-      "guid": "65bf1436-4006-586f-9eef-c12afff4bfe4",
-      "title": "Douglas v. Deutsche Bank National Trust Co., No. 24-CV-1099, Published Order",
-      "link": "https://fingfx.thomsonreuters.com/gfx/legaldocs/znpnoyqgmvl/Douglas%20v.%20Deutsche%20Bank%20Nat%27l%20Trt%20Co.%2024-CV-1099%20ORDER.pdf",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1682",
-      "reportNum": "7923"
-    },
-    {
-      "id": "NmEzMGI4OGIt",
-      "guid": "6a30b88b-86ea-5a48-b331-17ed2df28774",
-      "title": "Claude, Codex, and Hermes installed unowned code inside corporate networks",
-      "link": "https://arstechnica.com/security/2026/08/claude-codex-and-hermes-installed-unowned-code-inside-corporate-networks/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": null,
-      "reportNum": null
-    },
-    {
-      "id": "7893",
-      "guid": "59d195b7-5a85-5c13-b959-566758d65f7e",
-      "title": "When AI Takes Notes: Court Allows Privacy Claims Against Otter.ai to Proceed",
-      "link": "https://www.sheppard.com/insights/blogs/when-ai-takes-notes-court-allows-privacy-claims-against-otterai-to-proceed",
-      "pubDate": "Sat, 05 Sep 2026 00:00:00 GMT",
-      "citeId": "1650",
-      "reportNum": "7893"
-    },
-    {
-      "id": "ZGQzY2ZkOGIt",
-      "guid": "dd3cfd8b-aeb4-518e-a099-b01fc665aab2",
-      "title": "California regulators rushed their decision on driverless trucks, Teamsters’ lawsuit says",
-      "link": "https://www.latimes.com/business/story/2026-08-29/california-regulators-rushed-their-decision-on-driverless-trucks-teamsters-lawsuit-says",
-      "pubDate": "Sat, 05 Sep 2026 00:00:00 GMT",
-      "citeId": null,
-      "reportNum": null
-    },
-    {
-      "id": "7873",
-      "guid": "f19e0fa8-b8c5-534f-909c-cb410090f9ed",
-      "title": "OpenAI agents hijacked German website in previously undisclosed AI breakout this spring",
-      "link": "https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1668",
-      "reportNum": "7873"
-    },
-    {
-      "id": "7874",
-      "guid": "36a64b4e-bb8b-5ea9-a003-6a06117e8446",
-      "title": "Another swarm of OpenAI agents reached the open internet without the frontier lab’s knowledge",
-      "link": "https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1668",
-      "reportNum": "7874"
-    },
-    {
-      "id": "7875",
-      "guid": "614a106f-ea16-5a66-b6ff-15b2231b09ac",
-      "title": "Thailand's Ministry of Finance Targeted With Hermes AI Agent Running Unattended, Hades Implant Staged",
-      "link": "https://hunt.io/blog/thailand-ministry-finance-targeted-with-hermes-ai-agent",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1669",
-      "reportNum": "7875"
-    },
-    {
-      "id": "7876",
-      "guid": "fdf9f81a-4f94-55fe-b745-2556dcecd472",
-      "title": "Hermes AI agent used to automate attack on Thai Finance Ministry",
-      "link": "https://www.bleepingcomputer.com/news/security/hermes-ai-agent-used-to-automate-attack-on-thai-finance-ministry/",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1669",
-      "reportNum": "7876"
-    },
-    {
-      "id": "7877",
-      "guid": "1019384d-ee0b-5eb4-ad5b-4dfb94ed9092",
-      "title": "Hackers used autonomous AI agent to spy on Thailand's finance ministry",
-      "link": "https://therecord.media/thailand-hackers-ai-finance-ministry",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1669",
-      "reportNum": "7877"
-    },
-    {
-      "id": "7878",
-      "guid": "625fc179-502b-5d5d-96e3-1bf65bffa8e9",
-      "title": "Hacker Runs Hermes AI Agent Unattended for Post-Exploitation at Thai Finance Ministry",
-      "link": "https://thehackernews.com/2026/07/hacker-runs-hermes-ai-agent-unattended.html",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1669",
-      "reportNum": "7878"
-    },
-    {
-      "id": "7879",
-      "guid": "49237aa8-59e3-5ce4-b224-cfc2661efa13",
-      "title": "AI agent at the wheel: How an attacker used LLMs to move from a CVE to an internal database in 4 pivots",
-      "link": "https://www.sysdig.com/blog/ai-agent-at-the-wheel-how-an-attacker-used-llms-to-move-from-a-cve-to-an-internal-database-in-4-pivots",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1670",
-      "reportNum": "7879"
-    },
-    {
-      "id": "7880",
-      "guid": "81353e75-6414-5f0d-8240-79bcb875c098",
-      "title": "AI Agent Conducted a Cyberattack on Its Own — It Took Less Than One Hour",
-      "link": "https://www.securitymagazine.com/articles/102325-ai-agent-conducted-a-cyberattack-on-its-own-it-took-less-than-one-hour",
-      "pubDate": "Fri, 04 Sep 2026 00:00:00 GMT",
-      "citeId": "1670",
-      "reportNum": "7880"
     }
   ]
 }

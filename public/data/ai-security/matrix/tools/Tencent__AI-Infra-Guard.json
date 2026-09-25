@@ -3,13 +3,13 @@
   "repo": "Tencent/AI-Infra-Guard",
   "category": "scanner",
   "scope": ["llm", "agentic"],
-  "stars": 6568,
+  "stars": 6575,
   "description": "A full-stack AI Red Teaming platform securing AI ecosystems via Agent Scan, Skills Scan, MCP scan, AI Infra scan and LLM jailbreak evaluation.",
   "homepage": "https://tencent.github.io/AI-Infra-Guard/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-24T08:31:06Z",
+  "checkedAt": "2026-09-25T08:52:22Z",
   "pushedAt": "2026-09-24",
-  "daysIdle": 0,
+  "daysIdle": 1,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -23,31 +23,31 @@
       "description": "Gathers several separate AI security scans behind one console: the agent, the MCP servers, the skills, the serving infrastructure, and a jailbreak pass against the model itself."
     },
     "derived": {
-      "checked_at": "2026-09-24T08:31:06Z",
+      "checked_at": "2026-09-25T08:52:22Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-24",
-        "days_since_push": 0,
-        "total_commits": 1917,
+        "days_since_push": 1,
+        "total_commits": 1918,
         "last100_span_days": 30,
-        "last100_authors": 18,
-        "last_commit_sha": "1a5ffa3",
-        "last_commit_message": "chore: bump version to v4.6.3 and update changelog",
+        "last100_authors": 19,
+        "last_commit_sha": "14beb9b",
+        "last_commit_message": "fix(skill-scan): forward optional reasoning effort to the model API (#676)",
         "last_commit_at": "2026-09-24",
         "releases": 58,
         "latest_release_at": "2026-09-24",
-        "days_since_release": 0,
-        "days_idle": 0,
+        "days_since_release": 1,
+        "days_idle": 1,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "Tencent/AI-Infra-Guard",
-        "stars": 6568,
-        "forks": 615,
+        "stars": 6575,
+        "forks": 616,
         "created_at": "2024-12-25",
         "is_fork": false,
-        "contributors": 57,
+        "contributors": 58,
         "top_contributor_share": 0.36,
         "homepage": "https://tencent.github.io/AI-Infra-Guard/",
         "description": "A full-stack AI Red Teaming platform securing AI ecosystems via Agent Scan, Skills Scan, MCP scan, AI Infra scan and LLM jailbreak evaluation.",
@@ -76,7 +76,7 @@
       },
       "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
       "shape": {
-        "loc": 153908,
+        "loc": 153938,
         "code_files": 963,
         "files": 6410,
         "has_ci": true,
@@ -92,8 +92,7 @@
       },
       "substrate": { "bundled": ["nmap"], "manifests": ["Dockerfile_Agent"] },
       "rebadge": [],
-      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": false },
-      "risk_where": { "install": "README.md:137", "phones_home": "AIG-PromptSecurity/deepteam/telemetry.py:25" }
+      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": false }
     }
   }
 }

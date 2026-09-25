@@ -7,9 +7,9 @@
   "description": "Security scanner for AI/ML model files. Detects malicious code, backdoors, and vulnerabilities before deployment",
   "homepage": "https://www.promptfoo.dev/docs/model-audit/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-24T08:31:38Z",
-  "pushedAt": "2026-09-20",
-  "daysIdle": 4,
+  "checkedAt": "2026-09-25T08:52:40Z",
+  "pushedAt": "2026-09-25",
+  "daysIdle": 0,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -18,12 +18,12 @@
       "description": "Covers the widest range of model formats of any of these, emits SARIF for a CI gate, and says plainly where its own analysis was bounded rather than reporting clean."
     },
     "derived": {
-      "checked_at": "2026-09-24T08:31:38Z",
+      "checked_at": "2026-09-25T08:52:40Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-20",
-        "days_since_push": 4,
+        "pushed_at": "2026-09-25",
+        "days_since_push": 0,
         "total_commits": 1658,
         "last100_span_days": 84,
         "last100_authors": 8,
@@ -32,8 +32,8 @@
         "last_commit_at": "2026-09-16",
         "releases": 42,
         "latest_release_at": "2026-07-22",
-        "days_since_release": 64,
-        "days_idle": 4,
+        "days_since_release": 65,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
@@ -66,7 +66,8 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": { "licence": false, "install": false, "phones_home": true, "opaque": false, "host_access": false }
+      "risk": { "licence": false, "install": false, "phones_home": true, "opaque": false, "host_access": false },
+      "risk_where": { "phones_home": "modelaudit/cli.py:6007" }
     }
   }
 }
